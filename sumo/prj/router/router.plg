@@ -1,0 +1,89 @@
+<html>
+<body>
+<pre>
+<h1>Erstellungsprotokoll</h1>
+<h3>
+--------------------Konfiguration: router - Win32 Release--------------------
+</h3>
+<h3>Befehlszeilen</h3>
+Erstellen der temporären Datei  "C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP171.tmp" mit Inhalten
+[
+/nologo /ML /w /W0 /GX /O2 /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Release/router.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\projects\sumo\sumo\src\router\ROTripHandler.cpp"
+]
+Creating command line "cl.exe @C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP171.tmp" 
+Erstellen der temporären Datei  "C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP172.tmp" mit Inhalten
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"Release/router.pdb" /machine:I386 /out:"Release/router.exe" 
+.\Release\AttributesHandler.obj
+.\Release\CellDriverInfoParser.obj
+.\Release\FileErrorReporter.obj
+.\Release\FileHelpers.obj
+.\Release\GenericSAX2Handler.obj
+.\Release\IDSupplier.obj
+.\Release\LineReader.obj
+.\Release\MemDiff.obj
+.\Release\NamedColumnsParser.obj
+.\Release\Option.obj
+.\Release\OptionsCont.obj
+.\Release\OptionsIO.obj
+.\Release\OptionsLoader.obj
+.\Release\OptionsParser.obj
+.\Release\profile.obj
+.\Release\ROCellRouteDefHandler.obj
+.\Release\ROCompleteRouteDef.obj
+.\Release\ROEdge.obj
+.\Release\ROEdgeCont.obj
+.\Release\ROEdgeVector.obj
+.\Release\ROLane.obj
+.\Release\ROLoader.obj
+.\Release\RONet.obj
+.\Release\RONetHandler.obj
+.\Release\RONode.obj
+.\Release\ROOrigDestRouteDef.obj
+.\Release\RORoute.obj
+.\Release\RORouteAlternativesDef.obj
+.\Release\RORouteDef.obj
+.\Release\RORouteDefCont.obj
+.\Release\RORouter.obj
+.\Release\RORouteSnippletCont.obj
+.\Release\RORunningVehicle.obj
+.\Release\ROSUMOAltRoutesHandler.obj
+.\Release\ROSUMORoutesHandler.obj
+.\Release\ROTripHandler.obj
+.\Release\ROTypedRoutesLoader.obj
+.\Release\ROTypedXMLRoutesLoader.obj
+.\Release\router_main.obj
+.\Release\ROVehicle.obj
+.\Release\ROVehicleCont.obj
+.\Release\ROVehicleType.obj
+.\Release\ROVehicleType_Krauss.obj
+.\Release\ROVehTypeCont.obj
+.\Release\ROWeightsHandler.obj
+.\Release\SErrorHandler.obj
+.\Release\SLogging.obj
+.\Release\STRConvert.obj
+.\Release\StringTokenizer.obj
+.\Release\StringUtils.obj
+.\Release\SUMOSAXHandler.obj
+.\Release\SUMOXMLDefinitions.obj
+.\Release\TextHelpers.obj
+.\Release\UtilExceptions.obj
+.\Release\ValueTimeLine.obj
+.\Release\XMLBuildingExceptions.obj
+.\Release\XMLSubSys.obj
+..\..\..\..\..\libs\xerces\lib\xerces.lib
+]
+Erstellen der Befehlzeile "link.exe @C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP172.tmp"
+<h3>Ausgabefenster</h3>
+Kompilierung läuft...
+ROTripHandler.cpp
+Linker-Vorgang läuft...
+
+
+
+<h3>Ergebnisse</h3>
+router.exe - 0 Fehler, 0 Warnung(en)
+</pre>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<html>
+<body>
+<pre>
+<h1>Erstellungsprotokoll</h1>
+<h3>
+--------------------Konfiguration: gui - Win32 Debug--------------------
+</h3>
+<h3>Befehlszeilen</h3>
+Erstellen der temporären Datei  "C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP16.tmp" mit Inhalten
+[
+/nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "ABS_DEBUG" /D "_AFXDLL" /Fp"Debug/gui.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\projects\sumo\sumo\src\gui\GUIViewTraffic.cpp"
+]
+Creating command line "cl.exe @C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP16.tmp" 
+Erstellen der temporären Datei  "C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP17.tmp" mit Inhalten
+[
+/nologo /subsystem:console /incremental:yes /pdb:"Debug/gui.pdb" /debug /machine:I386 /out:"Debug/gui.exe" /pdbtype:sept 
+.\Debug\AttributesHandler.obj
+.\Debug\Boundery.obj
+.\Debug\Bresenham.obj
+.\Debug\FileErrorReporter.obj
+.\Debug\FileHelpers.obj
+.\Debug\GenericSAX2Handler.obj
+.\Debug\GeomHelper.obj
+.\Debug\gui_main.obj
+.\Debug\GUIApplicationWindow.obj
+.\Debug\GUIChooser.obj
+.\Debug\GUIContainer.obj
+.\Debug\GUIDanielPerspectiveChanger.obj
+.\Debug\GUIEdge.obj
+.\Debug\GUIEdgeControlBuilder.obj
+.\Debug\GUIEdgeGrid.obj
+.\Debug\GUIGlObject.obj
+.\Debug\GUIGlObjectStorage.obj
+.\Debug\GUILane.obj
+.\Debug\GUILaneChanger.obj
+.\Debug\GUILaneWrapper.obj
+.\Debug\GUILoadThread.obj
+.\Debug\GUINet.obj
+.\Debug\GUINetBuilder.obj
+.\Debug\GUINetHandler.obj
+.\Debug\GUIPerspectiveChanger.obj
+.\Debug\GUIRunThread.obj
+.\Debug\GUISimpleLaneDrawer.obj
+.\Debug\GUISourceLane.obj
+.\Debug\GUISUMOView.obj
+.\Debug\GUITriangleVehicleDrawer.obj
+.\Debug\GUIVehicle.obj
+.\Debug\GUIViewTraffic.obj
+.\Debug\MemDiff.obj
+.\Debug\moc_GUIApplicationWindow.obj
+.\Debug\moc_GUIChooser.obj
+.\Debug\moc_GUISUMOView.obj
+.\Debug\moc_GUIViewTraffic.obj
+.\Debug\moc_QGUIImageField.obj
+.\Debug\moc_QGUIToggleButton.obj
+.\Debug\MSEdge.obj
+.\Debug\MSEdgeControl.obj
+.\Debug\MSEmitControl.obj
+.\Debug\MSEventControl.obj
+.\Debug\MSInductLoop.obj
+.\Debug\MSJunction.obj
+.\Debug\MSJunctionControl.obj
+.\Debug\MSJunctionLogic.obj
+.\Debug\MSLane.obj
+.\Debug\MSLaneChanger.obj
+.\Debug\MSLaneSpeedTrigger.obj
+.\Debug\MSLink.obj
+.\Debug\MSLogicJunction.obj
+.\Debug\MSNet.obj
+.\Debug\MSNoLogicJunction.obj
+.\Debug\MSRightOfWayJunction.obj
+.\Debug\MSRoute.obj
+.\Debug\MSRouteHandler.obj
+.\Debug\MSRouteLoader.obj
+.\Debug\MSRouteLoaderControl.obj
+.\Debug\MSSource.obj
+.\Debug\MSSourceLane.obj
+.\Debug\MSTrafficLightJunction.obj
+.\Debug\MSTrafficLightLogic.obj
+.\Debug\MSTriggeredReader.obj
+.\Debug\MSTriggeredSource.obj
+.\Debug\MSTriggeredSourceXMLHandler.obj
+.\Debug\MSTriggeredXMLReader.obj
+.\Debug\MSVehicle.obj
+.\Debug\MSVehicleContainer.obj
+.\Debug\MSVehicleType.obj
+.\Debug\NewQMutex.obj
+.\Debug\NLContainer.obj
+.\Debug\NLDetectorBuilder.obj
+.\Debug\NLEdgeControlBuilder.obj
+.\Debug\NLJunctionControlBuilder.obj
+.\Debug\NLNetBuilder.obj
+.\Debug\NLNetHandler.obj
+.\Debug\NLSourceBuilder.obj
+.\Debug\NLSucceedingLaneBuilder.obj
+.\Debug\NLTriggerBuilder.obj
+.\Debug\Option.obj
+.\Debug\OptionsCont.obj
+.\Debug\OptionsIO.obj
+.\Debug\OptionsLoader.obj
+.\Debug\OptionsParser.obj
+.\Debug\PreStartInitialised.obj
+.\Debug\profile.obj
+.\Debug\QGLObjectToolTip.obj
+.\Debug\RGBColor.obj
+.\Debug\SErrorHandler.obj
+.\Debug\SLogging.obj
+.\Debug\STRConvert.obj
+.\Debug\StringTokenizer.obj
+.\Debug\SUMOFrame.obj
+.\Debug\SUMOSAXHandler.obj
+.\Debug\SUMOXMLDefinitions.obj
+.\Debug\UtilExceptions.obj
+.\Debug\XMLBuildingExceptions.obj
+.\Debug\XMLSubSys.obj
+..\..\..\..\..\libs\xerces\lib\xerces.lib
+"..\..\..\..\..\libs\qt\lib\qt-mt230nc.lib"
+..\..\..\..\..\libs\glut\glut32.lib
+..\..\..\..\..\libs\qt\lib\qutil.lib
+]
+Erstellen der Befehlzeile "link.exe @C:\DOKUME~1\daniel\LOKALE~1\Temp\RSP17.tmp"
+<h3>Ausgabefenster</h3>
+Kompilierung läuft...
+GUIViewTraffic.cpp
+Linker-Vorgang läuft...
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glColor3f@12
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glColor3f@12
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glColor3f@12
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glLineWidth@4
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glLineWidth@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glLineWidth@4
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPopMatrix@0
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPopMatrix@0
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glEnd@0
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glEnd@0
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glEnd@0
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glVertex2f@8
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glVertex2f@8
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glVertex2f@8
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glBegin@4
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glBegin@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glBegin@4
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glRotated@32
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glRotated@32
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glRotated@32
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glTranslated@24
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glTranslated@24
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glTranslated@24
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPushMatrix@0
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPushMatrix@0
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPopName@0
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPopName@0
+GUISimpleLaneDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPushName@4
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPushName@4
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glMatrixMode@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glMatrixMode@4
+GUITriangleVehicleDrawer.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glColor3fv@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glPolygonMode@8
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glDisable@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glClearColor@16
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glViewport@16
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glFlush@0
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glClear@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glRenderMode@4
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glInitNames@0
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glSelectBuffer@8
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glScaled@24
+GUIViewTraffic.obj : error LNK2001: Nichtaufgeloestes externes Symbol __imp__glLoadIdentity@0
+Debug/gui.exe : fatal error LNK1120: 24 unaufgeloeste externe Verweise
+Fehler beim Ausführen von link.exe.
+
+
+
+<h3>Ergebnisse</h3>
+gui.exe - 44 Fehler, 0 Warnung(en)
+</pre>
+</body>
+</html>
