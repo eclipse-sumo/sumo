@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/02/10 07:07:13  dkrajzew
+// debugging of network loading after a network failed to be loaded; memory leaks removal
+//
 // Revision 1.2  2004/02/05 16:30:59  dkrajzew
 // multiplicate deletion of E3-detectors on application quit patched
 //
@@ -294,6 +297,14 @@ GUIE3Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage)
 {
     return new MyWrapper(*this, idStorage);
 }
+
+
+void
+GUIE3Collector::clearInstances()
+{
+    myInstances.clear();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

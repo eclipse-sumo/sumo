@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/02/10 07:07:13  dkrajzew
+// debugging of network loading after a network failed to be loaded; memory leaks removal
+//
 // Revision 1.2  2004/02/05 16:30:59  dkrajzew
 // multiplicate deletion of E3-detectors on application quit patched
 //
@@ -72,6 +75,9 @@ public:
 public:
     /// Adds a build detector to an internal list
     static void addBuild(GUIE3Collector *det);
+
+    /// Clears the list of instances
+    static void clearInstances();
 
     /// The list of build detectors
     typedef std::vector<GUIE3Collector*> InstanceVector;

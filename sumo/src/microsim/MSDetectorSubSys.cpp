@@ -18,6 +18,7 @@
 //
 //---------------------------------------------------------------------------//
 
+#include <iostream>
 #include "MSDetectorSubSys.h"
 #include "MSDetector2File.h"
 #include "MSInductLoop.h"
@@ -28,6 +29,8 @@
 //#include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
 #include "MS_E2_ZS_CollectorOverLanes.h"
+
+using namespace std;
 
 void
 MSDetectorSubSys::createDictionaries( void )
@@ -70,10 +73,9 @@ void
 MSDetectorSubSys::deleteDictionariesAndContents( void )
 {
     if(LaneStateDict::created()) {
-        LaneStateDict::ValueVector lsVec(
-            LaneStateDict::getInstance()->getStdVector() );
-        for(LaneStateDict::ValueVector::iterator i1=lsVec.begin();
-            i1!=lsVec.end(); i1++) {
+        LaneStateDict::getInstance()->setFindMode();
+        LaneStateDict::ValueVector lsVec( LaneStateDict::getInstance()->getStdVector() );
+        for(LaneStateDict::ValueVector::iterator i1=lsVec.begin(); i1!=lsVec.end(); ++i1) {
             delete(*i1);
         }
         delete LaneStateDict::getInstance();
@@ -86,10 +88,9 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     delete MSDetector2File::getInstance();
 
     if(LoopDict::created()) {
-        LoopDict::ValueVector loopVec(
-            LoopDict::getInstance()->getStdVector() );
-        for(LoopDict::ValueVector::iterator i2=loopVec.begin();
-            i2!=loopVec.end(); i2++) {
+        LoopDict::getInstance()->setFindMode();
+        LoopDict::ValueVector loopVec( LoopDict::getInstance()->getStdVector() );
+        for(LoopDict::ValueVector::iterator i2=loopVec.begin(); i2!=loopVec.end(); ++i2) {
             delete(*i2);
         }
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
@@ -97,11 +98,9 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     }
 
     if(E2Dict::created()) {
-        E2Dict::ValueVector loopVec(
-            E2Dict::getInstance()->getStdVector() );
-        for(E2Dict::ValueVector::iterator
-                i3=loopVec.begin();
-            i3!=loopVec.end(); i3++) {
+        E2Dict::getInstance()->setFindMode();
+        E2Dict::ValueVector loopVec( E2Dict::getInstance()->getStdVector() );
+        for(E2Dict::ValueVector::iterator i3=loopVec.begin(); i3!=loopVec.end(); ++i3) {
             delete(*i3);
         }
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
@@ -109,11 +108,9 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     }
 
     if(E3Dict::created()) {
-        E3Dict::ValueVector loopVec(
-            E3Dict::getInstance()->getStdVector() );
-        for(E3Dict::ValueVector::iterator
-                i3=loopVec.begin();
-            i3!=loopVec.end(); i3++) {
+        E3Dict::getInstance()->setFindMode();
+        E3Dict::ValueVector loopVec( E3Dict::getInstance()->getStdVector() );
+        for(E3Dict::ValueVector::iterator i3=loopVec.begin(); i3!=loopVec.end(); ++i3) {
             delete(*i3);
         }
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
@@ -121,11 +118,9 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     }
 
     if(E2ZSOLDict::created()) {
-        E2ZSOLDict::ValueVector loopVec(
-            E2ZSOLDict::getInstance()->getStdVector() );
-        for(E2ZSOLDict::ValueVector::iterator
-                i3=loopVec.begin();
-            i3!=loopVec.end(); i3++) {
+        E2ZSOLDict::getInstance()->setFindMode();
+        E2ZSOLDict::ValueVector loopVec( E2ZSOLDict::getInstance()->getStdVector() );
+        for(E2ZSOLDict::ValueVector::iterator i3=loopVec.begin(); i3!=loopVec.end(); ++i3) {
             delete(*i3);
         }
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2004/02/10 07:07:13  dkrajzew
+// debugging of network loading after a network failed to be loaded; memory leaks removal
+//
 // Revision 1.30  2004/02/05 16:30:59  dkrajzew
 // multiplicate deletion of E3-detectors on application quit patched
 //
@@ -184,6 +187,7 @@ GUINet::~GUINet()
     }
         // of the network itself
     delete myWrapper;
+    GUIE3Collector::clearInstances();
 }
 
 
@@ -292,8 +296,7 @@ GUINet::initDetectors()
 	// e3-detectors
     const GUIE3Collector::InstanceVector &loopVec4 = GUIE3Collector::getInstances();
     net->myDetectorWrapper.reserve(loopVec4.size()+net->myDetectorWrapper.size());
-    for(GUIE3Collector::InstanceVector::const_iterator
-        i4=loopVec4.begin(); i4!=loopVec4.end(); i4++) {
+    for(GUIE3Collector::InstanceVector::const_iterator i4=loopVec4.begin(); i4!=loopVec4.end(); i4++) {
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             (*i4)->buildDetectorWrapper(net->_idStorage);

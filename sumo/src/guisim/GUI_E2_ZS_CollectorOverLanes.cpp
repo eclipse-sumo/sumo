@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/02/10 07:07:13  dkrajzew
+// debugging of network loading after a network failed to be loaded; memory leaks removal
+//
 // Revision 1.4  2004/01/26 06:59:38  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -149,6 +152,9 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
 
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper()
 {
+    for(std::vector<GUIDetectorWrapper*>::iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
+        delete (*i);
+    }
 }
 
 
