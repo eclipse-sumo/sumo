@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/12/04 13:36:52  dkrajzew
+// detector name changing applied
+//
 // Revision 1.25  2003/11/26 09:48:58  dkrajzew
 // time display added to the tl-logic visualisation
 //
@@ -190,10 +193,10 @@ GUINet::initDetectors()
 {
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
 	//
-    MSDetectorSubSys::E2ZSDict::ValueVector loopVec2(
-        MSDetectorSubSys::E2ZSDict::getInstance()->getStdVector() );
+    MSDetectorSubSys::E2Dict::ValueVector loopVec2(
+        MSDetectorSubSys::E2Dict::getInstance()->getStdVector() );
     net->myDetectorWrapper.reserve(loopVec2.size()+net->myDetectorWrapper.size());
-    for(MSDetectorSubSys::E2ZSDict::ValueVector::iterator
+    for(MSDetectorSubSys::E2Dict::ValueVector::iterator
         i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
 
         const MSLane *lane = (*i2)->getLane();
