@@ -95,6 +95,34 @@ PostBuild_Cmds=copy Debug\gui.exe ..\..\bin\guiD.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\src\utils\fonts\arial10.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial11.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial5.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial6.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial7.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial8.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial9.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
 # End Source File
 # Begin Source File
@@ -323,6 +351,10 @@ SOURCE=..\..\src\microsim\MSEventControl.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSJunction.cpp
 # End Source File
 # Begin Source File
@@ -535,14 +567,6 @@ SOURCE=..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\SErrorHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SLogging.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\convert\STRConvert.cpp
 # End Source File
 # Begin Source File
@@ -555,6 +579,10 @@ SOURCE=..\..\src\utils\common\StringUtils.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\sumo_version.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sumo_only\SUMOFrame.cpp
 # End Source File
 # Begin Source File
@@ -564,6 +592,10 @@ SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\SystemFrame.cpp
 # End Source File
 # Begin Source File
 
@@ -585,6 +617,34 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial10.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial11.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial5.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial6.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial7.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial8.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\fonts\arial9.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\AttributesHandler.h
@@ -983,6 +1043,14 @@ SOURCE=..\..\src\microsim\MSEventControl.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\MsgHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\MsgRetriever.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSInductLoop.h
 # End Source File
 # Begin Source File
@@ -1367,6 +1435,10 @@ SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\SystemFrame.h
 # End Source File
 # Begin Source File
 

@@ -125,6 +125,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\importio\NamedColumnsParser.cpp
 # End Source File
 # Begin Source File
@@ -277,14 +281,6 @@ SOURCE=..\..\src\router\ROWeightsHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\SErrorHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SLogging.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\convert\STRConvert.cpp
 # End Source File
 # Begin Source File
@@ -302,6 +298,10 @@ SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\SystemFrame.cpp
 # End Source File
 # Begin Source File
 
@@ -534,14 +534,6 @@ SOURCE=..\..\src\router\ROVehTypeCont.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ROWeightsHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SErrorHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SLogging.h
 # End Source File
 # Begin Source File
 
