@@ -1,5 +1,5 @@
 #include "GUILaneStateReporter.h"
-#include <utils/logging/LoggedValue_TimeFloating.h>
+#include <microsim/logging/LoggedValue_TimeFloating.h>
 
 
 GUILaneStateReporter::GUILaneStateReporter(

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/11/11 08:11:05  dkrajzew
+// logging (value passing) moved from utils to microsim
+//
 // Revision 1.11  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -72,9 +75,8 @@
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/qutils/NewQMutex.h>
-#include <utils/logging/LoggedValue_TimeFloating.h>
+#include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlObject.h>
-//#include <gui/TableTypes.h>
 
 
 /* =========================================================================

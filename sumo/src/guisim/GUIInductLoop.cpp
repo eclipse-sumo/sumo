@@ -6,14 +6,11 @@
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <utils/logging/UIntParametrisedDblFuncBinding.h>
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/UIntParametrisedDblFuncBinding.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 #include <qgl.h>
 
 using namespace std;
-
-#define FULL_LENGTH 4
-#define HALF_LENGTH 2
 
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
                              double position,
@@ -230,18 +227,12 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale) const
 }
 
 
-double
-GUIInductLoop::MyWrapper::getXCoordinate() const
+Position2D
+GUIInductLoop::MyWrapper::getPosition() const
 {
-    return myFGPosition.x();
+    return myFGPosition;
 }
 
-
-double
-GUIInductLoop::MyWrapper::getYCoordinate() const
-{
-    return myFGPosition.y();
-}
 
 GUIInductLoop &
 GUIInductLoop::MyWrapper::getLoop()

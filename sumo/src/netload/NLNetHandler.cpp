@@ -51,7 +51,7 @@ namespace
 #include <microsim/MS_E2_ZS_Collector.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
-#include <utils/logging/LoggedValue_TimeFloating.h>
+#include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
 

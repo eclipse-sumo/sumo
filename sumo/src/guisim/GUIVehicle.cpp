@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/11/11 08:11:05  dkrajzew
+// logging (value passing) moved from utils to microsim
+//
 // Revision 1.17  2003/10/31 08:02:31  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -93,7 +96,7 @@ namespace
 #include <gui/popup/QGLObjectPopupMenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <utils/logging/UIntFunction2DoubleBinding.h>
+#include <microsim/logging/UIntFunction2DoubleBinding.h>
 
 
 /* =========================================================================

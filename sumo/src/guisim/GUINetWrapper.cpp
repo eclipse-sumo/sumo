@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/11/11 08:11:05  dkrajzew
+// logging (value passing) moved from utils to microsim
+//
 // Revision 1.2  2003/08/14 13:47:44  dkrajzew
 // false usage of function-pointers patched; false inclusion of .moc-files removed
 //
@@ -52,7 +55,7 @@ namespace
 #include <qwidget.h>
 #include <qpopupmenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
-#include <utils/logging/UIntFunction2DoubleBinding.h>
+#include <microsim/logging/UIntFunction2DoubleBinding.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
