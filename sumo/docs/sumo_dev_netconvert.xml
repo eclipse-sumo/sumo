@@ -28,8 +28,8 @@
     <sect1>
       <title>Why netconversion?</title>
 
-      <para>There are to reasons why we decided to build networks by
-      converting exiting ones. The first is that our interest mainly lies on
+      <para>There are two reasons why we decided to build SUMO-networks by
+      converting ones existing in other formats. The first is that our interest mainly lies on
       simulation of large urban areas and the networks size speaks against
       inserting and editing them by hand. The second is the high complexity of
       the SUMO-network format allowing minimum effort on post-processing
@@ -176,7 +176,9 @@
     format="GIF"></imagedata></imageobject></mediaobject>
     </figure>
 
-    <sect1><title>Data Loading</title> <para>T</para></sect1>
+    <sect1><title>Data Loading</title> 
+       <para>To be described...</para>
+    </sect1>
 
     <sect1>
       <title>Data Processing</title>
@@ -661,16 +663,6 @@
       <title>Import</title>
 
       <para>Not imported by now, but surely interesting in future are:</para>
-    </sect1>
-  </chapter>
-
-  <chapter>
-    <title>Used Models</title>
-
-    <sect1>
-      <title>aaa</title>
-
-      <para></para>
     </sect1>
   </chapter>
 
