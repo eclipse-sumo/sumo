@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2003/12/12 12:55:59  dkrajzew
+// looking back implemented
+//
 // Revision 1.13  2003/11/11 08:36:21  dkrajzew
 // removed some debug-variables
 //
@@ -343,8 +346,8 @@ MSLaneChanger::change()
             vehicle->enterLaneAtLaneChange( target->lane );
             vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        DEBUG_OUT << "changed:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+    if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        DEBUG_OUT << "changed:" << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
             return;
@@ -398,6 +401,11 @@ MSLaneChanger::change()
                     prohibitor->leaveLaneAtLaneChange();
                     prohibitor->enterLaneAtLaneChange( myCandi->lane );
                     prohibitor->myLastLaneChangeOffset = 0;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        DEBUG_OUT << "swapped:" << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed() << endl;
+    }
+#endif
                     return;
                 }
             }
@@ -798,8 +806,17 @@ MSLaneChanger::safeChange( ChangerIt target )
     if ( neighFollow == 0 ) {
         if(targetLane->myApproaching!=0) {
             // Check back gap to following vehicle
+            double backDist = targetLane->myBackDistance;
+            if(backDist<0) {
+                backDist = -backDist;
+            } else {
+                backDist = vehicle->pos() - backDist;
+            }
+            if(backDist<0) {
+                return false; // !!! isn't this caught anywhere else?
+            }
             if( vehicle->pos()<vehicle->length() ||
-				!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myBackDistance, *vehicle, targetLane)) {
+				!targetLane->myApproaching->isSafeChange_WithDistance(backDist, *vehicle, targetLane)) {
                 return false;
             }
         }
