@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>SUMO developer documentation</title>
+    <author> 
+      <firstname>Christian</firstname>
+      <surname>R&ouml;ssel</surname>
+      <affiliation>
+        <address><email>christian.roessel@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+
+    <releaseinfo>$Revision$</releaseinfo>
+
+  </bookinfo> 
+
+
+  <toc> 
+  </toc>
+
+  <chapter>
+    <title>SUMO and the GNU build process</title>
+
+    <para>Here we descride how to use the <ulink
+    url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>,
+    <ulink
+    url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+    <ulink
+    url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+    and <ulink
+    url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+    in conjunction with some scripts provided by the <ulink
+    url="http://www.kde.org/">KDE</ulink>-community to build SUMO from
+    the cvs-sources. Actually, the GNU Auttools are hidden by the
+    KDE-scripts. We use the KDE-scripts because they provide support
+    for the <ulink url="http://www.trolltech.com/">QT</ulink> build
+    specifics (moc-file generation). Many thanks to the KDE-team for
+    this great work!</para>
+
+    <para>We will also discuss how to add new option to
+    <literal>configure</literal> and how to modify
+    <literal>Makefile.am</literal> if new files or libraries are
+    added.</para>
+
+    <sect1>
+      <title>Building SUMO from CVS</title>
+      <orderedlist>
+	<listitem>
+	  <para>Download the sources from <ulink
+	  url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>. Use
+	  <literal>sumo</literal> as
+	  <literal>modulname</literal>.</para>
+
+	</listitem>
+	<listitem>
+	  <para><literal>cd</literal> into the directory
+	  <literal>sumo</literal>. </para>
+	</listitem>
+	<listitem>
+	  <para>Execute <literal>make -f admin/Makefile.common
+	  cvs</literal>. This will create the
+	  <literal>configure</literal>-script from
+	  <literal>configure.in.in</literal> and
+	  <literal>Makefile.in</literal> for each
+	  <literal>Makefile.am</literal> by calling the GNU
+	  Autotools. QT-specific staff is added to the
+	  <literal>Makefile.in</literal>s too by
+	  <literal>admin/am_edit</literal>.</para>
+	</listitem>
+	<listitem>
+	  <para>Call <literal>./configure</literal>. You can get a
+	  list of <literal>configure</literal>-option by calling
+	  <literal>./configure
+	  --help</literal>. <literal>./configure</literal> builds a
+	  <literal>Makefile</literal> for each
+	  <literal>Makefile.in</literal>.</para>
+	</listitem>
+	<listitem>
+	  <para>Call <literal>make</literal> to build SUMO.</para>
+	</listitem>
+	<listitem>
+	  <para>Call <literal>make install</literal> to install SUMO.</para>
+	</listitem>
+      </orderedlist>
+      <para>Enjoy!</para>
+    </sect1>
+
+    <sect1>
+      <title>Adding options to configure</title>
+    
+      <para>You need to modify the file
+      <literal>configure.in.in</literal>. There are some SUMO-specific
+      options. Take them as sample and consult the <ulink
+      url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+      for further insights. See also <ulink
+      url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+      to use KDE autotools for a Qt application?</ulink></para>
+
+    </sect1>
+
+    <sect1>
+      <title>Adding header/library-checks to configure</title>
+
+      <para>You need to modify
+      the file <literal>configure.in.in</literal>. There are some
+      SUMO-specific header/library-checks for the <ulink
+      url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+      library</ulink>. Take them as sample and consult the <ulink
+      url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+      for further insights. Take care of <ulink
+      url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+      shell-code</ulink>.</para>
+    </sect1>
+
+    <sect1>
+      <title>Modifying Makefile.am</title>
+
+      <para>There is a need of modifying
+      <literal>Makefile.am</literal> if you</para>
+      <itemizedlist>
+	<listitem>
+	  <para>add or remove new sources or files that should go in
+	  the distribution: All source files must be listed behind
+	  <literal>*_SOURCES</literal>. All other files that should
+	  be included in the distribution must be listed behind
+	  <literal>EXTRA_DIST</literal></para>
+	</listitem>
+	<listitem>
+	  <para>need to include header-files from different
+	  directories: Add the header directories to
+	  <literal>AM_CPPFLAGS</literal>. If these
+	  header-directories have been assigned to a name in
+	  <literal>configure</literal>, refer to them like
+	  <literal>$(QT_INCLUDES)</literal> or
+	  <literal>-I$(XERCESINCLUDE)</literal>. To search for headers
+	  within SUMO directories, use
+	  <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+	</listitem>
+	<listitem>
+	  <para>need to link against new libraries or create new
+	  programs: Modify the file
+	  <literal>src/Makefile.am</literal>. Add a new program to
+	  <literal>bin_PROGRAMS</literal>. For each program
+	  you need to provide <literal>prg_SOURCES</literal>,
+	  <literal>prg_LDFLAGS</literal> and
+	  <literal>prg_LDADD</literal>. <literal>prg_LDFLAGS</literal>
+	  holds the linker flags and library-directories like
+	  <literal>-L$(XERCESLIBPATH)</literal> or
+	  <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+	  lists all libraries that should be linked with the
+	  executable (e.g. <literal>./utils/xml/libxml.a
+	  -l$(XERCESLIB)</literal>).</para>
+	</listitem>
+	<listitem>
+	  <para>you create new subdirectories: Add the new
+	  subdirectory to <literal>SUBDIRS</literal> and create a
+	  new <literal>Makefile.am</literal> there.</para>
+	</listitem>
+	
+      </itemizedlist>
+
+      <para>I don't want to go into detail of <literal>Makefile.am</literal> creation. For SUMO we have one top-level <literal>Makefile.am</literal> in the directory <literal>sumo</literal> This needs to be changed only if you add new subdirectories</para>
+
+      <para>All SUMO-executables are build in <literal>sumo/src</literal>. Add this directory's <literal>Makefile.am</literal> to add new executables.</para>
+
+      <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
+<screen>
+noinst_LIBRARIES = libxxx.a
+
+EXTRA_DIST = distributed_but_not_compiled_file
+
+libxxx_a_SOURCES = header.h source.cpp
+
+AM_CPPFLAGS = -I$(top_srcdir)/src/helpers $(QT_INCLUDES) \
+-I$(XERCESINCLUDE)
+
+SUBDIRS = icons 
+
+METASOURCES = AUTO
+</screen>
+
+      <sect2>
+	<title>Makefile.am additions for Xerces</title>
+	
+	<para>If you need to include Xerces-headers in a specific
+	directory add <literal>-I$(XERCESINCLUDE)
+	-I$(XERCESINCLUDE_PRIOR_1_7)</literal> to
+	<literal>AM_CPPFLAGS</literal>.</para> 
+	
+	<para>If you need to
+	link against the Xerces-library add
+	<literal>-L$(XERCES_LDFLAGS)</literal> to
+	<literal>prg_LDFLAGS</literal> and
+	<literal>-l$(LIB_XERCES)</literal> to
+	<literal>prg_LDADD</literal>.</para>
+
+      </sect2>
+
+      <sect2>
+	<title>Makefile.am additions for QT</title>
+	
+	<para>If you need to include QT-headers in a specific
+	directory add <literal>$(QT_INCLUDES)</literal> to
+	<literal>AM_CPPFLAGS</literal> and <literal>METASOURCES =
+	AUTO</literal>. This will automagically create and compile the
+	QT-<literal>moc</literal>-files.</para>
+
+	<para>If you need to link against QT add
+	<literal>$(QT_LDFLAGS) $(X_LDFLAGS)</literal> to
+	<literal>prg__LDFLAGS</literal> and <literal>$(LIB_QT)
+	$(LIB_X11)</literal> to <literal>prg_LDADD</literal>.</para>
+
+	<para>See also <ulink
+      url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+      to use KDE autotools for a Qt application?</ulink></para>
+
+      </sect2>
+
+
+    </sect1>
+
+  </chapter>
+
+
+</book>
+
+
+
+
