@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/09/05 15:20:19  dkrajzew
+// loading of internal links added
+//
 // Revision 1.4  2003/07/30 09:25:17  dkrajzew
 // loading of directions and priorities of links implemented
 //
@@ -103,14 +106,16 @@ NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 
 void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
+                                     const std::string &viaID,
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
+                                     bool internalEnd,
                                      const std::string &tlid, size_t linkNo)
 {
     // check whether the link is a dead link
     if(laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
-        m_SuccLanes->push_back(new MSLink(0, 0, dir, state));
+        m_SuccLanes->push_back(new MSLink(0, 0, 0, dir, state, false));
         return;
     }
     // get the lane the link belongs to
@@ -118,7 +123,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if(lane==0) {
         throw XMLIdNotKnownException("lane", laneId);
     }
-    // check whether this link is controlled by a trafiic light
+    MSLane *via = 0;
+    if(viaID!="") {
+        via = MSLane::dictionary(viaID);
+        if(lane==0) {
+            throw XMLIdNotKnownException("lane", viaID);
+        }
+    }
+    // check whether this link is controlled by a traffic light
     MSTrafficLightLogic *logic = 0;
     if(tlid!="") {
         logic = MSTrafficLightLogic::dictionary(tlid);
@@ -127,7 +139,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         }
     }
     // build the link
-    MSLink *link = new MSLink(lane, yield, dir, state);
+    MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
     // if a traffic light is responsible for it, inform the traffic light
     if(logic!=0) {
         logic->addLink(link, linkNo);

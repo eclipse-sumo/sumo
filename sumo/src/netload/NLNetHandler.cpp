@@ -143,6 +143,9 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         case SUMO_TAG_TRIGGER:
             addTrigger(attrs);
             break;
+        case SUMO_TAG_TIMEDEVENT:
+            myActionBuilder.addAction(attrs, _file);
+            break;
         }
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
@@ -512,15 +515,19 @@ NLNetHandler::addSuccLane(const Attributes &attrs)
             myContainer.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
+                getStringSecure(attrs, SUMO_ATTR_VIA, ""),
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
+                getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false),
                 tlID, getInt(attrs, SUMO_ATTR_TLLINKNO));
         } else {
             myContainer.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
+                getStringSecure(attrs, SUMO_ATTR_VIA, ""),
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
-                parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]));
+                parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
+                getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(

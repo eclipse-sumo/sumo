@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/09/05 15:20:20  dkrajzew
+// loading of internal links added
+//
 // Revision 1.4  2003/07/30 09:25:17  dkrajzew
 // loading of directions and priorities of links implemented
 //
@@ -88,7 +91,9 @@ public:
 
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
+        const std::string &viaID,
         MSLink::LinkDirection dir, MSLink::LinkState state,
+        bool internalEnd,
         const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building

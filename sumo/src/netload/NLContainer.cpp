@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/09/05 15:20:19  dkrajzew
+// loading of internal links added
+//
 // Revision 1.15  2003/07/30 09:25:17  dkrajzew
 // loading of directions and priorities of links implemented
 //
@@ -124,6 +127,7 @@ namespace
 #include "NLContainer.h"
 #include <microsim/MSLane.h>
 #include <microsim/MSSourceLane.h>
+#include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
@@ -285,6 +289,9 @@ NLContainer::chooseEdge(const string &id, const std::string &func)
     if(func=="sink") {
         funcEnum = MSEdge::EDGEFUNCTION_SINK;
     }
+    if(func=="internal") {
+        funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
+    }
     if(funcEnum<0) {
         throw XMLIdNotKnownException("purpose", func);
     }
@@ -371,10 +378,13 @@ NLContainer::openSuccLane(const string &laneId)
 
 void
 NLContainer::addSuccLane(bool yield, const string &laneId,
+                         const std::string &viaID,
                          MSLink::LinkDirection dir, MSLink::LinkState state,
+                         bool internalEnd,
                          const std::string &tlid, size_t linkNo)
 {
-    m_pSLB->addSuccLane(yield, laneId, dir, state, tlid, linkNo);
+    m_pSLB->addSuccLane(yield, laneId, viaID, dir, state, internalEnd,
+        tlid, linkNo);
 }
 
 

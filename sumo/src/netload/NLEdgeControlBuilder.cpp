@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/05 15:20:19  dkrajzew
+// loading of internal links added
+//
 // Revision 1.5  2003/06/18 11:18:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -75,6 +78,7 @@ namespace
 #include <algorithm>
 #include <microsim/MSLane.h>
 #include <microsim/MSSourceLane.h>
+#include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/MsgHandler.h>
@@ -152,10 +156,19 @@ NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
       throw XMLDepartLaneDuplicationException();
     }
     MSLane *lane = 0;
-    if(m_Function==MSEdge::EDGEFUNCTION_SOURCE) {
+    switch(m_Function) {
+    case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge);
-    } else {
+        break;
+    case MSEdge::EDGEFUNCTION_INTERNAL:
+        lane = new MSInternalLane(net, id, maxSpeed, length, m_pActiveEdge);
+        break;
+    case MSEdge::EDGEFUNCTION_NORMAL:
+    case MSEdge::EDGEFUNCTION_SINK:
         lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge);
+        break;
+    default:
+        throw 1;
     }
     m_pLaneStorage->push_back(lane);
     if(isDepart) {
@@ -217,9 +230,9 @@ NLEdgeControlBuilder::closeAllowedEdge()
 void
 NLEdgeControlBuilder::closeEdge()
 {
-    if(m_pAllowedLanes==0 || m_pDepartLane==0 || m_pLanes==0) {
+    if(m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("Something is corrupt with the definition of lanes for the edge '")
+            string("Something is corrupt within the definition of lanes for the edge '")
             + m_pActiveEdge->id() + string("'."));
         return;
     }

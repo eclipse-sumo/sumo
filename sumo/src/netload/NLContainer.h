@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2003/09/05 15:20:19  dkrajzew
+// loading of internal links added
+//
 // Revision 1.15  2003/08/04 11:40:21  dkrajzew
 // false inclusion hierarchy patched; missing inclusions added
 //
@@ -229,7 +232,9 @@ public:
 
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
+        const std::string &viaID,
         MSLink::LinkDirection dir, MSLink::LinkState state,
+        bool internalEnd,
         const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building

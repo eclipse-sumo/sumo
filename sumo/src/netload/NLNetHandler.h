@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/09/05 15:20:19  dkrajzew
+// loading of internal links added
+//
 // Revision 1.9  2003/08/18 12:41:40  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -59,6 +62,7 @@
 #include <sax/SAXException.hpp>
 #include <sax/AttributeList.hpp>
 #include "NLNetBuilder.h"
+#include "NLDiscreteEventBuilder.h"
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/MSSimpleTrafficLightLogic.h>
@@ -267,6 +271,9 @@ private:
     MSLink::LinkDirection parseLinkDir(char dir);
 
     MSLink::LinkState parseLinkState(char state);
+
+private:
+    NLDiscreteEventBuilder myActionBuilder;
 
 private:
     /** invalid copy constructor */
