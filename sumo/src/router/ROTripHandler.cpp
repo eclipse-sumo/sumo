@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.3  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -121,17 +124,26 @@ ROTripHandler::getVehicleID(const Attributes &attrs)
 
 ROEdge *
 ROTripHandler::getEdge(const Attributes &attrs, const std::string &purpose,
-                           AttrEnum which, const string &id)
+                           AttrEnum which, const string &vid)
 {
+    ROEdge *e = 0;
+    string id;
     try {
-        string id = getString(attrs, which);
-        return _net.getEdge(id);
+        id = getString(attrs, which);
+        e = _net.getEdge(id);
+        if(e!=0) {
+            return e;
+        }
     } catch(EmptyData) {
         SErrorHandler::add(string("Missing ") +
             purpose + string(" edge in description of a route."));
-        if(id.length()!=0) {
-            SErrorHandler::add(string(" Vehicle id='") + id + string("'."));
-        }
+    }
+    if(e==0) {
+        SErrorHandler::add(string("The edge '") +
+            id + string("' is not known."));
+    }
+    if(vid.length()!=0) {
+        SErrorHandler::add(string(" Vehicle id='") + vid + string("'."));
     }
     return 0;
 }
@@ -209,7 +221,7 @@ ROTripHandler::getRepetitionNumber(const Attributes &attrs,
 {
     // get the repetition period
     try {
-        return getInt(attrs, SUMO_ATTR_PERIOD);
+        return getInt(attrs, SUMO_ATTR_REPNUMBER);
     } catch(EmptyData) {
         return -1;
     } catch (NumberFormatException) {
@@ -257,7 +269,7 @@ ROTripHandler::myCharacters(int element, const std::string &name,
 void
 ROTripHandler::myEndElement(int element, const std::string &name)
 {
-    if(element==SUMO_TAG_TRIPDEF) {
+    if(element==SUMO_TAG_TRIPDEF&&!SErrorHandler::errorOccured()) {
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = 0;
         if(myEdges.size()==0) {
@@ -294,7 +306,8 @@ ROTripHandler::getAssignedDuplicate(const std::string &file) const
 
 
 std::string
-ROTripHandler::getDataName() const {
+ROTripHandler::getDataName() const
+{
     return "XML-route definitions";
 }
 

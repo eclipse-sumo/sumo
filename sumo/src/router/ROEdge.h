@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -53,19 +56,14 @@ class ROLane;
  * An edge.
  */
 class ROEdge {
-private:
-    std::string _id;
-    bool _explored;
-    double _dist;
-    ROEdge *_prevKnot;
-    bool _inFrontList;
-	double _effort;
-    typedef std::map<ROLane*, ValueTimeLine*> LaneUsageCont;
-    LaneUsageCont _laneCont;
-    ValueTimeLine _ownValueLine;
-    std::vector<ROEdge*> _succeeding;
-    bool _usingTimeLine;
 public:
+    enum EdgeType {
+        ET_NORMAL,
+        ET_SOURCE,
+        ET_SINK
+    };
+
+
 	ROEdge(const std::string &id);
 	~ROEdge();
     void postloadInit();
@@ -93,8 +91,24 @@ public:
     ROEdge *getPrevKnot() const;
     void setPrevKnot(ROEdge *prev);
     std::string getID() const;
+    void setType(EdgeType type);
+    EdgeType getType() const;
 protected:
     float getMyEffort(long time) const;
+private:
+    std::string _id;
+    bool _explored;
+    double _dist;
+    ROEdge *_prevKnot;
+    bool _inFrontList;
+	double _effort;
+    typedef std::map<ROLane*, ValueTimeLine*> LaneUsageCont;
+    LaneUsageCont _laneCont;
+    ValueTimeLine _ownValueLine;
+    std::vector<ROEdge*> _succeeding;
+//    std::vector<ROEdge*> myRealSucceder;
+    bool _usingTimeLine;
+    EdgeType myType;
 private:
     /// we made the copy constructor invalid
     ROEdge(const ROEdge &src);

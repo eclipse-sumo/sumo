@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.4  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -33,8 +36,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,8 +50,16 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include "RONet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROTypedRoutesLoader::ROTypedRoutesLoader(RONet &net, const std::string &file)
     : _net(net), _currentTimeStep(-1), _ended(false),
     _nextRouteRead(false), _options(0)

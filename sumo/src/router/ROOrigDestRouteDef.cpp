@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.4  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -38,8 +41,10 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
+#include <cassert>
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"
@@ -52,6 +57,8 @@ ROOrigDestRouteDef::ROOrigDestRouteDef(const std::string &id,
                                        ROEdge *from, ROEdge *to)
     : RORouteDef(id), _from(from), _to(to), _current(0)
 {
+    assert(_from!=0);
+    assert(_to!=0);
 }
 
 ROOrigDestRouteDef::~ROOrigDestRouteDef()

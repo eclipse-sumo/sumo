@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -76,6 +79,19 @@ ROEdgeCont::init()
         (*i).second->init();
     }
 }
+
+
+std::vector<ROEdge*>
+ROEdgeCont::getAllEdges() const
+{
+    std::vector<ROEdge*> all;
+    for(myCont::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
+        all.push_back((*i).second);
+    }
+    return all;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/04/09 15:45:29  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.6  2003/03/31 06:18:16  dkrajzew
 // help screen corrected
 //
@@ -73,6 +76,7 @@ char *help[] = {
     " Process Options:",
     "   -b, --begin LONG               The begin time of routing",
     "   -e, --end LONG                 The end time of routing",
+    "   -R, --random_per_second FLOAT  Builds (additional) random routes",
     "   --gBeta FLOAT                  Gawron-Beta for DUE",
     "   --gA FLOAT                     Gawron-A for DUE",
     "   --unsorted                     The routes are assumed to be unsorted",

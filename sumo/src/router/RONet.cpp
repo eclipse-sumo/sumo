@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.6  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -335,6 +338,56 @@ RONet::furtherStored()
 {
     return _vehicles.size()>0;
 }
+
+
+ROEdge *
+RONet::getRandomSource()
+{
+    // check whether an edge may be returned
+    checkSourceAndDestinations();
+    if(mySourceEdges.size()==0) {
+        return 0;
+    }
+    // choose an edge by random
+    double random = double( rand() ) / double( RAND_MAX );
+    return mySourceEdges[random*(mySourceEdges.size()-1)];
+}
+
+
+ROEdge *
+RONet::getRandomDestination()
+{
+    // check whether an edge may be returned
+    checkSourceAndDestinations();
+    if(myDestinationEdges.size()==0) {
+        return 0;
+    }
+    // choose an edge by random
+    // choose an edge by random
+    double random = double( rand() ) / double( RAND_MAX );
+    return myDestinationEdges[random*(myDestinationEdges.size()-1)];
+}
+
+
+void
+RONet::checkSourceAndDestinations()
+{
+    if(myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
+        return;
+    }
+    std::vector<ROEdge*> edges = _edges.getAllEdges();
+    for(std::vector<ROEdge*>::iterator i=edges.begin(); i!=edges.end(); i++) {
+        ROEdge::EdgeType type = (*i)->getType();
+        if(type!=ROEdge::ET_SOURCE) {
+            myDestinationEdges.push_back(*i);
+        }
+        if(type!=ROEdge::ET_SINK) {
+            mySourceEdges.push_back(*i);
+        }
+    }
+}
+
+
 
 
 

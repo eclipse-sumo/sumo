@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/04/09 15:39:10  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.11  2003/04/02 11:48:43  dkrajzew
 // debug statements removed
 //
@@ -155,6 +158,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
     // register the data processing options
+    oc->doRegister("random_per_second", 'R', new Option_Float());
     oc->doRegister("unsorted", new Option_Bool(false));
     oc->doRegister("save-cell-rindex", new Option_Bool(false));
     oc->doRegister("intel-cell", new Option_Bool(false));

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.5  2003/04/02 11:48:44  dkrajzew
 // debug statements removed
 //
@@ -133,8 +136,6 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
             return buildPathFrom(to);
 		}
 	}
-    cout << "Nope!" << endl;
-    throw 1;
     return buildPathFrom(to);
 }
 

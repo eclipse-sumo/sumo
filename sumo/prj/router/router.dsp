@@ -189,6 +189,10 @@ SOURCE=..\..\src\router\ROOrigDestRouteDef.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\router\RORandomTripGenerator.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\router\RORoute.cpp
 # End Source File
 # Begin Source File
@@ -438,6 +442,10 @@ SOURCE=..\..\src\router\RONodeCont.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ROOrigDestRouteDef.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\router\RORandomTripGenerator.h
 # End Source File
 # Begin Source File
 

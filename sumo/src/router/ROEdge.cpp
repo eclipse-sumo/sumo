@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/09 15:39:10  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -113,7 +116,8 @@ void ROEdge::setLane(long timeBegin, long timeEnd,
 }
 
 void
-ROEdge::addSucceeder(ROEdge *s) {
+ROEdge::addSucceeder(ROEdge *s)
+{
     _succeeding.push_back(s);
 }
 
@@ -129,6 +133,9 @@ ROEdge::getMyEffort(long time) const {
 size_t
 ROEdge::getNoFollowing()
 {
+    if(getType()==EdgeType::ET_SINK) {
+        return 0;
+    }
     return _succeeding.size();
 }
 
@@ -140,7 +147,8 @@ ROEdge::getFollower(size_t pos)
 }
 
 bool
-ROEdge::isConnectedTo(ROEdge *e) {
+ROEdge::isConnectedTo(ROEdge *e)
+{
     return find(_succeeding.begin(), _succeeding.end(), e)!=_succeeding.end();
 }
 
@@ -207,6 +215,21 @@ void ROEdge::setPrevKnot(ROEdge *prev) {
 std::string ROEdge::getID() const {
     return _id;
 }
+
+
+void
+ROEdge::setType(ROEdge::EdgeType type)
+{
+    myType = type;
+}
+
+
+ROEdge::EdgeType
+ROEdge::getType() const
+{
+    return myType;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

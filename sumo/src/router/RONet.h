@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.5  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -43,6 +46,7 @@
 #include <set>
 #include <fstream>
 #include <deque>
+#include <vector>
 #include "RONodeCont.h"
 #include "ROEdgeCont.h"
 #include "ROVehTypeCont.h"
@@ -144,6 +148,12 @@ public:
     /// Returns the information whether further vehicles are stored
     bool furtherStored();
 
+    /// Returns a random edge which may be used as a starting point
+    ROEdge *getRandomSource();
+
+    /// Returns a random edge which may be used as the end of a route
+    ROEdge *getRandomDestination();
+
 private:
     /** @brief Saves the given vehicle type
         If the type is not known, a warning is printed including the name of
@@ -157,6 +167,9 @@ private:
 
     /** @brief Removes the route from the net when no further usage is needed */
     void removeRouteSecure(RORouteDef *route);
+
+    /// Initialises the lists of source and destination edges
+    void checkSourceAndDestinations();
 
 private:
     /// Container for known vehicle ids
@@ -182,6 +195,12 @@ private:
 
     /// Known route sipplets
     RORouteSnippletCont _snipplets;
+
+    /// List of source edges
+    std::vector<ROEdge*> mySourceEdges;
+
+    /// List of destination edges
+    std::vector<ROEdge*> myDestinationEdges;
 
 private:
     /// we made the copy constructor invalid

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/09 15:39:10  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.4  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -115,6 +118,7 @@ protected:
 
     /// Initialises the handler for reading
     bool myInit(OptionsCont &_options);
+
 private:
     /// Initialises the driver file for reading
     bool initDriverFile();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.7  2003/04/01 15:19:51  dkrajzew
 // behaviour on broken nets patched
 //
@@ -39,8 +42,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -71,11 +72,19 @@ namespace
 #include "ROCellRouteDefHandler.h"
 #include "ROSUMOAltRoutesHandler.h"
 #include "ROArtemisRouteDefHandler.h"
+#include "RORandomTripGenerator.h"
 #include "ROTypedRoutesLoader.h"
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROLoader::ROLoader(OptionsCont &oc)
     : _options(oc)
 {
@@ -148,6 +157,12 @@ ROLoader::openRoutes(RONet &net)
                 _options.getFloat("gBeta"),
                 _options.getFloat("gA")),
             "alternatives");
+    }
+    // check whetehr random routes shall be build, too
+    if(_options.isSet("R")) {
+        RORandomTripGenerator *randGen = new RORandomTripGenerator(net);
+        randGen->init(_options);
+        _handler.push_back(randGen);
     }
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -55,7 +58,8 @@
  * A map of vehicle-ids to the vehicles themselves. Additionally supplies
  * a list of vehicles where these are sorted by their departure times.
  */
-class ROVehicleCont : public NamedObjectCont<ROVehicle*> {
+class ROVehicleCont
+    : public NamedObjectCont<ROVehicle*> {
 public:
     /// Constructor
     ROVehicleCont();
@@ -68,6 +72,7 @@ public:
         std::vector<ROVehicle*>,
         ROHelper::VehicleByDepartureComperator> &sort();
 
+    /// Removes the vehicle from the container
     void eraseVehicle(ROVehicle *v);
 
 private:

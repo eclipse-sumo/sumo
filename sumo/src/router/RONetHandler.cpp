@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/09 15:39:11  dkrajzew
+// router debugging & extension: no routing over sources, random routes added
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -101,6 +104,16 @@ RONetHandler::parseEdge(const Attributes &attrs)
                 string("An unknown edge occured within '")
                 + _file + string("."));
             SErrorHandler::add("Contact your net supplier!");
+        }
+        string type = getString(attrs, SUMO_ATTR_FUNC);
+        if(type=="normal") {
+            _currentEdge->setType(ROEdge::ET_NORMAL);
+        } else if(type=="source") {
+            _currentEdge->setType(ROEdge::ET_SOURCE);
+        } else if(type=="sink") {
+            _currentEdge->setType(ROEdge::ET_SINK);
+        } else {
+            throw 1; // !!!
         }
     } catch (EmptyData) {
         SErrorHandler::add(

@@ -1425,7 +1425,10 @@
           See also the documentation on Christian Gawron&#39;s Dynamic User
           Assignment</para></listitem><listitem><para>OPTIONAL: [
           --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
-          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+          whether a configuration file shall be loaded</para></listitem><listitem><para>OPTIONAL:
+          [ --random_per_second | -R ] &#60;FLOAT&#62;</para><para>Builds
+          additional random routes. The float to give is the number of routes
+          to build for a simulation second (may be lower than 1)</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
