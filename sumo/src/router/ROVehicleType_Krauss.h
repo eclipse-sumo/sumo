@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/22 15:14:13  dkrajzew
+// debugging (false vehicle length)
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -65,7 +68,7 @@ public:
 
 private:
     /// Krauﬂ-parameter
-	double myA, myB, myEps, myLength, myMaxSpeed;
+	double myA, myB, myEps, myMaxSpeed;
 
 private:
     /// default parameter

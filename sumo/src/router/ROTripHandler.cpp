@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/22 15:14:13  dkrajzew
+// debugging (false vehicle length)
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -163,7 +166,7 @@ ROTripHandler::getVehicleType(const Attributes &attrs)
     try {
         return getString(attrs, SUMO_ATTR_TYPE);
     } catch(EmptyData) {
-        return "SUMO_DEFAULTTYPE";
+        return "SUMO_DEFAULT_TYPE";
     }
 }
 
