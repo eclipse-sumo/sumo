@@ -47,6 +47,9 @@ namespace
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSTrafficLightLogic.h>
+#include <microsim/MSInductLoop.h>
+#include <microsim/MSLaneState.h>
+#include <utils/logging/LoggedValue_TimeFloating.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
 
@@ -121,7 +124,7 @@ NLNetHandler::myStartElement(int element, const std::string &name,
             initJunctionLogic();
             break;
         case SUMO_TAG_TLLOGIC:
-            initTrafficLightLogic();
+            initTrafficLightLogic(attrs);
             break;
         case SUMO_TAG_LOGICITEM:
             addLogicItem(attrs);
@@ -308,12 +311,18 @@ NLNetHandler::addTrafoItem(const Attributes &attrs) {
 
 
 void
-NLNetHandler::initTrafficLightLogic()
+NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     m_Key = "";
-    m_ActivePhases.clear();
+    m_ActiveSimplePhases.clear();
+    m_ActiveActuatedPhases.clear();
     _requestSize = -1;
     _tlLogicNo = -1;
+    try {
+        m_Type = getString(attrs, SUMO_ATTR_TYPE);
+    } catch (EmptyData) {
+        SErrorHandler::add("Missing traffic light type.");
+    }
 }
 
 
@@ -339,17 +348,42 @@ NLNetHandler::addPhase(const Attributes &attrs) {
         return;
     }
     // try to get the phase duration
+    size_t duration;
     try {
-        size_t duration = getInt(attrs, SUMO_ATTR_DURATION);
-        std::bitset<64> prios(brakeMask);
-        prios.flip();
-        m_ActivePhases.push_back(
-            MSSimpleTrafficLightLogic<64>::PhaseDefinition(
-            duration, std::bitset<64>(phase), prios));
+        duration = getInt(attrs, SUMO_ATTR_DURATION);
     } catch (EmptyData) {
         SErrorHandler::add("Missing phase duration...");
+        return;
     } catch (NumberFormatException) {
         SErrorHandler::add("The phase duration is not numeric.");
+        return;
+    }
+    // if the traffic light is an actuated traffic light, try to get
+    //  the minimum and maximum durations
+    size_t min, max;
+    try {
+        if(m_Type=="actuated") {
+            min = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
+            max = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
+        }
+    } catch (EmptyData) {
+        SErrorHandler::add("Missing phase minimum or masimum duration...");
+        return;
+    } catch (NumberFormatException) {
+        SErrorHandler::add("The phase minimum or masimum duration is not numeric.");
+        return;
+    }
+    // build the brake mask
+    std::bitset<64> prios(brakeMask);
+    prios.flip();
+    if(m_Type!="actuated") {
+        m_ActiveSimplePhases.push_back(
+            MSSimpleTrafficLightLogic<64>::PhaseDefinition(
+            duration, std::bitset<64>(phase), prios));
+    } else {
+        m_ActiveActuatedPhases.push_back(
+            ActuatedPhaseDefinition(
+            duration, std::bitset<64>(phase), prios, min, max));
     }
 }
 
@@ -359,9 +393,6 @@ NLNetHandler::openJunction(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        if(id=="10") {
-            int bla = 0;
-        }
         try {
             myContainer.openJunction(id,
                 getStringSecure(attrs, SUMO_ATTR_KEY, ""),
@@ -531,16 +562,19 @@ NLNetHandler::myCharacters(int element, const std::string &name,
     if(wanted(LOADFILTER_LOGICS)) {
         switch(element) {
         case SUMO_TAG_REQUESTSIZE:
-            if(m_Key.length()!=0)
+            if(m_Key.length()!=0) {
                 setRequestSize(chars);
+            }
             break;
         case SUMO_TAG_RESPONSESIZE:
-            if(m_Key.length()!=0)
+            if(m_Key.length()!=0) {
                 setResponseSize(chars);
+            }
             break;
         case SUMO_TAG_LANENUMBER:
-            if(m_Key.length()!=0)
+            if(m_Key.length()!=0) {
                 setLaneNumber(chars);
+            }
             break;
         case SUMO_TAG_KEY:
             setKey(chars);
@@ -759,10 +793,24 @@ NLNetHandler::closeTrafficLightLogic() {
     if(_tlLogicNo!=0) {
         return;
     }
-    MSTrafficLightLogic *tlLogic =
-        new MSSimpleTrafficLightLogic<64>(m_Key, m_ActivePhases, 0);
-    MSTrafficLightLogic::dictionary(m_Key, tlLogic); // !!! replacement within the dictionary
-    m_ActivePhases.clear();
+    if(m_Type!="actuated") {
+        MSTrafficLightLogic *tlLogic =
+            new MSSimpleTrafficLightLogic<64>(
+                m_Key, m_ActiveSimplePhases, 0);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic); 
+        // !!! replacement within the dictionary
+        m_ActiveSimplePhases.clear();
+    } else {
+        MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState<LoggedValue_TimeFloating<double> > >  
+            *tlLogic =
+            new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState<LoggedValue_TimeFloating<double> > > (
+                    m_Key, m_ActiveActuatedPhases, 0,
+                    myContainer.getInLanes());
+        myContainer.addDetectors(tlLogic->getDetectorList());
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic); 
+        // !!! replacement within the dictionary
+        m_ActiveActuatedPhases.clear();
+    }
 }
 
 void

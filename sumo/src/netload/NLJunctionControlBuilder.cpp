@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:06:33  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -262,6 +265,11 @@ NLJunctionControlBuilder::getInLaneContSecure()
 }
 
 
+const NLJunctionControlBuilder::LaneCont &
+NLJunctionControlBuilder::getInLanes() const 
+{
+    return m_pActiveInLanes;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/03/03 15:06:32  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.4  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -213,10 +216,16 @@ public:
     /// closes the building of a junction
     void closeJunction();
 
+    /// Returns the list of the current incoming lanes
+    const std::vector<MSLane*> &getInLanes() const;
+
 
     // ----- interfaces for the generation of detectors
     /// adds a new detector to the simulation
     void addDetector(MSDetector *detector);
+
+    /// adds a list of new detectors to the simulation
+    void addDetectors(MSNet::DetectorCont detectors);
 
     /// returns the used event control
     MSEventControl &getEventControl() const;

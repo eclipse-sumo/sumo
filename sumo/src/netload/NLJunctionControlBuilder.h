@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/03 15:06:33  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -87,6 +90,10 @@ class MSEventControl;
  *
  */
 class NLJunctionControlBuilder {
+private:
+    /// Definition of a lane vector
+    typedef std::vector<MSLane*> LaneCont;
+
 public:
     /// standard constructor
     NLJunctionControlBuilder(NLContainer *container);
@@ -113,6 +120,9 @@ public:
         junctions */
     MSJunctionControl *build();
 
+    /** Returns the current inlane - container */
+    const LaneCont &getInLanes() const;
+
 private:
     /** builds a junction that does not use a logic */
     MSJunction *buildNoLogicJunction();
@@ -130,9 +140,6 @@ private:
     MSRightOfWayJunction::InLaneCont getInLaneContSecure();
 
 private:
-    /// Definition of a lane vector
-    typedef std::vector<MSLane*> LaneCont;
-
     /// the list of the simulations junctions
     MSJunctionControl::JunctionCont          *m_pJunctions;
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/03 15:06:33  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.1  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -35,6 +38,7 @@
 #include "NLNetBuilder.h"
 #include <microsim/MSRouteHandler.h>
 #include <microsim/MSSimpleTrafficLightLogic.h>
+#include <microsim/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
 
 
@@ -110,8 +114,11 @@ protected:
     /// the transformation matrix of the bitset-logic currently chosen
     MSBitsetLogic::Link2LaneTrafo           *m_pActiveTrafo;
 
-    /// the current phase definitions
-    MSSimpleTrafficLightLogic<64>::Phases   m_ActivePhases;
+    /// the current phase definitions for a simple traffic light
+    MSSimpleTrafficLightLogic<64>::Phases   m_ActiveSimplePhases;
+
+    /// the current phase definitions for a simple traffic light
+    ActuatedPhases                          m_ActiveActuatedPhases;
 
     /// the size of the request
     int             _requestSize;
@@ -130,6 +137,9 @@ protected:
 
     /// the number of the current traffic light logic
     int             _tlLogicNo;
+
+    /// The current junction type
+    std::string     m_Type;
 
 private:
     /// sets the number of edges the network contains
@@ -158,7 +168,7 @@ private:
 
 
     /// begins the reading of a traffic lights logic
-    void initTrafficLightLogic();
+    void initTrafficLightLogic(const Attributes &attrs);
 
     /// adds a phase to the traffic lights logic currently build
     void addPhase(const Attributes &attrs);

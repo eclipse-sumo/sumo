@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/03 15:06:31  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.4  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -395,8 +398,18 @@ NLContainer::closeJunction()
 
 // ----- handling of detectors
 void
-NLContainer::addDetector(MSDetector *detector) {
+NLContainer::addDetector(MSDetector *detector) 
+{
     m_pDetectors->push_back(detector);
+}
+
+
+void 
+NLContainer::addDetectors(MSNet::DetectorCont detectors)
+{
+    for(MSNet::DetectorCont::iterator i=detectors.begin(); i!=detectors.end(); i++) {
+        m_pDetectors->push_back(*i);
+    }
 }
 
 
@@ -469,6 +482,13 @@ MSNet &
 NLContainer::getNet()
 {
     return *(MSNet::getInstance());
+}
+
+
+const std::vector<MSLane*> &
+NLContainer::getInLanes() const
+{
+    return m_pJCB->getInLanes();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:06:33  dkrajzew
+// new import format applied; new detectors applied
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -62,6 +65,8 @@ namespace
 #include <microsim/MSInductLoop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/logging/Loggedvalue_Single.h>
+#include <utils/logging/Loggedvalue_TimeFixed.h>
 #include "NLDetectorBuilder.h"
 
 
@@ -100,7 +105,16 @@ MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
             string("The lane with the id '") + lane
             + string("' is not known."));
     }
-    return new MSInductLoop(id, clane, pos, splInterval, cstyle, file);
+    // build in dependence to the sample interval
+    if(splInterval==1) {
+        return 
+            new MSInductLoop<LoggedValue_Single<double> >
+                (id, clane, pos, splInterval, cstyle, file, false);
+    } else {
+        return 
+            new MSInductLoop<LoggedValue_TimeFixed<double> >
+                (id, clane, pos, splInterval, cstyle, file, false);
+    }
 }
 
 MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
