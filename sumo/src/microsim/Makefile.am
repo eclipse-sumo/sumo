@@ -42,6 +42,7 @@ MSRouteLoaderControl.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSSource.cpp \
 MSSourceLane.cpp \
+MSSpaceMeanSpeed.cpp \
 MSTLLogicControl.cpp \
 MSTrafficLightLogic.cpp \
 MSTriggeredReader.cpp \
@@ -102,6 +103,7 @@ MSRouteLoaderControl.h \
 MSSimpleTrafficLightLogic.h \
 MSSource.h \
 MSSourceLane.h \
+MSSpaceMeanSpeed.h \
 MSSumDetector.h \
 MSTLLogicControl.h \
 MSTrafficLightLogic.h \
