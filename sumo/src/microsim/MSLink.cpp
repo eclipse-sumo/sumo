@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/30 09:09:55  dkrajzew
+// added end-of-link definition (direction, type) for visualisation
+//
 // Revision 1.5  2003/06/05 16:05:40  dkrajzew
 // removal of links request added; needed by new traffic lights
 //
@@ -50,11 +53,12 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSLink::MSLink(MSLane* succLane, bool yield)
+MSLink::MSLink(MSLane* succLane, bool yield,
+               LinkDirection dir, LinkState state )
     : myLane(succLane),
     myPrio(!yield), myApproaching(0),
     myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-	myAmYellow(false)
+	myState(state), myAmYellow(false), myDirection(dir)
 {
 }
 
@@ -100,7 +104,40 @@ void
 MSLink::deleteRequest()
 {
     myRequest->reset(myRequestIdx);
+    myRespond->reset(myRespondIdx);
 }
+
+
+MSLink::LinkState
+MSLink::getState() const
+{
+    if(myState!=LINKSTATE_ABSTRACT_TL) {
+        return myState;
+    }
+    if(myAmYellow) {
+        return LINKSTATE_TL_YELLOW;
+    }
+    if(opened()) {
+        return LINKSTATE_TL_GREEN;
+    } else {
+        return LINKSTATE_TL_RED;
+    }
+}
+
+
+MSLink::LinkDirection
+MSLink::getDirection() const
+{
+    return myDirection;
+}
+
+
+void
+MSLink::setTLState(LinkState state)
+{
+    myState = state;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

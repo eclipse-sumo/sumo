@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/30 09:09:55  dkrajzew
+// added end-of-link definition (direction, type) for visualisation
+//
 // Revision 1.5  2003/06/05 16:05:41  dkrajzew
 // removal of links request added; needed by new traffic lights
 //
@@ -59,8 +62,29 @@ class MSVehicle;
 class MSLink
 {
 public:
+    enum LinkState {
+        LINKSTATE_ABSTRACT_TL,
+        LINKSTATE_TL_GREEN,
+        LINKSTATE_TL_RED,
+        LINKSTATE_TL_YELLOW,
+        LINKSTATE_TL_OFF_BLINKING,
+        LINKSTATE_TL_OFF_NOSIGNAL,
+        LINKSTATE_MAJOR,
+        LINKSTATE_MINOR,
+        LINKSTATE_EQUAL
+    };
+
+    enum LinkDirection {
+        LINKDIR_STRAIGHT,
+        LINKDIR_TURN,
+        LINKDIR_LEFT,
+        LINKDIR_RIGHT,
+        LINKDIR_PARTLEFT,
+        LINKDIR_PARTRIGHT
+    };
+
     /// Constructor
-    MSLink( MSLane* succLane, bool yield );
+    MSLink( MSLane* succLane, bool yield, LinkDirection dir, LinkState state );
 
     /// sets the request information
     void setRequestInformation(MSLogicJunction::Request *request,
@@ -79,6 +103,12 @@ public:
 
 
     void deleteRequest();
+
+    LinkState getState() const;
+
+    LinkDirection getDirection() const;
+
+    void setTLState(LinkState state);
 
     /// MSLink's destination lane.
     MSLane* myLane;
@@ -101,8 +131,16 @@ public:
     /// the position within this respond
     size_t myRespondIdx;
 
+    /// The basic state of the link
+    LinkState myState;
+
 	/// Information whether the tl (if this link belongs to one) shows yellow
-	bool myAmYellow;
+	bool myAmYellow; // !!! deprectaed
+
+    /// Am abstract (hopefully human readable) definition of the link's direction
+    LinkDirection myDirection;
+
+
 
 private:
     /// default constructor
