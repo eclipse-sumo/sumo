@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/07 08:25:33  dkrajzew
+// adapted the importer to the lane geometry description
+//
 // Revision 1.2  2003/03/17 14:18:58  dkrajzew
 // Windows eol removed
 //
@@ -85,7 +88,7 @@ NIArtemisParser_Links::myDependentReport()
     if(fromNode!=0&&toNode!=0) {
         NBEdge *edge = new NBEdge(id, name, fromNode, toNode,
             "", speed, laneno, length, 0,
-            NBEdge::EDGEFUNCTION_NORMAL);
+            NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_NORMAL); // !!! validate spread
         NBEdgeCont::insert(edge);
     }
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:25:33  dkrajzew
+// adapted the importer to the lane geometry description
+//
 // Revision 1.3  2003/06/18 11:14:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -93,7 +96,8 @@ NIArtemisParser_HVdests::myDependentReport()
         NBNode *tmp = new NBNode(origid + "SOURCENode", dir1.x(), dir1.y());
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
-            tmp, node1, "", 20.0, 2, -1, 0, NBEdge::EDGEFUNCTION_SOURCE);
+            tmp, node1, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
+            NBEdge::EDGEFUNCTION_SOURCE);
         NBEdgeCont::insert(edge); // !!! check
     }
     // try to build a sink from node2
@@ -103,7 +107,8 @@ NIArtemisParser_HVdests::myDependentReport()
         NBNode *tmp = new NBNode(destid + "SINKNode", dir2.x(), dir2.y());
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
-            node2, tmp, "", 20.0, 2, -1, 0, NBEdge::EDGEFUNCTION_SINK);
+            node2, tmp, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
+            NBEdge::EDGEFUNCTION_SINK);
         NBEdgeCont::insert(edge); // !!! check
     }
 }

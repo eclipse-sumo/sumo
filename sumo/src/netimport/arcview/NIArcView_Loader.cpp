@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/07 08:24:17  dkrajzew
+// adapted the importer to the lane geometry description
+//
 // Revision 1.5  2003/06/18 11:34:25  dkrajzew
 // the arcview-import should be more stable nw when dealing with false tables
 //
@@ -168,8 +171,11 @@ NIArcView_Loader::parseLine(const std::string &line)
         // add positive direction if wanted
     if(dir=="B"||dir=="F") {
         if(NBEdgeCont::retrieve(id)==0) {
+            NBEdge::LaneSpreadFunction spread = dir=="B"
+                ? NBEdge::LANESPREAD_RIGHT
+                : NBEdge::LANESPREAD_CENTER;
             NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
-                length, priority, function);
+                length, priority, spread, function);
             NBEdgeCont::insert(edge);
         }
     }
@@ -177,8 +183,11 @@ NIArcView_Loader::parseLine(const std::string &line)
     if(dir=="B"||dir=="T") {
         id = "-" + id;
         if(NBEdgeCont::retrieve(id)==0) {
+            NBEdge::LaneSpreadFunction spread = dir=="B"
+                ? NBEdge::LANESPREAD_RIGHT
+                : NBEdge::LANESPREAD_CENTER;
             NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
-                length, priority, function);
+                length, priority, spread, function);
             NBEdgeCont::insert(edge);
         }
     }
