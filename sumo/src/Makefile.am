@@ -4,6 +4,7 @@ sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h
 sumo_router_SOURCES = router_main.cpp router_help.h
 sumo_od2trips_SOURCES = od2trips_main.cpp od2trips_help.h
 
+
 sumo_LDFLAGS = -L$(XERCESLIBPATH) $(all_libraries)
 sumo_LDADD   = ./netload/libnetload.a ./microsim/libmicrosim.a \
 ./utils/common/libcommon.a ./utils/convert/libconvert.a \
@@ -41,8 +42,18 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/sumo \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7) $(all_includes)
 
-SUBDIRS = helpers microsim netbuild netimport netload od2trips \
-router sumo_only utils
+SUBDIRS = gui \
+guinetload \
+guisim \
+helpers \
+microsim \
+netbuild \
+netimport \
+netload \
+od2trips \
+router \
+sumo_only \
+utils \
 
 
 
