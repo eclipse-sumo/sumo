@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/05 09:32:22  dkrajzew
+// false geometry assignment patched
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
@@ -142,7 +145,7 @@ NITigerLoader::load(OptionsCont &options)
             eid = string("-") + eid;
             e =
                 new NBEdge(eid, eid, to, from, type, speed, nolanes,
-                    cposes.length(), priority, cposes);
+                    cposes.length(), priority, cposes.reverse());
             if(!NBEdgeCont::insert(e)) {
                 delete e;
                 MsgHandler::getErrorInstance()->inform(
