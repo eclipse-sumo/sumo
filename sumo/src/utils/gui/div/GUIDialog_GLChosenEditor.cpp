@@ -23,8 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.6  2004/11/23 10:00:08  dkrajzew
-// new class hierarchy for windows applied
+// Revision 1.1  2004/12/16 12:12:59  dkrajzew
+// first steps towards loading of selections between different applications
+//
+// Revision 1.3  2004/12/07 11:43:48  dksumo
+// first steps towards reading of selected items
+//
+// Revision 1.2  2004/11/22 12:27:56  dksumo
+// using the right class of the derivation tree
+//
+// Revision 1.1  2004/10/22 12:49:03  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.5  2004/08/02 11:28:57  dkrajzew
 // ported to fox 1.2
@@ -66,6 +75,11 @@ namespace
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 
+#include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSVehicle.h>
+#include <guisim/GUIEdge.h>
+
 
 /* =========================================================================
  * used namespaces
@@ -91,10 +105,12 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent)
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
+                                                   GUISelectedStorage *str)
     : FXMainWindow(gFXApp, "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-    myParent(parent)
+    myParent(parent), myStorage(str)
 {
+    myStorage->add2Update(this);
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
         0,0,0,0);
@@ -136,6 +152,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent)
 
 GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor()
 {
+    myStorage->remove2Update(this);
 }
 
 
@@ -158,6 +175,20 @@ GUIDialog_GLChosenEditor::rebuildList()
 long
 GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
 {
+    // get the new file name
+    FXFileDialog opendialog(this,"Open List of Selected Items");
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("*.txt");
+    if(gCurrentFolder.length()!=0) {
+        opendialog.setDirectory(gCurrentFolder.c_str());
+    }
+    if(opendialog.execute()){
+        gCurrentFolder = opendialog.getDirectory().text();
+        string file = string(opendialog.getFilename().text());
+        myParent->loadSelection(file);
+        rebuildList();
+        update();
+    }
     return 1;
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2004/12/16 12:12:58  dkrajzew
+// first steps towards loading of selections between different applications
+//
 // Revision 1.37  2004/12/15 09:20:17  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -166,6 +169,7 @@ namespace
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvents.h>
 #include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include "GUIGlobals.h"
 #include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -175,7 +179,6 @@ namespace
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_SimSettings.h"
 #include "dialogs/GUIDialog_MicroViewSettings.h"
-#include "dialogs/GUIDialog_GLChosenEditor.h"
 #include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include "GUIThreadFactory.h"
@@ -183,6 +186,8 @@ namespace
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <guisim/GUINetWrapper.h>
+#include <guisim/GUISelectionLoader.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -548,7 +553,7 @@ GUIApplicationWindow::fillToolBar()
     mySimDelayTarget->setFormatString("%.0fms");
     mySimDelayTarget->setIncrements(1,10,10);
     mySimDelayTarget->setRange(0,1000);
-    mySimDelayTarget->setValue(50);
+    mySimDelayTarget->setValue(0);
 
     new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -585,7 +590,7 @@ long
 GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*)
 {
     GUIDialog_GLChosenEditor *chooser =
-        new GUIDialog_GLChosenEditor(this);
+        new GUIDialog_GLChosenEditor(this, &gSelected);
     chooser->create();
     chooser->show();
     return 1;
@@ -618,7 +623,7 @@ long
 GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
 {
     // get the new file name
-    FXFileDialog opendialog(this,"Open Document");
+    FXFileDialog opendialog(this,"Open Simulation Configuration");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.sumo.cfg");
     if(gCurrentFolder.length()!=0) {
@@ -998,13 +1003,19 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
         case GUIEvent_SimulationEnded::ER_ERROR_IN_SIM:
             text << "Reason: An error occured (see log).";
             break;
+        case GUIEvent_SimulationEnded::ER_FORCED:
+            gQuitOnEnd = true;
+            break;
         default:
             throw 1;
         }
         //
         onCmdStop(0, 0, 0);
-        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
-            text.str().c_str());
+        string tstr = text.str();
+        if(ec->getReason()!=GUIEvent_SimulationEnded::ER_FORCED) {
+            FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
+                tstr.c_str());
+        }
     } else {
         onCmdStop(0, 0, 0);
     }
@@ -1137,6 +1148,13 @@ size_t
 GUIApplicationWindow::getCurrentSimTime() const
 {
     return myRunThread->getCurrentTimeStep();
+}
+
+
+void
+GUIApplicationWindow::loadSelection(const std::string &file) const
+{
+    GUISelectionLoader::loadSelection(file);
 }
 
 

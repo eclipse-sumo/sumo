@@ -20,8 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2004/11/23 10:00:08  dkrajzew
-// new class hierarchy for windows applied
+// Revision 1.1  2004/12/16 12:12:59  dkrajzew
+// first steps towards loading of selections between different applications
+//
+// Revision 1.2  2004/11/22 12:27:56  dksumo
+// using the right class of the derivation tree
+//
+// Revision 1.1  2004/10/22 12:49:03  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.2  2004/04/02 10:57:31  dkrajzew
 // deselection of selected items added; saving of selected items names added
@@ -31,7 +37,6 @@
 //
 // Revision 1.1  2004/03/19 12:32:26  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * included modules
@@ -49,6 +54,7 @@
  * class declarations
  * ======================================================================= */
 class GUIApplicationWindow;
+class GUISelectedStorage;
 
 
 /* =========================================================================
@@ -66,7 +72,8 @@ class GUIDialog_GLChosenEditor : public FXMainWindow
     FXDECLARE(GUIDialog_GLChosenEditor)
 public:
     /// constructor
-    GUIDialog_GLChosenEditor(GUIMainWindow *parent);
+    GUIDialog_GLChosenEditor(GUIMainWindow *parent,
+        GUISelectedStorage *str);
 
     /// destructor
     ~GUIDialog_GLChosenEditor();
@@ -78,8 +85,6 @@ public:
     long onCmdDeselect(FXObject*,FXSelector,void*);
     long onCmdClear(FXObject*,FXSelector,void*);
     long onCmdClose(FXObject*,FXSelector,void*);
-
-private:
     void rebuildList();
 
 private:
@@ -88,6 +93,9 @@ private:
 
     /// the parent window
     GUIMainWindow *myParent;
+
+    /// the storage
+    GUISelectedStorage *myStorage;
 
 protected:
     GUIDialog_GLChosenEditor() { }

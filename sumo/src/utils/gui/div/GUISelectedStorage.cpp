@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/16 12:12:59  dkrajzew
+// first steps towards loading of selections between different applications
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -32,21 +35,15 @@ namespace
 // Revision 1.1  2004/07/02 08:08:33  dkrajzew
 // global object selection added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
 #include <algorithm>
-//#include "GUIGlobals.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUISelectedStorage.h"
-/*
-#include <guisim/GUINet.h>
-#include <guisim/GUIEdge.h>
-#include <microsim/MSLane.h>
-*/
+#include "GUIDialog_GLChosenEditor.h"
 
 
 /* =========================================================================
@@ -208,7 +205,7 @@ GUISelectedStorage::isSelected(int type, size_t id)
 
 
 void
-GUISelectedStorage::select(int type, size_t id)
+GUISelectedStorage::select(int type, size_t id, bool update)
 {
     if(type==-1) {
         GUIGlObject *object =
@@ -254,6 +251,10 @@ GUISelectedStorage::select(int type, size_t id)
     if(i==mySelected.end()) {
         mySelected.push_back(id);
     }
+    if(update&&my2Update!=0) {
+        my2Update->rebuildList();
+        my2Update->update();
+    }
 }
 
 
@@ -290,6 +291,10 @@ GUISelectedStorage::addObjectChecking(size_t id, long withShift)
     }
         */
     gIDStorage.unblockObject(id);
+    if(my2Update!=0) {
+        my2Update->rebuildList();
+        my2Update->update();
+    }
 }
 
 
@@ -340,6 +345,10 @@ GUISelectedStorage::deselect(int type, size_t id)
     if(i!=mySelected.end()) {
         mySelected.erase(i);
     }
+    if(my2Update!=0) {
+        my2Update->rebuildList();
+        my2Update->update();
+    }
 }
 
 
@@ -362,6 +371,10 @@ GUISelectedStorage::clear()
     mySelectedJunctions.clear();
     mySelectedTriggers.clear();
     mySelected.clear();
+    if(my2Update!=0) {
+        my2Update->rebuildList();
+        my2Update->update();
+    }
 }
 
 
@@ -399,12 +412,7 @@ GUISelectedStorage::load(int type, const std::string &filename)
         }
         return;
     }
-    // ok, load all
-    ifstream strm(filename.c_str());
-    while(strm.good()) {
-        string name;
-        strm >> name;
-    }
+
 }
 
 
@@ -485,6 +493,20 @@ GUISelectedStorage::getSelected(int type) const
         break;
     }
     throw 1;
+}
+
+
+void
+GUISelectedStorage::add2Update(GUIDialog_GLChosenEditor *ed)
+{
+    my2Update = ed;
+}
+
+
+void
+GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *ed)
+{
+    my2Update = 0;
 }
 
 

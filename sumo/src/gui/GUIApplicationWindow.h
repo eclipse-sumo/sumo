@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2004/12/16 12:12:58  dkrajzew
+// first steps towards loading of selections between different applications
+//
 // Revision 1.24  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -159,6 +162,8 @@ public:
 
     /// Detaches the tool/menu bar
     virtual void detach();
+
+    void loadSelection(const std::string &file) const;
 
 
 public:

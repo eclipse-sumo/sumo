@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/16 12:12:59  dkrajzew
+// first steps towards loading of selections between different applications
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -36,6 +39,12 @@
 #include <vector>
 #include <string>
 #include <fstream>
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class GUIDialog_GLChosenEditor;
 
 
 /* =========================================================================
@@ -56,7 +65,7 @@ public:
     bool isSelected(int type, size_t id);
 
     /// Selects the object with the given type and id
-    void select(int type, size_t id);
+    void select(int type, size_t id, bool update=true);
 
     /// Toggles selection of an object
     void addObjectChecking(size_t id, long withShift);
@@ -78,6 +87,12 @@ public:
 
     /// Saves a selection list
     void save(int type, const std::string &filename);
+
+    /// Adds a selected-dialog to be updated
+    void add2Update(GUIDialog_GLChosenEditor *ed);
+
+    /// Removes a selected-dialog to be updated
+    void remove2Update(GUIDialog_GLChosenEditor *ed);
 
     /**
      * @class SingleTypeSelections
@@ -147,6 +162,9 @@ private:
 
     /// List of selected objects
     std::vector<size_t> mySelected;
+
+    /// The dialog to be updated
+    GUIDialog_GLChosenEditor *my2Update;
 
 };
 
