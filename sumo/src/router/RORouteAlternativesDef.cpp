@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/21 14:45:23  dkrajzew
+// errors on numerical problems with large differences patched
+//
 // Revision 1.10  2003/10/15 11:55:12  dkrajzew
 // false usage of rand() patched
 //
@@ -58,6 +61,7 @@ namespace
 #include <string>
 #include <vector>
 #include <cmath>
+#include <cassert>
 //#include <cstdlib>
 #include <iostream>
 #include "ROEdge.h"
@@ -189,6 +193,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
             }
         }
     }
+    assert(_alternatives.size()!=0);
     // compute the propabilities
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
@@ -201,8 +206,22 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
             // see [Gawron, 1998] (4.3a, 4.3b)
             double newPR = gawronF(pR->getPropability(), pS->getPropability(), delta);
             double newPS = pR->getPropability() + pS->getPropability() - newPR;
+            if(newPR<0.0001) {
+                newPR = 0.0001;
+            }
+            if(newPS<0.0001) {
+                newPS = 0.0001;
+            }
             pR->setPropability(newPR);
             pS->setPropability(newPS);
+        }
+    }
+    // remove with propability of 0 (not mentioned in Gawron)
+    for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
+        if((*i)->getPropability()==0) {
+            i = _alternatives.erase(i);
+        } else {
+            i++;
         }
     }
     // find the route to use
