@@ -1033,19 +1033,11 @@ SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_nT.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_wT.h
 # End Source File
 # Begin Source File
 
