@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/11/28 10:20:37  jringel
+// phases with duration == 0 considered
+//
 // Revision 1.9  2003/11/24 10:21:20  dkrajzew
 // some documentation added and dead code removed
 //
@@ -31,10 +34,6 @@
 //
 // Revision 1.5  2003/11/04 08:55:28  jringel
 // implemetation of the agentbased trafficlightlogic
-//
-//
-// Revision 1.5 2003/10/30 jringel
-// agent-based logic implemented
 //
 // Revision 1.4  2003/10/08 14:50:28  dkrajzew
 //
@@ -238,7 +237,9 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::cutCycleTime(size_t t
 template< class _TE2_ZS_CollectorOverLanes > MSNet::Time
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
 {
-    if(isGreenPhase(_step)) {
+    assert (currentPhaseDef()->minDuration >=0);
+	assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
+	if(isGreenPhase(_step)) {
         // collects the data for the signal control
         collectData();
         // decides wheter greentime shall distributed between phases
@@ -249,7 +250,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
 
     // some output for control
     if (_step == 0) {
-        cout << endl << "Zeit: " << MSNet::globaltime;
+        cout << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
         for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
             cout<< " step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
             for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {
@@ -271,7 +272,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
 
 template< class _TE2_ZS_CollectorOverLanes >
 size_t
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextStep()
+MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextStep() 
 {
     // increment the index to the current phase
     _step++;
@@ -335,17 +336,6 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::collectData()
     }
     // adds the detectorvalue of the considered phase
     myRawDetectorData[_step].push_front(maxPerPhase);
-
-    // some output just for control
-    cout << endl;
-    for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
-        cout<< endl <<"step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
-        cout<< "  SimSekunde: " << MSNet::globaltime;
-        for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {
-        cout<<"  Wert: " << (*itV) ;
-        }
-    }
-
 }
 
 
@@ -361,12 +351,6 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::aggregateRawData()
     double meanvalue = sum / myRawDetectorData[(*i).first].size();
     myMeanDetectorData[(*i).first] = meanvalue;
     }
-    // some output, just for control
-    cout << endl;
-    for (MeanDataMap::const_iterator j = myMeanDetectorData.begin(); j != myMeanDetectorData.end(); j++){
-        cout<<"step: "<<(*j).first <<"  Mw: " << (*j).second << "  ";
-    }
-    cout<<"SimSekunde: "  << MSNet::globaltime;
 }
 
 
@@ -444,11 +428,13 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::findStepOfMinValue()
 
 
 template< class _TE2_ZS_CollectorOverLanes > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::duration() const
+MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::duration() 
 {
-    assert(_phases.size()>_step);
-    cout <<endl<< "Step: " << _step << "  Dauer: " << currentPhaseDef()->duration;
-    cout <<"  Zeit: " << MSNet::globaltime;
+   	while (currentPhaseDef()->duration==0) {
+		nextStep();
+		setLinkPriorities();
+	}
+	assert(_phases.size()>_step);
     return currentPhaseDef()->duration;
 }
 

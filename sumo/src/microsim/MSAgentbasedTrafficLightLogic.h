@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/11/28 10:20:38  jringel
+// phases with duration == 0 considered
+//
 // Revision 1.7  2003/11/24 10:21:20  dkrajzew
 // some documentation added and dead code removed
 //
@@ -28,10 +31,6 @@
 //
 // Revision 1.5  2003/11/04 08:55:28  jringel
 // implemetation of the agentbased trafficlightlogic
-//
-//
-// Revision 1.5 2003/10/28 jringel
-// implemetation of the agent-based logic
 //
 // Revision 1.4  2003/10/08 14:50:28  dkrajzew
 //
@@ -108,12 +107,12 @@ public:
     virtual MSNet::Time nextPhase();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() const;
+    virtual MSNet::Time duration() ;
 
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
     /// or stores the activation-time in _lastphase of the phase next
-    virtual size_t nextStep();
+    virtual size_t nextStep() ;
 
     /// Collects the trafficdata
     virtual void collectData();
