@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/03/19 13:04:32  dkrajzew
+// tripstate-output is not supported in 0.8
+//
 // Revision 1.17  2004/02/16 13:44:27  dkrajzew
 // dump output generating function renamed in order to add vehicle dump ability in the future
 //
@@ -114,8 +117,10 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
+    /* !!!
     oc.doRegister("tripstate-output", new Option_FileName());
     oc.addSynonyme("tripstate-output", "tout");
+    */
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
