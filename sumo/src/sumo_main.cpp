@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/24 14:41:37  dkrajzew
+// the correct step number is now prompted as the step the simulation ended at
+//
 // Revision 1.12  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -214,10 +217,10 @@ main(int argc, char **argv)
         // report the end when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation ended at time: ")
-            + toString<int>(oc.getInt("e")));
+            + toString<int>(net->getCurrentTimeStep()));
         delete net;
         delete craw;
-    } catch (...) {
+    } catch (ProcessError) {
         MSNet::clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting.");
         ret = 1;
