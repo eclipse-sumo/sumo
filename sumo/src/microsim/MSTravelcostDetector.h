@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/06/06 11:00:35  roessel
+// Added cast due to compiler warning.
+//
 // Revision 1.2  2003/06/05 12:51:26  roessel
 // Modified #includes and changed getString() to toString().
 //
@@ -108,7 +111,7 @@ public:
                 ( this, &MSTravelcostDetector::write2file, intervalLength );
             MSEventControl::getEndOfTimestepEvents()->addEvent(
                 writeData,
-                intervalLength / MSNet::deltaT() - 1,
+                static_cast<int>( intervalLength / MSNet::deltaT() ) - 1,
                 MSEventControl::ADAPT_AFTER_EXECUTION );
         }
 
