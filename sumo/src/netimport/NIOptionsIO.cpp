@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/28 12:37:41  dkrajzew
+// added the possibility to define vissims speed factor and a default speed for vissim-networks
+//
 // Revision 1.1  2003/12/11 06:16:37  dkrajzew
 // NBOptionsIO moved to netimport NIOptionsIO where they belong to
 //
@@ -209,6 +212,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
     // register further vissim-options
 	oc.doRegister("vissim-offset", new Option_Float(5.0));
+    oc.doRegister("vissim-default-speed", new Option_Float(50.0/3.6));
+    oc.doRegister("vissim-speed-norm", new Option_Float(1.0));
     // register the data processing options
     oc.doRegister("speed-in-km", new Option_Bool(false));
     // add netbuilding options
