@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/10/27 10:47:03  dkrajzew
+// added to possibility to close the application after a simulations end without user interaction
+//
 // Revision 1.23  2003/09/22 14:54:22  dkrajzew
 // some refactoring on GUILoadThread-usage
 //
@@ -187,12 +190,13 @@ const char * singleSimStepText = "Click this button to perform a single simulati
 GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
                                            bool quitOnEnd,
                                            const std::string &config,
-                                           bool allowAggregated)
+                                           bool allowAggregated,
+                                           bool suppressEndInfo)
     : QMainWindow( 0, "example application main window", WDestructiveClose ),
     _loadThread(0), _runThread(0),
     myGLWidth(glWidth), myGLHeight(glHeight),
     myQuitOnEnd(quitOnEnd), myStartAtBegin(false),
-    myAllowAggregated(allowAggregated)
+    myAllowAggregated(allowAggregated), mySuppressEndInfo(suppressEndInfo)
 {
     // recheck the maximum sizes
     QWidget *d = QApplication::desktop();
@@ -668,29 +672,33 @@ GUIApplicationWindow::event(QEvent *e)
 void
 GUIApplicationWindow::processSimulationEndEvent(QSimulationEndedEvent *e)
 {
-    // build the text
-    stringstream text;
-    text << "The simulation has ended at time step "
-        << e->getTimeStep() << "." << endl;
-    switch(e->getReason()) {
-    case QSimulationEndedEvent::ER_NO_VEHICLES:
-        text << "Reason: All vehicles have left the simulation.";
-        break;
-    case QSimulationEndedEvent::ER_END_STEP_REACHED:
-        text << "Reason: The final simulation step has been reached.";
-        break;
-    default:
-        throw 1;
-    }
+    if(!mySuppressEndInfo) {
+        // build the text
+        stringstream text;
+        text << "The simulation has ended at time step "
+            << e->getTimeStep() << "." << endl;
+        switch(e->getReason()) {
+        case QSimulationEndedEvent::ER_NO_VEHICLES:
+            text << "Reason: All vehicles have left the simulation.";
+            break;
+        case QSimulationEndedEvent::ER_END_STEP_REACHED:
+            text << "Reason: The final simulation step has been reached.";
+            break;
+        default:
+            throw 1;
+        }
 
-    //
-    stop();
-    QMessageBox *myBox = new QMessageBox("Simulation ended",
+        //
+        stop();
+        QMessageBox *myBox = new QMessageBox("Simulation ended",
         text.str().c_str(),
         QMessageBox::Warning,
         QMessageBox::Ok | QMessageBox::Default,
         QMessageBox::NoButton, QMessageBox::NoButton);
-    myBox->exec();
+        myBox->exec();
+    } else {
+        stop();
+    }
     if(myQuitOnEnd) {
         qApp->closeAllWindows();
     }

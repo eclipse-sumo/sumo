@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/10/27 10:47:49  dkrajzew
+// added to possibility to close the application after a simulations end without user interaction
+//
 // Revision 1.6  2003/07/07 08:40:09  dkrajzew
 // included new options into the help-screens
 //
@@ -44,7 +47,7 @@
 
 char *help[] = {
     "Usage: sumo-gui",
-    "Simulation of Urban MObility v0.7 - Simulation Module",
+    "Simulation of Urban MObility v0.7 - GUI-Simulation Module",
     "  http://sumo.sourceforge.net",
     " ",
     "Options:",
@@ -53,6 +56,8 @@ char *help[] = {
     "   -h, --max-gl-height <UINT>      The maximum height of openGL-windows",
     "   -c, --configuration <FILE>      Loads the named config on startup",
     "   -Q, --quit-on-end               Quits the gui when the simulation stops",
+    "   -S, --suppress-end-info         Suppresses the information about the",
+    "                                    simulation's end",
     "   -?, --help                      Prints this screen",
     "   -p, --print-options             Prints option values before processing",
     0

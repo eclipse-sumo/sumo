@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2003/10/27 10:47:03  dkrajzew
+// added to possibility to close the application after a simulations end without user interaction
+//
 // Revision 1.15  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -112,7 +115,8 @@ class GUIApplicationWindow:
 public:
     /** constructor */
     GUIApplicationWindow(int glWidth, int glHeight, bool quitOnEnd,
-        const std::string &config, bool allowAggregated);
+        const std::string &config, bool allowAggregated,
+        bool suppressEndInfo);
 
     /** destructor */
     ~GUIApplicationWindow();
@@ -281,6 +285,8 @@ private:
     bool myStartAtBegin;
 
     bool myAllowAggregated;
+
+    bool mySuppressEndInfo;
 
 };
 
