@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/12 16:41:06  dkrajzew
+// correct y-position according to new display
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -79,7 +82,7 @@ NIVisumParser_Districts::myDependentReport()
             TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // build the district
         NBDistrict *district = new NBDistrict(id, name,
-            sourcesWeighted, destWeighted, x, -y);
+            sourcesWeighted, destWeighted, x, y);
         if(!NBDistrictCont::insert(district)) {
             addError(
                 string(" Duplicate district occured ('")
