@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/01/26 07:27:40  dkrajzew
+// allowed the derived classes to use some methods
+//
 // Revision 1.7  2004/01/12 15:40:54  dkrajzew
 // debugging
 //
@@ -88,7 +91,7 @@ public:
     /* @brief Returns a vector that contains all objects. */
     const std::vector<T> &getVector() const;
 
-protected:
+private:
     /// Definition of the key to pointer map type
     typedef std::map< std::string, T > IDMap;
 
