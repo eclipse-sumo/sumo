@@ -370,27 +370,6 @@ private:
             }
         }
 
-    std::string getDetectorName( LDDetector* det )
-        {
-            // get detector name. Unfortunately we have to cast
-            // because the name is not known to
-            // MSE2DetectorInterface.
-
-            std::string name;
-            if ( dynamic_cast< Detector::E3NVehicles* >( det ) ) {
-                name = Detector::E3NVehicles::getDetectorName();
-            }
-            if ( dynamic_cast< Detector::E3Traveltime* >( det ) ) {
-                name = Detector::E3Traveltime::getDetectorName();
-            }
-            if ( dynamic_cast< Detector::E3MeanNHaltings* >( det ) ) {
-                name = Detector::E3MeanNHaltings::getDetectorName();
-            }
-            else {
-                assert( 0 );
-            }
-        }
-
     template< class Cont >
     std::string getXMLOutput( Cont& container, MSUnit::IntSteps lastNTimesteps)
         {
