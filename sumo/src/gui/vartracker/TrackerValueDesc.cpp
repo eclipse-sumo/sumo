@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/30 08:50:42  dkrajzew
+// tracker debugging (not yet completed)
+//
 // Revision 1.3  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -50,8 +53,9 @@ namespace
  * ======================================================================= */
 TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    const RGBColor &col,
-                                   GUIGlObject *o, size_t itemPos)
-    : myName(name), myObject(o), myItemPos(itemPos),
+                                   GUIGlObject *o,
+                                   DoubleValueSource *src)
+    : myName(name), myObject(o), mySource(src),
     myActiveCol(col), myInactiveCol(col),
     myAmActive(true),
     myMin(0), myMax(0)
@@ -70,7 +74,7 @@ TrackerValueDesc::simStep()
 	if(!myObject->active()) {
 		return;
 	}
-    double val = myObject->getTableParameter(myItemPos);
+    double val = mySource->getValue();
     if(myValues.size()==0) {
         myMin = val;
         myMax = val;

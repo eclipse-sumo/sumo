@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/30 08:50:42  dkrajzew
+// tracker debugging (not yet completed)
+//
 // Revision 1.2  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
@@ -34,6 +37,7 @@
 #include <string>
 #include <vector>
 #include <utils/gfx/RGBColor.h>
+#include <utils/logging/DoubleFunctionBinding.h>
 
 
 /* =========================================================================
@@ -52,7 +56,7 @@ class TrackerValueDesc {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
-        GUIGlObject *o, size_t itemPos);
+        GUIGlObject *o, DoubleValueSource *src);
 
     /// Destructor
     ~TrackerValueDesc();
@@ -88,8 +92,7 @@ private:
     /// The object to retrieve the information from
     GUIGlObject *myObject;
 
-    /// The index of the value within the object's value list
-    size_t myItemPos;
+    DoubleValueSource *mySource;
 
     /// Values collected
     std::vector<float> myValues;

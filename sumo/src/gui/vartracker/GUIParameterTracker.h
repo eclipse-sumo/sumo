@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 08:50:42  dkrajzew
+// tracker debugging (not yet completed)
+//
 // Revision 1.3  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -37,9 +40,11 @@
 #include <vector>
 #include <qgl.h>
 #include <qdialog.h>
+#include <qmainwindow.h>
 #include <gui/GUIGlObject.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
+#include <utils/logging/DoubleFunctionBinding.h>
 #include "TrackerValueDesc.h"
 
 
@@ -55,16 +60,16 @@ class QPaintEvent;
 /**
  *
  */
-class GUIParameterTracker : public QDialog
+class GUIParameterTracker : public QMainWindow
 {
     Q_OBJECT
 public:
     /// Constructor (one value is defined)
-    GUIParameterTracker( GUIApplicationWindow *app,
-        GUIGlObject *o, size_t itemNo );
+    GUIParameterTracker( GUIApplicationWindow &app, const std::string &name,
+        GUIGlObject &o, DoubleValueSource *src, int xpos, int ypos );
 
     /// Constructor (the tracker is empty)
-    GUIParameterTracker( GUIApplicationWindow *app );
+    GUIParameterTracker( GUIApplicationWindow &app );
 
     /// Destructor
     ~GUIParameterTracker();
@@ -77,7 +82,8 @@ public:
 
 protected:
     /// Adds a further variable to display
-    void addVariable( GUIGlObject *o, size_t itemNo );
+    void addVariable(GUIGlObject *o, const std::string &name,
+        DoubleValueSource *src);
 
     /// Callback for events
     bool event ( QEvent *e );
@@ -98,8 +104,8 @@ private:
     class GUIParameterTrackerPanel : public QGLWidget {
     public:
         /// Constructor
-        GUIParameterTrackerPanel(GUIApplicationWindow *app,
-            GUIParameterTracker *parent);
+        GUIParameterTrackerPanel(GUIApplicationWindow &app,
+            GUIParameterTracker &parent);
 
         /// Destructor
         ~GUIParameterTrackerPanel();
@@ -145,7 +151,7 @@ private:
         LFontRenderer myFontRenderer;
 
         /// The main application
-        GUIApplicationWindow *myApplication;
+        GUIApplicationWindow &myApplication;
 
     };
 
@@ -153,9 +159,13 @@ public:
     /// the panel may change some things
     friend class GUIParameterTrackerPanel;
 
+private:
+    void buildFileTools();
+
+
 protected:
     /// The main application
-    GUIApplicationWindow *myApplication;
+    GUIApplicationWindow &myApplication;
 
     /// Definition of the container for logged values
     typedef std::vector<TrackerValueDesc*> TrackedVarsVector;

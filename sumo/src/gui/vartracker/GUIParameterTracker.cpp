@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/30 08:50:42  dkrajzew
+// tracker debugging (not yet completed)
+//
 // Revision 1.6  2003/07/22 14:57:42  dkrajzew
 // wrong order of initialisations-warning patched
 //
@@ -46,6 +49,8 @@ namespace
 #include <string>
 #include <qdialog.h>
 #include <qevent.h>
+#include <qtoolbar.h>
+#include <qtoolbutton.h>
 #include <qrect.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -53,6 +58,8 @@ namespace
 #include <gui/GUIGlObject.h>
 #include <gui/GUIApplicationWindow.h>
 #include <guisim/GUINet.h>
+#include <gui/icons/filesave.xpm>
+
 
 #ifndef WIN32
 #include "GUIParameterTracker.moc"
@@ -68,52 +75,56 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow *app)
+GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
         : myApplication(app)
 {
+    buildFileTools();
     setCaption("Tracker");
     setBaseSize(200, 300);
     setMinimumSize(200, 300);
-    app->addChild(this, true);
+    app.addChild(this, true);
     myPanel = new
-        GUIParameterTrackerPanel(myApplication, this);
+        GUIParameterTrackerPanel(myApplication, *this);
     myPanel->setGeometry(QRect( 0, 0, 200, 300));
     show();
 }
 
 
-GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow *app,
-                                         GUIGlObject *o, size_t itemNo )
+
+GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
+                                         const std::string &name,
+                                         GUIGlObject &o,
+                                         DoubleValueSource *src,
+                                         int xpos, int ypos)
         : myApplication(app)
 {
+    buildFileTools();
     setCaption("Tracker");
-    setBaseSize(200, 300);
-    setMinimumSize(200, 300);
-    app->addChild(this, true);
+    setBaseSize(300, 200);
+    setMinimumSize(300, 200);
+    app.addChild(this, true);
     myPanel = new
-        GUIParameterTrackerPanel(myApplication, this);
-    myPanel->setGeometry(QRect( 0, 0, 200, 300));
-    addVariable(o, itemNo);
+        GUIParameterTrackerPanel(myApplication, *this);
+    addVariable(&o, name, src);
+    myPanel->move(xpos, ypos);
     show();
 }
 
 
 GUIParameterTracker::~GUIParameterTracker()
 {
-    myApplication->removeChild(this);
+    myApplication.removeChild(this);
 }
 
 
 void
-GUIParameterTracker::addVariable( GUIGlObject *o, size_t itemNo )
+GUIParameterTracker::addVariable( GUIGlObject *o, const std::string &name,
+                                 DoubleValueSource *src)
 {
     TrackerValueDesc *newTracked =
         new TrackerValueDesc(
-            o->getFullName() + string(o->getTableItem(itemNo)),
-            RGBColor(1, 0, 0.5),
-            o, itemNo);
+            name, RGBColor(0, 0, 0), o, src);
     myTracked.push_back(newTracked);
-
 }
 
 
@@ -121,7 +132,7 @@ bool
 GUIParameterTracker::event ( QEvent *e )
 {
     if(e->type()!=QEvent::User) {
-        return QDialog::event(e);
+        return QMainWindow::event(e);
     }
     for(TrackedVarsVector::iterator i=myTracked.begin(); i!=myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
@@ -135,14 +146,14 @@ GUIParameterTracker::event ( QEvent *e )
 int
 GUIParameterTracker::getMaxGLWidth() const
 {
-    return myApplication->getMaxGLWidth();
+    return myApplication.getMaxGLWidth();
 }
 
 
 int
 GUIParameterTracker::getMaxGLHeight() const
 {
-    return myApplication->getMaxGLHeight();
+    return myApplication.getMaxGLHeight();
 }
 
 
@@ -150,7 +161,7 @@ void
 GUIParameterTracker::paintEvent ( QPaintEvent *e )
 {
     myPanel->paintEvent(e);
-    QDialog::paintEvent(e);
+    QMainWindow::paintEvent(e);
 }
 
 
@@ -159,7 +170,22 @@ GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 {
     myPanel->setGeometry(QRect( 0, 0,
 		e->size().width(), e->size().height()));
-	QDialog::resizeEvent(e);
+	QMainWindow::resizeEvent(e);
+}
+
+
+
+void
+GUIParameterTracker::buildFileTools()
+{
+    QPixmap saveIcon;
+
+    QToolBar *fileTools = new QToolBar( this, "file operations");
+    addToolBar( fileTools, tr( "File Operations" ), Top, TRUE );
+
+    saveIcon = QPixmap( filesave );
+    QToolButton *fileSave = new QToolButton( saveIcon, "Open File",
+        QString::null, this, SLOT(load()), fileTools, "open file" );
 }
 
 
@@ -168,10 +194,10 @@ GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 
 
 
-GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(GUIApplicationWindow *app,
-                                                                        GUIParameterTracker *parent)
-    : QGLWidget(parent),
-    myParent(*parent), _noDrawing(0), myApplication(app)
+GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
+        GUIApplicationWindow &app, GUIParameterTracker &parent)
+    : QGLWidget(&parent),
+    myParent(parent), _noDrawing(0), myApplication(app)
 {
 }
 
@@ -195,14 +221,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::initializeGL()
     glEnable(GL_ALPHA_TEST);
     glDisable(GL_COLOR_MATERIAL);
     glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
-    myFontRenderer.add(myApplication->myFonts.get("std11"));
-    myFontRenderer.add(myApplication->myFonts.get("std10"));
-    myFontRenderer.add(myApplication->myFonts.get("std9"));
-    myFontRenderer.add(myApplication->myFonts.get("std8"));
-    myFontRenderer.add(myApplication->myFonts.get("std7"));
-    myFontRenderer.add(myApplication->myFonts.get("std6"));
-    myFontRenderer.add(myApplication->myFonts.get("std5"));
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    myFontRenderer.add(myApplication.myFonts.get("std11"));
+    myFontRenderer.add(myApplication.myFonts.get("std10"));
+    myFontRenderer.add(myApplication.myFonts.get("std9"));
+    myFontRenderer.add(myApplication.myFonts.get("std8"));
+    myFontRenderer.add(myApplication.myFonts.get("std7"));
+    myFontRenderer.add(myApplication.myFonts.get("std6"));
+    myFontRenderer.add(myApplication.myFonts.get("std5"));
     _lock.unlock();
 }
 
@@ -248,6 +274,13 @@ GUIParameterTracker::GUIParameterTrackerPanel::paintGL()
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 {
+    // compute which font to use
+    int fontIdx = (_widthInPixels-300) / 100;
+    if(fontIdx<0) fontIdx = 0;
+    if(fontIdx>7) fontIdx = 7;
+//    myFontRenderer.SetActiveFont(5-fontIdx); // !!! 7
+    myFontRenderer.SetActiveFont(4);
+    //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
@@ -355,6 +388,11 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
     float abs = (height) * (((float)d-yoff)/range) * 0.8f;
     return (height * 0.5f) - abs - 6;
 }
+
+
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
