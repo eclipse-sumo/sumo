@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.19  2002/06/25 10:53:36  croessel
+// Little mistake in destructor.
+//
 // Revision 1.18  2002/06/25 10:41:17  croessel
 // safeGap using fabs is not the answer to collisions. Removing it.
 //
@@ -286,7 +289,7 @@ MSVehicle::~MSVehicle()
 {
     for ( DestinationCont::iterator i = myPersons.begin();
           i != myPersons.end(); ++i ) {
-        MSNet::PersonCont* *cont = (*i).second;
+        MSNet::PersonCont* cont = (*i).second;
         for ( MSNet::PersonCont::iterator j = cont->begin();
               j != cont->end(); ++j ) {
             delete *j;
