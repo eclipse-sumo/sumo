@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/08/02 12:48:13  dkrajzew
+// using OutputDevices instead of ostreams; first steps towards a lane-change API
+//
 // Revision 1.5  2004/04/02 11:27:36  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -40,14 +43,13 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <iostream>
-
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class OptionsCont;
 class MSNet;
+class OutputDevice;
 
 
 /* =========================================================================
@@ -65,11 +67,11 @@ public:
 
     /** @brief Builds the streams used possibly by the simulation
         */
-    static std::vector<std::ostream*> buildStreams(const OptionsCont &oc);
+    static std::vector<OutputDevice*> buildStreams(const OptionsCont &oc);
 
 
     /// Build the output stream named by the according option
-    static std::ostream *buildStream(const OptionsCont &oc,
+    static OutputDevice *buildStream(const OptionsCont &oc,
         const std::string &optionName);
 
     /// Performs the post-initialisation of the net (!!! should be somewhere else)

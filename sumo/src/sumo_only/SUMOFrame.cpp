@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/08/02 12:48:13  dkrajzew
+// using OutputDevices instead of ostreams; first steps towards a lane-change API
+//
 // Revision 1.20  2004/07/02 09:41:32  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -98,6 +101,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/ToString.h>
+#include <utils/iodevices/OutputDevice_File.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include "SUMOFrame.h"
@@ -155,15 +159,17 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("agent-detector-len", new Option_Float(75));
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
+    oc.doRegister("time-to-teleport", new Option_Integer(300));
 
     oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
+    oc.doRegister("default-lanechange-model", new Option_String("dk1"));
 }
 
 
-std::vector<std::ostream*>
+std::vector<OutputDevice*>
 SUMOFrame::buildStreams(const OptionsCont &oc)
 {
-    std::vector<std::ostream*> ret(MSNet::OS_MAX, 0);
+    std::vector<OutputDevice*> ret(MSNet::OS_MAX, 0);
     ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
     ret[MSNet::OS_TRIPINFO] = buildStream(oc, "tripinfo-output");
@@ -171,14 +177,14 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 }
 
 
-ostream *
+OutputDevice *
 SUMOFrame::buildStream(const OptionsCont &oc,
                        const std::string &optionName)
 {
     if(!oc.isSet(optionName)) {
         return 0;
     }
-    ostream *ret = new ofstream(oc.getString(optionName).c_str(),
+    ofstream *ret = new ofstream(oc.getString(optionName).c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
         MsgHandler::getErrorInstance()->inform(
@@ -189,7 +195,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
         MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
     }
-    return ret;
+    return new OutputDevice_File(ret);
 }
 
 
@@ -230,6 +236,15 @@ SUMOFrame::checkOptions(OptionsCont &oc)
     //
     if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
         oc.set("srand", toString<int>(time(0)));
+    }
+    //
+    if(oc.isSet("default-lanechange-model")) {
+        string t = oc.getString("default-lanechange-model");
+        if(t!="krauss"&&t!="dk1") {
+            MsgHandler::getErrorInstance()->inform(
+                "The end of the simulation (-e) is not specified.");
+            ok = false;
+        }
     }
     return ok;
 }
