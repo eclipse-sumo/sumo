@@ -96,8 +96,8 @@ dnl for NLS support. Call them in this order!
 dnl WITH_NLS is for the po files
 AM_KDE_WITH_NLS
 
-KDE_USE_QT(3)
-AC_PATH_QT
+dnl KDE_USE_QT(3)
+dnl AC_PATH_QT
 
 dnl KDE_NEED_FLEX dnl __kdevelop__
 dnl AC_PROG_YACC dnl __kdevelop__
@@ -207,7 +207,33 @@ KDE_CREATE_SUBDIRSLIST
 
 dnl add here all your Makefiles. This are created by configure
 AC_OUTPUT(
+Makefile
+data/Makefile
+data/cfg_templates/Makefile
+data/examples/Makefile
+data/examples/box1l/Makefile
+data/examples/box2l/Makefile
+data/examples/box3l/Makefile
+data/examples/box4l/Makefile
+data/examples/cross1l/Makefile
+data/examples/cross1ltl/Makefile
+data/examples/cross3l/Makefile
+data/examples/cross3ltl/Makefile
+data/examples/eight1l/Makefile
+data/examples/eight1ltl/Makefile
+data/examples/eight3l/Makefile
+data/examples/eight3ltl/Makefile
 data/ressources/Makefile
+data/types/Makefile
+docs/Makefile
+docs/gfx/Makefile
+prj/Makefile
+prj/gui/Makefile
+prj/netconvert/Makefile
+prj/od2trips/Makefile
+prj/router/Makefile
+prj/sumo/Makefile
+src/Makefile
 src/gui/Makefile
 src/gui/icons/Makefile
 src/guinetload/Makefile
@@ -217,6 +243,7 @@ src/microsim/Makefile
 src/netbuild/Makefile
 src/netimport/Makefile
 src/netimport/arcview/Makefile
+src/netimport/artemis/Makefile
 src/netimport/cell/Makefile
 src/netimport/sumo/Makefile
 src/netimport/vissim/Makefile
@@ -235,11 +262,12 @@ src/utils/distribution/Makefile
 src/utils/geom/Makefile
 src/utils/gfx/Makefile
 src/utils/importio/Makefile
+src/utils/logging/Makefile
 src/utils/options/Makefile
+src/utils/qutils/Makefile
 src/utils/router/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
-src/Makefile
 tools/Makefile
-Makefile)
+)
 
