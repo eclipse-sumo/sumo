@@ -1,4 +1,16 @@
-SUBDIRS = common convert distribution geom gfx importio options router \
-sumoxml xml
+SUBDIRS = common \
+convert \
+CVS \
+dev \
+distribution \
+geom \
+gfx \
+importio \
+options \
+qutils \
+router \
+sumoxml \
+xml 
+
 
 
