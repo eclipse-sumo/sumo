@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/08/02 11:28:57  dkrajzew
+// ported to fox 1.2
+//
 // Revision 1.1  2004/07/02 08:10:56  dkrajzew
 // edition of breakpoints and additional weights added
 //
@@ -92,7 +95,7 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
  * method definitions
  * ======================================================================= */
 GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIApplicationWindow *parent)
-    : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
+    : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
     myParent(parent), myEntriesAreValid(false)
 {
     FXHorizontalFrame *hbox =
@@ -125,6 +128,7 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIApplicationWindow *parent)
     myTable->setCellType(5, CT_REAL);
     myTable->setNumberCellParams(5, -100000000000000000.0, 1000000000000000.0,
         10, 100, 100000, "%.2f");
+    myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
     FXVerticalFrame *layout = new FXVerticalFrame( hbox, LAYOUT_TOP,0,0,0,0,

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/08/02 11:28:57  dkrajzew
+// ported to fox 1.2
+//
 // Revision 1.4  2004/07/02 08:08:32  dkrajzew
 // global object selection added
 //
@@ -83,7 +86,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
  * method definitions
  * ======================================================================= */
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIApplicationWindow *parent)
-    : FXMainWindow(gFXApp, "List of Selected Items", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
+    : FXMainWindow(gFXApp, "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
     myParent(parent)
 {
     FXHorizontalFrame *hbox =

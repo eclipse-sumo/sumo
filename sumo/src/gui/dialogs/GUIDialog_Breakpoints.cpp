@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/08/02 11:28:57  dkrajzew
+// ported to fox 1.2
+//
 // Revision 1.1  2004/07/02 08:10:56  dkrajzew
 // edition of breakpoints and additional weights added
 //
@@ -93,7 +96,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
  * method definitions
  * ======================================================================= */
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow *parent)
-    : FXMainWindow(gFXApp, "Breakpoints Editor", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
+    : FXMainWindow(gFXApp, "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
     myParent(parent)
 {
     FXHorizontalFrame *hbox =
@@ -112,6 +115,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow *parent)
         OptionsSubSys::getOptions().getInt("b"),
         OptionsSubSys::getOptions().getInt("e"),
         1, 10, 100, "%.0f");
+    myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
     FXVerticalFrame *layout = new FXVerticalFrame( hbox, LAYOUT_TOP,0,0,0,0,

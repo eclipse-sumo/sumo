@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/08/02 11:28:57  dkrajzew
+// ported to fox 1.2
+//
 // Revision 1.3  2004/07/02 08:08:32  dkrajzew
 // global object selection added
 //
@@ -94,7 +97,7 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
                                                GUIGlObjectType type,
                                                GUIGlObjectStorage &glStorage)
-    : FXMainWindow(gFXApp, "Instance Action Chooser", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
+    : FXMainWindow(gFXApp, "Instance Action Chooser", NULL, NULL, DECOR_ALL, 20,20,300, 300),
     myObjectType(type), myParent(parent)
 {
     FXHorizontalFrame *hbox =
