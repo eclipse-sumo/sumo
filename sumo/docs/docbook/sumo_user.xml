@@ -81,6 +81,9 @@
     <sect1>
       <title>About this document</title>
 
+      <para>This document describes how to use each of the applications that
+      come with the SUMO-package.</para>
+
       <para>This document is still under development and is meant to grow with
       the software. Due to this, you may find it together with the sources
       within out repository at sourceforge (<ulink
@@ -101,10 +104,10 @@
       <title>Call for Help</title>
 
       <para>Please let us know when either the document remains any point
-      unclear or the simulation does not behave as expected. We also seek for
-      some participants and further users, not only to share the development
-      tasks, but also to gain some feedback and critics or some usage
-      examples.</para>
+      unclear or any of the applications does not behave as expected. We also
+      seek for some participants and further users, not only to share the
+      development tasks, but also to gain some feedback and critics or some
+      usage examples.</para>
 
       <para>Every help is appreciated. Thank you.</para>
     </sect1>
@@ -800,11 +803,9 @@
           --output-file=MySUMOFile.net.xml</para>
         </blockquote>
 
-        <para>The possibility to import ArcView-databases parsed using
-        shapelib still exists but is hidden behind the parameter described
-        above. So if you want to use your textual representations you may
-        operate as before. The importer determines whether a textual or binary
-        representation is meant by himself.</para>
+        <para><caution><para>Please remark that the possibility to import
+        shapelib output files is not longer supperted using the
+        <option>--arcview</option>-option.</para></caution></para>
 
         <para>Some remarks:</para>
 
@@ -1291,6 +1292,9 @@
           the edge attributes from &#60;FILE(NO_EXTENSION)&#62;.dbf assuming
           it is an ArcView dbf-file or a file generated using shapelib&#39;s
           dbf-reader.</para></listitem><listitem><para>OPTIONAL:
+          <option>--elmar <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Parses
+          the files starting with &#60;FILE&#62; assuming they are stored in
+          the format Elmar Brockfeld uses to save NavTeq-data (IVF-internal).</para></listitem><listitem><para>OPTIONAL:
           <option>[ --configuration-file | --configuration | -c ]
           <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Specifies
           whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
@@ -1302,7 +1306,15 @@
           <para><itemizedlist spacing="compact"><listitem><para>MANDATORY:
           <option>[ --output-file | --output | -o ]
           <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Defines
-          the file to write the computed network into.</para></listitem></itemizedlist></para>
+          the file to write the computed network into.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --map-output ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Writes
+          a file &#60;FILE&#62; which holds the list of edges that were joined
+          to a single edge for each edge.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --plain-output ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Writes
+          the files &#60;FILE&#62;.nod.xml and &#60;FILE&#62;.edg.xml that
+          contain the descriptions about the nodes and the edges a network is
+          made of. These files may be reread into the netconverter using the
+          XML-import capabilities.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1348,20 +1360,14 @@
         </sect3>
 
         <sect3>
-          <title>Computation variables settings</title>
+          <title>Processing options</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
           <option>[ --capacity-norm | -C ] <replaceable>&#60;FLOAT&#62;</replaceable></option></para><para>The
           value to divide a given capacity by to gain the number of lanes.
           Default: 2000</para></listitem><listitem><para>OPTIONAL:
           <option>[ --min-decel | -D ] <replaceable>&#60;FLOAT&#62;</replaceable></option></para><para>The
-          minimum deceleration value for vehicles. Default: 3.0</para></listitem></itemizedlist></para>
-        </sect3>
-
-        <sect3>
-          <title>Processing options</title>
-
-          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          minimum deceleration value for vehicles. Default: 3.0</para></listitem><listitem><para>OPTIONAL:
           <option>--omit-corrupt-edges</option></para><para>Continues with
           parsing although a corrupt edge occurred. This edge is not inserted
           and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
@@ -1411,7 +1417,18 @@
           the minimum and the maximum number of a junction&#39;s outgoing
           edges to allow the junction to be controlled by a tls.</para><para>The
           default values are:</para><para><option>--tls-guess.no-outgoing-min</option>:
-          1</para><para><option>--tls-guess.no-outgoing-max</option>: 5</para></listitem></itemizedlist></para>
+          1</para><para><option>--tls-guess.no-outgoing-max</option>: 5</para></listitem><listitem><para>OPTIONAL:
+          <option>--explicite-junctions <replaceable>&#60;JUNCTION_ID&#62;[;&#60;JUNCTION_ID&#62;]*</replaceable></option></para><para>Informs
+          the network builder that the given junctions shall be treated as
+          being controlled by traffic lights, even if they do not match the
+          tls-guess rules.</para></listitem><listitem><para>OPTIONAL:
+          <option>--explicite-no-junctions <replaceable>&#60;JUNCTION_ID&#62;[;&#60;JUNCTION_ID&#62;]*</replaceable></option></para><para>Informs
+          the network builder that the given junctions shall be treated as NOT
+          being controlled by traffic lights, even if they match the tls-guess
+          rules.</para></listitem><listitem><para>OPTIONAL: <option>--edges-min-speed
+          <replaceable>&#60;FLOAT&#62;</replaceable></option></para><para>Informs
+          the network importer that edges with a lower speed than the one
+          defined by this options shall not be included into the network.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1532,7 +1549,15 @@
           <para><itemizedlist spacing="compact"><listitem><para>MANDATORY:
           <option>[ --output-file | --output | -o ]
           <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Defines
-          the file to write the computed network into.</para></listitem></itemizedlist></para>
+          the file to write the computed network into.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --map-output ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Writes
+          a file &#60;FILE&#62; which holds the list of edges that were joined
+          to a single edge for each edge.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --plain-output ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Writes
+          the files &#60;FILE&#62;.nod.xml and &#60;FILE&#62;.edg.xml that
+          contain the descriptions about the nodes and the edges a network is
+          made of. These files may be reread into the netconverter using the
+          XML-import capabilities.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1597,7 +1622,15 @@
           the minimum and the maximum number of a junction&#39;s outgoing
           edges to allow the junction to be controlled by a tls.</para><para>The
           default values are:</para><para><option>--tls-guess.no-outgoing-min</option>:
-          1</para><para><option>--tls-guess.no-outgoing-max</option>: 5</para></listitem></itemizedlist></para>
+          1</para><para><option>--tls-guess.no-outgoing-max</option>: 5</para></listitem><listitem><para>OPTIONAL:
+          <option>--explicite-junctions <replaceable>&#60;JUNCTION_ID&#62;[;&#60;JUNCTION_ID&#62;]*</replaceable></option></para><para>Informs
+          the network builder that the given junctions shall be treated as
+          being controlled by traffic lights, even if they do not match the
+          tls-guess rules.</para></listitem><listitem><para>OPTIONAL:
+          <option>--explicite-no-junctions <replaceable>&#60;JUNCTION_ID&#62;[;&#60;JUNCTION_ID&#62;]*</replaceable></option></para><para>Informs
+          the network builder that the given junctions shall be treated as NOT
+          being controlled by traffic lights, even if they match the tls-guess
+          rules.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -3367,55 +3400,55 @@
 
         <itemizedlist spacing="compact">
           <listitem>
-            <para>traveltime:</para>
+            <para><sgmltag>traveltime</sgmltag>:</para>
 
             <para>The mean travel time the vehicles needed to pass the lane.
             Only vehicles that pass the whole lane are regarded. Measure: s</para>
           </listitem>
 
           <listitem>
-            <para>speed:</para>
+            <para><sgmltag>speed</sgmltag>:</para>
 
             <para>The mean speed the vehicles had when passing the lane. Only
             vehicles that pass the whole lane are regarded. Measure: m/s</para>
           </listitem>
 
           <listitem>
-            <para>speedsquare:</para>
+            <para><sgmltag>speedsquare</sgmltag>:</para>
 
             <para>Squared speed (?). Measure: m^2/s^2</para>
           </listitem>
 
           <listitem>
-            <para>density:</para>
+            <para><sgmltag>density</sgmltag>:</para>
 
             <para>The mean density on the lane during the interval. Only
             vehicles that pass the whole lane are regarded. Measure: veh/h</para>
           </listitem>
 
           <listitem>
-            <para>noVehContrib:</para>
+            <para><sgmltag>noVehContrib</sgmltag>:</para>
 
             <para>The number of vehicles that were on the lane during the
             interval. All vehicles are regarded. Measure: n (veh)</para>
           </listitem>
 
           <listitem>
-            <para>noVehEntire:</para>
+            <para><sgmltag>noVehEntire</sgmltag>:</para>
 
             <para>The number of vehicles that have passed the lane completely.
             Measure: n (veh)</para>
           </listitem>
 
           <listitem>
-            <para>noVehEntered:</para>
+            <para><sgmltag>noVehEntered</sgmltag>:</para>
 
             <para>The number of vehicles that have entered the lane during the
             interval. Measure: n (veh)</para>
           </listitem>
 
           <listitem>
-            <para>noVehLeft:</para>
+            <para><sgmltag>noVehLeft</sgmltag>:</para>
 
             <para>The number of vehicles that have left the lane during the
             interval. Measure: n (veh)</para>
@@ -3645,6 +3678,15 @@
         </sect3>
 
         <sect3>
+          <title>Other control operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>--time-to-teleport <replaceable>&#60;INT&#62;</replaceable></option></para><para>Defines
+          the time the simulation shall wait until a standing vehicle is
+          recognized as being in a grid lock and is teleported.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
           <title>Report options</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
@@ -3727,9 +3769,14 @@
           you have to describe the simulation in full - no further extension
           is possible.</para><para>You can of course load a simulation if
           another one is already loaded. In this case, the previous simulation
-          will be closed.</para></listitem><listitem><para>Reload Simulation</para><para>Reloads
+          will be closed.</para></listitem><listitem><para>Reload Simulation
+          <inlinegraphic fileref="./gfx/user/reload.gif" format="GIF" /></para><para>Reloads
           the previously opened simulation.</para></listitem><listitem><para>Close</para><para>Closes
-          the loaded simulation.</para></listitem><listitem><para>Quit</para><para>Quits
+          the loaded simulation.</para></listitem><listitem><para>[RECENT
+          FILES]</para><para>if you have opened at least one file before, it
+          will be displayed within this list. The list may contain up to ten
+          files read previously.</para></listitem><listitem><para>Clear Recent
+          Files</para><para>Clears the list of recent files.</para></listitem><listitem><para>Quit</para><para>Quits
           the application.</para></listitem></itemizedlist></para>
         </sect3>
 
@@ -3737,7 +3784,16 @@
           <title>Edit-Menu</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Edit Chosen...</para><para>Opens
-          a dialog that lets you load/save and edit the list of chosen items.</para></listitem></itemizedlist></para>
+          a dialog that lets you load/save and edit the list of chosen items.</para></listitem><listitem><para>Edit
+          Additional Weights...</para><para>This menu enables you to edit
+          additional weights for edges. These additional weight descriptions
+          may be saved into a file and read by the dua-router and his
+          variants.</para></listitem><listitem><para>Edit Breakpoints...</para><para>This
+          menu enables you to edit, load and save breakpoints. By now, the
+          simulation will stop at one of the given brekpoints (simulation time
+          steps) and can be then continued by pressing the
+          &#34;play&#34;-button (<inlinegraphic fileref="./gfx/user/play.gif"
+          format="GIF" />).</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -3765,7 +3821,8 @@
           Horizontally</para><para>Reorders the position of windows.</para></listitem><listitem><para>Tile
           Vertically</para><para>Reorders the position of windows.</para></listitem><listitem><para>Cascade</para><para>Reorders
           the position of windows.</para></listitem><listitem><para>Close</para><para>Closes
-          the uppermost window.</para></listitem></itemizedlist></para>
+          the uppermost window.</para></listitem><listitem><para>Clear Message
+          Window</para><para>Deletes all contents from the message window.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -3802,7 +3859,7 @@
           will begin with the step described by the b(egin)-parameter within
           the loaded configuration file. If the simulation was started and
           stopped, it will continue.</para><caution><para>It is not possible
-          to restart a simulation.</para></caution></listitem><listitem><para>Stop
+          to restart a simulation, you have to reload it.</para></caution></listitem><listitem><para>Stop
           Button <inlinegraphic fileref="./gfx/user/stop.gif" format="GIF" /></para><para>Stops
           a running application. A stopped application can be continued using
           the play-button (see above).</para></listitem><listitem><para>Single
@@ -3821,19 +3878,10 @@
           <para><itemizedlist spacing="compact"><listitem><para>New
           Microscopic View - Button <inlinegraphic
           fileref="./gfx/user/new_window.gif" format="GIF" /></para><para>Opens
-          a new window which displays the streets and vehicles moving on them.</para><caution><para>If
-          the previous window is maximized (fills the whole application area),
-          the new one will be maximized, too. This lets the previous window
-          disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
-          both windows.</para></caution></listitem><listitem><para>New
+          a new window which displays the streets and vehicles moving on them.</para></listitem><listitem><para>New
           Lane-Aggregated View - Button <inlinegraphic
           fileref="./gfx/user/new_window.gif" format="GIF" /></para><para>Opens
-          a new window which displays the streets and vehicles moving on them.</para><caution><para>If
-          the previous window is maximized (fills the whole application area),
-          the new one will be maximized, too. This lets the previous window
-          disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
-          both windows.</para></caution><caution><para>Under current
-          development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+          a new window which displays the streets and vehicles moving on them.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
@@ -3945,8 +3993,12 @@
           avaliable for vehicles:</para><itemizedlist spacing="compact"><listitem><para>by
           speed: The vehicle colour change continuously from blue to red with
           decreasing speed</para></listitem><listitem><para>specified: The
-          loaded vehicle colours are used</para></listitem><listitem><para>random#1:
-          Vehicles are coloured randomly (each vehicle has a certain colour)</para></listitem><listitem><para>random#2:
+          loaded vehicle colours are used</para></listitem><listitem><para>by
+          type: The vehicles are coloured as defined within the vehicle&#39;s
+          type definition</para></listitem><listitem><para>by route: The
+          vehicles are coloured as defined within the vehicle&#39;s route
+          definition</para></listitem><listitem><para>random#1: Vehicles are
+          coloured randomly (each vehicle has a certain colour)</para></listitem><listitem><para>random#2:
           Vehicles are coloured randomly (each vehicle has a certain colour);
           Quite the same as &#34;random#1&#34;, but a different method is used
           to compute the random colour</para></listitem><listitem><para>lanechange#1:
@@ -3983,7 +4035,7 @@
           density: The lanes are coloured by the mean density of vehicles over
           them</para></listitem><listitem><para>by mean speed: The lanes are
           coloured by the mean speed of vehicles passing them, blue for fast
-          lanes, red for slow</para></listitem><listitem><para>by Mean halts:
+          lanes, red for slow</para></listitem><listitem><para>by mean halts:
           <caution><para>... not working, yet. ...</para></caution></para></listitem><listitem><para>black:
           All lanes are black</para></listitem><listitem><para>by purpose:
           normal lanes are coloured black, sources green, sinks red and
@@ -4048,6 +4100,35 @@
       </sect2>
 
       <sect2>
+        <title>Object Selection</title>
+
+        <para>From version 0.8. you are able to add every object that has a
+        name (as shown if turning Tool Tips on) into a list of selected
+        objects. You can select an object by holding the <keysym>Alt</keysym>-key
+        and pressing the left mouse button when the mouse is over the object.
+        Doing the same a second time will deselect the object again. You may
+        wonder whether an object is selected or not. Use the lane colouring
+        &#34;<guilabel>by selection</guilabel>&#34; from &#34;<guimenuitem>Change
+        Lane Colouring Scheme</guimenuitem>&#34;. When this colouring scheme
+        is used, selected lanes are shown blueish, the other black.</para>
+
+        <para>The menu entry <menuchoice><guimenu>Edit-&#62;Edit Chosen...</guimenu></menuchoice>
+        allows you to edit the list of selected objects by deselected ones you
+        don&#39;t need. It also allows you to save the list of selected
+        objects. The resulting file contains the names of the selected objects
+        predeccesed by the object&#39;s type, one per line.</para>
+
+        <caution>
+          <para><guibutton>Load</guibutton> is not implemented, yet.</para>
+        </caution>
+
+        <caution>
+          <para>The handling of selected items is not yet designed cmopletely.
+          Parts of the gui&#39;s behavior may change in the next time.</para>
+        </caution>
+      </sect2>
+
+      <sect2>
         <title>Parameter Windows</title>
 
         <para>If you choose the option &#34;<guimenuitem>Show Parameter</guimenuitem>&#34;
@@ -4109,32 +4190,27 @@
       </sect2>
 
       <sect2>
-        <title>Object Selection</title>
+        <title>TL-Tracker Windows</title>
 
-        <para>From version 0.8. you are able to add every object that has a
-        name (as shown if turning Tool Tips on) into a list of selected
-        objects. You can select an object by holding the <keysym>Alt</keysym>-key
-        and pressing the left mouse button when the mouse is over the object.
-        Doing the same a second time will deselect the object again. You may
-        wonder whether an object is selected or not. Use the lane colouring
-        &#34;<guilabel>by selection</guilabel>&#34; from &#34;<guimenuitem>Change
-        Lane Colouring Scheme</guimenuitem>&#34;. When this colouring scheme
-        is used, selected lanes are shown blueish, the other black.</para>
+        <para>If you position your mouse over one of the red, green or yellow
+        traffic light-bars that show the state of the traffic light and press
+        the right mouse button for at least one second, the appearing pop-up
+        includes a menu entry &#34;<guimenuitem>Show Phases</guimenuitem>&#34;.
+        Choosing this menu item will show up a diagram that shows the states
+        of the tl chronologically. Each pixel in x-direction shows the state
+        of the tls of one second. The display contains the tl-states from the
+        time the tracker has been opened, no scrolling aorund is supported.</para>
 
-        <para>The menu entry <menuchoice><guimenu>Edit-&#62;Edit Chosen...</guimenu></menuchoice>
-        allows you to edit the list of selected objects by deselected ones you
-        don&#39;t need. It also allows you to save the list of selected
-        objects. The resulting file contains the names of the selected objects
-        predeccesed by the object&#39;s type, one per line.</para>
+        <figure>
+          <title>A sample usage of the tls-tracker</title>
 
-        <caution>
-          <para><guibutton>Load</guibutton> is not implemented, yet.</para>
-        </caution>
-
-        <caution>
-          <para>The handling of selected items is not yet designed cmopletely.
-          Parts of the gui&#39;s behavior may change in the next time.</para>
-        </caution>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="./gfx/user/tlstracker.gif"
+              format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
       </sect2>
     </sect1>
 
@@ -4265,7 +4341,7 @@
       their usage not as straightforward as plain CSV-file, for example, but
       with some additional tools, these files are far more flexible and
       powerful. Some tools can be found within the tools/-folder coming with
-      the release. We will discuss these</para>
+      the release.</para>
     </sect1>
   </chapter>
 

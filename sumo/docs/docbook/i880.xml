@@ -33,7 +33,13 @@
   <chapter id="dev_chp01">
     <title>Introduction</title>
 
-    <para>... to be described ...</para>
+    <para>This project is meant to be an example of calibration and validation
+    of traffic simulations, especially SUMO in order to match the model&#39;s
+    parameter to the reality. The I880-data were made available to the public
+    by the &#34;Freeway Service Patrol Project&#34; (FSP). The main internet
+    pages located at <ulink url="???">http://paleale.eecs.berkeley.edu/FSP/</ulink>
+    seem to be no longer available, but you may get some further information
+    from the pages of the traffic clearinghouse (<ulink url="???">http://www.clearingstelle-verkehr.de/cs/verkehrsdaten/katalog/katalogberichte/fsp</ulink>)</para>
   </chapter>
 
   <chapter id="dev_chp02">
@@ -62,7 +68,7 @@
       position of the junction between the I880 and the Hesperian Blvd. as
       well as the position of the junction between the I880 and the eastbound
       off-ramp are completely unknown. We propose to model them variable and
-      try to recheck the influence of this insufficiency later. </para>
+      try to recheck the influence of this insufficiency later.</para>
 
       <para>!!! bild</para>
 
@@ -179,7 +185,8 @@
 
       <para>By starting sumo-netconvert with the following command line:</para>
 
-      <screen>sumo-netconvert -n i880.nod.xml -e i880.edg.xml -o i880.net.xml –vC</screen>
+      <screen>sumo-netconvert -n i880.nod.xml -e i880.edg.xml -o i880.net.xml
+      –vC</screen>
 
       <para>We obtained the sumo-network-file „i880.net.xml“. Some words about
       it:</para>

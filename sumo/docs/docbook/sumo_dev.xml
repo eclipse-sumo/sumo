@@ -81,16 +81,15 @@
     <sect1>
       <title>About this document</title>
 
+      <para>This document describes the interna of the SUMO-applications in
+      order to allow third party developers to continue the development of
+      this software.</para>
+
       <para>This document is still under development and is meant to grow with
       the software. Due to this, you may find it together with the sources
       within out repository at sourceforge (<ulink
       url="http://sumo.sourceforge.net">http://sumo.sourceforge.net/</ulink>).
       It should always describe the current version.</para>
-
-      <para>We should remark, that this document only covers the usage of the
-      software and some description of the models used. Information about the
-      programming side - if you want to extend the software what is really
-      appreciated by us - may be found in the programmer manual.</para>
 
       <para>We should also remark, that the previous division of documents
       where each document described a single application is now abandoned. We
@@ -101,17 +100,17 @@
       <title>Call for Help</title>
 
       <para>Please let us know when either the document remains any point
-      unclear or the simulation does not behave as expected. We also seek for
-      some participants and further users, not only to share the development
-      tasks, but also to gain some feedback and critics or some usage
-      examples.</para>
+      unclear or any of the applications does not behave as expected. We also
+      seek for some participants and further users, not only to share the
+      development tasks, but also to gain some feedback and critics or some
+      usage examples.</para>
 
       <para>Every help is appreciated. Thank you.</para>
     </sect1>
   </chapter>
 
   <chapter id="dev_chp02">
-    <title>Generics</title>
+    <title>Basics</title>
 
     <para>Within this first chapter, we will describe some generic information
     valid for all applications within the SUMO package</para>
@@ -161,12 +160,12 @@
             <listitem>
               <para>Download the <ulink
               url="http://xml.apache.org/xerces-c/index.html">Xerces C++
-              library</ulink> (version 2.4 or greater) and the <ulink
+              library</ulink> (version 2.5 or greater) and the <ulink
               url="http://www.fox-toolkit.org">FOX</ulink>-library (version
-              1.1.46) for windows (both available at our <ulink
+              1.2.x) for windows (both available at our <ulink
               url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
               Make sure to download the Linux-version of Xerces and sources
-              for FOX in the version 1.1.46.</para>
+              for FOX in the version 1.2.x.</para>
             </listitem>
 
             <listitem>
@@ -351,12 +350,12 @@
           <listitem>
             <para>Download the <ulink
             url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
-            (version 2.4 or greater) and the <ulink
+            (version 2.5 or greater) and the <ulink
             url="http://www.fox-toolkit.org">FOX</ulink>-library (version
-            1.1.46) for windows (both available at our <ulink
+            1.2.x) for windows (both available at our <ulink
             url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
             Make sure to download the Xerces-version that fits to your system
-            (MS Windows / Linux) and sources for FOX in the version 1.1.46.</para>
+            (MS Windows / Linux) and sources for FOX in the version 1.2.x.</para>
           </listitem>
 
           <listitem>
@@ -383,15 +382,15 @@
 
             <para>FOX=&#60;PATH_TO_FOX&#62;</para>
 
-            <para>Example: If you have installed fox to D:\libs\fox-1.1.46,
+            <para>Example: If you have installed fox to D:\libs\fox-1.2.x,
             then your environment variables should contain
-            FOX=D:\libs\fox-1.1.46</para>
+            FOX=D:\libs\fox-1.2.x</para>
           </listitem>
 
           <listitem>
             <para>Compile the fox-library (Xerces comes mostly with
             precompiled binaries, so a rebuild is not necessary) and copy
-            FOXDLL-1.1.dll and FOXDLLD-1.1.dll into your windows-system
+            FOXDLL-1.2.dll and FOXDLLD-1.2.dll into your windows-system
             folder.</para>
           </listitem>
 
@@ -439,6 +438,12 @@
       context are located within the utils-folder. All other folders hold
       classes responsible for a certain part of the simulation building and
       execution process.</para>
+
+      <para>Within the MSVC-environments you will find three types of projects
+      within the workspace: a) executables, named as the executable that is
+      build; b) uncommon libraries, named y_lib*, which are used by a small
+      subset of applications each; c) common libraries used by most of the
+      applications.</para>
 
       <sect2>
         <title>Modules</title>
@@ -595,6 +600,13 @@
                 </row>
 
                 <row>
+                  <entry>iodevices</entry>
+
+                  <entry>This package contains various types of output
+                  devices, such as files or cout, data can be written into</entry>
+                </row>
+
+                <row>
                   <entry>options</entry>
 
                   <entry>classes that read an application&#39;s options from
@@ -637,7 +649,7 @@
                 <entry>GUI</entry>
 
                 <entry>Uses<itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
-                &#38; sumo_help.h</para></listitem><listitem><para>gui/*</para></listitem><listitem><para>guinetload/*</para></listitem><listitem><para>guisim/*</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/fonts/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/glutils/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/qutils/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+                &#38; sumo_help.h</para></listitem><listitem><para>gui/*</para></listitem><listitem><para>guinetload/*</para></listitem><listitem><para>guisim/*</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/fonts/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/glutils/*</para></listitem><listitem><para>utils/iodevices/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/qutils/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
               </row>
 
               <row>
@@ -672,7 +684,7 @@
                 <entry>SUMO</entry>
 
                 <entry>Uses<itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
-                &#38; sumo_help.h</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+                &#38; sumo_help.h</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/iodevices/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
               </row>
             </tbody>
           </tgroup>
@@ -1008,6 +1020,71 @@
           <para>Made of only one class, located in <filename>utils/xml/XMLSubSys.h</filename>
           and <filename>utils/xml/XMLSubSys.cpp</filename>.</para>
         </sect3>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Program Flow</title>
+
+      <para>The application within the SUMO-package may be divided into two
+      groups: those that are simple command line applications and those that
+      have a graphical user interface. The main application flow is almost the
+      same for all applications that belong to the same of those groups. Due
+      to this, withinthe next two chapters, we will describe briefly both
+      flows not regarding each of the applications&#39; special issues at
+      first. </para>
+
+      <sect2>
+        <title>Program Flow within Command Line Applications</title>
+
+        <para>... to be described ...</para>
+      </sect2>
+
+      <sect2>
+        <title>Program Flow within Applications having a GUI</title>
+
+        <para>... to be described ...</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Coding Style</title>
+
+      <sect2>
+        <title>Portability</title>
+
+        <para>Use only classes and structures which can be compiled using both
+        the MSVC-6.0/7.0 and the gcc. This excludes thing such as:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>MFC-classes</para>
+          </listitem>
+
+          <listitem>
+            <para>templates with partial definition (yep, sorry about this)</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+
+      <sect2>
+        <title>Source Code</title>
+
+        <itemizedlist>
+          <listitem>
+            <para>Use the suffixes &#34;.h&#34; and &#34;.cpp&#34; to name
+            your header/implementation-files</para>
+          </listitem>
+
+          <listitem>
+            <para>The definition of inline-functions in &#34;.icc&#34;-files
+            is deprecated and should not be used</para>
+          </listitem>
+
+          <listitem>
+            <para>do not use the &#34;using&#34; statement in your .h-files</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
     </sect1>
   </chapter>
@@ -1592,64 +1669,64 @@
         and the junction definitions is saved.</para>
       </sect2>
     </sect1>
+  </chapter>
+
+  <chapter id="dev_chp05">
+    <title>Further Notes</title>
 
     <sect1>
-      <title>Further Notes</title>
+      <title>Error Handling</title>
 
-      <sect2 id="ErrorHandling">
-        <title>Error Handling</title>
+      <para>All errors we know about that may happen during the program&#39;s
+      execution are reported to the user when they occur - despite a memory
+      overflow. When an error occurs, the program does not try to solve it as
+      we did not encounter errors yet that have any other character than false
+      data supplied by the user. Instead, the error is reported and the
+      program terminates.</para>
 
-        <para>All errors we know about that may happen during the
-        program&#39;s execution are reported to the user when they occur -
-        despite a memory overflow. When an error occurs, the program does not
-        try to solve it as we did not encounter errors yet that have any other
-        character than false data supplied by the user. Instead, the error is
-        reported and the program terminates.</para>
+      <para>A developer should respect this paradigm and try to catch every
+      false input or situation and report the error to the user providing him
+      as many information as available. The further processing may be aborted
+      using a &#34;ProcessError&#34; - exception instance, which is caught by
+      the main method.</para>
 
-        <para>A developer should respect this paradigm and try to catch every
-        false input or situation and report the error to the user providing
-        him as many information as available. The further processing may be
-        aborted using a &#34;ProcessError&#34; - exception instance, which is
-        caught by the main method.</para>
+      <para>Warnings may be reported to the user and we in fact have prepared
+      an option that should help you determine whether such reports are wished
+      or not. Unfortunately, this option is not yet implemented.</para>
+    </sect1>
 
-        <para>Warnings may be reported to the user and we in fact have
-        prepared an option that should help you determine whether such reports
-        are wished or not. Unfortunately, this option is not yet implemented.</para>
+    <sect1>
+      <title>Debug Macros</title>
+
+      <para>We have defined some debug macro definitions that let some parts
+      of the computation be very verbose or check some values for certain
+      examples. We will present them now, briefly.</para>
+
+      <sect2 id="DebugMacros">
+        <title>TL_DEBUG</title>
+
+        <para>This definition lets the computation of traffic lights be very
+        verbose.</para>
       </sect2>
 
       <sect2 id="DebugMacros">
-        <title>Debug Macros</title>
+        <title>CROSS_TEST</title>
 
-        <para>We have defined some debug macro definitions that let some parts
-        of the computation be very verbose or check some values for certain
-        examples. We will present them now, briefly.</para>
+        <para>For the cross3ltl-example, this definition checks some values
+        that should be true. If not, unfulfilled assertion exceptions are
+        thrown:</para>
 
-        <sect3>
-          <title>-D TL_DEBUG</title>
+        <itemizedlist>
+          <listitem>
+            <para>Correct turning destinations after
+            &#34;computeTurningDirections&#34;</para>
+          </listitem>
 
-          <para>This definition lets the computation of traffic lights be very
-          verbose.</para>
-        </sect3>
-
-        <sect3>
-          <title>-D CROSS_TEST</title>
-
-          <para>For the cross3ltl-example, this definition checks some values
-          that should be true. If not, unfulfilled assertion exceptions are
-          thrown:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Correct turning destinations after
-              &#34;computeTurningDirections&#34;</para>
-            </listitem>
-
-            <listitem>
-              <para>Correct order of edges in node &#34;0&#34; after
-              &#34;sortNodesEdges&#34;</para>
-            </listitem>
-          </itemizedlist>
-        </sect3>
+          <listitem>
+            <para>Correct order of edges in node &#34;0&#34; after
+            &#34;sortNodesEdges&#34;</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
     </sect1>
   </chapter>
