@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2002/06/11 15:07:08  dkrajzew
+// error checking fixed
+//
 // Revision 1.10  2002/06/11 14:39:27  dkrajzew
 // windows eol removed
 //
@@ -197,7 +200,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLContainer &cont, SAX2
         step++;
     }
     subreport("Loading of " + getDataName(what) + " done.", "Loading of " + getDataName(what) + " failed.");
-    return SErrorHandler::errorOccured();
+    return !SErrorHandler::errorOccured();
 }
 
 void
