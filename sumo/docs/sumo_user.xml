@@ -55,14 +55,15 @@
       <title>Features</title>
 
       <para><itemizedlist><listitem><para>High portability (using standard -
-      c++)</para></listitem><listitem><para>Collision free vehicle movement</para></listitem><listitem><para>Different
-      vehicle types</para></listitem><listitem><para>Single-vehicle routing</para></listitem><listitem><para>Multi-lane
+      c++ and portable libraries only)</para></listitem><listitem><para>Collision
+      free vehicle movement</para></listitem><listitem><para>Different vehicle
+      types</para></listitem><listitem><para>Single-vehicle routing</para></listitem><listitem><para>Multi-lane
       streets with lane changing</para></listitem><listitem><para>Junction-based
       right-of-way rules</para></listitem><listitem><para>Hierarchy of
-      junction types</para></listitem><listitem><para>A fast openGL GUI</para></listitem><listitem><para>Dynamic
-      routing</para></listitem><listitem><para>Manages networks with several
-      10.000 edges (streets)</para></listitem><listitem><para>Fast execution
-      speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>Supports
+      junction types</para></listitem><listitem><para>A fast openGL graphical
+      user interface</para></listitem><listitem><para>Dynamic routing</para></listitem><listitem><para>Manages
+      networks with several 10.000 edges (streets)</para></listitem><listitem><para>Fast
+      execution speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>Supports
       import of many network formats (Visum, Vissim, ArcView,
       XML-Descriptions)</para></listitem></itemizedlist></para>
     </sect1>
@@ -74,11 +75,10 @@
       the software. Due to this, you may find it together with the sources
       within out repository at sourceforge (<ulink
       url="http://sumo.sourceforge.net/projects/sumo">http://sumo.sourceforge.net/projects/sumo</ulink>).
-      In this version, it describes the SUMO-release 0.8. The information
-      about the document state can be found at the end of the document.</para>
+      In this version, it describes the SUMO-release 0.8.</para>
 
       <para>We should remark, that this document only covers the usage of the
-      software and some description of the models used. Information on the
+      software and some description of the models used. Information about the
       programming side - if you want to extend the software what is really
       appreciated by us - may be found in the programmer manual.</para>
 
@@ -833,7 +833,7 @@
 
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />Due to their
-            size, import of ArcView data does dure quite long!</para></caution></para>
+            size, import of ArcView data dures quite long!</para></caution></para>
 
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />Please do also
@@ -1006,7 +1006,7 @@
 
             <para>During import, different actions must be done which may
             yield in some loss of data and may be watched in part by setting
-            the verbose option. The additional warnings are described in a
+            the verbose option. The additional warnings will be described in a
             further document.</para>
           </sect4>
 
@@ -1024,7 +1024,7 @@
             <para>An usage example could be this one:</para>
 
             <blockquote>
-              <para>netconvert(.exe) --vissim=&#60;VISSIM_FILE&#62;
+              <para>netconvert(.exe) --visum=&#60;VISUM_FILE&#62;
               --output-file=MySUMOFile.net.xml</para>
             </blockquote>
           </sect4>
@@ -1255,24 +1255,24 @@
         no cars would be driving around. You still need some kind of
         description about the vehicles. A vehicle consists of three parts: the
         vehicle itself, its type and the route. We will describe this in
-        detail later as most of the things to generate these descriptions may
-        be done without knowing this.</para>
+        detail later as most of the step needed to generate these descriptions
+        may be done without knowing this.</para>
 
         <para>If you are importing data from other simulation packages, they
-        have own representations of vehicle movements you can use. In case of
-        using ArcView-data or if you do not have the vehicle movement data,
-        you have to generate the movements by your own. We will now describe,
-        how to import vehicle movements from other simulations and how to
-        build own movement descriptions.</para>
+        bring own representations of vehicle movements you can use. In case of
+        using ArcView- or own data or in other cases where you do not have the
+        vehicle movements at all, you have to generate the movements by your
+        own. We will now describe, how to import vehicle movements from other
+        simulations and how to build own movement descriptions.</para>
 
         <para>Before doing this, we want to explain why you possibly need two
-        programs to do it: Within the real life single vehicles are using a
-        route the driver knows which may be any list of streets the vehicle
-        passes. This is quite simple but the amount of data needed to describe
-        this is very large. Due to this, vehicle movements are often given as
-        the amount of vehicles moving from one point to another point within
-        the network. A point in this sense may be a position on the street,
-        but mostly it is something like a district or another area. Given such
+        steps to do it: Within the real life single vehicles are using a route
+        the driver knows which may be a list of streets the vehicle passes.
+        This is quite simple but the amount of data needed to describe this is
+        very large. Due to this, vehicle movements are often given as the
+        amount of vehicles moving from one point to another point within the
+        network. A point in this sense may be a position on the street, but
+        mostly it is something like a district or another area. Given such
         information, you have to generate single trips from this so-called
         OD-matrix (Origin/Destination-matrix) using the SUMO-OD2TRIP-tool.</para>
 
@@ -1307,6 +1307,14 @@
         is even the only possible way in most cases. Information about how to
         import routes from existing simulations is listed later.</para>
 
+        <para>One application that has been added to the package for 0.8
+        release was the junction turning ratio (jtr-)router. Instead of using
+        a description about a vehicles starting end ending point, it uses a
+        starting point only and routes the vehicle through the net by choosing
+        a new direction at each junction the vehicle approaches. This approach
+        is quite common within traffic modelling and may be helpful, when no
+        flows are given.</para>
+
         <sect3>
           <title>Building own routes from scratch</title>
 
@@ -1324,23 +1332,31 @@
             the following call:</para>
 
             <blockquote>
-              <para>router(.exe) --net=&#60;SUMO_NET&#62; -R &#60;FLOAT&#62;
-              --output-file=MySUMORoutes.rou.xml -b &#60;UINT&#62; -e
-              &#60;UINT&#62;</para>
+              <para>duarouter(.exe) --net=&#60;SUMO_NET&#62; -R
+              &#60;FLOAT&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</para>
             </blockquote>
 
-            <para>Generates random routes for the time interval given by
+            <para>or the same for the jtr-router:</para>
+
+            <blockquote>
+              <para>jtrrouter(.exe) --net=&#60;SUMO_NET&#62; -R
+              &#60;FLOAT&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</para>
+            </blockquote>
+
+            <para>generates random routes for the time interval given by
             -b(egin) and -e(nd). In each time step as many vehicles will be
             emitted into the network as given by the value of -R
-            (--random-per-second). You can also supply values which smaller
-            than one. In this case, a single vehicle will be emitted each 1/-R
-            step. Example: -R 0.25 generates a route description, which, when
-            loaded, forces the simulation to emit a single vehicle each fourth
-            time step.</para>
+            (--random-per-second). You can also supply values smaller than
+            one. In this case, a single vehicle will be emitted each
+            1/&#60;-R&#62; step. Example: -R 0.25 generates a route
+            description, which, when loaded, forces the simulation to emit a
+            single vehicle each fourth time step.</para>
 
-            <para>It is also possible to use this parameter in combination of
-            other route definitions, for example supplying some fix routes and
-            additionally generate random routes.</para>
+            <para>It is also possible to use this parameter in combination
+            with other route definitions, for example supplying some fix
+            routes and additionally generate random routes.</para>
 
             <para><inlinegraphic fileref="./gfx/attention_small.gif"
             format="GIF" /> Random routes are not the best way to generate
@@ -1354,6 +1370,17 @@
             solved using definitions of routes. We will discuss this in the
             second subchapter.</para>
 
+            <figure>
+              <title>A network where the usage of random routes causes an
+              improper behaviour due to the mixture of rural and minor roads</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/ivf.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
+
             <para><inlinegraphic fileref="./gfx/attention_small.gif"
             format="GIF" /> There is also another problem with random routes:
             By definition, in 50% of the cases, the route starts in the
@@ -1366,7 +1393,20 @@
           </sect4>
 
           <sect4>
-            <title>Generation of own, explicite routes</title>
+            <title>Generation of own, explicite routes using Trip Definitions</title>
+
+            <para>There are two possibilities to describe own routes. The
+            first one id the usage of trip definitions, the second one the
+            usage of flow descriptions. Trip definitions describe the movement
+            of a single vehicle giving the departure time, and bot the origin
+            and the destination via their edge-id. Flow descriptions use these
+            values to, but instead of describing only one vehicle, the
+            description is used for a defined number of vehicles to be emitted
+            within a described interval. Due to this, instead of the departure
+            time, the period&#39;s begin and end times must be supplied and
+            the number of vehicles to emit within this interval.</para>
+
+            <para>We will describe both applications less briefly, now.</para>
 
             <para>Trip definitions that can be laid into the network may be
             supplied to the router using an XML-file. The syntax of a single
@@ -1376,7 +1416,7 @@
             to=&#34;&#60;DESTINATION_EDGE_ID&#62;&#34;
             [type=&#34;&#60;VEHICLE_TYPE&#62;&#34;]
             [period=&#34;&#60;INT&#62;&#34;
-            [repno=&#34;&#60;INT&#62;&#34;]]/&#62;</sgmltag>. You have to
+            [repno=&#34;&#60;INT&#62;&#34;]/&#62;</sgmltag>. You have to
             supply the edge the trip starts at (origin), the edge the trip
             ends at (destination) and the departure time at least. If the type
             is not given, a default (&#34;SUMO_DEFAULT_TYPE&#34;) will be used
@@ -1427,124 +1467,275 @@
             &#34;--trip-defs&#34; or &#34;-t&#34;:</para>
 
             <blockquote>
-              <para>router(.exe) --trip-defs=&#60;TRIP_DEFS&#62;
+              <para>duarouter(.exe) --trip-defs=&#60;TRIP_DEFS&#62;
               --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
               &#60;UINT&#62; -e &#60;UINT&#62;</para>
             </blockquote>
+
+            <para>Flow amounts share most of the parameter with trip
+            definitions. The syntax is: <sgmltag>&#60;flow
+            id=&#34;&#60;ID&#62;&#34; from=&#34;&#60;ORIGIN_EDGE_ID&#62;&#34;
+            to=&#34;&#60;DESTINATION_EDGE_ID&#62;&#34;
+            begin=&#34;&#60;INTERVAL_BEGIN&#62;&#34;
+            end=&#34;&#60;INTERVAL_END&#62;&#34;
+            no=&#34;&#60;VEHICLES_TO_EMIT&#62;&#34;
+            [type=&#34;&#60;VEHICLE_TYPE&#62;&#34;]/&#62;</sgmltag>. Notice
+            the following differences: the vehicle does not take a certain
+            departure time as not only one vehicle is described by this
+            paremeter, but a set of, given within the attribute &#34;no&#34;
+            (short for number). The departure times are spread uniformly
+            within the time interval described by &#60;INTERVAL_BEGIN&#62; and
+            &#60;INTERVAL_END&#62;. All these three attributes must be integer
+            values. The values &#34;period&#34; and &#34;repno&#34; are not
+            used herein. Flow definitions can also be embedded into an
+            interval tag. In this case one can (but does not have to) leave
+            the tags &#34;begin&#34; and &#34;end&#34; out. So the folowing
+            two snipplets mean the same:</para>
+
+            <para>a) <sgmltag>&#60;flow id=&#34;0&#34; from=&#34;edge0&#34;
+            to=&#34;edge1&#34; begin=&#34;0&#34; end=&#34;3600&#34;
+            no=&#34;100&#34;/&#62;</sgmltag></para>
+
+            <para>b) <sgmltag>&#60;interval begin=&#34;0&#34;
+            end=&#34;3600&#34;&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;flow id=&#34;0&#34; from=&#34;edge0&#34;
+            to=&#34;edge1&#34; no=&#34;100&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;/interval&#62;</sgmltag></para>
+
+            <para>As we have to read in the flow definitions completely into
+            the memory - something we do not necesseraly must with trips, an
+            extra parameter (-f or --flow-defs) is used to make them known by
+            the router:</para>
+
+            <blockquote>
+              <para>duarouter(.exe) --flow-defs=&#60;FLOW_DEFS&#62;
+              --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</para>
+            </blockquote>
+
+            <para><inlinegraphic fileref="./gfx/bulb.gif" format="GIF" />
+            Remind that you can not insert flow descriptions into a trip
+            definitions file. The opposite (some trip definitions within a
+            flow descriptions file) is possible. You also can give both files
+            at the input file, for example: duarouter(.exe)
+            --flow-defs=&#60;FLOW_DEFS&#62; --trip-defs=&#60;TRIP_DEFS&#62;
+            --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+            &#60;UINT&#62; -e &#60;UINT&#62;.</para>
+          </sect4>
+
+          <sect4>
+            <title>Using the Junction Turning Ratio - Router</title>
+
+            <para>The following parameter must be supplied to the jtr-router:
+            the network to route the vehicles through, the description of the
+            turning ratios for the junctions (defaults may be used for this,
+            too), and the descriptions of the flow.</para>
+
+            <para>A call may look like this:</para>
+
+            <blockquote>
+              <para>jtrrouter(.exe) --flow-defs=&#60;FLOW_DEFS&#62;
+              --turns=&#60;TURN_DEFINITIONS&#62; --net=&#60;SUMO_NET&#62;
+              --output-file=MySUMORoutes.rou.xml -b &#60;UINT&#62; -e
+              &#60;UINT&#62;</para>
+            </blockquote>
+
+            <para>The definitions of the flow - may they be trip definitions
+            or amount definitions - look like the ones for the dua-router with
+            just a single difference: as the it is not known where the vehicle
+            will leave the network as the route it uses is randomly computed,
+            the destination parameter has no meaning for jtr-routing and so
+            may be left off. A vehicle leaves the network as soon as it comes
+            to a sink edge. As not all networks have sink edges set
+            explicitely, one can support a list of edges to be declared as
+            sinks using --sinks &#60;EDGE_IDS&#62;. &#60;EDGE_IDS&#62; is in
+            this case a list of edge ids separated using a &#39;;&#39;.</para>
+
+            <para>To describe the turn definitions, one has to build a further
+            file. Within this file, for each interval and each edge the list
+            of percetages to use a certain follower is to be given. An
+            example:</para>
+
+            <para><sgmltag>&#60;turn-defs&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;interval begin=&#34;0&#34;
+            end=&#34;3600&#34;&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;fromedge id=&#34;myEdge0&#34;&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;toedge id=&#34;myEdge1&#34;
+            perc=&#34;0.2&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;toedge id=&#34;myEdge2&#34;
+            perc=&#34;0.7&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;toedge id=&#34;myEdge3&#34;
+            perc=&#34;0.1&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;/fromedge&#62;</sgmltag></para>
+
+            <para>... any other edges ...</para>
+
+            <para><sgmltag> &#60;/interval&#62;</sgmltag></para>
+
+            <para>... some further intervals ...</para>
+
+            <para><sgmltag>&#60;/turn-defs&#62;</sgmltag></para>
+
+            <para>The snipplet defines that vehicles coming at the end of edge
+            &#34;myEdge0&#34; within the time interval between 0s and 3600s
+            will choose the edge &#34;myEdge1&#34; with a propability of 20%,
+            &#34;myEdge2&#34; with a propability of 70% and &#34;myEdge3&#34;
+            with a propability of 10%. The specification of such information
+            is of course quite extensive and so the jtr-router is also able to
+            read the turning ratios from a cvs file. The same information as
+            above may be coded the following way:</para>
+
+            <para>interval;begin;end;from;to;split;
+            ;0;3600;myEdge0;myEdge1;0.2; ;0;3600;myEdge0;myEdge2;0.7;
+            ;0;3600;myEdge0;myEdge3;0.1;</para>
+
+            <para><caution><para><inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" /> Do not forget
+            to give the orer of the attributes in the first line of the file.</para></caution></para>
+
+            <para>Another possibility to save time on preparing the
+            description is to use default values. The parameter
+            --turn-defaults (-T) &#60;TURN_DEFAULTS&#62; can be used to
+            describe the default ratios that will be used for all junctions
+            for all time steps. &#60;TURN_DEFAULTS&#62; is a list of doubles,
+            separated by a &#39;;&#39;. To achieve the same behaviour as in
+            the example above, use --turn-defaults=20;70;10. <inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" /> The values
+            will be applied to an edge&#39;s following edges beginning at the
+            right edge (20%) and ending at the leftmost edge (10%). As the
+            number of possible followers changes for different edges, the
+            values are resampled to directional ratios for edges which number
+            of following edges differs from the list of edges given within the
+            turning defaults. Given --turn-defaults=20;70;10 a vehicle using
+            an edge that has two followers would use the follower to the right
+            with 55% propability, the one to the left with 45%.</para>
           </sect4>
         </sect3>
 
         <sect3>
-          <title>Importing Artemis-routes</title>
+          <title>Importing Routes</title>
 
-          <para>Although originally ARTEMIS-routes are stored within an
-          OD-matrix, the import within SUMO is done using the SUMO-ROUTER
-          program.</para>
+          <sect4>
+            <title>Importing Artemis-routes</title>
 
-          <para>This is basically done this way:</para>
+            <para>Although originally ARTEMIS-routes are stored within an
+            OD-matrix, the import within SUMO is done using the SUMO-ROUTER
+            program.</para>
 
-          <blockquote>
-            <para>router(.exe) --artemis=&#60;ARTEMIS_FOLDER&#62;
-            --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
-            &#60;UINT&#62; -e &#60;UINT&#62;</para>
-          </blockquote>
+            <para>This is basically done this way:</para>
 
-          <para><inlinegraphic fileref="./gfx/attention_small.gif"
-          format="GIF" /> Remind that you have to specify the begin and the
-          end of the simulation. This is quite inconsequent, as our mechanisms
-          would allow import of repeatable routes, too. This is just not yet
-          implemented.</para>
+            <blockquote>
+              <para>router(.exe) --artemis=&#60;ARTEMIS_FOLDER&#62;
+              --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</para>
+            </blockquote>
 
-          <para>Known problems:</para>
+            <para><inlinegraphic fileref="./gfx/attention_small.gif"
+            format="GIF" /> Remind that you have to specify the begin and the
+            end of the simulation. This is quite inconsequent, as our
+            mechanisms would allow import of repeatable routes, too. This is
+            just not yet implemented.</para>
 
-          <itemizedlist>
-            <listitem>
-              <para>Only the a0-Flow is being imported</para>
-            </listitem>
+            <para>Known problems:</para>
 
-            <listitem>
-              <para>Only one time-period is imported</para>
-            </listitem>
-          </itemizedlist>
-        </sect3>
+            <itemizedlist>
+              <listitem>
+                <para>Only the a0-Flow is being imported</para>
+              </listitem>
 
-        <sect3>
-          <title>Importing FastLane-routes</title>
+              <listitem>
+                <para>Only one time-period is imported</para>
+              </listitem>
+            </itemizedlist>
+          </sect4>
 
-          <para>One of the main concepts of FastLane is the Dynamic User
-          Assignment by Christian Gawron. As this mechanism is based on single
-          vehicle routes, those are explicitly given for a FastLane
-          simulation. The router module has only to convert from the FastLane-
-          into the SUMO-representation. Do this using the following command:</para>
+          <sect4>
+            <title>Importing FastLane-routes</title>
 
-          <blockquote>
-            <para>router(.exe) --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
-            --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
-            &#60;UINT&#62; -e &#60;UINT&#62;</para>
-          </blockquote>
+            <para>One of the main concepts of FastLane is the Dynamic User
+            Assignment by Christian Gawron. As this mechanism is based on
+            single vehicle routes, those are explicitly given for a FastLane
+            simulation. The router module has only to convert routes from the
+            FastLane- into the SUMO-representation. Do this using the
+            following command:</para>
 
-          <para>If you are familiar with FastLane, you may have noticed that
-          you have only to supply one file name while FastLane uses two to
-          describe the routes: one *.driver and one *.rinfo file. As both
-          files do have the same name and only the extension differs, you have
-          to give the name without the extension. So if your files have the
-          names &#34;foo.driver&#34; and &#34;foo.rinfo&#34;, write
-          &#34;--cell=foo&#34;.</para>
+            <blockquote>
+              <para>router(.exe) --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
+              --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</para>
+            </blockquote>
 
-          <para>FastLanes stores routes within a very large file what makes
-          the process quite slow. If you want to speed it up for the future,
-          you can tell SUMO-ROUTER to save some temporary files using
-          &#34;--save-cell-rindex&#34;. A further file named
-          &#34;foo.rindex&#34; will be generated. It speeds up the processing
-          by a factor of ten or so.</para>
+            <para>If you are familiar with FastLane, you may have noticed that
+            you have only to supply one file name while FastLane uses two
+            files to describe the routes: one &#34;*.driver&#34; and one
+            &#34;*.rinfo&#34; file. As both files do have the same name and
+            only the extension differs, you have to give the name without the
+            extension. So if your files have the names &#34;foo.driver&#34;
+            and &#34;foo.rinfo&#34;, write &#34;--cell=foo&#34;.</para>
 
-          <para>As FastLane is portable, you may encounter files generated on
-          a Windows-machine. Those files give some strange warnings, something
-          that should not happen if you supply the right net. To avoid them,
-          use the &#34;--intel-cell&#34; switch to tell SUMO-ROUTER it has to
-          turn the byte order.</para>
+            <para>FastLanes stores routes within a very large file what makes
+            the process quite slow. If you want to speed it up for the future,
+            you can tell SUMO-ROUTER to save some temporary files using
+            &#34;--save-cell-rindex&#34;. A further file named
+            &#34;&#60;CELL_FILE_NAME&#62;.rindex&#34; will be generated. It
+            speeds up the processing by a factor of ten or so.</para>
 
-          <para>You can also decide whether the best, not the last route a
-          driver took shall be used: set the switch &#34;--no-last-cell&#34;
-          for this.</para>
-        </sect3>
+            <para>As FastLane is portable, you may encounter files generated
+            on a Windows-machine. Those files give some strange warnings,
+            something that should not happen if you supply the right net. To
+            avoid them, use the &#34;--intel-cell&#34; switch to tell
+            SUMO-ROUTER it has to turn the byte order.</para>
 
-        <sect3>
-          <title>Importing VISSIM und VISUM-routes</title>
+            <para>You can also decide whether the best, not the last route a
+            driver took shall be used: set the switch &#34;--no-last-cell&#34;
+            for this.</para>
+          </sect4>
 
-          <para>While VISSIM holds the possibility to describe vehicle-based
-          routes, too, our package does only contain the second of
-          VISSIM&#39;s route specification abilities, it shares with VISUM.
-          This representation of vehicle movements is stored as
-          origin-destination matrices which have to be translated into single
-          vehicle movements first. This is done using the OD2TRIPS module. One
-          has to pass the SUMO-netweork to use using the --net-file (-n) -
-          option and the name of the output file using --output-file (-o). The
-          generated output contains the single vehicle trips build from the
-          OD-matrix. Also, one has to supply the file the
-          origin/destination-matrix is described in. This is either a file
-          with a &#34;.fma&#34; extension (other table types supported by
-          VISSIM/VISUM are not supported) which holds a single OD-matrix or
-          the VISSIM-simulation file itself (*.inp) which holds the names of
-          the OD-files to use. The option that lets OD2TRIPS know about the
-          file is --od-file. In the second case, the path to the matrices has
-          to be supplied using the --od-path - option, too.</para>
+          <sect4>
+            <title>Importing VISSIM und VISUM-routes</title>
 
-          <para>Additionally, the first and the last time step to process may
-          be given. If not given, the values stored within the parsed
-          descriptions will be used. A futher scaling factor may be used, too,
-          which will be applied on the read streams. An example for parsing an
-          OD-description that uses multiple matrices may be:</para>
+            <para>While VISSIM holds the possibility to describe vehicle-based
+            routes, too, our package does only contain the second of
+            VISSIM&#39;s route specification abilities, it shares with VISUM.
+            This representation of vehicle movements is stored as
+            origin-destination matrices which have to be translated into
+            single vehicle movements first. This is done using the OD2TRIPS
+            module. One has to pass the SUMO-netweork to use using the
+            --net-file (-n) - option and the name of the output file using
+            --output-file (-o). The generated output contains the single
+            vehicle trips build from the OD-matrix. Also, one has to supply
+            the file the origin/destination-matrix is described in. This is
+            either a file with a &#34;.fma&#34; extension (other table types
+            supported by VISSIM/VISUM are not supported) which holds a single
+            OD-matrix or the VISSIM-simulation file itself (*.inp) which holds
+            the names of the OD-files to use. The option that lets OD2TRIPS
+            know about the file is --od-file. In the second case, the path to
+            the matrices has to be supplied using the --od-path - option, too.</para>
 
-          <blockquote>
-            <para>od2trips(.exe) --od-file=VISSIM/test.inp --od-path=VISSIM/
-            --n=MySUMONet.net.xml --output-file=MySUMORoutes.rou.xml</para>
-          </blockquote>
+            <para>Additionally, the first and the last time step to process
+            may be given. If not given, the values stored within the parsed
+            descriptions will be used. A futher scaling factor may be used,
+            too, which will be applied on the read streams. An example for
+            parsing an OD-description that uses multiple matrices may be:</para>
 
-          <para>After obtaining single vehicle trips using this approach they
-          should be parsed into full route descriptions using router as
-          described within the chapter &#34;Generation of own, explicite
-          routes&#34;.</para>
+            <blockquote>
+              <para>od2trips(.exe) --od-file=VISSIM/test.inp --od-path=VISSIM/
+              --n=MySUMONet.net.xml --output-file=MySUMORoutes.rou.xml</para>
+            </blockquote>
+
+            <para>After obtaining single vehicle trips using this approach
+            they should be parsed into full route descriptions using router as
+            described within the chapter &#34;Generation of own, explicite
+            routes&#34;.</para>
+          </sect4>
         </sect3>
       </sect2>
 
@@ -2242,7 +2433,7 @@
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2290,18 +2481,19 @@
           --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Parses all
           network information from files within the given path, assuming they
           belong to an ARTMIS-network.</para></listitem><listitem><para>OPTIONAL:
-          [ --arcview-input | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
-          the edge attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;.dbf
-          assuming it is an arcview-dbf-file. Parses the edge geometries from
-          &#60;FILE_NAME(NO_EXTENSION)&#62;.shp assuming it is an
-          ArcView-shape file.</para></listitem><listitem><para>OPTIONAL:
+          [ --arcview-input | --arcview ] &#60;FILE(NO_EXTENSION)&#62;</para><para>Parses
+          the edge attributes from &#60;FILE(NO_EXTENSION)&#62;.dbf assuming
+          it is an arcview-dbf-file or a file generated using shapelib&#39;s
+          dbf-reader. Parses the edge geometries from
+          &#60;FILE(NO_EXTENSION)&#62;.shp assuming it is an ArcView-shape
+          file or a file generated using shapelib&#39;s shp-reader.</para></listitem><listitem><para>OPTIONAL:
           --arcview-shp &#60;FILE&#62;</para><para>Parses the edge geometries
-          from &#60;FILE_NAME(NO_EXTENSION)&#62;.shp assuming it is an ArcView
-          shape file.</para></listitem><listitem><para>OPTIONAL: --arcview-dbf
-          &#60;FILE&#62;</para><para>Parses the edge attributes from
-          &#60;FILE_NAME(NO_EXTENSION)&#62;.dbf assuming it is an ArcView
-          dbf-file.</para></listitem><listitem><para>OPTIONAL: [
-          --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          from &#60;FILE(NO_EXTENSION)&#62;.shp assuming it is an ArcView
+          shape file or a file generated using shapelib&#39;s shp-reader.</para></listitem><listitem><para>OPTIONAL:
+          --arcview-dbf &#60;FILE&#62;</para><para>Parses the edge attributes
+          from &#60;FILE(NO_EXTENSION)&#62;.dbf assuming it is an ArcView
+          dbf-file or a file generated using shapelib&#39;s dbf-reader.</para></listitem><listitem><para>OPTIONAL:
+          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
           whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
         </sect3>
 
@@ -2369,7 +2561,7 @@
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2510,7 +2702,7 @@
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2527,38 +2719,41 @@
       </sect2>
 
       <sect2>
-        <title>SUMO-ROUTER Command Line Arguments</title>
+        <title>SUMO-DUA-ROUTER Command Line Arguments</title>
 
         <sect3>
           <title>Input options</title>
 
           <para><itemizedlist><listitem><para>MANDATORY: [ --net-files | --net
-          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-ROUTER to use the
+          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-DUA-ROUTER to use the
           sumo-network &#60;FILE&#62; for routing.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> The name
           &#34;net-files&#34; is ambiguous: only one network file can be
           loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
-          [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Prints
-          possible options.</para><caution><para><inlinegraphic
+          [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Forces
+          SUMO-DUA-ROUTER to read the network weights from &#60;FILENAME&#62;.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> the name
           &#34;weight-files&#34; is ambigous: only one weight file can be
           loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
-          [ --cell-input | --cell ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Informs
-          SUMO-ROUTER to process the files
-          &#60;FILE_NAME(NO_EXTENSION)&#62;.driver and
-          &#60;FILE_NAME(NO_EXTENSION)&#62;.rinfo as route definition files</para></listitem><listitem><para>OPTIONAL:
+          [ --flow-definition | --flows | -f ] &#60;FILE&#62;</para><para>Informs
+          SUMO-DUA-ROUTER to process the file &#60;FILE&#62; as a flow
+          definition file</para></listitem><listitem><para>OPTIONAL: [
+          --cell-input | --cell ] &#60;FILE(NO_EXTENSION)&#62;</para><para>Informs
+          SUMO-DUA-ROUTER to process the files
+          &#60;FILE(NO_EXTENSION)&#62;.driver and
+          &#60;FILE(NO_EXTENSION)&#62;.rinfo as route definition files</para></listitem><listitem><para>OPTIONAL:
           [ --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Builds
           routes from ARTEMIS-data stored in &#60;PATH&#62;</para></listitem><listitem><para>OPTIONAL:
           [ --sumo-input | --sumo | -s ] &#60;FILE&#62;</para><para>Builds
           routes from previous sumo-routes</para></listitem><listitem><para>OPTIONAL:
           [ --trip-defs | --trips | -t ] &#60;FILE&#62;</para><para>Informs
-          SUMO-ROUTER to use the trip definitions stored in &#60;FILE&#62;.
-          Such trip definitions may be the output of SUMO-OD2TRIPS or made by
-          hand.</para></listitem><listitem><para>OPTIONAL: [ --alternatives |
-          -a ] &#60;FILE&#62;</para><para>Uses route alternatives from file;
-          See also the documentation on Christian Gawron&#39;s Dynamic User
-          Assignment</para></listitem><listitem><para>OPTIONAL: [
-          --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          SUMO-DUA-ROUTER to use the trip definitions stored in
+          &#60;FILE&#62;. Such trip definitions may be the output of
+          SUMO-OD2TRIPS or made by hand.</para></listitem><listitem><para>OPTIONAL:
+          [ --alternatives | -a ] &#60;FILE&#62;</para><para>Uses route
+          alternatives from file; See also the documentation on Christian
+          Gawron&#39;s Dynamic User Assignment</para></listitem><listitem><para>OPTIONAL:
+          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
           whether a configuration file shall be loaded</para></listitem><listitem><para>OPTIONAL:
           [ --random-per-second | -R ] &#60;FLOAT&#62;</para><para>Builds
           additional random routes. The float to give is the number of routes
@@ -2623,7 +2818,123 @@
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-JTR-ROUTER Command Line Arguments</title>
+
+        <sect3>
+          <title>Input options</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --net-file | --net
+          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-JTR-ROUTER to use the
+          sumo-network &#60;FILE&#62; for routing.</para></listitem><listitem><para>OPTIONAL:
+          [ --turn-definition | --turns | -t ] &#60;FILE&#62;</para><para>Informs
+          SUMO-JTR-ROUTER to read turn definitions from &#60;FILE&#62;. The
+          format (xml or cvs) is determined automatically.</para></listitem><listitem><para>OPTIONAL:
+          [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Forces
+          SUMO-JTR-ROUTER to read the network weights from &#60;FILE&#62;.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> the name
+          &#34;weight-files&#34; is ambigous: only one weight file can be
+          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --flow-definition | --flows | -f ] &#60;FILE_&#62;</para><para>Informs
+          SUMO-JTR-ROUTER to process the file &#60;FILE&#62; as a flow
+          definition file</para></listitem><listitem><para>OPTIONAL: [
+          --cell-input | --cell ] &#60;FILE(NO_EXTENSION)&#62;</para><para>Informs
+          SUMO-JTR-ROUTER to process the files
+          &#60;FILE(NO_EXTENSION)&#62;.driver and
+          &#60;FILE(NO_EXTENSION)&#62;.rinfo as route definition files</para></listitem><listitem><para>OPTIONAL:
+          [ --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Builds
+          routes from ARTEMIS-data stored in &#60;PATH&#62;</para></listitem><listitem><para>OPTIONAL:
+          [ --sumo-input | --sumo | -s ] &#60;FILE&#62;</para><para>Builds
+          routes from previous sumo-routes</para></listitem><listitem><para>OPTIONAL:
+          [ --trip-defs | --trips | -t ] &#60;FILE&#62;</para><para>Informs
+          SUMO-JTR-ROUTER to use the trip definitions stored in
+          &#60;FILE&#62;. Such trip definitions may be the output of
+          SUMO-OD2TRIPS or made by hand.</para></listitem><listitem><para>OPTIONAL:
+          [ --alternatives | -a ] &#60;FILE&#62;</para><para>Uses route
+          alternatives from file; See also the documentation on Christian
+          Gawron&#39;s Dynamic User Assignment</para></listitem><listitem><para>OPTIONAL:
+          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          whether a configuration file shall be loaded</para></listitem><listitem><para>OPTIONAL:
+          [ --random-per-second | -R ] &#60;FLOAT&#62;</para><para>Builds
+          additional random routes. The float to give is the number of routes
+          to build for a simulation second (may be lower than 1)</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Output options</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
+          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
+          the computed routes into.</para><para>Additionally, a second file
+          containing the route alternatives named &#60;FILE&#62;.alt will be
+          generated.</para></listitem><listitem><para>OPTIONAL:
+          --save-cell-rindex</para><para>The index to each route within the
+          FastLane-rinfo file is saved under
+          &#60;FILE_NAME(NO_EXTENSION)&#62;.rindex. (Only for
+          FastLane-processing)</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation times settings</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
+          &#60;UINT&#62;</para><para>A virtual time to specify the begin of
+          route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
+          [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time to specify
+          the end of route computation. Later routes are skipped.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Computation variables settings</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: --gBeta
+          &#60;DOUBLE&#62;</para><para>Gawron&#39;s beta; See also the
+          documentation on Christian Gawron&#39;s Dynamic User Assignment.</para><para>Only
+          for processing of alternatives.</para></listitem><listitem><para>OPTIONAL:
+          --gA &#60;DOUBLE&#62;</para><para>Gawron&#39;s A; See also the
+          documentation on Christian Gawron&#39;s Dynamic User Assignment</para><para>Only
+          for processing of alternatives.</para><para>A default value is
+          supplied.</para></listitem><listitem><para>OPTIONAL: --intel-cell</para><para>Switches
+          the byte order within the FastLane-.driver-files</para><para>Only
+          for processing of FastLane-routes.</para></listitem><listitem><para>OPTIONAL:
+          --no-last-cell</para><para>Use best, not the last cell-route.</para><para>Only
+          for processing of FastLane-routes.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Processing options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
+          when a described connection could not be build. The default
+          behaviour is to stop with an error.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2689,7 +3000,7 @@
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2719,7 +3030,7 @@
           maximum height of an openGL window to use. This was implemented to
           avoid the allocation of too large window memory on smaller
           computers.</para></listitem><listitem><para>OPTIONAL: [
-          --configuration | -c ] &#60;FILENAME&#62;</para><para>If a valid
+          --configuration | -c ] &#60;FILE&#62;</para><para>If a valid
           configuration is given on the command line, it is loaded directly
           after the window shows up and starts immediately.</para></listitem><listitem><para>OPTIONAL:
           [ --quit-on-end | -Q ]</para><para>Forces the gui to shutdown (the
@@ -2755,8 +3066,9 @@
         <listitem>
           <para>Configuration files:<itemizedlist><listitem><para>*.sumo.cfg</para><para>Configuration
           file for SUMO (both command line and GUI-version)</para></listitem><listitem><para>*.netc.cfg</para><para>Configuration
-          file for the netconverter/-builder</para></listitem><listitem><para>*.router.cfg</para><para>Configuration
-          file for the router</para></listitem><listitem><para>*.od2t.cfg</para><para>Configuration
+          file for the netconverter/-builder</para></listitem><listitem><para>*.dua.cfg</para><para>Configuration
+          file for the dua-router</para></listitem><listitem><para>*.jtr.cfg</para><para>Configuration
+          file for the jtr-router</para></listitem><listitem><para>*.od2t.cfg</para><para>Configuration
           file for the O/D to trip converter</para></listitem></itemizedlist></para>
         </listitem>
 
