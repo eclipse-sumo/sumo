@@ -25,6 +25,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.8  2002/04/25 13:42:11  croessel
+// Removed unused variable.
+//
 // Revision 1.7  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -190,7 +193,6 @@ bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     // prepare the "raw" output and print the first line
-    bool usingFile = false;
     ostringstream header;
     header << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl 
            << "<sumo-results>" << endl; 
