@@ -108,7 +108,7 @@ MSLaneState::MSLaneState( string id,
     assert( startPosM >= 0 );
     assert( startPosM + MSNet::getCells( lengthInMeters ) <= laneM->length() );
     endPosM = startPosM + MSNet::getCells( lengthInMeters );
-    
+
     // insert object into dictionary
     if ( ! SingletonDictionary<
          std::string, MSLaneState* >::getInstance()->isInsertSuccess(
@@ -137,7 +137,7 @@ MSLaneState::isStillActive( MSVehicle& veh,
                             double oldPos,
                             double newPos,
                             double newSpeed )
-{          
+{
     // if vehicle has passed the detector completely we shouldn't
     // be here.
     // fraction of timestep the vehicle is on the detector after entry.
@@ -164,7 +164,7 @@ MSLaneState::isStillActive( MSVehicle& veh,
         addMoveData(  veh, newSpeed, timestepFraction - fractionReduce );
         leaveDetectorByMove( veh, MSNet::deltaT() - fractionReduce );
         return false;
-    }  
+    }
     addMoveData( veh, newSpeed, timestepFraction );
     return true;
 }
@@ -254,7 +254,7 @@ MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
     }
     double denominator = // [cells/step]
         accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                    timestepDataM.end(), 0.0, contTimestepSum ); 
+                    timestepDataM.end(), 0.0, contTimestepSum );
     assert ( denominator > 0 );
     double speedS = accumulate( // [cells/step]
             getStartIterator( lastNTimesteps, timestepDataM ),
@@ -322,7 +322,7 @@ MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
     }
     double stepsOnDetDuringlastNTimesteps  = accumulate(
         getStartIterator( lastNTimesteps, timestepDataM ),
-        timestepDataM.end(), 0.0, contTimestepSum ); 
+        timestepDataM.end(), 0.0, contTimestepSum );
     return MSNet::getVehPerKm(
         stepsOnDetDuringlastNTimesteps / lastNTimesteps / laneM->length() );
 }
@@ -544,7 +544,7 @@ MSLaneState::leaveDetectorByMove( MSVehicle& veh,
     dataIt->second.leftDetectorByMoveM = true;
     // insert so that container keeps being sorted
     vehLeftDetectorM.insert(
-        find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
+        find_if( vehLeftDetectorM.rbegin(), vehLeftDetectorM.rend(),
                  bind2nd( leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
@@ -564,7 +564,7 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     dataIt->second.leftDetectorByMoveM = false;
     // insert so that container keeps being sorted
     vehLeftDetectorM.insert(
-        find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
+        find_if( vehLeftDetectorM.rbegin(), vehLeftDetectorM.rend(),
                  bind2nd( leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
