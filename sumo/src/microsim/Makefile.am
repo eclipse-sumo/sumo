@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libmicrosim.a
 
-EXTRA_DIST = MSBitSetLogic.cpp
+EXTRA_DIST =
 
 libmicrosim_a_SOURCES = MSAbstractLaneChangeModel.h MSBitSetLogic.h \
 MSCORN.cpp MSCORN.h MSEdge.cpp MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \

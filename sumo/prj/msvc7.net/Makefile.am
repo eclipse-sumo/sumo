@@ -32,5 +32,5 @@ z_libutils_sumoxml \
 z_libutils_xml
 
 
-EXTRA_DIST = prj.dsw prj.sln
+EXTRA_DIST = prj.sln
 

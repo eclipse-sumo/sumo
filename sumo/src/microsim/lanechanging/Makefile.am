@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libmicrosimlanechange.a
 
-
-EXTRA_DIST = MSBitSetLogic.cpp
+EXTRA_DIST =
 
 libmicrosimlanechange_a_SOURCES = \
 MSLCM_DK2002.cpp MSLCM_DK2002.h \
