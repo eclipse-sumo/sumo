@@ -15,12 +15,12 @@ enum MyLCAEnum {
     LCA_AMBLOCKINGSECONDFOLLOWER = 16384, // 6
     LCA_KEEP1 = 65536,// 8
     LCA_KEEP2 = 131072,// 9
+    LCA_AMBACKBLOCKER = 262144,// 10
+    LCA_AMBACKBLOCKER_STANDING = 524288,// 11
 
 };
 
-#define LOOK_FORWARD_DIST 500
-
-class MSLCM_DK2004 : public MSAbstractLaneChangeModel, public MSVehicleQuitReminded {
+class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
 public:
     MSLCM_DK2004(MSVehicle &v);
 
@@ -36,7 +36,8 @@ public:
         const std::pair<MSVehicle*, double> &neighFollow,
         const MSLane &neighLane,
         int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist);
+        double currentDist,
+        MSVehicle **lastBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
@@ -49,11 +50,10 @@ public:
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
         int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist);
+        double currentDist,
+        MSVehicle **lastBlocked);
 
     virtual void *inform(void *info, MSVehicle *sender);
-
-    void removeOnTripEnd( MSVehicle *veh );
 
     virtual double patchSpeed(double min, double wanted, double max,
         double vsafe);
@@ -61,6 +61,7 @@ public:
     virtual void changed();
 
     double getProb() const;
+    virtual void prepareStep();
 
 
 protected:
@@ -79,25 +80,21 @@ protected:
     inline bool amBlockingFollower() { return (myState&LCA_AMBLOCKINGFOLLOWER)!=0; }
     inline bool amBlockingFollowerNB() { return (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0; }
     inline bool amBlockingFollowerPlusNB() { return (myState&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0; }
-    inline bool currentDistDisallows(double dist, int laneOffset) {
-        return dist/abs(laneOffset)<LOOK_FORWARD_DIST;
+    inline bool currentDistDisallows(double dist, int laneOffset, double lookForwardDist) {
+        return dist/abs(laneOffset)<lookForwardDist;
     }
-    inline bool currentDistAllows(double dist, int laneOffset) {
-        return dist/abs(laneOffset)>LOOK_FORWARD_DIST;
+    inline bool currentDistAllows(double dist, int laneOffset, double lookForwardDist) {
+        return dist/abs(laneOffset)>lookForwardDist;
     }
 
-    typedef std::pair<float, int> Info;
+    typedef std::pair<double, int> Info;
 
     void setBlockingFollower(MSVehicle *v);
 
 
 protected:
-//    std::vector<MSVehicle*> myBlockingVehicles;
-    MSVehicle *myBlockingLeader;
-    MSVehicle *myBlockingFollower;
-//    short myDelayTime;
     float myChangeProbability;
-    float myVSafe;
+    double myVSafe;
 };
 
 

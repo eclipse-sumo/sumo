@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.24  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.23  2004/08/02 12:14:29  dkrajzew
 // raw-output extracted; debugging of collision handling
 //
@@ -213,6 +216,12 @@
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <helpers/PreStartInitialised.h>
@@ -258,6 +267,7 @@ class MSLane : public PreStartInitialised
 public:
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
+    friend class MSSlowLaneChanger;
 
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class GUILaneChanger;
@@ -293,7 +303,7 @@ public:
             std::string id,
             double maxSpeed,
             double length,
-            MSEdge* egde,
+            MSEdge* edge,
             size_t numericalID
             );
 

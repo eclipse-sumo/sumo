@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.9  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -62,6 +65,11 @@
 // Revision 1.12  2001/12/12 17:46:01  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -138,7 +146,7 @@ public:
     virtual GUIJunctionWrapper *buildJunctionWrapper(
         GUIGlObjectStorage &idStorage);
 
-    friend class GUIGrid;
+    friend class GUIGridBuilder;
 
 protected:
     /// unique ID

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.3  2003/03/17 14:15:55  dkrajzew
 // first steps of network reinitialisation implemented
 //
@@ -71,7 +74,7 @@ MSRouteLoaderControl::loadNext(MSNet::Time step)
 {
     // check whether new vehicles shall be loaded
     //  return if not
-    if( (myLoadAll&&myAllLoaded) || (myLastLoadTime+myInAdvanceStepNo>step) ) {
+    if( (myLoadAll&&myAllLoaded) || (myLastLoadTime>=0&&(size_t) myLastLoadTime/*+myInAdvanceStepNo*/>=step) ) {
         return myVehCont;
     }
     // load all routes for the specified time period
@@ -79,7 +82,7 @@ MSRouteLoaderControl::loadNext(MSNet::Time step)
     bool furtherAvailable = true;
     for(;
          furtherAvailable &&
-             (myLoadAll||run<step+myInAdvanceStepNo);
+             (myLoadAll||run<=step+myInAdvanceStepNo);
          run++) {
         furtherAvailable = false;
         for( LoaderVector::iterator i=myRouteLoaders.begin();
@@ -91,11 +94,11 @@ MSRouteLoaderControl::loadNext(MSNet::Time step)
         }
     }
     // no further loading when all was loaded
-    if(myLoadAll) {
+    if(myLoadAll||!furtherAvailable) {
         myAllLoaded = true;
     }
     // set the step information
-    myLastLoadTime = run;
+    myLastLoadTime = run - 1;
     // return the container with new vehicles
     return myVehCont;
 }
@@ -105,7 +108,7 @@ void
 MSRouteLoaderControl::init(MSNet &net)
 {
     myAllLoaded = false;
-    myLastLoadTime = -myInAdvanceStepNo;
+    myLastLoadTime = -1 * (int) myInAdvanceStepNo;
     // initialize all used loaders
     for( LoaderVector::iterator i=myRouteLoaders.begin();
          i!=myRouteLoaders.end(); i++) {

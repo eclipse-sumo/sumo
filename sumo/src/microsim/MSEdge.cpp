@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.14  2004/08/02 12:08:39  dkrajzew
 // raw-output extracted; output device handling rechecked
 //
@@ -146,6 +149,7 @@ namespace
 #include "MSLane.h"
 #include "MSNet.h"
 #include "MSLaneChanger.h"
+#include "MSSlowLaneChanger.h"
 #include "MSGlobals.h"
 #include <algorithm>
 #include <iostream>
@@ -211,7 +215,7 @@ MSEdge::detectCollisions( MSNet::Time timestep )
 {
     // Ask lanes about collisions.
     for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end() - 1; ++lane) {
+         lane != myLanes->end(); ++lane) {
         (*lane)->detectCollisions( timestep );
     }
 }

@@ -35,6 +35,7 @@
 #include "MSLane.h"
 #include <utils/convert/ToString.h>
 #include <helpers/OneArgumentCommand.h>
+#include <utils/iodevices/XMLDevice.h>
 
 
 /**
@@ -138,12 +139,9 @@ public:
             assert( intervalInSteps >= 1 );
             if ( intervalsAndFilesM.find( intervalInSteps ) !=
                  intervalsAndFilesM.end() ) {
-                MsgHandler::getWarningInstance()->inform(
-                    "MSTravelcostDetector::addSampleInterval ");
-                MsgHandler::getWarningInstance()->inform(
-                    string("intervalLength ")
-                    + toString<MSNet::Time>(intervalInSeconds)
-                    + string(" s already added. Ignoring."));
+
+                WRITE_WARNING("MSTravelcostDetector::addSampleInterval ");
+                WRITE_WARNING(string("intervalLength ")+ toString<MSNet::Time>(intervalInSeconds)+ string(" s already added. Ignoring."));
                 return;
             }
             // open file
@@ -221,8 +219,8 @@ protected:
             typedef std::vector< MSEdge* > Edges;
             typedef typename Edges::iterator EdgeIt;
             Edges edges( MSEdge::getEdgeVector() );
-   	        for ( EdgeIt edge = edges.begin(); edge != edges.end(); ++edge ) {
-            	// get lanes
+            for ( EdgeIt edge = edges.begin(); edge != edges.end(); ++edge ) {
+                // get lanes
                 MSEdge::LaneCont* lanes = (*edge)->getLanes();
                 laneCostCont lc;
                 for ( MSEdge::LaneCont::iterator laneIt = lanes->begin();

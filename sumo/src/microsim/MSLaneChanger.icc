@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.5  2004/08/02 12:07:01  dkrajzew
 // first steps towards a lane-changing model API
 //
@@ -70,7 +73,7 @@ MSVehicle*
 MSLaneChanger::veh( ChangerIt ce )
 {
     // If ce has a valid vehicle, return it. Otherwise return 0.
-    if ( ce->veh != ce->lane->myVehicles.end() ) {
+    if ( ce->veh != ce->lane->myVehicles.rend() ) {
 
         return *( ce->veh );
     }

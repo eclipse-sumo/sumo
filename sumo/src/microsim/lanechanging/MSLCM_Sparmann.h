@@ -7,7 +7,7 @@
 
 class MSLCM_Sparmann : public MSAbstractLaneChangeModel {
 public:
-    MSLCM_Sparmann(MSVehicle &v);
+    MSLCM_Sparmann(MSVehicle &v, bool pkw);
 
     virtual ~MSLCM_Sparmann();
 

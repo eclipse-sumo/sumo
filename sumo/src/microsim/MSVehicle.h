@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.38  2004/11/23 10:20:11  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.37  2004/08/02 12:40:55  dkrajzew
 // debugging; refactoring; lane-changing API
 //
@@ -258,6 +261,11 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -298,6 +306,7 @@ public:
 
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
+    friend class MSSlowLaneChanger;
 
     /** container that holds the vehicles driving state. May vary from
         model to model. here: SK, holds position and speed. */
@@ -306,6 +315,7 @@ public:
         /// vehicle sets states directly
         friend class MSVehicle;
         friend class MSLaneChanger;
+        friend class MSSlowLaneChanger;
 
     public:
         /// Default constructor. Members are initialized to 0.
@@ -448,7 +458,7 @@ public:
     double decelDist() const;
 
     /// Return the vehicles state after maximum acceleration.
-//    State accelState( const MSLane* lane ) const;
+    State accelState( const MSLane* lane ) const;
 
     /// The amount the vehicle can decelerate with
     double decelAbility() const;
@@ -674,7 +684,7 @@ public:
 
     size_t getWaitingTime() const;
     void removeApproachingInformationOnKill();
-    void removeApproachingInformationOnKill(MSLane *begin);
+//    void removeApproachingInformationOnKill(MSLane *begin);
 
     void rebuildAllowedLanes();
 
@@ -704,13 +714,17 @@ public:
 
     const MSRoute &getRoute() const;
 
-    bool replaceRoute(const MSEdgeVector &edges);
+    const MSRoute &getRoute(int index) const;
+
+    bool replaceRoute(const MSEdgeVector &edges, size_t simTime);
 
     const MSVehicleType &getVehicleType() const;
 
 public:
     void onDepart();
 
+    void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
+    void writeXMLRoute(std::ostream &os, int index=-1) const;
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, MSNet::Time
@@ -733,8 +747,6 @@ protected:
                          double pos,
                          double speed );
 
-
-    void onTripEnd(MSLane &caller, bool wasAlreadySet=false);
 
     /// information how long ago the vehicle has performed a lane-change
     MSNet::Time myLastLaneChangeOffset;
@@ -813,10 +825,10 @@ private:
 
     struct DriveProcessItem
     {
-        MSLinkCont::const_iterator  myLink;
+        MSLink *myLink;
         double myVLinkPass;
         double myVLinkWait;
-        DriveProcessItem( MSLinkCont::const_iterator link, double vPass, double vWait  ) :
+        DriveProcessItem( MSLink *link, double vPass, double vWait  ) :
             myLink( link ), myVLinkPass(vPass), myVLinkWait(vWait) { };
     };
 
@@ -855,6 +867,7 @@ private:
     QuitRemindedVector myQuitReminded;
 
     std::map<MSCORN::Function, double> myDoubleCORNMap;
+    std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
 };
 

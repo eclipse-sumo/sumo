@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.5  2004/07/02 09:26:23  dkrajzew
 // classes prepared to be derived
 //
@@ -86,6 +89,10 @@ public:
     bool inFurtherUse() const;
 
     bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
+
+    void writeEdgeIDs(std::ostream &os) const;
+
+    MSEdge *operator[](size_t index);
 
 public:
     /** @brief Adds a route to the dictionary

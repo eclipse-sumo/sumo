@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.4  2004/07/02 09:26:23  dkrajzew
 // classes prepared to be derived
 //
@@ -42,10 +45,10 @@ namespace
 #include <cassert>
 #include <algorithm>
 #include "MSRoute.h"
+#include "MSEdge.h"
 
 #ifdef ABS_DEBUG
 #include "MSNet.h"
-#include "MSEdge.h"
 #endif
 
 
@@ -177,6 +180,26 @@ MSRouteIterator
 MSRoute::find(MSEdge *e) const
 {
     return std::find(_edges.begin(), _edges.end(), e);
+}
+
+
+void
+MSRoute::writeEdgeIDs(std::ostream &os) const
+{
+    MSEdgeVector::const_iterator i = _edges.begin();
+    for(;i!=_edges.end(); ++i) {
+        if(i!=_edges.begin()) {
+            os << ' ';
+        }
+        os << (*i)->id();
+    }
+}
+
+
+MSEdge *
+MSRoute::operator[](size_t index)
+{
+    return _edges[index];
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.3  2004/08/02 12:13:33  dkrajzew
 // output device handling rechecked; tiny documentation added
 //
@@ -47,24 +50,30 @@ public:
      * A list of functions
      */
     enum Function {
-        CORN_OUT_TRIPOUTPUT = 0,
-        CORN_OUT_EMISSIONS = 1,
-        CORN_VEH_REALDEPART = 2,
-        CORN_MEAN_VEH_TRAVELTIME = 3,
-        CORN_MEAN_VEH_WAITINGTIME = 4,
-        CORN_VEHCONTROL_WANTS_DEPARTURE_INFO = 6,
-        CORN_VEHCONTROL_WANTS_EDGECHANGE_INFO = 7,
-        CORN_VEH_WASREROUTET = 8,
-        CORN_VEH_OLDROUTE1 = 9,
-        CORN_VEH_OLDROUTE2 = 10,
-        CORN_VEH_OLDROUTE3 = 11,
-        CORN_VEH_OLDROUTE4 = 12,
-        CORN_VEH_OLDROUTE5 = 13,
-        CORN_VEH_OLDROUTE6 = 14,
-        CORN_VEH_SAVEREROUTING = 15,
-        CORN_VEH_LASTREROUTEOFFSET = 16,
-        CORN_VEH_NUMBREROUTE = 17,
-        CORN_MAX = 18,
+        CORN_OUT_TRIPDURATIONS,
+        CORN_OUT_EMISSIONS,
+        CORN_OUT_VEHROUTES,
+
+        CORN_VEH_REALDEPART,
+        CORN_MEAN_VEH_TRAVELTIME,
+        CORN_MEAN_VEH_WAITINGTIME,
+        CORN_VEHCONTROL_WANTS_DEPARTURE_INFO,
+        CORN_VEHCONTROL_WANTS_EDGECHANGE_INFO,
+        CORN_VEH_WASREROUTET,
+        CORN_VEH_SAVEREROUTING,
+        CORN_VEH_LASTREROUTEOFFSET,
+        CORN_VEH_NUMBERROUTE,
+        CORN_VEH_REROUTE_TIME,
+
+        CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
+
+        CORN_MAX,
+    };
+
+    enum Pointer {
+        CORN_P_VEH_OLDROUTE = 0,
+        CORN_P_VEH_ROUTE_BEGIN_EDGE = CORN_P_VEH_OLDROUTE + 1000,
+        CORN_P_MAX = CORN_P_VEH_ROUTE_BEGIN_EDGE + 1000
     };
 
     static void init();
@@ -73,12 +82,15 @@ public:
     static void setWished(Function f);
 
 public:
-    static void setTripInfoOutput(OutputDevice *s);
-    static void compute_TripInfoOutput(MSVehicle *v);
+    static void setTripDurationsOutput(OutputDevice *s);
+    static void setVehicleRouteOutput(OutputDevice *s);
+    static void compute_TripDurationsOutput(MSVehicle *v);
+    static void compute_VehicleRouteOutput(MSVehicle *v);
 
 
 private:
-    static OutputDevice *myTripInfoOut;
+    static OutputDevice *myTripDurationsOutput;
+    static OutputDevice *myVehicleRouteOutput;
     static bool myWished[CORN_MAX];
 
 private:

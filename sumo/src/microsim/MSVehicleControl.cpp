@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:20:11  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.3  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -84,15 +87,18 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
 {
     assert(myRunningVehNo>0);
     // check whether to generate the information about the vehicle's trip
-    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPOUTPUT)) {
-        MSCORN::compute_TripInfoOutput(v);
+    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
+        MSCORN::compute_TripDurationsOutput(v);
+    }
+    if(MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
+        MSCORN::compute_VehicleRouteOutput(v);
     }
     // check whether to save information about the vehicle's trip
     if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
             (MSNet::getInstance()->getCurrentTimeStep()
             -
-            v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+            (long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
     }
     myRunningVehNo--;
     myEndedVehNo++;
@@ -144,6 +150,13 @@ MSVehicleControl::getEmittedVehicleNo() const
 }
 
 
+size_t
+MSVehicleControl::getWaitingVehicleNo() const
+{
+    return myLoadedVehNo - myEmittedVehNo;
+}
+
+
 double
 MSVehicleControl::getMeanWaitingTime() const
 {
@@ -184,7 +197,7 @@ MSVehicleControl::vehicleEmitted(MSVehicle *v)
 {
     if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
         myAbsVehWaitingTime +=
-            (v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
+            ((long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
             -
             v->desiredDepart());
     }
@@ -195,7 +208,6 @@ void
 MSVehicleControl::vehicleMoves(MSVehicle *v)
 {
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

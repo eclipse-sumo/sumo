@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.2  2004/08/02 12:13:33  dkrajzew
 // output device handling rechecked; tiny documentation added
 //
@@ -39,7 +42,8 @@ using namespace std;
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
-OutputDevice *MSCORN::myTripInfoOut = 0;
+OutputDevice *MSCORN::myTripDurationsOutput = 0;
+OutputDevice *MSCORN::myVehicleRouteOutput = 0;
 bool MSCORN::myWished[CORN_MAX];
 
 
@@ -49,7 +53,8 @@ bool MSCORN::myWished[CORN_MAX];
 void
 MSCORN::init()
 {
-    myTripInfoOut = 0;
+    myTripDurationsOutput = 0;
+    myVehicleRouteOutput = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
     }
@@ -59,6 +64,8 @@ MSCORN::init()
 void
 MSCORN::clear()
 {
+    delete myTripDurationsOutput;
+    delete myVehicleRouteOutput;
 }
 
 
@@ -75,7 +82,11 @@ MSCORN::setWished(Function f)
 {
     myWished[(int) f] = true;
     switch(f) {
-    case CORN_OUT_TRIPOUTPUT:
+    case CORN_OUT_TRIPDURATIONS:
+        setWished(CORN_VEH_REALDEPART);
+        break;
+    case CORN_OUT_VEHROUTES:
+        setWished(CORN_VEH_SAVEREROUTING);
         setWished(CORN_VEH_REALDEPART);
         break;
     case CORN_OUT_EMISSIONS:
@@ -100,21 +111,46 @@ MSCORN::setWished(Function f)
 
 
 void
-MSCORN::setTripInfoOutput(OutputDevice *s)
+MSCORN::setTripDurationsOutput(OutputDevice *s)
 {
-    myTripInfoOut = s;
+    myTripDurationsOutput = s;
 }
 
 
 void
-MSCORN::compute_TripInfoOutput(MSVehicle *v)
+MSCORN::setVehicleRouteOutput(OutputDevice *s)
 {
-    myTripInfoOut->getOStream()
+    myVehicleRouteOutput = s;
+}
+
+
+void
+MSCORN::compute_TripDurationsOutput(MSVehicle *v)
+{
+    myTripDurationsOutput->getOStream()
         << "<tripinfo id=\"" << v->id() << "\" "
         << "start=\"" << v->getCORNDoubleValue(CORN_VEH_REALDEPART) << "\" "
         << "wished=\"" << v->desiredDepart() << "\" "
         << "end=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\"/>" << endl;
+}
+
+
+void
+MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
+{
+    myVehicleRouteOutput->getOStream() <<
+        "   <vehicle id=\"" << v->id() << "\" emitedAt=\""
+        << v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
+        << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\">" << endl;
+    for(int i=0; i<(int) v->getCORNDoubleValue(CORN_VEH_NUMBERROUTE); i++) {
+        v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
+        myVehicleRouteOutput->getOStream() << endl;
+    }
+    v->writeXMLRoute(myVehicleRouteOutput->getOStream());
+    myVehicleRouteOutput->getOStream() <<
+        "   </vehicle>" << endl << endl;
 }
 
 

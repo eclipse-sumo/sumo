@@ -168,7 +168,7 @@ MSTriggeredSourceXMLHandler::fatalError( const SAXParseException& e )
         string("Fatal Error at file ")
         + TplConvert<XMLCh>::_2str( e.getSystemId() )
         + string(", line ") + toString<int>(e.getLineNumber())
-		+ string(", char ") + toString<int>(e.getColumnNumber())
+        + string(", char ") + toString<int>(e.getColumnNumber())
         + string("\n  Message: ")
         + TplConvert<XMLCh>::_2str( e.getMessage() ));
 }
@@ -178,12 +178,12 @@ MSTriggeredSourceXMLHandler::fatalError( const SAXParseException& e )
 void
 MSTriggeredSourceXMLHandler::warning( const SAXParseException& e )
 {
-    MsgHandler::getWarningInstance()->inform(
-        string("\nWarning at file ") + TplConvert<XMLCh>::_2str( e.getSystemId() )
-        + TplConvert<XMLCh>::_2str( e.getSystemId() )
-        + string(", line ") + toString<int>(e.getLineNumber())
-		+ string(", char ") + toString<int>(e.getColumnNumber())
-        + string("\n  Message: ")
+    WRITE_WARNING( \
+        string("\nWarning at file ") + TplConvert<XMLCh>::_2str( e.getSystemId() ) \
+        + TplConvert<XMLCh>::_2str( e.getSystemId() ) \
+        + string(", line ") + toString<int>(e.getLineNumber()) \
+        + string(", char ") + toString<int>(e.getColumnNumber()) \
+        + string("\n  Message: ") \
         + TplConvert<XMLCh>::_2str( e.getMessage() ));
 }
 
@@ -238,12 +238,8 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
 
     MSVehicle* veh = MSVehicle::dictionary( myEmitId );
     if ( veh != 0 ) {
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": Vehicle ") + myEmitId
-            + string(" does already exist. "));
-        MsgHandler::getWarningInstance()->inform(
-            "Continuing with next element.");
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Vehicle ") + myEmitId+ string(" does already exist. "));
+        WRITE_WARNING("Continuing with next element.");
         throw ProcessError();
     }
 
@@ -252,11 +248,8 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     string emitType = myEmitAttributes.find( string( "vehtype" ) )->second;
     MSVehicleType* type = MSVehicleType::dictionary( emitType );
     if ( type == 0 ) {
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": Vehicle type ") + emitType + string(" does not exist. "));
-        MsgHandler::getWarningInstance()->inform(
-            "Continuing with next element.");
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Vehicle type ") + emitType + string(" does not exist. "));
+        WRITE_WARNING("Continuing with next element.");
         throw ProcessError();
     }
     else {
@@ -292,18 +285,12 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     string speedStr = myEmitAttributes.find( string( "speed" ) )->second;
     double speed;
     if ( ! isString2doubleSuccess( speedStr, speed ) ) {
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": No conversion possible on attribute \"speed\" with value ")
-            + speedStr);
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": No conversion possible on attribute \"speed\" with value ")+ speedStr);
         throw ProcessError();
     }
     if ( speed < 0 || speed > mySource.myLane->maxSpeed() ) {
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") +  mySource.getId()
-            + string(": Speed < 0 or > lane's max-speed. "));
-        MsgHandler::getWarningInstance()->inform(
-            "Continuing with next element.");
+        WRITE_WARNING(string("MSTriggeredSource ") +  mySource.getId()+ string(": Speed < 0 or > lane's max-speed. "));
+        WRITE_WARNING("Continuing with next element.");
         throw ProcessError();
     }
     else {
@@ -477,26 +464,18 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
     if ( TplConvert<XMLCh>::_2str( aLocalname ) !=
          string( "emit" ) ) {
 
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": Token name \"")
-            + TplConvert<XMLCh>::_2str( aLocalname )
-            + string("\" sould be \"emit\"."));
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Token name \"")+ TplConvert<XMLCh>::_2str( aLocalname )+ string("\" sould be \"emit\"."));
         throw ProcessError();
     }
     if ( aAttributes.getLength() != myEmitAttributes.size() ) {
 
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": Wrong number of attributes. "));
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Wrong number of attributes. "));
         throw ProcessError();
     }
 
     if ( ! isAttributes2mapSuccess( myEmitAttributes, aAttributes ) ) {
 
-        MsgHandler::getWarningInstance()->inform(
-            string("MSTriggeredSource ") + mySource.getId()
-            + string(": Wrong attribute. "));
+        WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Wrong attribute. "));
         throw ProcessError();
     }
 
@@ -587,6 +566,15 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.12  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
+// Revision 1.2  2004/10/29 05:52:34  dksumo
+// fastened up the output of warnings and messages
+//
+// Revision 1.1  2004/10/22 12:49:27  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.11  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //

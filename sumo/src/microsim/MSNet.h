@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.43  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.42  2004/08/02 12:08:39  dkrajzew
 // raw-output extracted; output device handling rechecked
 //
@@ -264,6 +267,12 @@
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef _SPEEDCHECK
@@ -304,6 +313,7 @@ class MSTLLogicControl;
 class MSVehicleTransfer;
 class MSVehicleControl;
 class OutputDevice;
+class NLNetBuilder;
 
 
 /* =========================================================================
@@ -329,9 +339,11 @@ public:
         /// emissions output
         OS_EMISSIONS = 1,
         /// trip information output
-        OS_TRIPINFO = 2,
+        OS_TRIPDURATIONS = 2,
+        /// route information output
+        OS_VEHROUTE = 3,
         /// maximum value
-        OS_MAX = 3
+        OS_MAX = 4
     };
 
 public:
@@ -365,18 +377,17 @@ public:
      * @param startTimestep Timestep the simulation will start with.
      */
     static void preInitMSNet( Time startTimestep,
-        MSVehicleControl *vc,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+        MSVehicleControl *vc);
 
     static void preInit( Time startTimestep,
-        MSVehicleControl *vc,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+        MSVehicleControl *vc);
 
     /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
     static void init( std::string id, MSEdgeControl* ec,
         MSJunctionControl* jc, MSRouteLoaderControl *rlc,
-        MSTLLogicControl *tlc, const std::vector<OutputDevice*> &streams);
+        MSTLLogicControl *tlc, const std::vector<OutputDevice*> &streams,
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /// Destructor.
     virtual ~MSNet();
@@ -506,6 +517,8 @@ public:
 
     bool haveAllVehiclesQuit();
 
+    size_t getMeanDataSize() const;
+    MSEdgeControl &getEdgeControl(NLNetBuilder &);
     void addMeanData(MSMeanData_Net *newMeanData);
 
 protected:

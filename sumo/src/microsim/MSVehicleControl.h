@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/11/23 10:20:11  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.3  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -92,6 +95,9 @@ public:
 
     /// Returns the number of emitted vehicles
     size_t getEmittedVehicleNo() const;
+
+    /// Returns the number of vehicles that wait for being emitted
+    size_t getWaitingVehicleNo() const;
 
     /// Return the meaning waiting time of vehicles (corn-dependent value)
     double getMeanWaitingTime() const;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.56  2004/08/02 12:40:55  dkrajzew
 // debugging; refactoring; lane-changing API
 //
@@ -421,6 +424,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include "lanechanging/MSLCM_Krauss.h"
 #include "lanechanging/MSLCM_DK2004.h"
+#include <utils/convert/ToString.h>
 
 
 /* =========================================================================
@@ -533,6 +537,9 @@ MSVehicle::State::State( double pos, double speed ) :
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
+    if(myID=="54086") {
+        int bla = 0;
+    }
     for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
     }
@@ -540,9 +547,18 @@ MSVehicle::~MSVehicle()
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     }
-    if(myDoubleCORNMap.find(MSCORN::CORN_VEH_OLDROUTE1)!=myDoubleCORNMap.end()) {
-        delete ((MSRoute*) (int) myDoubleCORNMap[MSCORN::CORN_VEH_OLDROUTE1]);
+    // delete
+    if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
+        int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+        for(int i=0; i<noReroutes; ++i) {
+            delete myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
+        }
     }
+    /*
+    for(std::map<MSCORN::Pointer, void*>::iterator j=myPointerCORNMap.begin(); j!=myPointerCORNMap.end(); ++j) {
+        delete (*j).second;
+    } !!!
+    */
     delete myLaneChangeModel;
 }
 
@@ -825,13 +841,13 @@ MSVehicle::decelDist() const
 }
 
 /////////////////////////////////////////////////////////////////////////////
-/*
+
 MSVehicle::State
 MSVehicle::accelState( const MSLane* lane ) const
 {
     return State( 0, vaccel( lane ) );
 }
-*/
+
 /////////////////////////////////////////////////////////////////////////////
 
 void
@@ -881,6 +897,7 @@ MSVehicle::move( MSLane* lane,
     vNext = MIN3(vNext, vSafe, vaccel(myLane));
 //    }
     // check needed for the Krauss-model
+    /*!!!
     double accelSpace = accelDist()*MSNet::deltaT();
     if( gap<accelSpace &&
         //pred->speed()<accelSpace &&
@@ -888,6 +905,7 @@ MSVehicle::move( MSLane* lane,
 
         vNext = gap / MSNet::deltaT();
     }
+*/
     double predDec = MAX(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
     if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
 
@@ -955,7 +973,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 //            vWish = myLaneChangeState.modifySpeed(vWish, myState.mySpeed-decelAbility());
         }
         myLFLinkLanes.push_back(
-            DriveProcessItem(myLane->getLinkCont().end(), vWish, vWish));
+            DriveProcessItem(0, vWish, vWish));
     } else {
         // compute other values as in move
         double vBeg = vaccel( lane );
@@ -999,17 +1017,17 @@ MSVehicle::moveFirstChecked()
     MSLane *currentLane = myLane;
     bool cont = true;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; i++) {
-        MSLinkCont::const_iterator &link = (*i).myLink;
-        bool onLinkEnd = currentLane->isLinkEnd(link);
+        MSLink *link = (*i).myLink;
+        bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
         if(!onLinkEnd) {
-            if((*link)->havePriority()) {
+            if(link->havePriority()) {
                 vSafe = (*i).myVLinkPass;
             } else {
-                if((*link)->opened()) {
+                if(link->opened()) {
                     vSafe = (*i).myVLinkPass;
                 } else {
-                    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->amYellow()) {
+                    if(vSafe<myState.mySpeed-myType->decelSpeed()&&link->amYellow()) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
@@ -1022,7 +1040,7 @@ MSVehicle::moveFirstChecked()
             cont = false;
             break;
         }
-        currentLane = (*link)->getLane();
+        currentLane = link->getLane();
     }
     // compute vNext in considering dawdling
     double vNext;
@@ -1069,7 +1087,7 @@ MSVehicle::moveFirstChecked()
         if(approachedLane!=myLane) {
             leaveLaneAtMove(driven);
         }
-        MSLinkCont::const_iterator &link = (*i).myLink;
+        MSLink *link = (*i).myLink;
         // check whether the vehicle was allowed to enter lane
         //  otherwise it is decelareted and we do not need to test for it's
         //  approach on the following lanes when a lane changing is performed
@@ -1081,10 +1099,10 @@ MSVehicle::moveFirstChecked()
             driven += approachedLane->length();
         }
         // proceed to the next lane
-        if(!approachedLane->isLinkEnd(link)) {
-            approachedLane = (*link)->getViaLane();
+        if(link!=0/*approachedLane->isLinkEnd(link)*/) {
+            approachedLane = link->getViaLane();
             if(approachedLane==0) {
-                approachedLane = (*link)->getLane();
+                approachedLane = link->getLane();
             }
         }
         // set information about approaching
@@ -1097,15 +1115,18 @@ MSVehicle::moveFirstChecked()
     double dist = brakeGap(myState.mySpeed) - driven;
     double tmpPos = myState.myPos + dist;
     for(; dist>0&&tmpApproached->length()<tmpPos&&i!=myLFLinkLanes.end(); i++) {
-        MSLinkCont::const_iterator &link = (*i).myLink;
+        MSLink *link = (*i).myLink;
+        if(link==0) {
+            break;
+        }
         tmpPos -= approachedLane->length();
 //        dist -= approachedLane->length();
-        if(!tmpApproached->isLinkEnd(link)) {
-            tmpApproached = (*link)->getViaLane();
+//        if(!tmpApproached->isLinkEnd(link)) {
+            tmpApproached = link->getViaLane();
             if(tmpApproached==0) {
-                tmpApproached = (*link)->getLane();
+                tmpApproached = link->getLane();
             }
-        }
+  //      }
         tmpApproached->setApproaching(tmpPos, this);
     }
     // needed as the lane changer maybe looks back
@@ -1179,7 +1200,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             double laneEndVSafe =
                 vsafe(myState.mySpeed, decelAbility, seen, 0);
             myLFLinkLanes.push_back(
-                DriveProcessItem(nextLane->getLinkCont().end(),
+                DriveProcessItem(0,
                     MIN(vLinkPass, laneEndVSafe),
                     MIN(vLinkPass, laneEndVSafe)));
             // the vehicle will not drive further
@@ -1255,7 +1276,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             }
         }
         myLFLinkLanes.push_back(
-            DriveProcessItem(link, vLinkPass, vLinkWait));
+            DriveProcessItem(*link, vLinkPass, vLinkWait));
         if( vsafePredNextLane>0&&dist-seen>0 ) {
             (*link)->setApproaching(this);
         } else {
@@ -1471,14 +1492,9 @@ MSVehicle::onAllowed( const MSLane* lane ) const
     if(myLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
-    if(id()=="27"&&MSNet::globaltime==50425) {
-        int bla = 0;
-        for(MSEdge::LaneCont::const_iterator i=myAllowedLanes[0]->begin(); i!=myAllowedLanes[0]->end(); ++i) {
-            cout << (*i)->id() << ", ";
-        }
-        cout << endl;
+    if(myAllowedLanes.size()==0) {
+        return false; // check (was assertion only)!!!
     }
-
     assert(myAllowedLanes.size()!=0);
     MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes[0]->begin(), myAllowedLanes[0]->end(), lane );
@@ -1492,6 +1508,9 @@ MSVehicle::onAllowed( const MSLane* lane, size_t offset ) const
     if(myLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
+    if(myAllowedLanes.size()==0) {
+        return false; // check (was assertion only)!!!
+    }
     assert(myAllowedLanes.size()!=0);
     MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes[offset]->begin(), myAllowedLanes[offset]->end(), lane );
@@ -1504,6 +1523,9 @@ MSVehicle::onAllowed( ) const
 {
     if(myLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
+    }
+    if(myAllowedLanes.size()==0) {
+        return false; // check (was assertion only)!!!
     }
     assert(myAllowedLanes.size()!=0);
     MSEdge::LaneCont::const_iterator compare =
@@ -1670,6 +1692,8 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
+    myAllowedLanes.clear();
+    rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange();
 }
 
@@ -1906,6 +1930,7 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
     }
 }
 
+
 void
 MSVehicle::activateRemindersByEmitOrLaneChange()
 {
@@ -1946,7 +1971,7 @@ MSVehicle::getWaitingTime() const
 
 bool
 MSVehicle::proceedVirtualReturnWhetherEnded(MSVehicleTransfer &securityCheck,
-                                       MSEdge *newEdge)
+                                            MSEdge *newEdge)
 {
     bool _destReached = destReached(newEdge);
     myAllowedLanes.clear(); // !!! not really necessary!?
@@ -1965,7 +1990,7 @@ MSVehicle::proceedVirtualReturnWhetherEnded(MSVehicleTransfer &securityCheck,
 
 
 void
-MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
+MSVehicle::onTripEnd(/*MSLane &caller, */bool wasAlreadySet)
 {
     double pspeed = myState.mySpeed;
     double pos = myState.myPos;
@@ -2009,14 +2034,28 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
 void
 MSVehicle::removeApproachingInformationOnKill()
 {
+    DriveItemVector::iterator i = myLFLinkLanes.begin();
+    while(i!=myLFLinkLanes.end()&&(*i).myLink!=0/*&&(*i).myLink->getLane()!=begin&&(*i).myLink->getViaLane()!=begin*/) {
+        MSLane *tmp = (*i).myLink->getLane();
+        if(tmp!=0) {
+            tmp->resetApproacherDistance(this);
+        }
+        tmp = (*i).myLink->getViaLane();
+        if(tmp!=0) {
+            tmp->resetApproacherDistance(this);
+        }
+        ++i;
+    }
+    /*
     if(myLFLinkLanes.size()==0) {
         return;
     }
-    const DriveProcessItem &item = *(myLFLinkLanes.begin());
-    if(!myLane->isLinkEnd((*(myLFLinkLanes.begin())).myLink)) {
-        MSLane *l = (*item.myLink)->getViaLane();
+    DriveProcessItem &item = *(myLFLinkLanes.begin());
+//    if(!myLane->isLinkEnd((*(myLFLinkLanes.begin())).myLink)) {
+    if(item.myLink!=0) {
+        MSLane *l = item.myLink->getViaLane();
         if(l==0) {
-            l = (*item.myLink)->getLane();
+            l = item.myLink->getLane();
         }
         removeApproachingInformationOnKill(l);
     }
@@ -2027,31 +2066,45 @@ void
 MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(MSNet::globaltime>=MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
         DEBUG_OUT << "rmApp:" << MSNet::globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
     }
 #endif
-    MSLane *current = myLane;
-    bool found = false;
-    for(DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); i++) {
+    if(begin==myLane&&myLFLinkLanes.size()>0&&myLFLinkLanes[0].myLink!=0) {
+        begin = myLFLinkLanes[0].myLink->getViaLane();
+        if(begin==0) {
+            begin = myLFLinkLanes[0].myLink->getLane();
+        }
+    }
+    DriveItemVector::iterator i = myLFLinkLanes.begin();
+    // pass lanes already passed
+    while(i!=myLFLinkLanes.end()&&(*i).myLink!=0&&(*i).myLink->getLane()!=begin&&(*i).myLink->getViaLane()!=begin) {
+        ++i;
+    }
+    // reset lanes to come
+    while(i!=myLFLinkLanes.end()&&(*i).myLink!=0/*&&(*i).myLink->getLane()!=begin&&(*i).myLink->getViaLane()!=begin*//*) {
+        MSLane *tmp = (*i).myLink->getLane();
+        if(tmp!=0) {
+            tmp->resetApproacherDistance(this);
+        }
+        tmp = (*i).myLink->getViaLane();
+        if(tmp!=0) {
+            tmp->resetApproacherDistance(this);
+        }
+        ++i;
+    }
+    /*
+    for(; i!=myLFLinkLanes.end(); i++) {
         const DriveProcessItem &item = *i;
         // ok, leave if a dead end occured
         //  (the vehicle does not drive any further)
-        if(current->isLinkEnd((*i).myLink)) {
+        if((*i).myLink==0) {
             break;
         }
         //
-        current = (*item.myLink)->getViaLane();
-        if(current==0) {
-            current = (*item.myLink)->getLane();
-        }
-        //
-        if((*item.myLink)->getViaLane()==begin||(*item.myLink)->getLane()==begin) {
-            found = true;
-        }
-        if(found) {
-            MSLane *l1 = (*item.myLink)->getViaLane();
-            MSLane *l2 = (*item.myLink)->getLane();
+        if(item.myLink->getViaLane()==begin||item.myLink->getLane()==begin) {
+            MSLane *l1 = item.myLink->getViaLane();
+            MSLane *l2 = item.myLink->getLane();
             if(l1!=0) {
                 l1->resetApproacherDistance(this);
             }
@@ -2061,6 +2114,7 @@ MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
             begin = l2;
         }
     }
+    */
 }
 
 
@@ -2119,8 +2173,22 @@ MSVehicle::getRoute() const
 }
 
 
+const MSRoute &
+MSVehicle::getRoute(int index) const
+{
+    if(index==0) {
+        return *myRoute;
+    }
+    int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE + index - 1;
+    std::map<MSCORN::Pointer, void*>::const_iterator i =
+        myPointerCORNMap.find((MSCORN::Pointer) routeOffset);
+    assert(i!=myPointerCORNMap.end());
+    return *((MSRoute*) (*i).second);
+}
+
+
 bool
-MSVehicle::replaceRoute(const MSEdgeVector &edges)
+MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
 {
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
@@ -2141,19 +2209,30 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges)
     if(MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         otherr = new MSRoute(*myRoute);
     }
+    // try to replace the current route
     bool replaced = myRoute->replaceBy(edges, myCurrEdge);
     if(replaced) {
+        // rebuild in-vehicle route information
         myCurrEdge = myRoute->find(currentEdge);
         myAllowedLanes.clear();
-//        myLanesWishes.clear();
         rebuildAllowedLanes();
-//            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
+        // save information that the vehicle was rerouted
         myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
-        myDoubleCORNMap[MSCORN::CORN_VEH_OLDROUTE1] =
-            (double) (int) otherr;
+            // ... maybe the route information shall be saved for output?
+        if( MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
+            int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
+                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
+            int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
+                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
+            int timeOffset = (int) MSCORN::CORN_VEH_REROUTE_TIME +
+                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            myDoubleCORNMap[(MSCORN::Function) timeOffset] = (double) simTime;
+        }
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBREROUTE] =
-            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBREROUTE] + 1;
+        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
+            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     }
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
@@ -2185,19 +2264,39 @@ MSVehicle::rebuildAllowedLanes()
     }
     double MIN_DIST = 3000;
     if(dist<MIN_DIST) {
+        size_t pos = distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size();
+        if(pos>=myRoute->size()-1) {
+            return;
+        }
+        const MSEdge::LaneCont *al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1] );
+        while(al!=0&&dist<MIN_DIST&&pos<myRoute->size()-1/*&&*ce!=myRoute->getLastEdge()*/) {
+            assert(al!=0);
+            myAllowedLanes.push_back(al);
+//            myLanesWishes.push_back(vector<float>(al->size(), 0));
+//            ++ce;
+            pos++;
+            if(pos<myRoute->size()-1) {
+                dist += ((*al)[0])->length();
+                al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1] );
+            }
+        }
+/*
+
         MSRouteIterator ce = myCurrEdge + myAllowedLanes.size();
-        if(ce==myRoute->end()-2||ce==myRoute->end()-1/* || *ce==myRoute->getLastEdge()*/) {
+        if(/*ce==myRoute->end()-2||*//*ce==myRoute->end()-1/* || *ce==myRoute->getLastEdge()*//*) {
             return;
         }
         const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        while(al!=0&&dist<MIN_DIST&&ce!=myRoute->end()-2/*&&*ce!=myRoute->getLastEdge()*/) {
+        while(al!=0&&dist<MIN_DIST&&ce!=myRoute->end()-1/*&&*ce!=myRoute->getLastEdge()*//*) {
             assert(al!=0);
-            ++ce;
             myAllowedLanes.push_back(al);
 //            myLanesWishes.push_back(vector<float>(al->size(), 0));
-            dist += ((*al)[0])->length();
-            al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        }
+            ++ce;
+            if(ce!=myRoute->end()-1) {
+                dist += ((*al)[0])->length();
+                al = ( *ce )->allowedLanes( **( ce + 1 ) );
+            }
+        }*/
     }
 }
 
@@ -2232,9 +2331,6 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
 double
 MSVehicle::allowedContinuationsLength(const MSLane *lane) const
 {
-    if(id()=="2619"&&MSNet::globaltime>=21890) {
-        int bla = 0;
-    }
     double dist = lane->length()-myState.pos();
     MSRouteIterator ce = myCurrEdge;
     while(ce!=myRoute->end()-2/**ce!=myRoute->getLastEdge()*/) {
@@ -2258,6 +2354,34 @@ MSVehicle::allowedContinuationsLength(const MSLane *lane) const
     return dist;
 }
 
+
+void
+MSVehicle::writeXMLRoute(std::ostream &os, int index) const
+{
+    MSRoute *route2Write = myRoute;
+    // check if a previous route shall be written
+    os << "      <route";
+    if(index>=0) {
+        // write edge on which the vehicle was when the route was valid
+        std::map<MSCORN::Pointer, void*>::const_iterator j =
+            myPointerCORNMap.find(
+                (MSCORN::Pointer) (MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE+index));
+        os << " replacedOnEdge=\"" << ((MSEdge*) (*j).second)->id() << "\" ";
+        // write the time at which the route was replaced
+        std::map<MSCORN::Function, double>::const_iterator j2 =
+            myDoubleCORNMap.find(
+                (MSCORN::Function) (MSCORN::CORN_VEH_REROUTE_TIME+index));
+        os << " replacedAtTime=\"" << toString<size_t>((size_t) (*j2).second) << "\"";
+        // get the route
+        j = myPointerCORNMap.find((MSCORN::Pointer) (MSCORN::CORN_P_VEH_OLDROUTE+index));
+        assert(j!=myPointerCORNMap.end());
+        route2Write = (MSRoute*) j->second;
+    }
+    os << ">";
+    // write the route
+    route2Write->writeEdgeIDs(os);
+    os << "</route>" << endl;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

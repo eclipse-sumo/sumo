@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.54  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.53  2004/08/02 12:08:39  dkrajzew
 // raw-output extracted; output device handling rechecked
 //
@@ -362,7 +365,7 @@ namespace
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
-#include "MSTLLogicControl.h"
+#include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
 #include "MSTrigger.h"
 #include "MSCORN.h"
@@ -373,12 +376,12 @@ namespace
 #include "helpers/SingletonDictionary.h"
 #include "MSLaneState.h"
 #include "MSTravelcostDetector.h"
-#include <microsim/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorSubSys.h>
 #include <microsim/MSVehicleTransfer.h>
-#include "MSTrafficLightLogic.h"
-#include "MSDetectorHaltingContainerWrapper.h"
-#include "MSTDDetectorInterface.h"
-#include "MSDetectorOccupancyCorrection.h"
+#include "traffic_lights/MSTrafficLightLogic.h"
+#include <microsim/output/MSDetectorHaltingContainerWrapper.h>
+#include <microsim/output/MSTDDetectorInterface.h>
+#include <microsim/output/MSDetectorOccupancyCorrection.h>
 #include <utils/geom/Polygon2D.h>
 #include "output/meandata/MSMeanData_Net.h"
 #include "output/meandata/MSMeanData_Net_Utils.h"
@@ -403,9 +406,9 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 22615;
-std::string MSNet::searched1 = "17361";
-std::string MSNet::searched2 = "999728";
+MSNet::Time MSNet::searchedtime = 21880;
+std::string MSNet::searched1 = "2635";
+std::string MSNet::searched2 = "2858";
 std::string MSNet::searchedJunction = "536";
 #endif
 
@@ -432,30 +435,23 @@ MSNet::getInstance( void )
 
 void
 MSNet::preInitMSNet(MSNet::Time startTimeStep,
-                    MSVehicleControl *vc,
-                    TimeVector dumpMeanDataIntervalls,
-                    std::string baseNameDumpFiles)
+                    MSVehicleControl *vc)
 {
     myInstance = new MSNet();
-    preInit(startTimeStep, vc, dumpMeanDataIntervalls, baseNameDumpFiles);
+    preInit(startTimeStep, vc);
 }
 
 
 void
 MSNet::preInit(MSNet::Time startTimeStep,
-               MSVehicleControl *vc,
-               TimeVector dumpMeanDataIntervalls,
-               std::string baseNameDumpFiles)
+               MSVehicleControl *vc)
 {
     MSCORN::init();
+    MSDetectorSubSys::createDictionaries();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myInstance->myStep = startTimeStep;
-    myInstance->myMeanData =
-        MSMeanData_Net_Utils::buildList( dumpMeanDataIntervalls,
-            baseNameDumpFiles);
     myInstance->myEmitter = new MSEmitControl("");
     myInstance->myVehicleControl = vc;
-    MSDetectorSubSys::createDictionaries();
 }
 
 
@@ -465,7 +461,9 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSRouteLoaderControl *rlc,
              MSTLLogicControl *tlc,
-             const std::vector<OutputDevice*> &streams)
+             const std::vector<OutputDevice*> &streams,
+               TimeVector dumpMeanDataIntervalls,
+               std::string baseNameDumpFiles)
 {
     myInstance->myOutputStreams = streams;
     myInstance->myID           = id;
@@ -473,27 +471,35 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myJunctions    = jc;
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
-    MSDetectorSubSys::setDictionariesFindMode();
-    MSCORN::setTripInfoOutput(streams[OS_TRIPINFO]);
+    myInstance->myMeanData =
+        MSMeanData_Net_Utils::buildList( *(myInstance->myEdges),
+            dumpMeanDataIntervalls, baseNameDumpFiles);
+    MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
+    MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
 }
 
 
 MSNet::~MSNet()
 {
-    clearAll();
     // close the net statistics
+    /*
     for( std::vector< MSMeanData_Net* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
-        delete (*i1);
-    }
-    myMeanData.clear();
+        /*
+        unsigned passedSteps = myStep - start + 1;
+        (*i1)->write();
+        MSMeanData_Net_Utils::checkOutput(myMeanData, myStep, *myEdges);
+        */
+      /*  delete (*i1);
+    }*/
     // delete controls
+    MSDetectorSubSys::deleteDictionariesAndContents();
+    clearAll();
     delete myEdges;
     delete myJunctions;
     delete myEmitter;
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
-    MSDetectorSubSys::deleteDictionariesAndContents();
     // close outputs
     for(size_t i2=0; i2<OS_MAX; i2++) {
         delete myOutputStreams[i2];
@@ -501,6 +507,7 @@ MSNet::~MSNet()
     for(PolyDic::iterator j=poly_dic.begin(); j != poly_dic.end(); j++){
        delete (*j).second;
     }
+    myMeanData.clear();
     poly_dic.clear();
 }
 
@@ -518,15 +525,12 @@ MSNet::simulate( Time start, Time stop )
             myStep++;
         } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
         if(myStep>stop) {
-            MsgHandler::getMessageInstance()->inform(
-                "Simulation End: The final simulation step has been reached.");
+            WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
         } else {
-            MsgHandler::getMessageInstance()->inform(
-                "Simulation End: All vehicles have left the simulation.");
+            WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
         }
-    } catch (ProcessError &e) {
-        MsgHandler::getMessageInstance()->inform(
-            "Simulation End: An error occured (see log).");
+    } catch (ProcessError &) {
+        WRITE_MESSAGE("Simulation End: An error occured (see log).");
     }
     // exit simulation loop
     closeSimulation();
@@ -550,12 +554,19 @@ MSNet::initialiseSimulation()
             << "<emissions>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
-    // ... the same for the vehicle trip information
-    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
-        myOutputStreams[OS_TRIPINFO]->getOStream()
+    // ... the same for the vehicle trip durations
+    if ( myOutputStreams[OS_TRIPDURATIONS]!=0 ) {
+        myOutputStreams[OS_TRIPDURATIONS]->getOStream()
             << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<tripinfos>" << endl;
-        MSCORN::setWished(MSCORN::CORN_OUT_TRIPOUTPUT);
+        MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
+    }
+    // ... the same for the vehicle route information
+    if ( myOutputStreams[OS_VEHROUTE]!=0 ) {
+        myOutputStreams[OS_VEHROUTE]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<vehicleroutes>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
 }
 
@@ -572,8 +583,12 @@ MSNet::closeSimulation()
         myOutputStreams[OS_EMISSIONS]->getOStream() << "</emissions>" << endl;
     }
     // ... the same for the vehicle trip information
-    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
-        myOutputStreams[OS_TRIPINFO]->getOStream() << "</tripinfos>" << endl;
+    if ( myOutputStreams[OS_TRIPDURATIONS]!=0 ) {
+        myOutputStreams[OS_TRIPDURATIONS]->getOStream() << "</tripinfos>" << endl;
+    }
+    // ... the same for the vehicle trip information
+    if ( myOutputStreams[OS_VEHROUTE]!=0 ) {
+        myOutputStreams[OS_VEHROUTE]->getOStream() << "</vehicleroutes>" << endl;
     }
 }
 
@@ -641,11 +656,13 @@ MSNet::simulationStep( Time start, Time step )
     myEdges->detectCollisions( myStep );
 
     // Check if mean-lane-data is due
+    /*
     if(myMeanData.size()>0) {
         unsigned passedSteps = myStep - start + 1;
         MSMeanData_Net_Utils::checkOutput(myMeanData, passedSteps,
             start, myStep, *myEdges);
     }
+    */
     // write the output
     writeOutput();
     // execute endOfTimestepEvents
@@ -693,6 +710,7 @@ MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 void
 MSNet::preStartInit()
 {
+    MSDetectorSubSys::setDictionariesFindMode();
     for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
         i!=myPreStartInitialiseItems.end(); i++) {
         (*i)->init(*this);
@@ -721,7 +739,7 @@ MSNet::writeOutput()
     if ( myOutputStreams[OS_NETSTATE]!=0 ) {
         MSXMLRawOut::write(myOutputStreams[OS_NETSTATE], *myEdges, myStep, 3);
     }
-    // netstate output.
+    // emission output
     if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
         myOutputStreams[OS_EMISSIONS]->getOStream()
             << "    <emission-state id=\"" << myStep << "\" "
@@ -733,9 +751,6 @@ MSNet::writeOutput()
             << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
             << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\"/>"
             << endl;
-    }
-    // netstate output.
-    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
     }
 }
 
@@ -768,6 +783,23 @@ MSNet::addMeanData(MSMeanData_Net *newMeanData)
         myEdges->addToLanes(newMeanData);
     }
 }
+
+
+size_t
+MSNet::getMeanDataSize() const
+{
+    return myMeanData.size();
+}
+
+
+MSEdgeControl &
+MSNet::getEdgeControl(NLNetBuilder &)
+{
+    return *myEdges;
+}
+
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

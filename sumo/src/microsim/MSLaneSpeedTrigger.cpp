@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.7  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -138,7 +141,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
         myCurrentSpeed = speed;
         _offset = MSNet::Time(next);
         myHaveNext = true;
-    } catch(NumberFormatException &e) {
+    } catch(NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Could not initialise vss '") + getID()
             + string("'."));

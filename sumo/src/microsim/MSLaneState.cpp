@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.35  2004/07/02 09:59:56  dkrajzew
 // code stye applied
 //
@@ -448,55 +451,54 @@ MSLaneState::getNamePrefix( void ) const
 }
 
 
-string&
-MSLaneState::getXMLHeader( void ) const
+void
+MSLaneState::writeXMLHeader( XMLDevice &dev ) const
 {
-    return xmlHeaderM;
+    dev.writeString(xmlHeaderM);
 }
 
 
-string
-MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
+void
+MSLaneState::writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
 {
-    string traveltime = string("traveltime=\"") +
-        toString( getMeanTraveltime( lastNTimesteps ) ) + string("\" ");
-    string speed = string("speed=\"") +
-        toString( getMeanSpeed( lastNTimesteps ) ) + string("\" ");
-    string speedSquare = string("speedsquare=\"") +
-        toString( getMeanSpeedSquare( lastNTimesteps ) ) + string("\" ");
-    string density = string("density=\"") +
-        toString( getMeanDensity( lastNTimesteps ) ) + string("\" ");
-    string nVehContrib = string("noVehContrib=\"") +
-        toString( getNVehContributed( lastNTimesteps ) ) + string("\" ");
-    string nVehEntire = string("noVehEntire=\"") +
-        toString( getNVehPassedEntireDetector( lastNTimesteps ) ) +
-        string("\" ");
-    string nVehEntered = string("noVehEntered=\"") +
-        toString( getNVehEnteredDetector( lastNTimesteps ) ) + string("\" ");
-    string nVehLeft = string("noVehLeftByMove=\"") +
-        toString( getNVehLeftDetectorByMove( lastNTimesteps ) ) +
-        string("\"");
-    return traveltime + speed + speedSquare + density + nVehContrib +
-        nVehEntire + nVehEntered + nVehLeft;
+    MSNet::Time lastNTimesteps = stopTime-startTime;
+    dev.writeString("<interval start=\"").writeString(
+        toString(startTime)).writeString("\" stop=\"").writeString(
+        toString(stopTime)).writeString("\" ");
+    dev.writeString("traveltime=\"").writeString(
+        toString( getMeanTraveltime( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("speed=\"").writeString(
+        toString( getMeanSpeed( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("speedsquare=\"").writeString(
+        toString( getMeanSpeedSquare( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("density=\"").writeString(
+        toString( getMeanDensity( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("noVehContrib=\"").writeString(
+        toString( getNVehContributed( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("noVehEntire=\"").writeString(
+        toString( getNVehPassedEntireDetector( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("noVehEntered=\"").writeString(
+        toString( getNVehEnteredDetector( lastNTimesteps ))).writeString("\" ");
+    dev.writeString("noVehLeftByMove=\"").writeString(
+        toString( getNVehLeftDetectorByMove( lastNTimesteps ))).writeString("\"");
+    dev.writeString("\"/>");
 }
 
 
-string
-MSLaneState::getXMLDetectorInfoStart( void ) const
+void
+MSLaneState::writeXMLDetectorInfoStart( XMLDevice &dev ) const
 {
-    string detectorInfo("<detector type=\"lanestate\" id=\"" + idM +
-                        "\" lane=\"" + laneM->id() + "\" startpos=\"" +
-                        toString(startPosM) + "\" length=\"" +
-                        toString(endPosM - startPosM) +
-                        "\" >\n");
-    return detectorInfo;
+    dev.writeString("<detector type=\"lanestate\" id=\"" + idM +
+        "\" lane=\"" + laneM->id() + "\" startpos=\"" +
+        toString(startPosM) + "\" length=\"" +
+        toString(endPosM - startPosM) + "\" >\n");
 }
 
 
-const string&
-MSLaneState::getXMLDetectorInfoEnd( void ) const
+void
+MSLaneState::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
 {
-    return detectorInfoEndM;
+    dev.writeString(detectorInfoEndM);
 }
 
 

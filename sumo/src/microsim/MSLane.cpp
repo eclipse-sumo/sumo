@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.48  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.47  2004/08/02 12:14:29  dkrajzew
 // raw-output extracted; debugging of collision handling
 //
@@ -364,7 +367,7 @@ namespace
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
-#include "MSInductLoop.h"
+#include "output/MSInductLoop.h"
 #include "MSLink.h"
 #include "MSLane.h"
 #include "MSVehicleTransfer.h"
@@ -497,7 +500,6 @@ MSLane::moveNonCritical()
     for ( veh = myVehicles.begin();
             !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
             ++veh,++myFirstUnsafe ) {
-
         VehCont::const_iterator pred( veh + 1 );
         ( *veh )->move( this, *pred, 0);
         ( *veh )->meanDataMove();
@@ -559,12 +561,17 @@ MSLane::detectCollisions( MSNet::Time timestep )
 
         VehCont::iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>=21868 && ((*veh)->id()==MSNet::searched1||(*veh)->id()==MSNet::searched2)) {
+        DEBUG_OUT << gap << endl;
+    }
+#endif
         if ( gap < 0 ) {
-            cout << "----------------------------------" << endl;
-            VehCont::const_iterator mm;
-            for(mm=myVehicles.begin(); mm!=myVehicles.end(); mm++) {
-                cout << (*mm)->id() << ", ";
-            }
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && ((*veh)->id()==MSNet::searched1||(*veh)->id()==MSNet::searched2)) {
+        int blb = 0;
+    }
+#endif
             MSVehicle *predV = *pred;
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
@@ -578,25 +585,20 @@ MSLane::detectCollisions( MSNet::Time timestep )
                 + ( *veh )->id() + string(" with ") + ( *pred )->id()
                 + string(" on MSLane ") + myID
                 + string(" during timestep ") + toString<int>(timestep));
-            DEBUG_OUT << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
-            DEBUG_OUT << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
+//            DEBUG_OUT << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
+//            DEBUG_OUT << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
             if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
                 vehV->leaveLaneAtLaneChange();
-                vehV->onTripEnd(*this);
+                vehV->onTripEnd(/* *this*/);
                 resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
-                vehV->removeApproachingInformationOnKill(this);
+                vehV->removeApproachingInformationOnKill(/*this*/);
                 MSVehicleTransfer::getInstance()->addVeh(vehV);
             }
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
             myUseDefinition->noVehicles--;
-            cout << "----------------------------------" << endl;
-            for(mm=myVehicles.begin(); mm!=myVehicles.end(); mm++) {
-                cout << (*mm)->id() << ", ";
-            }
-            cout << "----------------------------------" << endl;
             if(veh==myVehicles.end()) {
                 break;
             }
@@ -866,16 +868,29 @@ MSLane::setCritical()
 {
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // move critical vehicles
-    for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
+    int to_pop = 0;
+    bool lastPopped = false;
+    VehCont::iterator i;
+    for(i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
         MSVehicle *v = *i;
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if(target!=this) {
-            target->push(pop());
-            return;
+            assert(to_pop==0||lastPopped);
+            lastPopped = true;
+            to_pop++;
+        } else {
+            lastPopped = false;
         }
-        (*i)->_assertPos();
+//        (*i)->_assertPos();
 
+    }
+    for(int j = 0; j<to_pop; j++) {
+        MSVehicle *v = *(myVehicles.end() - 1);
+        MSVehicle *p = pop();
+        assert(v==p);
+        MSLane *target = p->getTargetLane();
+        target->push(p);
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // check whether the lane is free
@@ -884,14 +899,13 @@ MSLane::setCritical()
         myFirstUnsafe = 0;//myVehicles.size();
     }
     if(myVehicles.size()>0) {
-        if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::myTimeToGridlock) {
+        if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
             veh->removeApproachingInformationOnKill();
             vt->addVeh(veh);
         }
     }
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -953,16 +967,10 @@ MSLane::push(MSVehicle* veh)
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        MsgHandler::getWarningInstance()->inform(
-            string("Vehicle '") + veh->id()
-            + string("' beamed due to a collision on push!\n")
-            + string("  Lane: '") + id() + string("', previous vehicle: '")
-            + prev->id() + string("', time: ")
-            + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
-            + string("."));
-        veh->onTripEnd(*this);
+        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        veh->onTripEnd(/* *this*/);
         resetApproacherDistance();
-        veh->removeApproachingInformationOnKill(this);
+        veh->removeApproachingInformationOnKill(/*this*/);
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
@@ -978,9 +986,9 @@ MSLane::push(MSVehicle* veh)
 //        setApproaching(veh->pos(), veh);
         return false;
     } else {
-        veh->onTripEnd(*this);
+        veh->onTripEnd(/* *this*/);
         resetApproacherDistance();
-        veh->removeApproachingInformationOnKill(this);
+        veh->removeApproachingInformationOnKill(/*this*/);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
@@ -994,7 +1002,7 @@ MSLane::pop()
     assert( ! myVehicles.empty() );
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     MSVehicle* first = myVehicles.back( );
-    first->leaveLaneAtMove( first->speed() * MSNet::deltaT() - first->pos() );
+    first->leaveLaneAtMove( first->speed() * MSNet::deltaT()/* - first->pos()*/ );
     myVehicles.pop_back();
     myUseDefinition->noVehicles--;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
@@ -1281,6 +1289,10 @@ MSLane::swapAfterLaneChange()
 void
 MSLane::setApproaching(double dist, MSVehicle *veh)
 {
+    if(veh->id()=="54086"&&MSNet::globaltime>=32242-1) {
+        int bla = 0;
+    }
+
     myBackDistance = dist;
     myApproaching = veh;
 }

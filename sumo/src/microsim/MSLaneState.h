@@ -22,13 +22,19 @@
 //---------------------------------------------------------------------------//
 
 // $Id$
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 #include "MSNet.h"
-#include "MSDetectorFileOutput.h"
+#include <microsim/output/MSDetectorFileOutput.h>
 #include "MSMoveReminder.h"
 #include <string>
 #include <deque>
 #include <map>
+#include <utils/iodevices/XMLDevice.h>
 
 class MSLane;
 
@@ -295,7 +301,7 @@ public:
      *
      * @return XML-header and comment.
      */
-    std::string& getXMLHeader( void ) const;
+    void writeXMLHeader( XMLDevice &dev ) const;
 
 
     /**
@@ -310,7 +316,7 @@ public:
      * @return XML-output of calculated data for the intervall
      * (now-lastNTimesteps, now]
      */
-    std::string getXMLOutput( MSNet::Time lastNTimesteps );
+    void writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime );
 
 
     /**
@@ -321,7 +327,7 @@ public:
      *
      * @return XML-header and comment.
      */
-    std::string getXMLDetectorInfoStart( void ) const;
+    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
 
 
     /**
@@ -331,7 +337,7 @@ public:
      *
      * @return String </detector>
      */
-     const std::string& getXMLDetectorInfoEnd( void ) const;
+     void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
 
 
     /**

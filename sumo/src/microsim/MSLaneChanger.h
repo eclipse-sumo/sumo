@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.4  2004/08/02 12:07:01  dkrajzew
 // first steps towards a lane-changing model API
 //
@@ -85,7 +88,7 @@ public:
     MSLaneChanger( MSEdge::LaneCont* lanes );
 
     /// Start lane-change-process for all vehicles on the edge'e lanes.
-    void laneChange();
+    virtual void laneChange();
 
 public:
     /** Structure used for lane-change. For every lane you have to
@@ -104,13 +107,17 @@ public:
         MSLane*                   lane;
 
         /// the regarded vehicle
-        MSLane::VehCont::iterator veh;
+        MSLane::VehCont::reverse_iterator veh;
 
         /// last vehicle that changed into this lane
         MSVehicle*                hoppedVeh;
+
+        /// the vehicle that really wants to change to this lane
+        MSVehicle*                lastBlocked;
+
     };
 
-protected:
+public:
     /** @brief The list of changers;
         For each lane, a ChangeElem is being build */
     typedef std::vector< ChangeElem > Changer;
@@ -118,22 +125,23 @@ protected:
     /// the iterator moving over the ChangeElems
     typedef Changer::iterator         ChangerIt;
 
+protected:
     /// Initialize the changer before looping over all vehicles.
-    void initChanger();
+    virtual void initChanger();
 
     /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */
-    bool vehInChanger();
+    virtual bool vehInChanger();
 
     /** Returns a pointer to the changer-element-iterator vehicle, or 0 if
         there is none. */
-    MSVehicle* veh( ChangerIt ce );
+    virtual MSVehicle* veh( ChangerIt ce );
 
     /** Find a new candidate and try to change it. */
-    bool change();
+    virtual bool change();
 
     /** After the possible change, update the changer. */
-    void updateChanger(bool vehHasChanged);
+    virtual void updateChanger(bool vehHasChanged);
 
     /** During lane-change a temporary vehicle container is filled within
         the lanes (bad pratice to modify foreign members, I know). Swap
@@ -146,15 +154,15 @@ protected:
 
     /** Returns true if the target's lane is an allowed lane
         for the candidate's vehicle . */
-    bool candiOnAllowed( ChangerIt target );
+    virtual bool candiOnAllowed( ChangerIt target );
 
-    int change2right(
+    virtual int change2right(
         const std::pair<MSVehicle*, double> &leader,
         const std::pair<MSVehicle*, double> &rLead,
         const std::pair<MSVehicle*, double> &rFollow,
         int bestLaneOffset, double bestDist, double currentDist);
 
-    int change2left(
+    virtual int change2left(
         const std::pair<MSVehicle*, double> &leader,
         const std::pair<MSVehicle*, double> &rLead,
         const std::pair<MSVehicle*, double> &rFollow,
@@ -162,16 +170,16 @@ protected:
 
     /** If candidate isn't on an allowed lane, we need to find target-
         lane that takes it closer to an allowed one. */
-    ChangerIt findTarget();
+    virtual ChangerIt findTarget();
 
     /** Returns true if change to target-lane is allowed. */
 //    bool change2target( ChangerIt target );
 
-    void setOverlap(const std::pair<MSVehicle*, double> &neighLead,
+    virtual void setOverlap(const std::pair<MSVehicle*, double> &neighLead,
         const std::pair<MSVehicle*, double> &neighFollow,
         /*const ChangerIt &target,*/ int &blocked);
 
-    void setIsSafeChange(const std::pair<MSVehicle*, double> &neighLead,
+    virtual void setIsSafeChange(const std::pair<MSVehicle*, double> &neighLead,
         const std::pair<MSVehicle*, double> &neighFollow,
         const ChangerIt &target, int &blocked);
 
@@ -180,7 +188,7 @@ protected:
 
     /** Returns true, if candidate has an advantage by changing to the
         right. */
-    int advan2right(
+    virtual int advan2right(
         const std::pair<MSVehicle*, double> &leader,
         const std::pair<MSVehicle*, double> &rLead,
         const std::pair<MSVehicle*, double> &rFollow,
@@ -188,7 +196,7 @@ protected:
 
     /** Returns true, if candidate has an advantage by changing to the
         left. */
-    int advan2left(
+    virtual int advan2left(
         const std::pair<MSVehicle*, double> &leader,
         const std::pair<MSVehicle*, double> &rLead,
         const std::pair<MSVehicle*, double> &rFollow,
@@ -196,10 +204,11 @@ protected:
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
-    bool overlapWithHopped( ChangerIt target );
-
-    bool change2RightPossible();
-    bool change2LeftPossible();
+    virtual bool overlapWithHopped( ChangerIt target );
+/*
+    virtual bool change2RightPossible();
+    virtual bool change2LeftPossible();
+    */
     std::pair<int, double> getChangePreference();
 
     std::pair<MSVehicle *, double> getRealThisLeader(const ChangerIt &target);

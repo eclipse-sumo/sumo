@@ -29,7 +29,10 @@ MSLCM_Sparmann::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgP
         return 0;
     }
 
+/*
     double sdxp_V =
+  */
+                 throw 1;
 }
 
 
@@ -52,4 +55,5 @@ MSLCM_Sparmann::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPa
         return 0;
     }
 
+throw 1;
 }

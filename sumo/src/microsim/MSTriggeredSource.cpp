@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.19  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.18  2004/01/26 07:50:16  dkrajzew
 // using the xmlhelpers instead of building the parser by the object itself
 //
@@ -300,9 +303,7 @@ MSTriggeredSource::readNextEmitElement( void )
 
         try {
             if ( myParser->parseNext( myToken ) == false ) {
-                MsgHandler::getMessageInstance()->inform(
-                    string("MSTriggeredSource ") + myID
-                    + string(": Finished parsing."));
+                WRITE_MESSAGE(string("MSTriggeredSource ") + myID + string(": Finished parsing."));
                 myIsWorking = false;
             }
         }
@@ -325,6 +326,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.19  2004/11/23 10:20:10  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.18  2004/01/26 07:50:16  dkrajzew
 // using the xmlhelpers instead of building the parser by the object itself
 //

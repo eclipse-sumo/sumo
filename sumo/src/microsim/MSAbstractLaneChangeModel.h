@@ -12,8 +12,9 @@ enum LaneChangeAction {
 
     LCA_BLOCKEDBY_LEADER = 16,
     LCA_BLOCKEDBY_FOLLOWER = 32,
+    LCA_OVERLAPPING = 64,
 
-    LCA_MAX = 64,
+    LCA_MAX = 128,
 };
 
 class MSAbstractLaneChangeModel {
@@ -81,7 +82,8 @@ public:
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
         int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist) = 0;
+        double currentDist,
+        MSVehicle **lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
@@ -94,7 +96,8 @@ public:
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
         int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist) = 0;
+        double currentDist,
+        MSVehicle **lastBlocked) = 0;
 
     virtual void *inform(void *info, MSVehicle *sender) = 0;
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/23 10:20:11  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.11  2004/08/02 12:40:19  dkrajzew
 // method renamed due to semantic reasons
 //
@@ -75,10 +78,13 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->id());
-    MsgHandler::getWarningInstance()->inform(
-        string("Vehicle '") + veh->id() + string("' will be teleported; edge '")
-        + e->id() + string("'."));
+    WRITE_WARNING(string("Vehicle '") + veh->id() + string("' will be teleported; edge '")+ e->id() + string("'."));
     // let the vehicle be on the one
+    const MSLane &lane = veh->getLane();
+    veh->leaveLaneAtLaneChange();
+    veh->onTripEnd(/*lane*/);
+//    resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
+//!!!    veh->removeApproachingInformationOnKill(MSLane::dictionary(lane.id()));
     if(veh->proceedVirtualReturnWhetherEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
@@ -104,10 +110,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
         // check whether the vehicle may be emitted onto a following edge
         if(e->emit(*(desc.myVeh))) {
             // remove from this if so
-            MsgHandler::getWarningInstance()->inform(
-                string("Vehicle '") + desc.myVeh->id()
-                + string("' ends teleporting on edge '") + e->id()
-                + string("'."));
+            WRITE_WARNING(string("Vehicle '") + desc.myVeh->id()+ string("' ends teleporting on edge '") + e->id()+ string("'."));
             i = myVehicles.erase(i);
         } else {
             // otherwise, check whether a consecutive edge may be used
@@ -119,18 +122,15 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->id());
                 // let the vehicle move to the next edge
                 if(desc.myVeh->proceedVirtualReturnWhetherEnded(*this, nextEdge)) {
-                    MsgHandler::getWarningInstance()->inform(
-                        string("Vehicle '") + desc.myVeh->id()
-                        + string("' ends teleporting on end edge '") + e->id()
-                        + string("'."));
+                    WRITE_WARNING(string("Vehicle '") + desc.myVeh->id()+ string("' ends teleporting on end edge '") + e->id()+ string("'."));
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
                     continue;
                 }
 //                desc.myNextPossibleEdge = nextEdge;
                 // get the time the vehicle needs to pass the current edge
-                desc.myProceedTime = time + tmp->length() / tmp->maxSpeed()
-                    * 2.0; // !!! maybe, the time should be compued in other ways
+                desc.myProceedTime = time + (MSNet::Time) (tmp->length() / tmp->maxSpeed()
+                    * 2.0); // !!! maybe, the time should be compued in other ways
             }
             i++;
         }

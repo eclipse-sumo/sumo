@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.8  2004/01/12 15:03:40  dkrajzew
 // removed some unneeded debug-variables
 //
@@ -139,9 +142,9 @@ MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
         bool linkPermit = request.test( i ) &&
             ( request & ( *myLogic )[ i ]).none();
         respond.set( i, linkPermit );
-//        std::cout << ( *myLogic )[ i ] << std::endl;
+//        std::cot << ( *myLogic )[ i ] << std::endl;
     }
-//    std::cout << "- - - - - - -" << std::endl;
+//    std::cot << "- - - - - - -" << std::endl;
     // check whether internal lanes disallow any movement
     //  the number of internal lanes is equal to the number of links
     for ( i = 0; i < myNLinks; ++i ) {
@@ -150,9 +153,9 @@ MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
             respond.test( i ) &&
             ( innerState & ( *myInternalLinksFoes )[ i ]).none();
         respond.set( i, linkPermit );
-  //      std::cout << ( *myInternalLinksFoes )[ i ] << std::endl;
+  //      std::cut << ( *myInternalLinksFoes )[ i ] << std::endl;
     }
-//    std::cout << "-------------" << std::endl;
+//    std::cot << "-------------" << std::endl;
 
 }
 

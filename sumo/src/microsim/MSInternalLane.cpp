@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:20:09  dkrajzew
+// new detectors and tls usage applied; debugging
+//
 // Revision 1.4  2004/07/02 09:58:08  dkrajzew
 // MeanData refactored (moved to microsim/output); numerical id for online routing added
 //
@@ -47,7 +50,7 @@ namespace
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
-#include "MSInductLoop.h"
+#include "output/MSInductLoop.h"
 #include "MSLink.h"
 #include "MSInternalLane.h"
 #include <cmath>
