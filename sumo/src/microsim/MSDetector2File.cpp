@@ -47,24 +47,30 @@ MSDetector2File::getInstance( void )
 
 MSDetector2File::~MSDetector2File( void )
 {
+    // flush the last values
+    Intervals::iterator it;
+    for ( it = intervalsM.begin(); it != intervalsM.end(); ++it ) {
+        write2file( (*it).first );
+    }
+    // clear the instance
     instanceM = 0;
-    // close files
-    for ( Intervals::iterator it = intervalsM.begin();
-          it != intervalsM.end(); ++it ) {
+    // close files and delete the detectors
+    for ( it = intervalsM.begin(); it != intervalsM.end(); ++it ) {
         for( DetectorFileVec::iterator df =
                  it->second.begin(); df != it->second.end(); ++df ) {
-            *(df->second) << (df->first)->getXMLDetectorInfoEnd()
+            MSDetectorFileOutput *det = df->first;
+            *(df->second) << det->getXMLDetectorInfoEnd()
                           << endl;
             delete df->second;
         }
     }
     intervalsM.clear();
-    // Detector* should be deleted via the SingletonDictionary
+    // Detector* should be deleted via the SingletonDictionary!!!
 }
 
 
 void
-MSDetector2File::addDetectorAndInterval( Detector* det,
+MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
                                          const string& filename,
                                          MSUnit::Seconds sampleInterval,
                                          MSUnit::Seconds write2fileInterval )
@@ -75,12 +81,6 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
     MSUnit::IntSteps write2fileSteps(
         MSUnit::getInstance()->getIntegerSteps( write2fileInterval ) );
     assert( write2fileSteps >= 1 );
-    
-    /*            Detector* det = 
-                  DetectorDict::getInstance()->getValue( detectorId );*/
-    /*            string filename = det->getNamePrefix() + "_" +
-                  toString( intervalInSeconds ) + ".xml";*/
-
     if ( det->getDataCleanUpSteps() < sampleSteps ) {
         sampleSteps = det->getDataCleanUpSteps();
         cerr << "MSDetector2File::addDetectorAndInterval: "
@@ -94,7 +94,7 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
             "Write2File interval greater than\ndetectors clean-up "
             "interval. Reducing Write2File interval to clean-up "
             "interval." << endl;
-    }    
+    }
 
     IntervalsKey key = make_pair( sampleSteps, write2fileSteps );
     ofstream* ofs = 0;
@@ -121,7 +121,7 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
              == detAndFileVec.end() ) {
             ofs = new ofstream( filename.c_str() );
             assert( ofs != 0 );
-            detAndFileVec.push_back( make_pair( det, ofs ) );    
+            detAndFileVec.push_back( make_pair( det, ofs ) );
         }
         else {
             // detector already in container. Don't add several times
@@ -130,7 +130,7 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
             return;
         }
     }
-            
+
     // write xml-intro
     *ofs << det->getXMLHeader()
          << det->getXMLDetectorInfoStart() << endl;
@@ -145,24 +145,29 @@ MSDetector2File::write2file( IntervalsKey key )
     DetectorFileVec dfVec = iIt->second;
     MSUnit::IntSteps sampleInterval = key.first;
     MSUnit::IntSteps write2fileInterval = key.second;
+    MSUnit::Seconds stopTime = MSNet::getInstance()->simSeconds();
+    MSUnit::Seconds startTime = myLastCalls[sampleInterval];
+    // check whether at the end the output was already generated
+    if(stopTime==startTime) {
+        return 0; // a dummy value only; this should only be the case
+        // when this container is destroyed
+    }
     for ( DetectorFileVec::iterator it = dfVec.begin();
           it != dfVec.end(); ++it ) {
-        Detector* det = it->first;
+        MSDetectorFileOutput* det = it->first;
         ofstream* ofs = it->second;
-        MSUnit::Seconds stopTime = MSNet::getInstance()->simSeconds();
-        MSUnit::Seconds startTime =
-            stopTime - MSUnit::getInstance()->getSeconds( sampleInterval ) + 1;
         *ofs << "<interval start=\"" << startTime
              << "\" stop=\"" << stopTime << "\" "
-             << det->getXMLOutput( sampleInterval )
+             << det->getXMLOutput( stopTime-startTime )
              << " />" << endl;
     }
+    myLastCalls[sampleInterval] = MSNet::getInstance()->simSeconds();
     return write2fileInterval;
 }
 
 
 MSDetector2File::MSDetector2File( void )
-{}   
+{}
 
 
 // Local Variables:
