@@ -7,7 +7,7 @@
 /// @date    Started Fri Jul 09 2004 21:31 CEST
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -34,34 +34,34 @@ class MSE1MeanSpeed
 {
 public:
 
+    static std::string getDetectorName( void )
+        {
+            return "E1MeanSpeed";
+        }
+
 protected:
     typedef double DetectorAggregate;
     typedef E1::E1Container Container;
-    
+
     MSE1MeanSpeed( const Container& container )
         :
         containerM( container )
         {}
 
-    virtual ~MSE1MeanSpeed( void ) 
+    virtual ~MSE1MeanSpeed( void )
         {}
 
     bool hasVehicle( MSVehicle& veh ) const
         {
             return containerM.hasVehicle( &veh );
         }
-    
+
     DetectorAggregate getValue( MSVehicle& veh )
         {
             assert( &veh == containerM.vehOnDetectorM );
             // speed in [m/s]
             return containerM.vehLengthM /
                 (containerM.leaveTimeM - containerM.entryTimeM);
-        }
-    
-    static std::string getDetectorName( void )
-        {
-            return "E1MeanSpeed";
         }
 
 private:
