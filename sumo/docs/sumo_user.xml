@@ -89,8 +89,6 @@
       <sect2>
         <title>To do</title>
 
-        <para>- Describe ArcView-Import</para>
-
         <para></para>
       </sect2>
     </sect1>
@@ -1636,6 +1634,18 @@
           part. The next subchapters hold the information about how to set
           detectors onto a network only.</para>
 
+          <para>To ease the usage and for backward compatiility, all detectors
+          may be defined in two ways. The first one is by using the following
+          notation: <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
+          type=&#34;&#60;TYPE&#62;&#34; ...further attributes.../&#62;</sgmltag>.
+          Herein, the detector type is determined by the type-attribute which
+          is induct_loop as default. The second possibility is: :
+          <sgmltag>&#60;XX-detector id=&#34;&#60;ID&#62;&#34; ...further
+          attributes.../&#62;</sgmltag> where the tag name already defines the
+          detector to build. Possible values for XX within the tag name and
+          attributes needed to describe each detector are described in the
+          following subchapters.</para>
+
           <sect4>
             <title>E1-Detectors (Induct Loops)</title>
 
@@ -1644,12 +1654,18 @@
             type=&#34;[induct_loop|E1]&#34; lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag>. The id is
-            any string that let&#39;s you know which detector is meant. The
-            type indicates that a induct loop shall be build, here. The
-            attributes &#34;lane&#34; and &#34;pos&#34; describe on which lane
-            and at which position on him the detector shall lie. As induct
-            loop detectors may aggregate the values they collect, the
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag>. or :
+            <sgmltag>&#60;e1-detector id=&#34;&#60;ID&#62;&#34;
+            lane=&#34;&#60;LANE_ID&#62;&#34;
+            pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
+            freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag>. </para>
+
+            <para>The id is any string that let&#39;s you know which detector
+            is meant. The type indicates that a induct loop shall be build,
+            here. The attributes &#34;lane&#34; and &#34;pos&#34; describe on
+            which lane and at which position on him the detector shall lie. As
+            induct loop detectors may aggregate the values they collect, the
             freq-attribute describes this period. The style-parameter is
             obsolete by now as the earlier possibility to use either
             &#34;xml&#34; or &#34;cvs&#34;-output is now not supported, the
@@ -1671,7 +1687,8 @@
 
               <listitem>
                 <para>type: Always &#34;induct_loop&#34; or &#34;E1&#34; for
-                this type of detectors</para>
+                this type of detectors (&#34;induct_loop&#34; is the default
+                value)</para>
               </listitem>
 
               <listitem>
@@ -1713,18 +1730,28 @@
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34; [cont=&#34;true&#34;]
-            [measures=&#34;&#34;]/&#62;</sgmltag>. The values are the same as
-            for detectors. As an areal detector has a certain length, this
-            length must be supplied as a further parameter. The type must be
-            set to either &#34;areal&#34;, &#34;lane_based&#34; or
-            &#34;E2&#34; to let the simulation know what&#39;s desired to
-            build. The optional parameter &#34;cont&#34; let&#39;s the
-            detector continue over the current lane onto this lane&#39;s
-            predeccessors when the detector&#39;s length plus his position is
-            larger than the place available on the lane. The attribute
-            &#34;measures&#34; describes which values the detector shall
-            compute.</para>
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+            [measures=&#34;&#60;MEASURES&#62;&#34;]/&#62;</sgmltag> or:
+            <sgmltag>&#60;e2-detector id=&#34;&#60;ID&#62;&#34;
+            lane=&#34;&#60;LANE_ID&#62;&#34;
+            pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
+            length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
+            freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+            [measures=&#34;&#60;MEASURES&#62;&#34;]/&#62;</sgmltag>. </para>
+
+            <para>Most of the attributes have the same meaning as for induct
+            loops. As an areal detector has a certain length, this length must
+            be supplied as a further parameter. It may also be a negative
+            number which lets the detector be extended upstream to the given
+            beginning position. The type must be set to either
+            &#34;areal&#34;, &#34;lane_based&#34; or &#34;E2&#34; to let the
+            simulation know what&#39;s desired to build. The optional
+            parameter &#34;cont&#34; let&#39;s the detector continue over the
+            current lane onto this lane&#39;s predeccessors when the
+            detector&#39;s length plus his position is larger than the place
+            available on the lane. The attribute &#34;measures&#34; describes
+            which values the detector shall compute.</para>
 
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />The folder the
@@ -1817,7 +1844,8 @@
 
               <listitem>
                 <para>type: Always &#34;lane_based&#34; or &#34;E2&#34; for
-                this type of detectors</para>
+                this type of detectors (&#34;induct_loop&#34; is the default
+                value)</para>
               </listitem>
 
               <listitem>
@@ -1892,6 +1920,12 @@
                 <para>keep_for: Information for how long the memory of the
                 detector has to be (in s, default: 1800s).</para>
               </listitem>
+
+              <listitem>
+                <para>measures: Should contain the list of measures to compute
+                (see above) or &#34;ALL&#34; to compute all measures (default:
+                ALL).</para>
+              </listitem>
             </itemizedlist>
           </sect4>
 
@@ -1924,14 +1958,13 @@
         <sect3>
           <title>Emitter</title>
 
-          <para>Beside routes, vehicles may be inserted into a SUMO-network
-          using so called &#34;emitters&#34;.</para>
+          <para>... to be described ...</para>
         </sect3>
 
         <sect3>
           <title>Lanestate changer</title>
 
-          <para></para>
+          <para>... to be described ...</para>
         </sect3>
       </sect2>
     </sect1>
@@ -2585,7 +2618,7 @@
     <sect1>
       <title>Example1: How to generate and simulate a virtual city</title>
 
-      <para></para>
+      <para>.. to be described ...</para>
     </sect1>
   </chapter>
 
@@ -2595,13 +2628,13 @@
     <sect1>
       <title>Vehicle Model: Krauß-Model</title>
 
-      <para></para>
+      <para>.. to be described ...</para>
     </sect1>
 
     <sect1>
       <title>DUA: Gawron-Model</title>
 
-      <para></para>
+      <para>.. to be described ...</para>
     </sect1>
   </chapter>
 
@@ -2640,18 +2673,7 @@
       <sect2>
         <title>Example for A Dynamic User Assignment</title>
 
-        <para></para>
-      </sect2>
-
-      <sect2>
-        <title>I-880 Car Model Validation</title>
-
-        <para>In the middle of 2001 we tried to prove that SUMO is capable to
-        be used for car model validation. You can find the project settings
-        for this approach. We apologize, that our report was not accurate. Due
-        to the lack of a gui, we could only verify statistical results and
-        failed to recognize strong artefacts arising from a buggy
-        lane-changing implementation.</para>
+        <para>... to be described ...</para>
       </sect2>
     </sect1>
   </chapter>
@@ -2660,7 +2682,7 @@
     <title>Data Type Descriptions</title>
 
     <formalpara>
-      <title>To do</title>
+      <title>... to be described ...</title>
 
       <para></para>
     </formalpara>
@@ -2846,17 +2868,5 @@
         supply.</para><para>Supply all needed information.</para></blockquote></para>
       </listitem>
     </itemizedlist>
-  </appendix>
-
-  <appendix>
-    <title>Known Bugs</title>
-
-    <para>Nothing known by now.</para>
-  </appendix>
-
-  <appendix>
-    <title>Document Status</title>
-
-    <para></para>
   </appendix>
 </book>
