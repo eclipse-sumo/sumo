@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.34  2003/09/23 14:21:31  dkrajzew
+// removed some dead code
+//
 // Revision 1.33  2003/09/22 12:32:23  dkrajzew
 // MSTriggeredSource-compilation error patched
 //
@@ -303,8 +306,7 @@ public:
      */
     static void preInit( Time startTimestep,
         TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles/*,
-        bool withGUI */);
+        std::string baseNameDumpFiles);
 
     /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
@@ -328,9 +330,9 @@ public:
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
 
-    void initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/);
+    void initialiseSimulation(std::ostream *craw);
 
-    void closeSimulation(std::ostream *craw/*, Time start, Time stop*/);
+    void closeSimulation(std::ostream *craw);
 
 
     /// performs a single simulation step

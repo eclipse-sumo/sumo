@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.37  2003/09/23 14:21:31  dkrajzew
+// removed some dead code
+//
 // Revision 1.36  2003/09/22 11:47:53  roessel
 // Portability fixes.
 //
@@ -467,13 +470,9 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
-//     myInstance->myEvents       = MSEventControl::getInstance();
-//     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
     MSDetectorSubSys::setDictionariesFindMode();
-
-//	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
 }
 
 
@@ -500,21 +499,21 @@ MSNet::~MSNet()
 bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
-    initialiseSimulation(craw/*, start, stop*/);
+    initialiseSimulation(craw);
     // the simulation loop
     for ( myStep = start;myStep <= stop&&myLoadedVehNo>myEndedVehNo;++myStep) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
     // exit simulation loop
-    closeSimulation(craw/*, start, stop*/);
+    closeSimulation(craw);
     return true;
 }
 
 
 
 void
-MSNet::initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/)
+MSNet::initialiseSimulation(std::ostream *craw)
 {
     // prepare the "raw" output and print the first line
     if ( craw ) {
@@ -524,7 +523,7 @@ MSNet::initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/)
 }
 
 void
-MSNet::closeSimulation(std::ostream *craw/*, Time start, Time stop*/)
+MSNet::closeSimulation(std::ostream *craw)
 {
 	cout << endl;
     // print the last line of the "raw" output
