@@ -37,7 +37,6 @@ MSTriggeredXMLReader.cpp \
 MSVehicleContainer.cpp \
 MSVehicle.cpp \
 MSVehicleType.cpp \
-MSLaneStateReminder.cpp \
 MSDetector2File.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
@@ -76,7 +75,6 @@ MSTrigger.h \
 MSVehicleContainer.h \
 MSVehicle.h \
 MSVehicleType.h \
-MSLaneStateReminder.h \
 MSMoveReminder.h \
 MSTLLogicControl.cpp \
 MSTLLogicControl.h \
