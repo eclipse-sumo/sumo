@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/12/11 06:27:13  dkrajzew
+// unneeded debug-variables removed
+//
 // Revision 1.2  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -92,9 +95,6 @@ void
 MSInternalLane::setParentJunctionInformation(
         MSLogicJunction::InnerState *foescont, size_t foesIdx)
 {
-    if(id()==":597993219_3_0") {
-        int bla = 0;
-    }
     myFoesCont = foescont;
     myFoesIndex = foesIdx;
 }
@@ -103,9 +103,6 @@ MSInternalLane::setParentJunctionInformation(
 void
 MSInternalLane::moveNonCritical()
 {
-    if(id()==":597993219_3_0") {
-        int bla = 0;
-    }
     assert(myVehicles.size()>0);
     (*myFoesCont)[myFoesIndex] = true;
     MSLane::moveNonCritical();
