@@ -465,6 +465,10 @@ SOURCE=..\..\src\utils\common\StringTokenizer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\importio\StringUtils.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sumo_only\SUMOFrame.cpp
 # End Source File
 # Begin Source File
@@ -1107,10 +1111,6 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\..\libs\xerces\lib\xerces.lib
-# End Source File
-# Begin Source File
-
 SOURCE="..\..\..\..\..\libs\qt\lib\qt-mt230nc.lib"
 # End Source File
 # Begin Source File
@@ -1120,6 +1120,10 @@ SOURCE=..\..\..\..\..\libs\glut\glut32.lib
 # Begin Source File
 
 SOURCE=..\..\..\..\..\libs\qt\lib\qutil.lib
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\libs\xerces-c2_1_0-win32\lib\xerces-c_2.lib"
 # End Source File
 # End Target
 # End Project

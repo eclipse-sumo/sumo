@@ -1338,7 +1338,7 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\..\libs\xerces\lib\xerces.lib
+SOURCE="..\..\..\..\..\libs\xerces-c2_1_0-win32\lib\xerces-c_2.lib"
 # End Source File
 # End Target
 # End Project
