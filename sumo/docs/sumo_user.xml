@@ -148,10 +148,18 @@
       <title>What has happened?</title>
 
       <para>As briefly mentioned before, you have build some example networks
-      and vehicle movements by starting the &#34;makeExamples&#34;-script. The
-      simulation of traffic is quite complicated as each vehicle is an
+      and vehicle movements by starting the &#34;makeExamples&#34;-script. To
+      allow a better handling of networks during the simulation and save
+      computation time, the networks are stored in quite a complicated way
+      which had to be build from more simple representations first. The
+      simulation of traffic is also quite complicated as each vehicle is an
       individuum. This requires not only a network which traffic shall be
-      simulated, but also a description of the routes the vehicles make.</para>
+      simulated, but also a description of the routes the vehicles make. They
+      were build, too.</para>
+
+      <para>After both operations - which were performed for all known
+      examples within the distribution - both networks and route descriptions
+      are ready to be executed.</para>
     </sect1>
   </chapter>
 
@@ -256,9 +264,10 @@
           </mediaobject>
         </figure>
 
-        <para>For a somwhat more elaborate description of the needed data,
-        please take a look int !!!; it should be available on the SUMO-pages,
-        too.</para>
+        <para>For a somewhat more elaborate description of the needed data,
+        please take a look into !!!; it should be available on the SUMO-pages,
+        too. The next picture describes the data process workflow of a typical
+        simulation.</para>
       </sect2>
 
       <sect2>
@@ -295,9 +304,370 @@
     <title>Complete Usage Description</title>
 
     <sect1>
+      <title>The Workflow of preparing a Simulation</title>
+
+      <para></para>
+
+      <sect2>
+        <title>Network Generation</title>
+
+        <para>As SUMO uses an own road network description, normally networks
+        must be generated from an existing dataset. The only exception is if
+        you already posess build SUMO-networks, normally having the extension
+        *.net.xml. Although being readable (xml), the format of the road
+        network used by SUMO is not meant to be edited by a human being and
+        will also not be described herein due to its complexity. Take a look
+        into the developer documentation if you want more information, please.
+        If you do want to build a network by your own, please continue
+        reading, a small description is included.</para>
+
+        <para>Having data describing the network, you may convert them into a
+        network description parseable by SUMO using the SUMO-NETCONVERT tool.
+        By now, SUMO-NETCONVERT is capable to parse the following formats:</para>
+
+        <para></para>
+
+        <para><itemizedlist><listitem><para>ptv VISUM (a macroscopic traffic
+        simulation package)</para></listitem><listitem><para>ptv VISSIM (a
+        microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
+        by Peter Hidas (a microscopic traffic simulation package)</para></listitem><listitem><para>CELL
+        by Christian Gawron (!!!) (a mesoscopic traffic simulation package)</para></listitem><listitem><para>ARCVIEW-data
+        base files</para></listitem><listitem><para>XML-descriptions</para></listitem></itemizedlist></para>
+
+        <para>In most of these cases, SUMO-NETCOVERT only needs two parameter:
+        the name of the input format followed by the name of the file and the
+        name of the output format:</para>
+
+        <example>
+          <title>SUMO-NETCONVERT --visum=MyVisumNet.inp
+          --output-file=MySUMOFile.net.xml</title>
+        </example>
+
+        <para>Please note, that SUMO-NETCONVERT has to be started from the
+        command line. There is no graphical interface available, yet.</para>
+
+        <para>The only exception to this rule occurs if you want to use
+        XML-descriptions of the network and we will describe this a little bit
+        more detailed, now.</para>
+
+        <sect3>
+          <title>Building Networks from own XML-descriptions</title>
+
+          <para>All of the small theoretical examples, but also the model of a
+          part of the I-880 included within the distribution were made by
+          hand. For doing this, you need at least two files: one file for
+          nodes and another one for the streets between them. Please notice,
+          that we use both names &#34;node&#34; and &#34;junction&#34; the
+          same way.</para>
+
+          <sect4>
+            <title>Nodes description</title>
+
+            <para>Within the nodes-files, normally named MyNodes.nod.xml,
+            every node is described in a single line which looks like this:
+            <sgmltag>&#60;node id=&#34;&#60;STRING&#62;&#34;
+            x=&#34;&#60;FLOAT&#62;&#34; y=&#34;&#60;FLOAT&#62;&#34;
+            [type=&#34;&#60;TYPE&#62;&#34;]/&#62;</sgmltag> - the straight
+            brackets (&#39;[&#39; and &#39;]&#39;) indicate that the parameter
+            is optional. Each of these attributes has a certain meaning and
+            value range:</para>
+
+            <para><itemizedlist><listitem><para>id: The name of the node; may
+            be any character string</para></listitem><listitem><para>x: The
+            x-position of the node on the plane in m; must be a floating point
+            number</para></listitem><listitem><para>y: The y-position of the
+            node on the plane in m; must be a floating point number</para></listitem><listitem><para>type:
+            An optional type for the node. If you leave out the type of the
+            node, it is automatically guessed by SUMO-NETCOVERT but may not be
+            the one you intentionally thought of. The following types are
+            possible, any other string is counted as an error and will yield
+            in a program stop:</para><itemizedlist><listitem><para>priority:
+            Vehicles have to wait until vehicles right to them have passed the
+            junction. This is a very common scheme within Germany.</para></listitem><listitem><para>traffic_light:
+            The junction is controlled by a traffic light.</para></listitem></itemizedlist><para>We
+            do not have implemented the american way of giving way on
+            junctions that are not controlled by a traffic light. It is also
+            not possible to describe the parameter of the traffic light at
+            this level.</para></listitem></itemizedlist>When writing your
+            nodes-file, please do not forget to embed your node definitions
+            into an opening and a closing &#34;tag&#34;. A complete file
+            should like the example below which is the node file for the
+            &#34;cross1ltl&#34; example. And you may also take a look into our
+            examples using a simple text editor.</para>
+
+            <para><sgmltag>&#60;nodes&#62; &#60;!-- The opening tag --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;node id=&#34;0&#34; x=&#34;0.0&#34;
+            y=&#34;0.0&#34; type=&#34;traffic_light&#34;/&#62; &#60;!--
+            definition of node &#34;0&#34; --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;node id=&#34;1&#34; x=&#34;-500.0&#34;
+            y=&#34;0.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition
+            of node &#34;1&#34; --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;node id=&#34;2&#34; x=&#34;+500.0&#34;
+            y=&#34;0.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition
+            of node &#34;2&#34; --&#62; </sgmltag></para>
+
+            <para><sgmltag> &#60;node id=&#34;3&#34; x=&#34;0.0&#34;
+            y=&#34;-500.0&#34; type=&#34;priority&#34;/&#62; &#60;!--
+            definition of node &#34;3&#34; --&#62; </sgmltag></para>
+
+            <para><sgmltag> &#60;node id=&#34;4&#34; x=&#34;0.0&#34;
+            y=&#34;+500.0&#34; type=&#34;priority&#34;/&#62; &#60;!--
+            definition of node &#34;4&#34; --&#62; </sgmltag></para>
+
+            <para><sgmltag>&#60;/nodes&#62; &#60;!-- The closing tag --&#62;</sgmltag></para>
+
+            <para>As you may notice, only the first node named &#34;0&#34;,
+            which is the node in the middle of the network, is a traffic light
+            controlled junction. All other nodes are uncontrolled. You may
+            also notice, that each of both ends of a street does need an
+            according node. This is not really necessary as you may seen soon,
+            but it eases the understanding of the concept: every edge (road)
+            is a connection between two nodes.</para>
+          </sect4>
+
+          <sect4>
+            <title>Edges description</title>
+
+            <para>Edges are described quite the same way as nodes, but do
+            posess other parameter. Within the edges file, each description of
+            a single edge looks like this: <sgmltag>&#60;edge
+            id=&#34;&#60;STRING&#62;&#34;
+            (fromnode=&#34;&#60;NODE_ID&#62;&#34;
+            tonode=&#34;&#60;NODE_ID&#62;&#34; |
+            xfrom=&#34;&#60;FLOAT&#62;&#34; yfrom=&#34;&#60;FLOAT&#62;
+            xto=&#34;&#60;FLOAT&#62;&#34; yto=&#34;&#60;FLOAT&#62;&#34;)
+            [(type=&#34;&#60;STRING&#62;&#34; |
+            nolanes=&#34;&#60;INT&#62;&#34; speed=&#34;&#60;FLOAT&#62;&#34;
+            priority=&#34;&#60;FLOAT&#62;&#34;)]/&#62;</sgmltag>.</para>
+
+            <para>What does it mean? Every one who knows how XML-files look
+            like, should have noticed brackets (&#39;(&#39; and &#39;)&#39;)
+            and pipes (&#39;|&#39;) within the definition and these characters
+            are not allowed within XML... What we wanted to show is the
+            optionality of parameter usage. So for the definition of the
+            origin and the destaintion node, you can either give their names
+            using <sgmltag>fromnode=&#34;&#60;NODE_ID&#62;&#34;
+            tonode=&#34;&#60;NODE_ID&#62;&#34; </sgmltag>or you give their
+            positions using <sgmltag>xfrom=&#34;&#60;FLOAT&#62;&#34;
+            yfrom=&#34;&#60;FLOAT&#62; xto=&#34;&#60;FLOAT&#62;&#34;
+            yto=&#34;&#60;FLOAT&#62;&#34;</sgmltag>. In the second case, a
+            node will be build automatically at the given positions. Each edge
+            is unidirectional and starts at the &#34;from&#34;-node and ends
+            at the &#34;to&#34;-node. If a name of one of the nodes can not be
+            dereferenced - no node with the name is found - an error is
+            generated.</para>
+
+            <para>For each edge, some further attributes should be supplied,
+            being the number of lanes the edge has, the maximum speed allowed
+            on the edge and a priority value. These values may either be given
+            explicitely for each edge using according attributes or they may
+            reference a &#34;type&#34;. In this case, you should also write a
+            type-file which format will be described within the next chapter
+            and give each edge within your edge file a reference to a type
+            within your type file using the name of the type to use. A type
+            with this name should of course be within the generated type-file,
+            otherwise an error is reported. You may also leave the edge
+            parameter of. In this case, default-values will be used and the
+            edge will have a single lane, a priority of 0 (zero) and the
+            maximum allowed speed on this edge will be 13.9m/s being around
+            50km/h.</para>
+
+            <para>Let&#39;s list an edge&#39;s attributes again:</para>
+
+            <para><itemizedlist><listitem><para>id: The name of the edge may
+            be any character string</para></listitem><listitem><para>Origin
+            and destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
+            The name of a node within the nodes-file the edge shall start at</para></listitem><listitem><para>tonode:
+            The name of a node within the nodes-file the edge shall end at</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>xfrom:
+            The x-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>yfrom: The
+            y-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>xto: The
+            x-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem><listitem><para>yto: The
+            y-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem></itemizedlist></listitem><listitem><para>Descriptions
+            of the edge&#39;s type:</para><para>Either:</para><itemizedlist><listitem><para>type:
+            The name of a type within the types-file</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>nolanes:
+            The number of lanes of the edge; must be an integer value</para></listitem><listitem><para>speed:
+            The maximum speed allowed on the edge in m/s; must be a floating
+            point number</para></listitem><listitem><para>priority: The
+            priority of the edge; must be an integer value</para></listitem></itemizedlist></listitem></itemizedlist>The
+            priority play a role during the computation of the way-giving
+            rules of a node. Larger values for the priority of an edge allow
+            vehicles using it to pass without waiting - if no traffic light is
+            on the node.</para>
+
+            <para>Also the definitions of the edges must be embedded into an
+            opening and a closing tag and for the example &#34;cross1ltl&#34;
+            the whole edges-file looks like this:</para>
+
+            <para><sgmltag>&#60;edges&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;1i&#34; fromnode=&#34;1&#34;
+            tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge
+            1 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;1o&#34; fromnode=&#34;0&#34;
+            tonode=&#34;1&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge
+            1 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;2i&#34; fromnode=&#34;2&#34;
+            tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge
+            2 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;2o&#34; fromnode=&#34;0&#34;
+            tonode=&#34;2&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge
+            2 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;3i&#34; fromnode=&#34;3&#34;
+            tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge
+            3 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;3o&#34; fromnode=&#34;0&#34;
+            tonode=&#34;3&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge
+            3 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;4i&#34; fromnode=&#34;4&#34;
+            tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge
+            4 --&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;edge id=&#34;4o&#34; fromnode=&#34;0&#34;
+            tonode=&#34;4&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge
+            4 --&#62;</sgmltag></para>
+
+            <para><sgmltag>&#60;/edges&#62;</sgmltag></para>
+
+            <para>As you see, we have used references to road types and to
+            junctions, here. </para>
+          </sect4>
+
+          <sect4>
+            <title>Types description</title>
+
+            <para>Edges are described quite the same way as nodes, but do
+            posess other parameter. Within the edges file, each description of
+            a single edge looks like this: <sgmltag>&#60;edge
+            id=&#34;&#60;STRING&#62;&#34;
+            (fromnode=&#34;&#60;NODE_ID&#62;&#34;
+            tonode=&#34;&#60;NODE_ID&#62;&#34; |
+            xfrom=&#34;&#60;FLOAT&#62;&#34; yfrom=&#34;&#60;FLOAT&#62;
+            xto=&#34;&#60;FLOAT&#62;&#34; yto=&#34;&#60;FLOAT&#62;&#34;)
+            [(type=&#34;&#60;STRING&#62;&#34; |
+            nolanes=&#34;&#60;INT&#62;&#34; speed=&#34;&#60;FLOAT&#62;&#34;
+            priority=&#34;&#60;FLOAT&#62;&#34;)]/&#62;</sgmltag>.</para>
+
+            <para>Let&#39;s list an edge&#39;s attributes again:</para>
+
+            <para><itemizedlist><listitem><para>id: The name of the edge may
+            be any character string</para></listitem><listitem><para>Origin
+            and destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
+            The name of a node within the nodes-file the edge shall start at</para></listitem><listitem><para>tonode:
+            The name of a node within the nodes-file the edge shall end at</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>xfrom:
+            The x-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>yfrom: The
+            y-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>xto: The
+            x-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem><listitem><para>yto: The
+            y-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem></itemizedlist></listitem><listitem><para>Descriptions
+            of the edge&#39;s type:</para><para>Either:</para><itemizedlist><listitem><para>type:
+            The name of a type within the types-file</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>nolanes:
+            The number of lanes of the edge; must be an integer value</para></listitem><listitem><para>speed:
+            The maximum speed allowed on the edge in m/s; must be a floating
+            point number</para></listitem><listitem><para>priority: The
+            priority of the edge; must be an integer value</para></listitem></itemizedlist></listitem></itemizedlist>The
+            priority play a role during the computation of the way-giving
+            rules of a node. Larger values for the priority of an edge allow
+            vehicles using it to pass without waiting - if no traffic light is
+            on the node.</para>
+          </sect4>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Routes Generation</title>
+
+        <para>Further,</para>
+      </sect2>
+
+      <sect2>
+        <title>Performing the Simulation</title>
+
+        <para></para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>The Workflow of preparing a Simulation</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
       <title>Network Generation</title>
 
       <para></para>
+    </sect1>
+
+    <sect1>
+      <title>Naming Conventions</title>
+
+      <para>To ease the usage of the supplied files, all of which are within a
+      XML-derivate, we use a naming convention for the file extensions to
+      allow a distinction between the contents with a single look. The list of
+      used extensions is showed below. We of course highly encourage you to
+      use this pattern, but if you have a better idea, let us know.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Configuration files:<itemizedlist><listitem><para>*.sumo.cfg</para><para>Configuration
+          file for SUMO (both command line and GUI-version)</para></listitem><listitem><para>*.netc.cfg</para><para>Configuration
+          file for the netconverter/-builder</para></listitem><listitem><para>*.router.cfg</para><para>Configuration
+          file for the router</para></listitem><listitem><para>*.od2t.cfg</para><para>Configuration
+          file for the O/D to trip converterD</para></listitem></itemizedlist></para>
+        </listitem>
+
+        <listitem>
+          <para>Data files:<itemizedlist><listitem><para>*.net.xml</para><para>sumo
+          - network file</para><para>Contents:</para><para>Standard: edges
+          with lanes and other attributes; junction definitions;</para><para>Optional:
+          all other simulation information</para></listitem><listitem><para>*.log.xml</para><para>sumo
+          - junction logics file</para><para>Contents:</para><para>Contents:
+          The defnitions of junction logics</para></listitem><listitem><para>*.rou.xml</para><para>sumo
+          - routes file</para><para>Contents: Standard: vehicle type
+          definitions, route definitions, vehicle definitions</para></listitem><listitem><para>*.add.xml</para><para>sumo
+          - additional definitions file</para><para>Contents: The definitions
+          of detectors to build, sources to build etc.</para></listitem><listitem><para>*.out.xml</para><para>sumo
+          - output file</para><para>Contents: The &#34;raw&#34; output with
+          edges, lanes and vehicles on them</para></listitem><listitem><para>*.edg.xml</para><para>sumo-netconvert
+          - edges file</para><para>Contents: definitions of edges to build the
+          network from</para></listitem><listitem><para>*.nod.xml</para><para>sumo-netconvert
+          - nodes file</para><para>Contents: definitions of nodes to build the
+          network from</para></listitem><listitem><para>*.con.xml</para><para>sumo-netconvert
+          - connection file</para><para>Contents: definitions of nodes to
+          build the network from</para></listitem></itemizedlist></para>
+        </listitem>
+
+        <listitem>
+          <para>Other used file types<itemizedlist><listitem><para>*.inp</para><para>VISSIM
+          network files</para></listitem><listitem><para>*.net</para><para>VISUM
+          network files</para></listitem><listitem><para>Destinations.txt,
+          Detectors.txt, Flows.txt, Generators.txt, HVdests.txt,
+          Incidents.txt, IntLinks.txt, Lanes.txt, Links.txt, Nodes.txt,
+          Project Vars.txt, Signal Groups.txt, Signal Phases.txt, Signals.txt</para><para>ARTEMIS
+          input files</para></listitem><listitem><para>*.edg</para><para>CELL
+          edge files</para></listitem><listitem><para>*.nod</para><para>CELL
+          node files</para></listitem><listitem><para>*.driver</para><para>CELL
+          driver files</para></listitem><listitem><para>*.rinfo</para><para>CELL
+          route files</para></listitem><listitem><para>*.rindex</para><para>index
+          files generated for CELL route files</para></listitem></itemizedlist></para>
+        </listitem>
+      </itemizedlist>
     </sect1>
   </chapter>
 
@@ -311,7 +681,7 @@
     </sect1>
 
     <sect1>
-      <title>DUA: Gwaron-Model</title>
+      <title>DUA: Gawron-Model</title>
 
       <para></para>
     </sect1>
