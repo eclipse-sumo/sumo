@@ -8,6 +8,10 @@
 #include "GUIParameterTableWindow.h"
 #include <gui/GUIGlObject.h>
 
+#ifndef WIN32
+#include "GUIParameterTableWindow.moc"
+#endif
+
 using namespace std;
 
 GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow *app,

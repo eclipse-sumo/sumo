@@ -5,13 +5,16 @@
 #include "QGLObjectPopupMenu.h"
 #include "partable/GUIParameterTableWindow.h"
 
+#ifndef WIN32
+#include "QGLObjectPopupMenu.moc"
+#endif
 
 using namespace std;
 
 QGLObjectPopupMenu::QGLObjectPopupMenu(GUIApplicationWindow *app,
                                        GUISUMOAbstractView *parent,
                                        GUIGlObject *o)
-    : QPopupMenu(parent), myObject(o), myParent(parent),
+    : QPopupMenu(parent), myParent(parent), myObject(o),
     myApplication(app)
 {
 }

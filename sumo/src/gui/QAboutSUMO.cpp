@@ -7,7 +7,6 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "QAboutSUMO.h"
-
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
@@ -16,6 +15,11 @@
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+
+#ifndef WIN32
+#include "QAboutSUMO.moc"
+#endif
+
 
 static const char* const image0_data[] = {
 "40 42 3 1",

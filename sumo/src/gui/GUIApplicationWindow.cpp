@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/05 06:26:15  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.10  2003/05/21 15:15:40  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -99,6 +102,10 @@ namespace
 #include "icons/step.xpm"
 #include "icons/new_window.xpm"
 
+#ifndef WIN32
+#include "GUIApplicationWindow.moc"
+#endif
+
 
 /* =========================================================================
  * used namespaces
@@ -137,8 +144,8 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     _loadThread = new GUILoadThread(this);
     _runThread = new GUIRunThread(this, 1);
 
+    /*
     // initialise font drawing
-/*
     myFonts.add("std", ".\\fonts\\arial11.fnt");
     myFonts.add("std", ".\\fonts\\arial10.fnt");
     myFonts.add("std", ".\\fonts\\arial9.fnt");
@@ -147,6 +154,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     myFonts.add("std", ".\\fonts\\arial6.fnt");
     myFonts.add("std", ".\\fonts\\arial5.fnt");
 */
+
     // build tool bars
     buildFileTools();
     buildSimulationTools();
@@ -491,8 +499,8 @@ GUIApplicationWindow::event(QEvent *e)
         {
             // inform views
             QWidgetList windows = ws->windowList();
-            int i;
-            for ( i = 0; i < int(windows.count()); ++i ) {
+            size_t i;
+            for ( i = 0; i < windows.count(); ++i ) {
                 QApplication::postEvent( windows.at(i),
                     new QSimulationStepEvent());
             }

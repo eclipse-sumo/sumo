@@ -1,7 +1,5 @@
-#ifndef QGUIImageField_h
-#define QGUIImageField_h
 //---------------------------------------------------------------------------//
-//                        QGUIImageField.h -
+//                        QGUIImageField.cpp -
 //  Although originally a toolbutton, this just is a holder of pictures
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,11 +18,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/06/05 06:26:16  dkrajzew
+// Revision 1.1  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
-//
-// Revision 1.1  2003/02/07 10:34:15  dkrajzew
-// files updated
 //
 //
 
@@ -37,36 +32,24 @@
 #endif // HAVE_CONFIG_H
 
 #include <qtoolbutton.h>
+#include "QGUIImageField.h"
 
-
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-/**
- * QGUIImageField
- * Allows adding pixmaps without a function to a toolbar
- */
-class QGUIImageField : public QToolButton {
-    // is a q-object
-    Q_OBJECT
-public:
-    /// constructor
-    QGUIImageField(const QPixmap & pm, const QString & textLabel,
-		   const QString & grouptext, QToolBar * parent, const char * name);
-
-    /// destructor
-    ~QGUIImageField();
-
-};
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "QGUIImageField.icc"
-//#endif
-
+#ifndef WIN32
+#include "QGUIImageField.moc"
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+QGUIImageField::QGUIImageField(const QPixmap & pm, const QString & textLabel,
+        const QString & grouptext, QToolBar * parent, const char * name)
+        : QToolButton(pm, textLabel, grouptext, 0, 0, parent, name)
+{
+    setAutoRaise(true);
+}
+
+
+
+QGUIImageField::~QGUIImageField()
+{
+}
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.1  2003/05/20 09:25:13  dkrajzew
 // new view hierarchy; some debugging done
 //
@@ -109,6 +112,9 @@ namespace
 #include <glut.h>
 #endif
 
+#ifndef WIN32
+#include "GUISUMOAbstractView.moc"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -141,11 +147,9 @@ GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow *app,
     double nw = _net.getBoundery().getWidth();
     double nh = _net.getBoundery().getHeight();
     _netScale = (nw < nh ? nh : nw);
-    // compute the center
-    std::pair<double, double> center = _net.getBoundery().getCenter();
     // show the middle at the beginning
     _changer = new GUIDanielPerspectiveChanger(*this);
-    _changer->setNetSizes(nw, nh);
+    _changer->setNetSizes((size_t) nw, (size_t) nh);
     _toolTip = new QGLObjectToolTip(this);
     setMouseTracking(true);
 }
@@ -480,7 +484,7 @@ GUISUMOAbstractView::displayLegend()
     size_t length = 1;
     string text = "1";
     while(true) {
-        size_t pixelSize = m2p(length);
+        size_t pixelSize = (size_t) m2p((double) length);
         if(pixelSize>20) {
             QPainter paint( this );
             paint.setPen( QColor(0, 0, 0) );
@@ -665,6 +669,7 @@ GUISUMOAbstractView::timerEvent ( QTimerEvent *e )
     default:
         break;
     }
+    // !!! what to do with e?
 }
 
 

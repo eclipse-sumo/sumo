@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.4  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -41,6 +44,7 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <qmainwindow.h>
@@ -50,6 +54,10 @@ namespace
 #include <qstring.h>
 #include "GUISUMOViewParent.h"
 #include "GUIChooser.h"
+
+#ifndef WIN32
+#include "GUIChooser.moc"
+#endif
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.2  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
@@ -51,23 +54,16 @@ class QGUIToggleButton : public QToolButton {
 public:
     /// constructor
     QGUIToggleButton(const QPixmap & pm, const QString & textLabel,
-        const QString & grouptext, QObject * receiver,
-        const char * slot, QToolBar * parent, const char * name,
-        bool isOn)
-        : QToolButton(pm, textLabel, grouptext, receiver, slot, parent, name)
-    {
-        setToggleButton(true);
-        setOn(isOn);
-    }
+		     const QString & grouptext, QObject * receiver,
+		     const char * slot, QToolBar * parent, const char * name,
+		     bool isOn);
+
 
     /// destructor
-    ~QGUIToggleButton() { }
+    ~QGUIToggleButton();
 
     /// possibility to set the button into the "on" state from outside
-    void publicSetOn(bool value)
-    {
-        setOn(value);
-    }
+    void publicSetOn(bool value);
 
 };
 

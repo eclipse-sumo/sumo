@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.13  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -87,6 +90,7 @@ namespace
 #include <qcursor.h>
 #include <qpopupmenu.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/geom/Position2DVector.h>
 #include "QGUIToggleButton.h"
 #include "QGUIImageField.h"
 #include "QGLObjectToolTip.h"
@@ -108,6 +112,9 @@ namespace
 #include <glut.h>
 #endif
 
+#ifndef WIN32
+#include "GUIViewTraffic.moc"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -255,25 +262,28 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
 
-    double x = (_net.getBoundery().getCenter().first - _changer->getXPos()); // center of view
+	const Boundery &nb = _net.getBoundery();
+    double x = (nb.getCenter().first - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
-    double y = (_net.getBoundery().getCenter().second - _changer->getYPos()); // center of view
+    double y = (nb.getCenter().second - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
     _net._edgeGrid.get(_edges, x, y, xoff, yoff);
     paintGLEdges(_edges, scale);
 
+/*
+	Position2DVector tmp;
+	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
+	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
+	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
+	tmp.push_front(Position2D(nb.xmin(), nb.getCenter().second/2.0));
+	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
+	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
+	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
 
-    glBegin(GL_LINES);
-    glColor3f(1.0, 1.0, 0);
-    glVertex2f(-.5, 0);
-    glVertex2f(.5, 0);
-    glVertex2f(0, 0.5);
-    glVertex2f(0, -.5);
-    glEnd();
-
-
+	drawPolygon(tmp, 20, true);
+*/
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
         paintGLVehicles(_edges);
@@ -284,6 +294,62 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     if(mode==GL_RENDER) {
         swapBuffers();
     }
+}
+
+
+/*
+void
+GUIViewTraffic::drawPolygon(const Position2DVector &v, const Position2D &center, bool close)
+{
+	glBegin(GL_POLYGON);
+	const Position2DVector::ContType &l = v.getCont();
+	for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
+		const Position2D &p = *i;
+		glVertex2f(p.x(), p.y());
+	}
+	glEnd();
+}
+*/
+
+
+void
+GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool close)
+{
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
+	glBegin(GL_TRIANGLE_STRIP);
+	const Position2DVector::ContType &l = v.getCont();
+    Position2DVector::ContType ::const_iterator i = l.begin();
+    Position2D p1 = *i++;
+    Position2D p2 = *i++;
+    size_t pos = 0;
+	for(; i!=l.end()-1; i++) {
+        Position2D p3 = *i;
+        double x1, x2, y1, y2;
+        if(pos!=0) {
+            double alpha1 = atan2(p1.x()-p2.x(), p1.y()-p2.y());
+            double alpha2 = atan2(p2.x()-p3.x(), p2.y()-p3.y());
+            x1 = p1.x()-cos(alpha1)*lineWidth+cos((alpha1+alpha2)/2.0)*lineWidth;
+            y1 = p1.y()+sin(alpha1)*lineWidth-sin((alpha1+alpha2)/2.0)*lineWidth;
+            x2 = p1.x()+cos(alpha1)*lineWidth-cos((alpha1+alpha2)/2.0)*lineWidth;
+            y2 = p1.y()-sin(alpha1)*lineWidth+sin((alpha1+alpha2)/2.0)*lineWidth;
+        } else {
+            double alpha = atan2(p1.x()-p2.x(), p1.y()-p2.y());
+            x1 = p1.x()-cos(alpha)*lineWidth;
+            y1 = p1.y()+sin(alpha)*lineWidth;
+            x2 = p1.x()+cos(alpha)*lineWidth;
+            y2 = p1.y()-sin(alpha)*lineWidth;
+        }
+        glColor3f(
+            pos==0||pos==3 ? 0 : 1,
+            pos==1||pos==4 ? 0 : 1,
+            pos==2||pos==5 ? 0 : 1);
+        pos++;
+		glVertex2f(x1, y1);
+        glVertex2f(x2, y2);
+        p1 = p2;
+        p2 = p3;
+	}
+	glEnd();
 }
 
 

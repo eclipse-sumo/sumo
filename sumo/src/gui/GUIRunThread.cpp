@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.6  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -41,8 +44,12 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include <cassert>
 #include <string>
 #include <iostream>
+#include <helpers/SingletonDictionary.h>
+#include <microsim/MSLaneState.h>
 #include <qthread.h>
 #include <guisim/GUINet.h>
 #include "QSimulationStepEvent.h"
@@ -80,6 +87,8 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
+    SingletonDictionary< std::string, MSLaneState* >::create();
+    _net->initialiseSimulation(_craw, start, end);
 }
 
 

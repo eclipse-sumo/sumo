@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.7  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -54,7 +57,7 @@ using namespace std;
  * ======================================================================= */
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
-    _mouseButtonState(Qt::NoButton), _rotation(0), _xpos(0), _ypos(0), _zoom(100)
+    _mouseButtonState(Qt::NoButton), _xpos(0), _ypos(0), _rotation(0), _zoom(100)
 {
 }
 

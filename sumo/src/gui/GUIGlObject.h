@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.3  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -94,7 +97,7 @@ public:
 
 protected:
 
-    virtual const TableType const getTableType(size_t pos) const = 0;
+    virtual TableType getTableType(size_t pos) const = 0;
 
     virtual const char *getTableBeginValue(size_t pos) const = 0;
 

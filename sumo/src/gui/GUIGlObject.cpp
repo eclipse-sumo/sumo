@@ -66,7 +66,7 @@ GUIGlObject::insertTableParameter(GUIParameterTableWindow *window,
 	int i = getTableParameterNo() - 1;
     for(; i>=0; i--) {
         const char * const item = getTableItem(i);
-        const TableType const type = getTableType(i);
+        TableType type = getTableType(i);
         switch(type)
         {
         case TT_DOUBLE:

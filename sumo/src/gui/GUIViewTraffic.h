@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.7  2003/05/20 09:23:55  dkrajzew
 // some statistics added; some debugging done
 //
@@ -48,6 +51,7 @@
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/geom/Position2DVector.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
 #include <guisim/GUIEdgeGrid.h>
@@ -203,6 +207,7 @@ public:
 
 protected:
 
+void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
 
 public slots:
 

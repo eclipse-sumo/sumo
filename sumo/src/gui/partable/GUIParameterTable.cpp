@@ -3,6 +3,9 @@
 #include "GUIParameterTable.h"
 #include "QParamPopupMenu.h"
 
+#ifndef WIN32
+#include "GUIParameterTable.moc"
+#endif
 
 GUIParameterTable::GUIParameterTable(GUIApplicationWindow *app,
 									 GUIGlObject *o,

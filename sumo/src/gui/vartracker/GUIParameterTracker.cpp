@@ -9,6 +9,9 @@
 #include <gui/GUIApplicationWindow.h>
 #include <guisim/GUINet.h>
 
+#ifndef WIN32
+#include "GUIParameterTracker.moc"
+#endif
 
 using namespace std;
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.7  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -191,6 +194,9 @@ GUISimpleLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
         case MSEdge::EDGEFUNCTION_SINK:
             glColor3f(1, 0, 0);
             break;
+        case MSEdge::EDGEFUNCTION_UNKNOWN:
+        default:
+            throw 1;
         }
         break;
     case GUIViewTraffic::LCS_BY_SPEED:

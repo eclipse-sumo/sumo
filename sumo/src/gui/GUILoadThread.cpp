@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/05 06:26:16  dkrajzew
+// first tries to build under linux: warnings removed; Makefiles added
+//
 // Revision 1.5  2003/03/20 16:17:52  dkrajzew
 // windows eol removed
 //
@@ -47,6 +50,8 @@ namespace
 #include <guisim/GUINet.h>
 #include <guinetload/GUINetBuilder.h>
 #include <utils/common/SErrorHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
@@ -102,7 +107,12 @@ void GUILoadThread::run()
             simEndTime = oc->getInt("e");
             craw = SUMOFrame::buildRawOutputStream(oc);
         }
-    } catch (...) {
+    } catch (UtilException &e) {
+        delete net;
+        delete craw;
+        net = 0;
+        craw = 0;
+    } catch (XMLBuildingException &e) {
         delete net;
         delete craw;
         net = 0;
