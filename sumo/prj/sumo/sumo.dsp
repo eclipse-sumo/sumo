@@ -121,6 +121,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDensity.cpp
 # End Source File
 # Begin Source File
@@ -138,6 +142,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSE2DetectorInterface.cpp
 # End Source File
 # Begin Source File
 
@@ -170,6 +178,14 @@ SOURCE=..\..\src\microsim\MSInductLoop.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInternalLane.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSJamLengthAheadOfTrafficLights.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSJamLengthSum.cpp
 # End Source File
 # Begin Source File
 
@@ -209,11 +225,19 @@ SOURCE=..\..\src\microsim\MSLogicJunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSMaxJamLength.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSNet.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSNoLogicJunction.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSQueueLengthAheadOfTrafficLights.cpp
 # End Source File
 # Begin Source File
 
@@ -469,11 +493,19 @@ SOURCE=..\..\src\utils\dev\MemDiff.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSActuatedPhaseDefinition.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSActuatedTrafficLightLogic.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSAgentbasedTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
@@ -489,6 +521,10 @@ SOURCE=..\..\src\microsim\MSDetector2File.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetectorContainerBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorFileOutput.h
 # End Source File
 # Begin Source File
@@ -497,11 +533,19 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetectorTypedefs.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSE2Detector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSE2DetectorInterface.h
 # End Source File
 # Begin Source File
 
@@ -521,11 +565,23 @@ SOURCE=..\..\src\microsim\MSEventControl.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSHaltingDetectorContainer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSInductLoop.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInternalLane.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSJamLengthAheadOfTrafficLights.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSJamLengthSum.h
 # End Source File
 # Begin Source File
 
@@ -569,6 +625,10 @@ SOURCE=..\..\src\microsim\MSLogicJunction.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSMaxJamLength.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSMoveReminder.h
 # End Source File
 # Begin Source File
@@ -581,7 +641,19 @@ SOURCE=..\..\src\microsim\MSNoLogicJunction.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSOccupancyCorrection.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSPhaseDefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSPredicates.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSQueueLengthAheadOfTrafficLights.h
 # End Source File
 # Begin Source File
 
@@ -614,6 +686,10 @@ SOURCE=..\..\src\microsim\MSSource.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSSourceLane.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSSumDetector.h
 # End Source File
 # Begin Source File
 
