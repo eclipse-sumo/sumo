@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/19 08:07:34  dkrajzew
+// bugs and syntactical faults arised during compilation on Linux removed
+//
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -68,7 +71,7 @@ enum LoadFilter {
     LOADFILTER_DYNAMIC = 4,
 
     /** load static net elements only */
-    LOADFILTER_NET = 1 | 2 | 8,
+    LOADFILTER_NET = 1 | 2 | 8
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/19 08:07:34  dkrajzew
+// bugs and syntactical faults arised during compilation on Linux removed
+//
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -195,7 +198,8 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
     handler->setWanted(what);
     // check whether the list of files does not contain ';'s only
     if(!FileHelpers::checkFileList(files)) {
-        SErrorHandler::add("No " + getDataName(what) + " found!");
+        SErrorHandler::add(
+            string("No ") + getDataName(what) + string(" found!"));
         SErrorHandler::add("Check your program parameter.");
         return false;
     }
@@ -204,7 +208,6 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
         cout << "Loading " << getDataName(what) << "..." << endl;
     }
     // start parsing
-    int step = 0;
     parser.setContentHandler(handler);
     parser.setErrorHandler(handler);
     parse(files, handler, parser);

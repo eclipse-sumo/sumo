@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/03/19 08:07:33  dkrajzew
+// bugs and syntactical faults arised during compilation on Linux removed
+//
 // Revision 1.5  2003/03/03 15:06:32  dkrajzew
 // new import format applied; new detectors applied
 //
@@ -120,7 +123,7 @@ public:
     NLContainer(NLEdgeControlBuilder * const edgeBuilder);
 
     /// standard destructor
-    ~NLContainer();
+    virtual ~NLContainer();
 
     // data storage preallocation
     /// increments the number of found edges

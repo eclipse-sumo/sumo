@@ -159,10 +159,10 @@ NLNetHandler::setEdgeNumber(const Attributes &attrs) {
         myContainer.setEdgeNumber(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
         SErrorHandler::add(
-            "Error in description: missing number of edges.");
+            string("Error in description: missing number of edges."));
     } catch(NumberFormatException) {
         SErrorHandler::add(
-            "Error in description: non-digit number of edges.");
+            string("Error in description: non-digit number of edges."));
     }
 }
 
@@ -175,7 +175,7 @@ NLNetHandler::chooseEdge(const Attributes &attrs) {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         SErrorHandler::add(
-            "Error in description: missing id of an edge-object.");
+            string("Error in description: missing id of an edge-object."));
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("edge", id));
     }
@@ -360,15 +360,13 @@ NLNetHandler::addPhase(const Attributes &attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    size_t min, max;
+    size_t min = duration;
+    size_t max = duration;
     try {
         if(m_Type=="actuated") {
             min = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
             max = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
         }
-    } catch (EmptyData) {
-        SErrorHandler::add("Missing phase minimum or masimum duration...");
-        return;
     } catch (NumberFormatException) {
         SErrorHandler::add("The phase minimum or masimum duration is not numeric.");
         return;
@@ -692,7 +690,7 @@ NLNetHandler::setTLLogicNo(const std::string &chars) {
 void
 NLNetHandler::addLogicItem(int request, const string &response) {
     bitset<64> use(response);
-    assert(m_pActiveLogic->size()>request);
+    assert(m_pActiveLogic->size()>(size_t) request);
     (*m_pActiveLogic)[request] = use;
     _requestItems++;
 }
@@ -700,7 +698,7 @@ NLNetHandler::addLogicItem(int request, const string &response) {
 void
 NLNetHandler::addTrafoItem(const string &links, int lane) {
     bitset<64> use(links);
-    assert(m_pActiveTrafo->size()>lane);
+    assert(m_pActiveTrafo->size()>(size_t) lane);
     (*m_pActiveTrafo)[lane] = use;
     _trafoItems++;
 }
