@@ -1,14 +1,11 @@
-$Id$
+$Id: README.CVS,v 1.2 2004/10/28 12:50:58 dksumo Exp $
 
 After downloading the sources from cvs call
 
 make -f admin/Makefile.common cvs
-./configure
+./configure --with-xerces-libraries=<PATH_TO_XERCES_LIB> --with-xerces-includes=<PATH_TO_XERCES_INCLUDES> --with-fox-libraries=<PATH_TO_FOX_LIB> --with-fox-includes=<PATH_TO_FOX_INCLUDES> --with-ace-libraries=<PATH_TO_ACE_LIB> --with-ace-includes=<PATH_TO_ACE_INCLUDES>
 make
 
-to build sumo*. Add configure-option when needed (see ./configure --help 
+to build sumo*. Add configure-option when needed (see ./configure --help
 for possible options)
 
-See http://www.vandenoever.info/software/KDEautomakemanual.html and
-docs/sumo_dev_common.xml for further information on autotools and the
-build process.
