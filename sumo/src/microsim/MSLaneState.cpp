@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.16  2003/05/28 11:18:09  roessel
+// Pass pointer instead of reference to MSLaneStateReminder ctor.
+//
 // Revision 1.15  2003/05/28 07:51:25  dkrajzew
 // had to add a return value due to the usage of the mem_func-function in combination with for_each (MSVC++-reasons?)
 //
@@ -153,7 +156,7 @@ MSLaneState::MSLaneState( string id,
 
     // add reminder to lane
     MSMoveReminder* reminderM =
-        new MSLaneStateReminder( posM, posM + lengthM, *this );
+        new MSLaneStateReminder( posM, posM + lengthM, this );
     laneM->addMoveReminder( reminderM );
 
     // return when just a part of a junction-logic (no file)
