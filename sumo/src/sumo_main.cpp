@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 15:09:30  dkrajzew
+// unnecessary debug output removed
+//
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -223,7 +226,7 @@ main(int argc, char **argv)
 {
     size_t rand_init = 1040208551;
     rand_init = time(0);
-    cout << "Rand:" << rand_init << endl;
+//    cout << "Rand:" << rand_init << endl;
     srand(rand_init);
     int ret = 0;
     try {
