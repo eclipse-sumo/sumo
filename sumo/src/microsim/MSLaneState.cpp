@@ -11,7 +11,9 @@
  * @file   MSLaneState.cpp
  * @author Christian Roessel
  * @date   Started Tue, 18 Feb 2003
+ *
  * $Revision$ from $date$ by $Author$
+ *
  * @brief  Definition of class MSLaneState.
  * 
  */
@@ -28,6 +30,9 @@
 
 
 // $Log$
+// Revision 1.22  2003/07/03 11:00:52  roessel
+// Put global functions in an unnamed namespace to make them local.
+//
 // Revision 1.21  2003/06/10 12:55:11  roessel
 // Added documentation.
 //

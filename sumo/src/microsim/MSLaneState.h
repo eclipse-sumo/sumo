@@ -31,6 +31,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.18  2003/07/03 11:00:52  roessel
+// Put global functions in an unnamed namespace to make them local.
+//
 // Revision 1.17  2003/06/10 12:55:11  roessel
 // Added documentation.
 //
@@ -731,76 +734,80 @@ private:
 };
 
 
-/**
- * @name Binary-functions to use with std::accumulate.
- * 
- */
-//@{
-/// Adds up TimestepData::speedSumM.
-inline double speedSum( double sumSoFar,
-                        const MSLaneState::TimestepData& data )
+namespace
 {
-    return sumSoFar + data.speedSumM;
-}
-
-/// Adds up TimestepData::speedSquareSumM.
-inline double speedSquareSum( double sumSoFar,
-                              const MSLaneState::TimestepData& data )
-{
-    return sumSoFar + data.speedSquareSumM;
-}
-
-/// Adds up TimestepData::contTimestepSumM.
-inline double contTimestepSum( double sumSoFar,
-                               const MSLaneState::TimestepData& data )
-{
-    return sumSoFar + data.contTimestepSumM;
-}
-
-/// Adds up TimestepData::timestepSumM.
-inline double timestepSum( double sumSoFar,
-                           const MSLaneState::TimestepData& data )
-{
-    return sumSoFar + data.timestepSumM;
-}
-
-/// Adds up TimestepData::queueLengthM.
-inline double waitingQueueSum( double sumSoFar,
-                               const MSLaneState::TimestepData& data )
-{
-    return sumSoFar + data.queueLengthM;
-}
-
-/// Adds up traveltimes if vehicles has passed the entire detetctor.
-inline double traveltimeSum( double sumSoFar,
-                             const MSLaneState::VehicleData& data )
-{
-    if ( data.passedEntireDetectorM ) {
-        return sumSoFar + data.leaveContTimestepM - data.entryContTimestepM;
+    /**
+     * @name Binary-functions to use with std::accumulate.
+     * 
+     */
+    //@{
+    /// Adds up TimestepData::speedSumM.
+    inline double speedSum( double sumSoFar,
+                            const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.speedSumM;
     }
-    return sumSoFar;
-}
 
-/// Adds up VehicleData::leftDetectorByMoveM.
-inline int leftByMoveSum( int sumSoFar,
-                          const MSLaneState::VehicleData& data )
-{
-    return sumSoFar + data.leftDetectorByMoveM;
-}
+    /// Adds up TimestepData::speedSquareSumM.
+    inline double speedSquareSum( double sumSoFar,
+                                  const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.speedSquareSumM;
+    }
 
-/// Adds up VehicleData::passedEntireDetectorM.
-inline int passedEntireSum( int sumSoFar,
-                            const MSLaneState::VehicleData& data )
-{
-    return sumSoFar + data.passedEntireDetectorM;
-}
+    /// Adds up TimestepData::contTimestepSumM.
+    inline double contTimestepSum( double sumSoFar,
+                                   const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.contTimestepSumM;
+    }
 
-/// Adds up TimestepData::nVehEnteredDetectorM.
-inline int nVehEnteredSum( int sumSoFar,
-                           const MSLaneState::TimestepData& data )
-{
-    return sumSoFar + data.nVehEnteredDetectorM;
-    //@}
+    /// Adds up TimestepData::timestepSumM.
+    inline double timestepSum( double sumSoFar,
+                               const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.timestepSumM;
+    }
+
+    /// Adds up TimestepData::queueLengthM.
+    inline double waitingQueueSum( double sumSoFar,
+                                   const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.queueLengthM;
+    }
+
+    /// Adds up traveltimes if vehicles has passed the entire detetctor.
+    inline double traveltimeSum( double sumSoFar,
+                                 const MSLaneState::VehicleData& data )
+    {
+        if ( data.passedEntireDetectorM ) {
+            return sumSoFar + data.leaveContTimestepM -
+                data.entryContTimestepM;
+        }
+        return sumSoFar;
+    }
+
+    /// Adds up VehicleData::leftDetectorByMoveM.
+    inline int leftByMoveSum( int sumSoFar,
+                              const MSLaneState::VehicleData& data )
+    {
+        return sumSoFar + data.leftDetectorByMoveM;
+    }
+
+    /// Adds up VehicleData::passedEntireDetectorM.
+    inline int passedEntireSum( int sumSoFar,
+                                const MSLaneState::VehicleData& data )
+    {
+        return sumSoFar + data.passedEntireDetectorM;
+    }
+
+    /// Adds up TimestepData::nVehEnteredDetectorM.
+    inline int nVehEnteredSum( int sumSoFar,
+                               const MSLaneState::TimestepData& data )
+    {
+        return sumSoFar + data.nVehEnteredDetectorM;
+        //@}
+    }
 }
 
 #endif
