@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -36,36 +36,36 @@ struct MSDetectorContainer : public MSDetectorContainerBase
 //     typedef typename InnerContainer::value_type ContainerItem;
     typedef typename InnerContainer::const_iterator ContainerConstIt;
     typedef InnerContainer InnerCont;
-    
-    void enterDetectorByMove( MSVehicle& veh )
+
+    void enterDetectorByMove( MSVehicle* veh )
         {
             typedef typename InnerContainer::value_type ContainerItem;
             containerM.push_front( ContainerItem( veh ) );
         }
-    
-    void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
+
+    void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
         {
             typedef typename InnerContainer::value_type ContainerItem;
             typedef typename InnerContainer::iterator ContainerIt;
-            typedef typename Predicate::PosGreater< ContainerItem >
+            typedef typename Predicate::PosGreaterC< ContainerItem >
                 PosGreaterPredicate;
             ContainerIt insertIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
-                                  PosGreaterPredicate(), veh.pos() ) );
+                                  PosGreaterPredicate(), veh->pos() ) );
             containerM.insert( insertIt, ContainerItem( veh ) );
         }
-    
+
     void leaveDetectorByMove( void )
         {
             containerM.pop_back();
         }
-    
-    void leaveDetectorByLaneChange( MSVehicle& veh )
+
+    void leaveDetectorByLaneChange( MSVehicle* veh )
         {
             typedef typename InnerContainer::value_type ContainerItem;
             typedef typename InnerContainer::iterator ContainerIt;
-            typedef typename Predicate::VehEquals< ContainerItem >
+            typedef typename Predicate::VehEqualsC< ContainerItem >
                 ErasePredicate;
             ContainerIt eraseIt =
                 std::find_if( containerM.begin(), containerM.end(),
@@ -73,55 +73,55 @@ struct MSDetectorContainer : public MSDetectorContainerBase
                                   ErasePredicate(), &veh ) );
             containerM.erase( eraseIt );
         }
-    
+
     virtual void update( void )
         {}
 
-    MSDetectorContainer( void ) 
+    MSDetectorContainer( void )
         : containerM()
         {}
-    
+
     virtual ~MSDetectorContainer( void )
         {
             containerM.clear();
         }
-    
+
     InnerContainer containerM;
-    
+
 };
 
 
 struct MSDoubleDetectorContainer : public MSDetectorContainerBase
 {
     typedef double Container;
-    
-    void enterDetectorByMove( MSVehicle& veh )
+
+    void enterDetectorByMove( MSVehicle* veh )
         {
             ++containerM;
         }
-    
-    void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
+
+    void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
         {
             ++containerM;
         }
-    
+
     void leaveDetectorByMove( void )
         {
             --containerM;
         }
-    
-    void leaveDetectorByLaneChange( MSVehicle& veh )
+
+    void leaveDetectorByLaneChange( MSVehicle* veh )
         {
             --containerM;
         }
-    
+
     void update( void )
         {}
 
-    MSDoubleDetectorContainer( void ) 
+    MSDoubleDetectorContainer( void )
         : containerM( 0 )
         {}
-    
+
     virtual ~MSDoubleDetectorContainer( void )
         {}
 
@@ -131,7 +131,7 @@ struct MSDoubleDetectorContainer : public MSDetectorContainerBase
 
 namespace DetectorContainer
 {
-    typedef MSDoubleDetectorContainer Counter;
+    typedef MSDoubleDetectorContainer Count;
     typedef MSDetectorContainer< std::list< MSVehicle* > > Vehicles;
 }
 

@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -26,12 +26,12 @@ class MSVehicle;
 
 struct MSDetectorContainerBase
 {
-    virtual void enterDetectorByMove( MSVehicle& veh ) = 0;
-    virtual void enterDetectorByEmitOrLaneChange( MSVehicle& veh ) = 0;
+    virtual void enterDetectorByMove( MSVehicle* veh ) = 0;
+    virtual void enterDetectorByEmitOrLaneChange( MSVehicle* veh ) = 0;
     virtual void leaveDetectorByMove( void ) = 0;
-    virtual void leaveDetectorByLaneChange( MSVehicle& veh ) = 0;
+    virtual void leaveDetectorByLaneChange( MSVehicle* veh ) = 0;
     virtual void update( void ) = 0;
-    virtual ~MSDetectorContainerBase( void );
+    virtual ~MSDetectorContainerBase( void ) { }
 };
 
 #endif // MSDETECTORCONTAINERBASE_H
