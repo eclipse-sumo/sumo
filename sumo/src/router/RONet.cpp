@@ -34,6 +34,13 @@ RONet::~RONet()
 }
 
 
+void 
+RONet::postloadInit()
+{
+    _edges.postloadInit();
+}
+
+
 void
 RONet::addEdge(const std::string &name, ROEdge *edge)
 {

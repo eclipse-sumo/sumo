@@ -11,6 +11,7 @@ class ROEdgeCont : public NamedObjectCont<ROEdge*> {
 public:
 	ROEdgeCont();
 	~ROEdgeCont();
+    void postloadInit();
     void init();
 private:
     /// we made the copy constructor invalid

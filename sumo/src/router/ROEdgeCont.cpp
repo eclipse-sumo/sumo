@@ -13,6 +13,15 @@ ROEdgeCont::~ROEdgeCont()
 }
 
 
+void
+ROEdgeCont::postloadInit() 
+{
+    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+        (*i).second->postloadInit();
+    }
+}
+
+
 /*
 void
 ROEdgeCont::computeWeights()

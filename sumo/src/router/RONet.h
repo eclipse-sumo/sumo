@@ -35,6 +35,7 @@ private:
 public:
     RONet(bool multireferencedRoutes);
     ~RONet();
+    void postloadInit();
     void addEdge(const std::string &name, ROEdge *edge);
     ROEdge *getEdge(const std::string &name) const;
     void addNode(const std::string &name, RONode *node);
