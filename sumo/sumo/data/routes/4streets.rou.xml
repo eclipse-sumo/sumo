@@ -1,6 +1,6 @@
 <routes>
 
-   <vtype id="0" maxspeed="20" length="5.0" bmax="4.5" dmax="0.8" sigma="0.5"/>
+   <vtype id="0" maxspeed="20" length="5.0" accel="0.8" decel="4.5" sigma="0.5"/>
 
    <route id="always_right">1i 4o 4i 2o 2i 3o 3i 1o 1i</route>
    <vehicle type="0" id="always_right0" depart="0" route="always_right"/>
@@ -3008,7 +3008,7 @@
    <vehicle type="0" id="horizontal998" depart="44910" route="horizontal"/>
    <vehicle type="0" id="horizontal999" depart="44955" route="horizontal"/>
 
-   <route id="vertical">3i 4o 4i 3o 31</route>
+   <route id="vertical">3i 4o 4i 3o 3i</route>
    <vehicle type="0" id="vertical0" depart="0" route="vertical"/>
    <vehicle type="0" id="vertical1" depart="45" route="vertical"/>
    <vehicle type="0" id="vertical2" depart="90" route="vertical"/>

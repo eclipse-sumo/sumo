@@ -1,6 +1,6 @@
 <routes>
 
-   <vtype id="0" maxspeed="20" length="5.0" bmax="4.5" dmax="0.8" sigma="0.5"/>
+   <vtype id="0" maxspeed="20" length="5.0" accel="0.8" decel="4.5" sigma="0.5"/>
 
    <route id="upper_c">a1 a2 a3 a8 a1</route>
    <vehicle type="0" id="upper_c0" depart="0" route="upper_c"/>
