@@ -371,11 +371,11 @@ NLNetHandler::addPhase(const Attributes &attrs)
     prios.flip();
     if(m_Type!="actuated") {
         m_ActiveSimplePhases.push_back(
-            MSSimpleTrafficLightLogic<64>::PhaseDefinition(
+            MSPhaseDefinition(
             duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
     } else {
         m_ActiveActuatedPhases.push_back(
-            ActuatedPhaseDefinition(
+            MSActuatedPhaseDefinition(
             duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
 			min, max));
     }
@@ -865,7 +865,7 @@ NLNetHandler::closeTrafficLightLogic()
     }
     if(m_Type!="actuated") {
         MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic<64>(
+            new MSSimpleTrafficLightLogic(
                 m_Key, m_ActiveSimplePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary

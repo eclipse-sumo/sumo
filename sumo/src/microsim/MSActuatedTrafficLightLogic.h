@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/09/17 06:50:45  dkrajzew
+// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+//
 // Revision 1.9  2003/07/21 18:13:05  roessel
 // Changes due to new MSInductLoop.
 //
@@ -61,66 +64,18 @@
 #include "MSEventControl.h"
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
+#include "MSActuatedPhaseDefinition.h"
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 
-/**
- * The definition of a single phase.
- * We moved it out of the main class to allow later template
- * parametrisation.
- */
-class ActuatedPhaseDefinition {
-public:
-    /// the duration of the phase
-    size_t          duration;
 
-    /// the mask which links are allowed to drive within this phase (green light)
-    std::bitset<64>  driveMask;
-
-    /// the mask which vehicles must not drive within this phase (red light)
-    std::bitset<64>  breakMask;
-
-	/// the mask which links have to decelerate(yellow light)
-	std::bitset<64>  yellowMask;
-
-    /// The minimum duration of the pahse
-    size_t          minDuration;
-
-    /// The maximum duration of the pahse
-    size_t          maxDuration;
-
-    /// stores the timestep of the last on-switched of the phase
-    MSNet::Time _lastSwitch;
-
-
-    /// constructor
-    ActuatedPhaseDefinition(size_t durationArg,
-        const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
-		const std::bitset<64> &yellowMaskArg,
-        size_t minDurationArg, size_t maxDurationArg)
-    : duration(durationArg), driveMask(driveMaskArg),
-    breakMask(breakMaskArg), yellowMask(yellowMaskArg),
-	minDuration(minDurationArg), maxDuration(maxDurationArg), _lastSwitch(0)
-    {
-    minDuration = 5; //!!!
-    maxDuration = 30; //!!!
-    }
-
-    /// destructor
-    ~ActuatedPhaseDefinition() { }
-
-private:
-    /// invalidated standard constructor
-    ActuatedPhaseDefinition();
-
-};
 
 
 /// definition of a list of phases, being the junction logic
-typedef std::vector<ActuatedPhaseDefinition > ActuatedPhases;
+typedef std::vector<MSActuatedPhaseDefinition > ActuatedPhases;
 
 
 /**

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/09/17 06:50:45  dkrajzew
+// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+//
 // Revision 1.7  2003/08/04 11:40:20  dkrajzew
 // false inclusion hierarchy patched; missing inclusions added
 //
@@ -56,11 +59,11 @@
 #include "MSSimpleTrafficLightLogic.h"
 
 
-template< size_t N >
-std::bitset<64> MSSimpleTrafficLightLogic<N>::_allClear;
 
-template< size_t N >
-MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
+std::bitset<64> MSSimpleTrafficLightLogic::_allClear;
+
+
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(
     const std::string &id, const Phases &phases, size_t step,
     size_t delay)
     : MSTrafficLightLogic(id, delay), _phases(phases),
@@ -69,38 +72,38 @@ MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
 }
 
 
-template< size_t N >
-MSSimpleTrafficLightLogic<N>::~MSSimpleTrafficLightLogic<N>()
+
+MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 {
 }
 
 
-template< size_t N > const std::bitset<64> &
-MSSimpleTrafficLightLogic<N>::linkPriorities() const
+ const std::bitset<64> &
+MSSimpleTrafficLightLogic::linkPriorities() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].breakMask;
 }
 
 
-template< size_t N > const std::bitset<64> &
-MSSimpleTrafficLightLogic<N>::yellowMask() const
+ const std::bitset<64> &
+MSSimpleTrafficLightLogic::yellowMask() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].yellowMask;
 }
 
 
-template< size_t N > const std::bitset<64> &
-MSSimpleTrafficLightLogic<N>::allowed() const
+ const std::bitset<64> &
+MSSimpleTrafficLightLogic::allowed() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].driveMask;
 }
 
 
-template< size_t N > size_t
-MSSimpleTrafficLightLogic<N>::nextStep()
+ size_t
+MSSimpleTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
     _step++;
@@ -111,8 +114,8 @@ MSSimpleTrafficLightLogic<N>::nextStep()
 }
 
 
-template< size_t N > MSNet::Time
-MSSimpleTrafficLightLogic<N>::duration() const
+ MSNet::Time
+MSSimpleTrafficLightLogic::duration() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].duration;
@@ -121,8 +124,8 @@ MSSimpleTrafficLightLogic<N>::duration() const
 
 
 
-template< size_t N > MSNet::Time
-MSSimpleTrafficLightLogic<N>::nextPhase()
+ MSNet::Time
+MSSimpleTrafficLightLogic::nextPhase()
 {
     // increment the index to the current phase
     nextStep();

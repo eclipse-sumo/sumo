@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/09/17 06:50:45  dkrajzew
+// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+//
 // Revision 1.9  2003/07/30 09:16:10  dkrajzew
 // a better (correct?) processing of yellow lights added; debugging
 //
@@ -57,6 +60,7 @@
 #include "MSEventControl.h"
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
+#include "MSPhaseDefinition.h"
 
 
 /* =========================================================================
@@ -70,46 +74,12 @@
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< size_t N >
 class MSSimpleTrafficLightLogic : public MSTrafficLightLogic
 {
 public:
-    /**
-     * The definition of a single phase */
-    class PhaseDefinition {
-    public:
-        /// the duration of the phase
-        size_t          duration;
-
-        /// the mask which links are allowed to drive within this phase (green light)
-        std::bitset<N>  driveMask;
-
-        /// the mask which links must not drive within this phase (red light)
-        std::bitset<N>  breakMask;
-
-        /// the mask which links have to decelerate(yellow light)
-        std::bitset<N>  yellowMask;
-
-        /// constructor
-        PhaseDefinition(size_t durationArg,
-            const std::bitset<N> &driveMaskArg,
-            const std::bitset<N> &breakMaskArg,
-			const std::bitset<N> &yellowMaskArg)
-            : duration(durationArg), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMaskArg) {
-        }
-
-        /// destructor
-        ~PhaseDefinition() { }
-
-    private:
-        /// invalidated standard constructor
-        PhaseDefinition();
-
-    };
 
     /// definition of a list of phases, being the junction logic
-    typedef std::vector<PhaseDefinition> Phases;
+    typedef std::vector<MSPhaseDefinition> Phases;
 
 public:
     /// constructor
@@ -156,7 +126,7 @@ protected:
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
 #ifndef MSVC
-#include "MSSimpleTrafficLightLogic.cpp"
+//#include "MSSimpleTrafficLightLogic.cpp"
 #endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
