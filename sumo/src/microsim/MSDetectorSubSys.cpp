@@ -22,6 +22,8 @@
 #include "MSDetector2File.h"
 #include "MSInductLoop.h"
 #include "MSLaneState.h"
+#include "MS_E2_ZS_Collector.h"
+
 
 void
 MSDetectorSubSys::createDictionaries( void )
@@ -29,6 +31,8 @@ MSDetectorSubSys::createDictionaries( void )
     deleteDictionariesAndContents();
     LaneStateDict::create();
     LoopDict::create();
+    MS_E2_ZS_Collector::Dictionary::create();
+    
 //     MSDetector2File<MSInductLoop>::create( 900 );
 }
 
@@ -39,6 +43,7 @@ MSDetectorSubSys::setDictionariesFindMode( void )
     // SingletonDictionaries aren't widely used, we can do this here.
     LaneStateDict::getInstance()->setFindMode();
     LoopDict::getInstance()->setFindMode();
+    MS_E2_ZS_Collector::Dictionary::getInstance()->setFindMode();
 }
 
 /*
@@ -82,7 +87,17 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete LoopDict::getInstance();
     }
 
-
+    if(MS_E2_ZS_Collector::Dictionary::created()) {
+        MS_E2_ZS_Collector::Dictionary::ValueVector loopVec(
+            MS_E2_ZS_Collector::Dictionary::getInstance()->getStdVector() );
+        for(MS_E2_ZS_Collector::Dictionary::ValueVector::iterator
+                i3=loopVec.begin();
+            i3!=loopVec.end(); i3++) {
+            delete(*i3);
+        }
+//    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
+        delete MS_E2_ZS_Collector::Dictionary::getInstance();
+    }
 
 }
 
