@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/01/12 14:37:32  dkrajzew
+// reading of e2-detectors from files added
+//
 // Revision 1.12  2003/11/11 08:05:45  dkrajzew
 // logging (value passing) moved from utils to microsim
 //
@@ -90,11 +93,12 @@ namespace
 #include <iostream>
 #include <microsim/MSNet.h>
 #include <microsim/MSInductLoop.h>
+#include <microsim/MSE2Collector.h>
+#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <microsim/logging/LoggedValue_Single.h>
-#include <microsim/logging/LoggedValue_TimeFixed.h>
+#include <utils/common/StringUtils.h>
 #include "NLDetectorBuilder.h"
 
 
@@ -119,14 +123,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
      if(!FileHelpers::isAbsolute(filename)) {
          filename = FileHelpers::getConfigurationRelative(basePath, filename);
      }
-     // build and check the file
-/*     std::ofstream *file = new std::ofstream(filename.c_str());
-     if(!file->good()) {
-         throw InvalidArgument(
-             string("Could not open output for induct loop '") + id
-             + string("' for writing (file:") + filename
-             + string(")."));
-     }*/
     // get and check the lane
     MSLane *clane = MSLane::dictionary(lane);
     if(clane==0) {
@@ -135,19 +131,11 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
             + string("The lane with the id '") + lane
             + string("' is not known."));
     }
-//     // build in dependence to the sample interval
-//     if(splInterval==1) {
-//         return
-//             new MSInductLoop<LoggedValue_Single<double> >
-//                 (id, clane, pos, splInterval, cstyle, file, false);
-//     } else {
-//         return
-//             new MSInductLoop<LoggedValue_TimeFixed<double> >
-//                 (id, clane, pos, splInterval, cstyle, file, false);
-//     }
+    // compute position
     if(pos<0) {
         pos = clane->length() + pos;
     }
+    // build the loop
     MSInductLoop *loop = new MSInductLoop(id, clane, pos);
     // add the file output
     MSDetector2File* det2file =
@@ -155,7 +143,170 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     det2file->addDetectorAndInterval(loop, filename, splInterval, splInterval);
 }
 
-/*
+
+void
+NLDetectorBuilder::buildE2Detector(const std::string &id,
+        const std::string &lane, float pos, float length,
+        bool cont, int splInterval,
+        const std::string &/*style*/, std::string filename,
+        const std::string &basePath, const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds )
+{
+     // get the output style
+//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
+     // check whether the file must be converted into a relative path
+     if(!FileHelpers::isAbsolute(filename)) {
+         filename = FileHelpers::getConfigurationRelative(basePath, filename);
+     }
+    // get and check the lane
+    MSLane *clane = MSLane::dictionary(lane);
+    if(clane==0) {
+        throw InvalidArgument(
+            string("On detector building:\n")
+            + string("The lane with the id '") + lane
+            + string("' is not known."));
+    }
+    // compute position
+    if(pos<0) {
+        pos = clane->length() + pos;
+    }
+    // patch position
+    if(pos<0.1) {
+        pos = 0.1;
+    }
+    // check whether the detector may lie over more than one lane
+    MSDetectorFileOutput *det = 0;
+    if(!cont) {
+        // patch length
+        if(pos+length>clane->length()-0.1) {
+            length = clane->length() - 0.1 - pos;
+        }
+        det = buildSingleLaneE2Det(id, clane, pos, length, splInterval,
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    } else {
+        det = buildMultiLaneE2Det(id, clane, pos, length, splInterval,
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    }
+    // add the file output
+    MSDetector2File* det2file =
+        MSDetector2File::getInstance();
+    det2file->addDetectorAndInterval(det, filename,
+        splInterval, splInterval);
+}
+
+
+MSDetectorFileOutput *
+NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
+                                        MSLane *lane, float pos, float length,
+                                        int splInterval,
+                                        MSUnit::Seconds haltingTimeThreshold,
+                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                        MSUnit::Meters jamDistThreshold,
+                                        MSUnit::Seconds deleteDataAfterSeconds,
+                                        const std::string &measures)
+{
+    MSE2Collector *ret = new MSE2Collector(id, lane, pos, length,
+        haltingTimeThreshold, haltingSpeedThreshold,
+        jamDistThreshold, deleteDataAfterSeconds);
+
+    E2MeasuresVector toAdd = parseE2Measures(measures);
+    for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
+        ret->addDetector(*i);
+    }
+    return ret;
+}
+
+
+MSDetectorFileOutput *
+NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
+                                       MSLane *lane, float pos, float length,
+                                       int splInterval,
+                                       MSUnit::Seconds haltingTimeThreshold,
+                                       MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                       MSUnit::Meters jamDistThreshold ,
+                                       MSUnit::Seconds deleteDataAfterSeconds,
+                                       const std::string &measures)
+{
+    MS_E2_ZS_CollectorOverLanes *ret =
+        new MS_E2_ZS_CollectorOverLanes( id, lane, pos,
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds);
+    ret->init(lane, length, MS_E2_ZS_CollectorOverLanes::LaneContinuations());
+    E2MeasuresVector toAdd = parseE2Measures(measures);
+    for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
+        ret->addDetector(*i);
+    }
+    return ret;
+}
+
+
+
+
+NLDetectorBuilder::E2MeasuresVector
+NLDetectorBuilder::parseE2Measures(const std::string &measures)
+{
+    string my = measures;
+    StringUtils::upper(my);
+    E2MeasuresVector ret;
+    if(measures.find("DENSITY")!=string::npos) {
+        ret.push_back(E2::DENSITY);
+    }
+    if(measures.find("MAX_JAM_LENGTH_IN_VEHICLES")!=string::npos) {
+        ret.push_back(E2::MAX_JAM_LENGTH_IN_VEHICLES);
+    }
+    if(measures.find("MAX_JAM_LENGTH_IN_METERS")!=string::npos) {
+        ret.push_back(E2::MAX_JAM_LENGTH_IN_METERS);
+    }
+    if(measures.find("JAM_LENGTH_SUM_IN_VEHICLES")!=string::npos) {
+        ret.push_back(E2::JAM_LENGTH_SUM_IN_VEHICLES);
+    }
+    if(measures.find("JAM_LENGTH_SUM_IN_METERS")!=string::npos) {
+        ret.push_back(E2::JAM_LENGTH_SUM_IN_METERS);
+    }
+    if(measures.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES")!=string::npos) {
+        ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
+    }
+    if(measures.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS")!=string::npos) {
+        ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
+    }
+    if(measures.find("N_VEHICLES")!=string::npos) {
+        ret.push_back(E2::N_VEHICLES);
+    }
+    if(measures.find("OCCUPANCY_DEGREE")!=string::npos) {
+        ret.push_back(E2::OCCUPANCY_DEGREE);
+    }
+    if(measures.find("SPACE_MEAN_SPEED")!=string::npos) {
+        ret.push_back(E2::SPACE_MEAN_SPEED);
+    }
+    if(measures.find("CURRENT_HALTING_DURATION_SUM_PER_VEHICLE")!=string::npos) {
+        ret.push_back(E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
+    }
+    if(measures.find("N_STARTED_HALTS")!=string::npos) {
+        ret.push_back(E2::N_STARTED_HALTS);
+    }
+    if(measures.find("HALTING_DURATION_SUM")!=string::npos) {
+        ret.push_back(E2::HALTING_DURATION_SUM);
+    }
+    if(measures.find("HALTING_DURATION_MEAN")!=string::npos) {
+        ret.push_back(E2::HALTING_DURATION_MEAN);
+    }
+    if(measures.find("APPROACHING_VEHICLES_STATES")!=string::npos) {
+        ret.push_back(E2::APPROACHING_VEHICLES_STATES);
+    }
+    if(measures.find("ALL")!=string::npos) {
+        ret.push_back(E2::ALL);
+    }
+    return ret;
+}
+
+            /*
 MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
         const std::string &style)
 {
@@ -168,11 +319,9 @@ MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
 */
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLDetectorBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
 // End:
+
 

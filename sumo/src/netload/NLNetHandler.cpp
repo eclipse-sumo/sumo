@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.36  2004/01/12 14:37:32  dkrajzew
+// reading of e2-detectors from files added
+//
 // Revision 1.35  2003/12/05 10:26:10  dkrajzew
 // handling of internal links when theyre not wished improved
 //
@@ -480,15 +483,35 @@ NLNetHandler::openJunction(const Attributes &attrs)
 void
 NLNetHandler::addDetector(const Attributes &attrs)
 {
+    // try to get the id first
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing id of a detector-object.");
+        return;
+    }
+    // try to get the type
+    string type;
+    try {
+        type = getString(attrs, SUMO_ATTR_TYPE);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing type of a detector-object.");
+        MsgHandler::getErrorInstance()->inform(
+            string(" Detector-id: '") + id + string("'."));
+        return;
+    }
+    // build in dependence to type
+        // induct loops (E1-detectors)
+    if(type=="induct_loop"||type=="E1"||type=="e1") {
         try {
             NLDetectorBuilder::buildInductLoop(id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
                 getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                getString(attrs, SUMO_ATTR_STYLE),
+                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                 getString(attrs, SUMO_ATTR_FILE),
                 _file);
         } catch (XMLBuildingException &e) {
@@ -500,9 +523,36 @@ NLNetHandler::addDetector(const Attributes &attrs)
                 string("The description of the detector '")
                 + id + string("' does not contain a needed value."));
         }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        return;
+    }
+        // lane-based areal detectors (E2-detectors)
+    if(type=="lane_based"||type=="E2"||type=="e2") {
+        try {
+            NLDetectorBuilder::buildE2Detector(id,
+                getString(attrs, SUMO_ATTR_LANE),
+                getFloat(attrs, SUMO_ATTR_POSITION),
+                getFloat(attrs, SUMO_ATTR_LENGTH),
+                getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                getString(attrs, SUMO_ATTR_FILE),
+                getString(attrs, SUMO_ATTR_MEASURES),
+                _file,
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
+                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
+                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                );
+        } catch (XMLBuildingException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.msg());
+        } catch (EmptyData) {
+            MsgHandler::getErrorInstance()->inform(
+                string("The description of the detector '")
+                + id + string("' does not contain a needed value."));
+        }
+        return;
     }
 }
 
@@ -1119,3 +1169,4 @@ NLNetHandler::setError(const string &type,
 // Local Variables:
 // mode:C++
 // End:
+
