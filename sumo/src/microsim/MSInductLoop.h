@@ -41,7 +41,7 @@ class GUILaneWrapper;
 
 /**
  * An unextended detector that measures at a fixed position on a fixed
- * lane. Only vehicles that passed the entire detector are countet. We
+ * lane. Only vehicles that passed the entire detector are counted. We
  * ignore vehicles that are emitted onto the detector and vehicles
  * that change their lane while they are on the detector, because we
  * cannot determine a meaningful enter/leave-times.
@@ -56,15 +56,17 @@ class GUILaneWrapper;
  * See the get*-methods to learn about what is measured. You can vary
  * the sample-intervall during runtime.
  *
- * If you want to print data to a file at fixed intervals you should
- * use MSDetector2File.
+ * Due to the inheritance from MSDetectorFileOutput this detector can
+ * print data to a file at fixed intervals via MSDetector2File.
  *
  * @see MSDetector2File
  * @see MSMoveReminder
  * @see SingletonDictionary
+ * @see MSDetectorFileOutput
  */
 class MSInductLoop
-    : public MSMoveReminder, MSDetectorFileOutput
+    : public MSMoveReminder,
+      public MSDetectorFileOutput
 {
 public:
     /// Type of the dictionary where all MSInductLoop are registered.
@@ -226,10 +228,9 @@ public:
     //@}
 
     /**
-     * @name File-output methods. These methods are used to produce
-     * file-output at fixed intervals via MSDetector2File.
+     * @name Inherited MSDetectorFileOutput methods.
      *
-     * @see MSDetector2File
+     * @see MSDetectorFileOutput
      */
     //@{
     /** 
@@ -239,8 +240,9 @@ public:
      * @see MSDetector2File
      * @return String "MSInductLoop_" + idM
      */
-    std::string getNamePrefix( void );
+    std::string getNamePrefix( void ) const;
 
+    
     /** 
      * Get a header for file output via MSDetector2File
      * 
@@ -249,28 +251,8 @@ public:
      * @see MSDetector2File
      * @see getXMLOutput
      */
-    std::string& getXMLHeader( void );
+    std::string& getXMLHeader( void ) const;
 
-    /** 
-     * Get an opening XML-element containing information about the detector.
-     * 
-     * @return <detector type="inductionloop" id="det_id"
-     * lane="lane_id" pos="det_pos">
-     *
-     * @see MSDetector2File
-     * @see getXMLDetectorInfoEnd
-     */
-    std::string getXMLDetectorInfoStart( void );
-
-    /** 
-     * Get the closing XML-element to getXMLDetectorInfoStart
-     * 
-     * @return </detector>
-     *
-     * @see MSDetector2File
-     * @see getXMLDetectorInfoStart
-     */
-    std::string& getXMLDetectorInfoEnd( void );
 
     /** 
      * Get the XML-formatted output of all the get*-methods except
@@ -285,6 +267,34 @@ public:
      * @see MSDetector2File
      */
     std::string getXMLOutput( MSNet::Time lastNTimesteps );
+
+    /** 
+     * Get an opening XML-element containing information about the detector.
+     * 
+     * @return <detector type="inductionloop" id="det_id"
+     * lane="lane_id" pos="det_pos">
+     *
+     * @see MSDetector2File
+     * @see getXMLDetectorInfoEnd
+     */
+    std::string getXMLDetectorInfoStart( void ) const;
+
+
+    /** 
+     * Get the closing XML-element to getXMLDetectorInfoStart
+     * 
+     * @return </detector>
+     *
+     * @see MSDetector2File
+     * @see getXMLDetectorInfoStart
+     */
+    std::string& getXMLDetectorInfoEnd( void ) const;
+
+    /** 
+     * Get the data-clean up interval in timesteps.
+     * 
+     */
+    MSNet::Time getDataCleanUpSteps( void ) const;
     //@}
 
     /** 
@@ -324,11 +334,7 @@ public:
         double occupancyM;      /**< Occupancy of the detector in [s]. */
     };
 
-    /** 
-     * Get the data-clean up interval in timesteps.
-     * 
-     */
-    MSNet::Time getDataCleanUpSteps( void ) const;
+
 
 protected:
     /**

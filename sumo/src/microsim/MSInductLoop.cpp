@@ -251,21 +251,21 @@ MSInductLoop::getNVehContributed( MSNet::Time lastNTimesteps ) const
 
 
 string
-MSInductLoop::getNamePrefix( void )
+MSInductLoop::getNamePrefix( void ) const
 {
     return "MSInductLoop_" + idM;
 }
 
 
 string&
-MSInductLoop::getXMLHeader( void )
+MSInductLoop::getXMLHeader( void ) const
 {
     return xmlHeaderM;
 }
 
 
 string
-MSInductLoop::getXMLDetectorInfoStart( void )
+MSInductLoop::getXMLDetectorInfoStart( void ) const
 {
     string detectorInfo("<detector type=\"inductionloop\" id=\"" + idM +
                         "\" lane=\"" + laneM->id() + "\" pos=\"" +
@@ -275,14 +275,14 @@ MSInductLoop::getXMLDetectorInfoStart( void )
 
 
 string&
-MSInductLoop::getXMLDetectorInfoEnd( void )
+MSInductLoop::getXMLDetectorInfoEnd( void ) const
 {
     return xmlDetectorInfoEndM;
 }
 
 
 string
-MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
+MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps ) 
 {
     MSNet::Time t( lastNTimesteps );
     string nVehContrib = "nVehContrib=\"" +
@@ -298,17 +298,18 @@ MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
 }
 
 
+MSNet::Time
+MSInductLoop::getDataCleanUpSteps( void ) const
+{
+    return deleteDataAfterStepsM;
+}
+
+
 GUIDetectorWrapper*
 MSInductLoop::buildDetectorWrapper(GUIGlObjectStorage &,
                                    GUILaneWrapper &)
 {
     throw "Only within the gui-version";
-}
-
-MSNet::Time
-MSInductLoop::getDataCleanUpSteps( void ) const
-{
-    return deleteDataAfterStepsM;
 }
 
 
