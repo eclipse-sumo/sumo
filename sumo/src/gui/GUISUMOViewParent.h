@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/07/02 08:37:27  dkrajzew
+// using global selection storage
+//
 // Revision 1.5  2004/04/02 11:11:24  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -113,7 +116,8 @@ public:
     long onSimStep(FXObject*sender,FXSelector,void*);
 
     /// centers the view onto the given artifact
-    void setView(GUIGlObjectType type, const std::string &name);
+    void setView(GUIGlObjectType type, const std::string &microsimID,
+        const std::string &fullName);
 
     /// returns the zooming factor
     double getZoomingFactor() const;
@@ -134,6 +138,8 @@ public:
     int getMaxGLHeight() const;
 
     FXToolBar &getToolBar(GUISUMOAbstractView &v);
+
+    GUIApplicationWindow *getParent() { return myParent; }
 
 private:
     /** builds the toolbar  */

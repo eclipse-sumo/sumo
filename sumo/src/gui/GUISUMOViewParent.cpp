@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/07/02 08:37:27  dkrajzew
+// using global selection storage
+//
 // Revision 1.8  2004/04/02 11:11:24  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -80,6 +83,7 @@ namespace
 
 #include <string>
 #include <vector>
+#include "GUIGlobals.h"
 #include "dialogs/GUIDialog_GLObjChooser.h"
 #include "GUIViewTraffic.h"
 #include "GUIViewAggregatedLanes.h"
@@ -141,7 +145,7 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 {
     // Make MDI Window Menu
     setTracking();
-	FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
         FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
         0,0,0,0,0,0,0,0);
@@ -202,11 +206,11 @@ GUISUMOViewParent::buildToolBar(FXComposite *c)
         GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         // allow rotation
-    new MFXCheckableButton(_allowRotation,
+/*    new MFXCheckableButton(_allowRotation,
         myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
         GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
+*/
 }
 
 
@@ -214,6 +218,7 @@ void
 GUISUMOViewParent::create()
 {
     FXMDIChild::create();
+    _view->create();
 }
 
 
@@ -252,8 +257,7 @@ long
 GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
 {
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_JUNCTION,
-            _view->getNet().getIDStorage());
+        new GUIDialog_GLObjChooser(this, GLO_JUNCTION, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -264,8 +268,7 @@ long
 GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
 {
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_EDGE,
-            _view->getNet().getIDStorage());
+        new GUIDialog_GLObjChooser(this, GLO_EDGE, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -276,8 +279,7 @@ long
 GUISUMOViewParent::onCmdLocateVehicle(FXObject*,FXSelector,void*)
 {
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_VEHICLE,
-            _view->getNet().getIDStorage());
+        new GUIDialog_GLObjChooser(this, GLO_VEHICLE, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -300,9 +302,10 @@ GUISUMOViewParent::setZoomingFactor(double val)
 
 void
 GUISUMOViewParent::setView(GUIGlObjectType type,
-                           const std::string &name)
+                           const std::string &microsimID,
+                           const std::string &fullName)
 {
-    _view->centerTo(type, name);
+    _view->centerTo(type, microsimID, fullName);
 }
 
 

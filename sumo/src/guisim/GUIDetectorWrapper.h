@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/07/02 08:41:00  dkrajzew
+// using global selection storage
+//
 // Revision 1.11  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -38,7 +41,7 @@
  * ======================================================================= */
 #include <utils/geom/HaveBoundery.h>
 #include <utils/geom/Position2D.h>
-#include <gui/GUIGlObject.h>
+#include <gui/GUIGlObject_AbstractAdd.h>
 #include <gui/GUISUMOAbstractView.h>
 
 
@@ -65,7 +68,7 @@ class GUIBaseDetectorDrawer;
  *  a zoom at the detector possible
  */
 class GUIDetectorWrapper
-    : public HaveBoundery, public GUIGlObject {
+    : public GUIGlObject_AbstractAdd {
 public:
     /// Constructor
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
@@ -84,17 +87,6 @@ public:
 
     /// Returns the type of the object (always GLO_DETECTOR)
     GUIGlObjectType getType() const;
-
-    /// Draws the detector in full-geometry mode
-    virtual void drawGL_FG(double scale,
-        GUIBaseDetectorDrawer &drawer) const = 0;
-
-    /// Draws the detector in simple-geometry mode
-    virtual void drawGL_SG(double scale,
-        GUIBaseDetectorDrawer &drawer) const = 0;
-
-    /// Returns the detector's coordinates
-    virtual Position2D getPosition() const = 0;
 
 };
 

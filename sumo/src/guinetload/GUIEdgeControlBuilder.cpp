@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 08:39:12  dkrajzew
+// using global selection storage
+//
 // Revision 1.7  2004/04/02 11:15:25  dkrajzew
 // changes due to the visualisation of the selection status
 //
@@ -65,6 +68,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <netload/NLNetBuilder.h>
 #include "GUIEdgeControlBuilder.h"
+#include <gui/GUIGlobals.h>
 
 
 /* =========================================================================
@@ -107,8 +111,7 @@ GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
     if(edge==0) {
         throw XMLIdNotKnownException("edge", id);
     }
-    edge->initJunctions(from, to,
-        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage());
+    edge->initJunctions(from, to, gIDStorage);
 }
 
 
@@ -125,16 +128,16 @@ GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new GUISourceLane(net, id, maxSpeed, length, m_pActiveEdge,
-            shape);
+            myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
-            shape);
+            myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
         lane = new GUILane(net, id, maxSpeed, length, m_pActiveEdge,
-            shape);
+            myCurrentNumericalLaneID++, shape);
         break;
     default:
         throw 1;

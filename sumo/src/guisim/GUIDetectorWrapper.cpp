@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/07/02 08:41:00  dkrajzew
+// using global selection storage
+//
 // Revision 1.8  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -43,12 +46,15 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include "GUIDetectorWrapper.h"
+#include <gui/GUIApplicationWindow.h>
 #include <gui/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUISUMOAbstractView.h>
 #include <gui/icons/GUIIconSubSys.h>
 #include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -56,7 +62,7 @@ namespace
  * ======================================================================= */
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
                                        std::string id)
-    : GUIGlObject(idStorage, id)
+    : GUIGlObject_AbstractAdd(idStorage, id, GLO_DETECTOR)
 {
 }
 
@@ -64,7 +70,7 @@ GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
                                        std::string id,
                                        size_t glID)
-    : GUIGlObject(idStorage, id, glID)
+    : GUIGlObject_AbstractAdd(idStorage, id, glID, GLO_DETECTOR)
 {
 }
 
@@ -79,17 +85,19 @@ GUIDetectorWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    if(gfIsSelected(GLO_LANE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    if(gSelected.isSelected(GLO_DETECTOR, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+        new FXMenuCommand(ret, "Add To Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
     //

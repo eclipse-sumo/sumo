@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 08:39:12  dkrajzew
+// using global selection storage
+//
 // Revision 1.6  2004/04/02 11:15:25  dkrajzew
 // changes due to the visualisation of the selection status
 //
@@ -83,7 +86,7 @@ public:
         MSJunction *to);
 
     /// Builds the lane to add
-    MSLane *addLane(MSNet &net, const std::string &id,
+    virtual MSLane *addLane(MSNet &net, const std::string &id,
         double maxSpeed, double length, bool isDepart,
         const Position2DVector &shape);
 
