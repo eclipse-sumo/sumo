@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/17 14:19:48  dkrajzew
+// node type assignment corrected
+//
 // Revision 1.2  2003/03/06 17:14:39  dkrajzew
 // more stringent usage of insertion into containers; y-direction flipped
 //
@@ -74,49 +77,24 @@ NIArtemisParser_Nodes::myDependentReport()
     string myType;
     // radius omitted
     switch(type) {
-    case 0:
-        // no function (virtual one-way)
+    case 0: // no function (virtual one-way)
+    case 1: // no function (virtual two-way)
+    case 2: // origin (generator)
+    case 3: // destination
+    case 4: // origin/destination
+        // we assume, that no other "normal" links are participating
+        //  and allow all cars to go through
         myType = "no_junction";
         break;
-    case 1:
-        // no function (virtual two-way)
-        myType = "no_junction";
+    case 5: // signalised
+    case 10: // signalised roundabout
+        myType = "traffic_light"; // !!! (should be a roundabout, in fact)
         break;
-    case 2:
-        // origin/generator
-//        !!!
-        break;
-    case 3:
-        // destination
-//        !!!
-        break;
-    case 4:
-        // origin/destination
-//        !!!
-        break;
-    case 5:
-        // signalised
-        myType = "traffic_light";
-        break;
-    case 6:
-        // unsignalised
-        myType = "priority_junction";
-        break;
-    case 7:
-        // roundabout
-        myType = "priority_junction"; // !!!
-        break;
-    case 8:
-        // merge
-        myType = "priority_junction"; // !!!
-        break;
-    case 9:
-        // diverge
-        myType = "priority_junction"; // !!!
-        break;
-    case 10:
-        // signalised roundabout
-        myType = "traffic_light"; // !!!
+    case 6: // unsignalised
+    case 7: // roundabout // !!! (should be a roundabout, in fact)
+    case 8: // merge
+    case 9: // diverge
+        myType = "priority";
         break;
     default:
         addError("Unsupported junction type.");
