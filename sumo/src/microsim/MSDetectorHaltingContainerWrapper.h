@@ -107,6 +107,7 @@ struct MSDetectorHaltingContainerWrapper
         {}
 
     MSDetectorHaltingContainerWrapper(
+        MSLane &lane,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
         MSUnit::Cells jamDistThreshold )
@@ -115,10 +116,12 @@ struct MSDetectorHaltingContainerWrapper
           MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
           timeThresholdM( timeThreshold ),
           speedThresholdM( speedThreshold ),
-          jamDistThresholdM( jamDistThreshold )
+          jamDistThresholdM( jamDistThreshold ),
+          myLane(lane)
         {}
 
     MSDetectorHaltingContainerWrapper(
+        MSLane &lane,
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
@@ -128,7 +131,8 @@ struct MSDetectorHaltingContainerWrapper
           MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
           timeThresholdM( timeThreshold ),
           speedThresholdM( speedThreshold ),
-          jamDistThresholdM( jamDistThreshold )
+          jamDistThresholdM( jamDistThreshold ),
+          myLane(lane)
         {}
 
     bool updateEachTimestep( void )
@@ -136,7 +140,10 @@ struct MSDetectorHaltingContainerWrapper
             // set posM, isHaltingM and haltingDurationM
             for ( HaltingsIt haltIt = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
-                haltIt->posM += haltIt->vehM->getMovedDistance();
+                haltIt->posM = haltIt->vehM->pos();
+                if(&myLane!=&haltIt->vehM->getLane()) {
+                    haltIt->posM += myLane.length();
+                }
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     if ( haltIt->isHaltingM ) {
                         HaltEndSubject::notify( *haltIt );
@@ -147,13 +154,13 @@ struct MSDetectorHaltingContainerWrapper
                 }
                 else {
                     haltIt->timeBelowSpeedThresholdM++;
-                    if ( haltIt->timeBelowSpeedThresholdM > timeThresholdM ) {
+                    if ( haltIt->timeBelowSpeedThresholdM >= timeThresholdM ) {
                         if ( ! haltIt->isHaltingM ) {
                             haltIt->isHaltingM = true;
                             // time to detect halting contributes to
                             // halting-duration
                             haltIt->haltingDurationM =
-                                haltIt->timeBelowSpeedThresholdM++;
+                                haltIt->timeBelowSpeedThresholdM/*++*/;
                             HaltBeginSubject::notify( *haltIt );
                         }
                         else {
@@ -176,19 +183,26 @@ struct MSDetectorHaltingContainerWrapper
                     HaltingsIt rearIt = jamIt;
                     HaltingsIt frontIt = ++jamIt;
                     if ( ! rearIt->isHaltingM || ! frontIt->isHaltingM ) {
+                        rearIt->isInJamM = false;
                         continue;
                     }
-                    if ( frontIt->posM - frontIt->vehM->length()
-                         - rearIt->posM <= jamDistThresholdM ) {
-                        if ( rearIt == containerM.begin() ) {
+                    double p12 = frontIt->posM;
+                    double l1 = frontIt->vehM->length();
+                    double p22 = rearIt->posM;
+                    double dist = p12-l1-p22;
+                    if ( dist <= jamDistThresholdM ) {
+//                        if ( rearIt == containerM.begin() ) {
                             rearIt->isInJamM = true;
-                        }
+  //                      }
                         frontIt->isInJamM = true;
                     }
                     else {
                         frontIt->isInJamM = false;
                     }
                 }
+                HaltingsIt first = containerM.end();
+                first--;
+                (first)->isInJamM = (first)->isHaltingM;
             }
             return false;
         }
@@ -213,6 +227,7 @@ struct MSDetectorHaltingContainerWrapper
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
     MSUnit::Cells jamDistThresholdM;
+    MSLane &myLane;
 };
 
 
@@ -230,6 +245,7 @@ struct MSDetectorHaltingMapWrapper
     typedef WrappedContainer InnerContainer;
 
     MSDetectorHaltingMapWrapper(
+  //      MSLane &lane,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
         )
@@ -238,10 +254,12 @@ struct MSDetectorHaltingMapWrapper
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
-        speedThresholdM( speedThreshold )
+        speedThresholdM( speedThreshold )/*,
+        myLane(lane)*/
         {}
 
     MSDetectorHaltingMapWrapper(
+        MSLane &lane,
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
@@ -251,12 +269,13 @@ struct MSDetectorHaltingMapWrapper
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
-        speedThresholdM( speedThreshold )
+        speedThresholdM( speedThreshold )/*,
+        myLane(lane)*/
         {}
 
     void enterDetectorByMove( MSVehicle* veh )
         {
-            assert( ! hasVehicle( veh ) );
+//            assert( ! hasVehicle( veh ) );
             containerM.insert( std::make_pair(
                                    veh, DetectorContainer::E3Halting( veh ) ) );
         }
@@ -268,6 +287,10 @@ struct MSDetectorHaltingMapWrapper
                 MSVehicle* veh = pair->first;
                 DetectorContainer::E3Halting& halting = pair->second;
                 halting.posM += veh->getMovedDistance();
+/*                halting.posM = veh->pos();
+                if(&myLane!=&veh->getLane()) {
+                    halting.posM += myLane.length();
+                }*/
                 if ( veh->speed() >= speedThresholdM ) {
                     halting.timeBelowSpeedThresholdM = 0;
                     halting.isHaltingM = false;
@@ -297,6 +320,7 @@ struct MSDetectorHaltingMapWrapper
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
     MSUnit::Cells jamDistThresholdM;
+//    MSLane &myLane;
 };
 
 
@@ -350,3 +374,4 @@ namespace Predicate
 // Local Variables:
 // mode:C++
 // End:
+
