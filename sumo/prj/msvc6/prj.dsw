@@ -93,13 +93,7 @@ Package=<4>
     Project_Dep_Name z_libutils_glutils
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_guidiv
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guievents
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guiicons
+    Project_Dep_Name z_libutils_gui
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_importio
@@ -195,13 +189,7 @@ Package=<4>
     Project_Dep_Name z_libmicrosim_tls
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_guiicons
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guievents
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guidiv
+    Project_Dep_Name z_libutils_gui
     End Project Dependency
 }}}
 
@@ -333,13 +321,7 @@ Package=<4>
     Project_Dep_Name z_libutils_glutils
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_guidiv
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guievents
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_guiicons
+    Project_Dep_Name z_libutils_gui
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_importio
@@ -735,31 +717,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "z_libutils_guidiv"=.\z_libutils_guidiv\z_libutils_guidiv.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_guievents"=.\z_libutils_guievents\z_libutils_guievents.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_guiicons"=.\z_libutils_guiicons\z_libutils_guiicons.dsp - Package Owner=<4>
+Project: "z_libutils_gui"=.\z_libutils_gui\z_libutils_gui.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

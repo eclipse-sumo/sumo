@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="z_libutils_guidiv"
+	Name="z_libutils_gui"
 	ProjectGUID="{AA95C4E6-C0A0-4848-A97B-EF9F934E589D}"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -114,6 +114,12 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIFrame.cpp">
 			</File>
 			<File
@@ -150,6 +156,12 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUIGrid.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIIOGlobals.cpp">
 			</File>
 			<File
@@ -180,6 +192,9 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.cpp">
 			</File>
 			<File
@@ -201,6 +216,24 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvent.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_Message.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationStep.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\events\GUIEvents.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIFrame.h">
@@ -240,6 +273,15 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIGrid.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUIIcons.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUIIconSubSys.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIInterface_GridNet.h">
@@ -288,6 +330,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUITextures.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\images\GUITexturesHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.h">

@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="z_libutils_guidiv" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="z_libutils_gui" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=z_libutils_guidiv - Win32 Debug
+CFG=z_libutils_gui - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
-!MESSAGE NMAKE /f "z_libutils_guidiv.mak".
+!MESSAGE NMAKE /f "z_libutils_gui.mak".
 !MESSAGE 
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
-!MESSAGE NMAKE /f "z_libutils_guidiv.mak" CFG="z_libutils_guidiv - Win32 Debug"
+!MESSAGE NMAKE /f "z_libutils_gui.mak" CFG="z_libutils_gui - Win32 Debug"
 !MESSAGE 
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "z_libutils_guidiv - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE "z_libutils_guidiv - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
+!MESSAGE "z_libutils_gui - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
+!MESSAGE "z_libutils_gui - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=z_libutils_guidiv - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "z_libutils_guidiv - Win32 Release"
+!IF  "$(CFG)" == "z_libutils_gui - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
@@ -52,7 +52,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ELSEIF  "$(CFG)" == "z_libutils_guidiv - Win32 Debug"
+!ELSEIF  "$(CFG)" == "z_libutils_gui - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -80,8 +80,8 @@ LIB32=link.exe -lib
 
 # Begin Target
 
-# Name "z_libutils_guidiv - Win32 Release"
-# Name "z_libutils_guidiv - Win32 Debug"
+# Name "z_libutils_gui - Win32 Release"
+# Name "z_libutils_gui - Win32 Debug"
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -92,6 +92,14 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.cpp
 # End Source File
 # Begin Source File
 
@@ -143,6 +151,14 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIGrid.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\images\GUIIconSubSys.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\images\GUIImageGlobals.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\div\GUIIOGlobals.cpp
 # End Source File
 # Begin Source File
@@ -183,6 +199,10 @@ SOURCE=..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\images\GUITexturesHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.cpp
 # End Source File
 # Begin Source File
@@ -203,6 +223,14 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIAppGlobals.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\drawer\GUIBaseColorer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUIBaseLaneDrawer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_GradientByFunctionValue.h
 # End Source File
 # Begin Source File
@@ -219,6 +247,10 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue1.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_SingleColor.h
 # End Source File
 # Begin Source File
@@ -227,7 +259,35 @@ SOURCE=..\..\..\src\utils\gui\div\GUIColoringSchemesMap.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvent.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvent_Message.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvent_SimulationStep.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\events\GUIEvents.h
 # End Source File
 # Begin Source File
 
@@ -287,11 +347,43 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIGrid.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\images\GUIIcons.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\images\GUIIconSubSys.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\images\GUIImageGlobals.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\windows\GUIInterface_GridSpeedUp.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\div\GUIIOGlobals.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGwT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGwT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneRepresentation.h
 # End Source File
 # Begin Source File
 
@@ -328,6 +420,14 @@ SOURCE=..\..\..\src\utils\gui\div\GUISelectedStorage.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUISUMOAbstractView.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\images\GUITextures.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\images\GUITexturesHelper.h
 # End Source File
 # Begin Source File
 

@@ -138,10 +138,6 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp
 # End Source File
 # Begin Source File
@@ -303,10 +299,6 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h
 # End Source File
 # Begin Source File
 

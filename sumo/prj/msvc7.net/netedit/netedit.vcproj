@@ -143,6 +143,9 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\..\src\netedit\ColorSelector.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netedit\ConfigDialog.cpp">
 			</File>
 			<File
@@ -150,6 +153,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netedit\GNEViewParent.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netedit\GNEViewTraffic.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netedit\Graph.cpp">
@@ -197,6 +206,9 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\..\..\src\netedit\ColorSelector.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netedit\ConfigDialog.h">
 			</File>
 			<File
@@ -204,6 +216,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netedit\GNEViewParent.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netedit\GNEViewTraffic.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netedit\Graph.h">

@@ -169,6 +169,10 @@ SOURCE=..\..\..\src\guisim\GUIRouteHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUISelectionLoader.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUISourceLane.cpp
 # End Source File
 # Begin Source File
@@ -278,6 +282,10 @@ SOURCE=..\..\..\src\guisim\GUIRoute.h
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUIRouteHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUISelectionLoader.h
 # End Source File
 # Begin Source File
 
