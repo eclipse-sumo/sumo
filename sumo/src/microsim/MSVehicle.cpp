@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/05/25 16:15:10  roessel
+// Rewrite of workOnMoveReminders and activateRemindersByEmitOrLaneChange.
+//
 // Revision 1.21  2003/05/22 12:48:12  roessel
 // New method activateRemindersByEmitOrLaneChange. Exchanged for-loop by new method.
 //
@@ -1684,30 +1687,32 @@ MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
 void
 MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed )
 {
-    vector< int > removeIndices;
-    for ( int i = 0; i < myMoveReminders.size(); ++i ) {
-        if ( ! myMoveReminders[i]->isStillActive(
-                 *this, oldPos, newPos, newSpeed ) ) {
-            removeIndices.push_back( i );
+    // This erasure-idiom works for all stl-sequence-containers
+    // See Meyers: Effective STL, Item 9
+    for ( MoveReminderContIt rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); /* empty */ ) {
+        if ( ! (*rem)->isStillActive( *this, oldPos, newPos, newSpeed ) ) {
+            rem = myMoveReminders.erase( rem );
         }
-    }
-    for ( int j = removeIndices.size() - 1; j >= 0; --j ) {
-        myMoveReminders.erase( myMoveReminders.begin() + removeIndices[j] );
+        else {
+            ++rem;
+        }
     }
 }
 
 void
 MSVehicle::activateRemindersByEmitOrLaneChange()
 {
-    vector< int > removeIndices;
-    for ( int i = 0; i < myMoveReminders.size(); ++i ) {
-        if ( ! myMoveReminders[i]->isActivatedByEmitOrLaneChange( *this ) )
-        {
-            removeIndices.push_back( i );
+    // This erasure-idiom works for all stl-sequence-containers
+    // See Meyers: Effective STL, Item 9
+    for ( MoveReminderContIt rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); /* empty */ ) {
+        if ( ! (*rem)->isActivatedByEmitOrLaneChange( *this ) ) {
+            rem = myMoveReminders.erase( rem );
         }
-    }
-    for ( int j = removeIndices.size() - 1; j >= 0; --j ) {
-        myMoveReminders.erase( myMoveReminders.begin() + removeIndices[j] );
+        else {
+            ++rem;
+        }
     }
 }
 
