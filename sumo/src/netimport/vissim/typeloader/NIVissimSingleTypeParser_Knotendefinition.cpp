@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/26 12:17:14  dkrajzew
+// further debugging/improvements of Vissim-import
+//
 // Revision 1.2  2003/03/03 15:01:30  dkrajzew
 // debugging
 //
@@ -102,8 +105,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
         }
         NIVissimNodeDef_Edges::dictionary(id, name, edges);
     } else {
-        int no;
-        from >> no;
+        int no = TplConvert<char>::_2int(tag.c_str());
         Position2DVector poly;
         for(int i=0; i<no; i++) {
             poly.push_back(getPosition2D(from));

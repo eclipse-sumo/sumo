@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/26 12:17:14  dkrajzew
+// further debugging/improvements of Vissim-import
+//
 // Revision 1.4  2003/03/20 16:32:24  dkrajzew
 // windows eol removed
 //
@@ -113,7 +116,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     double seglength = 0;
     tag = myRead(from);
     NIVissimConnection::Direction direction;
-    while(tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="DATAEND") {
+    while(tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="auswertung"&&tag!="DATAEND") {
         if(tag=="rechts") {
             direction = NIVissimConnection::NIVC_DIR_RIGHT;
         } else if(tag=="links") {
@@ -135,20 +138,20 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
             tag = readEndSecure(from);
             if(tag=="zuschlag") {
                 from >> zuschlag2; // !!!
-                tag = readEndSecure(from);
+                tag = readEndSecure(from, "auswertung");
             }
         } else {
-            tag = readEndSecure(from);
+            tag = readEndSecure(from, "auswertung");
         }
     }
     // read in allowed vehicle classes
     IntVector assignedVehicles;
     if(tag=="fahrzeugklassen") {
         tag = readEndSecure(from);
-        while(tag!="DATAEND"&&tag!="sperrung") {
+        while(tag!="DATAEND"&&tag!="sperrung"&&tag!="auswertung") {
             int classes = TplConvert<char>::_2int(tag.c_str());
             assignedVehicles.push_back(classes);
-            tag = readEndSecure(from);
+            tag = readEndSecure(from, "auswertung");
         }
     }
     // Read definitions of closed lanes

@@ -40,6 +40,8 @@
 #include "typeloader/NIVissimSingleTypeParser_Fahrverhaltendefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Streckentypdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Kennungszeile.h"
+#include "typeloader/NIVissimSingleTypeParser_Fensterdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Auswertungsdefinition.h"
 #include "tempstructs/NIVissimTL.h"
 #include "tempstructs/NIVissimClosures.h"
 #include "tempstructs/NIVissimSource.h"
@@ -525,6 +527,10 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Streckentypdefinition(*this);
     myParsers[VE_Kennungszeile] =
         new NIVissimSingleTypeParser_Kennungszeile(*this);
+    myParsers[VE_Fensterdefinition] =
+        new NIVissimSingleTypeParser_Fensterdefinition(*this);
+    myParsers[VE_Auswertungsdefinition] =
+        new NIVissimSingleTypeParser_Auswertungsdefinition(*this);
 
 
 }

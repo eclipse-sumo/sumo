@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/26 12:17:14  dkrajzew
+// further debugging/improvements of Vissim-import
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -78,7 +81,7 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
     //  the same district was already build.
     IntVector districts;
     DoubleVector percentages;
-    tag = myRead(from); // "Bezirke"
+    readUntil(from, "bezirke"); // "Bezirke"
     while(tag!="ort") {
         double perc = -1;
         int districtid;
