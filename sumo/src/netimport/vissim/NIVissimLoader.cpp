@@ -37,6 +37,9 @@
 #include "typeloader/NIVissimSingleTypeParser_Stauzaehlerdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Richtungspfeildefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Parkplatzdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Fahrverhaltendefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Streckentypdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Kennungszeile.h"
 #include "tempstructs/NIVissimTL.h"
 #include "tempstructs/NIVissimClosures.h"
 #include "tempstructs/NIVissimSource.h"
@@ -49,6 +52,8 @@
 #include "tempstructs/NIVissimEdge.h"
 #include "tempstructs/NIVissimDistrictConnection.h"
 #include "tempstructs/NIVissimVehicleType.h"
+
+#include <netbuild/NBEdgeCont.h> // !!! only for debugging purposes
 
 using namespace std;
 
@@ -288,6 +293,7 @@ NIVissimLoader::readContents(istream &strm)
         } else {
             strm >> tag;
         }
+//        cout << tag << endl;
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
             StringUtils::to_lower_case(tag));
@@ -321,91 +327,29 @@ NIVissimLoader::postLoadBuild()
     // try to assign connection clusters to nodes
     //  only left connections will be processed in
     //   buildConnectionClusters & join
-    NIVissimConnectionCluster::searchForConnection(2000007);
-    cout << "0/1" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimNodeDef::dict_assignConnectionsToNodes();
 
-    NIVissimConnectionCluster::searchForConnection(2000007);
-    cout << "0/2" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimConnectionCluster::dict_recheckNodes();
-
-    NIVissimConnectionCluster::searchForConnection(2000007);
-    cout << "0/3" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
 
     // build clusters of connections with the same direction and a similar
     //  position along the streets
-    NIVissimConnectionCluster::searchForConnection(2000007);
-    cout << "1" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimEdge::buildConnectionClusters();
 
-//    cout << "2" << ":" << NIVissimConnectionCluster::dictSize() << endl;
-//    NIVissimConnectionCluster::_debugOut(tmp);
-
     // join clusters when overlapping (different streets are possible)
-    cout << "3" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
-    NIVissimConnectionCluster::searchForConnection(2000007);
     NIVissimConnectionCluster::join();
 
-//    cout << "4" << ":" << NIVissimConnectionCluster::dictSize() << endl;
-//    NIVissimConnectionCluster::_debugOut(tmp);
-
-    NIVissimConnectionCluster::searchForConnection(2000007);
     // build nodes from clusters
-    cout << "5" << ":" << NIVissimConnectionCluster::dictSize()
-        << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimConnectionCluster::buildNodeClusters();
 
-
-
-
-//    cout << "6" << endl;
-//    NIVissimNodeCluster::_debugOut(tmp);
-
-    cout << "7" << endl;
-    NIVissimConnectionCluster::searchForConnection(10008);
-
-    cout << "8" << endl;
     NIVissimNodeCluster::dict_recheckEdgeChanges();
 
-//    cout << "9" << endl;
-//    NIVissimNodeCluster::_debugOut(tmp);
-
-    cout << "a" << endl;
     NIVissimNodeCluster::buildNBNodes();
-    cout << "b" << endl;
     NIVissimEdge::dict_buildNBEdges();
-    cout << "c" << endl;
     NIVissimDistrictConnection::dict_BuildDistricts();
-    cout << "d" << endl;
     NIVissimConnection::dict_buildNBEdgeConnections();
-    cout << "e" << endl;
     NIVissimNodeCluster::dict_addDisturbances();
-    cout << "f" << endl;
 	NIVissimTL::dict_SetSignals();
-    cout << "g" << endl;
 
-/*
-    size_t bla = NIVissimNodeCluster::contSize();
-
-    // let each edges know, to which nodes it belongs
-    NIVissimNodeCluster::assignToEdges();
-    // let each node know the name of the split edge
-    NIVissimAbstractEdge::splitAndAssignToNodes();
-*/
-/*
-    // build structures
-        // faster access of data through edges
-    NIVissimEdge::assignConnectorsAndDisturbances();
-        // nodes
-    NIVissimTL::assignNodes();
-    NIVissimConnection::assignNodes();
-    NIVissimNodeDef::assignDisturbances();
-    NIVissimConnection::buildFurtherNodes();*/
     NIVissimAbstractEdge::clearDict();
     NIVissimClosures::clearDict();
     NIVissimDistrictConnection::clearDict();
@@ -419,9 +363,7 @@ NIVissimLoader::postLoadBuild()
     NIVissimTrafficDescription::clearDict();
     NIVissimVehTypeClass::clearDict();
     NIVissimVehicleType::clearDict();
-
     NIVissimConnectionCluster::clearDict();
-
 }
 
 
@@ -440,7 +382,7 @@ NIVissimLoader::buildNBStructures()
 void
 NIVissimLoader::insertKnownElements()
 {
-    myKnownElements["kennungszeile"] = VE_Kennungszeile;
+    myKnownElements["kennung"] = VE_Kennungszeile;
     myKnownElements["zufallszahl"] = VE_Startzufallszahl;
     myKnownElements["simulationsdauer"] = VE_Simdauer;
     myKnownElements["startuhrzeit"] = VE_Startuhrzeit;
@@ -479,7 +421,7 @@ NIVissimLoader::insertKnownElements()
     myKnownElements["detektor"] = VE_Detektorendefinition;
     myKnownElements["haltestelle"] = VE_Haltestellendefinition;
     myKnownElements["linie"] = VE_Liniendefinition;
-    myKnownElements["stopschilddefinition"] = VE_Stopschilddefinition;
+    myKnownElements["stopschild"] = VE_Stopschilddefinition;
     myKnownElements["messung"] = VE_Messungsdefinition;
     myKnownElements["reisezeit"] = VE_Reisezeitmessungsdefinition;
     myKnownElements["verlustzeit"] = VE_Verlustzeitmessungsdefinition;
@@ -575,5 +517,14 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Richtungspfeildefinition(*this);
     myParsers[VE_Parkplatzdefinition] =
         new NIVissimSingleTypeParser_Parkplatzdefinition(*this);
+    myParsers[VE_Fahrverhaltendefinition] =
+        new NIVissimSingleTypeParser_Fahrverhaltendefinition(*this);
+    myParsers[VE_Fahrverhaltendefinition] =
+        new NIVissimSingleTypeParser_Fahrverhaltendefinition(*this);
+    myParsers[VE_Streckentypdefinition] =
+        new NIVissimSingleTypeParser_Streckentypdefinition(*this);
+    myParsers[VE_Kennungszeile] =
+        new NIVissimSingleTypeParser_Kennungszeile(*this);
 
+    
 }

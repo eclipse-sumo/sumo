@@ -172,16 +172,16 @@ NIVissimNodeCluster::buildNBNode()
 
     // build the node
     // !!!
-    cout << toString<int>(myID) << ": ";
+/*    cout << toString<int>(myID) << ": ";
     for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
         if(i!=myConnectors.begin()) {
             cout << ", ";
         }
         cout << (*i);
     }
-    cout << "- - - - - - - - - - " << endl;
+    cout << "- - - - - - - - - - " << endl;*/
     // !!!
-    NBNode *node = new NBNode(toString<int>(myID), pos.x(), -pos.y());
+    NBNode *node = new NBNode(toString<int>(myID), pos.x(), pos.y());
     NBNodeCont::insert(node);
     myNBNode = node;
 }
@@ -358,7 +358,7 @@ NIVissimNodeCluster::getFromNode(int edgeid)
 //                return (*i).first;
                 if(ret!=-1&&(*i).first!=ret) {
                     mult = true;
-                    cout << "DoubleNode:" << ret << endl;
+                    cout << "NIVissimNodeCluster:DoubleNode:" << ret << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
                 }
@@ -381,6 +381,7 @@ NIVissimNodeCluster::getToNode(int edgeid)
             if(conn!=0&&conn->getFromEdgeID()==edgeid) {
 //                return (*i).first;
                 if(ret!=-1&&ret!=(*i).first) {
+                    cout << "NIVissimNodeCluster: multiple to-nodes" << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
 

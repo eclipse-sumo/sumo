@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:58  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -59,6 +62,20 @@ NIVissimSingleTypeParser_Stopschilddefinition::~NIVissimSingleTypeParser_Stopsch
 bool
 NIVissimSingleTypeParser_Stopschilddefinition::parse(std::istream &from)
 {
-	return skipOverreading(from, "strecke");
+	readUntil(from, "strecke");
+    string tag;
+    from >> tag; // edge name
+    from >> tag; // "spur"
+    from >> tag; // lane no
+    from >> tag; // "bei"
+    from >> tag; // pos
+    tag = readEndSecure(from, "fahrzeugklasse");
+    while(tag=="fahrzeugklasse") {
+        from >> tag; // class no
+        from >> tag; // "zeiten"
+        from >> tag; // times no
+        tag = readEndSecure(from, "fahrzeugklasse");
+    }
+    return true;
 }
 

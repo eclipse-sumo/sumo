@@ -10,6 +10,7 @@
 #include <utils/geom/Boundery.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
 #include "NIVissimEdge.h"
 #include "NIVissimClosedLanesVector.h"
@@ -320,9 +321,6 @@ NIVissimConnection::dict_buildNBEdgeConnections()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
-        if(c->getID()==10015) {
-            int bla = 0;
-        }
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
@@ -332,20 +330,48 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             toString<int>(c->getFromEdgeID()),
             false);
         // check whether it is near to an already build node
-        //  remind that this node has to made of a splitted
-        //  edge, so that the edge's connections are no longer
-        //  valid
         if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0 
             ||
             NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()))==0 ) {
             NBEdge *tmpToEdge = toEdge;
-            NBEdge *tmpFromEdge = fromEdge->checkCorrectNode(toEdge);
+            NBEdge *tmpFromEdge = 
+                fromEdge != 0 
+                ? fromEdge->checkCorrectNode(toEdge)
+                : 0;
             if(tmpFromEdge==fromEdge) {
-                tmpToEdge = toEdge->checkCorrectNode(fromEdge);
+                tmpToEdge = 
+                    toEdge!=0
+                    ? toEdge->checkCorrectNode(fromEdge)
+                    : 0;
             }
             fromEdge = tmpFromEdge;
             toEdge = tmpToEdge;
-            // build connections
+        }
+        if(fromEdge==0||toEdge==0) {
+            continue;
+        }
+        if(fromEdge==0) {
+            // This may occure when some connections were joined
+            //  into a node and the connected is outgoing at the very
+            //  beginning of the fromNode
+            // See network "Karlsruhe3d/_Mendel.inp", edges 3 & 4
+            // We use the really incoming nodes instead
+            NBNode *origin = toEdge->getFromNode();
+            EdgeVector *incoming = origin->getIncomingEdges();
+            for(EdgeVector::iterator j=incoming->begin(); j!=incoming->end(); j++) {
+                (*j)->addEdge2EdgeConnection(toEdge);
+            }
+            continue;
+        }
+        if(toEdge==0) {
+            // See network "Rome_GradeSeparation/Soluz_A_2D.INP", edges 3 & 4
+            // We use the really incoming nodes instead
+            NBNode *dest = fromEdge->getToNode();
+            EdgeVector *outgoing = dest->getOutgoingEdges();
+            for(EdgeVector::iterator j=outgoing->begin(); j!=outgoing->end(); j++) {
+                fromEdge->addEdge2EdgeConnection(*j);
+            }
+            continue;
         }
         const IntVector &fromLanes = c->getFromLanes();
         const IntVector &toLanes = c->getToLanes();

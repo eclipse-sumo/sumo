@@ -166,7 +166,7 @@ NIVissimConnectionCluster::join()
     ContType::iterator i = myClusters.begin() + pos;
     // step1 - faster but no complete
     while(i!=myClusters.end()) {
-        cout << pos << "/" << myClusters.size() << endl;
+//        cout << pos << "/" << myClusters.size() << endl;
         joinAble.clear();
         bool restart = false;
         ContType::iterator j = i + 1;
@@ -198,7 +198,7 @@ NIVissimConnectionCluster::join()
     }
     // step2 - slower but complete
     while(i!=myClusters.end()) {
-        cout << pos << "/" << myClusters.size() << endl;
+//        cout << pos << "/" << myClusters.size() << endl;
         joinAble.clear();
         bool restart = false;
         ContType::iterator j = i + 1;
@@ -239,6 +239,7 @@ NIVissimConnectionCluster::buildNodeClusters()
         //
         IntVector tls = NIVissimTL::getWithin((*i)->myBoundery);
         if(tls.size()>1) {
+            cout << "NIVissimConnectionCluster:More than a single signal" << endl;
             throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
         }
         int tlsid = -1;
@@ -501,6 +502,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
             */
     }
     // what else?
+    cout << "NIVissimConnectionCluster: how to get an edge's position?" << endl;
     throw 1;
 }
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:58  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -85,7 +88,8 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         from >> groupid;
         tag = myRead(from);
         if(tag=="oder") {
-            throw 1;
+            cout << "NIVissimSingleTypeParser_Signalgeberdefinition: multiplicity" << endl;
+            return true;
         }
         //
     } else {

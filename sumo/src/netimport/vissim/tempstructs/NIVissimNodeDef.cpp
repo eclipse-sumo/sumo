@@ -1,7 +1,10 @@
+#include <iostream> // !!! debug
 #include "NIVissimNodeDef.h"
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimTL.h"
+
+using namespace std;
 
 NIVissimNodeDef::DictType NIVissimNodeDef::myDict;
 
@@ -113,7 +116,8 @@ NIVissimNodeDef::buildNodeCluster()
         IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
         IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
         IntVector tls = NIVissimTL::getWithin(*myBoundery);
-        if(tls.size()>0) {
+        if(tls.size()>1) {
+            cout << "NIVissimNodeDef: more than a single signal" << endl;
             throw 1;
         }
         int tlid = -1;

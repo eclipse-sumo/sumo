@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:56  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -60,6 +63,10 @@ bool
 NIVissimSingleTypeParser_DynUml::parse(std::istream &from)
 {
     readUntil(from, "kirchhoffexponent");
-    return skipOverreading(from);
+    string tag = readEndSecure(from, "reisezeit");
+    while(tag!="DATAEND") {
+        tag = readEndSecure(from, "reisezeit");
+    }
+    return true;
 }
 

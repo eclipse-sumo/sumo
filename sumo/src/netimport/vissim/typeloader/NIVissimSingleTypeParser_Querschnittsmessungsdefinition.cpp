@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:56  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -62,7 +65,7 @@ NIVissimSingleTypeParser_Querschnittsmessungsdefinition::parse(std::istream &fro
 {
     string tag = myRead(from);
     if(tag=="von") {
-        while(tag!="fahrzeugklassen") {
+        while(tag!="fahrzeugklassen"&&tag!="konfdatei") {
             tag = myRead(from);
         }
         tag = myRead(from);

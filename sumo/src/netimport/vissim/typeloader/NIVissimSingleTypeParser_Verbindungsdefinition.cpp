@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:59  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -99,7 +102,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     double seglength = 0;
     tag = myRead(from);
     NIVissimConnection::Direction direction;
-    while(tag!="fahrzeugklassen"&&tag!="DATAEND") {
+    while(tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="DATAEND") {
         if(tag=="rechts") {
             direction = NIVissimConnection::NIVC_DIR_RIGHT;
         } else if(tag=="links") {
@@ -129,7 +132,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     }
     // read in allowed vehicle classes
     IntVector assignedVehicles;
-    if(tag!="DATAEND") {
+    if(tag=="fahrzeugklassen") {
         tag = readEndSecure(from);
         while(tag!="DATAEND"&&tag!="sperrung") {
             int classes = TplConvert<char>::_2int(tag.c_str());
@@ -140,18 +143,20 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     // Read definitions of closed lanes
     NIVissimClosedLanesVector clv;
     if(tag!="DATAEND") {
-        throw 1;
         do {
             // check whether a next close lane definition can be found
             tag = readEndSecure(from);
             if(tag=="spur") {
                 // get the lane number
-                from >> tag;
+//                from >> tag;
                 int laneNo;
                 from >> laneNo; // !!!
                 // get the list of assigned car classes
                 IntVector assignedVehicles;
                 tag = myRead(from);
+                if(tag=="fahrzeugklassen") {
+                    tag = myRead(from);
+                }
                 while(tag!="DATAEND"&&tag!="spur") {
                     int classes = TplConvert<char>::_2int(tag.c_str());
                     assignedVehicles.push_back(classes);

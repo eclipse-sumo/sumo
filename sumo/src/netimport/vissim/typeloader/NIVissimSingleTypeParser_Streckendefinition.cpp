@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:58  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -110,16 +113,16 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     geom.push_back(getPosition2D(from));
     // Read definitions of closed lanes
     NIVissimClosedLanesVector clv;
-    do {
-        // check whether a next close lane definition can be found
-        tag = readEndSecure(from);
+    // check whether a next close lane definition can be found
+    tag = readEndSecure(from);
+    while(tag!="DATAEND") {
         if(tag=="spur") {
             // get the lane number
-            from >> tag;
             int laneNo;
             from >> laneNo; // !!!
             // get the list of assigned car classes
             IntVector assignedVehicles;
+            tag = myRead(from);
             tag = myRead(from);
             while(tag!="DATAEND"&&tag!="spur") {
                 int classes = TplConvert<char>::_2int(tag.c_str());
@@ -129,8 +132,10 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
             // build and add the definition
             NIVissimClosedLaneDef *cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
             clv.push_back(cld);
+        } else {
+            tag = readEndSecure(from);
         }
-    } while(tag!="DATAEND");
+    }
     NIVissimEdge *e = new NIVissimEdge(id, name, type, noLanes,
         zuschlag1, zuschlag2, length, geom, clv);
     if(!NIVissimEdge::dictionary(id, e)) {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 16:26:56  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -59,6 +62,15 @@ NIVissimSingleTypeParser_Langsamfahrbereichdefinition::~NIVissimSingleTypeParser
 bool
 NIVissimSingleTypeParser_Langsamfahrbereichdefinition::parse(std::istream &from)
 {
-	return skipOverreading(from, "fahrzeugklasse");
+    string id;
+    from >> id;
+	readUntil(from, "fahrzeugklasse");
+    string tag = "fahrzeugklasse";
+    while(tag=="fahrzeugklasse") {
+        readUntil(from, "maxverzoegerung");
+        tag = myRead(from);
+        tag = myRead(from);
+    }
+    return true;
 }
 

@@ -293,9 +293,6 @@ NIVissimEdge::dict_buildNBEdges()
 void
 NIVissimEdge::buildNBEdge()
 {
-    if(myID==23) {
-        int bla = 0;
-    }
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
     if(myConnectionClusters.size()!=0) {
@@ -327,14 +324,14 @@ NIVissimEdge::buildNBEdge()
         Position2D pos = myGeom.at(0);
         fromNode =
             new NBNode(toString<int>(myID) + string("-SourceNode"),
-                pos.x(), -pos.y(), "no_junction");
+                pos.x(), pos.y(), "no_junction");
         NBNodeCont::insert(fromNode);
     }
     if(toNode==0) {
         Position2D pos = myGeom.at(myGeom.size()-1);
         toNode =
             new NBNode(toString<int>(myID) + string("-DestinationNode"),
-                pos.x(), -pos.y(), "no_junction");
+                pos.x(), pos.y(), "no_junction");
         NBNodeCont::insert(toNode);
     }
     // build the edge
@@ -346,7 +343,9 @@ NIVissimEdge::buildNBEdge()
     if(myConnectionClusters.size()>2) {
         for(ConnectionClusters::iterator j=myConnectionClusters.begin()+1; j!=myConnectionClusters.end()-1; j++) {
             // split the edge at the previously build node
+            string nextID = buildEdge->getID() + "[1]";
             NBEdgeCont::splitAt(buildEdge, (*j)->getNBNode());
+            buildEdge = NBEdgeCont::retrieve(nextID);
         }
     }
 }
@@ -380,7 +379,7 @@ NIVissimEdge::resolveSameNode()
         // the district is at the begin of the edge
         if(myGeom.length()-pos>pos) {
             Position2D pos = myGeom.at(0);
-            NBNode *node = NBNodeCont::retrieve(pos.x(), -pos.y());
+            NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
             if(node==0) {
                 assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
                 node = new NBNode(
@@ -393,7 +392,7 @@ NIVissimEdge::resolveSameNode()
         // the district is at the end of the edge
         else {
             Position2D pos = myGeom.at(myGeom.size()-1);
-            NBNode *node = NBNodeCont::retrieve(pos.x(), -pos.y());
+            NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
             if(node==0) {
                 assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
                 node = new NBNode(
@@ -411,11 +410,8 @@ NIVissimEdge::resolveSameNode()
         NBNode *node = getFromNode(); // it is the same as getToNode()
 
         NIVissimConnectionCluster *c = *(myConnectionClusters.begin());
-        for(IntVector::iterator i=c->myConnections.begin(); i!=c->myConnections.end(); i++) {
-            int bla = *i;
-        }
         // no end node given
-        if(c->around(myGeom.getBegin()) && !c->around(myGeom.getEnd())) {
+        if(c->around(myGeom.getBegin(), 5.0) && !c->around(myGeom.getEnd(), 5.0)) {
             NBNode *end = new NBNode(
                 toString<int>(myID) + "-End", 
                 myGeom.getEnd().x(), myGeom.getEnd().y());
@@ -424,7 +420,7 @@ NIVissimEdge::resolveSameNode()
         }
 
         // no begin node given
-        if(!c->around(myGeom.getBegin()) && c->around(myGeom.getEnd())) {
+        if(!c->around(myGeom.getBegin(), 5.0) && c->around(myGeom.getEnd(), 5.0)) {
             NBNode *beg = new NBNode(
                 toString<int>(myID) + "-Begin", 
                 myGeom.getBegin().x(), myGeom.getBegin().y());
@@ -438,7 +434,8 @@ NIVissimEdge::resolveSameNode()
         }
     }
     // what to do in other cases?
-    throw 1;
+    //  It simply is a dummy edge....
+    return std::pair<NBNode*, NBNode*>(getFromNode(), getFromNode());
 }
 
 
