@@ -25,8 +25,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2002/04/16 12:22:59  dkrajzew
-// Usage of SUMO_DATA removed
+// Revision 1.3  2002/04/16 12:25:37  dkrajzew
+// Security assertion included into getPath
 //
 // Revision 1.1.1.1  2002/04/08 07:21:25  traffic
 // new project name
@@ -276,6 +276,8 @@ bool OptionsCont::isBool(string name) const {
 }
 
 string OptionsCont::getPath() const {
+    if(_path.length()==0)
+        throw InvalidArgument("No enviroment variable given.");
   char *tmp = getenv(_path.c_str());
   if(tmp==0) return "";
   return string(tmp);
