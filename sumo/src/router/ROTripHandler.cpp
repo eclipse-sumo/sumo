@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/12/12 12:33:01  dkrajzew
+// error output corrected
+//
 // Revision 1.9  2003/11/20 13:11:17  dkrajzew
 // some work on the code style
 //
@@ -189,7 +192,7 @@ float
 ROTripHandler::getOptionalFloat(const Attributes &attrs,
                                 const std::string &name,
                                 AttrEnum which,
-                                    const std::string &place)
+                                const std::string &place)
 {
     try {
         return getFloat(attrs, SUMO_ATTR_POS);
@@ -198,7 +201,8 @@ ROTripHandler::getOptionalFloat(const Attributes &attrs,
         MsgHandler::getErrorInstance()->inform(string("The value of '") + name +
             string("' should be numeric but is not."));
         if(place.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Route id='") + place + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" Route id='") +
+            place + string("')"));
     }
     return -1;
 }
