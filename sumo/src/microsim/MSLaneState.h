@@ -128,9 +128,6 @@ public:
      * @return True if vehicle is on or in front of the detector.
      */
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
-    void removeOnTripEnd( MSVehicle *veh ) {
-//        leaveDetectorByLaneChange(*veh);
-    }
     //@}
 
 
@@ -327,14 +324,14 @@ public:
     std::string getXMLDetectorInfoStart( void ) const;
 
 
-//     /**
-//      * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
-//      *
-//      * @see getXMLDetectorInfoStart()
-//      *
-//      * @return String </detector>
-//      */
-//     std::string& getXMLDetectorInfoEnd( void ) const;
+    /**
+     * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
+     *
+     * @see getXMLDetectorInfoStart()
+     *
+     * @return String </detector>
+     */
+     const std::string& getXMLDetectorInfoEnd( void ) const;
 
 
     /**
