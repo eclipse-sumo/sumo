@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:49:25  dkrajzew
+// no configuration is loaded as default any more
+//
 // Revision 1.3  2003/05/20 09:51:41  dkrajzew
 // further work and debugging
 //
@@ -170,11 +173,11 @@ OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok)
 bool
 OptionsIO::loadConfiguration(OptionsCont *oc)
 {
-    if( oc->exists("no-config") &&
+/*    if( oc->exists("no-config") &&
         oc->isSet("no-config") &&
         oc->getBool("no-config")) {
         return true;
-    }
+    }*/
     if(!oc->exists("c") || !oc->isSet("c")) {
         return true;
     }
