@@ -238,6 +238,7 @@ AC_OUTPUT(
 ./src/gui/icons/Makefile
 ./src/gui/icons/view_traffic/Makefile
 ./src/gui/partable/Makefile
+./src/gui/popup/Makefile
 ./src/gui/vartracker/Makefile
 ./src/guinetload/Makefile
 ./src/guisim/Makefile
