@@ -53,7 +53,6 @@ namespace
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <utils/logging/LoggedValue_TimeFloating.h>
 #include <utils/common/UtilExceptions.h>
-#include <microsim/MSHaltingDetectorContainer.h>
 #include "NLLoadFilter.h"
 
 #ifdef MSVC
