@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.30  2003/07/22 15:08:28  dkrajzew
+// new detector usage applied
+//
 // Revision 1.29  2003/07/21 18:12:33  roessel
 // Comment out MSDetector specific staff.
 //
@@ -295,6 +298,7 @@ namespace
 #include "helpers/SingletonDictionary.h"
 #include "MSLaneState.h"
 #include "MSTravelcostDetector.h"
+#include <microsim/MSDetectorSubSys.h>
 
 
 /* =========================================================================
@@ -346,6 +350,7 @@ MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
     myInstance->myStep = startTimeStep;
     initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles/*, withGUI*/ );
 	myInstance->myEmitter = new MSEmitControl("");
+    MSDetectorSubSys::createDictionaries();
 }
 
 
@@ -435,6 +440,7 @@ MSNet::init( string id, MSEdgeControl* ec,
 //     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
+    MSDetectorSubSys::setDictionariesFindMode();
 
 //	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
 }
@@ -455,27 +461,28 @@ MSNet::~MSNet()
     delete myEmitter;
 //     delete myDetectors;
     delete myRouteLoaders;
+    MSDetectorSubSys::deleteDictionariesAndContents();
 }
 
 
 bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
-    initialiseSimulation(craw, start, stop);
+    initialiseSimulation(craw/*, start, stop*/);
     // the simulation loop
     for ( myStep = start;myStep <= stop&&myLoadedVehNo>myEndedVehNo;++myStep) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
     // exit simulation loop
-    closeSimulation(craw, start, stop);
+    closeSimulation(craw/*, start, stop*/);
     return true;
 }
 
 
 
 void
-MSNet::initialiseSimulation(std::ostream *craw, Time start, Time stop)
+MSNet::initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/)
 {
     // prepare the "raw" output and print the first line
     if ( craw ) {
@@ -496,7 +503,7 @@ MSNet::initialiseSimulation(std::ostream *craw, Time start, Time stop)
 }
 
 void
-MSNet::closeSimulation(std::ostream *craw, Time start, Time stop)
+MSNet::closeSimulation(std::ostream *craw/*, Time start, Time stop*/)
 {
 	cout << endl;
     // print the last line of the "raw" output
@@ -715,7 +722,7 @@ MSNet::buildNewVehicle( std::string id, MSRoute* route,
 
 
 void
-MSNet::vehicleHasLeft(const std::string &id)
+MSNet::vehicleHasLeft(const std::string &)
 {
 	myRunningVehNo++;
 	myEndedVehNo++;

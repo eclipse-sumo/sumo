@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.25  2003/07/22 15:08:28  dkrajzew
+// new detector usage applied
+//
 // Revision 1.24  2003/07/21 18:12:33  roessel
 // Comment out MSDetector specific staff.
 //
@@ -299,9 +302,9 @@ public:
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
 
-    void initialiseSimulation(std::ostream *craw, Time start, Time stop);
+    void initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/);
 
-    void closeSimulation(std::ostream *craw, Time start, Time stop);
+    void closeSimulation(std::ostream *craw/*, Time start, Time stop*/);
 
 
     /// performs a single simulation step
@@ -387,7 +390,7 @@ public:
             return static_cast< Time >(
                 floor( seconds / static_cast< double >( myDeltaT ) ) );
         }
-    
+
 
     void newUnbuildVehicleLoaded();
 
