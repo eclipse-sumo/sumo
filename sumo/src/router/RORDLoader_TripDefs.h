@@ -2,7 +2,7 @@
 #define RORDLoader_TripDefs_h
 //---------------------------------------------------------------------------//
 //                        RORDLoader_TripDefs.h -
-//		The basic class for loading trip definitions
+//      The basic class for loading trip definitions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -72,8 +75,9 @@
 class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
-    RORDLoader_TripDefs(RONet &net, bool emptyDestinationsAllowed,
-		const std::string &file="");
+    RORDLoader_TripDefs(ROVehicleBuilder &vb,
+        RONet &net, unsigned int begin, unsigned int end,
+        bool emptyDestinationsAllowed, const std::string &file="");
 
     /// Destructor
     ~RORDLoader_TripDefs();
@@ -122,7 +126,7 @@ protected:
 
     /// Parses and returns the time the vehicle should start at
     long getTime(const Attributes &attrs, AttrEnum which,
-		const std::string &id);
+        const std::string &id);
 
     /// Parses and returns the period the trip shall be repeated with
     int getPeriod(const Attributes &attrs, const std::string &id);
@@ -177,10 +181,10 @@ protected:
     /// The color of the vehicle
     RGBColor myColor;
 
-	/** @brief Information whether empty destinations are allowed
-		This is a feature used for the handling of explicite routes within the
-		jp-router where the destination is not necessary */
-	bool myEmptyDestinationsAllowed;
+    /** @brief Information whether empty destinations are allowed
+        This is a feature used for the handling of explicite routes within the
+        jp-router where the destination is not necessary */
+    bool myEmptyDestinationsAllowed;
 
     /// The information whether the next route was read
     bool _nextRouteRead;

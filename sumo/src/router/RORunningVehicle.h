@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -51,6 +54,7 @@
  * class declarations
  * ======================================================================= */
 class RGBColor;
+class ROVehicleBuilder;
 
 
 /* =========================================================================
@@ -64,7 +68,8 @@ class RGBColor;
 class RORunningVehicle : public ROVehicle {
 public:
     /// Constructor
-    RORunningVehicle(const std::string &id, RORouteDef *route,
+    RORunningVehicle(ROVehicleBuilder &vb,
+        const std::string &id, RORouteDef *route,
         long time, ROVehicleType *type, const std::string &lane,
         float pos, float speed,
         const RGBColor &col, int period, int repNo);
@@ -76,7 +81,8 @@ public:
     void xmlOut(std::ostream &os) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
-    virtual ROVehicle *copy(const std::string &id, unsigned int depTime,
+    virtual ROVehicle *copy(ROVehicleBuilder &vb,
+        const std::string &id, unsigned int depTime,
         RORouteDef *newRoute);
 
 private:

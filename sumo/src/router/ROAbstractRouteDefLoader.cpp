@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:06  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -74,9 +77,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(RONet &net,
-												   const std::string &file)
-    : _net(net)
+ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
+                                                   RONet &net,
+                                                   unsigned int begin,
+                                                   unsigned int end,
+                                                   const std::string &file)
+    : _net(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {
 }
 
@@ -89,7 +95,7 @@ ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader()
 void
 ROAbstractRouteDefLoader::skipUntilBegin()
 {
-	myReadRoutesAtLeastUntil(myBegin);
+    myReadRoutesAtLeastUntil(myBegin);
 }
 
 
@@ -102,14 +108,6 @@ ROAbstractRouteDefLoader::readRoutesAtLeastUntil(unsigned int time)
             string(" file."));
         throw ProcessError();
     }
-}
-
-
-bool
-ROAbstractRouteDefLoader::init(OptionsCont &options)
-{
-	myBegin = options.getInt("begin");
-    return myInit(options);
 }
 
 

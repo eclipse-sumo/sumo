@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -142,6 +145,13 @@ RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const
 {
     return new RORouteDef_Complete(id, myColor, _edges);
+}
+
+
+const ROEdgeVector &
+RORouteDef_Complete::getCurrentEdgeVector() const
+{
+    return _edges;
 }
 
 

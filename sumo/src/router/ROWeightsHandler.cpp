@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -114,6 +117,8 @@ ROWeightsHandler::parseEdge(const Attributes &attrs) {
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         _currentEdge = _net.getEdge(id);
+        myAggValue = 0;
+        myNoLanes = 0;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured.");
         MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
@@ -122,7 +127,8 @@ ROWeightsHandler::parseEdge(const Attributes &attrs) {
 
 
 void
-ROWeightsHandler::parseLane(const Attributes &attrs) {
+ROWeightsHandler::parseLane(const Attributes &attrs)
+{
     string id;
     float value = -1;
     // try to get the lane id
@@ -150,8 +156,8 @@ ROWeightsHandler::parseLane(const Attributes &attrs) {
     }
     // set the values when retrieved (no errors)
     if(id.length()!=0&&value>0&&_currentEdge!=0) {
-        _currentEdge->setLane(_currentTimeBeg, _currentTimeEnd,
-            id, value);
+        myAggValue += value;
+        myNoLanes++;
     }
 }
 
@@ -165,6 +171,8 @@ void ROWeightsHandler::myCharacters(int element, const std::string &name,
 void ROWeightsHandler::myEndElement(int element, const std::string &name)
 {
     if(element==SUMO_TAG_EDGE) {
+        _currentEdge->addWeight(myAggValue/(float)myNoLanes,
+            _currentTimeBeg, _currentTimeEnd);
         _currentEdge = 0;
     }
 }

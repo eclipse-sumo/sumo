@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -62,13 +65,14 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORunningVehicle::RORunningVehicle(const std::string &id, RORouteDef *route,
+RORunningVehicle::RORunningVehicle(ROVehicleBuilder &vb,
+                                   const std::string &id, RORouteDef *route,
                                    long time, ROVehicleType *type,
                                    const std::string &lane, float pos,
                                    float speed,
                                    const RGBColor &col,
                                    int period, int repNo)
-    : ROVehicle(id, route, time, type, col, period, repNo),
+    : ROVehicle(vb, id, route, time, type, col, period, repNo),
     _lane(lane), _pos(pos), _speed(speed)
 {
 }
@@ -85,20 +89,21 @@ RORunningVehicle::xmlOut(std::ostream &os) const
 {
     os << "<vehicle id=\"" << _id << "\"";
     os << " type=\"" << _type->getID() << "\"";
-	os << " route=\"" << _route->getID() << "\"";
-	os << " depart=\"" << _depart << "\"";
+    os << " route=\"" << _route->getID() << "\"";
+    os << " depart=\"" << _depart << "\"";
     os << " lane=\"" << _lane << "\"";
     os << " pos=\"" << _pos << "\"";
     os << " speed=\"" << _speed << "\"";
-	os << "/>" << endl;
+    os << "/>" << endl;
 }
 
 
 ROVehicle *
-RORunningVehicle::copy(const std::string &id, unsigned int depTime,
+RORunningVehicle::copy(ROVehicleBuilder &vb,
+                       const std::string &id, unsigned int depTime,
                        RORouteDef *newRoute)
 {
-    return new RORunningVehicle(id, newRoute, depTime, _type, _lane, _pos,
+    return new RORunningVehicle(vb, id, newRoute, depTime, _type, _lane, _pos,
         _speed, myColor, _period, _repNo);
 }
 

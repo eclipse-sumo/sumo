@@ -2,7 +2,7 @@
 #define RORDGenerator_ODAmounts_h
 //---------------------------------------------------------------------------//
 //                        RORDGenerator_ODAmounts.h -
-//		Class for loading trip amount definitions and route generation
+//      Class for loading trip amount definitions and route generation
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 21 Jan 2004
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.4  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -31,7 +34,6 @@
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -64,8 +66,9 @@
 class RORDGenerator_ODAmounts : public RORDLoader_TripDefs {
 public:
     /// Constructor
-    RORDGenerator_ODAmounts(RONet &net, bool emptyDestinationsAllowed,
-		const std::string &file="");
+    RORDGenerator_ODAmounts(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end, bool emptyDestinationsAllowed,
+        const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_ODAmounts();
@@ -75,18 +78,22 @@ public:
     std::string getDataName() const;
 
     /// Returns the information whether no routes are available from this loader anymore
-	bool ended() const;
+    bool ended() const;
 
     /** @brief Closes the reading of routes
         Overridden, as no parse toke is used herein as within the other parsers */
     void closeReading();
+
+    /// reader dependent initialisation
+    virtual bool init(OptionsCont &options);
+
 
 
 protected:
     /** @brief Reads the until the specified time is reached
         Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
         for the modalities! */
-	bool myReadRoutesAtLeastUntil(unsigned int until);
+    bool myReadRoutesAtLeastUntil(unsigned int until);
 
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
@@ -112,10 +119,6 @@ protected:
     /// Closes the trip amount parsing
     void myEndFlowAmountDef();
 
-protected:
-    /// reader dependent initialisation
-    bool myInit(OptionsCont &options);
-
     /**
      * @class FlowDef
      * The definition of a flow.
@@ -134,10 +137,11 @@ protected:
         bool applicableForTime(unsigned int time) const;
 
         /// Adds routes to start within the given time into the given net
-        void addRoutes(RONet &net, unsigned int time);
+        void addRoutes(ROVehicleBuilder &vb, RONet &net, unsigned int time);
 
         /// Adds a single route to start within the given time into the given net
-        void addSingleRoute(RONet &net, unsigned int time);
+        void addSingleRoute(ROVehicleBuilder &vb,
+            RONet &net, unsigned int time);
 
         /// Returns the end of the period this FlowDef describes
         unsigned int getIntervalEnd() const;

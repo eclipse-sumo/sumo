@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        RORDGenerator_ODAmounts.cpp -
-//		Class for loading trip amount definitions and route generation
+//      Class for loading trip amount definitions and route generation
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 21 Jan 2004
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -110,7 +113,8 @@ RORDGenerator_ODAmounts::FlowDef::applicableForTime(unsigned int time) const
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net,
+RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
+                                            RONet &net,
                                             unsigned int time)
 {
     assert(myIntervalBegin<=time&&myIntervalEnd>=time);
@@ -118,7 +122,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net,
     unsigned int absPerEachStep = myVehicle2EmitNumber /
         (myIntervalEnd-myIntervalBegin);
     for(unsigned int i=0; i<absPerEachStep; i++) {
-        addSingleRoute(net, time);
+        addSingleRoute(vb, net, time);
     }
     // fraction
     double toEmit =
@@ -126,20 +130,21 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net,
         / (double) (myIntervalEnd-myIntervalBegin)
         * (double) (time-myIntervalBegin);
     if(toEmit>myEmitted) {
-        addSingleRoute(net, time);
+        addSingleRoute(vb, net, time);
     }
 }
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net,
+RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
+                                                 RONet &net,
                                                  unsigned int time)
 {
     string id = myVehicle->getID()
         + string("_") + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
-    ROVehicle *veh = myVehicle->copy(id, time, rd);
+    ROVehicle *veh = myVehicle->copy(vb, id, time, rd);
     net.addVehicle(id, veh);
     myEmitted++;
 }
@@ -155,10 +160,13 @@ RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const
 /* -------------------------------------------------------------------------
  * RORDGenerator_ODAmounts - methods
  * ----------------------------------------------------------------------- */
-RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet &net,
-												 bool emptyDestinationsAllowed,
-												 const std::string &fileName)
-    : RORDLoader_TripDefs(net, emptyDestinationsAllowed, fileName),
+RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
+                                                 RONet &net,
+                                                 unsigned int begin,
+                                                 unsigned int end,
+                                                 bool emptyDestinationsAllowed,
+                                                 const std::string &fileName)
+    : RORDLoader_TripDefs(vb, net, begin, end, emptyDestinationsAllowed, fileName),
     myEnded(false)
 {
 }
@@ -196,12 +204,15 @@ RORDGenerator_ODAmounts::buildRoutes(unsigned int until)
 void
 RORDGenerator_ODAmounts::buildForTimeStep(unsigned int time)
 {
+    if(time<myBegin||time>=myEnd) {
+        return;
+    }
     myEnded = true;
     for(FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
         FlowDef *fd = *i;
         // skip flow definitions not valid for the current time
         if(fd->applicableForTime(time)) {
-            fd->addRoutes(_net, time);
+            fd->addRoutes(myVehicleBuilder, _net, time);
         }
         // check whether any further exists
         if(fd->getIntervalEnd()>time) {
@@ -213,8 +224,8 @@ RORDGenerator_ODAmounts::buildForTimeStep(unsigned int time)
 
 void
 RORDGenerator_ODAmounts::myStartElement(int element,
-										const std::string &name,
-										const Attributes &attrs)
+                                        const std::string &name,
+                                        const Attributes &attrs)
 {
     switch(element) {
     case SUMO_TAG_FLOW:
@@ -300,7 +311,7 @@ RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
 
 void
 RORDGenerator_ODAmounts::myCharacters(int element, const std::string &name,
-									  const std::string &chars)
+                                      const std::string &chars)
 {
 }
 
@@ -332,9 +343,9 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
 {
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
 
-		if(myIntervalEnd<myBegin) {
-			return;
-		}
+        if(myIntervalEnd<myBegin) {
+            return;
+        }
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = new RORouteDef_OrigDest(myID, myColor,
             myBeginEdge, myEndEdge);
@@ -348,10 +359,10 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         _nextRouteRead = true;
         ROVehicle *vehicle = 0;
         if(myPos>=0||mySpeed>=0) {
-            vehicle = new RORunningVehicle(myID, route, myDepartureTime,
+            vehicle = myVehicleBuilder.buildRunningVehicle(myID, route, myDepartureTime,
                 type, myLane, myPos, mySpeed, myColor, -1, -1);
         } else {
-            vehicle = new ROVehicle(myID, route, myDepartureTime,
+            vehicle = myVehicleBuilder.buildVehicle(myID, route, myDepartureTime,
                 type, myColor, -1, -1);
         }
         // add to the container
@@ -371,7 +382,7 @@ RORDGenerator_ODAmounts::getDataName() const
 
 
 bool
-RORDGenerator_ODAmounts::myInit(OptionsCont &options)
+RORDGenerator_ODAmounts::init(OptionsCont &options)
 {
     // read in the file on initialisation
     _parser->parse(_file.c_str());

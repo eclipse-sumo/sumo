@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -85,6 +88,7 @@ namespace
 #include "ROEdgeVector.h"
 #include "RONet.h"
 #include "RORDLoader_Artemis.h"
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -96,8 +100,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_Artemis::RORDLoader_Artemis(RONet &net, string file)
-    : ROAbstractRouteDefLoader(net),
+RORDLoader_Artemis::RORDLoader_Artemis(ROVehicleBuilder &vb, RONet &net,
+                                       unsigned int begin, unsigned int end,
+                                       string file)
+    : ROAbstractRouteDefLoader(vb, net, begin, end),
     myRouteIDSupplier(string("ARTEMIS_"), 0),
     myVehIDSupplier(string("ARTEMIS_"), 0),
     myPath(file), myCurrentTime(0)
@@ -158,30 +164,30 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(unsigned int time)
                             string("The destination edge '") + toname + string("'is not known"));
                         return false;
                     }
-                    // build the route
-                    RORouteDef *route =
-                        new RORouteDef_OrigDest(myRouteIDSupplier.getNext(),
-                            RGBColor(-1, -1, -1), from, to);
-                    _net.addRouteDef(route);
-                    ROVehicleType *type = _net.getDefaultVehicleType();
-                    string vehID = myVehIDSupplier.getNext();
-					if(time>=myBegin) {
-	                    _net.addVehicle(vehID,
-		                    new ROVehicle(vehID, route, time, type,
-			                    RGBColor(),-1, 0));
-					}
+                    if(time>=myBegin&&time<myEnd) {
+                        // build the route
+                        RORouteDef *route =
+                            new RORouteDef_OrigDest(myRouteIDSupplier.getNext(),
+                                RGBColor(-1, -1, -1), from, to);
+                        _net.addRouteDef(route);
+                        ROVehicleType *type = _net.getDefaultVehicleType();
+                        string vehID = myVehIDSupplier.getNext();
+                        _net.addVehicle(vehID,
+                            myVehicleBuilder.buildVehicle(vehID, route, time, type,
+                                RGBColor(),-1, 0));
+                    }
                     j = poss.end()-1;
                 }
             }
         }
     }
-	myCurrentTime = time + 1;
+    myCurrentTime = time + 1;
     return true;
 }
 
 
 bool
-RORDLoader_Artemis::myInit(OptionsCont &options)
+RORDLoader_Artemis::init(OptionsCont &options)
 {
     // read the hv-destinations first
     myReadingHVDests = true;

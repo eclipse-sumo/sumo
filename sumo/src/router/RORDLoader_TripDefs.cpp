@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        RORDLoader_TripDefs.cpp -
-//		The basic class for loading trip definitions
+//      The basic class for loading trip definitions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -88,6 +91,7 @@ namespace
 #include "RORunningVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -99,10 +103,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_TripDefs::RORDLoader_TripDefs(RONet &net,
-										 bool emptyDestinationsAllowed,
-										 const std::string &fileName)
-    : ROTypedXMLRoutesLoader(net, fileName),
+RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
+                                         unsigned int begin, unsigned int end,
+                                         bool emptyDestinationsAllowed,
+                                         const std::string &fileName)
+    : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myDepartureTime(0)
 {
@@ -116,7 +121,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs()
 
 void
 RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
-									const Attributes &attrs)
+                                    const Attributes &attrs)
 {
     if(element==SUMO_TAG_TRIPDEF) {
         // get the vehicle id, the edges, the speed and position and
@@ -124,9 +129,9 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
         myID = getVehicleID(attrs);
         myDepartureTime = getTime(attrs, SUMO_ATTR_DEPART, myID);
         myBeginEdge = getEdge(attrs, "origin",
-			SUMO_ATTR_FROM, myID, false);
+            SUMO_ATTR_FROM, myID, false);
         myEndEdge = getEdge(attrs, "destination",
-			SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
+            SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
         myType = getVehicleType(attrs);
         myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
         mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
@@ -135,8 +140,8 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
         myLane = getLane(attrs);
         myColor = getRGBColorReporting(attrs, myID);
         // recheck attributes
-		if(myDepartureTime<0) {
-			MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
+        if(myDepartureTime<0) {
+            MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
         }
     }
 }
@@ -164,9 +169,9 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
 
 ROEdge *
 RORDLoader_TripDefs::getEdge(const Attributes &attrs,
-							 const std::string &purpose,
-							 AttrEnum which, const string &vid,
-							 bool emptyAllowed)
+                             const std::string &purpose,
+                             AttrEnum which, const string &vid,
+                             bool emptyAllowed)
 {
     ROEdge *e = 0;
     string id;
@@ -177,16 +182,16 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
             return e;
         }
     } catch(EmptyData) {
-		if(!emptyAllowed) {
-			MsgHandler::getErrorInstance()->inform(string("Missing ") +
-				purpose + string(" edge in description of a route."));
-		}
+        if(!emptyAllowed) {
+            MsgHandler::getErrorInstance()->inform(string("Missing ") +
+                purpose + string(" edge in description of a route."));
+        }
     }
     if(e==0) {
-		if(!emptyAllowed) {
-			MsgHandler::getErrorInstance()->inform(string("The edge '") +
-				id + string("' is not known."));
-		}
+        if(!emptyAllowed) {
+            MsgHandler::getErrorInstance()->inform(string("The edge '") +
+                id + string("' is not known."));
+        }
     }
     if(vid.length()!=0&&!emptyAllowed) {
         MsgHandler::getErrorInstance()->inform(string(" Vehicle id='") + vid + string("'."));
@@ -208,9 +213,9 @@ RORDLoader_TripDefs::getVehicleType(const Attributes &attrs)
 
 float
 RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
-									  const std::string &name,
-									  AttrEnum which,
-									  const std::string &place)
+                                      const std::string &name,
+                                      AttrEnum which,
+                                      const std::string &place)
 {
     try {
         return getFloat(attrs, SUMO_ATTR_POS);
@@ -228,7 +233,7 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
 
 long
 RORDLoader_TripDefs::getTime(const Attributes &attrs, AttrEnum which,
-							 const std::string &id)
+                             const std::string &id)
 {
     // get the departure time
     try {
@@ -248,7 +253,7 @@ RORDLoader_TripDefs::getTime(const Attributes &attrs, AttrEnum which,
 
 int
 RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
-							   const std::string &id)
+                               const std::string &id)
 {
     // get the repetition period
     try {
@@ -266,7 +271,7 @@ RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
 
 int
 RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
-										 const std::string &id)
+                                         const std::string &id)
 {
     // get the repetition period
     try {
@@ -295,7 +300,7 @@ RORDLoader_TripDefs::getLane(const Attributes &attrs)
 
 void
 RORDLoader_TripDefs::myCharacters(int element, const std::string &name,
-								  const std::string &chars)
+                                  const std::string &chars)
 {
     if(element==SUMO_TAG_TRIPDEF) {
         StringTokenizer st(chars);
@@ -319,7 +324,7 @@ void
 RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
 {
     if(element==SUMO_TAG_TRIPDEF &&
-	   !MsgHandler::getErrorInstance()->wasInformed()) {
+       !MsgHandler::getErrorInstance()->wasInformed()) {
 
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = 0;
@@ -337,19 +342,21 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
         }
         _net.addRouteDef(route);
         _nextRouteRead = true;
-		if(myDepartureTime<myBegin) {
-			return;
-		}
+        if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
+            return;
+        }
         // build the vehicle
         if(myPos>=0||mySpeed>=0) {
             _net.addVehicle(myID,
-                new RORunningVehicle(myID, route, myDepartureTime,
-                    type, myLane, myPos, mySpeed, myColor, myPeriodTime,
+                myVehicleBuilder.buildRunningVehicle(
+                myID, route, myDepartureTime,
+                type, myLane, myPos, mySpeed, myColor, myPeriodTime,
                     myNumberOfRepetitions));
         } else {
             _net.addVehicle(myID,
-                new ROVehicle(myID, route, myDepartureTime,
-                    type, myColor, myPeriodTime, myNumberOfRepetitions));
+                myVehicleBuilder.buildVehicle(
+                myID, route, myDepartureTime,
+                type, myColor, myPeriodTime, myNumberOfRepetitions));
         }
     }
 }
@@ -364,7 +371,7 @@ RORDLoader_TripDefs::getDataName() const
 
 RGBColor
 RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
-										  const std::string &id)
+                                          const std::string &id)
 {
     try {
         return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));

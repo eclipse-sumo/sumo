@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -84,9 +87,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_SUMORoutes::RORDLoader_SUMORoutes(RONet &net,
-										   const std::string &file)
-    : RORDLoader_SUMOBase(net, "precomputed sumo routes", file)
+RORDLoader_SUMORoutes::RORDLoader_SUMORoutes(ROVehicleBuilder &vb, RONet &net,
+                                             unsigned int begin,
+                                             unsigned int end,
+                                             const std::string &file)
+    : RORDLoader_SUMOBase(vb, net, begin, end, "precomputed sumo routes", file)
 {
 }
 
@@ -96,8 +101,8 @@ RORDLoader_SUMORoutes::~RORDLoader_SUMORoutes()
 }
 
 void RORDLoader_SUMORoutes::myStartElement(int element,
-										  const std::string &name,
-										  const Attributes &attrs)
+                                          const std::string &name,
+                                          const Attributes &attrs)
 {
     switch(element) {
     case SUMO_TAG_ROUTE:
@@ -158,7 +163,7 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
             if(_currentRoute.length()>0) {
                 MsgHandler::getErrorInstance()->inform(
                     string("Something is wrong with route '")
-					+ _currentRoute + string("'."));
+                    + _currentRoute + string("'."));
             } else {
                 MsgHandler::getErrorInstance()->inform(
                     string("Invalid route occured."));

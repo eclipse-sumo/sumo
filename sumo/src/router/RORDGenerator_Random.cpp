@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -72,6 +75,7 @@ namespace
 #include "RORouteDef.h"
 #include "RORouteDef_OrigDest.h"
 #include "RONet.h"
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -83,9 +87,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDGenerator_Random::RORDGenerator_Random(RONet &net,
-										   const std::string &file)
-    : ROAbstractRouteDefLoader(net), myIDSupplier("Rand"),
+RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
+                                           unsigned int begin,
+                                           unsigned int end,
+                                           const std::string &file)
+    : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
     myCurrentTime(0)
 {
     if(!OptionsSubSys::getOptions().isSet("random-route-color")) {
@@ -129,14 +135,14 @@ RORDGenerator_Random::getDataName() const
 bool
 RORDGenerator_Random::myReadRoutesAtLeastUntil(unsigned int time)
 {
-	// check whether the first route have to be skipped
-	if(time==myBegin) {
+    // check whether the first route have to be skipped
+    if(time==myBegin) {
         myCurrentTime = time + 1;
         myReadNewRoute = true;
-		return true;
-	}
+        return true;
+    }
     myReadNewRoute = false;
-	// ... ok, really for route building
+    // ... ok, really for route building
     myCurrentProgress += myWishedPerSecond;
     while(myCurrentProgress>0) {
         // get the next trip
@@ -159,7 +165,8 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(unsigned int time)
         RORouteDef *route =
             new RORouteDef_OrigDest(id, myColor, from, to, true);
         _net.addVehicle(id,
-            new ROVehicle(id, route, time, _net.getDefaultVehicleType(),
+            myVehicleBuilder.buildVehicle(
+                id, route, time, _net.getDefaultVehicleType(),
                 RGBColor(
                     double( rand() ) /
                         ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5,
@@ -186,7 +193,7 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(unsigned int time)
 
 
 bool
-RORDGenerator_Random::myInit(OptionsCont &options)
+RORDGenerator_Random::init(OptionsCont &options)
 {
     myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / 2.0;

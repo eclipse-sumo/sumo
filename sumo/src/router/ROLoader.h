@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/04/14 13:53:50  roessel
 // Changes and additions in order to implement supplementary-weights.
 //
@@ -66,6 +69,7 @@ class ofstream;
 class GenericSAX2Handler;
 class ROAbstractRouter;
 class ROAbstractEdgeBuilder;
+class ROVehicleBuilder;
 
 
 /* =========================================================================
@@ -80,13 +84,14 @@ class ROAbstractEdgeBuilder;
 class ROLoader {
 public:
     /// Constructor
-    ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed);
+    ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
+        bool emptyDestinationsAllowed);
 
     /// Destructor
-    ~ROLoader();
+    virtual ~ROLoader();
 
     /// Loads the network
-    RONet *loadNet(ROAbstractEdgeBuilder &eb);
+    virtual RONet *loadNet(ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
     bool loadWeights(RONet &net);
@@ -98,31 +103,31 @@ public:
     ///
     /// @return True on successful parsing.
     ///
-    bool loadSupplementaryWeights( RONet& net ); 
-    
+    bool loadSupplementaryWeights( RONet& net );
+
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
     void openRoutes(RONet &net, float gBeta, float gA);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
-    void processRoutesStepWise(long start, long end,
+    virtual void processRoutesStepWise(long start, long end,
         RONet &net, ROAbstractRouter &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
-    void processAllRoutes(unsigned int start, unsigned int end,
+    virtual void processAllRoutes(unsigned int start, unsigned int end,
         RONet &net, ROAbstractRouter &router);
 
     /** @brief Ends route reading
         This is done for all previously build route loaders */
     void closeReading();
 
-private:
+protected:
     /** @brief Loads the net
         The loading structures were built in previous */
-    bool loadNet(SAX2XMLReader *reader, RONetHandler &handler,
-        const std::string &files);
+/*    virtual bool loadNet(SAX2XMLReader *reader, RONetHandler &handler,
+        const std::string &files);*/
 
     /** @brief Opens routes
         The loading structures were built in previous */
@@ -140,7 +145,7 @@ private:
     /// Returns the first known time step
     unsigned int getMinTimeStep() const;
 
-private:
+protected:
     ROAbstractRouteDefLoader* buildNamedHandler(
         const std::string &optionName, const std::string &file
         , RONet &net, float gBeta, float gA);
@@ -148,7 +153,10 @@ private:
     void checkFile(const std::string &optionName
         , const std::string &file);
 
-private:
+    void writeStats(int time, int start, int absNo);
+
+
+protected:
     /// Options to use
     OptionsCont &_options;
 
@@ -160,6 +168,9 @@ private:
 
     /// Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;
+
+    /// The vehicle builder to use
+    ROVehicleBuilder &myVehicleBuilder;
 
 private:
     /// invalidated copy constructor

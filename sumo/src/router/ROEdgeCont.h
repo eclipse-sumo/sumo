@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -54,14 +57,14 @@
 class ROEdgeCont : public NamedObjectCont<ROEdge*> {
 public:
     /// Constructor
-	ROEdgeCont();
+    ROEdgeCont();
 
     /// Destructor
-	~ROEdgeCont();
+    ~ROEdgeCont();
 
     /** @brief Closes the loading process
         Closes the loading process for each edge stored */
-    void postloadInit();
+//    void postloadInit();
 
 private:
     /// we made the copy constructor invalid
@@ -74,9 +77,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROEdgeCont.icc"
-//#endif
 
 #endif
 

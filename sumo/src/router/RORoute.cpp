@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/04/02 11:25:34  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added
 //
@@ -65,7 +68,7 @@ using namespace std;
  * ======================================================================= */
 RORoute::RORoute(const std::string &id, double costs, double prop,
                  const ROEdgeVector &route)
-	: Named(StringUtils::convertUmlaute(id)), _costs(costs),
+    : Named(StringUtils::convertUmlaute(id)), _costs(costs),
     _propability(prop), _route(route)
 {
 }
@@ -79,7 +82,7 @@ RORoute::~RORoute()
 void
 RORoute::add(ROEdge *edge)
 {
-	_route.add(edge);
+    _route.add(edge);
 }
 
 
@@ -170,6 +173,13 @@ void
 RORoute::pruneFirst()
 {
     _route.removeFirst();
+}
+
+
+const ROEdgeVector &
+RORoute::getEdgeVector() const
+{
+    return _route;
 }
 
 

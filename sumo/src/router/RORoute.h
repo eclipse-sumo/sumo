@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.5  2004/04/02 11:25:34  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added
 //
@@ -64,7 +67,7 @@ public:
         const ROEdgeVector &route);
 
     /// Destructor
-	~RORoute();
+    ~RORoute();
 
     /// Adds an edge to the end of the route
     void add(ROEdge *id);
@@ -106,6 +109,9 @@ public:
         used if this edge is too short to emit vehicles on */
     void pruneFirst();
 
+    const ROEdgeVector &getEdgeVector() const;
+
+
 private:
     /// The costs of the route
     double _costs;
@@ -114,7 +120,7 @@ private:
     double _propability;
 
     /// The edges the route consists of
-	ROEdgeVector _route;
+    ROEdgeVector _route;
 
 };
 

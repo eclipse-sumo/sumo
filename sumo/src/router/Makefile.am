@@ -31,7 +31,8 @@ ROVehicleCont.cpp ROVehicleCont.h ROVehicleType.cpp ROVehicleType.h \
 ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h \
 ROWeightsHandler.cpp ROWeightsHandler.h ReferencedItem.h \
 ROSupplementaryWeightsHandler.cpp \
-ROSupplementaryWeightsHandler.h
+ROSupplementaryWeightsHandler.h \
+ROVehicleBuilder.cpp ROVehicleBuilder.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)

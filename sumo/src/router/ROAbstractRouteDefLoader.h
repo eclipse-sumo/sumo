@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -54,6 +57,7 @@
  * ======================================================================= */
 class RONet;
 class OptionsCont;
+class ROVehicleBuilder;
 
 
 /* =========================================================================
@@ -68,16 +72,17 @@ class OptionsCont;
 class ROAbstractRouteDefLoader {
 public:
     /// Constructor
-    ROAbstractRouteDefLoader(RONet &net, const std::string &file="");
+    ROAbstractRouteDefLoader(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end, const std::string &file="");
 
     /// Destructor
     virtual ~ROAbstractRouteDefLoader();
 
     /** @brief Skips routes which begin before the given time
-		This method uses the method myReadRoutesAtLeastUntil(time) to overread
-		the first routes, so the loaders must determine by themselves whether
-		to build a route or not (the departure time has to be between myBegin
-		and the given timestep */
+        This method uses the method myReadRoutesAtLeastUntil(time) to overread
+        the first routes, so the loaders must determine by themselves whether
+        to build a route or not (the departure time has to be between myBegin
+        and the given timestep */
     void skipUntilBegin();
 
     /// Adds routes from the file until the given time is reached
@@ -90,30 +95,33 @@ public:
     virtual std::string getDataName() const = 0;
 
     /// Initialises the reader
-    bool init(OptionsCont &options);
+    virtual bool init(OptionsCont &options) = 0;
 
     /// Returns the time the current (last read) route starts at
     virtual unsigned int getCurrentTimeStep() const = 0;
 
     /// Returns the information whether no routes are available from this loader anymore
-	virtual bool ended() const = 0;
+    virtual bool ended() const = 0;
 
 protected:
-	/** @brief Builds routes
+    /** @brief Builds routes
         All routes between the loader's current time step and the one given shall
         be processed. If the route's departure time is lower than the value of
         "myBegin", the route should not be added into the container. */ // !!! not very good
-	virtual bool myReadRoutesAtLeastUntil(unsigned int time) = 0;
-
-    /// reader dependent initialisation
-    virtual bool myInit(OptionsCont &options) = 0;
+    virtual bool myReadRoutesAtLeastUntil(unsigned int time) = 0;
 
 protected:
     /// The network to add routes to
     RONet &_net;
 
-    /// Specifies the time until which read/generated routes shall be skipped
-	unsigned int myBegin;
+    /// The time for which the first route shall be compute
+    unsigned int myBegin;
+
+    /// The time for which the first route shall be compute
+    unsigned int myEnd;
+
+    /// The vehicle builder to use
+    ROVehicleBuilder &myVehicleBuilder;
 
 };
 

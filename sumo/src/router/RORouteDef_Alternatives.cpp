@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -91,7 +94,7 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
                                                 const RGBColor &color,
                                                 size_t lastUsed,
                                                 double gawronBeta,
-												double gawronA)
+                                                double gawronA)
     : RORouteDef(id, color), _lastUsed(lastUsed),
     _gawronBeta(gawronBeta), _gawronA(gawronA)
 {
@@ -273,7 +276,7 @@ RORouteDef_Alternatives::gawronG(double a, double x)
 
 void
 RORouteDef_Alternatives::xmlOutCurrent(std::ostream &res,
-									   bool isPeriodical) const
+                                       bool isPeriodical) const
 {
     _alternatives[_lastUsed]->xmlOut(res, isPeriodical);
 }
@@ -308,6 +311,19 @@ RORouteDef_Alternatives::copy(const std::string &id) const
 }
 
 
+const ROEdgeVector &
+RORouteDef_Alternatives::getCurrentEdgeVector() const
+{
+    assert(_lastUsed>=0&&_lastUsed<_alternatives.size());
+    return _alternatives[_lastUsed]->getEdgeVector();
+}
+
+
+void
+RORouteDef_Alternatives::invalidateLast()
+{
+    _lastUsed = -1;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/04/02 11:25:34  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added
 //
@@ -60,8 +63,14 @@ class ROEdge;
  */
 class ROEdgeVector {
 public:
+    /// Definition of a list of edges
+    typedef std::vector<ROEdge*> EdgeVector;
+
     /// Constructor
     ROEdgeVector();
+
+    /// Constructor
+    ROEdgeVector(EdgeVector &edges);
 
     /// Destructor
     ~ROEdgeVector();
@@ -103,11 +112,10 @@ public:
 
     /// Output operator
     friend std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev);
+
+    const EdgeVector &getEdges() const;
+
 private:
-
-    /// Definition of a list of edges
-    typedef std::vector<ROEdge*> EdgeVector;
-
     /// The list of edges
     EdgeVector _edges;
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.3  2004/03/19 13:03:01  dkrajzew
 // some style adaptions
 //
@@ -79,6 +82,7 @@ namespace
 #include "ROEdgeVector.h"
 #include "RONet.h"
 #include "RORDLoader_Cell.h"
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -90,9 +94,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_Cell::RORDLoader_Cell(RONet &net, double gawronBeta,
-								 double gawronA, string file)
-    : ROAbstractRouteDefLoader(net),
+RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
+                                 unsigned int begin, unsigned int end,
+                                 double gawronBeta, double gawronA,
+                                 string file)
+    : ROAbstractRouteDefLoader(vb, net, begin, end),
     _routeIdSupplier(string("Cell_")+file, 0),
     _vehicleIdSupplier(string("Cell_")+file, 0),
     _driverParser(true, true),
@@ -147,6 +153,9 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
         if(_driverParser.getRouteStart()==INT_MAX) {
             return true;
         }
+        if(myCurrentTime<myBegin||myCurrentTime>=myEnd) {
+            return true;
+        }
         // get the route-number
         int routeNo = _driverParser.getRouteNo();
         if(routeNo<0) {
@@ -167,14 +176,9 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
         _net.addRouteDef(altDef);
         // add the vehicle type, the vehicle and the route to the net
         string id = _vehicleIdSupplier.getNext();
-    	if(_driverParser.getRouteStart()<myBegin) {
-		    return true;
-	    }
-        if(_driverParser.getRouteStart()>=time) {
-            _net.addVehicle(id,
-                new ROVehicle(id, altDef, _driverParser.getRouteStart(),
-                    _net.getDefaultVehicleType(), RGBColor(), -1, 0));
-        }
+        _net.addVehicle(id, myVehicleBuilder.buildVehicle(
+            id, altDef, _driverParser.getRouteStart(),
+            _net.getDefaultVehicleType(), RGBColor(), -1, 0));
     } while(!ended()&&time<_driverParser.getRouteStart());
     return true;
 }
@@ -244,7 +248,7 @@ RORDLoader_Cell::getRouteInfoFrom(unsigned long position)
 
 
 bool
-RORDLoader_Cell::myInit(OptionsCont &options)
+RORDLoader_Cell::init(OptionsCont &options)
 {
     // check whether non-intel-format shall be used
     _isIntel = options.getBool("intel-cell");

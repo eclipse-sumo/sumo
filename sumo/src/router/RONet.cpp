@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.18  2004/04/23 12:46:41  dkrajzew
 // forgetting to set information about periodical emission of vehicles patched
 //
@@ -132,13 +135,13 @@ RONet::~RONet()
     _vehicles.clear();
 }
 
-
+/*
 void
 RONet::postloadInit()
 {
     _edges.postloadInit();
 }
-
+*/
 
 void
 RONet::addEdge(ROEdge *edge)
@@ -222,12 +225,12 @@ RONet::closeOutput()
     (*myRoutesOutput) << "</routes>" << endl;
     myRoutesOutput->close();
     delete myRoutesOutput;
-	// only if opened
-	if(myRouteAlternativesOutput!=0) {
-		(*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
-		myRouteAlternativesOutput->close();
-		delete myRouteAlternativesOutput;
-	}
+    // only if opened
+    if(myRouteAlternativesOutput!=0) {
+        (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
+        myRouteAlternativesOutput->close();
+        delete myRouteAlternativesOutput;
+    }
 }
 
 
@@ -266,9 +269,9 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
 }
 
 
-bool
-RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
-                 ROVehicle *veh)
+RORouteDef *
+RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
+                    ROVehicle *veh)
 {
     MsgHandler *mh = MsgHandler::getErrorInstance();
     if(options.getBool("continue-on-unbuild")) {
@@ -279,17 +282,17 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
     if(routeDef==0) {
         mh->inform(string("The vehicle '") + veh->getID()
             + string("' has no valid route."));
-        return false;
+        return 0;
     }
     // check whether the route was already saved
     if(routeDef->isSaved()) {
-        return true;
+        return routeDef;
     }
     //
     RORoute *current = routeDef->buildCurrentRoute(router,
         veh->getDepartureTime(), options.getBool("continue-on-unbuild"), *veh);
     if(current==0) {
-        return false;
+        return 0;
     }
     // check whether the route is valid and does not end on the starting edge
     if(current->size()<2) {
@@ -304,7 +307,7 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
             MsgHandler::getWarningInstance()->inform("Skipping...");
         }
         delete current;
-        return false;
+        return 0;
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
@@ -316,7 +319,7 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
         if(!options.getBool("move-on-short")||current->size()<3) {
             mh->inform(" Discarded.");
             delete current;
-            return false;
+            return 0;
         }
         current->pruneFirst();
         mh->inform(string(" Prunned (now starting at '")
@@ -324,15 +327,24 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     // add build route
     routeDef->addAlternative(current, veh->getDepartureTime());
+    return routeDef;
+}
+
+
+bool
+RONet::saveRoute(RORouteDef *route, ROVehicle *veh)
+{
+    if(route->isSaved()) {
+        return true;
+    }
     // save route
-    routeDef->xmlOutCurrent(*myRoutesOutput, veh->periodical());
+    route->xmlOutCurrent(*myRoutesOutput, veh->periodical());
 //        options.getBool("continue-on-unbuild"));
     if(myRouteAlternativesOutput!=0) {
-        routeDef->xmlOutAlternatives(*myRouteAlternativesOutput);
+        route->xmlOutAlternatives(*myRouteAlternativesOutput);
     }
     return true;
 }
-
 
 void
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
@@ -370,15 +382,18 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
 
         // ok, compute the route (try it)
         sortedVehicles.pop();
-        // write the route
-        if(saveRoute(options, router, veh)) {
-			if(myRouteAlternativesOutput==0) {
-				veh->saveTypeAndSelf(*myRoutesOutput,
+        // compute the route
+        RORouteDef *route = computeRoute(options, router, veh);
+        if(route!=0) {
+            // write the route
+            saveRoute(route, veh);
+            if(myRouteAlternativesOutput==0) {
+                veh->saveTypeAndSelf(*myRoutesOutput,
                     *_vehicleTypes.getDefault());
-			} else {
-				veh->saveTypeAndSelf(*myRoutesOutput,
-					*myRouteAlternativesOutput, *_vehicleTypes.getDefault());
-			}
+            } else {
+                veh->saveTypeAndSelf(*myRoutesOutput,
+                    *myRouteAlternativesOutput, *_vehicleTypes.getDefault());
+            }
             myWrittenRouteNo++;
         } else {
             myDiscardedRouteNo++;
@@ -466,7 +481,7 @@ RONet::checkSourceAndDestinations()
     const std::vector<ROEdge*> &edges = _edges.getVector();
     for(std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         ROEdge::EdgeType type = (*i)->getType();
-		// !!! add something like "classified edges only" for using only sources or sinks
+        // !!! add something like "classified edges only" for using only sources or sinks
         if(type!=ROEdge::ET_SOURCE) {
             myDestinationEdges.push_back(*i);
         }

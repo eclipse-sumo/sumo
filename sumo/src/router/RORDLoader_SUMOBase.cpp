@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        RORDLoader_SUMOBase.cpp -
-//		The base class for SUMO-native route handlers
+//      The base class for SUMO-native route handlers
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -39,6 +42,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include "ROVehicleType_Krauss.h"
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -50,10 +54,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
-										 const std::string &dataName,
-										 const std::string &file)
-    : ROTypedXMLRoutesLoader(net, file),
+RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
+                                         unsigned int begin, unsigned int end,
+                                         const std::string &dataName,
+                                         const std::string &file)
+    : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
     myDataName(dataName), myDepartureTime(0)
 {
 }
@@ -66,19 +71,19 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
 
 float
 RORDLoader_SUMOBase::getFloatReporting(const Attributes &attrs,
-									   AttrEnum attr,
-									   const std::string &id,
-									   const std::string &name)
+                                       AttrEnum attr,
+                                       const std::string &id,
+                                       const std::string &name)
 {
     try {
         return getFloat(attrs, attr);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-			string("Missing ") + name + string(" in vehicle '") +
+            string("Missing ") + name + string(" in vehicle '") +
             id + string("'."));
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-			name + string(" in vehicle '")
+            name + string(" in vehicle '")
             + id + string("' is not numeric."));
     }
     return -1;
@@ -95,12 +100,12 @@ RORDLoader_SUMOBase::getVehicleType(const Attributes &attrs,
         type = _net.getVehicleType(name);
         if(type==0) {
             MsgHandler::getErrorInstance()->inform(string(
-				"The type of the vehicle '")
+                "The type of the vehicle '")
                 + name + string("' is not known."));
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-			string("Missing type in vehicle '")
+            string("Missing type in vehicle '")
             + id + string("'."));
     }
     return type;
@@ -109,18 +114,18 @@ RORDLoader_SUMOBase::getVehicleType(const Attributes &attrs,
 
 void
 RORDLoader_SUMOBase::getVehicleDepartureTime(const Attributes &attrs,
-											 const std::string &id)
+                                             const std::string &id)
 {
     myDepartureTime = -1;
     try {
         myDepartureTime = getLong(attrs, SUMO_ATTR_DEPART);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-			string("Missing departure time in vehicle '")
+            string("Missing departure time in vehicle '")
             + id + string("'."));
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-			string("Non-numerical departure time in vehicle '")
+            string("Non-numerical departure time in vehicle '")
             + id + string("'."));
     }
 }
@@ -128,7 +133,7 @@ RORDLoader_SUMOBase::getVehicleDepartureTime(const Attributes &attrs,
 
 RORouteDef *
 RORDLoader_SUMOBase::getVehicleRoute(const Attributes &attrs,
-									 const std::string &id)
+                                     const std::string &id)
 {
     RORouteDef *route = 0;
     try {
@@ -136,13 +141,13 @@ RORDLoader_SUMOBase::getVehicleRoute(const Attributes &attrs,
         route = _net.getRouteDef(name);
         if(route==0) {
             MsgHandler::getErrorInstance()->inform(
-				string("The route of the vehicle '")
+                string("The route of the vehicle '")
                 + name + string("' is not known."));
             return 0;
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-			string("Missing route in vehicle '")
+            string("Missing route in vehicle '")
             + id + string("'."));
     }
     return route;
@@ -151,8 +156,8 @@ RORDLoader_SUMOBase::getVehicleRoute(const Attributes &attrs,
 
 RGBColor
 RORDLoader_SUMOBase::parseColor(const Attributes &attrs,
-								const std::string &type,
-								const std::string &id)
+                                const std::string &type,
+                                const std::string &id)
 {
     RGBColor col;
     try {
@@ -198,12 +203,13 @@ RORDLoader_SUMOBase::startVehicle(const Attributes &attrs)
     int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
     int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-		if(myDepartureTime<myBegin) {
-			return;
-		}
-        _net.addVehicle(id,
-            new ROVehicle(id, route, myDepartureTime, type, color,
-                repOffset, repNumber));
+        if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
+            delete route;
+            return;
+        }
+        _net.addVehicle(id, myVehicleBuilder.buildVehicle(
+            id, route, myDepartureTime, type, color,
+            repOffset, repNumber));
     }
 }
 
@@ -221,15 +227,15 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
     }
     // get the other values
     float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED,
-		id, "maxspeed");
+        id, "maxspeed");
     float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH,
-		id, "length");
+        id, "length");
     float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL,
-		id, "accel");
+        id, "accel");
     float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL,
-		id, "decel");
+        id, "decel");
     float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA,
-		id, "sigma");
+        id, "sigma");
     RGBColor color = parseColor(attrs, "vehicle type", id);
     // build the vehicle type after checking
     //  by now, only vehicles using the krauss model are supported

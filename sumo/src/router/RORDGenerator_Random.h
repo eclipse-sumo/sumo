@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -69,7 +72,8 @@ class RORDGenerator_Random :
     public ROAbstractRouteDefLoader {
 public:
     /// Constructor
-    RORDGenerator_Random(RONet &net, const std::string &file="");
+    RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_Random();
@@ -81,19 +85,19 @@ public:
     std::string getDataName() const;
 
     /// Returns the information whether no routes are available from this loader anymore
-	bool ended() const;
+    bool ended() const;
 
     /// Returns the time the current (last read) route starts at
-	unsigned int getCurrentTimeStep() const;
+    unsigned int getCurrentTimeStep() const;
+
+    /// reader dependent initialisation
+    virtual bool init(OptionsCont &options);
 
 protected:
     /** @brief Reads the until the specified time is reached
         Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
         for the modalities! */
     bool myReadRoutesAtLeastUntil(unsigned int time);
-
-    /// reader dependent initialisation
-    bool myInit(OptionsCont &options);
 
 private:
     /** @brief The number of cars to emit per second

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.4  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -46,6 +49,7 @@
 class RONet;
 class OptionsCont;
 class ROEdge;
+class ROAbstractEdgeBuilder;
 
 
 /* =========================================================================
@@ -62,7 +66,7 @@ public:
     RONetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
 
     /// Destrcutor
-    ~RONetHandler();
+    virtual ~RONetHandler();
 
 protected:
     /** the user-impemlented handler method for an opening tag */
@@ -76,12 +80,12 @@ protected:
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
 
-private:
+protected:
     /// Parses an edge
     void parseEdge(const Attributes &attrs);
 
     /// Parses a lane
-    void parseLane(const Attributes &attrs);
+    virtual void parseLane(const Attributes &attrs);
 
     /// Parses a junction
     void parseJunction(const Attributes &attrs);
@@ -92,7 +96,7 @@ private:
     /// Preallocates edges
     void preallocateEdges(const std::string &chars);
 
-private:
+protected:
     /// the options (program settings)
     OptionsCont &_options;
 

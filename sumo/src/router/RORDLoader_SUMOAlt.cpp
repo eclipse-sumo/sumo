@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -93,10 +96,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(RONet &net, double gawronBeta,
-									   double gawronA,
-									   const std::string &file)
-    : RORDLoader_SUMOBase(net, "precomputed sumo route alternatives", file),
+RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
+                                       unsigned int begin, unsigned int end,
+                                       double gawronBeta, double gawronA,
+                                       const std::string &file)
+    : RORDLoader_SUMOBase(vb, net, begin, end,
+        "precomputed sumo route alternatives", file),
     _currentAlternatives(0),
     _gawronBeta(gawronBeta), _gawronA(gawronA)
 {
@@ -109,8 +114,8 @@ RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt()
 
 
 void RORDLoader_SUMOAlt::myStartElement(int element,
-										const std::string &name,
-										const Attributes &attrs)
+                                        const std::string &name,
+                                        const Attributes &attrs)
 {
     switch(element) {
     case SUMO_TAG_ROUTEALT:
@@ -162,7 +167,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 
 void
 RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
-								 const std::string &chars)
+                                 const std::string &chars)
 {
     // process routes only, all other elements do
     //  not have embedded characters
@@ -217,7 +222,7 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-			"Missing route alternative name.");
+            "Missing route alternative name.");
         return;
     }
     // try to get the index of the last element

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.10  2004/04/14 13:53:50  roessel
 // Changes and additions in order to implement supplementary-weights.
 //
@@ -87,21 +90,23 @@ public:
 
 
     /// Constructor
-    ROEdge(const std::string &id);
+    ROEdge(const std::string &id, int index);
 
     /// Desturctor
     virtual ~ROEdge();
 
     /** @brief Initialises te edge after loading
         The weights over time are being set, here */
-    void postloadInit(size_t idx);
+//    void postloadInit(size_t idx);
 
     /// Adds a lane to the edge while loading
-    void addLane(ROLane *lane);
+    virtual void addLane(ROLane *lane);
 
     /// Sets the effort of a lane while loading
-    void setLane(long timeBegin, long timeEnd,
-        const std::string &id, float value);
+/*    void setLane(long timeBegin, long timeEnd,
+        const std::string &id, float value);*/
+
+    void addWeight(float value, long timeBegin, long timeEnd);
 
     /// Adds information about a connected edge
     virtual void addFollower(ROEdge *s);
@@ -117,10 +122,10 @@ public:
     ROEdge *getFollower(size_t pos);
 
     /// retrieves the cost of this edge at the given time
-    double getCost(long time) const;
+    double getCost(long time);
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    double getDuration(long time) const;
+    double getDuration(long time);
 
     /// Adds a connection, marking the effort to pas the connection (!!!)
     bool addConnection(ROEdge *to, float effort);
@@ -141,8 +146,8 @@ public:
     size_t getIndex() const;
 
     /// returns the effort for this edge only
-    float getMyEffort(long time) const;
-    
+    virtual float getMyEffort(long time);
+
     /// Takes pointers to FloatValueTimeLines and assigns them to the
     /// classes supplementary weights. You must provide all three
     /// FloatValueTimeLines and they must be valid objects. These
@@ -154,10 +159,10 @@ public:
     /// @param add Pointer to the add-FloatValueTimeLine.
     /// @param mult Pointer to the mult-FloatValueTimeLine.
     ///
-    void setSupplementaryWeights( const FloatValueTimeLine* absolut,
-                                  const FloatValueTimeLine* add,
-                                  const FloatValueTimeLine* mult );
-    
+    void setSupplementaryWeights( FloatValueTimeLine* absolut,
+                                  FloatValueTimeLine* add,
+                                  FloatValueTimeLine* mult );
+
 protected:
     /// The id of the edge
     std::string _id;
@@ -167,22 +172,22 @@ protected:
 
     /// The maximum speed allowed on this edge
     double _speed;
-
+/*
     /// Definition of a container for storing passing time varying over time for an edge's lanes
     typedef std::map<ROLane*, FloatValueTimeLine*> LaneUsageCont;
 
     /// Container for storing passing time varying over time for an edge's lanes
     LaneUsageCont _laneCont;
-
+*/
     /// Container storing passing time varying over time for the edge
     FloatValueTimeLine _ownValueLine;
 
     /// "Absolut" supplementary weights.
-    const FloatValueTimeLine* _supplementaryWeightAbsolut;
+    FloatValueTimeLine* _supplementaryWeightAbsolut;
     /// "Add" supplementary weights.
-    const FloatValueTimeLine* _supplementaryWeightAdd;
+    FloatValueTimeLine* _supplementaryWeightAdd;
     /// "Multiplication" supplementary weights.
-    const FloatValueTimeLine* _supplementaryWeightMult;
+    FloatValueTimeLine* _supplementaryWeightMult;
 
     /// List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
@@ -199,6 +204,12 @@ protected:
     /// Flag that indicates, if the supplementary weights have been
     /// set. Initially false.
     bool _hasSupplementaryWeights;
+
+    /// Information whether the edge has reported missing weights
+    bool myHaveWarned;
+
+    /// The length of the edge
+    double myLength;
 
 private:
     /// we made the copy constructor invalid

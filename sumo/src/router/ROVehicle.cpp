@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.7  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -67,11 +70,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROVehicle::ROVehicle(const std::string &id, RORouteDef *route,
+ROVehicle::ROVehicle(ROVehicleBuilder &vb,
+                     const std::string &id, RORouteDef *route,
                      unsigned int depart, ROVehicleType *type,
                      const RGBColor &color,
                      int period, int repNo)
-	: _id(id), myColor(color), _type(type), _route(route), _depart(depart),
+    : _id(id), myColor(color), _type(type), _route(route), _depart(depart),
     _period(period), _repNo(repNo)
 {
 }
@@ -99,14 +103,14 @@ void ROVehicle::xmlOut(std::ostream &os) const
 {
     os << "<vehicle id=\"" << _id << "\"";
     os << " type=\"" << _type->getID() << "\"";
-	os << " route=\"" << _route->getID() << "\"";
-	os << " depart=\"" << _depart << "\"";
+    os << " route=\"" << _route->getID() << "\"";
+    os << " depart=\"" << _depart << "\"";
     os << " color=\"" << myColor << "\"";
     if(_period!=-1) {
         os << " period=\"" << _period << "\"";
         os << " repno=\"" << _repNo << "\"";
     }
-	os << "/>" << endl;
+    os << "/>" << endl;
 }
 
 std::string
@@ -133,14 +137,14 @@ void
 ROVehicle::saveTypeAndSelf(std::ostream &os,
                            ROVehicleType &defType) const
 {
-	ROVehicleType &type = getTypeForSaving(defType);
-	if(!type.isSaved()) {
-	    os << "   ";
-	    type.xmlOut(os);
-		type.markSaved();
-	}
-	os << "   ";
-	xmlOut(os);
+    ROVehicleType &type = getTypeForSaving(defType);
+    if(!type.isSaved()) {
+        os << "   ";
+        type.xmlOut(os);
+        type.markSaved();
+    }
+    os << "   ";
+    xmlOut(os);
 }
 
 
@@ -148,18 +152,18 @@ void
 ROVehicle::saveTypeAndSelf(std::ostream &os, std::ostream &altos,
                            ROVehicleType &defType) const
 {
-	ROVehicleType &type = getTypeForSaving(defType);
-	if(!type.isSaved()) {
-	    os << "   ";
-		type.xmlOut(os);
-	    altos << "   ";
-		type.xmlOut(altos);
-		type.markSaved();
-	}
-	os << "   ";
-	xmlOut(os);
-	altos << "   ";
-	xmlOut(altos);
+    ROVehicleType &type = getTypeForSaving(defType);
+    if(!type.isSaved()) {
+        os << "   ";
+        type.xmlOut(os);
+        altos << "   ";
+        type.xmlOut(altos);
+        type.markSaved();
+    }
+    os << "   ";
+    xmlOut(os);
+    altos << "   ";
+    xmlOut(altos);
 }
 
 
@@ -173,16 +177,17 @@ ROVehicle::getTypeForSaving(ROVehicleType &defType) const
             + string("' has no valid type; Using default."));
         return defType;
     } else {
-		return *_type;
-	}
+        return *_type;
+    }
 }
 
 
 ROVehicle *
-ROVehicle::copy(const std::string &id, unsigned int depTime,
+ROVehicle::copy(ROVehicleBuilder &vb,
+                const std::string &id, unsigned int depTime,
                 RORouteDef *newRoute)
 {
-    return new ROVehicle(id, newRoute, depTime, _type, myColor,
+    return new ROVehicle(vb, id, newRoute, depTime, _type, myColor,
         _period, _repNo);
 }
 

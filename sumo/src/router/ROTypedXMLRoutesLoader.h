@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -77,7 +80,8 @@ class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
                                public SUMOSAXHandler {
 public:
     /// Constructor
-    ROTypedXMLRoutesLoader(RONet &net, const std::string &file="");
+    ROTypedXMLRoutesLoader(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end, const std::string &file="");
 
     /// Destructor
     virtual ~ROTypedXMLRoutesLoader();
@@ -89,16 +93,16 @@ public:
     void endDocument();
 
     /// Returns the information whether no routes are available from this loader anymore
-	bool ended() const;
+    bool ended() const;
+
+    /// Initialises the handler for reading
+    virtual bool init(OptionsCont &options);
 
 protected:
     /** @brief Reads the until the specified time is reached
         Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
         for the modalities! */
     bool myReadRoutesAtLeastUntil(unsigned int time);
-
-    /// Initialises the handler for reading
-    bool myInit(OptionsCont &options);
 
 protected:
     /// Return the information whether a route was read

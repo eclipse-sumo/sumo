@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -66,7 +69,8 @@ class RONet;
 class RORDLoader_SUMORoutes : public RORDLoader_SUMOBase {
 public:
     /// Constructor
-    RORDLoader_SUMORoutes(RONet &net, const std::string &file="");
+    RORDLoader_SUMORoutes(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end, const std::string &file="");
 
     /// Destructor
     ~RORDLoader_SUMORoutes();

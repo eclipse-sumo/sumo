@@ -2,7 +2,7 @@
 #define RORDLoader_SUMOBase_h
 //---------------------------------------------------------------------------//
 //                        RORDLoader_SUMOBase.h -
-//		The base class for SUMO-native route handlers
+//      The base class for SUMO-native route handlers
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -61,11 +64,12 @@ class RORouteDef;
 class RORDLoader_SUMOBase :
     public ROTypedXMLRoutesLoader {
 public:
-	/// Constructor
-    RORDLoader_SUMOBase(RONet &net,
+    /// Constructor
+    RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end,
         const std::string &dataName, const std::string &file="");
 
-	/// Destructor
+    /// Destructor
     ~RORDLoader_SUMOBase();
 
     /** @brief Returns the name of the data
@@ -103,7 +107,7 @@ protected:
     void startVehType(const Attributes &attrs);
 
 protected:
-	/// The type of the parsed file to allow a distinction
+    /// The type of the parsed file to allow a distinction
     std::string myDataName;
 
     /// The color of the current route

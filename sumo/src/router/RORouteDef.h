@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.8  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -64,6 +67,7 @@ class ROAbstractRouter;
 class RORoute;
 class OptionsCont;
 class ROVehicle;
+class ROEdgeVector;
 
 
 /* =========================================================================
@@ -83,7 +87,7 @@ public:
         const RGBColor &color);
 
     /// Destructor
-	virtual ~RORouteDef();
+    virtual ~RORouteDef();
 
     /// Returns the route's origin edge
     virtual ROEdge *getFrom() const = 0;
@@ -113,6 +117,8 @@ public:
 
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;
+
+    virtual const ROEdgeVector &getCurrentEdgeVector() const = 0;
 
 protected:
     /// The color the route shall have

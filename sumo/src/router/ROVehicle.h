@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.7  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -48,6 +51,7 @@
 #include <string>
 #include <iostream>
 #include <utils/gfx/RGBColor.h>
+#include "ROVehicleBuilder.h"
 
 
 /* =========================================================================
@@ -68,11 +72,12 @@ class RORouteDef;
 class ROVehicle {
 public:
     /// Constructor
-	ROVehicle(const std::string &id, RORouteDef *route, unsigned int depart,
+    ROVehicle(ROVehicleBuilder &vb,
+        const std::string &id, RORouteDef *route, unsigned int depart,
         ROVehicleType *type, const RGBColor &color, int period, int repNo);
 
     /// Destructor
-	virtual ~ROVehicle();
+    virtual ~ROVehicle();
 
     /// Returns the route the vehicle takes
     RORouteDef *getRoute() const;
@@ -81,7 +86,7 @@ public:
     ROVehicleType *getType() const;
 
     /// Saves information wbout the vehicle (in SUMO-XML)
-	virtual void xmlOut(std::ostream &os) const;
+    virtual void xmlOut(std::ostream &os) const;
 
     /// Returns the id of the vehicle
     std::string getID() const;
@@ -93,18 +98,18 @@ public:
         settings shall be emitted. */
     bool periodical() const;
 
-	/** @brief Saves the vehicle type if it was not saved before and the vehicle itself
-		Use this method polymorph if no route alternatives shall be generated */
-	void saveTypeAndSelf(std::ostream &os, ROVehicleType &defType) const;
+    /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
+        Use this method polymorph if no route alternatives shall be generated */
+    void saveTypeAndSelf(std::ostream &os, ROVehicleType &defType) const;
 
-	/** @brief Saves the vehicle type if it was not saved before and the vehicle itself
-		Use this method polymorph if route alternatives shall be written, too */
-	void saveTypeAndSelf(std::ostream &os, std::ostream &altos,
+    /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
+        Use this method polymorph if route alternatives shall be written, too */
+    void saveTypeAndSelf(std::ostream &os, std::ostream &altos,
         ROVehicleType &defType) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
-    virtual ROVehicle *copy(const std::string &id, unsigned int depTime,
-        RORouteDef *newRoute);
+    virtual ROVehicle *copy(ROVehicleBuilder &vb,
+        const std::string &id, unsigned int depTime, RORouteDef *newRoute);
 
 protected:
     /** @brief Returns the type of the vehicle
@@ -114,19 +119,19 @@ protected:
 
 protected:
     /// The name of the vehicle
-	std::string _id;
+    std::string _id;
 
     /// The color of the vehicle
     RGBColor myColor;
 
     /// The type of the vehicle
-	ROVehicleType *_type;
+    ROVehicleType *_type;
 
     /// The route the vehicle takes
-	RORouteDef *_route;
+    RORouteDef *_route;
 
     /// The time the vehicle shall be emitted at
-	unsigned int _depart;
+    unsigned int _depart;
 
     /// The repetition period (-1 if only one vehicle shall be emitted)
     int _period;

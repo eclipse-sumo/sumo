@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -78,7 +81,7 @@ public:
         ROEdge *from, ROEdge *to, bool removeFirst=false);
 
     /// Destructor
-	virtual ~RORouteDef_OrigDest();
+    virtual ~RORouteDef_OrigDest();
 
     /// Returns the begin of the trip
     ROEdge *getFrom() const;
@@ -103,9 +106,11 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
+    const ROEdgeVector &getCurrentEdgeVector() const;
+
 protected:
     /// The origin and the destination edge of the route
-	ROEdge *_from, *_to;
+    ROEdge *_from, *_to;
 
     /// The complete route (after building)
     RORoute *_current;

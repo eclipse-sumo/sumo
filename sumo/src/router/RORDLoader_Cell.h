@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -84,7 +87,9 @@ class RORDLoader_Cell :
             public ROAbstractRouteDefLoader {
 public:
     /// Constructor
-    RORDLoader_Cell(RONet &net, double gawronBeta, double gawronA,
+    RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
+        unsigned int begin, unsigned int end,
+        double gawronBeta, double gawronA,
         std::string file="");
 
     /// Destructor
@@ -105,10 +110,13 @@ public:
     std::string getDataName() const;
 
     /// Returns the information whether no routes are available from this loader anymore
-	bool ended() const;
+    bool ended() const;
 
     /// Returns the time the current (last read) route starts at
-	unsigned int getCurrentTimeStep() const;
+    unsigned int getCurrentTimeStep() const;
+
+    /// Initialises the handler for reading
+    virtual bool init(OptionsCont &_options);
 
 protected:
     /** @brief reads the next route
@@ -116,9 +124,6 @@ protected:
         to use is extracted. Afterwards, the route itself is read from the
         route file */
     bool myReadRoutesAtLeastUntil(unsigned int time);
-
-    /// Initialises the handler for reading
-    bool myInit(OptionsCont &_options);
 
 private:
     /// Initialises the driver file for reading

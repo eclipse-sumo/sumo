@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -71,9 +74,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
+ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
+                                               RONet &net,
+                                               unsigned int begin,
+                                               unsigned int end,
                                                const std::string &file)
-    : ROAbstractRouteDefLoader(net),
+    : ROAbstractRouteDefLoader(vb, net, begin, end),
     SUMOSAXHandler("xml-route definitions", file),
     _parser(XMLHelpers::getSAXReader(*this)), _token(), _ended(false)
 {
@@ -111,7 +117,7 @@ ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(unsigned int time)
 
 
 bool
-ROTypedXMLRoutesLoader::myInit(OptionsCont &options)
+ROTypedXMLRoutesLoader::init(OptionsCont &options)
 {
     return _parser->parseFirst(_file.c_str(), _token);
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.8  2004/04/02 11:26:26  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
 //
@@ -86,11 +89,11 @@ public:
     RONet(bool multireferencedRoutes);
 
     /// Destructor
-    ~RONet();
+    virtual ~RONet();
 
     /** @brief Performs some initialisations after the net (and the weights) have been loaded
         The weight-timelines must be computed for the edges */
-    void postloadInit();
+//    void postloadInit();
 
     /** @brief opens the output for computed routes
         if the second parameter is true, a second file for route alternatives
@@ -103,7 +106,7 @@ public:
 
 
     /// Adds a read edge to the network
-    void addEdge(ROEdge *edge);
+    virtual void addEdge(ROEdge *edge);
 
     /** @brief Retrieves an edge from the network
         This is not very pretty, but necessary, though, as the route r
@@ -144,7 +147,7 @@ public:
     void addVehicleID(const std::string &id);
 
     /// Adds a completely build vehicle to the net
-    void addVehicle(const std::string &id, ROVehicle *veh);
+    virtual void addVehicle(const std::string &id, ROVehicle *veh);
 
     /// Adds a known route snipplet to the network (!!! somekind of deprecated)
     bool addRouteSnipplet(const ROEdgeVector &item);
@@ -171,10 +174,14 @@ public:
     /// Returns the number of edges thenetwork contains
     unsigned int getEdgeNo() const;
 
-private:
+
+
+protected:
     /** Saves the given route together with her alternatives */
-    bool saveRoute(OptionsCont &options, ROAbstractRouter &router,
+    RORouteDef *computeRoute(OptionsCont &options, ROAbstractRouter &router,
         ROVehicle *veh);
+
+    bool saveRoute(RORouteDef *route, ROVehicle *veh);
 
     /** @brief Removes the route from the net when no further usage is needed */
     void removeRouteSecure(RORouteDef *route);
@@ -187,7 +194,7 @@ private:
     std::ofstream *buildOutput(const std::string &name);
 
 
-private:
+protected:
     /// Container for known vehicle ids
     typedef std::set<std::string> VehIDCont;
 

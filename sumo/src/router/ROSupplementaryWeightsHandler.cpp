@@ -209,9 +209,7 @@ ROSupplementaryWeightsHandler::insertValuedTimeRangeIntoMap(
         FloatValueTimeLine* valueTimeLine = new FloatValueTimeLine();
         iter = aMap.insert( make_pair( edgeIdM, valueTimeLine ) ).first;
     }
-    iter->second->addValue( intervalStartM,
-                            intervalEndM,
-                            aValue );
+    iter->second->append( intervalStartM, intervalEndM, aValue );
 }
 
 
@@ -249,6 +247,9 @@ ROSupplementaryWeightsHandler::getFloatValueTimeLine( WeightsMap& aMap,
     }
     else {
         retVal = it->second;
+    }
+    if(retVal!=0) {
+        retVal->sort();
     }
     return retVal;
 }

@@ -2,7 +2,7 @@
 #define ROAbstractEdgeBuilder_h
 //---------------------------------------------------------------------------//
 //                        ROAbstractEdgeBuilder.h -
-//		Interface for building edges
+//      Interface for building edges
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 21 Jan 2004
@@ -20,10 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
-//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <string>
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -42,13 +50,18 @@ class ROEdge;
 class ROAbstractEdgeBuilder {
 public:
     /// Constructor
-    ROAbstractEdgeBuilder() { }
+    ROAbstractEdgeBuilder() : myCurrentIndex(0) { }
 
     /// Destructor
     virtual ~ROAbstractEdgeBuilder() { }
 
     /// Builds an edge with the given name
     virtual ROEdge *buildEdge(const std::string &name) = 0;
+
+    size_t getCurrentIndex() { return myCurrentIndex++; }
+
+private:
+    size_t myCurrentIndex;
 
 };
 

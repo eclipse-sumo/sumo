@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 09:39:41  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+//
 // Revision 1.7  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -50,10 +53,12 @@
 #include "RORouteDef.h"
 #include <utils/common/NamedObjectCont.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class ROEdge;
+
 
 /* =========================================================================
  * class definitions
