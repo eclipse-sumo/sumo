@@ -1,7 +1,8 @@
 bin_PROGRAMS = sumo \
 sumo-netconvert \
 sumo-netgen \
-sumo-router \
+sumo-dua-router \
+sumo-jp-router \
 sumo-od2trips \
 sumo-gui \
 tagreader
@@ -65,17 +66,30 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 -l$(LIB_XERCES)
 
 
-sumo_router_SOURCES = router_main.cpp \
-router_help.h
-sumo_router_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_router_LDADD   = ./router/librouter.a \
+sumo_dua_router_SOURCES = dua_router_main.cpp dua_router_help.h
+sumo_dua_router_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_dua_router_LDADD   = ./router/librouter.a \
+./utils/routing_dua/libduarouting.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
-./utils/router/librouter.a \
+./utils/importio/libimportio.a \
+-l$(LIB_XERCES)
+
+
+sumo_jp_router_SOURCES = jp_router_main.cpp jp_router_help.h
+sumo_jp_router_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_jp_router_LDADD   = ./router/librouter.a \
+./utils/routing_jp/libjprouting.a \
+./utils/options/liboptions.a \
+./utils/convert/libconvert.a \
+./utils/common/libcommon.a \
+./utils/gfx/libgfx.a \
+./utils/sumoxml/libsumoxml.a \
+./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 -l$(LIB_XERCES)
 
@@ -153,6 +167,8 @@ netimport \
 netload \
 od2trips \
 router \
+routing_dua \
+routing_jp \
 sumo_only \
 utils
 

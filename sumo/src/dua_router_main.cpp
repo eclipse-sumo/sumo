@@ -20,9 +20,13 @@
  ***************************************************************************/
 namespace
 {
-    const char rcsid[] = "$Id$";
+    const char rcsid[] =
+        "$Id$";
 }
 // $Log$
+// Revision 1.1  2004/01/26 07:12:12  dkrajzew
+// now two routers are available - the dua- and the jp-router
+//
 // Revision 1.27  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
@@ -30,7 +34,8 @@ namespace
 // errors patched
 //
 // Revision 1.25  2003/10/17 06:53:08  dkrajzew
-// added the possibility to change the standard-krauss parameter via the command line
+// added the possibility to change the standard-krauss parameter via the
+//  command line
 //
 // Revision 1.24  2003/08/21 13:01:39  dkrajzew
 // some bugs patched
@@ -42,7 +47,8 @@ namespace
 // no configuration is loaded as default any more
 //
 // Revision 1.21  2003/06/24 14:38:46  dkrajzew
-// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+// false instantiation of option "log-file" as Option_String patched into
+//  Option_FileName patched
 //
 // Revision 1.20  2003/06/24 08:50:00  dkrajzew
 // some more sophisticated default values for Gawrons dua inserted
@@ -57,7 +63,10 @@ namespace
 // false order of calling XML- and Options-subsystems patched
 //
 // Revision 1.16  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+// this handler puts it further to output instances.
+// changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.15  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
@@ -96,8 +105,8 @@ namespace
 // postinitialisation of edges for computation of lane-independent value added
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
-// Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
-//
+// Moved from ROOT/sumo to ROOT/src; added further help and main files for
+//  netconvert, router, od2trips and gui version
 //
 /* =========================================================================
  * included modules
@@ -113,6 +122,8 @@ namespace
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
+#include <routing_dua/RODijkstraRouter.h>
+#include <routing_dua/RODUAEdgeBuilder.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -120,10 +131,10 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include "utils/common/HelpPrinter.h"
+#include <utils/common/HelpPrinter.h>
 #include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include "router_help.h"
+#include "dua_router_help.h"
 
 
 /* =========================================================================
@@ -200,8 +211,8 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("sumo", "sumo-input");
     oc.addSynonyme("trips", "trip-defs");
     // register the simulation settings
-    oc.doRegister("begin", 'b', new Option_Long(0));
-    oc.doRegister("end", 'e', new Option_Long(864000));
+    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("end", 'e', new Option_Integer(864000));
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(float(0.3)));
     oc.doRegister("gA", new Option_Float(0.05));
@@ -240,7 +251,7 @@ RONet *
 loadNet(ROLoader &loader, OptionsCont &oc)
 {
     // load the net
-    RONet *net = loader.loadNet();
+    RONet *net = loader.loadNet(RODUAEdgeBuilder());
     if(net==0) {
         return 0;
     }
@@ -248,25 +259,9 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     if(oc.isSet("w")) {
         loader.loadWeights(*net);
     }
+    // initialise the network
+    net->postloadInit();
     return net;
-}
-
-
-/**
- * Builds the output file
- * Informs about errors when occuring
- */
-std::ofstream *
-buildOutput(const std::string &name)
-{
-    std::ofstream *ret = new std::ofstream(name.c_str());
-    if(!ret->good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + name +
-            string("' could not be opened for writing."));
-        throw ProcessError();
-    }
-    return ret;
 }
 
 
@@ -298,34 +293,25 @@ void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // prepare the output
-    std::ofstream *res =
-        buildOutput(oc.getString("o"));
-    std::ofstream *altres =
-        buildOutput(oc.getString("o")+string(".alt"));
-    // begin writing
-    (*res) << "<routes>" << endl;
-    (*altres) << "<route-alternatives>" << endl;
+    net.openOutput(
+        oc.getString("output"), true);
+    // build the router
+    RODijkstraRouter router(net);
     // initialise the loader
-    loader.openRoutes(net);
+    loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(
-            oc.getLong("b"), oc.getLong("e"), *res, *altres, net);
+            oc.getInt("b"), oc.getInt("e"), net, router);
     }
     // the routes are not sorted: load all and process
     else {
         loader.processAllRoutes(
-            oc.getLong("b"), oc.getLong("e"), *res, *altres, net);
+            oc.getInt("b"), oc.getInt("e"), net, router);
     }
     // end the processing
     loader.closeReading();
-    // end writing
-    (*res) << "</routes>" << endl;
-    (*altres) << "</route-alternatives>" << endl;
-    res->close();
-    altres->close();
-    delete res;
-    delete altres;
+    net.closeOutput();
 }
 
 
@@ -355,11 +341,9 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         setDefaults(oc);
         // load data
-        ROLoader loader(oc);
+        ROLoader loader(oc, false);
         net = loadNet(loader, oc);
         if(net!=0) {
-            // initialise the network for route computation
-            net->postloadInit();
             // build routes
             try {
                 startComputation(*net, loader, oc);
@@ -375,7 +359,7 @@ main(int argc, char **argv)
         } else {
             ret = 1;
         }
-    } catch (...) {
+    } catch (std::string) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
@@ -387,3 +371,10 @@ main(int argc, char **argv)
     }
     return ret;
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
+

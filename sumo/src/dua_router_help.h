@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/01/26 07:12:12  dkrajzew
+// now two routers are available - the dua- and the jp-router
+//
 // Revision 1.12  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
