@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.23  2003/06/18 11:33:06  dkrajzew
+// messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
+//
 // Revision 1.22  2003/06/06 14:04:05  dkrajzew
 // Default building of MSLaneStates removed
 //
@@ -248,7 +251,6 @@ namespace
 #include <typeinfo>
 #include <algorithm>
 #include <cassert>
-#include <utils/common/SErrorHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
@@ -263,6 +265,7 @@ namespace
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
+#include <utils/common/MsgHandler.h>
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
 #include "helpers/SingletonDictionary.h"
@@ -290,12 +293,6 @@ MSNet::Time MSNet::searchedtime = 20000000;
 std::string MSNet::searched1 = "Rand174";
 std::string MSNet::searched2 = "Rand10801";
 std::string MSNet::searchedJunction = "37";
-#endif
-
-#ifdef _SPEEDCHECK
-long MSNet::noVehicles;
-time_t MSNet::begin;
-time_t MSNet::end;
 #endif
 
 
@@ -360,7 +357,7 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                 string(".xml");
             ofstream* filePtr = new ofstream( fileName.c_str() );
             if( *filePtr==0 ) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("The following file containing aggregated values could not been build:\n")
                     + fileName);
                 throw ProcessError();
@@ -425,19 +422,7 @@ MSNet::init( string id, MSEdgeControl* ec,
 
 MSNet::~MSNet()
 {
-    // clear container
-    MSEdge::clear();
-    MSEdgeControl::clear();
-    MSEmitControl::clear();
-    MSEventControl::clear();
-    MSJunction::clear();
-    MSJunctionControl::clear();
-    MSJunctionLogic::clear();
-    MSLane::clear();
-    MSNet::clear();
-    MSVehicle::clear();
-    MSVehicleType::clear();
-    MSRoute::clear();
+    clearAll();
     // close the net statistics
     for( std::vector< MeanData* >::iterator i1=myMeanData.begin();
          i1!=myMeanData.end(); i1++) {
@@ -522,25 +507,6 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 #ifdef ABS_DEBUG
     globaltime = myStep;
 #endif
-#ifdef _SPEEDCHECK
-    if(myStep==1) {
-        time(&begin);
-        noVehicles = 0;
-    }
-    if(myStep==stop) {
-        time(&end);
-        double ups = ((double) noVehicles / (double) (end-begin));
-        double mups = ups / 1000000.0;
-        cout << noVehicles << " vehicles in " << (end-begin) << " sec" << endl;
-        cout << ups << "UPS; " << mups << "MUPS" << endl;
-    }
-#endif
-#ifdef ABS_DEBUG
-	if(step>MSNet::searchedtime) {
-		cout << step << endl;
-	}
-#endif
-
     // execute beginOfTimestepEvents
     MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
 
@@ -647,6 +613,26 @@ MSNet::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+
+void
+MSNet::clearAll()
+{
+    // clear container
+    MSEdge::clear();
+    MSEdgeControl::clear();
+    MSEmitControl::clear();
+    MSEventControl::clear();
+    MSJunction::clear();
+    MSJunctionControl::clear();
+    MSJunctionLogic::clear();
+    MSLane::clear();
+    MSNet::clear();
+    MSVehicle::clear();
+    MSVehicleType::clear();
+    MSRoute::clear();
+    clear();
 }
 
 

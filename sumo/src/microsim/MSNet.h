@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.18  2003/06/18 11:33:06  dkrajzew
+// messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
+//
 // Revision 1.17  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -295,6 +298,9 @@ public:
 
     /** Clears the dictionary */
     static void clear();
+
+    /** Clears all dictionaries */
+    static void clearAll();
 
     /// Returns the timestep-length in seconds.
     static double deltaT();
