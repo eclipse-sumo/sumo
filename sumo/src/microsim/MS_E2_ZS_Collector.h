@@ -47,9 +47,9 @@ public:
                         MSLane* lane,
                         MSUnit::Meters startPos,
                         MSUnit::Meters detLength,
-                        MSUnit::Seconds haltingTimeThreshold,
-                        MSUnit::MetersPerSecond haltingSpeedThreshold,
-                        MSUnit::Meters jamDistThreshold,
+                        MSUnit::Seconds haltingTimeThreshold = 1,
+                        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+                        MSUnit::Meters jamDistThreshold = 10,
                         MSUnit::Seconds deleteDataAfterSeconds = 1800 )
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
