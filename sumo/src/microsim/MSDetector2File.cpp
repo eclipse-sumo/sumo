@@ -22,6 +22,7 @@
 
 #include "MSDetector2File.h"
 #include "MSEventControl.h"
+#include <utils/common/MsgHandler.h>
 #include <string>
 #include <cassert>
 #include <utility>
@@ -83,17 +84,21 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
     assert( write2fileSteps >= 1 );
     if ( det->getDataCleanUpSteps() < sampleSteps ) {
         sampleSteps = det->getDataCleanUpSteps();
-        cerr << "MSDetector2File::addDetectorAndInterval: "
-            "Sample interval greater than\ndetectors clean-up "
-            "interval. Reducing sample interval to clean-up "
-            "interval." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            "MSDetector2File::addDetectorAndInterval: ");
+        MsgHandler::getWarningInstance()->inform(
+            " Sample interval greater than detectors clean-up interval.");
+        MsgHandler::getWarningInstance()->inform(
+            " Reducing sample interval to clean-up interval.");
     }
     if ( det->getDataCleanUpSteps() < write2fileSteps ) {
         write2fileSteps = det->getDataCleanUpSteps();
-        cerr << "MSDetector2File::addDetectorAndInterval: "
-            "Write2File interval greater than\ndetectors clean-up "
-            "interval. Reducing Write2File interval to clean-up "
-            "interval." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            "MSDetector2File::addDetectorAndInterval: ");
+        MsgHandler::getWarningInstance()->inform(
+            "Write2File interval greater than detectors clean-up interval.");
+        MsgHandler::getWarningInstance()->inform(
+            "Reducing Write2File interval to clean-up interval.");
     }
 
     IntervalsKey key = make_pair( sampleSteps, write2fileSteps );

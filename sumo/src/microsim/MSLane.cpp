@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.45  2004/04/23 12:38:43  dkrajzew
+// warnings and errors are now reported to MsgHandler, not cerr
+//
 // Revision 1.44  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -1262,8 +1265,10 @@ MSLane::MeanData::MeanData( const MSLane& obj,
     myInterval( interval )
 {
     if ( myInterval == 0 ){
-        cerr << "MSLane::MeanData constructor: interval = 0, should be > 0.\n"
-             << "I will set it to 5 minutes.\n";
+        MsgHandler::getWarningInstance()->inform(
+            "MSLane::MeanData constructor: interval = 0, should be > 0.");
+        MsgHandler::getWarningInstance()->inform(
+            " I will set it to 5 minutes.\n");
         myInterval = static_cast<unsigned>( 300 / MSNet::deltaT() );
     }
 }

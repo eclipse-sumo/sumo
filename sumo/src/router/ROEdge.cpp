@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/04/23 12:43:00  dkrajzew
+// warnings and errors are now reported to MsgHandler, not cerr
+//
 // Revision 1.13  2004/04/14 13:53:50  roessel
 // Changes and additions in order to implement supplementary-weights.
 //
@@ -69,6 +72,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -86,7 +90,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROEdge::ROEdge(const std::string &id)
-    : _id(id), _dist(0), _speed(-1), 
+    : _id(id), _dist(0), _speed(-1),
       _supplementaryWeightAbsolut(0),
       _supplementaryWeightAdd(0),
       _supplementaryWeightMult(0),
@@ -204,18 +208,22 @@ ROEdge::getMyEffort( long time ) const
                 hasAbsolutValue = true;
             }
         }
-        
+
         if ( ! hasAbsolutValue ) {
             searchResult = _ownValueLine.getSearchStateAndValue( time );
             if ( searchResult.first == false ) {
-                cerr << "ROEdge::getMyEffort(id " << _id
-                     << " ): no interval matches passed time "
-                     << time
-                     << ". Using last value in _ownValueLine." << endl;
+                MsgHandler::getWarningInstance()->inform(
+                    string("ROEdge::getMyEffort(id ") + _id
+                    + string(" ):"));
+                MsgHandler::getWarningInstance()->inform(
+                   string(" No interval matches passed time ")
+                    + toString<long>(time)  + string("."));
+                MsgHandler::getWarningInstance()->inform(
+                    "Using last value in _ownValueLine.");
             }
         }
-        
-        if ( _hasSupplementaryWeights == true ) {    
+
+        if ( _hasSupplementaryWeights == true ) {
             supplementarySearchResult =
                 _supplementaryWeightMult->getSearchStateAndValue( time );
             if ( supplementarySearchResult.first == true ) {
@@ -228,7 +236,7 @@ ROEdge::getMyEffort( long time ) const
             }
         }
 
-        return searchResult.second;        
+        return searchResult.second;
     }
     else {
         return _dist / _speed;

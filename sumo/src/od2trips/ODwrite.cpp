@@ -35,6 +35,7 @@
 # include <cmath>
 # include <string>
 # include <utils/common/UtilExceptions.h>
+# include <utils/common/MsgHandler.h>
 # include <utils/options/OptionsSubSys.h>
 # include <utils/options/OptionsCont.h>
 #include <od2trips/ODDistrictCont.h>
@@ -50,7 +51,8 @@ ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars,
 	int ferror = 0;
 	std::ofstream fsSrc (OD_outfile.c_str ());
 	if (!fsSrc) {
-		std::cerr << "Could not open " << OD_outfile << "." << std::endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("Could not open ") + OD_outfile + string("."));
 		throw ProcessError();
 	}
     fsSrc << "<tripdefs>" << endl;

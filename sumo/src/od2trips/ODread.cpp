@@ -56,7 +56,8 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, long *maxele,
     int i;
 	std::ifstream fsSrc (OD_filename.c_str ());
 	if (!fsSrc) {
-		std::cerr << "Error: Could not open " << OD_filename << "." << std::endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("Could not open ") + OD_filename + string("."));
 		throw ProcessError();
 	}
 	n = 0;
@@ -84,7 +85,8 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, long *maxele,
 		>> tmp.to
 		>> tmp.how_many))
 		{
-			std::cerr << "Invalid data set encountered: " << cLine << std::endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("Invalid data set encountered: ") + cLine);
 			throw ProcessError();
 		}
         od_in.push_back(tmp);

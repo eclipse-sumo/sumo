@@ -35,6 +35,7 @@
 # include <string>
 # include <list>
 # include <utils/common/UtilExceptions.h>
+# include <utils/common/MsgHandler.h>
 # include "ODmatrix.h"
 
 using namespace std;
@@ -58,7 +59,8 @@ void ODInpread (string OD_filename, std::vector<std::string> &infiles,
 	std::ifstream fsSrc (OD_filename.c_str ());
 
 	if (!fsSrc) {
-		std::cerr << "Error: Could not open " << OD_filename << "." << std::endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("Could not open ") + OD_filename + string("."));
 		throw ProcessError();
 	}
 

@@ -4,7 +4,7 @@
 /// @date    Started Thu Apr 08 2004 15:31 CEST
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -75,7 +75,7 @@ ROSupplementaryWeightsHandler::~ROSupplementaryWeightsHandler()
 }
 
 void
-ROSupplementaryWeightsHandler::myStartElement( int 
+ROSupplementaryWeightsHandler::myStartElement( int
                                                , const std::string& name
                                                , const Attributes& attrs )
 {
@@ -88,11 +88,14 @@ ROSupplementaryWeightsHandler::myStartElement( int
     else if ( name == string( "weight" ) ) {
         startParseWeight( attrs );
     }
-    else {
-        cerr << "ROSupplementaryWeightsHandler::myStartElement wrong "
+/*    else {
+        MsgHandler::getErrorInstance()->inform(
+            "ROSupplementaryWeightsHandler::myStartElement wrong ");
+        MsgHandler::getWarningInstance()->inform(
+
              << "attribute " << name << endl;
         assert( false );
-    }
+    }*/
 }
 
 void
@@ -107,11 +110,11 @@ ROSupplementaryWeightsHandler::myEndElement( int, const std::string& name )
     else if ( name == string( "weight" ) ) {
         stopParseWeight();
     }
-    else {
-        cerr << "ROSupplementaryWeightsHandler::myEndElement wrong "
+/*    else {
+        err << "ROSupplementaryWeightsHandler::myEndElement wrong "
              << "attribute \"" << name << "\"." << endl;
         assert( false );
-    }
+    }*/
 }
 
 void
@@ -159,7 +162,7 @@ ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
             TplConvert<XMLCh>::_2str( attrs.getLocalName( index ) ) );
         const string attrValue(
             TplConvert<XMLCh>::_2str( attrs.getValue( index ) ) );
-        
+
         if ( attrName == string( "edge-id" ) ){
             edgeIdM      = attrValue;
             isEdgeIdSetM = true;
@@ -176,11 +179,11 @@ ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
             addValueM      = TplConvert<char>::_2float( attrValue.c_str() );
             isAddValueSetM = true;
         }
-        else {
-            cerr << "ROSupplementaryWeightsHandler::startParseWeight wrong "
+/*        else {
+            err << "ROSupplementaryWeightsHandler::startParseWeight wrong "
                  << "attribute name \"" << attrName << "\"." << endl;
             assert( false );
-        }
+        }*/
     }
 
     assert( isEdgeIdSetM );
@@ -224,13 +227,13 @@ ROSupplementaryWeightsHandler::stopParseSupplementaryWeights( void )
     // Pass timeValueLines to edges
     for ( EdgeSetIt edgeIt = weightedEdgesM.begin();
           edgeIt != weightedEdgesM.end(); ++edgeIt ) {
-        
+
         string edgeId = *edgeIt;
         FloatValueTimeLine* absolut =
             getFloatValueTimeLine( absolutMapM, edgeId );
         FloatValueTimeLine* mult = getFloatValueTimeLine( multMapM, edgeId );
         FloatValueTimeLine* add = getFloatValueTimeLine( addMapM, edgeId );
-        
+
         netM.getEdge( edgeId )->setSupplementaryWeights( absolut, add, mult );
     }
 }

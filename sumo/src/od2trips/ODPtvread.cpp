@@ -34,6 +34,7 @@
 # include <cmath>
 # include <string>
 # include <utils/common/UtilExceptions.h>
+# include <utils/common/MsgHandler.h>
 # include "ODmatrix.h"
 
 std::ostream& operator<< (std::ostream& os, const OD_IN& od) {
@@ -55,7 +56,8 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
     int i;
 	std::ifstream fsSrc (OD_filename.c_str ());
 	if (!fsSrc) {
-		std::cerr << "Error: Could not open " << OD_filename << "." << std::endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("Could not open ") + OD_filename + string("."));
 		throw ProcessError();
 	}
 	*maxele=0;

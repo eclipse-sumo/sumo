@@ -17,14 +17,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
-
 // $Log$
+// Revision 1.50  2004/04/23 12:38:43  dkrajzew
+// warnings and errors are now reported to MsgHandler, not cerr
+//
 // Revision 1.49  2004/04/02 11:36:27  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -386,7 +387,7 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 46990;
+MSNet::Time MSNet::searchedtime = 1234234234;
 std::string MSNet::searched1 = "59";
 std::string MSNet::searched2 = "715a0";
 std::string MSNet::searchedJunction = "536";
@@ -452,9 +453,8 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                     dumpMeanDataIntervalls.end() );
 
         if ( newEnd != dumpMeanDataIntervalls.end() ) {
-
-            cerr << "MSNet::MSNet(): Removed duplicate dump-intervalls"
-                 << endl;
+            MsgHandler::getWarningInstance()->inform(
+                "MSNet::MSNet(): Removed duplicate dump-intervalls");
             dumpMeanDataIntervalls.erase(
                 newEnd, dumpMeanDataIntervalls.end() );
         }
