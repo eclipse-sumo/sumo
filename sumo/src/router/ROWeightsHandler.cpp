@@ -13,7 +13,7 @@ using namespace std;
 
 GenericSAX2Handler::Tag ROWeightsHandler::_tags[3] =
 {
-/* 01 */  { "timestep", RO_Tag_timestep },
+/* 01 */  { "interval", RO_Tag_interval },
 /* 02 */  { "edge", RO_Tag_edge },
 /* 03 */  { "lane", RO_Tag_lane }
 };
@@ -22,10 +22,13 @@ GenericSAX2Handler::Tag ROWeightsHandler::_tags[3] =
 ROWeightsHandler::ROWeightsHandler(OptionsCont &oc, RONet &net,
                                    const std::string &file)
     : GenericSAX2Handler(_tags, 3), _options(oc), _net(net), _file(file),
-    _currentTime(-1), _currentEdge(0)
+    _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0)
 {
     _scheme = _options.getString("scheme");
-    addTag(_scheme, RO_ATTR_value);
+    _attrHandler.add(RO_ATTR_value, "traveltime");
+    _attrHandler.add(RO_ATTR_beg, "begin");
+    _attrHandler.add(RO_ATTR_end, "end");
+    _attrHandler.add(RO_ATTR_id, "id");
 }
 
 
@@ -38,7 +41,7 @@ void ROWeightsHandler::myStartElement(int element, const std::string &name,
                                       const Attributes &attrs)
 {
     switch(element) {
-    case RO_Tag_timestep:
+    case RO_Tag_interval:
         parseTimeStep(attrs);
         break;
     case RO_Tag_edge:
@@ -56,7 +59,8 @@ void ROWeightsHandler::myStartElement(int element, const std::string &name,
 void
 ROWeightsHandler::parseTimeStep(const Attributes &attrs) {
     try {
-        _currentTime = _attrHandler.getLong(attrs, RO_ATTR_id);
+        _currentTimeBeg = _attrHandler.getLong(attrs, RO_ATTR_beg);
+        _currentTimeEnd = _attrHandler.getLong(attrs, RO_ATTR_end);
     } catch (...) {
         SErrorHandler::add("Problems with timestep value.");
     }
@@ -70,8 +74,8 @@ ROWeightsHandler::parseEdge(const Attributes &attrs) {
         string id = _attrHandler.getString(attrs, RO_ATTR_id);
         _currentEdge = _net.getEdge(id);
     } catch (EmptyData) {
-        SErrorHandler::add("An edge wothout an id occured.");
-        SErrorHandler::add("Contact your weight data supplier.");
+        SErrorHandler::add("An edge without an id occured.");
+        SErrorHandler::add(" Contact your weight data supplier.");
     }
 }
 
@@ -84,8 +88,8 @@ ROWeightsHandler::parseLane(const Attributes &attrs) {
     try {
         id = _attrHandler.getString(attrs, RO_ATTR_id);
     } catch (EmptyData) {
-        SErrorHandler::add("A lane wothout an id occured.");
-        SErrorHandler::add("Contact your weight data supplier.");
+        SErrorHandler::add("A lane without an id occured.");
+        SErrorHandler::add(" Contact your weight data supplier.");
     }
     // try to get the lane value - depending on the used scheme
     try {
@@ -102,7 +106,8 @@ ROWeightsHandler::parseLane(const Attributes &attrs) {
     }
     // set the values when retrieved (no errors)
     if(id.length()!=0&&value>0&&_currentEdge!=0) {
-        _currentEdge->setLane(_currentTime, _scheme, id, value);
+        _currentEdge->setLane(_currentTimeBeg, _currentTimeEnd, 
+            id, value);
     }
 }
 

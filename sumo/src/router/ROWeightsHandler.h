@@ -20,15 +20,16 @@ private:
     /// the name of the value to extract; called scheme for further extensions
     std::string _scheme;
     /// the timestep that is currently being processed
-    long _currentTime;
+    long _currentTimeBeg;
+    long _currentTimeEnd;
     /// the edge the is currently being processed
     ROEdge *_currentEdge;
     /// the attributes handler
     AttributesHandler _attrHandler;
     /// enumeration over the used elements
-    enum TagEnum { RO_Tag_timestep, RO_Tag_edge, RO_Tag_lane };
+    enum TagEnum { RO_Tag_interval, RO_Tag_edge, RO_Tag_lane };
     /// enumeration over used attributes
-    enum AttrEnum { RO_ATTR_value, RO_ATTR_id };
+    enum AttrEnum { RO_ATTR_value, RO_ATTR_id, RO_ATTR_beg, RO_ATTR_end };
     /** table of relationships between the attributes in their written
         representation and their enumeration */
     static Tag  _tags[3];
