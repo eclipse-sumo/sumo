@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/10/01 11:30:41  dkrajzew
+// hierarchy problems patched
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -65,7 +68,7 @@ protected:
     /// Reads from the file
     virtual bool readNextTriggered() = 0;
 
-private:
+protected:
     /**
      * Event type to trigger the execution of the derived strctures
      */
