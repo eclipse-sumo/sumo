@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.23  2003/07/21 15:44:21  roessel
+// Added two conversion methods from steps to seconds and vice versa.
+//
 // Revision 1.22  2003/07/21 11:00:38  dkrajzew
 // informing the network about vehicles still left within the emitters added
 //
@@ -206,6 +209,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <cmath>
+
 
 
 /* =========================================================================
@@ -368,6 +373,18 @@ public:
     size_t getEndedVehicleNo() const;
 
     Time getCurrentTimeStep() const;
+
+    static double getSeconds( Time steps )
+        {
+            return steps * static_cast< double >( myDeltaT );
+        }
+
+    static Time getSteps( double seconds )
+        {
+            return static_cast< Time >(
+                floor( seconds / static_cast< double >( myDeltaT ) ) );
+        }
+    
 
     void newUnbuildVehicleLoaded();
 
