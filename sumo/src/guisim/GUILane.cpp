@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/14 14:18:43  dkrajzew
+// false order of deletion and reading from an object patched
+//
 // Revision 1.12  2003/10/06 07:39:44  dkrajzew
 // MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
 //
@@ -207,10 +210,9 @@ GUILane::push( MSVehicle* veh )
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
-            MSVehicle::remove(myVehBuffer->id());
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+            MSVehicle::remove(myVehBuffer->id());
         } else {
-            MSVehicle::remove(veh->id());
             cout << "vehicle '" << veh->id() << "' removed!";
     		static_cast<GUIVehicle*>(veh)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
