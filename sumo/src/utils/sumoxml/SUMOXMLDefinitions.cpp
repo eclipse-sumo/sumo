@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/01/13 14:29:19  dkrajzew
+// added alternative detector description
+//
 // Revision 1.20  2004/01/12 15:14:09  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -91,9 +94,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 40;
+size_t noSumoTags = 42;
 
-GenericSAX2Handler::Tag sumotags[40] =
+GenericSAX2Handler::Tag sumotags[42] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -102,6 +105,8 @@ GenericSAX2Handler::Tag sumotags[40] =
       { "cedge",            SUMO_TAG_CEDGE },
       { "junction",         SUMO_TAG_JUNCTION },
       { "detector",         SUMO_TAG_DETECTOR },
+      { "e1-detector",      SUMO_TAG_E1DETECTOR },
+      { "e2-detector",      SUMO_TAG_E2DETECTOR },
       { "vehicle",          SUMO_TAG_VEHICLE },
       { "vtype",            SUMO_TAG_VTYPE },
       { "route",            SUMO_TAG_ROUTE },

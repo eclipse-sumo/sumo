@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2004/01/13 14:29:19  dkrajzew
+// added alternative detector description
+//
 // Revision 1.22  2004/01/12 15:14:09  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -121,6 +124,10 @@ enum TagEnum
     SUMO_TAG_JUNCTION,
     /** a detector */
     SUMO_TAG_DETECTOR,
+    /** an e1-detector */
+    SUMO_TAG_E1DETECTOR,
+    /** an e2-detector */
+    SUMO_TAG_E2DETECTOR,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
@@ -313,7 +320,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[40];
+extern GenericSAX2Handler::Tag sumotags[42];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
