@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/06/24 14:40:22  dkrajzew
+// Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
+//
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -84,22 +87,23 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(const std::string &error)
+MsgHandler::inform(const std::string &err)
 {
+    string error = err;
+    switch(myType) {
+    case MT_MESSAGE:
+        break;
+    case MT_WARNING:
+        error = "Warning: " + error;
+        break;
+    case MT_ERROR:
+        error = "Error: " + error;
+        break;
+    default:
+        throw 1;
+    }
     // report to cour if wished
     if(myReport2COUT) {
-        switch(myType) {
-        case MT_MESSAGE:
-            break;
-        case MT_WARNING:
-            cout << "Warning:";
-            break;
-        case MT_ERROR:
-            cout << "Error:";
-            break;
-        default:
-            throw 1;
-        }
         cout << error << endl;
     }
     // inform all other receivers

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/06/24 14:40:22  dkrajzew
+// Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
+//
 // Revision 1.1  2003/06/24 08:16:21  dkrajzew
 // LogFile - a MsgRetriever that writes into a files (logs an applications output) added
 //
@@ -26,8 +29,15 @@
  * included modules
  * ======================================================================= */
 #include <fstream>
+#include <iostream>
 #include <string>
 #include "LogFile.h"
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
@@ -48,7 +58,7 @@ LogFile::~LogFile()
 void
 LogFile::inform(const std::string &msg)
 {
-    myFile << msg;
+    myFile << msg << endl;
 }
 
 
