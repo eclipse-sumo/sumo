@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/08/02 11:54:18  dkrajzew
+// added the possibility to clear the window
+//
 // Revision 1.5  2004/07/02 08:36:49  dkrajzew
 // is now update only if visible
 //
@@ -156,6 +159,21 @@ GUIMessageWindow::addSeparator()
         update();
     }
 }
+
+
+void
+GUIMessageWindow::clear()
+{
+    if(getLength()==0) {
+        return;
+    }
+    FXText::removeText(0, getLength()-1, true);
+    if(isEnabled()) {
+        layout();
+        update();
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/08/02 11:54:18  dkrajzew
+// added the possibility to clear the window
+//
 // Revision 1.3  2004/04/23 12:35:42  dkrajzew
 // the message window now scrolls to the end if new messages are appended
 //
@@ -63,6 +66,9 @@ public:
     /** @brief Adds new text to the window
         The type of the text is determined by the first parameter */
     void appendText(GUIEventType eType, const std::string &msg);
+
+    /// Clears the window
+    void clear();
 
 private:
     /// The text colors used
