@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2002/06/19 15:07:54  croessel
+// Added method timeHeadWayGap( speed ) to forbid timeheadway < deltaT states.
+//
 // Revision 1.5  2002/05/29 17:06:04  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -370,7 +373,15 @@ protected:
     
     /** Returns the minimum of four doubles. */
     double vMin( double v1, double v2, double v3, double v4 ) const;   
-        
+
+    /** timeHeadWay < deltaT situations may cause crashes because two
+	vehicles want to leave the same lane in one timestep. These
+	situations are caused by emissions and lanechanges.
+	@param A speed.
+	@return The distance driven with speed in the
+	next timestep.*/
+    double timeHeadWayGap( double speed ) const;
+     
 private:
     /// Reaction time [sec]
     static double myTau;

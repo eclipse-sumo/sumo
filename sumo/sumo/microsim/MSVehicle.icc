@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/06/19 15:07:54  croessel
+// Added method timeHeadWayGap( speed ) to forbid timeheadway < deltaT states.
+//
 // Revision 1.1  2002/05/29 17:09:22  croessel
 // Initial commit.
 //
@@ -48,8 +51,7 @@ double
 MSVehicle::dawdle( double speed ) const
 {
     // generate random number out of [0,1]
-    double random = static_cast< double >( rand() ) /
-        static_cast< double >( RAND_MAX );
+    double random = double( rand() ) / double( RAND_MAX );
                    
     // Dawdle. 
     // TODO:
@@ -57,7 +59,7 @@ MSVehicle::dawdle( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accel() * MSNet::deltaT() * random;
     
-    return max( static_cast< double >( 0 ), speed );
+    return max( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -113,12 +115,12 @@ MSVehicle::vsafe( double speed,
 {
     // Calculate the Stefan Krauss (SK) vsafe.
 
-    assert( speed >= 0 );
-    assert( gap2pred >= 0 );
-    assert( predSpeed >= 0 );
+    assert( speed     >= double(0) );
+    assert( gap2pred  >= double(0) );
+    assert( predSpeed >= double(0) );
     double vsafe = predSpeed + 
         ( ( gap2pred - predSpeed * myTau ) / 
-          ( ( ( predSpeed + speed ) / ( 2 * decel ) ) + myTau ) );
+          ( ( ( predSpeed + speed ) / ( double(2) * decel ) ) + myTau ) );
 
 // This assertion has not the intended meaning because of doubleing inaccuracy.
 //    assert( vsafe <= gap2pred ); // Collision-free condition.
@@ -145,12 +147,19 @@ inline
 bool 
 MSVehicle::congested()
 {
-    return myState.mySpeed < 60.0 / 3.6;
+    return myState.mySpeed < double(60) / double(3.6);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
+inline double
+MSVehicle::timeHeadWayGap( double speed ) const
+{
+    assert( speed >= 0 );
+    return speed * MSNet::deltaT();
+}
 
+/////////////////////////////////////////////////////////////////////////////
 #ifdef DISABLE_INLINE
 #undef inline
 #endif
