@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libguiutilsimages.a
 
-EXTRA_DIST = allow_rotation.xpm black_corpses.xpm camera.xpm \
+EXTRA_DIST = allow_rotation.xpm camera.xpm \
 close_gaps.xpm closing.xpm \
 colour_lane.xpm colour_vehicle.xpm cont.xpm \
 create_graph.xpm dilate.xpm document.xpm erode.xpm extract_sheets.xpm \
