@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/01/13 08:06:55  dkrajzew
+// recent changes applied
+//
 // Revision 1.11  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -117,7 +120,7 @@ public:
     virtual MSNet::Time nextPhase();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() const;
+    virtual MSNet::Time duration() ;
 
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
