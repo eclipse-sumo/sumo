@@ -1,0 +1,1045 @@
+
+    <sect1>
+      <title>Command Line Options</title>
+
+      <sect2>
+        <title>SUMO Command Line Options</title>
+
+        <sect3>
+          <title>Input options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY:
+          <option>[ --net-files | --net | -n ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>The
+          network file to use.</para><caution><para>the name
+          &#34;net-files&#34; is ambiguous: only one network file can be
+          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          <option>[ --route-files | --routes | -r ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>The
+          file with routes that shall be used</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --additional-files | --additional | -a ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Additional
+          files to load. You may specify detectors or emitters within these
+          files to avoid manipulation of the network files themselves.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --configuration-file | --configuration | -c ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Specifies
+          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Output options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --output-file | --output | -o ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Defines
+          the file to write the &#34;raw&#34; output into; No raw output is
+          generated if the file is not given.</para><caution><para>This
+          &#34;raw&#34; output is becoming very large very fast.</para></caution></listitem><listitem><para>OPTIONAL:
+          <option>--dump-basename <replaceable>&#60;PATH&#62;</replaceable></option></para><para>Specifies
+          the base name to save aggregated network load information under. As
+          you may specify more than a single aggregation time, the complete
+          name for the file is build by appending the aggregation interval and
+          the &#34;.xml&#34;-extension to the given name.</para><para>Example:
+          given <option>--dump-basename=./aggregated/run1_</option> and
+          <option>--dump-intervals=5;15;30</option>, the files &#34;.<filename>/aggregated/run1_5.xml</filename>&#34;,
+          &#34;<filename>./aggregated/run1_15.xml</filename>&#34; and &#34;<filename>./aggregated/run1_30.xml</filename>&#34;
+          are being build.</para><para>This parameter does only work in
+          combination with &#34;--dump-intervals&#34;, all other usage is
+          undefined .</para></listitem><listitem><para>OPTIONAL:
+          <option>--dump-intervals <replaceable>&#60;UNIT&#62;</replaceable>[;<replaceable>&#60;UINT&#62;</replaceable>]*</option></para><para>Specifies
+          the aggregation times to use for the load information.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --emissions-output | --emissions ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Forces
+          SUMO to write emission statistics into FILE.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --tripinfo-output | --tripinfo ]
+          <replaceable>&#60;FILE&#62;</replaceable></option></para><para>Forces
+          SUMO to write trip information for each vehicle into FILE.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation timing</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY:
+          <option>[ --begin | -b ] <replaceable>&#60;UINT&#62;</replaceable></option></para><para>A
+          virtual time the simulation starts at.</para></listitem><listitem><para>MANDATORY:
+          <option>[ --end | -e ] <replaceable>&#60;UINT&#62;</replaceable></option></para><para>A
+          virtual time the simulation ends at.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --route-steps | -s ] <replaceable>&#60;UNIT&#62;</replaceable></option></para><para>Within
+          large areas, loading of all routes easily could yield in problems
+          with a full computer memory. Due to this, you may optionally specify
+          a time the interval for which the next routes shall be loaded. If
+          this value is not given or zero, all routes are loaded before the
+          simulation begins.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Error Control</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>--quit-on-accident</option></para><para>Normally, when an
+          accident occurs, the simulation should continue and manage it. As
+          this is not implemented, yet, the behaviour on accidents is
+          undefined. In fact, no accidents may occur if the network used is ok
+          (no two foe streams may drive at the same time).</para><caution><para>By
+          now, the behaviour after an accident is not defined; this option
+          should not be used, yet. (Still, no accidents occur at normal
+          circumstances)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Defaults for simulated Devices</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>--actuating-detector-pos <replaceable>&#60;FLOAT&#62;</replaceable></option></para><para>The
+          distance from the actuated traffic light logic to the induct loops
+          that control (actuate) him in m. default: 100m</para></listitem><listitem><para>OPTIONAL:
+          <option>--agent-detector-len <replaceable>&#60;FLOAT&#62;</replaceable></option></para><para>The
+          length of the e2-detectors that compute the jam used by a agent
+          based traffic light logic in m. default: 75m</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Other control operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>--time-to-teleport <replaceable>&#60;INT&#62;</replaceable></option></para><para>Defines
+          the time the simulation shall wait until a standing vehicle is
+          recognized as being in a grid lock and is teleported.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --verbose | -v ]</option></para><para>Prints some
+          information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --suppress-warnings | -W ]</option></para><para>No
+          warnings will be prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --print-options | -p ]</option></para><para>Prints the
+          current option settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --log-file | -L ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>All
+          outputs (messages, warnings, and errors) will be written to the
+          named file.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --help | -? ]</option></para><para>Prints possible
+          options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --abs-rand ]</option></para><para>Initialises the random
+          number generator with the current time (in ms) in the hope to make
+          him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --srand ] <replaceable>&#60;INT&#62;</replaceable></option></para><para>Initialises
+          the random number generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="user_chp07">
+    <title>Simulation-GUI</title>
+
+    <para>The simulation-GUI (graphical user interface) is just a wrapper
+    around the command line simulation. The normal procedure is to start the
+    gui-version like any other Window-based application (double-click on it)
+    and to load a simulation&#39;s description specified using a
+    &#34;normal&#34; configuration-file as used by the simulation&#39;s
+    command line version. After loading it - what may dure a longer time if
+    the network is large or the simulation is forced to load many routes at
+    once - the network shall appear. Your application should then look like
+    displayed below (with your own network, of course).</para>
+
+    <figure>
+      <title>The GUI-Window with a loaded simulation (violet: names of the
+      controls as used below)</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata align="center" fileref="./gfx/user/simcontrols.gif"
+          format="GIF" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>You can now start your simulation using the &#34;play&#34;-button
+    and/or manoeuvre within the network pressing one of the mouse buttons and
+    moving the mouse. When moving the mouse within the window with the left
+    button pressed, you&#39;ll move the network to the direction you move the
+    mouse. When the mouse is moved with the right button pressed, you change
+    the scale the network is displayed in, zooming into and out of the
+    network.</para>
+
+    <para>We will now discuss the different possibilities to use the graphical
+    user interface more deeply.</para>
+
+    <sect1>
+      <title>Main Window Interface</title>
+
+      <sect2>
+        <title>Menu Bar</title>
+
+        <sect3>
+          <title>File-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Open
+          Simulation...</para><para>Opens a file dialog that lets you choose a
+          SUMO-configuration file that describes a complete simulation. The
+          simulation described within this file will be loaded. Remark that
+          you have to describe the simulation in full - no further extension
+          is possible.</para><para>You can of course load a simulation if
+          another one is already loaded. In this case, the previous simulation
+          will be closed.</para></listitem><listitem><para>Reload Simulation
+          <inlinegraphic fileref="./gfx/user/reload.gif" format="GIF" /></para><para>Reloads
+          the previously opened simulation.</para></listitem><listitem><para>Close</para><para>Closes
+          the loaded simulation.</para></listitem><listitem><para>[RECENT
+          FILES]</para><para>if you have opened at least one file before, it
+          will be displayed within this list. The list may contain up to ten
+          files read previously.</para></listitem><listitem><para>Clear Recent
+          Files</para><para>Clears the list of recent files.</para></listitem><listitem><para>Quit</para><para>Quits
+          the application.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Edit-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Edit Chosen...</para><para>Opens
+          a dialog that lets you load/save and edit the list of chosen items.</para></listitem><listitem><para>Edit
+          Additional Weights...</para><para>This menu enables you to edit
+          additional weights for edges. These additional weight descriptions
+          may be saved into a file and read by the dua-router and his
+          variants.</para></listitem><listitem><para>Edit Breakpoints...</para><para>This
+          menu enables you to edit, load and save breakpoints. By now, the
+          simulation will stop at one of the given brekpoints (simulation time
+          steps) and can be then continued by pressing the
+          &#34;play&#34;-button (<inlinegraphic fileref="./gfx/user/play.gif"
+          format="GIF" />).</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Settings-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Application
+          Settings...</para><para>By now, one can only set whether the
+          application shall be closed automatically when the loaded simulation
+          ends.</para></listitem><listitem><para>Simulation Settings...</para><para>Displays
+          the settings as read from the configuration file. This item is only
+          accessible if a simulation has been loaded.</para><caution><para>Under
+          current development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Windows-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Show Status
+          Line</para><para>By pressing this menu item, you can switch the
+          status line off and on.</para></listitem><listitem><para>Show
+          Message Window</para><para>By pressing this menu item, you can
+          switch the message window off and on.</para></listitem><listitem><para>Show
+          Tool Bar</para><para>By pressing this menu item, you can switch the
+          toolbar off and on.</para></listitem><listitem><para>Tile
+          Horizontally</para><para>Reorders the position of windows.</para></listitem><listitem><para>Tile
+          Vertically</para><para>Reorders the position of windows.</para></listitem><listitem><para>Cascade</para><para>Reorders
+          the position of windows.</para></listitem><listitem><para>Close</para><para>Closes
+          the uppermost window.</para></listitem><listitem><para>Clear Message
+          Window</para><para>Deletes all contents from the message window.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Help-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>About</para><para>Shows
+          a small window with some information about SUMO.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Tool Bar</title>
+
+        <sect3>
+          <title>File Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Open Button</para><para>Opens
+          a file dialog that lets you choose a SUMO-configuration file that
+          describes a complete simulation. The simulation described within
+          this file will be loaded. Remark that you have to describe the
+          simulation in full - no further extension is possible.</para><para>You
+          can of course load a simulation if another one is already loaded. In
+          this case, the previous simulation will be closed.</para></listitem><listitem><para>Reload
+          Button <inlinegraphic fileref="./gfx/user/reload.gif" format="GIF" /></para><para>Reloads
+          the previously opened simulation.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Play Button
+          <inlinegraphic fileref="./gfx/user/play.gif" format="GIF" /></para><para>Starts
+          the simulation. If a loaded simulation was not started before, it
+          will begin with the step described by the b(egin)-parameter within
+          the loaded configuration file. If the simulation was started and
+          stopped, it will continue.</para><caution><para>It is not possible
+          to restart a simulation, you have to reload it.</para></caution></listitem><listitem><para>Stop
+          Button <inlinegraphic fileref="./gfx/user/stop.gif" format="GIF" /></para><para>Stops
+          a running application. A stopped application can be continued using
+          the play-button (see above).</para></listitem><listitem><para>Single
+          Step Button <inlinegraphic fileref="./gfx/user/step.gif"
+          format="GIF" /></para><para>Performs a single simulation step.</para></listitem><listitem><para>Current
+          Step Field</para><para>After the loaded simulation has been started,
+          the information about the current time step is displayed herein.</para></listitem><listitem><para>Simulation
+          Speed Control</para><para>The value you can change using this
+          control is the time the application waits between two simulation
+          steps. The higher the value, the slower the simulation will run.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Window Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>New
+          Microscopic View - Button <inlinegraphic
+          fileref="./gfx/user/new_window.gif" format="GIF" /></para><para>Opens
+          a new window which displays the streets and vehicles moving on them.</para></listitem><listitem><para>New
+          Lane-Aggregated View - Button <inlinegraphic
+          fileref="./gfx/user/new_window.gif" format="GIF" /></para><para>Opens
+          a new window which displays the streets and vehicles moving on them.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Simulation Window Interfaces</title>
+
+      <para>SUMO-GUI provides different views on the simulation. The
+      microscopic view shows the vehicles running just the way as the
+      simulation performs his work. Aggregated views show the situation on the
+      streets by coloring lanes by an aggregated value. Vehicles are not shown
+      within the aggregated view.</para>
+
+      <caution>
+        <para>Aggregated views need additional simulation time and memory. For
+        larer netweorks it seems wise to switch them off using the menu-bar
+        option <menuchoice><guimenu>Settings-&#62;Application
+        Settings-&#62;Allow aggregated Views</guimenu></menuchoice></para>
+      </caution>
+
+      <sect2>
+        <title>Common Controls</title>
+
+        <sect3>
+          <title>Tracking Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Locate
+          Junction - Button <inlinegraphic
+          fileref="./gfx/user/locate_junction.gif" format="GIF" /></para><para>Opens
+          a window that allows to choose a junction name from the set of
+          junctions the network consists of. Pressing ok with a chosen
+          junction zooms the view to this junction.</para></listitem><listitem><para>Locate
+          Edge - Button <inlinegraphic fileref="./gfx/user/locate_edge.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose an
+          edge name from the set of junctions the network consists of.
+          Pressing ok with a chosen edge zooms the view to this edge.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Recenter View
+          - Button <inlinegraphic fileref="./gfx/user/recenter_view.gif"
+          format="GIF" /></para><para>You can use this button to reset the
+          view to show the whole network. After pressing this button, the view
+          will be the same as after loading the simulation: The zoom factor
+          will be reset to a value that lets the window display the whole
+          simulation area and the middle of the loaded network will be place
+          into the middle of the view.</para></listitem><listitem><para>Show
+          Legend - Button <inlinegraphic fileref="./gfx/user/show_legend.gif"
+          format="GIF" /></para><para>Switches the legend (only the scale) on
+          and off.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Change Lane
+          Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/user/colour_lane.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed lane&#39;s colour. The following coluring schemes are
+          avaliable for lanes:</para><itemizedlist spacing="compact"><listitem><para>black:
+          All lanes are black</para></listitem><listitem><para>by purpose:
+          normal lanes are coloured black, sources green, sinks red and
+          internal lanes blue</para></listitem><listitem><para>by speed: The
+          lanes are coloured by the speed allowed on them, blue for fast
+          lanes, red for slow</para></listitem></itemizedlist></listitem><listitem><para>Show
+          Grid - Button <inlinegraphic fileref="./gfx/user/show_grid.gif"
+          format="GIF" /></para><para>Turns the visualisation f the grid the
+          network is mapped onto on/off. This is rather a debugging feature.</para></listitem><listitem><para>Show
+          Tool Tips - Button <inlinegraphic
+          fileref="./gfx/user/show_tooltips.gif" format="GIF" /></para><para>If
+          this button is activated, the id for the object the mouse pointer is
+          over will be displayed.</para></listitem><listitem><para>Show Full
+          Geometry - Button <inlinegraphic
+          fileref="./gfx/user/show_geometry.gif" format="GIF" /></para><para>Switches
+          between full and simple - geometry. The picture beyond shows the
+          difference between full and simple geometry mode.</para><figure><title>The
+          difference between simple (left) and full (right) geometry mode</title><mediaobject><imageobject><imagedata
+          align="center" fileref="./gfx/user/simple_vs_full_geom.gif"
+          format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Additional Microscopic View Controls</title>
+
+        <sect3>
+          <title>Tracking Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Locate Vehicle
+          - Button <inlinegraphic fileref="./gfx/user/locate_vehicle.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose a
+          vehicle name from the set of vehicle currently driving within the
+          simulation. Pressing ok with a chosen vehicle zooms the view to this
+          vehicle.</para><caution><para>Under current development. (Better do
+          not use it, may terminate the application with an error)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Change Vehicle
+          Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/user/colour_vehicle.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed vehicle&#39;s colour. The following coluring schemes are
+          avaliable for vehicles:</para><itemizedlist spacing="compact"><listitem><para>by
+          speed: The vehicle colour change continuously from blue to red with
+          decreasing speed</para></listitem><listitem><para>specified: The
+          loaded vehicle colours are used</para></listitem><listitem><para>by
+          type: The vehicles are coloured as defined within the vehicle&#39;s
+          type definition</para></listitem><listitem><para>by route: The
+          vehicles are coloured as defined within the vehicle&#39;s route
+          definition</para></listitem><listitem><para>random#1: Vehicles are
+          coloured randomly (each vehicle has a certain colour)</para></listitem><listitem><para>random#2:
+          Vehicles are coloured randomly (each vehicle has a certain colour);
+          Quite the same as &#34;random#1&#34;, but a different method is used
+          to compute the random colour</para></listitem><listitem><para>lanechange#1:
+          ... to be described ...</para></listitem><listitem><para>lanechange#2:
+          ... to be described ...</para></listitem><listitem><para>lanechange#3:
+          ... to be described ...</para></listitem><listitem><para>waiting#1:
+          ... to be described ...</para></listitem></itemizedlist></listitem><listitem><para>Change
+          Lane Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/user/colour_lane.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed lane&#39;s colour. The following coluring schemes are
+          avaliable for lanes:</para><itemizedlist spacing="compact"><listitem><para>black:
+          All lanes are black</para></listitem><listitem><para>by purpose:
+          normal lanes are coloured black, sources green, sinks red and
+          internal lanes blue</para></listitem><listitem><para>by speed: The
+          lanes are coloured by the speed allowed on them, blue for fast
+          lanes, red for slow</para></listitem><listitem><para>by selection:
+          Selected lanes are coloures blueish, the other black</para></listitem></itemizedlist></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Additional Aggregated View Controls</title>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Change Lane
+          Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/user/colour_lane.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed lane&#39;s colour. The following coluring schemes are
+          avaliable for lanes:</para><itemizedlist spacing="compact"><listitem><para>by
+          density: The lanes are coloured by the mean density of vehicles over
+          them</para></listitem><listitem><para>by mean speed: The lanes are
+          coloured by the mean speed of vehicles passing them, blue for fast
+          lanes, red for slow</para></listitem><listitem><para>by mean halts:
+          <caution><para>... not working, yet. ...</para></caution></para></listitem><listitem><para>black:
+          All lanes are black</para></listitem><listitem><para>by purpose:
+          normal lanes are coloured black, sources green, sinks red and
+          internal lanes blue</para></listitem><listitem><para>by speed: The
+          lanes are coloured by the speed allowed on them, blue for fast
+          lanes, red for slow</para></listitem><listitem><para>by selection:
+          Selected lanes are coloures blueish, the other black</para></listitem></itemizedlist></listitem><listitem><para>Remembering-factor
+          dialer</para><para>This dialer enables you to change the
+          &#34;memory&#34; of the aggregated view.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Interacting with Objects</title>
+
+      <sect2>
+        <title>Display an Object&#39;s Name</title>
+
+        <para>Each view has the possibility to display tool tips. If enabled
+        using the &#34;<guibutton>Show Tool Tips</guibutton>&#34;-Button (<inlinegraphic
+        fileref="./gfx/user/show_tooltips.gif" format="GIF" />) the name of an
+        object will pop up in a yellow windows if the cursor is over the
+        object. A second click on the &#34;<guibutton>Show Tool Tips</guibutton>&#34;-Button
+        disables this feature.</para>
+
+        <caution>
+          <para>This feature does slow down the visualisation. Use should use
+          this carefully and disable if not needed.</para>
+        </caution>
+      </sect2>
+
+      <sect2>
+        <title>Object Popup Menus</title>
+
+        <para>If the cursor is over an object you can press down the right
+        mouse button and after ahlf a second a popup menu will be shown that
+        allows you some further interaction with the object. Normally, the
+        following functions are available:</para>
+
+        <para><itemizedlist spacing="compact"><listitem><para><guimenuitem>Center</guimenuitem>
+        <inlinegraphic fileref="./gfx/user/recenter_view.gif" format="GIF" /></para><para>Changes
+        the view in a manner that the current object lies within the the
+        view&#39;s center.</para></listitem><listitem><para><guimenuitem>Add
+        To Selected</guimenuitem> <inlinegraphic
+        fileref="./gfx/user/show_grid.gif" format="GIF" /></para><para>Adds
+        the object to the list of selected objects.</para></listitem><listitem><para><guimenuitem>Remove
+        from Selected</guimenuitem> <inlinegraphic
+        fileref="./gfx/user/show_tooltips.gif" format="GIF" /></para><para>Removes
+        the object from the list of selected objects.</para></listitem><listitem><para><guimenuitem>Show
+        Parameter </guimenuitem><inlinegraphic
+        fileref="./gfx/user/show_geometry.gif" format="GIF" /></para><para>Opens
+        a window in which the object&#39;s fixed and dynamic parameter are
+        displayed.</para></listitem></itemizedlist></para>
+
+        <para>Further, some objects allow an interaction, that means to change
+        some of the object&#39;s parameter. You can access this using the
+        command:</para>
+
+        <para><itemizedlist spacing="compact"><listitem><para><guimenuitem>Manipulate</guimenuitem>
+        <inlinegraphic fileref="./gfx/user/manip.gif" format="GIF" /></para></listitem></itemizedlist></para>
+      </sect2>
+
+      <sect2>
+        <title>Object Selection</title>
+
+        <para>From version 0.8. you are able to add every object that has a
+        name (as shown if turning Tool Tips on) into a list of selected
+        objects. You can select an object by holding the <keysym>Alt</keysym>-key
+        and pressing the left mouse button when the mouse is over the object.
+        Doing the same a second time will deselect the object again. You may
+        wonder whether an object is selected or not. Use the lane colouring
+        &#34;<guilabel>by selection</guilabel>&#34; from &#34;<guimenuitem>Change
+        Lane Colouring Scheme</guimenuitem>&#34;. When this colouring scheme
+        is used, selected lanes are shown blueish, the other black.</para>
+
+        <para>The menu entry <menuchoice><guimenu>Edit-&#62;Edit Chosen...</guimenu></menuchoice>
+        allows you to edit the list of selected objects by deselected ones you
+        don&#39;t need. It also allows you to save the list of selected
+        objects. The resulting file contains the names of the selected objects
+        predeccesed by the object&#39;s type, one per line.</para>
+
+        <caution>
+          <para><guibutton>Load</guibutton> is not implemented, yet.</para>
+        </caution>
+
+        <caution>
+          <para>The handling of selected items is not yet designed cmopletely.
+          Parts of the gui&#39;s behavior may change in the next time.</para>
+        </caution>
+      </sect2>
+
+      <sect2>
+        <title>Parameter Windows</title>
+
+        <para>If you choose the option &#34;<guimenuitem>Show Parameter</guimenuitem>&#34;
+        from an object&#39;s popup menu, a window like the one displayed below
+        will appear:</para>
+
+        <figure>
+          <title>A sample Parameter Window (for an induct loop in this case)</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+              fileref="./gfx/user/parameter_window.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>This window conatins some of each object&#39;s parameter,
+        including the parameter&#39;s name, its current value and the
+        information is static (marked with a <inlinegraphic
+        fileref="./gfx/user/no.gif" format="GIF" />) or dynamic (marked with a
+        <inlinegraphic fileref="./gfx/user/ok.gif" format="GIF" />) within a
+        simulation run.</para>
+
+        <para>Pressing the right mouse button when being over a line marked as
+        dynamic will show a small popup window with only a single command:
+        &#34;<guimenuitem>Open in new Tracker</guimenuitem>&#34;. Choosing
+        this option will allow you to open another window where this
+        parameter&#39;s values will be shown as a time line over the
+        simulation run.</para>
+
+        <figure>
+          <title>A sample Parameter Window (for the number of vehicles within
+          a simulation in this case)</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+              fileref="./gfx/user/tracker_example.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>You can change the aggregation time of the tracked values within
+        this window using the combobox in this window&#39;s menu.</para>
+
+        <figure>
+          <title>A sample usage of the aggregation option (for an induct loop
+          in this case, for aggregation times of 1s, 1min, 5min (from left to
+          right))</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="./gfx/user/tracker_agg.gif"
+              format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </sect2>
+
+      <sect2>
+        <title>TL-Tracker Windows</title>
+
+        <para>If you position your mouse over one of the red, green or yellow
+        traffic light-bars that show the state of the traffic light and press
+        the right mouse button for at least one second, the appearing pop-up
+        includes a menu entry &#34;<guimenuitem>Show Phases</guimenuitem>&#34;.
+        Choosing this menu item will show up a diagram that shows the states
+        of the tl chronologically. Each pixel in x-direction shows the state
+        of the tls of one second. The display contains the tl-states from the
+        time the tracker has been opened, no scrolling aorund is supported.</para>
+
+        <figure>
+          <title>A sample usage of the tls-tracker</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="./gfx/user/tlstracker.gif"
+              format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Command Line Options</title>
+
+      <sect2>
+        <title>GUI Command Line Options</title>
+
+        <sect3>
+          <title>Visual settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --max-gl-width | -w ] <replaceable>&#60;UINT&#62;</replaceable></option></para><para>Specifies
+          the maximum width of an openGL window to use. This was implemented
+          to avoid the allocation of too large window memory on smaller
+          computers.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --max-gl-height | -h ] <replaceable>&#60;UINT&#62;</replaceable></option></para><para>Specifies
+          the maximum height of an openGL window to use. This was implemented
+          to avoid the allocation of too large window memory on smaller
+          computers.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Process Options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --configuration | -c ] <replaceable>&#60;FILE&#62;</replaceable></option></para><para>If
+          a valid configuration is given on the command line, it is loaded
+          directly after the window shows up and starts immediately.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --quit-on-end | -Q ]</option></para><para>Forces the gui
+          to shutdown (the window will disappear) when the simulation ends. (A
+          message to confirm is still displayed)</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --print-options | -p ]</option></para><para>Prints the
+          current option settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --help | -? ]</option></para><para>Prints possible
+          options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          <option>[ --abs-rand ]</option></para><para>Initialises the random
+          number generator with the current time (in ms) in the hope to make
+          him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <option>[ --srand ] <replaceable>&#60;INT&#62;</replaceable></option></para><para>Initialises
+          the random number generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="user_chp08">
+    <title>Tips, Tricks &#38; Tools</title>
+
+    <para>We want to supply some additional information that did not fit into
+    the descriptions within the previous chapters. The next chapters are
+    possibly the most interesting ones of this document as they describe some
+    possibilities to ease the work.</para>
+
+    <para>We will now discuss the different possibilities to use the graphical
+    user interface more deeply.</para>
+
+    <sect1>
+      <title>Using Configuration Files</title>
+
+      <para>Most simulations have to be executed more than only one time.
+      Furthermore, some experiments require the execution of similar, slightly
+      different settings, for example the same network with a different route
+      set. To avoid the retyping of all the parameter at the input line, all
+      of the main applications can be fed with a configuration file. This
+      configuration file contains the values the user normally would give to
+      the program at the command line. For example, instead of typing</para>
+
+      <blockquote>
+        <para>dua-router(.exe) --cell=<replaceable>myCellFile</replaceable>
+        --net=<replaceable>mySUMONet.net.xml</replaceable> --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable>
+        -b <replaceable>0</replaceable> -e <replaceable>3600</replaceable></para>
+      </blockquote>
+
+      <para>you can start the router with a configuration file only:</para>
+
+      <blockquote>
+        <para>dua-router(.exe) -c=<replaceable>myConfig.rou.cfg</replaceable></para>
+      </blockquote>
+
+      <para>The <option>-c <replaceable>&#60;FILE&#62;</replaceable></option>
+      - option may be passed to all of the package&#39;s main applications.</para>
+
+      <para>Of course, you have to build the configuration file &#34;<filename>myConfig.rou.cfg</filename>&#34;
+      first. You can find templates for configuration files within the
+      data/cfg_templates - folder and all examples coming with the release
+      contain configuration files, too.</para>
+
+      <para>A configuration file is a simple XML-file in which each of the
+      command line parameter is represented as a XML-element with the
+      parameter&#39;s value being given as text between the begin and end tag
+      of this parameter. So if you want to set a parameter &#34;foo&#34; to
+      the value &#34;bar&#34; within your configuration file, write
+      <sgmltag>&#60;foo&#62;bar&#60;foo/&#62;</sgmltag> into the configuration
+      file. Do not forget that each XML-file has to have a root element, so
+      that the whole configuration file would look like this:</para>
+
+      <para><sgmltag>&#60;configuration&#62;</sgmltag></para>
+
+      <para><sgmltag> &#60;foo&#62;bar&#60;foo/&#62;</sgmltag></para>
+
+      <para><sgmltag>&#60;/configuration&#62;</sgmltag></para>
+
+      <para>Between the starting at the ending tag, any type of values may be
+      set, use a &#39;x&#39; to mark boolean values as set. If a parameter
+      allows a set of values (normally separated by a &#39;;&#39;), you have
+      to use a single element and embed these value into it as you would on
+      command line. A different approach will maybe be invented in future.</para>
+    </sect1>
+
+    <sect1>
+      <title>Using generated XML-Files</title>
+
+      <para>All but imported files used by SUMO use XML as format. This makes
+      their usage not as straightforward as plain CSV-file, for example, but
+      with some additional tools, these files are far more flexible and
+      powerful. Some tools can be found within the tools/-folder coming with
+      the release.</para>
+    </sect1>
+  </chapter>
+
+  <appendix id="user_apa">
+    <title>Naming Conventions</title>
+
+    <para>To ease the usage of the supplied files, all of which are within a
+    XML-derivate, we use a naming convention for the file extensions to allow
+    a distinction between the contents with a single look. The list of used
+    extensions is showed below. We of course highly encourage you to use this
+    pattern, but if you have a better idea, let us know.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Configuration files:<itemizedlist spacing="compact"><listitem><para>*.sumo.cfg</para><para>Configuration
+        file for SUMO (both command line and GUI-version)</para></listitem><listitem><para>*.netc.cfg</para><para>Configuration
+        file for the netconverter/-builder</para></listitem><listitem><para>*.dua.cfg</para><para>Configuration
+        file for the dua-router</para></listitem><listitem><para>*.jtr.cfg</para><para>Configuration
+        file for the jtr-router</para></listitem><listitem><para>*.od2t.cfg</para><para>Configuration
+        file for the O/D to trip converter</para></listitem></itemizedlist></para>
+      </listitem>
+
+      <listitem>
+        <para>Data files:<itemizedlist spacing="compact"><listitem><para>*.net.xml</para><para>sumo
+        - network file</para><para>Contents:</para><para>Standard: edges with
+        lanes and other attributes; junction definitions;</para><para>Optional:
+        all other simulation information</para></listitem><listitem><para>*.log.xml</para><para>sumo
+        - junction logics file</para><para>Contents:</para><para>Contents: The
+        definitions of junction logics</para></listitem><listitem><para>*.rou.xml</para><para>sumo
+        - routes file</para><para>Contents: Standard: vehicle type
+        definitions, route definitions, vehicle definitions</para></listitem><listitem><para>*.add.xml</para><para>sumo
+        - additional definitions file</para><para>Contents: The definitions of
+        detectors to build, sources to build etc.</para></listitem><listitem><para>*.out.xml</para><para>sumo
+        - output file</para><para>Contents: The &#34;raw&#34; output with
+        edges, lanes and vehicles on them</para></listitem><listitem><para>*.edg.xml</para><para>sumo-netconvert
+        - edges file</para><para>Contents: definitions of edges to build the
+        network from</para></listitem><listitem><para>*.nod.xml</para><para>sumo-netconvert
+        - nodes file</para><para>Contents: definitions of nodes to build the
+        network from</para></listitem><listitem><para>*.con.xml</para><para>sumo-netconvert
+        - connection file</para><para>Contents: definitions of nodes to build
+        the network from</para></listitem></itemizedlist></para>
+      </listitem>
+
+      <listitem>
+        <para>Other used file types<itemizedlist spacing="compact"><listitem><para>*.inp</para><para>VISSIM
+        network files</para></listitem><listitem><para>*.net</para><para>VISUM
+        network files</para></listitem><listitem><para>Destinations.txt,
+        Detectors.txt, Flows.txt, Generators.txt, HVdests.txt, Incidents.txt,
+        IntLinks.txt, Lanes.txt, Links.txt, Nodes.txt, Project Vars.txt,
+        Signal Groups.txt, Signal Phases.txt, Signals.txt</para><para>ARTEMIS
+        input files</para></listitem><listitem><para>*.edg</para><para>CELL
+        edge files</para></listitem><listitem><para>*.nod</para><para>CELL
+        node files</para></listitem><listitem><para>*.driver</para><para>CELL
+        driver files</para></listitem><listitem><para>*.rinfo</para><para>CELL
+        route files</para></listitem><listitem><para>*.rindex</para><para>index
+        files generated for CELL route files</para></listitem></itemizedlist></para>
+      </listitem>
+    </itemizedlist>
+  </appendix>
+
+  <appendix id="user_apb">
+    <title>Included Data</title>
+
+    <sect1>
+      <title>Configuration File Templates</title>
+
+      <para>You can find the templates for each of the package&#39;s
+      application&#39;s configuration files within the folder
+      &#34;[SUMO]/data/cfg_templates&#34;.</para>
+    </sect1>
+
+    <sect1>
+      <title>Included Examples</title>
+
+      <sect2>
+        <title>Basic Examples</title>
+
+        <para>Some shorter networks, mainly for testing purposes are included
+        and may be found within the &#34;[SUMO]/data/examples&#34; - folder.
+        In respect to their shape, they are named &#34;eight...&#34;,
+        &#34;cross...&#34; and &#34;box...&#34;. The coarse appearance of
+        these networks is shown below.</para>
+
+        <para>You may have noticed, that different networks are supported with
+        the same name begin. They differ in the number of lanes the edges have
+        and whether a possibly existing junction is a simple right-of-way or a
+        traffic light junction. The name pattern is as follows [SHAPE]Xl for
+        networks with right-of-way junctions, where X is the number of lanes
+        and [SHAPE]Xltl for networks with a traffic light. [SHAPE] is the name
+        of the coarse shape of the network as shown above.</para>
+      </sect2>
+    </sect1>
+  </appendix>
+
+  <appendix id="user_apc">
+    <title>Error Messages</title>
+
+    <para>Here, only errors that should occur to normal users are reported.
+    Some more errors exist but should occur only if the network is invalid
+    what should not happen when using networks generated by sumo-netconvert or
+    sumo-netgen. As said before, we do not expect a normal user to build a
+    network &#34;by hand&#34;. If you are a developer and an error occurs that
+    is not in the list below, take a look into the developer documentation.</para>
+
+    <caution>
+      <para>This list is not up-to-date. We have to rework it. Please contact
+      us if an unlisted error occures.</para>
+    </caution>
+
+    <itemizedlist spacing="compact">
+      <listitem>
+        <para><errorcode>No option with the name &#39;[NAME]&#39; exists.</errorcode><blockquote><para>You
+        are trying to set an option on the command line that is not known to
+        sumo.</para><para>You may have dispelled an option. View Appendix A
+        for a list of known options and their correct spelling.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The option &#39;[NAME]&#39; is not a boolean
+        attribute and so needs a value.</errorcode><blockquote><para>A
+        non-boolean option has no parameter supplied. An example: you have
+        typed &#34;sumo -n&#34;, but the option &#34;-n&#34; needs a value
+        like &#34;-n ./nodes.xml&#34;.</para><para>Always supply a parameter
+        for parameterised options.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>A value for the option &#39;[NAME]&#39; was already
+        set. Possible synonyms: [SYNONYMS]</errorcode><blockquote><para>You
+        are setting an option twice. An example: you have typed &#34;sumo -n
+        [FILE1] --net [FILE2]&#34;. This is not possible. A list of possible
+        synonyms is supported.</para><para>Set a value only once. When you are
+        sure you have specified the value only once on the command line, your
+        configuration file may contain two definitions for the value. A value
+        may be defined as well in the configuration file as on the command
+        line but never twice in each of them.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The current parameter &#39;[NAME1]&#39; and
+        the parameter &#39;[NAME2]&#39; do both need a value.</errorcode><blockquote><para>You
+        are trying to use a single value for two parameters. An example:
+        &#34;sumo -nj [FILE1]&#34; or &#34;sumo -nj [FILE1] [FILE2]&#34; is
+        not allowed as the parameter may not be assigned to either the network
+        or the junctions. Only boolean options may be coupled with other
+        options.</para><para>Split the options when using parameterised
+        options.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The configurations file &#39;[NAME]&#39; could not be
+        found.</errorcode><blockquote><para>The name for the configuration
+        file is not valid.</para><para>Even if you did not specify a
+        configuration file, it is loaded as default. Use the option
+        &#34;-C&#34; when you don&#39;t wish to use any configuration file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The named junctions folder &#39;[NAME]&#39;
+        does not exist.</errorcode><blockquote><para>You have specified a
+        folder for your junction logics that does not exist.</para><para>You
+        have to use a valid folder for your junctions.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: No simulation file (-n) specified.</errorcode><blockquote><para>You
+        forgot to specify a file containing the road network to use.
+        Attention! The file is not examined to be valid, this error only
+        occurs when the user did not give the name of the file. When it does
+        not exist or is invalid, other errors are produced.</para><para>You
+        have to specify a network file using &#34;-n [FILE]&#34; where [FILE]
+        is the name of the network file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The begin of the simulation (-b) is not
+        specified.</errorcode><blockquote><para>You forgot to specify the
+        begin of the simulation.</para><para>Use &#34;-b [TIME]&#34; to
+        specify the simulation-time the simulation shall begin at where [TIME]
+        is a numerical value.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The end of the simulation (-e) is not
+        specified.</errorcode><blockquote><para>You forgot to specify the end
+        of the simulation.</para><para>Use &#34;-e [TIME]&#34; to specify the
+        simulation-time the simulation shall end at where [TIME] is a
+        numerical value.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The output file &#39;[NAME]&#39; can not be
+        build.</errorcode><blockquote><para>The output file can not be build.
+        This may be due to trying to save the file into a folder that does not
+        exist.</para><para>Use a valid name a file may be created under for
+        your output. Check whether the folder you want to generate the file in
+        exists.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error during XML-initialisation: [MORE TEXT]</errorcode><blockquote><para>An
+        error while the initialisation of the XML-importer occurred.</para><para>In
+        fact, this is an error produced by XERCES. The only explanation we
+        have is that you are using an inappropriate version of XERCES.
+        Remember to use a C++ - XERCES version over 1.5 and fits to your
+        system (Windows, Linux, Solaris etc.)</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>An exception occured! Type: UTFDataFormatException,
+        Message: invalid byte 2 (L) of a 2-byte-sequence.</errorcode><blockquote><para>Your
+        network obviously uses a name that contains non-latin characters.
+        Older versions of xerces seemed to work with such names, although
+        it&#39;s against the XML-specifications, newer are not. You have to
+        convert them within your input files (mainly within the file used to
+        build the network) and rebuild the network then.</para><para>If you
+        are a programme, you also may take a look at the conversion routine
+        within the class <classname>StringUtils</classname> called
+        <methodname>convertUmlaute</methodname> and try to patch the values to
+        replace within him.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>An XML-error occurred: [MORE TEXT]</errorcode><blockquote><para>Your
+        file is corrupt in a way that our XML-importer XERCES is not able to
+        parse it. This may happen when you forgot to open a tag before closing
+        it or when using non-ASCII characters.</para><para>This error always
+        comes with a deeper explanation, so you may find the error quite easy.
+        If you do not see any error, you have to look into an XML-description
+        or try to load the document into A XML-development tool.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>&#34;Empty route ([NAME])&#34; or &#34;The list
+        belonging to the &#39;[TYPE]&#39; with the id &#39;[NAME]&#39; must
+        not but is empty&#34;</errorcode><blockquote><para>You have specified
+        an empty route. This is not valid.</para><para>Remove the route or
+        insert at least one edge into it.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The id of the object [TYPE] is missing in the
+        description.</errorcode><blockquote><para>An object from your
+        definition which type is given in [TYPE] does not have an id (name).</para><para>Insert
+        ids for all used objects.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The description of the object &#39;[TYPE]&#39; with
+        the id &#39;[NAME]&#39; is not complete.</errorcode><blockquote><para>At
+        least one of the needed values for an object is not given. The type of
+        the object is given in [TYPE], it&#39;s name in [NAME]. In the case of
+        a vehicle, this could be the type, the route or the depart time. The
+        missing of the id is reported by another error message.</para><para>Check
+        your file for missing values.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The object [TYPE] with the id [NAME] is not known</errorcode><blockquote><para>You
+        have references an object of the type [TYPE] with the name [NAME] that
+        you did not define in the file. Such an error may occur when you for
+        instance wish to use a vehicle of the type &#34;VW Beetle&#34; but
+        have not defined a vehicle type named &#34;VW Beetle&#34;.</para><para>Insert
+        a definition for TYPE with the id NAME or use a given id in your file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Another [TYPE] with the id [NAME] exists</errorcode><blockquote><para>You
+        are using an id twice for two objects of the same type.</para><para>All
+        objects of a type have to have unique ids.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The list belonging to the &#39;[TYPE]&#39; with the
+        id &#39;[NAME]&#39; must not but is empty</errorcode><blockquote><para>The
+        information you have specified needs values, you did not supply.</para><para>Supply
+        all needed information.</para></blockquote></para>
+      </listitem>
+    </itemizedlist>
+  </appendix>
+</book>

@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<refentry>
+  <refmeta>
+    <refentrytitle><application>netconvert</application></refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo>netconvert 0.8.1</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><application>netconvert</application></refname>
+
+    <refpurpose>This application is used to convert networks from other
+    formats into networks that may be used by other SUMO-applications</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>netconvert</command>
+
+      <group>
+        <option><replaceable class="option">options</replaceable></option>
+      </group>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>netconvert</command>
+
+      <arg><option>-c <replaceable class="parameter">configuration</replaceable></option></arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>netconvert</command>
+
+      <arg><option>--help</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><application>netconvert</application> is a network converter /
+    importer. It allows to convert road network descriptions from traffic
+    simulations such as <application>ARTEMIS</application>,
+    <application>Vissim</application>, <application>Visum</application>, and
+    <application>FastLane</application> and also from digital maps from
+    Navteq, stored either in ArcView format or the format used internally
+    within the IVF into road descriptions that may be used by other
+    applications from the SUMO-package.</para>
+
+    <para>The application assumes the input to be specified using an option
+    that is in accordance to the input format that shall be parsed (f.e. &#34;<parameter>--arcview
+    <replaceable class="parameter">&#60;FILE&#62;</replaceable></parameter>&#34;
+    if an Arcview road network shall be imported). As some of these input
+    formats do not contain a complete information about the real network&#39;s
+    topography, plenty of additional options may be set in order to retrieve
+    what is wanted.</para>
+
+    <para>Beside the normal output which is the road network converted into
+    the SUMO-format, <application>netconvert</application> may generate a list
+    of nodes and edges and/or a file that contains the information which edges
+    were joined in order to save simulation time.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para>In the following, all possible options are presented.</para>
+
+    <para>Please remark, that the configuration-option may be used to supply a
+    file that contains all other parameter&#39;s definition. Please take a
+    look into the SUMO user documentation for further information about the
+    usage of configuration files.</para>
+
+    <refsect2>
+      <title>Input Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --configuration-file | --configuration | -c ] <replaceable
+          class="parameter">configuration-file</replaceable></term>
+
+          <listitem>
+            <para>Specifies whether and which a configuration file shall be
+            loaded. <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --xml-node-files | --xml-nodes | -n ] <replaceable
+          class="parameter">nodes-file</replaceable></term>
+
+          <listitem>
+            <para>Uses the given file as the source of specification node
+            positions and types. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --xml-edge-files | --xml-edges | -e ] <replaceable
+          class="parameter">edges-file</replaceable></term>
+
+          <listitem>
+            <para>Uses the given file as the source of specification of roads
+            connecting nodes. <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --xml-connection-files | --xml-connections | -x ]
+          <replaceable class="parameter">connections-file</replaceable></term>
+
+          <listitem>
+            <para>Uses the given file as the source of specification how roads
+            are connected (which lanes may be reached from which lanes).
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --type-file | --types | -t ] <replaceable class="parameter">types-file</replaceable></term>
+
+          <listitem>
+            <para>Uses the given file as the source of edge types.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --cell-node-file | --cell-nodes ] <replaceable
+          class="parameter">fastlane-nodes-file</replaceable></term>
+
+          <listitem>
+            <para>Parses nodes from the given file assuming it to be a
+            FastLane-file that contains node descriptions. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --cell-edge-file | --cell-edges ] <replaceable
+          class="parameter">fastlane-edges-file</replaceable></term>
+
+          <listitem>
+            <para>Parses edges from the given file assuming it to be a
+            FastLane-file that contains edge descriptions. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --visum-file | --visum ] <replaceable class="parameter">visum-file</replaceable></term>
+
+          <listitem>
+            <para>Parses all network information from the given file, assuming
+            it is in VISUM7.5-format. <remark>Optional, type:filename,
+            default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --vissim-file | --vissim ] <replaceable class="parameter">vissim-file</replaceable></term>
+
+          <listitem>
+            <para>Parses all network information from the given file, assuming
+            it is in VISSIM 3.6.2 or 3.6.3 format. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --artemis-input | --artemis ] <replaceable class="parameter">artemis-folder</replaceable></term>
+
+          <listitem>
+            <para>Parses all network information from files within the given
+            path, assuming they belong to an ARTMIS-network. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --arcview-input | --arcview ] <replaceable class="parameter">arcview-file-prefix</replaceable></term>
+
+          <listitem>
+            <para>Parses the edge attributes from
+            &#60;arcview-file-prefix&#62;.dbf assuming it is an
+            arcview-dbf-file. Parses the edge geometries from
+            &#60;arcview-file-prefix&#62;.shp assuming it is an ArcView-shape
+            file. <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--arcview-shp <replaceable class="parameter">arcview-shp-file</replaceable></term>
+
+          <listitem>
+            <para>Parses the edge geometries from &#60;arcview-shp-file&#62;
+            assuming it is an ArcView shape file. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--arcview-dbf <replaceable class="parameter">arcview-dbf-file</replaceable></term>
+
+          <listitem>
+            <para>Parses the edge attributes from &#60;arcview-dbf-file&#62;
+            assuming it is an ArcView dbf-file. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--elmar <replaceable class="parameter">elmar-folder-and-file-prefix</replaceable></term>
+
+          <listitem>
+            <para>Parses the files starting with
+            &#60;elmar-folder-and-file-prefix&#62; assuming they are stored in
+            the format Elmar Brockfeld uses to save NavTeq-data
+            (IVF-internal). <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Output Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --output-file | --output | -o ] <replaceable
+          class="parameter">&#60;output-file&#62;</replaceable></term>
+
+          <listitem>
+            <para>Defines the file to write the computed network into.</para>
+
+            <para>This file will contain the generated network if the
+            conversion could be accomplished. <remark>Mandatory,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --map-output ] <replaceable class="parameter">&#60;map-output-file&#62;</replaceable></term>
+
+          <listitem>
+            <para>Writes the file <filename>&#60;map-output-file&#62;</filename>
+            which holds the list of edges that were joined to a single edge
+            for each edge. <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --plain-output ] <replaceable class="parameter">&#60;plain-output-prefix&#62;</replaceable></term>
+
+          <listitem>
+            <para>Writes the files <filename><replaceable>&#60;plain-output-prefix&#62;</replaceable>.nod.xml</filename>
+            and <filename><replaceable>&#60;plain-output-prefix&#62;</replaceable>.edg.xml</filename>
+            that contain the descriptions about the nodes and the edges a
+            network is made of. These files may be reread into the netgener
+            using the XML-import capabilities. <remark>Optional,
+            type:filename-prefix, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Building Defaults:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --type | -T ] &#60;<replaceable class="parameter">type-name&#62;</replaceable></term>
+
+          <listitem>
+            <para>The name of the default type of edges. <remark>Optional
+            (pre-given), type:string, default: &#34;Unknown&#34;</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --lanenumber | -L ] <replaceable class="parameter">&#60;lane-number&#62;</replaceable></term>
+
+          <listitem>
+            <para>The number of lanes an edge has to use as default.
+            <remark>Optional (pre-given), type:int, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --speed | -S ] <replaceable class="parameter">&#60;max-speed&#62;</replaceable></term>
+
+          <listitem>
+            <para>The maximum speed allowed on an edge in m/s to use as
+            default. <remark>Optional (pre-given), type:float, default: 13.9</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --priority | -P ] <replaceable class="parameter">&#60;priority&#62;</replaceable></term>
+
+          <listitem>
+            <para>The default priority of an edge. <remark>Optional
+            (pre-given), type:int, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Import-type dependent Parameter:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --vissim-speed-norm ] &#60;<replaceable class="parameter">speed-norm-factor&#62;</replaceable></term>
+
+          <listitem>
+            <para>Scope: Vissim-import</para>
+
+            <para>A factor that is multiplied with a streams maximum velocity
+            to determine the velocity to use for an edge. <remark>Optional
+            (pre-given), type:float, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --vissim-default-speed ] <replaceable class="parameter">&#60;default-speed&#62;</replaceable></term>
+
+          <listitem>
+            <para>Scope: Vissim-import</para>
+
+            <para>The default speed to use for a street when no information is
+            available. <remark>Optional (pre-given), type:float, default: !!!
+            (?)</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Processing Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--omit-corrupt-edges</term>
+
+          <listitem>
+            <para>Continues with parsing although a corrupt edge occurred.
+            This edge is not inserted and a warning is printed.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --capacity-norm | -C ] <replaceable class="parameter">&#60;norm-factor&#62;</replaceable></term>
+
+          <listitem>
+            <para>The value to divide a given capacity by to gain the number
+            of lanes. <remark>Optional (pre-given), type:float, default: 2000</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --default-junction-type | --junctions | -j ] <replaceable
+          class="parameter">[ priority | traffic_light | actuated | agentbased
+          ]</replaceable></term>
+
+          <listitem>
+            <para>Defines what type of junctions shall be build. Remark that
+            the junction in the center of a spider-network is always a
+            priority junction. <remark>Optional (pre-given), type:string-enum,
+            default: &#34;prority&#34;</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--flip-y</term>
+
+          <listitem>
+            <para>Flips the y-position of nodes (and edges) along the
+            y=zero-line. <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --min-decel | -D ] <replaceable class="parameter">&#60;float&#62;</replaceable></term>
+
+          <listitem>
+            <para>The minimum deceleration value for vehicles.
+            <remark>Optional (pre-given), type:float, default: 3</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--speed-in-km</term>
+
+          <listitem>
+            <para>Parses speed information stored in XML-edge definition files
+            as being given in km/h (not m/s as usual). <remark>Optional,
+            type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--use-laneno-as-priority</term>
+
+          <listitem>
+            <para>Interprets the number of lanes as an edges priority.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--all-logics</term>
+
+          <listitem>
+            <para>Computes and saves all possible cliques and phases for a
+            traffic light instead of the fastest one only. <remark>Optional,
+            type:bool, default: false</remark></para>
+
+            <caution>
+              <para>This process may be very time consuming.</para>
+            </caution>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--keep-small-tyellow</term>
+
+          <listitem>
+            <para>If a given yellow-time is smaller than the computed, it is
+            normally replaced by the computed one and a warning is printed.
+            Setting this option, you force netgen to keep the given time
+            yellow light shall be shown (for a certain signal).
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--guess-tls</term>
+
+          <listitem>
+            <para>Forces netgen/NETGEN to guess which junctions posess traffic
+            light logics. This should of course only be used for fast
+            estimations and only if no tls-definitions are supplied. The
+            following parameter steer the guessing more precisely.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--tls-guess.min-incoming-speed <replaceable class="parameter">&#60;speed</replaceable>&#62;,
+          --tls-guess.max-incoming-speed <replaceable class="parameter">&#60;speed&#62;</replaceable></term>
+
+          <listitem>
+            <para>Sets the minimum and the maximum of the velocity a
+            junction&#39;s incoming edges may have if the junction shall be
+            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            defaults: --tls-guess.min-incoming-speed: 40/3.6,
+            --tls-guess.min-incoming-speed: 69/3.6</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--tls-guess.min-outgoing-speed <replaceable class="parameter">&#60;speed&#62;</replaceable>,
+          --tls-guess.max-outgoing-speed <replaceable class="parameter">&#60;speed&#62;</replaceable></term>
+
+          <listitem>
+            <para>Sets the minimum and the maximum of the velocity a
+            junction&#39;s outgoing edges may have if the junction shall be
+            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            defaults: --tls-guess.min-outgoing-speed: 40/3.6,
+            --tls-guess.max-outgoing-speed: 69/3.6</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--tls-guess.no-incoming-min <replaceable class="parameter">&#60;lane-number&#62;</replaceable>,
+          --tls-guess.no-incoming-max &#60;<replaceable class="parameter">lane-number&#62;</replaceable></term>
+
+          <listitem>
+            <para>Sets the minimum and the maximum number of a junction&#39;s
+            incoming edges to allow the junction to be controlled by a tls.
+            <remark>Optional (pre-given), type:int, defaults:
+            --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max: 5</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--tls-guess.no-outgoing-min &#60;<replaceable
+          class="parameter">lane-number</replaceable>&#62;,
+          --tls-guess.no-outgoing-max <replaceable class="parameter">&#60;lane-number&#62;</replaceable></term>
+
+          <listitem>
+            <para>Sets the minimum and the maximum number of a junction&#39;s
+            outgoing edges to allow the junction to be controlled by a tls.
+            <remark>Optional (pre-given), type:int, defaults:
+            --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max: 5</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--explicite-junctions &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+
+          <listitem>
+            <para>Informs the network builder that the given junctions shall
+            be treated as being controlled by traffic lights, even if they do
+            not match the tls-guess rules. <remark>Optional, type:list of
+            strings, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--explicite-no-junctions&#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+
+          <listitem>
+            <para>Informs the network builder that the given junctions shall
+            be treated as NOT being controlled by traffic lights, even if they
+            match the tls-guess rules. <remark>Optional, type:list of strings,
+            default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--edges-min-speed <replaceable class="parameter">&#60;min-speed&#62;</replaceable></term>
+
+          <listitem>
+            <para>Informs the network importer that edges with a lower speed
+            than the one defined by this options shall not be included into
+            the network. <remark>Optional, type:float, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Report Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --verbose | -v ]</term>
+
+          <listitem>
+            <para>Prints some information about the process during execution.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --suppress-warnings | -W ]</term>
+
+          <listitem>
+            <para>No warnings will be prompted if this option is set.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --print-options | -p ]</term>
+
+          <listitem>
+            <para>Prints the current option settings before the execution
+            starts. <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --log-file | -L ]<replaceable class="parameter">
+          &#60;log-file-name&#62;</replaceable></term>
+
+          <listitem>
+            <para>All outputs (messages, warnings, and errors) will be written
+            to the named file. <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>[ --abs-rand ]</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[ --srand ] <replaceable class="parameter">&#60;number&#62;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with the given
+            value. <remark>Optional, type:int, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>USAGE</title>
+
+    <para>The following topics should be described more precisely within the
+    SUMO user documentation that may be found at http://sumo.sourceforge.net</para>
+
+    <para>netconvert requires at least one definition of the input to be
+    processed and the name of the file to generate. The input specification
+    depends on the type of networks that shall be read, the output file name
+    does not have any restrictions beside the ones of the operating system but
+    we would encourage you to use the naming schemes described within the user
+    manual. Remark: it is assumed that the destination folder exists.</para>
+
+    <para>Some of the input formats do require only one option to be set. This
+    is true for most of the traffic simulations and the following one may be
+    imported this way: <application>Vissim</application> (<option>--vissim</option>),
+    <application>Visum</application> (<option>--visum</option>),
+    <application>ARTEMIS</application> (<option>--artemis</option>) and Elmar
+    Brockfelds GDF-parser output (<option>--elmar</option>). Please remark,
+    that for <application>ARTEMIS</application> and Elmars meta-format you
+    have to use the name of the folder, not of one of the files that belong to
+    the network description. Some other formats use more than a single file to
+    define the network. In the case of ArcView networks, you may use two
+    parameter, one for the .dbf-file (<option>--arcview-dbf</option>) and one
+    for the .shp-file (<option>--arcview-shp</option>) to let netconvert know
+    the file names individually or a single parameter (<option>--arcview</option>).
+    In the later case, the appendices &#34;.dbf&#34; and &#34;.shp&#34; will
+    be appended automatically. The same procedure may be used to import
+    cell-files.</para>
+
+    <para>If dealing with own network descriptions, you have to define at
+    least a list of nodes and a list of edges and pass them to the netconvert
+    using <option>--xml-nodes</option> and <option>--xml-edges</option>. This
+    is by far the best way to deal with network formats (beside the very
+    complete description of Vissim-files) as you have the most possibilities
+    to define your network. The topology computation may be steered in this
+    case using a further file that contains the definitions of connection
+    between edges or each of an edge&#39;s lane which can be passed using the
+    option <option>--xml-connections</option>. The description of the
+    xml-files may be found within the sumo user documentation.</para>
+
+    <refsect2>
+      <title>Examples</title>
+
+      <para><command>netconvert</command> -c <filename>myConfig.netc.cfg</filename></para>
+
+      <para>Does the things described by the configuration &#34;<filename>myConfig.netc.cfg</filename>&#34;</para>
+
+      <para><command>netconvert</command> --arcview <filename>myArcViewFile</filename>
+      -o <filename>myNet.net.xml</filename></para>
+
+      <para>Converts the edge definitions stored in <filename>myArcViewFile</filename>.dbf
+      and the edge shapes stored in <filename>myArcViewFile.shp</filename>
+      into a SUMO-network.</para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>CAVEATS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>The program is still under development.</para>
+
+    <para>There are some bigger problems when importing ARTEMIS-networks. We
+    have stopped to continue the development of this importer, so we do not
+    know whether this issue will be reworked.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>netconvert(1), sumo(1), guisim(1), jtrrouter(1), duarouter(1),
+    od2trips(1)</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para><author><firstname>Daniel</firstname><surname>Krajzewicz</surname></author></para>
+  </refsect1>
+</refentry>
