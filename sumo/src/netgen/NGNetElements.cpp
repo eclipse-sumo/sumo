@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 13:03:52  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2004/01/12 15:27:30  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -39,7 +42,6 @@ namespace
 //
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
-//
 //
 /* =========================================================================
  * included modules
@@ -69,25 +71,25 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 TNode::TNode()
-    : myID(""), xID(-1), yID(-1), myAmCenter(false)
+    : xID(-1), yID(-1), myID(""), myAmCenter(false)
 {
 }
 
 
 TNode::TNode(const std::string &id)
-    : myID(id), xID(-1), yID(-1), myAmCenter(false)
+    : xID(-1), yID(-1), myID(id), myAmCenter(false)
 {
 }
 
 
 TNode::TNode(const std::string &id, int xIDa, int yIDa)
-    : myID(id), xID(xIDa), yID(yIDa), myAmCenter(false)
+    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false)
 {
 }
 
 
 TNode::TNode(const std::string &id, int xIDa, int yIDa, bool amCenter)
-    : myID(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter)
+    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter)
 {
 }
 

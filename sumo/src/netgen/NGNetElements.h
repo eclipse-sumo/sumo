@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/03/19 13:03:52  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/07/21 11:05:31  dkrajzew
 // patched some bugs found in first real-life execution
 //
@@ -94,6 +97,8 @@ public:
 	TLinkList LinkList;
 
 private:
+    /// The id of the node
+    std::string myID;
 
     /// The x-position of the node
 	float myX;
@@ -103,9 +108,6 @@ private:
 
     /// The maximum number of neighbours
 	float myMaxNeighbours;
-
-    /// The id of the node
-    std::string myID;
 
     /// Information whether this is the center of a cpider-net
     bool myAmCenter;
