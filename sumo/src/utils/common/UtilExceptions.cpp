@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/04 15:42:42  roessel
+// Added throw() to several declarations/definitons.
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -86,7 +89,7 @@ InvalidArgument::InvalidArgument(const string &msg)
 }
 
 
-InvalidArgument::~InvalidArgument()
+InvalidArgument::~InvalidArgument() throw()
 {
 }
 
@@ -107,7 +110,7 @@ ProcessError::ProcessError()
 }
 
 
-ProcessError::~ProcessError()
+ProcessError::~ProcessError() throw()
 {
 }
 
@@ -122,7 +125,7 @@ UnsupportedFeature::UnsupportedFeature(const string &message)
 }
 
 
-UnsupportedFeature::~UnsupportedFeature()
+UnsupportedFeature::~UnsupportedFeature() throw()
 {
 }
 

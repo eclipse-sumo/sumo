@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/04/04 15:42:41  roessel
+// Added throw() to several declarations/definitons.
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -72,7 +75,7 @@ public:
     InvalidArgument(const std::string &msg);
 
     /** destructor */
-    ~InvalidArgument();
+    ~InvalidArgument() throw();
 
     /** returns the error description */
     const std::string &msg();
@@ -98,7 +101,7 @@ public:
     ProcessError();
 
     /** destructor */
-    ~ProcessError();
+    ~ProcessError() throw();
 
 };
 
@@ -117,7 +120,7 @@ public:
     UnsupportedFeature(const std::string &message);
 
     /** destructor */
-    ~UnsupportedFeature();
+    ~UnsupportedFeature() throw();
 
     /** returns the message */
     const std::string &message();
@@ -142,7 +145,7 @@ public:
     EmptyData() { }
 
     /** destructor */
-    ~EmptyData() { }
+    ~EmptyData() throw() { }
 
 };
 
@@ -162,7 +165,7 @@ public:
     NumberFormatException() { }
 
     /** destructor */
-    ~NumberFormatException() { }
+    ~NumberFormatException() throw() { }
 
 };
 
@@ -182,7 +185,7 @@ public:
     OutOfBoundsException() { }
 
     /** destructor */
-    ~OutOfBoundsException() { }
+    ~OutOfBoundsException() throw() { }
 
 };
 
@@ -201,7 +204,7 @@ public:
     UnknownElement() { }
 
     /** destructor */
-    ~UnknownElement() { }
+    ~UnknownElement() throw() { }
 
 };
 
