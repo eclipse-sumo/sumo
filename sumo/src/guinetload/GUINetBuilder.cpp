@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/08/02 11:56:10  dkrajzew
+// "time-to-teleport" option added
+//
 // Revision 1.18  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -135,6 +138,9 @@ GUINetBuilder::buildNet(MSVehicleControl *vc)
     // set whether internal lanes shall be used
     MSGlobals::myUsingInternalLanes =
         m_pOptions.getBool("use-internal-links");
+    // set the grid lock time
+    MSGlobals::myTimeToGridlock =
+        m_pOptions.getInt("time-to-teleport");
     // preinit network
     GUINet::preInitGUINet(
         m_pOptions.getInt("b"), vc,
