@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/16 17:33:10  dkrajzew
+// error in moveCritical yielding in collisions removed
+//
 // Revision 1.2  2002/10/16 16:45:41  dkrajzew
 // debugged
 //
@@ -663,8 +666,10 @@ MSVehicle::vsafeCritical( const MSVehicle *pred) const
     // check whether the vehicle is not on an appropriate lane
     //  decelerate when yes
     if(!myLane->appropriate(this)) {
-        return vsafe(myState.mySpeed, decelAbility, 
-            myLane->length() - MSVehicleType::maxLength() - myState.myPos, 0);
+        return min(minVSafe,
+            vsafe(myState.mySpeed, decelAbility, 
+                myLane->length() - MSVehicleType::maxLength() - myState.myPos, 0)
+                );
     }
     // compute the way the vehicle may drive when accelerating
     double dist = myState.mySpeed * MSNet::deltaT() + myType->accelDist();
