@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/10/02 15:00:33  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.18  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
 //
@@ -186,6 +189,14 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         const NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection sprohibiting = *k;
+	if( (sprohibiting.getFrom()->getID()=="476+434[1]"||prohibited.getFrom()->getID()=="476+434[1]")
+		&&
+		(sprohibiting.getFrom()->getID()=="4[1]+477"||prohibited.getFrom()->getID()=="4[1]+477")
+		&&
+		(sprohibiting.getTo()->getID()=="610"&&prohibited.getTo()->getID()=="610") ) {
+
+		int bla = 0;
+	}
             bool ok2 = sprohibiting.check();
             if(find(_incoming->begin(), _incoming->end(), sprohibiting.getFrom())==_incoming->end()) {
                 ok2 = false;
@@ -214,6 +225,23 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
 					+ string(" by ")
 					+ bfID + string("->") + ptID);
                 myNotBuild++;
+            }
+        }
+    }
+    // ok, check whether someone has prohibited two links vice versa
+    //  (this happens also in some Vissim-networks, when edges are joined)
+    size_t no = _incoming->size()*_outgoing->size();
+    for(size_t s1=0; s1<no; s1++) {
+        for(size_t s2=s1+1; s2<no; s2++) {
+            // not set, yet
+            if(!_done[s1][s2]) {
+                continue;
+            }
+            // check whether both prohibit vice versa
+            if(_forbids[s1][s2]&&_forbids[s2][s1]) {
+                // mark unset - let our algorithm fix it later
+                _done[s1][s2] = false;
+                _done[s2][s1] = false;
             }
         }
     }
@@ -283,6 +311,22 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
+	if( (from1->getID()=="476+434[1]"||from2->getID()=="476+434[1]")
+		&&
+		(from1->getID()=="4[1]+477"||from2->getID()=="4[1]+477")
+		&&
+		(to1->getID()=="610"&&to2->getID()=="610") ) {
+
+		int bla = 0;
+	}
+	if( (from1->getID()=="231"||from2->getID()=="231")
+		&&
+		(from1->getID()=="68"||from2->getID()=="68")
+		&&
+		(to1->getID()=="658"&&to2->getID()=="658") ) {
+
+		int bla = 0;
+	}
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -467,22 +511,22 @@ NBRequest::foes(NBEdge *from1, NBEdge *to1,
 
 
 bool
-NBRequest::forbids(NBEdge *from1, NBEdge *to1,
-                     NBEdge *from2, NBEdge *to2) const
+NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
+				   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const
 {
     // unconnected edges do not forbid other edges
-    if(to1==0 || to2==0) {
+    if(possProhibitorTo==0 || possProhibitedTo==0) {
         return false;
     }
     // get the indices
-    int idx1 = getIndex(from1, to1);
-    int idx2 = getIndex(from2, to2);
-    if(idx1<0||idx2<0) {
+    int possProhibitorIdx = getIndex(possProhibitorFrom, possProhibitorTo);
+    int possProhibitedIdx = getIndex(possProhibitedFrom, possProhibitedTo);
+    if(possProhibitorIdx<0||possProhibitedIdx<0) {
         return false; // sure? (The connection does not exist within this junction)
     }
-    assert(idx1<_incoming->size()*_outgoing->size());
-    assert(idx2<_incoming->size()*_outgoing->size());
-    return _forbids[idx2][idx1];
+    assert(possProhibitorIdx<_incoming->size()*_outgoing->size());
+    assert(possProhibitedIdx<_incoming->size()*_outgoing->size());
+    return _forbids[possProhibitorIdx][possProhibitedIdx];
 }
 
 
@@ -506,6 +550,9 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
 void
 NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
 {
+    if(from!=0&&from->getID()=="219"&&to!=0&&to->getID()=="10000764") {
+        int bla = 0;
+    }
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -530,11 +577,24 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
                     assert(connected!=0&&k<connected->size());
                     assert(idx<_incoming->size()*_outgoing->size());
                     assert((*connected)[k].edge==0 || getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
-                    if((*connected)[k].edge!=0 &&
-                        _forbids[getIndex(*i, (*connected)[k].edge)][idx])
+					// check whether the connection is prohibited by another one
+                    if( (*connected)[k].edge!=0 &&
+                        _forbids[getIndex(*i, (*connected)[k].edge)][idx]) {
                         os << '1';
-                    else
-                        os << '0';
+						continue;
+                    }
+	                // if this node is controlled by a traffic light
+                    // but this connection is not, this connection may not drive
+                    // if the other is a foe
+                    const EdgeLane &el = (*connected)[k];
+                    if( _junction->isTLControlled() ) { // !!! (the best way to check this?)
+                        if(from->getToNode()->foes(from, to, *i, (*connected)[k].edge)) {
+                            os << '1';
+                            continue;
+                        }
+                    }
+                    // ok, seems to be priorised
+                    os << '0';
                 }
             }
         }

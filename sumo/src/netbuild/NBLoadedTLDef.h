@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include "NBTrafficLightDefinition.h"
 #include "NBNode.h"
 
@@ -78,7 +79,7 @@ public:
 
     /// Constructor
     NBLoadedTLDef(const std::string &id,
-        const std::vector<NBNode*> &junctions);
+        const std::set<NBNode*> &junctions);
 
     /// Constructor
     NBLoadedTLDef(const std::string &id, NBNode *junction);
@@ -132,8 +133,9 @@ protected:
 
     void collectLinks();
 
-    bool mustBrake(const NBConnection &connection,
-        const std::bitset<64> &green, size_t strmpos) const;
+    bool mustBrake(const NBConnection &possProhibited,
+        const std::bitset<64> &green, const std::bitset<64> &yellow,
+        size_t strmpos) const;
 
     void replaceRemoved(NBEdge *removed, size_t removedLane,
         NBEdge *by, size_t byLane);

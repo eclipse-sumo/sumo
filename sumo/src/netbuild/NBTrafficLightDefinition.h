@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/10/02 15:00:36  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -47,6 +50,7 @@
 #include <string>
 #include <bitset>
 #include <utility>
+#include <set>
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
 #include "NBCont.h"
@@ -85,7 +89,7 @@ public:
 
     /// Constructor
     NBTrafficLightDefinition(const std::string &id,
-        const std::vector<NBNode*> &junctions);
+        const std::set<NBNode*> &junctions);
 
     /// Constructor
     NBTrafficLightDefinition(const std::string &id,
@@ -106,16 +110,18 @@ public:
 
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
-    bool mustBrake(const NBConnection &conn,
-        const NBConnection &source) const;
+    bool mustBrake(const NBConnection &possProhibited,
+        const NBConnection &possProhibitor) const;
 
     bool mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
-    bool forbids(NBEdge *from1, NBEdge *to1,
-        NBEdge *from2, NBEdge *to2) const;
+    bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
+        NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
 
     bool foes(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
+
+//    virtual bool includes(NBEdge *from, NBEdge *to) const; // !!! collectLinks must have been called in prior
 
 public:
     virtual void remapRemoved(NBEdge *removed,
@@ -169,7 +175,7 @@ protected:
 
 
     /// Definition of the container type for participating nodes
-    typedef std::vector<NBNode*> NodeCont;
+    typedef std::set<NBNode*> NodeCont;
 
     /// The container with participating nodes
     NodeCont _nodes;

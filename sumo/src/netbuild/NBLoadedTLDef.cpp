@@ -314,7 +314,7 @@ NBLoadedTLDef::Phase::~Phase()
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
-                             const std::vector<NBNode*> &junctions)
+                             const std::set<NBNode*> &junctions)
     : NBTrafficLightDefinition(id, junctions)
 {
 }
@@ -462,7 +462,8 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
             if(assConn.check()) {
-                masks.brakeMask[pos] = mustBrake(assConn, masks.driveMask, pos);
+                masks.brakeMask[pos] = mustBrake(assConn,
+                    masks.driveMask, masks.yellowMask, pos);
                 pos++;
             }
         }
@@ -472,8 +473,9 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
 
 
 bool
-NBLoadedTLDef::mustBrake(const NBConnection &connection,
+NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
                          const std::bitset<64> &green,
+                         const std::bitset<64> &yellow,
                          size_t strmpos) const
 {
     // check whether the stream has red
@@ -489,10 +491,16 @@ NBLoadedTLDef::mustBrake(const NBConnection &connection,
         size_t linkNo = group->getLinkNo();
         for(size_t j=0; j<linkNo; j++) {
             const NBConnection &other = group->getConnection(j);
-            NBConnection assConn(other);
-            if(assConn.check()) {
-                if(green.test(pos)&&connection.getFrom()!=assConn.getFrom()) {
-                    if(NBTrafficLightDefinition::mustBrake(connection, assConn)) {
+            NBConnection possProhibitor(other);
+	if( (possProhibitor.getFrom()->getID()=="476+434[1]"&&possProhibited.getFrom()->getID()=="4[1]+477")
+		&&
+		(possProhibitor.getTo()->getID()=="610"&&possProhibited.getTo()->getID()=="610") ) {
+
+		int bla = 0;
+	}
+            if(possProhibitor.check()) {
+                if((green.test(pos)||yellow.test(pos))&&possProhibited.getFrom()!=possProhibitor.getFrom()) {
+                    if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor)) {
                         return true;
                     }
                 }
@@ -516,9 +524,7 @@ NBLoadedTLDef::collectNodes()
             const NBConnection &conn = group->getConnection(j);
             NBEdge *edge = conn.getFrom();
             NBNode *node = edge->getToNode();
-            if(find(_nodes.begin(), _nodes.end(), node)==_nodes.end()) {
-                _nodes.push_back(node);
-            }
+            _nodes.insert(node);
         }
     }
 }
@@ -566,6 +572,16 @@ NBLoadedTLDef::addToSignalGroup(const std::string &groupid,
         return false;
     }
     mySignalGroups[groupid]->addConnection(connection);
+    NBNode *n1 = connection.getFrom()->getToNode();
+    if(n1!=0) {
+        addNode(n1);
+        n1->addTrafficLight(this);
+    }
+    NBNode *n2 = connection.getTo()->getFromNode();
+    if(n2!=0) {
+        addNode(n2);
+        n2->addTrafficLight(this);
+    }
     return true;
 }
 

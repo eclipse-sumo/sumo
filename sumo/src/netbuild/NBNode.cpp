@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2003/10/02 15:00:31  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.28  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
 //
@@ -1768,6 +1771,14 @@ bool
 NBNode::mustBrake(NBEdge *from, NBEdge *to) const
 {
 	assert(_request!=0);
+    // check whether it is participant to a traffic light
+    //  - controlled links are set by the traffic lights, not the normal
+    //    right-of-way rules
+    //  - uncontrolled participants (spip lanes etc.) should always break
+    if(myTrafficLights.size()!=0) {
+        return true; // What happens when the lights go out?
+            // All would have to break... No problem!
+    }
 	return _request->mustBrake(from, to);
 }
 
@@ -1806,9 +1817,11 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
 
 
 bool
-NBNode::forbids(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
+NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
+				NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const
 {
-    return _request->forbids(from1, to1, from2, to2);
+    return _request->forbids(possProhibitorFrom, possProhibitorTo,
+		possProhibitedFrom, possProhibitedTo);
 }
 
 
@@ -1903,7 +1916,7 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition *tld)
 {
-    myTrafficLights.push_back(tld);
+    myTrafficLights.insert(tld);
 }
 
 
@@ -2089,6 +2102,27 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
         }
     }
 }
+
+
+bool
+NBNode::isTLControlled() const
+{
+    return myTrafficLights.size()!=0;
+}
+
+/*
+bool
+NBNode::connectionIsTLControlled(NBEdge *from, NBEdge *to) const
+{
+    for(std::set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); i++) {
+        if((*i)->includes(from, to)) {
+            return true;
+        }
+    }
+    return false;
+}
+*/
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/10/02 15:00:34  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.12  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -145,8 +148,8 @@ public:
     bool foes(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
 
-    bool forbids(NBEdge *from1, NBEdge *to1,
-        NBEdge *from2, NBEdge *to2) const;
+    bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
+		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);

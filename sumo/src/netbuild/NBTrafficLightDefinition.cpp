@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/02 15:00:36  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.8  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
 //
@@ -93,7 +96,7 @@ using namespace std;
  * NBTrafficLightDefinition
  * ----------------------------------------------------------------------- */
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-                                                   const std::vector<NBNode*> &junctions)
+                                                   const std::set<NBNode*> &junctions)
     : Named(id), _nodes(junctions)
 {
     for(NodeCont::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
@@ -107,6 +110,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
     : Named(id)
 {
     addNode(junction);
+    junction->addTrafficLight(this);
 }
 
 
@@ -280,31 +284,35 @@ NBTrafficLightDefinition::mustBrake(NBEdge *from1, NBEdge *to1,
 
 
 bool
-NBTrafficLightDefinition::mustBrake(const NBConnection &conn,
-                                    const NBConnection &source) const
+NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
+                                    const NBConnection &possProhibitor) const
 {
-    return forbids(source.getFrom(), source.getTo(), conn.getFrom(), conn.getTo());
+    return forbids(possProhibitor.getFrom(), possProhibitor.getTo(),
+		possProhibited.getFrom(), possProhibited.getTo());
 }
 
 
 bool
-NBTrafficLightDefinition::forbids(NBEdge *from1, NBEdge *to1,
-                                    NBEdge *from2, NBEdge *to2) const
+NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
+								  NBEdge *possProhibitorTo,
+								  NBEdge *possProhibitedFrom,
+								  NBEdge *possProhibitedTo) const
 {
     // retrieve both nodes (it is possible that a connection
     NodeCont::const_iterator incoming =
         find_if(_nodes.begin(), _nodes.end(),
-            NBContHelper::node_with_incoming_finder(from1));
+            NBContHelper::node_with_incoming_finder(possProhibitorFrom));
     NodeCont::const_iterator outgoing =
         find_if(_nodes.begin(), _nodes.end(),
-            NBContHelper::node_with_outgoing_finder(to1));
+            NBContHelper::node_with_outgoing_finder(possProhibitedTo));
     assert(incoming!=_nodes.end());
     NBNode *incnode = *incoming;
     NBNode *outnode = *outgoing;
     if(incnode!=outnode) {
         return false;
     }
-    return incnode->forbids(from1, to1, from2, to2);
+    return incnode->forbids(possProhibitorFrom, possProhibitorTo,
+		possProhibitedFrom, possProhibitedTo);
 }
 
 
@@ -332,12 +340,22 @@ NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
 void
 NBTrafficLightDefinition::addNode(NBNode *node)
 {
-    _nodes.push_back(node);
+    _nodes.insert(node);
     node->addTrafficLight(this);
 }
 
-
-
+/*
+bool
+NBTrafficLightDefinition::includes(NBEdge *from, NBEdge *to) const
+{
+    for(NBConnectionVector::const_iterator i=_links.begin(); i!=_links.end(); i++) {
+        if((*i).getFrom()==from&&(*i).getTo()==to) {
+            return true;
+        }
+    }
+    return false;
+}
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -10,7 +10,7 @@
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
-                       const std::vector<NBNode*> &junctions)
+                       const std::set<NBNode*> &junctions)
     : NBTrafficLightDefinition(id, junctions)
 {
 }

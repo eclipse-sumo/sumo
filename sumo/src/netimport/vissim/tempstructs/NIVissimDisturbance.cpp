@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/10/02 15:01:12  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.11  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -193,6 +196,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NBNode *node = 0;
         assert(node1==0||node2==0);
         if(node1==0&&node2==0) {
+            refusedProhibits++;
 			return false;
 /*            node = new NBNode(id1, pos.x(), pos.y(), "priority");
             if(!NBNodeCont::insert(node)) {
@@ -225,6 +229,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
 					NBConnection(mayDriveFrom, mayDriveTo),
 					NBConnection(mayDriveFrom, mayDriveTo));
 			} else {
+	            refusedProhibits++;
 				return false;
 				// !!! warning
 			}
@@ -268,6 +273,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
             MsgHandler::getWarningInstance()->inform(
                 string("Would have to split edge '")
                 + e->getID() + string("' to build a prohibition"));
+            refusedProhibits++;
             // quite ugly - why was it not build?
             return false;
             /*
@@ -326,6 +332,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
             MsgHandler::getWarningInstance()->inform(
                 string("Would have to split edge '")
                 + e->getID() + string("' to build a prohibition"));
+            refusedProhibits++;
             return false;
             /*
             // quite ugly - why was it not build?
@@ -347,6 +354,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NBConnection conn1 = getConnection(node, myDisturbance.getEdgeID());
         NBConnection conn2 = getConnection(node, myEdge.getEdgeID());
         if(!conn1.check()||!conn2.check()) {
+            refusedProhibits++;
             return false;
         }
         node->addSortedLinkFoes(conn1, conn2);

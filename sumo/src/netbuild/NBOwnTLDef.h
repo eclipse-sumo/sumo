@@ -2,6 +2,7 @@
 #define NBOwnTLDef_h
 
 #include <vector>
+#include <set>
 #include "NBTrafficLightDefinition.h"
 
 class NBNode;
@@ -10,7 +11,7 @@ class NBOwnTLDef : public NBTrafficLightDefinition {
 public:
     /// Constructor
     NBOwnTLDef(const std::string &id,
-        const std::vector<NBNode*> &junctions);
+        const std::set<NBNode*> &junctions);
 
     /// Constructor
     NBOwnTLDef(const std::string &id, NBNode *junction);

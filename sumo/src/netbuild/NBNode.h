@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2003/10/02 15:00:32  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.21  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
 //
@@ -125,6 +128,7 @@
 #include <deque>
 #include <utility>
 #include <string>
+#include <set>
 #include <iostream>
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
@@ -328,7 +332,8 @@ public:
 
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
-    bool forbids(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+    bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
+		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
 
     bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
@@ -354,6 +359,10 @@ public:
 
     bool checkIsRemovable() const;
 
+    bool isTLControlled() const;
+/*
+    bool connectionIsTLControlled(NBEdge *from, NBEdge *to) const;
+*/
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
 private:
@@ -482,7 +491,7 @@ private:
 
 	NBRequest *_request;
 
-    std::vector<NBTrafficLightDefinition*> myTrafficLights;
+    std::set<NBTrafficLightDefinition*> myTrafficLights;
 
 private:
     /** invalid copy constructor */
