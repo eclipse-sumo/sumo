@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/04/18 11:37:33  croessel
+// In updateLanes(): changed swap() against assignment.
+//
 // Revision 1.2  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -253,7 +256,7 @@ MSLaneChanger::updateLanes()
     // been pointers, but then I had to change too much of the MSLane code.
     for ( ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce ) {
 
-        ce->lane->myVehicles.swap( ce->lane->myTmpVehicles );
+        ce->lane->myVehicles = ce->lane->myTmpVehicles;
         ce->lane->myTmpVehicles.clear();
     }
 }
