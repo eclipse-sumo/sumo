@@ -105,10 +105,6 @@ SOURCE=..\..\src\utils\distribution\Distribution_Points.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\distribution\DistributionCont.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\DoubleVector.cpp
 # End Source File
 # Begin Source File
@@ -706,10 +702,6 @@ SOURCE=..\..\src\utils\distribution\Distribution_MeanDev.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\distribution\Distribution_Points.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\distribution\DistributionCont.h
 # End Source File
 # Begin Source File
 
