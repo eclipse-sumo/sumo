@@ -2,6 +2,9 @@
 # I lifted it in some mater. (Stephan Kulow)
 # I used much code from Janos Farkas
 
+# $Id$
+
+
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(acinclude.m4) dnl a source file from your sub dir
@@ -18,7 +21,7 @@ dnl     appropriate).
 dnl This is so we can use kde-common
 AC_CONFIG_AUX_DIR(admin)
 
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_SYSTEM 
 
 dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(sumo,0.7.2)
@@ -71,14 +74,14 @@ fi
 dnl end of sumo-specific configure-options
 
 dnl Checks for programs.
-dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch
+dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch 
 dnl -fno-exceptions gesetzt
 AC_CHECK_COMPILERS
 
 dnl CXXFLAGS="$NOOPT_CXXFLAGS" dnl __kdevelop[noopt]__
 dnl CFLAGS="$NOOPT_CFLAGS" dnl __kdevelop[noopt]__
 
-dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach
+dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach 
 dnl hinter das standardmaessige -fno-exception geschrieben.
 CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS" dnl __kdevelop[exc]__
 
@@ -219,6 +222,10 @@ AC_OUTPUT(
 ./data/examples/cross1ltl/Makefile
 ./data/examples/cross3l/Makefile
 ./data/examples/cross3ltl/Makefile
+./data/examples/eight1l/Makefile
+./data/examples/eight1ltl/Makefile
+./data/examples/eight3l/Makefile
+./data/examples/eight3ltl/Makefile
 ./data/examples/cross3ltl_inductloops/Makefile
 ./data/examples/cross3ltl_inductloops/output/Makefile
 ./data/examples/cross3ltl_meandata/Makefile
@@ -231,29 +238,26 @@ AC_OUTPUT(
 ./data/examples/due3s_automatic/aggregated/Makefile
 ./data/examples/due3s_singlestep/Makefile
 ./data/examples/due3s_singlestep/aggregated/Makefile
-./data/examples/eight1l/Makefile
-./data/examples/eight1ltl/Makefile
-./data/examples/eight3l/Makefile
-./data/examples/eight3ltl/Makefile
 ./data/ressources/Makefile
 ./data/types/Makefile
 ./docs/Makefile
 ./docs/gfx/Makefile
+./docs/gfx_netcdev/Makefile
+./docs/images/Makefile
 ./prj/Makefile
 ./prj/gui/Makefile
-./prj/sumo/Makefile
 ./prj/netconvert/Makefile
 ./prj/od2trips/Makefile
 ./prj/router/Makefile
+./prj/sumo/Makefile
 ./prj/tagreader/Makefile
 ./src/Makefile
-./src/div/Makefile
 ./src/gui/Makefile
 ./src/gui/icons/Makefile
 ./src/gui/icons/view_traffic/Makefile
 ./src/gui/partable/Makefile
-./src/gui/popup/Makefile
 ./src/gui/vartracker/Makefile
+./src/gui/popup/Makefile
 ./src/guinetload/Makefile
 ./src/guisim/Makefile
 ./src/helpers/Makefile
@@ -278,19 +282,21 @@ AC_OUTPUT(
 ./src/utils/convert/Makefile
 ./src/utils/dev/Makefile
 ./src/utils/distribution/Makefile
-./src/utils/fonts/Makefile
 ./src/utils/geom/Makefile
 ./src/utils/gfx/Makefile
 ./src/utils/glutils/Makefile
 ./src/utils/importio/Makefile
-./src/utils/logging/Makefile
 ./src/utils/options/Makefile
 ./src/utils/qutils/Makefile
 ./src/utils/router/Makefile
 ./src/utils/sumoxml/Makefile
 ./src/utils/xml/Makefile
+./src/utils/logging/Makefile
+./src/utils/fonts/Makefile
+./src/div/Makefile
 ./tests/Makefile
 ./tests/dos/Makefile
 ./tests/unix/Makefile
 ./tools/Makefile
 )
+
