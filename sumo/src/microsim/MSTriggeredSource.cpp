@@ -301,7 +301,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             aVehicleId,
             myRouteDist.getRndRoute(),
             aEmitTime,
-            aVehType, 0, 0);
+            aVehType, 0, 0, RGBColor(1, 1, 1));
         MSNet::getInstance()->newUnbuildVehicleBuild();
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
@@ -347,6 +347,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.16  2003/11/20 13:28:38  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.15  2003/10/31 08:03:39  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //

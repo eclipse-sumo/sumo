@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/20 13:27:42  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.5  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -58,6 +61,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/gfx/GfxConvHelper.h>
 
 
 /* =========================================================================
@@ -108,6 +112,9 @@ MSRouteHandler::myStartElement(int element, const std::string &,
 void
 MSRouteHandler::addVehicleType(const Attributes &attrs)
 {
+    RGBColor col = 
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
@@ -116,7 +123,8 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
                 getFloat(attrs, SUMO_ATTR_ACCEL),
                 getFloat(attrs, SUMO_ATTR_DECEL),
-                getFloat(attrs, SUMO_ATTR_SIGMA));
+                getFloat(attrs, SUMO_ATTR_SIGMA),
+                col);
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -136,7 +144,8 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
 void
 MSRouteHandler::addParsedVehicleType(const string &id, const float length,
                                     const float maxspeed, const float bmax,
-                                    const float dmax, const float sigma)
+                                    const float dmax, const float sigma,
+                                    RGBColor &c)
 {
     MSVehicleType *vtype =
         new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
@@ -176,6 +185,9 @@ MSRouteHandler::openRoute(const Attributes &attrs)
 void
 MSRouteHandler::addVehicle(const Attributes &attrs)
 {
+    RGBColor col = 
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
     // try to get the id first
     string id;
     try {
@@ -195,7 +207,7 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
             getString(attrs, SUMO_ATTR_TYPE),
             getString(attrs, SUMO_ATTR_ROUTE),
             getInt(attrs, SUMO_ATTR_DEPART),
-            repNumber, repOffset);
+            repNumber, repOffset, col);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing attribute in a vehicle-object.");
@@ -217,7 +229,7 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
 MSVehicle *
 MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
                                  const string &routeid, const long &depart,
-                                 int repNumber, int repOffset)
+                                 int repNumber, int repOffset, RGBColor &c)
 {
     MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
     if(vtype==0) {
@@ -229,7 +241,7 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
     }
     MSVehicle *vehicle =
         MSNet::getInstance()->buildNewVehicle(id, route, depart, vtype,
-            repNumber, repOffset);
+            repNumber, repOffset, c);
     if(!MSVehicle::dictionary(id, vehicle)) {
         throw XMLIdAlreadyUsedException("vehicle", id);
     }

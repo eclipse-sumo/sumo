@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.43  2003/11/20 13:27:42  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.42  2003/10/24 15:24:20  roessel
 // Changes due to new MSUpdateEachTimestep mechanism.
 //
@@ -365,8 +368,8 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 54125000;
-std::string MSNet::searched1 = "231";
+MSNet::Time MSNet::searchedtime = 0;
+std::string MSNet::searched1 = "Rand9";
 std::string MSNet::searched2 = "715a0";
 std::string MSNet::searchedJunction = "536";
 #endif
@@ -601,7 +604,7 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     // set information which vehicles should decelerate
     myLogics->maskYellowLinks();
 
-    // move vehicles which do interact with theri lane's end
+    // move vehicles which do interact with their lane's end
     //  (it is now known whether they may drive
     myEdges->moveFirst();
     myEdges->detectCollisions( myStep );
@@ -616,7 +619,7 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         Detector::UpdateE2Detectors >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<
         Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
-    
+
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
 
@@ -739,11 +742,11 @@ MSNet::preStartInit()
     }
 }
 
-
+/*
 MSVehicle *
 MSNet::buildNewMSVehicle( std::string id, MSRoute* route,
                          MSNet::Time departTime, const MSVehicleType* type,
-                         int repNo, int repOffset)
+                         int repNo, int repOffset, const RGBColor &col)
 {
     size_t noIntervals = getNDumpIntervalls();
 	myLoadedVehNo++;
@@ -752,13 +755,17 @@ MSNet::buildNewMSVehicle( std::string id, MSRoute* route,
 }
 
 
-
+*/
 MSVehicle *
 MSNet::buildNewVehicle( std::string id, MSRoute* route,
                          MSNet::Time departTime, const MSVehicleType* type,
-                         int repNo, int repOffset)
+                         int repNo, int repOffset, const RGBColor &col)
 {
-    return buildNewMSVehicle(id, route, departTime, type, repNo, repOffset);
+    size_t noIntervals = getNDumpIntervalls();
+	myLoadedVehNo++;
+    return new MSVehicle(id, route, departTime, type, noIntervals,
+        repNo, repOffset);
+//    return buildNewMSVehicle(id, route, departTime, type, repNo, repOffset);
 }
 
 

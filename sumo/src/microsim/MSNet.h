@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.36  2003/11/20 13:27:42  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.35  2003/10/22 15:45:51  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -261,7 +264,7 @@ class MSEmitControl;
 class MSEventControl;
 class MSRouteLoaderControl;
 class Event;
-//class MSDetector;
+class RGBColor;
 class PreStartInitialised;
 class MSVehicle;
 class MSRoute;
@@ -395,14 +398,14 @@ public:
     void preStartInit();
 
     /// builds a new vehicle
-    virtual MSVehicle *buildNewMSVehicle( std::string id, MSRoute* route,
+    virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset);
-
+        int repNo, int repOffset, const RGBColor &col);
+/*
     virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
         int repNo, int repOffset);
-
+*/
 	/// informs the simulation about the destruction of a vehicle
 	void vehicleHasLeft(const std::string &id);
 

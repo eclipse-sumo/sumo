@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/11/20 13:27:42  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -45,6 +48,7 @@
  * ======================================================================= */
 class MSEdge;
 class MSVehicle;
+class RGBColor;
 
 
 /* =========================================================================
@@ -97,7 +101,7 @@ protected:
     /** adds the parsed vehicle type */
     void addParsedVehicleType(const std::string &id, const float length,
         const float maxspeed, const float bmax,
-        const float dmax, const float sigma);
+        const float dmax, const float sigma, RGBColor &c);
 
 
     /** parses an occured vehicle definition */
@@ -106,7 +110,7 @@ protected:
     /** adds the parsed vehicle */
     MSVehicle *addParsedVehicle(const std::string &id,
         const std::string &vtypeid, const std::string &routeid,
-        const long &depart, int repNumber, int repOffset);
+        const long &depart, int repNumber, int repOffset, RGBColor &c);
 
 
     /** opens a route for reading */
