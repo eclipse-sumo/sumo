@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/12/09 11:22:14  dkrajzew
+// errors during simulation are now caught properly
+//
 // Revision 1.1  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -50,7 +53,11 @@ public:
         ER_NO_VEHICLES,
 
         /// The simulation has ended as the end time step was reached
-        ER_END_STEP_REACHED
+        ER_END_STEP_REACHED,
+
+        /// The simulation has ended due to an error
+        ER_ERROR_IN_SIM
+
     };
 
     /// constructor

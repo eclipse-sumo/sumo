@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/12/09 11:22:13  dkrajzew
+// errors during simulation are now caught properly
+//
 // Revision 1.18  2003/12/04 13:24:45  dkrajzew
 // error handliung improved
 //
@@ -141,7 +144,7 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
-    _net->initialiseSimulation(_craw/*, start, end*/);
+    _net->initialiseSimulation(_craw);
 }
 
 
@@ -189,10 +192,10 @@ GUIRunThread::run()
                             QSimulationEndedEvent::ER_NO_VEHICLES, _step-1) );
                 }
             } catch (ProcessError &e) {
-                int bla = 0;
+                _simulationInProgress = false;
                 QThread::postEvent( _parent,
                     new QSimulationEndedEvent(
-                        QSimulationEndedEvent::ER_END_STEP_REACHED, _step) );
+                        QSimulationEndedEvent::ER_ERROR_IN_SIM, _step) );
                 _halting = true;
             }
         }

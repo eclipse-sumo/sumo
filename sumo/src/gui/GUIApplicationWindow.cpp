@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2003/12/09 11:22:13  dkrajzew
+// errors during simulation are now caught properly
+//
 // Revision 1.28  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
 //
@@ -738,6 +741,9 @@ GUIApplicationWindow::processSimulationEndEvent(QSimulationEndedEvent *e)
             break;
         case QSimulationEndedEvent::ER_END_STEP_REACHED:
             text << "Reason: The final simulation step has been reached.";
+            break;
+        case QSimulationEndedEvent::ER_ERROR_IN_SIM:
+            text << "Reason: An error occured (see log).";
             break;
         default:
             throw 1;
