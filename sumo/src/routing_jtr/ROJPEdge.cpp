@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:40:36  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
+//
 // Revision 1.2  2004/02/16 13:48:07  dkrajzew
 // false usage of a random number patched
 //
@@ -37,7 +40,6 @@ namespace
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
-//
 //
 /* =========================================================================
  * included modules
@@ -61,8 +63,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJPEdge::ROJPEdge(const std::string &id)
-    : ROEdge(id)
+ROJPEdge::ROJPEdge(const std::string &id, int index)
+    : ROEdge(id, index)
 {
 }
 
@@ -79,7 +81,8 @@ void
 ROJPEdge::addFollower(ROEdge *s)
 {
     ROEdge::addFollower(s);
-    myFollowingDefs[static_cast<ROJPEdge*>(s)] = new FloatValueTimeLine();
+    myFollowingDefs[static_cast<ROJPEdge*>(s)] =
+        new FloatValueTimeLine();
 }
 
 
@@ -94,7 +97,7 @@ ROJPEdge::addFollowerPropability(ROJPEdge *follower, unsigned int begTime,
             + follower->getID() + string("' are not connected."));
         return;
     }
-    (*i).second->addValue(begTime, endTime, percentage);
+    (*i).second->append(begTime, endTime, percentage);
 }
 
 

@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/07/02 09:40:36  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
+//
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
-//
 //
 /* =========================================================================
  * included modules
@@ -58,10 +60,10 @@ class ROLane;
 class ROJPEdge : public ROEdge {
 public:
     /// Constructor
-	ROJPEdge(const std::string &id);
+    ROJPEdge(const std::string &id, int index);
 
     /// Desturctor
-	~ROJPEdge();
+    ~ROJPEdge();
 
     /// Adds information about a connected edge
     void addFollower(ROEdge *s);
