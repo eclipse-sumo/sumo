@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:34:25  dkrajzew
+// the arcview-import should be more stable nw when dealing with false tables
+//
 // Revision 1.4  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
 //
@@ -36,7 +39,7 @@ namespace
 
 #include <string>
 #include <utils/common/FileErrorReporter.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/importio/LineHandler.h>
@@ -111,18 +114,27 @@ NIArcView_Loader::parseLine(const std::string &line)
     }
     myColumnsParser.parseLine(line);
     // extract values
-    string id = myColumnsParser.get("LINK_ID", true);
-    string name = myColumnsParser.get("ST_NAME", true);
-    string from_node = myColumnsParser.get("REF_IN_ID", true);
-    string to_node = myColumnsParser.get("NREF_IN_ID", true);
-    string type = myColumnsParser.get("ST_TYP_AFT", true);
-    double speed = getSpeed(id);
-    double nolanes = getLaneNo(id);
-    int priority = getPriority(id);
+    string id = getStringSecure("LINK_ID");
+    string name = getStringSecure("ST_NAME");
+    string from_node = getStringSecure("REF_IN_ID");
+    string to_node = getStringSecure("NREF_IN_ID");
+    string type = getStringSecure("ST_TYP_AFT");
+    double speed = 0;
+    double nolanes = 0;
+    int priority = 0;
+    try {
+        speed = getSpeed(id);
+        nolanes = getLaneNo(id);
+        priority = getPriority(id);
+    } catch (...) {
+        addError(
+            string("An attribute is not given within the file!"));
+        return false;
+    }
     NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
         // extract shape
     myShapeReader.readShape(myCurrentLink++);
-    if(SErrorHandler::errorOccured()) {
+    if(MsgHandler::getErrorInstance()->wasInformed()) {
         return false;
     }
     // build and check nodes
@@ -170,7 +182,24 @@ NIArcView_Loader::parseLine(const std::string &line)
             NBEdgeCont::insert(edge);
         }
     }
-    return true;
+    return !MsgHandler::getErrorInstance()->wasInformed();
+}
+
+
+string
+NIArcView_Loader::getStringSecure(const std::string &which)
+{
+    try {
+        return myColumnsParser.get(which, true);
+    } catch (UnknownElement &e) {
+        addError(
+            string("The attribute '") + which
+            + string("' is not given within the file!"));
+    } catch (OutOfBoundsException &e) {
+        addError(
+            string("The attribute '") + which
+            + string("' is not given within the file!"));
+    }
 }
 
 
@@ -201,9 +230,10 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
         }
     } catch (...) {
         if(myColumnsParser.get("SPEED_CAT", true)=="NA") {
-            cout << "Warning: non-applicable speed definition found for edge '"
-                << edgeid << "'" << endl; // !!! Warning-level
-            cout << "Using 30km/h" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("non-applicable speed definition found for edge '")
+                + edgeid + string("'")); // !!! Warning-level
+            MsgHandler::getWarningInstance()->inform("Using 30km/h");
             return 30 / 3.6;
         }
         addError(
@@ -231,9 +261,10 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
         }
     } catch (...) {
         if(myColumnsParser.get("LANE_CAT", true)=="NA") {
-            cout << "Warning: non-applicable number of lanes found for edge '"
-                << edgeid << "'" << endl; // !!! Warning-level
-            cout << "Using '1'" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("non-applicable number of lanes found for edge '")
+                + edgeid + string("'"));// !!! Warning-level
+            MsgHandler::getWarningInstance()->inform("Using '1'");
             return 1;
         }
         addError(
@@ -260,9 +291,10 @@ NIArcView_Loader::getPriority(const std::string &edgeid)
         return 5 - prio;
     } catch (...) {
         if(myColumnsParser.get("FUNC_CLASS", true)=="NA") {
-            cout << "Warning: non-applicable priority found for edge '"
-                << edgeid << "'" << endl; // !!! Warning-level
-            cout << "Using '0'" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("non-applicable priority found for edge '")
+                + edgeid + string("'")); // !!! Warning-level
+            MsgHandler::getWarningInstance()->inform("Using '0'");
             return 0;
         }
         addError(

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/18 11:34:25  dkrajzew
+// the arcview-import should be more stable nw when dealing with false tables
+//
 // Revision 1.2  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
 //
@@ -84,6 +87,9 @@ private:
 
     /// parses the priority of the edge currently processed
     int getPriority(const std::string &edgeid);
+
+    std::string getStringSecure(const std::string &which);
+
 
 private:
     /// The shape reader

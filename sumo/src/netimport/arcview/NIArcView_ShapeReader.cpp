@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:34:25  dkrajzew
+// the arcview-import should be more stable nw when dealing with false tables
+//
 // Revision 1.3  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
 //
@@ -38,7 +41,7 @@ namespace
 #include <cassert>
 #include <sstream>
 #include <utils/convert/TplConvert.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineHandler.h>
@@ -78,7 +81,7 @@ NIArcView_ShapeReader::readShape(size_t no)
     // clear points
     myPoints.clear();
     // try to find and parse the shape
-    while(!myShapeRead&&!SErrorHandler::errorOccured()) {
+    while(!myShapeRead&&!MsgHandler::getErrorInstance()->wasInformed()) {
         myLineReader.readLine(*this);
     }
 }
