@@ -216,11 +216,11 @@ SOURCE=..\..\src\netbuild\NBLoadedTLDef.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBLoader.cpp
+SOURCE=..\..\src\netbuild\NBLogicKeyBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBLogicKeyBuilder.cpp
+SOURCE=..\..\src\netbuild\NBNetBuilder.cpp
 # End Source File
 # Begin Source File
 
@@ -341,6 +341,10 @@ SOURCE=..\..\src\netimport\cell\NICellEdgesHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netimport\cell\NICellNodesHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\NILoader.cpp
 # End Source File
 # Begin Source File
 
@@ -972,11 +976,11 @@ SOURCE=..\..\src\netbuild\NBLoadedTLDef.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBLoader.h
+SOURCE=..\..\src\netbuild\NBLogicKeyBuilder.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBLogicKeyBuilder.h
+SOURCE=..\..\src\netbuild\NBNetBuilder.h
 # End Source File
 # Begin Source File
 
@@ -1097,6 +1101,10 @@ SOURCE=..\..\src\netimport\cell\NICellEdgesHandler.h
 # Begin Source File
 
 SOURCE=..\..\src\netimport\cell\NICellNodesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\NILoader.h
 # End Source File
 # Begin Source File
 
