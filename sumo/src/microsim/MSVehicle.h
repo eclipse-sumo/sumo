@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.25  2003/10/24 16:48:37  roessel
+// Added new method getMovedDistance and corresponding member.
+//
 // Revision 1.24  2003/10/22 07:06:04  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -226,6 +229,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRoute.h"
+#include "MSUnit.h"
 #include <helpers/Counter.h>
 #include <map>
 #include <string>
@@ -770,7 +774,11 @@ public:
     LaneChangeState::Direction getLaneChangeDirection() const;
 
 
-
+    MSUnit::Cells getMovedDistance( void ) const
+        {
+            return movedDistanceDuringStepM;
+        }
+    
 
 protected:
     /// Use this constructor only.
@@ -915,6 +923,9 @@ private:
     void workOnMoveReminders( double oldPos, double newPos, double newSpeed,
                               MoveOnReminderMode = BOTH);
     void activateRemindersByEmitOrLaneChange( void );
+
+    MSUnit::Cells movedDistanceDuringStepM;
+    
 };
 
 

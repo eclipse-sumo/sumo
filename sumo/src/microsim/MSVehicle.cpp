@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2003/10/24 16:48:37  roessel
+// Added new method getMovedDistance and corresponding member.
+//
 // Revision 1.35  2003/10/22 07:06:04  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -606,7 +609,8 @@ MSVehicle::MSVehicle( string id,
     myMeanData( noMeanData ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
-    myLaneChangeState(*this)
+    myLaneChangeState(*this),
+    movedDistanceDuringStepM(0)
 {
     myCurrEdge = myRoute->begin();
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
@@ -1929,6 +1933,8 @@ void
 MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
                                 MoveOnReminderMode mode )
 {
+    movedDistanceDuringStepM = newPos - oldPos;
+    assert( movedDistanceDuringStepM >= 0 );
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for ( MoveReminderContIt rem = myMoveReminders.begin();
