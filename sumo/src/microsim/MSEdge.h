@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/04 16:12:05  roessel
+// Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
+//
 // Revision 1.5  2003/04/15 09:09:14  dkrajzew
 // documentation added
 //
@@ -237,33 +240,39 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /** @brief Moves all vehicles of the edge until the first occures which movement shall be rechecked
+    /** @brief Moves all vehicles of the edge until the first occures which
+        movement shall be rechecked
         See the according lane-function for further information
         Use this for edges with only one lane */
     virtual void moveNonCriticalSingle();
 
 
-    /** @brief Moves all vehicles the edge, beginning at the first vehicle which may leave the edge
+    /** @brief Moves all vehicles the edge, beginning at the first vehicle
+        which may leave the edge
         See the according lane-function for further information
         Use this for edges with only one lane */
     virtual void moveCriticalSingle();
 
-    /** @brief Moves all vehicles of the edge until the first occures which movement shall be rechecked
+    /** @brief Moves all vehicles of the edge until the first occures which
+        movement shall be rechecked
         See the according lane-function for further information
         Use this for edges with more than one lane */
     virtual void moveNonCriticalMulti();
 
-    /** @brief Moves all vehicles the edge, beginning at the first vehicle which may leave the edge
+    /** @brief Moves all vehicles the edge, beginning at the first vehicle
+        which may leave the edge
         See the according lane-function for further information
         Use this for edges with more than one lane */
     virtual void moveCriticalMulti();
 
-    /** @brief moves vehicles which has to be recheked (may leave the lane in the near future)
+    /** @brief moves vehicles which has to be recheked (may leave the lane in
+        the near future)
         See the according lane-function for further information */
     virtual void setCritical();
 
     /** @brief Moves vehicles to their destination lane
-        Copies the lane's buffer for incoming vehicles into the lane's vehicle vector */
+        Copies the lane's buffer for incoming vehicles into the lane's vehicle
+        vector */
     void vehicle2target();
 
     /** @brief Ask edge's lanes about collisions.
@@ -278,10 +287,12 @@ public:
     MSLane* leftLane( const MSLane* lane ) const;
 
     /** @brief Inserts edge into the static dictionary
-        Returns true if the key id isn't already in the dictionary. Otherwise returns false. */
+        Returns true if the key id isn't already in the dictionary. Otherwise
+        returns false. */
     static bool dictionary( std::string id, MSEdge* edge );
 
-    /** Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
+    /** Returns the MSEdge associated to the key id if exists, otherwise
+     * returns 0. */
     static MSEdge* dictionary( std::string id );
 
     /** Clears the dictionary */
@@ -310,16 +321,20 @@ public:
     /// emits a vehicle on an appropriate lane
     virtual bool emit(MSVehicle &v);
 
+    static std::vector< MSEdge* > getEdgeVector( void );
+
+    LaneCont* getLanes( void );
+    
+
 protected:
     /// Unique ID.
     std::string myID;
 
     /** @brief Container for the edge's lane.
-        Should be sorted: (right-hand-traffic) the more left the lane, the higher the
+        Should be sorted: (right-hand-traffic) the more left the lane, the
+        higher the
         container-index. */
     LaneCont* myLanes;
-
-protected:
 
     /** Associative container for destination-edge/allowed-lanes
         matching. */

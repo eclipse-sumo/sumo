@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/06/04 16:12:05  roessel
+// Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
+//
 // Revision 1.5  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -476,6 +479,24 @@ MSEdge::emit(MSVehicle &v)
         }
         return false;
     }
+}
+
+vector< MSEdge* >
+MSEdge::getEdgeVector( void )
+{
+    vector< MSEdge* > edges;
+    edges.reserve( myDict.size() );
+    for ( DictType::iterator edge = myDict.begin(); edge != myDict.end();
+          ++edge ) {
+        edges.push_back( edge->second );
+    }
+    return edges;
+}
+
+MSEdge::LaneCont*
+MSEdge::getLanes( void )
+{
+    return myLanes;
 }
 
 
