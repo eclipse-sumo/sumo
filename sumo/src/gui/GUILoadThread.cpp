@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/12/09 11:23:07  dkrajzew
+// some memory leaks removed
+//
 // Revision 1.19  2003/12/04 13:22:48  dkrajzew
 // better error handling applied
 //
@@ -132,6 +135,9 @@ GUILoadThread::GUILoadThread(GUIApplicationWindow *mw)
 
 GUILoadThread::~GUILoadThread()
 {
+    delete myErrorRetriever;
+    delete myMessageRetriever;
+    delete myWarningRetreiver;
 }
 
 

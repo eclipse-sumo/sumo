@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/12/09 11:23:07  dkrajzew
+// some memory leaks removed
+//
 // Revision 1.25  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -236,6 +239,13 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
 
 GUIViewTraffic::~GUIViewTraffic()
 {
+    for(size_t i=0; i<8; i++) {
+        delete myVehicleDrawer[i];
+        delete myLaneDrawer[i];
+        delete myJunctionDrawer[i];
+        delete myDetectorDrawer[i];
+        delete myROWDrawer[i];
+    }       
 }
 
 
