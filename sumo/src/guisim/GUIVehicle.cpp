@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/01/26 07:00:50  dkrajzew
+// reinserted the building of repeating vehicles
+//
 // Revision 1.20  2003/11/20 13:06:30  dkrajzew
 // loading and using of predefined vehicle colors added
 //
@@ -103,6 +106,7 @@ namespace
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSVehicleControl.h>
 
 
 /* =========================================================================
@@ -226,7 +230,8 @@ GUIVehicle::getWaitingTime() const
     return myWaitingTime;
 }
 */
-/*
+
+
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
@@ -234,12 +239,11 @@ GUIVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return static_cast<GUINet*>(GUINet::getInstance())->buildNewVehicle(
-        StringUtils::version1(myID),
-        myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
-        myPeriod, myDefinedColor);
+    return MSNet::getInstance()->getVehicleControl().buildVehicle(
+        StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
+        myType, myRepetitionNumber-1, myPeriod, myDefinedColor);
 }
-*/
+
 
 QGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,

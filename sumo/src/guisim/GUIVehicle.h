@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/01/26 07:00:50  dkrajzew
+// reinserted the building of repeating vehicles
+//
 // Revision 1.12  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -139,7 +142,7 @@ public:
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
         the same settings */
-//    virtual MSVehicle *getNextPeriodical() const;
+    virtual MSVehicle *getNextPeriodical() const;
 
 
 //    virtual size_t getTableParameterNo() const;
