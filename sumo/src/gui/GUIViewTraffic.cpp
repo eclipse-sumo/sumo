@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2004/02/16 13:56:27  dkrajzew
+// renamed some buttons and toolitips
+//
 // Revision 1.27  2004/02/05 16:29:31  dkrajzew
 // memory leaks removed
 //
@@ -264,9 +267,9 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
     v.addToolBar( _coloringTools, tr( "View Settings" ), QMainWindow::Top, FALSE );
     // add vehicle coloring scheme chooser
     QPixmap icon( colour_vehicle_xpm );
-    QGUIImageField *field = new QGUIImageField( icon, "Change Vehicle colouring Scheme",
+    QGUIImageField *field = new QGUIImageField( icon, "Change Vehicle Colouring Scheme",
         QString::null, _coloringTools, "change vehicle colouring scheme");
-    QComboBox *combo = new QComboBox( _coloringTools, "vehicle coloring scheme");
+    QComboBox *combo = new QComboBox( _coloringTools, "vehicle colouring scheme");
     combo->insertItem(QString("by speed"));
     combo->insertItem(QString("specified"));
     combo->insertItem(QString("random#1"));
@@ -280,9 +283,9 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
     _coloringTools->addSeparator();
     // add lane coloring scheme chooser
     icon = QPixmap( colour_lane_xpm );
-    field = new QGUIImageField( icon, "Change Lane colouring Scheme",
+    field = new QGUIImageField( icon, "Change Lane Colouring Scheme",
         QString::null, _coloringTools, "change lane colouring scheme");
-    combo = new QComboBox( _coloringTools, "lane coloring scheme");
+    combo = new QComboBox( _coloringTools, "lane colouring scheme");
     combo->insertItem(QString("black"));
     combo->insertItem(QString("by purpose"));
     combo->insertItem(QString("by speed"));
@@ -301,7 +304,7 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
         "show tool tips", _useToolTips );
     // add toggle button for full geometry-tips on/off
     icon = QPixmap( show_geometry_xpm );
-    toggle = new QGUIToggleButton( icon, "Show Tool Tips",
+    toggle = new QGUIToggleButton( icon, "Show Full Geometry",
         QString::null, this, SLOT(toggleFullGeometry()), _coloringTools,
         "show tool tips", myUseFullGeom );
 }
@@ -453,7 +456,7 @@ GUIViewTraffic::drawPolygon(const Position2DVector &v, const Position2D &center,
 void
 GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool close)
 {
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBegin(GL_TRIANGLE_STRIP);
 	const Position2DVector::ContType &l = v.getCont();
     Position2DVector::ContType ::const_iterator i = l.begin();

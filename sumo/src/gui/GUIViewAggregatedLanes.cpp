@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/02/16 13:56:27  dkrajzew
+// renamed some buttons and toolitips
+//
 // Revision 1.7  2003/11/20 13:17:33  dkrajzew
 // further work on aggregated views
 //
@@ -199,9 +202,9 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
     v.addToolBar( _coloringTools, tr( "View Settings" ), QMainWindow::Top, FALSE );
     // add vehicle coloring scheme chooser
     QPixmap icon( colour_vehicle_xpm );
-    QGUIImageField *field = new QGUIImageField( icon, "Change Vehicle colouring Scheme",
+    QGUIImageField *field = new QGUIImageField( icon, "Change Vehicle Colouring Scheme",
         QString::null, _coloringTools, "change vehicle colouring scheme");
-    QComboBox *combo = new QComboBox( _coloringTools, "vehicle coloring scheme");
+    QComboBox *combo = new QComboBox( _coloringTools, "vehicle colouring scheme");
     combo->insertItem(QString("by speed"));
     combo->insertItem(QString("specified"));
     combo->insertItem(QString("random#1"));
@@ -215,9 +218,9 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
     _coloringTools->addSeparator();
     // add lane coloring scheme chooser
     icon = QPixmap( colour_lane_xpm );
-    field = new QGUIImageField( icon, "Change Lane colouring Scheme",
+    field = new QGUIImageField( icon, "Change Lane Colouring Scheme",
         QString::null, _coloringTools, "change lane colouring scheme");
-    combo = new QComboBox( _coloringTools, "lane coloring scheme");
+    combo = new QComboBox( _coloringTools, "lane colouring scheme");
     combo->insertItem(QString("black"));
     combo->insertItem(QString("by purpose"));
     combo->insertItem(QString("by speed"));
