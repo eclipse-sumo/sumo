@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/07/02 09:55:13  dkrajzew
+// MeanData refactored (moved to microsim/output)
+//
 // Revision 1.4  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -87,7 +90,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -98,10 +100,12 @@
 #include "MSNet.h"
 #include "MSEdge.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 //class MSEdge;
+class OutputDevice;
 
 
 /* =========================================================================
@@ -121,21 +125,21 @@ public:
     class XMLOut
     {
     public:
-	    /// constructor
+        /// constructor
         XMLOut( const MSEdgeControl& obj,
                 unsigned indentWidth );
 
-	    /** @brief writes xml-formatted information about all edges known
+        /** @brief writes xml-formatted information about all edges known
             The XMLOut-object holds information whether embedded lanes shall be
             displayed, too */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
 
     private:
-	    /// the edge control to use
+        /// the edge control to use
         const MSEdgeControl& myObj;
 
-	    /// the number of indent spaces
+        /// the number of indent spaces
         unsigned myIndentWidth;
     };
 
@@ -143,42 +147,6 @@ public:
         instance */
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
-
-
-    /// allow direct access by MeanData
-    friend class MeanData;
-
-    /** Class to generate mean-data-output for all edges hold by an
-     * edgecontroller. Usage, e.g.: cout << MeanData( myEC, index,
-     * interval) << endl; where myEC is an edgecontroller object,
-     * index correspond to the lanes and vehicles data-struct and
-     * interval is the sample length. . */
-    class MeanData
-    {
-    public:
-	    /// constructor
-        MeanData( const MSEdgeControl& obj,
-                  unsigned index,
-                  MSNet::Time interval );
-
-	    /// output operator
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const MeanData& obj );
-
-    private:
-	    /// the edge control to use
-        const MSEdgeControl& myObj;
-
-    	/// the index of the information within the lanes' MeanData fields
-        unsigned myIndex;
-
-	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
-        MSNet::Time myInterval;
-    };
-
-    /// output operator for XML-mean-data output
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const MeanData& obj );
 
 
     /// Container for edges.
@@ -220,7 +188,21 @@ public:
     friend std::ostream& operator<<( std::ostream& os,
                                      const MSEdgeControl& ec );
 
+    void addToLanes(MSMeanData_Net *newMeanData);
+
+    const EdgeCont &getSingleLaneEdges() const;
+
+    const EdgeCont &getMultiLaneEdges() const;
+
 public:
+    /**
+     * @struct LaneUsage
+     * To fasten up speed, this structure holds the number of vehicles using
+     *  a lane and the lane's neighbours. Only lanes that are occupied are
+     *  forced to compute the vehicles longitunidal movement.
+     * The information about a lane's neighbours speed up the computation
+     *  of the lane changing.
+     */
     struct LaneUsage {
         MSLane *lane;
         size_t noVehicles;
@@ -253,8 +235,10 @@ private:
     MSEdgeControl& operator=( const MSEdgeControl& );
 
 private:
+    /// Definition of a container about a lane's number of vehicles and neighbors
     typedef std::vector<LaneUsage> LaneUsageVector;
 
+    /// Information about lanes' number of vehicles and neighbors
     LaneUsageVector myLanes;
 
 };
@@ -262,9 +246,6 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSEdgeControl.icc"
-//#endif
 
 #endif
 

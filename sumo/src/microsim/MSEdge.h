@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2004/07/02 09:55:13  dkrajzew
+// MeanData refactored (moved to microsim/output)
+//
 // Revision 1.10  2004/02/16 14:19:51  dkrajzew
 // getLane should be const
 //
@@ -130,6 +133,8 @@
  * ======================================================================= */
 class MSLane;
 class MSLaneChanger;
+class OutputDevice;
+//class MSMeanData_Edge;
 
 
 /* =========================================================================
@@ -150,13 +155,13 @@ public:
      * This information is represented by values from this enumeration
      */
     enum EdgeBasicFunction {
-    	/// the purpose of the edge is not known
+        /// the purpose of the edge is not known
         EDGEFUNCTION_UNKNOWN = -1,
-	    /// the edge is a normal street
+        /// the edge is a normal street
         EDGEFUNCTION_NORMAL = 0,
-	    /// the edge is only used for vehicle emission (begin of trips)
+        /// the edge is only used for vehicle emission (begin of trips)
         EDGEFUNCTION_SOURCE = 1,
-	    /// the edge is only used for vehicle deletion (end of trips)
+        /// the edge is only used for vehicle deletion (end of trips)
         EDGEFUNCTION_SINK = 2,
         EDGEFUNCTION_INTERNAL = 3
     };
@@ -174,24 +179,24 @@ public:
     class XMLOut
     {
     public:
-	    /// constructor
+        /// constructor
         XMLOut( const MSEdge& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
 
-	    /** writes xml-formatted information about the edge
+        /** writes xml-formatted information about the edge
             and optionally her lanes */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
 
     private:
-	    /// the edge to format information from
+        /// the edge to format information from
         const MSEdge& myObj;
 
-	    /// the number of indent spaces
+        /// the number of indent spaces
         unsigned myIndentWidth;
 
-	    /// information, whether lane information shall also be written
+        /// information, whether lane information shall also be written
         bool myWithChildElemes;
     };
 
@@ -200,40 +205,12 @@ public:
                                      const XMLOut& obj );
 
     /// for data collection
-    friend class MeanData;
-
-    /** Class to generate mean-data-output for all lanes hold by an
-     * edge. Usage, e.g.: cout << MeanData( myEdge, index, interval)
-     * << endl; where myEdge is an edge object, index correspond to
-     * the lanes and vehicles data-struct and interval is the sample
-     * length.  */
-    class MeanData
-    {
-    public:
-	    /// constructor
-        MeanData( const MSEdge& obj,
-                  unsigned index ,
-                  MSNet::Time interval );
-
-	    /// output operator
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const MeanData& obj );
-
-    private:
-	    /// the edge write information from
-        const MSEdge& myObj;
-
-	    /// the index of the information within the lanes' MeanData fields
-        unsigned myIndex;
-
-	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
-        MSNet::Time myInterval;
-    };
+    friend class MSMeanData_Edge;
 
 
     /// output operator for XML-mean-data output
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const MeanData& obj );
+    friend OutputDevice& operator<<( OutputDevice& os,
+                                     const MSMeanData_Edge& obj );
 
 
     /// Constructor.
@@ -304,7 +281,7 @@ public:
 
     static std::vector< MSEdge* > getEdgeVector( void );
 
-    LaneCont* getLanes( void ) const;
+    LaneCont* getLanes( void ) const; // !!! not the container itself!
 
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
 

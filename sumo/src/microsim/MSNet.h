@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.41  2004/07/02 09:55:13  dkrajzew
+// MeanData refactored (moved to microsim/output)
+//
 // Revision 1.40  2004/06/17 13:07:59  dkrajzew
 // Polygon visualisation added
 //
@@ -273,6 +276,8 @@
 #include <cmath>
 #include <utils/geom/Polygon2D.h>
 
+#include "MSInterface_NetRun.h"
+#include "output/MSMeanData_Net_Cont.h"
 
 
 /* =========================================================================
@@ -307,6 +312,7 @@ class MSVehicleControl;
  * MSNet.
  */
 class MSNet
+    : public MSInterface_NetRun
 {
 public:
     /**
@@ -339,12 +345,12 @@ public:
     /// Definition of the static Container to associate string-ids with
     /// objects.
     typedef std::map<std::string, Polygon2D* > PolyDic;
-   
+
     /// Static Container to associate string-ids with objects.
     PolyDic poly_dic;
 
     /// add the Polygon to the Net
-    bool addPoly(const std::string &name, const std::string &type, 
+    bool addPoly(const std::string &name, const std::string &type,
         const RGBColor &color);
 
 
@@ -438,7 +444,7 @@ public:
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
-	/// The current simulation time for debugging purposes
+    /// The current simulation time for debugging purposes
     static Time globaltime;
 
     /// ----------------- debug variables -------------
@@ -494,6 +500,10 @@ public:
 
     friend class MSTriggeredSource;
 
+    bool haveAllVehiclesQuit();
+
+    void addMeanData(MSMeanData_Net *newMeanData);
+
 protected:
     /** initialises the MeanData-container */
     static void initMeanData( TimeVector dumpMeanDataIntervalls,
@@ -520,13 +530,6 @@ protected:
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
 
-    /// Definition of the static dictionary to associate string-ids with
-    /// objects.
-    typedef std::map< std::string, MSNet* > DictType;
-
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
-
     /// Definition of the container for items to initialise before starting
     typedef std::vector<PreStartInitialised*> PreStartVector;
 
@@ -542,37 +545,12 @@ protected:
     /// Current time step.
     Time myStep;
 
-    /// The Net's meanData is a pair of an interval-length and a filehandle.
-    class MeanData
-    {
-    public:
-	    /// constructor
-        MeanData( Time t, std::ofstream* of )
-            : interval( t ),
-              file( of )
-        {
-            (*file) << "<netstats>" << std::endl;
-        }
 
-	    /// destructor
-        ~MeanData()
-        {
-            (*file) << "</netstats>" << std::endl;
-            file->close();
-        }
-
-    	/// the time interval the data shall be aggregated over
-        Time interval;
-
-	    /** @brief The file to write aggregated data into.
-            For each aggregation time, a single file should be used */
-        std::ofstream* file;
-    };
 
     /** @brief List of intervals and filehandles.
         At the end of each intervall the mean data (flow, density, speed ...)
         of each lane is calculated and written to file. */
-    std::vector< MeanData* > myMeanData;
+    MSMeanData_Net_Cont myMeanData;
 
     /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;

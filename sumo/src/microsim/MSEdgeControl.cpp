@@ -16,14 +16,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
-
 // $Log$
+// Revision 1.6  2004/07/02 09:55:13  dkrajzew
+// MeanData refactored (moved to microsim/output)
+//
 // Revision 1.5  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -102,7 +103,6 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -138,11 +138,12 @@ MSEdgeControl::MSEdgeControl()
 }
 
 
-MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane, EdgeCont*
-                             multiLane) : myID(id),
-                                          mySingleLaneEdges(singleLane),
-                                          myMultiLaneEdges(multiLane),
-                                          myLanes(MSLane::dictSize())
+MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane,
+                             EdgeCont *multiLane)
+    : myID(id),
+    mySingleLaneEdges(singleLane),
+    myMultiLaneEdges(multiLane),
+    myLanes(MSLane::dictSize())
 {
     // build the usage defintions for lanes
         // for lanes with no neighbors
@@ -320,37 +321,31 @@ operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
 }
 
 
-MSEdgeControl::MeanData::MeanData( const MSEdgeControl& obj,
-                                   unsigned index, MSNet::Time interval ) :
-    myObj( obj ),
-    myIndex( index ),
-    myInterval( interval )
+void
+MSEdgeControl::addToLanes(MSMeanData_Net *newMeanData)
 {
+    LaneUsageVector::iterator i;
+    for(i=myLanes.begin(); i!=myLanes.end(); i++) {
+        (*i).lane->add(newMeanData);
+    }
 }
 
 
-ostream&
-operator<<( ostream& os, const MSEdgeControl::MeanData& obj )
+const MSEdgeControl::EdgeCont &
+MSEdgeControl::getSingleLaneEdges() const
 {
-    MSEdgeControl::EdgeCont::iterator edg;
-    for ( edg = obj.myObj.mySingleLaneEdges->begin();
-          edg != obj.myObj.mySingleLaneEdges->end(); ++edg ) {
-
-        os << MSEdge::MeanData( **edg, obj.myIndex, obj.myInterval );
-    }
-    for ( edg = obj.myObj.myMultiLaneEdges->begin();
-          edg != obj.myObj.myMultiLaneEdges->end(); ++edg ) {
-
-        os << MSEdge::MeanData( **edg, obj.myIndex, obj.myInterval );
-    }
-    return os;
+    return *mySingleLaneEdges;
 }
+
+
+const MSEdgeControl::EdgeCont &
+MSEdgeControl::getMultiLaneEdges() const
+{
+    return *myMultiLaneEdges;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "MSEdgeControl.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2004/07/02 09:55:13  dkrajzew
+// MeanData refactored (moved to microsim/output)
+//
 // Revision 1.51  2004/06/17 13:07:59  dkrajzew
 // Polygon visualisation added
 //
@@ -358,8 +361,10 @@ namespace
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
 #include "MSVehicleControl.h"
+#include "MSTrigger.h"
 #include "MSCORN.h"
 #include <utils/common/MsgHandler.h>
+#include <utils/common/NamedObjectContSingleton.h>
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
 #include "helpers/SingletonDictionary.h"
@@ -372,6 +377,8 @@ namespace
 #include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
 #include <utils/geom/Polygon2D.h>
+#include "output/MSMeanData_Net.h"
+#include "output/MSMeanData_Net_Utils.h"
 
 
 /* =========================================================================
@@ -384,15 +391,15 @@ using namespace std;
  * static member defintions
  * ======================================================================= */
 MSNet* MSNet::myInstance = 0;
-MSNet::DictType MSNet::myDict;
+//MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
 double MSNet::myCellLength = 1;
 
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 1234234234;
-std::string MSNet::searched1 = "59";
+MSNet::Time MSNet::searchedtime = 685656757;
+std::string MSNet::searched1 = "486";
 std::string MSNet::searched2 = "715a0";
 std::string MSNet::searchedJunction = "536";
 #endif
@@ -402,6 +409,7 @@ std::string MSNet::searchedJunction = "536";
  * member method definitions
  * ======================================================================= */
 MSNet::MSNet()
+    : myEdges(0)
 {
 }
 
@@ -437,81 +445,14 @@ MSNet::preInit(MSNet::Time startTimeStep,
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myInstance->myStep = startTimeStep;
-    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles);
-	myInstance->myEmitter = new MSEmitControl("");
+    myInstance->myMeanData =
+        MSMeanData_Net_Utils::buildList( dumpMeanDataIntervalls,
+            baseNameDumpFiles);
+    myInstance->myEmitter = new MSEmitControl("");
     myInstance->myVehicleControl = vc;
     MSDetectorSubSys::createDictionaries();
 }
 
-
-void
-MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
-                    std::string baseNameDumpFiles/*, bool withGUI*/)
-{
-    if ( dumpMeanDataIntervalls.size() > 0 ) {
-
-        sort( dumpMeanDataIntervalls.begin(),
-              dumpMeanDataIntervalls.end() );
-        vector< Time >::iterator newEnd =
-            unique( dumpMeanDataIntervalls.begin(),
-                    dumpMeanDataIntervalls.end() );
-
-        if ( newEnd != dumpMeanDataIntervalls.end() ) {
-            MsgHandler::getWarningInstance()->inform(
-                "MSNet::MSNet(): Removed duplicate dump-intervalls");
-            dumpMeanDataIntervalls.erase(
-                newEnd, dumpMeanDataIntervalls.end() );
-        }
-
-        // Prepare MeanData container, e.g. assign intervals and open files.
-        for ( std::vector< Time >::iterator it =
-                  dumpMeanDataIntervalls.begin();
-              it != dumpMeanDataIntervalls.end(); ++it ) {
-
-            string fileName   = baseNameDumpFiles + "_" + toString( *it ) +
-                string(".xml");
-            ofstream* filePtr = new ofstream( fileName.c_str() );
-            if( *filePtr==0 ) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The following file containing aggregated values could not been build:\n")
-                    + fileName);
-                throw ProcessError();
-            }
-            // Write xml-comment
-            *filePtr << "<!--\n"
-                "- noVehContrib is the number of vehicles have been on the lane for\n"
-                "  at least one timestep during the current intervall.\n"
-                "  They contribute to speed, speedsquare and density.\n"
-                "  They may not have passed the entire lane.\n"
-                "- noVehEntireLane is the number of vehicles that have passed the\n"
-                "  entire lane and left the lane during the current intervall. They\n"
-                "  may have started their journey on this lane in a previous intervall.\n"
-                "  Only those vehicles contribute to traveltime. \n"
-                "- noVehEntered is the number of vehicles that entered this lane\n"
-                "  during the current intervall either by move, emit or lanechange.\n"
-                "  Note that noVehEntered might be high if vehicles are emitted on\n"
-                "  this lane.\n"
-                "- noVehLeft is the number of vehicles that left this lane during\n"
-                "  the current intervall by move.\n"
-                "- traveltime [s]\n"
-                "  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed. \n"
-                "  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to\n"
-                "  laneLength / speed.\n"
-                "  Else traveltime is calculated from the data of the vehicles that\n"
-                "  passed the entire lane.\n"
-                "- speed [m/s]\n"
-                "  If noVehContrib==0 then speed is set to laneMaxSpeed.\n"
-                "- speedsquare [(m/s)^2]\n"
-                "  If noVehContrib==0 then speedsquare is set to -1.\n"
-                "- density [veh/km]\n"
-                "  If noVehContrib==0 then density is set to 0.\n"
-                "-->\n" << endl;
-
-            MSNet::myInstance->myMeanData.push_back(
-                new MeanData( *it, filePtr ) );
-        }
-    }
-}
 
 
 void
@@ -536,8 +477,7 @@ MSNet::~MSNet()
 {
     clearAll();
     // close the net statistics
-    for( std::vector< MeanData* >::iterator i1=myMeanData.begin();
-         i1!=myMeanData.end(); i1++) {
+    for( std::vector< MSMeanData_Net* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
         delete (*i1);
     }
     myMeanData.clear();
@@ -566,11 +506,23 @@ MSNet::simulate( Time start, Time stop )
     initialiseSimulation();
     // the simulation loop
     myStep = start;
-    do {
-		cout << myStep << (char) 13;
-        simulationStep(start, myStep);
-        myStep++;
-    } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
+    try {
+        do {
+            cout << myStep << (char) 13;
+            simulationStep(start, myStep);
+            myStep++;
+        } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
+        if(myStep>stop) {
+            MsgHandler::getMessageInstance()->inform(
+                "Simulation End: The final simulation step has been reached.");
+        } else {
+            MsgHandler::getMessageInstance()->inform(
+                "Simulation End: All vehicles have left the simulation.");
+        }
+    } catch (ProcessError &e) {
+        MsgHandler::getMessageInstance()->inform(
+            "Simulation End: An error occured (see log).");
+    }
     // exit simulation loop
     closeSimulation();
     return true;
@@ -681,52 +633,16 @@ MSNet::simulationStep( Time start, Time step )
     myEdges->detectCollisions( myStep );
 
     // Check if mean-lane-data is due
-    unsigned passedSteps = myStep - start + 1;
-    for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
-
-        assert(myMeanData.size()>i);
-        Time interval = myMeanData[ i ]->interval;
-        if ( passedSteps % interval == 0 ) {
-
-            *(myMeanData[ i ]->file)
-                << "<interval begin=\""
-                << passedSteps - interval + start
-                << "\" end=\"" << myStep << "\">\n"
-                << MSEdgeControl::MeanData( *myEdges, i , interval )
-                << "</interval>\n";
-        }
+    if(myMeanData.size()>0) {
+        unsigned passedSteps = myStep - start + 1;
+        MSMeanData_Net_Utils::checkOutput(myMeanData, passedSteps,
+            start, myStep, *myEdges);
     }
-
     // write the output
     writeOutput();
     // execute endOfTimestepEvents
     MSEventControl::getEndOfTimestepEvents()->execute(myStep);
 
-}
-
-
-bool
-MSNet::dictionary(string id, MSNet* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSNet*
-MSNet::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
 }
 
 
@@ -742,24 +658,13 @@ MSNet::clearAll()
     MSJunctionControl::clear();
     MSJunctionLogic::clear();
     MSLane::clear();
-    MSNet::clear();
     MSVehicle::clear();
     MSVehicleType::clear();
     MSRoute::clear();
     MSTrafficLightLogic::clear();
-    clear();
+    NamedObjectContSingleton<MSTrigger*>::getInstance().clear();
+//    clear();
     delete MSVehicleTransfer::getInstance();
-}
-
-
-void
-MSNet::clear()
-{
-
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
-    }
-    myDict.clear();
 }
 
 
@@ -830,8 +735,8 @@ MSNet::writeOutput()
 }
 
 
-bool 
-MSNet::addPoly(const std::string &name, const std::string &type, 
+bool
+MSNet::addPoly(const std::string &name, const std::string &type,
                const RGBColor &color)
 {
     if(MSNet::poly_dic[name] != 0) {
@@ -842,6 +747,22 @@ MSNet::addPoly(const std::string &name, const std::string &type,
     return true;
 }
 
+bool
+MSNet::haveAllVehiclesQuit()
+{
+    return myVehicleControl->haveAllVehiclesQuit();
+}
+
+
+void
+MSNet::addMeanData(MSMeanData_Net *newMeanData)
+{
+    myMeanData.push_back(newMeanData);
+    // we may add it before the network is loaded
+    if(myEdges!=0) {
+        myEdges->addToLanes(newMeanData);
+    }
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
