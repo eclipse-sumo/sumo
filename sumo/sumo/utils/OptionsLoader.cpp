@@ -25,8 +25,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/08 07:25:36  georg
+// check out/commit test
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:50:10  dkrajzew
 // The langth of the characters-field is now used
@@ -64,7 +67,7 @@ using namespace std;
 OptionsLoader::OptionsLoader(OptionsCont *oc, const char *file, bool warn, bool verbose) : _error(false), _warn(warn), _file(file), _verbose(verbose), _options(oc), _item() {
 }
 
-OptionsLoader::~OptionsLoader() {
+OptionsLoader::~OptionsLoader () {
 }
 
 void OptionsLoader::startElement(const XMLCh* const name, AttributeList& attributes) {
