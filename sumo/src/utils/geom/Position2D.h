@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.9  2003/11/11 08:01:23  dkrajzew
 // some further methods implemented
 //
@@ -124,6 +127,16 @@ public:
         _y -= pos._y;
     }
 
+	double scalar() const {
+		return sqrt(_x*_x + _y*_y);
+	}
+
+    void norm() {
+		double val = scalar();
+		_x = _x / val;
+		_y = _y / val;
+    }
+
     void reshiftRotate(double xoff, double yoff, double rot) {
         _x = _x * cos(rot) + _y * sin(rot) + xoff;
         _y = _y * cos(rot) - _x * sin(rot) + yoff;
@@ -143,6 +156,8 @@ public:
     friend bool operator!=(const Position2D &p1, const Position2D &p2) {
         return p1.x()!=p2.x() || p1.y()!=p2.y();
     }
+
+
 
 private:
     /// The x-position

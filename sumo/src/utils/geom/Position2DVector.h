@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.15  2004/02/16 14:00:00  dkrajzew
 // some further work on edge geometry
 //
@@ -254,6 +257,7 @@ public:
     double nearest_position_on_line_to_point(const Position2D &p) const;
 
     DoubleVector distances(const Position2DVector &s) const;
+    DoubleVector distancesExt(const Position2DVector &s) const;
 
     double distance(const Position2D &p) const;
 

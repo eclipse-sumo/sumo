@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.9  2003/11/18 14:21:20  dkrajzew
 // computation of junction-inlanes geometry added
 //
@@ -58,8 +61,9 @@
 #include "Position2DVector.h"
 
 
-
+#ifndef PI
 #define PI 3.1415926535897932384626433832795
+#endif
 
 /* =========================================================================
  * class definitions

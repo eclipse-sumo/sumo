@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.3  2003/11/12 13:48:49  dkrajzew
 // visualisation of tl-logics added
 //
@@ -33,7 +36,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-/** 
+/**
  * @class HaveBoundery
  * Class which allows the retrieval of a boundery
  */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.22  2004/02/16 14:00:00  dkrajzew
 // some further work on edge geometry
 //
@@ -875,7 +878,7 @@ Position2DVector::distance(const Position2D &p) const
         double dist =
             GeomHelper::distance(p, positionAtLengthPosition(pos));
         //
-        if(shortestDist<dist) {
+        if(shortestDist>dist) {
             nearestPos = pos;
             shortestDist = dist;
         }
@@ -1034,6 +1037,34 @@ Position2DVector::distances(const Position2DVector &s) const
     return ret;
 }
 
+
+DoubleVector
+Position2DVector::distancesExt(const Position2DVector &s) const
+{
+    DoubleVector ret = distances(s);
+    ContType::const_iterator i;
+    for(i=myCont.begin(); i!=myCont.end()-1; i++) {
+        Position2D p = Position2D(*i);
+        p.add(*(i+1));
+        p.mul(0.5);
+        double dist = s.distance(p);
+        // !!! aeh, possible at the ends?
+        if(dist!=-1) {
+            ret.push_back(dist);
+        }
+    }
+    for(i=s.myCont.begin(); i!=s.myCont.end()-1; i++) {
+        Position2D p = Position2D(*i);
+        p.add(*(i+1));
+        p.mul(0.5);
+        double dist = s.distance(p);
+        // !!! aeh, possible at the ends?
+        if(dist!=-1) {
+            ret.push_back(dist);
+        }
+    }
+    return ret;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

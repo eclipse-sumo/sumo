@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/03/19 13:01:11  dkrajzew
+// methods needed for the new selection within the gui added; some style adaptions
+//
 // Revision 1.6  2003/11/11 08:00:31  dkrajzew
 // consequent usage of Position2D instead of two doubles
 //
@@ -79,6 +82,7 @@ public:
     bool crosses(const Position2D &p1, const Position2D &p2) const;
     void grow(double by);
     void flipY();
+    void set(double xmin, double ymin, double xmax, double ymax);
 
     friend std::ostream &operator<<(std::ostream &os, const Boundery &b);
 private:
