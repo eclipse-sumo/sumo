@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/07/30 09:27:40  dkrajzew
+// the double-trimming function debugged
+//
 // Revision 1.3  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
 //
@@ -138,7 +141,12 @@ std::string
 StringUtils::trim(double val, size_t to)
 {
     string ret = toString<double>(val);
-    return ret.substr(0, ret.find('.') + to);
+    size_t idx = ret.rfind('.');
+    if(idx!=string::npos) {
+        return ret.substr(0, ret.find('.') + to);
+    } else {
+        return ret;
+    }
 }
 
 
