@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/07 08:29:54  dkrajzew
+// Warnings are now reported to the MsgHandler
+//
 // Revision 1.4  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -41,6 +44,7 @@ namespace
  * ======================================================================= */
 #include <iostream>
 #include <utils/convert/TplConvert.h>
+#include <utils/common/MsgHandler.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimExtendedEdgePoint.h"
 #include "../tempstructs/NIVissimDisturbance.h"
@@ -79,7 +83,8 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
     } else if(tag=="nummer") {
         return parseNumbered(from);
     }
-    cout << "NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition: format problem" << endl;
+    MsgHandler::getErrorInstance()->inform(
+        "NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition: format problem");
     throw 1;
 }
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:29:54  dkrajzew
+// Warnings are now reported to the MsgHandler
+//
 // Revision 1.8  2003/06/18 11:35:30  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -113,7 +116,8 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         //
     } else {
         from >> tag; // strecke
-        cout << "Omitting unknown traffic light!!!" << endl;
+        MsgHandler::getWarningInstance()->inform(
+            "Omitting unknown traffic light!!!");
         return true;
     }
 
