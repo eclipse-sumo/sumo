@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2003/10/15 11:40:59  dkrajzew
+// false rules removed; initial state for further tests
+//
 // Revision 1.10  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -246,7 +249,54 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
-    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
+    vehicle->getLaneChangeState(*this).setState(
+        MSVehicle::LaneChangeState::LCACT_NONE);
+    vehicle->getLaneChangeState(*this).setIsOverlaping(false);
+/*    MSVehicle::LaneChangeState &lcs = vehicle->getLaneChangeState(*this);
+    double pos = vehicle->pos();
+    // check whether the vehicle must change lane to contniue his route
+    if(lcs.wants2Right4Direction(pos)) {
+        if(change2RightPossible()) {
+            ( myCandi - 1 )->hoppedVeh = veh( myCandi );
+            ( myCandi - 1 )->lane->myTmpVehicles.push_back( vehicle );
+            vehicle->leaveLaneAtLaneChange();
+            vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
+            vehicle->myLastLaneChangeOffset = 0;
+            lcs.admitChange2Right();
+        } else {
+            MSVehicle* neighFollow = ( myCandi - 1 )->follow;
+            if(neighFollow!=0) {
+                neighFollow->getLaneChangeState(*this).acceptBefore();
+            }
+        }
+        return;
+    }
+    if(lcs.wants2Left4Direction(pos)) {
+        if(change2LeftPossible()) {
+            ( myCandi + 1 )->hoppedVeh = veh( myCandi );
+            ( myCandi + 1 )->lane->myTmpVehicles.push_back( vehicle );// was veh(myCandi)
+            vehicle->leaveLaneAtLaneChange();
+            vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
+            vehicle->myLastLaneChangeOffset = 0;
+            lcs.admitChange2Left();
+        } else {
+            MSVehicle* neighFollow = ( myCandi + 1 )->follow;
+            if(neighFollow!=0) {
+                neighFollow->getLaneChangeState(*this).acceptBefore();
+            }
+        }
+        return;
+    }
+*/
+    if(MSNet::globaltime>=54550&&vehicle->id()=="4257") {
+        int bla = 0;
+    }
+
+    if(MSNet::globaltime>=54550&&vehicle->id()=="6340") {
+        int bla = 0;
+    }
+
+//    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
         DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
@@ -254,7 +304,7 @@ MSLaneChanger::change()
 #endif
     if ( candiOnAllowed( myCandi ) ) {
         if ( change2right() ) {
-            vehicle->_lcAction = MSVehicle::LCA_RIGHT | MSVehicle::LCA_CHANGED;
+//            vehicle->_lcAction = MSVehicle::LCA_RIGHT | MSVehicle::LCA_CHANGED;
             ( myCandi - 1 )->hoppedVeh = veh( myCandi );
             ( myCandi - 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
@@ -268,7 +318,7 @@ MSLaneChanger::change()
             return;
         }
         if ( change2left() ) {
-            vehicle->_lcAction = MSVehicle::LCA_LEFT | MSVehicle::LCA_CHANGED;
+//            vehicle->_lcAction = MSVehicle::LCA_LEFT | MSVehicle::LCA_CHANGED;
             ( myCandi + 1 )->hoppedVeh = veh( myCandi );
             ( myCandi + 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
@@ -283,10 +333,11 @@ MSLaneChanger::change()
         }
     }
     else { // not on allowed
-        vehicle->_lcAction = MSVehicle::LCA_URGENT;
+        vehicle->getLaneChangeState(*this).setState(
+            MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE);
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
-            vehicle->_lcAction |= MSVehicle::LCA_CHANGED;
+//            vehicle->_lcAction |= MSVehicle::LCA_CHANGED;
             target->hoppedVeh = veh( myCandi );
             target->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
@@ -298,6 +349,59 @@ MSLaneChanger::change()
     }
 #endif
             return;
+        } else {
+/*            MSVehicle* neighFollow = ( target )->follow;
+            if(neighFollow!=0) {
+//                neighFollow->getLaneChangeState(*this).acceptBefore();
+            }*/
+
+            // check whether the vehicles should be swapped
+            MSVehicle *prohibitor = target->follow;
+            if( prohibitor!=0
+                &&
+                prohibitor->getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE
+                &&
+                prohibitor->getLaneChangeDirection()!=vehicle->getLaneChangeDirection()) {
+
+                MSVehicle::LaneChangeState &lcs_veh =
+                    vehicle->getLaneChangeState(*this);
+                MSVehicle::LaneChangeState &lcs_proh =
+                    prohibitor->getLaneChangeState(*this);
+                // check for position and speed
+                if( prohibitor->speed()<0.1&&vehicle->speed()<0.1
+                    &&
+                    fabs(prohibitor->pos()-vehicle->pos())<0.1
+                    &&
+                    prohibitor->length()-vehicle->length()==0
+/*                    &&
+                    lcs_veh.isNotOverlaping() && lcs_proh.isNotOverlaping()
+                    */
+                    // !!! ggf. hierhin auch die safe-gap Zusatzabfrage
+                    ) {
+
+                    // ok, may be swapped
+                        // remove vehicle to swap with
+                    target->lane->myTmpVehicles.erase(
+                        target->lane->myTmpVehicles.end()-1);
+                        // set this vehicle
+                    target->hoppedVeh = vehicle;
+                    target->lane->myTmpVehicles.push_back( vehicle );
+                    myCandi->hoppedVeh = prohibitor;
+                    myCandi->lane->myTmpVehicles.push_back( prohibitor );
+
+                    double p1 = vehicle->pos();
+                    vehicle->myState.myPos = prohibitor->myState.myPos;
+                    prohibitor->myState.myPos = p1;
+
+                    vehicle->leaveLaneAtLaneChange();
+                    vehicle->enterLaneAtLaneChange( target->lane );
+                    vehicle->myLastLaneChangeOffset = 0;
+                    prohibitor->leaveLaneAtLaneChange();
+                    prohibitor->enterLaneAtLaneChange( myCandi->lane );
+                    prohibitor->myLastLaneChangeOffset = 0;
+                    return;
+                }
+            }
         }
     }
     // Candidate didn't change lane.
@@ -310,6 +414,56 @@ MSLaneChanger::change()
 #endif
     return;
 }
+
+/*
+
+bool
+MSLaneChanger::change2RightPossible()
+{
+    ChangerIt target = myCandi - 1;
+    if ( overlapWithHopped( target ) ) {
+
+        return false;
+    }
+    if (
+
+        ! overlap( target )     &&
+//        ! congested( target )   &&
+          safeChange( target )  &&
+        ! predInteraction()     &&
+          advan2right()
+
+        ) {
+        return true;
+    }
+    return false;
+}
+
+
+bool
+MSLaneChanger::change2LeftPossible()
+{
+    ChangerIt target = myCandi + 1;
+    if ( target == myChanger.end()   ||
+         overlapWithHopped( target ) ||
+         ! candiOnAllowed( target ) ) {
+
+        return false;
+    }
+
+    if (
+
+        ! overlap( target )     &&
+//        ! congested( target )   &&
+          safeChange( target )  &&
+          advan2left()
+
+        ) {
+        return true;
+    }
+    return false;
+}
+*/
 
 //-------------------------------------------------------------------------//
 
@@ -489,14 +643,20 @@ MSLaneChanger::findTarget()
     }
     assert( nearestTarget != myChanger.end() );
 
+    MSVehicle *vehicle = veh(myCandi);
     if ( distance( myCandi, nearestTarget ) > 0 ) {
-        veh(myCandi)->_lcAction |= MSVehicle::LCA_LEFT;
+//        veh(myCandi)->_lcAction |= MSVehicle::LCA_LEFT;
 
         assert( myCandi + 1 != myChanger.end() );
+        vehicle->getLaneChangeState(*this).setState(
+            MSVehicle::LaneChangeState::LCDIR_LEFT);
+
         return myCandi + 1;
     }
-    veh(myCandi)->_lcAction |= MSVehicle::LCA_RIGHT;
+//    veh(myCandi)->_lcAction |= MSVehicle::LCA_RIGHT;
     assert( myCandi != myChanger.begin() );
+    vehicle->getLaneChangeState(*this).setState(
+            MSVehicle::LaneChangeState::LCDIR_RIGHT);
     return myCandi - 1;
 }
 
@@ -539,15 +699,17 @@ MSLaneChanger::overlap( ChangerIt target )
             //  responsible for this, possibly too.
             // If so, don't let this vehicle stop - both would
             //  do it and cause a jam
-            if(!neighFollow->onAllowed()) {
-                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
-            }
+/*            if(!neighFollow->onAllowed()) {
+//                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
+            }*/
+            vehicle->getLaneChangeState(*this).setIsOverlaping(true);
             return true;
         }
     }
     if ( neighLead != 0 ) {
 
         if ( MSVehicle::overlap( vehicle, neighLead ) ) {
+            vehicle->getLaneChangeState(*this).setIsOverlaping(true);
             return true;
         }
     }
@@ -558,10 +720,12 @@ MSLaneChanger::overlap( ChangerIt target )
         return false;
     }
     return true;*/
+    /*
     if(vehicle->speed()<vehicle->decelAbility()) {
         return false;
     }
-    return true;
+    */
+    return false;
 }
 
 //-------------------------------------------------------------------------//
@@ -647,9 +811,9 @@ MSLaneChanger::safeChange( ChangerIt target )
             //  responsible for this, possibly too.
             // If so, don't let this vehicle stop - both would
             //  do it and cause a jam
-            if(!neighFollow->onAllowed()) {
-                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
-            }
+/*            if(!neighFollow->onAllowed()) {
+//                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
+            }*/
             return false;
         }
     }

@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/10/15 11:40:59  dkrajzew
+// false rules removed; initial state for further tests
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -90,6 +93,7 @@ MSLaneChanger::overlapWithHopped( ChangerIt target )
 	MSVehicle *v1 = target->hoppedVeh;
 	MSVehicle *v2 = veh( myCandi );
     if ( v1!=0 && v2!=0 ) {
+		v2->getLaneChangeState(*this).setIsOverlaping(true);
 		return MSVehicle::overlap( v1, v2 );
     }
     return false;

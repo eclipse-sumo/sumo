@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/10/15 11:40:59  dkrajzew
+// false rules removed; initial state for further tests
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -183,6 +186,10 @@ protected:
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
     bool overlapWithHopped( ChangerIt target );
+
+    bool change2RightPossible();
+    bool change2LeftPossible();
+
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
