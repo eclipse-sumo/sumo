@@ -17,8 +17,12 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/18 10:51:22  croessel
+// Introduced new method "bool driveRequest()" in class DriveBrakeRequest
+// to let findCompetitor check, if a first car set a request.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:17  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -78,7 +82,10 @@ public:
         DriveBrakeRequest( Request request,
                            bool driveRequest,
                            bool brakeRequest);
-                             
+
+        /// Returns wheter the driveRequest-bit is set or not.
+        bool driveRequest() const;
+
     private:
         Request myRequest;
         bool myDriveRequest;
