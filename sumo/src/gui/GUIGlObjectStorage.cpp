@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 08:36:10  dkrajzew
+// false lock on unexisting ojbect retrieval patched
+//
 // Revision 1.7  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -160,7 +163,10 @@ GUIGlObjectStorage::unblockObject(size_t id)
 {
     _lock.lock();
     ObjectMap::iterator i=myBlocked.find(id);
-    assert(i!=myBlocked.end());
+    if(i==myBlocked.end()) {
+        _lock.unlock();
+        return;
+    }
     GUIGlObject *o = (*i).second;
     myBlocked.erase(id);
     myMap[id] = o;
