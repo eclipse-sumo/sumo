@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/12/09 11:31:18  dkrajzew
+// documentation added
+//
 // Revision 1.9  2003/08/21 12:59:35  dkrajzew
 // some bugs patched
 //
@@ -45,15 +48,12 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-
 
 #include <string>
 #include <deque>
@@ -63,16 +63,26 @@ namespace
 #include "RORouter.h"
 #include "ROEdge.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORouter::RORouter(RONet &net, ROEdgeCont *source)
     : _net(net), _source(source)
 {
 }
 
+
 RORouter::~RORouter()
 {
 }
+
 
 ROEdgeVector
 RORouter::compute(ROEdge *from, ROEdge *to, long time, bool continueOnUnbuild)
@@ -175,9 +185,6 @@ RORouter::buildPathFrom(ROEdge *rbegin) {
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORouter.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -1,3 +1,35 @@
+//---------------------------------------------------------------------------//
+//                        GUIGrid.h -
+//  A class dividing the network in rectangular cells
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Jul 2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2003/12/09 11:27:15  dkrajzew
+// documentation added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <algorithm>
 #include "GUINet.h"
@@ -9,8 +41,19 @@
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUIEmitterWrapper.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUIGrid::Set - methods
+ * ----------------------------------------------------------------------- */
 GUIGrid::Set::Set()
 {
 }
@@ -91,9 +134,9 @@ GUIGrid::Set::setInto(size_t *into) const
 
 
 
-
-
-
+/* -------------------------------------------------------------------------
+ * GUIGrid::GridCell - methods
+ * ----------------------------------------------------------------------- */
 GUIGrid::GridCell::GridCell()
 {
 }
@@ -170,21 +213,25 @@ GUIGrid::GridCell::removeIfIn(const GridCell &other)
 }
 
 
-
-
-
-
-
-
+/* -------------------------------------------------------------------------
+ * GUIGrid - methods
+ * ----------------------------------------------------------------------- */
 GUIGrid::GUIGrid(GUINet &net, int noXCells, int noYCells)
     : _xcellsize(0), _ycellsize(0), _boundery(), _grid(0),
     _xsize(noXCells), _ysize(noYCells), _net(net)
 {
+    for(size_t i=0; i<3; i++) {
+        _relations[i] = 0;
+    }
 }
 
 
 GUIGrid::~GUIGrid()
 {
+    delete[] _grid;
+    for(size_t i=0; i<3; i++) {
+        delete[] _relations[i];
+    }
 }
 
 
@@ -331,19 +378,6 @@ GUIGrid::computeLaneCells(size_t index, GUILaneWrapper &lane)
             }
         }
     }
-/*
-    for(size_t y1=0; y1<_ysize; y1++) {
-        for(size_t x1=0; x1<_xsize; x1++) {
-            size_t offset = _xsize * y1 + x1;
-            if(_grid[offset].myEdges._cont.size()>0) {
-                cout << _grid[offset].myEdges._cont[0].mySet << ", ";
-            } else {
-                cout << 0 << ", ";
-            }
-        }
-        cout << endl;
-    }
-    */
 }
 
 
@@ -435,11 +469,8 @@ GUIGrid::removeFrom(GridCell &cont, int x, int y)
 }
 
 
-
-
-
 void
-GUIGrid::get(/*GridReader &reader, */int what,
+GUIGrid::get(int what,
              double x, double y, double xoff, double yoff,
              size_t *setEdges, size_t *setJunctions, size_t *setDetectors,
              size_t *setEmitter)
@@ -450,8 +481,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
     double yur = y - yoff - _ycellsize;
     double ydl = y + yoff + _ycellsize;
 
-    // prepare container to return
-//    into.clear();
     // loop over bounderies
     double yrun=(yur >= 0 ? yur : 0);
     int ypos = (int) (yur/_ycellsize);
@@ -459,7 +488,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
         ypos = 0;
     }
     size_t yidx = 0;
-//    size_t max = into.max_size();
     for(; yrun<ydl&&ypos<_ysize; yrun+=_ycellsize, ypos++, yidx++) {
         double xrun=(xur >= 0 ? xur : 0);
         int xpos = (int) (xur/_xcellsize);
@@ -482,9 +510,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
                 if((what&GLO_EMITTER)!=0) {
                     _grid[offs].setEmitters(setEmitter);
                 }
-/*                into.insert(
-                    _grid[offs].begin(),
-                    _grid[offs].end());*/
             } else if(yidx!=0 && xidx!=0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
                     _relations[2][offs].setEdges(setEdges);
@@ -498,9 +523,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
                 if((what&GLO_EMITTER)!=0) {
                     _relations[2][offs].setEmitters(setEmitter);
                 }
-/*                into.insert(
-                    _relations[2][offs].begin(),
-                    _relations[2][offs].end());*/
             } else if(yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
                     _relations[1][offs].setEdges(setEdges);
@@ -514,9 +536,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
                 if((what&GLO_EMITTER)!=0) {
                     _relations[1][offs].setEmitters(setEmitter);
                 }
-/*                into.insert(
-                    _relations[1][offs].begin(),
-                    _relations[1][offs].end());*/
             } else {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
                     _relations[0][offs].setEdges(setEdges);
@@ -530,9 +549,6 @@ GUIGrid::get(/*GridReader &reader, */int what,
                 if((what&GLO_EMITTER)!=0) {
                     _relations[0][offs].setEmitters(setEmitter);
                 }
-/*                into.insert(
-                    _relations[0][offs].begin(),
-                    _relations[0][offs].end());*/
             }
         }
     }
@@ -567,6 +583,14 @@ GUIGrid::getYCellSize() const
 }
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIGrid.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 
 
