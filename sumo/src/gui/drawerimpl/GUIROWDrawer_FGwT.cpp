@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/12/04 13:22:05  dkrajzew
+// unused file inclusion removed
+//
 // Revision 1.2  2003/11/12 13:45:25  dkrajzew
 // visualisation of tl-logics added
 //
@@ -55,14 +58,6 @@ namespace
 #include <utils/geom/Position2DVector.h>
 
 #include <qgl.h>
-
-#include <gui/icons/arrows/p.xpm>
-#include <gui/icons/arrows/pl_1.xpm>
-#include <gui/icons/arrows/pl_2.xpm>
-#include <gui/icons/arrows/pl_3.xpm>
-#include <gui/icons/arrows/pr_1.xpm>
-#include <gui/icons/arrows/pr_2.xpm>
-#include <gui/icons/arrows/pr_3.xpm>
 
 
 /* =========================================================================
