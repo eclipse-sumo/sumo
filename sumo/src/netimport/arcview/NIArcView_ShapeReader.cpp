@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/12/04 16:53:53  dkrajzew
+// native ArcView-importer by ericnicolay added
+//
 // Revision 1.5  2003/06/19 15:20:51  dkrajzew
 // the parsing of positions is now less conservative
 //
@@ -234,6 +237,11 @@ NIArcView_ShapeReader::getShape() const
     return myPoints;
 }
 
+const Position2DVector &
+NIArcView_ShapeReader::getReverseShape() const
+{
+    return myPoints.reverse() ;
+}
 
 const Position2D &
 NIArcView_ShapeReader::getFromNodePosition() const

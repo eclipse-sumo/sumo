@@ -112,6 +112,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\arcview\dbfopen.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\distribution\Distribution_MeanDev.cpp
 # End Source File
 # Begin Source File
@@ -781,6 +785,14 @@ SOURCE=..\..\src\utils\geom\Position2DVector.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\gfx\RGBColor.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\arcview\shapereader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\arcview\shpopen.c
 # End Source File
 # Begin Source File
 
@@ -1581,6 +1593,14 @@ SOURCE=..\..\src\utils\geom\Position2D.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\geom\Position2DVector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\arcview\shapefil.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\arcview\shapereader.h
 # End Source File
 # Begin Source File
 

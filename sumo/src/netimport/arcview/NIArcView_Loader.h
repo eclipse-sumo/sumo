@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/12/04 16:53:53  dkrajzew
+// native ArcView-importer by ericnicolay added
+//
 // Revision 1.4  2003/07/22 15:11:24  dkrajzew
 // removed warnings
 //
@@ -45,7 +48,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
 #include "NIArcView_ShapeReader.h"
-
+#include "shapereader.h"
 
 /* =========================================================================
  * class declarations
@@ -75,6 +78,7 @@ public:
     bool report(const std::string &line);
 
 private:
+    bool parseBin();
     /// parses a non-first line (a data line)
     bool parseLine(const std::string &line);
 
@@ -110,6 +114,10 @@ private:
     /// parser of the dbf-file columns
     NamedColumnsParser myColumnsParser;
 
+    std::string dbfname;
+    std::string shpname;
+    shapereader s;
+    bool bin_modus;
 };
 
 

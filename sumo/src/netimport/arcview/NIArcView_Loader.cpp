@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/12/04 16:53:53  dkrajzew
+// native ArcView-importer by ericnicolay added
+//
 // Revision 1.7  2003/07/22 15:11:24  dkrajzew
 // removed warnings
 //
@@ -62,6 +65,7 @@ namespace
 #include "NIArcView_Loader.h"
 
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -77,6 +81,8 @@ NIArcView_Loader::NIArcView_Loader(const std::string &dbf_name,
     myShapeReader(shp_name), myIsFirstLine(true),
     myLineReader(dbf_name)
 {
+    dbfname = dbf_name;
+    shpname = shp_name;
 }
 
 
@@ -88,6 +94,15 @@ NIArcView_Loader::~NIArcView_Loader()
 void
 NIArcView_Loader::load(OptionsCont &)
 {
+    int i = s.openFiles(shpname.c_str(), dbfname.c_str() );
+    if( i == 0 )
+    {
+        bin_modus = true;
+        parseBin();
+    }
+    else
+    {
+    bin_modus = false;
     // read names from first line
     myIsFirstLine = true;
     myLineReader.readLine(*this);
@@ -95,6 +110,7 @@ NIArcView_Loader::load(OptionsCont &)
     myCurrentLink = 0;
     myIsFirstLine = false;
     myLineReader.readAll(*this);
+    }
 }
 
 
@@ -110,6 +126,88 @@ NIArcView_Loader::report(const std::string &line)
     return parseLine(line);
 }
 
+//en
+bool
+NIArcView_Loader::parseBin()
+{
+    char * ret;
+    ret = "falsch";
+    for ( int i =0 ; i < s.getShapeCount(); i++){
+        string id = s.getAttribute( "LINK_ID" );
+        string name = s.getAttribute("ST_NAME");
+        string from_node = s.getAttribute("REF_IN_ID");
+        string to_node = s.getAttribute("NREF_IN_ID");
+        string type = s.getAttribute("ST_TYP_AFT");
+        double speed = 0;
+        size_t nolanes = 0;
+        int priority = 0;
+        try {
+            speed = getSpeed(id);
+            nolanes = getLaneNo(id);
+            priority = getPriority(id);
+        } catch (...) {
+            addError(
+                string("An attribute is not given within the file!"));
+            return false;
+        }
+        NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
+        NBNode *from = 0;
+        NBNode *to = 0;
+        Position2D from_pos = s.getFromNodePosition();
+        if(!NBNodeCont::insert(from_node, from_pos.x(), from_pos.y())) {
+            addError(
+                string("A false from-node occured (id='") + from_node
+                + string("', pos=(") + toString(from_pos.x()) + string(", ")
+                + toString(from_pos.y()) + string("))."));
+            return false;
+        } else {
+            from = NBNodeCont::retrieve(from_pos.x(), from_pos.y());
+        }
+        Position2D to_pos = s.getToNodePosition();
+        if(!NBNodeCont::insert(to_node, to_pos.x(), to_pos.y())) {
+            addError(
+                string("A false to-node occured (id='") + from_node
+                + string("', pos=(") + toString(to_pos.x()) + string(", ")
+                + toString(to_pos.y()) + string("))."));
+            return false;
+        } else {
+            to = NBNodeCont::retrieve(to_pos.x(), to_pos.y());
+        }
+            // retrieve length
+        double length = s.getLength();
+
+        // retrieve the information whether the street is bi-directional
+        string dir = s.getAttribute("DIR_TRAVEL");
+            // add positive direction if wanted
+        if(dir=="B"||dir=="F") {
+            if(NBEdgeCont::retrieve(id)==0) {
+                NBEdge::LaneSpreadFunction spread = dir=="B"
+                    ? NBEdge::LANESPREAD_RIGHT
+                    : NBEdge::LANESPREAD_CENTER;
+                NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
+                    length, priority, s.getShape(), spread, function);
+                NBEdgeCont::insert(edge);
+            }
+        }
+            // add negative direction if wanted
+        if(dir=="B"||dir=="T") {
+            id = "-" + id;
+            if(NBEdgeCont::retrieve(id)==0) {
+                NBEdge::LaneSpreadFunction spread = dir=="B"
+                    ? NBEdge::LANESPREAD_RIGHT
+                    : NBEdge::LANESPREAD_CENTER;
+                NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
+                    length, priority, s.getReverseShape(), spread, function);
+                NBEdgeCont::insert(edge);
+            }
+        }
+        s.forwardShape();
+    }
+    return !MsgHandler::getErrorInstance()->wasInformed();
+
+
+}
+//en
 
 bool
 NIArcView_Loader::parseLine(const std::string &line)
@@ -178,7 +276,7 @@ NIArcView_Loader::parseLine(const std::string &line)
                 ? NBEdge::LANESPREAD_RIGHT
                 : NBEdge::LANESPREAD_CENTER;
             NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
-                length, priority, spread, function);
+                length, priority, myShapeReader.getShape(), spread, function);
             NBEdgeCont::insert(edge);
         }
     }
@@ -190,7 +288,7 @@ NIArcView_Loader::parseLine(const std::string &line)
                 ? NBEdge::LANESPREAD_RIGHT
                 : NBEdge::LANESPREAD_CENTER;
             NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
-                length, priority, spread, function);
+                length, priority, myShapeReader.getReverseShape(), spread, function);
             NBEdgeCont::insert(edge);
         }
     }
@@ -218,59 +316,118 @@ NIArcView_Loader::getStringSecure(const std::string &which)
 double
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
-    try {
-        int speedcat = TplConvert<char>::_2int(myColumnsParser.get("SPEED_CAT", true).c_str());
+    try{
+    if ( bin_modus )
+    {
+        int speedcat = TplConvert<char>::_2int(s.getAttribute("SPEED_CAT").c_str());
         switch(speedcat) {
-        case 1:
-            return 300 / 3.6;
-        case 2:
-            return 130 / 3.6;
-        case 3:
-            return 100 / 3.6;
-        case 4:
-            return 90 / 3.6;
-        case 5:
-            return 70 / 3.6;
-        case 6:
-            return 50 / 3.6;
-        case 7:
-            return 30 / 3.6;
-        case 8:
-            return 10 / 3.6;
-        default:
-            throw 1;
-        }
-    } catch (...) {
-        if(myColumnsParser.get("SPEED_CAT", true)=="NA") {
-            MsgHandler::getWarningInstance()->inform(
-                string("non-applicable speed definition found for edge '")
-                + edgeid + string("'")); // !!! Warning-level
-            MsgHandler::getWarningInstance()->inform("Using 30km/h");
-            return 30 / 3.6;
-        }
-        addError(
-            string("Error on parsing edge speed definition for edge '")
-            + edgeid + string("'."));
-        return 0;
+            case 1:
+                return 300 / 3.6;
+            case 2:
+                return 130 / 3.6;
+            case 3:
+                return 100 / 3.6;
+            case 4:
+                return 90 / 3.6;
+            case 5:
+                return 70 / 3.6;
+            case 6:
+                return 50 / 3.6;
+            case 7:
+                return 30 / 3.6;
+            case 8:
+                return 10 / 3.6;
+            default:
+                throw 1;
+            }
     }
+    else
+    {
+
+            int speedcat = TplConvert<char>::_2int(myColumnsParser.get("SPEED_CAT", true).c_str());
+            switch(speedcat) {
+            case 1:
+                return 300 / 3.6;
+            case 2:
+                return 130 / 3.6;
+            case 3:
+                return 100 / 3.6;
+            case 4:
+                return 90 / 3.6;
+            case 5:
+                return 70 / 3.6;
+            case 6:
+                return 50 / 3.6;
+            case 7:
+                return 30 / 3.6;
+            case 8:
+                return 10 / 3.6;
+            default:
+                throw 1;
+            }
+            }
+        } catch (...) {
+            if(myColumnsParser.get("SPEED_CAT", true)=="NA") {
+                MsgHandler::getWarningInstance()->inform(
+                    string("non-applicable speed definition found for edge '")
+                    + edgeid + string("'")); // !!! Warning-level
+                MsgHandler::getWarningInstance()->inform("Using 30km/h");
+                return 30 / 3.6;
+            }
+            addError(
+                string("Error on parsing edge speed definition for edge '")
+                + edgeid + string("'."));
+            return 0;
+        }
 }
 
 
 size_t
 NIArcView_Loader::getLaneNo(const std::string &edgeid)
 {
+
     try {
-        size_t lanecat = TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
-        switch(lanecat) {
-        case 1:
-            return 1;
-        case 2:
-            return 2;
-        case 3:
-            return 4;
-        default:
-            throw 1;
-        }
+    if ( bin_modus )
+    {
+        try{
+	        size_t lanecat = TplConvert<char>::_2int(s.getAttribute("rnol").c_str());
+			return lanecat;
+		}
+		catch(...)
+		{
+	        size_t lanecat = TplConvert<char>::_2int(s.getAttribute("LANE_CAT").c_str());
+		    switch(lanecat) {
+	        case 1:
+		        return 1;
+			case 2:
+				return 2;
+	        case 3:
+		        return 4;
+			default:
+				throw 1;
+	}	}
+    }
+    else
+    {
+		try
+		{
+	        size_t lanecat = TplConvert<char>::_2int(myColumnsParser.get("rnol", true).c_str());
+			return lanecat;
+		}
+		catch(...)
+		{
+	        size_t lanecat = TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
+		    switch(lanecat) {
+	        case 1:
+		        return 1;
+			case 2:
+				return 2;
+	        case 3:
+		        return 4;
+			default:
+				throw 1;
+	}		}
+	}
     } catch (...) {
         if(myColumnsParser.get("LANE_CAT", true)=="NA") {
             MsgHandler::getWarningInstance()->inform(
@@ -286,7 +443,6 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
     }
 }
 
-
 double
 NIArcView_Loader::getLength(//const std::string &,
                            const Position2D &from_pos, const Position2D &to_pos)
@@ -299,8 +455,16 @@ int
 NIArcView_Loader::getPriority(const std::string &edgeid)
 {
     try {
-        int prio = TplConvert<char>::_2int(myColumnsParser.get("FUNC_CLASS", true).c_str());
-        return 5 - prio;
+        if ( bin_modus )
+        {
+            int prio = TplConvert<char>::_2int(s.getAttribute("FUNC_CLASS").c_str());
+            return 5 - prio;
+        }
+        else
+        {
+            int prio = TplConvert<char>::_2int(myColumnsParser.get("FUNC_CLASS", true).c_str());
+            return 5 - prio;
+        }
     } catch (...) {
         if(myColumnsParser.get("FUNC_CLASS", true)=="NA") {
             MsgHandler::getWarningInstance()->inform(
