@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.6  2003/09/17 10:14:27  dkrajzew
 // handling of unset values patched
 //
@@ -158,6 +161,9 @@ public:
 
     /// Returns the type of the edge
     EdgeType getType() const;
+
+    /// Returns the length of the edge
+    double getLength() const;
 
 protected:
     /// reurns the effort for this edge only

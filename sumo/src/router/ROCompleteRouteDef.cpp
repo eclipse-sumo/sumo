@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/11 08:04:45  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.6  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -85,7 +88,8 @@ ROCompleteRouteDef::getTo() const
 RORoute *
 ROCompleteRouteDef::buildCurrentRoute(RORouter &router,
                                       long begin,
-                                      bool continueOnUnbuild)
+                                      bool continueOnUnbuild,
+                                      ROVehicle &veh)
 {
     return new RORoute(_id, 0, 1, _edges);
 }

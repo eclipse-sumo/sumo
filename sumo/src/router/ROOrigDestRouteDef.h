@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.7  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -83,7 +86,7 @@ public:
 protected:
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(RORouter &router, long begin,
-        bool continueOnUnbuild);
+        bool continueOnUnbuild, ROVehicle &veh);
 
     /** @brief Adds the build route to the container
         Here, the currently new route is added */

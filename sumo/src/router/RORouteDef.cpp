@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.10  2003/09/05 15:23:23  dkrajzew
 // umlaute conversion added
 //
@@ -72,6 +75,8 @@ namespace
 #include "RORouter.h"
 #include "ReferencedItem.h"
 #include "RORouteDef.h"
+#include "ROVehicle.h"
+#include "ROVehicleType.h"
 
 
 /* =========================================================================
@@ -98,11 +103,14 @@ bool
 RORouteDef::computeAndSave(OptionsCont &options,
                            RORouter &router, long begin,
                            std::ostream &res, std::ostream &altres,
-                           bool isPeriodical)
+                           bool isPeriodical, ROVehicle &veh)
 {
     RORoute *current =
         buildCurrentRoute(router, begin,
-            options.getBool("continue-on-unbuild"));
+            options.getBool("continue-on-unbuild"), veh);
+    if(current==0) {
+        return false;
+    }
     // check whether the route is valid and does not end on the starting edge
     if(current->size()<2) {
         // check whether the route ends at the starting edge
@@ -115,6 +123,15 @@ RORouteDef::computeAndSave(OptionsCont &options,
                 + string("' is too short, propably ending at the starting edge."));
             MsgHandler::getWarningInstance()->inform("Skipping...");
         }
+        delete current;
+        return false;
+    }
+    // check whether the vehicle is able to start at this edge
+    //  (the edge must be longer than the vehicle)
+    if(current->getFirst()->getLength()<veh.getType()->getLength()) {
+        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh.getID()
+            + string("' is too long to start at edge '")
+            + current->getFirst()->getID() + string("'."));
         delete current;
         return false;
     }

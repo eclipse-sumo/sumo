@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.13  2003/10/31 08:00:32  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -272,6 +275,14 @@ RONet::saveRoute(OptionsCont &options, RORouter &router,
             + string("' has no valid route."));
         return false;
     }
+    // check whether the vehicle is able to start at this edge
+    //  (the edge must be longer than the vehicle)
+    if(routeDef->getFrom()->getLength()<veh->getType()->getLength()) {
+        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh->getID()
+            + string("' is too long to start at edge '")
+            + routeDef->getFrom()->getID() + string("'."));
+        return false;
+    }
     // check whether the route was already saved
     if(routeDef->isSaved()) {
         return true;
@@ -279,7 +290,7 @@ RONet::saveRoute(OptionsCont &options, RORouter &router,
     // build and save the route
     return routeDef->computeAndSave(options,
         router, veh->getDepartureTime(), res, altres,
-        veh->periodical());
+        veh->periodical(), *veh);
 }
 
 void

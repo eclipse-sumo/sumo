@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/11 08:04:47  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -65,9 +68,18 @@ ROVehicleType::xmlOut(std::ostream &os)
 	return os;
 }
 
+
 std::string
-ROVehicleType::getID() const {
+ROVehicleType::getID() const
+{
     return myID;
+}
+
+
+double
+ROVehicleType::getLength() const
+{
+    return myLength;
 }
 
 

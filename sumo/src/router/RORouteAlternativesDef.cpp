@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.12  2003/10/31 08:00:33  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -126,7 +129,8 @@ RORouteAlternativesDef::getTo() const
 
 RORoute *
 RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin,
-                                          bool continueOnUnbuild)
+                                          bool continueOnUnbuild,
+                                          ROVehicle &veh)
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/11/11 08:04:47  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -68,6 +71,9 @@ public:
 
     /// Returns the name of the type
     std::string getID() const;
+
+    // Returns the length the vehicles of this type have
+    double getLength() const;
 
 protected:
     /// The name of the type

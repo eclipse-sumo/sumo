@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/11 08:04:45  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.8  2003/09/17 10:14:27  dkrajzew
 // handling of unset values patched
 //
@@ -50,13 +53,16 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #ifdef MSVC
 #include <limits>
 #else
 #define DBL_MAX 10000000000.0 // !!!
 #endif
+
 #include <utils/common/MsgHandler.h>
 #include <algorithm>
+#include <cassert>
 #include "ROLane.h"
 #include "ROEdge.h"
 
@@ -290,6 +296,13 @@ ROEdge::getType() const
     return myType;
 }
 
+
+double
+ROEdge::getLength() const
+{
+    assert(_laneCont.size()!=0);
+    return (*(_laneCont.begin())).first->getLength();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

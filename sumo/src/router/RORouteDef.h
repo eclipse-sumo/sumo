@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/11 08:04:47  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.6  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -58,6 +61,8 @@ class ROEdge;
 class RORouter;
 class RORoute;
 class OptionsCont;
+class ROVehicle;
+
 
 /* =========================================================================
  * class definitions
@@ -88,7 +93,8 @@ public:
         The route herself will be written into the first, the alternatives
         (also including the current route) will be written to the second file */
     bool computeAndSave(OptionsCont &options, RORouter &router, long begin,
-        std::ostream &res, std::ostream &altres, bool isPeriodical);
+        std::ostream &res, std::ostream &altres, bool isPeriodical,
+        ROVehicle &veh);
 
     /** @brief Changes the id to a next, hopefully valid
         This is done if the vehicle(s) using this route are emitted periodically */
@@ -98,7 +104,7 @@ protected:
     /** @brief Builds the complete route
         (or chooses her from the list of alternatives, when existing) */
     virtual RORoute *buildCurrentRoute(RORouter &router, long begin,
-        bool continueOnUnbuild) = 0;
+        bool continueOnUnbuild, ROVehicle &veh) = 0;
 
     /** @brief Adds an alternative to the list of routes
         (This may be the new route) */

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.5  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -82,7 +85,7 @@ public:
 protected:
     /// Build the next route
     RORoute *buildCurrentRoute(RORouter &router, long begin,
-        bool continueOnUnbuild);
+        bool continueOnUnbuild, ROVehicle &veh);
 
     /// Adds a build alternative
     void addAlternative(RORoute *current, long begin);

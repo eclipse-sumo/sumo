@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/11 08:04:46  dkrajzew
+// avoiding emissions of vehicles on too short edges
+//
 // Revision 1.8  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -42,13 +45,11 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -59,9 +60,20 @@ namespace
 #include "RORoute.h"
 #include "ROOrigDestRouteDef.h"
 #include "RORouter.h"
+#include "ROVehicle.h"
+#include "ROVehicleType.h"
+#include <utils/common/MsgHandler.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 ROOrigDestRouteDef::ROOrigDestRouteDef(const std::string &id,
                                        const RGBColor &color,
                                        ROEdge *from, ROEdge *to,
@@ -94,7 +106,8 @@ ROOrigDestRouteDef::getTo() const
 
 RORoute *
 ROOrigDestRouteDef::buildCurrentRoute(RORouter &router, long begin,
-                                      bool continueOnUnbuild)
+                                      bool continueOnUnbuild,
+                                      ROVehicle &veh)
 {
     ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild);
     if(myRemoveFirst&&rv.size()>1) {
