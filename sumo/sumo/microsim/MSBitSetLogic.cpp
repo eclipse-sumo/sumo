@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/04/11 11:33:56  croessel
+// in respond(): changed if with &&.
+//
 // Revision 1.2  2002/04/11 11:30:29  croessel
 // in respond(): Perform response-calculation for set-responds only.
 //
@@ -99,10 +102,9 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
     
     for ( i = 0; i < myNLinks; ++i ) {
 
-        if ( requestBS.test( i ) ) {
-            bool linkPermit = ( requestBS & ( *myLogic )[ i ]).none();   
-            respondBS.set( i, linkPermit ); 
-        }       
+        bool linkPermit = requestBS.test( i ) &&
+            ( requestBS & ( *myLogic )[ i ]).none();   
+        respondBS.set( i, linkPermit ); 
     }
     
     // perform the link to lane transformation  
