@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/06/24 08:21:01  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.19  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -831,10 +834,10 @@ NBNode::setType(int type)
     case TYPE_NOJUNCTION:
         _noNoJunctions++;
         break;
-/*    case TYPE_SIMPLE_TRAFFIC_LIGHT:
-    case TYPE_ACTUATED_TRAFFIC_LIGHT:
-        _noTrafficLightJunctions++;
-        break;*/
+//    case TYPE_SIMPLE_TRAFFIC_LIGHT:
+//    case TYPE_ACTUATED_TRAFFIC_LIGHT:
+//        _noTrafficLightJunctions++;
+        break;
     case TYPE_PRIORITY_JUNCTION:
         _noPriorityJunctions++;
         break;

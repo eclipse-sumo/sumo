@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/24 08:19:35  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.12  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -375,8 +378,11 @@ NIVissimConnectionCluster::buildNodeClusters()
         int nodeid = -1;
 
         if((*i)->myConnections.size()>0) {
+            if(*((*i)->myConnections.begin())==47) {
+                int bla = 0;
+            }
             (*i)->recomputeBoundery();
-            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
+//            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
             disturbances = NIVissimDisturbance::getWithin((*i)->myBoundery);
             //
 //    cout << "Cluster " << ":" << (*i)->myBoundery << endl;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/24 08:21:01  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.3  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -140,14 +143,22 @@ bool
 NBTrafficLightDefinition::SignalGroup::mayDrive(double time) const
 {
 	assert(myPhases.size()!=0);
-    for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+    for(GroupsPhases::const_iterator i2=myPhases.begin(); i2!=myPhases.end(); i2++) {
+        cout
+            << ((*(i2)).myColor==TLCOLOR_GREEN)
+            << endl;
+    }
+    if(time==60) {
+        int bla = 0;
+    }
+    for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         double nextTime = (*i).myTime;
-        if(nextTime>time) {
-            if(i==myPhases.begin()) {
+        if(time>=nextTime) {
+/*            if(i==myPhases.rbegin()) {
                 return (*(myPhases.end()-1)).myColor==TLCOLOR_GREEN;
-            } else {
-                return (*(i-1)).myColor==TLCOLOR_GREEN;
-            }
+            } else {*/
+                return (*i).myColor==TLCOLOR_GREEN;
+//            }
         }
     }
     return (*(myPhases.end()-1)).myColor==TLCOLOR_GREEN;
@@ -355,10 +366,10 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
     if(_incoming.size()==0) {
         return 0;
     }
+    size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
-        ? buildLoadedTrafficLights()
-        : buildOwnTrafficLights(
-            computeBrakingTime(oc.getFloat("min-decel")),
+        ? buildLoadedTrafficLights(breakingTime)
+        : buildOwnTrafficLights(breakingTime,
             oc.getBool("all-logics"));
     return logics;
 }
@@ -374,7 +385,7 @@ NBTrafficLightDefinition::computeBrakingTime(double minDecel) const
 
 
 NBTrafficLightLogicVector *
-NBTrafficLightDefinition::buildLoadedTrafficLights()
+NBTrafficLightDefinition::buildLoadedTrafficLights(size_t breakingTime)
 {
     NBTrafficLightDefinition::SignalGroupCont::const_iterator i;
     // sort the phases
@@ -386,6 +397,8 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
         for(DoubleVector::const_iterator k=gtimes.begin(); k!=gtimes.end(); k++) {
             tmpSwitchTimes.insert(*k);
         }
+        // needed later
+        group->sortPhases();
     }
     std::vector<double> switchTimes;
     copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
@@ -428,9 +441,28 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
             // get from the differenc to the first switching time
             duration = (size_t) (myCycleDuration - (*l) + *(switchTimes.begin())) ;
         }
+        // no information about yellow times will be generated
         std::pair<std::bitset<64>, std::bitset<64> > masks =
             buildPhaseMasks(*l);
-        logic->addStep(duration, masks.first, masks.second, std::bitset<64>()); // !!! yellow ligh is not considered!!!
+        // compute the yellow times first
+            // all vehicle which have red, must have yellow first
+            // get the drive mask
+        std::bitset<64> yellowMask1 = masks.first;
+            // invert
+        yellowMask1.flip();
+            // no one may drive, all have to break
+        std::bitset<64> tmpBrake;
+        tmpBrake.flip();
+        // !!! possibly, not breakingTime should be used
+        if(yellowMask1.any()) {
+            duration -= breakingTime;
+        }
+            // add the step itself
+        assert(duration>0);
+        logic->addStep(duration, masks.first, masks.second, std::bitset<64>());
+        if(yellowMask1.any()) {
+            logic->addStep(breakingTime, std::bitset<64>(), tmpBrake, yellowMask1);
+        }
     }
     // assign the links to the connections
     size_t pos = 0;
@@ -465,10 +497,12 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
 std::pair<std::bitset<64>, std::bitset<64> >
 NBTrafficLightDefinition::buildPhaseMasks(size_t time) const
 {
+    cout << time << endl;// bla
     // set the masks
     std::bitset<64> driveMask;
     std::bitset<64> brakeMask;
     size_t pos = 0;
+    size_t bla = mySignalGroups.size();
     for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         size_t linkNo = group->getLinkNo();

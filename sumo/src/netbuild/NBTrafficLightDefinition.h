@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/24 08:21:01  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.2  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -189,7 +192,8 @@ public:
         const EdgeVector &incoming, const EdgeVector &outgoing);
 
 private:
-    NBTrafficLightLogicVector *buildLoadedTrafficLights();
+    NBTrafficLightLogicVector *buildLoadedTrafficLights(
+        size_t breakingTime);
 
     NBTrafficLightLogicVector *buildOwnTrafficLights(
         size_t breakingTime, bool buildAll) const;

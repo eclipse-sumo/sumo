@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/24 08:19:35  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.9  2003/06/18 11:35:30  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -154,8 +157,8 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         isGreenBegin = false;
         from >> tag;
     } else {
-        // the first phase will be red
-        isGreenBegin = false;
+        // the first phase will be green
+        isGreenBegin = true;
         while(tag=="rotende"||tag=="gruenanfang") {
             double point;
             from >> point; // type-checking is missing!

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/24 08:19:35  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.2  2003/06/05 11:51:09  dkrajzew
 // class templates applied; documentation added
 //
@@ -231,7 +234,7 @@ void NIVisumTL::build()
         NBTrafficLightDefinition *def = new NBTrafficLightDefinition(Node->getID(), Node);
         NBTrafficLightLogicCont::insert(Node->getID(), def);
 		def->setCycleDuration(myCycleTime);
-		Node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
+//		Node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
 		// signalgroups
 		for(SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++ )
 		{

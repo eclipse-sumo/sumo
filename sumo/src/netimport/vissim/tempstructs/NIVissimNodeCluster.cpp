@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/24 08:19:35  dkrajzew
+// some further work on importing traffic lights
+//
 // Revision 1.9  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -181,11 +184,11 @@ NIVissimNodeCluster::buildNBNode()
     // build the node
     NBNode *node = 0;
     if(myTLID==-1) {
-		if(myAmEdgeSplit) {
+/*		if(myAmEdgeSplit) {
 	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "no_junction");
-		} else {
+		} else {*/
 	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "priority");
-		}
+//		}
     } else {
         NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
         if(tl->getType()=="festzeit") {
