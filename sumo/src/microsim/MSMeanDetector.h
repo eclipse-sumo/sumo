@@ -55,6 +55,9 @@ public:
             AggregatesContIter startIt =
                 getAggrContStartIterator(
                     MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
+            if(startIt==aggregatesM.end()) {
+                return 0;
+            }
             MSUnit::Seconds seconds =
                 MSUnit::getInstance()->getSeconds(
                     std::distance( startIt, aggregatesM.end() ) );

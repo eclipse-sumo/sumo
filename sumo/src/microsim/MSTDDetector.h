@@ -7,7 +7,7 @@
 /// @date    Started Tue Dec 02 2003 20:04 CET
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -37,7 +37,7 @@ class MSVehicle;
 
 namespace TD // timestep data
 {
-    
+
     template< class ConcreteDetector >
     class MSDetector
         :
@@ -48,15 +48,18 @@ namespace TD // timestep data
 
         typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
         typedef typename ConcreteDetector::Container DetectorContainer;
-        
+
         // returns the last aggregated data value
         DetAggregate getCurrent( void ) const
             {
+                if(aggregatesM.size()==0) {
+                    return -1;
+                }
                 return aggregatesM.back();
             }
-        
+
         virtual DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
-        
+
     protected:
         MSDetector( std::string id,
                       double lengthInMeters,
@@ -89,15 +92,15 @@ namespace TD // timestep data
             {
                 aggregatesM.clear();
             }
-        
+
         // called every timestep by MSUpdateEachTimestep inherited
-        // from base class. 
+        // from base class.
         bool updateEachTimestep( void )
             {
                 aggregatesM.push_back( getDetectorAggregate() );
                 return false;
             }
-        
+
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
@@ -135,12 +138,12 @@ namespace TD // timestep data
                 }
                 return deleteDataAfterStepsM;
             }
-        
+
     private:
 
         MSUnit::IntSteps deleteDataAfterStepsM;
     };
- 
+
 } // end namespace TD
 
 // Local Variables:
