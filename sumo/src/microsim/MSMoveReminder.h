@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.9  2003/10/01 11:29:01  dkrajzew
+// missing inclusion added
+//
 // Revision 1.8  2003/09/22 12:34:03  dkrajzew
 // both method must return a value
 //
@@ -51,6 +54,7 @@
 //
 
 #include <string>
+#include <cassert>
 class MSVehicle;
 class MSLane;
 
