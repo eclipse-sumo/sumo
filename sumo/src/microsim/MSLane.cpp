@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2003/04/16 10:05:03  dkrajzew
+// uah, debugging
+//
 // Revision 1.13  2003/04/14 08:32:57  dkrajzew
 // some further bugs removed
 //
@@ -673,26 +676,20 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
 bool
 MSLane::emitTry( MSVehicle& veh )
 {
-    // on sources, no vehicles may arrive from the back
-    if(myEdge->isSource()) {
-        veh.enterLaneAtEmit( this );
-        myVehicles.push_front( &veh );
-
-#ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using emitTry( MSVehicle& veh )/1" << endl;
-	}
-#endif
-
-        return true;
-    }
+    // !!! see other emit methods
+    // check needed front gap
     // check for
     // empty lane emission.
-    double safeSpace = 2 * pow( myMaxSpeed, 2 ) /
-                      ( 2 * MSVehicleType::minDecel() ) +
-                      MSVehicle::tau() +
-                      veh.length(); // !!!
-    if ( enoughSpace( veh, 0, myLength, safeSpace ) ) {
+    double safeSpace =
+        myApproaching==0
+        ? 2 * pow( myMaxSpeed, 2 ) /
+            ( 2 * MSVehicleType::minDecel() ) +
+            MSVehicle::tau() + veh.length()
+        : myApproaching->getSecureGap(*this, veh);
+    if ( safeSpace<length() ) {
+        MSVehicle::State state;
+        state.setPos(safeSpace);
+        veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
 
@@ -712,7 +709,51 @@ MSLane::emitTry( MSVehicle& veh )
 bool
 MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
-    // emission as last car (in driving direction)
+    if(myApproaching==0) {
+        // emission as last car (in driving direction)
+        MSVehicle *leader = *leaderIt;
+        // get invoked vehicles' positions
+        double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+        // get secure gaps
+        double frontGapNeeded = veh.getSecureGap(*this, *leader);
+        // compute needed room
+        double frontMax = leaderPos - frontGapNeeded;
+        // check whether there is enough room
+        if(frontMax>0) {
+            // emit vehicle if so
+            MSVehicle::State state;
+            state.setPos(frontMax);
+            veh.moveSetState( state );
+            veh.enterLaneAtEmit( this );
+            myVehicles.push_front( &veh );
+            return true;
+        }
+        return false;
+    } else {
+        MSVehicle *leader = *leaderIt;
+        MSVehicle *follow = myApproaching;
+        // get invoked vehicles' positions
+        double followPos = follow->pos();
+        double leaderPos = leader->pos() - leader->length();
+        // get secure gaps
+        double frontGapNeeded = veh.getSecureGap(*this, *leader);
+        double backGapNeeded = follow->getSecureGap(veh);
+        // compute needed room
+        double frontMax = leaderPos - frontGapNeeded;
+        double backMin = followPos + backGapNeeded + veh.length();
+        // check whether there is enough room
+        if(frontMax>0 && backMin<frontMax) {
+            // emit vehicle if so
+            MSVehicle::State state;
+            state.setPos(frontMax);
+            veh.moveSetState( state );
+            veh.enterLaneAtEmit( this );
+            myVehicles.insert( leaderIt, &veh );
+            return true;
+        }
+        return false;
+    }
+/*
     MSVehicle *leader = *leaderIt;
     double leaderPos = leader->pos() - leader->length();
     if(leaderPos<0) {
@@ -736,6 +777,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
     safeSpace = safeSpace > veh.decelAbility()
         ? safeSpace : veh.decelAbility();
     safeSpace += leader->length();
+    safeSpace += veh.accelAbility();
     if( myApproaching!=0 ) {
         if( !myApproaching->isInsertTimeHeadWayCond( veh ) ||
             ! myApproaching->isInsertBrakeCond( veh ) ) {
@@ -755,6 +797,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         return true;
     }
     return false;
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -763,7 +806,25 @@ bool
 MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
 {
     // emission as first car (in driving direction)
-    double followPos = (*followIt)->pos();
+    MSVehicle *follow = *followIt;
+    // get invoked vehicles' positions
+    double followPos = follow->pos();
+    // get secure gaps
+    double backGapNeeded = follow->getSecureGap(*this, veh);
+    // compute needed room
+    double backMin = followPos + backGapNeeded + veh.length();
+    // check whether there is enough room
+    if(backMin<length()) {
+        // emit vehicle if so
+        MSVehicle::State state;
+        state.setPos(backMin);
+        veh.moveSetState( state );
+        veh.enterLaneAtEmit( this );
+        myVehicles.push_back( &veh );
+        return true;
+    }
+    return false;
+/*    double followPos = (*followIt)->pos();
     double safeSpace = (*followIt)->vaccel(this) * MSNet::deltaT() +
         (*followIt)->rigorousBrakeGap((*followIt)->vaccel(this))
         + veh.length();
@@ -781,6 +842,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         return true;
     }
     return false;
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -791,9 +853,30 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
 {
     MSVehicle *leader = *leaderIt;
     MSVehicle *follow = *followIt;
+    // get invoked vehicles' positions
+    double followPos = follow->pos();
+    double leaderPos = leader->pos() - leader->length();
+    // get secure gaps
+    double frontGapNeeded = veh.getSecureGap(*this, *leader);
+    double backGapNeeded = follow->getSecureGap(*this, veh);
+    // compute needed room
+    double frontMax = leaderPos - frontGapNeeded;
+    double backMin = followPos + backGapNeeded + veh.length();
+    // check whether there is enough room
+    if(frontMax>0 && backMin<frontMax) {
+        // emit vehicle if so
+        MSVehicle::State state;
+        state.setPos((frontMax + backMin) / 2.0);
+        veh.moveSetState( state );
+        veh.enterLaneAtEmit( this );
+        myVehicles.insert( leaderIt, &veh );
+        return true;
+    }
+    return false;
+/*
+
+
     // emission between follower and leader.
-    double followPos = (*followIt)->pos();
-    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
     double safeSpace1 = pow( myMaxSpeed, 2 ) /
                       ( veh.decelAbility() ) +
                       MSVehicle::tau() + leader->accelDist();
@@ -812,6 +895,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
     safeSpace = safeSpace > veh.decelAbility()
         ? safeSpace : veh.decelAbility();
     safeSpace += leader->length();
+    safeSpace += veh.accelAbility();
     if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
         veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );
@@ -825,10 +909,11 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         return true;
     }
     return false;
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 bool
 MSLane::enoughSpace( MSVehicle& veh,
                      double followPos, double leaderPos, double safeSpace )
@@ -844,7 +929,14 @@ MSLane::enoughSpace( MSVehicle& veh,
     }
     return false;
 }
+*/
 
+/*
+void
+MSLane::insertVehicle( MSVehicle& veh, double speed, double pos)
+{
+}
+*/
 
 void
 MSLane::setCritical()

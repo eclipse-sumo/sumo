@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2003/04/16 10:05:07  dkrajzew
+// uah, debugging
+//
 // Revision 1.11  2003/04/14 08:33:04  dkrajzew
 // some further bugs removed
 //
@@ -375,6 +378,11 @@ public:
     bool isSafeChange_WithDistance( double dist,
         const MSVehicle& pred, const MSLane* lane ) const;
 
+    double getSecureGap( const MSLane &lane,
+        const MSVehicle &pred ) const;
+
+    double getSecureGap( const MSVehicle &pred ) const;
+
 
     /** Checks if the gap between this vehicle and pred is sufficient
      * for safe driving. */
@@ -414,6 +422,9 @@ public:
 
     /// The amount the vehicle can decelerate with
     double decelAbility() const;
+
+    /// The amount the vehicle can accelerate with
+    double accelAbility() const;
 
     /// The amount the vehicle can accelerate with
     double accelDist() const;

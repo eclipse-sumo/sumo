@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2003/04/16 10:05:05  dkrajzew
+// uah, debugging
+//
 // Revision 1.7  2003/04/14 08:32:58  dkrajzew
 // some further bugs removed
 //
@@ -513,8 +516,8 @@ protected:
     /** Checks if there is enough space for emission and sets vehicle-state
         if there is. Common code used by emitTry-methods. Returns true if
         emission is possible. */
-    bool enoughSpace( MSVehicle& veh,
-                      double followPos, double leaderPos, double safeSpace );
+/*    bool enoughSpace( MSVehicle& veh,
+                      double followPos, double leaderPos, double safeSpace );*/
 
     /** Resets the MeanData container at the beginning of a new interval.*/
     void resetMeanData( unsigned index );

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2003/04/16 10:05:06  dkrajzew
+// uah, debugging
+//
 // Revision 1.11  2003/04/14 08:33:01  dkrajzew
 // some further bugs removed
 //
@@ -243,9 +246,9 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 630;
-std::string MSNet::searched1 = "Rand1732";
-std::string MSNet::searched2 = "sss";
+MSNet::Time MSNet::searchedtime = 4977895;
+std::string MSNet::searched1 = "Rand1752";
+std::string MSNet::searched2 = "xx";
 std::string MSNet::searchedJunction = "3253";
 #endif
 

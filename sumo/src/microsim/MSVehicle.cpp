@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/04/16 10:05:06  dkrajzew
+// uah, debugging
+//
 // Revision 1.16  2003/04/14 08:33:02  dkrajzew
 // some further bugs removed
 //
@@ -1622,6 +1625,13 @@ MSVehicle::decelAbility() const
 }
 
 
+double
+MSVehicle::accelAbility() const
+{
+    return myType->accel() * MSNet::deltaT();
+}
+
+
 MSLane *
 MSVehicle::getTargetLane() const
 {
@@ -1662,6 +1672,61 @@ MSVehicle::running() const
 {
     return myLane!=0;
 }
+
+
+double
+MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
+{
+    double safeSpace1 = pow( lane.maxSpeed(), 2 ) /
+                      ( decelAbility() ) +
+                      MSVehicle::tau() + pred.accelDist() * 2.0;
+    double safeSpace2 = vaccel(&lane) * MSNet::deltaT() +
+        rigorousBrakeGap(vaccel(&lane))
+        + pred.length();
+    double vSafe = vsafe(0, decelAbility(), 0, pred.speed());
+    double safeSpace3 =
+        ( (vSafe - pred.speed())
+        * ((vSafe+pred.speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
+        + pred.speed() * MSVehicle::tau();
+    double safeSpace = safeSpace1 > safeSpace2
+        ? safeSpace1 : safeSpace2;
+    safeSpace = safeSpace > safeSpace3
+        ? safeSpace : safeSpace3;
+    safeSpace = safeSpace > decelAbility()
+        ? safeSpace : decelAbility();
+    safeSpace += pred.length();
+    safeSpace += accelAbility();
+    return safeSpace;
+
+}
+
+
+double // !!! rename to "getApproachingSecureGap"
+MSVehicle::getSecureGap( const MSVehicle &pred ) const
+{
+    double safeSpace1 = pow( myLane->maxSpeed(), 2 ) /
+                      ( decelAbility() ) +
+                      MSVehicle::tau() + pred.accelDist() * 2.0;
+    double safeSpace2 = vaccel(myLane) * MSNet::deltaT() +
+        rigorousBrakeGap(vaccel(myLane))
+        + pred.length();
+    double vSafe = vsafe(0, decelAbility(), 0, pred.speed());
+    double safeSpace3 =
+        ( (vSafe - pred.speed())
+        * ((vSafe+pred.speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
+        + pred.speed() * MSVehicle::tau();
+    double safeSpace = safeSpace1 > safeSpace2
+        ? safeSpace1 : safeSpace2;
+    safeSpace = safeSpace > safeSpace3
+        ? safeSpace : safeSpace3;
+    safeSpace = safeSpace > decelAbility()
+        ? safeSpace : decelAbility();
+    safeSpace += pred.length();
+    safeSpace += accelAbility();
+    return safeSpace - myLane->length();
+
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
