@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/02/16 13:54:39  dkrajzew
+// tried to patch a sometimes occuring visualisation bug
+//
 // Revision 1.3  2003/12/04 13:22:05  dkrajzew
 // unused file inclusion removed
 //
@@ -136,7 +139,7 @@ GUIROWDrawer_SGnT::drawArrows(const GUILaneWrapper &lane)
     glPushMatrix();
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
-    glPolygonMode(GL_FRONT, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/02/16 13:57:15  dkrajzew
+// tried to patch a sometimes occuring visualisation bug
+//
 // Revision 1.8  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -176,7 +179,6 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale,
     // shape
     glColor3f(1, 1, 0);
     glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
     glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
     glRotated( mySGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
@@ -196,13 +198,14 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale,
     // outline
     if(width>1) {
         glColor3f(1, 1, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // !!!
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin( GL_QUADS );
         glVertex2f(0-1.0, 2);
         glVertex2f(-1.0, -2);
         glVertex2f(1.0, -2);
         glVertex2f(1.0, 2);
         glEnd();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     // position indicator
@@ -227,7 +230,6 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale,
     // shape
     glColor3f(1, 1, 0);
     glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated( myFGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
@@ -247,13 +249,14 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale,
     // outline
     if(width>1) {
         glColor3f(1, 1, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // !!!
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin( GL_QUADS );
         glVertex2f(0-1.0, 2);
         glVertex2f(-1.0, -2);
         glVertex2f(1.0, -2);
         glVertex2f(1.0, 2);
         glEnd();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     // position indicator

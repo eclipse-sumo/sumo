@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/02/16 13:55:18  dkrajzew
+// tried to patch a sometimes occuring visualisation bug
+//
 // Revision 1.15  2004/02/05 16:29:30  dkrajzew
 // memory leaks removed
 //
@@ -378,6 +381,7 @@ GUISUMOAbstractView::paintGL()
     _heightInPixels = height();
     // draw
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     applyChanges(1.0, 0, 0);
     if(_showGrid) {

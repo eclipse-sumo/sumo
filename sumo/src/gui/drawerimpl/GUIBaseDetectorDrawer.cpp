@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/16 13:54:39  dkrajzew
+// tried to patch a sometimes occuring visualisation bug
+//
 // Revision 1.1  2004/01/26 06:39:41  dkrajzew
 // visualisation of e3-detectors added; documentation added
 //
@@ -71,7 +74,6 @@ GUIBaseDetectorDrawer::initStep()
         myAmInitialised = true;
     }
     glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 

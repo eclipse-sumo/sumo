@@ -360,7 +360,7 @@ void
 LFontRenderer::myDraw(int x, int y, int w, int h)
 {
     glEnable(GL_TEXTURE_2D);
-    glPolygonMode(GL_FRONT, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);
