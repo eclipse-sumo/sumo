@@ -1,13 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <book>
-  <title>SUMO - &#34;Simulation of Urban MObility&#34;; A microscopic traffic
-  simulation package<author><lineage>Daniel Krajzewicz</lineage></author></title>
+  <bookinfo>
+    <title>SUMO - Simulation of Urban MObility - user documentation</title>
+    <author>
+      <firstname>Daniel</firstname>
+      <surname>Krajzewicz</surname>
+      <affiliation>
+        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+
+    <releaseinfo>$Revision$</releaseinfo>
+
+  </bookinfo>
+
 
   <toc>
-    <title>Content</title>
   </toc>
+
+
 
   <chapter>
     <title>Introduction</title>
@@ -43,17 +57,30 @@
     <sect1>
       <title>Features</title>
 
-      <para><itemizedlist><listitem><para>high portability (using standard -
-      c++)</para></listitem><listitem><para>collision free vehicle movement</para></listitem><listitem><para>different
-      vehicle types</para></listitem><listitem><para>single-vehicle routing</para></listitem><listitem><para>multi-lane
-      streets with lane changing</para></listitem><listitem><para>junction-based
-      right-of-way rules</para></listitem><listitem><para>hierarchy of
-      junction types</para></listitem><listitem><para>a fast open-gl GUI</para></listitem><listitem><para>dynamic
-      routing</para></listitem><listitem><para>manages networks with several
-      10.000 edges (streets)</para></listitem><listitem><para>fast execution
-      speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>supports
-      import of many network formats (Visum, Vissim, ArcView,
-      XML-Descriptions)</para></listitem></itemizedlist></para>
+      <para>
+        <itemizedlist>
+          <listitem><para>high portability (using standard -
+      c++)</para></listitem>
+          <listitem><para>collision free vehicle
+      movement</para></listitem>
+          <listitem><para>different vehicle types</para></listitem>
+          <listitem><para>single-vehicle routing</para></listitem>
+          <listitem><para>multi-lane streets with lane
+      changing</para></listitem>
+          <listitem><para>junction-based right-of-way
+      rules</para></listitem>
+          <listitem><para>hierarchy of junction
+      types</para></listitem>
+          <listitem><para>a fast open-gl GUI</para></listitem>
+          <listitem><para>dynamic routing</para></listitem>
+          <listitem><para>manages networks with several 10.000 edges
+      (streets)</para></listitem>
+          <listitem><para>fast execution speed (up to 1.000.000
+      vehicle updates/s on a 1GHz machine)</para></listitem>
+          <listitem><para>supports import of many network formats
+      (Visum, Vissim, ArcView, XML-Descriptions)</para></listitem>
+        </itemizedlist>
+       </para>
     </sect1>
 
     <sect1>
@@ -61,8 +88,8 @@
 
       <para>This document is still under development and is meant to grow with
       the software. Due to this, you may find it together with the sources
-      within out repository at sourceforge (<link
-      linkend="sumo.sourceforge.net">http://sumo.sourceforge.net</link>). In
+      within out repository at sourceforge (<ulink
+      url="http://sumo.sourceforge.net/projects/sumo">http://sumo.sourceforge.net/projects/sumo</ulink>). In
       this version, it describes the SUMO-release 0.8. The information about
       the document state can be found at the end of the document.</para>
 
@@ -182,21 +209,23 @@
         traffic simulation.</para>
 
         <para>In traffic research three or four classes of models are
-        distinguished according to the level of detail of the simulation. In
-        ‘Macroscopic’ models traffic flow is the basic entity. ‘Microscopic’
-        models, simulate the movement of every single vehicle on the street –
-        mostly assuming that the behaviour of the vehicle depends on both, the
-        vehicle‘s physical abilities to move and the driver‘s controlling
-        behaviour (Krauß 1998; Janz 1998). ‘Submicroscopic’ models, also
-        sometimes called ‘nanomodels’, regard single vehicles like microscopic
-        simulations but extends their models by models of their substructures,
-        which describe the engine‘s rotation speed in relation to the
-        vehicle‘s speed or the driver‘s preferred gear switching actions, for
-        instance. This allows more detailed computations of the emissions
-        produced by the vehicle compared to a simple microscopic simulation
-        (Diekamp 1995; Schreckenberg and Wolf 1998; Helbig et al. 2001).
-        However, submicroscopic models require large computation times. This
-        restrains the size of the networks to be simulated.</para>
+        distinguished according to the level of detail of the
+        simulation. In macroscopic models traffic flow is the basic
+        entity. Microscopic models, simulate the movement of every
+        single vehicle on the street, mostly assuming that the
+        behaviour of the vehicle depends on both, the vehicle's
+        physical abilities to move and the driver's controlling
+        behaviour (Krauss 1998; Janz 1998). Submicroscopic models
+        regard single vehicles like microscopic but extend them by
+        modelling their substructures, which describe the engine's
+        rotation speed in relation to the vehicle's speed or the
+        driver's preferred gear switching actions, for instance. This
+        allows more detailed computations of the emissions produced by
+        the vehicle compared to a simple microscopic simulation
+        (Diekamp 1995; Schreckenberg and Wolf 1998; Helbig et
+        al. 2001). However, submicroscopic models require large
+        computation times. This restrains the size of the networks to
+        be simulated.</para>
 
         <figure>
           <title>The different simulation granularities; from left to right:
@@ -213,8 +242,8 @@
         <para>Within a space-continuous simulation each vehicle has a certain
         position described by a floating-point number. In contrast,
         space-discrete simulations are a special kind of cellular automata.
-        They use cells and vehicles driving on the simulated streets “jump”
-        from one cell to another (Brockfeld et al 2001).</para>
+        They use cells and vehicles driving on the simulated streets
+        "jump" from one cell to another (Brockfeld et al 2001).</para>
 
         <figure>
           <title>The difference between a space-contiuous (top) and a
@@ -234,7 +263,7 @@
         meant to be dependent on his distance to the vehicle in front of him
         and of this vehicle&#39;s speed. Although SUMO is meant to be a
         testbed for such vehicle models, only one is implemented by now, which
-        was developed by Stefan Krauß. Other obstackles such as traffic lights
+        was developed by Stefan Kraus. Other obstackles such as traffic lights
         are of course considered herein, too. Please take a look into
         &#34;Used models&#34; for a more detailed description of the
         Krauß-model.</para>
@@ -357,12 +386,20 @@
         network description readable by SUMO using the SUMO-NETCONVERT tool.
         By now, SUMO-NETCONVERT is capable to parse the following formats:</para>
 
-        <para><itemizedlist><listitem><para>ptv VISUM (a macroscopic traffic
-        simulation package)</para></listitem><listitem><para>ptv VISSIM (a
-        microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
-        by Peter Hidas (a microscopic traffic simulation package)</para></listitem><listitem><para>CELL
-        by Christian Gawron (!!!) (a mesoscopic traffic simulation package)</para></listitem><listitem><para>ARCVIEW-data
-        base files</para></listitem><listitem><para>XML-descriptions</para></listitem></itemizedlist></para>
+        <para>
+          <itemizedlist>
+            <listitem><para>ptv VISUM (a macroscopic traffic
+            simulation package)</para></listitem>
+            <listitem><para>ptv VISSIM (a microscopic traffic
+            simulation package)</para></listitem>
+            <listitem><para>ARTEMIS by Prof. Peter Hidas (a microscopic
+            traffic simulation package)</para></listitem>
+	    <listitem><para>CELL by Christian Gawron (!!!) (a
+            mesoscopic traffic simulation package)</para></listitem>
+	    <listitem><para>ARCVIEW-data base files</para></listitem>
+	    <listitem><para>XML-descriptions</para></listitem>
+          </itemizedlist>
+	</para>
 
         <para>In most of these cases, SUMO-NETCOVERT only needs two parameter:
         the name of the input format followed by the name of the file and the
@@ -419,28 +456,39 @@
             is optional. Each of these attributes has a certain meaning and
             value range:</para>
 
-            <para><itemizedlist><listitem><para>id: The name of the node; may
-            be any character string</para></listitem><listitem><para>x: The
-            x-position of the node on the plane in m; must be a floating point
-            number</para></listitem><listitem><para>y: The y-position of the
-            node on the plane in m; must be a floating point number</para></listitem><listitem><para>type:
-            An optional type for the node. If you leave out the type of the
-            node, it is automatically guessed by SUMO-NETCOVERT but may not be
-            the one you intentionally thought of. The following types are
-            possible, any other string is counted as an error and will yield
-            in a program stop:</para><itemizedlist><listitem><para>priority:
-            Vehicles have to wait until vehicles right to them have passed the
-            junction. This is a very common scheme within Germany.</para></listitem><listitem><para>traffic_light:
-            The junction is controlled by a traffic light.</para></listitem></itemizedlist><para>We
-            do not have implemented the american way of giving way on
+            <para>
+	    <itemizedlist>
+	    <listitem><para>id: The name of the node; may be any
+	    character string</para></listitem>
+	    <listitem><para>x: The x-position of the node on the plane
+	    in m; must be a floating point number</para></listitem>
+	    <listitem><para>y: The y-position of the node on the plane
+	    in m; must be a floating point number</para></listitem>
+	    <listitem><para>type: An optional type for the node. If
+	    you leave out the type of the node, it is automatically
+	    guessed by SUMO-NETCOVERT but may not be the one you
+	    intentionally thought of. The following types are
+	    possible, any other string is counted as an error and will
+	    yield in a program stop:</para>
+	    <itemizedlist>
+	      <listitem><para>priority: Vehicles have to wait until
+	    vehicles right to them have passed the junction. This is a
+	    very common scheme within Germany.</para></listitem>
+	      <listitem><para>traffic_light: The junction is
+	    controlled by a traffic light.</para></listitem>
+	    </itemizedlist>
+	    <para>We do not have implemented the american way of giving way on
             junctions that are not controlled by a traffic light. It is also
             not possible to describe the parameter of the traffic light at
-            this level.</para></listitem></itemizedlist>When writing your
-            nodes-file, please do not forget to embed your node definitions
-            into an opening and a closing &#34;tag&#34;. A complete file
-            should like the example below which is the node file for the
-            &#34;cross1ltl&#34; example. And you may also take a look into our
-            examples using a simple text editor.</para>
+            this level.</para></listitem>
+	    </itemizedlist>
+
+	    When writing your nodes-file, please do not forget to
+            embed your node definitions into an opening and a closing
+            &#34;tag&#34;. A complete file should like the example
+            below which is the node file for the &#34;cross1ltl&#34;
+            example. And you may also take a look into our examples
+            using a simple text editor.</para>
 
             <para><sgmltag>&#60;nodes&#62; &#60;!-- The opening tag --&#62;</sgmltag></para>
 
@@ -505,14 +553,16 @@
             [(type=&#34;&#60;STRING&#62;&#34; |
             nolanes=&#34;&#60;INT&#62;&#34; speed=&#34;&#60;FLOAT&#62;&#34;
             priority=&#34;&#60;FLOAT&#62;&#34;
-            length=&#34;&#60;FLOAT&#62;&#34;)]/&#62;</sgmltag>.</para>
+            length=&#34;&#60;FLOAT&#62;&#34;)] [shape=&#34;&#60;2D_POINT&#62;[
+            &#60;2D_POINT&#62;]* &#60;2D_POINT&#62;&#34;]
+            [spread_type=&#34;center&#34;]/&#62;</sgmltag>.</para>
 
             <para>What does it mean? Every one who knows how XML-files look
             like, should have noticed brackets (&#39;(&#39; and &#39;)&#39;)
             and pipes (&#39;|&#39;) within the definition and these characters
             are not allowed within XML... What we wanted to show is the
             optionality of parameter usage. So for the definition of the
-            origin and the destaintion node, you can either give their names
+            origin and the destination node, you can either give their names
             using <sgmltag>fromnode=&#34;&#60;NODE_ID&#62;&#34;
             tonode=&#34;&#60;NODE_ID&#62;&#34; </sgmltag>or you give their
             positions using <sgmltag>xfrom=&#34;&#60;FLOAT&#62;&#34;
@@ -541,32 +591,83 @@
             50km/h. The length of this edge will be computed as the distance
             between the starting and the end point.</para>
 
+            <para>As an edge may have a more complicated geometry, especially
+            when it is a highway-offroad, you may supply the edge&#39;s shape
+            within the shape tag. If the length of the edge is not given
+            otherwise, the distances of the shape elements will be summed.</para>
+
+            <para>The information <sgmltag>spread_type=&#34;center&#34;
+            </sgmltag>forces NETCONVERT to spread lanes to both sides of the
+            connection between the begin and the end node or from the list of
+            lines making up the shape. If not given, lanes are spread to
+            right, as default.</para>
+
             <para>Let&#39;s list an edge&#39;s attributes again:</para>
 
             <para><itemizedlist><listitem><para>id: The name of the edge; may
             be any character string</para></listitem><listitem><para>Origin
-            and destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
-            The name of a node within the nodes-file the edge shall start at</para></listitem><listitem><para>tonode:
-            The name of a node within the nodes-file the edge shall end at</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>xfrom:
-            The x-position of the node the edge shall start at in m; must be a
-            floating point number</para></listitem><listitem><para>yfrom: The
-            y-position of the node the edge shall start at in m; must be a
-            floating point number</para></listitem><listitem><para>xto: The
-            x-position of the node the edge shall end at in m; must be a
-            floating point number</para></listitem><listitem><para>yto: The
-            y-position of the node the edge shall end at in m; must be a
-            floating point number</para></listitem></itemizedlist></listitem><listitem><para>Descriptions
-            of the edge&#39;s type:</para><para>Either:</para><itemizedlist><listitem><para>type:
-            The name of a type within the types-file</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>nolanes:
-            The number of lanes of the edge; must be an integer value</para></listitem><listitem><para>speed:
-            The maximum speed allowed on the edge in m/s; must be a floating
-            point number</para></listitem><listitem><para>priority: The
-            priority of the edge; must be an integer value</para></listitem><listitem><para>length:
-            The length of the edge in meter; must be an float value</para></listitem></itemizedlist></listitem></itemizedlist>The
-            priority play a role during the computation of the way-giving
-            rules of a node. Larger values for the priority of an edge allow
-            vehicles using it to pass without waiting - if no traffic light is
-            on the node.</para>
+            and destination node descriptions</para>
+	    <para>Either:</para>
+	    <itemizedlist>
+	      <listitem><para>fromnode: The name of a node within the
+            nodes-file the edge shall start at</para></listitem>
+	      <listitem><para>tonode: The name of a node within the
+            nodes-file the edge shall end at</para></listitem>
+	    </itemizedlist>
+	    <para>or:</para>
+	    <itemizedlist>
+	      <listitem><para>xfrom: The x-position of the node the
+            edge shall start at in m; must be a floating point
+            number</para></listitem>
+	      <listitem><para>yfrom: The y-position of the node the
+            edge shall start at in m; must be a floating point
+            number</para></listitem>
+	      <listitem><para>xto: The x-position of the node the edge
+            shall end at in m; must be a floating point
+            number</para></listitem>
+	      <listitem><para>yto: The y-position of the node the edge
+            shall end at in m; must be a floating point
+            number</para></listitem>
+            </itemizedlist>
+          </listitem>
+	  <listitem><para>Descriptions of the edge&#39;s type and
+            atomar attributes:</para>
+	    <para>Either:</para>
+	    <itemizedlist>
+	      <listitem><para>type: The name of a type within the
+            types-file</para></listitem>
+	    </itemizedlist>
+	    <para>or:</para>
+	    <itemizedlist>
+	      <listitem><para>nolanes: The number of lanes of the
+            edge; must be an integer value</para></listitem>
+	      <listitem><para>speed: The maximum speed allowed on the
+            edge in m/s; must be a floating point
+            number</para></listitem>
+	      <listitem><para>priority: The priority of the edge; must
+            be an integer value</para></listitem>
+	      <listitem><para>length: The length of the edge in meter;
+            must be an float value</para></listitem>
+	    </itemizedlist>
+          </listitem>
+	  <listitem><para>The edges shape:</para>
+	    <itemizedlist>
+	      <listitem><para>shape: List of positions; each position
+            is encoded in x,y (no space!!) in meters; an edge&#39;s
+            shape definition must of course be at least two positions
+            long; an example: shape=&#34;0,0 0,100&#34; describes a
+            vertical edge of one hundred meters.</para></listitem>
+              <listitem><para>spread_type: The description of ow to
+            spread the lanes; center spreads lanes to both directions
+            of the shape, any other value to right.</para></listitem>
+	    </itemizedlist>
+	  </listitem>
+	</itemizedlist>
+	The priority play a role during the computation of the
+            way-giving rules of a node. Larger values for the priority
+            of an edge allow vehicles using it to pass without waiting
+            - if no traffic light is on the node.</para>
+
 
             <para>Even if you supply a type, you can still override the so set
             values by supplying any of the parameter &#34;nolanes&#34;,
@@ -983,37 +1084,19 @@
           <sect4>
             <title>Grid-like networks</title>
 
-            <para>Each of the maps we&#39;ve got from NavTech, being encoded
-            in the ArcView database format, describes an area of a single
-            state or federal state. This is much too large for our purposes,
-            as we are mainly interested in urban traffic. In fact, we have not
-            tried out which ressources are needed to perform the simulation of
-            a single german federal state with SUMO, although this should be
-            possible at all.</para>
+            <para>!!!!</para>
           </sect4>
 
           <sect4>
             <title>Spider-net-like networks</title>
 
-            <para>Each of the maps we&#39;ve got from NavTech, being encoded
-            in the ArcView database format, describes an area of a single
-            state or federal state. This is much too large for our purposes,
-            as we are mainly interested in urban traffic. In fact, we have not
-            tried out which ressources are needed to perform the simulation of
-            a single german federal state with SUMO, although this should be
-            possible at all.</para>
+            <para>!!!</para>
           </sect4>
 
           <sect4>
             <title>Random networks</title>
 
-            <para>Each of the maps we&#39;ve got from NavTech, being encoded
-            in the ArcView database format, describes an area of a single
-            state or federal state. This is much too large for our purposes,
-            as we are mainly interested in urban traffic. In fact, we have not
-            tried out which ressources are needed to perform the simulation of
-            a single german federal state with SUMO, although this should be
-            possible at all.</para>
+            <para>!!!</para>
           </sect4>
         </sect3>
 
@@ -1157,7 +1240,69 @@
           <sect4>
             <title>Generating routes by description</title>
 
-            <para></para>
+            <para>Trip definitions which can be laid into the network may be
+            supplied to the router using an XML-file. The syntax of a single
+            route is: <sgmltag>&#60;tripdef id=&#34;&#60;ID&#62;&#34;
+            depart=&#34;&#60;TIME&#62;&#34;
+            from=&#34;&#60;ORIGIN_EDGE_ID&#62;&#34;
+            to=&#34;&#60;DESTINATION_EDGE_ID&#62;&#34;
+            [type=&#34;&#60;VEHICLE_TYPE&#62;&#34;]
+            [period=&#34;&#60;INT&#62;&#34;
+            [repno=&#34;&#60;INT&#62;&#34;]]/&#62;</sgmltag>. You at least
+            have to supply the edge the trip starts at (origin), the edge the
+            trip ends at (destination) and the departure time. If the type is
+            not given, a default (&#34;SUMO_DEFAULT_TYPE&#34;) will be used
+            and stored within the routes-file. If the attribute
+            &#34;period&#34; is given, not only one vehicle will use the
+            route, but every n seconds (where n is the number defined in
+            period), a vehicle using this route will be emitted. The number of
+            vehicles to emit using this route may be additionally constrained
+            using &#34;repno&#34;. Otherwise, it is unlimited.</para>
+
+            <para>Let&#39;s review a trip&#39;s parameter:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>id: A string holding the id of the route</para>
+              </listitem>
+
+              <listitem>
+                <para>depart: The time the route starts at</para>
+              </listitem>
+
+              <listitem>
+                <para>from: The name of the edge the route starts at; the edge
+                must be a part of the used network</para>
+              </listitem>
+
+              <listitem>
+                <para>to: The name of an the edge the route ends at; the edge
+                must be a part of the used network</para>
+              </listitem>
+
+              <listitem>
+                <para>type: The name of the type the vehicle has</para>
+              </listitem>
+
+              <listitem>
+                <para>period: The time after which another vehicle with the
+                same route shall be emitted</para>
+              </listitem>
+
+              <listitem>
+                <para>repno: The number of vehicles to emit which share the
+                same route</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>This file is supplied to ROUTER using the option
+            &#34;--trip-defs&#34; or &#34;-t&#34;:</para>
+
+            <example>
+              <title>router(.exe) --trip-defs=&#60;TRIP_DEFS&#62;
+              --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+              &#60;UINT&#62; -e &#60;UINT&#62;</title>
+            </example>
           </sect4>
         </sect3>
 
@@ -1239,7 +1384,7 @@
         <sect3>
           <title>Importing VISSIM-routes</title>
 
-          <para>!!!</para>
+          <para>Visum-routes are stored in one or more OD-matrices. !!!</para>
         </sect3>
 
         <sect3>
@@ -1312,8 +1457,8 @@
           file is not given.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> The
           &#34;raw&#34; output is becoming very large very fast.</para></caution></listitem><listitem><para>OPTIONAL:
-          [ --dump-basename ] &#60;PATH&#62;</para><para>Specifies the base
-          name to save aggregated network load information under. As you may
+          --dump-basename &#60;PATH&#62;</para><para>Specifies the base name
+          to save aggregated network load information under. As you may
           specify more than a single aggregation time, the complete name for
           the file is build by appending the aggregatation interval and the
           &#34;.xml&#34;-extension to the given name.</para><para>Example:
@@ -1324,7 +1469,7 @@
           &#34;./aggregated/run1_30.xml&#34; are being build.</para><para>This
           parameter does only work in combination with
           &#34;--dump-intervals&#34;, all other usage is undefined (!!!).</para></listitem><listitem><para>OPTIONAL:
-          [ --dump-intervals ] &#60;UNIT&#62;[;&#60;UINT&#62;]*</para><para>Specifies
+          --dump-intervals &#60;UNIT&#62;[;&#60;UINT&#62;]*</para><para>Specifies
           the aggregation times to use for the load information.</para></listitem></itemizedlist></para>
         </sect3>
 
@@ -1345,15 +1490,27 @@
         </sect3>
 
         <sect3>
-          <title>Processing options</title>
+          <title>Simulation timing</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --no-config | -C ]</para><para>Surpresses
-          the loading of a configuration file. Otherwise a configuration file
-          is mandatory.</para></listitem><listitem><para>OPTIONAL: [ --verbose
-          | -v ]</para><para>Prints some information about the process during
-          execution.</para></listitem><listitem><para>OPTIONAL: [
-          --print-options | -p ]</para><para>Prints the current option
+          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-accident</para><para>Normally,
+          when an accident occures, the simulation is stopped. You may allow
+          the simulation to continue setting this value.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> By now, the
+          behaviour after an accident is not defined; this option should not
+          be used, yet. (Still, no accidents occure at normal cirumstances)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
@@ -1390,17 +1547,17 @@
           --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Parses all
           network information from files within the given path, assuming they
           belong to an ARTMIS-network.</para></listitem><listitem><para>OPTIONAL:
-          [ --arcview-iput | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
+          [ --arcview-input | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
           the edge attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt
           assuming it is an export from ArcView done by shapelib. Parses the
           edge geometries from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt
           assuming it is an export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
-          [ --arcview-shp ] &#60;FILE&#62;</para><para>Parses the edge
-          geometries from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt assuming
-          it is an export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
-          [ --arcview-dbf ] &#60;FILE&#62;</para><para>Parses the edge
-          attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt assuming
-          it is an export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
+          --arcview-shp &#60;FILE&#62;</para><para>Parses the edge geometries
+          from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt assuming it is an
+          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
+          --arcview-dbf &#60;FILE&#62;</para><para>Parses the edge attributes
+          from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt assuming it is an
+          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
           [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
           whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
         </sect3>
@@ -1433,28 +1590,44 @@
           <para><itemizedlist><listitem><para>OPTIONAL: [ --capacity-norm | -C
           ] &#60;DOUBLE&#62;</para><para>The value to divide a given capacity
           by to gain the number of lanes. Default: 2000</para></listitem><listitem><para>OPTIONAL:
-          [ --min-decel | -D] &#60;DOUBLE&#62;</para><para>The minimum
+          [ --min-decel | -D ] &#60;DOUBLE&#62;</para><para>The minimum
           deceleration value for vehicles. Default: 3.0</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --omit-corrupt-edges
-          ]</para><para>Continues with parsing although a corrupt edge
-          occured. This edge is not inserted and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
-          [ --flip-y ]</para><para>Flips the y-position of nodes (and edges)
-          along the y=zero-line.</para></listitem><listitem><para>OPTIONAL: [
-          --speed-in-km ]</para><para>Parses speed information stored in
+          <para><itemizedlist><listitem><para>OPTIONAL: --omit-corrupt-edges</para><para>Continues
+          with parsing although a corrupt edge occured. This edge is not
+          inserted and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
+          --flip-y</para><para>Flips the y-position of nodes (and edges) along
+          the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
+          --speed-in-km</para><para>Parses speed information stored in
           XML-edge definition files as being given in km/h (not m/s as usual)</para></listitem><listitem><para>OPTIONAL:
-          [ --use-laneno-as-priority ]</para><para>Interprets the number of
-          lanes as an edges priority.</para></listitem><listitem><para>OPTIONAL:
-          [ --no-config | -C ]</para><para>Surpresses the loading of a
-          configuration file. Otherwise a configuration file is mandatory.</para></listitem><listitem><para>OPTIONAL:
-          [ --verbose | -v ]</para><para>Prints some information about the
-          process during execution.</para></listitem><listitem><para>OPTIONAL:
+          --use-laneno-as-priority</para><para>Interprets the number of lanes
+          as an edges priority.</para></listitem><listitem><para>OPTIONAL:
+          --all-logics</para><para>Computes and saves all possible cliques and
+          phases for a traffic light instead of the fastest one only.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> This process may
+          be very time consuming.</para></caution></listitem><listitem><para>OPTIONAL:
+          --keep-small-tyellow</para><para>If a given yellow-time is smaller
+          than the computed, it is normally replaced by the computed one and a
+          warning is printed. Setting this option, you force NETCONVERT to
+          keep the given time yellow light shall be shown (for a certain
+          signal).</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
@@ -1505,8 +1678,8 @@
           --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
           the computed routes into.</para><para>Additionally, a second file
           containing the route alternatives named &#60;FILE&#62;.alt will be
-          generated.</para></listitem><listitem><para>OPTIONAL: [
-          --save-cell-rindex ]</para><para>The index to each route within the
+          generated.</para></listitem><listitem><para>OPTIONAL:
+          --save-cell-rindex</para><para>The index to each route within the
           FastLane-rinfo file is saved under
           &#60;FILE_NAME(NO_EXTENSION)&#62;.rindex. (Only for
           FastLane-processing)</para></listitem></itemizedlist></para>
@@ -1525,38 +1698,44 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --gBeta ]
-          &#60;DOUBLE&#62;</para><para>Gawron&#39;s g-beta; See also the
+          <para><itemizedlist><listitem><para>OPTIONAL: --gBeta
+          &#60;DOUBLE&#62;</para><para>Gawron&#39;s beta; See also the
           documentation on Christian Gawron&#39;s Dynamic User Assignment.</para><para>Only
           for processing of alternatives.</para></listitem><listitem><para>OPTIONAL:
-          [ --gA ] &#60;DOUBLE&#62;</para><para>Gawron&#39;s g-A; See also the
+          --gA &#60;DOUBLE&#62;</para><para>Gawron&#39;s A; See also the
           documentation on Christian Gawron&#39;s Dynamic User Assignment</para><para>Only
           for processing of alternatives.</para><para>A default value is
-          supplied.</para></listitem><listitem><para>OPTIONAL: [ --intel-cell
-          ]</para><para>Switches the byte order within the
-          FastLane-.driver-files</para><para>Only for processing of
-          FastLane-routes.</para></listitem><listitem><para>OPTIONAL: [
-          --no-last-cell ]</para><para>Use best, not the last cell-route.</para><para>Only
+          supplied.</para></listitem><listitem><para>OPTIONAL: --intel-cell</para><para>Switches
+          the byte order within the FastLane-.driver-files</para><para>Only
+          for processing of FastLane-routes.</para></listitem><listitem><para>OPTIONAL:
+          --no-last-cell</para><para>Use best, not the last cell-route.</para><para>Only
           for processing of FastLane-routes.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --no-config | -C ]</para><para>Surpresses
-          the loading of a configuration file. Otherwise a configuration file
-          is mandatory.</para></listitem><listitem><para>OPTIONAL: [ --verbose
-          | -v ]</para><para>Prints some information about the process during
-          execution.</para></listitem><listitem><para>OPTIONAL: [
-          --print-options | -p ]</para><para>Prints the current option
-          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
-          [ --help | -? ]</para><para>Prints possible options.</para></listitem><listitem><para>OPTIONAL:
-          [ --suppress-short-trip-warnings ]</para><para>Surpresses warning
-          about routes which are not build as they end on the same edge they
-          start edge.</para><caution><para><inlinegraphic
+          <para><itemizedlist><listitem><para>OPTIONAL:
+          --suppress-short-trip-warnings</para><para>Surpresses warning about
+          routes which are not build as they end on the same edge they start
+          edge.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> In networks
           where not all edges are connected, this warnings may also occur. It
           is not very wise to suppress them by default.</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
 
@@ -1603,15 +1782,16 @@
         </sect3>
 
         <sect3>
-          <title>Processing options</title>
+          <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --no-config | -C ]</para><para>Surpresses
-          the loading of a configuration file. Otherwise a configuration file
-          is mandatory.</para></listitem><listitem><para>OPTIONAL: [ --verbose
-          | -v ]</para><para>Prints some information about the process during
-          execution.</para></listitem><listitem><para>OPTIONAL: [
-          --print-options | -p ]</para><para>Prints the current option
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
@@ -1619,9 +1799,27 @@
       <sect2>
         <title>SUMO-GUI Command Line Arguments</title>
 
-        <para>The gui version has no command line options, yet.</para>
+        <sect3>
+          <title>Report options</title>
 
-        <para>As input, sumo-configuration files are used by now.</para>
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --max-gl-width | -w
+          ] &#60;UINT&#62;</para><para>Specifies the maximum width of an
+          openGL window to use. This was implemented to avoid the allocation
+          of too large window memory on smaller computers.</para></listitem><listitem><para>OPTIONAL:
+          [ --max-gl-height | -h ] &#60;UINT&#62;</para><para>Specifies the
+          maximum height of an openGL window to use. This was implemented to
+          avoid the allocation of too large window memory on smaller
+          computers.</para></listitem><listitem><para>OPTIONAL: [
+          --configuration | -c ] &#60;FILENAME&#62;</para><para>If a valid
+          configuration is given on the command line, it is loaded directly
+          after the window shows up and starts immediately.</para></listitem><listitem><para>OPTIONAL:
+          [ --quit-on-end | -Q ]</para><para>Forces the gui to shutdown (the
+          window will disappear) when the simulation ends. (A message to
+          confirm is still displayed)</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
       </sect2>
     </sect1>
 
@@ -1763,31 +1961,7 @@
     <title>Data Type Descriptions</title>
 
     <formalpara>
-      <title>SUMO Command Line Arguments</title>
-
-      <para></para>
-    </formalpara>
-
-    <formalpara>
-      <title>SUMO-NETCONVERT Command Line Arguments</title>
-
-      <para></para>
-    </formalpara>
-
-    <formalpara>
-      <title>SUMO-ROUTER Command Line Arguments</title>
-
-      <para></para>
-    </formalpara>
-
-    <formalpara>
-      <title>SUMO-OD2TRIPS Command Line Arguments</title>
-
-      <para></para>
-    </formalpara>
-
-    <formalpara>
-      <title>SUMO-GUI Command Line Argume nts</title>
+      <title>ToDo</title>
 
       <para></para>
     </formalpara>
@@ -1965,25 +2139,6 @@
     <title>Known Bugs</title>
 
     <para>Nothing known by now.</para>
-  </appendix>
-
-  <appendix>
-    <title>Questions And Answers</title>
-
-    <para>Ask something...</para>
-
-    <para>Contact: <email>Daniel.Krajzewicz@dlr.de</email></para>
-  </appendix>
-
-  <appendix>
-    <title>Bibliography</title>
-
-    <bibliography>
-      <bibliomixed><title>Microscopic Modeling of Traffic Flow: Investigation
-      of Collision Free Vehicle Dynamics<author><lineage>Stefan Krauß</lineage></author></title></bibliomixed>
-    </bibliography>
-
-    <para></para>
   </appendix>
 
   <appendix>
