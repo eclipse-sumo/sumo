@@ -15,6 +15,14 @@
       </affiliation>
     </author>
 
+    <author>
+      <firstname>Christian</firstname>
+      <surname>R&ouml;ssel</surname>
+      <affiliation>
+        <address><email>christian.roessel@dlr.de</email></address>
+      </affiliation>
+    </author>
+
     <releaseinfo>$Revision$</releaseinfo>
   </bookinfo>
 
@@ -2612,7 +2620,7 @@
           other may return strange values.</para></caution></para>
 
           <para>But there is also a further possibility to use E2-detectors.
-          If you place them in front of a traffic light, you cane use the
+          If you place them in front of a traffic light, you can use the
           traffic light to describe the intervals (aggregation) time instead
           of giving a fixed aggregation time. In this case, output will be
           generated every time the traffic light switches. To use this
@@ -2667,72 +2675,111 @@
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>DENSITY: The density on the detector in vehicles/hour</para>
+              <para>DENSITY: The density on the detector in
+              vehicles/hour averaged over the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>MAX_JAM_LENGTH_IN_VEHICLES: The maximum length of a jam
-              occurred at this detector during the regarded interval in
-              vehicles</para>
+              <para>MAX_JAM_LENGTH_IN_VEHICLES: Every timestep, the
+maximum number of consecutivly jamming vehicles is detected. These
+values are averaged over the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>MAX_JAM_LENGTH_IN_METERS: The maximum length of a jam
-              occurred at this detector during the regarded interval in meters</para>
+              <para>MAX_JAM_LENGTH_IN_METERS: Every timestep, the
+maximum length demand of consecutivly jamming vehicles in meters is
+detected. These values are averaged over the requested
+interval.</para>
             </listitem>
 
             <listitem>
-              <para>JAM_LENGTH_SUM_IN_VEHICLES: The sum of all jams occurred
-              within the regarded interval in vehicles.</para>
+              <para>JAM_LENGTH_SUM_IN_VEHICLES: Every timestep, the
+sum of the lengths of all jams on the detector is measured (in
+vehicles). These values are averaged over the requested
+interval.</para>
             </listitem>
 
             <listitem>
-              <para>JAM_LENGTH_SUM_IN_METERS: The sum of all jams occurred
-              within the regarded interval in meters.</para>
+              <para>JAM_LENGTH_SUM_IN_METERS: Every timestep, the sum
+of the lengths of all jams on the detector is measured (in
+meters). These values are averaged over the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES: ... to
-              be described ...</para>
+              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
+This detector uses a MAX_JAM_LENGTH_IN_VEHICLES one as a helper. Every
+timestep, the "maximum-jam-length" (in vehicles) from
+MAX_JAM_LENGTH_IN_VEHICLES will be compared to the maximum of
+"maximum-jam-lengths" that occured since the last reset. If the new
+value is larger, the maximum of "maximum-jam-lengths" is
+updated. Between two resets, this detector records a monoton growing
+set of "maximum-jam-lengths". These values are averaged over the
+requested interval. The reset is performed by a traffic light. </para>
             </listitem>
 
             <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS: ... to be
-              described ...</para>
+              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS: As
+QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, but in meters, not
+in vehicles.</para>
             </listitem>
 
             <listitem>
-              <para>N_VEHICLES: The number of vehicles which have passed this
-              detector during the regarded interval.</para>
+              <para>N_VEHICLES: Every timestep, the number of vehicles
+that populate the detector is recorded. These values are averaged over
+the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>OCCUPANCY_DEGREE: ... to be described ...</para>
+              <para>OCCUPANCY_DEGREE: Every timestep the length of the
+vehicles populating the detector is summed up. We divide this length
+by the detectorlength to get a value out of [0,1]. These values are
+averaged over the requested interval. </para>
             </listitem>
 
             <listitem>
-              <para>SPACE_MEAN_SPEED: ... to be described ...</para>
+              <para>SPACE_MEAN_SPEED: Every timestep, the mean-speed
+of the vehicles on the detector is calculated. These values are
+averaged over the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE: ... to be
-              described ...</para>
+              <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE: Every
+timestep, the halting-time of the vehicles on the detector is summed
+up and then averaged over the number of vehicles. These values are
+averaged over the requested interval.</para>
             </listitem>
 
             <listitem>
-              <para>N_STARTED_HALTS: ... to be described ...</para>
+              <para>N_STARTED_HALTS: A vehicle on the detector that
+just started halting, will report the time when this event took place
+to the detector. All events during the requested interval are summed
+up.</para>
             </listitem>
 
             <listitem>
-              <para>HALTING_DURATION_SUM: ... to be described ...</para>
+              <para>HALTING_DURATION_SUM: A vehicle that starts moving
+after a halt will report it's halting-duration (in seconds) and the
+time when this event took place to the detector. The halting-durations
+of all events during the requested interval are summed up.</para>
             </listitem>
 
             <listitem>
-              <para>HALTING_DURATION_MEAN: ... to be described ...</para>
+              <para>HALTING_DURATION_MEAN: Every vehicle sums up it's
+halting-durations (in seconds) during it's stay on the detector. When
+a vehicle leaves the detector, it's halting-duration-sum is stored by
+the detector. These values are averaged over the requested
+interval.Only vehicles that moved through the entire detector
+contribute.</para>
             </listitem>
 
             <listitem>
-              <para>APPROACHING_VEHICLES_STATES: ... to be described ...</para>
+              <para>APPROACHING_VEHICLES_STATES: This detector is a
+special kind of E2 detector. It doesn't return a single value but a
+container of vehicle states. Here, a vehicle state is a tuple
+consisting of the distance from the vehicle front to the detector end
+and the vehicle's speed. There is no averaging or summing up but
+current output is provided. This detector is intended for internal
+use, e.g. as input to traffic-light-controls.</para>
             </listitem>
           </itemizedlist>
 
@@ -2831,16 +2878,16 @@
         <sect3>
           <title>E23-Detectors (Route-dependent Origin/Destination Detectors)</title>
 
-          <para>... to be described ...</para>
+          <para>... to be implemented ...</para>
         </sect3>
 
         <sect3>
           <title>E3-Detectors (Multi-Origin/Multi-Destination Detectors)</title>
 
-          <para>The descriptions of e3-detectors have to include the set of
-          entry and the set of exit points. Due to this, it is not possible to
-          use a single tag to specify a detector. Instead, the description
-          consists of the following parts:</para>
+          <para>The descriptions of E3-detectors have to include the
+set of entry- and the set of exit-cross-sections. Due to this, it is
+not possible to use a single tag to specify a detector. Instead, the
+description consists of the following parts:</para>
 
           <orderedlist>
             <listitem>
@@ -2932,18 +2979,27 @@
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>MEAN_TRAVELTIME: The mean travel time of vehicles between
-              any entry and any exit point</para>
+              <para>MEAN_TRAVELTIME: A vehicle that entered the
+detector through an entry-cross-section and leaves it through a
+leave-cross-section will store it's traveltime (in seconds) and the
+leaving-time into the detector. These traveltimes of the vehicles
+that left during the requested interval are averaged.</para>
             </listitem>
 
             <listitem>
-              <para>MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: The mean time the
-              vehicles had to wait between these points</para>
+              <para>MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: A vehicle
+that entered the detector through an entry-cross-section and leaves it
+through a leave-cross-section will store it's number of haltings and
+the leaving-time into the detector. The halting-values of the vehicles
+that left during the requested interval are averaged.</para>
             </listitem>
 
             <listitem>
-              <para>NUMBER_OF_VEHICLES: The number of vehicles that has passed
-              any of the entry and any of the exit points</para>
+              <para>NUMBER_OF_VEHICLES: A vehicle that entered the
+detector through an entry-cross-section and leaves it through a
+leave-cross-section will store it's leaving-time into the
+detector. The vehicles that left the detector during the requested
+interval will be summed up.</para>
             </listitem>
           </itemizedlist>
 
@@ -2955,13 +3011,13 @@
         <sect3>
           <title>E41-Detectors (Destination based Detectors)</title>
 
-          <para>... to be described ...</para>
+          <para>... to be implemented ...</para>
         </sect3>
 
         <sect3>
           <title>E42-Detectors (Edgebased Detectors)</title>
 
-          <para>... to be described ...</para>
+          <para>... to be implemented ...</para>
         </sect3>
       </sect2>
 
