@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/07/07 08:32:19  dkrajzew
+// adapted the importer to the new lane geometry description
+//
 // Revision 1.6  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -67,7 +70,9 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <utils/geom/Position2DVector.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <netbuild/NBEdge.h>
 
 
 /* =========================================================================
@@ -123,6 +128,15 @@ private:
     /// Sets the priority from the given type or the given attributes
     void setGivenPriority(const Attributes &attrs);
 
+    /// Sets the length of the edge, computing it in prior if necessary
+    void setLength(const Attributes &attrs);
+
+    /// tries to parse the shape definition
+    Position2DVector tryGetShape(const Attributes &attrs);
+
+    /// Tries to set information needed by the nodes
+    bool setNodes(const Attributes &attrs);
+
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
     double tryGetPosition(const Attributes &attrs, int tag,
@@ -132,8 +146,9 @@ private:
         Returns the information whether the nodes could be build correctly */
     bool insertNodesCheckingCoherence();
 
-    /// Sets the length of the edge, computing it in prior if necessary
-    void setLength(const Attributes &attrs);
+    /// Parses the optional information of how to spread the lanes
+    NBEdge::LaneSpreadFunction getSpreadFunction(const Attributes &attrs);
+
 
 private:
     /// A reference to the program's options
@@ -169,6 +184,11 @@ private:
     /// The current edge's length
     double myLength;
 
+    /// The shape of the edge
+    Position2DVector myShape;
+
+    /// Information about how to spread the lanes
+    NBEdge::LaneSpreadFunction myLanesSpread;
 
 private:
     /** invalid copy constructor */

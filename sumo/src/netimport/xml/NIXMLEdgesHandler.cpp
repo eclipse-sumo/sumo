@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:32:19  dkrajzew
+// adapted the importer to the new lane geometry description
+//
 // Revision 1.8  2003/06/19 10:59:34  dkrajzew
 // error output patched
 //
@@ -113,6 +116,7 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/convert/ConvHelper.h>
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -165,34 +169,37 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
         setGivenSpeed(attrs);
         setGivenLanes(attrs);
         setGivenPriority(attrs);
-        // the names and the coordinates of
-            // the beginning and the end node ids may be found, try
-        myCurrentBegNodeID = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");
-        myCurrentEndNodeID = getStringSecure(attrs, SUMO_ATTR_TONODE, "");
-            // or their positions
-        myBegNodeXPos = myBegNodeYPos = myEndNodeXPos = myEndNodeYPos = -1.0;
-        myBegNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
-        myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
-        myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
-        myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
-        // check the obtained values for nodes
-        if(!insertNodesCheckingCoherence()) {
-            if(!_options.getBool("omit-corrupt-edges")) {
-                addError(
-                    string("The data are not coherent or the nodes are not given..."));
-            } else {
-                return;
-            }
+        // try to get the shape
+        myShape = tryGetShape(attrs);
+            // and how to spread the lanes
+        myLanesSpread = getSpreadFunction(attrs);
+        // try to set the nodes
+        if(!setNodes(attrs)) {
+            // return if this failed
+            return;
         }
         // compute the edge's length
         setLength(attrs);
         /// insert the parsed edge into the edges map
         try {
-            NBEdge *edge = new NBEdge(
-                myCurrentID, myCurrentName,
-                myFromNode, myToNode,
-                myCurrentType, myCurrentSpeed,
-                myCurrentLaneNo, myLength, myCurrentPriority);
+            NBEdge *edge = 0;
+            // the edge must be allocated in dependence to whether a shape
+            //  is given
+            if(myShape.size()==0) {
+                edge = new NBEdge(
+                    myCurrentID, myCurrentName,
+                    myFromNode, myToNode,
+                    myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myLength, myCurrentPriority);
+            } else {
+                edge = new NBEdge(
+                    myCurrentID, myCurrentName,
+                    myFromNode, myToNode,
+                    myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myLength, myCurrentPriority,
+                    myShape, myLanesSpread);
+            }
+            // insert the edge
             if(!NBEdgeCont::insert(edge)) {
                 addError(
                     string("Duplicate edge occured. ID='") + myCurrentID
@@ -298,12 +305,44 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 }
 
 
+bool
+NIXMLEdgesHandler::setNodes(const Attributes &attrs)
+{
+    // the names and the coordinates of the beginning and the end node
+        // may be found, try
+    myCurrentBegNodeID = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");
+    myCurrentEndNodeID = getStringSecure(attrs, SUMO_ATTR_TONODE, "");
+        // or their positions
+    myBegNodeXPos = myBegNodeYPos = myEndNodeXPos = myEndNodeYPos = -1.0;
+    myBegNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
+    myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
+    myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
+    myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
+        // check with shape
+    if(myShape.size()!=0) {
+        myBegNodeXPos = myShape.at(0).x();
+        myBegNodeXPos = myShape.at(0).y();
+        myBegNodeXPos = myShape.at(myShape.size()-1).x();
+        myBegNodeXPos = myShape.at(myShape.size()-1).y();
+    }
+    // check the obtained values for nodes
+    if(!insertNodesCheckingCoherence()) {
+        if(!_options.getBool("omit-corrupt-edges")) {
+            addError(
+                string("The data are not coherent or the nodes are not given..."));
+        }
+        return false;
+    }
+    return true;
+}
+
+
 double
 NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, int tag,
                                   const std::string &attrName)
 {
     try {
-        return getFloatSecure(attrs, SUMO_ATTR_XFROM, -1);
+        return getFloatSecure(attrs, tag, -1);
     } catch (NumberFormatException) {
         addError(
             string("Not numeric value for ") + attrName
@@ -354,7 +393,6 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
                         myBegNodeXPos,
                         myBegNodeYPos);
                 if(!NBNodeCont::insert(myFromNode)) {
-                    cout << "nope, NIVissimDisturbance" << endl;
                     throw 1;
                 }
             }
@@ -365,7 +403,6 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
                         myEndNodeXPos,
                         myEndNodeYPos);
                 if(!NBNodeCont::insert(myToNode)) {
-                    cout << "nope, NIVissimDisturbance" << endl;
                     throw 1;
                 }
             }
@@ -416,6 +453,49 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
             string("Not numeric value for length (at tag ID='")
                 + myCurrentID + string("')."));
     }
+}
+
+
+
+Position2DVector
+NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
+{
+    string shpdef;
+    try {
+        shpdef = getString(attrs, SUMO_ATTR_SHAPE);
+    } catch (EmptyData) {
+    }
+    // return if no shape was given
+    if(shpdef=="") {
+        return Position2DVector();
+    }
+    // try to build shape
+    try {
+        Position2DVector shape = ConvHelper::parseShape(shpdef);
+        if(shape.size()==1) {
+            addError(string("The shape of edge '") + myCurrentID
+                + string("' has only one entry."));
+        }
+    } catch (EmptyData) {
+        addError(
+            string("At least one number is missing in shape definition for edge '")
+            + myCurrentID + string("'."));
+    } catch (NumberFormatException) {
+        addError(
+            string("A non-numeric value occured in shape definition for edge '")
+            + myCurrentID + string("'."));
+    }
+    return Position2DVector();
+}
+
+
+NBEdge::LaneSpreadFunction
+NIXMLEdgesHandler::getSpreadFunction(const Attributes &attrs)
+{
+    if(getStringSecure(attrs, SUMO_ATTR_SPREADFUNC, "")=="center") {
+        return NBEdge::LANESPREAD_CENTER;
+    }
+    return NBEdge::LANESPREAD_RIGHT;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:30:59  dkrajzew
+// adapted the importer to the new lane geometry description
+//
 // Revision 1.3  2003/04/01 15:26:14  dkrajzew
 // insertion of nodes is now checked, but still unsafe; districts are always weighted
 //
@@ -130,7 +133,8 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                speed, 2/*nolanes*/, 200.0, prio, NBEdge::EDGEFUNCTION_SOURCE);
+                speed, 2/*nolanes*/, 200.0, prio, NBEdge::LANESPREAD_RIGHT,
+                NBEdge::EDGEFUNCTION_SOURCE);
             if(!NBEdgeCont::insert(edge)) {
                 addError(
                     string("A duplicate edge id occured (ID='") + id
@@ -151,7 +155,8 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = string("-") + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                speed, 3/*nolanes*/, 2000.0, prio, NBEdge::EDGEFUNCTION_SINK);
+                speed, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                NBEdge::EDGEFUNCTION_SINK);
             if(!NBEdgeCont::insert(edge)) {
                 addError(
                     string("A duplicate edge id occured (ID='") + id
