@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2003/07/30 09:25:17  dkrajzew
+// loading of directions and priorities of links implemented
+//
 // Revision 1.13  2003/07/21 18:07:44  roessel
 // Adaptions due to new MSInductLoop.
 //
@@ -222,6 +225,7 @@ public:
 
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
+        MSLink::LinkDirection dir, MSLink::LinkState state,
         const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building

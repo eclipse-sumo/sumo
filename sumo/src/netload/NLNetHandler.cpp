@@ -71,7 +71,7 @@ using namespace std;
 NLNetHandler::NLNetHandler(const std::string &file,
                            NLContainer &container)
     : MSRouteHandler(file, true),
-    myContainer(container), _tlLogicNo(-1)
+    myContainer(container), _tlLogicNo(-1), m_Offset(0)
 {
 }
 
@@ -152,7 +152,8 @@ NLNetHandler::myStartElement(int element, const std::string &name,
 
 
 void
-NLNetHandler::setEdgeNumber(const Attributes &attrs) {
+NLNetHandler::setEdgeNumber(const Attributes &attrs)
+{
     try {
         myContainer.setEdgeNumber(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
@@ -166,7 +167,8 @@ NLNetHandler::setEdgeNumber(const Attributes &attrs) {
 
 
 void
-NLNetHandler::chooseEdge(const Attributes &attrs) {
+NLNetHandler::chooseEdge(const Attributes &attrs)
+{
     // get the id
     string id;
     try {
@@ -194,7 +196,8 @@ NLNetHandler::chooseEdge(const Attributes &attrs) {
 
 
 void
-NLNetHandler::addLane(const Attributes &attrs) {
+NLNetHandler::addLane(const Attributes &attrs)
+{
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
@@ -224,7 +227,8 @@ NLNetHandler::addLane(const Attributes &attrs) {
 
 
 void
-NLNetHandler::openAllowedEdge(const Attributes &attrs) {
+NLNetHandler::openAllowedEdge(const Attributes &attrs)
+{
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -239,7 +243,8 @@ NLNetHandler::openAllowedEdge(const Attributes &attrs) {
 
 
 void
-NLNetHandler::addJunctionKey(const Attributes &attrs) {
+NLNetHandler::addJunctionKey(const Attributes &attrs)
+{
     try {
         string key = getString(attrs, SUMO_ATTR_KEY);
         myContainer.addKey(key); // !!! wozu?
@@ -249,7 +254,8 @@ NLNetHandler::addJunctionKey(const Attributes &attrs) {
 
 
 void
-NLNetHandler::initJunctionLogic() {
+NLNetHandler::initJunctionLogic()
+{
     m_Key = "";
     m_pActiveLogic = new MSBitsetLogic::Logic();
     _requestSize = -1;
@@ -259,7 +265,8 @@ NLNetHandler::initJunctionLogic() {
 
 
 void
-NLNetHandler::addLogicItem(const Attributes &attrs) {
+NLNetHandler::addLogicItem(const Attributes &attrs)
+{
     if(_requestSize>0) {
         int request = -1;
         string response;
@@ -302,7 +309,8 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 
 
 void
-NLNetHandler::addPhase(const Attributes &attrs) {
+NLNetHandler::addPhase(const Attributes &attrs)
+{
     if(_tlLogicNo!=0) {
         return;
     }
@@ -326,6 +334,7 @@ NLNetHandler::addPhase(const Attributes &attrs) {
     string yellowMask;
     try {
         yellowMask = getString(attrs, SUMO_ATTR_YELLOW);
+        //cout << yellowMask << endl;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
         return;
@@ -371,7 +380,8 @@ NLNetHandler::addPhase(const Attributes &attrs) {
 
 
 void
-NLNetHandler::openJunction(const Attributes &attrs) {
+NLNetHandler::openJunction(const Attributes &attrs)
+{
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -393,7 +403,8 @@ NLNetHandler::openJunction(const Attributes &attrs) {
 
 
 void
-NLNetHandler::addDetector(const Attributes &attrs) {
+NLNetHandler::addDetector(const Attributes &attrs)
+{
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -423,7 +434,8 @@ NLNetHandler::addDetector(const Attributes &attrs) {
 
 
 void
-NLNetHandler::addSource(const Attributes &attrs) {
+NLNetHandler::addSource(const Attributes &attrs)
+{
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -448,7 +460,8 @@ NLNetHandler::addSource(const Attributes &attrs) {
 
 
 void
-NLNetHandler::addTrigger(const Attributes &attrs) {
+NLNetHandler::addTrigger(const Attributes &attrs)
+{
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -478,7 +491,8 @@ NLNetHandler::addTrigger(const Attributes &attrs) {
 
 
 void
-NLNetHandler::openSucc(const Attributes &attrs) {
+NLNetHandler::openSucc(const Attributes &attrs)
+{
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
         myContainer.openSuccLane(id);
@@ -490,18 +504,23 @@ NLNetHandler::openSucc(const Attributes &attrs) {
 }
 
 void
-NLNetHandler::addSuccLane(const Attributes &attrs) {
+NLNetHandler::addSuccLane(const Attributes &attrs)
+{
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
         if(tlID!="") {
             myContainer.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
+                parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
+                parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
                 tlID, getInt(attrs, SUMO_ATTR_TLLINKNO));
         } else {
             myContainer.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
-                getString(attrs, SUMO_ATTR_LANE));
+                getString(attrs, SUMO_ATTR_LANE),
+                parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
+                parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]));
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
@@ -512,9 +531,56 @@ NLNetHandler::addSuccLane(const Attributes &attrs) {
             string(" While building lane '")
             + myContainer.getSuccingLaneName()
             + string("'"));
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Something is wrong with the definition of a link"));
     }
 }
 
+
+
+MSLink::LinkDirection
+NLNetHandler::parseLinkDir(char dir)
+{
+    switch(dir) {
+    case 's':
+        return MSLink::LINKDIR_STRAIGHT;
+    case 'l':
+        return MSLink::LINKDIR_LEFT;
+    case 'r':
+        return MSLink::LINKDIR_RIGHT;
+    case 't':
+        return MSLink::LINKDIR_TURN;
+    case 'L':
+        return MSLink::LINKDIR_PARTLEFT;
+    case 'R':
+        return MSLink::LINKDIR_PARTRIGHT;
+    default:
+        throw NumberFormatException();
+    }
+}
+
+
+MSLink::LinkState
+NLNetHandler::parseLinkState(char state)
+{
+    switch(state) {
+    case 't':
+        return MSLink::LINKSTATE_ABSTRACT_TL;
+    case 'o':
+        return MSLink::LINKSTATE_TL_OFF_BLINKING;
+    case 'O':
+        return MSLink::LINKSTATE_TL_OFF_NOSIGNAL;
+    case 'M':
+        return MSLink::LINKSTATE_MAJOR;
+    case 'm':
+        return MSLink::LINKSTATE_MINOR;
+    case '=':
+        return MSLink::LINKSTATE_EQUAL;
+    default:
+        throw NumberFormatException();
+    }
+}
 
 
 
@@ -560,6 +626,9 @@ NLNetHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_KEY:
             setKey(chars);
             break;
+        case SUMO_TAG_OFFSET:
+            setOffset(chars);
+            break;
         case SUMO_TAG_LOGICNO:
             setTLLogicNo(chars);
             break;
@@ -574,7 +643,8 @@ NLNetHandler::myCharacters(int element, const std::string &name,
 
 
 void
-NLNetHandler::allocateEdges(const std::string &chars) {
+NLNetHandler::allocateEdges(const std::string &chars)
+{
     size_t beg = 0;
     size_t idx = chars.find(' ');
     while(idx!=string::npos) {
@@ -589,7 +659,8 @@ NLNetHandler::allocateEdges(const std::string &chars) {
 
 
 void
-NLNetHandler::setNodeNumber(const std::string &chars) {
+NLNetHandler::setNodeNumber(const std::string &chars)
+{
     try {
         myContainer.setNodeNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
@@ -603,7 +674,8 @@ NLNetHandler::setNodeNumber(const std::string &chars) {
 
 
 void
-NLNetHandler::addAllowedEdges(const std::string &chars) {
+NLNetHandler::addAllowedEdges(const std::string &chars)
+{
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -619,7 +691,8 @@ NLNetHandler::addAllowedEdges(const std::string &chars) {
 
 
 void
-NLNetHandler::setRequestSize(const std::string &chars) {
+NLNetHandler::setRequestSize(const std::string &chars)
+{
     try {
         _requestSize = STRConvert::_2int(chars);
         m_pActiveLogic->resize(_requestSize);
@@ -632,7 +705,8 @@ NLNetHandler::setRequestSize(const std::string &chars) {
 }
 
 void
-NLNetHandler::setLaneNumber(const std::string &chars) {
+NLNetHandler::setLaneNumber(const std::string &chars)
+{
     try {
         _laneNo = STRConvert::_2int(chars);
     } catch (EmptyData) {
@@ -655,7 +729,19 @@ NLNetHandler::setKey(const std::string &chars)
 }
 
 void
-NLNetHandler::setTLLogicNo(const std::string &chars) {
+NLNetHandler::setOffset(const std::string &chars)
+{
+    try {
+        m_Offset = TplConvertSec<char>::_2intSec(chars.c_str(), 0);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid offset for a junction.");
+        return;
+    }
+}
+
+void
+NLNetHandler::setTLLogicNo(const std::string &chars)
+{
     _tlLogicNo = TplConvertSec<char>::_2intSec(chars.c_str(), -1);
     if(_tlLogicNo<0) {
         MsgHandler::getErrorInstance()->inform("Somenthing is wrong with a traffic light logic number.");
@@ -666,7 +752,8 @@ NLNetHandler::setTLLogicNo(const std::string &chars) {
 
 
 void
-NLNetHandler::addLogicItem(int request, const string &response) {
+NLNetHandler::addLogicItem(int request, const string &response)
+{
     bitset<64> use(response);
     assert(m_pActiveLogic->size()>(size_t) request);
     (*m_pActiveLogic)[request] = use;
@@ -675,7 +762,8 @@ NLNetHandler::addLogicItem(int request, const string &response) {
 
 
 void
-NLNetHandler::addInLanes(const std::string &chars) {
+NLNetHandler::addInLanes(const std::string &chars)
+{
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -734,7 +822,8 @@ NLNetHandler::myEndElement(int element, const std::string &name)
 
 
 void
-NLNetHandler::closeJunction() {
+NLNetHandler::closeJunction()
+{
     try {
         myContainer.closeJunction();
     } catch (XMLIdAlreadyUsedException &e) {
@@ -746,7 +835,8 @@ NLNetHandler::closeJunction() {
 
 
 void
-NLNetHandler::closeJunctionLogic() {
+NLNetHandler::closeJunctionLogic()
+{
     if(_requestItems!=_requestSize) {
         MsgHandler::getErrorInstance()->inform(
 	        string("The description for the junction logic '") +
@@ -761,14 +851,15 @@ NLNetHandler::closeJunctionLogic() {
 
 
 void
-NLNetHandler::closeTrafficLightLogic() {
+NLNetHandler::closeTrafficLightLogic()
+{
     if(_tlLogicNo!=0) {
         return;
     }
     if(m_Type!="actuated") {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic<64>(
-                m_Key, m_ActiveSimplePhases, 0, 0);
+                m_Key, m_ActiveSimplePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActiveSimplePhases.clear();
@@ -778,7 +869,7 @@ NLNetHandler::closeTrafficLightLogic() {
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActiveActuatedPhases, 0,
-                    myContainer.getInLanes(), 0);
+                    myContainer.getInLanes(), m_Offset);
 //         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
@@ -787,8 +878,10 @@ NLNetHandler::closeTrafficLightLogic() {
     }
 }
 
+
 void
-NLNetHandler::closeSuccLane() {
+NLNetHandler::closeSuccLane()
+{
     try {
         myContainer.closeSuccLane();
     } catch (XMLIdNotKnownException &e) {
@@ -800,7 +893,8 @@ NLNetHandler::closeSuccLane() {
 
 
 std::string
-NLNetHandler::getMessage() const {
+NLNetHandler::getMessage() const
+{
     return "Loading routes, lanes and vehicle types...";
 }
 

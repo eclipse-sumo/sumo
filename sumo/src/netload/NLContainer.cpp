@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/07/30 09:25:17  dkrajzew
+// loading of directions and priorities of links implemented
+//
 // Revision 1.14  2003/07/21 18:07:44  roessel
 // Adaptions due to new MSInductLoop.
 //
@@ -368,9 +371,10 @@ NLContainer::openSuccLane(const string &laneId)
 
 void
 NLContainer::addSuccLane(bool yield, const string &laneId,
+                         MSLink::LinkDirection dir, MSLink::LinkState state,
                          const std::string &tlid, size_t linkNo)
 {
-    m_pSLB->addSuccLane(yield, laneId, tlid, linkNo);
+    m_pSLB->addSuccLane(yield, laneId, dir, state, tlid, linkNo);
 }
 
 

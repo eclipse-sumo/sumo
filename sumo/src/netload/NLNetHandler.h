@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/07/30 09:25:17  dkrajzew
+// loading of directions and priorities of links implemented
+//
 // Revision 1.7  2003/07/22 15:12:16  dkrajzew
 // new usage of detectors applied
 //
@@ -51,6 +54,7 @@
 
 #include <sax/HandlerBase.hpp>
 #include "NLNetBuilder.h"
+#include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSActuatedTrafficLightLogic.h>
@@ -153,6 +157,10 @@ protected:
     /// The current junction type
     std::string     m_Type;
 
+    /// The offset within the junction
+    size_t          m_Offset;
+
+
 private:
     /// sets the number of edges the network contains
     void setEdgeNumber(const Attributes &attrs);
@@ -224,6 +232,9 @@ private:
     /// sets the key of the current junction logic
     void setKey(const std::string &chars);
 
+    /// Sets the offset a tl-logic shall be fired the first time after
+    void setOffset(const std::string &chars);
+
     /// sets the number of the current logic
     void setTLLogicNo(const std::string &chars);
 
@@ -241,6 +252,10 @@ private:
 
     /// closes the processing of a lane
     void closeSuccLane();
+
+    MSLink::LinkDirection parseLinkDir(char dir);
+
+    MSLink::LinkState parseLinkState(char state);
 
 private:
     /** invalid copy constructor */

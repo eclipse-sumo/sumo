@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/07/30 09:25:17  dkrajzew
+// loading of directions and priorities of links implemented
+//
 // Revision 1.3  2003/06/05 11:52:27  dkrajzew
 // class templates applied; documentation added
 //
@@ -85,6 +88,7 @@ public:
 
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
+        MSLink::LinkDirection dir, MSLink::LinkState state,
         const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building

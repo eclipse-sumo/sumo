@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/30 09:25:17  dkrajzew
+// loading of directions and priorities of links implemented
+//
 // Revision 1.3  2003/06/05 11:52:27  dkrajzew
 // class templates applied; documentation added
 //
@@ -100,12 +103,14 @@ NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 
 void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
+                                     MSLink::LinkDirection dir,
+                                     MSLink::LinkState state,
                                      const std::string &tlid, size_t linkNo)
 {
     // check whether the link is a dead link
     if(laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
-        m_SuccLanes->push_back(new MSLink(0, 0));
+        m_SuccLanes->push_back(new MSLink(0, 0, dir, state));
         return;
     }
     // get the lane the link belongs to
@@ -122,7 +127,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         }
     }
     // build the link
-    MSLink *link = new MSLink(lane, yield);
+    MSLink *link = new MSLink(lane, yield, dir, state);
     // if a traffic light is responsible for it, inform the traffic light
     if(logic!=0) {
         logic->addLink(link, linkNo);
