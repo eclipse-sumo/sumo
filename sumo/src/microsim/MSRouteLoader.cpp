@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/02/05 16:38:50  dkrajzew
+// the parser is now build using XMLHelpers
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -35,6 +38,7 @@
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/XMLHelpers.h>
 #include <helpers/PreStartInitialised.h>
 #include "MSNet.h"
 #include "MSRouteHandler.h"
@@ -53,27 +57,9 @@ using namespace std;
 MSRouteLoader::MSRouteLoader(const std::string &file,
                              MSNet &net)
     : MSRouteHandler(file, false),
-    myParser(0), _moreAvailable(true)//, _nextRead(false),
+    myParser(0), _moreAvailable(true)
 {
-    myParser = XMLReaderFactory::createXMLReader();
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/namespaces" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema-full-checking"),
-        false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/validation"), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/dynamic" ), false );
-    myParser->setContentHandler(this);
-    myParser->setErrorHandler(this);
+    myParser = XMLHelpers::getSAXReader(*this);
 }
 
 
