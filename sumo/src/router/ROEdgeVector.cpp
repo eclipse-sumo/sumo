@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/04 15:40:17  roessel
+// Changed 'os << " ";' to 'os << string(" ");'
+//
 // Revision 1.3  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -68,7 +71,7 @@ std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 {
     for(ROEdgeVector::EdgeVector::const_iterator j=ev._edges.begin(); j!=ev._edges.end(); j++) {
         if(j!=ev._edges.begin()) {
-            os << " ";
+            os << string(" ");
         }
         os << (*j)->getID();
     }
