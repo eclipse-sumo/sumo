@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/09 15:36:18  dkrajzew
+// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
+//
 // Revision 1.2  2003/03/18 13:16:57  dkrajzew
 // windows eol removed
 //
@@ -71,9 +74,6 @@ public:
 private:
     /// The sample interval to sum the values over
     size_t  mySampleInterval;
-
-    /// The current sum
-    _T      myCurrentValue;
 
     /** @brief the number of values sampled
         (set together with myCurrentValue to  zero if larger than mySampleInterval) */

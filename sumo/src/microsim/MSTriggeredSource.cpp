@@ -145,7 +145,7 @@ MSTriggeredSource::MSTriggeredSource(
         {
             cerr << "MSTriggeredSource " << myID
                  << " scanFirst() failed. Quitting" << endl;
-            return;
+            throw ProcessError();
         }
 
         // Get first token which contains source-id and lane-id
@@ -153,7 +153,7 @@ MSTriggeredSource::MSTriggeredSource(
             cerr << "MSTriggeredSource " << myID
                  << " Couldn't parse first token of file "
                  << aXMLFilename << ". Quitting." << endl;
-            return;
+            throw ProcessError();
         }
 
         // Read RouteDistribution from file.
@@ -165,7 +165,7 @@ MSTriggeredSource::MSTriggeredSource(
                     cerr << "MSTriggeredSource " << myID
                          << " Couldn't parse RouteDistribution of file "
                          << aXMLFilename << ". Quitting." << endl;
-                    return;
+                    throw ProcessError();
                 }
             }
         }
@@ -176,7 +176,7 @@ MSTriggeredSource::MSTriggeredSource(
                 cerr << "MSTriggeredSource " << myID
                      << " Couldn't parse second token of file "
                     << aXMLFilename << ". Quitting." << endl;
-                return;
+                throw ProcessError();
             }
         }
     }
@@ -186,7 +186,7 @@ MSTriggeredSource::MSTriggeredSource(
              << "Exception message is: \n"
              << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
              << "\n" << endl;
-        return;
+        throw ProcessError();
     }
 }
 
@@ -324,7 +324,7 @@ MSTriggeredSource::readNextEmitElement( void )
                  << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
                  << "\n" << endl;
             myIsWorking = false;
-            return;
+            throw ProcessError();
         }
     }
 }
@@ -336,6 +336,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.7  2003/04/09 15:36:16  dkrajzew
+// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
+//
 // Revision 1.6  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/09 15:36:18  dkrajzew
+// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
+//
 // Revision 1.2  2003/03/18 13:16:57  dkrajzew
 // windows eol removed
 //
@@ -62,10 +65,6 @@ public:
     /** returns the sum of previously set values
         (for the given sample interval) */
     _T getAbs() const;
-
-private:
-    /// The current value
-    _T      myCurrentValue;
 
 };
 

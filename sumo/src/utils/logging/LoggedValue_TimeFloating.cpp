@@ -6,7 +6,6 @@ LoggedValue_TimeFloating<_T>::LoggedValue_TimeFloating(size_t sampleInterval)
     : LoggedValue<_T>(sampleInterval),
     myFloatingArray(new _T[sampleInterval]),
     mySampleInterval(sampleInterval),
-    myCurrentValue(0),
     mySampledUnits(0),
     myBufferWasFull(false)
 {

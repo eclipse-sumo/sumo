@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/09 15:36:19  dkrajzew
+// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
+//
 // Revision 1.2  2003/03/18 13:16:57  dkrajzew
 // windows eol removed
 //
@@ -71,9 +74,6 @@ private:
     /// The window (sample interval) size
     size_t  mySampleInterval;
 
-    /// The sum of all seen values
-    _T      myCurrentValue;
-
     /** The number of seen values
         Resetted to zero if larger or equal to "mySampleInterval" */
     size_t  mySampledUnits;
@@ -81,6 +81,7 @@ private:
     /** @brief Information whether the buffer was already filled
         (whether there are already "mySampleInterval" values in the array) */
     bool    myBufferWasFull;
+
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION

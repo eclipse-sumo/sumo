@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.6  2003/04/09 15:36:13  dkrajzew
+// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
+//
 // Revision 1.5  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -183,13 +186,11 @@ template<class _T>
 void
 MSInductLoop<_T>::sample( double simSec )
 {
-
     // If sampleIntervall is over, write the data to file and reset the
     // detector.
     ++myNSamples;
     if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
          mySampleIntervall ) {
-
         ++myNIntervalls;
         if(myFile!=0) {
             writeData();
@@ -210,6 +211,7 @@ MSInductLoop<_T>::sample( double simSec )
             currVeh = vehs.end();
         }
     }
+
     // update values
     if(currVeh==vehs.end()) {
         // no vehicle was found
@@ -218,6 +220,7 @@ MSInductLoop<_T>::sample( double simSec )
         mySpeed.add(0);
         myOccup.add(0);
         myVehLengths.add(0);
+        myLane->releaseVehicles();
         return;
     }
     // We have now a valid beyond the detector. If its speed is > 0 it
@@ -240,6 +243,7 @@ MSInductLoop<_T>::sample( double simSec )
 	    myPassedVeh = *currVeh;
 	    myNPassedVeh.add(1);
     }
+    myLane->releaseVehicles();
 }
 
 //---------------------------------------------------------------------------//
@@ -288,8 +292,8 @@ MSInductLoop<_T>::writeData()
     double avgFlow    = 0;
     double avgSpeed   = 0;
     double avgLength  = 0;
-
     double NPassedVehicles = myNPassedVeh.getAbs();
+
     if ( NPassedVehicles > 0 ) {
 
         if ( NPassedVehicles > 1 ) {
