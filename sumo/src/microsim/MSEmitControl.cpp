@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/07/30 09:01:02  dkrajzew
+// false return value for number of emitted vehicles patched
+//
 // Revision 1.5  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -173,7 +176,7 @@ MSEmitControl::emitVehicles(MSNet::Time time)
     // departure time is greater than time.
     // retrieve the list of vehicles to emit within this time step
     if(!myAllVeh.anyWaitingFor(time)) {
-        return 0;
+        return noEmitted;
     }
     const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
     // go through the list and try to emit
