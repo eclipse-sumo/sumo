@@ -40,6 +40,7 @@ NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.cpp \
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition.cpp \
 NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp \
 NIVissimSingleTypeParser_Zuflussdefinition.cpp \
+NIVissimSingleTypeParser_Zusammensetzungsdefinition.cpp \
 NIVissimSingleTypeParser_Auswertungsdefinition.h \
 NIVissimSingleTypeParser_Detektordefinition.h \
 NIVissimSingleTypeParser_DynUml.h \
@@ -77,6 +78,7 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h \
 NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.h \
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h \
 NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h \
-NIVissimSingleTypeParser_Zuflussdefinition.h
+NIVissimSingleTypeParser_Zuflussdefinition.h \
+NIVissimSingleTypeParser_Zusammensetzungsdefinition.h 
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
