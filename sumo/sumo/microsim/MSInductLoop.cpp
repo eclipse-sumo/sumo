@@ -24,6 +24,11 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2002/06/06 17:50:55  croessel
+// Calculation of local density refined.
+// New assertions for localDensity.
+// avgFlow is now veh/hour.
+//
 // Revision 1.9  2002/05/16 14:12:42  croessel
 // In constructor: Make sure that vehicles will be detected even at lane end.
 //
@@ -175,7 +180,7 @@ MSInductLoop::sample( double simSec )
         find_if( myLane->myVehicles.begin(),
                  myLane->myVehicles.end(),
                  bind2nd( VehPosition(), myPos ) );
-
+ 
     if ( currVeh == myLane->myVehicles.end() ||
          *currVeh == myPassedVeh ) {
 
@@ -200,6 +205,8 @@ MSInductLoop::sample( double simSec )
 double 
 MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 {
+    assert( myPassingTime <= simSec );
+     
     // Local Density is calculated via the timeheadway and the speed
     // of the leading vehicle. After the first detection there will
     // always be a myPassedVeh.
@@ -208,18 +215,30 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 
     if ( myPassedVeh != 0 ) {
 
-        currPassTime = simSec + ( veh.pos() - myPos ) / veh.speed();
-        double timeHeadWay = currPassTime - myPassingTime;
-        localDens = 1 / ( myPassingSpeed * timeHeadWay );
-        assert( localDens >= 0 );
+	assert( veh.speed() > 0 );
+	 
+        currPassTime = simSec - ( veh.pos() - myPos ) / veh.speed();
+	double timeHeadWay = currPassTime - myPassingTime;
+	localDens = 1 / ( myPassingSpeed * timeHeadWay );
+
+	assert( localDens >= 0 );
     }
 
-    // update members
-    myPassingSpeed = veh.speed();
-    if ( myPassingTime == 0.0 ) {
-        myPassingTime = simSec + ( veh.pos() - myPos ) / veh.speed();
-    }
+    // update members, ignore just emitted vehicles (speed = 0)
+    if ( veh.speed() > 0 ) {
+	 
+	 myPassingSpeed = veh.speed();
+	 if ( myPassedVeh != 0 ) {
 
+	     myPassingTime  = currPassTime;
+	 }
+	 else {
+	      
+	     myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
+	 }
+	 
+    }
+    
     return localDens;
 }
 
@@ -240,15 +259,17 @@ MSInductLoop::writeData()
 
             avgDensity = myLocalDensitySum / 
                 static_cast< double >( myNPassedVeh - 1 ) * 1000.0; 
-                // [veh/km], first detectect vehicle doesn't contribute.
+	    // [veh/km], first detected vehicle doesn't
+	    // contribute.
+	    assert( avgDensity > 0 );
         }
 
         avgFlow   = static_cast< double >( myNPassedVeh ) / 
-            static_cast< double >( mySampleIntervall * 60 ); // [veh/h]
+	     static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
         avgSpeed  = mySpeedSum / 
-            static_cast< double >( myNPassedVeh ); // [m/s]
+	     static_cast< double >( myNPassedVeh ); // [m/s]
         avgLength = myVehLengthSum / 
-            static_cast< double >( myNPassedVeh ); // [m]
+	     static_cast< double >( myNPassedVeh ); // [m]
         
     }
 
