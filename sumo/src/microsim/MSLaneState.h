@@ -31,6 +31,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.19  2003/07/21 14:59:56  roessel
+// Added two methods getXMLDetectorInfoStart() and getXMLDetectorInfoEnd() and static string detectorInfoEndM.
+//
 // Revision 1.18  2003/07/03 11:00:52  roessel
 // Put global functions in an unnamed namespace to make them local.
 //
@@ -296,12 +299,35 @@ public:
      */
     int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
 
+
     /** 
-     * Creates a XML-header explaining the data written by getXMLOutput().
+     * Creates a XML-header and -comment explaining the data written by
+     * getXMLOutput().
      * 
      * @return XML-header and comment.
      */
     static std::string& getXMLHeader( void );
+    
+    /** 
+     * Creates an open xml tag with information about the detector. You
+     * should close this tag with getXMLDetectorInfoEnd().
+     *
+     * @see getXMLDetectorInfoEnd()
+     * 
+     * @return XML-header and comment.
+     */
+    std::string getXMLDetectorInfoStart( void );
+
+
+    /** 
+     * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
+     *
+     * @see getXMLDetectorInfoStart()
+     * 
+     * @return String </detector>
+     */
+    static std::string& getXMLDetectorInfoEnd( void );
+    
 
     /** 
      * Creates XML-output for the interval (now-lastNTimesteps, now] containing
@@ -723,6 +749,9 @@ private:
 
     static std::string xmlHeaderM; /**< String containing a xml-comment. */
 
+    static std::string detectorInfoEndM; /**< String containing closing tag
+                                             * of detector. */
+    
     /// Hidden constructor.
     MSLaneState();
 

@@ -30,6 +30,9 @@
 
 
 // $Log$
+// Revision 1.23  2003/07/21 14:59:56  roessel
+// Added two methods getXMLDetectorInfoStart() and getXMLDetectorInfoEnd() and static string detectorInfoEndM.
+//
 // Revision 1.22  2003/07/03 11:00:52  roessel
 // Put global functions in an unnamed namespace to make them local.
 //
@@ -131,7 +134,6 @@
 #include <cassert>
 
 
-
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -174,7 +176,9 @@ string MSLaneState::xmlHeaderM(
 "  If noVehContrib==0 then speedsquare is set to -1.\n"
 "- density [veh/km]\n"
 "  If noVehContrib==0 then density is set to 0.\n"
-"-->\n");
+"-->\n\n");
+
+string MSLaneState::detectorInfoEndM( "</detector>\n" );
 
 MSLaneState::~MSLaneState()
 {
@@ -220,7 +224,7 @@ MSLaneState::MSLaneState( string id,
 
     // add reminder to lane
     MSMoveReminder* reminderM =
-        new MSLaneStateReminder( posM, posM + lengthM, this, laneM );
+        new MSLaneStateReminder( idM, posM, posM + lengthM, this, laneM );
     laneM->addMoveReminder( reminderM );
 
     // start old-data removal through MSEventControl
@@ -450,6 +454,23 @@ MSLaneState::getXMLHeader( void )
 {
     return xmlHeaderM;
 }
+
+string
+MSLaneState::getXMLDetectorInfoStart( void )
+{
+    string detectorInfo("<detector type=\"lanestate\" id=\"" + idM +
+                        "\" lane=\"" + laneM->id() + "\" startpos=\"" +
+                        toString(posM) + "\" length=\"" + toString(lengthM) +
+                        "\" >\n");
+    return detectorInfo;
+}
+
+string&
+MSLaneState::getXMLDetectorInfoEnd( void )
+{
+    return detectorInfoEndM;
+}
+
 
 string
 MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
