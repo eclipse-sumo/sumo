@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/24 09:56:07  dkrajzew
+// inlanes added to a traffic light logic description
+//
 // Revision 1.10  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -64,6 +67,7 @@ namespace
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cassert>
 #include "NBEdge.h"
 #include "NBTrafficLightLogic.h"
 
@@ -120,19 +124,18 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
     into << "      <offset>0</offset>" << endl;
-/*
     // write the inlanes
-    into << "      <inlinks>";
+    into << "      <inlanes>";
     bool first = true;
     for(NBConnectionVector::const_iterator j=inLinks.begin(); j!=inLinks.end(); j++) {
         if(!first) {
             into << " ";
         }
         first = false;
-        into << (*j).getID();
+        assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);
+        into << (*j).getFrom()->getID() << '_' << (*j).getFromLane();
     }
-    into << "</inlinks>" << endl;
-    */
+    into << "</inlanes>" << endl;
     // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
