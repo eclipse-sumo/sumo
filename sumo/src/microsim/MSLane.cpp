@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2002/10/29 10:43:38  dkrajzew
+// bug of trying to set the destination lane for vehicles that vanish before they reach the point of halt removed
+//
 // Revision 1.6  2002/10/28 12:59:38  dkrajzew
 // vehicles are now deleted whe the tour is over
 //
@@ -279,6 +282,7 @@ MSLane::MSLane( string id,
     myVehBuffer( 0 ),
     myRequestLane( 0 ),
     myBrakeRequest( false ),
+    myFirst(0),
     myLFState( UNDEFINED ),
     myLFDestReached( false ),
     myGap( 0 ),
@@ -773,8 +777,8 @@ MSLane::moveFirst( bool respond )
 
         // change onto targetLane
         if ( myTargetLane != this ) {
-
             myTargetLane->push( pop() );
+            return;
         }
 
     }
@@ -785,6 +789,7 @@ MSLane::moveFirst( bool respond )
         if(myFirst->pos()>=myLength) {
             myFirst->moveSetState(myTargetState);
             myTargetLane->push( pop() );
+            return;
         }
     }
     myFirst->_assertPos();
@@ -908,6 +913,7 @@ MSLane::push(MSVehicle* veh)
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
+        veh->_assertPos();
     }
     else {
         MSVehicle::remove(veh->id());
@@ -1266,6 +1272,7 @@ MSLane::setDriveRequests()
     if(seenDriveDist<driveDist) {
         seenDriveDist = driveDist;
     }
+
     // set the requests 
     double looked = myLength - myTargetState.pos();
     MSLane *currLane = this;
@@ -1286,7 +1293,6 @@ MSLane::setDriveRequests()
         }
     }
 
-
     // Set the end position
     looked = myLength - myFirst->pos();
     LFLinkLanes::iterator ll = myLFLinkLanes.begin();
@@ -1294,7 +1300,7 @@ MSLane::setDriveRequests()
     if ( driveDist < looked ) {
         myTargetLane = this;
     } else {
-        while ( driveDist > looked ) {
+        while ( driveDist > looked && ll!=myLFLinkLanes.end() ) {
             assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
             // should be reached earlier.
 
