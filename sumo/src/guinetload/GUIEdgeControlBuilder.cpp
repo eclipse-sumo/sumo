@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/09/05 14:57:12  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.3  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -48,6 +51,7 @@ namespace
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUISourceLane.h>
+#include <guisim/GUIInternalLane.h>
 #include <microsim/MSJunction.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <netload/NLNetBuilder.h>
@@ -63,8 +67,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIEdgeControlBuilder::GUIEdgeControlBuilder(unsigned int storageSize)
-    : NLEdgeControlBuilder(storageSize)
+GUIEdgeControlBuilder::GUIEdgeControlBuilder(bool allowAggregation,
+                                             unsigned int storageSize)
+    : NLEdgeControlBuilder(storageSize), myAllowAggregation(allowAggregation)
 {
 }
 
@@ -93,7 +98,8 @@ GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
         throw XMLIdNotKnownException("edge", id);
     }
     edge->initJunctions(from, to,
-        static_cast<GUINet*>(MSNet::getInstance())->_idStorage);
+        static_cast<GUINet*>(MSNet::getInstance())->_idStorage,
+            myAllowAggregation);
 }
 
 
@@ -107,12 +113,22 @@ GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
       throw XMLDepartLaneDuplicationException();
     }
     MSLane *lane = 0;
-    if(m_Function==MSEdge::EDGEFUNCTION_SOURCE) {
+    switch(m_Function) {
+    case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new GUISourceLane(net, id, maxSpeed, length, m_pActiveEdge,
             shape);
-    } else {
+        break;
+    case MSEdge::EDGEFUNCTION_INTERNAL:
+        lane = new GUIInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
+            shape);
+        break;
+    case MSEdge::EDGEFUNCTION_NORMAL:
+    case MSEdge::EDGEFUNCTION_SINK:
         lane = new GUILane(net, id, maxSpeed, length, m_pActiveEdge,
             shape);
+        break;
+    default:
+        throw 1;
     }
     m_pLaneStorage->push_back(lane);
     if(isDepart) {

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/09/05 14:57:12  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.3  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -60,7 +63,7 @@ class GUIEdgeControlBuilder : public NLEdgeControlBuilder {
 public:
     /** standard constructor; the parameter is a hint for the maximal number
         of lanes inside an edge */
-    GUIEdgeControlBuilder(unsigned int storageSize=10);
+    GUIEdgeControlBuilder(bool allowAggregation, unsigned int storageSize=10);
 
     /// standard destructor
     ~GUIEdgeControlBuilder();
@@ -82,6 +85,9 @@ public:
 
     /// Adds the shape of the lane
 //    void addLaneShape(const Position2DVector &shape);
+
+private:
+    bool myAllowAggregation;
 
 private:
     /** invalid copy constructor */
