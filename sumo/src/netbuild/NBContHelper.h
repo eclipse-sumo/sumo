@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.7  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -329,6 +332,19 @@ public:
     };
 
 
+    class edge_with_destination_finder {
+    public:
+        /// constructor
+        edge_with_destination_finder(NBNode *dest);
+
+        bool operator() (NBEdge *e) const;
+
+    private:
+        NBNode *myDestinationNode;
+
+    };
+
+
     /** Tries to return the first edge within the given container which
         connects both given nodes */
     static NBEdge *findConnectingEdge(const EdgeVector &edges,
@@ -381,7 +397,7 @@ public:
         }
     };
 
-
+    friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

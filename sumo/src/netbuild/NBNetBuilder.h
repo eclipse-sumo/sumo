@@ -10,6 +10,7 @@ public:
     NBNetBuilder();
     ~NBNetBuilder();
     void buildLoaded();
+    static void insertNetBuildOptions(OptionsCont &oc);
 protected:
     /**
      * @brief computes the structures
@@ -18,7 +19,7 @@ protected:
     void compute(OptionsCont &oc);
 
     /** saves the net (not the junction logics) */
-    bool save(std::string path);
+    bool save(std::string path, OptionsCont &oc);
 
     /** clears all structures */
 //    void clearAll();
@@ -31,6 +32,8 @@ protected:
 
     /** joins edges which connect the same nodes */
     bool joinEdges(int step);
+
+    bool removeUnwishedNodes(int step, OptionsCont &oc);
 
     /** computes the turning direction for each edge */
     bool computeTurningDirections(int step);
@@ -57,9 +60,11 @@ protected:
     bool recheckLanes(int step);
 
     bool computeNodeShapes(int step);
+    bool computeEdgeShapes(int step);
+
 
     /** appends the turnarounds */
-    bool appendTurnarounds(int step);
+    bool appendTurnarounds(int step, OptionsCont &oc);
 
     /** computes nodes' logics */
     bool computeLogic(int step, OptionsCont &oc);

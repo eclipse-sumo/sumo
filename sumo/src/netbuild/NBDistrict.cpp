@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.9  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -64,6 +67,7 @@ namespace
 #include <iostream>
 #include <algorithm>
 #include <utils/common/Named.h>
+#include <utils/common/StringUtils.h>
 #include "NBEdge.h"
 #include "NBDistrict.h"
 
@@ -79,7 +83,8 @@ using namespace std;
  * ======================================================================= */
 NBDistrict::NBDistrict(const std::string &id, const std::string &name,
                        double x, double y)
-    : Named(id), _name(name),
+    : Named(StringUtils::convertUmlaute(id)),
+    _name(StringUtils::convertUmlaute(name)),
     _x(x), _y(y), _posKnown(true)
 {
 }

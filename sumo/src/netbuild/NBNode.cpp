@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.26  2003/08/21 12:55:20  dkrajzew
 // directional information patched
 //
@@ -164,10 +167,12 @@ namespace
 #include <vector>
 #include <deque>
 #include <iostream>
+#include <set>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/geom/Line2D.h>
-//#include <utils/geom/chull.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -325,7 +330,8 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, double x, double y)
-    : _id(id), _x(x), _y(y), _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
+    : _id(StringUtils::convertUmlaute(id)), _x(x), _y(y),
+    _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -333,14 +339,16 @@ NBNode::NBNode(const string &id, double x, double y)
 
 NBNode::NBNode(const string &id, double x, double y,
                BasicNodeType type)
-    : _id(id), _x(x), _y(y), _type(type), myDistrict(0), _request(0)
+    : _id(StringUtils::convertUmlaute(id)), _x(x), _y(y),
+    _type(type), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
 
 NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
-    : _id(id), _x(x), _y(y), _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
+    : _id(StringUtils::convertUmlaute(id)), _x(x), _y(y),
+    _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -445,15 +453,16 @@ NBNode::sortSmall()
         return;
     }
     for( vector<NBEdge*>::iterator i=_allEdges.begin();
-         i!=_allEdges.end()-1; i++) {
+         i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
         swapWhenReversed(i, i+1);
     }
-    if(_allEdges.size()>1) {
-        swapWhenReversed(_allEdges.begin(), _allEdges.end()-1);
+    if(_allEdges.size()>1&i!=_allEdges.end()) {
+        swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
     }
 }
 
-void
+
+bool
 NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
                          const vector<NBEdge*>::iterator &i2)
 {
@@ -461,12 +470,17 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
     NBEdge *e2 = *i2;
     if(e2->isTurningDirection(e1) && e2->getToNode()==this) {
         swap(*i1, *i2);
+        return true;
     }
+    return false;
 }
 
 void
 NBNode::setPriorities()
 {
+    if(_id=="618975401") {
+        int bla = 0;
+    }
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
@@ -474,6 +488,7 @@ NBNode::setPriorities()
         for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
             (*i)->setJunctionPriority(this, 1);
         }
+        return;
     }
     // preset all junction's edge priorities to zero
     for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
@@ -550,6 +565,9 @@ NBNode::setPriorityJunctionPriorities()
     best1 = 0;
     vector<NBEdge*> incoming(*_incomingEdges);
     int noIncomingPrios = NBContHelper::countPriorities(incoming);
+    if(noIncomingPrios==1) {
+        return;
+    }
     // !!! Attention!
     // there is no case that fits into junctions with no incoming edges
         // extract the edge with the highest priority
@@ -565,7 +583,11 @@ NBNode::setPriorityJunctionPriorities()
             sort(incoming.begin(), incoming.end(),
                 NBContHelper::edge_by_priority_sorter());
             best2 = extractAndMarkFirst(incoming);
-        }
+        } /*else {
+            sort(incoming.begin(), incoming.end(),
+                NBContHelper::edge_opposite_direction_sorter(best1));
+            best2 = extractAndMarkFirst(incoming);
+        }*/
     }
     // get the best continuations (outgoing edges)
     NBEdge *bestBack1, *bestBack2;
@@ -706,6 +728,185 @@ NBNode::rotateIncomingEdges(int norot)
     }
 }
 
+std::vector<std::string>
+NBNode::getInternalNamesList()
+{
+    std::vector<std::string> ret;
+    if(countInternalLanes()!=0) {
+        ret.push_back(string(":") + _id);
+    }
+    return ret;
+}
+
+size_t
+NBNode::countInternalLanes()
+{
+    size_t lno = 0;
+    EdgeVector::iterator i;
+    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+                lno++;
+            }
+        }
+    }
+    return lno;
+}
+
+
+void
+NBNode::writeXMLInternalLinks(ostream &into)
+{
+    if(countInternalLanes()==0) {
+        return;
+    }
+    string id = string(":") + _id;
+    into << "   <edge id=\"" << id
+        << "\" function=\"internal\">" << endl;
+    into << "      <lanes>" << endl;
+    size_t lno = 0;
+    EdgeVector::iterator i;
+    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+/*              string id = string(":") + (*i)->getID() + string("_")
+                    + toString<size_t>(j) + "x2x" + (*k).edge->getID();*/
+                Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
+                Position2D beg = (*i)->getLaneShape(j).getEnd();
+                double length = GeomHelper::distance(beg, end);
+                into << "         <lane id=\"" << id << "_"
+                    << toString<size_t>(lno++) << "\" depart=\"0\" "
+                    << "maxspeed=\"11.111000\" length=\""
+                    << toString<double>(length) << "\" "
+                    << "changeurge=\"0\">"
+                    << beg << " " << end
+                    << "</lane>" << endl;
+            }
+        }
+    }
+    into << "      </lanes>" << endl;
+    lno = 0;
+    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+/*              string id = string(":") + (*i)->getID() + string("_")
+                    + toString<size_t>(j) + "x2x" + (*k).edge->getID();*/
+                into << "      <cedge id=\"" << (*k).edge->getID()
+                    << "\">" << id << "_" << toString<size_t>(lno++)
+                    << "</cedge>" << endl;
+            }
+        }
+    }
+
+    into << "   </edge>" << endl << endl;
+}
+
+
+void
+NBNode::writeXMLInternalEdgePos(ostream &into)
+{
+    if(countInternalLanes()==0) {
+        return;
+    }
+    string id = string(":") + _id;
+    size_t lno = 0;
+    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+/*              string id = string(":") + (*i)->getID() + string("_")
+                    + toString<size_t>(j) + "x2x" + (*k).edge->getID();*/
+                into << "   <edgepos id=\"" << id
+                    << "\" from=\"" << _id << "\" to=\"" << _id << "\" "
+                    << "lane=\"" << lno++ << "\" function=\"internal\">"
+                    << _x << "," << _y << " " << _x << "," << _y
+                    << "</edgepos>"
+                    << endl;
+            }
+        }
+    }
+}
+
+
+
+void
+NBNode::writeXMLInternalSuccInfos(ostream &into)
+{
+    if(countInternalLanes()==0) {
+        return;
+    }
+    string id = string(":") + _id;
+    size_t lno = 0;
+    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+/*              string id = string(":") + (*i)->getID() + string("_")
+                    + toString<size_t>(j) + "x2x" + (*k).edge->getID();*/
+                into << "   <succ edge=\"" << id << "\" "
+                    << "lane=\"" << id << "_"
+                    << toString<size_t>(lno) << "\" junction=\"" << _id << "\">"
+                    << endl;
+                into << "      <succlane lane=\""
+                    << (*k).edge->getID() << "_" << (*k).lane
+                    << "\" tl=\"" << (*k).tlID << "\" linkno=\""
+                    << (*k).tlLinkNo << "\" yield=\"0\" dir=\"s\" state=\"M\""
+                    << " int_end=\"x\"/>"
+                    << endl;
+                lno++;
+                into << "   </succ>" << endl;
+            }
+        }
+    }
+}
+
+
+void
+bla(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
+{
+    size_t l = 0;
+    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+                if(l!=0) {
+                    into << ' ';
+                }
+                string lid = string(":") + id + string("_")
+                    + toString<size_t>(l);
+                l++;
+                into << lid;
+            }
+        }
+    }
+}
 
 void
 NBNode::writeXML(ostream &into)
@@ -748,6 +949,12 @@ NBNode::writeXML(ostream &into)
             if(i!=_incomingEdges->end()-1 || j<noLanes-1) {
                 into << ' ';
             }
+        }
+    }
+    if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
+        if(countInternalLanes()!=0) {
+            into << ' ';
+            bla(_incomingEdges, into, _id);
         }
     }
     into << "</inlanes>" << endl;
@@ -829,9 +1036,12 @@ NBNode::sortNodesEdges()
 {
     // sort the edges
     buildList();
-    sort(_allEdges.begin(), _allEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_incomingEdges->begin(), _incomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_allEdges.begin(), _allEdges.end(),
+        NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_incomingEdges->begin(), _incomingEdges->end(),
+        NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_outgoingEdges->begin(), _outgoingEdges->end(),
+        NBContHelper::edge_by_junction_angle_sorter(this));
     sortSmall();
     setType(computeType());
     setPriorities();
@@ -864,9 +1074,6 @@ NBNode::computeNodeShape()
         (_incomingEdges->size()<2&&_outgoingEdges->size()<2) ) {
         return;
     }*/
-    if(_id=="597993220") {
-        int bla = 0;
-    }
     std::vector<double> edgeOffsets;
     EdgeVector::const_iterator i;
     for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
@@ -877,64 +1084,106 @@ NBNode::computeNodeShape()
         // the crossing edges
         EdgeVector::const_iterator ri = i;
         EdgeVector::const_iterator li = i;
-//        std::pair<Line2D, Line2D> b = getBorders(current);
+        double ccw = current->width();
+        double cw = current->width();
+        // clockwise border
         cb = current->getCWBounderyLine(this, 2.5);
+        // counterclockwise border
         ccb = current->getCCWBounderyLine(this, 2.5);
         Line2D cl, ccl;
         if(hasIncoming(current)) {
+            // is an incoming edge
+            //  the counter clockwise edge is surely not the opposite direction
             NBContHelper::nextCCW(&_allEdges, ri);
+            //  check the clockwise edge
             NBContHelper::nextCW(&_allEdges, li);
             if(current->isTurningDirection(*li)/*&&_incomingEdges->size()>2*/) {
+                EdgeVector::const_iterator tmpi = li;
+                NBContHelper::nextCW(&_allEdges, tmpi);
+                double angle =
+                    getCWAngleDiff(
+                        cb.atan2DegreeAngle(),
+                        (*tmpi)->getCCWBounderyLine(this, 2.5).atan2DegreeAngle());
+                if(angle<90) {
+                    cb = (*li)->getCWBounderyLine(this, 2.5);
+                    cw = (*li)->width();
+                }
                 NBContHelper::nextCW(&_allEdges, li);
-/*                if(abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
-                    abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))<30) {
-
-                    li = i;
-                }*/
             }
             ccl = (*ri)->getCWBounderyLine(this, 2.5);
             cl = (*li)->getCCWBounderyLine(this, 2.5);
         } else {
             NBContHelper::nextCCW(&_allEdges, ri);
             if((*ri)->isTurningDirection(current)/*&&_incomingEdges->size()>2*/) {
+                EdgeVector::const_iterator tmpi = ri;
+                NBContHelper::nextCCW(&_allEdges, tmpi);
+                double angle =
+                    getCCWAngleDiff(
+                        ccb.atan2DegreeAngle(),
+                        (*tmpi)->getCWBounderyLine(this, 2.5).atan2DegreeAngle());
+                if(angle<90) {
+                    ccb = (*ri)->getCCWBounderyLine(this, 2.5);
+                    ccw = (*ri)->width();
+                }
                 NBContHelper::nextCCW(&_allEdges, ri);
-/*                if(abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
-                    abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))<30) {
-
-                    ri = i;
-                }*/
             }
             NBContHelper::nextCW(&_allEdges, li);
             ccl = (*ri)->getCWBounderyLine(this, 2.5);
             cl = (*li)->getCCWBounderyLine(this, 2.5);
         }
-        double offr, offl;
-        double rrelAngle = abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()));
-        if(hasIncoming(current)!=hasIncoming(*ri)) {
-            rrelAngle = abs(rrelAngle - 180);
-        }
+        double offr, offl, cca, ca;
         if(ri==i) {
             offr = 104;
+            cca = 360;
         } else {
             offr = getOffset(ccb, ccl);
-            if(abs(rrelAngle-90)>60&&sin(rrelAngle)*(*ri)->width()<offr-100) {
+            double a1 = ccb.atan2DegreeAngle();
+            double a2 = ccl.atan2DegreeAngle();
+
+            cca = getCCWAngleDiff(a1, a2);
+/*            if(angle>180) {
+                angle = 360 - angle;
+            }*/
+            if(cca>180/*&&lw<abs(offr-100)*/) {
                 offr = -1;
             }
-        }
-        double lrelAngle = abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()));
-        if(hasIncoming(current)!=hasIncoming(*li)) {
-            lrelAngle = abs(lrelAngle - 180);
+            double lw1 = fabs(sin(cca*3.1415926535897932384626433832795/180.0)*((*ri)->width()*1.5));
+            double lw2 = fabs(sin(cca*3.1415926535897932384626433832795/180.0)*(ccw*1.5));
+            if(cca>90&&offr>100&&lw1<fabs(100-offr)&&lw2<fabs(100-offr)) {
+                offr = -1;//100 + fabs(sin(angle*3.1415926535897932384626433832795/180.0)*((*ri)->width()*1.5));
+            }
         }
         if(li==i) {
             offl = 104;
+            ca = 360;
         } else {
             offl = getOffset(cb, cl);
-            if(abs(lrelAngle-90)>60&&sin(lrelAngle)*(*li)->width()<offl-100) {
+            double a1 = cb.atan2DegreeAngle();
+            double a2 = cl.atan2DegreeAngle();
+            ca = getCWAngleDiff(a1, a2);
+/*            if(angle>180) {
+                angle = 360 - angle;
+            }*/
+            if(ca>180/*&&lw<abs(offl-100)*/) {
                 offl = -1;
             }
+            double lw1 = fabs(sin(ca*3.1415926535897932384626433832795/180.0)*((*li)->width()*1.5));
+            double lw2 = fabs(sin(ca*3.1415926535897932384626433832795/180.0)*(cw*1.5));
+            if(ca>90&&offl>100&&lw1<fabs(100-offl)&&lw2<fabs(100-offl)) {
+                offl = -1;//100 + fabs(sin(angle*3.1415926535897932384626433832795/180.0)*((*li)->width()*1.5));;
+            }
+
         }
         if(offr==-1&&offl==-1) {
             edgeOffsets.push_back(104);
+        } else if(offr==-1||offl==-1) {
+            edgeOffsets.push_back(MAX(offr, offl));
+        } else if(cca!=360-ca) {
+            if(cca>ca) {
+                edgeOffsets.push_back(offl);
+            } else {
+                edgeOffsets.push_back(offr);
+            }
         } else {
             edgeOffsets.push_back(MAX(offr, offl));
         }
@@ -959,10 +1208,6 @@ NBNode::computeNodeShape()
             // ok, process both directions
             myPoly.push_back(
                 current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
-/*            myPoly.push_back(
-                current->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
-/*            myPoly.push_back(
-                (*li)->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
             myPoly.push_back(
                 (*li)->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
             // and skip the next one
@@ -970,6 +1215,17 @@ NBNode::computeNodeShape()
                 i++;
                 j++;
             }
+        } else if(hasOutgoing(current)) {
+            EdgeVector::const_iterator ri = i;
+            NBContHelper::nextCCW(&_allEdges, ri);
+            // skip outgoing that have an incoming
+            if((*ri)->isTurningDirection(current)) {
+                continue;
+            }
+            myPoly.push_back(
+                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            myPoly.push_back(
+                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
         } else {
             // process this edge only
             myPoly.push_back(
@@ -983,9 +1239,40 @@ NBNode::computeNodeShape()
 
 
 double
+NBNode::getCCWAngleDiff(double angle1, double angle2)
+{
+    if(angle1<0) {
+        angle1 = 360 + angle1;
+    }
+    if(angle2<0) {
+        angle2 = 360 + angle2;
+    }
+    if(angle1>angle2) {
+        return angle1 - angle2;
+    }
+    return angle1 + 360 - angle2;
+}
+
+double
+NBNode::getCWAngleDiff(double angle1, double angle2)
+{
+    if(angle1<0) {
+        angle1 = 360 + angle1;
+    }
+    if(angle2<0) {
+        angle2 = 360 + angle2;
+    }
+    if(angle1<angle2) {
+        return angle2 - angle1;
+    }
+    return 360 - angle1 + angle2;
+}
+
+
+double
 NBNode::chooseLaneOffset(DoubleVector &chk)
 {
-    return DoubleVectorHelper::min(chk);
+    return DoubleVectorHelper::minValue(chk);
     /*
     double max = DoubleVectorHelper::max(chk);
     if(max<100) {
@@ -1010,7 +1297,7 @@ double
 NBNode::chooseLaneOffset2(DoubleVector &chk)
 {
     DoubleVectorHelper::remove_larger_than(chk, 100);
-    double max = DoubleVectorHelper::max(chk);
+    double max = DoubleVectorHelper::maxValue(chk);
     return 100-max+100;
 }
 
@@ -1673,6 +1960,124 @@ NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing)
     return 'M';
 }
 
+
+bool
+NBNode::checkIsRemovable() const
+{
+    // check whether this node is included in a traffic light
+    if(myTrafficLights.size()!=0) {
+        return false;
+    }
+    EdgeVector::const_iterator i;
+    // check whether the edges are allowed to be removed
+    //  (!!! not completely implemented; should be parametrisable)
+    for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+        if(!(*i)->isJoinable()) {
+            return false;
+        }
+    }
+    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        if(!(*i)->isJoinable()) {
+            return false;
+        }
+    }
+    // one in, one out -> just a geometry ...
+    if(_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+        // ... if types match ...
+        if(!(*_incomingEdges)[0]->sameType((*_outgoingEdges)[0])) {
+            return false;
+        }
+        //
+        return (*_incomingEdges)[0]->getFromNode()!=(*_outgoingEdges)[0]->getToNode();
+    }
+    // two in, two out -> may be something else
+    if(_outgoingEdges->size()==2&&_incomingEdges->size()==2) {
+        // check whether the origin nodes of the incoming edges differ
+        std::set<NBNode*> origSet;
+        for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+            origSet.insert((*i)->getFromNode());
+        }
+        if(origSet.size()<2) {
+            return false;
+        }
+        //
+        for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+            // try to find the opposite direction
+            NBNode *origin = (*i)->getFromNode();
+            EdgeVector::const_iterator j =
+                find_if(_outgoingEdges->begin(), _outgoingEdges->end(),
+                    NBContHelper::edge_with_destination_finder(origin));
+            if(j!=_outgoingEdges->end()) {
+                NBContHelper::nextCCW(_outgoingEdges, j);
+                // check whether the types allow joining
+                if(!(*i)->sameType(*j)) {
+                    return false;
+                }
+            } else {
+                // ok, at least one outgoing edge is not an opposite
+                //  of an incoming one
+                return false;
+            }
+        }
+        return true;
+    }
+    // ok, a real node
+    return false;
+}
+
+
+std::vector<std::pair<NBEdge*, NBEdge*> >
+NBNode::getEdgesToJoin() const
+{
+    assert(checkIsRemovable());
+    std::vector<std::pair<NBEdge*, NBEdge*> > ret;
+    // one in, one out-case
+    if(_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+        ret.push_back(
+            std::pair<NBEdge*, NBEdge*>(
+                (*_incomingEdges)[0], (*_outgoingEdges)[0]));
+        return ret;
+    }
+    // two in, two out-case
+    for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        NBNode *origin = (*i)->getFromNode();
+        EdgeVector::const_iterator j =
+            find_if(_outgoingEdges->begin(), _outgoingEdges->end(),
+                    NBContHelper::edge_with_destination_finder(origin));
+        NBContHelper::nextCCW(_outgoingEdges, j);
+        ret.push_back(std::pair<NBEdge*, NBEdge*>(*i, *j));
+    }
+    return ret;
+}
+
+
+const Position2DVector &
+NBNode::getShape() const
+{
+    return myPoly;
+}
+
+std::string
+NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
+{
+    size_t l = 0;
+    for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+                if((from==*i)&&(j==fromlane)&&((*k).edge==to)) {
+                    return string(":") + _id + string("_") +
+                        toString<size_t>(l);
+                }
+                l++;
+            }
+        }
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

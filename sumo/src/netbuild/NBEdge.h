@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.18  2003/08/20 11:53:17  dkrajzew
 // further work on node geometry
 //
@@ -358,6 +361,16 @@ public:
     Line2D getCWBounderyLine(NBNode *n, double offset);
     Line2D getCCWBounderyLine(NBNode *n, double offset);
 
+    bool sameType(NBEdge *e) const;
+    void append(NBEdge *e);
+    bool isJoinable() const;
+
+    void computeEdgeShape();
+
+    const Position2DVector &getLaneShape(size_t i) const;
+
+//    NBEdge *getTurningDirection() const;
+
     /** friend class used for the computation of connections to
         following edges */
     friend class NBEdgeSuccessorBuilder;
@@ -444,13 +457,18 @@ private:
     };
 
     /// Computes the shape for the given lane
-    Position2DVector getLaneShape(size_t lane);
+    Position2DVector computeLaneShape(size_t lane);
 
     /// Computes the offset from the edge shape on the current segment
     std::pair<double, double> laneOffset(const Position2D &from,
         const Position2D &to, double lanewidth, size_t lane);
 
     void computeLaneShapes();
+
+protected:
+    void setTurningDestination(NBEdge *e);
+    bool acceptBeingTurning(NBEdge *e);
+
 
 private:
     /// the building step
@@ -507,10 +525,10 @@ private:
     LanesThatSucceedEdgeCont *_succeedinglanes;
 
     /// the priority normalised for the node the edge is outgoing of
-    char     _fromJunctionPriority;
+    int     _fromJunctionPriority;
 
     /// the priority normalised for the node the edge is incoming in
-    char     _toJunctionPriority;
+    int     _toJunctionPriority;
 
     /// the angle of the edge in the node it is outgoing from
     double _fromJunctionAngle;
@@ -528,6 +546,9 @@ private:
     LaneSpreadFunction myLaneSpreadFunction;
 
     std::vector<Position2DVector> myLaneGeoms;
+
+    double myAmTurningWithAngle;
+    NBEdge *myAmTurningOf;
 
 private:
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.11  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -150,6 +153,9 @@ public:
 
     /// reports warnings if any occured
     static void reportWarnings();
+
+//    NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
+
 
 private:
     /** sets the information that the edge from1->to1 blocks the edge

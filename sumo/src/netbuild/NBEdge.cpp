@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.25  2003/08/21 12:55:20  dkrajzew
 // directional information patched
 //
@@ -165,6 +168,7 @@ namespace
 #include <iostream>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/convert/ToString.h>
 #include "NBEdge.h"
 
@@ -276,14 +280,16 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, double speed, size_t nolanes,
                double length, int priority, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
-    _step(INIT), _id(id), _type(type), _nolanes(nolanes),
-    _from(from), _to(to), _length(length), _angle(0),
-    _priority(priority), _speed(speed), _name(name),
-    _ToEdges(0), _turnDestination(0),
-    _reachable(0),
+    _step(INIT), _id(StringUtils::convertUmlaute(id)),
+    _type(StringUtils::convertUmlaute(type)),
+    _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
+    _priority(priority), _speed(speed),
+    _name(StringUtils::convertUmlaute(name)), _ToEdges(0),
+    _turnDestination(0), _reachable(0),
     /*_linkIsPriorised(0),*/ _succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
-    _basicType(basic), myLaneSpreadFunction(spread)
+    _basicType(basic), myLaneSpreadFunction(spread),
+    myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     if(_from==0||_to==0) {
         throw std::exception();
@@ -326,14 +332,17 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                double length, int priority,
                const Position2DVector &geom, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
-    _step(INIT), _id(id), _type(type), _nolanes(nolanes),
-    _from(from), _to(to), _length(length), _angle(0),
-    _priority(priority), _speed(speed), _name(name),
+    _step(INIT), _id(StringUtils::convertUmlaute(id)),
+    _type(StringUtils::convertUmlaute(type)),
+    _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
+    _priority(priority), _speed(speed),
+    _name(StringUtils::convertUmlaute(name)),
     _ToEdges(0), _turnDestination(0),
     _reachable(0),
 /*    _linkIsPriorised(0), */_succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
-    _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread)
+    _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
+    myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     if(_from==0||_to==0) {
         throw std::exception();
@@ -371,7 +380,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 NBEdge::~NBEdge()
 {
     delete _reachable;
-//    delete _linkIsPriorised;
     delete _succeedinglanes;
     delete _ToEdges;
 }
@@ -495,24 +503,14 @@ NBEdge::getEdgeLanesFromLane(size_t lane)
 void
 NBEdge::computeTurningDirections()
 {
-    EdgeVector outgoing = _connectedEdges;
-    if(outgoing.size()==0) {
-        outgoing = _to->getOutgoingEdges();
-    }
+    _turnDestination = 0;
+    EdgeVector outgoing = _to->getOutgoingEdges();
     for(EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
         double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
         // do not append the turnaround
-        if(outgoing.size()>1 && relAngle==-180) {
-            if(_turnDestination==0) {
-                _turnDestination = outedge;
-            } else {
-                if( fabs(NBHelpers::relAngle(_angle, _turnDestination->getAngle()))
-                    <
-                    fabs(NBHelpers::relAngle(_angle, outedge->getAngle())) ) {
-                    _turnDestination = outedge;
-                }
-            }
+        if(outgoing.size()>1 && fabs(relAngle)>160) {
+            setTurningDestination(outedge);
         }
     }
 #ifdef CROSS_TEST
@@ -524,6 +522,43 @@ NBEdge::computeTurningDirections()
         _id=="1o" || _id=="2o" || _id=="3o" || _id=="4o" ||
         _id=="1fi" || _id=="2fi" || _id=="3fi" || _id=="4fi" );
 #endif
+}
+
+
+void
+NBEdge::setTurningDestination(NBEdge *e)
+{
+    double cur = fabs(NBHelpers::relAngle(_angle, e->getAngle()));
+    double old =
+        _turnDestination==0
+        ? 0
+        : fabs(NBHelpers::relAngle(_angle, _turnDestination->getAngle()));
+    if( cur>old
+        &&
+        e->acceptBeingTurning(this)) {
+
+        _turnDestination = e;
+    }
+}
+
+
+bool
+NBEdge::acceptBeingTurning(NBEdge *e)
+{
+    if(e==myAmTurningOf) {
+        return true;
+    }
+    double angle = fabs(NBHelpers::relAngle(_angle, e->getAngle()));
+    if(myAmTurningWithAngle>angle) {
+        return false;
+    }
+    NBEdge *previous = myAmTurningOf;
+    myAmTurningWithAngle = angle;
+    myAmTurningOf = e;
+    if(previous!=0) {
+        previous->computeTurningDirections();
+    }
+    return true;
 }
 
 
@@ -628,8 +663,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     into << " maxspeed=\"" << _speed << "\" length=\"" << _length <<
         "\" changeurge=\"0\">";
     // the lane's shape
-    Position2DVector shape = getLaneShape(lane);
-    into << shape;
+    into << myLaneGeoms[lane];
     // close
     into << "</lane>" << endl;
 }
@@ -639,13 +673,20 @@ void
 NBEdge::computeLaneShapes()
 {
     for(size_t i=0; i<_nolanes; i++) {
-        myLaneGeoms.push_back(getLaneShape(i));
+        myLaneGeoms.push_back(computeLaneShape(i));
     }
 }
 
 
+const Position2DVector &
+NBEdge::getLaneShape(size_t i) const
+{
+    return myLaneGeoms[i];
+}
+
+
 Position2DVector
-NBEdge::getLaneShape(size_t lane)
+NBEdge::computeLaneShape(size_t lane)
 {
     Position2DVector shape;
     Position2D from = myGeom.at(0);
@@ -678,8 +719,13 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
         GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, lanewidth);
     double xoff = offsets.first / 2.0;
     double yoff = offsets.second / 2.0;
-    xoff += (offsets.first * (double) lane);
-    yoff += (offsets.second * (double) lane);
+    if(myLaneSpreadFunction==LANESPREAD_RIGHT) {
+        xoff += (offsets.first * (double) lane);
+        yoff += (offsets.second * (double) lane);
+    } else {
+        xoff += (offsets.first * (double) lane) - (offsets.first * (double) _nolanes / 2.0);
+        yoff += (offsets.second * (double) lane) - (offsets.second * (double) _nolanes / 2.0);
+    }
     return std::pair<double, double>(xoff, yoff);
 }
 
@@ -743,8 +789,13 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     }
     // write the id
     into << "      <succlane lane=\""
+//        << _to->getInternalLaneID(this, fromlane, (*_reachable)[fromlane][destidx].edge)
+//        <<
         << (*_reachable)[fromlane][destidx].edge->getID() << '_'
         << (*_reachable)[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
+    into << " via=\""
+        << _to->getInternalLaneID(this, fromlane, (*_reachable)[fromlane][destidx].edge)
+        << "\"";
     // set information about the controlling tl if any
     if((*_reachable)[fromlane][destidx].tlID!="") {
         into << " tl=\"" << (*_reachable)[fromlane][destidx].tlID << "\"";
@@ -1631,11 +1682,11 @@ NBEdge::getCWBounderyLine(NBNode *n, double offset)
     Line2D ret;
     if(_from==n) {
         // outgoing
-        Position2DVector laneGeom = getLaneShape(0);
+        Position2DVector laneGeom = myLaneGeoms[0];
         ret = Line2D(laneGeom.at(0), laneGeom.at(1));
     } else {
         // incoming
-        Position2DVector laneGeom = getLaneShape(getNoLanes()-1);
+        Position2DVector laneGeom = myLaneGeoms[getNoLanes()-1];
         ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
     }
     ret.move2side(-offset);
@@ -1650,11 +1701,11 @@ NBEdge::getCCWBounderyLine(NBNode *n, double offset)
     Line2D ret;
     if(_from==n) {
         // outgoing
-        Position2DVector laneGeom = getLaneShape(getNoLanes()-1);
+        Position2DVector laneGeom = myLaneGeoms[getNoLanes()-1];
         ret = Line2D(laneGeom.at(0), laneGeom.at(1));
     } else {
         // incoming
-        Position2DVector laneGeom = getLaneShape(0);
+        Position2DVector laneGeom = myLaneGeoms[0];
         ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
     }
     ret.move2side(offset);
@@ -1667,6 +1718,107 @@ double
 NBEdge::width() const
 {
     return (double) _nolanes * 3.0;
+}
+
+
+bool
+NBEdge::sameType(NBEdge *e) const
+{
+    return _nolanes==e->_nolanes
+        && _priority==e->_priority
+        && _speed==e->_speed
+        &&
+        // !!! The type useage is too conservative here
+        (_basicType==EDGEFUNCTION_NORMAL||e->_basicType==EDGEFUNCTION_NORMAL);
+}
+
+
+void
+NBEdge::append(NBEdge *e)
+{
+    // append geometry
+    myGeom.appendWithCrossingPoint(e->myGeom);
+    for(size_t i=0; i<_nolanes; i++) {
+        myLaneGeoms[i].appendWithCrossingPoint(e->myLaneGeoms[i]);
+    }
+    // recompute length
+    _length += e->_length;
+    // set the node
+    _to = e->_to;
+}
+
+/*
+NBEdge *
+NBEdge::getTurningDirection() const
+{
+    return _turnDestination;
+}
+*/
+
+bool
+NBEdge::isJoinable() const
+{
+    return _step==INIT||_step==INIT_REJECT_CONNECTIONS;
+}
+
+
+void
+NBEdge::computeEdgeShape()
+{
+    if(_id=="246091") {
+        int bla = 0;
+    }
+    size_t i;
+    for(i=0; i<_nolanes; i++) {
+        // get lane begin and end
+        Line2D lb = Line2D(
+            myLaneGeoms[i].at(0),
+            myLaneGeoms[i].at(1));
+        Line2D le = Line2D(
+            myLaneGeoms[i].at(myLaneGeoms[i].size()-1),
+            myLaneGeoms[i].at(myLaneGeoms[i].size()-2));
+        lb.extrapolateBy(100.0);
+        le.extrapolateBy(100.0);
+        //
+        Position2D nb, ne;
+        if(_from->getShape().intersects(lb.p1(), lb.p2())) {
+            // get the intersection position with the junction
+            DoubleVector pbv = lb.intersectsAtLengths(_from->getShape());
+            double pb = DoubleVectorHelper::maxValue(pbv);
+            // get the final lines
+            nb = GeomHelper::extrapolate_first(
+                myLaneGeoms[i].at(0),
+                myLaneGeoms[i].at(1), 100-pb);
+        } else {
+            nb = myLaneGeoms[i].at(0);
+        }
+        if(_to->getShape().intersects(le.p1(), le.p2())) {
+            // get the intersection position with the junction
+            DoubleVector pev = le.intersectsAtLengths(_to->getShape());
+            double pe = DoubleVectorHelper::maxValue(pev);
+            // get the final lines
+            ne = GeomHelper::extrapolate_first(
+                myLaneGeoms[i].at(myLaneGeoms[i].size()-1),
+                myLaneGeoms[i].at(myLaneGeoms[i].size()-2), 100-pe);
+        } else {
+            ne = myLaneGeoms[i].at(myLaneGeoms[i].size()-1);
+        }
+//        nb = myLaneGeoms[i].at(0);
+//        ne = myLaneGeoms[i].at(myLaneGeoms[i].size()-1);
+        Position2DVector newLaneShape;
+        newLaneShape.push_back(nb);
+        for(size_t j=1; j<myLaneGeoms[i].size()-1; j++) {
+            newLaneShape.push_back(myLaneGeoms[i].at(j));
+        }
+        newLaneShape.push_back(ne);
+        myLaneGeoms[i] = newLaneShape;
+    }
+    // recompute edge's length
+    double length = 0;
+    for(i=0; i<_nolanes; i++) {
+        length += myLaneGeoms[i].length();
+    }
+    _length = length / (double) _nolanes;
 }
 
 

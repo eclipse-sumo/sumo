@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -56,7 +59,9 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
+#include <utils/common/StringUtils.h>
 #include "NBType.h"
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -66,22 +71,27 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBType::NBType(string name, int noLanes, double speed, int priority) :
-  _name(name), _noLanes(noLanes), _speed(speed), _priority(priority)
+NBType::NBType(const string &name, int noLanes, double speed, int priority)
+    : _name(StringUtils::convertUmlaute(name)), _noLanes(noLanes),
+    _speed(speed), _priority(priority)
 {
 }
 
 
-NBType::~NBType() {
+NBType::~NBType()
+{
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.17  2003/08/14 13:51:51  dkrajzew
 // reshifting of networks added
 //
@@ -255,9 +258,19 @@ NBEdgeCont::appendTurnarounds()
 
 
 void
-NBEdgeCont::writeXMLEdgeList(ostream &into)
+NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
 {
-    into << "   <edges no=\"" << _edges.size() << "\">";
+    into << "   <edges no=\"" << (_edges.size()+toAdd.size()) << "\">";
+    for(vector<string>::iterator j=toAdd.begin(); j!=toAdd.end(); j++) {
+        if(j!=toAdd.begin()) {
+            into << ' ';
+        }
+        into << (*j);
+    }
+    if(toAdd.size()!=0) {
+        into << ' ';
+    }
+
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         if(i!=_edges.begin()) {
             into << ' ';
@@ -659,6 +672,17 @@ NBEdgeCont::reshiftEdgePositions(double xoff, double yoff, double rot)
     }
     return true;
 }
+
+
+bool
+NBEdgeCont::computeEdgeShapes()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        (*i).second->computeEdgeShape();
+    }
+    return true;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

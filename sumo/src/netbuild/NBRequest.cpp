@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.16  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -579,6 +582,9 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 	}
     // get the indices
     int idx2 = getIndex(from, to);
+    if(idx2==-1) {
+        return false;
+    }
     assert(idx2<_incoming->size()*_outgoing->size());
 	for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
 		if(_forbids[idx1][idx2]) {
@@ -650,6 +656,107 @@ NBRequest::isLeftMover(const NBTrafficLightDefinition * const request,
 
 
 */
+/*
+
+NBMMLDirection
+NBRequest::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
+{
+    // get the indices of both links
+    int idx1 = getIndex(incoming, outgoing);
+    int idx2 = getIndex(from2, to2);
+    if(idx1<0||idx2<0) {
+        return; // !!! error output? did not happend, yet
+    }
+    // check whether the link crossing has already been checked
+    assert(idx1<_incoming->size()*_outgoing->size());
+    if(_done[idx1][idx2]) {
+        return;
+    }
+    // mark the crossings as done
+    _done[idx1][idx2] = true;
+    _done[idx2][idx1] = true;
+    // check if one of the links is a turn; this link is always not priorised
+    if(from1->isTurningDirection(to1)) {
+        _forbids[idx2][idx1] = true;
+        return;
+    }
+    if(from2->isTurningDirection(to2)) {
+        _forbids[idx1][idx2] = true;
+        return;
+    }
+
+    // check the priorities
+    int from1p = from1->getJunctionPriority(_junction);
+    int from2p = from2->getJunctionPriority(_junction);
+    // check if one of the connections is higher priorised when incoming into
+    // the junction
+    // the connection road will yield
+    if(from1p>from2p) {
+        _forbids[idx1][idx2] = true;
+        return;
+    }
+    if(from2p>from1p) {
+        _forbids[idx2][idx1] = true;
+        return;
+    }
+    // check whether one of the connections is higher priorised on
+    // the outgoing edge when both roads are high priorised
+    // the connection with the lower priorised outgoing edge will lead
+    if(from1p>0&&from2p>0) {
+        int to1p = to1->getJunctionPriority(_junction);
+        int to2p = to2->getJunctionPriority(_junction);
+        if(to1p>to2p) {
+            _forbids[idx1][idx2] = true;
+            return;
+        }
+        if(to2p>to1p) {
+            _forbids[idx2][idx1] = true;
+            return;
+        }
+    }
+    // compute the yielding due to the right-before-left rule
+    EdgeVector::const_iterator inIncoming1 =
+        find(_incoming->begin(), _incoming->end(), from1);
+    EdgeVector::const_iterator inIncoming2 =
+        find(_incoming->begin(), _incoming->end(), from2);
+        // get the position of the incoming lanes in the junction-wheel
+    size_t d1 = distance(_incoming->begin(), inIncoming1);
+    size_t d2 = distance(_incoming->begin(), inIncoming2);
+        // compute the information whether one of the lanes is right of
+        // the other (this will then be priorised)
+    size_t du, dg;
+    if(d1>d2) {
+        du = (_incoming->size() - d1) + d2;
+        dg = d1 - d2;
+    } else {
+        du = d2 - d1;
+        dg = d1 + (_incoming->size() - d2);
+    }
+        // the incoming lanes are opposite
+        // check which of them will cross the other due to moving to the left
+        // this will be the yielding lane
+    if(du==dg) {
+        size_t dist1 = distanceCounterClockwise(from1, to1);
+        size_t dist2 = distanceCounterClockwise(from2, to2);
+        if(dist1<dist2)
+            _forbids[idx1][idx2] = true;
+        if(dist2<dist1)
+            _forbids[idx2][idx1] = true;
+        return;
+    }
+    // connection2 forbids proceeding on connection1
+    if(dg<du) {
+        _forbids[idx2][idx1] = true;
+    }
+    // connection1 forbids proceeding on connection2
+    if(dg>du) {
+        _forbids[idx1][idx2] = true;
+    }
+
+
+}
+*/
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

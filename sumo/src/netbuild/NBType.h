@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -59,22 +62,29 @@
  * This class holds all informations about a single type of the sections/edges
  */
 class NBType {
-private:
-  /** the name of the type */
-  std::string _name;
-  /** the number of lanes of this type */
-  int       _noLanes;
-  /** the speed on a section/edge of this type */
-  double    _speed;
-  /** the priority of the edge/section of this type */
-  int       _priority;
 public:
-  /** parameterised constructor */
-  NBType(std::string name, int noLanes, double speed, int priority);
-  /** destructor */
-  ~NBType();
-  /** the container may access the private members */
-  friend class NBTypeCont;
+    /** parameterised constructor */
+    NBType(const std::string &name, int noLanes, double speed, int priority);
+
+    /** destructor */
+    ~NBType();
+
+    /** the container may access the private members */
+    friend class NBTypeCont;
+
+private:
+    /** the name of the type */
+    std::string _name;
+
+    /** the number of lanes of this type */
+    int       _noLanes;
+
+    /** the speed on a section/edge of this type */
+    double    _speed;
+
+    /** the priority of the edge/section of this type */
+    int       _priority;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.16  2003/08/18 12:49:59  dkrajzew
 // possibility to print node positions added
 //
@@ -174,8 +177,14 @@ public:
     /// sorts the nodes' edges
     static bool sortNodesEdges();
 
+    static std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream
     static void writeXMLNumber(std::ostream &into);
+
+    static void writeXMLInternalLinks(std::ostream &into);
+    static void writeXMLInternalEdgePos(std::ostream &into);
+    static void writeXMLInternalSuccInfos(std::ostream &into);
+
 
     /// writes the nodes into the given ostream
     static void writeXML(std::ostream &into);
@@ -208,6 +217,8 @@ public:
     static bool computeNodeShapes();
 
     static void printNodePositions();
+
+    static bool removeUnwishedNodes();
 
 
 private:

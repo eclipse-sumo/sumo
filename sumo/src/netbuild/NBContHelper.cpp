@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.8  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -190,14 +193,27 @@ NBContHelper::edge_by_junction_angle_sorter::operator() (NBEdge *e1, NBEdge *e2)
 double
 NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 {
-    double angle = e->getAngle();
+    double angle;
+    const Position2DVector &p = e->getGeometry();
     // convert angle if the edge is an outgoing edge
     if(e->getFromNode()==_node) {
-        angle = angle + 180;
-        if(angle>=360) {
-            angle = angle - 360;
+        angle =
+            atan2(
+                (p.at(1).x()-p.at(0).x()),
+                (p.at(1).y()-p.at(0).y()))*180.0/3.14159265;
+        if(angle<0) {
+            angle = 360 + angle;
+        }
+    } else {
+        angle =
+            atan2(
+                (p.at(p.size()-2).x()-p.at(p.size()-1).x()),
+                (p.at(p.size()-2).y()-p.at(p.size()-1).y()))*180.0/3.14159265;
+        if(angle<0) {
+            angle = 360 + angle;
         }
     }
+    assert(angle>=0&&angle<360);
     return angle;
 }
 
@@ -254,6 +270,35 @@ NBContHelper::edgelane_finder::operator() (const EdgeLane &el) const
     return el.edge==myDestinationEdge
         &&
         ((int) el.lane ==  myDestinationLane || myDestinationLane<0);
+}
+
+
+
+
+
+NBContHelper::edge_with_destination_finder::edge_with_destination_finder(NBNode *dest)
+    : myDestinationNode(dest)
+{
+}
+
+
+bool
+NBContHelper::edge_with_destination_finder::operator() (NBEdge *e) const
+{
+    return e->getToNode()==myDestinationNode;
+}
+
+
+std::ostream &
+operator<<(std::ostream &os, const EdgeVector &ev)
+{
+    for(EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); i++) {
+        if(i!=ev.begin()) {
+            os << ", ";
+        }
+        os << (*i)->getID();
+    }
+    return os;
 }
 
 

@@ -38,7 +38,7 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
     // save network when wished
-    save(oc.getString("o"));
+    save(oc.getString("o"), oc);
 }
 
 
@@ -63,6 +63,17 @@ NBNetBuilder::joinEdges(int step)
 {
     inform(step, "Joining double connections");
     return NBNodeCont::recheckEdges();
+}
+
+
+bool
+NBNetBuilder::removeUnwishedNodes(int step, OptionsCont &oc)
+{
+    if(oc.getBool("no-node-removal")) {
+        return true;
+    }
+    inform(step, "Removing empty nodes and geometry nodes.");
+    return NBNodeCont::removeUnwishedNodes();
 }
 
 
@@ -137,6 +148,14 @@ NBNetBuilder::computeNodeShapes(int step)
 }
 
 
+bool
+NBNetBuilder::computeEdgeShapes(int step)
+{
+    inform(step, "Computing edge shapes");
+    return NBEdgeCont::computeEdgeShapes();
+}
+
+
 /** computes the node-internal priorities of links */
 /*bool
 computeLinkPriorities(int step, bool verbose)
@@ -150,8 +169,11 @@ computeLinkPriorities(int step, bool verbose)
 */
 
 bool
-NBNetBuilder::appendTurnarounds(int step)
+NBNetBuilder::appendTurnarounds(int step, OptionsCont &oc)
 {
+    if(!oc.getBool("append-turnarounds")) {
+        return true;
+    }
     inform(step, "Appending Turnarounds");
     return NBEdgeCont::appendTurnarounds();
 }
@@ -203,15 +225,17 @@ NBNetBuilder::compute(OptionsCont &oc)
     //
     if(ok) ok = removeDummyEdges(step++);
     if(ok) ok = joinEdges(step++);
+    if(ok) ok = removeUnwishedNodes(step++, oc);
     if(ok) ok = computeTurningDirections(step++);
     if(ok) ok = sortNodesEdges(step++);
     if(ok) ok = normaliseNodePositions(step++);
     if(ok) ok = computeEdge2Edges(step++);
     if(ok) ok = computeLanes2Edges(step++);
     if(ok) ok = computeLanes2Lanes(step++);
-    if(ok) ok = appendTurnarounds(step++);
+    if(ok) ok = appendTurnarounds(step++, oc);
     if(ok) ok = recheckLanes(step++);
     if(ok) ok = computeNodeShapes(step++);
+    if(ok) ok = computeEdgeShapes(step++);
 //    if(ok) ok = computeLinkPriorities(step++);
     if(ok) ok = computeLogic(step++, oc);
     if(ok) ok = computeTLLogic(step++, oc);
@@ -237,7 +261,7 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 
 
 bool
-NBNetBuilder::save(string path)
+NBNetBuilder::save(string path, OptionsCont &oc)
 {
     // try to build the output file
     ofstream res(path.c_str());
@@ -247,9 +271,16 @@ NBNetBuilder::save(string path)
     // print the computed values
     res << "<net>" << endl << endl;
     res.setf( ios::fixed, ios::floatfield );
-    // write the ocunt of some elements
-        // write the list of edges
-    NBEdgeCont::writeXMLEdgeList(res);
+    // write the numbers of some elements
+    std::vector<std::string> ids;
+    if(oc.getBool("add-internal-links")) {
+        ids = NBNodeCont::getInternalNamesList();
+    }
+    NBEdgeCont::writeXMLEdgeList(res, ids);
+    if(oc.getBool("add-internal-links")) {
+        NBNodeCont::writeXMLInternalLinks(res);
+    }
+
         // write the number of nodes
     NBNodeCont::writeXMLNumber(res);
     res << endl;
@@ -264,9 +295,52 @@ NBNetBuilder::save(string path)
     NBNodeCont::writeXML(res);
     // write the successors of lanes
     NBEdgeCont::writeXMLStep2(res);
+    if(oc.getBool("add-internal-links")) {
+        NBNodeCont::writeXMLInternalSuccInfos(res);
+    }
     // write the positions of edges
     NBEdgeCont::writeXMLStep3(res);
+    if(oc.getBool("add-internal-links")) {
+        NBNodeCont::writeXMLInternalEdgePos(res);
+    }
     res << "</net>" << endl;
     return true;
 }
+
+
+void
+NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
+{
+    // register building defaults
+    oc.doRegister("type", 'T', new Option_String("Unknown"));
+    oc.doRegister("lanenumber", 'L', new Option_Integer(1));
+    oc.doRegister("speed", 'S', new Option_Float((float) 13.9));
+    oc.doRegister("priority", 'P', new Option_Integer(1));
+    // register computation variables
+    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
+    // register the report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("help", new Option_Bool(false));
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    // extended
+    oc.doRegister("print-node-positions", new Option_Bool(false));
+    // register the data processing options
+    oc.doRegister("recompute-junction-logics", new Option_Bool(false));
+    oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
+    oc.doRegister("flip-y", new Option_Bool(false));
+    oc.doRegister("all-logics", new Option_Bool(false));
+    oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
+    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
+    oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.doRegister("traffic-light-yellow", new Option_Integer());
+    oc.doRegister("x-offset-to-apply", new Option_Float(0));
+    oc.doRegister("y-offset-to-apply", new Option_Float(0));
+    oc.doRegister("rotation-to-apply", new Option_Float(0));
+    oc.doRegister("no-node-removal", new Option_Bool(false));
+    oc.doRegister("append-turnarounds", new Option_Bool(false));
+    oc.doRegister("add-internal-links", 'I', new Option_Bool(false));
+}
+
 

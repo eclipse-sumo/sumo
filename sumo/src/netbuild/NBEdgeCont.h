@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.13  2003/08/14 13:51:51  dkrajzew
 // reshifting of networks added
 //
@@ -181,7 +184,8 @@ public:
     static void erase(NBEdge *edge);
 
     /** writes the list of edge names into the given stream */
-    static void writeXMLEdgeList(std::ostream &into);
+    static void writeXMLEdgeList(std::ostream &into,
+        std::vector<std::string> toAdd);
 
     /** writes the edge definitions with lanes and connected edges
         into the given stream */
@@ -214,6 +218,8 @@ public:
     /// moves the geometry of the edges by the network offset
     static bool normaliseEdgePositions();
     static bool reshiftEdgePositions(double xoff, double yoff, double rot);
+
+    static bool computeEdgeShapes();
 
 private:
     static std::vector<std::string> buildPossibilities(

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.19  2003/08/18 12:49:59  dkrajzew
 // possibility to print node positions added
 //
@@ -346,6 +349,51 @@ NBNodeCont::writeXMLNumber(ostream &into)
 }
 
 
+std::vector<std::string>
+NBNodeCont::getInternalNamesList()
+{
+    std::vector<std::string> ret;
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        std::vector<std::string> nodes =
+            (*i).second->getInternalNamesList();
+        copy(nodes.begin(), nodes.end(),
+            back_inserter(ret));
+    }
+    return ret;
+}
+
+
+
+void
+NBNodeCont::writeXMLInternalLinks(ostream &into)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->writeXMLInternalLinks(into);
+    }
+    into << endl;
+}
+
+
+void
+NBNodeCont::writeXMLInternalEdgePos(ostream &into)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->writeXMLInternalEdgePos(into);
+    }
+    into << endl;
+}
+
+
+void
+NBNodeCont::writeXMLInternalSuccInfos(ostream &into)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->writeXMLInternalSuccInfos(into);
+    }
+    into << endl;
+}
+
+
 void
 NBNodeCont::writeXML(ostream &into)
 {
@@ -490,6 +538,63 @@ NBNodeCont::printNodePositions()
             + toString<double>((*i).second->getYCoordinate());
         MsgHandler::getMessageInstance()->inform(ni);
     }
+}
+
+
+bool
+NBNodeCont::removeUnwishedNodes()
+{
+    size_t no = 0;
+    std::vector<NBNode*> toRemove;
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        NBNode *current = (*i).second;
+        bool remove = false;
+        std::vector<std::pair<NBEdge*, NBEdge*> > toJoin;
+        // check for completely empty nodes
+        if( current->getOutgoingEdges().size()==0
+            &&
+            current->getIncomingEdges().size()==0) {
+
+            // remove if empty
+            remove = true;
+        }
+        // check for nodes which are only geometry nodes
+        if( (current->getOutgoingEdges().size()==1
+             &&
+             current->getIncomingEdges().size()==1)
+            ||
+            (current->getOutgoingEdges().size()==2
+             &&
+             current->getIncomingEdges().size()==2) ) {
+
+            // ok, one in, one out or two in, two out
+            //  -> ask the node whether to join
+            remove = current->checkIsRemovable();
+            if(remove) {
+                toJoin = current->getEdgesToJoin();
+            }
+        }
+        // remove the node and join the geometries when wished
+        if(!remove) {
+            continue;
+        }
+        for(std::vector<std::pair<NBEdge*, NBEdge*> >::iterator j=toJoin.begin(); j!=toJoin.end(); j++) {
+            NBEdge *begin = (*j).first;
+            NBEdge *continuation = (*j).second;
+            begin->append(continuation);
+            continuation->getToNode()->replaceIncoming(continuation, begin);
+            NBEdgeCont::erase(continuation);
+        }
+        toRemove.push_back(current);
+        no++;
+    }
+    // erase
+    for(std::vector<NBNode*>::iterator j=toRemove.begin(); j!=toRemove.end(); j++) {
+        erase(*j);
+    }
+    MsgHandler::getMessageInstance()->inform(
+        string("   ") + toString<int>(no) + string(" nodes removed."));
+    return true;
 }
 
 

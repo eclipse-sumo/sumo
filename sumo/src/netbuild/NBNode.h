@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2003/09/05 15:16:57  dkrajzew
+// umlaute conversion; node geometry computation; internal links computation
+//
 // Revision 1.19  2003/08/20 11:53:18  dkrajzew
 // further work on node geometry
 //
@@ -262,6 +265,14 @@ public:
     /// returns the list of all edgs
     const EdgeVector *getEdges();
 
+    std::vector<std::string> getInternalNamesList();
+
+    void writeXMLInternalLinks(std::ostream &into);
+    void writeXMLInternalEdgePos(std::ostream &into);
+    void writeXMLInternalSuccInfos(std::ostream &into);
+
+
+
     /// prints the junction
     void writeXML(std::ostream &into);
 
@@ -324,7 +335,6 @@ public:
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing);
 
-
     void computeNodeShape();
 
     friend class NBNodeCont;
@@ -332,6 +342,16 @@ public:
 
     double getOffset(Line2D on, Line2D cross);
 
+    const Position2DVector &getShape() const;
+
+    size_t countInternalLanes();
+
+    std::string getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const;
+
+
+    bool checkIsRemovable() const;
+
+    std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
 private:
     /// rotates the junction so that the key fits
@@ -370,7 +390,7 @@ private:
     /** used while fine sorting the incoming and outgoing edges, this method
         performs the swapping of two edges in the _allEdges-list when the
         outgoing is in clockwise direction to the incoming */
-    void swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
+    bool swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
         const std::vector<NBEdge*>::iterator &i2);
 
     /// returns the highest priority of the edges in the list
@@ -417,6 +437,10 @@ private:
 
     double chooseLaneOffset(DoubleVector &chk);
     double chooseLaneOffset2(DoubleVector &chk);
+
+    double getCCWAngleDiff(double angle1, double angle2);
+    double getCWAngleDiff(double angle1, double angle2);
+
 
 private:
     /** the name of the node */
