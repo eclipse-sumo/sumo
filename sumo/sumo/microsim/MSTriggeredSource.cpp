@@ -41,7 +41,6 @@ namespace
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
-#include "../utils/XMLCh2Local.h"
 #include "../utils/TplConvert.h"
 #include "../helpers/Command.h"
 #include "../helpers/SimpleCommand.h"
@@ -355,6 +354,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.4  2002/07/31 17:50:02  roessel
+// Removed unneede include.
+//
 // Revision 1.3  2002/07/31 17:32:48  roessel
 // Initial sourceforge commit.
 //

@@ -44,7 +44,6 @@
 #include <cmath>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
-#include "../utils/XMLCh2Local.h"
 #include "../utils/TplConvert.h"
 
 using namespace std;
@@ -576,6 +575,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.2  2002/07/31 17:50:02  roessel
+// Removed unneede include.
+//
 // Revision 1.1  2002/07/31 17:32:48  roessel
 // Initial sourceforge commit.
 //
