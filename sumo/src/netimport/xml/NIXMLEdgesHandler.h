@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/05/20 09:44:35  dkrajzew
+// some make-up done (splitting large methods)
+//
 // Revision 1.3  2003/04/09 15:53:26  dkrajzew
 // netconvert-changes: further work on Vissim-import, documentation added
 //
@@ -68,6 +71,7 @@
  * class declarations
  * ======================================================================= */
 class OptionsCont;
+class NBNode;
 
 
 /* =========================================================================
@@ -99,8 +103,70 @@ protected:
     void myEndElement(int element, const std::string &name);
 
 private:
+    /// Parses the id from the given attributes
+    void setID(const Attributes &attrs);
+
+    // Parses the name from the given attributes
+    void setName(const Attributes &attrs);
+
+    /// Sets the type from the given attributes
+    void checkType(const Attributes &attrs);
+
+    /// Sets the speed from the given type or the given attributes
+    void setGivenSpeed(const Attributes &attrs);
+
+    /// Sets the number of lanes from the given type or the given attributes
+    void setGivenLanes(const Attributes &attrs);
+
+    /// Sets the priority from the given type or the given attributes
+    void setGivenPriority(const Attributes &attrs);
+
+    /** @brief tries to parse one of the node's positions
+        Which position has to be parsed is defined by the given call variables */
+    double tryGetPosition(const Attributes &attrs, int tag,
+        const std::string &attrName);
+
+    /** @brief Build the enodes in respect to the given parameters
+        Returns the information whether the nodes could be build correctly */
+    bool insertNodesCheckingCoherence();
+
+    /// Sets the length of the edge, computing it in prior if necessary
+    void setLength(const Attributes &attrs);
+
+private:
     /// A reference to the program's options
     OptionsCont &_options;
+
+    /// The current edge's id
+    std::string myCurrentID;
+
+    /// The current edge's name
+    std::string myCurrentName;
+
+    /// The current edge's maximum speed
+    double myCurrentSpeed;
+
+    /// The current edge's priority
+    int myCurrentPriority;
+
+    /// The current edge's number of lanes
+    int myCurrentLaneNo;
+
+    /// The current edge's type
+    std::string myCurrentType;
+
+    /// The ids of the begin and the end node
+    std::string myCurrentBegNodeID, myCurrentEndNodeID;
+
+    /// The positions of the nodes
+    double myBegNodeXPos, myBegNodeYPos, myEndNodeXPos, myEndNodeYPos;
+
+    /// The nodes
+    NBNode *myFromNode, *myToNode;
+
+    /// The current edge's length
+    double myLength;
+
 
 private:
     /** invalid copy constructor */

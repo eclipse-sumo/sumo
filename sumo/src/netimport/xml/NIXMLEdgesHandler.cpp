@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:44:35  dkrajzew
+// some make-up done (splitting large methods)
+//
 // Revision 1.5  2003/04/01 15:26:15  dkrajzew
 // insertion of nodes is now checked, but still unsafe; districts are always weighted
 //
@@ -139,198 +142,282 @@ void
 NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                                   const Attributes &attrs)
 {
-    string id;
     if(tag=="edge") {
-        try {
-            id = getString(attrs, SUMO_ATTR_ID);
-            // retrieve the name of the edge
-            string name;
-            try {
-                name = getString(attrs, SUMO_ATTR_NAME);
-            } catch (EmptyData) {
-                name = id;
-            }
-            // try to get the type and maybe to overwrite default values for speed, priority and th enumber of lanes
-            string type;
-            double speed = NBTypeCont::getDefaultSpeed();
-            int priority = NBTypeCont::getDefaultPriority();
-            int noLanes = NBTypeCont::getDefaultNoLanes();
-            try {
-                type = getString(attrs, SUMO_ATTR_TYPE);
-                speed = NBTypeCont::getSpeed(type);
-                priority = NBTypeCont::getPriority(type);
-                noLanes = NBTypeCont::getNoLanes(type);
-            } catch (EmptyData) {
-                if(_warn) {
-                    cout << "No type given... Using default." << endl;
-                }
-            }
-            /// speed, priority and the number of lanes have now default values;
-            /// try to read the real values from the file
-            try {
-                speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, speed);
-                if(_options.getBool("speed-in-km")) {
-                    speed = speed / 3.6;
-                }
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Speed (at tag ID='")
-                    + id + string("')."));
-            }
-            // try to get the number of lanes
-            try {
-                noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, noLanes);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for NoLanes (at tag ID='")
-                    + id + string("')."));
-            }
-            // try to get the priority
-                // check whether the number of lanes shall be used
-            if(_options.getBool("use-laneno-as-priority")) {
-                priority = noLanes;
-            }
-                // try to retrieve given priority
-            try {
-                priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY, priority);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Priority (at tag ID='")
-                    + id + string("')."));
-            }
-            // the names and the coordinates of
-            // the beginning and the end nodes may be found, try
-            string from = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");;
-            string to = getStringSecure(attrs, SUMO_ATTR_TONODE, "");;
-            double xb, xe, yb, ye;
-            xb = xe = yb = ye = -1.0;
-            try {
-                xb = getFloatSecure(attrs, SUMO_ATTR_XFROM, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for XFrom (at tag ID='")
-                    + id + string("')."));
-            }
-            try {
-                yb = getFloatSecure(attrs, SUMO_ATTR_YFROM, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for YFrom (at tag ID='")
-                    + id + string("')."));
-            }
-            try {
-                xe = getFloatSecure(attrs, SUMO_ATTR_XTO, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for XTo (at tag ID='")
-                    + id + string("')."));
-            }
-            try {
-                ye = getFloatSecure(attrs, SUMO_ATTR_YTO, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for YTo (at tag ID='")
-                    + id + string("')."));
-            }
-            // check if both coordinates and names are given.
-            // if so, store them in the nodes-map
-            bool coherent = false;
-            if(xb!=-1.0 && xe!=-1.0 && ye!=-1.0 && yb!=-1.0 && from!="" && to!="") {
-                if(NBNodeCont::insert(from, xb, yb))
-                    if(NBNodeCont::insert(to, xe, ye))
-                        coherent = true;
-            }
-            NBNode *fromNode;
-            NBNode *toNode;
-            // if the node coordinates are given, but no names for them, insert the nodes only
-            if(xb!=-1.0 && xe!=-1.0 && ye!=-1.0 && yb!=-1.0 && from=="" && to=="") {
-                fromNode = NBNodeCont::retrieve(xb, yb);
-                toNode = NBNodeCont::retrieve(xe, ye);
-                if(fromNode!=0 && toNode!=0) {
-                    coherent = true;
-                } else {
-                    if(fromNode==0) {
-                        fromNode = new NBNode(NBNodeCont::getFreeID(), xb, yb);
-                        if(!NBNodeCont::insert(fromNode)) {
-                            cout << "nope, NIVissimDisturbance" << endl;
-                            throw 1;
-                        }
-                    }
-                    if(toNode==0) {
-                        toNode = new NBNode(NBNodeCont::getFreeID(), xe, ye);
-                        if(!NBNodeCont::insert(toNode)) {
-                            cout << "nope, NIVissimDisturbance" << endl;
-                            throw 1;
-                        }
-                    }
-                    coherent = true;
-                }
-            } else {
-                fromNode = NBNodeCont::retrieve(from);
-                toNode = NBNodeCont::retrieve(to);
-            }
-            // if only the names of the nodes are known, insert
-            if(fromNode!=0 && toNode!=0 &&
-	            xb==-1.0 && xe==-1.0 && ye==-1.0 && yb==-1.0) {
-                xb = fromNode->getXCoordinate();
-                yb = fromNode->getYCoordinate();
-                xe = toNode->getXCoordinate();
-                ye = toNode->getYCoordinate();
-                coherent = true;
-            }
-            // check if the data were coherent
-            if(!coherent&&!_options.getBool("omit-corrupt-edges")) {
+        // retrieve the id of the edge
+        setID(attrs);
+        // retrieve the name of the edge
+        setName(attrs);
+        // use default values, first
+        myCurrentSpeed = NBTypeCont::getDefaultSpeed();
+        myCurrentPriority = NBTypeCont::getDefaultPriority();
+        myCurrentLaneNo = NBTypeCont::getDefaultNoLanes();
+        // check whether a type's values shall be used
+        checkType(attrs);
+        // speed, priority and the number of lanes have now default values;
+        // try to read the real values from the file
+        setGivenSpeed(attrs);
+        setGivenLanes(attrs);
+        setGivenPriority(attrs);
+        // the names and the coordinates of
+            // the beginning and the end node ids may be found, try
+        myCurrentBegNodeID = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");
+        myCurrentEndNodeID = getStringSecure(attrs, SUMO_ATTR_TONODE, "");
+            // or their positions
+        myBegNodeXPos = myBegNodeYPos = myEndNodeXPos = myEndNodeYPos = -1.0;
+        myBegNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
+        myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
+        myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
+        myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
+        // check the obtained values for nodes
+        if(!insertNodesCheckingCoherence()) {
+            if(!_options.getBool("omit-corrupt-edges")) {
                 addError(
                     string("The data are not coherent or the nodes are not given..."));
+            } else {
+                return;
             }
-            // get the length or compute it
-            double length;
-            try {
-                length = getFloat(attrs, SUMO_ATTR_LENGTH);
-            } catch (EmptyData) {
-                if(xb!=-1.0 && xe!=-1.0 && ye!=-1.0 && yb!=-1.0) {
-                    length = sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
-                    if(_warn) {
-                        cout << "Computed length = " << length << endl;
-                    }
-                } else {
-                    length = 0;
-                    if(_warn) {
-                        cout << "Continuing with length=0" << endl;
-                    }
-                }
-            } catch (NumberFormatException) {
+        }
+        // compute the edge's length
+        setLength(attrs);
+        /// insert the parsed edge into the edges map
+        try {
+            NBEdge *edge = new NBEdge(
+                myCurrentID, myCurrentName,
+                myFromNode, myToNode,
+                myCurrentType, myCurrentSpeed,
+                myCurrentLaneNo, myLength, myCurrentPriority);
+            if(!NBEdgeCont::insert(edge)) {
                 addError(
-                    string("Not numeric value for length (at tag ID='")
-                    + id + string("')."));
+                    string("Duplicate edge occured. ID='") + myCurrentID
+                    + string("'"));
+                delete edge;
             }
-            /// insert the parsed edge into the edges map
-            if(coherent) {
-                try {
-                    NBEdge *edge = new NBEdge(id, name, fromNode, toNode, type, speed, noLanes, length, priority);
-                    if(!NBEdgeCont::insert(edge)) {
-                        addError(
-                            string("Duplicate edge occured. ID='") + id
-                            + string("'"));
-                        delete edge;
-                    }
-                } catch (...) {
-                    addError(
-                        string("Error: Important information (propably the source or the destination node) missing in edge '")
-                        + id + string("'."));
-                }
-            }
-        } catch (EmptyData) {
-            cout << "No id given... Skipping." << endl;
+        } catch (...) {
+            addError(
+                string("Error: Important information (propably the source or the destination node) missing in edge '")
+                    + myCurrentID + string("'."));
         }
     }
 }
+
+
+void
+NIXMLEdgesHandler::setID(const Attributes &attrs)
+{
+    myCurrentID = "";
+    try {
+        myCurrentID = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        cout << "No id given... Skipping." << endl;
+    }
+}
+
+
+void
+NIXMLEdgesHandler::setName(const Attributes &attrs)
+{
+    try {
+        myCurrentName = getString(attrs, SUMO_ATTR_NAME);
+    } catch (EmptyData) {
+        myCurrentName = myCurrentID;
+    }
+}
+
+
+void
+NIXMLEdgesHandler::checkType(const Attributes &attrs)
+{
+    // try to get the type and maybe to overwrite default values for speed, priority and th enumber of lanes
+    myCurrentType = "";
+    try {
+        myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
+        myCurrentSpeed = NBTypeCont::getSpeed(myCurrentType);
+        myCurrentPriority = NBTypeCont::getPriority(myCurrentType);
+        myCurrentLaneNo = NBTypeCont::getNoLanes(myCurrentType);
+    } catch (EmptyData) {
+        myCurrentType = "";
+    }
+}
+
+
+void
+NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
+{
+    try {
+        myCurrentSpeed =
+            getFloatSecure(attrs, SUMO_ATTR_SPEED, myCurrentSpeed);
+        if(_options.getBool("speed-in-km")) {
+            myCurrentSpeed = myCurrentSpeed / 3.6;
+        }
+    } catch (NumberFormatException) {
+        addError(
+            string("Not numeric value for speed (at tag ID='")
+            + myCurrentID + string("')."));
+    }
+}
+
+
+void
+NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
+{
+    // try to get the number of lanes
+    try {
+        myCurrentLaneNo =
+            getIntSecure(attrs, SUMO_ATTR_NOLANES, myCurrentLaneNo);
+    } catch (NumberFormatException) {
+        addError(
+            string("Not numeric value for nolanes (at tag ID='")
+            + myCurrentID + string("')."));
+    }
+}
+
+void
+NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
+{
+    // try to get the priority
+        // check whether the number of lanes shall be used
+    if(_options.getBool("use-laneno-as-priority")) {
+        myCurrentPriority = myCurrentLaneNo;
+    }
+    // try to retrieve given priority
+    try {
+        myCurrentPriority =
+            getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
+    } catch (NumberFormatException) {
+        addError(
+            string("Not numeric value for priority (at tag ID='")
+            + myCurrentID + string("')."));
+    }
+}
+
+
+double
+NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, int tag,
+                                  const std::string &attrName)
+{
+    try {
+        return getFloatSecure(attrs, SUMO_ATTR_XFROM, -1);
+    } catch (NumberFormatException) {
+        addError(
+            string("Not numeric value for ") + attrName
+                + (" (at tag ID='")
+                + myCurrentID + string("')."));
+        return -1.0;
+    }
+}
+
+
+bool
+NIXMLEdgesHandler::insertNodesCheckingCoherence()
+{
+    // check if both coordinates and names are given.
+    // if so, store them in the nodes-map
+    bool coherent = false;
+    if( myBegNodeXPos!=-1.0 &&
+        myBegNodeYPos!=-1.0 &&
+        myEndNodeXPos!=-1.0 &&
+        myEndNodeYPos!=-1.0 &&
+        myCurrentBegNodeID!="" &&
+        myCurrentEndNodeID!="") {
+
+        if(NBNodeCont::insert(myCurrentBegNodeID, myBegNodeXPos, myBegNodeYPos))
+            if(NBNodeCont::insert(myCurrentEndNodeID, myEndNodeXPos, myEndNodeYPos))
+                coherent = true;
+    }
+
+
+    myFromNode = myToNode = 0;
+        // if the node coordinates are given, but no names for them, insert the nodes only
+    if( myBegNodeXPos!=-1.0 &&
+        myBegNodeYPos!=-1.0 &&
+        myEndNodeXPos!=-1.0 &&
+        myEndNodeYPos!=-1.0 &&
+        myCurrentBegNodeID=="" &&
+        myCurrentEndNodeID=="") {
+
+        myFromNode = NBNodeCont::retrieve(myBegNodeXPos, myBegNodeYPos);
+        myToNode = NBNodeCont::retrieve(myEndNodeXPos, myEndNodeYPos);
+        if(myFromNode!=0 && myToNode!=0) {
+            coherent = true;
+        } else {
+            if(myFromNode==0) {
+                myFromNode =
+                    new NBNode(
+                        NBNodeCont::getFreeID(),
+                        myBegNodeXPos,
+                        myBegNodeYPos);
+                if(!NBNodeCont::insert(myFromNode)) {
+                    cout << "nope, NIVissimDisturbance" << endl;
+                    throw 1;
+                }
+            }
+            if(myToNode==0) {
+                myToNode =
+                    new NBNode(
+                        NBNodeCont::getFreeID(),
+                        myEndNodeXPos,
+                        myEndNodeYPos);
+                if(!NBNodeCont::insert(myToNode)) {
+                    cout << "nope, NIVissimDisturbance" << endl;
+                    throw 1;
+                }
+            }
+            coherent = true;
+        }
+    } else {
+        myFromNode = NBNodeCont::retrieve(myCurrentBegNodeID);
+        myToNode = NBNodeCont::retrieve(myCurrentEndNodeID);
+    }
+    // if only the names of the nodes are known, get the coordinates
+    if(myFromNode!=0 && myToNode!=0 &&
+        myBegNodeXPos==-1.0 &&
+        myBegNodeYPos==-1.0 &&
+        myEndNodeXPos==-1.0 &&
+        myEndNodeYPos==-1.0 ) {
+
+        myBegNodeXPos = myFromNode->getXCoordinate();
+        myBegNodeYPos = myFromNode->getYCoordinate();
+        myEndNodeXPos = myToNode->getXCoordinate();
+        myEndNodeYPos = myToNode->getYCoordinate();
+        coherent = true;
+    }
+    return coherent;
+}
+
+
+void
+NIXMLEdgesHandler::setLength(const Attributes &attrs)
+{
+    // get the length or compute it
+    try {
+        myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
+    } catch (EmptyData) {
+        if( myBegNodeXPos!=-1.0 &&
+            myBegNodeYPos!=-1.0 &&
+            myEndNodeXPos!=-1.0 &&
+            myEndNodeYPos!=-1.0) {
+
+            myLength = sqrt(
+                (myBegNodeXPos-myEndNodeXPos)*(myBegNodeXPos-myEndNodeXPos)
+                +
+                (myBegNodeYPos-myEndNodeYPos)*(myBegNodeYPos-myEndNodeYPos));
+        } else {
+            myLength = 0;
+        }
+    } catch (NumberFormatException) {
+        addError(
+            string("Not numeric value for length (at tag ID='")
+                + myCurrentID + string("')."));
+    }
+}
+
 
 void
 NIXMLEdgesHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
 }
+
 
 void
 NIXMLEdgesHandler::myEndElement(int element, const std::string &name)
