@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/02/06 08:39:13  dkrajzew
+// false inclusion of old header files removed
+//
 // Revision 1.4  2003/10/31 08:01:49  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -38,7 +41,7 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <iostream.h>
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
 #include "NGRandomNet.h"
