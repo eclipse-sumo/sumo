@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.15  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -167,9 +170,12 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         if(find(_outgoing->begin(), _outgoing->end(), prohibited.getTo())==_outgoing->end()) {
             ok1 = false;
         }
-        size_t idx1 = 0;
+        int idx1 = 0;
         if(ok1) {
             idx1 = getIndex(prohibited.getFrom(), prohibited.getTo());
+            if(idx1<0) {
+                ok1 = false;
+            }
         }
         const NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
@@ -182,11 +188,15 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                 ok2 = false;
             }
             if(ok1&&ok2) {
-                size_t idx2 = getIndex(sprohibiting.getFrom(), sprohibiting.getTo());
-                _forbids[idx2][idx1] = true;
-                _done[idx2][idx1] = true;
-                _done[idx1][idx2] = true;
-                myGoodBuilds++;
+                int idx2 = getIndex(sprohibiting.getFrom(), sprohibiting.getTo());
+                if(idx2<0) {
+                    ok2 = false;
+                } else {
+                    _forbids[idx2][idx1] = true;
+                    _done[idx2][idx1] = true;
+                    _done[idx1][idx2] = true;
+                    myGoodBuilds++;
+                }
             } else {
                 string pfID = prohibited.getFrom()!=0 ? prohibited.getFrom()->getID() : "UNKNOWN";
                 string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
@@ -228,7 +238,7 @@ NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 {
     EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
-        pfrom = NBContHelper::nextCCW(_all, pfrom);
+        NBContHelper::nextCCW(_all, pfrom);
         if((*pfrom)->getToNode()==_junction) {
             EdgeVector::const_iterator pto =
                 find(_all->begin(), _all->end(), to);
@@ -236,7 +246,7 @@ NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
                 if(!((*pto)->getToNode()==_junction)) {
                     setBlocking(from, to, *pfrom, *pto);
                 }
-                pto = NBContHelper::nextCCW(_all, pto);
+                NBContHelper::nextCCW(_all, pto);
             }
         }
     }
@@ -248,7 +258,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 {
     EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
-        pfrom = NBContHelper::nextCW(_all, pfrom);
+        NBContHelper::nextCW(_all, pfrom);
         if((*pfrom)->getToNode()==_junction) {
             EdgeVector::const_iterator pto =
                 find(_all->begin(), _all->end(), to);
@@ -256,7 +266,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
                 if(!((*pto)->getToNode()==_junction)) {
                     setBlocking(from, to, *pfrom, *pto);
                 }
-                pto = NBContHelper::nextCW(_all, pto);
+                NBContHelper::nextCW(_all, pto);
             }
         }
     }
@@ -272,8 +282,11 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         return;
     }
     // get the indices of both links
-    size_t idx1 = getIndex(from1, to1);
-    size_t idx2 = getIndex(from2, to2);
+    int idx1 = getIndex(from1, to1);
+    int idx2 = getIndex(from2, to2);
+    if(idx1<0||idx2<0) {
+        return; // !!! error output? did not happend, yet
+    }
     // check whether the link crossing has already been checked
     assert(idx1<_incoming->size()*_outgoing->size());
     if(_done[idx1][idx2]) {
@@ -428,7 +441,7 @@ NBRequest::getSizes() const
 
 
 bool
-NBRequest::forbidden(NBEdge *from1, NBEdge *to1,
+NBRequest::foes(NBEdge *from1, NBEdge *to1,
                      NBEdge *from2, NBEdge *to2) const
 {
     // unconnected edges do not forbid other edges
@@ -436,11 +449,34 @@ NBRequest::forbidden(NBEdge *from1, NBEdge *to1,
         return false;
     }
     // get the indices
-    size_t idx1 = getIndex(from1, to1);
-    size_t idx2 = getIndex(from2, to2);
+    int idx1 = getIndex(from1, to1);
+    int idx2 = getIndex(from2, to2);
+    if(idx1<0||idx2<0) {
+        return false; // sure? (The connection does not exist within this junction)
+    }
     assert(idx1<_incoming->size()*_outgoing->size());
     assert(idx2<_incoming->size()*_outgoing->size());
     return _forbids[idx1][idx2] || _forbids[idx2][idx1];
+}
+
+
+bool
+NBRequest::forbids(NBEdge *from1, NBEdge *to1,
+                     NBEdge *from2, NBEdge *to2) const
+{
+    // unconnected edges do not forbid other edges
+    if(to1==0 || to2==0) {
+        return false;
+    }
+    // get the indices
+    int idx1 = getIndex(from1, to1);
+    int idx2 = getIndex(from2, to2);
+    if(idx1<0||idx2<0) {
+        return false; // sure? (The connection does not exist within this junction)
+    }
+    assert(idx1<_incoming->size()*_outgoing->size());
+    assert(idx2<_incoming->size()*_outgoing->size());
+    return _forbids[idx2][idx1];
 }
 
 
@@ -467,7 +503,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
-    size_t idx = 0;
+    int idx = 0;
     if(to!=0) {
         idx = getIndex(from, to);
     }
@@ -500,16 +536,16 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
 }
 
 
-size_t
+int
 NBRequest::getIndex(NBEdge *from, NBEdge *to) const
 {
     EdgeVector::const_iterator fp = find(_incoming->begin(),
         _incoming->end(), from);
     EdgeVector::const_iterator tp = find(_outgoing->begin(),
         _outgoing->end(), to);
-    // the next two assertions should always fail
-    assert(fp!=_incoming->end());
-    assert(tp!=_outgoing->end());
+    if(fp==_incoming->end()||tp==_outgoing->end()) {
+        return -1;
+    }
     // compute the index
     return distance(
         _incoming->begin(), fp) * _outgoing->size()
@@ -542,7 +578,7 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 		return true;
 	}
     // get the indices
-    size_t idx2 = getIndex(from, to);
+    int idx2 = getIndex(from, to);
     assert(idx2<_incoming->size()*_outgoing->size());
 	for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
 		if(_forbids[idx1][idx2]) {
@@ -550,6 +586,16 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 		}
 	}
 	return false;
+}
+
+
+bool
+NBRequest::mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
+{
+    // get the indices
+    int idx1 = getIndex(from1, to1);
+    int idx2 = getIndex(from2, to2);
+    return (_forbids[idx2][idx1]);
 }
 
 

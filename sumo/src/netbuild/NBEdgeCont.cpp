@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.14  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -115,6 +118,7 @@ namespace
 #include "NBNodeCont.h"
 #include "NBHelpers.h"
 #include "NBCont.h"
+#include "NBTrafficLightLogicCont.h"
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
@@ -367,11 +371,12 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
-        pos, edge->getPriority(), geoms.first, edge->_basicType);
+        pos, edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
+        edge->_basicType);
     NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName,
         node, edge->_to, edge->_type, edge->_speed, noLanesSecondEdge,
         edge->_length-pos, edge->getPriority(), geoms.second,
-        edge->_basicType);
+        edge->myLaneSpreadFunction, edge->_basicType);
     // replace information about this edge within the nodes
     edge->_from->replaceOutgoing(edge, one);
     edge->_to->replaceIncoming(edge, two);
@@ -500,7 +505,7 @@ NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
 
 
 void
-NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
+NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
 {
     // !!! Attention!
     //  No merging of the geometry to come is being done
@@ -514,6 +519,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     string id;
     NBEdge::EdgeBasicFunction function =
         NBEdge::EDGEFUNCTION_UNKNOWN;
+    sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
     NBNode *from = tpledge->getFromNode();
@@ -556,12 +562,23 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     speed /= edges.size();
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
-        nolanes, -1, priority, function);
+        nolanes, -1, priority, tpledge->myLaneSpreadFunction, function);
     insert(newEdge);
     // replace old edge by current within the nodes
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);
     to->replaceIncoming(edges, newEdge);
+    // patch connections
+    size_t currLane = 0;
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        size_t noLanes = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanes; j++, currLane++) {
+            // replace in traffic lights
+            NBTrafficLightLogicCont::replaceRemoved(*i, j,
+                newEdge, currLane);
+        }
+    }
+    // delete joined edges
     for(i=edges.begin(); i!=edges.end(); i++) {
         erase(*i);
     }
@@ -616,6 +633,15 @@ NBEdgeCont::search(NBEdge *e)
     DEBUG_OUT << "--------------------------------" << endl;
 }
 
+
+bool
+NBEdgeCont::normaliseEdgePositions()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        (*i).second->normalisePosition();
+    }
+    return true;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.3  2003/04/10 15:45:18  dkrajzew
 // some lost changes reapplied
 //
@@ -94,10 +97,10 @@ using namespace std;
  * ======================================================================= */
 NBJunctionTypesMatrix::NBJunctionTypesMatrix()
 {
-    _map['t'] = NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT;
-    _map['x'] = NBNode::TYPE_NOJUNCTION;
-    _map['p'] = NBNode::TYPE_PRIORITY_JUNCTION;
-    _map['r'] = NBNode::TYPE_RIGHT_BEFORE_LEFT;
+//    _map['t'] = NBNode::NODETYPE_SIMPLE_TRAFFIC_LIGHT;
+    _map['x'] = NBNode::NODETYPE_NOJUNCTION;
+    _map['p'] = NBNode::NODETYPE_PRIORITY_JUNCTION;
+    _map['r'] = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
     _ranges.push_back(pair<int, int>(90, 90));
     _ranges.push_back(pair<int, int>(65, 85));
     _ranges.push_back(pair<int, int>(59, 41));
@@ -120,7 +123,7 @@ NBJunctionTypesMatrix::~NBJunctionTypesMatrix()
 }
 
 
-int
+NBNode::BasicNodeType
 NBJunctionTypesMatrix::getType(int prio1, int prio2)
 {
     RangeCont::iterator p1 = find_if(_ranges.begin(), _ranges.end(),

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.3  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -77,8 +80,14 @@ public:
     /// replaces the from-edge by the one given
     bool replaceFrom(NBEdge *which, NBEdge *by);
 
+    /// replaces the from-edge by the one given
+    bool replaceFrom(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane);
+
     /// replaces the to-edge by the one given
     bool replaceTo(NBEdge *which, NBEdge *by);
+
+    /// replaces the to-edge by the one given
+    bool replaceTo(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane);
 
     /// checks whether the edges are still valid
     bool check();

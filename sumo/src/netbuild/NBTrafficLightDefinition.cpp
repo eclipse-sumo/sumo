@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.5  2003/06/24 14:35:19  dkrajzew
 // unneded debug-prints removed
 //
@@ -47,7 +50,6 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <vector>
-#include <set>
 #include <string>
 #include <algorithm>
 #include <cassert>
@@ -81,232 +83,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
- * NBTrafficLightDefinition::SignalGroup-methods
- * ----------------------------------------------------------------------- */
-NBTrafficLightDefinition::SignalGroup::SignalGroup(const std::string &id)
-    : Named(id)
-{
-}
-
-NBTrafficLightDefinition::SignalGroup::~SignalGroup()
-{
-}
-
-void
-NBTrafficLightDefinition::SignalGroup::addConnection(const NBConnection &c)
-{
-    assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>c.getFromLane());
-    myConnections.push_back(c);
-}
-
-
-void
-NBTrafficLightDefinition::SignalGroup::addPhaseBegin(double time, TLColor color)
-{
-    myPhases.push_back(PhaseDef(time, color));
-}
-
-
-void
-NBTrafficLightDefinition::SignalGroup::setYellowTimes(double tRedYellow,
-                                    double tYellow)
-{
-    myTRedYellow = tRedYellow;
-    myTYellow = tYellow;
-}
-
-
-void
-NBTrafficLightDefinition::SignalGroup::sortPhases()
-{
-    sort(myPhases.begin(), myPhases.end(),
-        phase_by_time_sorter());
-}
-
-
-DoubleVector
-NBTrafficLightDefinition::SignalGroup::getTimes() const
-{
-    DoubleVector ret;
-    for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        ret.push_back((*i).myTime);
-    }
-    return ret;
-}
-
-
-size_t
-NBTrafficLightDefinition::SignalGroup::getLinkNo() const
-{
-    return myConnections.size();
-}
-
-
-bool
-NBTrafficLightDefinition::SignalGroup::mayDrive(double time) const
-{
-	assert(myPhases.size()!=0);
-    for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
-        double nextTime = (*i).myTime;
-        if(time>=nextTime) {
-/*            if(i==myPhases.rbegin()) {
-                return (*(myPhases.end()-1)).myColor==TLCOLOR_GREEN;
-            } else {*/
-                return (*i).myColor==TLCOLOR_GREEN;
-//            }
-        }
-    }
-    return (*(myPhases.end()-1)).myColor==TLCOLOR_GREEN;
-}
-
-
-bool
-NBTrafficLightDefinition::SignalGroup::mustBrake(double time) const
-{
-	assert(myPhases.size()!=0);
-    for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        double nextTime = (*i).myTime;
-        if(nextTime>time) {
-            if(i==myPhases.begin()) {
-                return (*(myPhases.end()-1)).myColor==TLCOLOR_RED;
-            } else {
-                return (*(i-1)).myColor==TLCOLOR_RED;
-            }
-        }
-    }
-    return (*(myPhases.end()-1)).myColor==TLCOLOR_RED;
-}
-
-
-bool
-NBTrafficLightDefinition::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
-{
-    for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        if((*i).getFrom()==from&&(*i).getTo()==to) {
-            return true;
-        }
-    }
-    return false;
-
-}
-
-
-const NBConnection &
-NBTrafficLightDefinition::SignalGroup::getConnection(size_t pos) const
-{
-    assert(pos<myConnections.size());
-    return myConnections[pos];
-}
-
-
-bool
-NBTrafficLightDefinition::SignalGroup::containsIncoming(NBEdge *from) const
-{
-    for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        if((*i).getFrom()==from) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-void
-NBTrafficLightDefinition::SignalGroup::remapIncoming(NBEdge *which, const EdgeVector &by)
-{
-    assert(by.size()>0);
-    bool changed = true;
-    while(changed) {
-        changed = false;
-        for(NBConnectionVector::iterator i=myConnections.begin(); !changed&&i!=myConnections.end(); i++) {
-            if((*i).getFrom()==which) {
-                NBConnection conn((*i).getFrom(), (*i).getTo());
-                changed = true;
-                myConnections.erase(i);
-                if(by.size()==0) {
-                    return; // !!! (?)
-                }
-                for(EdgeVector::const_iterator j=by.begin(); j!=by.end(); j++) {
-                    NBConnection curr(conn);
-                    if(!curr.replaceFrom(which, *j)) {
-                        throw 1;
-                    }
-                    myConnections.push_back(curr);
-                }
-            }
-        }
-    }
-}
-
-
-bool
-NBTrafficLightDefinition::SignalGroup::containsOutgoing(NBEdge *to) const
-{
-    for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        if((*i).getTo()==to) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-void
-NBTrafficLightDefinition::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by)
-{
-    bool changed = true;
-    while(changed) {
-        changed = false;
-        for(NBConnectionVector::iterator i=myConnections.begin(); !changed&&i!=myConnections.end(); i++) {
-            if((*i).getTo()==which) {
-                NBConnection conn((*i).getFrom(), (*i).getTo());
-                changed = true;
-                myConnections.erase(i);
-                if(by.size()==0) {
-                    return; // !!! (?)
-                }
-                for(EdgeVector::const_iterator j=by.begin(); j!=by.end(); j++) {
-                    NBConnection curr(conn);
-                    if(!curr.replaceTo(which, *j)) {
-                        throw 1;
-                    }
-                    myConnections.push_back(curr);
-                }
-            }
-        }
-    }
-}
-
-
-
-
-/* -------------------------------------------------------------------------
- * NBTrafficLightDefinition::Phase-methods
- * ----------------------------------------------------------------------- */
-NBTrafficLightDefinition::Phase::Phase(const std::string &id, size_t begin, size_t end)
-    : Named(id), myBegin(begin), myEnd(end)
-{
-}
-
-
-NBTrafficLightDefinition::Phase::~Phase()
-{
-}
-
-/*
-void
-NBTrafficLightDefinition::Phase::addSignalGroupColor(const std::string &signalgroup, TLColor color)
-{
-    assert(_groupColors.find(signalgroup)==_groupColors.end());
-    _groupColors[signalgroup] = color;
-}
-*/
-
-
-
-
-/* -------------------------------------------------------------------------
- * NBTrafficLightDefinition::Phase-methods
+ * NBTrafficLightDefinition
  * ----------------------------------------------------------------------- */
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
                                                    const std::vector<NBNode*> &junctions)
@@ -341,32 +118,27 @@ NBTrafficLightLogicVector *
 NBTrafficLightDefinition::compute(OptionsCont &oc)
 {
     // assign participating nodes to the request
-    size_t pos = 0;
-    SignalGroupCont::const_iterator m;
-    for(m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
-        SignalGroup *group = (*m).second;
-        size_t linkNo = group->getLinkNo();
-        for(size_t j=0; j<linkNo; j++) {
-            const NBConnection &conn = group->getConnection(j);
-            NBEdge *edge = conn.getFrom();
-            NBNode *node = edge->getToNode();
-            if(find(_nodes.begin(), _nodes.end(), node)==_nodes.end()) {
-                _nodes.push_back(node);
-            }
-        }
-    }
-
+    collectNodes();
+    // collect the infomration about participating edges and links
     collectEdges();
     collectLinks();
+    // it is not really a traffic light if no incoming edge exists
     if(_incoming.size()==0) {
+        MsgHandler::getWarningInstance()->inform(
+            string("The traffic light '") + getID() +
+            string("' has no incoming edges; it will not be build."));
         return 0;
     }
+    // compute the time needed to brake
     size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
-    NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
+    // perform the computation depending on whether the traffic light
+    //  definition was loaded or shall be computed new completely
+    return myCompute(breakingTime, oc.getBool("all-logics"));
+/*    NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
         ? buildLoadedTrafficLights(breakingTime)
         : buildOwnTrafficLights(breakingTime,
-            oc.getBool("all-logics"));
-    return logics;
+            oc.getBool("all-logics"));*/
+//    return logics;
 }
 
 
@@ -377,328 +149,6 @@ NBTrafficLightDefinition::computeBrakingTime(double minDecel) const
     return (size_t) (vmax / minDecel);
 }
 
-
-
-NBTrafficLightLogicVector *
-NBTrafficLightDefinition::buildLoadedTrafficLights(size_t breakingTime)
-{
-    NBTrafficLightDefinition::SignalGroupCont::const_iterator i;
-    // sort the phases
-    // compute the switching times
-    std::set<double> tmpSwitchTimes;
-    for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-        NBTrafficLightDefinition::SignalGroup *group = (*i).second;
-        DoubleVector gtimes = group->getTimes();
-        for(DoubleVector::const_iterator k=gtimes.begin(); k!=gtimes.end(); k++) {
-            tmpSwitchTimes.insert(*k);
-        }
-        // needed later
-        group->sortPhases();
-    }
-    std::vector<double> switchTimes;
-    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
-        back_inserter(switchTimes));
-    sort(switchTimes.begin(), switchTimes.end());
-
-/*
-    // assign participating nodes to the request
-    size_t pos = 0;
-    SignalGroupCont::const_iterator m;
-    for(m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
-        SignalGroup *group = (*m).second;
-        size_t linkNo = group->getLinkNo();
-        for(size_t j=0; j<linkNo; j++) {
-            const NBConnection &conn = group->getConnection(j);
-            NBEdge *edge = conn.getFrom();
-            NBNode *node = edge->getToNode();
-            if(find(_nodes.begin(), _nodes.end(), node)==_nodes.end()) {
-                _nodes.push_back(node);
-            }
-        }
-    }
-*/
-    // count the signals
-    size_t noSignals = 0;
-    for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-        noSignals += (*i).second->getLinkNo();
-    }
-
-    // build the phases
-    NBTrafficLightLogic *logic =
-        new NBTrafficLightLogic(getID(), noSignals);
-    for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
-        // compute the duration of the current phase
-        size_t duration;
-        if(l!=switchTimes.end()-1) {
-            // get from the difference to the next switching time
-            duration = (size_t) ((*(l+1)) - (*l));
-        } else {
-            // get from the differenc to the first switching time
-            duration = (size_t) (myCycleDuration - (*l) + *(switchTimes.begin())) ;
-        }
-        // no information about yellow times will be generated
-        std::pair<std::bitset<64>, std::bitset<64> > masks =
-            buildPhaseMasks(*l);
-        // compute the yellow times first
-            // all vehicle which have red, must have yellow first
-            // get the drive mask
-        std::bitset<64> yellowMask1 = masks.first;
-            // invert
-        yellowMask1.flip();
-            // no one may drive, all have to break
-        std::bitset<64> tmpBrake;
-        tmpBrake.flip();
-        // !!! possibly, not breakingTime should be used
-        if(yellowMask1.any()) {
-            duration -= breakingTime;
-        }
-            // add the step itself
-        assert(duration>0);
-        logic->addStep(duration, masks.first, masks.second, std::bitset<64>());
-        if(yellowMask1.any()) {
-            logic->addStep(breakingTime, std::bitset<64>(), tmpBrake, yellowMask1);
-        }
-    }
-    // assign the links to the connections
-    size_t pos = 0;
-    for(SignalGroupCont::const_iterator m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
-        SignalGroup *group = (*m).second;
-        size_t linkNo = group->getLinkNo();
-        for(size_t j=0; j<linkNo; j++) {
-            const NBConnection &conn = group->getConnection(j);
-            assert(conn.getFromLane()<0||conn.getFrom()->getNoLanes()>conn.getFromLane());
-            NBConnection tst(conn);
-            if(tst.check()) {
-                NBEdge *edge = conn.getFrom();
-                edge->setControllingTLInformation(
-                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos++);
-            } else {
-                MsgHandler::getWarningInstance()->inform(
-                    string("Could not set signal on connection (signal: ")
-                    + getID() + string(", group: ") + group->getID()
-                    + string(")"));
-            }
-        }
-    }
-    // returns the build logic
-    NBTrafficLightLogicVector *ret =
-        new NBTrafficLightLogicVector(_links);
-    ret->add(logic);
-    return ret;
-}
-
-
-std::pair<std::bitset<64>, std::bitset<64> >
-NBTrafficLightDefinition::buildPhaseMasks(size_t time) const
-{
-    // set the masks
-    std::bitset<64> driveMask;
-    std::bitset<64> brakeMask;
-    size_t pos = 0;
-    size_t bla = mySignalGroups.size();
-    for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-        SignalGroup *group = (*i).second;
-        size_t linkNo = group->getLinkNo();
-        bool mayDrive = group->mayDrive(time);
-        for(size_t j=0; j<linkNo; j++) {
-            driveMask[pos] = mayDrive;
-            const NBConnection &conn = group->getConnection(j);
-            NBConnection assConn(conn);
-            if(assConn.check()) {
-                brakeMask[pos] = mustBrake(conn.getFrom(), conn.getTo());
-                pos++;
-            }
-        }
-    }
-    return std::pair<std::bitset<64>, std::bitset<64> >(driveMask, brakeMask);
-}
-
-
-NBTrafficLightLogicVector *
-NBTrafficLightDefinition::buildOwnTrafficLights(size_t breakingTime,
-                                                bool buildAll) const
-{
-    bool appendSmallestOnly = true;
-    bool skipLarger = true;
-
-    bool joinLaneLinks = false;
-    bool removeTurnArounds = true;
-    LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
-    NBTrafficLightLogicVector *logics1 =
-        computeTrafficLightLogics(getID(),
-            joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger, breakingTime);
-
-    if(buildAll) {
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_NO_REMOVAL;
-        NBTrafficLightLogicVector *logics2 =
-            computeTrafficLightLogics(getID(),
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
-
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_REMOVE_ALL_LEFT;
-        NBTrafficLightLogicVector *logics3 =
-            computeTrafficLightLogics(getID(),
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
-
-        // join build logics
-        logics1->add(*logics2);
-        logics1->add(*logics3);
-        delete logics2;
-        delete logics3;
-    }
-    return logics1;
-}
-
-
-NBTrafficLightLogicVector *
-NBTrafficLightDefinition::computeTrafficLightLogics(const std::string &key,
-                                     bool joinLaneLinks,
-                                     bool removeTurnArounds,
-                                     LinkRemovalType removal,
-                                     bool appendSmallestOnly,
-                                     bool skipLarger,
-                                     size_t breakingTime) const
-{
-    // compute the matrix of possible links x links
-    //  (links allowing each other the parallel execution)
-    NBLinkPossibilityMatrix *v = getPossibilityMatrix(joinLaneLinks,
-        removeTurnArounds, removal);
-    // get the number of regarded links
-    NBRequestEdgeLinkIterator cei1(this,
-        joinLaneLinks, removeTurnArounds, removal);
-    size_t maxStromAnz = cei1.getNoValidLinks();
-
-#ifdef TL_DEBUG
-    if(maxStromAnz>=10) {
-        DEBUG_OUT << _junction->getID() << ":" << maxStromAnz << endl;
-    }
-#endif
-
-    // compute the link cliquen
-    NBLinkCliqueContainer cliquen(v, maxStromAnz);
-    // compute the phases
-    NBTrafficLightPhases *phases = cliquen.computePhases(v,
-        maxStromAnz, appendSmallestOnly, skipLarger);
-    // compute the possible logics
-    NBTrafficLightLogicVector *logics =
-        phases->computeLogics(key, getSizes().second, cei1,
-        _links, breakingTime);
-    // clean everything
-    delete v;
-    delete phases;
-    return logics;
-}
-
-
-std::vector<std::bitset<64> > *
-NBTrafficLightDefinition::getPossibilityMatrix(bool joinLaneLinks,
-                                bool removeTurnArounds,
-                                LinkRemovalType removalType) const
-{
-    size_t noEdges = _incoming.size();
-    // go through all links
-    NBRequestEdgeLinkIterator cei1(this, joinLaneLinks, removeTurnArounds,
-        removalType);
-    std::vector<std::bitset<64> > *ret =
-        new std::vector<std::bitset<64> >(cei1.getNoValidLinks(),
-        std::bitset<64>());
-    do {
-        assert(ret!=0 && cei1.getLinkNumber()<ret->size());
-        (*ret)[cei1.getLinkNumber()].set(cei1.getLinkNumber(), 1);
-        NBRequestEdgeLinkIterator cei2(cei1);
-        if(cei2.pp()) {
-            do {
-                if(cei1.forbids(cei2)) {
-                    assert(ret!=0 && cei1.getLinkNumber()<ret->size());
-                    assert(ret!=0 && cei2.getLinkNumber()<ret->size());
-                    (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 0);
-                    (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 0);
-                } else {
-                    (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 1);
-                    (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 1);
-                }
-            } while(cei2.pp());
-        }
-    } while(cei1.pp());
-    return ret;
-}
-
-
-
-NBTrafficLightDefinition::SignalGroup *
-NBTrafficLightDefinition::findGroup(NBEdge *from, NBEdge *to) const
-{
-    for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-        if((*i).second->containsConnection(from, to)) {
-            return (*i).second;
-        }
-    }
-    return 0;
-}
-
-
-
-bool
-NBTrafficLightDefinition::addToSignalGroup(const std::string &groupid,
-                         const NBConnection &connection)
-{
-    if(mySignalGroups.find(groupid)==mySignalGroups.end()) {
-        return false;
-    }
-    mySignalGroups[groupid]->addConnection(connection);
-    return true;
-}
-
-
-bool
-NBTrafficLightDefinition::addToSignalGroup(const std::string &groupid,
-                         const NBConnectionVector &connections)
-{
-    bool ok = true;
-    for(NBConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
-        ok &= addToSignalGroup(groupid, *i);
-    }
-    return ok;
-}
-
-
-void
-NBTrafficLightDefinition::addSignalGroup(const std::string &id)
-{
-    assert(mySignalGroups.find(id)==mySignalGroups.end());
-    mySignalGroups[id] = new SignalGroup(id);
-}
-
-
-void
-NBTrafficLightDefinition::addSignalGroupPhaseBegin(const std::string &groupid, double time,
-                                 TLColor color)
-{
-    assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
-    mySignalGroups[groupid]->addPhaseBegin(time, color);
-}
-
-void
-NBTrafficLightDefinition::setSignalYellowTimes(const std::string &groupid,
-                             double myTRedYellow, double myTYellow)
-{
-    assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
-    mySignalGroups[groupid]->setYellowTimes(myTRedYellow, myTYellow);
-}
-
-
-void
-NBTrafficLightDefinition::setCycleDuration(size_t cycleDur)
-{
-    myCycleDuration = cycleDur;
-}
 
 
 void
@@ -812,15 +262,61 @@ NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const
 
 
 bool
-NBTrafficLightDefinition::forbidden(NBEdge *from1, NBEdge *to1,
+NBTrafficLightDefinition::mustBrake(NBEdge *from1, NBEdge *to1,
                                     NBEdge *from2, NBEdge *to2) const
 {
-    NodeCont::const_iterator i =
+    return forbids(from1, to1, from2, to2);
+}
+
+
+bool
+NBTrafficLightDefinition::mustBrake(const NBConnection &conn,
+                                    const NBConnection &source) const
+{
+    return forbids(conn.getFrom(), conn.getTo(),
+        source.getFrom(), source.getTo());
+}
+
+
+bool
+NBTrafficLightDefinition::forbids(NBEdge *from1, NBEdge *to1,
+                                    NBEdge *from2, NBEdge *to2) const
+{
+    // retrieve both nodes (it is possible that a connection
+    NodeCont::const_iterator incoming =
         find_if(_nodes.begin(), _nodes.end(),
             NBContHelper::node_with_incoming_finder(from1));
-    assert(i!=_nodes.end());
-    NBNode *node = *i;
-    return node->forbidden(from1, to1, from2, to2);
+    NodeCont::const_iterator outgoing =
+        find_if(_nodes.begin(), _nodes.end(),
+            NBContHelper::node_with_outgoing_finder(to1));
+    assert(incoming!=_nodes.end());
+    NBNode *incnode = *incoming;
+    NBNode *outnode = *outgoing;
+    if(incnode!=outnode) {
+        return false;
+    }
+    return incnode->forbids(from1, to1, from2, to2);
+}
+
+
+bool
+NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
+                                    NBEdge *from2, NBEdge *to2) const
+{
+    // retrieve both nodes (it is possible that a connection
+    NodeCont::const_iterator incoming =
+        find_if(_nodes.begin(), _nodes.end(),
+            NBContHelper::node_with_incoming_finder(from1));
+    NodeCont::const_iterator outgoing =
+        find_if(_nodes.begin(), _nodes.end(),
+            NBContHelper::node_with_outgoing_finder(to1));
+    assert(incoming!=_nodes.end());
+    NBNode *incnode = *incoming;
+    NBNode *outnode = *outgoing;
+    if(incnode!=outnode) {
+        return false;
+    }
+    return incnode->foes(from1, to1, from2, to2);
 }
 
 
@@ -832,26 +328,6 @@ NBTrafficLightDefinition::addNode(NBNode *node)
 }
 
 
-
-void
-NBTrafficLightDefinition::remapRemoved(NBEdge *removed,
-                                       const EdgeVector &incoming,
-                                       const EdgeVector &outgoing)
-{
-
-    for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-        SignalGroup *group = (*i).second;
-        if(group->getID()=="8"&&removed->getID()=="12") {
-            int bla = 0;
-        }
-        if(group->containsIncoming(removed)) {
-            group->remapIncoming(removed, incoming);
-        }
-        if(group->containsOutgoing(removed)) {
-            group->remapOutgoing(removed, outgoing);
-        }
-    }
-}
 
 
 

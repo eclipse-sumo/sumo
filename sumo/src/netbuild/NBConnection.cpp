@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.3  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -122,11 +125,37 @@ NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
 
 
 bool
+NBConnection::replaceFrom(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane)
+{
+    if(myFrom==which&&(myFromLane==whichLane||myFromLane<0)) {
+        myFrom = by;
+        myFromID = myFrom->getID();
+        myFromLane = byLane;
+        return true;
+    }
+    return false;
+}
+
+
+bool
 NBConnection::replaceTo(NBEdge *which, NBEdge *by)
 {
     if(myTo==which) {
         myTo = by;
         myToID = myTo->getID();
+        return true;
+    }
+    return false;
+}
+
+
+bool
+NBConnection::replaceTo(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane)
+{
+    if(myTo==which&&(myToLane==whichLane||myFromLane<0)) {
+        myTo = by;
+        myToID = myTo->getID();
+        myToLane = byLane;
         return true;
     }
     return false;

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.11  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -200,10 +203,13 @@ public:
     static void report();
 
     /// joins the given edges as they connect the same nodes
-    static void joinSameNodeConnectingEdges(const EdgeVector &edges);
+    static void joinSameNodeConnectingEdges(EdgeVector edges);
 
     /// !!! debug only
     static void search(NBEdge *e);
+
+    /// moves the geometry of the edges by the network offset
+    static bool normaliseEdgePositions();
 
 private:
     static std::vector<std::string> buildPossibilities(

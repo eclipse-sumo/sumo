@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.6  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -125,6 +128,7 @@ NBTrafficLightLogicCont::clear()
 bool
 NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
 {
+    size_t no = 0;
     for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
         // get the definition
         NBTrafficLightDefinition *def = (*i).second;
@@ -134,8 +138,12 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
             MsgHandler::getWarningInstance()->inform(
                 string("Could not build traffic lights '") + def->getID()
                 + string("'"));
+        } else {
+            no++;
         }
     }
+    MsgHandler::getMessageInstance()->inform(
+        toString<int>(no) + string(" traffic light(s) computed."));
     return true;
 }
 
@@ -150,6 +158,30 @@ NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incomin
         def->remapRemoved(removed, incoming, outgoing);
     }
 }
+
+
+void
+NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, size_t removedLane,
+                                        NBEdge *by, size_t byLane)
+{
+    for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+        // get the definition
+        NBTrafficLightDefinition *def = (*i).second;
+        def->replaceRemoved(removed, removedLane, by, byLane);
+    }
+}
+
+
+NBTrafficLightDefinition *
+NBTrafficLightLogicCont::getDefinition(const std::string &id)
+{
+    DefinitionContType::iterator i=_definitions.find(id);
+    if(i!=_definitions.end()) {
+        return (*i).second;
+    }
+    return 0;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.13  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -97,6 +100,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <utils/geom/Position2D.h>
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBNode.h"
@@ -127,8 +131,8 @@ public:
     static bool insert(const std::string &id, double x, double y);
 
     /** inserts a node into the map */
-    static bool insert(const std::string &id, double x, double y,
-        const std::string &type);
+/*    static bool insert(const std::string &id, double x, double y,
+        const std::string &type);*/
 
     /** inserts a node into the map */
     static std::pair<double, double> insert(const std::string &id);
@@ -191,6 +195,9 @@ public:
 
     static std::string getFreeID();
 
+    /// Returns the minimum position
+    static Position2D getNetworkOffset();
+
 
 private:
     /** the running internal id */
@@ -198,6 +205,9 @@ private:
 
     /** the map of names to nodes */
     static NodeCont   _nodes;
+
+    /// The minimum network position
+    static Position2D myNetworkOffset;
 
 private:
     /** invalid copy constructor */

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.7  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -52,7 +55,7 @@
 #include <bitset>
 #include <vector>
 #include "NBNode.h"
-#include "NBTrafficLightDefinition.h"
+#include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 
 
@@ -71,7 +74,7 @@ public:
     /// constructor
     NBRequestEdgeLinkIterator(const NBTrafficLightDefinition * const request,
         bool joinLanes, bool removeTurnArounds,
-        NBTrafficLightDefinition::LinkRemovalType removalType);
+        NBOwnTLDef::LinkRemovalType removalType);
 
     /// destructor
     ~NBRequestEdgeLinkIterator();
@@ -99,7 +102,7 @@ public:
 
     /// sets the non-left movers within the given bitset to zero
     void resetNonLeftMovers(std::bitset<64> &driveMask,
-        std::bitset<64> &brakeMask) const;
+        std::bitset<64> &brakeMask, std::bitset<64> &yellowMask) const;
 
     /** returns the information whether the link at the current position
         is a foe to the link represented by the given iterator */
@@ -108,7 +111,10 @@ public:
     /** returns the information whether the vehicle that uses the link at
         the defined position must break */
     bool testBrakeMask(bool hasGreen, size_t pos) const;
-/*
+
+    bool testBrakeMask(size_t pos, const std::bitset<64> &driveMask) const;
+
+    /*
     bool getDriveAllowed(const NBNode::SignalGroupCont &defs,
         double time);
     bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
@@ -119,7 +125,7 @@ public:
 private:
     /// initialises the iterator
     void init(const NBTrafficLightDefinition * const request, bool joinLanes,
-        bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType);
+        bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType);
 
     /// joins the links of the lane
     void joinLaneLinksFunc(const EdgeVector &incoming,
@@ -127,14 +133,14 @@ private:
 
     /// sets the information whether the link is a valid non-left mover
     void setValidNonLeft(bool removeTurnArounds,
-        NBTrafficLightDefinition::LinkRemovalType removalType);
+        NBOwnTLDef::LinkRemovalType removalType);
 
     /// computes the information about validity of all links
     void computeValidLinks();
 
     /// returns the information whether the given link is valid
     bool valid(size_t pos, bool removeTurnArounds,
-        NBTrafficLightDefinition::LinkRemovalType removalType);
+        NBOwnTLDef::LinkRemovalType removalType);
 
     /// !!!
     bool internJoinLaneForbids(NBEdge *fromEdge, NBEdge *toEdge) const;

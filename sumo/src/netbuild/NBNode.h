@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.15  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -172,21 +175,20 @@ public:
 
     };
 
-
-    /** internal type for no-junction */
-    static const int TYPE_NOJUNCTION;
-    /** internal type for a traffic-light-junction */
-    static const int TYPE_SIMPLE_TRAFFIC_LIGHT;
-    /** internal type for a traffic-light-junction */
-    static const int TYPE_ACTUATED_TRAFFIC_LIGHT;
-    /** internal type for a priority-junction */
-    static const int TYPE_PRIORITY_JUNCTION;
-    /** internal type for a right-before-left junction */
-    static const int TYPE_RIGHT_BEFORE_LEFT;
-    /** internal type for a district junction */
-    static const int TYPE_DISTRICT;
-    /** internal type for a dead-end junction */
-    static const int TYPE_DEAD_END;
+    enum BasicNodeType {
+        /// Unknown yet
+        NODETYPE_UNKNOWN,
+        /** internal type for no-junction */
+        NODETYPE_NOJUNCTION,
+        /** internal type for a priority-junction */
+        NODETYPE_PRIORITY_JUNCTION,
+        /** internal type for a right-before-left junction */
+        NODETYPE_RIGHT_BEFORE_LEFT,
+        /** internal type for a district junction */
+        NODETYPE_DISTRICT,
+        /** internal type for a dead-end junction */
+        NODETYPE_DEAD_END
+    };
 
     /** a counter for the no-junctions build */
     static int _noDistricts;
@@ -196,9 +198,6 @@ public:
 
     /** a counter for priority-junctions build */
     static int _noPriorityJunctions;
-
-    /** a counter for traffic-light-junctions build */
-    static int _noTrafficLightJunctions;
 
     /** a counter for right-before-left-junctions build */
     static int _noRightBeforeLeftJunctions;
@@ -211,11 +210,14 @@ public:
 
     /** constructor */
     NBNode(const std::string &id, double x, double y,
-        const std::string &type);
+        BasicNodeType type);
 
+/*    NBNode(const std::string &id, double x, double y,
+        const std::string &type);
+*/
     /** sumo-node constructor */
-    NBNode(const std::string &id, double x, double y,
-        int type, const std::string &key);
+/*    NBNode(const std::string &id, double x, double y,
+        int type, const std::string &key);*/
 
     /** constructor */
     NBNode(const std::string &id, double x, double y, NBDistrict *district);
@@ -293,7 +295,7 @@ public:
     void removeIncoming(NBEdge *edge);
 
     /** sets the type of the junction */
-    void setType(int type);
+    void setType(BasicNodeType type);
 
 
     bool isLeftMover(NBEdge *from, NBEdge *to) const;
@@ -301,9 +303,9 @@ public:
 
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
-    /** returns the information whether the connections from1->to1 and
-        from2->to2 are foes */
-    bool forbidden(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+    bool forbids(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+
+    bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
     void addTrafficLight(NBTrafficLightDefinition *tld);
 
@@ -331,7 +333,7 @@ private:
     void sortSmall();
 
     // computes the junction type
-    int computeType() const;
+    BasicNodeType computeType() const;
 
     /** returns the information whether this node is the center of a district
         for this, all incoming edges must be sinks while all outgoing
@@ -414,7 +416,7 @@ private:
     std::vector<NBEdge*> _allEdges;
 
     /// the type of the junction
-    int   _type;
+    BasicNodeType   _type;
 
     /** The container for connection block dependencies */
     NBConnectionProhibits _blockedConnections;

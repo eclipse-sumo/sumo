@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.9  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -72,7 +75,7 @@ using namespace std;
  * ======================================================================= */
 NBRequestEdgeLinkIterator::NBRequestEdgeLinkIterator(
     const NBTrafficLightDefinition * const request, bool joinLaneLinks,
-    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
+    bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
     :
     _request(request), _linkNumber(0), _validLinks(0), _position(0),
     _joinLaneLinks(joinLaneLinks), _outerValidLinks(0)
@@ -92,7 +95,7 @@ NBRequestEdgeLinkIterator::~NBRequestEdgeLinkIterator()
 void
 NBRequestEdgeLinkIterator::init(
     const NBTrafficLightDefinition * const request, bool joinLaneLinks,
-    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
+    bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
 {
     // build complete lists first
     const EdgeVector &incoming = request->_incoming;
@@ -110,11 +113,16 @@ NBRequestEdgeLinkIterator::init(
                 _fromEdges.push_back(fromEdge);
                 _fromLanes.push_back(i2);
                 _toEdges.push_back(toEdge);
-                _isLeftMover.push_back(
-                    request->isLeftMover(fromEdge, toEdge)
-                    ||
-                    fromEdge->isTurningDirection(toEdge) );
-                _isTurnaround.push_back(fromEdge->isTurningDirection(toEdge));
+                if(toEdge!=0) {
+                    _isLeftMover.push_back(
+                        request->isLeftMover(fromEdge, toEdge)
+                        ||
+                        fromEdge->isTurningDirection(toEdge) );
+                    _isTurnaround.push_back(fromEdge->isTurningDirection(toEdge));
+                } else {
+                    _isLeftMover.push_back(true);
+                    _isTurnaround.push_back(true);
+                }
             }
         }
     }
@@ -123,7 +131,7 @@ NBRequestEdgeLinkIterator::init(
 
 void
 NBRequestEdgeLinkIterator::setValidNonLeft(
-    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
+    bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
 {
     // reparse lists and remove unwanted items
     NBEdge *currentEdge = 0;
@@ -190,7 +198,7 @@ NBRequestEdgeLinkIterator::computeValidLinks() {
 bool
 NBRequestEdgeLinkIterator::valid(size_t pos,
                                  bool removeTurnArounds,
-                                 NBTrafficLightDefinition::LinkRemovalType removalType)
+                                 NBOwnTLDef::LinkRemovalType removalType)
 {
     // if only turnaround are not wished
     if(removeTurnArounds && _isTurnaround[pos] ) {
@@ -198,7 +206,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     }
 
     // leftmovers shall be kept -> keep
-    if( removalType==NBTrafficLightDefinition::LRT_NO_REMOVAL ) {
+    if( removalType==NBOwnTLDef::LRT_NO_REMOVAL ) {
         return true;
     }
 
@@ -210,7 +218,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     // when only left-moving edges shall be removed that do not have
     //  an own lane, check whether the current left-mover has a
     //  non-left mover on the same lane -> refuse if not
-    if( removalType==NBTrafficLightDefinition::LRT_REMOVE_WHEN_NOT_OWN ) {
+    if( removalType==NBOwnTLDef::LRT_REMOVE_WHEN_NOT_OWN ) {
         int tmpPos = int(pos) - 1;
         assert(pos<_fromEdges.size());
         assert(pos<_fromLanes.size());
@@ -332,8 +340,9 @@ NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int dummy) const
 }
 
 void
-NBRequestEdgeLinkIterator::resetNonLeftMovers(
-    std::bitset<64> &driveMask, std::bitset<64> &brakeMask) const
+NBRequestEdgeLinkIterator::resetNonLeftMovers(std::bitset<64> &driveMask,
+                                              std::bitset<64> &brakeMask,
+                                              std::bitset<64> &yellowM) const
 {
     // get bitset showing left-movers
     std::bitset<64> tmp = _validNonLeft;
@@ -349,6 +358,9 @@ NBRequestEdgeLinkIterator::resetNonLeftMovers(
     tmp.flip();
     // ...beside the left movers
     brakeMask &= tmp;
+
+    // the left-movers do not have yellow
+    yellowM &= tmp;
 }
 
 
@@ -359,7 +371,7 @@ NBRequestEdgeLinkIterator::forbids(
     if(!_joinLaneLinks) {
         assert(_position<_fromEdges.size());
         assert(_position<_toEdges.size());
-        return _request->forbidden(
+        return _request->foes(
             _fromEdges[_position], _toEdges[_position],
                 other.getFromEdge(), other.getToEdge());
     }
@@ -383,14 +395,14 @@ NBRequestEdgeLinkIterator::internJoinLaneForbids(NBEdge *fromEdge,
 {
     assert(_position<_toEdges.size());
     assert(_position<_fromEdges.size());
-    bool forbids = _request->forbidden(fromEdge, toEdge,
+    bool forbids = _request->foes(fromEdge, toEdge,
         _fromEdges[_position], _toEdges[_position]);
     size_t position = _position + 1;
     while(position<_fromEdges.size() &&
         !_valid.test(position) && _validNonLeft.test(position)) {
         assert(position<_toEdges.size());
         assert(position<_fromEdges.size());
-        forbids |= _request->forbidden(
+        forbids |= _request->foes(
             fromEdge, toEdge,
             _fromEdges[position], _toEdges[position]);
         position++;
@@ -404,6 +416,36 @@ NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
     return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
 		|| !hasGreen;
+}
+
+
+bool
+NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
+                                         const std::bitset<64> &driveMask) const
+{
+    NBEdge *from1 = _fromEdges[pos];
+    NBEdge *to1 = _toEdges[pos];
+    size_t run = 0;
+    for(size_t j=0; j<getNoValidLinks(); j++) {
+        size_t noEdges = getNumberOfAssignedLinks(j);
+        for(size_t k=0; k<noEdges; k++, run++) {
+            if(!driveMask.test(run)) {
+                continue;
+            }
+            NBEdge *from2 = _fromEdges[run];
+            if(from1==from2) {
+                continue;
+            }
+            NBEdge *to2 = _toEdges[run];
+            if(_request->mustBrake(from1, to1, from2, to2)) {
+                return true;
+            }
+        }
+    }
+    return false;
+/*
+    return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
+		|| !hasGreen;*/
 }
 
 

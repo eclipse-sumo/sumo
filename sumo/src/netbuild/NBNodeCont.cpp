@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.16  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -140,6 +143,7 @@ using namespace std;
  * ======================================================================= */
 NBNodeCont::NodeCont    NBNodeCont::_nodes;
 int                     NBNodeCont::_internalID = 1;
+Position2D              NBNodeCont::myNetworkOffset;
 
 
 /* =========================================================================
@@ -179,7 +183,7 @@ NBNodeCont::insert(const string &id, double x, double y)
     return true;
 }
 
-
+/*
 bool
 NBNodeCont::insert(const string &id, double x, double y,
                    const std::string &type)
@@ -196,7 +200,7 @@ NBNodeCont::insert(const string &id, double x, double y,
     _nodes[id] = node;
     return true;
 }
-
+*/
 
 pair<double, double>
 NBNodeCont::insert(const string &id) // !!! really needed
@@ -283,6 +287,7 @@ NBNodeCont::normaliseNodePositions()
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->resetby(xmin, ymin);
     }
+    myNetworkOffset = Position2D(xmin, ymin);
     return true;
 }
 
@@ -439,6 +444,13 @@ std::string
 NBNodeCont::getFreeID()
 {
     return "SUMOGenerated" + toString<int>(getNo());
+}
+
+
+Position2D
+NBNodeCont::getNetworkOffset()
+{
+    return myNetworkOffset;
 }
 
 

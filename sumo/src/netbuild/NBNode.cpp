@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.20  2003/06/24 08:21:01  dkrajzew
 // some further work on importing traffic lights
 //
@@ -161,7 +164,7 @@ namespace
 #include "NBContHelper.h"
 #include "NBLogicKeyBuilder.h"
 #include "NBRequest.h"
-#include "NBTrafficLightDefinition.h"
+#include "NBOwnTLDef.h"
 #include "NBTrafficLightLogicCont.h"
 
 
@@ -174,18 +177,9 @@ using namespace std;
 /* =========================================================================
  * static variable definitions
  * ======================================================================= */
-const int NBNode::TYPE_NOJUNCTION = 0;
-const int NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT = 1;
-const int NBNode::TYPE_ACTUATED_TRAFFIC_LIGHT = 2;
-const int NBNode::TYPE_PRIORITY_JUNCTION = 3;
-const int NBNode::TYPE_RIGHT_BEFORE_LEFT = 4;
-const int NBNode::TYPE_DISTRICT = 5;
-const int NBNode::TYPE_DEAD_END = -1;
-
 int NBNode::_noDistricts = 0;
 int NBNode::_noNoJunctions = 0;
 int NBNode::_noPriorityJunctions = 0;
-int NBNode::_noTrafficLightJunctions = 0;
 int NBNode::_noRightBeforeLeftJunctions = 0;
 
 
@@ -312,13 +306,21 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, double x, double y)
-    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0), _request(0)
+    : _id(id), _x(x), _y(y), _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
 
+NBNode::NBNode(const string &id, double x, double y,
+               BasicNodeType type)
+    : _id(id), _x(x), _y(y), _type(type), myDistrict(0), _request(0)
+{
+    _incomingEdges = new EdgeVector();
+    _outgoingEdges = new EdgeVector();
+}
 
+/*
 NBNode::NBNode(const string &id, double x, double y,
                const std::string &type)
     : _id(id), _x(x), _y(y), _type(-1), myDistrict(0), _request(0)
@@ -327,13 +329,13 @@ NBNode::NBNode(const string &id, double x, double y,
     _outgoingEdges = new EdgeVector();
     if(type=="traffic_light") {
         _type = TYPE_PRIORITY_JUNCTION;
-        NBTrafficLightDefinition *tldef = new NBTrafficLightDefinition(id, this);
+        NBTrafficLightDefinition *tldef = new NBOwnTLDef(id, this);
         if(!NBTrafficLightLogicCont::insert(id, tldef)) {
             delete tldef;
         }
     } else if(type=="actuated_traffic_light") {
         _type = TYPE_PRIORITY_JUNCTION;
-        NBTrafficLightDefinition *tldef = new NBTrafficLightDefinition(id, this);
+        NBTrafficLightDefinition *tldef = new NBOwnTLDef(id, this);
         if(!NBTrafficLightLogicCont::insert(id, tldef)) {
             delete tldef;
         }
@@ -355,12 +357,12 @@ NBNode::NBNode(const std::string &id, double x, double y, int type,
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
-
+*/
 
 
 
 NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
-    : _id(id), _x(x), _y(y), _type(TYPE_DISTRICT), myDistrict(district), _request(0)
+    : _id(id), _x(x), _y(y), _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -475,7 +477,8 @@ NBNode::sortSmall()
 
 void
 NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
-                         const vector<NBEdge*>::iterator &i2) {
+                         const vector<NBEdge*>::iterator &i2)
+{
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
     if(e2->isTurningDirection(e1) && e2->getToNode()==this) {
@@ -499,32 +502,30 @@ NBNode::setPriorities()
         (*i)->setJunctionPriority(this, 0);
     }
     // compute the priorities on junction when needed
-    if( _type==TYPE_PRIORITY_JUNCTION
-/*        ||_type==TYPE_SIMPLE_TRAFFIC_LIGHT
-        ||_type==TYPE_ACTUATED_TRAFFIC_LIGHT*/) {
+    if(_type==NODETYPE_PRIORITY_JUNCTION&&myTrafficLights.size()==0) {
         setPriorityJunctionPriorities();
     }
 }
 
 
-int
+NBNode::BasicNodeType
 NBNode::computeType() const
 {
     // the type may already be set from the data
-    if(_type>=0) {
+    if(_type!=NODETYPE_UNKNOWN) {
         return _type;
     }
     // check whether the junction is not a real junction
     if(_incomingEdges->size()==1/*&&_outgoingEdges->size()==1*/) {
-        return TYPE_PRIORITY_JUNCTION; // !!! no junction?
+        return NODETYPE_PRIORITY_JUNCTION; // !!! no junction?
     }
     // check whether the junction is a district and has no
     //  special meaning
     if(isDistrictCenter()) {
-        return TYPE_NOJUNCTION;
+        return NODETYPE_NOJUNCTION;
     }
     // choose the uppermost type as default
-    int type = TYPE_RIGHT_BEFORE_LEFT;
+    BasicNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
     // determine the type
     for( vector<NBEdge*>::const_iterator i=_allEdges.begin();
          i!=_allEdges.end(); i++) {
@@ -536,7 +537,7 @@ NBNode::computeType() const
             // As default, TYPE_TRAFFIC_LIGHT is used, this should be valid for
             //  most coarse networks
             // !!!
-            int tmptype = TYPE_PRIORITY_JUNCTION;
+            BasicNodeType tmptype = NODETYPE_PRIORITY_JUNCTION;
             try {
                 tmptype = NBTypeCont::getJunctionType(
                     (*i)->getPriority(),
@@ -735,20 +736,20 @@ NBNode::writeXML(ostream &into)
     if(_incomingEdges->size()!=0&&_outgoingEdges->size()!=0) {
         //into << " key=\"" << _key << '\"';
         switch(_type) {
-        case TYPE_NOJUNCTION:
+        case NODETYPE_NOJUNCTION:
             into << " type=\"" << "none\"";
             break;
 /*        case TYPE_SIMPLE_TRAFFIC_LIGHT:
         case TYPE_ACTUATED_TRAFFIC_LIGHT:
             into << " type=\"" << "traffic_light\"";
             break;*/
-        case TYPE_PRIORITY_JUNCTION:
+        case NODETYPE_PRIORITY_JUNCTION:
             into << " type=\"" << "priority\"";
             break;
-        case TYPE_RIGHT_BEFORE_LEFT:
+        case NODETYPE_RIGHT_BEFORE_LEFT:
             into << " type=\"" << "right_before_left\"";
             break;
-        case TYPE_DISTRICT:
+        case NODETYPE_DISTRICT:
             into << " type=\"" << "district\"";
             break;
         default:
@@ -761,12 +762,6 @@ NBNode::writeXML(ostream &into)
     into << " x=\"" << setprecision( 2 ) << _x
         << "\" y=\"" << setprecision( 2 ) << _y << "\"";
     into <<  ">" << endl;
-    // write additional information about the traffic light presettings
-    //  when the junction is a traffic light
-/*    if(_type==TYPE_SIMPLE_TRAFFIC_LIGHT||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
-        into << "      <offset>" << 0 << "</offset>" << endl;
-        into << "      <initstep>" << 0 << "</initstep>" << endl;
-    }*/
     // write the inlanes
     EdgeVector::iterator i;
     into << "      <inlanes>";
@@ -808,43 +803,30 @@ NBNode::computeLogic(OptionsCont &oc)
         _blockedConnections);
 
     // compute the logic if necessary or split the junction
-    if(_type!=TYPE_NOJUNCTION&&_type!=TYPE_DISTRICT) {
+    if(_type!=NODETYPE_NOJUNCTION&&_type!=NODETYPE_DISTRICT) {
 		_request->buildBitfieldLogic(_id);
     }
-    // build the lights when needed
-    if(_type==TYPE_SIMPLE_TRAFFIC_LIGHT||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
-/*
-        int build = _request->buildTrafficLight(_id,
-            mySignalGroups, myCycleDuration, brakingTime,
-            oc.getBool("all-logics"));
-        if(build==0) {
-            _type==TYPE_PRIORITY_JUNCTION;
-        }*
-        */
-        _type==TYPE_PRIORITY_JUNCTION;
-    }
-    // close node computation
 }
 
 
 void
-NBNode::setType(int type)
+NBNode::setType(BasicNodeType type)
 {
     switch(type) {
-    case TYPE_NOJUNCTION:
+    case NODETYPE_NOJUNCTION:
         _noNoJunctions++;
         break;
 //    case TYPE_SIMPLE_TRAFFIC_LIGHT:
 //    case TYPE_ACTUATED_TRAFFIC_LIGHT:
 //        _noTrafficLightJunctions++;
         break;
-    case TYPE_PRIORITY_JUNCTION:
+    case NODETYPE_PRIORITY_JUNCTION:
         _noPriorityJunctions++;
         break;
-    case TYPE_RIGHT_BEFORE_LEFT:
+    case NODETYPE_RIGHT_BEFORE_LEFT:
         _noRightBeforeLeftJunctions++;
         break;
-    case TYPE_DISTRICT:
+    case NODETYPE_DISTRICT:
         _noRightBeforeLeftJunctions++;
         break;
     default:
@@ -860,9 +842,6 @@ NBNode::reportBuild()
     MsgHandler::getMessageInstance()->inform(
         string("No Junctions (converted)    : ")
         + toString<int>(_noNoJunctions));
-    MsgHandler::getMessageInstance()->inform(
-        string("Traffic Light Junctions     : ")
-        + toString<int>(_noTrafficLightJunctions));
     MsgHandler::getMessageInstance()->inform(
         string("Priority Junctions          : ")
         + toString<int>(_noPriorityJunctions));
@@ -944,7 +923,7 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
     vector<NBEdge*>::const_iterator i = find(_allEdges.begin(),
         _allEdges.end(), currentOutgoing);
     // get the first possible approaching edge
-    i = NBContHelper::nextCW(&_allEdges, i);
+    NBContHelper::nextCW(&_allEdges, i);
     // go through the list of edges clockwise and add the edges
     vector<NBEdge*> *approaching = new vector<NBEdge*>();
     for(; *i!=currentOutgoing; ) {
@@ -956,7 +935,7 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
                 approaching->push_back(*i);
             }
         }
-        i = NBContHelper::nextCW(&_allEdges, i);
+        NBContHelper::nextCW(&_allEdges, i);
     }
     return approaching;
 }
@@ -1406,7 +1385,7 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
     assert(opposite!=from);
     EdgeVector::const_iterator i =
         find(_allEdges.begin(), _allEdges.end(), from);
-    i = NBContHelper::nextCW(&_allEdges, i);
+    NBContHelper::nextCW(&_allEdges, i);
     while(true) {
         if((*i)==opposite) {
             return false;
@@ -1414,16 +1393,23 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
         if((*i)==to) {
             return true;
         }
-        i = NBContHelper::nextCW(&_allEdges, i);
+        NBContHelper::nextCW(&_allEdges, i);
     }
     return false;
 }
 
 
 bool
-NBNode::forbidden(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
+NBNode::forbids(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
 {
-    return _request->forbidden(from1, to1, from2, to2);
+    return _request->forbids(from1, to1, from2, to2);
+}
+
+
+bool
+NBNode::foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
+{
+    return _request->foes(from1, to1, from2, to2);
 }
 
 

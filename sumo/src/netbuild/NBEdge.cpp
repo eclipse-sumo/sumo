@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.17  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -140,6 +143,8 @@ namespace
 #include "NBTypeCont.h"
 #include <iostream>
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBEdge.h"
 
 
@@ -164,7 +169,8 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * NBEdge::ToEdgeConnectionsAdder-methods
  * ----------------------------------------------------------------------- */
-void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
+void
+NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 {
 	// check
     assert(_transitions.size()>(int) virtEdge);
@@ -172,6 +178,7 @@ void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 	// get the approached edge
     NBEdge *succEdge = _transitions[(int) virtEdge];
     vector<size_t> lanes;
+
 	// check whether the currently regarded, approached edge has already
 	//  a connection starting at the edge which is currently being build
     map<NBEdge*, vector<size_t> >::iterator i=_connections->find(succEdge);
@@ -179,6 +186,7 @@ void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 		// if there were already lanes assigned, get them
         lanes = (*i).second;
     }
+
 	// check whether the current lane was already used to connect the currently
 	//  regarded approached edge
     vector<size_t>::iterator j=find(lanes.begin(), lanes.end(), (size_t) lane);
@@ -245,7 +253,8 @@ NBEdge::MainDirections::includes(Direction d) const {
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, double speed, size_t nolanes,
-               double length, int priority, EdgeBasicFunction basic) :
+               double length, int priority, LaneSpreadFunction spread,
+               EdgeBasicFunction basic) :
     _step(INIT), _id(id), _type(type), _nolanes(nolanes),
     _from(from), _to(to), _length(length), _angle(0),
     _priority(priority), _speed(speed), _name(name),
@@ -253,7 +262,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _reachable(0),
     /*_linkIsPriorised(0),*/ _succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
-    _basicType(basic)
+    _basicType(basic), myLaneSpreadFunction(spread)
 {
     if(_from==0||_to==0) {
         throw std::exception();
@@ -293,7 +302,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, double speed, size_t nolanes,
                double length, int priority,
-               const Position2DVector &geom,
+               const Position2DVector &geom, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
     _step(INIT), _id(id), _type(type), _nolanes(nolanes),
     _from(from), _to(to), _length(length), _angle(0),
@@ -302,7 +311,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _reachable(0),
 /*    _linkIsPriorised(0), */_succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
-    _basicType(basic), myGeom(geom)
+    _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread)
 {
     if(_from==0||_to==0) {
         throw std::exception();
@@ -589,7 +598,52 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     }
     // some further information
     into << " maxspeed=\"" << _speed << "\" length=\"" << _length <<
-        "\" changeurge=\"0\"/>" << endl;
+        "\" changeurge=\"0\">";
+    // the lane's shape
+    Position2DVector shape = getLaneShape(lane);
+    into << shape;
+    // close
+    into << "</lane>" << endl;
+}
+
+
+Position2DVector
+NBEdge::getLaneShape(size_t lane)
+{
+    Position2DVector shape;
+    Position2D from = myGeom.at(0);
+    size_t i = 1;
+    std::pair<double, double> offsets;
+    for(; i<myGeom.size(); i++) {
+        Position2D to = myGeom.at(i);
+        offsets =
+            laneOffset(from, to, 3.5, _nolanes-1-lane);
+        shape.push_back(
+            Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
+        from = to;
+    }
+    shape.push_back(
+        Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
+    return shape;
+}
+
+
+std::pair<double, double>
+NBEdge::laneOffset(const Position2D &from, const Position2D &to,
+                   double lanewidth, size_t lane)
+{
+    double x1 = from.x();
+    double y1 = from.y();
+    double x2 = to.x();
+    double y2 = to.y();
+    double length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+    std::pair<double, double> offsets =
+        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, lanewidth);
+    double xoff = offsets.first / 2.0;
+    double yoff = offsets.second / 2.0;
+    xoff += (offsets.first * (double) lane);
+    yoff += (offsets.second * (double) lane);
+    return std::pair<double, double>(xoff, yoff);
 }
 
 
@@ -650,8 +704,8 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         << (*_reachable)[fromlane][destidx].edge->getID() << '_'
         << (*_reachable)[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
     // set information about the controlling tl if any
-    into << " tl=\"" << (*_reachable)[fromlane][destidx].tlID << "\"";
     if((*_reachable)[fromlane][destidx].tlID!="") {
+        into << " tl=\"" << (*_reachable)[fromlane][destidx].tlID << "\"";
         into << " linkno=\"" << (*_reachable)[fromlane][destidx].tlLinkNo << "\"";
     }
 	// write information whether the connection yields
@@ -716,7 +770,7 @@ NBEdge::computeEdge2Edges()
 {
     // return if this relationship has been build in previous steps or
     //  during the import
-    if(_step>EDGE2EDGES) {
+    if(_step>=EDGE2EDGES) {
         return true;
     }
 	if(_connectedEdges.size()==0) {
@@ -732,9 +786,11 @@ NBEdge::computeLanes2Edges()
 {
     // return if this relationship has been build in previous steps or
     //  during the import
-    if(_step>LANES2EDGES) {
+    if(_step>=LANES2EDGES) {
         return true;
     }
+    assert(_step==EDGE2EDGES);
+
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
     const vector<NBEdge*> *edges = getConnectedSorted();
@@ -816,7 +872,8 @@ NBEdge::getConnectionRemoving(size_t srcLane, size_t pos)
 
 
 vector<size_t>
-NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
+NBEdge::getConnectionLanes(NBEdge *currentOutgoing)
+{
     if(currentOutgoing==_turnDestination) {
         return vector<size_t>();
     }
@@ -862,7 +919,7 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
     // precompute priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
     vector<size_t> *priorities = preparePriorities(outgoing);
-    //
+
     // compute the sum of priorities (needed for normalisation)
     size_t prioSum = computePrioritySum(priorities);
     // compute the resulting number of lanes that should be used to
@@ -919,6 +976,7 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
             transition.push_back((*outgoing)[i]);
         }
     }
+
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
     ToEdgeConnectionsAdder adder(_ToEdges, transition);
@@ -933,6 +991,13 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     // copy the priorities first
     vector<size_t> *priorities = new vector<size_t>();
     if(outgoing->size()==0) {
+        return priorities;
+    }
+        // patch only
+    if(outgoing->size()==_nolanes) {
+        for(size_t i=0; i<_nolanes; i++) {
+            priorities->push_back(4);
+        }
         return priorities;
     }
     priorities->reserve(outgoing->size());
@@ -1122,7 +1187,8 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
 bool
 NBEdge::isTurningDirection(NBEdge *edge) const
 {
-    return edge == _turnDestination;
+    return (_from==edge->_to && _to==edge->_from)
+        || edge == _turnDestination;
 }
 
 
@@ -1395,12 +1461,14 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
     }
     // if the original connection was not found, set the information for all
     //  connections
+    size_t no = 0;
+    bool hadError = false;
     for(size_t j=0; j<_nolanes; j++) {
         EdgeLaneVector &connections = (*_reachable)[j];
         EdgeLaneVector::iterator i =
             find_if(connections.begin(), connections.end(),
                 NBContHelper::edgelane_finder(toEdge, toLane));
-        if(i!=connections.end()) {
+        while(i!=connections.end()) {
             // get the connection
             EdgeLane &connection = *i;
             // set the information about the tl
@@ -1408,9 +1476,38 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
             if(connection.tlID=="") {
                 connection.tlID = tlID;
                 connection.tlLinkNo = tlPos;
+                no++;
+            } else {
+                if(connection.tlID!=tlID&&connection.tlLinkNo==tlPos) {
+                    MsgHandler::getWarningInstance()->inform(
+                        string("The lane ") + toString<int>(connection.lane)
+                        + string(" on edge ") + connection.edge->getID()
+                        + string(" already had a traffic light signal."));
+                    hadError = true;
+                }
             }
+            i = find_if(i+1, connections.end(),
+                NBContHelper::edgelane_finder(toEdge, toLane));
         }
     }
+    if(hadError&&no==0) {
+        MsgHandler::getWarningInstance()->inform(
+            string("Could not set any signal of the traffic light '")
+            + tlID + string("' (unknown group)"));
+    }
+}
+
+
+void
+NBEdge::normalisePosition()
+{
+    Position2DVector newGeom;
+    for(size_t i=0; i<myGeom.size(); i++) {
+        Position2D pos = myGeom.at(i);
+        pos.add(NBNodeCont::getNetworkOffset());
+        newGeom.push_back(pos);
+    }
+    myGeom = newGeom;
 }
 
 

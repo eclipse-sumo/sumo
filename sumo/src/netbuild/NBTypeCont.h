@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.3  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -66,60 +69,81 @@
  * ======================================================================= */
 #include <string>
 #include <map>
+#include "NBNode.h"
 #include "NBType.h"
 #include "NBJunctionTypesMatrix.h"
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 class NBTypeCont {
-private:
-    /** a container of types, accessed by the string key */
-    typedef std::map<std::string, NBType*> TypesCont;
-private:
-    /** the name of the used format */
-    static std::string              _formatName;
-    /** the default number of lanes of a section/edge */
-    static int                      _defaultNoLanes;
-    /** the default maximal velocity on a section/edge in m/s */
-    static double                   _defaultSpeed;
-    /** the default priority of a section/edge */
-    static int                      _defaultPriority;
-    /** the container of types */
-    static TypesCont                _types;
-    /** the matrix of roads to junction type mappings */
-    static NBJunctionTypesMatrix    _junctionTypes;
 public:
     /** sets the default values */
     static void setDefaults(const std::string &formatName, int defaultNoLanes,
         double defaultSpeed, int defaultPriority);
+
     /** adds a possible type into the list */
     static bool insert(NBType *type);
+
     /** returns the number of lanes
         (the default value if type does not exist) */
     static int getNoLanes(const std::string &type);
+
     /** returns the maximal velocity on a section/edge in m/s
         (the default value if the type does not exist) */
     static double getSpeed(const std::string &type);
+
     /** returns the priority of the section/edge with the given type
         (the default value if the type does not exist) */
     static int getPriority(const std::string &type);
+
     /** returns the name of the used format */
     static std::string getFormatName();
+
     /** returns the default number of lanes */
     static int getDefaultNoLanes();
+
     /** returns the default speed */
     static double getDefaultSpeed();
+
     /** returns the default priority */
     static int getDefaultPriority();
+
     /** returns the number of known types */
     static size_t getNo();
+
     /** returns the type of the junction between two edges of the given types */
-    static int getJunctionType(int edgetype1, int edgetype2);
+    static NBNode::BasicNodeType getJunctionType(int edgetype1, int edgetype2);
+
     /** deletes all types */
     static void clear();
+
     /// reports how many nodes were loaded
     static void report();
+
+private:
+    /** a container of types, accessed by the string key */
+    typedef std::map<std::string, NBType*> TypesCont;
+
+private:
+    /** the name of the used format */
+    static std::string              _formatName;
+
+    /** the default number of lanes of a section/edge */
+    static int                      _defaultNoLanes;
+
+    /** the default maximal velocity on a section/edge in m/s */
+    static double                   _defaultSpeed;
+
+    /** the default priority of a section/edge */
+    static int                      _defaultPriority;
+
+    /** the container of types */
+    static TypesCont                _types;
+
+    /** the matrix of roads to junction type mappings */
+    static NBJunctionTypesMatrix    _junctionTypes;
 
 private:
     /** invalid copy constructor */

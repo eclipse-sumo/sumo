@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.6  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
@@ -97,23 +100,24 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * utility methods
  * ----------------------------------------------------------------------- */
-EdgeVector::const_iterator
-NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from)
+void
+NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator &from)
 {
     from++;
     if(from==edges->end()) {
-        return edges->begin();
+        from = edges->begin();
     }
-    return from;
 }
 
 
-EdgeVector::const_iterator
-NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator from)
+void
+NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator &from)
 {
-  if(from==edges->begin())
-    return edges->end() - 1;
-  return --from;
+    if(from==edges->begin()) {
+        from = edges->end() - 1;
+    } else {
+        --from;
+    }
 }
 
 
@@ -215,9 +219,27 @@ NBContHelper::node_with_incoming_finder::operator() (const NBNode * const n) con
 
 
 /* -------------------------------------------------------------------------
+ * methods from node_with_outgoing_finder
+ * ----------------------------------------------------------------------- */
+NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(NBEdge *e)
+    : _edge(e)
+{
+}
+
+
+bool
+NBContHelper::node_with_outgoing_finder::operator() (const NBNode * const n) const
+{
+    const EdgeVector &outgoing = n->getOutgoingEdges();
+    return std::find(outgoing.begin(), outgoing.end(), _edge)!=outgoing.end();
+}
+
+
+
+/* -------------------------------------------------------------------------
  * methods from node_with_incoming_finder
  * ----------------------------------------------------------------------- */
-NBContHelper::edgelane_finder::edgelane_finder(NBEdge *toEdge, size_t toLane)
+NBContHelper::edgelane_finder::edgelane_finder(NBEdge *toEdge, int toLane)
     : myDestinationEdge(toEdge), myDestinationLane(toLane)
 {
 }
@@ -226,7 +248,9 @@ NBContHelper::edgelane_finder::edgelane_finder(NBEdge *toEdge, size_t toLane)
 bool
 NBContHelper::edgelane_finder::operator() (const EdgeLane &el) const
 {
-    return el.edge==myDestinationEdge && el.lane ==  myDestinationLane;
+    return el.edge==myDestinationEdge
+        &&
+        (el.lane ==  myDestinationLane || myDestinationLane<0);
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.14  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -152,17 +155,31 @@ public:
         EDGEFUNCTION_SINK
     };
 
+    /**
+     * @enum LaneSpreadFunction
+     * In dependence to this value, lanes will be spread to the right side or
+     * to both sides from the given edge gemetry. (Also used when node
+     * positions are used as edge geometry)
+     */
+    enum LaneSpreadFunction {
+        /// The lanes will be spread to right
+        LANESPREAD_RIGHT,
+        /// The lanes will be spread to both sides
+        LANESPREAD_CENTER
+    };
+
 public:
     /// constructor
     NBEdge(std::string id, std::string name,
         NBNode *from, NBNode *to, std::string type,
         double speed, size_t nolanes, double length, int priority,
+        LaneSpreadFunction spread=LANESPREAD_RIGHT,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     NBEdge(std::string id, std::string name,
         NBNode *from, NBNode *to, std::string type,
         double speed, size_t nolanes, double length, int priority,
-        const Position2DVector &geom,
+        const Position2DVector &geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     /// destructor
@@ -318,6 +335,8 @@ public:
     void setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         const std::string &tlID, size_t tlPos);
 
+    void normalisePosition();
+
     /** friend class used for the computation of connections to
         following edges */
     friend class NBEdgeSuccessorBuilder;
@@ -403,6 +422,13 @@ private:
         LANES2LANES = 3
     };
 
+    /// Computes the shape for the given lane
+    Position2DVector getLaneShape(size_t lane);
+
+    /// Computes the offset from the edge shape on the current segment
+    std::pair<double, double> laneOffset(const Position2D &from,
+        const Position2D &to, double lanewidth, size_t lane);
+
 private:
     /// the building step
     EdgeBuildingStep _step;
@@ -474,6 +500,9 @@ private:
 
     /// An optional geometry for the edge
     Position2DVector myGeom;
+
+    /// The information about how to spread the lanes
+    LaneSpreadFunction myLaneSpreadFunction;
 
 
 private:

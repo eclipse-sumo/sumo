@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.8  2003/06/19 07:17:21  dkrajzew
 // new message subsystem paradigm applied
 //
@@ -178,12 +181,12 @@ NBLoader::loadSUMO(OptionsCont &oc)
             "sumo-net");
     }
     // load the junction logics only when they shall not be recomputed
-    if( oc.isUsableFileList("sumo-logics")
+/*    if( oc.isUsableFileList("sumo-logics")
         &&
         !oc.getBool("recompute-junction-logics") ) {
         loadSUMOFiles(oc, LOADFILTER_LOGICS, oc.getString("sumo-logics"),
             "sumo-logics");
-    }
+    }*/
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.4  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -79,6 +82,7 @@ namespace
 #include "NBTypeCont.h"
 #include "NBJunctionTypesMatrix.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -87,13 +91,15 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
- * method definitions
+ * static members definitions
  * ======================================================================= */
 string                    NBTypeCont::_formatName;
 int                       NBTypeCont::_defaultNoLanes;
@@ -102,8 +108,13 @@ int                       NBTypeCont::_defaultPriority;
 NBTypeCont::TypesCont     NBTypeCont::_types;
 NBJunctionTypesMatrix     NBTypeCont::_junctionTypes;
 
-void NBTypeCont::setDefaults(const string &formatName, int defaultNoLanes,
-                             double defaultSpeed, int defaultPriority)
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+void
+NBTypeCont::setDefaults(const string &formatName, int defaultNoLanes,
+                        double defaultSpeed, int defaultPriority)
 {
     _formatName = formatName;
     _defaultNoLanes = defaultNoLanes;
@@ -111,7 +122,9 @@ void NBTypeCont::setDefaults(const string &formatName, int defaultNoLanes,
     _defaultPriority = defaultPriority;
 }
 
-bool NBTypeCont::insert(NBType *type)
+
+bool
+NBTypeCont::insert(NBType *type)
 {
     TypesCont::iterator i=_types.find(type->_name);
     if(i!=_types.end()) {
@@ -121,7 +134,9 @@ bool NBTypeCont::insert(NBType *type)
     return true;
 }
 
-int NBTypeCont::getNoLanes(const string &type)
+
+int
+NBTypeCont::getNoLanes(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
@@ -131,7 +146,9 @@ int NBTypeCont::getNoLanes(const string &type)
     return nolanes;
 }
 
-double NBTypeCont::getSpeed(const string &type)
+
+double
+NBTypeCont::getSpeed(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
@@ -141,7 +158,9 @@ double NBTypeCont::getSpeed(const string &type)
     return speed;
 }
 
-int NBTypeCont::getPriority(const string &type)
+
+int
+NBTypeCont::getPriority(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
@@ -151,38 +170,58 @@ int NBTypeCont::getPriority(const string &type)
     return priority;
 }
 
-string NBTypeCont::getFormatName() {
+
+string
+NBTypeCont::getFormatName()
+{
     return _formatName;
 }
 
-int NBTypeCont::getDefaultNoLanes() {
+
+int
+NBTypeCont::getDefaultNoLanes()
+{
     return NBTypeCont::_defaultNoLanes;
 }
 
-int NBTypeCont::getDefaultPriority() {
+
+int
+NBTypeCont::getDefaultPriority()
+{
     return NBTypeCont::_defaultPriority;
 }
 
-double NBTypeCont::getDefaultSpeed() {
+
+double
+NBTypeCont::getDefaultSpeed()
+{
     return NBTypeCont::_defaultSpeed;
 }
 
-size_t NBTypeCont::getNo() {
+
+size_t
+NBTypeCont::getNo()
+{
     return _types.size();
 }
 
-int NBTypeCont::getJunctionType(int edgetype1, int edgetype2)
+
+NBNode::BasicNodeType
+NBTypeCont::getJunctionType(int edgetype1, int edgetype2)
 {
     return _junctionTypes.getType(edgetype1, edgetype2);
 }
 
+
 void
-NBTypeCont::clear() {
+NBTypeCont::clear()
+{
     for(TypesCont::iterator i=_types.begin(); i!=_types.end(); i++) {
         delete((*i).second);
     }
     _types.clear();
 }
+
 
 void
 NBTypeCont::report()

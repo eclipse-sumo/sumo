@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.6  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
@@ -70,6 +73,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBEdge.h"
@@ -86,23 +90,15 @@
  */
 class NBContHelper {
 public:
-    /** Returns the next edge from a clockwise sorted container
-        When the edges are sorted clockwise in the given container, the
-        method returns the next edge from the edge the given iterator is
-        pointing at, in the clockwise direction.
-        A pointer to the first edge of the list is returned when the given
-        iterator is pointing at the last edge. */
-    static EdgeVector::const_iterator nextCW(const EdgeVector * edges,
-        EdgeVector::const_iterator from);
+    /** Moves the given iterator clockwise within the given container
+        of edges sorted clockwise */
+    static void nextCW(const EdgeVector * edges,
+        EdgeVector::const_iterator &from);
 
-    /** Returns the previous edge from a clockwise sorted cotainer
-        When the edges are sorted clockwise in the given container, the
-        method returns the next edge from the edge the given iterator
-        is pointing at, in the counter-clockwise direction.
-        A pointer to the last edge of the list is returned when the given
-        iterator is pointing at the first edge */
-    static EdgeVector::const_iterator nextCCW(const EdgeVector * edges,
-        EdgeVector::const_iterator from);
+    /** Moves the given iterator counter clockwise within the given container
+        of edges sorted clockwise */
+    static void nextCCW(const EdgeVector * edges,
+        EdgeVector::const_iterator &from);
 
     /** writes the vector of bools to the given stream */
     static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
@@ -135,7 +131,11 @@ public:
 
     /**
      * relative_edge_sorter
-     * Class to sort edges by their angle
+     * Class to sort edges by their angle in relation to the node the
+     * edge using this class is incoming into. This is normally done to
+     * sort edges outgoing from the node the using edge is incoming in
+     * by their angle in relation to the using edge's angle (this angle
+     * is the reference angle).
      */
     class relative_edge_sorter {
     private:
@@ -262,7 +262,6 @@ public:
         explicit edge_similar_direction_sorter(NBEdge *e)
             : _angle(e->getAngle()) {}
 
-    public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
             double d1 = getDiff(e1);
@@ -297,19 +296,35 @@ public:
 
 
     /**
+     * @class node_with_outgoing_finder
+     */
+    class node_with_outgoing_finder {
+    public:
+        /// constructor
+        node_with_outgoing_finder(NBEdge *e);
+
+        bool operator() (const NBNode * const n) const;
+
+    private:
+        NBEdge *_edge;
+
+    };
+
+
+    /**
      * @class edgelane_finder
      */
     class edgelane_finder {
     public:
         /// constructor
-        edgelane_finder(NBEdge *toEdge, size_t toLane);
+        edgelane_finder(NBEdge *toEdge, int toLane);
 
         bool operator() (const EdgeLane &el) const;
 
     private:
         NBEdge *myDestinationEdge;
 
-        size_t myDestinationLane;
+        int myDestinationLane;
 
     };
 
@@ -322,6 +337,50 @@ public:
 
     /** returns the maximum speed allowed on the edges */
     static double maxSpeed(const EdgeVector &ev);
+
+    /**
+     * same_connection_edge_sorter
+     * This class is used to sort edges which connect the same nodes.
+     * The edges are sorted in dependence to edges connecting them. The
+     * rightmost will be the first in the list; the leftmost the last one.
+     */
+    class same_connection_edge_sorter {
+    public:
+        /// constructor
+        explicit same_connection_edge_sorter() { }
+
+        /// comparing operation
+        int operator() (NBEdge *e1, NBEdge *e2) const {
+            std::pair<double, double> mm1 = getMinMaxRelAngles(e1);
+            std::pair<double, double> mm2 = getMinMaxRelAngles(e2);
+            assert(
+                (mm1.first<=mm2.first&&mm1.second<=mm2.second)
+                ||
+                (mm1.first>=mm2.first&&mm1.second>=mm2.second) );
+            return (mm1.first<=mm2.first&&mm1.second<=mm2.second);
+        }
+
+        /**
+         *
+         */
+        std::pair<double, double> getMinMaxRelAngles(NBEdge *e) const {
+            double min = 360;
+            double max = 360;
+            const EdgeVector &ev = e->getConnected();
+            for(EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); i++) {
+                double angle = NBHelpers::normRelAngle(
+                    e->getAngle(), (*i)->getAngle());
+                if(min==360||min>angle) {
+                     min = angle;
+                }
+                if(max==360||max<angle) {
+                    max = angle;
+                }
+            }
+            return std::pair<double, double>(min, max);
+        }
+    };
+
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.11  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -214,7 +217,8 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         size_t pos = 0;
         // go through the regarded links (in dependence whether
         //  left mover etc. were joined with te current)
-        for(size_t j=0; j<cei1.getNoValidLinks(); j++) {
+        size_t j = 0;
+        for(; j<cei1.getNoValidLinks(); j++) {
             // check how many real links are assigned to it
             size_t noEdges = cei1.getNumberOfAssignedLinks(j);
             // go throigh these links
@@ -222,29 +226,45 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                 // set information for this link
                 assert(i<phaseList.size());
                 driveMask.set(pos, _cliques.test(phaseList[i], j));
-                brakeMask.set(pos,
-                    cei1.testBrakeMask(_cliques.test(phaseList[i], j), pos));
+                pos++;
+            }
+        }
+        pos = 0;
+        j = 0;
+        for(; j<cei1.getNoValidLinks(); j++) {
+            // check how many real links are assigned to it
+            size_t noEdges = cei1.getNumberOfAssignedLinks(j);
+            // go throigh these links
+            for(size_t k=0; k<noEdges; k++) {
+                // set information for this link
+                assert(i<phaseList.size());
+                if(driveMask.test(pos)) {
+                    brakeMask.set(pos,
+                        cei1.testBrakeMask(pos, driveMask));
+                } else {
+                    brakeMask.set(pos, true);
+                }
                 pos++;
             }
         }
         // add phase
-        size_t duration = 30;
+        size_t duration = 20;
         ret->addStep(duration, driveMask, brakeMask, std::bitset<64>());
         // add possible additional left-turn phase when existing
 		std::bitset<64> yellow = driveMask;
-        cei1.resetNonLeftMovers(driveMask, brakeMask);
-        if(driveMask.any()) {
-			// let the junction be clear from any vehicles before alowing turn left
-	        std::bitset<64> inv;
-		    inv.flip();
-			ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
-			// let vehicles moving left pass secure
-            ret->addStep(10, driveMask, brakeMask, std::bitset<64>());
-			yellow = driveMask;
-        }
-        // add the dead phase for this junction
+        std::bitset<64> oldBrakeMask = brakeMask;
+        cei1.resetNonLeftMovers(driveMask, brakeMask, yellow);
         std::bitset<64> inv;
         inv.flip();
+        if(driveMask.any()) {
+			// let the junction be clear from any vehicles before alowing turn left
+            //  left movers may drive but have to wait if another vehicle is passing
+			ret->addStep(breakingTime, driveMask, oldBrakeMask|yellow, yellow);
+			// let vehicles moving left pass secure
+            ret->addStep(3, driveMask, brakeMask, std::bitset<64>());
+            yellow = driveMask;
+        }
+        // add the dead phase for this junction
         ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
     }
 #ifdef TL_DEBUG

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.10  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -129,11 +132,17 @@ public:
         of the junction's links in respect */
     std::pair<size_t, size_t> getSizes() const;
 
-	bool mustBrake(NBEdge *from, NBEdge *to) const;
+    bool mustBrake(NBEdge *from1, NBEdge *to1,
+        NBEdge *from2, NBEdge *to2) const;
+
+	bool mustBrake(NBEdge *from, NBEdge *to) const; // !!!
 
     /** returns the information whether the connections from1->to1 and
         from2->to2 are foes */
-    bool forbidden(NBEdge *from1, NBEdge *to1,
+    bool foes(NBEdge *from1, NBEdge *to1,
+        NBEdge *from2, NBEdge *to2) const;
+
+    bool forbids(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
 
     /// prints the request
@@ -160,7 +169,7 @@ private:
     void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane);
 
     /** returns the index to the internal combination container */
-    size_t getIndex(NBEdge *from, NBEdge *to) const;
+    int getIndex(NBEdge *from, NBEdge *to) const;
 
     /** returns the distance between the incoming (from) and the outgoing (to)
         edge clockwise in edges */

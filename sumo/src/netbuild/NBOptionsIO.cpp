@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.14  2003/06/24 14:38:46  dkrajzew
 // false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
 //
@@ -157,7 +160,7 @@ void
 NBOptionsIO::fillOptions(OptionsCont &oc)
 {
     oc.doRegister("sumo-net", 's', new Option_FileName());
-    oc.doRegister("sumo-logics", 'l', new Option_FileName());
+//    oc.doRegister("sumo-logics", 'l', new Option_FileName());
     oc.doRegister("xml-node-files", 'n', new Option_FileName());
     oc.doRegister("xml-edge-files", 'e', new Option_FileName());
     oc.doRegister("xml-connection-files", 'x', new Option_FileName());
@@ -189,8 +192,10 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("lanenumber", 'L', new Option_Integer(1));
     oc.doRegister("speed", 'S', new Option_Float((float) 13.9));
     oc.doRegister("priority", 'P', new Option_Integer(1));
+    // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
     oc.doRegister("min-decel", 'D', new Option_Float(3.0));
+    // register further vissim-options
 	oc.doRegister("vissim-offset", new Option_Float(5.0));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
@@ -199,14 +204,13 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
-    oc.doRegister("no-config", 'C', new Option_Bool(false));
-    oc.addSynonyme("no-config", "no-configuration");
     oc.doRegister("recompute-junction-logics", new Option_Bool(false));
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
     oc.doRegister("flip-y", new Option_Bool(false));
     oc.doRegister("all-logics", new Option_Bool(false));
     oc.doRegister("speed-in-km", new Option_Bool(false));
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
+    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
 }
 
 

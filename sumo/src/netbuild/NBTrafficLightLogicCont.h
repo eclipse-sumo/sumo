@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/07 08:22:42  dkrajzew
+// some further refinements due to the new 1:N traffic lights and usage of geometry information
+//
 // Revision 1.3  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -76,6 +79,11 @@ public:
 
     static void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing);
+
+    static void replaceRemoved(NBEdge *removed, size_t removedLane,
+        NBEdge *by, size_t byLane);
+
+    static NBTrafficLightDefinition *getDefinition(const std::string &id);
 
 private:
     /// inserts a named logic into the container
