@@ -17,8 +17,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/06/07 14:45:17  dkrajzew
+// Added MSNoLogicJunction ,,pro forma,,. The code may compile but the class has no real functionality...
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:18  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -72,6 +75,7 @@ public:
     bool vehicles2targetLane();
     
 protected:
+    void moveVehicles();
 
 private:
     /** Junction's in-lanes. */
