@@ -193,7 +193,7 @@ bool
 MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
 {
     // check if route exists
-    string routeStr = myRouteDistAttributes.find( string( "route" ) )->second;
+    string routeStr = myRouteDistAttributes.find( string( "routeid" ) )->second;
 
     MSRoute* route = MSRoute::dictionary( routeStr );
     if ( route == 0 ) {
@@ -240,7 +240,7 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     if ( veh != 0 ) {
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Vehicle ") + myEmitId+ string(" does already exist. "));
         WRITE_WARNING("Continuing with next element.");
-        throw ProcessError();
+        return false;
     }
 
 
@@ -250,7 +250,7 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     if ( type == 0 ) {
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Vehicle type ") + emitType + string(" does not exist. "));
         WRITE_WARNING("Continuing with next element.");
-        throw ProcessError();
+        return false;
     }
     else {
         myEmitVehType = type;
@@ -286,12 +286,14 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     double speed;
     if ( ! isString2doubleSuccess( speedStr, speed ) ) {
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": No conversion possible on attribute \"speed\" with value ")+ speedStr);
-        throw ProcessError();
+        return false;
+//        throw ProcessError();
     }
     if ( speed < 0 || speed > mySource.myLane->maxSpeed() ) {
         WRITE_WARNING(string("MSTriggeredSource ") +  mySource.getId()+ string(": Speed < 0 or > lane's max-speed. "));
         WRITE_WARNING("Continuing with next element.");
-        throw ProcessError();
+        return false;
+//        throw ProcessError();
     }
     else {
 
@@ -360,6 +362,10 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
             double pos;
             if ( isString2doubleSuccess( attrValue, pos ) ) {
 
+                if(pos<0) {
+                    pos = mySource.myLane->length() + pos;
+                }
+
                 if ( pos >= 0 && pos <= mySource.myLane->length() ) {
 
                     mySource.setPos( pos );
@@ -424,7 +430,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
         }
 
         if ( elemName == string( "routedistelem" ) ) {
-
+/*
             // check attributes
             if ( aAttributes.getLength() != myRouteDistAttributes.size() ) {
                 MsgHandler::getErrorInstance()->inform(
@@ -433,7 +439,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
                     + string(" parsing."));
                 throw ProcessError();
             }
-
+*/
             if ( ! isAttributes2mapSuccess(
                      myRouteDistAttributes, aAttributes ) ) {
                 MsgHandler::getErrorInstance()->inform(
@@ -465,18 +471,21 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
          string( "emit" ) ) {
 
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Token name \"")+ TplConvert<XMLCh>::_2str( aLocalname )+ string("\" sould be \"emit\"."));
-        throw ProcessError();
+        return false;
+//        throw ProcessError();
     }
     if ( aAttributes.getLength() != myEmitAttributes.size() ) {
 
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Wrong number of attributes. "));
-        throw ProcessError();
+        return false;
+//        throw ProcessError();
     }
 
     if ( ! isAttributes2mapSuccess( myEmitAttributes, aAttributes ) ) {
 
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Wrong attribute. "));
-        throw ProcessError();
+        return false;
+//        throw ProcessError();
     }
 
     mySource.myIsNewEmitFound = true;
@@ -566,6 +575,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.13  2005/01/27 14:24:29  dkrajzew
+// patched several problems
+//
 // Revision 1.12  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
