@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.3  2004/11/25 16:26:48  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.2  2004/11/25 11:53:49  dkrajzew
 // patched the bug on false intervals stamps if begin!=0
 //
@@ -154,7 +157,7 @@ private:
                                         * class. */
 
     /// A map from sample intervals to the times the interval was called the last time
-    typedef std::map<MSUnit::IntSteps, MSUnit::IntSteps> LastCallsMap;
+    typedef std::map<int, int> LastCallsMap;
 
     /// The map that holds the last call for each sample interval
     LastCallsMap myLastCalls; // !!! ok, we don not have an offset by now, if one is introduced, both the sample interval and the offset must be used as key

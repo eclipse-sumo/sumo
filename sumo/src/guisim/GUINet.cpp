@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2004/11/25 16:26:47  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.36  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -244,15 +247,6 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
     GUIEdge::fill(net->myEdgeWrapper);
     // initialise junction storage for gui
     GUIHelpingJunction::fill(net->myJunctionWrapper, gIDStorage);
-    // initialise detector storage for gui
-    initDetectors();
-    // initialise the tl-map
-    initTLMap();
-    // build the grid
-	GUIGridBuilder b(*net, net->_grid);
-	b.build();
-    // get the boundary
-    net->_boundary = net->_grid.getBoundary();
 }
 
 
@@ -430,6 +424,22 @@ GUINet::getJunctionIDs() const
     return ret;
 }
 
+
+void
+GUINet::closeBuilding(const NLNetBuilder &nb)
+{
+    MSNet::closeBuilding(nb);
+    // initialise detector storage for gui
+    initDetectors();
+    // initialise the tl-map
+    initTLMap();
+    // build the grid
+    // build the grid
+	GUIGridBuilder b(*this, _grid);
+	b.build();
+    // get the boundary
+    _boundary = _grid.getBoundary();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

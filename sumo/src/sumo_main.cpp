@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/11/25 16:26:45  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.23  2004/11/23 10:43:29  dkrajzew
 // debugging
 //
@@ -239,11 +242,9 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         // load the net
         MSNet *net = load(oc);
-        SUMOFrame::postbuild(*net);
         // report the begin when wished
         WRITE_MESSAGE(string("Simulation started with time: ") + toString<int>(oc.getInt("b")));
         // simulate
-        net->preStartInit();
         net->simulate(oc.getInt("b"), oc.getInt("e"));
         // report the end when wished
         WRITE_MESSAGE(string("Simulation ended at time: ") + toString<int>(net->getCurrentTimeStep()));

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/11/25 16:26:46  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.20  2004/11/23 10:12:27  dkrajzew
 // new detectors usage applied
 //
@@ -172,6 +175,10 @@ GUINetBuilder::buildNet(MSVehicleControl *vc)
     if(m_pOptions.isSet("a")&&ok) {
         ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
             handler, *parser);
+    }
+    // close building
+    if(ok) {
+        net->closeBuilding(*this);
     }
     subreport("Loading done.", "Loading failed.");
     delete parser;

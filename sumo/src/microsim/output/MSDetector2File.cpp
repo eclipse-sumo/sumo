@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/25 16:26:47  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.2  2004/11/25 11:53:49  dkrajzew
 // patched the bug on false intervals stamps if begin!=0
 //
@@ -133,7 +136,7 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
             ( this, &MSDetector2File::write2file, key );
         MSEventControl::getEndOfTimestepEvents()->addEvent(
             writeData,
-            OptionsSubSys::getOptions().getInt("begin") + write2fileInterval - 1,
+            OptionsSubSys::getOptions().getInt("begin") + write2fileInterval,
             MSEventControl::ADAPT_AFTER_EXECUTION );
         myLastCalls[sampleInterval] =
             OptionsSubSys::getOptions().getInt("begin");
@@ -176,7 +179,7 @@ MSDetector2File::write2file( IntervalsKey key )
     for ( DetectorFileVec::iterator it = dfVec.begin();
           it != dfVec.end(); ++it ) {
         MSDetectorFileOutput* det = it->first;
-        it->first->writeXMLOutput( *(it->second), startTime, stopTime );
+        it->first->writeXMLOutput( *(it->second), startTime, stopTime-1 );
         it->second->closeInfo();
     }
     myLastCalls[sampleInterval] = MSNet::getInstance()->simSeconds();

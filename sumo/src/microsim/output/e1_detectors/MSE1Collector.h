@@ -398,7 +398,7 @@ protected:
                 MSNet::Time startTime, MSNet::Time stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                MSUnit::getInstance()->getSeconds( stopTime-startTime );
+                MSUnit::getInstance()->getSeconds( stopTime-startTime ) + 1;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it ) {
 

@@ -539,7 +539,7 @@ protected:
             MSNet::Time startTime, MSNet::Time stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                stopTime-startTime;
+                stopTime-startTime+1;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it ) {
 

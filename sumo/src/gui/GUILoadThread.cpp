@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2004/11/25 16:26:46  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.27  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -215,7 +218,6 @@ GUILoadThread::run()
         SUMOFrame::setMSGlobals(oc);
         net = static_cast<GUINet*>(builder->buildNet(buildVehicleControl()));
         if(net!=0) {
-            SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
             simEndTime = oc.getInt("e");
         }

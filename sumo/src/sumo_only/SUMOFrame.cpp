@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/11/25 16:26:50  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.22  2004/11/23 10:27:27  dkrajzew
 // debugging
 //
@@ -219,13 +222,6 @@ SUMOFrame::buildStream(const OptionsCont &oc,
         throw ProcessError();
     }
     return new OutputDevice_File(ret);
-}
-
-
-void
-SUMOFrame::postbuild(MSNet &net)
-{
-    MSJunction::postloadInitContainer();
 }
 
 

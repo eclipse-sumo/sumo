@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/11/25 16:26:50  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.7  2004/11/23 10:27:27  dkrajzew
 // debugging
 //
@@ -76,9 +79,6 @@ public:
     /// Build the output stream named by the according option
     static OutputDevice *buildStream(const OptionsCont &oc,
         const std::string &optionName);
-
-    /// Performs the post-initialisation of the net (!!! should be somewhere else)
-    static void postbuild(MSNet &net);
 
     /**
      * Checks the build settings. The following constraints must be valid:

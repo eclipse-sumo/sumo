@@ -925,7 +925,7 @@ private:
             MSNet::Time startTime, MSNet::Time stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                stopTime-startTime;
+                stopTime-startTime+1;
             size_t i = 0;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it, ++i ) {

@@ -288,7 +288,7 @@ void
 MSInductLoop::writeXMLOutput(XMLDevice &dev,
                              MSNet::Time startTime, MSNet::Time stopTime )
 {
-    MSNet::Time t( stopTime-startTime );
+    MSNet::Time t( stopTime-startTime+1 );
     MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
         + distance(

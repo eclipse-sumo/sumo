@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/25 16:26:48  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.1  2004/11/23 10:14:28  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
@@ -383,7 +386,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
                                             MSNet::Time startTime, MSNet::Time stopTime )
 {
     MSUnit::Seconds lastNSeconds =
-        MSUnit::getInstance()->getSeconds( stopTime-startTime );
+        MSUnit::getInstance()->getSeconds( stopTime-startTime )+1;
     dev.writeString("<interval start=\"").writeString(
         toString(startTime)).writeString("\" stop=\"").writeString(
         toString(stopTime)).writeString("\" ");

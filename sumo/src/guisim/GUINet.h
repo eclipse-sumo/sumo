@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2004/11/25 16:26:47  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.27  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -201,12 +204,14 @@ public:
     friend class GUISUMOAbstractView; // !!!
     friend class GUIGridBuilder;
 
+    virtual void closeBuilding(const NLNetBuilder &nb);
+
 private:
     /// Initialises the detector wrappers
-    static void initDetectors();
+    void initDetectors();
 
     /// Initialises the tl-logic map and wrappers
-    static void initTLMap();
+    void initTLMap();
 
 protected:
     /// default constructor

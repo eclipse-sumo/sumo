@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/11/25 16:26:46  dkrajzew
+// consolidated and debugged some detectors and their usage
+//
 // Revision 1.25  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -283,7 +286,6 @@ GUIRunThread::begin()
     try {
         _simulationInProgress = true;
         _step = _simStartTime;
-        _net->preStartInit();
         _single = false;
         _halting = false;
         _ok = true;
