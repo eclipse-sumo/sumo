@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/02/18 05:32:51  dkrajzew
+// missing pass of lane continuation to detector builder added
+//
 // Revision 1.19  2004/02/16 13:49:08  dkrajzew
 // loading of e2-link-dependent detectors added
 //
@@ -197,7 +200,8 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
+NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, int splInterval,
         const std::string &style, std::string filename,
@@ -219,7 +223,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
             clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -234,7 +238,8 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
+NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, MSTrafficLightLogic *tll,
         const std::string &style, std::string filename,
@@ -256,7 +261,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
             clane, pos, length, 100000, // !!!
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -269,7 +274,8 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
+NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, MSTrafficLightLogic *tll,
         const std::string &tolane,
@@ -299,7 +305,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
             clane, pos, length, 100000, // !!!
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -344,7 +350,7 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane *clane,
                                        float &pos, float &length)
 {
     if(pos<0) {
-        pos = clane->length() + pos;
+        pos *= -1.0;//clane->length() + pos;
     }
     if(length<=0) {
         throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
@@ -448,7 +454,8 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 
 
 MSDetectorFileOutput *
-NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
+NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
+                                       const std::string &id,
                                        DetectorUsage usage,
                                        MSLane *lane, float pos, float length,
                                        int splInterval,
@@ -461,7 +468,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
         lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
-    ret->init(lane, length, MS_E2_ZS_CollectorOverLanes::LaneContinuations());
+    ret->init(lane, length, laneConts);
     E2MeasuresVector toAdd = parseE2Measures(measures);
     for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
         ret->addDetector(*i);

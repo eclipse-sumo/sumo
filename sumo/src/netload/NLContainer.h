@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2004/02/18 05:32:51  dkrajzew
+// missing pass of lane continuation to detector builder added
+//
 // Revision 1.21  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -164,6 +167,13 @@ class MSExtendedTrafficLightLogic;
  */
 class NLContainer {
 public:
+    /// Definitions of a string vector
+    typedef std::vector<std::string> StringVector;
+
+    /// Definition of a map from string -> stringvector
+    typedef std::map<std::string, StringVector> SSVMap;
+
+public:
     /// standard constructor
     NLContainer(NLEdgeControlBuilder * const edgeBuilder,
         NLJunctionControlBuilder * const junctionBuilder);
@@ -282,6 +292,10 @@ public:
     const std::vector<MSLane*> &getIncomingLanes() const;
 
 
+    /// Returns preceding lane information
+    const SSVMap &getLaneConts() const;
+
+
     /// Adds a build traffic light logic
     void addTLLogic(MSTrafficLightLogic *logic);
 
@@ -343,12 +357,6 @@ protected:
 
     /// The list of traffic light logics build
     std::map<std::string, MSTrafficLightLogic*> myLogics;
-
-    /// Definitions of a string vector
-    typedef std::vector<std::string> StringVector;
-
-    /// Definition of a map from string -> stringvector
-    typedef std::map<std::string, StringVector> SSVMap;
 
     /* @brief Backward edge continuation map
 	   The key is the name of an edge, the value is the list of edges

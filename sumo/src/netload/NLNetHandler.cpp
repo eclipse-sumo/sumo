@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.45  2004/02/18 05:32:51  dkrajzew
+// missing pass of lane continuation to detector builder added
+//
 // Revision 1.44  2004/02/16 13:49:08  dkrajzew
 // loading of e2-link-dependent detectors added
 //
@@ -642,7 +645,8 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
     try {
         if(tll!=0) {
             if(toLane.length()==0) {
-                myDetectorBuilder->buildE2Detector(id,
+                myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+                    id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
                     getFloat(attrs, SUMO_ATTR_LENGTH),
@@ -659,7 +663,8 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                     );
             } else {
-                myDetectorBuilder->buildE2Detector(id,
+                myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+                    id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
                     getFloat(attrs, SUMO_ATTR_LENGTH),
@@ -677,7 +682,8 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     );
             }
         } else {
-            myDetectorBuilder->buildE2Detector(id,
+            myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+                id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
                 getFloat(attrs, SUMO_ATTR_LENGTH),

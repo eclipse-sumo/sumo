@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2004/02/18 05:32:51  dkrajzew
+// missing pass of lane continuation to detector builder added
+//
 // Revision 1.9  2004/02/16 13:49:08  dkrajzew
 // loading of e2-link-dependent detectors added
 //
@@ -92,6 +95,13 @@ class MSTrafficLightLogic;
  */
 class NLDetectorBuilder {
 public:
+    /// Definitions of a string vector
+    typedef std::vector<std::string> StringVector;
+
+    /// Definition of a map from string -> stringvector
+    typedef std::map<std::string, StringVector> SSVMap;
+
+public:
     /// Constructor
     NLDetectorBuilder();
 
@@ -104,7 +114,8 @@ public:
         const std::string &style, std::string filename);
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
-    void buildE2Detector(const std::string &id,
+    void buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, int splInterval,
         const std::string &/*style*/, std::string filename,
@@ -115,7 +126,8 @@ public:
         MSUnit::Seconds deleteDataAfterSeconds = 1800);
 
     /// builds a lane-based areal (E2-) detector connected to a lsa
-    void buildE2Detector(const std::string &id,
+    void buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, MSTrafficLightLogic *tll,
         const std::string &/*style*/, std::string filename,
@@ -126,7 +138,8 @@ public:
         MSUnit::Seconds deleteDataAfterSeconds = 1800);
 
     /// builds a lane-based areal (E2-) detector connected to a link's state
-    void buildE2Detector(const std::string &id,
+    void buildE2Detector(const SSVMap &laneConts,
+        const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, MSTrafficLightLogic *tll,
         const std::string &tolane,
@@ -174,7 +187,8 @@ protected:
         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
-    MSDetectorFileOutput *buildMultiLaneE2Det(const std::string &id,
+    MSDetectorFileOutput *buildMultiLaneE2Det(const SSVMap &laneConts,
+        const std::string &id,
         DetectorUsage usage, MSLane *lane, float pos, float length,
         int splInterval,
         MSUnit::Seconds haltingTimeThreshold,

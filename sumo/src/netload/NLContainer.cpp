@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/02/18 05:32:51  dkrajzew
+// missing pass of lane continuation to detector builder added
+//
 // Revision 1.21  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -595,6 +598,13 @@ NLContainer::getTLLogicVector() const
 void
 NLContainer::closeLane()
 {
+}
+
+
+const NLContainer::SSVMap &
+NLContainer::getLaneConts() const
+{
+    return myContinuations;
 }
 
 
