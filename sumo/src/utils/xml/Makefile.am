@@ -2,11 +2,15 @@ noinst_LIBRARIES = libxml.a
 
 EXTRA_DIST =
 
-libxml_a_SOURCES = AttributesHandler.cpp AttributesHandler.h \
+libxml_a_SOURCES = AttributesHandler.cpp \
+GenericSAX2Handler.cpp \
+XMLBuildingExceptions.cpp \
+XMLSubSys.cpp \
+AttributesHandler.h \
 AttributesReadingGenericSAX2Handler.h \
-GenericSAX2Handler.cpp GenericSAX2Handler.h \
-XMLBuildingExceptions.cpp XMLBuildingExceptions.h \
-XMLSubSys.cpp XMLSubSys.h
+GenericSAX2Handler.h \
+XMLBuildingExceptions.h \
+XMLSubSys.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
