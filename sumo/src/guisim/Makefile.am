@@ -15,6 +15,7 @@ GUINetWrapper.cpp GUINetWrapper.h \
 GUINoLogicJunction.cpp GUINoLogicJunction.h \
 GUIRightOfWayJunction.cpp GUIRightOfWayJunction.h \
 GUIRoute.cpp GUIRoute.h GUIRouteHandler.cpp GUIRouteHandler.h \
+GUISelectionLoader.cpp GUISelectionLoader.h \
 GUISourceLane.cpp GUISourceLane.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUITriggerWrapper.cpp GUITriggerWrapper.h \

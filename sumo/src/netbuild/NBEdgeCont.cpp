@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2004/12/16 13:59:17  dkrajzew
+// debugging
+//
 // Revision 1.30  2004/12/16 12:16:30  dkrajzew
 // a further network prune option added
 //
@@ -807,6 +810,7 @@ bool
 NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
 {
     //
+    std::vector<NBEdge*> toRemove;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ) {
         NBEdge *edge = (*i).second;
         string id = edge->getID();
@@ -820,11 +824,12 @@ NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
         if(!found) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            i = _edges.erase(i);
-        } else {
-            ++i;
+	    toRemove.push_back(edge);
         }
+        ++i;
+    }
+    for(std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
+      erase(*j);
     }
     return true;
 }

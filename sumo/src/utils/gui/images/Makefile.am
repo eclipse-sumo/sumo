@@ -11,7 +11,7 @@ locate_add.xpm locate_edge.xpm locate_junction.xpm locate_vehicle.xpm \
 manip.cpp new_window.xpm no.xpm \
 open_bmp_dialog.xpm opening.xpm \
 p.xpm paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
-paintbrush5x.xpm
+paintbrush5x.xpm \
 pl_1.xpm pl_2.xpm pl_3.xpm play.xpm pr_1.xpm pr_2.xpm pr_3.xpm \
 rarify.xpm \
 recenter_view.xpm reload.cpp \
