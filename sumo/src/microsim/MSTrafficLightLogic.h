@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/08/04 11:42:35  dkrajzew
+// missing deletion of traffic light logics on closing a network added
+//
 // Revision 1.7  2003/07/30 09:16:10  dkrajzew
 // a better (correct?) processing of yellow lights added; debugging
 //
@@ -83,6 +86,8 @@ public:
     /** @brief Returns the MSEdgeControl associated to the key id if exists,
         Otherwise returns 0. */
     static MSTrafficLightLogic *dictionary(const std::string &name);
+
+    static void clear();
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;

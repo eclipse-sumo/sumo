@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/08/04 11:42:35  dkrajzew
+// missing deletion of traffic light logics on closing a network added
+//
 // Revision 1.6  2003/07/30 09:16:10  dkrajzew
 // a better (correct?) processing of yellow lights added; debugging
 //
@@ -70,6 +73,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(const std::string &id,  size_t delay)
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
 {
+    myLinks.clear();
 }
 
 
@@ -110,6 +114,16 @@ MSTrafficLightLogic::dictionary(const std::string &name)
     }
     return (*i).second;
 }
+
+
+void
+MSTrafficLightLogic::clear()
+{
+    // they are destroyed within the control
+    //  !!! check deletion consistency
+    _dict.clear();
+}
+
 
 
 void

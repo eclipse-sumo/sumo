@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/08/04 11:42:35  dkrajzew
+// missing deletion of traffic light logics on closing a network added
+//
 // Revision 1.6  2003/07/30 09:09:55  dkrajzew
 // added end-of-link definition (direction, type) for visualisation
 //
@@ -59,6 +62,11 @@ MSLink::MSLink(MSLane* succLane, bool yield,
     myPrio(!yield), myApproaching(0),
     myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
 	myState(state), myAmYellow(false), myDirection(dir)
+{
+}
+
+
+MSLink::~MSLink()
 {
 }
 

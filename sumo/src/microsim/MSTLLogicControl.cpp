@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/08/04 11:42:35  dkrajzew
+// missing deletion of traffic light logics on closing a network added
+//
 // Revision 1.2  2003/07/30 09:16:10  dkrajzew
 // a better (correct?) processing of yellow lights added; debugging
 //
@@ -52,6 +55,9 @@ MSTLLogicControl::MSTLLogicControl(const std::vector<MSTrafficLightLogic*>  &tlL
 
 MSTLLogicControl::~MSTLLogicControl()
 {
+    for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
+        delete (*i);
+    }
 }
 
 

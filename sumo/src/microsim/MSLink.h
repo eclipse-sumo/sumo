@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/08/04 11:42:35  dkrajzew
+// missing deletion of traffic light logics on closing a network added
+//
 // Revision 1.6  2003/07/30 09:09:55  dkrajzew
 // added end-of-link definition (direction, type) for visualisation
 //
@@ -86,6 +89,9 @@ public:
     /// Constructor
     MSLink( MSLane* succLane, bool yield, LinkDirection dir, LinkState state );
 
+    /// Destructor
+    ~MSLink();
+
     /// sets the request information
     void setRequestInformation(MSLogicJunction::Request *request,
         size_t requestIdx, MSLogicJunction::Respond *respond,
@@ -135,7 +141,7 @@ public:
     LinkState myState;
 
 	/// Information whether the tl (if this link belongs to one) shows yellow
-	bool myAmYellow; // !!! deprectaed
+	bool myAmYellow; // !!! deprecated
 
     /// Am abstract (hopefully human readable) definition of the link's direction
     LinkDirection myDirection;
