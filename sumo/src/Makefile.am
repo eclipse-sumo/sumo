@@ -40,16 +40,17 @@ sumo_netconvert_LDADD   = ./netbuild/libnetbuild.a \
 ./netimport/visum/libvisumimport.a \
 ./netimport/xml/libxmlimport.a \
 ./netimport/arcview/libarcviewimport.a \
+./netimport/artemis/libartemisimport.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./utils/distribution/libdistribution.a \
-./utils/importio/libimportio.a \
 ./utils/geom/libgeom.a \
 ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
+./utils/importio/libimportio.a \
 ./utils/convert/libconvert.a \
 ./utils/xml/libxml.a \
 -l$(XERCESLIB)
@@ -79,18 +80,24 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 KDE_OPTIONS = qtonly
 sumo_gui_LDFLAGS = -L$(XERCESLIBPATH) \
 $(all_libraries)
-sumo_gui_LDADD =  ./netload/libnetload.a \
+sumo_gui_LDADD =  ./guinetload/libguinetload.a \
+./guisim/libguisim.a \
+./gui/libgui.a \
+./gui/vartracker/libguivartracker.a \
+./gui/partable/libguipartable.a \
+./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./utils/xml/libxml.a \
+./utils/sumoxml/libsumoxml.a \
 ./utils/common/libcommon.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
-./utils/xml/libxml.a \
-./utils/sumoxml/libsumoxml.a \
+./sumo_only/libsumoonly.a \
 ./helpers/libhelpers.a \
-./gui/libgui.a \
-./guinetload/libguinetload.a \
-./guisim/libguisim.a \
+./utils/geom/libgeom.a \
+./utils/gfx/libgfx.a \
 ./utils/qutils/libqutils.a \
+./utils/glutils/libglutils.a \
 -l$(XERCESLIB) \
 $(LIB_QPE) \
 $(LIB_QT) \
