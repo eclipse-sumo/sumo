@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:28:09  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/03/03 15:06:33  dkrajzew
 // new import format applied; new detectors applied
 //
@@ -168,8 +171,7 @@ NLJunctionControlBuilder::closeJunction()
     MSJunction *junction;
     switch(m_Type) {
     case TYPE_NOJUNCTION:
-        cout << "NoJunctions are not yet known. Using PriorityJunction";
-        junction = buildLogicJunction();
+        junction = buildNoLogicJunction();
         break;
     case TYPE_TRAFFIC_LIGHT:
         junction = buildTrafficLightJunction();
@@ -266,7 +268,7 @@ NLJunctionControlBuilder::getInLaneContSecure()
 
 
 const NLJunctionControlBuilder::LaneCont &
-NLJunctionControlBuilder::getInLanes() const 
+NLJunctionControlBuilder::getInLanes() const
 {
     return m_pActiveInLanes;
 }

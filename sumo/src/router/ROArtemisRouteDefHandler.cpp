@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:26:38  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/03/12 16:39:17  dkrajzew
 // artemis route support added
 //
@@ -125,15 +128,16 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
                         return false;
                     }
                     // build the route
-                    RORouteDef *route = 
-                        new ROOrigDestRouteDef(myRouteIDSupplier.getNext(), 
+                    RORouteDef *route =
+                        new ROOrigDestRouteDef(myRouteIDSupplier.getNext(),
                         from, to);
                     _net.addRouteDef(route);
                     ROVehicleType *type = _net.getDefaultVehicleType();
                     string vehID = myVehIDSupplier.getNext();
-                    _net.addVehicle(vehID, 
-                        new ROVehicle(vehID, route, 
+                    _net.addVehicle(vehID,
+                        new ROVehicle(vehID, route,
                             start, type, -1));
+                    j = poss.end()-1;
                 }
             }
         }
@@ -168,11 +172,11 @@ ROArtemisRouteDefHandler::myInit(OptionsCont &options)
 }
 
 
-bool 
+bool
 ROArtemisRouteDefHandler::report(const std::string &result)
 {
     if(myReadingHVDests) {
-        // parse hv-destinations 
+        // parse hv-destinations
         if(myFirstLine) {
             myLineHandler.reinit(result, "\t", "\t", true);
             myFirstLine = false;
@@ -180,9 +184,9 @@ ROArtemisRouteDefHandler::report(const std::string &result)
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
             string destid = myLineHandler.get("DestID");
-            double perc = 
+            double perc =
                 TplConvert<char>::_2float(myLineHandler.get("Percent").c_str());
-            myNodeConnections[nodeid].push_back( 
+            myNodeConnections[nodeid].push_back(
                 DestPercentage(destid, perc));
         }
     } else {
@@ -193,7 +197,7 @@ ROArtemisRouteDefHandler::report(const std::string &result)
         } else {
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
-            double flow = 
+            double flow =
                 TplConvert<char>::_2float(myLineHandler.get("a0").c_str());
             myNodeFlows[nodeid] = flow;
         }
@@ -203,10 +207,10 @@ ROArtemisRouteDefHandler::report(const std::string &result)
 
 
 
-bool 
+bool
 ROArtemisRouteDefHandler::checkFile(const std::string &file) const
 {
-    return FileHelpers::exists(file + "/HVdests.txt") 
+    return FileHelpers::exists(file + "/HVdests.txt")
         &&
         FileHelpers::exists(file + "/Flows.txt");
 }

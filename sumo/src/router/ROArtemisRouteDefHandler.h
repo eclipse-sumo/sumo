@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/17 14:26:38  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/03/12 16:39:19  dkrajzew
 // artemis route support added
 //
@@ -115,7 +118,7 @@ private:
     /// The value extractor
     NamedColumnsParser myLineHandler;
 
-    /// Definition of a container for propability of a destination 
+    /// Definition of a container for propability of a destination
     typedef std::pair<std::string, double> DestPercentage;
 
     /// Definition of a list of destination propabilities
