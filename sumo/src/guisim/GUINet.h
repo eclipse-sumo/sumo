@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/04/16 09:50:06  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.6  2003/04/15 09:09:14  dkrajzew
 // documentation added
 //
@@ -97,6 +100,9 @@ public:
     /// returns the position of a vehicle (!!! shouldn't it be a const&?)
     Position2D getVehiclePosition(const std::string &name,
         bool useCenter=true) const;
+
+    /// returns the information whether the vehicle still exists
+    bool vehicleExists(const std::string &name) const;
 
     /// returns the boundery of an edge (!!! shouldn't it be a const&?)
     Boundery getEdgeBoundery(const std::string &name) const;

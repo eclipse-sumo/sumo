@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/16 09:50:03  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.5  2003/03/17 14:03:23  dkrajzew
 // Dialog about simulation restart debugged
 //
@@ -113,22 +116,27 @@ const char * singleSimStepText = "Click this button to perform a single simulati
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIApplicationWindow::GUIApplicationWindow()
+GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     : QMainWindow( 0, "example application main window", WDestructiveClose ),
-    _loadThread(0), _runThread(0)
+    _loadThread(0), _runThread(0),
+    myGLWidth(glWidth), myGLHeight(glHeight)
 {
+    // build additional threads
     _loadThread = new GUILoadThread(this);
     _runThread = new GUIRunThread(this, 5);
 
+    // initialise font drawing
+    myFonts.LoadFont("std", "d:\\projects\\sumo\\sumo\\data\\fonts\\sumo.fnt");
 
+    // build tool bars
     buildFileTools();
     buildSimulationTools();
     buildWindowsTools();
 
+    // build menu bar
     QPixmap openIcon, saveIcon;
     openIcon = QPixmap( fileopen );
     saveIcon = QPixmap( filesave );
-
     // build the file-menu
     _fileMenu = new QPopupMenu( this );
     menuBar()->insertItem( "&File", _fileMenu );
@@ -137,7 +145,6 @@ GUIApplicationWindow::GUIApplicationWindow()
     _fileMenu->insertSeparator();
     _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
     _fileMenu->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
-
     // build the windows-menu
     windowsMenu = new QPopupMenu( this );
     windowsMenu->setCheckable( TRUE );
@@ -146,23 +153,28 @@ GUIApplicationWindow::GUIApplicationWindow()
     menuBar()->insertSeparator();
     QPopupMenu * help = new QPopupMenu( this );
     menuBar()->insertItem( "&Help", help );
-
     // build the help-menu
     help->insertItem( "&About", this, SLOT(about()), Key_F1);
     help->insertItem( "About&Qt", this, SLOT(aboutQt()));
     help->insertSeparator();
     help->insertItem( "What's &This", this, SLOT(whatsThis()), SHIFT+Key_F1);
 
+    // make the window a mdi-window
     QVBox* vb = new QVBox( this );
     vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
     ws = new QWorkspace( vb );
     setCentralWidget( vb );
 
+    // set the status bar
     statusBar()->message( "Ready", 2000 );
-    _runThread->start();
+
+    // set the caption
     string caption = string("SUMO ") + string(version)
         + string(" - no simulation loaded");
     setCaption( caption.c_str());
+
+    // start the simulation-thread
+    _runThread->start();
 }
 
 
@@ -307,7 +319,7 @@ GUIApplicationWindow::openNewWindow()
         return;
     }
     GUISUMOView* w = new GUISUMOView( ws, 0, WDestructiveClose,
-        _runThread->getNet() );
+        _runThread->getNet(), this );
     connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
     string caption = string("View #") + toString(myViewNumber++);
     w->setCaption( caption.c_str() );
@@ -497,6 +509,22 @@ GUIApplicationWindow::resetSimulationToolBar()
     _simStepLabel->setText("-");
     _windowAdder->setEnabled(false);
 }
+
+
+int
+GUIApplicationWindow::getMaxGLWidth() const
+{
+    return myGLWidth;
+}
+
+
+int
+GUIApplicationWindow::getMaxGLHeight() const
+{
+    return myGLHeight;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

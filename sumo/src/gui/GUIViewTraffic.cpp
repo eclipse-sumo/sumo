@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/04/16 09:50:04  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.11  2003/04/14 08:24:57  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
@@ -124,8 +127,8 @@ GUIViewTraffic::GUIViewTraffic(GUISUMOView *parent, GUINet &net)
 {
     // set window sizes
     setMinimumSize(100, 30);
-    setBaseSize(800, 800);
-    setMaximumSize(800, 800);
+    setBaseSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
+    setMaximumSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
     // compute the net scale
     double nw = _net.getBoundery().getWidth();
     double nh = _net.getBoundery().getHeight();
@@ -298,9 +301,13 @@ GUIViewTraffic::initializeGL()
 {
     _lock.lock();
 	GUINet::lockAlloc();
-    _widthInPixels = 800;
-    _heightInPixels = 800;
-    glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
+    _widthInPixels = _parent->getMaxGLWidth();
+    _heightInPixels = _parent->getMaxGLHeight();
+    _ratio = (double) _widthInPixels / (double) _heightInPixels;
+/*    int h =  _parent->getMaxGLWidth() > _parent->getMaxGLHeight()
+        ? _parent->getMaxGLWidth()
+        : _parent->getMaxGLHeight();*/
+    glViewport( 0, 0, _parent->getMaxGLWidth()-1, _parent->getMaxGLHeight()-1 );
     glClearColor( 1.0, 1.0, 1.0, 0.0 );
     glDisable( GL_DEPTH_TEST );
     glDisable( GL_LIGHTING );
@@ -316,6 +323,9 @@ void
 GUIViewTraffic::resizeGL( int width, int height )
 {
     _lock.lock();
+    _widthInPixels = width;
+    _heightInPixels = height;
+//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
     _changer->applyCanvasSize(width, height);
     _lock.unlock();
 }
@@ -332,13 +342,17 @@ GUIViewTraffic::updateToolTip()
     _noDrawing++;
     // initialise the select mode
     const int SENSITIVITY = 2;
-    double scale = double(_widthInPixels)/double(SENSITIVITY);
+    double scale =
+        _widthInPixels / _net.getBoundery().getWidth() < _heightInPixels / _net.getBoundery().getHeight()
+        ? double(_widthInPixels)/double(SENSITIVITY)
+        : double(_heightInPixels)/double(SENSITIVITY);
+
     applyChanges(scale, _toolTipX+_mouseHotspotX,
         _toolTipY+_mouseHotspotY);
     // paint in select mode
     doPaintGL(GL_SELECT, scale);
-//    glFlush();
-//    swapBuffers();
+    glFlush();
+    swapBuffers();
     // mark end-of-drawing
     _noDrawing--;
     _lock.unlock();
@@ -361,6 +375,9 @@ GUIViewTraffic::paintGL()
         _lock.unlock();
         return;
     }
+    _widthInPixels = width();
+    _heightInPixels = height();
+//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
     // draw
     glClear(GL_COLOR_BUFFER_BIT);
     applyChanges(1.0, 0, 0);
@@ -380,7 +397,11 @@ GUIViewTraffic::paintGL()
     const int SENSITIVITY = 2;
     LaneColoringScheme tmp = _laneColScheme;
     _laneColScheme = LCS_BY_SPEED;
-    double scale = double(_widthInPixels)/double(SENSITIVITY);
+    double scale = double(getMaxGLWidth())/double(SENSITIVITY);
+/*    double scale =
+        _widthInPixels / _net.getBoundery().getWidth() < _heightInPixels / _net.getBoundery().getHeight()
+        ? double(_heightInPixels)/double(SENSITIVITY)/(double)_parent->getMaxGLHeight()*double(_heightInPixels)
+        : double(_widthInPixels)/double(SENSITIVITY)/(double)_parent->getMaxGLWidth()*double(_widthInPixels);*/
     applyChanges(scale, _toolTipX+_mouseHotspotX,
         _toolTipY+_mouseHotspotY);
     // paint in select mode
@@ -418,13 +439,26 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         paintGLGrid();
     }
     double x = (_net.getBoundery().getCenter().first - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * _netScale; // offset to right
+    double xoff = 50.0 / _changer->getZoom() * _netScale
+        / _addScl; // offset to right
     double y = (_net.getBoundery().getCenter().second - _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * _netScale; // offset to top
+    double yoff = 50.0 / _changer->getZoom() * _netScale
+        / _addScl; // offset to top
 	GUINet::lockAlloc();
     _net._edgeGrid.get(_edges, x, y, xoff, yoff);
 	GUINet::unlockAlloc();
     paintGLEdges(_edges, scale);
+
+
+    glBegin(GL_LINES);
+    glColor3f(1.0, 1.0, 0);
+    glVertex2f(-.5, 0);
+    glVertex2f(.5, 0);
+    glVertex2f(0, 0.5);
+    glVertex2f(0, -.5);
+    glEnd();
+
+
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
         paintGLVehicles(_edges);
@@ -501,6 +535,14 @@ GUIViewTraffic::paintGLEdges(GUIEdgeGrid::GUIEdgeSet &edges, double scale)
         }
     }
     _laneDrawer->closeStep();
+
+    glBegin(GL_LINES);
+    glColor3f(1, 0, 0);
+    glVertex2f(0, 0);
+    glVertex2f(500, 0);
+    glVertex2f(0, 0);
+    glVertex2f(0, 500);
+    glEnd();
 }
 
 
@@ -591,6 +633,7 @@ GUIViewTraffic::applyChanges(double scale,
 {
     _widthInPixels = width();
     _heightInPixels = height();
+//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     // rotate first;
@@ -598,7 +641,28 @@ GUIViewTraffic::applyChanges(double scale,
     //  unclear
     glRotated(_changer->getRotation(), 0, 0, 1);
     // Fit the view's size to the size of the net
-    glScaled(2.0/_netScale, 2.0/_netScale, 0);
+    glScaled(
+        2.0/_netScale,
+        2.0/_netScale,
+        0);
+    // apply ratio between window width and height
+    glScaled(1/_ratio, 1, 0);
+    // initially (zoom=100), the net shall be completely visible on the screen
+    double xs = ((double) _widthInPixels / (double) _parent->getMaxGLWidth())
+        / (_net.getBoundery().getWidth() / _netScale) * _ratio;
+    double ys = ((double) _heightInPixels / (double) _parent->getMaxGLHeight())
+        / (_net.getBoundery().getHeight() / _netScale);
+    if(xs<ys) {
+        glScaled(xs, xs, 1);
+        _addScl = xs;
+    } else {
+        glScaled(ys, ys, 1);
+        _addScl = ys;
+    }
+    // initially, leave some room for the net
+    glScaled(0.97, 0.97, 1);
+    _addScl *= .97;
+
     // Apply the zoom and the scale
     double zoom = _changer->getZoom() / 100.0 * scale;
     glScaled(zoom, zoom, 0);
@@ -622,8 +686,12 @@ GUIViewTraffic::applyChanges(double scale,
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // apply the widow size
-    double xf = -1.0*(800.0-(double) _widthInPixels)/800.0;
-    double yf = -1.0*(800.0-(double) _heightInPixels)/800.0;
+    double xf = -1.0 *
+        ((double) _parent->getMaxGLWidth() - (double) _widthInPixels)
+        / (double) _parent->getMaxGLWidth();
+    double yf = -1.0 *
+        ((double) _parent->getMaxGLHeight() - (double) _heightInPixels)
+        / (double) _parent->getMaxGLHeight();
     glTranslated(xf, yf, 0);
     _changer->applied();
 }
@@ -661,7 +729,9 @@ double
 GUIViewTraffic::m2p(double meter)
 {
     return
-        (meter/_netScale * 8.0 * _changer->getZoom());
+        (meter/_netScale
+        * (_parent->getMaxGLWidth()/_ratio)
+        * _addScl * _changer->getZoom() / 100.0);
 }
 
 
@@ -669,7 +739,8 @@ double
 GUIViewTraffic::p2m(double pixel)
 {
     return
-        pixel * _netScale / (8.0*_changer->getZoom());
+        pixel * _netScale /
+        ((_parent->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / 100.0);
 }
 
 
@@ -700,8 +771,14 @@ GUIViewTraffic::centerTo(GUIChooser::ChooseableArtifact type,
         break;
     case GUIChooser::CHOOSEABLE_ARTIFACT_VEHICLES:
         {
-            Position2D pos = _net.getVehiclePosition(name);
-            centerTo(pos, 20); // !!! another radius?
+            GUINet::lockAlloc();
+            if(_net.vehicleExists(name)) {
+                Position2D pos = _net.getVehiclePosition(name);
+                GUINet::unlockAlloc();
+                centerTo(pos, 20); // !!! another radius?
+            } else {
+                GUINet::unlockAlloc();
+            }
         }
         break;
     default:
@@ -777,6 +854,23 @@ GUIViewTraffic::makeCurrent()
 	_lock.unlock();
 	GUINet::unlockAlloc();
 }
+
+
+
+int
+GUIViewTraffic::getMaxGLWidth() const
+{
+    return _parent->getMaxGLWidth();
+}
+
+int
+GUIViewTraffic::getMaxGLHeight() const
+{
+    return _parent->getMaxGLHeight();
+}
+
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/16 09:50:04  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.5  2003/04/04 15:04:53  roessel
 // Added #include <qtoolbutton.h>
 //
@@ -47,6 +50,7 @@
 #include <qmainwindow.h>
 #include <qworkspace.h>
 #include <qtoolbutton.h>
+#include <utils/glutils/lfontrenderer.h>
 
 /* =========================================================================
  * class declarations
@@ -74,10 +78,16 @@ class GUIApplicationWindow: public QMainWindow
 
 public:
     /** constructor */
-    GUIApplicationWindow();
+    GUIApplicationWindow(int glWidth, int glHeight);
 
     /** destructor */
     ~GUIApplicationWindow();
+
+    /// Returns the maximum width of gl-windows
+    int getMaxGLWidth() const;
+
+    /// Returns the maximum height of gl-windows
+    int getMaxGLHeight() const;
 
 private slots:
     /** called from the menu, this method allows to choose a simulation
@@ -175,10 +185,18 @@ private:
 
     /// The id of the "load" menu entry
     int _loadID;
+
     /// the pointer to the tool bar "load" entry
     QToolButton *_fileOpen;
+
     /// the menu holding the file operations
     QPopupMenu * _fileMenu;
+
+    /// The opengl-font renderer
+    LFontRenderer myFonts;
+
+    /// The openGL-maximum screen sizes
+    int myGLWidth, myGLHeight;
 
 };
 

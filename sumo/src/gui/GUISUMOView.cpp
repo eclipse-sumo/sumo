@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/16 09:50:04  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.5  2003/04/14 08:24:56  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
@@ -78,6 +81,7 @@ namespace
 #include "GUIChooser.h"
 #include "GUIViewTraffic.h"
 #include "QGUIToggleButton.h"
+#include "GUIApplicationWindow.h"
 #include "GUISUMOView.h"
 
 
@@ -91,12 +95,13 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
-                         GUINet &net )
+                         GUINet &net, GUIApplicationWindow *parentWindow )
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
     _view(0), _viewTools(0), _trackingTools(0),
     _showLegendToggle(0), _allowRotationToggle(0),
     _behaviourToggle1(0), _behaviourToggle2(0), _behaviourToggle3(0),
-    _showLegend(true), _allowRotation(false), _chooser(0)
+    _showLegend(true), _allowRotation(false), _chooser(0),
+    myParent(parentWindow)
 {
     // build the tool bar
     buildViewTools();
@@ -385,6 +390,21 @@ GUISUMOView::toggleBehaviour3()
     _behaviourToggle1->publicSetOn(false);
     _behaviourToggle2->publicSetOn(false);
 }
+
+
+int
+GUISUMOView::getMaxGLWidth() const
+{
+    return myParent->getMaxGLWidth();
+}
+
+int
+GUISUMOView::getMaxGLHeight() const
+{
+    return myParent->getMaxGLHeight();
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

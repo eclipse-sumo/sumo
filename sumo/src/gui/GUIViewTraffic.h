@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.5  2003/04/15 09:09:11  dkrajzew
-// documentation added
+// Revision 1.6  2003/04/16 09:50:05  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
 //
 // Revision 1.4  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
@@ -110,6 +110,12 @@ public:
 
     /// A method that updates the tooltip
     void updateToolTip();
+
+    /// Returns the maximum width of gl-windows
+    int getMaxGLWidth() const;
+
+    /// Returns the maximum height of gl-windows
+    int getMaxGLHeight() const;
 
 public slots:
     /** changes the vehicle colouring scheme to the on stored under the given
@@ -331,6 +337,12 @@ private:
 
     /// A lock for drawing operations
     NewQMutex _lock;
+
+    /// _widthInPixels / _heightInPixels
+    double _ratio;
+
+    /// Additional scaling factor for meters-to-pixels conversion
+    double _addScl;
 
 };
 

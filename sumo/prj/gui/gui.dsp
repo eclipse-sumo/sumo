@@ -213,6 +213,10 @@ SOURCE=..\..\src\gui\GUIViewTraffic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\glutils\lfontrenderer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
@@ -718,6 +722,10 @@ InputPath=..\..\src\gui\GUIViewTraffic.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\HelpPrinter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\glutils\lfontrenderer.h
 # End Source File
 # Begin Source File
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/16 09:50:04  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.3  2003/04/14 08:24:57  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
@@ -52,6 +55,7 @@ class GUINet;
 class QToolBar;
 class GUIViewTraffic;
 class QGUIToggleButton;
+class GUIApplicationWindow;
 
 
 /* =========================================================================
@@ -69,7 +73,8 @@ class GUISUMOView : public QMainWindow
     Q_OBJECT
 public:
     /// constructor
-    GUISUMOView( QWidget* parent, const char* name, int wflags, GUINet &net );
+    GUISUMOView( QWidget* parent, const char* name, int wflags, GUINet &net,
+        GUIApplicationWindow *parentWindow);
 
     /// destructor
     ~GUISUMOView();
@@ -101,6 +106,12 @@ public:
 
     /// information whether the canvas may be rotated
     bool allowRotation() const;
+
+    /// Returns the maximum width of gl-windows
+    int getMaxGLWidth() const;
+
+    /// Returns the maximum height of gl-windows
+    int getMaxGLHeight() const;
 
 public slots:
     /// called when the user presses the "choose junction"-button
@@ -184,6 +195,9 @@ private:
 
     /// the artifact chooser
     GUIChooser *_chooser;
+
+    /// The parent window
+    GUIApplicationWindow *myParent;
 };
 
 

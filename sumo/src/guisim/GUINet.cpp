@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/16 09:50:06  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.6  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
 //
@@ -126,6 +129,13 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
         pos -= (vehicle->length() / 2.0);
     }
     return edge->getLanePosition(vehicle->getLane(), pos);
+}
+
+
+bool
+GUINet::vehicleExists(const std::string &name) const
+{
+    return MSVehicle::dictionary(name)!=0;
 }
 
 

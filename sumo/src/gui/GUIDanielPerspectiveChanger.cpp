@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/16 09:50:04  dkrajzew
+// centering of the network debugged; additional parameter of maximum display size added
+//
 // Revision 1.5  2003/04/04 08:37:49  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -152,17 +155,29 @@ GUIDanielPerspectiveChanger::getYPos() const
 double
 GUIDanielPerspectiveChanger::getZoom() const
 {
+    return _zoom;
+    /*
+    double scl = myNetWidth > myNetHeight
+        ? (double) myCanvasWidth / (double) _callback.getMaxGLWidth()
+        : (double) myCanvasHeight / (double) _callback.getMaxGLHeight();
+    return _zoom * scl * 0.95;
+    */
+/*
+
     double scl = myNetWidth > myNetHeight
         ? myNetWidth
         : myNetHeight;
     double xs = (double) myNetWidth / scl
-        * (double) myCanvasWidth / 800.0;
+        * (double) myCanvasWidth / _callback.getMaxGLWidth();//800.0;
     double ys = (double) myNetHeight / scl
-        * (double) myCanvasHeight / 800.0;
+        * (double) myCanvasHeight / _callback.getMaxGLWidth();//800.0;
 //    double ys = (double) myNetHeight / (double) myCanvasHeight;
+    cout << "getZoom" << _zoom << ", " << xs << ", " << ys << endl;
     return xs < ys
-        ? _zoom * xs * 0.9
-        : _zoom * ys * 0.9;
+        ? _zoom * xs * 0.95
+        : _zoom * ys * 0.95;
+    return _zoom;
+    */
 }
 
 
