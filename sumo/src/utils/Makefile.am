@@ -1,6 +1,5 @@
 SUBDIRS = common \
 convert \
-CVS \
 dev \
 distribution \
 geom \
