@@ -2,11 +2,13 @@ noinst_LIBRARIES = libvissimimport.a
 
 EXTRA_DIST =
 
-libvissimimport_a_SOURCES = NIVissimElements.h \
-NIVissimLoader.cpp NIVissimLoader.h
+libvissimimport_a_SOURCES = NIVissimLoader.cpp \
+NIVissimElements.h \
+NIVissimLoader.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
 
-SUBDIRS = typeloader tempstructs
+SUBDIRS = tempstructs \
+typeloader 
 
 
