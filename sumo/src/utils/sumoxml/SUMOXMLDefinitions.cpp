@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:52:39  dkrajzew
+// MSTrafficLane-transformations were no longer needed
+//
 // Revision 1.6  2003/03/20 16:41:12  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -49,9 +52,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 38;
+size_t noSumoTags = 36;
 
-GenericSAX2Handler::Tag sumotags[38] =
+GenericSAX2Handler::Tag sumotags[36] =
 {
     /* 00 */  { "simulation",       SUMO_TAG_SIMULATION },
     /* 01 */  { "edge",             SUMO_TAG_EDGE },
@@ -69,10 +72,8 @@ GenericSAX2Handler::Tag sumotags[38] =
     /* 13 */  { "key",              SUMO_TAG_KEY },
     /* 14 */  { "junctionlogic",    SUMO_TAG_JUNCTIONLOGIC },
     /* 15 */  { "requestsize",      SUMO_TAG_REQUESTSIZE },
-    /* 16 */  { "responsesize",     SUMO_TAG_RESPONSESIZE },
     /* 17 */  { "lanenumber",       SUMO_TAG_LANENUMBER },
     /* 18 */  { "logicitem",        SUMO_TAG_LOGICITEM },
-    /* 19 */  { "trafoitem",        SUMO_TAG_TRAFOITEM },
     /* 20 */  { "row-logic",        SUMO_TAG_ROWLOGIC },
     /* 21 */  { "source",           SUMO_TAG_SOURCE },
     /* 22 */  { "district",         SUMO_TAG_DISTRICT },

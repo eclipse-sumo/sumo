@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/05/20 09:52:39  dkrajzew
+// MSTrafficLane-transformations were no longer needed
+//
 // Revision 1.6  2003/03/20 16:41:12  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -85,14 +88,10 @@ enum TagEnum
     SUMO_TAG_ROWLOGIC,
     /** the request size (of a junction logic) */
     SUMO_TAG_REQUESTSIZE,
-    /** the response size (of a junction logic) */
-    SUMO_TAG_RESPONSESIZE,
     /** the number of lanes */
     SUMO_TAG_LANENUMBER,
     /** description of a single junction logic part */
     SUMO_TAG_LOGICITEM,
-    /** a transformation item */
-    SUMO_TAG_TRAFOITEM,
     /** a source */
     SUMO_TAG_SOURCE,
     /** a district */
@@ -216,7 +215,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[38];
+extern GenericSAX2Handler::Tag sumotags[36];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
