@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.24  2003/07/18 12:36:29  dkrajzew
+// missing reset of vehicle nuzmber after lane change added
+//
 // Revision 1.23  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -352,12 +355,12 @@ MSLane::MSLane( MSNet &net,
     PreStartInitialised(net),
     myID( id ),
     myVehicles(),
-    myMaxSpeed( maxSpeed ),
     myLength( length ),
     myEdge( edge ),
+    myMaxSpeed( maxSpeed ),
+    myApproaching(0),
     myVehBuffer( 0 ),
-    myMeanData(),
-    myApproaching(0)
+    myMeanData()
 {
     myLastState = MSVehicle::State(10000, 10000);
     myFirstUnsafe = 0;
@@ -466,6 +469,7 @@ MSLane::moveCritical()
 void
 MSLane::detectCollisions( MSNet::Time timestep ) const
 {
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
     if ( myVehicles.size() < 2 ) {
         return;
     }
@@ -506,8 +510,9 @@ MSLane::emit( MSVehicle& veh )
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
     // the precening lane hasn't a much higher MaxSpeed)
     // This safePos is ugly, but we will live with it in this revision.
-    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
+/*    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
+*/
 //    assert( safePos < myLength ); // Lane has to be longer than safePos,
     // otherwise emission (this kind of emission) makes no sense.
 
@@ -1187,7 +1192,7 @@ MSLane::MeanData::MeanData( const MSLane& obj,
 ostream&
 operator<<( ostream& os, const MSLane::MeanData& obj )
 {
-    const double meanVehLength = 7.5;
+//    const double meanVehLength = 7.5;
     const MSLane& lane = obj.myObj;
     assert(lane.myMeanData.size()>obj.myIndex);
     const MSLane::MeanDataValues& meanData = lane.myMeanData[ obj.myIndex ];
@@ -1336,6 +1341,7 @@ MSLane::swapAfterLaneChange()
         myLastState = MSVehicle::State(10000, 10000);
         myFirstUnsafe = 0;//myVehicles.size();
     }
+    assert(myUseDefinition->noVehicles==myVehicles.size());
 }
 
 
