@@ -4,8 +4,7 @@ noinst_LIBRARIES = libmicrosim.a
 EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
-MSInductLoop.cpp \
-MSLaneState.cpp
+MSInductLoop.cpp 
 
 libmicrosim_a_SOURCES = MSDetector.cpp \
 MSEdgeControl.cpp \
@@ -18,6 +17,7 @@ MSJunctionLogic.cpp \
 MSLaneChanger.cpp \
 MSLane.cpp \
 MSLaneSpeedTrigger.cpp \
+MSLaneState.cpp \
 MSLink.cpp \
 MSLogicJunction.cpp \
 MSNet.cpp \
@@ -38,6 +38,7 @@ MSTriggeredXMLReader.cpp \
 MSVehicleContainer.cpp \
 MSVehicle.cpp \
 MSVehicleType.cpp \
+MSLaneStateReminder.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
 MSDetector.h \
@@ -75,7 +76,9 @@ MSTriggeredXMLReader.h \
 MSTrigger.h \
 MSVehicleContainer.h \
 MSVehicle.h \
-MSVehicleType.h
+MSVehicleType.h \
+MSLaneStateReminder.h \
+MSMoveReminder.h 
 
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
