@@ -4,23 +4,28 @@
 /**
  * @file   MSTravelcostDetector.h
  * @author Christian Roessel
- * @date   Mon Jun  2 17:21:27 2003
- * 
- * @brief  
+ * @date   Started Mon Jun  2 17:21:27 2003
+ * $Revision$ from $Date$ by $Author$
+ * @brief  Implementation of class MSTravelcostDetector.
  * 
  * 
  */
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+
 
 // $Log$
+// Revision 1.4  2003/06/06 15:33:49  roessel
+// Added documentation.
+// Added maxIntervalLengthM member and assert in addSampleInterval().
+//
 // Revision 1.3  2003/06/06 11:00:35  roessel
 // Added cast due to compiler warning.
 //
@@ -45,26 +50,63 @@ class MSEdge;
 class MSLane;
 class Command;
 
+/**
+ * Template-singleton class. Sets Cost detectors on all MSLane objects. You
+ * can add sample intervals via addSampleInterval(). If sample time is over,
+ * output is written to file. There is one file for each interval.
+ *
+ * The template parameter class Cost must offer following methods:
+ * A constructor Cost( std::string id, MSLane* lane, double startPos,
+ * double length, MSNet::Time deleteDataAfterSeconds),
+ * Cost::getNamePrefix(),
+ * Cost::getXMLHeader() and
+ * Cost::getXMLOutput().
+ * For a Cost example see MSLaneState.
+ *
+ * @see MSLaneState
+ * @see Singleton in Design Patterns, Gamma et al.
+ */
 template< class Cost >
 class MSTravelcostDetector
 {
 public:
+    /// Type of the internal interval-file map.
     typedef std::map< MSNet::Time, std::ofstream* > IntervalFileMap;
+    /// Type of an iterator to the interval-file map.
     typedef typename IntervalFileMap::iterator IntervalFileMapIt;
-    
+    /// Type of the internal lane-cost container.
     typedef std::vector< std::pair< MSLane*, Cost* > > laneCostCont;
+    /// Type of an iterator to the lane-cost container. 
     typedef typename laneCostCont::iterator laneCostContIt;
-
+    /// Type of the internal edge-(lane-cost) container.
     typedef std::vector< std::pair< MSEdge*, laneCostCont > > EdgeLaneCostCont;
+    /// Type of an iterator to the edge-(lane-cost) container.
     typedef typename EdgeLaneCostCont::iterator EdgeLaneCostContIt;
     
-    
+    /** 
+     * Create the singleton and set a maximum interval length.
+     * 
+     * @param maxIntervalLength Set the maximum interval length. It is not
+     * allowed to call addSampleInterval() with a length higher than
+     * maxIntervalLength. This restriction is caused by a periodical cleanup
+     * of the Cost detector.
+     *
+     * @see MSLaneState
+     */
     static void create( MSNet::Time maxIntervalLength )
         {
             assert( instanceM == 0 );
             instanceM = new MSTravelcostDetector( maxIntervalLength );
         }
 
+    /**
+     * Get the sole instance of this class. Instead of creating this instance
+     * in the first call, here the sole instance is created by calling
+     * create().
+     *
+     * @see create()
+     * @return A pointer to the sole instance of this class.
+     */    
     static MSTravelcostDetector* getInstance( void )
         {
             if ( instanceM == 0 ) {
@@ -73,6 +115,15 @@ public:
             return instanceM;
         }
 
+    /** 
+     * Destructor. Resets member instanceM and closes all opened files. Clears
+     * containers.
+     * @note The created Cost objects are not deleted. In case of MSLaneState
+     * as Cost you have to get a vetcor of all MSLaneState objects via the
+     * SingletonDictionary and delete them manually. It is a good idea to add
+     * your own Cost objects to a SingletonDictionary too.
+     * 
+     */
     ~MSTravelcostDetector( void )
         {
             instanceM = 0;
@@ -86,9 +137,15 @@ public:
             edgeLaneCostsM.clear();
         }
     
-    
+    /** 
+     * Add a sample interval. A new file for this interval is created and
+     * a OneArgumentCommand is added to MSEventControl.
+     * 
+     * @param intervalLength Length of the sample interval.
+     */
     void addSampleInterval( MSNet::Time intervalLength )
         {
+            assert( maxIntervalLengthM >= intervalLength );
             if ( intervalsAndFilesM.find( intervalLength ) !=
                  intervalsAndFilesM.end() ) {
                 cerr << "MSTravelcostDetector::addSampleInterval "
@@ -115,7 +172,16 @@ public:
                 MSEventControl::ADAPT_AFTER_EXECUTION );
         }
 
-
+    /** 
+     * Write aggregated data to file corresponding to intervalLength. The
+     * aggregation is done by the Cost objects receiving the intervalLength.
+     * Issue a new OneArgumentCommand when done.
+     * 
+     * @param intervalLength Length of the sample interval.
+     * 
+     * @return Length of the sample interval. This adds a new Event to
+     * MSEventControl that is due in intervalLength timesteps.
+     */
     MSNet::Time write2file( int intervalLength )
         {
             IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalLength );
@@ -147,10 +213,17 @@ public:
 protected:
 
 
-    /// ctor
+    /** 
+     * Constructor. Creates Cost objects for each MSLane in MSNet and fills
+     * the internal edgeLaneCostsM container.
+     * 
+     * @param maxIntervalLength Maximum length of a sample interval added by
+     * addSampleInterval().
+     */
     MSTravelcostDetector( MSNet::Time maxIntervalLength ) :
         intervalsAndFilesM(),
-        edgeLaneCostsM()
+        edgeLaneCostsM(),
+        maxIntervalLengthM( maxIntervalLength )
         {
             // create EdgeLaneCostCont
             typedef std::vector< MSEdge* > Edges;
@@ -178,11 +251,16 @@ protected:
 
 
 private:
-    IntervalFileMap intervalsAndFilesM;   
+    IntervalFileMap intervalsAndFilesM; /**< Map of interval-file pairs. */
 
-    EdgeLaneCostCont edgeLaneCostsM;
+    EdgeLaneCostCont edgeLaneCostsM; /**< Container of MSEWdge-laneCostCont
+                                      * pairs. */
  
-    static MSTravelcostDetector* instanceM;
+    static MSTravelcostDetector* instanceM; /**< The sole instance of this
+                                             * class. */
+
+    MSNet::Time maxIntervalLengthM; /**< Maximum interval length to be added
+                                     * by addSampleInterval().*/
 };
 
 
