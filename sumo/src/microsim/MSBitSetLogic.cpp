@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/12/05 10:27:59  dkrajzew
+// internal links usage patched (unfinished yet, but working)
+//
 // Revision 1.5  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -137,6 +140,7 @@ MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
     for ( i = 0; i < myNLinks; ++i ) {
 
         bool linkPermit = request.test( i ) &&
+            respond.test( i ) &&
             ( innerState & ( *myInternalLinksFoes )[ i ]).none();
         std::bitset<64> bla = ( *myInternalLinksFoes )[ i ];
         respond.set( i, linkPermit );
