@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/03/12 16:47:54  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.8  2003/03/06 17:18:41  dkrajzew
 // debugging during vissim implementation
 //
@@ -977,6 +980,9 @@ NBNode::computeLogic(NBRequest *request, long maxSize)
         key = NBLogicKeyBuilder::rotateKey(key, norot);
     } //else {
     cout << key << endl;*/
+    if(_id=="10") {
+        int bla = 0;
+    }
         request->buildBitfieldLogic(_id);
     //}
     //setKey(key);
@@ -1441,6 +1447,32 @@ NBNode::findGroup(const NBNode::SignalGroupCont &defs,
         }
     }
     return 0;
+}
+
+
+Position2D 
+NBNode::getEmptyDir() const
+{
+    Position2D pos(0, 0);
+    EdgeVector::const_iterator i;
+    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        NBNode *conn = (*i)->getFromNode();
+        Position2D toAdd = 
+            Position2D(conn->getXCoordinate()-_x, 
+                conn->getYCoordinate()-_y);
+        toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
+        pos.add(toAdd);
+    }
+    for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+        NBNode *conn = (*i)->getToNode();
+        Position2D toAdd = 
+            Position2D(conn->getXCoordinate()-_x, 
+                conn->getYCoordinate()-_y);
+        toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
+        pos.add(toAdd);
+    }
+    pos.mul(-1.0/(_incomingEdges->size()+_outgoingEdges->size()));
+    return pos;
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/03/12 16:47:54  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.5  2003/03/03 14:59:06  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -299,6 +302,9 @@ public:
     /// sets the connection between two nodes via this node
     std::string setTurningDefinition(NBNode *from, NBNode *to);
 
+    /** @brief Returns something like the most unused direction
+        Should only be used to add source or sink nodes */
+    Position2D getEmptyDir() const;
 
     bool hasOutgoing(NBEdge *e) const;
     bool hasIncoming(NBEdge *e) const;

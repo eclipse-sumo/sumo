@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/12 16:47:52  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -262,6 +265,13 @@ public:
             return fabs(d - _angle);
         }
     };
+
+
+    /** Tries to return the first edge within the given container which 
+        connects both given nodes */
+    static NBEdge *findConnectingEdge(const EdgeVector &edges, 
+        NBNode *from, NBNode *to);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

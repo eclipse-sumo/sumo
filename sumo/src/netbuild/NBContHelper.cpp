@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/12 16:47:52  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.2  2003/02/07 10:43:43  dkrajzew
 // updated
 //
@@ -119,6 +122,21 @@ NBContHelper::out(std::ostream &os, const std::vector<bool> &v)
     }
     return os;
 }
+
+
+NBEdge *
+NBContHelper::findConnectingEdge(const EdgeVector &edges, 
+                                 NBNode *from, NBNode *to)
+{
+    for(EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+        if((*i)->getToNode()==to && (*i)->getFromNode()==from) {
+            return *i;
+        }
+    }
+    return 0;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

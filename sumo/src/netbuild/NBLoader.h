@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/12 16:47:54  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -106,6 +109,9 @@ private:
 
     /** loads data from cell-input-files */
     static void loadCell(OptionsCont &oc, bool warn);
+
+    /** loads data from artemis-input-files */
+    static void loadArtemis(OptionsCont &oc, bool warn);
 
     /** reads using a file reader */
     static bool useLineReader(LineReader &lr, const std::string &file,

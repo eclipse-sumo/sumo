@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/12 16:47:53  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.4  2003/02/13 15:54:07  dkrajzew
 // xml-loaders now use new options
 //
@@ -112,6 +115,7 @@ namespace
 #include <netimport/visum/NIVisumLoader.h>
 #include <netimport/vissim/NIVissimLoader.h>
 #include <netimport/arcview/NIArcView_Loader.h>
+#include <netimport/artemis/NIArtemisLoader.h>
 #include <netimport/sumo/NISUMOHandlerNodes.h>
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
@@ -147,6 +151,7 @@ void NBLoader::load(OptionsCont &oc) {
     loadCell(oc, warn);
     loadVisum(oc, warn);
     loadArcView(oc, warn);
+    loadArtemis(oc, warn);
     loadVissim(oc, warn);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
@@ -398,6 +403,17 @@ NBLoader::loadVissim(OptionsCont &oc, bool warn) {
     }
     // load the visum network
     NIVissimLoader loader(oc.getString("vissim"));
+    loader.load(oc);
+}
+
+
+void
+NBLoader::loadArtemis(OptionsCont &oc, bool warn) {
+    if(!oc.isSet("artemis")) {
+        return;
+    }
+    // load the visum network
+    NIArtemisLoader loader(oc.getString("artemis"));
     loader.load(oc);
 }
 

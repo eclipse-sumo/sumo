@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.6  2003/03/06 17:18:30  dkrajzew
-// debugging during vissim implementation
+// Revision 1.7  2003/03/12 16:47:52  dkrajzew
+// extension for artemis-import
 //
 // Revision 1.5  2003/03/03 14:59:01  dkrajzew
 // debugging; handling of imported traffic light definitions
@@ -109,6 +109,7 @@ namespace
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
+#include <utils/geom/GeomHelper.h>
 #include "NBEdge.h"
 
 
@@ -238,9 +239,61 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _reachablePriorities->resize(_nolanes, IntVector());
     _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
     _ToEdges = new map<NBEdge*, vector<size_t> >();
+    if(_length<=0) {
+        _length = GeomHelper::distance(
+            Position2D(_from->getXCoordinate(), _from->getYCoordinate()),
+            Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+    }
     if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
         _length = 200;
     }
+   assert(_length>0);
+    myGeom.push_back(
+        Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
+    myGeom.push_back(
+        Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+}
+
+
+NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
+               string type, double speed, size_t nolanes,
+               double length, int priority, 
+               const Position2DVector &geom,
+               EdgeBasicFunction basic) :
+    _step(INIT), _id(id), _type(type), _nolanes(nolanes),
+    _from(from), _to(to), _length(length), _angle(0),
+    _priority(priority), _speed(speed), _name(name),
+    _connectedEdges(0),
+    _ToEdges(0), _turnDestination(0),
+    _reachable(0),
+    _reachablePriorities(0), _succeedinglanes(0),
+    _fromJunctionPriority(-1), _toJunctionPriority(-1),
+    _basicType(basic), myGeom(geom)
+{
+    if(_from==0||_to==0) {
+        throw std::exception();
+    }
+    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(),
+        _to->getXCoordinate(), _to->getYCoordinate());
+    _from->addOutgoingEdge(this);
+    _to->addIncomingEdge(this);
+    // prepare container
+    _reachable = new NBEdge::ReachableFromLaneVector();
+    _reachable->resize(_nolanes, EdgeLaneVector());
+    _reachablePriorities = new NBEdge::ReachablePrioritiesFromLaneVector();
+    _reachablePriorities->resize(_nolanes, IntVector());
+    _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
+    _ToEdges = new map<NBEdge*, vector<size_t> >();
+    if(_length<=0) {
+        _length = GeomHelper::distance(
+            Position2D(_from->getXCoordinate(), _from->getYCoordinate()),
+            Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+    }
+    if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
+        _length = 200;
+    }
+    assert(_length>0);
+    assert(myGeom.size()>=2);
 }
 
 
@@ -450,6 +503,7 @@ NBEdge::writeXMLStep3(std::ostream &into)
         into << "   <edgepos id=\"" << _id << "\""
             << " from=\"" << _from->getID() << "\""
             << " to=\"" << _to->getID() << "\""
+            << " lane=\"" << i << "\""
             << " function=\"";
         switch(_basicType) {
         case EDGEFUNCTION_NORMAL:
@@ -464,7 +518,8 @@ NBEdge::writeXMLStep3(std::ostream &into)
         default:
             throw 1;
         }
-        into << "\"/>" << endl;
+        into << "\">" 
+            << myGeom << "</edgepos>" << endl;
     }
 }
 
@@ -1185,6 +1240,19 @@ NBEdge::getEdgesFromLane(size_t lane) const
         ret.push_back((*i).edge);
     }
     return ret;
+}
+
+const Position2DVector &
+NBEdge::getGeometry() const
+{
+    return myGeom;
+}
+
+
+void 
+NBEdge::setGeometry(const Position2DVector &s)
+{
+    myGeom = s;
 }
 
 

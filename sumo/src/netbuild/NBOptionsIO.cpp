@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/12 16:47:55  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.4  2003/02/13 15:53:15  dkrajzew
 // some further processing options added
 //
@@ -177,6 +180,7 @@ NBOptionsIO::init()
     oc->doRegister("cell-edge-file", new Option_FileName());
     oc->doRegister("visum-file", new Option_FileName());
     oc->doRegister("vissim-file", new Option_FileName());
+    oc->doRegister("artemis-path", new Option_FileName());
     oc->doRegister("arcview", new Option_FileName());
     oc->doRegister("arcview-shp", new Option_FileName());
     oc->doRegister("arcview-dbf", new Option_FileName());
@@ -191,6 +195,7 @@ NBOptionsIO::init()
     oc->addSynonyme("cell-edge-file", "cell-edges");
     oc->addSynonyme("visum-file", "visum");
     oc->addSynonyme("vissim-file", "vissim");
+    oc->addSynonyme("artemis-path", "artemis");
     oc->addSynonyme("type-file", "types");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
@@ -262,6 +267,7 @@ NBOptionsIO::checkNodes(OptionsCont *oc)
         oc->isSet("cell-nodes") ||
         oc->isSet("visum") ||
         oc->isSet("vissim") ||
+        oc->isSet("artemis") ||
         oc->isSet("arcview") ||
         oc->isSet("arcview-shp") ||
         oc->isSet("arcview-dbf") ||
@@ -281,6 +287,7 @@ NBOptionsIO::checkEdges(OptionsCont *oc)
         oc->isSet("cell-edges") ||
         oc->isSet("visum") ||
         oc->isSet("vissim") ||
+        oc->isSet("artemis") ||
         oc->isSet("arcview") ||
         oc->isSet("arcview-shp") ||
         oc->isSet("arcview-dbf") ||

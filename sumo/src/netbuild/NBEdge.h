@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/03/12 16:47:53  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.5  2003/03/03 14:59:03  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -77,6 +80,7 @@
 #include "NBCont.h"
 #include <utils/common/IntVector.h>
 #include <utils/geom/Bresenham.h>
+#include <utils/geom/Position2DVector.h>
 
 
 /* =========================================================================
@@ -126,6 +130,12 @@ public:
         double speed, size_t nolanes, double length, int priority,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
+    NBEdge(std::string id, std::string name,
+        NBNode *from, NBNode *to, std::string type,
+        double speed, size_t nolanes, double length, int priority,
+        const Position2DVector &geom,
+        EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
+
     /// destructor
     ~NBEdge();
 
@@ -173,6 +183,12 @@ public:
 
     /// returns the length of the edge
     double getLength();
+
+    /// Returns the geometry of the edge
+    const Position2DVector &getGeometry() const;
+
+    /// Sets an edges geometry (!!! not really great)
+    void setGeometry(const Position2DVector &s);
 
     /** writes the edge definition with lanes and connected edges
         into the given stream */
@@ -408,8 +424,11 @@ private:
     /// the angle of the edge in the node it is incoming into
     double _toJunctionAngle;
 
-    // the information what purpose the edge has within a simulation
+    /// the information what purpose the edge has within a simulation
     EdgeBasicFunction _basicType;
+
+    /// An optional geometry for the edge
+    Position2DVector myGeom;
 
 private:
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/03/12 16:47:53  dkrajzew
+// extension for artemis-import
+//
 // Revision 1.5  2003/03/06 17:18:41  dkrajzew
 // debugging during vissim implementation
 //
@@ -139,6 +142,16 @@ public:
 
     /** @brief Splits the edge at the position nearest to the given node */
     static void splitAt(NBEdge *edge, NBNode *node);
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+    static void splitAt(NBEdge *edge, NBNode *node,
+        const std::string &firstEdgeName, const std::string &secondEdgeName, 
+        size_t noLanesFirstEdge, size_t noLanesSecondEdge);
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+    static void splitAt(NBEdge *edge, double edgepos, NBNode *node,
+        const std::string &firstEdgeName, const std::string &secondEdgeName, 
+        size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** Removes the given edge from the container (deleting it) */
     static void erase(NBEdge *edge);
