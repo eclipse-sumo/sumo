@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/12/04 13:05:42  dkrajzew
+// some work for joining vissim-edges
+//
 // Revision 1.5  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -100,7 +103,6 @@ NBConnection::NBConnection(const NBConnection &c)
 }
 
 
-
 NBEdge *
 NBConnection::getFrom() const
 {
@@ -128,8 +130,8 @@ NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
 
 
 bool
-NBConnection::replaceFrom(NBEdge *which, size_t whichLane,
-                          NBEdge *by, size_t byLane)
+NBConnection::replaceFrom(NBEdge *which, int whichLane,
+                          NBEdge *by, int byLane)
 {
     if(myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
         myFrom = by;
@@ -154,7 +156,8 @@ NBConnection::replaceTo(NBEdge *which, NBEdge *by)
 
 
 bool
-NBConnection::replaceTo(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane)
+NBConnection::replaceTo(NBEdge *which, int whichLane,
+                        NBEdge *by, int byLane)
 {
     if(myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
         myTo = by;

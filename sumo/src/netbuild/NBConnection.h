@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/12/04 13:05:42  dkrajzew
+// some work for joining vissim-edges
+//
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -81,13 +84,13 @@ public:
     bool replaceFrom(NBEdge *which, NBEdge *by);
 
     /// replaces the from-edge by the one given
-    bool replaceFrom(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane);
+    bool replaceFrom(NBEdge *which, int whichLane, NBEdge *by, int byLane);
 
     /// replaces the to-edge by the one given
     bool replaceTo(NBEdge *which, NBEdge *by);
 
     /// replaces the to-edge by the one given
-    bool replaceTo(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane);
+    bool replaceTo(NBEdge *which, int whichLane, NBEdge *by, int byLane);
 
     /// checks whether the edges are still valid
     bool check();
