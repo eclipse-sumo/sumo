@@ -33,17 +33,19 @@
 template< typename InnerContainer >
 struct MSDetectorContainer : public MSDetectorContainerBase
 {
-    typedef typename InnerContainer::value_type ContainerItem;
+//     typedef typename InnerContainer::value_type ContainerItem;
     typedef typename InnerContainer::const_iterator ContainerConstIt;
     typedef InnerContainer InnerCont;
     
     void enterDetectorByMove( MSVehicle& veh )
         {
+            typedef typename InnerContainer::value_type ContainerItem;
             containerM.push_front( ContainerItem( veh ) );
         }
     
     void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
         {
+            typedef typename InnerContainer::value_type ContainerItem;
             typedef typename InnerContainer::iterator ContainerIt;
             typedef typename Predicate::PosGreater< ContainerItem >
                 PosGreaterPredicate;
@@ -61,6 +63,7 @@ struct MSDetectorContainer : public MSDetectorContainerBase
     
     void leaveDetectorByLaneChange( MSVehicle& veh )
         {
+            typedef typename InnerContainer::value_type ContainerItem;
             typedef typename InnerContainer::iterator ContainerIt;
             typedef typename Predicate::VehEquals< ContainerItem >
                 ErasePredicate;
@@ -88,15 +91,7 @@ struct MSDetectorContainer : public MSDetectorContainerBase
 };
 
 
-namespace DetectorContainer
-{
-    typedef MSDetectorContainer< double > Counter;
-    typedef MSDetectorContainer< std::list< MSVehicle* > > Vehicles;
-}
-
-// Spezialization
-template<>
-struct DetectorContainer::Counter : public MSDetectorContainerBase
+struct MSDoubleDetectorContainer : public MSDetectorContainerBase
 {
     typedef double Container;
     
@@ -123,16 +118,22 @@ struct DetectorContainer::Counter : public MSDetectorContainerBase
     void update( void )
         {}
 
-    MSDetectorContainer( void ) 
+    MSDoubleDetectorContainer( void ) 
         : containerM( 0 )
         {}
     
-    virtual ~MSDetectorContainer( void )
+    virtual ~MSDoubleDetectorContainer( void )
         {}
 
     Container containerM;
 };
 
+
+namespace DetectorContainer
+{
+    typedef MSDoubleDetectorContainer Counter;
+    typedef MSDetectorContainer< std::list< MSVehicle* > > Vehicles;
+}
 
 
 #endif // MSDETECTORCONTAINER_H
