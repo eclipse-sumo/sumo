@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/04/02 11:11:24  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.17  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -937,6 +940,13 @@ GUISUMOAbstractView::onSimStep(FXObject*sender,FXSelector,void*)
 {
     update();
     return 1;
+}
+
+
+GUINet &
+GUISUMOAbstractView::getNet() const
+{
+    return *_net;
 }
 
 

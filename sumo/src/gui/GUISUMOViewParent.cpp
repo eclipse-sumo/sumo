@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/04/02 11:11:24  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.7  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -248,8 +251,11 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
 {
-    vector<string> names = MSJunction::getNames();
-    showValues(GLO_JUNCTION, names);
+    GUIDialog_GLObjChooser *chooser =
+        new GUIDialog_GLObjChooser(this, GLO_JUNCTION,
+            _view->getNet().getIDStorage());
+    chooser->create();
+    chooser->show();
     return 1;
 }
 
@@ -257,8 +263,11 @@ GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
 {
-    vector<string> names = GUIEdge::getNames();
-    showValues(GLO_EDGE, names);
+    GUIDialog_GLObjChooser *chooser =
+        new GUIDialog_GLObjChooser(this, GLO_EDGE,
+            _view->getNet().getIDStorage());
+    chooser->create();
+    chooser->show();
     return 1;
 }
 
@@ -266,8 +275,11 @@ GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateVehicle(FXObject*,FXSelector,void*)
 {
-    vector<string> names = GUIVehicle::getNames();
-    showValues(GLO_VEHICLE, names);
+    GUIDialog_GLObjChooser *chooser =
+        new GUIDialog_GLObjChooser(this, GLO_VEHICLE,
+            _view->getNet().getIDStorage());
+    chooser->create();
+    chooser->show();
     return 1;
 }
 
@@ -283,17 +295,6 @@ void
 GUISUMOViewParent::setZoomingFactor(double val)
 {
     _zoomingFactor = val;
-}
-
-
-void
-GUISUMOViewParent::showValues(GUIGlObjectType type,
-                              std::vector<std::string> &names)
-{
-    GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, type, names);
-    chooser->create();
-    chooser->show();
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/04/02 11:11:24  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.4  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -69,6 +72,7 @@ class GUIApplicationWindow;
  * class declarations
  * ======================================================================= */
 /**
+ * @class GUISUMOViewParent
  * This class represents a single view on the application. It is made of a
  * tool-bar containing a field to change the type of display, buttons that
  * allow to choose an artifact and some other view controlling options.
@@ -85,13 +89,6 @@ public:
     };
 
     /// constructor
-    /*
-    GUISUMOViewParent( FXApp *a, FXMDIClient* p, FXMDIMenu *mdimenu,
-        const FXString& name,
-        GUINet &net, GUIApplicationWindow *parentWindow, ViewType view,
-        FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
-        );
-*/
     GUISUMOViewParent( FXMDIClient* p, FXGLCanvas *share,
         FXMDIMenu *mdimenu, const FXString& name,
         GUINet &net, GUIApplicationWindow *parentWindow, ViewType view,
@@ -114,11 +111,7 @@ public:
     long onCmdLocateEdge(FXObject*,FXSelector,void*);
     long onCmdLocateVehicle(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
-/*
-    long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
-    long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
-    long onMouseMove(FXObject*sender,FXSelector,void*ptr);
-*/
+
     /// centers the view onto the given artifact
     void setView(GUIGlObjectType type, const std::string &name);
 
@@ -148,10 +141,6 @@ private:
 
     /** build the artifact choosing toolbar */
     void buildTrackingTools();
-
-    /** build the GUIDialog_GLObjChooser which contains the given values */
-    void showValues(GUIGlObjectType type,
-        std::vector<std::string> &names);
 
 private:
     /// the zooming factor

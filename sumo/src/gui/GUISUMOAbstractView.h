@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/04/02 11:11:24  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.11  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -152,6 +155,8 @@ public:
 
     /// A reimplementation due to some internal reasons
     FXbool makeCurrent();
+
+    GUINet &getNet() const;
 
 
     long onConfigure(FXObject*,FXSelector,void*);
