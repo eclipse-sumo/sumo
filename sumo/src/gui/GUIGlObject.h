@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/11 08:41:27  dkrajzew
+// logging moved from utils to microsim
+//
 // Revision 1.6  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -41,8 +44,7 @@
  * ======================================================================= */
 #include <string>
 #include "GUIGlObjectTypes.h"
-//#include "TableTypes.h"
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 
 
  /* =========================================================================
