@@ -4,10 +4,10 @@
 
 // Map
 FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
-  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_PANEL,                         ConfigDialog::onCmdPanel),
-  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_ACCEPT_COLOR,                  ConfigDialog::onCmdAcceptColor),
-  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_DELETE_COLOR,                  ConfigDialog::onCmdDeleteColor),
-  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_DEL_ALL_COL,                   ConfigDialog::onCmdDeleteAllColors),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_PANEL,                         ConfigDialog::onCmdPanel),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_ACCEPT_COLOR,                  ConfigDialog::onCmdAcceptColor),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_DELETE_COLOR,                  ConfigDialog::onCmdDeleteColor),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_DEL_ALL_COL,                   ConfigDialog::onCmdDeleteAllColors),
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_DIL_SLIDER,                     ConfigDialog::onCmdDilSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_DIL_SLIDER,                     ConfigDialog::onCmdDilSlider),
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_ERO_SLIDER,                     ConfigDialog::onCmdEroSlider),
@@ -18,6 +18,8 @@ FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_NODE_SLIDER,                    ConfigDialog::onCmdNodeSlider),
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_MERGE_SLIDER,                   ConfigDialog::onCmdMergeSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_MERGE_SLIDER,                   ConfigDialog::onCmdMergeSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_OK,                             ConfigDialog::onCmdOK),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_CANCEL,                         ConfigDialog::onCmdCancel),
   };
@@ -81,6 +83,9 @@ ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Confi
 				dilatationTextField->setText(FXStringVal(dilatationSlider->getValue()));
 
 
+				
+				
+				
 				new FXLabel(myMatrix,"&Erosion:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				erosionTextField =new FXTextField(myMatrix,4,this,ID_ERO_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
 				erosionSlider    =new FXSlider(myMatrix,this,ID_ERO_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
@@ -108,6 +113,17 @@ ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Confi
 				nodeDistanceTextField->setEditable(false);
 				nodeDistanceTextField->setText(FXStringVal(nodeDistanceSlider->getValue()));
 
+				new FXLabel(myMatrix,"&Merge Tolerance:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				mergeTextField =new FXTextField(myMatrix,4,this,ID_DIL_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				mergeSlider    =new FXSlider(myMatrix,this,ID_DIL_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				mergeSlider->setRange(1,30);
+				mergeSlider->setTickDelta(1);
+				mergeSlider->setValue(10);
+				mergeTextField->setEditable(false);
+				mergeTextField->setText(FXStringVal(mergeSlider->getValue()));
+				
+				
+				
 				new FXLabel(myMatrix,"&Epsilon:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				epsilonTextField =new FXTextField(myMatrix,4,this,ID_EPSI_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
 				epsilonSlider    =new FXSlider(myMatrix,this,ID_EPSI_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
@@ -138,28 +154,41 @@ ConfigDialog::~ConfigDialog(){
   delete pane;
   }
 
+
+
 long ConfigDialog::onCmdDilSlider(FXObject*,FXSelector sel,void*){
   dilatationTextField->setText(FXStringVal(dilatationSlider->getValue()));
+  dilatationSlider->setValue(dilatationSlider->getValue());
   return 1;
   }
 
 long ConfigDialog::onCmdEroSlider(FXObject*,FXSelector sel,void*){
   erosionTextField->setText(FXStringVal(erosionSlider->getValue()));
+  erosionSlider->setValue(erosionSlider->getValue());
   return 1;
   }
 
 long ConfigDialog::onCmdEraSlider(FXObject*,FXSelector sel,void*){
   eraseStainsTextField->setText(FXStringVal(eraseStainsSlider->getValue()));
+  eraseStainsSlider->setValue(eraseStainsSlider->getValue());
   return 1;
   }
 
 long ConfigDialog::onCmdNodeSlider(FXObject*,FXSelector sel,void*){
   nodeDistanceTextField->setText(FXStringVal(nodeDistanceSlider->getValue()));
+  nodeDistanceSlider->setValue(nodeDistanceSlider->getValue());
+  return 1;
+  }
+
+long ConfigDialog::onCmdMergeSlider(FXObject*,FXSelector sel,void*){
+  mergeTextField->setText(FXStringVal(mergeSlider->getValue()));
+  mergeSlider->setValue(mergeSlider->getValue());
   return 1;
   }
 
 long ConfigDialog::onCmdEpsiSlider(FXObject*,FXSelector sel,void*){
   epsilonTextField->setText(FXStringVal((float)epsilonSlider->getValue()/100,2,false));
+  epsilonSlider->setValue((float)epsilonSlider->getValue()/100);
   return 1;
   }
 
@@ -221,3 +250,33 @@ long ConfigDialog::calculateRGBValues(FXColor color){
 }
 
 
+int ConfigDialog::getMergeTolerance(){
+	return mergeSlider->getValue();
+}
+
+
+FXSlider* ConfigDialog::getDilSlider(){
+	return dilatationSlider;
+}
+
+
+FXSlider* ConfigDialog::getEpsiSlider(){
+	return epsilonSlider;
+}
+
+FXSlider* ConfigDialog::getEraSlider(){
+	return eraseStainsSlider;
+}
+
+
+FXSlider* ConfigDialog::getEroSlider(){
+	return erosionSlider;
+}
+
+FXSlider* ConfigDialog::getMergeSlider(){
+	return mergeSlider;
+}
+
+FXSlider* ConfigDialog::getNodeSlider(){
+	return nodeDistanceSlider;
+}

@@ -47,19 +47,22 @@ protected:
   FXTextField*       eraseStainsTextField;
   FXTextField*       nodeDistanceTextField;
   FXTextField*       epsilonTextField;
+  FXTextField*		 mergeTextField;
   FXSlider*          dilatationSlider;
   FXSlider*          erosionSlider;
   FXSlider*          eraseStainsSlider;
   FXSlider*          nodeDistanceSlider;
   FXSlider*          epsilonSlider;
-
+  FXSlider*			 mergeSlider;
   
-
 public:
+
 
 // Messages
   enum{
 	ID_PANEL=FXMainWindow::ID_LAST,	
+	ID_MERGE_SLIDER,
+	ID_MERGE_TEXT,
 	ID_DIL_SLIDER,
 	ID_DIL_TEXT,
 	ID_ERA_SLIDER,
@@ -79,6 +82,7 @@ public:
 
 private:
   ConfigDialog(){}
+  
 public:
   ConfigDialog(FXWindow* owner);
   virtual ~ConfigDialog();
@@ -93,13 +97,24 @@ public:
   long onCmdEroSlider(FXObject*,FXSelector sel,void*);
   long onCmdEraSlider(FXObject*,FXSelector sel,void*);
   long onCmdNodeSlider(FXObject*,FXSelector sel,void*);
+  long onCmdMergeSlider(FXObject*,FXSelector sel,void*);
   long onCmdEpsiSlider(FXObject*,FXSelector sel,void*);
-
+  
   long onCmdCancel(FXObject*,FXSelector,void* ptr);
   long onCmdOK(FXObject*,FXSelector,void* ptr);
 
   long onUpdDilSlider(FXObject*,FXSelector sel,void*);
  
+  int getMergeTolerance();
+
+  FXSlider* getEroSlider();
+  FXSlider* getDilSlider();
+  FXSlider* getNodeSlider();
+  FXSlider* getEpsiSlider();
+  FXSlider* getEraSlider();
+  FXSlider* getMergeSlider();
+
+  
   //void create();
   };
 

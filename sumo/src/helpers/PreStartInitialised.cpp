@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/20 23:10:41  der_maik81
+// no message
+//
 // Revision 1.1  2003/02/07 10:40:13  dkrajzew
 // updated
 //
@@ -62,5 +65,4 @@ PreStartInitialised::~PreStartInitialised()
 // Local Variables:
 // mode:C++
 // End:
-
 
