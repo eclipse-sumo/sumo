@@ -81,6 +81,12 @@ public:
                     delete *it;
                 }
             }
+            for ( ContainerContIter it = containersM.begin();
+                  it != containersM.end(); ++it ) {
+                if ( *it != 0 ) {
+                    delete *it;
+                }
+            }
         }
     
     double getGurrent( DetType type ) const
