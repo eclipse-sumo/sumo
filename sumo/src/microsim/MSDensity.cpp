@@ -32,16 +32,10 @@
 
 using namespace std;
 
-MSDensity::MSDensity( const MSLane* lane,
-                      const double lengthInMeters ) :
-    MSDetectorPredicates< ContainerItem >(),
+MSDensity::MSDensity( double lengthInMeters ) :
     MSOccupancyCorrection< DetectorAggregate >(),
     detectorLengthM( lengthInMeters / 1000.0 )
-{
-    assert( detectorLengthM > 0 );
-    assert( detectorLengthM <= MSUnit::getInstance()->getMeters(
-                lane->length() ) );
-}
+{}
 
 
 MSDensity::DetectorAggregate
