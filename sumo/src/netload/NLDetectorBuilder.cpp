@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/11/23 10:12:45  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.21  2004/04/02 11:23:51  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -119,10 +122,10 @@ namespace
 #include <string>
 #include <iostream>
 #include <microsim/MSNet.h>
-#include <microsim/MSInductLoop.h>
-#include <microsim/MSE2Collector.h>
-#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
-#include <microsim/MSDetector2File.h>
+#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
+#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSDetector2File.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
 #include <utils/common/UtilExceptions.h>
@@ -146,13 +149,13 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
         const std::string &id,
-        const std::string &filename,
+        OutputDevice *device,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Seconds deleteDataAfterSeconds,
         const E3MeasuresVector &measures,
         int splInterval) :
-    myID(id), myFileName(filename),
+    myID(id), myDevice(device),
     myHaltingTimeThreshold(haltingTimeThreshold),
     myHaltingSpeedThreshold(haltingSpeedThreshold),
     myDeleteDataAfterSeconds(deleteDataAfterSeconds),
@@ -181,8 +184,8 @@ NLDetectorBuilder::~NLDetectorBuilder()
 
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
-        const std::string &lane, float pos, int splInterval,
-        const std::string &/*style*/, std::string filename)
+        const std::string &lane, double pos, int splInterval,
+        OutputDevice *device, const std::string &/*style*/)
 {
      // get the output style
 //   MSDetector::OutputStyle cstyle = convertStyle(id, style);
@@ -201,16 +204,18 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
-    det2file->addDetectorAndInterval(loop, filename, splInterval, splInterval);
+
+    det2file->addDetectorAndInterval(loop, device, splInterval, splInterval);
 }
 
 
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, float pos, float length,
+        const std::string &lane, double pos, double length,
         bool cont, int splInterval,
-        const std::string &style, std::string filename,
+        const std::string &style,
+        OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -238,7 +243,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
-    det2file->addDetectorAndInterval(det, filename,
+    det2file->addDetectorAndInterval(det, device,
         splInterval, splInterval);
 }
 
@@ -246,9 +251,9 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, float pos, float length,
+        const std::string &lane, double pos, double length,
         bool cont, MSTrafficLightLogic *tll,
-        const std::string &style, std::string filename,
+        const std::string &style, OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -275,17 +280,17 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     }
     // add the file output
     new Command_SaveTLCoupledDet(tll, det,
-        MSNet::getInstance()->getCurrentTimeStep(), filename);
+        MSNet::getInstance()->getCurrentTimeStep(), device);
 }
 
 
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, float pos, float length,
+        const std::string &lane, double pos, double length,
         bool cont, MSTrafficLightLogic *tll,
         const std::string &tolane,
-        const std::string &style, std::string filename,
+        const std::string &style, OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -319,13 +324,13 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     }
     // add the file output
     new Command_SaveTLCoupledLaneDet(tll, det,
-        MSNet::getInstance()->getCurrentTimeStep(), filename, link);
+        MSNet::getInstance()->getCurrentTimeStep(), device, link);
 }
 
 
 void
 NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
-                                         float &pos, float &length)
+                                         double &pos, double &length)
 {
     if(pos<0) {
         pos = clane->length() + pos;
@@ -353,7 +358,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
 
 void
 NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane *clane,
-                                       float &pos, float &length)
+                                       double &pos, double &length)
 {
     if(pos<0) {
         pos *= -1.0;//clane->length() + pos;
@@ -366,21 +371,21 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane *clane,
 
 void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
-        std::string filename, int splInterval,
+        OutputDevice *device, int splInterval,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Seconds deleteDataAfterSeconds)
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
-    myE3Definition = new E3DetectorDefinition(id, filename,
+    myE3Definition = new E3DetectorDefinition(id, device,
         haltingSpeedThreshold, haltingSpeedThreshold, deleteDataAfterSeconds,
         toAdd, splInterval);
 }
 
 
 void
-NLDetectorBuilder::addE3Entry(const std::string &lane, float pos)
+NLDetectorBuilder::addE3Entry(const std::string &lane, double pos)
 {
     MSLane *clane = getLaneChecking(lane);
     if(myE3Definition==0) {
@@ -394,7 +399,7 @@ NLDetectorBuilder::addE3Entry(const std::string &lane, float pos)
 
 
 void
-NLDetectorBuilder::addE3Exit(const std::string &lane, float pos)
+NLDetectorBuilder::addE3Exit(const std::string &lane, double pos)
 {
     MSLane *clane = getLaneChecking(lane);
     if(myE3Definition==0) {
@@ -428,7 +433,7 @@ NLDetectorBuilder::endE3Detector()
     // add the file output
     MSDetector2File* det2file = MSDetector2File::getInstance();
     det2file->addDetectorAndInterval(det,
-        myE3Definition->myFileName,
+        myE3Definition->myDevice,
         myE3Definition->mySampleInterval,
         myE3Definition->mySampleInterval);
     // clean up
@@ -440,7 +445,7 @@ NLDetectorBuilder::endE3Detector()
 MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage,
-                                        MSLane *lane, float pos, float length,
+                                        MSLane *lane, double pos, double length,
                                         MSUnit::Seconds haltingTimeThreshold,
                                         MSUnit::MetersPerSecond haltingSpeedThreshold,
                                         MSUnit::Meters jamDistThreshold,
@@ -462,7 +467,7 @@ MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
                                        const std::string &id,
                                        DetectorUsage usage,
-                                       MSLane *lane, float pos, float length,
+                                       MSLane *lane, double pos, double length,
                                        MSUnit::Seconds haltingTimeThreshold,
                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
                                        MSUnit::Meters jamDistThreshold ,
@@ -574,7 +579,7 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, double pos, double length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -589,7 +594,7 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, float pos,
+        DetectorUsage usage, MSLane *lane, double pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

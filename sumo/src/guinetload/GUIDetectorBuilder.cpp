@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.8  2004/03/19 12:56:48  dkrajzew
 // porting to FOX
 //
@@ -51,12 +54,12 @@ namespace
 #include <string>
 #include <iostream>
 #include <microsim/MSNet.h>
-#include <microsim/MSInductLoop.h>
+#include <microsim/output/MSInductLoop.h>
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
-#include <microsim/MSDetector2File.h>
+#include <microsim/output/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <microsim/logging/LoggedValue_Single.h>
@@ -93,7 +96,7 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, double pos, double length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -108,7 +111,7 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, float pos,
+        DetectorUsage usage, MSLane *lane, double pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

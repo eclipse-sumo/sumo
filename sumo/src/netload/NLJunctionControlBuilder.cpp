@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.11  2004/08/02 12:47:30  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -97,8 +100,8 @@ namespace
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
 //#include <microsim/MSTrafficLightJunction.h>
-#include <microsim/MSTrafficLightLogic.h>
-#include <microsim/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include "NLNetBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.20  2004/08/02 12:47:18  dkrajzew
 // time-to-teleport added
 //
@@ -204,23 +207,8 @@ NLNetBuilder::~NLNetBuilder()
 MSNet *
 NLNetBuilder::buildNet(MSVehicleControl *vc)
 {
-    // pre-initialise the network
-     // set whether empty edges shall be printed on dump
-    MSGlobals::myOmitEmptyEdgesOnDump =
-        !m_pOptions.getBool("dump-empty-edges");
-    // set whether internal lanes shall be used
-    MSGlobals::myUsingInternalLanes =
-        m_pOptions.getBool("use-internal-links");
-    // set the grid lock time
-    MSGlobals::myTimeToGridlock =
-        m_pOptions.getInt("time-to-teleport");
      // preinit network
-    MSNet::preInitMSNet(
-        m_pOptions.getInt("b"),
-        vc,
-        m_pOptions.getUIntVector("dump-intervals"),
-        m_pOptions.getString("dump-basename"));
-
+    MSNet::preInitMSNet(m_pOptions.getInt("b"), vc);
     // we need a specialised detector builder
     NLDetectorBuilder db;
     NLTriggerBuilder tb;
@@ -231,45 +219,52 @@ NLNetBuilder::buildNet(MSVehicleControl *vc)
     // get the matching handler
     NLNetHandler handler("", *container, db, tb,
         m_pOptions.getFloat("actuating-detector-pos"),
-        m_pOptions.getFloat("agent-detector-len"));
+        m_pOptions.getFloat("agent-tl.detector-len"),
+        m_pOptions.getInt("agent-tl.learn-horizon"),
+        m_pOptions.getInt("agent-tl.decision-horizon"),
+        m_pOptions.getFloat("agent-tl.min-diff"),
+        m_pOptions.getInt("agent-tl.tcycle"));
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
     MSNet *net = 0;
-    bool ok = load(handler, *parser);
-    subreport("Loading done.", "Loading failed.");
+    bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
+        handler, *parser);
+//    bool ok = load(handler, *parser);
     // try to build a net
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         net = container->buildMSNet(db, m_pOptions);
     }
+    if(net==0) {
+        ok = false;
+    }
+    // load the junctions
+    if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
+        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
+            handler, *parser);
+    }
+    // load additional net elements (sources, detectors, ...)
+    if(m_pOptions.isSet("a")&&ok) {
+        ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
+            handler, *parser);
+    }
+    subreport("Loading done.", "Loading failed.");
     delete parser;
     delete container;
     return net;
 }
 
-
+/*
 bool
 NLNetBuilder::load(NLNetHandler &handler, SAX2XMLReader &parser)
 {
     // load the net
-    bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
-        handler, parser);
     // load the junctions
     if(m_pOptions.isSet("j")&&ok) {
         ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"),
             handler, parser);
     }
-    // load the junctions
-    if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
-        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
-            handler, parser);
-    }
-    // load additional net elements (sources, detectors, ...)
-    if(m_pOptions.isSet("a")&&ok) {
-        ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
-            handler, parser);
-    }
     return ok;
 }
-
+*/
 
 bool
 NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler &handler,
@@ -286,8 +281,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler &handler,
         return false;
     }
     // report about loading when wished
-    MsgHandler::getMessageInstance()->inform(
-        string("Loading ") + getDataName(what) + string("..."));
+    WRITE_MESSAGE(string("Loading ") + getDataName(what) + string("..."));
     // start parsing
     parser.setContentHandler(&handler);
     parser.setErrorHandler(&handler);
@@ -353,9 +347,9 @@ void
 NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 {
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        MsgHandler::getMessageInstance()->inform(ok.c_str());
+        WRITE_MESSAGE(ok.c_str());
     } else {
-        MsgHandler::getMessageInstance()->inform(wrong.c_str());
+        WRITE_MESSAGE(wrong.c_str());
     }
 }
 

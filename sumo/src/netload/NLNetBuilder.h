@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.9  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -149,7 +152,7 @@ public:
 
 protected:
     /// counts the structures and preallocates them
-    bool load(NLNetHandler &handler, SAX2XMLReader &parser);
+//    bool load(NLNetHandler &handler, SAX2XMLReader &parser);
 
     /// loads a described subpart form the given list of files
     bool load(LoadFilter what, const std::string &files,

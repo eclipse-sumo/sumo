@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.8  2004/07/02 08:39:12  dkrajzew
 // using global selection storage
 //
@@ -69,6 +72,7 @@ namespace
 #include <netload/NLNetBuilder.h>
 #include "GUIEdgeControlBuilder.h"
 #include <gui/GUIGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 
 /* =========================================================================

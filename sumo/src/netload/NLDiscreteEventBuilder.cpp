@@ -17,6 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.4  2004/02/16 13:49:08  dkrajzew
 // loading of e2-link-dependent detectors added
 //
@@ -36,7 +39,7 @@
 #include <utils/common/MsgHandler.h>
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 

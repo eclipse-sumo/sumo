@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.24  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -115,8 +118,8 @@
 #include "NLDiscreteEventBuilder.h"
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
-#include <microsim/MSSimpleTrafficLightLogic.h>
-#include <microsim/MSActuatedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
 
 
@@ -150,7 +153,9 @@ public:
     /// standard constructor
     NLNetHandler(const std::string &file, NLContainer &container,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-        double stdDetectorPositions, double stdDetectorlength);
+        double stdDetectorPositions, double stdDetectorlength,
+        int stdLearnHorizon, int stdDecisionHorizon, double stdDeltaLimit,
+        int stdTCycle);
 
     /// Destructor
     virtual ~NLNetHandler();
@@ -254,6 +259,10 @@ protected:
     double m_DetectorOffset;
     double myStdDetectorPositions;
     double myStdDetectorLengths;
+    int myStdLearnHorizon;
+    int myStdDecisionHorizon;
+    double myStdDeltaLimit;
+    int myStdTCycle;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;

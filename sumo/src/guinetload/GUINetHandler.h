@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.9  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -85,7 +88,9 @@ public:
     GUINetHandler(const std::string &file,
         NLContainer &container,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-        double stdDetectorPositions, double stdDetectorlength);
+        double stdDetectorPositions, double stdDetectorlength,
+        int stdLearnHorizon, int stdDecisionHorizon,
+        double stdDeltaLimit, int stdTCycle);
 
     /// standard destructor
     ~GUINetHandler();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/11/23 10:12:26  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.16  2004/08/02 11:57:12  dkrajzew
 // using OutputDevices instead of ostreams
 //
@@ -80,7 +83,7 @@ namespace
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSJunctionLogic.h>
-#include <microsim/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSRouteLoader.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
@@ -135,10 +138,11 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
         std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(options);
-        GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc,
-            streams);
+        GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc, streams,
+            options.getUIntVector("dump-intervals"),
+            options.getString("dump-basename"));
         return static_cast<GUINet*>(GUINet::getInstance());
-    } catch (ProcessError &e) {
+    } catch (ProcessError &) {
         delete edges;
         delete junctions;
         delete emitters;

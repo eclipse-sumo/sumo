@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLSucceedingLaneBuilder.h
-			  Container for the succeding lanes of a lane during their building
+              Container for the succeding lanes of a lane during their building
                              -------------------
     project              : SUMO
     begin                : Mon, 22 Oct 2001
@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.7  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -77,7 +80,7 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
-#include <microsim/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "NLNetBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>

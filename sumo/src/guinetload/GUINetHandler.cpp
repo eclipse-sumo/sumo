@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.18  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -109,7 +112,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
-#include <microsim/MSAgentbasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
@@ -134,9 +137,12 @@ GUINetHandler::GUINetHandler(const std::string &file,
                              NLDetectorBuilder &detBuilder,
                              NLTriggerBuilder &triggerBuilder,
                              double stdDetectorPositions,
-                             double stdDetectorLengths)
+                             double stdDetectorLengths,
+                             int stdLearnHorizon, int stdDecisionHorizon,
+                             double stdDeltaLimit, int stdTCycle)
     : NLNetHandler(file, container, detBuilder, triggerBuilder,
-        stdDetectorPositions, stdDetectorLengths)
+        stdDetectorPositions, stdDetectorLengths, stdLearnHorizon,
+        stdDecisionHorizon, stdDeltaLimit, stdTCycle)
 {
 }
 

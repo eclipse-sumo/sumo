@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.49  2004/11/23 10:12:46  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.48  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -104,7 +107,6 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/FileHelpers.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/TplConvertSec.h>
 #include <utils/convert/STRConvert.h>
@@ -117,13 +119,14 @@ namespace
 #include <microsim/MSGlobals.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
-#include <microsim/MSTrafficLightLogic.h>
-#include <microsim/MSInductLoop.h>
-#include <microsim/MSE2Collector.h>
-#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
+#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSLaneState.h>
-#include <microsim/MSAgentbasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
+#include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
 
@@ -142,13 +145,18 @@ NLNetHandler::NLNetHandler(const std::string &file,
                            NLDetectorBuilder &detBuilder,
                            NLTriggerBuilder &triggerBuilder,
                            double stdDetectorPositions,
-                           double stdDetectorLengths)
+                           double stdDetectorLengths,
+                           int stdLearnHorizon, int stdDecisionHorizon,
+                           double stdDeltaLimit, int stdTCycle)
     : MSRouteHandler(file, true),
-      myContainer(container), _tlLogicNo(-1), m_Offset(0),
-      myCurrentIsInternalToSkip(false),
-      myStdDetectorPositions(stdDetectorPositions),
-      myStdDetectorLengths(stdDetectorLengths),
-      myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder)
+    myContainer(container), _tlLogicNo(-1), m_Offset(0),
+    myCurrentIsInternalToSkip(false),
+    myStdDetectorPositions(stdDetectorPositions),
+    myStdDetectorLengths(stdDetectorLengths),
+    myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
+    myStdLearnHorizon(stdLearnHorizon), myStdDecisionHorizon(stdDecisionHorizon),
+    myStdDeltaLimit(stdDeltaLimit), myStdTCycle(stdTCycle)
+
 {
 }
 
@@ -274,7 +282,7 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         // omit internal edges if not wished
-        if(!MSGlobals::myUsingInternalLanes&&id[0]==':') {
+        if(!MSGlobals::gUsingInternalLanes&&id[0]==':') {
             myCurrentIsInternalToSkip = true;
             return;
         }
@@ -424,7 +432,7 @@ NLNetHandler::addLogicItem(const Attributes &attrs)
         }
         // parse the internal links information (when wished)
         string foes;
-        if(MSGlobals::myUsingInternalLanes) {
+        if(MSGlobals::gUsingInternalLanes) {
             try {
                 foes = getString(attrs, SUMO_ATTR_FOES);
             } catch (EmptyData) {
@@ -637,9 +645,10 @@ NLNetHandler::addE1Detector(const Attributes &attrs)
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION),
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-            getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-            FileHelpers::checkForRelativity(
-                getString(attrs, SUMO_ATTR_FILE), _file));
+            SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                _file, getString(attrs, SUMO_ATTR_FILE)),
+            getStringSecure(attrs, SUMO_ATTR_STYLE, "")
+                );
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {
@@ -693,14 +702,13 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                     tll,
                     getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                    FileHelpers::checkForRelativity(
-                        getString(attrs, SUMO_ATTR_FILE),
-                        _file),
+                    SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                        _file, getString(attrs, SUMO_ATTR_FILE)),
                     getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
-                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
                     );
             } else {
                 myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
@@ -711,14 +719,13 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                     tll, toLane,
                     getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                    FileHelpers::checkForRelativity(
-                        getString(attrs, SUMO_ATTR_FILE),
-                        _file),
+                    SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                        _file, getString(attrs, SUMO_ATTR_FILE)),
                     getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
-                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
                     );
             }
         } else {
@@ -730,14 +737,13 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                 getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                 getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                FileHelpers::checkForRelativity(
-                    getString(attrs, SUMO_ATTR_FILE),
-                    _file),
+                SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                    _file, getString(attrs, SUMO_ATTR_FILE)),
                 getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
-                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
                 );
         }
     } catch (XMLBuildingException &e) {
@@ -767,14 +773,13 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-            FileHelpers::checkForRelativity(
-                getString(attrs, SUMO_ATTR_FILE),
-                _file),
+            SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                _file, getString(attrs, SUMO_ATTR_FILE)),
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
             getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-            getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
-            getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-            getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+            getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+            getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+            getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
             );
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -1052,7 +1057,7 @@ NLNetHandler::allocateEdges(const std::string &chars)
     while(idx!=string::npos) {
         string edgeid = chars.substr(beg, idx-beg);
         // skip internal edges if not wished
-        if(MSGlobals::myUsingInternalLanes||edgeid[0]!=':') {
+        if(MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
             myContainer.addEdge(edgeid);
         }
         beg = idx + 1;
@@ -1061,7 +1066,7 @@ NLNetHandler::allocateEdges(const std::string &chars)
     string edgeid = chars.substr(beg);
     // skip internal edges if not wished
     //  (the last one shouldn't be internal anyway)
-    if(!MSGlobals::myUsingInternalLanes&&edgeid[0]==':') {
+    if(!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
         return;
     }
     myContainer.addEdge(edgeid);
@@ -1175,7 +1180,7 @@ NLNetHandler::addLogicItem(int request, const string &response,
     (*m_pActiveLogic)[request] = use;
     // add the read junction-internal foes for the given request index
     //  ...but only if junction-internal lanes shall be loaded
-    if(MSGlobals::myUsingInternalLanes) {
+    if(MSGlobals::gUsingInternalLanes) {
         bitset<64> use2(foes);
         assert(m_pActiveFoes->size()>(size_t) request);
         (*m_pActiveFoes)[request] = use2;
@@ -1342,7 +1347,9 @@ NLNetHandler::closeTrafficLightLogic()
         // build an agentbased logic
         MSAgentbasedTrafficLightLogic *tlLogic =
             new MSAgentbasedTrafficLightLogic(m_Key, m_ActivePhases,
-                step, firstEventOffset);
+                step, firstEventOffset,
+                myStdLearnHorizon, myStdDecisionHorizon,
+                myStdDeltaLimit, myStdTCycle);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();

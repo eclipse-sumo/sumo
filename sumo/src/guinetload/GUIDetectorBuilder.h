@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.5  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -64,7 +67,7 @@ protected:
 
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, double pos, double length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -72,7 +75,7 @@ protected:
 
     /// Creates the instance of a multi-lane-e2-detector (gui-version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
-        const std::string &id, DetectorUsage usage, MSLane *lane, float pos,
+        const std::string &id, DetectorUsage usage, MSLane *lane, double pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

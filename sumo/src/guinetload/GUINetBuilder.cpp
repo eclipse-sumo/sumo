@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/11/23 10:12:27  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.19  2004/08/02 11:56:10  dkrajzew
 // "time-to-teleport" option added
 //
@@ -132,20 +135,8 @@ GUINetBuilder::~GUINetBuilder()
 MSNet *
 GUINetBuilder::buildNet(MSVehicleControl *vc)
 {
-    // set whether empty edges shall be printed on dump
-    MSGlobals::myOmitEmptyEdgesOnDump =
-        !m_pOptions.getBool("dump-empty-edges");
-    // set whether internal lanes shall be used
-    MSGlobals::myUsingInternalLanes =
-        m_pOptions.getBool("use-internal-links");
-    // set the grid lock time
-    MSGlobals::myTimeToGridlock =
-        m_pOptions.getInt("time-to-teleport");
     // preinit network
-    GUINet::preInitGUINet(
-        m_pOptions.getInt("b"), vc,
-        m_pOptions.getUIntVector("dump-intervals"),
-        m_pOptions.getString("dump-basename"));
+    GUINet::preInitGUINet(m_pOptions.getInt("b"), vc);
 
     // we need a specialised detector and trigger builders
     GUIDetectorBuilder db;
@@ -156,15 +147,33 @@ GUINetBuilder::buildNet(MSVehicleControl *vc)
     // get the matching handler
     GUINetHandler handler("", *container, db, tb,
         m_pOptions.getFloat("actuating-detector-pos"),
-        m_pOptions.getFloat("agent-detector-len"));
+        m_pOptions.getFloat("agent-tl.detector-len"),
+        m_pOptions.getInt("agent-tl.learn-horizon"),
+        m_pOptions.getInt("agent-tl.decision-horizon"),
+        m_pOptions.getFloat("agent-tl.min-diff"),
+        m_pOptions.getInt("agent-tl.tcycle"));
     // ... and the parser
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
     GUINet *net = 0;
-    bool ok = load(handler, *parser);
-    subreport("Loading done.", "Loading failed.");
+    bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
+        handler, *parser);
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         net = container->buildGUINet(db, m_pOptions);
     }
+    if(net==0) {
+        ok = false;
+    }
+    // load the junctions
+    if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
+        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
+            handler, *parser);
+    }
+    // load additional net elements (sources, detectors, ...)
+    if(m_pOptions.isSet("a")&&ok) {
+        ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
+            handler, *parser);
+    }
+    subreport("Loading done.", "Loading failed.");
     delete parser;
     delete container;
     return net;
