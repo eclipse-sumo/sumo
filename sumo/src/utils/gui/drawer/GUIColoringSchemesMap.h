@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/02/17 10:33:41  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.1  2004/11/23 10:38:30  dkrajzew
 // debugging
 //
@@ -29,16 +35,14 @@
 // Revision 1.1  2004/08/02 11:38:18  dkrajzew
 // variable coloring schemes added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
 #include <string>
-
 #include <fx.h>
-
 #include "GUIBaseColorer.h"
+
 
 /* =========================================================================
  * class definitions
@@ -75,7 +79,7 @@ public:
         in order to allow the retrieval of their enumeration values. */
     void fill(FXComboBox &cb) {
         int choserValue = 0;
-        std::vector<ColorMapping>::iterator i;
+        typename std::vector<ColorMapping>::iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             (*i).choserValue = choserValue++;
             cb.appendItem((*i).name.c_str());
@@ -87,7 +91,7 @@ public:
         in order to allow the retrieval of their enumeration values. */
     void fill(FXPopup &p, FXObject *target, int selector) {
         int choserValue = 0;
-        std::vector<ColorMapping>::iterator i;
+        typename std::vector<ColorMapping>::iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             (*i).choserValue = choserValue++;
             new FXButton(&p, (*i).name.c_str(),
@@ -97,7 +101,7 @@ public:
 
     /// Returns the enumeration value for a previously given int value
     E1 getEnumValue(int choserValue) const {
-        std::vector<ColorMapping>::const_iterator i;
+        typename std::vector<ColorMapping>::const_iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             if((*i).choserValue==choserValue) {
                 return (*i).enumValue;
@@ -112,7 +116,7 @@ public:
     }
 
     GUIBaseColorer<T1> *getColorer(int choserValue) const {
-        std::vector<ColorMapping>::const_iterator i;
+        typename std::vector<ColorMapping>::const_iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             if((*i).choserValue==choserValue) {
                 return (*i).colorer;

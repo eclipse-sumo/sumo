@@ -22,6 +22,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.15  2004/12/20 13:15:58  dkrajzew
 // options output corrected
 //
@@ -173,7 +179,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("rand-max-distance", new Option_Float(250));
     oc.doRegister("rand-min-distance", new Option_Float(100));
     oc.doRegister("rand-min-angle", new Option_Float((float) (45.0/180.0*PI)));
-    oc.doRegister("rand-num-tries", new Option_Float(50));
+    oc.doRegister("rand-num-tries", new Option_Integer(50));
     oc.doRegister("rand-connectivity", new Option_Float((float) 0.95));
     oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
     oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
@@ -263,7 +269,7 @@ buildNetwork()
     RandomNet.SetMaxDistance(oc.getFloat("rand-max-distance"));
     RandomNet.SetMinDistance(oc.getFloat("rand-min-distance"));
     RandomNet.SetMinLinkAngle(oc.getFloat("min-angle"));
-    RandomNet.SetNumTries(oc.getFloat("num-tries"));
+    RandomNet.SetNumTries(oc.getInt("num-tries"));
     RandomNet.SetConnectivity(oc.getFloat("connectivity"));
     RandomNet.NeighbourDistribution.Add(1, oc.getFloat("dist1"));
     RandomNet.NeighbourDistribution.Add(2, oc.getFloat("dist2"));

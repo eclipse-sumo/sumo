@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/02/17 10:33:42  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -102,7 +108,7 @@ GUIGrid::Set::remove(size_t no)
         index_finder(index));
     if(i!=_cont.end()) {
         // if yes, clear the information
-        (*i).mySet &= (unsigned(4294967295) - (1<<pos));
+        (*i).mySet &=~ (1<<pos);
         // check whether the whoel item can be removed
         if((*i).mySet==0) {
             _cont.erase(i);
@@ -120,7 +126,7 @@ GUIGrid::Set::removeIfIn(const Set &other)
             index_finder((*j).myIndex));
         if(i!=_cont.end()) {
             // if yes, clear the information
-            (*i).mySet &= (unsigned(4294967295) - (*j).mySet);
+            (*i).mySet &=~ (*j).mySet;
             // check whether the whoel item can be removed
             if((*i).mySet==0) {
                 _cont.erase(i);

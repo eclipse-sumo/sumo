@@ -19,6 +19,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/02/17 10:33:39  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.14  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -170,9 +176,9 @@ private:
         /// comparing operation
         int operator() (NIVissimConnection *c1, NIVissimConnection *c2) const {
             return
-                abs(c1->getGeometry().beginEndAngle()-_angle)
+                fabs(c1->getGeometry().beginEndAngle()-_angle)
                 <
-                abs(c2->getGeometry().beginEndAngle()-_angle);
+                fabs(c2->getGeometry().beginEndAngle()-_angle);
         }
     };
 

@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.25  2004/12/16 12:12:58  dkrajzew
 // first steps towards loading of selections between different applications
 //
@@ -151,7 +157,7 @@ public:
 
     /** constructor */
     GUIApplicationWindow(FXApp* a, GUIThreadFactory &threadFactory,
-        int glWidth, int glHeight, const std::string &config);
+        int glWidth, int glHeight);
 
     /** destructor */
     virtual ~GUIApplicationWindow();
@@ -164,6 +170,8 @@ public:
     virtual void detach();
 
     void loadSelection(const std::string &file) const;
+
+    void loadOnStartup(const std::string &config);
 
 
 public:

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/02/17 10:33:40  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.8  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -46,7 +52,6 @@ namespace
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -337,8 +342,8 @@ RORDGenerator_ODAmounts::myEndElement(int element, const std::string &name)
 void
 RORDGenerator_ODAmounts::myEndInterval()
 {
-    myUpperIntervalBegin = -1;
-    myUpperIntervalEnd = -1;
+    myUpperIntervalBegin = 0; // !!! was -1
+    myUpperIntervalEnd = 0; // !!! was: -1
 }
 
 

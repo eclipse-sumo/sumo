@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.38  2004/12/16 12:12:58  dkrajzew
 // first steps towards loading of selections between different applications
 //
@@ -252,8 +258,7 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
  * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
                                            GUIThreadFactory &threadFactory,
-                                           int glWidth, int glHeight,
-                                           const std::string &config)
+                                           int glWidth, int glHeight)
     : GUIMainWindow(a, glWidth, glHeight),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
@@ -297,7 +302,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         FXMDIClient::ID_MDI_MENUWINDOW,LAYOUT_LEFT);
     new FXMDIDeleteButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENUCLOSE,FRAME_RAISED|LAYOUT_RIGHT);
-	new FXMDIRestoreButton(myMenuBar,myMDIClient,
+    new FXMDIRestoreButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENURESTORE,FRAME_RAISED|LAYOUT_RIGHT);
     new FXMDIMinimizeButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENUMINIMIZE,FRAME_RAISED|LAYOUT_RIGHT);
@@ -324,12 +329,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     //        to perform a step or not)
     myRunThread->start();
     // check whether a simulation shall be started on begin
-    if(config!="") {
-        gStartAtBegin = true;
-        load(config);
-    } else {
-        gStartAtBegin = false;
-    }
+    gStartAtBegin = false;
+    //}
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
 }
 
@@ -1155,6 +1156,14 @@ void
 GUIApplicationWindow::loadSelection(const std::string &file) const
 {
     GUISelectionLoader::loadSelection(file);
+}
+
+
+void
+GUIApplicationWindow::loadOnStartup(const std::string &config)
+{
+    gStartAtBegin = true;
+    load(config);
 }
 
 

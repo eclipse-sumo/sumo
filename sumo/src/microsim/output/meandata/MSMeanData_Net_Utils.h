@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/17 10:33:38  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.2  2004/11/23 10:14:27  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
@@ -55,10 +61,6 @@ public:
     static MSMeanData_Net_Cont buildList(MSEdgeControl &ec,
         std::vector<size_t> dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
-
-    /// Checks whether an output shall be generated and does it if so
-    static void checkOutput(MSMeanData_Net_Cont &cont,
-        size_t passedSteps, size_t start, size_t step, MSEdgeControl &edges);
 
     /// Builds a list with unique aggregation times
     static std::vector<size_t> buildUniqueList(

@@ -23,6 +23,12 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.2  2004/11/23 10:43:28  dkrajzew
 // debugging
 //
@@ -51,11 +57,11 @@ namespace
 // shared input possibilities between both routers
 //
 // Revision 1.2  2004/01/26 09:58:46  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further container
+// sinks are now simply marked as these instead of the usage of a further
+//  container
 //
 // Revision 1.1  2004/01/26 07:12:12  dkrajzew
 // now two routers are available - the dua- and the jp-router
-//
 //
 /* =========================================================================
  * included modules
@@ -97,11 +103,13 @@ namespace
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
+/*
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
 //   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
 #endif
+   */
 #endif
 
 
@@ -243,10 +251,12 @@ main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
+    /*
     CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
     // _CrtSetBreakAlloc(434490);
+    */
 #endif
 #endif
     int ret = 0;

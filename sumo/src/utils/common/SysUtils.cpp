@@ -11,11 +11,14 @@ long
 SysUtils::getCurrentMillis()
 {
 #ifndef WIN32
+    /*
     struct timeval current;
     gettimeofday(&current, NULL);
     long nanosecs =
         (long) current.tv_sec * 1000L + (long) current.tv_usec / 1000L;
     return nanosecs;
+    */
+    return 0;
 #else
     LARGE_INTEGER val, val2;
     BOOL check = QueryPerformanceCounter(&val);

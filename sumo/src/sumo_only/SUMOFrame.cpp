@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/02/17 10:33:40  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.28  2005/02/01 10:07:27  dkrajzew
 // performance computation added
 //
@@ -187,7 +193,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("dump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     //
-    oc.doRegister("actuating-detector-pos", new Option_Float(100));
     oc.doRegister("time-to-teleport", new Option_Integer(300));
 
     oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
@@ -204,6 +209,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("agent-tl.min-diff", new Option_Float((float) .1));
     oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
 
+    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));
     oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));
     oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));

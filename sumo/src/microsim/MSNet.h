@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.47  2005/02/17 10:33:38  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.46  2005/02/01 10:08:24  dkrajzew
 // performance computation added; got rid of MSNet::Time
 //
@@ -539,7 +545,7 @@ public:
 
     //{
     /// to be called before a simulation step is done, this prints the current step number
-    inline void preSimStepOutput() {
+    void preSimStepOutput() const {
         std::cout << "Step #" << myStep;
         if(!myLogExecutionTime) {
             std::cout << (char) 13;
@@ -547,12 +553,12 @@ public:
     }
 
     /// to be called after a simulation step is done, this prints some further statistics
-    inline void postSimStepOutput() {
+    void postSimStepOutput() const {
         if(myLogExecutionTime) {
             if(mySimStepDuration!=0) {
                 std::cout << " (" << mySimStepDuration << "ms ~= "
-                    << (1000/mySimStepDuration) << "*RT, ~"
-                    << (myVehicleControl->getRunningVehicleNo()/mySimStepDuration*1000)
+                    << (1000./ (float) mySimStepDuration) << "*RT, ~"
+                    << ((float) myVehicleControl->getRunningVehicleNo()/(float) mySimStepDuration*1000.)
                         << "UPS)"
                     << "               "
                     << (char) 13;

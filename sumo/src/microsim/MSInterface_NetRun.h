@@ -11,6 +11,8 @@ public:
     virtual void simulationStep( size_t start, size_t step ) = 0;
     virtual bool haveAllVehiclesQuit() = 0;
     virtual size_t getCurrentTimeStep() const = 0;
+    virtual void preSimStepOutput() const = 0;
+    virtual void postSimStepOutput() const = 0;
 
 };
 

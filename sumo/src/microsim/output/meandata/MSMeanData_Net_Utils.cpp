@@ -116,27 +116,6 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
 }
 
 
-void
-MSMeanData_Net_Utils::checkOutput(MSMeanData_Net_Cont &cont,
-                                  size_t passedSteps,
-                                  size_t start,
-                                  size_t step,
-                                  MSEdgeControl &edges)
-{
-    /*
-    for ( unsigned i = 0; i < cont.size(); ++i ) {
-
-        assert(cont.size()>i);
-        size_t interval = cont[ i ]->myInterval;
-        if ( passedSteps % interval == 0 ) {
-            cont[ i ]->write(passedSteps, start, step, edges, i);
-
-        }
-    }
-    */
-}
-
-
 std::vector<size_t>
 MSMeanData_Net_Utils::buildUniqueList(
             std::vector<size_t> dumpMeanDataIntervalls)

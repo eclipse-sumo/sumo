@@ -23,6 +23,12 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/02/17 10:33:39  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.23  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -39,10 +45,14 @@ namespace
 // work on class derivation (for online-routing mainly)
 //
 // Revision 1.18  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+// extended traffic lights are now no longer templates; MSNet now handles
+//  all simulation-wide output
 //
 // Revision 1.17  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors; coupling of detectors
+//  to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.16  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
@@ -224,7 +234,7 @@ NLNetBuilder::buildNet(MSVehicleControl *vc)
     // ... and the parser
     // get the matching handler
     NLNetHandler handler("", *container, db, tb,
-        m_pOptions.getFloat("actuating-detector-pos"),
+        m_pOptions.getFloat("actuated-tl.detector-pos"),
         m_pOptions.getFloat("agent-tl.detector-len"),
         m_pOptions.getInt("agent-tl.learn-horizon"),
         m_pOptions.getInt("agent-tl.decision-horizon"),

@@ -18,6 +18,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2005/02/17 10:33:38  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.9  2004/08/02 12:40:55  dkrajzew
 // debugging; refactoring; lane-changing API
 //
@@ -96,7 +102,7 @@ MSVehicle::dawdle( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accelSpeed(speed) * random;
 
-    return MAX( double( 0 ), speed );
+    return MAX2( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -114,7 +120,7 @@ MSVehicle::dawdle2( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * speed * random;
 
-    return MAX( double( 0 ), speed );
+    return MAX2( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -20,6 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/02/17 10:33:28  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.2  2004/11/23 10:43:28  dkrajzew
 // debugging
 //
@@ -286,13 +292,15 @@ main(int argc, char **argv)
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
+        bool useConfig = oc.isSet("c");
+        string configFile =
+            useConfig ? oc.getString("c") : "";
 
         // build the main window
         GUIThreadFactory tf;
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application, tf,
-                oc.getInt("w"), oc.getInt("h"),
-                oc.getString("c"));
+                oc.getInt("w"), oc.getInt("h"));
         gGradients = new GUIGradientStorage(window);
         initColoringSchemes();
         // delete startup-options
@@ -300,6 +308,10 @@ main(int argc, char **argv)
         // Create app
         application.addSignal(SIGINT,window, MID_QUIT);
         application.create();
+        // Load configuration given oncommand line
+        if(useConfig) {
+            window->loadOnStartup(configFile);
+        }
         // Run
         ret = application.run();
     } catch(...) {

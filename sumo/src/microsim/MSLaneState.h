@@ -28,13 +28,13 @@
 #pragma warning(disable: 4786)
 
 
-#include "MSNet.h"
 #include <microsim/output/MSDetectorFileOutput.h>
 #include "MSMoveReminder.h"
 #include <string>
 #include <deque>
 #include <map>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/SUMOTime.h>
 
 class MSLane;
 

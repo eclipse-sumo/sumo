@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.27  2005/02/17 10:33:37  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.26  2005/02/01 10:10:41  dkrajzew
 // got rid of MSNet::Time
 //
@@ -33,13 +39,15 @@
 // raw-output extracted; debugging of collision handling
 //
 // Revision 1.22  2004/07/02 09:58:08  dkrajzew
-// MeanData refactored (moved to microsim/output); numerical id for online routing added
+// MeanData refactored (moved to microsim/output); numerical id for online
+//  routing added
 //
 // Revision 1.21  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
 // Revision 1.20  2003/12/12 12:37:42  dkrajzew
-// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+// proper usage of lane states applied; scheduling of vehicles into the
+//  beamer on push failures added
 //
 // Revision 1.19  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes

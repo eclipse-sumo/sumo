@@ -114,7 +114,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // -------- forced changing
     double rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        :*/ myVehicle.getLane().maxSpeed() * 50;
+        :*/ myVehicle.getLane().maxSpeed() * 5;
     if( bestLaneOffset<0&&currentDistDisallows(currentDist, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
@@ -287,7 +287,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // -------- forced changing
     double lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        : */myVehicle.getLane().maxSpeed() * 50;
+        : */myVehicle.getLane().maxSpeed() * 5;
     if( bestLaneOffset>0
         &&
         currentDistDisallows(currentDist, bestLaneOffset, lv)) {
@@ -396,7 +396,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
     // check whether the vehicle is blocked
     if((state&LCA_URGENT)!=0) {
         if(vSafe>0) {
-            return MIN(max, MAX(min, vSafe));
+            return MIN2(max, MAX2(min, vSafe));
         }
         // check whether the vehicle maybe has to be swapped with one of
         //  the blocking vehicles
@@ -426,15 +426,15 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
         if(myVSafe<=0) {
             return (min+wanted)/2.0;
         }
-        return MAX(min, MIN(vSafe, wanted));
+        return MAX2(min, MIN2(vSafe, wanted));
     }
     if((state&LCA_AMBACKBLOCKER)!=0) {
         if(max<=myVehicle.accelAbility()&&min==0) {
-            return MAX(min, MIN(vSafe, wanted));
+            return MAX2(min, MIN2(vSafe, wanted));
         }
     }
     if((state&LCA_AMBACKBLOCKER_STANDING)!=0) {
-        return MAX(min, MIN(vSafe, wanted));
+        return MAX2(min, MIN2(vSafe, wanted));
     }
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
@@ -457,7 +457,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
             return wanted;
         }
         if(myVSafe>(min+wanted)/2.0) {
-            return MIN(vSafe, wanted);
+            return MIN2(vSafe, wanted);
         }
         return (min+wanted)/2.0;
     }
@@ -476,8 +476,9 @@ MSLCM_DK2004::inform(void *info, MSVehicle *sender)
     myState &= 0xffffffff;
     myState |= pinfo->second;
     if(pinfo->first>=0) {
-        myVSafe = MIN(myVSafe, pinfo->first);
+        myVSafe = MIN2(myVSafe, pinfo->first);
     }
+    delete pinfo;
     return (void*) true;
 }
 
@@ -508,25 +509,25 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         double decelGap =
             neighFollow.second
             + myVehicle.speed() * MSNet::deltaT() * 2.0
-            - MAX(nv->speed() - nv->decelAbility() * 2.0, 0);
+            - MAX2(nv->speed() - nv->decelAbility() * 2.0, 0);
         if(neighFollow.second>0&&decelGap>0&&nv->isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             double vsafe = myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                 neighFollow.second, neighFollow.first->speed());
             msgPass.informNeighFollower(
-                (void*) &(Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER)), &myVehicle);
+                (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
             double vsafe = neighFollow.second<=0
                 ? 0
                 : myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                     neighFollow.second, neighFollow.first->speed());
             msgPass.informNeighFollower(
-                (void*) &(Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)), &myVehicle);
+                (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }
     }
     if((blocked&LCA_BLOCKEDBY_LEADER)!=0) {
         if(neighLead.first!=0&&neighLead.second>0) {
             msgPass.informNeighLeader(
-                (void*) &(Info(0, dir|LCA_AMBLOCKINGLEADER)), &myVehicle);
+                (void*) new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
         }
     }
 }

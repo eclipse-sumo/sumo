@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.14  2004/12/20 15:00:37  dkrajzew
 // version patched
 //
@@ -36,8 +42,7 @@
 // emissions and trip-file included in the options list
 //
 // Revision 1.9  2004/01/26 07:13:51  dkrajzew
-// added the possibility to place lsa-detectors at a default position/using a
-//  default length
+// added the possibility to place lsa-detectors at a default position/using a default length
 //
 // Revision 1.8  2003/12/12 12:32:13  dkrajzew
 // continuing on accidents is now meant to be the default behaviour
@@ -49,10 +54,7 @@
 // included new options into the help-screens
 //
 // Revision 1.5  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/03/31 06:18:18  dkrajzew
 // help screen corrected
@@ -111,7 +113,7 @@ char *help[] = {
     "                                   forward (default=0: read all routes)",
     " Simulation options:",
     "   --quit-on-accident              Quits when an accident occures",
-    "   --actuating-detector-pos <FLOAT> The distance to the actuated lsa his",
+    "   --actuated-tl.detector-pos <FLOAT> The distance to the actuated lsa his",
     "                                     actuating detectors shall be placed at",
     "   --agent-detector-len <FLOAT>     The length of the actuating detectors",
     "                                     of an agentbased lsa",

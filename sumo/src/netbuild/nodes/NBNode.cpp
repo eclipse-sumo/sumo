@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/02/17 10:33:39  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.10  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -841,7 +847,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                         (*i)->getLaneShape(j).getEnd(),
                         (*k).edge->getLaneShape((*k).lane).getBegin())
                     / 2.0 / PI;
-                vmax = MIN(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/2.0));
+                vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/2.0));
                 //
                 string id =
                    string(":") + _id + string("_") + toString<size_t>(lno);

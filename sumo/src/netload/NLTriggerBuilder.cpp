@@ -21,6 +21,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/02/17 10:33:40  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.5  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -102,7 +108,9 @@ NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
                 + id + string("'."));
             throw ProcessError();
         }
-        return buildLaneSpeedTrigger(net, id, lanes, file);
+        MSTrigger *t = buildLaneSpeedTrigger(net, id, lanes, file);
+        net.addTrigger(t);
+        return t;
     }
     return 0;
 }

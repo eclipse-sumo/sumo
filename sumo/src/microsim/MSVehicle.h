@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.41  2005/02/17 10:33:38  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.40  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -874,7 +880,7 @@ private:
                               MoveOnReminderMode = BOTH);
     void activateRemindersByEmitOrLaneChange( void );
 
-    MSUnit::Cells movedDistanceDuringStepM;
+//    MSUnit::Cells movedDistanceDuringStepM;
 
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;

@@ -173,8 +173,8 @@ NBNodeShapeComputer::computeContinuationNodeShape()
                     myNode.getOutgoingEdges().end(),
                     NBContHelper::opposite_finder(inc, &myNode)));
             double v2 = myOutPos[out];
-            addCCWPoint(ret, inc, MAX(v1, v2), 1.5);
-            addCWPoint(ret, out, MAX(v1, v2), 1.5);
+            addCCWPoint(ret, inc, MAX2(v1, v2), 1.5);
+            addCWPoint(ret, out, MAX2(v1, v2), 1.5);
         }
     } else {
         addCCWPoint(ret,
@@ -214,7 +214,7 @@ NBNodeShapeComputer::computeRealNodeShape()
             }
             NeighborCrossDesc used2 = getNeighbor2Use(j2);
             used.myCrossingPosition =
-                MAX(used.myCrossingPosition, used2.myCrossingPosition);
+                MAX2(used.myCrossingPosition, used2.myCrossingPosition);
             // ok, process both directions
             addCCWPoint(ret, current, used.myCrossingPosition, 1.5);
             addCWPoint(ret, (*li), used.myCrossingPosition, 1.5);

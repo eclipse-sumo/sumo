@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -135,7 +141,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
         string("speedtrigger:") + id, GLO_LANESPEEDTRIGGER),
-    myShowAsKMH(true)
+    myShowAsKMH(true), myLastValue(-1)
 {
     mySGPositions.reserve(destLanes.size());
     myFGPositions.reserve(destLanes.size());
@@ -304,6 +310,10 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
         float value = (float) getCurrentSpeed();
         if(myShowAsKMH) {
             value *= 3.6f;
+            // !!!
+            if(((int) value+1)%10==0) {
+                value = ((int) value+1) / 10 * 10;
+            }
         }
         if(value!=myLastValue) {
             myLastValue = value;

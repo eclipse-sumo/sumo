@@ -50,7 +50,7 @@ MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
     if(thisLaneVSafe
         >=
-        MIN(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
+        MIN2(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
 
         // lane change due to a higher speed on the other lane
         return LCA_RIGHT|LCA_SPEEDGAIN;
@@ -99,7 +99,7 @@ MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
     if(thisLaneVSafe
         <
-        MIN(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
+        MIN2(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
 
         // lane change due to a higher speed on the other lane
         return LCA_LEFT|LCA_SPEEDGAIN;

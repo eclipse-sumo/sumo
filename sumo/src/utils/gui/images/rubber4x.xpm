@@ -1,8 +1,8 @@
-/* XPM */ 
+/* XPM */
 static const char * rubber4x_xpm[] = {
 "17 17 2 1",
-" 	c None",
-"!	c black",
+"   c None",
+"!  c black",
 "        !!!!!!!  ",
 "       !     !!  ",
 "      !     ! !  ",

@@ -22,6 +22,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.60  2005/02/17 10:33:38  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.59  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -554,7 +560,7 @@ MSVehicle::~MSVehicle()
     if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
         int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         for(int i=0; i<noReroutes; ++i) {
-            delete myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
+      delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
         }
     }
     /*
@@ -589,8 +595,8 @@ MSVehicle::MSVehicle( string id,
     myMeanData( noMeanData ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
-    myOldLaneMoveReminderOffsets( 0 ),
-    movedDistanceDuringStepM(0)
+    myOldLaneMoveReminderOffsets( 0 )
+//    movedDistanceDuringStepM(0)
 {
     myCurrEdge = myRoute->begin();
     rebuildAllowedLanes();
@@ -733,7 +739,7 @@ MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
         vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return MAX( gap, timeHeadWayGap( vNext ) );
+    return MAX2( gap, timeHeadWayGap( vNext ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -787,11 +793,11 @@ MSVehicle::hasSafeGap(  double gap, double predSpeed,
 double
 MSVehicle::safeEmitGap( void ) const
 {
-    double vNextMin = MAX( speed() - myType->decelSpeed(),
+    double vNextMin = MAX2( speed() - myType->decelSpeed(),
                            double( 0 ) ); // ok, minimum next speed
     double safeGap  = vNextMin *
         ( speed() * myType->inversTwoDecel() + myTau );
-    return MAX(
+    return MAX2(
         safeGap,
         timeHeadWayGap( myState.mySpeed ) ) +
             myType->accelDist(myState.mySpeed);
@@ -889,13 +895,13 @@ MSVehicle::move( MSLane* lane,
             vNext = dawdle( MIN3( vAccel, vSafe, vNeighEqualPos( *neigh ) ) );
         }
         else {
-            vNext = dawdle( MIN( vAccel, vSafe ) );
+            vNext = dawdle( MIN2( vAccel, vSafe ) );
         }
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
+            MAX2(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
             vNext,
-            MIN(vSafe, vaccel(myLane)),
+            MIN2(vSafe, vaccel(myLane)),
             vSafe);
     vNext = MIN3(vNext, vSafe, vaccel(myLane));
 //    }
@@ -909,10 +915,10 @@ MSVehicle::move( MSLane* lane,
         vNext = gap / MSNet::deltaT();
     }
 */
-    double predDec = MAX(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
+    double predDec = MAX2(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
     if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
 
-        vNext = MIN(vNext, gap / MSNet::deltaT());
+        vNext = MIN2(vNext, gap / MSNet::deltaT());
     }
 
     // check whether the driver wants to let someone in
@@ -920,7 +926,7 @@ MSVehicle::move( MSLane* lane,
     if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
 //        vNext = myLaneChangeState.modifySpeed(vNext, myState.mySpeed-decelAbility());
     }
-    vNext = MAX(0, vNext);
+    vNext = MAX2(0, vNext);
     if(vNext<=0.1) {
         myWaitingTime++;
     } else {
@@ -966,11 +972,11 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                 myLane->length()-myState.myPos/*-MSVehicleType::maxLength()*/,
                 0);
         if(pred!=0) {
-            vWish = MIN(vWish,
+            vWish = MIN2(vWish,
                 vsafe(myState.mySpeed, myType->decel() * MSNet::deltaT(),
                     gap2pred(*pred), pred->speed()) );
         }
-        vWish = MAX(0, vWish);
+        vWish = MAX2(0, vWish);
         // check whether the driver wants to let someone in
         if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
 //            vWish = myLaneChangeState.modifySpeed(vWish, myState.mySpeed-decelAbility());
@@ -986,7 +992,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                     gap2pred( *pred ), pred->speed());
             //  the vehcile is bound by the lane speed and must not drive faster
             //  than vsafe to the next vehicle
-            vBeg = MIN(vBeg, vSafe);
+            vBeg = MIN2(vBeg, vSafe);
         }
         // check whether the driver wants to let someone in
         if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
@@ -1049,17 +1055,17 @@ MSVehicle::moveFirstChecked()
     double vNext;
     if(myState.speed()==0&&vSafe<myType->accelSpeed(0)) {
         // do not dawdle too much on short segments
-        vNext = MAX(double(0), dawdle2( MIN(vSafe, vaccel(myLane)) ));
+        vNext = MAX2(double(0), dawdle2( MIN2(vSafe, vaccel(myLane)) ));
     } else {
         // lane-change interaction
         ///* !!!!!
         //*/
-        vNext = MAX(double(0), dawdle( MIN(vSafe, vaccel(myLane)) ));
+        vNext = MAX2(double(0), dawdle( MIN2(vSafe, vaccel(myLane)) ));
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
+            MAX2(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
             vNext,
-            MIN(vSafe, vaccel(myLane)),
+            MIN2(vSafe, vaccel(myLane)),
             vSafe);
     vNext = MIN3(vNext, vSafe, vaccel(myLane));
     }
@@ -1204,8 +1210,8 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
                 vsafe(myState.mySpeed, decelAbility, seen, 0);
             myLFLinkLanes.push_back(
                 DriveProcessItem(0,
-                    MIN(vLinkPass, laneEndVSafe),
-                    MIN(vLinkPass, laneEndVSafe)));
+                    MIN2(vLinkPass, laneEndVSafe),
+                    MIN2(vLinkPass, laneEndVSafe)));
             // the vehicle will not drive further
             return;
         }
@@ -1235,11 +1241,11 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             // leading vehicle is not overlapping
             vsafePredNextLane =
                 vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
-            double predDec = MAX(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
+            double predDec = MAX2(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
             if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
 
                 vsafePredNextLane =
-                    MIN(vsafePredNextLane, dist2Pred / MSNet::deltaT());
+                    MIN2(vsafePredNextLane, dist2Pred / MSNet::deltaT());
             }
         } else {
             // leading vehicle is overlapping (stands within the junction)
@@ -1260,7 +1266,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
         vLinkWait =
-            MIN(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
+            MIN2(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
 
         // valid, when a vehicle is not on a priorised lane
         if(!(*link)->havePriority()) {
@@ -1481,9 +1487,9 @@ double
 MSVehicle::vaccel( const MSLane* lane ) const
 {
     // Accelerate until vehicle's max speed reached.
-    double vVehicle = MIN( myState.mySpeed + myType->accelSpeed(myState.mySpeed), myType->myMaxSpeed );
+    double vVehicle = MIN2( myState.mySpeed + myType->accelSpeed(myState.mySpeed), myType->myMaxSpeed );
     // But don't drive faster than max lane speed.
-    return MIN( vVehicle, lane->maxSpeed() );
+    return MIN2( vVehicle, lane->maxSpeed() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1901,8 +1907,10 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
         int textdummy = 0;
     }
 #endif
+    /*
     movedDistanceDuringStepM = newPos - oldPos;
     assert( movedDistanceDuringStepM >= 0 );
+    */
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for ( MoveReminderContIt rem = myMoveReminders.begin();

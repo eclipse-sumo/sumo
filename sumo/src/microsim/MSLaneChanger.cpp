@@ -21,6 +21,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/02/17 10:33:37  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.19  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -426,15 +432,15 @@ MSLaneChanger::change()
 
                 // ok, may be swapped
                     // remove vehicle to swap with
-				MSLane::VehCont::iterator i =
-					find(
-						target->lane->myTmpVehicles.begin(),
-						target->lane->myTmpVehicles.end(),
-						prohibitor);
-				if(i!=target->lane->myTmpVehicles.end()) {
-	                MSVehicle *bla = *i;
-		            assert(bla==prohibitor);
-	                target->lane->myTmpVehicles.erase(i);
+                MSLane::VehCont::iterator i =
+                    find(
+                        target->lane->myTmpVehicles.begin(),
+                        target->lane->myTmpVehicles.end(),
+                        prohibitor);
+                if(i!=target->lane->myTmpVehicles.end()) {
+                    MSVehicle *bla = *i;
+                    assert(bla==prohibitor);
+                    target->lane->myTmpVehicles.erase(i);
                     // set this vehicle
                 target->hoppedVeh = vehicle;
                 target->lane->myTmpVehicles.push_front( vehicle );
@@ -469,7 +475,7 @@ MSLaneChanger::change()
     }
 #endif
                 return true;
-				}
+                }
             }
         }
     }
@@ -509,11 +515,11 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target)
             leader->pos()-leader->length()
             +
             (myCandi->lane->length()-veh(myCandi)->pos());
-        return std::pair<MSVehicle *, double>(leader, MAX(0, gap));
+        return std::pair<MSVehicle *, double>(leader, MAX2(0, gap));
     } else {
         MSVehicle *candi = veh(myCandi);
         double gap = leader->pos()-leader->length()-candi->pos();
-        return std::pair<MSVehicle *, double>(leader, MAX(0, gap));
+        return std::pair<MSVehicle *, double>(leader, MAX2(0, gap));
     }
 }
 

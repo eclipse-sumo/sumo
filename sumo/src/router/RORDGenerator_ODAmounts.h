@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/02/17 10:33:40  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.6  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -55,6 +61,7 @@
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "RORDLoader_TripDefs.h"
 #include "RONet.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -160,10 +167,10 @@ protected:
         RORouteDef *myRoute;
 
         /// The begin of the described interval
-        unsigned int myIntervalBegin;
+        SUMOTime myIntervalBegin;
 
         /// The end of the described interval
-        unsigned int myIntervalEnd;
+        SUMOTime myIntervalEnd;
 
         /// The number of vehicles to emit within the described interval
         unsigned int myVehicle2EmitNumber;
@@ -182,22 +189,22 @@ private:
 
 private:
     /// The begin of the interval current read
-    size_t myIntervalBegin;
+    SUMOTime myIntervalBegin;
 
     /// The end of the interval current read
-    size_t myIntervalEnd;
+    SUMOTime myIntervalEnd;
 
     /// The begin of the embedding interval (if given)
-    size_t myUpperIntervalBegin;
+    SUMOTime myUpperIntervalBegin;
 
     /// The end of the embedding interval (if given)
-    size_t myUpperIntervalEnd;
+    SUMOTime myUpperIntervalEnd;
 
     /// The number of vehicles to emit
     size_t myVehicle2EmitNumber;
 
     /// The current time step read
-    unsigned int myCurrentTimeStep;
+    SUMOTime myCurrentTimeStep;
 
     /// Definition of a container for flo definitions (vector)
     typedef std::vector<FlowDef*> FlowDefV;

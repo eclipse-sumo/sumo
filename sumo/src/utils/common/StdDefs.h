@@ -2,13 +2,13 @@
 #define StdDefs_h
 
 inline double
-MIN(double a, double b)
+MIN2(double a, double b)
 {
     return a<b?a:b;
 }
 
 inline double
-MAX(double a, double b)
+MAX2(double a, double b)
 {
     return a>b?a:b;
 }
@@ -17,28 +17,28 @@ MAX(double a, double b)
 inline double
 MIN3(double a, double b, double c)
 {
-    return MIN(c, a<b?a:b);
+    return MIN2(c, a<b?a:b);
 }
 
 
 inline double
 MAX3(double a, double b, double c)
 {
-    return MAX(c, a>b?a:b);
+    return MAX2(c, a>b?a:b);
 }
 
 
 inline double
 MIN4(double a, double b, double c, double d)
 {
-    return MIN(MIN(a,b),MIN(c,d));
+    return MIN2(MIN2(a,b),MIN2(c,d));
 }
 
 
 inline double
 MAX4(double a, double b, double c, double d)
 {
-    return MAX(MAX(a,b),MAX(c,d));
+    return MAX2(MAX2(a,b),MAX2(c,d));
 }
 
 

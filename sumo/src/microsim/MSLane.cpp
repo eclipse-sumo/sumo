@@ -24,6 +24,12 @@ namespace
 }
 
 // $Log$
+// Revision 1.52  2005/02/17 10:33:34  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.51  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -710,7 +716,7 @@ MSLane::emitTry( MSVehicle& veh )
         myApproaching==0
             ? 0
             : myApproaching->getSecureGap(*this, veh);
-    safeSpace = MAX( safeSpace, veh.length() );
+    safeSpace = MAX2( safeSpace, veh.length() );
     if ( safeSpace<length() ) {
         MSVehicle::State state;
         state.setPos(safeSpace);
@@ -1439,7 +1445,6 @@ MSLane::getID() const
 {
     return myID;
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

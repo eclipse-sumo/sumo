@@ -22,6 +22,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.51  2005/02/17 10:33:39  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.50  2004/12/16 12:23:36  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -155,6 +161,7 @@ NLNetHandler::NLNetHandler(const std::string &file,
                            double stdActuatedMaxGap,
                            double stdActuatedPassingTime,
                            double stdActuatedDetectorGap)
+
     : MSRouteHandler(file, true),
     myContainer(container), _tlLogicNo(-1), m_Offset(0),
     myCurrentIsInternalToSkip(false),
@@ -473,21 +480,24 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     myContainer.initIncomingLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
-        try {
-            m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
-        } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform(
-                "A detector offset of a triffic light logic is not numeric!");
-        }
-        // recheck the offset in dependence to the type if not given
-        if(m_DetectorOffset==-1) {
-            // agentbased
-            if(m_Type=="agentbased") {
-                m_DetectorOffset = myStdDetectorLengths;
+        // get the detector offset
+        {
+            try {
+                m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+            } catch (NumberFormatException&) {
+                MsgHandler::getErrorInstance()->inform(
+                    "A detector offset of a traffic light logic is not numeric!");
             }
-            // actuated
-            if(m_Type=="actuated") {
-                m_DetectorOffset = myStdDetectorPositions;
+            // recheck the offset in dependence to the type if not given
+            if(m_DetectorOffset==-1) {
+                // agentbased
+                if(m_Type=="agentbased") {
+                    m_DetectorOffset = myStdDetectorLengths;
+                }
+                // actuated
+                if(m_Type=="actuated") {
+                    m_DetectorOffset = myStdDetectorPositions;
+                }
             }
         }
     } catch (EmptyData) {

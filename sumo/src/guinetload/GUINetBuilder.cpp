@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.23  2005/01/27 14:19:35  dkrajzew
 // ability to load from a string added
 //
@@ -164,7 +170,7 @@ GUINetBuilder::buildNetworkFromDescription(MSVehicleControl *vc,
         myEdgeBuilder, myJunctionBuilder);
     // get the matching handler
     GUINetHandler handler("", *container, db, tb,
-        m_pOptions.getFloat("actuating-detector-pos"),
+        m_pOptions.getFloat("actuated-tl.detector-pos"),
         m_pOptions.getFloat("agent-tl.detector-len"),
         m_pOptions.getInt("agent-tl.learn-horizon"),
         m_pOptions.getInt("agent-tl.decision-horizon"),
@@ -208,7 +214,7 @@ GUINetBuilder::buildNet(MSVehicleControl *vc)
         myEdgeBuilder, myJunctionBuilder);
     // get the matching handler
     GUINetHandler handler("", *container, db, tb,
-        m_pOptions.getFloat("actuating-detector-pos"),
+        m_pOptions.getFloat("actuated-tl.detector-pos"),
         m_pOptions.getFloat("agent-tl.detector-len"),
         m_pOptions.getInt("agent-tl.learn-horizon"),
         m_pOptions.getInt("agent-tl.decision-horizon"),

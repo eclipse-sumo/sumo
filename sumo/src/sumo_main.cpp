@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/02/17 10:33:29  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.24  2004/11/25 16:26:45  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -166,6 +172,22 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+#ifdef DEBUB_ALLOC
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
+#ifdef WIN32
+   #include <utils/dev/MemDiff.h>
+   #include <crtdbg.h>
+#endif
+/*
+#include <utils/dev/debug_new.h>
+#define new debug_new
+*/
+#endif
 #include <ctime>
 #include <string>
 #include <iostream>
@@ -231,6 +253,15 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
+#ifdef _DEBUG
+#ifdef WIN32
+    CMemDiff state1;
+    // uncomment next line and insert the context of an undeleted
+    //  allocation to break within it (MSVC++ only)
+    // _CrtSetBreakAlloc(814107);
+#endif
+#endif
+
     size_t rand_init = 10551;
     int ret = 0;
     try {

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/02/17 10:33:40  dkrajzew
+// code beautifying;
+// Linux building patched;
+// warnings removed;
+// new configuration usage within guisim
+//
 // Revision 1.3  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -119,7 +125,7 @@ void
 RORDLoader_SUMOBase::getVehicleDepartureTime(const Attributes &attrs,
                                              const std::string &id)
 {
-    myDepartureTime = -1;
+    myDepartureTime = 0; // !!! was: -1
     try {
         myDepartureTime = getLong(attrs, SUMO_ATTR_DEPART);
     } catch (EmptyData) {
@@ -207,8 +213,8 @@ RORDLoader_SUMOBase::startVehicle(const Attributes &attrs)
     int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
-			_net.removeRouteSecure(route);
-			// !!! was ist mit type?
+            _net.removeRouteSecure(route);
+            // !!! was ist mit type?
             return;
         }
         _net.addVehicle(id, myVehicleBuilder.buildVehicle(
