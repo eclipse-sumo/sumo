@@ -1,11 +1,11 @@
-#ifndef GUILoadThread_h
-#define GUILoadThread_h
+#ifndef QMessageEvent_h
+#define QMessageEvent_h
 //---------------------------------------------------------------------------//
-//                        GUILoadThread.h -
-//  Class describing the thread that performs the loading of a simulation
+//                        QMessageEvent.h -
+//  Event send when a message (message, warning, error) has to besubmitted
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
+//  begin                : Wed 18 Jun 2003
 //  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -20,15 +20,10 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/06/18 11:04:53  dkrajzew
+// Revision 1.1  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
 //
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -36,52 +31,59 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include "QSUMOEvent.h"
+#include "GUIEvents.h"
 #include <string>
-#include <qthread.h>
-#include <utils/common/MsgRetriever.h>
-
-
- /* =========================================================================
- * class declarations
- * ======================================================================= */
-class GUIApplicationWindow;
+#include <utils/common/MsgHandler.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUILoadThread :
-    public QThread,
-    public MsgRetriever
-{
+/**
+ * QMessageEvent
+ * Throw from GUIRunThread to GUIApplicationWindow and then further to all
+ * displays after a step has been performed
+ */
+class QMessageEvent : public QSUMOEvent {
 public:
     /// constructor
-    GUILoadThread(GUIApplicationWindow *mw);
+    QMessageEvent(MsgHandler::MsgType type, const std::string &msg)
+        : QSUMOEvent(EVENT_MESSAGE_OCCURED), myMsg(msg)
+    {
+        switch(type) {
+        case MsgHandler::MT_MESSAGE:
+            myType = EVENT_MESSAGE_OCCURED;
+            break;
+        case MsgHandler::MT_WARNING:
+            myType = EVENT_WARNING_OCCURED;
+            break;
+        case MsgHandler::MT_ERROR:
+            myType = EVENT_ERROR_OCCURED;
+            break;
+        default:
+            throw 1;
+        }
+    }
 
     /// destructor
-    ~GUILoadThread();
+    ~QMessageEvent() { }
 
-    /// begins the loading of the given file
-    void init(const std::string &file);
+    /// Returns the message
+    const std::string &getMsg() const {
+        return myMsg;
+    }
 
-    /** starts the thread
-    	the thread ends after the net has been loaded */
-    void run();
+protected:
+    /// The message
+    std::string myMsg;
 
-    void inform(const std::string &msg);
-
-private:
-    /// the parent window to inform about the loading
-    GUIApplicationWindow *_parent;
-
-    /// the path to load the simulation from
-    std::string _file;
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUILoadThread.icc"
+//#include "QMessageEvent.icc"
 //#endif
 
 #endif

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/18 11:04:53  dkrajzew
+// new error processing adapted
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -46,8 +49,19 @@
 enum GUIEvent {
     /// thrown when a simulation has been loaded
     EVENT_SIMULATION_LOADED,
+
     /// thrown when a simulation step has been performed
-    EVENT_SIMULATION_STEP
+    EVENT_SIMULATION_STEP,
+
+    /// thrown when a message occured
+    EVENT_MESSAGE_OCCURED,
+
+    /// thrown when a warning occured
+    EVENT_WARNING_OCCURED,
+
+    /// thrown when a error occured
+    EVENT_ERROR_OCCURED
+
 };
 
 

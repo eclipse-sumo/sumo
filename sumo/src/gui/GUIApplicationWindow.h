@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/06/18 11:04:53  dkrajzew
+// new error processing adapted
+//
 // Revision 1.8  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -58,6 +61,7 @@
 #include <qworkspace.h>
 #include <qtoolbutton.h>
 #include <utils/glutils/FontStorage.h>
+#include <utils/common/MsgRetriever.h>
 
 /* =========================================================================
  * class declarations
@@ -79,7 +83,9 @@ class QWidget;
  * The main window of the SUMO-gui. Contains the file opening support and
  * a canvas to display the simulation representations in
  */
-class GUIApplicationWindow: public QMainWindow
+class GUIApplicationWindow:
+    public QMainWindow/*,
+    public MsgRetriever*/
 {
     // is a Q-OBJECT
     Q_OBJECT
@@ -100,6 +106,10 @@ public:
     void addChild(QWidget *child, bool updateOnSimStep=true);
 
     void removeChild(QWidget *child);
+/*
+    /// derived from MsgRetriever, it is called on error messages
+    void inform(std::string error);
+*/
 
 private slots:
     /** called from the menu, this method allows to choose a simulation

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:04:53  dkrajzew
+// new error processing adapted
+//
 // Revision 1.3  2003/06/06 10:28:45  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -116,10 +119,17 @@ namespace
 #include "GUISUMOAbstractView.moc"
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -221,7 +231,7 @@ bool
 GUISUMOAbstractView::event( QEvent *e )
 {
     if(e->type()==QEvent::MouseButtonDblClick) {
-        cout << "doppelt" << endl;
+        DEBUG_OUT << "doppelt" << endl;
     }
     return QGLWidget::event(e);
 }
@@ -636,7 +646,7 @@ GUISUMOAbstractView::timerEvent ( QTimerEvent *e )
     killTimers();
     switch(_timerReason) {
     case Qt::LeftButton:
-        cout << "Left Button" << endl;
+        DEBUG_OUT << "Left Button" << endl;
         break;
     case Qt::RightButton:
         {

@@ -17,7 +17,7 @@ GUISimpleLaneDrawer.cpp GUISimpleLaneDrawer.h \
 GUITriangleVehicleDrawer.cpp GUITriangleVehicleDrawer.h \
 GUIViewTraffic.cpp GUIViewTraffic.h \
 QAboutSUMO.cpp QAboutSUMO.h \
-QGLObjectToolTip.cpp QGLObjectToolTip.h \
+QGLObjectToolTip.cpp QGLObjectToolTip.h QMessageEvent.h \
 QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
 QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
 TableTypes.h \

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:04:53  dkrajzew
+// new error processing adapted
+//
 // Revision 1.8  2003/06/06 11:12:37  dkrajzew
 // deletion of singletons changed/added
 //
@@ -50,22 +53,24 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include <sumo_version.h>
 #include <qthread.h>
 #include <iostream>
-
 #include <guisim/GUINet.h>
 #include <guinetload/GUINetBuilder.h>
-#include <utils/common/SErrorHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/common/MsgHandler.h>
 #include <sumo_only/SUMOFrame.h>
 #include <helpers/SingletonDictionary.h>
 #include "QSimulationLoadedEvent.h"
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
+#include "QMessageEvent.h"
 
 
 /* =========================================================================
@@ -80,6 +85,7 @@ using namespace std;
 GUILoadThread::GUILoadThread(GUIApplicationWindow *mw)
     : _parent(mw)
 {
+    MsgHandler::getErrorInstance()->addRetriever(this);
 }
 
 
@@ -104,7 +110,9 @@ void GUILoadThread::run()
     int simStartTime = 0;
     int simEndTime = 0;
     try {
-        SErrorHandler::clearErrorInformation();
+        MsgHandler::getErrorInstance()->clear();
+        MsgHandler::getWarningInstance()->clear();
+        MsgHandler::getMessageInstance()->clear();
         OptionsIO::loadConfiguration(oc);
         GUINetBuilder builder(*oc);
         net = builder.buildGUINet();
@@ -117,11 +125,13 @@ void GUILoadThread::run()
     } catch (UtilException &e) {
         delete net;
         delete craw;
+        MSNet::clearAll();
         net = 0;
         craw = 0;
     } catch (XMLBuildingException &e) {
         delete net;
         delete craw;
+        MSNet::clearAll();
         net = 0;
         craw = 0;
     }
@@ -129,6 +139,13 @@ void GUILoadThread::run()
     QThread::postEvent( _parent,
         new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
         string(_file)) );
+}
+
+void
+GUILoadThread::inform(const std::string &msg)
+{
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_ERROR, msg));
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/18 11:04:53  dkrajzew
+// new error processing adapted
+//
 // Revision 1.2  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
@@ -47,19 +50,21 @@
  */
 class QSUMOEvent : public QEvent {
 public:
+    /// returns the event type
+    GUIEvent getOwnType() const { return myType; }
+
+protected:
     /// constructor
     QSUMOEvent(GUIEvent ownType)
-        : QEvent(QEvent::User), _ownType(ownType) { }
+        : QEvent(QEvent::User), myType(ownType) { }
 
     /// destructor
-    ~QSUMOEvent() { }
+    virtual ~QSUMOEvent() { }
 
-    /// returns the event type
-    GUIEvent getOwnType() const { return _ownType; }
-
-private:
+protected:
     /// the type of the event
-    GUIEvent _ownType;
+    GUIEvent myType;
+
 };
 
 
