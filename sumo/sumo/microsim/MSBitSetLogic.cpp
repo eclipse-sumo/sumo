@@ -18,8 +18,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 11:30:29  croessel
+// in respond(): Perform response-calculation for set-responds only.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.2  2002/03/06 11:04:17  croessel
 // Assert added to be sure that passed respond has the correct size.
@@ -74,7 +77,6 @@ MSBitSetLogic< N >::~MSBitSetLogic< N >()
 {
     ( *myLogic ).clear();
     ( *myTransform ).clear();
-    
 }
                
 //-------------------------------------------------------------------------//
@@ -86,7 +88,7 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
     
     // convert request to bitset
     std::bitset< N > requestBS;
-    unsigned int i = 0;   
+     unsigned int i = 0;   
     for ( ; i < myNLinks; ++i ) {
     
         requestBS.set( i, request[ i ] );
@@ -96,9 +98,11 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
     std::bitset< N > respondBS;    
     
     for ( i = 0; i < myNLinks; ++i ) {
-        
-        bool linkPermit = ( requestBS & ( *myLogic )[ i ]).none();   
-        respondBS.set( i, linkPermit );        
+
+        if ( requestBS.test( i ) ) {
+            bool linkPermit = ( requestBS & ( *myLogic )[ i ]).none();   
+            respondBS.set( i, linkPermit ); 
+        }       
     }
     
     // perform the link to lane transformation  
