@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.8  2003/03/12 16:34:34  dkrajzew
+// some style guides applied
+//
 // Revision 1.7  2003/03/03 15:08:20  dkrajzew
 // debugging
 //
@@ -93,7 +96,8 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 /** validate options (settings) */
-bool checkSettings(OptionsCont *oc) {
+bool checkSettings(OptionsCont *oc) 
+{
     // check whether the output is valid and can be build
     if(!oc->isSet("o")) {
         cout << "No output specified." << endl;
@@ -108,6 +112,7 @@ bool checkSettings(OptionsCont *oc) {
     return true;
 }
 
+
 /** build and retrieve the options (settings) */
 OptionsCont *
 getSettings(int argc, char **argv)
@@ -115,6 +120,7 @@ getSettings(int argc, char **argv)
     OptionsCont *oc = new OptionsCont();
     // register the file i/o options
     oc->doRegister("cell-input", new Option_FileName());
+    oc->doRegister("artemis-input", new Option_FileName());
     oc->doRegister("output", 'o', new Option_FileName());
     oc->doRegister("net-files", 'n', new Option_FileName());
     oc->doRegister("weights", 'w', new Option_FileName());
@@ -173,7 +179,8 @@ getSettings(int argc, char **argv)
  * weights which may be supplied in a separate file
  */
 RONet *
-loadNet(ROLoader &loader, OptionsCont *oc) {
+loadNet(ROLoader &loader, OptionsCont *oc) 
+{
     // load the net
     RONet *net = loader.loadNet();
     if(net==0)
@@ -185,6 +192,11 @@ loadNet(ROLoader &loader, OptionsCont *oc) {
     return net;
 }
 
+
+/**
+ * Builds the output file
+ * Informs about errors when occuring
+ */
 std::ofstream *
 buildOutput(const std::string &name)
 {
@@ -198,11 +210,18 @@ buildOutput(const std::string &name)
     return ret;
 }
 
+
+/**
+ * Computes the routes saving them
+ */
 void
-startComputation(RONet &net, ROLoader &loader, OptionsCont &oc) {
+startComputation(RONet &net, ROLoader &loader, OptionsCont &oc) 
+{
     // prepare the output
-    std::ofstream *res = buildOutput(oc.getString("o"));
-    std::ofstream *altres = buildOutput(oc.getString("o")+string(".alt"));
+    std::ofstream *res = 
+        buildOutput(oc.getString("o"));
+    std::ofstream *altres = 
+        buildOutput(oc.getString("o")+string(".alt"));
     // begin writing
     (*res) << "<routes>" << endl;
     (*altres) << "<route-alternatives>" << endl;
@@ -231,7 +250,8 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc) {
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-int main(int argc, char **argv)
+int 
+main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
@@ -258,13 +278,19 @@ int main(int argc, char **argv)
         ROLoader loader(*oc);
         net = loadNet(loader, oc);
         if(net!=0) {
+            // initialise the network for route computation
             net->postloadInit();
+            // build routes
             try {
                 startComputation(*net, loader, *oc);
             } catch (SAXParseException e) {
                 cout << "Error:" << e.getLineNumber() << endl;
+                ret = 1;
             } catch (SAXException e) {
-                cout << "Error:" << TplConvert<XMLCh>::_2str(e.getMessage()) << endl;
+                cout << "Error:" 
+                    << TplConvert<XMLCh>::_2str(e.getMessage()) 
+                    << endl;
+                ret = 1;
             }
         } else {
             ret = 1;
