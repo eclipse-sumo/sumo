@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2004/01/12 14:36:21  dkrajzew
+// removed some dead code; documentation added
+//
 // Revision 1.18  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -274,18 +277,8 @@ public:
     /// Adds a build traffic light logic
     void addTLLogic(MSTrafficLightLogic *logic);
 
-//     // ----- interfaces for the generation of detectors
-//     /// adds a new detector to the simulation
-//     void addDetector(MSInductLoop* detector);
-
-//     /// adds a list of new detectors to the simulation
-//     void addDetectors(MSNet::DetectorCont detectors);
-
     /// end of operations; builds the net
     MSNet *buildMSNet(const OptionsCont &options);
-
-//     /// returns the detectors
-//     MSNet::DetectorCont *getDetectors();
 
     /// returns the preallocated (preinitialised) net
     MSNet &getNet();
@@ -353,12 +346,10 @@ private:
 
     /// the map to store junction logics into
     static LogicCont _logics;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLContainer.icc"
-//#endif
 
 #endif
 

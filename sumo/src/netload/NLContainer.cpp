@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/01/12 14:36:20  dkrajzew
+// removed some dead code; documentation added
+//
 // Revision 1.18  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -452,24 +455,6 @@ NLContainer::closeJunction()
 }
 
 
-// // ----- handling of detectors
-// void
-// NLContainer::addDetector(MSDetector *detector)
-// {
-//     m_pDetectors->push_back(detector);
-// }
-
-
-// void
-// NLContainer::addDetectors(MSNet::DetectorCont detectors)
-// {
-//     for(MSNet::DetectorCont::iterator i=detectors.begin(); i!=detectors.end(); i++) {
-//         m_pDetectors->push_back(*i);
-//     }
-// }
-
-
-
 // end of operations
 MSNet *
 NLContainer::buildMSNet(const OptionsCont &options)
@@ -518,11 +503,6 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
     return new MSRouteLoaderControl(getNet(), oc.getInt("s"), loaders);
 }
 
-
-// MSNet::DetectorCont *
-// NLContainer::getDetectors() {
-//     return m_pDetectors;
-// }
 
 MSNet &
 NLContainer::getNet()

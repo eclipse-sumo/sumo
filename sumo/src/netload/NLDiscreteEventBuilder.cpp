@@ -1,3 +1,29 @@
+/***************************************************************************
+                          NLDiscreteEventBuilder .h
+                          A building helper for simulation actions
+                             -------------------
+    begin                : Sep, 2003
+    copyright            : (C) 2003 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.2  2004/01/12 14:36:21  dkrajzew
+// removed some dead code; documentation added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "NLDiscreteEventBuilder.h"
 #include <utils/xml/AttributesHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
@@ -6,8 +32,16 @@
 #include <microsim/MSEventControl.h>
 #include <utils/common/FileHelpers.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NLDiscreteEventBuilder::NLDiscreteEventBuilder()
     : AttributesHandler(sumoattrs, noSumoAttrs)
 {
@@ -77,3 +111,9 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
     return new Command_SaveTLSState(source, dest);
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
