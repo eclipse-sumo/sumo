@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/11/11 08:24:52  dkrajzew
+// debug values removed
+//
 // Revision 1.16  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -201,8 +204,8 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
         string id = "District" + district->getID();
         NBNode *districtNode =
             new NBNode(id,
-                district->getXCoordinate(),
-                district->getYCoordinate(),
+                district->getPosition().x(),
+                district->getPosition().y(),
                 district);
         if(!NBNodeCont::insert(districtNode)) {
             throw 1;

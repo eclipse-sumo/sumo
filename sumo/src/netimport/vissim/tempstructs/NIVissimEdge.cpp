@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/11/11 08:24:52  dkrajzew
+// debug values removed
+//
 // Revision 1.19  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -212,9 +215,6 @@ NIVissimEdge::buildConnectionClusters()
     //  connections
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         int edgeid = (*i).first;
-    if(edgeid==1000052) {
-        int bla = 0;
-    }
         NIVissimEdge *edge = (*i).second;
         // get all connectors using this edge
         IntVector connectors = edge->myIncomingConnections;
@@ -297,7 +297,7 @@ NIVissimEdge::dict_propagateSpeeds()
     }
     for(i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimEdge *edge = (*i).second;
-        edge->propagateSpeed(5);
+        edge->propagateSpeed(50);
     }
 }
 
@@ -361,9 +361,6 @@ NIVissimEdge::buildNBEdge(double offset)
     std::pair<NIVissimConnectionCluster*, NBNode *> fromInf, toInf;
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
-    if(myID==1000052) {
-        int bla = 0;
-    }
     sort(myConnectionClusters.begin(), myConnectionClusters.end(),
         connection_cluster_position_sorter(myID));
     sort(myDistrictConnections.begin(), myDistrictConnections.end());
@@ -421,6 +418,8 @@ NIVissimEdge::buildNBEdge(double offset)
         if(!NBNodeCont::insert(fromNode)) {
             throw 1;
         }
+    } else if(fromNode->getPosition()!=myGeom.at(0)) {
+        myGeom.push_front(fromNode->getPosition());
     }
     if(toNode==0) {
         toInf.first = 0;
@@ -431,6 +430,8 @@ NIVissimEdge::buildNBEdge(double offset)
         if(!NBNodeCont::insert(toNode)) {
             throw 1;
         }
+    } else if(toNode->getPosition()!=myGeom.getEnd()) {
+        myGeom.push_back(toNode->getPosition());
     }
 
     // extend the edge's shape
@@ -711,19 +712,19 @@ NIVissimEdge::remapOneOfNodes(NIVissimDistrictConnection *d,
                               NBNode *fromNode, NBNode *toNode)
 {
     string nid = string("ParkingPlace") + toString<int>(d->getID());
-    if( GeomHelper::distance(d->geomPosition(), fromNode->geomPosition())
+    if( GeomHelper::distance(d->geomPosition(), fromNode->getPosition())
         <
-        GeomHelper::distance(d->geomPosition(), toNode->geomPosition()) ) {
+        GeomHelper::distance(d->geomPosition(), toNode->getPosition()) ) {
 
         NBNode *newNode = new NBNode(nid,
-            fromNode->getXCoordinate(), fromNode->getYCoordinate(),
+            fromNode->getPosition().x(), fromNode->getPosition().y(),
             NBNode::NODETYPE_NOJUNCTION);
         NBNodeCont::erase(fromNode);
         NBNodeCont::insert(newNode);
         return std::pair<NBNode*, NBNode*>(newNode, toNode);
     } else {
         NBNode *newNode = new NBNode(nid,
-            toNode->getXCoordinate(), toNode->getYCoordinate(),
+            toNode->getPosition().x(), toNode->getPosition().y(),
             NBNode::NODETYPE_NOJUNCTION);
         NBNodeCont::erase(toNode);
         NBNodeCont::insert(newNode);
@@ -968,20 +969,6 @@ NIVissimEdge::dict_checkEdges2Join()
             // only parallel edges which do end at the same node
             //  should be joined
             // retrieve the "approximating" lines first
-/*            Line2D l1 =
-                c->getFromEdgeID()==e1->getID()
-                ? Line2D(g1.getBegin(), g1.getEnd())
-                : Line2D(g2.getBegin(), g2.getEnd());
-            Line2D l2 =
-                c->getToEdgeID()==e1->getID()
-                ? Line2D(g1.getBegin(), g1.getEnd())
-                : Line2D(g2.getBegin(), g2.getEnd());*/
-            if(e1->getID()==1000063&&e2->getID()==1000064) {
-                int bla = 0;
-            }
-            if(e2->getID()==1000063&&e1->getID()==1000064) {
-                int bla = 0;
-            }
             Line2D l1 = Line2D(g1.getBegin(), g1.getEnd());
             Line2D l2 = Line2D(g2.getBegin(), g2.getEnd());
             // check for parallelity

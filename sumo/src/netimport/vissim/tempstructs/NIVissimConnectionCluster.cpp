@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/11/11 08:24:51  dkrajzew
+// debug values removed
+//
 // Revision 1.19  2003/10/30 13:44:10  dkrajzew
 // vissim-import seems to work
 //
@@ -189,8 +192,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
     : myConnections(connections), myBoundery(boundery),
     myNodeCluster(nodeCluster), myEdges(edges)
 {
-//    myBoundery.add(c->getFromGeomPosition());
     myClusters.push_back(this);
+    recomputeBoundery();
     assert(myBoundery.xmax()>=myBoundery.xmin());
     // add information about incoming and outgoing edges
     for(IntVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
@@ -270,7 +273,6 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
 	//  regarding this information
     std::vector<NIVissimConnectionCluster*> joinAble;
     size_t pos = 0;
-	IntVector incoming, outgoing;
     ContType::iterator i = myClusters.begin();
     // step1 - faster but no complete
     while(i!=myClusters.end()) {
@@ -298,8 +300,6 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         if(joinAble.size()>0) {
             i = myClusters.begin() + pos;
 			// clear temporary storages
-            incoming.clear();
-            outgoing.clear();
             joinAble.clear();
         } else {
             i++;
@@ -332,8 +332,6 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         if(joinAble.size()>0) {
             i = myClusters.begin();
 			// clear temporary storages
-            incoming.clear();
-            outgoing.clear();
             joinAble.clear();
         } else {
             i++;
@@ -341,7 +339,9 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
             cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
     }
-    //
+    // check for weak district connections
+    //  (junctions made up by district connections, where prohibitions are not
+    //   modelled properly)
     i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
@@ -366,8 +366,38 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         if(joinAble.size()>0) {
             i = myClusters.begin();
 			// clear temporary storages
-            incoming.clear();
-            outgoing.clear();
+            joinAble.clear();
+        } else {
+            i++;
+            pos++;
+            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+        }
+    }
+    // check for connection clusters lying beyond the edge
+    i = myClusters.begin();
+    while(i!=myClusters.end()) {
+        bool restart = false;
+        ContType::iterator j = i + 1;
+        // check whether every combination has been processed
+        while(j!=myClusters.end()) {
+            // check whether the current clusters overlap
+			if((*i)->liesOnSameEdgesEnd(*j)) {
+                joinAble.push_back(*j);
+            }
+            j++;
+        }
+        for(std::vector<NIVissimConnectionCluster*>::iterator k=joinAble.begin();
+                k!=joinAble.end(); k++) {
+            // add the overlaping cluster
+            (*i)->add(*k);
+            // erase the overlaping cluster
+            delete *k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+        }
+        //
+        if(joinAble.size()>0) {
+            i = myClusters.begin();
+			// clear temporary storages
             joinAble.clear();
         } else {
             i++;
@@ -380,37 +410,6 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
 bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset)
 {
-    int id1 = 10441;
-    int id2 = 10440;
-    if(find(myConnections.begin(), myConnections.end(), id1)!=myConnections.end()) {
-        if(find(c2->myConnections.begin(), c2->myConnections.end(), id2)!=c2->myConnections.end()) {
-            int bla = 0;
-            cout << endl;
-            cout << "Incoming1:" << myIncomingEdges << endl;
-            cout << "Outgoing1:" << myOutgoingEdges << endl;
-            cout << "Connections1:" << myConnections << endl;
-            cout << "Incoming2:" << c2->myIncomingEdges << endl;
-            cout << "Outgoing2:" << c2->myOutgoingEdges << endl;
-            cout << "Connections2:" << c2->myConnections << endl;
-        }
-    }
-    if(find(c2->myConnections.begin(), c2->myConnections.end(), id1)!=c2->myConnections.end()) {
-        if(find(myConnections.begin(), myConnections.end(), id2)!=myConnections.end()) {
-            int bla = 0;
-            cout << endl;
-            cout << "Incoming1:" << myIncomingEdges << endl;
-            cout << "Outgoing1:" << myOutgoingEdges << endl;
-            cout << "Connections1:" << myConnections << endl;
-            cout << "Incoming2:" << c2->myIncomingEdges << endl;
-            cout << "Outgoing2:" << c2->myOutgoingEdges << endl;
-            cout << "Connections2:" << c2->myConnections << endl;
-        }
-    }
-/*
-    if(isWeakDistrictConnRealisation(c2)) {
-        return true;
-    }
-*/
     // join clusters which have at least one connection in common
 	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
 		return true;
@@ -517,6 +516,41 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
 }
 
 
+bool
+NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2)
+{
+    //
+    for(IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+        for(IntVector::iterator j=cc2->myConnections.begin(); j!=cc2->myConnections.end(); j++) {
+            NIVissimConnection *c2 = NIVissimConnection::dictionary(*j);
+            if(c1->getFromEdgeID()==c2->getFromEdgeID()) {
+                NIVissimEdge *e = NIVissimEdge::dictionary(c1->getFromEdgeID());
+                const Position2DVector &g = e->getGeometry();
+                double pos1 = GeomHelper::nearest_position_on_line_to_point(
+                    g.getBegin(), g.getEnd(), c1->getBoundery().getCenter());
+                double pos2 = GeomHelper::nearest_position_on_line_to_point(
+                    g.getBegin(), g.getEnd(), c2->getBoundery().getCenter());
+                if(pos1<=5.0&&pos2<=5.0) {
+                    return true;
+                }
+            }
+            if(c1->getToEdgeID()==c2->getToEdgeID()) {
+                NIVissimEdge *e = NIVissimEdge::dictionary(c1->getFromEdgeID());
+                const Position2DVector &g = e->getGeometry();
+                double pos1 = GeomHelper::nearest_position_on_line_to_point(
+                    g.getBegin(), g.getEnd(), c1->getBoundery().getCenter());
+                double pos2 = GeomHelper::nearest_position_on_line_to_point(
+                    g.getBegin(), g.getEnd(), c2->getBoundery().getCenter());
+                if(pos1>=g.length()-5.0&&pos2>=g.length()-5.0) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 
 IntVector
 NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector &iv1,
@@ -561,12 +595,9 @@ NIVissimConnectionCluster::buildNodeClusters()
         IntVector nodes;
         int tlsid = -1;
         int nodeid = -1;
-
         if((*i)->myConnections.size()>0) {
             (*i)->recomputeBoundery();
-//            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
             disturbances = NIVissimDisturbance::getWithin((*i)->myBoundery);
-            //
         }
         nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundery, 5.0);
         if(nodes.size()>1) {
@@ -735,6 +766,8 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c)
             myConnections.erase(j);
         }
     }
+    recomputeBoundery();
+
 }
 
 

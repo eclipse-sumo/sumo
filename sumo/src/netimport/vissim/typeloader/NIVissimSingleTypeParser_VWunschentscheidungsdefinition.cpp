@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/11 08:24:52  dkrajzew
+// debug values removed
+//
 // Revision 1.3  2003/10/30 09:13:00  dkrajzew
 // further work on vissim-import
 //
@@ -110,10 +113,15 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &fro
     NIVissimEdge *e = NIVissimEdge::dictionary(numid);
     if(e==0) {
         NIVissimConnection *c = NIVissimConnection::dictionary(numid);
+        const IntVector &lanes = c->getToLanes();
         e = NIVissimEdge::dictionary(c->getToEdgeID());
+        for(IntVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
+            e->replaceSpeed((*j), numv);
+        }
         assert(e!=0);
+    } else {
+        e->replaceSpeed(numlane, numv);
     }
-    e->replaceSpeed(numlane, numv);
     return true;
 }
 

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/11/11 08:24:52  dkrajzew
+// debug values removed
+//
 // Revision 1.12  2003/10/30 13:44:10  dkrajzew
 // vissim-import seems to work
 //
@@ -194,6 +197,9 @@ private:
         const IntVector &iv2) const;
 
     bool isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2);
+
+    bool liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2);
+
 
 
 private:

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/11/11 08:24:52  dkrajzew
+// debug values removed
+//
 // Revision 1.9  2003/07/07 08:29:54  dkrajzew
 // Warnings are now reported to the MsgHandler
 //
@@ -137,7 +140,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     while(tag!="fahrzeugklassen") {
         tag = myRead(from);
     }
-    IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "BLA");
+    IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
     //
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     NIVissimTL::NIVissimTLSignal *signal =
