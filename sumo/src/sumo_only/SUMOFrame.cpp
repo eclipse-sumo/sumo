@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/12/12 12:31:31  dkrajzew
+// continuing on accidents is now meant to be the default behaviour
+//
 // Revision 1.14  2003/12/04 13:16:34  dkrajzew
 // handling of internal links added
 //
@@ -108,7 +111,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.doRegister("route-steps", 's', new Option_Integer(0));
-    oc.doRegister("continue-on-accident", new Option_Bool(false));
+    oc.doRegister("quit-on-accident", new Option_Bool(false));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/12/12 12:32:13  dkrajzew
+// continuing on accidents is now meant to be the default behaviour
+//
 // Revision 1.7  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
@@ -81,7 +84,7 @@ char *help[] = {
     "   -s, --route-steps INT           The number of steps to read routes in",
     "                                   forward (default=0: read all routes)",
     " Simulation options:",
-    "   --continue-on-accident          Allows continuation after an accident",
+    "   --quit-on-accident              Quits when an accident occures",
     "   --srand <INT>                   Initialises the random number generator",
     "                                    with the given value",
     "   --abs-rand                      Set this when the current time shall be",
