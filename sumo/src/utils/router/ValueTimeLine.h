@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/02/06 08:47:11  dkrajzew
+// debugged things that came up during the compilation under linux
+//
 // Revision 1.3  2004/01/26 07:17:49  dkrajzew
 // "specialisation" of the time line to handle interpolation added
 //
@@ -30,6 +33,8 @@
  * included modules
  * ======================================================================= */
 #include <vector>
+#include <cassert>
+#include <algorithm>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -55,30 +60,59 @@ public:
     /// A list of time periods having which have values assigned
     typedef std::vector<ValuedTimeRange> TimedValueVector;
 
+    typedef typename TimedValueVector::const_iterator CTVVIt;
+
 public:
     /// Constructor
-    ValueTimeLine();
+    ValueTimeLine() { }
 
     /// Destructor
-    ~ValueTimeLine();
+    ~ValueTimeLine() { }
 
     /// Adds a time period together with a value
-    void addValue(unsigned int begin, unsigned int end, T value);
+    void addValue(unsigned int begin, unsigned int end, T value)
+	{
+	    addValue(TimeRange(begin, end), value);
+	}
 
     /// Adds a time period together with a value
-    void addValue(TimeRange range, T value);
+    void addValue(TimeRange range, T value)
+	{
+	    ValuedTimeRange valued(range, value);
+	    myValues.push_back(valued);
+	}
 
     /// Returns the value for the given time
-    T getValue(unsigned int time) const;
+    T getValue(unsigned int time) const
+	{
+	    assert(myValues.size()>0);
+	    CTVVIt i = std::find_if(
+		myValues.begin(), myValues.end(), range_finder(time));
+	    if(i==myValues.end()) {
+		i = myValues.end() - 1;
+	    }
+	    return (*i).second;
+	}
 
     /// Returns the number of known periods
-    size_t noDefinitions() const;
+    size_t noDefinitions() const
+	{
+	    return myValues.size();
+	}
 
     /// Returns the time period description at the given position // !!! should not be public
-    const TimeRange &getRangeAtPosition(size_t pos) const;
+    const TimeRange &getRangeAtPosition(size_t pos) const
+	{
+	    return myValues[pos].first;
+	}
 
     /// returns the information wehther the values for the given time are known
-    bool describesTime(unsigned int time) const;
+    bool describesTime(unsigned int time) const
+	{
+	    CTVVIt i = std::find_if(
+		myValues.begin(), myValues.end(), range_finder(time));
+	    return(i!=myValues.end());
+	}
 
 private:
     /// Searches for the range when a time point is given
