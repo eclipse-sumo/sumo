@@ -157,6 +157,10 @@ SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSLaneState.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSLink.cpp
 # End Source File
 # Begin Source File
