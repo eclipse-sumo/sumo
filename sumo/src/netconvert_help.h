@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/04/04 08:41:47  dkrajzew
+// help screen updated; min-decel usage added
+//
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -56,9 +59,14 @@ char *help[] = {
     "   -x, --xml-connection-files FILE[;+]",
     "                                  connection definitions in XML-format",
     "   -t, --type-file FILE           FILE contains type definitions (XML)",
+    "   --arcview FILE_NO_EXT          The name of arcview files",
+    "   --arcview-shp FILE             The name of the arcview-shp file",
+    "   --arcview-dbf FILE             The name of the arcview-sbf file",
+    "   --artemis PATH                 Artemis path",
     "   --cell-node-file FILE          node definitions in Cell-format",
     "   --cell-edge-file FILE          edge definitions in Cell-format",
-    "   --visum FILE                   Visum v7.5 export file",
+    "   --visum FILE                   Visum v7.5 file (.net)",
+    "   --vissim FILE                  Vissim v3.6.2+ file (.inp)",
     " ",
     " Output files:",
     "   -o, --output-file FILE         The generated net will be written to FILE",
@@ -68,11 +76,18 @@ char *help[] = {
     "   -L, --lanenumber INT           The default number of lanes in an edge",
     "   -S, --speed DOUBLE             The default speed on an edge (in m/s)",
     "   -P, --priority INT             The default priority of an edge",
+    "   -N, --capacity-norm DOUBLE     The factor for flow to no. lanes conv.",
+    "   -D, --min-decel DOUBLE         The least vehicle deceleration value used",
     " ",
     " Processing Options:",
     "   -C, --no-config                No configuration file is used",
     "   -v, --verbose                  SUMO-Netconvert reports what it does",
     "   -p, --print-options            Prints option values before processing",
+    "   --flip-y                       Flips the y-coordinate along zero",
+    "   --speed-in-km                  vmax is parsed as given in km/h; XML only",
+    "   --use-laneno-as-priority       Uses the number of lanes priority hint",
+    "   --omit-corrupt-edges           Continues parsing although a corrupt edge",
+    "                                     occured (warning is printed)",
     "   --help                         This screen",
     0
 };

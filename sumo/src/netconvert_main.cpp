@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/04 08:41:48  dkrajzew
+// help screen updated; min-decel usage added
+//
 // Revision 1.6  2003/03/18 13:19:38  dkrajzew
 // memory leak debugging functions included (MSVC)
 //
@@ -174,7 +177,7 @@ bool sortNodesEdges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
-            << ": Sorting nodes' edges " << endl;
+            << ": Sorting nodes' edges, computing shape " << endl;
     }
     return NBNodeCont::sortNodesEdges(verbose);
 }
@@ -251,7 +254,8 @@ bool computeLogic(int step, OptionsCont *oc)
         cout << "Computing step " << step
             << ": Computing node logics" << endl;
     }
-    return NBNodeCont::computeLogics(oc->getBool("v"), 0);
+    return NBNodeCont::computeLogics(
+        oc->getBool("v"), 0, oc->getFloat("min-decel"));
 }
 
 /* -------------------------------------------------------------------------
@@ -277,15 +281,8 @@ compute(OptionsCont *oc)
     bool ok = true;
     bool verbose = oc->getBool("v");
     int step = 1;
-    size_t size = NBNodeCont::size();
-//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
-//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = removeDummyEdges(step++, verbose);
-//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
-//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = joinEdges(step++, verbose);
-//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
-//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = computeTurningDirections(step++, verbose);
     if(ok) ok = sortNodesEdges(step++, verbose);
     if(ok) ok = normaliseNodePositions(step++, verbose);
