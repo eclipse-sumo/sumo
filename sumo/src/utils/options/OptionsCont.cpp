@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/24 08:13:51  dkrajzew
+// added the possibiliy to clear the container
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -119,12 +122,12 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 OptionsCont::OptionsCont()
-    : _addresses(0), _values(), _path("")
+    : _addresses(), _values(), _path()
 {
 }
 
 OptionsCont::OptionsCont(const string &path)
-    : _addresses(0), _values(), _path(path)
+    : _addresses(), _values(), _path(path)
 {
    char *tmp = getenv(_path.c_str());
    if(tmp==0) {
@@ -137,10 +140,7 @@ OptionsCont::OptionsCont(const string &path)
 
 OptionsCont::~OptionsCont()
 {
-    for(ItemAddressContType::iterator i=_addresses.begin();
-            i!=_addresses.end(); i++) {
-        delete (*i);
-    }
+    clear();
 }
 
 
@@ -463,6 +463,19 @@ OptionsCont::getSystemPath(const string &ext) const
 {
     return string(getPath() + string("/") + ext);
 }
+
+
+void
+OptionsCont::clear()
+{
+    for(ItemAddressContType::iterator i=_addresses.begin();
+            i!=_addresses.end(); i++) {
+        delete (*i);
+    }
+    _addresses.clear();
+    _values.clear();
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

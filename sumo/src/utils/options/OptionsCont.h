@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/24 08:13:51  dkrajzew
+// added the possibiliy to clear the container
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -94,98 +97,136 @@
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */
 class OptionsCont {
- private:
-    /** definition of the type that stores the addresses of used options */
-    typedef std::vector<Option*> ItemAddressContType;
-    /** definition of the type that realises the access to options */
-    typedef std::map<std::string, Option*> KnownContType;
-    /** storage for option-addresses */
-    ItemAddressContType _addresses;
-    /** access map of options */
-    KnownContType       _values;
-    /** the name of the enviroment-variable that stores the path */
-    std::string         _path;
- public:
+public:
     /** constructor */
     OptionsCont();
+
     /** constructor */
     OptionsCont(const std::string &env);
+
     /** destructor */
     ~OptionsCont();
+
     /** adds an option under the given name */
     void doRegister(const std::string &name1, Option *v);
+
     /** adds an option under the given name and the given abbreviation */
     void doRegister(const std::string &name1, char abbr, Option *v);
+
     /** registers a system path (appends the value to the enviroment-path) */
     void doRegisterSystemPath(const std::string &name,
         const std::string &value);
+
     /** registers a system path (appends the value to the enviroment-path) */
     void doRegisterSystemPath(const std::string &name1, char abbr,
         const std::string &value);
+
     /** adds a synonymes for an options name (any order) */
     void addSynonyme(const std::string &name1, const std::string &name2);
+
     /** returns the information whether the named option is known */
     bool exists(const std::string &name) const;
+
     /** returns the information whether the named option is set */
     bool isSet(const std::string &name) const;
+
     /** returns the information whether the named option has still the
         default value */
     bool isDefault(const std::string &name) const;
+
     /** returns the string-value of the named option
         (only for Option_String) */
     std::string getString(const std::string &name) const;
+
     /** returns the float-value of the named option (only for Option_Float) */
     float getFloat(const std::string &name) const;
+
     /** returns the int-value of the named option (only for Option_Intger) */
     int getInt(const std::string &name) const;
+
     /** returns the long-value of the named option (only for Option_Long) */
     long getLong(const std::string &name) const;
+
     /** returns the boolean-value of the named option
         (only for Option_Bool) */
     bool getBool(const std::string &name) const;
+
     /** returns the list of longs-value of the name option
         (only for Option_LongList) */
     const UIntVector &getUIntVector(const std::string &name) const;
+
     /** returns the information whether the option is a boolean option */
     bool isBool(const std::string &name) const;
+
     /** checks whether the named option is usable as a file list
         (with at least a single file)
         returns true if yes, false if the list is not set and throws
         a ProcessError when the list is not empty but contains only
         delimiters */
     bool isUsableFileList(const std::string &name) const;
+
     /** sets the given value for the named option */
     bool set(const std::string &name, const std::string &value,
         bool isDefault=false);
+
     /** sets the given boolean value for the named option
         (Option_Bool only) */
     bool set(const std::string &name, bool value, bool isDefault=false);
+
     /** returns the synonymes of an option name */
     std::vector<std::string> getSynonymes(const std::string &name) const;
+
     /** resets all options to be the default value */
     void resetDefaults();
+
     /// returns the information whether the named item is a file name
     bool isFileName(const std::string &name) const;
+
     /** output operator */
     friend std::ostream& operator<<( std::ostream& os, const OptionsCont& oc);
+
     /** returns the path (not the name) */
     std::string getPath() const;
 
- private:
+    /** removes all previous information from the container */
+    void clear();
+
+private:
     /** returns the named option */
-   Option *getSecure(const std::string &name) const;
+    Option *getSecure(const std::string &name) const;
+
     /** writes the warning about double setting to cout */
-   void reportDoubleSetting(const std::string &arg) const;
+    void reportDoubleSetting(const std::string &arg) const;
+
     /** converts an abbreviation into a name */
     std::string convertChar(char abbr) const;
+
     /** returns the system path */
     std::string getSystemPath(const std::string &ext) const;
 
- private:
+private:
+    /** definition of the type that stores the addresses of used options */
+    typedef std::vector<Option*> ItemAddressContType;
+
+    /** definition of the type that realises the access to options */
+    typedef std::map<std::string, Option*> KnownContType;
+
+    /** storage for option-addresses */
+    ItemAddressContType _addresses;
+
+    /** access map of options */
+    KnownContType       _values;
+
+    /** the name of the enviroment-variable that stores the path */
+    std::string         _path;
+
+private:
     /** invalid copy constructor */
     OptionsCont(const OptionsCont &s);
+
     /** invalid assignment operator */
     OptionsCont &operator=(const OptionsCont &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
