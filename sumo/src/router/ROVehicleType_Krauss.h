@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/10/17 07:16:45  dkrajzew
 // errors patched
 //
@@ -32,9 +35,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,6 +45,7 @@
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
+
 
 /* =========================================================================
  * class definitions
@@ -67,7 +68,7 @@ public:
 	~ROVehicleType_Krauss();
 
     /// Saves the vehicle type into the given stream using SUMO-XML
-	std::ostream &xmlOut(std::ostream &os);
+	std::ostream &xmlOut(std::ostream &os) const;
 
 private:
     /// Krauﬂ-parameter
@@ -82,9 +83,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROVehicleType_Krauss.icc"
-//#endif
 
 #endif
 

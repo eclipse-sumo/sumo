@@ -23,26 +23,32 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.2  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include "ROEdgeVector.h"
 #include "RONode.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RONode::RONode(const std::string &id, const ROEdgeVector &edges)
     : _edges(edges)
 {
 }
+
 
 RONode::~RONode()
 {
@@ -50,9 +56,6 @@ RONode::~RONode()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RONode.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

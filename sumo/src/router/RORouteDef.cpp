@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.12  2003/12/09 11:30:37  dkrajzew
 // false detection whether a vehicle is too long to start from an edge patched
 //
@@ -39,7 +42,10 @@ namespace
 // all vehicles, routes and vehicle types may now have specific colors
 //
 // Revision 1.7  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.6  2003/05/20 09:48:35  dkrajzew
 // debugging
@@ -56,9 +62,6 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -75,7 +78,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
 #include "RORoute.h"
-#include "RORouter.h"
+#include "ROAbstractRouter.h"
 #include "ReferencedItem.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
@@ -97,53 +100,9 @@ RORouteDef::RORouteDef(const std::string &id, const RGBColor &color)
 {
 }
 
+
 RORouteDef::~RORouteDef()
 {
-}
-
-
-bool
-RORouteDef::computeAndSave(OptionsCont &options,
-                           RORouter &router, long begin,
-                           std::ostream &res, std::ostream &altres,
-                           bool isPeriodical, ROVehicle &veh)
-{
-    RORoute *current =
-        buildCurrentRoute(router, begin,
-            options.getBool("continue-on-unbuild"), veh);
-    if(current==0) {
-        return false;
-    }
-    // check whether the route is valid and does not end on the starting edge
-    if(current->size()<2) {
-        // check whether the route ends at the starting edge
-        //  unbuild routes due to missing connections are reported within the
-        //  router
-        if(current->size()!=0) {
-            cout << endl;
-            MsgHandler::getWarningInstance()->inform(
-                string("The route '") + _id
-                + string("' is too short, propably ending at the starting edge."));
-            MsgHandler::getWarningInstance()->inform("Skipping...");
-        }
-        delete current;
-        return false;
-    }
-    // check whether the vehicle is able to start at this edge
-    //  (the edge must be longer than the vehicle)
-    if(current->getFirst()->getLength()<=veh.getType()->getLength()) {
-        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh.getID()
-            + string("' is too long to start at edge '")
-            + current->getFirst()->getID() + string("'."));
-        delete current;
-        return false;
-    }
-    // add build route
-    addAlternative(current, begin);
-    // save route
-    xmlOutCurrent(res, isPeriodical);
-    xmlOutAlternatives(altres);
-    return true;
 }
 
 
@@ -166,9 +125,6 @@ RORouteDef::patchID()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORouteDef.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

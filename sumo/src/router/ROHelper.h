@@ -20,12 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,9 +65,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROHelper.icc"
-//#endif
 
 #endif
 

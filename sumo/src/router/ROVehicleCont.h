@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -32,9 +35,6 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,6 +49,7 @@
 #include "ROVehicle.h"
 #include <utils/common/NamedObjectCont.h>
 #include "ROHelper.h"
+
 
 /* =========================================================================
  * class definitions
@@ -72,9 +73,6 @@ public:
         std::vector<ROVehicle*>,
         ROHelper::VehicleByDepartureComperator> &sort();
 
-    /// Removes the vehicle from the container
-    void eraseVehicle(ROVehicle *v);
-
 private:
     /// The sorted vehicle list
     std::priority_queue<ROVehicle*,
@@ -92,9 +90,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROVehicleCont.icc"
-//#endif
 
 #endif
 

@@ -23,11 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/09/05 15:22:44  dkrajzew
 // handling of internal lanes added
 //
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+// this handler puts it further to output instances.
+// changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
@@ -35,15 +41,13 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -57,14 +61,23 @@ namespace
 #include "ROEdgeVector.h"
 #include "RONet.h"
 #include "RONetHandler.h"
+#include "ROAbstractEdgeBuilder.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-RONetHandler::RONetHandler(OptionsCont &oc, RONet &net)
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+RONetHandler::RONetHandler(OptionsCont &oc, RONet &net,
+                           ROAbstractEdgeBuilder &eb)
     : SUMOSAXHandler("sumo-network"),
     _options(oc), _net(net), _currentName(),
-    _currentEdge(0)
+    _currentEdge(0), myEdgeBuilder(eb)
 {
 }
 
@@ -102,6 +115,7 @@ RONetHandler::myStartElement(int element, const std::string &name,
         break;
     }
 }
+
 
 void
 RONetHandler::parseEdge(const Attributes &attrs)
@@ -187,7 +201,8 @@ RONetHandler::parseJunction(const Attributes &attrs)
 
 
 void
-RONetHandler::parseConnEdge(const Attributes &attrs) {
+RONetHandler::parseConnEdge(const Attributes &attrs)
+{
     // no error by now
     bool error = false;
     // try to get the edge to connect the current edge to
@@ -197,7 +212,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs) {
         ROEdge *succ = _net.getEdge(succID);
         if(succ!=0&&_currentEdge!=0) {
             // connect edge
-            _currentEdge->addSucceeder(succ);
+            _currentEdge->addFollower(succ);
         } else {
             MsgHandler::getErrorInstance()->inform(
                 string("The succeding edge '") + succID
@@ -219,8 +234,6 @@ RONetHandler::parseConnEdge(const Attributes &attrs) {
 }
 
 
-
-
 void
 RONetHandler::myCharacters(int element, const std::string &name,
                            const std::string &chars)
@@ -228,17 +241,16 @@ RONetHandler::myCharacters(int element, const std::string &name,
     if(element==SUMO_TAG_EDGES) {
         preallocateEdges(chars);
     }
-/*    if(_step==1&&element==SUMO_TAG_outedges) {
-        parseoutedges(chars);
-    }*/
 }
 
+
 void
-RONetHandler::preallocateEdges(const std::string &chars) {
+RONetHandler::preallocateEdges(const std::string &chars)
+{
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string id = st.next();
-        _net.addEdge(id, new ROEdge(id));
+        _net.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
     }
 }
 
@@ -246,23 +258,10 @@ RONetHandler::preallocateEdges(const std::string &chars) {
 void
 RONetHandler::myEndElement(int element, const std::string &name)
 {
- /*   switch(element) {
-    case SUMO_TAG_EDGE:
-        if(_currentName!="") {
-            _net.addEdge(_currentName, _currentEdge);
-        }
-        _currentName = "";
-        break;
-    default:
-        break;
-    }*/
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RONetHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/06/19 11:00:26  dkrajzew
 // usage of false tag-enums patched
 //
@@ -32,15 +35,13 @@ namespace
 // Revision 1.3  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/GenericSAX2Handler.h>
@@ -54,8 +55,15 @@ namespace
 #include "RONet.h"
 #include "ROWeightsHandler.h"
 
-
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROWeightsHandler::ROWeightsHandler(OptionsCont &oc, RONet &net,
                                    const std::string &file)
     : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
@@ -163,9 +171,6 @@ void ROWeightsHandler::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROWeightsHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

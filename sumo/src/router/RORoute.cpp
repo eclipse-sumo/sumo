@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/09/05 15:23:23  dkrajzew
 // umlaute conversion added
 //
@@ -32,15 +35,13 @@ namespace
 // Revision 1.2  2003/02/07 10:45:05  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
@@ -87,7 +88,6 @@ RORoute::xmlOut(std::ostream &os, bool isPeriodical) const
         os << " multi_ref=\"x\"";
     }
     os << ">";
-//    os << " references=\"" << _references << "\">";
     os << _route;
     os << "</route>" << endl;
 }
@@ -163,12 +163,7 @@ RORoute::setPropability(double prop)
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORoute.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/08/18 12:44:54  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -32,9 +35,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -46,7 +46,7 @@
 #include <sax2/SAX2XMLReader.hpp>
 #include <framework/XMLPScanToken.hpp>
 #include <utils/sumoxml/SUMOSAXHandler.h>
-#include "ROTypedRoutesLoader.h"
+#include "ROAbstractRouteDefLoader.h"
 
 
 /* =========================================================================
@@ -73,7 +73,7 @@ class Options;
  * formats. Some methods as the initialisation and the file processing, together
  * with the need for a parser are common to all such loaders.
  */
-class ROTypedXMLRoutesLoader : public ROTypedRoutesLoader,
+class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
                                public SUMOSAXHandler {
 public:
     /// Constructor
@@ -83,23 +83,29 @@ public:
     virtual ~ROTypedXMLRoutesLoader();
 
     /// Closes the reading of routes
-    void closeReading();
-
-    /// Reads all routes from the file
-    virtual bool addAllRoutes();
+    virtual void closeReading();
 
     /// called when the document has ended
     void endDocument();
 
+    /// Returns the information whether no routes are available from this loader anymore
+	bool ended() const;
+
 protected:
-    /// Begins a stepwise reading
-    bool startReadingSteps();
+    /** @brief Reads the until the specified time is reached
+        Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
+        for the modalities! */
+    bool myReadRoutesAtLeastUntil(unsigned int time);
 
-    /// Reads the next route
-    bool readNextRoute(long start);
-
-    /// initialises the reading
+    /// Initialises the handler for reading
     bool myInit(OptionsCont &options);
+
+protected:
+    /// Return the information whether a route was read
+    virtual bool nextRouteRead() = 0;
+
+    /// Initialises the reading of a further route
+    virtual void beginNextRoute() = 0;
 
 protected:
     /// The parser used
@@ -108,13 +114,13 @@ protected:
     /// Information about the current position within the file
     XMLPScanToken _token;
 
+    /// Information whether the whole file has been parsed
+    bool _ended;
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROTypedXMLRoutesLoader.icc"
-//#endif
 
 #endif
 

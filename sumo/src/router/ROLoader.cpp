@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.12  2003/08/18 12:44:54  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -30,7 +33,10 @@ namespace
 // Warnings are now reported to the MsgHandler
 //
 // Revision 1.10  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+// this handler puts it further to output instances.
+// changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.9  2003/05/20 09:48:35  dkrajzew
 // debugging
@@ -53,7 +59,6 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -69,26 +74,26 @@ namespace
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
 #include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
-#include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/XMLHelpers.h>
 #include <utils/importio/LineReader.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
-#include "ROTripHandler.h"
+#include "RORDLoader_TripDefs.h"
 #include "ROWeightsHandler.h"
-#include "ROSUMORoutesHandler.h"
-#include "ROCellRouteDefHandler.h"
-#include "ROSUMOAltRoutesHandler.h"
-#include "ROArtemisRouteDefHandler.h"
-#include "RORandomTripGenerator.h"
-#include "ROTypedRoutesLoader.h"
+#include "RORDLoader_SUMORoutes.h"
+#include "RORDLoader_Cell.h"
+#include "RORDLoader_SUMOAlt.h"
+#include "RORDLoader_Artemis.h"
+#include "RORDGenerator_Random.h"
+#include "RORDGenerator_ODAmounts.h"
+#include "ROAbstractRouteDefLoader.h"
 
 
 /* =========================================================================
@@ -108,8 +113,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROLoader::ROLoader(OptionsCont &oc)
-    : _options(oc)
+ROLoader::ROLoader(OptionsCont &oc,
+                   bool emptyDestinationsAllowed)
+    : _options(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed)
 {
 }
 
@@ -123,92 +129,79 @@ ROLoader::~ROLoader()
 
 
 RONet *
-ROLoader::loadNet()
+ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
     RONet *net = new RONet(_options.isSet("sumo-input"));
-    std::string files = _options.getString("n");
-    if(!FileHelpers::checkFileList(files)) {
-        MsgHandler::getErrorInstance()->inform("Net not found!");
+    std::string file = _options.getString("n");
+    if(_options.getBool("v")) {
+        cout << "Loading net... ";
+    }
+    RONetHandler handler(_options, *net, eb);
+	handler.setFileName(file);
+	XMLHelpers::runParser(handler, file);
+    if(MsgHandler::getErrorInstance()->wasInformed()) {
+		MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;
-    }
-    RONetHandler handler(_options, *net);
+    } else {
+		MsgHandler::getMessageInstance()->inform("done.");
+	}
     // build and prepare the parser
-    SAX2XMLReader *reader = getSAXReader(handler);
-    bool ok = loadNet(reader, handler, files);
-    // delete the reader;
-    delete reader;
-    if(!ok) {
-        delete net;
-        return 0;
-    }
     return net;
 }
 
+
 void
-ROLoader::openRoutes(RONet &net)
+ROLoader::openRoutes(RONet &net, float gBeta, float gA)
 {
-    // load additional precomputed sumo-routes when wished
-    if(_options.isSet("s")) {
-        openTypedRoutes(new ROSumoRoutesHandler(net), "s");
-    }
-    // load the XML-route definitions when wished
-    if(_options.isSet("t")) {
-        openTypedRoutes(new ROTripHandler(net), "t");
-    }
-    // load the cell-routes when wished
-    if(_options.isSet("cell-input")) {
-        openTypedRoutes(
-            new ROCellRouteDefHandler(
-                net,
-                _options.getFloat("gBeta"),
-                _options.getFloat("gA")),
-            "cell-input");
-    }
-    // load artemis routes when wished
-    if(_options.isSet("artemis-input")) {
-        openTypedRoutes(
-            new ROArtemisRouteDefHandler(
-                net),
-            "artemis-input");
-    }
-    // load the sumo-alternative file when wished
-    if(_options.isSet("alternatives")) {
-        openTypedRoutes(
-            new ROSUMOAltRoutesHandler(
-                net,
-                _options.getFloat("gBeta"),
-                _options.getFloat("gA")),
-            "alternatives");
-    }
-    // check whetehr random routes shall be build, too
+	// build loader
+	    // load additional precomputed sumo-routes when wished
+	openTypedRoutes(new RORDLoader_SUMORoutes(net), "sumo-input");
+		// load the XML-trip definitions when wished
+	openTypedRoutes(
+        new RORDLoader_TripDefs(net, myEmptyDestinationsAllowed),
+        "trip-defs");
+		// load the cell-routes when wished
+	openTypedRoutes(new RORDLoader_Cell(net, gBeta, gA), "cell-input");
+		// load artemis routes when wished
+	openTypedRoutes(new RORDLoader_Artemis(net), "artemis-input");
+		// load the sumo-alternative file when wished
+	openTypedRoutes(new RORDLoader_SUMOAlt(net, gBeta, gA), "alternatives");
+	// build generators
+		// load the amount definitions if wished
+	openTypedRoutes(
+        new RORDGenerator_ODAmounts(net, myEmptyDestinationsAllowed),
+        "flows");
+		// check whether random routes shall be build, too
     if(_options.isSet("R")) {
-        RORandomTripGenerator *randGen = new RORandomTripGenerator(net);
+        RORDGenerator_Random *randGen = new RORDGenerator_Random(net);
         randGen->init(_options);
         _handler.push_back(randGen);
     }
+	skipUntilBegin();
 }
 
 void
-ROLoader::skipPreviousRoutes(long start)
+ROLoader::skipUntilBegin()
 {
+    MsgHandler::getMessageInstance()->inform("Skipping");
     for(RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
-        (*i)->skipPreviousRoutes(start);
+        (*i)->skipUntilBegin();
     }
+    MsgHandler::getMessageInstance()->inform(
+        string("Skipped until: ") + toString<long>(getMinTimeStep()));
 }
+
 
 void
 ROLoader::processRoutesStepWise(long start, long end,
-                                std::ofstream &res,
-                                std::ofstream &altres,
-                                RONet &net)
+                                RONet &net, ROAbstractRouter &router)
 {
 	long absNo = end - start;
     // skip routes that begin before the simulation's begin
-    skipPreviousRoutes(start);
     // loop till the end
     bool endReached = false;
-    long time=getMinTimeStep();
+    long time = getMinTimeStep();
     long firstStep = time;
     long lastStep = time;
     for(; (!endReached||net.furtherStored())&&time<end; time++) {
@@ -226,11 +219,9 @@ ROLoader::processRoutesStepWise(long start, long end,
         // go through all handlers
         for(i=_handler.begin(); i!=_handler.end(); i++) {
             // load routes until the time point is reached
-            if(!(*i)->addRoutesUntil(time)) {
-                return;
-            }
+            (*i)->readRoutesAtLeastUntil(time+1);
             // save the routes
-            net.saveAndRemoveRoutesUntil(_options, res, altres, time);
+            net.saveAndRemoveRoutesUntil(_options, router, time);
         }
         // check whether further data exist
         endReached = true;
@@ -254,11 +245,13 @@ ROLoader::processRoutesStepWise(long start, long end,
         + string(" and ") + toString<int>(lastStep) + string("."));
 }
 
-long
-ROLoader::getMinTimeStep() const {
-    long ret = LONG_MAX;
+
+unsigned int
+ROLoader::getMinTimeStep() const
+{
+    unsigned int ret = LONG_MAX;
     for(RouteLoaderCont::const_iterator i=_handler.begin(); i!=_handler.end(); i++) {
-        long akt = (*i)->getCurrentTimeStep();
+        unsigned int akt = (*i)->getCurrentTimeStep();
         if(akt<ret) {
             ret = akt;
         }
@@ -266,20 +259,18 @@ ROLoader::getMinTimeStep() const {
     return ret;
 }
 
+
 void
-ROLoader::processAllRoutes(long start, long end,
-                           std::ofstream &res,
-                           std::ofstream &altres,
-                           RONet &net)
+ROLoader::processAllRoutes(unsigned int start, unsigned int end,
+                           RONet &net,
+                           ROAbstractRouter &router)
 {
     bool ok = true;
     for(RouteLoaderCont::iterator i=_handler.begin(); ok&&i!=_handler.end(); i++) {
-        if(!(*i)->addAllRoutes()) {
-            return;
-        }
+        (*i)->readRoutesAtLeastUntil(end);
     }
     // save the routes
-    net.saveAndRemoveRoutesUntil(_options, res, altres, end);
+    net.saveAndRemoveRoutesUntil(_options, router, end);
 }
 
 
@@ -294,9 +285,14 @@ ROLoader::closeReading()
 
 
 void
-ROLoader::openTypedRoutes(ROTypedRoutesLoader *handler,
+ROLoader::openTypedRoutes(ROAbstractRouteDefLoader *handler,
                           const std::string &optionName)
 {
+	// check whether the current loader is wished
+	if(!_options.isSet(optionName)) {
+		delete handler;
+		return;
+	}
     // check the given files
     if(!FileHelpers::checkFileList(_options.getString(optionName))) {
         MsgHandler::getErrorInstance()->inform(
@@ -305,11 +301,13 @@ ROLoader::openTypedRoutes(ROTypedRoutesLoader *handler,
         throw ProcessError();
     }
     // allocate a reader and add it to the list
-    addToHandlerList(handler, _options.getString(optionName));
+    addToHandlerList(handler,
+		_options.getString(optionName));
 }
 
+
 void
-ROLoader::addToHandlerList(ROTypedRoutesLoader *handler,
+ROLoader::addToHandlerList(ROAbstractRouteDefLoader *handler,
                            const std::string &fileList)
 {
     StringTokenizer st(fileList, ";");
@@ -326,7 +324,8 @@ ROLoader::addToHandlerList(ROTypedRoutesLoader *handler,
             throw ProcessError();
         }
         // build the instance when everything's all right
-        ROTypedRoutesLoader *instance = handler->getAssignedDuplicate(file);
+        ROAbstractRouteDefLoader *instance =
+			handler->getAssignedDuplicate(file);
         if(!instance->init(_options)) {
             delete instance;
             MsgHandler::getErrorInstance()->inform(string("The loader for ") + handler->getDataName()
@@ -341,7 +340,8 @@ ROLoader::addToHandlerList(ROTypedRoutesLoader *handler,
 
 
 bool
-ROLoader::loadWeights(RONet &net) {
+ROLoader::loadWeights(RONet &net)
+{
     string weightsFileName = _options.getString("w");
     // check whether the file exists
     if(!FileHelpers::exists(weightsFileName)) {
@@ -352,13 +352,10 @@ ROLoader::loadWeights(RONet &net) {
     }
     // build and prepare the weights handler
     ROWeightsHandler handler(_options, net, weightsFileName);
-    // build and prepare the parser
-    SAX2XMLReader *reader = getSAXReader(handler);
-    // report when wished
     MsgHandler::getMessageInstance()->inform(
         "Loading precomputed net weights.");
-    // read the file
-    reader->parse(weightsFileName.c_str());
+    // build and prepare the parser
+	XMLHelpers::runParser(handler, weightsFileName);
     bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
     if(ok) {
@@ -366,180 +363,11 @@ ROLoader::loadWeights(RONet &net) {
     } else {
         MsgHandler::getMessageInstance()->inform("failed.");
     }
-    delete reader;
-    return ok;
-}
-
-SAX2XMLReader *
-ROLoader::getSAXReader(GenericSAX2Handler &handler)
-{
-    SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
-    if(reader==0) {
-        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
-        return 0;
-    }
-    reader->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/namespaces" ), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema" ), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema-full-checking"),
-        false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/validation"), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/dynamic" ), false );
-    reader->setContentHandler(&handler);
-    reader->setErrorHandler(&handler);
-    return reader;
-}
-
-/*
-bool
-ROLoader::loadSumoRoutes(RONet &net)
-{
-    string routesFileName = _options.getString("s");
-    // check whether the file exists
-    if(!FileHelpers::exists(routesFileName)) {
-        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
-        return false;
-    }
-    // build and prepare the weights handler
-    ROSumoRoutesHandler handler(net);
-    _parser->setContentHandler(&handler);
-    _parser->setErrorHandler(&handler);
-    // report whe wished
-    if(_options.getBool("v"))
-        cout << "Loading sumo routes... ";
-    // read the file
-    bool ok = true;
-    for(size_t i=0; ok&&i<2; i++) {
-        _parser->parse(routesFileName.c_str());
-        ok = !MsgHandler::getErrorInstance()->wasInformed();
-        handler.incStep();
-    }
-    // report whe wished
-    if(_options.getBool("v")) {
-        if(ok)
-            cout << "done." << endl;
-        else
-            cout << "failed." << endl;
-    }
-    return ok;
-}
-
-
-bool
-ROLoader::loadCellRoutes(RONet &net)
-{
-    string routesFileName = _options.getString("cell-input");
-    // check whether the file exists
-    if(!FileHelpers::exists(routesFileName)) {
-        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
-        return false;
-    }
-    StringTokenizer st(routesFileName, ";");
-    while(st.hasNext()) {
-        string file = st.next();
-        ROCellRouteDefHandler handler(net, file);
-        LineReader reader(file);
-        reader.readAll(handler);
-    }
-    bool ok = true;
-    return ok;
-}
-
-
-
-bool
-ROLoader::loadXMLRouteDefs(RONet &net)
-{
-    string routesFileName = _options.getString("r");
-    // check whether the file exists
-    if(!FileHelpers::exists(routesFileName)) {
-        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
-        return false;
-    }
-    // build and prepare the weights handler
-    ROTripHandler handler(*_options, net);
-    _parser->setContentHandler(&handler);
-    _parser->setErrorHandler(&handler);
-    handler.setFileName(routesFileName);
-    // report whe wished
-    if(_options.getBool("v"))
-        cout << "Loading route definitions...";
-    // read the file
-    _parser->parse(routesFileName.c_str());
-    bool ok = !MsgHandler::getErrorInstance()->wasInformed();
-    // report whe wished
-    if(_options.getBool("v")) {
-        if(ok)
-            cout << "done." << endl;
-        else
-            cout << "failed." << endl;
-    }
-    return ok;
-}
-*/
-
-/*
-bool
-ROLoader::loadNetInto(RONet &net)
-{
-    std::string files = _options.getString("n");
-    if(!FileHelpers::checkFileList(files)) {
-        MsgHandler::getErrorInstance()->inform("No net given found!");
-        return false;
-    }
-    RONetHandler handler(*_options, net);
-    _parser->setContentHandler(&handler);
-    _parser->setErrorHandler(&handler);
-    bool ok = loadNetStep(handler, files, 0);
-    if(ok)
-        ok = loadNetStep(handler, files, 1);
-    return ok;
-}*/
-
-bool
-ROLoader::loadNet(SAX2XMLReader *reader, RONetHandler &handler,
-                  const string &files)
-{
-    StringTokenizer st(files, ';');
-    if(_options.getBool("v")) {
-        cout << "Loading net... ";
-    }
-    bool ok = true;
-    while(ok&&st.hasNext()) {
-        ok = false;
-        string tmp = st.next();
-	    if(FileHelpers::exists(tmp)) {
-	        handler.setFileName(tmp);
-	        reader->parse(tmp.c_str());
-	        ok = !(MsgHandler::getErrorInstance()->wasInformed());
-	    } else {
-            MsgHandler::getMessageInstance()->inform("failed.");
-    	    MsgHandler::getErrorInstance()->inform(
-                string("The given file '") + tmp
-                + string("' does not exist!"));
-            ok = false;
-	    }
-    }
-    if(ok) {
-        MsgHandler::getMessageInstance()->inform("done.");
-    }
     return ok;
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

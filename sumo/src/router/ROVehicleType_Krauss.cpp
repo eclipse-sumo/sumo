@@ -23,34 +23,47 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member variable definitions
+ * ======================================================================= */
 double ROVehicleType_Krauss::myDefault_A = 0.8;
 double ROVehicleType_Krauss::myDefault_B = 4.5;
 double ROVehicleType_Krauss::myDefault_EPS = 0.5;
 double ROVehicleType_Krauss::myDefault_LENGTH = 5.0;
 double ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROVehicleType_Krauss::ROVehicleType_Krauss()
     : ROVehicleType("KRAUSS_DEFAULT",  RGBColor(1, 1, 0), myDefault_LENGTH),
     myA(myDefault_A), myB(myDefault_B), myEps(myDefault_EPS),
@@ -74,7 +87,7 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss()
 }
 
 std::ostream &
-ROVehicleType_Krauss::xmlOut(std::ostream &os)
+ROVehicleType_Krauss::xmlOut(std::ostream &os) const
 {
 	os << "<vtype id=\"" << myID << "\"";
 	os << " accel=\"" << myA << "\"";
@@ -89,9 +102,6 @@ ROVehicleType_Krauss::xmlOut(std::ostream &os)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROVehicleType_Krauss.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

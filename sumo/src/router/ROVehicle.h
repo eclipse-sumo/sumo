@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -35,9 +38,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -68,7 +68,7 @@ class RORouteDef;
 class ROVehicle {
 public:
     /// Constructor
-	ROVehicle(const std::string &id, RORouteDef *route, long depart,
+	ROVehicle(const std::string &id, RORouteDef *route, unsigned int depart,
         ROVehicleType *type, const RGBColor &color, int period, int repNo);
 
     /// Destructor
@@ -89,13 +89,28 @@ public:
     /// Returns the time the vehicle starts his route
     long getDepartureTime() const;
 
-    /** @brief Checks whether a next trip shall be generated
-        Changes (adapts) the departure time and the vehicle id, too */
-//    bool reassertPeriodical();
-
     /** Returns the information whether more than a single vehicle with these
         settings shall be emitted. */
     bool periodical() const;
+
+	/** @brief Saves the vehicle type if it was not saved before and the vehicle itself
+		Use this method polymorph if no route alternatives shall be generated */
+	void saveTypeAndSelf(std::ostream &os, ROVehicleType &defType) const;
+
+	/** @brief Saves the vehicle type if it was not saved before and the vehicle itself
+		Use this method polymorph if route alternatives shall be written, too */
+	void saveTypeAndSelf(std::ostream &os, std::ostream &altos,
+        ROVehicleType &defType) const;
+
+    /// Returns a copy of the vehicle using a new id, departure time and route
+    virtual ROVehicle *copy(const std::string &id, unsigned int depTime,
+        RORouteDef *newRoute);
+
+protected:
+    /** @brief Returns the type of the vehicle
+        Returns the default vehicle type if no vehicle type was set */
+    ROVehicleType &getTypeForSaving(ROVehicleType &defType) const;
+
 
 protected:
     /// The name of the vehicle
@@ -111,7 +126,7 @@ protected:
 	RORouteDef *_route;
 
     /// The time the vehicle shall be emitted at
-	long _depart;
+	unsigned int _depart;
 
     /// The repetition period (-1 if only one vehicle shall be emitted)
     int _period;
@@ -123,9 +138,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROVehicle.icc"
-//#endif
 
 #endif
 

@@ -23,26 +23,35 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.3  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <map>
 #include <utils/router/TextHelpers.h>
 #include "ROEdgeVector.h"
-#include "ROOrigDestRouteDef.h"
+#include "RORouteDef_OrigDest.h"
 #include "RORouteSnippletCont.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORouteSnippletCont::RORouteSnippletCont()
 {
 }
@@ -85,9 +94,6 @@ RORouteSnippletCont::knows(ROEdge *from, ROEdge *to) const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORouteSnippletCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

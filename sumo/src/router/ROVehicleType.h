@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/11/11 08:04:47  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -29,9 +32,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,11 +43,6 @@
 #include <string>
 #include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
 
 
 /* =========================================================================
@@ -67,7 +62,7 @@ public:
 	virtual ~ROVehicleType();
 
     /// Saves the type using SUMO-XML
-	virtual std::ostream &xmlOut(std::ostream &os);
+	virtual std::ostream &xmlOut(std::ostream &os) const = 0;
 
     /// Returns the name of the type
     std::string getID() const;
@@ -89,9 +84,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROVehicleType.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -32,9 +35,6 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -63,9 +63,10 @@
 class ROEdge;
 class RONode;
 class RORouteDef;
-class RORouter;
+class ROAbstractRouter;
 class ROVehicle;
 class OptionsCont;
+class ROAbstractEdgeBuilder;
 
 
 /* =========================================================================
@@ -88,8 +89,18 @@ public:
         The weight-timelines must be computed for the edges */
     void postloadInit();
 
+    /** @brief opens the output for computed routes
+        if the second parameter is true, a second file for route alternatives
+        will be opened.
+    If one of the file outputs could not be build, a ProcessError exception is thrown */
+    void openOutput(const std::string &filename, bool useAlternatives);
+
+    /** closes the file output for computed routes */
+    void closeOutput();
+
+
     /// Adds a read edge to the network
-    void addEdge(const std::string &name, ROEdge *edge);
+    void addEdge(ROEdge *edge);
 
     /** @brief Retrieves an edge from the network
         This is not very pretty, but necessary, though, as the route r
@@ -143,7 +154,7 @@ public:
 
     /** @brief Computes routes described by their definitions and saves them */
     void saveAndRemoveRoutesUntil(OptionsCont &options,
-        std::ofstream &res, std::ofstream &altres, long time);
+        ROAbstractRouter &router, long time);
 
     /// Returns the information whether further vehicles are stored
     bool furtherStored();
@@ -154,22 +165,24 @@ public:
     /// Returns a random edge which may be used as the end of a route
     ROEdge *getRandomDestination();
 
-private:
-    /** @brief Saves the given vehicle type
-        If the type is not known, a warning is printed including the name of
-        the car */
-    void saveType(std::ostream &os, ROVehicleType *type,
-        const std::string &vehID);
+    /// Returns the number of edges thenetwork contains
+    unsigned int getEdgeNo() const;
 
+private:
     /** Saves the given route together with her alternatives */
-    bool saveRoute(OptionsCont &options, RORouter &router,
-        std::ostream &res, std::ostream &altres, ROVehicle *veh);
+    bool saveRoute(OptionsCont &options, ROAbstractRouter &router,
+        ROVehicle *veh);
 
     /** @brief Removes the route from the net when no further usage is needed */
     void removeRouteSecure(RORouteDef *route);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();
+
+    /** @brief Builds a single output file checking it
+        If something went wrong on building, a ProcessError is thrown */
+    std::ofstream *buildOutput(const std::string &name);
+
 
 private:
     /// Container for known vehicle ids
@@ -202,19 +215,23 @@ private:
     /// List of destination edges
     std::vector<ROEdge*> myDestinationEdges;
 
+    /// The file to write the computed routes into
+    std::ofstream *myRoutesOutput;
+
+    /// The file to write the computed route alternatives into
+    std::ofstream *myRouteAlternativesOutput;
+
 private:
     /// we made the copy constructor invalid
     RONet(const RONet &src);
 
     /// we made the assignment operator invalid
     RONet &operator=(const RONet &src);
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RONet.icc"
-//#endif
 
 #endif
 

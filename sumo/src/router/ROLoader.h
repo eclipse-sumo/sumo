@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.3  2003/08/18 12:44:54  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -55,9 +55,11 @@ using namespace XERCES_CPP_NAMESPACE;
 class OptionsCont;
 class RONet;
 class RONetHandler;
-class ROTypedRoutesLoader;
+class ROAbstractRouteDefLoader;
 class ofstream;
 class GenericSAX2Handler;
+class ROAbstractRouter;
+class ROAbstractEdgeBuilder;
 
 
 /* =========================================================================
@@ -72,30 +74,30 @@ class GenericSAX2Handler;
 class ROLoader {
 public:
     /// Constructor
-    ROLoader(OptionsCont &oc);
+    ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed);
 
     /// Destructor
     ~ROLoader();
 
     /// Loads the network
-    RONet *loadNet();
+    RONet *loadNet(ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
     bool loadWeights(RONet &net);
 
     /** @brief Builds and opens all route loaders
-        Route loaders are derived from ROTypedRoutesLoader */
-    void openRoutes(RONet &net);
+        Route loaders are derived from ROAbstractRouteDefLoader */
+    void openRoutes(RONet &net, float gBeta, float gA);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
     void processRoutesStepWise(long start, long end,
-        std::ofstream &res, std::ofstream &altres, RONet &net);
+        RONet &net, ROAbstractRouter &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
-    void processAllRoutes(long start, long end,
-        std::ofstream &res, std::ofstream &altres, RONet &net);
+    void processAllRoutes(unsigned int start, unsigned int end,
+        RONet &net, ROAbstractRouter &router);
 
     /** @brief Ends route reading
         This is done for all previously build route loaders */
@@ -109,32 +111,32 @@ private:
 
     /** @brief Opens routes
         The loading structures were built in previous */
-    void openTypedRoutes(ROTypedRoutesLoader *handler,
+    void openTypedRoutes(ROAbstractRouteDefLoader *handler,
         const std::string &optionName);
 
     /// Adds a route loader to the list of known route loaders
-    void addToHandlerList(ROTypedRoutesLoader *handler,
+    void addToHandlerList(ROAbstractRouteDefLoader *handler,
         const std::string &fileList);
 
     /** @brief Skips routes which start before the wished time period
         This is done for all previously build route loaders */
-    void skipPreviousRoutes(long start);
-
-    /// Builds teh SAX2-reader
-    SAX2XMLReader *getSAXReader(GenericSAX2Handler &handler);
+    void skipUntilBegin();
 
     /// Returns the first known time step
-    long getMinTimeStep() const;
+    unsigned int getMinTimeStep() const;
 
 private:
     /// Options to use
     OptionsCont &_options;
 
     /// Definition of route loader list
-    typedef std::vector<ROTypedRoutesLoader*> RouteLoaderCont;
+    typedef std::vector<ROAbstractRouteDefLoader*> RouteLoaderCont;
 
     /// List of route loaders
     RouteLoaderCont _handler;
+
+    /// Information whether empty destinations are allowed
+    bool myEmptyDestinationsAllowed;
 
 private:
     /// invalidated copy constructor
@@ -147,9 +149,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROLoader.icc"
-//#endif
 
 #endif
 

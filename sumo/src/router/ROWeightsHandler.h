@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/06/19 11:00:26  dkrajzew
 // usage of false tag-enums patched
 //
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -39,12 +39,14 @@
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class OptionsCont;
 class RONet;
 class ROEdge;
+
 
 /* =========================================================================
  * class definitions
@@ -105,6 +107,7 @@ private:
     /** table of relationships between the attributes in their written
         representation and their enumeration */
     static Tag  _tags[3];
+
 private:
     /// we made the copy constructor invalid
     ROWeightsHandler(const ROWeightsHandler &src);
@@ -116,9 +119,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROWeightsHandler.icc"
-//#endif
 
 #endif
 

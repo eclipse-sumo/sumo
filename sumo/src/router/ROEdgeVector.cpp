@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/09/17 10:14:27  dkrajzew
 // handling of unset values patched
 //
@@ -38,15 +41,13 @@ namespace
 // Revision 1.2  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <deque>
@@ -54,8 +55,16 @@ namespace
 #include "ROEdge.h"
 #include "ROEdgeVector.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method defintions
+ * ======================================================================= */
 ROEdgeVector::ROEdgeVector()
 {
 }
@@ -176,10 +185,8 @@ ROEdgeVector::removeEnds()
     _edges.erase(_edges.end()-1);
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROEdgeVector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

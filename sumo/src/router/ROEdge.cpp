@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.9  2003/11/11 08:04:45  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -44,9 +47,6 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,24 +54,24 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#ifdef MSVC
-#include <limits>
-#else
-#define DBL_MAX 10000000000.0 // !!!
-#endif
-
 #include <utils/common/MsgHandler.h>
 #include <algorithm>
 #include <cassert>
 #include "ROLane.h"
 #include "ROEdge.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-// !!! wie wärs mit einer effort-Tabelle oder Funktion über die Zeit?
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROEdge::ROEdge(const std::string &id)
-    : _id(id), _dist(0), _speed(-1), _effort(0), _usingTimeLine(false)
+    : _id(id), _dist(0), _speed(-1), _usingTimeLine(false)
 {
 }
 
@@ -86,15 +86,15 @@ ROEdge::~ROEdge()
 
 
 void
-ROEdge::postloadInit()
+ROEdge::postloadInit(size_t idx)
 {
     // !!! only when not lanes but the edge shall be used for routing
     if(_usingTimeLine) {
-        ValueTimeLine *tmp = (*(_laneCont.begin())).second;
+        FloatValueTimeLine *tmp = (*(_laneCont.begin())).second;
         size_t noLanes = _laneCont.size();
         for(size_t i=0; i<tmp->noDefinitions(); i++) {
             double currValue = 0;
-            ValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
+            FloatValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
             for(LaneUsageCont::iterator j=_laneCont.begin(); j!=_laneCont.end(); j++) {
                 double tmp = (*j).second->getValue(range.first);
                 if(tmp<0) {
@@ -106,13 +106,15 @@ ROEdge::postloadInit()
             _ownValueLine.addValue(range, currValue);
         }
     }
+    // save the id
+    myIndex = idx;
 }
 
 
-void
-ROEdge::setEffort(double effort)
+size_t
+ROEdge::getIndex() const
 {
-    _effort = effort;
+    return myIndex;
 }
 
 
@@ -123,7 +125,7 @@ ROEdge::addLane(ROLane *lane)
     _dist = length > _dist ? length : _dist;
     double speed = lane->getSpeed();
     _speed = speed > _speed ? speed : _speed;
-    _laneCont[lane] = new ValueTimeLine();
+    _laneCont[lane] = new FloatValueTimeLine();
 }
 
 
@@ -147,9 +149,9 @@ ROEdge::setLane(long timeBegin, long timeEnd,
 
 
 void
-ROEdge::addSucceeder(ROEdge *s)
+ROEdge::addFollower(ROEdge *s)
 {
-    _succeeding.push_back(s);
+    myFollowingEdges.push_back(s);
 }
 
 
@@ -170,22 +172,22 @@ ROEdge::getNoFollowing()
     if(getType()==ET_SINK) {
         return 0;
     }
-    return _succeeding.size();
+    return myFollowingEdges.size();
 }
 
 
 ROEdge *
 ROEdge::getFollower(size_t pos)
 {
-    return _succeeding[pos];
+    return myFollowingEdges[pos];
 }
+
 
 bool
 ROEdge::isConnectedTo(ROEdge *e)
 {
-    return find(_succeeding.begin(), _succeeding.end(), e)!=_succeeding.end();
+    return find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
 }
-
 
 
 double
@@ -199,80 +201,6 @@ double
 ROEdge::getDuration(long time) const
 {
     return getMyEffort(time);
-}
-
-
-void
-ROEdge::init()
-{
-    _explored = false;
-    _effort = DBL_MAX;
-    _prevKnot = 0;
-    _inFrontList= false;
-}
-
-
-void
-ROEdge::initRootDistance()
-{
-    _effort = 0;
-    _inFrontList = true;
-}
-
-
-float
-ROEdge::getEffort() const
-{
-    return _effort;
-}
-
-
-float
-ROEdge::getNextEffort(long time) const
-{
-    return _effort + getMyEffort(time);
-}
-
-
-void
-ROEdge::setEffort(float effort)
-{
-    _effort = effort;
-}
-
-
-bool
-ROEdge::isInFrontList() const
-{
-    return _inFrontList;
-}
-
-
-bool
-ROEdge::isExplored() const
-{
-    return _explored;
-}
-
-
-void
-ROEdge::setExplored(bool value)
-{
-    _explored = value;
-}
-
-
-ROEdge *
-ROEdge::getPrevKnot() const
-{
-    return _prevKnot;
-}
-
-
-void
-ROEdge::setPrevKnot(ROEdge *prev)
-{
-    _prevKnot = prev;
 }
 
 
@@ -306,9 +234,6 @@ ROEdge::getLength() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROEdge.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

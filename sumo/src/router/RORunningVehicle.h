@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -32,9 +35,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -51,6 +51,7 @@
  * class declarations
  * ======================================================================= */
 class RGBColor;
+
 
 /* =========================================================================
  * class definitions
@@ -74,6 +75,10 @@ public:
     /// Writes the vehicle's definition to the given stream
     void xmlOut(std::ostream &os) const;
 
+    /// Returns a copy of the vehicle using a new id, departure time and route
+    virtual ROVehicle *copy(const std::string &id, unsigned int depTime,
+        RORouteDef *newRoute);
+
 private:
     /// The lane the vehicle shall depart from
     std::string _lane;
@@ -88,9 +93,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RORunningVehicle.icc"
-//#endif
 
 #endif
 

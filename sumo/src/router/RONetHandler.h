@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.3  2003/09/05 15:22:44  dkrajzew
 // handling of internal lanes added
 //
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,12 +53,13 @@ class ROEdge;
  * ======================================================================= */
 /**
  * @class RONetHandler
- * SAX2-Handler for SUMO-network loading
+ * SAX2-Handler for SUMO-network loading. As this class is used for both
+ *  the dua- and the jp-router, a reference to the edge builder is given.
  */
 class RONetHandler : public SUMOSAXHandler {
 public:
     /// Constructor
-    RONetHandler(OptionsCont &oc, RONet &net);
+    RONetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
 
     /// Destrcutor
     ~RONetHandler();
@@ -104,7 +105,12 @@ private:
     /// the currently build edge
     ROEdge *_currentEdge;
 
+    /** @brief An indicator whether the next edge shall be read
+        Internal edges are not read by now */
     bool _process;
+
+    /// The object used to build of edges of the desired type
+    ROAbstractEdgeBuilder &myEdgeBuilder;
 
 private:
     /// invalidated copy constructor
@@ -116,9 +122,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RONetHandler.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -77,7 +80,9 @@ RORunningVehicle::~RORunningVehicle()
 
 
 
-void RORunningVehicle::xmlOut(std::ostream &os) const {
+void
+RORunningVehicle::xmlOut(std::ostream &os) const
+{
     os << "<vehicle id=\"" << _id << "\"";
     os << " type=\"" << _type->getID() << "\"";
 	os << " route=\"" << _route->getID() << "\"";
@@ -89,10 +94,16 @@ void RORunningVehicle::xmlOut(std::ostream &os) const {
 }
 
 
+ROVehicle *
+RORunningVehicle::copy(const std::string &id, unsigned int depTime,
+                       RORouteDef *newRoute)
+{
+    return new RORunningVehicle(id, newRoute, depTime, _type, _lane, _pos,
+        _speed, myColor, _period, _repNo);
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORunningVehicle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

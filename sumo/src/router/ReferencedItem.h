@@ -21,18 +21,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
+
 
 /* =========================================================================
  * class definitions
@@ -52,7 +53,7 @@ public:
     virtual ~ReferencedItem() { }
 
     /// Returns the information whether this item was already saved
-    bool isSaved() { return _wasSaved; }
+    bool isSaved() const { return _wasSaved; }
 
     /// Marks the item as saved
     void markSaved() { _wasSaved = true; }
@@ -65,9 +66,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ReferencedItem.icc"
-//#endif
 
 #endif
 

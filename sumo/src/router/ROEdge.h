@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.7  2003/11/11 08:04:46  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -35,9 +38,6 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,7 +48,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/router/ValueTimeLine.h>
+#include <utils/router/FloatValueTimeLine.h>
 
 
 /* =========================================================================
@@ -88,7 +88,7 @@ public:
 
     /** @brief Initialises te edge after loading
         The weights over time are being set, here */
-    void postloadInit();
+    void postloadInit(size_t idx);
 
     /// Adds a lane to the edge while loading
     void addLane(ROLane *lane);
@@ -98,7 +98,7 @@ public:
         const std::string &id, float value);
 
     /// Adds information about a connected edge
-    void addSucceeder(ROEdge *s);
+    virtual void addFollower(ROEdge *s);
 
     /// returns the information whether this edge is directly connected to the given
     bool isConnectedTo(ROEdge *e);
@@ -107,7 +107,7 @@ public:
         (size of the list of reachable edges) */
     size_t getNoFollowing();
 
-    /// Retunrns the edge at the given position from the list of reachable edges
+    /// Returns the edge at the given position from the list of reachable edges
     ROEdge *getFollower(size_t pos);
 
     /// retrieves the cost of this edge at the given time
@@ -116,42 +116,8 @@ public:
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
     double getDuration(long time) const;
 
-    // dijkstra
-    /// Sets the current effort (from dijstra-router)
-    void setEffort(double effort);
-
-    /// Resets the edge for next route computation
-    void init();
-
-    /// Initialises the edge if it is the starting edge
-    void initRootDistance();
-
-    /// Returns the effort needed to pass this edge
-    float getEffort() const;
-
-    /// Returns the effort when starting at the gievn time
-    float getNextEffort(long time) const;
-
-    /// Sets the effort
-    void setEffort(float dist);
-
-    /// Returns the information whether the edge was already visited
-    bool isInFrontList() const;
-
     /// Adds a connection, marking the effort to pas the connection (!!!)
     bool addConnection(ROEdge *to, float effort);
-
-    /// Returns the information whether the edge was laready visited
-    bool isExplored() const;
-
-    /// Marks the edge as visted
-    void setExplored(bool value);
-
-    /// returns the edge this edge was approached from for the current route
-    ROEdge *getPrevKnot() const;
-
-    /// Sets the information from which edge this one was approached when computing the current route
-    void setPrevKnot(ROEdge *prev);
 
     /// Returns the id of the edge
     std::string getID() const;
@@ -165,48 +131,42 @@ public:
     /// Returns the length of the edge
     double getLength() const;
 
-protected:
+    /// Returns the index (numeric id) of the edge
+    size_t getIndex() const;
+
     /// reurns the effort for this edge only
     float getMyEffort(long time) const;
 
-private:
+protected:
     /// The id of the edge
     std::string _id;
-
-    /// Information whether this edge was already seen during the computation of the current route
-    bool _explored;
 
     /// The maximum distance of this edge (including all lanes)
     double _dist;
 
+    /// The maximum speed allowed on this edge
     double _speed;
 
-    /// The edge this one was approached from within the current route
-    ROEdge *_prevKnot;
-
-    /// Information whether this edge was already visted within the computation of the current route
-    bool _inFrontList;
-
-    /// The effort needed to come to the end of this route (including previous edges)
-	double _effort;
-
     /// Definition of a container for storing passing time varying over time for an edge's lanes
-    typedef std::map<ROLane*, ValueTimeLine*> LaneUsageCont;
+    typedef std::map<ROLane*, FloatValueTimeLine*> LaneUsageCont;
 
     /// Container for storing passing time varying over time for an edge's lanes
     LaneUsageCont _laneCont;
 
     /// Container storing passing time varying over time for the edge
-    ValueTimeLine _ownValueLine;
+    FloatValueTimeLine _ownValueLine;
 
     /// List of edges that may be approached from this edge
-    std::vector<ROEdge*> _succeeding;
+    std::vector<ROEdge*> myFollowingEdges;
 
     /// infomration whether the time line shall be used instead of the length value
     bool _usingTimeLine;
 
     /// The type of the edge
     EdgeType myType;
+
+    /// The index (numeric id) of the edge
+    size_t myIndex;
 
 private:
     /// we made the copy constructor invalid
@@ -219,9 +179,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ROEdge.icc"
-//#endif
 
 #endif
 

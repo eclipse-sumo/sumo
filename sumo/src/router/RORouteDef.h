@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.7  2003/11/11 08:04:47  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -27,7 +30,8 @@
 // all vehicles, routes and vehicle types may now have specific colors
 //
 // Revision 1.5  2003/06/18 11:36:50  dkrajzew
-// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+// a new interface which allows to choose whether to stop after a route could
+//  not be computed or not; not very sphisticated, in fact
 //
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
@@ -38,9 +42,6 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,11 +55,12 @@
 #include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class ROEdge;
-class RORouter;
+class ROAbstractRouter;
 class RORoute;
 class OptionsCont;
 class ROVehicle;
@@ -89,21 +91,13 @@ public:
     /// Returns the route's destination edge
     virtual ROEdge *getTo() const = 0;
 
-    /** @brief builds the route and saves it into the given files
-        The route herself will be written into the first, the alternatives
-        (also including the current route) will be written to the second file */
-    bool computeAndSave(OptionsCont &options, RORouter &router, long begin,
-        std::ostream &res, std::ostream &altres, bool isPeriodical,
-        ROVehicle &veh);
-
     /** @brief Changes the id to a next, hopefully valid
         This is done if the vehicle(s) using this route are emitted periodically */
     void patchID();
 
-protected:
     /** @brief Builds the complete route
         (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute *buildCurrentRoute(RORouter &router, long begin,
+    virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
         bool continueOnUnbuild, ROVehicle &veh) = 0;
 
     /** @brief Adds an alternative to the list of routes
@@ -117,6 +111,9 @@ protected:
     /** @brief Writes the list of known alternatives */
     virtual void xmlOutAlternatives(std::ostream &altres) const = 0;
 
+    /** @brief Returns a copy of the route definition */
+    virtual RORouteDef *copy(const std::string &id) const = 0;
+
 protected:
     /// The color the route shall have
     RGBColor myColor;
@@ -125,9 +122,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RORouteDef.icc"
-//#endif
 
 #endif
 

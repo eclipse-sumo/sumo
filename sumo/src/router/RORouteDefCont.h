@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/04/15 09:09:18  dkrajzew
 // documentation added
 //
@@ -32,9 +35,6 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -71,7 +71,7 @@ public:
     ~RORouteDefCont();
 
     /// Adds a named route definition to the container
-    bool add(std::string id, RORouteDef *def);
+    bool add( RORouteDef *def);
 
     /// Writes the known routes into the given file using the XML-format
     static void writeXML(std::ostream &os);
@@ -109,9 +109,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RORouteDefCont.icc"
-//#endif
 
 #endif
 

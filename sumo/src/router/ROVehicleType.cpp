@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/11/11 08:04:47  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -32,9 +35,6 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -58,14 +58,9 @@ ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
 {
 }
 
+
 ROVehicleType::~ROVehicleType()
 {
-}
-
-std::ostream &
-ROVehicleType::xmlOut(std::ostream &os)
-{
-	return os;
 }
 
 
@@ -84,9 +79,6 @@ ROVehicleType::getLength() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROVehicleType.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

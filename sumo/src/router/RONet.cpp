@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.14  2003/11/11 08:04:46  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -39,7 +42,10 @@ namespace
 // Warnings are now reported to the MsgHandler
 //
 // Revision 1.9  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.8  2003/05/20 09:48:35  dkrajzew
 // debugging
@@ -59,9 +65,6 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -86,15 +89,25 @@ namespace
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
-#include "RORouter.h"
+#include "ROAbstractRouter.h"
+#include "ROAbstractEdgeBuilder.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RONet::RONet(bool multireferencedRoutes)
-    : _vehicleTypes(new ROVehicleType_Krauss())
+    : _vehicleTypes(new ROVehicleType_Krauss()),
+    myRoutesOutput(0), myRouteAlternativesOutput(0)
 {
 }
 
@@ -106,7 +119,6 @@ RONet::~RONet()
     _vehicleTypes.clear();
     _routes.clear();
     _vehicles.clear();
-//    _snipplets.clear();
 }
 
 
@@ -118,10 +130,12 @@ RONet::postloadInit()
 
 
 void
-RONet::addEdge(const std::string &name, ROEdge *edge)
+RONet::addEdge(ROEdge *edge)
 {
-    if(!_edges.add(name, edge)) {
-        MsgHandler::getErrorInstance()->inform(string("The edge '") + name + string("' occures at least twice."));
+    if(!_edges.add(edge->getID(), edge)) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The edge '") + edge->getID()
+            + string("' occures at least twice."));
     }
 }
 
@@ -149,19 +163,13 @@ RONet::isKnownVehicleID(const std::string &id) const
     return true;
 }
 
+
 void
 RONet::addVehicleID(const std::string &id)
 {
     _vehIDs.insert(id);
 }
 
-/*
-void
-RONet::computeWeights()
-{
-    _edges.computeWeights();
-}
-*/
 
 ROVehicleType *
 RONet::getVehicleType(const std::string &name) const
@@ -169,22 +177,49 @@ RONet::getVehicleType(const std::string &name) const
     return _vehicleTypes.get(name);
 }
 
+
 RORouteDef *
 RONet::getRouteDef(const std::string &name) const
 {
     return _routes.get(name);
 }
 
-/*
-std::string
-RONet::addRouteDef(ROEdge *from, ROEdge *to) {
-    return _routes.add(from, to);
-}
-*/
+
 void
-RONet::addRouteDef(RORouteDef *def) {
-    _routes.add(def->getID(), def);
+RONet::addRouteDef(RORouteDef *def)
+{
+    _routes.add(def);
 }
+
+
+void
+RONet::openOutput(const std::string &filename, bool useAlternatives)
+{
+    myRoutesOutput = buildOutput(filename);
+    (*myRoutesOutput) << "<routes>" << endl;
+    if(useAlternatives) {
+        myRouteAlternativesOutput = buildOutput(filename+string(".alt"));
+        (*myRouteAlternativesOutput) << "<route-alternatives>" << endl;
+    }
+}
+
+
+void
+RONet::closeOutput()
+{
+    // end writing
+    (*myRoutesOutput) << "</routes>" << endl;
+    myRoutesOutput->close();
+    delete myRoutesOutput;
+	// only if opened
+	if(myRouteAlternativesOutput!=0) {
+		(*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
+		myRouteAlternativesOutput->close();
+		delete myRouteAlternativesOutput;
+	}
+}
+
+
 
 ROVehicleType *
 RONet::getVehicleTypeSecure(const std::string &id)
@@ -199,9 +234,11 @@ RONet::getVehicleTypeSecure(const std::string &id)
 
 
 ROVehicleType *
-RONet::getDefaultVehicleType() const {
+RONet::getDefaultVehicleType() const
+{
     return _vehicleTypes.getDefault();
 }
+
 
 void
 RONet::addVehicleType(ROVehicleType *type)
@@ -209,63 +246,16 @@ RONet::addVehicleType(ROVehicleType *type)
     _vehicleTypes.add(type->getID(), type);
 }
 
+
 void
-RONet::addVehicle(const std::string &id, ROVehicle *veh) {
+RONet::addVehicle(const std::string &id, ROVehicle *veh)
+{
     _vehicles.add(id, veh);
-}
-
-/*
-void
-RONet::computeAndSave(OptionsCont &oc) {
-    // start the computation and save the build routes
-    ofstream res(oc.getString("o").c_str());
-    if(!res.good()) {
-        throw ProcessError();
-    }
-    // build the router
-    DijkstraRouter router(&_edges);
-    // sort the list of route definitions
-    BinaryHeap<ROVehicle*, ROHelper::VehicleByDepartureComperator> &sortedVehicles = _vehicles.sort();
-    // begin writing
-    res << "<routes>" << endl;
-    // write all vehicles (and additional structures)
-    while(!sortedVehicles.isEmpty()) {
-        // get the next vehicle
-        ROVehicle *veh = sortedVehicles.findMin();
-        sortedVehicles.deleteMin();
-        // write the type if it's new
-        saveType(res, veh->getType(), veh->getID());
-        // write the route if it's new
-        saveRoute(router, res, veh->getRoute(), veh->getID());
-        // write the vehicle
-        res << "   ";
-        veh->xmlOut(res);
-    }
-    // end writing
-    res << "</routes>" << endl;
-    res.close();
-}
-*/
-
-void
-RONet::saveType(std::ostream &os, ROVehicleType *type,
-                const std::string &vehID) {
-    if(type==0) {
-        type = _vehicleTypes.getDefault();
-        MsgHandler::getWarningInstance()->inform(
-            string("The vehicle '") + vehID
-            + string("' has no valid type; Using default."));
-    }
-    os << "   ";
-    type->xmlOut(os);
-    type->markSaved();
 }
 
 
 bool
-RONet::saveRoute(OptionsCont &options, RORouter &router,
-                 std::ostream &res,
-                 std::ostream &altres,
+RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
                  ROVehicle *veh)
 {
     RORouteDef *routeDef = veh->getRoute();
@@ -275,31 +265,57 @@ RONet::saveRoute(OptionsCont &options, RORouter &router,
             + string("' has no valid route."));
         return false;
     }
-    // check whether the vehicle is able to start at this edge
-    //  (the edge must be longer than the vehicle)
-    if(routeDef->getFrom()->getLength()<veh->getType()->getLength()) {
-        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh->getID()
-            + string("' is too long to start at edge '")
-            + routeDef->getFrom()->getID() + string("'."));
-        return false;
-    }
     // check whether the route was already saved
     if(routeDef->isSaved()) {
         return true;
     }
-    // build and save the route
-    return routeDef->computeAndSave(options,
-        router, veh->getDepartureTime(), res, altres,
-        veh->periodical(), *veh);
+    //
+    RORoute *current = routeDef->buildCurrentRoute(router,
+        veh->getDepartureTime(), options.getBool("continue-on-unbuild"), *veh);
+    if(current==0) {
+        return false;
+    }
+    // check whether the route is valid and does not end on the starting edge
+    if(current->size()<2) {
+        // check whether the route ends at the starting edge
+        //  unbuild routes due to missing connections are reported within the
+        //  router
+        if(current->size()!=0) {
+            cout << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("The route '") + routeDef->getID()
+                + string("' is too short, propably ending at the starting edge."));
+            MsgHandler::getWarningInstance()->inform("Skipping...");
+        }
+        delete current;
+        return false;
+    }
+    // check whether the vehicle is able to start at this edge
+    //  (the edge must be longer than the vehicle)
+    if(current->getFirst()->getLength()<=veh->getType()->getLength()) {
+        MsgHandler::getErrorInstance()->inform(string("The vehicle '")
+            + veh->getID()
+            + string("' is too long to start at edge '")
+            + current->getFirst()->getID() + string("'."));
+        delete current;
+        return false;
+    }
+    // add build route
+    routeDef->addAlternative(current, veh->getDepartureTime());
+    // save route
+    routeDef->xmlOutCurrent(*myRoutesOutput,
+        options.getBool("continue-on-unbuild"));
+    if(myRouteAlternativesOutput!=0) {
+        routeDef->xmlOutAlternatives(*myRouteAlternativesOutput);
+    }
+    return true;
 }
 
+
 void
-RONet::saveAndRemoveRoutesUntil(OptionsCont &options,
-                                std::ofstream &res, std::ofstream &altres,
+RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                                 long time)
 {
-    // build the router
-    RORouter router(*this, &_edges);
     // sort the list of route definitions
     priority_queue<ROVehicle*,
         std::vector<ROVehicle*>,
@@ -314,21 +330,18 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options,
         }
         sortedVehicles.pop();
         // write the route
-        if(saveRoute(options, router, res, altres, veh)) {
-            // write the type if it's new
-            if(!veh->getType()->isSaved()) {
-                saveType(res, veh->getType(), veh->getID());
-                saveType(altres, veh->getType(), veh->getID());
-            }
-            // write the vehicle
-            res << "   ";
-            veh->xmlOut(res);
-            altres << "   ";
-            veh->xmlOut(altres);
+        if(saveRoute(options, router, veh)) {
+			if(myRouteAlternativesOutput==0) {
+				veh->saveTypeAndSelf(*myRoutesOutput,
+                    *_vehicleTypes.getDefault());
+			} else {
+				veh->saveTypeAndSelf(*myRoutesOutput,
+					*myRouteAlternativesOutput, *_vehicleTypes.getDefault());
+			}
         }
         // remove the route if it is not longer used
         removeRouteSecure(veh->getRoute());
-        _vehicles.eraseVehicle(veh);
+        _vehicles.erase(veh->getID());
     }
 }
 
@@ -406,9 +419,10 @@ RONet::checkSourceAndDestinations()
     if(myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
-    std::vector<ROEdge*> edges = _edges.getAllEdges();
-    for(std::vector<ROEdge*>::iterator i=edges.begin(); i!=edges.end(); i++) {
+    const std::vector<ROEdge*> &edges = _edges.getVector();
+    for(std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         ROEdge::EdgeType type = (*i)->getType();
+		// !!! add something like "classified edges only" for using only sources or sinks
         if(type!=ROEdge::ET_SOURCE) {
             myDestinationEdges.push_back(*i);
         }
@@ -419,13 +433,28 @@ RONet::checkSourceAndDestinations()
 }
 
 
+unsigned int
+RONet::getEdgeNo() const
+{
+    return _edges.size();
+}
 
+
+std::ofstream *
+RONet::buildOutput(const std::string &name)
+{
+    std::ofstream *ret = new std::ofstream(name.c_str());
+    if(!ret->good()) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The file '") + name +
+            string("' could not be opened for writing."));
+        throw ProcessError();
+    }
+    return ret;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RONet.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

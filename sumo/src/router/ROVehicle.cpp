@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -38,7 +41,6 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,6 +50,7 @@ namespace
 
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
@@ -65,7 +68,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROVehicle::ROVehicle(const std::string &id, RORouteDef *route,
-                     long depart, ROVehicleType *type,
+                     unsigned int depart, ROVehicleType *type,
                      const RGBColor &color,
                      int period, int repNo)
 	: _id(id), myColor(color), _type(type), _route(route), _depart(depart),
@@ -119,24 +122,6 @@ ROVehicle::getDepartureTime() const
 }
 
 
-/*
-bool
-ROVehicle::reassertPeriodical()
-{
-    if(_period==-1) {
-        return false;
-    }
-    // patch the name
-    _id = StringUtils::version1(_id);
-    // patch departure time
-    _depart += _period;
-    // patch the name of the route
-    _route->patchID();
-    // assign reemission
-    return true;
-}
-*/
-
 bool
 ROVehicle::periodical() const
 {
@@ -144,11 +129,65 @@ ROVehicle::periodical() const
 }
 
 
+void
+ROVehicle::saveTypeAndSelf(std::ostream &os,
+                           ROVehicleType &defType) const
+{
+	ROVehicleType &type = getTypeForSaving(defType);
+	if(!type.isSaved()) {
+	    os << "   ";
+	    type.xmlOut(os);
+		type.markSaved();
+	}
+	os << "   ";
+	xmlOut(os);
+}
+
+
+void
+ROVehicle::saveTypeAndSelf(std::ostream &os, std::ostream &altos,
+                           ROVehicleType &defType) const
+{
+	ROVehicleType &type = getTypeForSaving(defType);
+	if(!type.isSaved()) {
+	    os << "   ";
+		type.xmlOut(os);
+	    altos << "   ";
+		type.xmlOut(altos);
+		type.markSaved();
+	}
+	os << "   ";
+	xmlOut(os);
+	altos << "   ";
+	xmlOut(altos);
+}
+
+
+ROVehicleType &
+ROVehicle::getTypeForSaving(ROVehicleType &defType) const
+{
+    if(_type==0) {
+//        type = _vehicleTypes.getDefault();
+        MsgHandler::getWarningInstance()->inform(
+            string("The vehicle '") + getID()
+            + string("' has no valid type; Using default."));
+        return defType;
+    } else {
+		return *_type;
+	}
+}
+
+
+ROVehicle *
+ROVehicle::copy(const std::string &id, unsigned int depTime,
+                RORouteDef *newRoute)
+{
+    return new ROVehicle(id, newRoute, depTime, _type, myColor,
+        _period, _repNo);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROVehicle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/09/17 10:14:27  dkrajzew
 // handling of unset values patched
 //
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -70,9 +72,6 @@ ROLane::getSpeed() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROLane.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2004/01/12 15:39:35  dkrajzew
 // reproduces changes to NamedObjectsMap
 //
@@ -35,15 +38,13 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/common/NamedObjectCont.h>
 #include <queue>
@@ -51,8 +52,16 @@ namespace
 #include "ROHelper.h"
 #include "ROVehicleCont.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROVehicleCont::ROVehicleCont()
 {
 }
@@ -67,32 +76,19 @@ priority_queue<ROVehicle*,
     std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &
 ROVehicleCont::sort()
 {
-//    _sorted.reserve(_cont.size());
     _sorted =
         priority_queue<ROVehicle*,
             std::vector<ROVehicle*>,
             ROHelper::VehicleByDepartureComperator>();
-    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        _sorted.push((*i).second);
+    const std::vector<ROVehicle*> &v = getVector();
+    for(std::vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
+        _sorted.push(*i);
     }
     return _sorted;
 }
 
 
-void
-ROVehicleCont::eraseVehicle(ROVehicle *v)
-{
-    std::string id = v->getID();
-    IDMap::iterator i = myMap.find(id);
-    delete (*i).second;
-    myMap.erase(i);
-}
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROVehicleCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

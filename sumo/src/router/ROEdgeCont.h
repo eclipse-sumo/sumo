@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
 // Revision 1.4  2003/02/07 10:45:07  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -42,11 +42,14 @@
 #include "ROEdge.h"
 #include <utils/common/NamedObjectCont.h>
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * A container for edges, derived from a simple wrapper for a id to object-hash.
+ * @class ROEdgeCont
+ * A container for edges, derived from a simple wrapper for a id to
+ * object-hash.
  */
 class ROEdgeCont : public NamedObjectCont<ROEdge*> {
 public:
@@ -59,12 +62,6 @@ public:
     /** @brief Closes the loading process
         Closes the loading process for each edge stored */
     void postloadInit();
-
-    /** @brief Initialises the edges for the dijkstra-router */
-    void init();
-
-    /// Returns the list of all edges stored
-    std::vector<ROEdge*> getAllEdges() const;
 
 private:
     /// we made the copy constructor invalid

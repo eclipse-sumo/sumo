@@ -23,21 +23,22 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.4  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.3  2003/02/07 10:45:03  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <fstream>
 #include <climits>
 #include <sstream>
@@ -47,16 +48,26 @@ namespace
 #include "RORouteDef.h"
 #include "CellDriverInfoParser.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 CellDriverInfoParser::CellDriverInfoParser(bool useLast, bool intel)
     : _useLast(useLast), _intel(intel)
 {
 }
 
+
 CellDriverInfoParser::~CellDriverInfoParser()
 {
 }
+
 
 void
 CellDriverInfoParser::parseFrom(std::ifstream &strm)
@@ -178,12 +189,7 @@ CellDriverInfoParser::getRouteNo(size_t pos) const
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "CellDriverInfoParser.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

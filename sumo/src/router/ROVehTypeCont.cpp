@@ -23,27 +23,35 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include "ROVehicleType.h"
 #include "ROVehTypeCont.h"
 #include <utils/common/NamedObjectCont.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROVehTypeCont::ROVehTypeCont(ROVehicleType *defType)
     : _defaultType(defType)
 {
@@ -57,15 +65,13 @@ ROVehTypeCont::~ROVehTypeCont()
 
 
 ROVehicleType *
-ROVehTypeCont::getDefault() const {
+ROVehTypeCont::getDefault() const
+{
     return _defaultType;
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROVehTypeCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

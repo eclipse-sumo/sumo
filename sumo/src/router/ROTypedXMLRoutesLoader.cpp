@@ -23,8 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning or
+//  an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
@@ -35,48 +41,50 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
 #include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
-#include <sax2/DefaultHandler.hpp>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include "ROTypedRoutesLoader.h"
+#include <utils/common/XMLHelpers.h>
+#include "ROAbstractRouteDefLoader.h"
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
                                                const std::string &file)
-    : ROTypedRoutesLoader(net),
+    : ROAbstractRouteDefLoader(net),
     SUMOSAXHandler("xml-route definitions", file),
-    _parser(XMLReaderFactory::createXMLReader()), _token()
+    _parser(XMLHelpers::getSAXReader(*this)), _token(), _ended(false)
 {
-    _parser->setFeature(
-        XMLString::transcode("http://xml.org/sax/features/validation"),
-        false);
-    _parser->setContentHandler(this);
-    _parser->setErrorHandler(this);
 }
+
 
 ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader()
 {
     delete _parser;
 }
+
 
 void
 ROTypedXMLRoutesLoader::closeReading()
@@ -84,42 +92,30 @@ ROTypedXMLRoutesLoader::closeReading()
     _parser->parseReset(_token);
 }
 
+
 bool
-ROTypedXMLRoutesLoader::readNextRoute(long start)
+ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(unsigned int time)
 {
-    _nextRouteRead = false;
-    while(!_nextRouteRead&&!_ended) {
-        try {
-            _parser->parseNext(_token);
-        } catch (...) {
-            return false;
+    while(getCurrentTimeStep()<time&&!ended()) {
+        beginNextRoute();
+        while(!nextRouteRead()&&!ended()) {
+            try {
+                _parser->parseNext(_token);
+            } catch (std::string) {
+                return false;
+            }
         }
     }
     return true;
 }
 
-bool
-ROTypedXMLRoutesLoader::addAllRoutes()
-{
-    _parser->parse(_file.c_str());
-    return !MsgHandler::getErrorInstance()->wasInformed();
-}
-
-bool
-ROTypedXMLRoutesLoader::startReadingSteps()
-{
-/*    _parser->setContentHandler(this);
-    _parser->setErrorHandler(this);*/
-    return true;
-}
 
 bool
 ROTypedXMLRoutesLoader::myInit(OptionsCont &options)
 {
-/*    _parser->setContentHandler(this);
-    _parser->setErrorHandler(this);*/
     return _parser->parseFirst(_file.c_str(), _token);
 }
+
 
 void
 ROTypedXMLRoutesLoader::endDocument()
@@ -128,10 +124,14 @@ ROTypedXMLRoutesLoader::endDocument()
 }
 
 
+bool
+ROTypedXMLRoutesLoader::ended() const
+{
+    return _ended;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROTypedXMLRoutesLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

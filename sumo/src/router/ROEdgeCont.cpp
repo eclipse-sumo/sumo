@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 08:01:10  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.5  2004/01/12 15:39:35  dkrajzew
 // reproduces changes to NamedObjectsMap
 //
@@ -32,20 +35,22 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <map>
 #include <string>
 #include "ROEdge.h"
 #include "ROEdgeCont.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROEdgeCont::ROEdgeCont()
 {
 }
@@ -59,48 +64,14 @@ ROEdgeCont::~ROEdgeCont()
 void
 ROEdgeCont::postloadInit()
 {
-    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        (*i).second->postloadInit(); // !!! for_each
+    const std::vector<ROEdge*> &v = getVector();
+    for(size_t i=0; i!=v.size(); i++) {
+        v[i]->postloadInit(i); // !!! for_each
     }
 }
-
-
-/*
-void
-ROEdgeCont::computeWeights()
-{
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i).second->computeWeight();
-    }
-}
-*/
-
-void
-ROEdgeCont::init()
-{
-    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        (*i).second->init();
-    }
-}
-
-
-std::vector<ROEdge*>
-ROEdgeCont::getAllEdges() const
-{
-    std::vector<ROEdge*> all;
-    for(IDMap::const_iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        all.push_back((*i).second);
-    }
-    return all;
-}
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ROEdgeCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

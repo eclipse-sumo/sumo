@@ -23,28 +23,37 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 08:01:21  dkrajzew
+// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 #include <utils/router/TextHelpers.h>
-#include "ROOrigDestRouteDef.h"
+#include "RORouteDef_OrigDest.h"
 #include "RORouteDefCont.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORouteDefCont::RORouteDefCont()
 {
 }
@@ -56,8 +65,10 @@ RORouteDefCont::~RORouteDefCont()
 }
 
 
-bool RORouteDefCont::add(std::string id, RORouteDef *def)
+bool
+RORouteDefCont::add(RORouteDef *def)
 {
+    string id = def->getID();
     // avoid usage of an id twice (from different files)
     if(known(id)) {
         if(def==get(id)) {
@@ -76,7 +87,8 @@ bool RORouteDefCont::add(std::string id, RORouteDef *def)
 
 
 void
-RORouteDefCont::writeXML(std::ostream &os) {
+RORouteDefCont::writeXML(std::ostream &os)
+{
 }
 
 /*
@@ -93,25 +105,28 @@ RORouteDefCont::add(ROEdge *from, ROEdge *to) {
     }
     // add the route
     NamedObjectCont<RORouteDef*>::add(
-        id, new ROOrigDestRouteDef(id, from, to));
+        id, new RORouteDef_OrigDest(id, from, to));
     return id;
 }
 */
 
 bool
-RORouteDefCont::known(ROEdge *from, ROEdge *to) const {
+RORouteDefCont::known(ROEdge *from, ROEdge *to) const
+{
     idMap::const_iterator i=_known.find(std::pair<ROEdge*, ROEdge*>(from, to));
     return i!=_known.end();
 }
 
 bool
-RORouteDefCont::known(const std::string &name) const {
+RORouteDefCont::known(const std::string &name) const
+{
     return get(name)!=0;
 }
 
 
 std::string
-RORouteDefCont::getID(ROEdge *from, ROEdge *to) const {
+RORouteDefCont::getID(ROEdge *from, ROEdge *to) const
+{
     idMap::const_iterator i=_known.find(std::pair<ROEdge*, ROEdge*>(from, to));
     if(i==_known.end())
         return "";
@@ -126,12 +141,7 @@ RORouteDefCont::clear()
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "RORouteDefCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
