@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2004/08/02 11:55:35  dkrajzew
+// using coloring schemes stored in a container
+//
 // Revision 1.31  2004/07/02 08:31:35  dkrajzew
 // detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
 //
@@ -181,14 +184,21 @@ using namespace std;
  * FOX callback mapping
  * ======================================================================= */
 FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[]={
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURVEHICLES, GUIViewTraffic::onCmdColourVehicles),
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURLANES,    GUIViewTraffic::onCmdColourLanes),
+    FXMAPFUNCS(SEL_COMMAND,  MID_COLOURVEHICLES, MID_COLOURVEHICLES+99, GUIViewTraffic::onCmdColourVehicles),
+    FXMAPFUNCS(SEL_COMMAND,  MID_COLOURLANES,    MID_COLOURLANES+99,    GUIViewTraffic::onCmdColourLanes),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewTraffic::onCmdShowToolTips),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewTraffic::onCmdShowGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWFULLGEOM,   GUIViewTraffic::onCmdShowFullGeom),
 };
 
 FXIMPLEMENT(GUIViewTraffic,GUISUMOAbstractView,GUIViewTrafficMap,ARRAYNUMBER(GUIViewTrafficMap))
+
+
+/* =========================================================================
+ * static members definitions
+ * ======================================================================= */
+GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+    GUIViewTraffic::myLaneColoringSchemes;
 
 
 /* =========================================================================
@@ -283,6 +293,13 @@ GUIViewTraffic::init(GUINet &net)
     myROWDrawer[5] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
+    // lane coloring
+    if(myLaneColoringSchemes.size()==0) {
+        myLaneColoringSchemes.add("black", GUISUMOAbstractView::LCS_BLACK);
+        myLaneColoringSchemes.add("by purpose", GUISUMOAbstractView::LCS_BY_PURPOSE);
+        myLaneColoringSchemes.add("by allowed speed", GUISUMOAbstractView::LCS_BY_SPEED);
+        myLaneColoringSchemes.add("by selection", GUISUMOAbstractView::LCS_BY_SELECTION);
+    }
 }
 
 
@@ -305,6 +322,8 @@ void
 GUIViewTraffic::create()
 {
     FXGLCanvas::create();
+    myVehColoring->create();
+    myLaneColoring->create();
 }
 
 
@@ -315,39 +334,18 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
     // build coloring tools
         // vehicle colors
-    new FXButton(&toolbar,
-        "\tChange Vehicle Coloring\tAllows you to change the vehicle coloring Scheme.",
-        GUIIconSubSys::getIcon(ICON_COLOURVEHICLES), this, 0,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|LAYOUT_TOP|LAYOUT_LEFT);
-    myVehicleColoring =
-        new FXComboBox(&toolbar, 12, this, MID_COLOURVEHICLES,
-            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
-    myVehicleColoring->appendItem("by speed");
-    myVehicleColoring->appendItem("specified");
-    myVehicleColoring->appendItem("type");
-    myVehicleColoring->appendItem("route");
-    myVehicleColoring->appendItem("random#1");
-    myVehicleColoring->appendItem("random#2");
-    myVehicleColoring->appendItem("lanechange#1");
-    myVehicleColoring->appendItem("lanechange#2");
-    myVehicleColoring->appendItem("lanechange#3");
-    myVehicleColoring->appendItem("waiting#1");
-    myVehicleColoring->appendItem("route change offset");
-    myVehicleColoring->appendItem("route change #");
-    myVehicleColoring->setNumVisible(8);
+    myVehColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
+    GUIBaseVehicleDrawer::getSchemesMap().fill(*myVehColoring, this, MID_COLOURVEHICLES);
+    new FXMenuButton(&toolbar,"\tSet the coloring scheme for vehicles",
+        GUIIconSubSys::getIcon(ICON_COLOURVEHICLES), myVehColoring,
+        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
+
         // lane colors
-    new FXButton(&toolbar,
-        "\tChange Lane Coloring\tAllows you to change the lane coloring Scheme.",
-        GUIIconSubSys::getIcon(ICON_COLOURLANES), this, 0,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|LAYOUT_TOP|LAYOUT_LEFT);
-    myLaneColoring =
-        new FXComboBox(&toolbar, 10, this, MID_COLOURLANES,
-            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
-    myLaneColoring->appendItem("black");
-    myLaneColoring->appendItem("by purpose");
-    myLaneColoring->appendItem("by speed");
-    myLaneColoring->appendItem("by selection");
-    myLaneColoring->setNumVisible(4);
+    myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
+    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURVEHICLES);
+    new FXMenuButton(&toolbar,"\tSet the coloring scheme for lanes",
+        GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
+        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -392,74 +390,22 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
 
 
 long
-GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector,void*)
+GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector sel,void*)
 {
-    int index = myVehicleColoring->getCurrentItem();
-    _vehicleColScheme = (VehicleColoringScheme) index;
-    /*
-    // set the vehicle coloring scheme in dependec to
-    //  the chosen item
-    switch(index) {
-    case 0:
-        _vehicleColScheme = VCS_BY_SPEED;
-        break;
-    case 1:
-        _vehicleColScheme = VCS_SPECIFIED;
-        break;
-    case 2:
-        _vehicleColScheme = VCS_RANDOM1;
-        break;
-    case 3:
-        _vehicleColScheme = VCS_RANDOM2;
-        break;
-    case 4:
-        _vehicleColScheme = VCS_LANECHANGE1;
-        break;
-    case 5:
-        _vehicleColScheme = VCS_LANECHANGE2;
-        break;
-    case 6:
-        _vehicleColScheme = VCS_LANECHANGE3;
-        break;
-    case 7:
-        _vehicleColScheme = VCS_WAITING1;
-        break;
-    case 8:
-        _vehicleColScheme = VCS_ROUTECHANGED;
-        break;
-    default:
-        _vehicleColScheme = VCS_BY_SPEED;
-        break;
-    }
-    */
+    int index = FXSELID(sel) - MID_COLOURVEHICLES;
+    _vehicleColScheme =
+        GUIBaseVehicleDrawer::getSchemesMap().getEnumValue(index);
     update();
     return 1;
 }
 
 
 long
-GUIViewTraffic::onCmdColourLanes(FXObject*,FXSelector,void*)
+GUIViewTraffic::onCmdColourLanes(FXObject*,FXSelector sel,void*)
 {
-    int index = myLaneColoring->getCurrentItem();
-    // set the lane coloring scheme in dependec to
-    //  the chosen item
-    switch(index) {
-    case 0:
-        _laneColScheme = LCS_BLACK;
-        break;
-    case 1:
-        _laneColScheme = LCS_BY_PURPOSE;
-        break;
-    case 2:
-        _laneColScheme = LCS_BY_SPEED;
-        break;
-    case 3:
-        _laneColScheme = LCS_BY_SELECTION;
-        break;
-    default:
-        _laneColScheme = LCS_BLACK;
-        break;
-    }
+    int index = FXSELID(sel) - MID_COLOURLANES;
+    _laneColScheme =
+        myLaneColoringSchemes.getEnumValue(index);
     update();
     return 1;
 }
@@ -529,18 +475,6 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
          drawPolygon2D(*(ppoly->second));
     }
-
-     /*
-    Position2DVector tmp;
-    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
-    tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
-    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
-    tmp.push_front(Position2D(nb.xmin(), nb.getCenter().second/2.0));
-    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
-    tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
-    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
-*/
-
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,

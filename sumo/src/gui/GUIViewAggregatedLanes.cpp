@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/08/02 11:55:35  dkrajzew
+// using coloring schemes stored in a container
+//
 // Revision 1.12  2004/07/02 08:30:59  dkrajzew
 // detector drawer now also draw other additional items; removed some memory leaks
 //
@@ -177,15 +180,22 @@ using namespace std;
  * FOX callback mapping
  * ======================================================================= */
 FXDEFMAP(GUIViewAggregatedLanes) GUIViewAggregatedLanesMap[]={
+    FXMAPFUNCS(SEL_COMMAND,  MID_COLOURLANES,    MID_COLOURLANES+99,    GUIViewAggregatedLanes::onCmdColourLanes),
     FXMAPFUNC(SEL_COMMAND,  MID_LANEAGGRMEM,    GUIViewAggregatedLanes::onCmdAggMemory),
     FXMAPFUNC(SEL_COMMAND,  MID_LANEAGGTIME,    GUIViewAggregatedLanes::onCmdAggChoose),
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURLANES,    GUIViewAggregatedLanes::onCmdColourLanes),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewAggregatedLanes::onCmdShowToolTips),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewAggregatedLanes::onCmdShowGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWFULLGEOM,   GUIViewAggregatedLanes::onCmdShowFullGeom),
 };
 
 FXIMPLEMENT(GUIViewAggregatedLanes,GUISUMOAbstractView,GUIViewAggregatedLanesMap,ARRAYNUMBER(GUIViewAggregatedLanesMap))
+
+
+/* =========================================================================
+ * static members definitions
+ * ======================================================================= */
+GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+    GUIViewAggregatedLanes::myLaneColoringSchemes;
 
 
 /* =========================================================================
@@ -250,6 +260,16 @@ GUIViewAggregatedLanes::init(GUINet &net)
     myROWDrawer[5] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
+    // lane coloring
+    if(myLaneColoringSchemes.size()==0) {
+        myLaneColoringSchemes.add("by density", GUISUMOAbstractView::LCS_BY_DENSITY);
+        myLaneColoringSchemes.add("by mean speed", GUISUMOAbstractView::LCS_BY_MEAN_SPEED);
+        myLaneColoringSchemes.add("by mean halts", GUISUMOAbstractView::LCS_BY_MEAN_HALTS);
+        myLaneColoringSchemes.add("black", GUISUMOAbstractView::LCS_BLACK);
+        myLaneColoringSchemes.add("by purpose", GUISUMOAbstractView::LCS_BY_PURPOSE);
+        myLaneColoringSchemes.add("by allowed speed", GUISUMOAbstractView::LCS_BY_SPEED);
+        myLaneColoringSchemes.add("by selection", GUISUMOAbstractView::LCS_BY_SELECTION);
+    }
 }
 
 GUIViewAggregatedLanes::~GUIViewAggregatedLanes()
@@ -279,20 +299,11 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
     // build coloring tools
         // lane colors
-    new FXButton(&toolbar,"\tChange Lane Coloring\tAllows you to change the Lane coloring Scheme.",
-        GUIIconSubSys::getIcon(ICON_COLOURLANES), this, 0,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|LAYOUT_TOP|LAYOUT_LEFT);
-    myLaneColoring =
-        new FXComboBox(&toolbar, 13, this, MID_COLOURLANES,
-            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
-    myLaneColoring->appendItem("by density");
-    myLaneColoring->appendItem("by mean speed");
-    myLaneColoring->appendItem("by mean halts");
-    myLaneColoring->appendItem("black");
-    myLaneColoring->appendItem("by purpose");
-    myLaneColoring->appendItem("by allowed speed");
-    myLaneColoring->appendItem("by selection");
-    myLaneColoring->setNumVisible(6);
+    myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
+    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURVEHICLES);
+    new FXMenuButton(&toolbar,"\tSet the coloring scheme for lanes",
+        GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
+        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
 
     myAggregationLength =
         new FXComboBox(&toolbar, 10, this, MID_LANEAGGTIME,
@@ -354,37 +365,11 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
 
 
 long
-GUIViewAggregatedLanes::onCmdColourLanes(FXObject*,FXSelector,void*)
+GUIViewAggregatedLanes::onCmdColourLanes(FXObject*,FXSelector sel,void*)
 {
-    int index = myLaneColoring->getCurrentItem();
-    // set the lane coloring scheme in dependec to
-    //  the chosen item
-    switch(index) {
-    case 0:
-        _laneColScheme = LCS_BY_DENSITY;
-        break;
-    case 1:
-        _laneColScheme = LCS_BY_MEAN_SPEED;
-        break;
-    case 2:
-        _laneColScheme = LCS_BY_MEAN_HALTS;
-        break;
-    case 3:
-        _laneColScheme = LCS_BLACK;
-        break;
-    case 4:
-        _laneColScheme = LCS_BY_PURPOSE;
-        break;
-    case 5:
-        _laneColScheme = LCS_BY_SPEED;
-        break;
-    case 6:
-        _laneColScheme = LCS_BY_SELECTION;
-        break;
-    default:
-        _laneColScheme = LCS_BLACK;
-        break;
-    }
+    int index = FXSELID(sel) - MID_COLOURLANES;
+    _laneColScheme =
+        myLaneColoringSchemes.getEnumValue(index);
     update();
     return 1;
 }

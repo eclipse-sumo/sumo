@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2004/08/02 11:55:35  dkrajzew
+// using coloring schemes stored in a container
+//
 // Revision 1.17  2004/07/02 08:31:35  dkrajzew
 // detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
 //
@@ -79,6 +82,7 @@
 #include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
+#include "drawerimpl/GUIColoringSchemesMap.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -200,8 +204,12 @@ protected:
     /// The absolut numbers of the array sizes
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
-    /// The comboboxes for colour manipulation
-    FXComboBox *myVehicleColoring, *myLaneColoring;
+    /// The widgets for colour manipulation
+    FXPopup *myVehColoring, *myLaneColoring;
+
+    static GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+        myLaneColoringSchemes;
+
 
 protected:
     GUIViewTraffic() { }

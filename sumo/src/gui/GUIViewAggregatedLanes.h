@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/08/02 11:55:35  dkrajzew
+// using coloring schemes stored in a container
+//
 // Revision 1.3  2004/07/02 08:30:59  dkrajzew
 // detector drawer now also draw other additional items; removed some memory leaks
 //
@@ -73,6 +76,7 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
+#include "drawerimpl/GUIColoringSchemesMap.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -171,13 +175,16 @@ protected:
     size_t *_edges2Show, *_junctions2Show, *_additional2Show;
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
-    FXComboBox *myLaneColoring;
+    FXPopup *myLaneColoring;
     FXComboBox *myAggregationLength;
     FXRealSpinDial *myRememberingFactor;
 
     /// Information whether the full or the simle geometry shall be used
     bool myUseFullGeom;
 
+
+    static GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+        myLaneColoringSchemes;
 
 
 protected:
