@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/12/04 13:11:42  dkrajzew
+// message retrival added
+//
 // Revision 1.4  2003/06/05 11:54:49  dkrajzew
 // class templates applied; documentation added
 //
@@ -68,6 +71,10 @@
  * class definitions
  * ======================================================================= */
 class UtilException : public std::exception {
+public:
+    virtual const std::string &msg() const {
+        return "<no description available>";
+    }
 };
 
 
@@ -130,7 +137,7 @@ public:
     ~UnsupportedFeature() throw();
 
     /** returns the message */
-    const std::string &message();
+    const std::string &msg();
 
 private:
     /** the message of the exception */

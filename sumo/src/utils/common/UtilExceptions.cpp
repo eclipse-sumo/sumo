@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/12/04 13:11:42  dkrajzew
+// message retrival added
+//
 // Revision 1.4  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
@@ -132,7 +135,8 @@ UnsupportedFeature::~UnsupportedFeature() throw()
 }
 
 
-const string &UnsupportedFeature::message()
+const string &
+UnsupportedFeature::msg()
 {
     return _message;
 }
