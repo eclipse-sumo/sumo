@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:43:48  dkrajzew
+// regard of artifactsarising from traffic lights implemented; debugged
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -202,14 +205,16 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "MSLane.h"
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
 #include "MSInductLoop.h"
+#include "MSLink.h"
+#include "MSLane.h"
 #include <cmath>
+#include <bitset>
 #include <iostream>
 #include <cassert>
 #include <functional>
@@ -226,29 +231,6 @@ MSLane::DictType MSLane::myDict;
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::Link::Link(MSLane* succLane, bool yield) :
-    myLane(succLane), myPrio(!yield), myDriveRequest(false)
-{
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void
-MSLane::Link::setPriority( bool prio )
-{
-    myPrio = prio;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSLane::Link::LinkRequest::result_type
-MSLane::Link::LinkRequest::operator() (first_argument_type link) const
-{
-    return link->myDriveRequest;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 MSLane::PosGreater::result_type
 MSLane::PosGreater::operator() (first_argument_type veh1,
                                 second_argument_type veh2) const
@@ -260,6 +242,9 @@ MSLane::PosGreater::operator() (first_argument_type veh1,
 
 MSLane::~MSLane()
 {
+    for(LinkCont::iterator i=myLinks.begin(); i!=myLinks.end(); i++) {
+        delete *i;
+    }
     // TODO
 }
 
@@ -277,7 +262,7 @@ MSLane::MSLane( string id,
     myMaxSpeed( maxSpeed ),
     myLength( length ),
     myEdge( edge ),
-    myBackJunction( 0 ),
+    myNextJunction( 0 ),
     myVehBuffer( 0 ),
     myRequestLane( 0 ),
     myBrakeRequest( false ),
@@ -300,9 +285,9 @@ void
 MSLane::initialize( MSJunction* backJunction,
                     LinkCont* links )
 {
-    myBackJunction = backJunction;
+    myNextJunction = backJunction;
     myLinks = *links;
-
+    delete links;
 //      myMeanData.insert( myMeanData.end(),
 //                         MSNet::getInstance()->getNDumpIntervalls() +
 //                         MSNet::getInstance()->withGUI(),
@@ -332,20 +317,35 @@ MSLane::moveExceptFirst()
         myLastVeh       = last;
     }
 
-    // Move vehicles except first.
     if ( myVehicles.size() >= 2 ) {
-
+        // Move vehicles except first and all vehicles that may reach something
+        //  that forces them to stop
         VehCont::iterator lastBeforeFirst = myVehicles.end() - 1;
-        for ( VehCont::iterator veh = myVehicles.begin();
-              veh != lastBeforeFirst; ++veh ) {
+        VehCont::iterator veh;
+        for ( veh = myVehicles.begin();
+              !(*veh)->reachingCritical(myLength) && veh != lastBeforeFirst; 
+              ++veh ) {
 
             VehCont::iterator pred = veh + 1;
             ( *veh )->move( this, *pred, 0 );
             ( *veh )->meanDataMove();
 
-            // Check for timeheadway < deltaT
-            assert( ( *veh )->pos() < ( *pred )->pos() );
-        }
+	        // Check for timeheadway < deltaT
+	        assert( ( *veh )->pos() < ( *pred )->pos() );
+            assert( ( *veh )->pos() < myLength );
+	    }
+        // Move all next vehicles beside the first
+        for ( ;veh != lastBeforeFirst; 
+              ++veh ) {
+
+            VehCont::iterator pred = veh + 1;
+            ( *veh )->moveRegardingCritical( this, *pred, 0 );
+            ( *veh )->meanDataMove();
+
+	        // Check for timeheadway < deltaT
+	        assert( ( *veh )->pos() < ( *pred )->pos() );
+            assert( ( *veh )->pos() < myLength );
+	    }
     }
 }
 
@@ -374,10 +374,13 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
     }
 
     if ( myVehicles.size() >= 2 ) {
-
+        // Move vehicles except first and all vehicles that may reach something
+        //  that forces them to stop
         VehCont::const_iterator lastBeforeFirst = myVehicles.end() - 1;
-        for ( VehCont::const_iterator veh = myVehicles.begin();
-              veh != lastBeforeFirst; ++veh ) {
+        VehCont::const_iterator veh;
+        for ( veh = myVehicles.begin();
+              !(*veh)->reachingCritical(myLength) && veh != lastBeforeFirst; 
+              ++veh ) {
 
             VehCont::const_iterator pred( veh + 1 );
             const MSVehicle*
@@ -398,6 +401,32 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
             ( *veh )->meanDataMove();
             // Check for timeheadway < deltaT
             assert( ( *veh )->pos() < ( *pred )->pos() );
+            assert( ( *veh )->pos() < myLength );
+        }
+        // Move all next vehicles beside the first
+        for ( ; veh != lastBeforeFirst; 
+              ++veh ) {
+
+            VehCont::const_iterator pred( veh + 1 );
+            const MSVehicle*
+                neigh = findNeigh( *veh, firstNeighLane, lastNeighLane );
+
+            // veh has neighbour to regard.
+            if ( neigh != *veh ) {
+
+                ( *veh )->moveRegardingCritical( this, *pred, neigh );
+            }
+
+            // veh has no neighbour to regard.
+            else {
+
+                ( *veh )->moveRegardingCritical( this, *pred, 0);
+            }
+
+            ( *veh )->meanDataMove();
+            // Check for timeheadway < deltaT
+            assert( ( *veh )->pos() < ( *pred )->pos() );
+            assert( ( *veh )->pos() < myLength );
         }
     }
 }
@@ -561,7 +590,6 @@ MSLane::emitTry( MSVehicle& veh )
                       MSVehicle::tau() +
                       veh.length();
     if ( enoughSpace( veh, 0, myLength, safeSpace ) ) {
-
         veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
         return true;
@@ -575,13 +603,13 @@ bool
 MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
     // emission as last car (in driving direction)
-    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    MSVehicle *leader = *leaderIt;
+    double leaderPos = leader->pos() - leader->length();
     double safeSpace = pow( myMaxSpeed, 2 ) /
                       ( 2 * MSVehicleType::minDecel() ) +
                       MSVehicle::tau() +
-                      veh.length();
+                      veh.length() + veh.accelDist();
     if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {
-
         veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
         return true;
@@ -599,7 +627,6 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
     double safeSpace = (*followIt)->safeEmitGap() + veh.length();
     if ( enoughSpace( veh, followPos,
                       myLength - MSVehicleType::maxLength(), safeSpace ) ) {
-
         veh.enterLaneAtEmit( this );
         myVehicles.push_back( &veh );
         return true;
@@ -613,12 +640,13 @@ bool
 MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
                  VehCont::iterator leaderIt )
 {
+    MSVehicle *leader = *leaderIt;
+    MSVehicle *follow = *followIt;
     // emission between follower and leader.
     double followPos = (*followIt)->pos();
     double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
     double safeSpace = (*followIt)->safeEmitGap() + veh.length();
     if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
-
         veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );
         return true;
@@ -677,7 +705,6 @@ MSLane::setRequest()
     }
     else {
         myFirst = myVehicles.back( );
-
         setLookForwardState();
         assert( myLFState != UNDEFINED ) ;
         setDriveRequests();
@@ -697,7 +724,7 @@ MSLane::request() const
     if ( myFirst ) {
         LinkCont::const_iterator laneReq = find_if ( myLinks.begin(),
                                                      myLinks.end(),
-                                                     Link::LinkRequest() );
+                                                     MSLink::LinkRequest() );
 
         // If requested link found, set corresponding request to true.
         unsigned int index = distance( myLinks.begin(), laneReq );
@@ -717,9 +744,11 @@ void
 MSLane::moveFirst( bool respond )
 {
     assert( myFirst );
-
+    assert( myFirst->pos()<myLength);
+    double bla = myFirst->speed();
+    // update position and speed
     // Move as calculated if response is true
-    if ( respond == true ) {
+    if ( respond == true /*|| myTargetLane!=this*/) {
 
         myFirst->moveSetState( myTargetState );
 
@@ -728,18 +757,19 @@ MSLane::moveFirst( bool respond )
 
             myTargetLane->push( pop() );
         }
-        else {
 
-            myFirst->meanDataMove();
-        }
     }
 
     // Slow down towards lane end.
     else {
-
         myFirst->moveDecel2laneEnd( this );
-        myFirst->meanDataMove();
+        if(myFirst->pos()>=myLength) {
+            myFirst->moveSetState(myTargetState);
+            myTargetLane->push( pop() );
+        }
     }
+    myFirst->_assertPos();
+    assert(bla-myFirst->decelAbility() <= myFirst->speed());
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -841,12 +871,22 @@ MSLane::dictionary(string id)
 /////////////////////////////////////////////////////////////////////////////
 
 void
+MSLane::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
 MSLane::push(MSVehicle* veh)
 {
     // Insert vehicle only if it's destination isn't reached.
     assert( myVehBuffer == 0 );
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
-        
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
     }
@@ -876,7 +916,9 @@ void MSLane::setLookForwardState()
 {
     assert( myFirst );
     assert( myFirst->hasSuccEdge(1) == true );
+    assert(myFirst->pos()<myLength);
 
+    myOldState  = myFirst->state();
     myGap       = 0;
     myPredState = MSVehicle::State();
 
@@ -896,7 +938,8 @@ void MSLane::setLookForwardState()
     }
 
     // Can look beyond lane end. Determine the link that will be used.
-    MSLane::LinkCont::iterator link = succLinkSec( *myFirst, 1, *this );
+    MSLane::LinkCont::const_iterator link = 
+        succLinkSec( *myFirst, 1, *this );
 
     // The vehicle is on a wrong lane; we assume the vehicle wants to
     // change the lane but the destination lane is congested.
@@ -907,9 +950,11 @@ void MSLane::setLookForwardState()
         return;
     }
 
+    firstPriorised = (*link)->myPrio;
+
     // If link is yield-link and veh is still to fast for safe driving.
     if ( ( (*link)->myPrio == false ) &&
-         ( accelAfterYielding( *myFirst ) == false ) ) {
+         ( willLeaveLane( *myFirst ) == false ) ) {
 
         // State yield on current lane found
         myLFState = YIELD_ON_CURR;
@@ -935,6 +980,10 @@ void MSLane::setLookForwardState()
         return;
     }
 
+    // do something with vehicles that cannot manage to break
+    if( linkClosed(*link) && ( willLeaveLane( *myFirst ) ) ) {
+
+    }
     // We are going to look into a succeeding lane. Let this lane remenber
     // that it was visited.
     this->myRequestLane = this;
@@ -1069,10 +1118,17 @@ void MSLane::setLookForwardState()
     assert( false ); // You should not be here.
 }
 
+bool 
+MSLane::appropriate(const MSVehicle *veh) const
+{
+    MSLane::LinkCont::const_iterator link = succLinkSec( *veh, 1, *this );
+    return ( link != myLinks.end() );
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 bool
-MSLane::accelAfterYielding( const MSVehicle& first ) const {
+MSLane::willLeaveLane( const MSVehicle& first ) const {
 
     // TODO
     // Simple implementation:
@@ -1117,13 +1173,14 @@ MSLane::setDriveRequests()
             // can not because this lane is congested
             // slow the vehicle down and let it wait as long as necessary
             myFirst->moveUpdateState( myFirst->nextState( this, myGap ) );
+            myFirst->_assertPos();
             return;
         }
 
         case YIELD_ON_CURR: {
             // Move vehicle slowing down towards the end of this lane.
             myFirst->moveUpdateState( myFirst->nextState( this, myGap ) );
-
+            myFirst->_assertPos();
             return;
         }
 
@@ -1138,7 +1195,6 @@ MSLane::setDriveRequests()
 
         case YIELD_ON_SUCC: {
             myTargetState = myFirst->nextState( this, myGap );
-
             break;
         }
 
@@ -1165,40 +1221,68 @@ MSLane::setDriveRequests()
         }
     };
 
+    if(!firstPriorised&&myTargetLane!=this) {
+        if(myTargetState.speed()>myFirst->decelAbility()) {
+            myTargetState = myFirst->nextState( this, myLength-myFirst->pos() );
+/*            double decelratedSpeed = myFirst->speed() - myFirst->decelAbility();
+            double maximumPossible = myFirst->decelAbility();
+            double speed = decelratedSpeed > maximumPossible ?
+                decelratedSpeed : maximumPossible;
+            double pos = 
+                myFirst->pos() + speed * MSNet::deltaT();
+            myTargetState = MSVehicle::State(pos, speed);*/
+            if(myTargetState.pos()<=myLength) {
+                myTargetLane = this;
+            }   
+        }
+    }
+
     // With myTargetState set, determine Target-Pos and Lane.
 
     // Distance the vehicle can drive in one timestep.
     double driveDist = myFirst->driveDist( myTargetState );
-
-    double looked = myLength - myFirst->pos();
-    LFLinkLanes::iterator ll = myLFLinkLanes.begin();
-
-    // Will vehicle reach next lane?
-    if ( driveDist < looked ) {
-
-        myTargetLane = this;
-        return;
+    double seenDriveDist = myFirst->rigorousBrakeGap(myTargetState)
+        - (myLength - myFirst->pos() );
+    if(seenDriveDist<driveDist) {
+        seenDriveDist = driveDist;
     }
+    // set the requests 
+    double looked = myLength - myTargetState.pos();
+    MSLane *currLane = this;
+    MSLane::LinkCont::const_iterator link = 
+        succLinkSec( *myFirst, 1, *this );
+    while ( seenDriveDist > looked ) {
 
-    // Walk through LFLanes until driveDist is "over". Set all passed
-    // link-requests to true.
-    while ( driveDist > looked ) {
-
-        assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
+        //assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
         // should be reached earlier.
-
-        ll->myLink->myDriveRequest = true;
-        looked += ll->myLane->myLength;
-
-        ++ll;
+        (*link)->myDriveRequest = true;
+        link = succLinkSec( *myFirst, 1, *currLane );
+        currLane = (*link)->myLane;
+        looked += currLane->myLength;
     }
-    --ll;
 
-    // Remember the desired position if the respond is true.
-    myTargetLane  = ll->myLane;
-    myTargetPos   = ll->myLane->myLength - (looked - driveDist);
-    myTargetState.setPos( myTargetPos );
 
+    // Set the end position
+    looked = myLength - myFirst->pos();
+    LFLinkLanes::iterator ll = myLFLinkLanes.begin();
+    myTargetLane = 0;
+    if ( driveDist < looked ) {
+        myTargetLane = this;
+    } else {
+        while ( driveDist > looked ) {
+            assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
+            // should be reached earlier.
+
+//            ll->myLink->myDriveRequest = true;
+            looked += ll->myLane->myLength;
+
+            ++ll;
+        }
+        --ll;
+        myTargetLane  = ll->myLane;
+        myTargetPos   = ll->myLane->myLength - (looked - driveDist);
+        myTargetState.setPos( myTargetPos );
+    }
     return;
 }
 
@@ -1215,15 +1299,15 @@ MSLane::integrateNewVehicle()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::LinkCont::iterator
-MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs,
-                 MSLane& succLinkSource)
+MSLane::LinkCont::const_iterator
+MSLane::succLink(const MSVehicle& veh, unsigned int nRouteSuccs,
+                 const MSLane& succLinkSource) const
 {
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
     assert( nRouteEdge != 0 );
 
     // Check which link's lane belongs to the nRouteEdge.
-    for ( LinkCont::iterator link = succLinkSource.myLinks.begin();
+    for ( LinkCont::const_iterator link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
 
         if ( ( *link )->myLane->myEdge == nRouteEdge ) {
@@ -1233,17 +1317,37 @@ MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs,
     assert( false ); // There must be a matching edge.
 }
 
+bool 
+MSLane::inEdge(const MSEdge *edge) const
+{
+    return myEdge==edge;
+}
+
+const MSVehicle * const 
+MSLane::getLastVehicle() const
+{
+    return myLastVeh;
+}
+
+
+bool 
+MSLane::linkClosed(const MSLink *link) const
+{
+    return myNextJunction->linkClosed(link);
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::LinkCont::iterator
-MSLane::succLinkSec(MSVehicle& veh, unsigned int nRouteSuccs,
-                    MSLane& succLinkSource)
+MSLane::LinkCont::const_iterator
+MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
+                    const MSLane& succLinkSource) const
 {
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
     assert( nRouteEdge != 0 );
 
     // Check which link's lane belongs to the nRouteEdge.
-    LinkCont::iterator link;
+    LinkCont::const_iterator link;
     for ( link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
 
@@ -1289,41 +1393,6 @@ MSLane::findNeigh( MSVehicle* veh,
         }
     }
     return neighbour;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void
-MSLane::loadPersons(MSEdge::WaitingPersonsCont &cont) {
-    for(VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); i++) {
-        MSEdge::WaitingPersonsCont::iterator j=cont.find((*i)->id());
-        if(j!=cont.end()) {
-            MSNet::PersonCont *persons = (*j).second;
-            for(MSNet::PersonCont::iterator k=persons->begin();
-                k!=persons->end(); k++) {
-                MSPerson *person= *k;
-                (*i)->addPerson(person, person->getCurrentStage().getDestination());
-            }
-            delete persons;
-        }
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void
-MSLane::unloadPersons(MSNet *net, unsigned int time,
-                      MSEdge::WaitingPersonsCont &cont) {
-    for(VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); i++) {
-        MSVehicle *vehicle = (*i);
-        MSNet::PersonCont *add = vehicle->unloadPersons(myEdge);
-        if(add!=0) {
-            for(MSNet::PersonCont::iterator j=add->begin();
-                j!=add->end(); j++) {
-                (*j)->proceed(net, time);
-            }
-        }
-    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1408,10 +1477,11 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
              obj.myObj.myVehBuffer == 0 ) {
 
             os << indent << "<lane id=\"" << obj.myObj.myID
-               << "\"/>\n";
+               << "\"/>" << endl;
         }
         else { // not empty
-            os << indent << "<lane id=\"" << obj.myObj.myID << "\">\n";
+            os << indent << "<lane id=\"" << obj.myObj.myID << "\">"
+               << endl;
 
             if ( obj.myObj.myVehBuffer != 0 ) {
 
@@ -1428,7 +1498,7 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
                                          false );
             }
 
-            os << indent << "</lane>\n";
+            os << indent << "</lane>" << endl;
 
         }
     }
@@ -1438,7 +1508,7 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
         unsigned nVeh = obj.myObj.myVehicles.size() +
                         ( obj.myObj.myVehBuffer != 0 );
         os << indent << "<lane id=\"" << obj.myObj.myID << "\" nVehicles=\""
-           << nVeh << "\" />\n";
+           << nVeh << "\" />" << endl;
     }
 
     return os;
@@ -1513,6 +1583,21 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
     const_cast< MSLane& >( lane ).resetMeanData( obj.myIndex );
         
     return os;
+}
+
+void 
+MSLane::setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos)
+{
+    for(LinkCont::iterator i=myLinks.begin(); i!=myLinks.end(); i++) {
+        (*i)->setPriority(prios.test(beginPos++));
+    }
+}
+
+
+const MSLane::LinkCont &
+MSLane::getLinkCont() const
+{
+    return myLinks;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
