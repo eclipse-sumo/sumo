@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/07/30 09:02:01  dkrajzew
+// comments corrigued
+//
 // Revision 1.6  2003/07/22 15:05:22  dkrajzew
 // warnings removed; formatted the code
 //
@@ -108,7 +111,7 @@ public:
 
     static size_t dictSize();
 
-    /** Returns the list of all known ids */
+    /** Returns the list of all known junctions */
     static std::vector<std::string> getNames();
 
     /** Clears the dictionary */
