@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        SystemFrame.cpp -
-//  A set of actions common to all applications 
+//  A set of actions common to all applications
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Mon, 23.06.2003
@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/24 08:10:23  dkrajzew
+// extended by the options sub system; dcumentation added
+//
 // Revision 1.3  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -50,7 +53,7 @@ LogFile *SystemFrame::myLogFile = 0;
  * ======================================================================= */
 bool
 SystemFrame::init(bool gui, int argc, char **argv,
-                    fill_options *fill_f, 
+                    fill_options *fill_f,
                     check_options *check_f,
                     char *help[])
 {
@@ -89,7 +92,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
     }
     // build the logger if possible
     if(!gui&&OptionsSubSys::getOptions().isSet("log-file")) {
-        myLogFile = 
+        myLogFile =
             new LogFile(OptionsSubSys::getOptions().getString("log-file"));
         if(!myLogFile->good()) {
             delete myLogFile;

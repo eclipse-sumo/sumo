@@ -2,7 +2,7 @@
 #define SystemFrame_h
 //---------------------------------------------------------------------------//
 //                        SystemFrame.h -
-//  A set of actions common to all applications 
+//  A set of actions common to all applications
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Mon, 23.06.2003
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/24 08:10:23  dkrajzew
+// extended by the options sub system; dcumentation added
+//
 // Revision 1.2  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -42,7 +45,7 @@ class LogFile;
  * ======================================================================= */
 /**
  * @class SystemFrame
- * As almost all applications within the SUMO-packgae share the same 
+ * As almost all applications within the SUMO-packgae share the same
  * initialisation procedure, it is encapsulated within this class.
  * To leave the command line options variable for each application, they are
  * inserted into an application-global OptionsCont via a method to supply
@@ -52,7 +55,7 @@ class SystemFrame {
 public:
     /** @brief Initialises the application's subsystems
         Initialises the xml-subsystem, the options subsystem and the messaging */
-    static bool init(bool gui, int argc, char **argv, 
+    static bool init(bool gui, int argc, char **argv,
         fill_options *fill_f, check_options *check_f,
         char *help[]);
 
