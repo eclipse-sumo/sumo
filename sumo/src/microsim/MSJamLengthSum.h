@@ -24,6 +24,7 @@
 
 #include "MSHaltingDetectorContainer.h"
 #include "MSUnit.h"
+#include "MSLane.h"
 #include <string>
 
 class MSJamLengthSumInVehicles
@@ -87,12 +88,20 @@ protected:
                 if ( front->isInJamM ) {
                     if ( front == containerM.begin() ) {
                         distSum += front->vehM->length();
+                        assert (distSum >= 0);
                     }
                     else {
                         HaltingsConstIt rear = front;
                         --rear;
                         if ( rear->isInJamM ) {
-                            distSum += front->vehM->pos() - rear->vehM->pos();
+                            if ( front->vehM->pos() < rear->vehM->pos() ) {
+                                distSum += rear->vehM->getLane().length() -
+                                    rear->vehM->pos();
+                            }
+                            else {
+                                distSum +=
+                                    front->vehM->pos() - rear->vehM->pos();
+                            }
                         }
                         else {
                             distSum += front->vehM->length();
@@ -100,6 +109,7 @@ protected:
                     }
                 }
             }
+            assert (distSum >= 0);
             return MSUnit::getInstance()->getMeters( distSum );
         }
 
@@ -108,7 +118,8 @@ protected:
             return "jamLengthSumInVehicles";
         }
 private:
-    const Haltings& containerM;    
+    const Haltings& containerM;
+    const MSUnit::Cells laneLengthM;
 };
 
 
