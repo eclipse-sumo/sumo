@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.25  2003/06/24 14:31:58  dkrajzew
+// retrieval of current time step added
+//
 // Revision 1.24  2003/06/19 10:56:55  dkrajzew
 // the simulation now also ends when the last vehicle vanishes
 //
@@ -717,6 +720,14 @@ MSNet::getEndedVehicleNo() const
 {
     return myEndedVehNo;
 }
+
+
+MSNet::Time
+MSNet::getCurrentTimeStep() const
+{
+    return myStep;
+}
+
 
 
 

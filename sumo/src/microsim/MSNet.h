@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.20  2003/06/24 14:31:58  dkrajzew
+// retrieval of current time step added
+//
 // Revision 1.19  2003/06/19 10:56:55  dkrajzew
 // the simulation now also ends when the last vehicle vanishes
 //
@@ -357,6 +360,8 @@ public:
     size_t getLoadedVehicleNo() const;
 
     size_t getEndedVehicleNo() const;
+
+    Time getCurrentTimeStep() const;
 
 protected:
     /** initialises the MeanData-container */
