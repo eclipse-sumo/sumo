@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/05 14:32:33  dkrajzew
+// corrupt class derivation patched
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -96,7 +99,7 @@ public:
  * XMLIdNotGivenException
  * thrown when the id is not supplied
  */
-class XMLIdNotGivenException : XMLBuildingException  {
+class XMLIdNotGivenException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLIdNotGivenException();
@@ -116,7 +119,7 @@ public:
  * thrown when an object of the named class and id is not known
  * (was not loaded/parsed) but its parent is known
  */
-class XMLIdNotKnownException : XMLBuildingException  {
+class XMLIdNotKnownException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLIdNotKnownException(std::string object, std::string id);
@@ -142,7 +145,7 @@ private:
  * XMLIdAlreadyUsedException
  * thrown when a duplicate key for the same object type is given
  */
-class XMLIdAlreadyUsedException : XMLBuildingException  {
+class XMLIdAlreadyUsedException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLIdAlreadyUsedException(const std::string object,
@@ -169,7 +172,7 @@ private:
  * XMLDepartLaneDuplicationException
  * thrown when an edge has two or more defined depart lanes
  */
-class XMLDepartLaneDuplicationException : XMLBuildingException  {
+class XMLDepartLaneDuplicationException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLDepartLaneDuplicationException();
@@ -189,7 +192,7 @@ public:
  * thrown when a child to add to a larger structure is invalid
  * (f.i. was not formerly known)
  */
-class XMLInvalidChildException : XMLBuildingException  {
+class XMLInvalidChildException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidChildException();
@@ -209,7 +212,7 @@ public:
  * thrown when a parent to add a child to is not known
  * (f.i. when the child is not inside of valid tags)
  */
-class XMLInvalidParentException : XMLBuildingException  {
+class XMLInvalidParentException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidParentException();
@@ -228,7 +231,7 @@ public:
  * XMLKeyDuplicateException
  * thrown when a key-value pair with the same key as given was already set
  */
-class XMLKeyDuplicateException  : XMLBuildingException {
+class XMLKeyDuplicateException  : public XMLBuildingException {
 public:
     /** constructor */
     XMLKeyDuplicateException();
@@ -247,7 +250,7 @@ public:
  * XMLListEmptyException
  * thrown when an empty list which should have values is used
  */
-class XMLListEmptyException  : XMLBuildingException {
+class XMLListEmptyException  : public XMLBuildingException {
 public:
     /** constructor */
     XMLListEmptyException();
