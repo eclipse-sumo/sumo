@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2004/01/26 07:05:08  dkrajzew
+// problems on occurence of two backward edges patched
+//
 // Revision 1.39  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -607,7 +610,10 @@ NBEdge::acceptBeingTurning(NBEdge *e)
     if(myAmTurningWithAngle>angle) {
         return false;
     }
-    assert(myAmTurningWithAngle!=angle);
+//    assert(myAmTurningWithAngle!=angle);
+    if(myAmTurningWithAngle==angle) {
+        return false; // !!! ok, this happens only within a cell-network (backgrnd), we have to take a further look sometime
+    }
     NBEdge *previous = myAmTurningOf;
     myAmTurningWithAngle = angle;
     myAmTurningOf = e;
