@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.2  2002/04/15 07:07:56  dkrajzew
 // new loading paradigm implemented
 //
@@ -69,19 +72,19 @@ NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder()
 }
 
 void
-NLSucceedingLaneBuilder::openSuccLane(string laneId) 
+NLSucceedingLaneBuilder::openSuccLane(const string &laneId) 
 {
   m_CurrentLane = laneId;
 }
 
 void 
-NLSucceedingLaneBuilder::setSuccJunction(string junctionId) 
+NLSucceedingLaneBuilder::setSuccJunction(const string &junctionId) 
 {
   m_JunctionId = junctionId;
 }
 
 void
-NLSucceedingLaneBuilder::addSuccLane(bool yield, string laneId) 
+NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId) 
 {
    if(laneId=="SUMO_NO_DESTINATION") {
       m_SuccLanes->push_back(new MSLane::Link(0, 0));
@@ -107,6 +110,11 @@ NLSucceedingLaneBuilder::closeSuccLane()
   copy(m_SuccLanes->begin(), m_SuccLanes->end(), back_inserter(*cont));
   current->initialize(junction, cont);
   m_SuccLanes->clear();
+}
+
+std::string 
+NLSucceedingLaneBuilder::getSuccingLaneName() const {
+    return m_CurrentLane;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:21  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -107,7 +110,7 @@ public:
     /** adds an edge with the given id to the list of edges; this method 
         throws an XMLIdAlreadyUsedException when the id was already used for 
         another edge */
-    void addEdge(const std::string id);
+    void addEdge(const std::string &id);
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id);
     /** returns the pointer to the edge the builder is currently working on 

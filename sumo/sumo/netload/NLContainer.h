@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.3  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //
@@ -190,13 +193,16 @@ public:
     /// interfaces for the building of succeeding lanes
     /** opens the computation of a container holding the succeding lanes of a 
         lane */
-    void openSuccLane(std::string laneId);
+    void openSuccLane(const std::string &laneId);
     /// sets the succeeding junction
-    void setSuccJunction(std::string junctionId);
+    void setSuccJunction(const std::string &junctionId);
     /// add a succeeding lane 
-    void addSuccLane(bool yield, std::string laneId);
+    void addSuccLane(bool yield, const std::string &laneId);
     /// closes the building
     void closeSuccLane();
+    /// returns the name of the lane the succeeding lanes are added to
+    std::string getSuccingLaneName() const;
+
     
     /// interface to use the junction control builder
     /// begins the building of a junction with the given id
@@ -206,7 +212,7 @@ public:
     /** adds a part of the right-of-way-logic to the junction; 
         this method throws an exception when the key (the request) was 
         already used in the currently build junction */
-    void setKey(std::string key);
+    //void setKey(const std::string &key);
     /// closes the building of a junction
     void closeJunction();
 
@@ -228,7 +234,7 @@ public:
     // ----- interfaces for the generation of vehicles
     /// adds a new vehicle to the simulation
     void addVehicle(const std::string &id, const std::string &vtypeid, 
-		    const std::string routeid, const long depart);
+		    const std::string &routeid, const long depart);
     
     // ----- interfaces for the generation of detectors
     /// adds a new detector to the simulation

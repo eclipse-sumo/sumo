@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.4  2002/04/17 11:17:49  dkrajzew
 // windows-newlines removed
 //
@@ -133,7 +136,7 @@ NLHandlerBuilder2::openJunction(const Attributes &attrs) {
         id = _attrHandler.getString(attrs, ATTR_ID);
         try {
             myContainer.openJunction(id, 
-                _attrHandler.getString(attrs, ATTR_KEY),
+                _attrHandler.getStringSecure(attrs, ATTR_KEY, ""),
                 _attrHandler.getString(attrs, ATTR_TYPE));
         } catch (XMLUngivenParameterException &e) {
             SErrorHandler::add(e.getMessage("junction", id));

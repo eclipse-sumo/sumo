@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/07 14:39:57  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.4  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //
@@ -107,10 +110,10 @@ NLContainer::NLContainer()
 
 NLContainer::~NLContainer() 
 {
-  delete m_pECB;
-  delete m_pJCB;
-  delete m_pRCB;
-  delete m_pSLB;
+    delete m_pECB;
+    delete m_pJCB;
+    delete m_pRCB;
+    delete m_pSLB;
 }
 
 
@@ -120,53 +123,53 @@ NLContainer::~NLContainer()
 void 
 NLContainer::incEdges() 
 {
-  noEdges++;
+    noEdges++;
 }
 
 
 void 
 NLContainer::incLanes() 
 {
-  noLanes++;
+    noLanes++;
 }
 
 
 void 
 NLContainer::incJunctions() 
 {
-  noJunctions++;
+    noJunctions++;
 }
 
 
 void 
 NLContainer::incVehicles() 
 {
-  noVehicles++;
+    noVehicles++;
 }
 
 
 void 
 NLContainer::incVehicleTypes() 
 {
-  noVehicleTypes++;
+    noVehicleTypes++;
 }
 
 
 void 
 NLContainer::incRoutes() 
 {
-  noRoutes++;
+    noRoutes++;
 }
 
 void 
 NLContainer::incDetectors() 
 {
-  noRoutes++;
+    noRoutes++;
 }
 
 void
 NLContainer::addKey(string key) {
-   m_LogicKeys.insert(LogicKeyCont::value_type(key, 0));
+    m_LogicKeys.insert(LogicKeyCont::value_type(key, 0));
 }
 
 void 
@@ -186,8 +189,8 @@ NLContainer::preallocate()
 void 
 NLContainer::preallocateVehicles() 
 {
-  m_pVehicles = new MSEmitControl::VehCont();
-  m_pVehicles->reserve(noVehicles);
+    m_pVehicles = new MSEmitControl::VehCont();
+    m_pVehicles->reserve(noVehicles);
 }
 
 
@@ -199,22 +202,22 @@ NLContainer::preallocateVehicles()
 void 
 NLContainer::addEdge(const string &id) 
 {
-  try {
-    m_pECB->addEdge(id);
-  } catch (XMLIdAlreadyUsedException &e) {
-    throw e;
-  }
+    try {
+        m_pECB->addEdge(id);
+    } catch (XMLIdAlreadyUsedException &e) {
+        throw e;
+    }
 }
 
 
 void 
 NLContainer::chooseEdge(const string &id) 
 {
-  try {
-    m_pECB->chooseEdge(id);
-  } catch (XMLIdNotKnownException &e) {
-    throw e;
-  }
+    try {
+        m_pECB->chooseEdge(id);
+    } catch (XMLIdNotKnownException &e) {
+        throw e;
+    }
 }
 
 
@@ -241,43 +244,43 @@ NLContainer::addLane(const string &id, const bool isDepartLane, const float maxS
 void 
 NLContainer::closeLanes() 
 {
-  m_pECB->closeLanes();
+    m_pECB->closeLanes();
 }
 
 
 void 
 NLContainer::openAllowedEdge(const string &id) 
 {
-  MSEdge *edge = MSEdge::dictionary(id);
-  if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("edge", id);
-  m_pECB->openAllowedEdge(edge);
+    MSEdge *edge = MSEdge::dictionary(id);
+    if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("edge", id);
+    m_pECB->openAllowedEdge(edge);
 }
 
 
 void 
 NLContainer::addAllowed(const string &id) 
 {
-  MSLane *lane = MSLane::dictionary(id);
-  if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
-  try {
-    m_pECB->addAllowed(lane);
-  } catch (XMLInvalidChildException &e) {
-    throw e;
-  }
+    MSLane *lane = MSLane::dictionary(id);
+    if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
+    try {
+        m_pECB->addAllowed(lane);
+    } catch (XMLInvalidChildException &e) {
+        throw e;
+    }
 }
 
 
 void 
 NLContainer::closeAllowedEdge() 
 {
-  m_pECB->closeAllowedEdge();
+    m_pECB->closeAllowedEdge();
 }
 
 
 void 
 NLContainer::closeEdge() 
 {
-  m_pECB->closeEdge();
+    m_pECB->closeEdge();
 }
 
 
@@ -285,32 +288,38 @@ NLContainer::closeEdge()
 
 /// interfaces for the building of succeeding lanes
 void 
-NLContainer::openSuccLane(string laneId) 
+NLContainer::openSuccLane(const string &laneId) 
 {
-  m_pSLB->openSuccLane(laneId);
+    m_pSLB->openSuccLane(laneId);
 }
 
 
 void 
-NLContainer::setSuccJunction(string junctionId) 
+NLContainer::setSuccJunction(const string &junctionId) 
 {
-  m_pSLB->setSuccJunction(junctionId);
+    m_pSLB->setSuccJunction(junctionId);
 }
 
 
 void 
-NLContainer::addSuccLane(bool yield, string laneId) 
+NLContainer::addSuccLane(bool yield, const string &laneId) 
 {
-  m_pSLB->addSuccLane(yield, laneId);
+    m_pSLB->addSuccLane(yield, laneId);
 }
 
 
 void 
 NLContainer::closeSuccLane() 
 {
-  m_pSLB->closeSuccLane();
+    m_pSLB->closeSuccLane();
 }
 
+
+std::string
+NLContainer::getSuccingLaneName() const 
+{
+    return m_pSLB->getSuccingLaneName();
+}
 
 
 
@@ -319,16 +328,16 @@ NLContainer::closeSuccLane()
 void 
 NLContainer::openJunction(const string &id, const string &key, string type) 
 {
-  m_pJCB->openJunction(id, key, type);
+    m_pJCB->openJunction(id, key, type);
 }
 
 
 void 
 NLContainer::addInLane(const string &id) 
 {
-  MSLane *lane = MSLane::dictionary(id);
-  if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
-  m_pJCB->addInLane(lane);
+    MSLane *lane = MSLane::dictionary(id);
+    if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
+    m_pJCB->addInLane(lane);
 }
 
 /*
@@ -342,13 +351,13 @@ NLContainer::setKey(string key)
 void 
 NLContainer::closeJunction() 
 {
-  try {
-    m_pJCB->closeJunction();
-  } catch (XMLIdAlreadyUsedException &e) {
-    throw e;
-  } catch (XMLIdNotKnownException &e) {
-    throw e;
-  }
+    try {
+        m_pJCB->closeJunction();
+    } catch (XMLIdAlreadyUsedException &e) {
+        throw e;
+    } catch (XMLIdNotKnownException &e) {
+        throw e;
+    }
 }
 
 
@@ -371,29 +380,29 @@ NLContainer::addVehicleType(const string &id, const float length, const float ma
 void 
 NLContainer::openRoute(const string &id) 
 {
-  m_pRCB->openRoute(id);
+    m_pRCB->openRoute(id);
 }
 
 
 void 
 NLContainer::addRoutesEdge(const string &id) 
 {
-  MSEdge *edge = MSEdge::dictionary(id);
-  if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("routes edge", id);
-  m_pRCB->addEdge(edge);
+    MSEdge *edge = MSEdge::dictionary(id);
+    if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("routes edge", id);
+    m_pRCB->addEdge(edge);
 }
 
 
 void 
 NLContainer::closeRoute() 
 {
-  try {
-    m_pRCB->closeRoute();
-  } catch (XMLListEmptyException &e) {
-    throw e;
-  } catch (XMLIdAlreadyUsedException &e) {
-    throw e;
-  }
+    try {
+        m_pRCB->closeRoute();
+    } catch (XMLListEmptyException &e) {
+        throw e;
+    } catch (XMLIdAlreadyUsedException &e) {
+        throw e;
+    }
 }
 
 
@@ -401,15 +410,15 @@ NLContainer::closeRoute()
 
 // ----- handling of vehicles
 void 
-NLContainer::addVehicle(const string &id, const string &vtypeid, const string routeid, const long depart) 
+NLContainer::addVehicle(const string &id, const string &vtypeid, const string &routeid, const long depart) 
 {
-  MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
-  if(/* NLNetBuilder::check && */ vtype==0) throw XMLIdNotKnownException("vtype", vtypeid);
-  const MSNet::Route *route = MSNet::routeDict(routeid);
-  if(/* NLNetBuilder::check && */ route==0) throw XMLIdNotKnownException("route", routeid);
-  MSVehicle *vehicle = new MSVehicle(id, (MSNet::Route*) route, depart, vtype);
-  if(!MSVehicle::dictionary(id, vehicle)) throw XMLIdAlreadyUsedException("vehicle", id);
-  m_pVehicles->push_back(vehicle);
+    MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
+    if(/* NLNetBuilder::check && */ vtype==0) throw XMLIdNotKnownException("vtype", vtypeid);
+    const MSNet::Route *route = MSNet::routeDict(routeid);
+    if(/* NLNetBuilder::check && */ route==0) throw XMLIdNotKnownException("route", routeid);
+    MSVehicle *vehicle = new MSVehicle(id, (MSNet::Route*) route, depart, vtype);
+    if(!MSVehicle::dictionary(id, vehicle)) throw XMLIdAlreadyUsedException("vehicle", id);
+    m_pVehicles->push_back(vehicle);
 }
 
 
@@ -426,16 +435,16 @@ NLContainer::addDetector(MSDetector *detector) {
 std::string
 NLContainer::getStatistics() const
 {
-  ostringstream buf;
-  buf << "Edges build: " << noEdges << endl;
-  buf << "Lanes build: " << noLanes << endl;
-  buf << "Junctions build: " << noJunctions << endl;
-  buf << "Vehicles build: " << noVehicles << endl;
-  buf << "VehiclesTypes build: " << noVehicleTypes << endl;
-  buf << "Routes build: " << noRoutes << endl;
-  buf << "Detectors build: " << noDetectors << endl;
-  buf << ends;
-  return buf.str();
+    ostringstream buf;
+    buf << "Edges build: " << noEdges << endl;
+    buf << "Lanes build: " << noLanes << endl;
+    buf << "Junctions build: " << noJunctions << endl;
+    buf << "Vehicles build: " << noVehicles << endl;
+    buf << "VehiclesTypes build: " << noVehicleTypes << endl;
+    buf << "Routes build: " << noRoutes << endl;
+    buf << "Detectors build: " << noDetectors << endl;
+    buf << ends;
+    return buf.str();
 }
 
 
@@ -445,11 +454,11 @@ NLContainer::getStatistics() const
 MSNet *
 NLContainer::buildNet() 
 {
-  MSEdgeControl *edges = m_pECB->build();
-  MSJunctionControl *junctions = m_pJCB->build();
-  MSEmitControl *emitters = new MSEmitControl("", m_pVehicles);
-  MSEventControl *events = new MSEventControl("");
-  return new MSNet(m_Id, edges, junctions, emitters, events, new MSPersonControl(*(new MSPersonControl::WaitingPersons())), m_pDetectors);
+    MSEdgeControl *edges = m_pECB->build();
+    MSJunctionControl *junctions = m_pJCB->build();
+    MSEmitControl *emitters = new MSEmitControl("", m_pVehicles);
+    MSEventControl *events = new MSEventControl("");
+    return new MSNet(m_Id, edges, junctions, emitters, events, new MSPersonControl(*(new MSPersonControl::WaitingPersons())), m_pDetectors);
 }
 
 
@@ -457,7 +466,7 @@ NLContainer::buildNet()
 MSEmitControl *
 NLContainer::buildVehicles() 
 {
-  return new MSEmitControl("", m_pVehicles);
+    return new MSEmitControl("", m_pVehicles);
 }
 
 

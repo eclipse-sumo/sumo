@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -72,6 +75,7 @@ const int NLJunctionControlBuilder::TYPE_NOJUNCTION = 0;
 const int NLJunctionControlBuilder::TYPE_TRAFFIC_LIGHT = 1;
 const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 2;
 const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 3;
+const int NLJunctionControlBuilder::TYPE_DEAD_END = 4;
 
 /* =========================================================================
  * method definitions
@@ -94,7 +98,7 @@ NLJunctionControlBuilder::prepare(unsigned int no)
 }
 
 void 
-NLJunctionControlBuilder::openJunction(const std::string id, const std::string key, std::string type) 
+NLJunctionControlBuilder::openJunction(const std::string &id, const std::string &key, const std::string &type) 
 {
     m_pActiveInLanes.clear();
     m_CurrentId = id;
@@ -108,6 +112,8 @@ NLJunctionControlBuilder::openJunction(const std::string id, const std::string k
         m_Type = TYPE_RIGHT_BEFORE_LEFT;
     else if(type=="priority")
         m_Type = TYPE_PRIORITY_JUNCTION;
+    else if(type=="DEAD_END")
+        m_Type = TYPE_DEAD_END;
     if(m_Type<0)
         throw exception();
 }
@@ -135,6 +141,9 @@ NLJunctionControlBuilder::closeJunction()
     case TYPE_PRIORITY_JUNCTION:
         junction = buildLogicJunction();
         break;
+    case TYPE_DEAD_END:
+        junction = buildNoLogicJunction();
+        break;
     default:
         cout << "False junction type." << endl;
         throw exception();
@@ -154,15 +163,12 @@ NLJunctionControlBuilder::build()
 MSJunction *
 NLJunctionControlBuilder::buildNoLogicJunction() 
 {
-  return buildLogicJunction();
-  // !!! by now, use another method later
-/*  MSNoLogicJunction::InLaneCont *cont = new MSNoLogicJunction::InLaneCont();
-  cont->reserve(m_pActiveInLanes.size());
-  for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
-    MSLane *lane = *i;
-    cont->push_back(lane);
-  }
-  return new MSNoLogicJunction(m_CurrentId, cont);*/
+    MSNoLogicJunction::InLaneCont *cont = new MSNoLogicJunction::InLaneCont();
+    cont->reserve(m_pActiveInLanes.size());
+    for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
+        cont->push_back(*i);
+    }
+    return new MSNoLogicJunction(m_CurrentId, cont);
 }
 
 MSJunction *

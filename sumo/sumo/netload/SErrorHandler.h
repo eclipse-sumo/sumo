@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.2  2002/04/24 10:38:45  dkrajzew
 // Strings are now passed as references
 //
@@ -74,8 +77,8 @@ public:
     /// destructor
     ~SErrorHandler();
     /// adds a new error to the list
-    static void add(const std::string &error, bool report=false);
-    static void add(char *error, bool report=false);
+    static void add(const std::string &error, bool report=true);
+    static void add(char *error, bool report=true);
     /// lists all errors
     static void print();
     /// sets the fatal-information to true

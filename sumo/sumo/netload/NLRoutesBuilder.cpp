@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.2  2002/04/15 07:07:56  dkrajzew
 // new loading paradigm implemented
 //
@@ -71,7 +74,7 @@ NLRoutesBuilder::~NLRoutesBuilder()
 }
 
 void 
-NLRoutesBuilder::openRoute(string id) 
+NLRoutesBuilder::openRoute(const string &id) 
 {
   m_ActiveId = id;
 }

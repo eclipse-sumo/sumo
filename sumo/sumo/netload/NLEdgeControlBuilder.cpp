@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.3  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //
@@ -88,7 +91,7 @@ NLEdgeControlBuilder::prepare(unsigned int no)
 }
 
 void 
-NLEdgeControlBuilder::addEdge(const string id) 
+NLEdgeControlBuilder::addEdge(const string &id) 
 {
   MSEdge *edge = new MSEdge(id);
   if(!MSEdge::dictionary(id, edge))

@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:25  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -68,7 +71,7 @@ public:
     /// standard destructor
     ~NLRoutesBuilder();
     /// opens a route for the addition of edges
-    void openRoute(std::string id);
+    void openRoute(const std::string &id);
     /// adds an edge to the route
     void addEdge(MSEdge *edge);
     /** closes (ends) the building of a route. 

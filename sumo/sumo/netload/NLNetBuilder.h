@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.5  2002/05/14 04:54:25  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //
@@ -94,9 +97,9 @@ private:
     /// counts the structures and preallocates them
     bool count(NLContainer &container, SAX2XMLReader &parser);
     /// counts the structures and preallocates them
-    void load(NLContainer &container, SAX2XMLReader &parser);
+    bool load(NLContainer &container, SAX2XMLReader &parser);
     /// loads a described subpart form the given list of files
-    void load(LoadFilter what, std::string files, NLContainer &cont, SAX2XMLReader &parser);
+    bool load(LoadFilter what, const std::string &files, NLContainer &cont, SAX2XMLReader &parser);
     /// prepares the parser for processing using the current handler
     void prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step);
     /// parses the files using the given initialised parser

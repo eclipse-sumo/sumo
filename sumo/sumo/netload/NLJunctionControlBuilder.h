@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:24  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -75,10 +78,18 @@ private:
     /// the container used
     NLContainer                   *m_Container;
 private:
-  static const int TYPE_NOJUNCTION;
-  static const int TYPE_TRAFFIC_LIGHT;
-  static const int TYPE_RIGHT_BEFORE_LEFT;
-  static const int TYPE_PRIORITY_JUNCTION;
+    /// numerical representation for a junction with no purpose
+    static const int TYPE_NOJUNCTION;
+    /// numerical representation for a traffic light-steered junction
+    static const int TYPE_TRAFFIC_LIGHT;
+    /** numerical representation for a junction where vehicles cominng 
+        from the right side may drive as first */
+    static const int TYPE_RIGHT_BEFORE_LEFT;
+    /** numerical representation of a junction where a street has a 
+        higher priority */
+    static const int TYPE_PRIORITY_JUNCTION;
+    /** a dead end (all roads end here) */
+    static const int TYPE_DEAD_END;
 public:
     /// standard constructor
     NLJunctionControlBuilder(NLContainer *container);
@@ -87,7 +98,7 @@ public:
     /// preallocates space for the found number of junctions
     void prepare(unsigned int no);
     /// begins the processing of the named junction
-    void openJunction(const std::string id, const std::string key, std::string type);
+    void openJunction(const std::string &id, const std::string &key, const std::string &type);
     /// adds an incoming lane to the previously chosen junction
     void addInLane(MSLane *lane);
     /// adds the key to the junction

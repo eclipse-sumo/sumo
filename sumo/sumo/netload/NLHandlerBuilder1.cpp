@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.4  2002/04/25 09:26:05  dkrajzew
 // New names for the acceleration and the deceleration parameter applied
 //
@@ -248,14 +251,8 @@ void
 NLHandlerBuilder1::addJunctionKey(const Attributes &attrs) {
     try {
         string key = _attrHandler.getString(attrs, ATTR_KEY);
-        myContainer.addKey(key);
+        myContainer.addKey(key); // !!! wozu?
     } catch (XMLUngivenParameterException &e) {
-        try {
-            string id = _attrHandler.getString(attrs, ATTR_KEY);
-            SErrorHandler::add(e.getMessage("key", id));
-        }  catch (XMLUngivenParameterException &e) {
-            SErrorHandler::add(e.getMessage("junction", "(!ID_UNKNOWN)"));
-        }
     }
 }
 
@@ -439,7 +436,7 @@ void
 NLHandlerBuilder1::setRequestSize(const std::string &chars) {
     try {
         _requestSize = STRConvert::_2int(chars);
-        m_pActiveLogic->reserve(_requestSize);
+        m_pActiveLogic->resize(_requestSize);
     } catch (XMLUngivenParameterException &e) {
         SErrorHandler::add("Missing request size.");
     } catch (XMLNumericFormatException e) {
@@ -451,7 +448,7 @@ void
 NLHandlerBuilder1::setResponseSize(const std::string &chars) {
     try {
         _responseSize = STRConvert::_2int(chars);
-        m_pActiveTrafo->reserve(_responseSize);
+        m_pActiveTrafo->resize(_responseSize);
     } catch (XMLUngivenParameterException &e) {
         SErrorHandler::add("Missing response size.");
     } catch (XMLNumericFormatException e) {
@@ -463,7 +460,7 @@ void
 NLHandlerBuilder1::setLaneNumber(const std::string &chars) {
     try {
         _laneNo = STRConvert::_2int(chars);
-        m_pActiveTrafo->reserve(_responseSize);
+        m_pActiveTrafo->resize(_responseSize);
     } catch (XMLUngivenParameterException &e) {
         SErrorHandler::add("Missing lane number.");
     } catch (XMLNumericFormatException e) {
@@ -482,14 +479,14 @@ NLHandlerBuilder1::setKey(const std::string &chars) {
 
 
 void
-NLHandlerBuilder1::addLogicItem(int request, string response) {
+NLHandlerBuilder1::addLogicItem(int request, const string &response) {
     bitset<64> use(response);
     (*m_pActiveLogic)[request] = use;
     _requestItems++;
 }
 
 void
-NLHandlerBuilder1::addTrafoItem(string links, int lane) {
+NLHandlerBuilder1::addTrafoItem(const string &links, int lane) {
     bitset<64> use(links);
     (*m_pActiveTrafo)[lane] = use;
     _trafoItems++;

@@ -16,7 +16,14 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+namespace
+{
+     const char rcsid[] = "$Id$";
+}
 // $Log$
+// Revision 1.5  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.4  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2002/06/07 14:39:58  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.6  2002/04/25 14:37:57  dkrajzew
 // Declarations of size variables changed from signed to unsigned due to warnings
 //
@@ -160,9 +163,9 @@ private:
     /// sets the key of the current junction logic
     void setKey(const std::string &chars);
     /// adds a logic item
-    void addLogicItem(int request, std::string response);
+    void addLogicItem(int request, const std::string &response);
     /// adds a trafo item
-    void addTrafoItem(std::string links, int lane);
+    void addTrafoItem(const std::string &links, int lane);
     /** returns the build logic */
     void closeLogic();
 

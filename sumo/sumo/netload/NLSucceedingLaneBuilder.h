@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:25  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -63,13 +66,15 @@ public:
     ~NLSucceedingLaneBuilder();
     /** opens the computation of a container holding the succeding lanes of 
         a lane */
-    void openSuccLane(std::string laneId);
+    void openSuccLane(const std::string &laneId);
     /// sets the succeding junction
-    void setSuccJunction(std::string junctionId);
+    void setSuccJunction(const std::string &junctionId);
     /// add a succeeding lane 
-    void addSuccLane(bool yield, std::string laneId);
+    void addSuccLane(bool yield, const std::string &laneId);
     /// closes the building
     void closeSuccLane();
+    /// returns the name of the lane the succeeding lanes are added to
+    std::string getSuccingLaneName() const;
 private:
     /** invalid copy constructor */
     NLSucceedingLaneBuilder(const NLSucceedingLaneBuilder &s);

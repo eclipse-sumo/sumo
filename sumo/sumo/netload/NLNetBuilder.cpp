@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/07 14:39:59  dkrajzew
+// errors occured while building larger nets and adaption of new netconverting methods debugged
+//
 // Revision 1.6  2002/05/14 04:54:25  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //
@@ -102,7 +105,7 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
 NLNetBuilder::~NLNetBuilder()
 {
   // termination of the XML-helpers
-  XMLPlatformUtils::Terminate();
+    XMLPlatformUtils::Terminate();
 }
 
 
@@ -114,7 +117,7 @@ NLNetBuilder::build() {
     bool ok = count(*container, *parser);
     MSNet *net = 0;
     if(ok) {
-        load(*container, *parser);
+        ok = load(*container, *parser);
         subreport("Loading done.", "Loading failed.");
         if(!SErrorHandler::errorOccured())
             net = container->buildNet();
@@ -150,35 +153,38 @@ NLNetBuilder::count(NLContainer &container, SAX2XMLReader &parser) {
     return ok;
 }
 
-void
+bool
 NLNetBuilder::load(NLContainer &container, SAX2XMLReader &parser) {
-    load(LOADFILTER_ALL, m_pOptions.getString("n"), container, parser);
-    if(m_pOptions.isSet("j"))
-        load(LOADFILTER_LOGICS, m_pOptions.getString("j"), container, parser);
-    if(m_pOptions.isSet("d"))
-        load(LOADFILTER_DETECTORS, m_pOptions.getString("d"), container, parser);
-    if(m_pOptions.isSet("r"))
-        load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"), container, parser);
+    bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"), container, parser);
+    if(m_pOptions.isSet("j")&&ok)
+        ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"), container, parser);
+    if(m_pOptions.isSet("d")&&ok)
+        ok = load(LOADFILTER_DETECTORS, m_pOptions.getString("d"), container, parser);
+    if(m_pOptions.isSet("r")&&ok)
+        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"), container, parser);
+    return ok;
 }
 
-void
-NLNetBuilder::load(LoadFilter what, string files, NLContainer &cont, SAX2XMLReader &parser) {
+bool
+NLNetBuilder::load(LoadFilter what, const string &files, NLContainer &cont, SAX2XMLReader &parser) {
     if(!checkFilenames(files)) {
         SErrorHandler::add("No " + getDataName(what) + " found!");
         SErrorHandler::add("Check your program parameter.");
-        return;
+        return false;
     }
     std::vector<NLSAXHandler*> steps = getHandler(what, cont);
     if(m_pOptions.getBool("v"))
         cout << "Loading " << getDataName(what) << "..." << endl;
     int step = 0;
-    for(std::vector<NLSAXHandler*>::iterator i=steps.begin(); i!=steps.end(); i++) {
+    for(std::vector<NLSAXHandler*>::iterator i=steps.begin(); 
+            !SErrorHandler::errorOccured()&&i!=steps.end(); i++) {
         prepareParser(parser, *i, step);
         parse(files, *i, parser);
         delete *i;
         step++;
     }
     subreport("Loading of " + getDataName(what) + " done.", "Loading of " + getDataName(what) + " failed.");
+    return SErrorHandler::errorOccured();
 }
 
 void
@@ -261,7 +267,6 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
     if(!SErrorHandler::errorOccured())
         SLogging::add(ok.c_str());
     else {
-        SErrorHandler::print();
         SLogging::add(wrong.c_str());
     }
 }
@@ -271,12 +276,8 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 void
 NLNetBuilder::report(const NLContainer &container)
 {
-    if(SErrorHandler::errorOccured())
-        SErrorHandler::print();
-    else {
-        if(m_pOptions.getBool("v"))
-            SLogging::add(container.getStatistics());
-    }
+    if(!SErrorHandler::errorOccured() && m_pOptions.getBool("v"))
+        SLogging::add(container.getStatistics());
 }
 
 
