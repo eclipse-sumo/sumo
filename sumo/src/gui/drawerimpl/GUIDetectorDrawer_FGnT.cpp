@@ -23,15 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/09/25 08:59:28  dkrajzew
+// documentation patched
+//
 // Revision 1.1  2003/09/23 14:28:16  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
-//
-// Revision 1.2  2003/09/17 06:45:11  dkrajzew
-// some documentation added/patched
-//
-// Revision 1.1  2003/09/05 14:50:39  dkrajzew
-// implementations of artefact drawers moved to folder "drawerimpl"
-//
 //
 #include <gui/GUISUMOAbstractView.h>
 #include "GUIDetectorDrawer_FGnT.h"
