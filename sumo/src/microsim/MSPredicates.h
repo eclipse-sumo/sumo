@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Thu Sep 11 16:15:30 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -25,13 +25,14 @@
 // $Id$
 
 #include "MSVehicle.h"
+//#include "MSHaltingDetectorContainer.h"
 #include <functional>
 
 
-namespace Predicate 
+namespace Predicate
 {
     template< typename ContainerItem >
-    struct PosGreater :
+    struct PosGreaterC :
         public std::binary_function< ContainerItem, double, bool >
     {
         bool operator() ( const ContainerItem& item, double pos ) const;
@@ -39,7 +40,7 @@ namespace Predicate
 
     // specialization
     template<>
-    struct PosGreater< MSVehicle* > :
+    struct PosGreaterC< MSVehicle* > :
         public std::binary_function< MSVehicle*, double, bool >
     {
         bool operator() ( const MSVehicle* item, double pos ) const {
@@ -48,7 +49,7 @@ namespace Predicate
     };
 
     template< typename ContainerItem >
-    struct VehEquals :
+    struct VehEqualsC :
         public std::binary_function< ContainerItem, MSVehicle*, bool >
     {
         bool operator() ( const ContainerItem& item,
@@ -57,7 +58,7 @@ namespace Predicate
 
     // specialization
     template<>
-    struct VehEquals< MSVehicle* > :
+    struct VehEqualsC< MSVehicle* > :
         public std::binary_function< MSVehicle*, MSVehicle*, bool >
     {
         bool operator() ( const MSVehicle* item,
