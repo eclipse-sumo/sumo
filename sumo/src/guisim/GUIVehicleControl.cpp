@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 08:58:30  dkrajzew
+// using global object selection
+//
 // Revision 1.2  2004/04/02 11:19:16  dkrajzew
 // debugging
 //
@@ -35,6 +38,7 @@ namespace
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
+#include <gui/GUIGlobals.h>
 
 
 /* =========================================================================
@@ -67,11 +71,10 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                const MSVehicleType* type,
                                int repNo, int repOffset, const RGBColor &col)
 {
-	myLoadedVehNo++;
+    myLoadedVehNo++;
     MSNet *net = MSNet::getInstance();
     return new GUIVehicle(
-        static_cast<GUINet*>(net)->getIDStorage(),
-        id, route, departTime, type,
+        gIDStorage, id, route, departTime, type,
         net->getNDumpIntervalls(), repNo, repOffset, col);
 }
 
@@ -83,10 +86,10 @@ GUIVehicleControl::scheduleVehicleRemoval(MSVehicle *veh)
     if(MSCORN::wished(MSCORN::CORN_OUT_TRIPOUTPUT)) {
         MSCORN::compute_TripInfoOutput(veh);
     }
-	myRunningVehNo--;
-	myEndedVehNo++;
+    myRunningVehNo--;
+    myEndedVehNo++;
     static_cast<GUIVehicle*>(veh)->setRemoved();
-    static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
+    gIDStorage.remove(
         static_cast<GUIVehicle*>(veh)->getGlID());
 }
 
