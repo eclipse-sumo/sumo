@@ -21,8 +21,8 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/10 15:16:15  croessel
+// Get the job done version.
 //
 // Revision 1.2  2002/03/27 17:56:05  croessel
 // Updated version.
@@ -32,45 +32,18 @@
 //
 
 
-class MSLane;
 #include "MSNet.h"
+#include "MSVehicle.h"
+#include "MSLane.h"
 #include <string>
 #include <fstream>
-
-class MSVehicle;
+#include <functional>
 
 /**
  */
 class MSDetector
 {
 public:
-
-    friend class GnuPlotOut;
-
-    /** Class to generate detector-output in gnuplot-style. 
-        Usage, e.g.: cout << GnuPlotOut( detector, ...) << endl; */
-    class GnuPlotOut
-    {
-    public:
-        GnuPlotOut( unsigned n,
-                    MSNet::Time endOfInterv,
-                    double avgDensity,
-                    double avgFlow,
-                    double avgSpeed,
-//                    double avgOccup,
-                    double avgLength );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const GnuPlotOut& obj ); 
-    private:
-        std::ostringstream out;
-
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const GnuPlotOut& obj );
-
-
-
 
     /** We support two output-styles, gnuplot and "Comma Separated Variable" 
         (CSV). */
@@ -89,50 +62,92 @@ public:
     /// Destructor.
     ~MSDetector();
 
-    ///
-    void sample();
+    /// Call sample every timestep to update the detector.
+    void sample( double currSimSeconds );
 
 protected:
-    double localDensity( const MSVehicle& veh );
-//      double occupancy( const MSVehicle& veh );
-    void   writeData();
+    // Add up the local density.
+    double localDensity( const MSVehicle& veh, double currSimSeconds );
+
+    // Write the data according to OutputStyle when the
+    // sampleIntervall is over.
+    void writeData();
+
+    // Write in gnuplot-style to myFile.
+    void writeGnuPlot( MSNet::Time endOfInterv,
+                       double avgDensity,
+                       double avgFlow,
+                       double avgSpeed,
+                       double Occup,
+                       double avgLength );
+
+    // Write in CSV-style to myFile.
+    void writeCSV( MSNet::Time endOfInterv,
+                   double avgDensity,
+                   double avgFlow,
+                   double avgSpeed,
+                   double Occup,
+                   double avgLength );
 
 private:
+    // Function-object in order to find the vehicle, that has just
+    // passed the detector.
+    struct VehPosition : public std::binary_function< const MSVehicle*,
+                         float, bool > 
+    {
+        bool operator() ( const MSVehicle* cmp, float pos ) const {
+            return cmp->pos() > pos;
+        }
+    };
+
+    /// Object's Id.
+    std::string myID;
+
+    /// Lane where detector works on.
+    MSLane* myLane;
+
+    /// Detectors position on myLane.
+    float myPos;
+
+    /// Sample-intervall in seconds.
+    MSNet::Time mySampleIntervall;
+
+    /// Ouput-style.
+    OutputStyle myStyle;
+
+    /// File where output goes to.
+    std::ofstream& myFile;
+
+    /// Last vehicle that passed the detector.
     MSVehicle* myPassedVeh;
     
+    /// Speed of the last vehicle, that has passed the detector.
     double myPassingSpeed;
     
+    /// Time when last vehicle has passed the detector.
     double myPassingTime;
 
+    /// Number of finished sampleIntervalls.
     unsigned myNSamples;
 
+    /** Number of vehicles which have already passed the detector in
+        this sample intervall. */    
     unsigned myNPassedVeh;
 
-    unsigned myNDensityVeh;
-
+    /// Sum of local-densities sampled during the current sample-intervall.
     double myLocalDensitySum;
-
+    
+    /// Sum of speeds sampled during the current sample-intervall.
     double mySpeedSum;
 
-//      double myOccupSum;
+    /// Sum of occupancy-times sampled during the current sample-intervall.
+    double myOccupSum;
 
+    /// Sum of veh-lengthes sampled during the current sample-intervall.
     double myVehLengthSum;
 
     // Number of already processed sampleIntervalls
-    unsigned myN;
-
-    std::string myID;
-
-    MSLane* myLane;
-
-    float myPos;
-
-    /// Intervall in seconds.
-    MSNet::Time mySampleIntervall;
-
-    OutputStyle myStyle;
-
-    std::ofstream& myFile;
+    unsigned myNIntervalls;
 
     /// Default constructor.
     MSDetector();
