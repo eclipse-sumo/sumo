@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/08/02 11:54:52  dkrajzew
+// added the possibility to take snapshots
+//
 // Revision 1.20  2004/07/02 08:32:10  dkrajzew
 // changes due to the global object selection applied; some debugging (on zoom)
 //
@@ -305,6 +308,10 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
     myApp->removeTimeout(this, ID_RMOUSETIMEOUT);
     delete _changer;
     delete _toolTip;
+    // just to quit cleanly on a failure
+    if(_lock.locked()) {
+        _lock.unlock();
+    }
 }
 
 
@@ -519,7 +526,7 @@ GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
 
 
 void
-GUISUMOAbstractView::displayLegend()
+GUISUMOAbstractView::displayLegend(bool flip)
 {
     // compute the scale bar length
     size_t length = 1;
@@ -570,7 +577,7 @@ GUISUMOAbstractView::displayLegend()
         10+pixelSize, (double) (_parent->getMaxGLHeight()-30),
         text.substr(0, noDigits) + "m");
     glEnd();
-    GUITexturesHelper::getFontRenderer().Draw();
+    GUITexturesHelper::getFontRenderer().Draw(flip);
 
     // draw the current position
 /*
@@ -961,6 +968,42 @@ GUISUMOAbstractView::drawPolygon2D(Polygon2D &polygon)
     glEnd();
 }
 
+
+FXColor *
+GUISUMOAbstractView::getSnapshot()
+{
+    makeCurrent();
+    // draw
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_POINT_SMOOTH);
+    glDisable(GL_LINE_SMOOTH);
+    glDisable(GL_POLYGON_SMOOTH);
+    applyChanges(1.0, 0, 0);
+    glScaled(1.0, -1.0, 1);
+    if(_showGrid) {
+        paintGLGrid();
+    }
+    doPaintGL(GL_RENDER, 1.0);
+/*
+    if(_parent->showLegend()) {
+        displayLegend(true);
+    }
+    */
+    glFlush();
+    swapBuffers();
+    glFinish();
+    FXColor *buf;
+    FXMALLOC(&buf, FXColor, getWidth()*getHeight());
+    // read from the back buffer
+    glReadBuffer(GL_BACK);
+    // Read the pixels
+    glReadPixels(0, 0, getWidth(), getHeight(),
+        GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)buf);
+    makeNonCurrent();
+    update();
+    return buf;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

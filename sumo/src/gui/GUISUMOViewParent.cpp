@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/08/02 11:55:07  dkrajzew
+// added the possibility to take snapshots
+//
 // Revision 1.9  2004/07/02 08:37:27  dkrajzew
 // using global selection storage
 //
@@ -109,11 +112,13 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
 {
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUISUMOViewParent::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWLEGEND,     GUISUMOViewParent::onCmdShowLegend),
+    FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
     FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
+
 };
 
 // Object implementation
@@ -205,6 +210,11 @@ GUISUMOViewParent::buildToolBar(FXComposite *c)
         myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
         GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        // make snapshot
+    new FXButton(myToolBar,
+        "\tMake Snapshot\tMakes a snapshot of the view.",
+        GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         // allow rotation
 /*    new MFXCheckableButton(_allowRotation,
         myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
@@ -239,6 +249,31 @@ GUISUMOViewParent::onCmdShowLegend(FXObject*sender,FXSelector,void*)
     button->setChecked(!button->amChecked());
     _showLegend = button->amChecked();
     _view->update();
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
+{
+    // get the new file name
+    FXFileDialog opendialog(this, "Save Snapshot");
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("*.bmp");
+    if(gCurrentFolder.length()!=0) {
+        opendialog.setDirectory(gCurrentFolder.c_str());
+    }
+    if(!opendialog.execute()){
+        return 1;
+    }
+    gCurrentFolder = opendialog.getDirectory().text();
+    string file = string(opendialog.getFilename().text());
+    FXColor *buf = _view->getSnapshot();
+    // Save the image.
+    FXFileStream stream;
+    stream.open(file.c_str(), FXStreamSave);
+    fxsaveBMP(stream, buf, _view->getWidth(), _view->getHeight());
+    FXFREE(&buf);
     return 1;
 }
 

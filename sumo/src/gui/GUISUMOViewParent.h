@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/08/02 11:55:07  dkrajzew
+// added the possibility to take snapshots
+//
 // Revision 1.6  2004/07/02 08:37:27  dkrajzew
 // using global selection storage
 //
@@ -109,6 +112,7 @@ public:
 
     long onCmdRecenterView(FXObject*,FXSelector,void*);
     long onCmdShowLegend(FXObject*,FXSelector,void*);
+    long onCmdMakeSnapshot(FXObject*sender,FXSelector,void*);
     long onCmdAllowRotation(FXObject*,FXSelector,void*);
     long onCmdLocateJunction(FXObject*,FXSelector,void*);
     long onCmdLocateEdge(FXObject*,FXSelector,void*);

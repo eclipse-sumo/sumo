@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/08/02 11:54:52  dkrajzew
+// added the possibility to take snapshots
+//
 // Revision 1.14  2004/07/02 08:32:10  dkrajzew
 // changes due to the global object selection applied; some debugging (on zoom)
 //
@@ -193,6 +196,9 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
+    /// paints the area to a buffer
+    FXColor *getSnapshot();
+
 public:
     /**
      * VehicleColoringScheme
@@ -222,7 +228,10 @@ public:
         /// use the route change offset
         VCS_ROUTECHANGEOFFSET = 10,
         /// use the route change offset
-        VCS_ROUTECHANGENUMBER = 11
+        VCS_ROUTECHANGENUMBER = 11,
+
+        VCS_LANECHANGE4 = 12,
+
     };
 
     /**
@@ -307,7 +316,7 @@ protected:
         size_t xoff, size_t yoff);
 
     /// draws the legend
-    void displayLegend();
+    void displayLegend(bool flip=false);
 
     /// centers the view to the given position and size
     void centerTo(Position2D pos, double radius);
