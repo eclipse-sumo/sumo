@@ -20,7 +20,7 @@
 
 //--------------- INCLUDE HEADER FILES HERE ---------------------------------//
 
-#include <MSNet.h>
+#include "../microsim/MSNet.h"
 
 //--------------- DO NOT INCLUDE ANYTHING AFTER THIS POINT ------------------//
 #ifdef DISABLE_INLINE
@@ -55,6 +55,9 @@ inline SimpleCommand< T >::execute()
 
 
 // $Log$
+// Revision 1.2  2002/06/19 15:35:45  croessel
+// Minor changes to please MSVC++ shortcomings.
+//
 // Revision 1.1  2002/06/18 16:32:31  croessel
 // Initial commit. Made files cfront compliant.
 //

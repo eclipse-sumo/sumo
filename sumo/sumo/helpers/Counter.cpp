@@ -16,18 +16,20 @@
  ***************************************************************************/
 
 
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-#include "Counter.h"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
+//  #ifdef EXTERNAL_TEMPLATE_DEFINITION
+//  namespace
+//  {
+//      const char rcsid[] =
+//      "$Id$";
+//  }
+//  #include "Counter.h"
+//  #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include "Counter.h"
 
 template< typename T > 
 size_t Counter< T >::count = 0;
@@ -40,6 +42,9 @@ size_t Counter< T >::count = 0;
 
 
 // $Log$
+// Revision 1.4  2002/06/19 15:35:45  croessel
+// Minor changes to please MSVC++ shortcomings.
+//
 // Revision 1.3  2002/06/18 18:29:07  croessel
 // Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
 //
