@@ -183,7 +183,10 @@ NIVissimNodeCluster::buildNBNode()
     // !!!
     NBNode *node = new NBNode(toString<int>(myID),
         pos.x(), pos.y(), "priority");
-    NBNodeCont::insert(node);
+    if(!NBNodeCont::insert(node)) {
+        cout << "nope, NIVissimDisturbance" << endl;
+        throw 1;
+    }
     myNBNode = node;
 }
 

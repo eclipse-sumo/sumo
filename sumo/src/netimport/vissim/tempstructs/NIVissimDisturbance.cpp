@@ -230,7 +230,10 @@ NIVissimDisturbance::addToNode(NBNode *node)
         assert(node1==0||node2==0);
         if(node1==0&&node2==0) {
             node = new NBNode(id1, pos.x(), pos.y(), "priority");
-            NBNodeCont::insert(node);
+            if(!NBNodeCont::insert(node)) {
+                cout << "nope, NIVissimDisturbance" << endl;
+                throw 1;
+            }
         } else {
             node = node1==0 ? node2 : node1;
         }

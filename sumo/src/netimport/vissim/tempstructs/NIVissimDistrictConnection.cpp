@@ -98,15 +98,16 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
         }
     }
 
-        NBDistrict *bla = NBDistrictCont::retrieve("VissimParkingplace73");
-
-
     for(std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
+if((*k).first==3000010) {
+    int bla = 0;
+}
         // get the connections
         const IntVector &connections = (*k).second;
             // retrieve the current district
-        NBDistrict *district =
-            NBDistrictCont::retrieve(toString<int>((*k).first));
+        string dsid = toString<int>((*k).first);
+        NBDistrict *district = new NBDistrict(dsid, dsid, true, true);
+        NBDistrictCont::insert(district);
         // compute the middle of the district
         Position2DVector pos;
         for(IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
@@ -116,17 +117,17 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
         Position2D distCenter = pos.center();
         district->setCenter(distCenter.x(), distCenter.y());
         // build the node
-        string id = "VissimParkingplace" + district->getID();
+        string id = "District" + district->getID();
         NBNode *districtNode =
             new NBNode(id,
                 district->getXCoordinate(),
                 district->getYCoordinate(),
-                "no_junction");
-        NBNodeCont::insert(districtNode); // !!! sollte bei der Allokation geschehen
+                district);
+        if(!NBNodeCont::insert(districtNode)) {
+            cout << "nope, NIVissimDistrictConnection" << endl;
+            throw 1;
+        }
     }
-
-    NBDistrict *bla2 = NBDistrictCont::retrieve("VissimParkingplace73");
-
 }
 
 void
@@ -143,8 +144,76 @@ NIVissimDistrictConnection::dict_BuildDistricts()
             // retrieve the current district
         NBDistrict *district =
             NBDistrictCont::retrieve(toString<int>((*k).first));
+        NBNode *districtNode = NBNodeCont::retrieve(
+            string("District") + district->getID());
 
+        for(IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
+            NIVissimDistrictConnection *c = dictionary(*l);
+            // get the edge to connect the parking place to
+            NBEdge *e = NBEdgeCont::retrieve(toString<int>(c->myEdgeID));
+            assert(e!=0);
+            string id = string("ParkingPlace") + toString<int>(*l);
+            NBNode *parkingPlace = NBNodeCont::retrieve(id);
+            if(parkingPlace==0) {
+                double pos = c->getPosition();
+                if(pos<e->getLength()-pos) {
+                    parkingPlace = e->getFromNode();
+                    parkingPlace->invalidateIncomingConnections();
+                } else {
+                    parkingPlace = e->getToNode();
+                    parkingPlace->invalidateOutgoingConnections();
+                }
+            }
+            assert(
+                e->getToNode()==parkingPlace
+                ||
+                e->getFromNode()==parkingPlace);
 
+            // build the connection to the source
+            if(e->getFromNode()==parkingPlace) {
+                id = string("VissimFromParkingplace")
+                    + toString<int>((*k).first) + "-"
+                    + toString<int>(c->myID);
+                NBEdge *source =
+                    new NBEdge(id, id, districtNode, parkingPlace,
+                    "Connection", 100/3.6, 2, 100, 0,
+                    NBEdge::EDGEFUNCTION_SOURCE);
+                assert(NBEdgeCont::insert(source)); // !!! (in den Konstruktor)
+                double percNormed =
+                    c->myPercentages[(*k).first];
+                assert(district->addSource(source, percNormed));
+            }
+
+            // build the connection to the destination
+            if(e->getToNode()==parkingPlace) {
+                id = string("VissimToParkingplace")
+                    + toString<int>((*k).first) + "-"
+                    + toString<int>(c->myID);
+                NBEdge *destination =
+                    new NBEdge(id, id, parkingPlace, districtNode,
+                    "Connection", 100/3.6, 2, 100, 0,
+                    NBEdge::EDGEFUNCTION_SINK);
+                assert(NBEdgeCont::insert(destination)); // !!! (in den Konstruktor)
+                double percNormed =
+                    c->myPercentages[(*k).first];
+                assert(district->addSink(destination, percNormed));
+            }
+
+                /*
+            if(e->getToNode()==districtNode) {
+                double percNormed =
+                    c->myPercentages[(*k).first];
+                district->addSink(e, percNormed);
+            }
+            if(e->getFromNode()==districtNode) {
+                double percNormed =
+                    c->myPercentages[(*k).first];
+                district->addSource(e, percNormed);
+            }
+*/
+        }
+
+        /*
         // add them as sources and sinks to the current district
         for(IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
             // get the current connections
@@ -163,10 +232,6 @@ NIVissimDistrictConnection::dict_BuildDistricts()
             string id = "VissimParkingplace" + district->getID();
             NBNode *districtNode = NBNodeCont::retrieve(id);
             assert(districtNode!=0);
-            assert(
-                (e->getToNode()==edgeend && e->getFromNode()==districtNode)
-                ||
-                (e->getFromNode()==edgeend && e->getToNode()==districtNode) );
 
             if(e->getToNode()==edgeend) {
                 // build the connection to the source
@@ -198,6 +263,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 district->addSink(destination, percNormed);
             }
         }
+        */
     }
 }
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/01 15:24:43  dkrajzew
+// parsing of parking places patched
+//
 // Revision 1.2  2003/03/26 12:17:14  dkrajzew
 // further debugging/improvements of Vissim-import
 //
@@ -40,6 +43,8 @@ namespace
 #include <utils/common/DoubleVector.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBDistrict.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"
@@ -92,12 +97,6 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
         }
         districts.push_back(districtid);
         percentages.push_back(perc);
-        string dsid = toString<int>(districtid);
-        if(NBDistrictCont::retrieve(dsid)==0) {
-            bool weighted = perc>=0;
-            NBDistrictCont::insert(
-                new NBDistrict(dsid, dsid, weighted, weighted));
-        }
         tag = myRead(from);
     }
 
@@ -130,6 +129,10 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
 
     from >> tag;
     from >> tag;
+//    NIVissimEdge *e = NIVissimEdge::dictionary(edgeid);
+//    e->addReferencedDistrict(id);
+
+    // build the district connection
     return NIVissimDistrictConnection::dictionary(id, name,
         districts, percentages, edgeid, position, assignedVehicles);
 }

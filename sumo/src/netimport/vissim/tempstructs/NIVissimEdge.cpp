@@ -295,9 +295,10 @@ NIVissimEdge::buildNBEdge()
 {
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
-            if(myID==603) {
-                int bla = 0;
-            }
+
+    if(myID==97) {
+        int bla = 0;
+    }
     if(myConnectionClusters.size()!=0) {
 /*        NBNode *from = new NBNode(
             toString<int>(myID) + "-Begin",
@@ -316,6 +317,15 @@ NIVissimEdge::buildNBEdge()
         fromNode = getFromNode();
         // get or build the to-node
         toNode = getToNode();
+        // check whether one of the nodes should be a district node
+/*        NIVissimDistrictConnection *d =
+            NIVissimDistrictConnection::dict_findForEdge(myID);
+        if(d!=0&&fromNode!=toNode) {
+            std::pair<NBNode*, NBNode*> tmp = remapOneOfNodes(d, fromNode, toNode);
+            fromNode = tmp.first;
+            toNode = tmp.second;
+        }*/
+
         // if both nodes are the same, resolve the problem otherwise
         if(fromNode==toNode) {
             std::pair<NBNode*, NBNode*> tmp = resolveSameNode();
@@ -328,14 +338,20 @@ NIVissimEdge::buildNBEdge()
         fromNode =
             new NBNode(toString<int>(myID) + string("-SourceNode"),
                 pos.x(), pos.y(), "no_junction");
-        NBNodeCont::insert(fromNode);
+        if(!NBNodeCont::insert(fromNode)) {
+            cout << "nope, NIVissimDisturbance" << endl;
+            throw 1;
+        }
     }
     if(toNode==0) {
         Position2D pos = myGeom.at(myGeom.size()-1);
         toNode =
             new NBNode(toString<int>(myID) + string("-DestinationNode"),
                 pos.x(), pos.y(), "no_junction");
-        NBNodeCont::insert(toNode);
+        if(!NBNodeCont::insert(toNode)) {
+            cout << "nope, NIVissimDisturbance" << endl;
+            throw 1;
+        }
     }
     if(fromNode==toNode) {
         int bla = 0;
@@ -343,7 +359,8 @@ NIVissimEdge::buildNBEdge()
     // build the edge
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,
-        50.0/3.6, myNoLanes, myGeom.length(), NBEdge::EDGEFUNCTION_NORMAL);
+        50.0/3.6, myNoLanes, myGeom.length(),
+        NBEdge::EDGEFUNCTION_NORMAL);
     NBEdgeCont::insert(buildEdge);
     // check whether the edge contains any other clusters
     if(myConnectionClusters.size()>2) {
@@ -374,6 +391,33 @@ NIVissimEdge::getToNode()
 
 
 std::pair<NBNode*, NBNode*>
+NIVissimEdge::remapOneOfNodes(NIVissimDistrictConnection *d,
+                              NBNode *fromNode, NBNode *toNode)
+{
+    string nid = string("ParkingPlace") + toString<int>(d->getID());
+    if( GeomHelper::distance(d->geomPosition(), fromNode->geomPosition())
+        <
+        GeomHelper::distance(d->geomPosition(), toNode->geomPosition()) ) {
+
+        NBNode *newNode = new NBNode(nid,
+            fromNode->getXCoordinate(), fromNode->getYCoordinate(),
+            "no_junction");
+        NBNodeCont::erase(fromNode);
+        NBNodeCont::insert(newNode);
+        return std::pair<NBNode*, NBNode*>(newNode, toNode);
+    } else {
+        NBNode *newNode = new NBNode(nid,
+            toNode->getXCoordinate(), toNode->getYCoordinate(),
+            "no_junction");
+        NBNodeCont::erase(toNode);
+        NBNodeCont::insert(newNode);
+        return std::pair<NBNode*, NBNode*>(fromNode, newNode);
+    }
+}
+
+
+
+std::pair<NBNode*, NBNode*>
 NIVissimEdge::resolveSameNode()
 {
     // check whether the edge is connected to a district
@@ -384,29 +428,32 @@ NIVissimEdge::resolveSameNode()
         Position2D pos = d->geomPosition();
         double position = d->getPosition();
         // the district is at the begin of the edge
-        NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
         if(myGeom.length()-position>position) {
+            string nid = string("ParkingPlace") + toString<int>(d->getID());
+            NBNode *node = NBNodeCont::retrieve(nid);
             if(node==0) {
-                assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
-                node = new NBNode(
-                    "DistrictSource" + d->getID(),
+                node = new NBNode(nid,
                     pos.x(), pos.y(), "no_junction");
-                assert(NBNodeCont::insert(node));
+                if(!NBNodeCont::insert(node)) {
+                    cout << "nope, NIVissimDisturbance" << endl;
+                    throw 1;
+                }
             }
             return std::pair<NBNode*, NBNode*>(node, getToNode());
         }
         // the district is at the end of the edge
         else {
-            NBNode *node =
-                NBNodeCont::retrieve(
-                    "VissimParkingplace" + d->getID());
+            string nid = string("ParkingPlace") + toString<int>(d->getID());
+            NBNode *node = NBNodeCont::retrieve(nid);
             if(node==0) {
-                assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
-                node = new NBNode(
-                    toString<int>(myID) + string("DistrictSink"),
+                node = new NBNode(nid,
                     pos.x(), pos.y(), "no_junction");
+                if(!NBNodeCont::insert(node)) {
+                    cout << "nope, NIVissimDisturbance" << endl;
+                    throw 1;
+                }
             }
-            assert(NBNodeCont::insert(node));
+            assert(node!=0);
             return std::pair<NBNode*, NBNode*>(getFromNode(), node);
         }
     }
@@ -422,7 +469,10 @@ NIVissimEdge::resolveSameNode()
             NBNode *end = new NBNode(
                 toString<int>(myID) + "-End",
                 myGeom.getEnd().x(), myGeom.getEnd().y(), "no_junction");
-            NBNodeCont::insert(end);
+            if(!NBNodeCont::insert(end)) {
+                cout << "nope, NIVissimDisturbance" << endl;
+                throw 1;
+            }
             return std::pair<NBNode*, NBNode*>(node, end);
         }
 
@@ -431,7 +481,10 @@ NIVissimEdge::resolveSameNode()
             NBNode *beg = new NBNode(
                 toString<int>(myID) + "-Begin",
                 myGeom.getBegin().x(), myGeom.getBegin().y(), "no_junction");
-            NBNodeCont::insert(beg);
+            if(!NBNodeCont::insert(beg)) {
+                cout << "nope, NIVissimDisturbance" << endl;
+                throw 1;
+            }
             return std::pair<NBNode*, NBNode*>(beg, node);
         }
 

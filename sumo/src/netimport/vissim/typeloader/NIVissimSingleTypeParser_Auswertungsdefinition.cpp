@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/04/01 15:24:43  dkrajzew
+// parsing of parking places patched
+//
 // Revision 1.1  2003/03/26 12:17:14  dkrajzew
 // further debugging/improvements of Vissim-import
 //
@@ -63,7 +66,7 @@ NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from)
 {
 	string id;
     from >> id; // "typ"
-    string type = myRead(from); 
+    string type = myRead(from);
     if(type=="abfluss") {
         while(type!="signalgruppe") {
             type = myRead(from);

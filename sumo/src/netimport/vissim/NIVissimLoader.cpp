@@ -189,7 +189,7 @@ NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
         }
         name = name.substr(1, name.length()-2);
     }
-    return name;
+    return StringUtils::to_html(name);
 }
 
 

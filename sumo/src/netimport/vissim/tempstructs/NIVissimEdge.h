@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/04/01 15:24:43  dkrajzew
+// parsing of parking places patched
+//
 // Revision 1.4  2003/03/31 06:15:49  dkrajzew
 // further work on vissim-import
 //
@@ -33,6 +36,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <netbuild/NBEdge.h>
 #include <utils/geom/Position2DVector.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
@@ -41,6 +45,8 @@
  * class declarations
  * ======================================================================= */
 class NBNode;
+class NIVissimDistrictConnection;
+
 
 /* =========================================================================
  * class definitions
@@ -127,6 +133,9 @@ private:
     static NBNode *getNodeSecure(int nodeid, const Position2D &pos,
         const std::string &possibleName);
 
+std::pair<NBNode*, NBNode*> remapOneOfNodes(NIVissimDistrictConnection *d,
+                              NBNode *fromNode, NBNode *toNode);
+
 private:
     /**
      * Sorts connections the edge participates in by their position along
@@ -207,6 +216,7 @@ private:
     /** @brief The current maximum id;
         needed for further id assignment */
     static int myMaxID;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
