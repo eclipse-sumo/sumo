@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2002/06/17 15:57:43  dkrajzew
+// unreferenced variable declarations removed
+//
 // Revision 1.7  2002/05/14 07:43:51  dkrajzew
 // _SPEEDCHECK-methods moved completely to MSNet
 //
@@ -260,7 +263,7 @@ main(int argc, char **argv)
             cout << "Simulation ended at time: " << oc->getLong("e") << endl;
         delete net;
         delete craw;
-    } catch (ProcessError &e) {
+    } catch (ProcessError) {
         ret = 1;
     }
     return ret;
