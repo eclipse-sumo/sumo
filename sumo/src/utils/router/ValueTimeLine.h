@@ -127,7 +127,9 @@ public:
     ///
     SearchResult getSearchStateAndValue( unsigned time ) const
         {
-            assert( myValues.size() > 0 );
+            if ( myValues.size() == 0 ) {
+                return std::make_pair( false, T() ); 
+            }
             CTVVIt retIt = std::lower_bound( myValues.begin(), myValues.end(),
                                              time, TimeRangeLess() );
 
