@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/04/02 11:29:02  dkrajzew
+// computation of moving a line strip to the side patched (is still not correct to 100%)
+//
 // Revision 1.23  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -954,18 +957,30 @@ Position2DVector::reverse() const
 void
 Position2DVector::move2side(double amount)
 {
-    if(myCont.size()==0) {
+    if(myCont.size()<2) {
         return;
     }
     ContType newCont;
     std::pair<double, double> p;
-    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
-        p = GeomHelper::getNormal90D_CW(*i, *(i+1), amount);
-        Position2D newPos(*i);
+    Position2D newPos;
+    // first point
+    newPos = (*(myCont.begin()));
+    p = GeomHelper::getNormal90D_CW(*(myCont.begin()), *(myCont.begin()+1), amount);
+    newPos.add(p.first, p.second);
+    newCont.push_back(newPos);
+    // middle points
+    for(ContType::const_iterator i=myCont.begin()+1; i!=myCont.end()-1; i++) {
+        std::pair<double, double> oldp = p;
+        newPos = *i;
         newPos.add(p.first, p.second);
         newCont.push_back(newPos);
+        p = GeomHelper::getNormal90D_CW(*i, *(i+1), amount);
+//        Position2D newPos(*i);
+//        newPos.add((p.first+oldp.first)/2.0, (p.second+oldp.second)/2.0);
+//        newCont.push_back(newPos);
     }
-    Position2D newPos(*(myCont.end()-1));
+    // last point
+    newPos = (*(myCont.end()-1));
     newPos.add(p.first, p.second);
     newCont.push_back(newPos);
     myCont = newCont;

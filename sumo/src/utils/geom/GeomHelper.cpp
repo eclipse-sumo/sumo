@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/04/02 11:29:02  dkrajzew
+// computation of moving a line strip to the side patched (is still not correct to 100%)
+//
 // Revision 1.12  2003/08/14 14:04:21  dkrajzew
 // extrapolation of a lines point added
 //
@@ -536,13 +539,7 @@ GeomHelper::getNormal90D_CW(double x1, double y1,
 }
 
 
-
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GeomHelper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
