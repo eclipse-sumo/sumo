@@ -24,6 +24,11 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.4  2002/04/17 14:02:11  croessel
+// Bugfix in setLookForwardState: myGap may be < 0 in the PRED_ON_SUCC
+// state if pred just entered the succ-lane from another source lane. In
+// this case the lane's first vehicle shouldn't leave this lane.
+//
 // Revision 1.3  2002/04/11 15:25:55  croessel
 // Changed float to double.
 //
@@ -765,7 +770,7 @@ void MSLane::setLookForwardState()
     
     // Calculate maxLook. This is the distance the vehicle
     // should check for predecessors or yield-junctions.
-    double maxLook = myFirst->brakeGap( this );
+    double maxLook = myFirst->brakeGap( this ) + MSVehicleType::maxLength();
     
     double looked = myLength - myFirst->pos(); // The distance already looked at.
     
@@ -853,7 +858,8 @@ void MSLane::setLookForwardState()
                 }
                 
                 // Determine existing next link
-                link = succLink( *myFirst, myLFLinkLanes.size() + 1 , *succLane );
+                link = succLink( *myFirst, myLFLinkLanes.size() + 1, 
+                                 *succLane );
                 
                 // If Link to next Lane is a yield-link                 
                 if ( (*link)->myPrio == false ) {
@@ -918,19 +924,26 @@ void MSLane::setLookForwardState()
         MSVehicle*            pred = succLane->myLastVeh;
         assert( pred != 0 );
         
-        looked += predState.pos() - pred->length();
-        if ( looked > maxLook ) {
+        double gap2pred = looked + predState.pos() - pred->length();
+        if ( gap2pred < 0 ) {
+            
+            // Predecessor is overlapping it's lane. Don't leave lane.
+            myLFState = YIELD_ON_CURR;
+            myGap     = myLength - myFirst->pos();
+            return;
+        }
+
+        if ( gap2pred > maxLook ) {
             
             // State free free driving on a succLane found
             myLFState = FREE_ON_SUCC;
+            return;
         }
-        else {
             
-            // State having a predecessor on a succlane found
-            myLFState   = PRED_ON_SUCC;
-            myGap       = looked;
-            myPredState = predState;
-        }
+        // State having a predecessor on a succlane found
+        myLFState   = PRED_ON_SUCC;
+        myGap       = gap2pred;
+        myPredState = predState;
         return;
     }
     assert( false ); // You should not be here.
