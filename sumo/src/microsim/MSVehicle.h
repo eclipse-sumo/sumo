@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2003/04/07 12:12:39  dkrajzew
+// eps reduced for small segments (dawdle2)
+//
 // Revision 1.8  2003/04/04 15:36:30  roessel
 // Moved static DictType myDict from private to public
 //
@@ -589,6 +592,11 @@ public:
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
     double dawdle( double speed ) const;
 
+    /** @brief Dawdle according the vehicles dawdle parameter in case of starting
+        Regards that the vehicle should not dawdle more than his acceleration
+        Return value >= 0 */
+    double dawdle2( double speed ) const;
+
     MSLane *getTargetLane() const;
 
     /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
@@ -610,7 +618,7 @@ public:
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicle* > DictType;
     static DictType myDict;
-    
+
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, MSNet::Time

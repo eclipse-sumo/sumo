@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/04/07 12:12:39  dkrajzew
+// eps reduced for small segments (dawdle2)
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -76,6 +79,24 @@ MSVehicle::dawdle( double speed ) const
     // We already have a safe speed, if we dawdle max, is it possible
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accelSpeed() * random;
+
+    return max( double( 0 ), speed );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline
+double
+MSVehicle::dawdle2( double speed ) const
+{
+    // generate random number out of [0,1]
+    double random = double( rand() ) / double( RAND_MAX );
+
+    // Dawdle.
+    // TODO:
+    // We already have a safe speed, if we dawdle max, is it possible
+    // to reduce the speed 2*decel?
+    speed -= myType->dawdle() * speed * random;
 
     return max( double( 0 ), speed );
 }

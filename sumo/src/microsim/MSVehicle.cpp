@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/04/07 12:12:38  dkrajzew
+// eps reduced for small segments (dawdle2)
+//
 // Revision 1.12  2003/03/20 17:31:42  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -817,7 +820,13 @@ MSVehicle::moveFirstChecked()
     }
 #endif
 
-    double vNext = max(double(0), dawdle( min(vsafe, vaccel(myLane)) ));
+    double vNext;
+    if(myState.speed()==0&&vsafe<myType->accelSpeed()) {
+        // do not dawdle as much on short segments
+        vNext = max(double(0), dawdle2( min(vsafe, vaccel(myLane)) ));
+    } else {
+        vNext = max(double(0), dawdle( min(vsafe, vaccel(myLane)) ));
+    }
 
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
