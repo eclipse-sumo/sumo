@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/09/22 12:31:06  dkrajzew
+// actuated traffic lights are now derived from simple traffic lights
+//
 // Revision 1.14  2003/07/21 18:13:05  roessel
 // Changes due to new MSInductLoop.
 //
@@ -74,10 +77,10 @@
 
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
-    const std::string &id, const ActuatedPhases &phases, size_t step,
-    const std::vector<MSLane*> &lanes, size_t delay)
-    : MSTrafficLightLogic(id, delay),
-    _continue(false), _step(step), _phases(phases)
+        const std::string &id, const Phases &phases, size_t step,
+        const std::vector<MSLane*> &lanes, size_t delay)
+    : MSSimpleTrafficLightLogic(id, phases, step, delay),
+    _continue(false)
 {
     sproutDetectors(lanes);
 }
@@ -99,7 +102,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 
     // define the duration depending from the number of waiting vehicles of the actual phase
 
-    int duration = _phases[_step].minDuration;
+    int duration = static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->minDuration;
     for(typename LaneStateMap::const_iterator i=myLaneStates.begin(); i!=myLaneStates.end(); i++)   {
         MSLane *lane = (*i).first;
         const MSLinkCont &cont = lane->getLinkCont();
@@ -112,8 +115,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
                     // here we cut the decimal places, because we have to return an integer
                     duration = (int) tmpdur;
                 }
-                if (duration > (int) _phases[_step].maxDuration)  {
-                    return _phases[_step].maxDuration;
+                if (duration > (int) static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration)  {
+                    return static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration;
                 }
             }
         }
@@ -196,7 +199,7 @@ MSActuatedTrafficLightLogic<_TInductLoop,
 
 
 
-
+/*
 template< class _TInductLoop, class _TLaneState >
 const std::bitset<64> &
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
@@ -222,7 +225,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::allowed() const
     assert(_phases.size()>_step);
     return _phases[_step].driveMask;
 }
-
+*/
 
 
 
@@ -231,9 +234,9 @@ size_t
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
 {
     // increment the index to the current phase
-    MSNet::Time phaseStart = _phases[_step]._lastSwitch;
+    MSNet::Time phaseStart = static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
     MSNet::Time lastDuration = MSNet::globaltime - phaseStart;
-    _phases[_step].duration = lastDuration;
+    static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->duration = lastDuration;
     return _step;
 }
 
@@ -242,8 +245,8 @@ bool
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 {
     // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
-    MSNet::Time actDuration = MSNet::globaltime - _phases[_step]._lastSwitch;
-    if (actDuration >= _phases[_step].maxDuration) {
+    MSNet::Time actDuration = MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
+    if (actDuration >= static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration) {
         return _continue = false;
     }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/09/22 12:31:06  dkrajzew
+// actuated traffic lights are now derived from simple traffic lights
+//
 // Revision 1.10  2003/09/17 06:50:45  dkrajzew
 // phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
@@ -65,19 +68,12 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
+#include "MSSimpleTrafficLightLogic.h"
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-
-
-
-
-/// definition of a list of phases, being the junction logic
-typedef std::vector<MSActuatedPhaseDefinition > ActuatedPhases;
-
-
 /**
  * @class MSActuatedTrafficLightLogic
  * The implementation of a simple traffic light which only switches between
@@ -88,18 +84,19 @@ typedef std::vector<MSActuatedPhaseDefinition > ActuatedPhases;
  */
 template< class _TInductLoop, class _TLaneState >
 class MSActuatedTrafficLightLogic :
-        public MSTrafficLightLogic
+        public MSSimpleTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, _TInductLoop*> InductLoopMap;
 
     /// Definition of a map from lanes to lane state detectors lying on them
-//     typedef std::map<MSLane*, _TLaneState*> LaneStateMap;
     typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
+
 public:
     /// constructor
-    MSActuatedTrafficLightLogic(const std::string &id, const ActuatedPhases &phases,
+    MSActuatedTrafficLightLogic(const std::string &id,
+        const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, const std::vector<MSLane*> &lanes, size_t delay);
 
     /// destructor
@@ -112,14 +109,6 @@ public:
     /// Returns the duration of the given step
     virtual MSNet::Time duration() const;
 
-    /** Returns the link priorities for the given phase */
-    virtual const std::bitset<64> &linkPriorities() const;
-
-    /// Returns a bitset where all links having yellow are set
-    virtual const std::bitset<64> &yellowMask() const;
-
-    virtual const std::bitset<64> &allowed() const;
-
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
     /// or stores the activation-time in _lastphase of the phase next
@@ -127,12 +116,6 @@ public:
 
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
     virtual bool gapControl();
-
-//     /// Returns a vector of build detectors
-//     MSNet::DetectorCont getDetectorList() const;
-
-	/// returns the current step
-	size_t step() const { return _step; }
 
 protected:
     /// Builds the detectors
@@ -147,12 +130,6 @@ protected:
 
     /// information whether the current phase should be lenghtend
     bool _continue;
-
-    /// The step within the cycla
-    size_t _step;
-
-    /// The phase definitions
-    ActuatedPhases _phases;
 
 };
 

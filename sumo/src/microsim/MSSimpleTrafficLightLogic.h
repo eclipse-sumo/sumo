@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/09/22 12:33:12  dkrajzew
+// actuated traffic lights are now derived from simple traffic lights
+//
 // Revision 1.10  2003/09/17 06:50:45  dkrajzew
 // phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
@@ -79,7 +82,7 @@ class MSSimpleTrafficLightLogic : public MSTrafficLightLogic
 public:
 
     /// definition of a list of phases, being the junction logic
-    typedef std::vector<MSPhaseDefinition> Phases;
+    typedef std::vector<MSPhaseDefinition*> Phases;
 
 public:
     /// constructor
@@ -111,6 +114,10 @@ public:
 
 	/// returns the current step
 	size_t step() const { return _step; }
+
+protected:
+    /// Returns the described phase
+    virtual const MSPhaseDefinition &getPhase(size_t pos) const;
 
 protected:
     /// the list of phases this logic uses

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/09/22 12:30:23  dkrajzew
+// actuated traffic lights are now derived from simple traffic lights
+//
 // Revision 1.11  2003/09/17 06:53:23  dkrajzew
 // phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
@@ -152,10 +155,7 @@ protected:
     MSBitsetLogic::Logic                    *m_pActiveLogic;
 
     /// the current phase definitions for a simple traffic light
-    MSSimpleTrafficLightLogic::Phases   m_ActiveSimplePhases;
-
-    /// the current phase definitions for a simple traffic light
-    ActuatedPhases                          m_ActiveActuatedPhases;
+    MSSimpleTrafficLightLogic::Phases   m_ActivePhases;
 
     /// the size of the request
     int             _requestSize;

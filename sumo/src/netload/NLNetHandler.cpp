@@ -299,8 +299,7 @@ void
 NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     m_Key = "";
-    m_ActiveSimplePhases.clear();
-    m_ActiveActuatedPhases.clear();
+    m_ActivePhases.clear();
     _requestSize = -1;
     _tlLogicNo = -1;
     try {
@@ -370,12 +369,12 @@ NLNetHandler::addPhase(const Attributes &attrs)
     std::bitset<64> prios(brakeMask);
     prios.flip();
     if(m_Type!="actuated") {
-        m_ActiveSimplePhases.push_back(
-            MSPhaseDefinition(
-            duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
+        m_ActivePhases.push_back(
+            new MSPhaseDefinition(
+                duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
     } else {
-        m_ActiveActuatedPhases.push_back(
-            MSActuatedPhaseDefinition(
+        m_ActivePhases.push_back(
+            new MSActuatedPhaseDefinition(
             duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
 			min, max));
     }
@@ -866,21 +865,21 @@ NLNetHandler::closeTrafficLightLogic()
     if(m_Type!="actuated") {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic(
-                m_Key, m_ActiveSimplePhases, 0, m_Offset);
+                m_Key, m_ActivePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
-        m_ActiveSimplePhases.clear();
+        m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else {
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
-                    m_Key, m_ActiveActuatedPhases, 0,
+                    m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
 //         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
-        m_ActiveActuatedPhases.clear();
+        m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     }
 }

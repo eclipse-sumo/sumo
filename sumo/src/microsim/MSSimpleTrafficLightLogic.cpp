@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/22 12:33:12  dkrajzew
+// actuated traffic lights are now derived from simple traffic lights
+//
 // Revision 1.8  2003/09/17 06:50:45  dkrajzew
 // phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
@@ -75,6 +78,9 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(
 
 MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 {
+    for(size_t i=0; i<_phases.size(); i++) {
+        delete _phases[i];
+    }
 }
 
 
@@ -82,7 +88,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 MSSimpleTrafficLightLogic::linkPriorities() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step].breakMask;
+    return _phases[_step]->breakMask;
 }
 
 
@@ -90,7 +96,7 @@ MSSimpleTrafficLightLogic::linkPriorities() const
 MSSimpleTrafficLightLogic::yellowMask() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step].yellowMask;
+    return _phases[_step]->yellowMask;
 }
 
 
@@ -98,7 +104,7 @@ MSSimpleTrafficLightLogic::yellowMask() const
 MSSimpleTrafficLightLogic::allowed() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step].driveMask;
+    return _phases[_step]->driveMask;
 }
 
 
@@ -118,7 +124,7 @@ MSSimpleTrafficLightLogic::nextStep()
 MSSimpleTrafficLightLogic::duration() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step].duration;
+    return _phases[_step]->duration;
 }
 
 
@@ -134,6 +140,14 @@ MSSimpleTrafficLightLogic::nextPhase()
     // set the next event
     return duration();
 }
+
+
+const MSPhaseDefinition &
+MSSimpleTrafficLightLogic::getPhase(size_t pos) const
+{
+    return *(_phases[_step]);
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
