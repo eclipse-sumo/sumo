@@ -1,8 +1,8 @@
-#ifndef GUIROWDrawer_SG_h
-#define GUIROWDrawer_SG_h
+#ifndef GUIROWDrawer_FGnT_h
+#define GUIROWDrawer_FGnT_h
 //---------------------------------------------------------------------------//
-//                        GUIROWDrawer_SG.h -
-//  Class for drawing right of way-rules with simple geometry
+//                        GUILaneDrawer_FGwT.h -
+//  Class for drawing lanes with full geom and tooltip information
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -20,11 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2003/10/15 11:35:06  dkrajzew
+// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
+//
 //
 //
 /* =========================================================================
@@ -53,14 +57,14 @@ class GUILaneWrapper;
 /**
  * Draws lanes as simple, one-colored straights
  */
-class GUIROWDrawer_SG :
+class GUIROWDrawer_FGnT :
         public GUIBaseROWDrawer {
 public:
     /// constructor
-    GUIROWDrawer_SG(std::vector<GUIEdge*> &edges);
+    GUIROWDrawer_FGnT(std::vector<GUIEdge*> &edges);
 
     /// destructor
-    ~GUIROWDrawer_SG();
+    ~GUIROWDrawer_FGnT();
 
 private:
     void drawLinkRules(const GUILaneWrapper &lane);
@@ -74,7 +78,7 @@ private:
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIROWDrawer_SG.icc"
+//#include "GUIROWDrawer_FGnT.icc"
 //#endif
 
 #endif

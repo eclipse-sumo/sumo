@@ -19,8 +19,10 @@ GUILaneDrawer_FGnT.cpp GUILaneDrawer_FGnT.h \
 GUILaneDrawer_FGwT.cpp GUILaneDrawer_FGwT.h \
 GUILaneDrawer_SGnT.cpp GUILaneDrawer_SGnT.h \
 GUILaneDrawer_SGwT.cpp GUILaneDrawer_SGwT.h \
-GUIROWDrawer_FG.cpp GUIROWDrawer_FG.h \
-GUIROWDrawer_SG.cpp GUIROWDrawer_SG.h \
+GUIROWDrawer_FGnT.cpp GUIROWDrawer_FGnT.h \
+GUIROWDrawer_SGnT.cpp GUIROWDrawer_SGnT.h \
+GUIROWDrawer_FGwT.cpp GUIROWDrawer_FGwT.h \
+GUIROWDrawer_SGwT.cpp GUIROWDrawer_SGwT.h \
 GUIVehicleDrawer_FGnTasTriangle.cpp GUIVehicleDrawer_FGnTasTriangle.h \
 GUIVehicleDrawer_FGwTasTriangle.cpp GUIVehicleDrawer_FGwTasTriangle.h \
 GUIVehicleDrawer_SGnTasTriangle.cpp GUIVehicleDrawer_SGnTasTriangle.h \

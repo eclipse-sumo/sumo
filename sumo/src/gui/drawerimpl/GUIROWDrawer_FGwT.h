@@ -1,7 +1,7 @@
-#ifndef GUIROWDrawer_FG_h
-#define GUIROWDrawer_FG_h
+#ifndef GUIROWDrawer_FGwT_h
+#define GUIROWDrawer_FGwT_h
 //---------------------------------------------------------------------------//
-//                        GUILaneDrawer_FGwT.h -
+//                        GUIROWDrawer_FGwT.h -
 //  Class for drawing lanes with full geom and tooltip information
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2003/10/15 11:35:06  dkrajzew
+// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -54,14 +57,14 @@ class GUILaneWrapper;
 /**
  * Draws lanes as simple, one-colored straights
  */
-class GUIROWDrawer_FG :
+class GUIROWDrawer_FGwT :
         public GUIBaseROWDrawer {
 public:
     /// constructor
-    GUIROWDrawer_FG(std::vector<GUIEdge*> &edges);
+    GUIROWDrawer_FGwT(std::vector<GUIEdge*> &edges);
 
     /// destructor
-    ~GUIROWDrawer_FG();
+    ~GUIROWDrawer_FGwT();
 
 private:
     void drawLinkRules(const GUILaneWrapper &lane);
@@ -75,7 +78,7 @@ private:
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIROWDrawer_FG.icc"
+//#include "GUIROWDrawer_FGwT.icc"
 //#endif
 
 #endif

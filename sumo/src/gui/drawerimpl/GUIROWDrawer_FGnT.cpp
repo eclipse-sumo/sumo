@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        GUILaneDrawer_SG.cpp -
-//  Class for drawing right of way - rules on a simple geometry
+//                        GUIROWDrawer_FGnT.cpp -
+//  Class for drawing right of way-rules with full geometry
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/10/15 11:35:06  dkrajzew
+// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -44,7 +47,8 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
-#include "GUIROWDrawer_SG.h"
+#include "GUIROWDrawer_FGnT.h"
+#include <utils/geom/Position2DVector.h>
 
 #include <qgl.h>
 
@@ -68,34 +72,37 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIROWDrawer_SG::GUIROWDrawer_SG(std::vector<GUIEdge*> &edges)
+GUIROWDrawer_FGnT::GUIROWDrawer_FGnT(std::vector<GUIEdge*> &edges)
     : GUIBaseROWDrawer(edges)
 {
 }
 
 
-GUIROWDrawer_SG::~GUIROWDrawer_SG()
+GUIROWDrawer_FGnT::~GUIROWDrawer_FGnT()
 {
 }
 
 
 void
-GUIROWDrawer_SG::drawLinkRules(const GUILaneWrapper &lane)
+GUIROWDrawer_FGnT::drawLinkRules(const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
     double visLength = -lane.visLength();
+    const Position2D &end = lane.getShape().getEnd();
+    const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
+    const Position2D &s = end;
+    double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
     if(noLinks==0) {
         // draw a grey bar if no links are on the street
         glColor3f(0.5, 0.5, 0.5);
         glPushMatrix();
-        const Position2D &beg = lane.getBegin();
-        glTranslated(beg.x(), beg.y(), 0);
-        glRotated( lane.getRotation(), 0, 0, 1 );
+        glTranslated(end.x(), end.y(), 0);
+        glRotated( rot, 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2f(-1.5, visLength+.0);
-        glVertex2f(-1.5, visLength+.5);
-        glVertex2f(1.5, visLength+.5);
-        glVertex2f(1.5, visLength+.0);
+        glVertex2f(-1.5, 4.0);
+        glVertex2f(-1.5, 4.5);
+        glVertex2f(1.5, 4.5);
+        glVertex2f(1.5, 4.0);
         glEnd();
         glPopMatrix();
         return;
@@ -104,19 +111,18 @@ GUIROWDrawer_SG::drawLinkRules(const GUILaneWrapper &lane)
     float w = 3.0 / (float) noLinks;
     float x1 = 0;
     glPushMatrix();
-    const Position2D &beg = lane.getBegin();
-    glTranslated(beg.x(), beg.y(), 0);
-    glRotated( lane.getRotation(), 0, 0, 1 );
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
     for(size_t i=0; i<noLinks; i++) {
         float x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3f(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
-        glVertex2f(x1-1.5, visLength+0.0);
-        glVertex2f(x1-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.0);
+        glVertex2f(x1-1.5, 0.0);
+        glVertex2f(x1-1.5, 0.5);
+        glVertex2f(x2-1.5, 0.5);
+        glVertex2f(x2-1.5,0.0);
         glEnd();
         x1 = x2;
         x2 += w;
@@ -126,14 +132,17 @@ GUIROWDrawer_SG::drawLinkRules(const GUILaneWrapper &lane)
 
 
 void
-GUIROWDrawer_SG::drawArrows(const GUILaneWrapper &lane)
+GUIROWDrawer_FGnT::drawArrows(const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
     if(noLinks==0) {
         return;
     }
     // draw all links
-    double visLength = -lane.visLength();
+    const Position2D &end = lane.getShape().getEnd();
+    const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
+    const Position2D &s = end;
+    double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
     glPushMatrix();
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
@@ -148,9 +157,8 @@ GUIROWDrawer_SG::drawArrows(const GUILaneWrapper &lane)
     glEnable(GL_BLEND);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-    const Position2D &beg = lane.getBegin();
-    glTranslated(beg.x(), beg.y(), 0);
-    glRotated( lane.getRotation(), 0, 0, 1 );
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
     for(size_t i=0; i<noLinks; i++) {
         MSLink::LinkDirection dir = lane.getLinkDirection(i);
         MSLink::LinkState state = lane.getLinkState(i);
@@ -160,13 +168,13 @@ GUIROWDrawer_SG::drawArrows(const GUILaneWrapper &lane)
         glBindTexture(GL_TEXTURE_2D, myTextureIDs[dir]);
         glBegin(GL_TRIANGLE_STRIP);
         glTexCoord2f(0, 0);
-        glVertex2f(1.5, visLength+4.0);
+        glVertex2f(1.5, 4.0);
         glTexCoord2f(0, 1);
-        glVertex2f(1.5, visLength+1);
+        glVertex2f(1.5, 1);
         glTexCoord2f(1, 0);
-        glVertex2f(-1.5, visLength+4);
+        glVertex2f(-1.5, 4);
         glTexCoord2f(1, 1);
-        glVertex2f(-1.5, visLength+1);
+        glVertex2f(-1.5, 1);
         glEnd();
     }
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -176,7 +184,7 @@ GUIROWDrawer_SG::drawArrows(const GUILaneWrapper &lane)
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "GUIROWDrawer_SG.icc"
+//#include "GUIROWDrawer_FGnT.icc"
 //#endif
 
 // Local Variables:

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/15 11:37:50  dkrajzew
+// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+//
 // Revision 1.2  2003/09/23 14:25:13  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
@@ -121,7 +124,7 @@ namespace
 #include "GUIChooser.h"
 #include "GUISUMOViewParent.h"
 #include "drawerimpl/GUIAggregatedLaneDrawer.h"
-#include "drawerimpl/GUIROWDrawer_FG.h"
+#include "drawerimpl/GUIROWDrawer_FGnT.h"
 #include "drawerimpl/GUIJunctionDrawer_nT.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIViewAggregatedLanes.h"
@@ -154,7 +157,7 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(GUIApplicationWindow &app,
     _laneDrawer(new GUIAggregatedLaneDrawer(_net.myEdgeWrapper)),
     _junctionDrawer(new GUIJunctionDrawer_nT(_net.myJunctionWrapper)),
     _detectorDrawer(0),
-    _rowDrawer(new GUIROWDrawer_FG(_net.myEdgeWrapper)),
+    _rowDrawer(new GUIROWDrawer_FGnT(_net.myEdgeWrapper)),
     _laneColScheme(LCS_BLACK),
     myFontsLoaded(false)
 {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/10/15 11:37:50  dkrajzew
+// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+//
 // Revision 1.22  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -133,8 +136,10 @@ namespace
 #include "drawerimpl/GUIDetectorDrawer_SGwT.h"
 #include "drawerimpl/GUIDetectorDrawer_FGnT.h"
 #include "drawerimpl/GUIDetectorDrawer_FGwT.h"
-#include "drawerimpl/GUIROWDrawer_SG.h"
-#include "drawerimpl/GUIROWDrawer_FG.h"
+#include "drawerimpl/GUIROWDrawer_SGnT.h"
+#include "drawerimpl/GUIROWDrawer_FGnT.h"
+#include "drawerimpl/GUIROWDrawer_SGwT.h"
+#include "drawerimpl/GUIROWDrawer_FGwT.h"
 #include "drawerimpl/GUILaneDrawer_SGwT.h"
 #include "drawerimpl/GUILaneDrawer_SGnT.h"
 #include "drawerimpl/GUILaneDrawer_FGwT.h"
@@ -214,14 +219,14 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(_net.myDetectorWrapper);
     myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(_net.myDetectorWrapper);
     myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(_net.myDetectorWrapper);
-    myROWDrawer[0] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
-    myROWDrawer[1] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
-    myROWDrawer[2] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
-    myROWDrawer[3] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
-    myROWDrawer[4] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
-    myROWDrawer[5] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
-    myROWDrawer[6] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
-    myROWDrawer[7] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
+    myROWDrawer[0] = new GUIROWDrawer_SGnT(_net.myEdgeWrapper);
+    myROWDrawer[1] = new GUIROWDrawer_SGwT(_net.myEdgeWrapper);
+    myROWDrawer[2] = new GUIROWDrawer_FGnT(_net.myEdgeWrapper);
+    myROWDrawer[3] = new GUIROWDrawer_FGwT(_net.myEdgeWrapper);
+    myROWDrawer[4] = new GUIROWDrawer_SGnT(_net.myEdgeWrapper);
+    myROWDrawer[5] = new GUIROWDrawer_SGwT(_net.myEdgeWrapper);
+    myROWDrawer[6] = new GUIROWDrawer_FGnT(_net.myEdgeWrapper);
+    myROWDrawer[7] = new GUIROWDrawer_FGwT(_net.myEdgeWrapper);
 /*
     _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
     _laneDrawer(new GUIFullGeometryLaneDrawer(_net.myEdgeWrapper)),
