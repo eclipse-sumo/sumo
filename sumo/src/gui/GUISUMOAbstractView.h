@@ -2,7 +2,7 @@
 #define GUISUMOAbstractView_h
 //---------------------------------------------------------------------------//
 //                        GUISUMOAbstractView.h -
-//  A view on the simulation; this views is a microscopic one
+//  The base class for a view
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.8  2003/09/23 14:25:13  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
@@ -268,12 +271,14 @@ public:
 	    /// destructor
         virtual ~GUIROWRulesDrawer() { }
 
-        virtual void drawGLROWs(size_t *which, size_t maxEdges,
-            double width) = 0;
+        /// Method that draws the row-rules and the directions
+        virtual void drawGLROWs(const GUINet &net, size_t *which,
+            size_t maxEdges, double width) = 0;
 
     protected:
-
+        /// The edges to go by
         std::vector<GUIEdge*> &myEdges;
+
     };
 
     /**

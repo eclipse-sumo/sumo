@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.5  2003/11/11 08:40:03  dkrajzew
 // consequent position2D instead of two doubles implemented
 //
@@ -286,10 +289,6 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         _junctionColScheme);
     _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
-//    _rowDrawer->drawGLROWs(_edges2Show, _edges2ShowSize,
-//        width);
-//    _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
-//        scale/*, width, _laneColScheme*/);
     glPopMatrix();
 }
 

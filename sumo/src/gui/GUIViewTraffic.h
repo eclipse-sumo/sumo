@@ -2,7 +2,7 @@
 #define GUIViewTraffic_h
 //---------------------------------------------------------------------------//
 //                        GUIViewTraffic.h -
-//  A view on the simulation; this views is a microscopic one
+//  A view on the simulation; this view is a microscopic one
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.13  2003/09/05 14:55:11  dkrajzew
 // lighter drawer implementations
 //
@@ -51,8 +54,6 @@
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -69,7 +70,6 @@
 #include <utils/geom/Position2DVector.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
-//#include <guisim/GUIEdgeGrid.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
 #include "GUIChooser.h"
@@ -144,33 +144,58 @@ protected:
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
 protected:
+    /** @brief Instances of the vehicle drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
     GUIVehicleDrawer* myVehicleDrawer[8];
 
+    /** @brief Instances of the lane drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
     GUILaneDrawer *myLaneDrawer[8];
 
+    /** @brief Instances of the junction drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
     GUIJunctionDrawer *myJunctionDrawer[8];
 
-    GUIDetectorDrawer *myDetectorDrawer[8]; // !!!
+    /** @brief Instances of the detectors drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
+    GUIDetectorDrawer *myDetectorDrawer[8];
 
+    /** @brief Instances of the right of way drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
     GUIROWRulesDrawer *myROWDrawer[8];
 
-    /// the coloring scheme of vehicles to use
+    /// The coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;
 
-    /// the coloring scheme of lanes to use
+    /// The coloring scheme of lanes to use
     LaneColoringScheme _laneColScheme;
 
+    /// The coloring scheme of junctions to use
     JunctionColoringScheme _junctionColScheme;
 
     int myTrackedID;
 
+    /** @brief Information whether the fonts have been set.
+        Is false before the first drawing is done, indicating that the fonts
+        have to be made known to the gl window */
     bool myFontsLoaded;
 
+    /// The used font renderer
     LFontRenderer myFontRenderer;
 
+    /** @brief Pointers to tables holding the information which of the items are visible
+        All vehicles on visible edges will be drawn */
     size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
+
+    /// The absolut numbers of the array sizes
     size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
 
+    /// Information whether the full or the simle geometry shall be used
     bool myUseFullGeom;
 
 };

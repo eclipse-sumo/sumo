@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUISUMOAbstractView.cpp -
-//  A view on the simulation; this view is a microscopic one
+//  The base class for a view
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,11 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.12  2003/11/11 08:40:03  dkrajzew
 // consequent position2D instead of two doubles implemented
 //
 // Revision 1.11  2003/09/23 14:25:13  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
+// possibility to visualise detectors using different geometry complexities
+//  added
 //
 // Revision 1.10  2003/09/05 14:54:06  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
@@ -51,7 +55,8 @@ namespace
 // new error processing adapted
 //
 // Revision 1.3  2003/06/06 10:28:45  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+// new subfolder holding popup-menus was added due to link-dependencies
+//  under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
 // Revision 1.2  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
@@ -60,10 +65,12 @@ namespace
 // new view hierarchy; some debugging done
 //
 // Revision 1.12  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.11  2003/04/14 08:24:57  dkrajzew
-// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+// unneeded display switch and zooming option removed; new glo-objct concept
+//  implemented; comments added
 //
 // Revision 1.10  2003/04/07 10:15:16  dkrajzew
 // glut reinserted
@@ -73,7 +80,8 @@ namespace
 // Added #include <qcursor.h>
 //
 // Revision 1.8  2003/04/04 08:37:51  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+//  comments added; tootip button added
 //
 // Revision 1.7  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
@@ -91,8 +99,6 @@ namespace
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -133,11 +139,6 @@ namespace
 #include "GUISUMOAbstractView.h"
 #include "popup/QGLObjectPopupMenu.h"
 #include "GUIApplicationWindow.h"
-
-//#include "icons/view_traffic/colour_lane.xpm"
-//#include "icons/view_traffic/colour_vehicle.xpm"
-//#include "icons/view_traffic/show_grid.xpm"
-//#include "icons/view_traffic/show_tooltips.xpm"
 
 #ifndef WIN32
 #include "GUISUMOAbstractView.moc"
@@ -405,19 +406,15 @@ GUISUMOAbstractView::getObjectUnderCursor()
 {
     const int SENSITIVITY = 4;
     const int NB_HITS_MAX = 1000;
-
     // Prepare the selection mode
     static GLuint hits[NB_HITS_MAX];
     static GLint nb_hits = 0;
-
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
-
+    // compute new scale
     double scale = double(getMaxGLWidth())/double(SENSITIVITY);
-
     applyChanges(scale, _toolTipX+_mouseHotspotX,
         _toolTipY+_mouseHotspotY);
-
     // paint in select mode
     bool tmp = _useToolTips;
     _useToolTips = true;
@@ -428,17 +425,19 @@ GUISUMOAbstractView::getObjectUnderCursor()
     if(nb_hits==0) {
         return 0;
     }
-
     // Interpret results
-    //  Vehicles should have a greater id
-    //  than the previously allocated lanes
     unsigned int idMax = 0;
+    GUIGlObjectType prevType = GLO_MAX;
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
-        if (hits[i*4+3] > idMax) {
-            idMax = hits[i*4+3];
-            assert (i*4+3<NB_HITS_MAX);
+        unsigned int id = hits[i*4+3];
+        GUIGlObjectType type =
+            _net.getIDStorage().getObjectBlocking(id)->getType();
+        if((prevType>=type||idMax<id)&&type!=0) {
+            idMax = id;
+            prevType = type;
         }
+        assert (i*4+3<NB_HITS_MAX);
     }
     return idMax;
 }
@@ -448,10 +447,10 @@ void
 GUISUMOAbstractView::showToolTipFor(unsigned int id)
 {
     if(id!=0) {
-        GUIGlObject *object = _net._idStorage.getObjectBlocking(id);
+        GUIGlObject *object = _net.getIDStorage().getObjectBlocking(id);
         _toolTip->setObjectTip(object, _mouseX, _mouseY);
         if(object!=0) {
-            _net._idStorage.unblockObject(id);
+            _net.getIDStorage().unblockObject(id);
         }
     } else {
         _toolTip->hide();
@@ -491,8 +490,7 @@ GUISUMOAbstractView::paintGLGrid()
 
 
 void
-GUISUMOAbstractView::applyChanges(double scale,
-                             size_t xoff, size_t yoff)
+GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
 {
     _widthInPixels = width();
     _heightInPixels = height();
@@ -503,10 +501,7 @@ GUISUMOAbstractView::applyChanges(double scale,
     //  unclear
     glRotated(_changer->getRotation(), 0, 0, 1);
     // Fit the view's size to the size of the net
-    glScaled(
-        2.0/_netScale,
-        2.0/_netScale,
-        0);
+    glScaled(2.0/_netScale, 2.0/_netScale, 0);
     // apply ratio between window width and height
     glScaled(1/_ratio, 1, 0);
     // initially (zoom=100), the net shall be completely visible on the screen
@@ -537,12 +532,8 @@ GUISUMOAbstractView::applyChanges(double scale,
     if(xoff!=0||yoff!=0) {
         double absX = (double(xoff)-(double(_widthInPixels)/2.0));
         double absY = (double(yoff)-(double(_heightInPixels)/2.0));
-        glTranslated(
-            -p2m(absX),
-            p2m(absY),
-            0);
+        glTranslated(-p2m(absX), p2m(absY), 0);
     }
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // apply the widow size
@@ -572,7 +563,6 @@ GUISUMOAbstractView::displayLegend()
         }
         length *= 10;
         noDigits++;
-//        text = text + string("0");
     }
     double lineWidth = 1.0;
     glLineWidth(lineWidth);
@@ -743,7 +733,7 @@ GUISUMOAbstractView::allowRotation() const
 
 void
 GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
-                                   size_t mouseX, size_t mouseY)
+                                        size_t mouseX, size_t mouseY)
 {
     _toolTipX = x;
     _toolTipY = y;
@@ -760,16 +750,6 @@ GUISUMOAbstractView::paintEvent ( QPaintEvent *e )
     if(!isVisible()) {
         return;
     }
-/*    // mark that drawing is in process
-    _noDrawing++;
-    // ...and return when drawing is already
-    //  being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        return;
-    }
-    makeCurrent();
-    glDraw();*/
     QGLWidget::paintEvent(e);
 }
 
@@ -798,7 +778,7 @@ GUISUMOAbstractView::timerEvent ( QTimerEvent *e )
             unsigned int id = getObjectUnderCursor();
             GUIGlObject *o = 0;
             if(id!=0) {
-                o = _net._idStorage.getObjectBlocking(id);
+                o = _net.getIDStorage().getObjectBlocking(id);
             } else {
                 o = _net.getWrapper();
             }
@@ -844,13 +824,11 @@ GUISUMOAbstractView::getMaxGLHeight() const
 
 
 void
-GUISUMOAbstractView::clearUsetable(size_t *_edges2Show,
-                                   size_t _edges2ShowSize)
+GUISUMOAbstractView::clearUsetable(size_t *edges2Show,
+                                   size_t edges2ShowSize)
 {
-    memset(_edges2Show, 0, sizeof(size_t)*_edges2ShowSize);
+    memset(edges2Show, 0, sizeof(size_t)*edges2ShowSize);
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

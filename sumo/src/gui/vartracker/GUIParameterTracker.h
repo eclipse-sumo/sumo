@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/12 14:08:24  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.6  2003/11/11 08:43:04  dkrajzew
 // synchronisation problems of parameter tracker updates patched
 //
@@ -50,7 +53,6 @@
 #include <gui/GUIGlObject.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
-#include <microsim/logging/DoubleFunctionBinding.h>
 #include "TrackerValueDesc.h"
 
 

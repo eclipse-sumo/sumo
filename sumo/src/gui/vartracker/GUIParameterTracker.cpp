@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/12 14:08:23  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.10  2003/11/11 08:43:04  dkrajzew
 // synchronisation problems of parameter tracker updates patched
 //
@@ -97,7 +100,6 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
     app.addChild(this, true);
     myPanel = new
         GUIParameterTrackerPanel(myApplication, *this);
-//    myPanel->setGeometry(QRect( 0, 0, 200, 300));
     show();
 }
 
@@ -119,7 +121,6 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
     myPanel = new
         GUIParameterTrackerPanel(myApplication, *this);
     setCentralWidget(myPanel);
-//    addVariable(&o, name, src);
     myPanel->move(xpos, ypos);
     show();
 }
@@ -151,12 +152,6 @@ GUIParameterTracker::event ( QEvent *e )
     if(e->type()!=QEvent::User) {
         return QMainWindow::event(e);
     }
-    /*
-    for(TrackedVarsVector::iterator i=myTracked.begin(); i!=myTracked.end(); i++) {
-        TrackerValueDesc *desc = *i;
-        desc->simStep();
-    }
-    */
     update();
     return TRUE;
 }
@@ -187,8 +182,6 @@ GUIParameterTracker::paintEvent ( QPaintEvent *e )
 void
 GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 {
-/*    myPanel->setGeometry(QRect( 0, 0,
-		e->size().width(), e->size().height()));*/
 	QMainWindow::resizeEvent(e);
 }
 
@@ -270,8 +263,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::initializeGL()
     myFontRenderer.add(myApplication.myFonts.get("std9"));
     myFontRenderer.add(myApplication.myFonts.get("std8"));
     myFontRenderer.add(myApplication.myFonts.get("std7"));
-//    myFontRenderer.add(myApplication.myFonts.get("std6"));
-//    myFontRenderer.add(myApplication.myFonts.get("std5"));
     _lock.unlock();
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/12 14:08:24  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.4  2003/11/11 08:43:04  dkrajzew
 // synchronisation problems of parameter tracker updates patched
 //
@@ -40,8 +43,7 @@
 #include <string>
 #include <vector>
 #include <utils/gfx/RGBColor.h>
-#include <microsim/logging/DoubleValueRetriever.h>
-#include <microsim/logging/DoubleFunctionBinding.h>
+#include <helpers/ValueRetriever.h>
 
 
 /* =========================================================================
@@ -56,7 +58,7 @@ class GUIGlObject;
 /**
  *
  */
-class TrackerValueDesc : public DoubleValueRetriever {
+class TrackerValueDesc : public ValueRetriever<double> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,

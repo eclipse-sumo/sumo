@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUIViewTraffic.cpp -
-//  A view on the simulation; this views is a microscopic one
+//  A view on the simulation; this view is a microscopic one
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.24  2003/11/11 08:40:03  dkrajzew
 // consequent position2D instead of two doubles implemented
 //
@@ -94,8 +97,6 @@ namespace
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -158,10 +159,10 @@ namespace
 #include "icons/view_traffic/show_tooltips.xpm"
 #include "icons/view_traffic/show_geometry.xpm"
 
-
 #ifndef WIN32
 #include "GUIViewTraffic.moc"
 #endif
+
 
 /* =========================================================================
  * used namespaces
@@ -230,13 +231,6 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     myROWDrawer[5] = new GUIROWDrawer_SGwT(_net.myEdgeWrapper);
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net.myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net.myEdgeWrapper);
-/*
-    _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
-    _laneDrawer(new GUIFullGeometryLaneDrawer(_net.myEdgeWrapper)),
-    _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
-    _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
-    _rowDrawer(new GUIFGBarROWRulesDrawer(_net.myEdgeWrapper)),
-*/
 }
 
 
@@ -359,6 +353,7 @@ GUIViewTraffic::changeLaneColoringScheme(int index)
 void
 GUIViewTraffic::doPaintGL(int mode, double scale)
 {
+    // init view settings
     glRenderMode(mode);
     glMatrixMode( GL_MODELVIEW );
     glPushMatrix();
@@ -366,7 +361,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
-
+    // get the viewport settings
 	const Boundery &nb = _net.getBoundery();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
@@ -374,9 +369,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
-/*!!!    _net._edgeGrid.get(_edges, x, y, xoff, yoff);
-    paintGLEdges(_edges, scale);*/
-
+    // reset the tables of things to show if the viewport has changed
     if(myViewSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
@@ -384,23 +377,25 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
             _edges2Show, _junctions2Show, _detectors2Show, 0);
         myViewSettings.set(x, y, xoff, yoff);
     }
+    // compute lane width
     double width = m2p(3.0) * scale;
-
     size_t drawerToUse = 0;
+    // compute which drawer shall be used
     if(myUseFullGeom) {
         drawerToUse = 2;
     }
     if(_useToolTips) {
         drawerToUse += 1;
     }
-
+    // draw
     myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show,
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
     myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show,
         _detectors2ShowSize, scale);
-    myROWDrawer[drawerToUse]->drawGLROWs(_edges2Show, _edges2ShowSize, width);
+    myROWDrawer[drawerToUse]->drawGLROWs(_net,
+        _edges2Show, _edges2ShowSize, width);
 
 /*
 	Position2DVector tmp;
@@ -418,7 +413,6 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     if(scale*m2p(3)>1) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,
             _edges2ShowSize, _vehicleColScheme);
-        //paintGLVehicles(_edges);
     }
     glPopMatrix();
 }
@@ -509,6 +503,7 @@ GUIViewTraffic::track(int id)
 void
 GUIViewTraffic::doInit()
 {
+    // check whether the fonts have been made known to the gl-window
     if(!myFontsLoaded) {
         if(_app.myFonts.has("std")) {
             myFontRenderer.add(_app.myFonts.get("std"));

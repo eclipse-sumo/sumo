@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.8  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -36,8 +39,6 @@ namespace
 // class templates applied
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,92 +92,6 @@ GUIGlObject::setGlID(size_t id)
     myGlID = id;
 }
 
-
-/*
-void
-GUIGlObject::insertTableParameter(GUIParameterTableWindow *,
-                                  QListView *table,
-                                  double *parameter,
-                                  QListViewItem **vitems)
-{
-    fillTableParameter(parameter);
-
-
-    std::stack<QListViewItem*> stack;
-    QListViewItem *lvi = new QListViewItem(
-        table, "id", getFullName().c_str());
-    QListViewItem *plvi = lvi;
-    stack.push(lvi);
-    lvi->setOpen(TRUE);
-    lvi->setExpandable(FALSE);
-
-	int i = getTableParameterNo() - 1;
-    for(; i>=0; i--) {
-        const char * const item = getTableItem(i);
-        TableType type = getTableType(i);
-        switch(type)
-        {
-        case TT_DOUBLE:
-            plvi==0
-                ? lvi =  new QListViewItem(
-                    table,
-                    item,
-                    toString<double>(parameter[i]).c_str())
-                :  lvi =  new QListViewItem(
-                    plvi,
-                    item,
-                    toString<double>(parameter[i]).c_str());
-                vitems[i] = lvi;
-            break;
-        case TT_MENU_BEGIN:
-            {
-                const char *beginValue = getTableBeginValue(i);
-                plvi==0
-                    ? lvi =  new QListViewItem(
-                        table,
-                        item,
-                        beginValue)
-                    :  lvi =  new QListViewItem(
-                        plvi,
-                        item,
-                        beginValue);
-                stack.push(lvi);
-                plvi = lvi;
-                lvi->setOpen( FALSE );
-                vitems[i] = lvi;
-            }
-            break;
-        case TT_MENU_END:
-            lvi = stack.top();
-            stack.pop();
-            if(stack.size()>0) {
-                plvi = stack.top();
-            } else {
-                plvi = 0;
-            }
-            vitems[i] = 0;
-            break;
-        default:
-            throw 1;
-        }
-    }
-}
-
-
-size_t
-GUIGlObject::getTableParameterNo() const
-{
-    for(size_t i=0; ; i++) {
-        const char * const item = getTableItem(i);
-        if(item==0) {
-            return i;
-        }
-    }
-    throw 1;
-    return 0;
-}
-
-*/
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "GUIGlObject.icc"

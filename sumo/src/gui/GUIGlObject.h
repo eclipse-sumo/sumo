@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/11/12 14:07:46  dkrajzew
+// clean up after recent changes
+//
 // Revision 1.7  2003/11/11 08:41:27  dkrajzew
 // logging moved from utils to microsim
 //
@@ -44,7 +47,6 @@
  * ======================================================================= */
 #include <string>
 #include "GUIGlObjectTypes.h"
-#include <microsim/logging/DoubleFunctionBinding.h>
 
 
  /* =========================================================================
@@ -81,6 +83,7 @@ public:
     virtual QGLObjectPopupMenu *getPopUpMenu(
         GUIApplicationWindow &app, GUISUMOAbstractView &parent) = 0;
 
+    /// Returns an own parameter window
     virtual GUIParameterTableWindow *getParameterWindow(
         GUIApplicationWindow &app, GUISUMOAbstractView &parent) = 0;
 
@@ -89,32 +92,13 @@ public:
 
     /// returns the id of the object as known to microsim
     virtual std::string microsimID() const = 0;
-/*
-    void insertTableParameter(GUIParameterTableWindow *window,
-        QListView *table, double *parameter,
-        QListViewItem **vitems);
-
-    virtual size_t getTableParameterNo() const;
-
-    virtual double getTableParameter(size_t pos) const = 0;
-*/
-//    virtual void fillTableParameter(double *parameter) const = 0;
 
     /// Needed to set the id
     friend class GUIGlObjectStorage;
-/*
-    virtual const char * const getTableItem(size_t pos) const = 0;
-*/
-	virtual bool active() const = 0;
 
-//    virtual DoubleValueSource *bind(size_t what) const = 0;
+    /// Returns the information whether this object is still active
+    virtual bool active() const = 0;
 
-protected:
-/*
-    virtual TableType getTableType(size_t pos) const = 0;
-
-    virtual const char *getTableBeginValue(size_t pos) const = 0;
-*/
 private:
     /// Sets the id of the object
     void setGlID(size_t id);
