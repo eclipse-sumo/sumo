@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/29 10:42:50  dkrajzew
+// problems accured due to the deletion of a vehicle that reached his destination debugged
+//
 // Revision 1.2  2002/10/28 12:56:52  dkrajzew
 // forgot reinitialisation of hopped vehicle added
 //
@@ -174,6 +177,7 @@ MSLaneChanger::initChanger()
     for ( ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce ) {
 
         ce->follow = 0;
+        ce->hoppedVeh = 0;
 
         MSLane::VehCont& vehicles = ce->lane->myVehicles;
         if ( vehicles.empty() ) {
@@ -189,7 +193,6 @@ MSLaneChanger::initChanger()
             continue;
         }
         ce->lead = *( vehicles.begin() + 1 );
-        ce->hoppedVeh = 0;
     }
 }
 
@@ -227,7 +230,6 @@ MSLaneChanger::change()
     else { // not on allowed
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
-
             target->hoppedVeh = veh( myCandi );
             target->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2002/10/29 10:42:51  dkrajzew
+// problems accured due to the deletion of a vehicle that reached his destination debugged
+//
 // Revision 1.6  2002/10/28 12:59:38  dkrajzew
 // vehicles are now deleted whe the tour is over
 //
@@ -663,7 +666,6 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 
 
 void 
- 
 MSVehicle::_assertPos() const
 {
     assert(myState.myPos<myLane->length());
