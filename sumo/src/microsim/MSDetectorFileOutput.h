@@ -24,7 +24,7 @@
 // $Id$
 
 #include <string>
-#include "MSNet.h"
+#include "MSUnit.h"
 
 /**
  * Pure virtual base class for classes (e.g. MSLaneState and
@@ -55,7 +55,7 @@ public:
      * @param lastNTimesteps Generate data out of the interval
      * (now-lastNTimesteps, now].
      */
-    virtual std::string  getXMLOutput( MSNet::Time lastNTimesteps ) = 0;
+    virtual std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps ) = 0;
     /** 
      * Get an opening XML-element containing information about the detector.
      */
@@ -63,12 +63,21 @@ public:
     /** 
      * Get a closing XML-element to getXMLDetectorInfoStart.
      */
-    virtual std::string& getXMLDetectorInfoEnd( void ) const = 0;
+    virtual std::string& getXMLDetectorInfoEnd( void ) const
+        {
+            return infoEndM;
+        }
+    
     /** 
      * Get the data-clean up interval in timesteps.
      */
-    virtual MSNet::Time getDataCleanUpSteps( void ) const = 0;
+    virtual MSUnit::IntSteps getDataCleanUpSteps( void ) const = 0;
+    
+protected:
+    static std::string infoEndM;
 };
+
+std::string MSDetectorFileOutput::infoEndM = std::string("</detector>");
 
 #endif
 

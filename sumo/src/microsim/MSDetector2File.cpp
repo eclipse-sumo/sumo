@@ -66,9 +66,10 @@ MSDetector2File::~MSDetector2File( void )
 void
 MSDetector2File::addDetectorAndInterval( Detector* det,
                                          const string& filename,
-                                         MSNet::Time intervalInSeconds )
+                                         MSUnit::Seconds intervalInSeconds )
 {
-    MSNet::Time intervalInSteps( MSNet::getSteps( intervalInSeconds ));
+    MSUnit::IntSteps intervalInSteps(
+        MSUnit::getInstance()->getIntegerSteps( intervalInSeconds ) );
     assert( intervalInSteps >= 1 );
 
     /*            Detector* det = 
@@ -96,7 +97,7 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
 
         // Add command for given interval only once to MSEventControl
         Command* writeData =
-            new OneArgumentCommand< MSDetector2File, MSNet::Time >
+            new OneArgumentCommand< MSDetector2File, MSUnit::IntSteps >
             ( this, &MSDetector2File::write2file, intervalInSteps );
         MSEventControl::getEndOfTimestepEvents()->addEvent(
             writeData,
@@ -127,7 +128,7 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
 }
 
 
-MSNet::Time
+MSUnit::IntSteps
 MSDetector2File::write2file( MSNet::Time intervalInSteps )
 {
     Intervals::iterator intervalIt =

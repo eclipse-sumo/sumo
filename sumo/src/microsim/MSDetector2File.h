@@ -23,7 +23,7 @@
 
 // $Id$
 
-#include "MSNet.h"
+#include "MSUnit.h"
 #include "MSDetectorFileOutput.h"
 
 /**
@@ -50,7 +50,7 @@ public:
     /// Container holding DetectorFilePair (with the same interval).
     typedef std::vector< DetectorFilePair > DetectorFileVec;
     /// Association of intervals to DetectorFilePair containers.
-    typedef std::map< MSNet::Time, DetectorFileVec > Intervals;
+    typedef std::map< MSUnit::IntSteps, DetectorFileVec > Intervals;
 
     /** 
      * Return and/or create the sole instance of this class.
@@ -81,7 +81,8 @@ public:
      */
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
-                                 MSNet::Time intervalInSeconds );
+                                 MSUnit::Seconds intervalInSeconds );
+    // statt intervalInSeconds zwei Parameter, einen fuer die messintervalllaenge und einen fuer das outputintervall, z.b. gib alle 60 s die werte fuer die letzten 5 min aus. dazu muss ein TwoArgumentCommand gebaut werden
     
 protected:
     /** 
@@ -93,11 +94,11 @@ protected:
      * @see MSEventControl
      * @see OneArgumentCommand     
      * 
-     * @param intervalInSteps The interval that is due.
+     * @param interval The interval that is due.
      * 
      * @return intervalInSteps to reactivate the event.
      */
-    MSNet::Time write2file( MSNet::Time intervalInSteps );
+    MSUnit::IntSteps write2file( MSUnit::IntSteps interval );
 
 
     /// Default constructor.
