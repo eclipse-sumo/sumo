@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/09/05 14:59:54  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.4  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -202,9 +205,10 @@ GUISourceLane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage,
+                                bool allowAggregation)
 {
-    return new GUILaneWrapper(idStorage, *this, myShape);
+    return new GUILaneWrapper(idStorage, *this, myShape, allowAggregation);
 }
 
 

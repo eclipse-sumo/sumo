@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/09/05 15:01:24  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.15  2003/08/04 11:35:51  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -141,6 +144,7 @@ GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
     GUIHelpingJunction::fill(net->myJunctionWrapper, net->_idStorage);
     // initialise detector storage for gui
     initDetectors();
+    // initialise the lane states for lane wrappers when wished
     // build the grid
 //    net->_edgeGrid.init();
     net->_grid.init();
@@ -225,9 +229,6 @@ GUINet::getEmitterPosition(const std::string &name) const
         (*i).second->getXCoordinate(),
         (*i).second->getYCoordinate());
 }
-
-
-
 
 
 bool

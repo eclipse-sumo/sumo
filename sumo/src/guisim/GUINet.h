@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2003/09/05 15:01:24  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.15  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -157,6 +160,7 @@ public:
 
 
     friend class GUIViewTraffic; // !!!
+    friend class GUIViewAggregatedLanes; // !!!
     friend class GUISUMOAbstractView; // !!!
     friend class GUIEdgeControlBuilder;
     friend class GUILane;

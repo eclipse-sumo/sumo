@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/09/05 14:59:54  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.5  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -130,7 +133,8 @@ public:
     /// returns the vehicles closing their processing for other threads
     const VehCont &getVehiclesSecure();
 
-    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage) ;
+    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage,
+        bool allowAggregation);
 
     friend class GUILaneChanger;
 

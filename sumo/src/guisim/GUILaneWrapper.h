@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/09/05 14:59:54  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.10  2003/08/21 12:50:49  dkrajzew
 // retrival of a links direction added
 //
@@ -60,6 +63,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <utils/common/DoubleVector.h>
 #include <string>
 #include <utility>
 #include <microsim/MSLane.h>
@@ -68,6 +72,7 @@
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/qutils/NewQMutex.h>
+#include <utils/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlObject.h>
 //#include <gui/TableTypes.h>
 
@@ -96,7 +101,7 @@ class GUILaneWrapper :
 public:
     /// constructor
     GUILaneWrapper( GUIGlObjectStorage &idStorage,
-        MSLane &lane, const Position2DVector &shape);
+        MSLane &lane, const Position2DVector &shape, bool allowAggregation);
 
     /// destructor
     virtual ~GUILaneWrapper();
@@ -145,7 +150,13 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
-    const Position2DVector &getShape();
+    const Position2DVector &getShape() const;
+    const DoubleVector &getShapeRotations() const;
+    const DoubleVector &getShapeLengths() const;
+
+    const MSLane::VehCont &getVehiclesSecure();
+    void releaseVehicles();
+
 /*
     double getTableParameter(size_t pos) const;
 
@@ -159,6 +170,8 @@ public:
     MSLink::LinkState getLinkState(size_t pos) const;
     MSLink::LinkDirection getLinkDirection(size_t pos) const;
 
+    double getAggregatedDensity(size_t aggregationPosition) const;
+
 protected:
 /*
     TableType getTableType(size_t pos) const;
@@ -166,6 +179,9 @@ protected:
     const char *getTableBeginValue(size_t ) const { throw 1; }
 */
 	bool active() const { return true; }
+
+private:
+    void buildAggregatedValuesStorage();
 
 protected:
     /// the begin position of the lane
@@ -190,8 +206,18 @@ protected:
     /// The shape of the lane
     const Position2DVector &myShape;
 
+    /// The rotations of the shape parts
+    DoubleVector myShapeRotations;
+
+    /// The lengths of the shape parts
+    DoubleVector myShapeLengths;
+
     /// The maximum velocity over all lanes
     static double myAllMaxSpeed;
+
+    LoggedValue_TimeFloating<double> **myAggregatedValues;
+
+    static size_t myAggregationSizes[];
 
 };
 

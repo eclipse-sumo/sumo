@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 14:59:54  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.9  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -254,9 +257,9 @@ GUILane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage, bool allowAggregation)
 {
-    return new GUILaneWrapper(idStorage, *this, myShape);
+    return new GUILaneWrapper(idStorage, *this, myShape, allowAggregation);
 }
 
 

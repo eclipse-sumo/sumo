@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/09/05 14:59:54  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.11  2003/08/21 12:50:49  dkrajzew
 // retrival of a links direction added
 //
@@ -75,9 +78,9 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-//#include <gui/popup/QGLObjectPopupMenu.h>
-//#include <qwidget.h>
-//#include <qpopupmenu.h>
+#include <gui/GUILaneStateReporter.h>
+#include <utils/convert/ToString.h>
+#include <utils/geom/GeomHelper.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <gui/popup/QGLObjectPopupMenu.h>
@@ -94,6 +97,9 @@ using namespace std;
  * static member definitions
  * ======================================================================= */
 double GUILaneWrapper::myAllMaxSpeed = 0;
+size_t GUILaneWrapper::myAggregationSizes[] = {
+    60, 300, 900
+};
 
 
 
@@ -106,9 +112,10 @@ double GUILaneWrapper::myAllMaxSpeed = 0;
 
 
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape)
+                               MSLane &lane, const Position2DVector &shape,
+                               bool allowAggregation)
     : GUIGlObject(idStorage, string("lane:")+lane.id()),
-    myLane(lane), myShape(shape)
+    myLane(lane), myShape(shape), myAggregatedValues(0)
 {
     double x1 = shape.at(0).x();
     double y1 = shape.at(0).y();
@@ -118,12 +125,25 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     _begin = Position2D(x1, y1);
     _end = Position2D(x2, y2);
     _direction = Position2D((x1-x2)/length, (y1-y2)/length);
-    _rotation = atan2((x2-x1), (y1-y2))*180/3.14159265;
+    _rotation = atan2((x2-x1), (y1-y2))*180.0/3.14159265;
     // also the virtual length is set in here
     _visLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
     if(myAllMaxSpeed<lane.maxSpeed()) {
         myAllMaxSpeed = lane.maxSpeed();
+    }
+    // build the storage for lane wrappers when wished
+    if(allowAggregation) {
+        buildAggregatedValuesStorage();
+    }
+    //
+    myShapeRotations.reserve(myShape.size()-1);
+    myShapeLengths.reserve(myShape.size()-1);
+    for(size_t i=0; i<myShape.size()-1; i++) {
+        const Position2D &f = myShape.at(i);
+        const Position2D &s = myShape.at(i+1);
+        myShapeLengths.push_back(GeomHelper::distance(f, s));
+        myShapeRotations.push_back(atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265);
     }
 }
 
@@ -295,7 +315,7 @@ GUILaneWrapper::fillTableParameter(double *parameter) const
 */
 
 const Position2DVector &
-GUILaneWrapper::getShape()
+GUILaneWrapper::getShape() const
 {
     return myShape;
 }
@@ -320,6 +340,58 @@ GUILaneWrapper::getLinkDirection(size_t pos) const
 {
     return myLane.getLinkCont()[pos]->getDirection();
 }
+
+
+void
+GUILaneWrapper::buildAggregatedValuesStorage()
+{
+    //
+    myAggregatedValues = new LoggedValue_TimeFloating<double>*[3];
+    for(size_t i=0; i<3; i++) {
+        myAggregatedValues[i] =
+            new LoggedValue_TimeFloating<double>(myAggregationSizes[i]);
+        string id = string("*") + myLane.id() + toString<size_t>(i);
+        new GUILaneStateReporter(myAggregatedValues[i],
+            id,
+            &myLane, 0, myLane.length(), myAggregationSizes[i]);
+    }
+}
+
+
+double
+GUILaneWrapper::getAggregatedDensity(size_t aggregationPosition) const
+{
+    return myAggregatedValues[aggregationPosition]->getAbs();
+}
+
+
+const DoubleVector &
+GUILaneWrapper::getShapeRotations() const
+{
+    return myShapeRotations;
+}
+
+
+const DoubleVector &
+GUILaneWrapper::getShapeLengths() const
+{
+    return myShapeLengths;
+}
+
+
+const MSLane::VehCont &
+GUILaneWrapper::getVehiclesSecure()
+{
+    return myLane.getVehiclesSecure();
+}
+
+
+void
+GUILaneWrapper::releaseVehicles()
+{
+    myLane.releaseVehicles();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

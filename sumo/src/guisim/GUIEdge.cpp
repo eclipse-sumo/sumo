@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/05 14:58:50  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.10  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -81,7 +84,7 @@ using namespace std;
  * included modules
  * ======================================================================= */
 GUIEdge::GUIEdge(std::string id)
-    : MSEdge(id)
+    : MSEdge(id), _from(0), _to(0)
 {
 }
 
@@ -95,8 +98,13 @@ GUIEdge::~GUIEdge()
 
 void
 GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
-                       GUIGlObjectStorage &idStorage)
+                       GUIGlObjectStorage &idStorage,
+                       bool allowAggregation)
 {
+    if(_from!=0&&_to!=0) {
+        assert(from==_from&&to==_to);
+        return;
+    }
     // set the information about the nodes
     //  !!! not longer needed
     _from = from;
@@ -104,7 +112,7 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     // build the lane wrapper
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
-        tmp.push_back((*i)->buildLaneWrapper(idStorage));
+        tmp.push_back((*i)->buildLaneWrapper(idStorage, allowAggregation));
     }
     _laneGeoms.reserve(tmp.size());
     copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));

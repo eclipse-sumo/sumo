@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 14:56:11  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.9  2003/08/18 12:35:09  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -98,10 +101,10 @@ GUINetBuilder::~GUINetBuilder()
 
 
 GUINet *
-GUINetBuilder::buildGUINet()
+GUINetBuilder::buildGUINet(bool allowAggregation)
 {
     GUIContainer *container = new GUIContainer(
-        new GUIEdgeControlBuilder(),
+        new GUIEdgeControlBuilder(allowAggregation),
         new GUIJunctionControlBuilder());
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
     parser->setFeature(

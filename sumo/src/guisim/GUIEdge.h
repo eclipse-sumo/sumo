@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/09/05 14:58:50  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.6  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -79,7 +82,7 @@ public:
 
     /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
     void initJunctions(MSJunction *from, MSJunction *to,
-        GUIGlObjectStorage &idStorage);
+        GUIGlObjectStorage &idStorage, bool allowAggregation);
 
     /// returns the names of all edges
     static std::vector<std::string> getNames();

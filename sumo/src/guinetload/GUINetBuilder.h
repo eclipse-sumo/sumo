@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/09/05 14:56:11  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.2  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -60,7 +63,7 @@ public:
     ~GUINetBuilder();
 
     /// builds the gui network
-    GUINet *buildGUINet();
+    GUINet *buildGUINet(bool allowAggregation);
 };
 
 
