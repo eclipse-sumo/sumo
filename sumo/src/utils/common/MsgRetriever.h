@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/12/09 11:32:14  dkrajzew
+// destructor must be visble for deletion of msg-retrival methods
+//
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -42,12 +45,12 @@ public:
     /// adds a new error to the list
     virtual void inform(const std::string &error) = 0;
 
+    /// destructor
+    virtual ~MsgRetriever() { }
+
 protected:
     /// standard constructor
     MsgRetriever() { }
-
-    /// destructor
-    virtual ~MsgRetriever() { }
 
 };
 
