@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.31  2003/11/26 09:35:03  dkrajzew
+// special case of being unset (==-1) applied to min/max of actuated/agentbase phase definitions
+//
 // Revision 1.30  2003/11/24 14:33:40  dkrajzew
 // missing iterator initialisation failed
 //
@@ -375,8 +378,8 @@ NLNetHandler::addPhase(const Attributes &attrs)
     size_t max = duration;
     try {
         if(m_Type=="actuated"||m_Type=="agentbased") {
-            min = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
-            max = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
+            min = getIntSecure(attrs, SUMO_ATTR_DURATION, -1);
+            max = getIntSecure(attrs, SUMO_ATTR_DURATION, -1);
         }
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The phase minimum or masimum duration is not numeric.");
