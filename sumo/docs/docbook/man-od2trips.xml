@@ -13,8 +13,8 @@
   <refnamediv>
     <refname><application>od2trips</application></refname>
 
-    <refpurpose>This application is used convert OD-matrices (stored in Vissim format) into single trip definitions.
-    No routing takes place, yet.</refpurpose>
+    <refpurpose>This application is used convert OD-matrices (stored in Vissim
+    format) into single trip definitions. No routing takes place, yet.</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -42,16 +42,18 @@
   <refsect1>
     <title>DESCRIPTION</title>
 
-    <para><application>od2trips</application> obtains a network generated from a Vissim or a Visum-network and a set of od-files stored
-    in Vissim/Visum format. This information is used to generate single vehicle trips by dividing the od-matrix into the amounts of vehicles
-    with a certain origin and destination and writing each of such vehicle trip information into the named output file.</para>
-
+    <para><application>od2trips</application> obtains a network generated from
+    a Vissim or a Visum-network and a set of od-files stored in Vissim/Visum
+    format. This information is used to generate single vehicle trips by
+    dividing the od-matrix into the amounts of vehicles with a certain origin
+    and destination and writing each of such vehicle trip information into the
+    named output file.</para>
   </refsect1>
 
   <refsect1>
     <title>OPTIONS</title>
 
-    <para>In the following, all possible options are presented. </para>
+    <para>In the following, all possible options are presented.</para>
 
     <para>Please remark, that the configuration-option may be used to supply a
     file that contains all other parameter&#39;s definition. Please take a
@@ -76,7 +78,8 @@
           <term>[ --net-file | -n ] <replaceable class="parameter">&#60;sumo-net-file&#62;</replaceable></term>
 
           <listitem>
-            <para>The SUMO-network file to use. <remark>Mandatory, type:filename, default: none</remark></para>
+            <para>The SUMO-network file to use. <remark>Mandatory,
+            type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -84,7 +87,8 @@
           <term>[ --route-file | -d ] <replaceable class="parameter">&#60;VISSIM-ROUTES-FILE&#62;</replaceable></term>
 
           <listitem>
-            <para>The file containing a single O/D-matrix. <remark>Optional, type:filename, default: none</remark></para>
+            <para>The file containing a single O/D-matrix. <remark>Optional,
+            type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -99,37 +103,35 @@
           class="parameter">&#60;output-file&#62;</replaceable></term>
 
           <listitem>
-            <para>Defines the name of the file to write the computed trips into. <remark>Mandatory,
-            type:filename, default: none</remark></para>
+            <para>Defines the name of the file to write the computed trips
+            into. <remark>Mandatory, type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
     </refsect2>
-
 
     <refsect2>
       <title>Computation Variables Settings:</title>
 
       <variablelist>
         <varlistentry>
-          <term>[ --scale | -s ]  <replaceable class="parameter">&#60;FLOAT&#62;</replaceable></term>
+          <term>[ --scale | -s ] <replaceable class="parameter">&#60;SCALE&#62;</replaceable></term>
 
           <listitem>
-            <para>A scaling value the O/D-matrix is scaled with. This value is not
-            depending on values stored within the matrix. <remark>Optional (pre-given),
-            type:float, default: !!!?</remark></para>
+            <para>A scaling value the O/D-matrix is scaled with. This value is
+            not depending on values stored within the matrix.
+            <remark>Optional (pre-given), type:float, default: 1</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
     </refsect2>
-
 
     <refsect2>
       <title>Times settings:</title>
 
       <variablelist>
         <varlistentry>
-          <term>[ --begin | -b ] &#60;<replaceable class="parameter">time&#62;</replaceable></term>
+          <term>[ --begin | -b ] &#60;<replaceable class="parameter">TIME&#62;</replaceable></term>
 
           <listitem>
             <para>A virtual time to specify the begin of route computation.
@@ -139,7 +141,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --end | -e ] <replaceable class="parameter">&#60;time&#62;</replaceable></term>
+          <term>[ --end | -e ] <replaceable class="parameter">&#60;TIME&#62;</replaceable></term>
 
           <listitem>
             <para>A virtual time to specify the end of route computation.
@@ -149,7 +151,6 @@
         </varlistentry>
       </variablelist>
     </refsect2>
-
 
     <refsect2>
       <title>Report Options:</title>
@@ -184,7 +185,7 @@
 
         <varlistentry>
           <term>[ --log-file | -L ]<replaceable class="parameter">
-          &#60;log-file-name&#62;</replaceable></term>
+          &#60;LOG_FILE_NAME&#62;</replaceable></term>
 
           <listitem>
             <para>All outputs (messages, warnings, and errors) will be written
@@ -199,7 +200,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --abs-rand ]</term>
+          <term>--abs-rand</term>
 
           <listitem>
             <para>Initialises the random number generator with the current
@@ -210,7 +211,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --srand ] <replaceable class="parameter">&#60;number&#62;</replaceable></term>
+          <term>--srand <replaceable class="parameter">&#60;SEED&#62;</replaceable></term>
 
           <listitem>
             <para>Initialises the random number generator with the given
@@ -233,7 +234,6 @@
       <para><command>od2trips</command> -c <filename>myConfig.netc.cfg</filename></para>
 
       <para>Does the things described by the configuration &#34;<filename>myConfig.netc.cfg</filename>&#34;</para>
-
     </refsect2>
   </refsect1>
 
@@ -247,7 +247,6 @@
     <title>BUGS</title>
 
     <para>The program is still under development.</para>
-
   </refsect1>
 
   <refsect1>

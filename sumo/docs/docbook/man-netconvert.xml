@@ -245,7 +245,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --map-output ] <replaceable class="parameter">&#60;map-output-file&#62;</replaceable></term>
+          <term>--map-output <replaceable class="parameter">&#60;map-output-file&#62;</replaceable></term>
 
           <listitem>
             <para>Writes the file <filename>&#60;map-output-file&#62;</filename>
@@ -255,7 +255,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --plain-output ] <replaceable class="parameter">&#60;plain-output-prefix&#62;</replaceable></term>
+          <term>--plain-output <replaceable class="parameter">&#60;plain-output-prefix&#62;</replaceable></term>
 
           <listitem>
             <para>Writes the files <filename><replaceable>&#60;plain-output-prefix&#62;</replaceable>.nod.xml</filename>
@@ -504,7 +504,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-junctions &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-tls &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -515,7 +515,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-no-junctions&#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-no-tls&#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall

@@ -73,7 +73,6 @@
           <listitem>
             <para>Informs jtrrouter to use the sumo-network sumo-net-file for
             routing. <remark>Mandatory, type:filename, default: none</remark></para>
-
           </listitem>
         </varlistentry>
 
@@ -97,22 +96,6 @@
             <replaceable>&#60;filename&#62;</replaceable>. The format (xml or
             cvs) is determined automatically. <remark>Optional, type:filename,
             default: none</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>[ --weights | -weight-files | -w ] <replaceable
-          class="parameter">&#60;filename&#62;</replaceable></term>
-
-          <listitem>
-            <para>Forces jtrrouter to read the network weights from
-            <replaceable>&#60;filename&#62;</replaceable>. <remark>Optional,
-            type:filename, default: none</remark></para>
-
-            <caution>
-              <para>The name &#34;weight-files&#34; is ambiguous: only one
-              weight file can be loaded by now.</para>
-            </caution>
           </listitem>
         </varlistentry>
 

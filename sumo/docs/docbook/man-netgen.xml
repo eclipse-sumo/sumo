@@ -63,7 +63,7 @@
   <refsect1>
     <title>OPTIONS</title>
 
-    <para>In the following, all possible options are presented. </para>
+    <para>In the following, all possible options are presented.</para>
 
     <para>Please remark, that the configuration-option may be used to supply a
     file that contains all other parameter&#39;s definition. Please take a
@@ -122,7 +122,7 @@
           class="parameter">&#60;output-file&#62;</replaceable></term>
 
           <listitem>
-            <para>Defines the file to write the computed network into. </para>
+            <para>Defines the file to write the computed network into.</para>
 
             <para>This file will contain the generated network if the
             conversion could be accomplished. <remark>Mandatory,
@@ -193,7 +193,7 @@
 
           <listitem>
             <para>Describes how long each horizontal street shall be in
-            meters. </para>
+            meters.</para>
 
             <remark>Optional (pre-given), type:float, default: 100</remark>
           </listitem>
@@ -230,7 +230,7 @@
           class="parameter">&#60;edge-number&#62;</replaceable></term>
 
           <listitem>
-            <para>Specifies how many arms (axes) the net shall have. </para>
+            <para>Specifies how many arms (axes) the net shall have.</para>
 
             <remark>Optional (pre-given), type:int, default: 13</remark>
           </listitem>
@@ -551,7 +551,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-junctions &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-tls &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -562,7 +562,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-no-junctions&#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-no-tls &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -632,7 +632,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --abs-rand ]</term>
+          <term>--abs-rand</term>
 
           <listitem>
             <para>Initialises the random number generator with the current
@@ -643,7 +643,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --srand ] <replaceable class="parameter">&#60;number&#62;</replaceable></term>
+          <term>--srand <replaceable class="parameter">&#60;number&#62;</replaceable></term>
 
           <listitem>
             <para>Initialises the random number generator with the given
