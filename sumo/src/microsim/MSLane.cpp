@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/17 10:43:35  dkrajzew
+// error of setting of link-driverequests out of a vehicles route repaired
+//
 // Revision 1.2  2002/10/16 16:43:48  dkrajzew
 // regard of artifactsarising from traffic lights implemented; debugged
 //
@@ -1249,16 +1252,21 @@ MSLane::setDriveRequests()
     // set the requests 
     double looked = myLength - myTargetState.pos();
     MSLane *currLane = this;
-    MSLane::LinkCont::const_iterator link = 
-        succLinkSec( *myFirst, 1, *this );
-    while ( seenDriveDist > looked ) {
+    if(myFirst->hasSuccEdge(1)) {
+        MSLane::LinkCont::const_iterator link = 
+            succLinkSec( *myFirst, 1, *this );
+        size_t followerNo = 1;
+        while ( seenDriveDist > looked && myFirst->hasSuccEdge(followerNo)) {
 
-        //assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
-        // should be reached earlier.
-        (*link)->myDriveRequest = true;
-        link = succLinkSec( *myFirst, 1, *currLane );
-        currLane = (*link)->myLane;
-        looked += currLane->myLength;
+            //assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
+            // should be reached earlier.
+            (*link)->myDriveRequest = true;
+            if(myFirst->hasSuccEdge(++followerNo)) {
+                link = succLinkSec( *myFirst, 1, *currLane );
+                currLane = (*link)->myLane;
+                looked += currLane->myLength;
+            }
+        }
     }
 
 
