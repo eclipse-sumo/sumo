@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/22 15:41:28  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.10  2003/09/05 14:56:11  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -64,6 +67,7 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
 #include <guisim/GUINet.h>
+#include <guisim/GUIVehicleTransfer.h>
 #include <netload/NLNetHandler.h>
 #include <netload/NLLoadFilter.h>
 #include <utils/common/MsgHandler.h>
@@ -86,7 +90,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * member method definitions
  * ======================================================================= */
 GUINetBuilder::GUINetBuilder(const OptionsCont &oc)
-    : NLNetBuilder(oc)
+    : NLNetBuilder(oc, new GUIVehicleTransfer())
 {
     GUINet::preInitGUINet(
         oc.getInt("b"),

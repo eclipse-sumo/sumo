@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.35  2003/10/22 15:45:51  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.34  2003/09/23 14:21:31  dkrajzew
 // removed some dead code
 //
@@ -266,6 +269,7 @@ class MSVehicleType;
 class MSLane;
 class MSLaneState;
 class MSTLLogicControl;
+class MSVehicleTransfer;
 
 
 /* =========================================================================
@@ -304,7 +308,7 @@ public:
      * To finish the initialization call &ref init.
      * @param startTimestep Timestep the simulation will start with.
      */
-    static void preInit( Time startTimestep,
+    static void preInit( MSVehicleTransfer *vt, Time startTimestep,
         TimeVector dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
 

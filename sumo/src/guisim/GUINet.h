@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2003/10/22 15:42:56  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.17  2003/10/22 07:07:06  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -168,6 +171,7 @@ public:
     friend class GUIEdgeControlBuilder;
     friend class GUILane;
     friend class GUIInternalLane;
+    friend class GUIVehicleTransfer;
     friend class GUIGrid;
 
 protected:

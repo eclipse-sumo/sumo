@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/10/22 15:42:56  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.18  2003/10/02 14:51:20  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -86,6 +89,7 @@ namespace
 #include <microsim/MSInductLoop.h>
 #include <microsim/MSDetectorSubSys.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <gui/GUIGlObjectStorage.h>
@@ -93,6 +97,7 @@ namespace
 #include "GUINetWrapper.h"
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIEmitterWrapper.h>
+#include <guisim/GUIVehicleTransfer.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 //#include "GUIEdgeGrid.h"

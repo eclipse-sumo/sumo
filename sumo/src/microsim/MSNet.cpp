@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.41  2003/10/22 15:45:51  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.40  2003/10/20 07:59:43  dkrajzew
 // grid lock dissolving by vehicle teleportation added
 //
@@ -335,6 +338,7 @@ namespace
 #include "MSLaneState.h"
 #include "MSTravelcostDetector.h"
 #include <microsim/MSDetectorSubSys.h>
+#include <microsim/MSVehicleTransfer.h>
 #include "MSTrafficLightLogic.h"
 #include "MS_E2_ZS_Collector.h"
 
@@ -382,10 +386,12 @@ MSNet::getInstance( void )
 }
 
 void
-MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
+MSNet::preInit( MSVehicleTransfer *vt,
+                MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
                 std::string baseNameDumpFiles/*, bool withGUI*/ )
 {
     myInstance = new MSNet();
+    MSVehicleTransfer::setInstance(vt);
 	myInstance->myLoadedVehNo = 0;
 	myInstance->myEmittedVehNo = 0;
 	myInstance->myRunningVehNo = 0;

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/10/22 15:47:44  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.4  2003/08/18 12:41:40  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -119,7 +122,7 @@ class NLNetHandler;
 class NLNetBuilder {
 public:
     /// standard constructor
-    NLNetBuilder(const OptionsCont &oc);
+    NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr=0);
 
     /// Destructor
     virtual ~NLNetBuilder();

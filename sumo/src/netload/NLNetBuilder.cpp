@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/22 15:47:44  dkrajzew
+// we have to distinct between two teleporter versions now
+//
 // Revision 1.10  2003/08/20 11:51:27  dkrajzew
 // option for suppressing output of empty edges within the raw-output added
 //
@@ -127,6 +130,7 @@ namespace
 #include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
+#include <microsim/MSVehicleTransfer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
@@ -142,10 +146,14 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
+NLNetBuilder::NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr)
     : m_pOptions(oc)
 {
+    if(tr==0) {
+        tr = new MSVehicleTransfer();
+    }
     MSNet::preInit(
+        tr,
         oc.getInt("b"),
         oc.getUIntVector("dump-intervals"),
         oc.getString("dump-basename")/*,
