@@ -12,6 +12,7 @@ class RORouter;
 class ROCompleteRouteDef : public RORouteDef {
 protected:
     ROEdgeVector _edges;
+    long _startTime;
 public:
     ROCompleteRouteDef(const std::string &id, const ROEdgeVector &edges);
 	virtual ~ROCompleteRouteDef();

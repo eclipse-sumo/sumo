@@ -12,6 +12,7 @@ class ROOrigDestRouteDef : public RORouteDef {
 protected:
 	ROEdge *_from, *_to;
     RORoute *_current;
+    long _startTime;
 public:
     ROOrigDestRouteDef(const std::string &id, ROEdge *from, ROEdge *to);
 	virtual ~ROOrigDestRouteDef();

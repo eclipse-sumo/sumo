@@ -36,7 +36,7 @@ ROOrigDestRouteDef::getTo() const
 RORoute *
 ROOrigDestRouteDef::buildCurrentRoute(RORouter &router, long begin)
 {
-    return new RORoute(_id, 0, 1, router.compute(_from, _to));
+    return new RORoute(_id, 0, 1, router.compute(_from, _to, begin));
 }
 
 
@@ -44,6 +44,7 @@ void
 ROOrigDestRouteDef::addAlternative(RORoute *current, long begin)
 {
     _current = current;
+    _startTime = begin;
 }
 
 
@@ -59,7 +60,8 @@ ROOrigDestRouteDef::xmlOutAlternatives(std::ostream &altres) const
 {
     altres << "   <routealt id=\"" << _current->getID() 
         << "\" last=\"0\">" << endl;
-    altres << "      <route cost=\"0\" propability=\"1\">";
+    altres << "      <route cost=\"" << _current->recomputeCosts(_startTime) 
+        << "\" propability=\"1\">";
     _current->xmlOutEdges(altres);
     altres << "</route>" << endl;
     altres << "   </routealt>" << endl;

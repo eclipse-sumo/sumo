@@ -45,6 +45,7 @@ ROCompleteRouteDef::buildCurrentRoute(RORouter &router, long begin)
 void 
 ROCompleteRouteDef::addAlternative(RORoute *current, long begin)
 {
+    _startTime = begin;
     delete current;
 }
 
@@ -62,7 +63,8 @@ ROCompleteRouteDef::xmlOutAlternatives(std::ostream &altres) const
 {
     altres << "   <routealt id=\"" << _id
         << "\" last=\"0\">" << endl;
-    altres << "      <route cost=\"0\" propability=\"1\">";
+    altres << "      <route cost=\"" << _edges.recomputeCosts(_startTime) 
+        << "\" propability=\"1\">";
     altres << _edges;
     altres << "</route>" << endl;
     altres << "   </routealt>" << endl;
