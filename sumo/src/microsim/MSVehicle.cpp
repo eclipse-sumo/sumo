@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2003/10/31 08:04:18  dkrajzew
+// an invalid assertion removed
+//
 // Revision 1.37  2003/10/28 08:37:01  dkrajzew
 // retelportation avoidance added
 //
@@ -1068,7 +1071,7 @@ MSVehicle::moveFirstChecked()
 		    }
         } else {
             vSafe = (*i).myVLinkWait;
-            assert(i+1==myLFLinkLanes.end());
+//            assert(i+1==myLFLinkLanes.end());
             cont = false;
             break;
         }
