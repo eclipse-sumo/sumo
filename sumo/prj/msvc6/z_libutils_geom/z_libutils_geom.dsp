@@ -109,6 +109,10 @@ SOURCE=..\..\..\src\utils\geom\Line2D.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\geom\Polygon2D.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\geom\Position2DVector.cpp
 # End Source File
 # End Group
@@ -146,6 +150,10 @@ SOURCE=..\..\..\src\utils\geom\HaveBoundery.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\geom\Line2D.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\geom\Polygon2D.h
 # End Source File
 # Begin Source File
 
