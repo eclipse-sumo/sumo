@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/01 15:18:12  dkrajzew
+// minor changes
+//
 // Revision 1.4  2003/03/19 08:07:34  dkrajzew
 // bugs and syntactical faults arised during compilation on Linux removed
 //
@@ -96,7 +99,7 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSEmitControl.h>
 #include <iostream>
-#include <strstream>
+//#include <strstream>
 #include <vector>
 #include <parsers/SAXParser.hpp>
 #include <sax2/SAX2XMLReader.hpp>
