@@ -50,10 +50,6 @@ BSC32=bscmake.exe
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\z_libutils_common.lib ..\..\bin\libs\z_libutils_common.lib
-# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "z_libutils_common - Win32 Debug"
 
@@ -77,10 +73,6 @@ BSC32=bscmake.exe
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Debug\z_libutils_common.lib ..\..\bin\libs\z_libutils_commonD.lib
-# End Special Build Tool
 
 !ENDIF 
 

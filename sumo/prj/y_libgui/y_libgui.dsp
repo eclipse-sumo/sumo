@@ -50,10 +50,6 @@ BSC32=bscmake.exe
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\z_libutils_gui.lib ..\..\bin\libs\z_libutils_gui.lib
-# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "y_libgui - Win32 Debug"
 

@@ -39,6 +39,7 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
 # PROP Intermediate_Dir "Release"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
@@ -49,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib ..\..\bin\libs\z_libutils_options.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\router.exe ..\..\bin\router.exe
@@ -66,6 +67,7 @@ PostBuild_Cmds=copy Release\router.exe ..\..\bin\router.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /YX /FD /GZ /c
@@ -76,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib ..\..\bin\libs\z_libutils_optionsD.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\router.exe ..\..\bin\routerD.exe
@@ -94,18 +96,6 @@ PostBuild_Cmds=copy Debug\router.exe ..\..\bin\routerD.exe
 # Begin Source File
 
 SOURCE=..\..\src\router\CellDriverInfoParser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileHelpers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\gfx\GfxConvHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -261,19 +251,7 @@ SOURCE=..\..\src\utils\router\ValueTimeLine.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\router\CellDriverInfoParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\gfx\GfxConvHelper.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\geom\HaveBoundery.h
 # End Source File
 # Begin Source File
 
@@ -294,10 +272,6 @@ SOURCE=..\..\src\utils\common\NamedObjectCont.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ReferencedItem.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\gfx\RGBColor.h
 # End Source File
 # Begin Source File
 
