@@ -23,6 +23,10 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.11  2003/10/08 08:05:06  roessel
+// Commented out overloaded isStillActive method. Makes no sense unless
+// newSpeed can be retrieved by MSVehicle.
+//
 // Revision 1.10  2003/10/07 10:19:09  roessel
 // Moved lane->addMoveReminder from ctors to base class MSMoveReminder ctor.
 //
@@ -115,13 +119,13 @@ public:
             assert (false);
             return false;
         }
-    virtual bool isStillActive( MSVehicle& veh,
-                                double oldPos,
-                                double newPos )
-        {
-            assert (false);
-            return false;
-        }
+//     virtual bool isStillActive( MSVehicle& veh,
+//                                 double oldPos,
+//                                 double newPos )
+//         {
+//             assert (false);
+//             return false;
+//         }
 
     /**
      *  Informs corresponding detector if vehicle leaves reminder
