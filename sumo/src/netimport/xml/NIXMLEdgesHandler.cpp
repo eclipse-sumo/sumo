@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/11 08:18:20  dkrajzew
+// consequent geometry usage; made the code a little bit more pretty
+//
 // Revision 1.10  2003/07/16 15:34:07  dkrajzew
 // conversion tools splitted and relocated to avoid mandatory inclusion of unused files
 //
@@ -326,10 +329,10 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
         // check with shape
     if(myShape.size()!=0) {
-        myBegNodeXPos = myShape.at(0).x();
-        myBegNodeXPos = myShape.at(0).y();
-        myBegNodeXPos = myShape.at(myShape.size()-1).x();
-        myBegNodeXPos = myShape.at(myShape.size()-1).y();
+        myBegNodeXPos = myShape.getBegin().x();
+        myBegNodeXPos = myShape.getBegin().y();
+        myBegNodeXPos = myShape.getEnd().x();
+        myBegNodeXPos = myShape.getEnd().y();
     }
     // check the obtained values for nodes
     if(!insertNodesCheckingCoherence()) {
@@ -425,10 +428,10 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
         myEndNodeXPos==-1.0 &&
         myEndNodeYPos==-1.0 ) {
 
-        myBegNodeXPos = myFromNode->getXCoordinate();
-        myBegNodeYPos = myFromNode->getYCoordinate();
-        myEndNodeXPos = myToNode->getXCoordinate();
-        myEndNodeYPos = myToNode->getYCoordinate();
+        myBegNodeXPos = myFromNode->getPosition().x();
+        myBegNodeYPos = myFromNode->getPosition().y();
+        myEndNodeXPos = myToNode->getPosition().x();
+        myEndNodeYPos = myToNode->getPosition().y();
         coherent = true;
     }
     return coherent;
