@@ -1648,6 +1648,10 @@ SOURCE=..\..\src\microsim\MSDetectorFileOutput.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetectorInterfaceCommon.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
@@ -1657,10 +1661,6 @@ SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSE2Detector.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSE2DetectorInterface.h
 # End Source File
 # Begin Source File
 
@@ -1745,6 +1745,10 @@ SOURCE=..\..\src\microsim\MSLaneState.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLaneStateReminder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSLDDetector.h
 # End Source File
 # Begin Source File
 
