@@ -19,8 +19,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/25 14:41:30  dkrajzew
+// False order of member variables initialisations fixed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:19  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -63,7 +66,7 @@ MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont() :
 
 
 MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont(unsigned int time) :
-    m_pPersons(0), m_uiArrivalTime(time) {
+    m_uiArrivalTime(time), m_pPersons(0) {
 }
 
 MSPersonControl::SameDepartureTimeCont::~SameDepartureTimeCont() {
