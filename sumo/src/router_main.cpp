@@ -20,9 +20,12 @@
  ***************************************************************************/
 namespace
 {
-    const char rcsid[] = "";
+    const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/03/31 06:18:17  dkrajzew
+// help screen corrected
+//
 // Revision 1.9  2003/03/18 13:06:19  dkrajzew
 // windows eol removed
 //
@@ -92,10 +95,6 @@ using namespace std;
  * functions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
- * computation methods
- * ----------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
 /** validate options (settings) */
@@ -135,6 +134,10 @@ getSettings(int argc, char **argv)
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     oc->addSynonyme("weights", "weight-files");
+    oc->addSynonyme("artemis", "artemis-input");
+    oc->addSynonyme("cell", "cell-input");
+    oc->addSynonyme("sumo", "sumo-input");
+    oc->addSynonyme("trips", "trip-defs");
     // register the simulation settings
     oc->doRegister("begin", 'b', new Option_Long(LONG_MIN));
     oc->doRegister("end", 'e', new Option_Long(LONG_MAX));
@@ -146,6 +149,8 @@ getSettings(int argc, char **argv)
     oc->doRegister("suppress-short-trip-warnings", new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
+    oc->doRegister("no-config", 'C', new Option_Bool(false));
+    oc->addSynonyme("no-config", "no-configuration");
     // register the data processing options
     oc->doRegister("unsorted", new Option_Bool(false));
     oc->doRegister("save-cell-rindex", new Option_Bool(false));
@@ -154,8 +159,6 @@ getSettings(int argc, char **argv)
     oc->doRegister("use-lanes", 'l', new Option_Bool(false));
     oc->doRegister("scheme", 'x', new Option_String("speed"));
     oc->doRegister("no-sort", 'S', new Option_Bool(false));
-    oc->doRegister("no-config", 'C', new Option_Bool(false));
-    oc->addSynonyme("no-config", "no-configuration");
     if(OptionsIO::getOptions(oc, argc, argv)) {
         if(oc->getBool("help")) {
             HelpPrinter::print(help);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/31 06:18:18  dkrajzew
+// help screen corrected
+//
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -40,11 +43,11 @@
  * The list of help strings for the sumo (simulation) module
  */
 char *help[] = {
-    "Usage: sumo [OPTION]*",
-    "Simulation of Urban MObility v0.7 - Simulation Module",
+    "Usage: sumo [OPTION]+",
+    "Simulation of Urban MObility v0.8 - Simulation Module",
     "  http://sumo.sourceforge.net",
     "Examples: ",
-    "sumo -b 0 -e 1000 -n net.xml -r routes.xml",
+    "sumo -b 0 -e 1000 -n net.xml -r routes.xml -C",
     "sumo -c munich_config.cfg",
     " ",
     "Options:",
@@ -52,14 +55,14 @@ char *help[] = {
     "   -n, --net-files FILE[;FILE]*    FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
     "   -a, --additional-files FILE...  FILE is a detector file",
-    "   -j, --junctions FILE[;FILE]*    FILE should contain the junction logics",
+//    "   -j, --junctions FILE[;FILE]*    FILE should contain the junction logics",
     "   -c, --configuration FILE        FILE will be used as configuration",
     "                                    1. Default: ./sumo.cfg",
     " ",
     " Output files:",
     "   -o, --output-file FILE          FILE is the raw output destination file",
     "                                    Default: stdout",
-    "   --dump-basename FILE            FILE is the name and path prefix that",
+    "   --dump-basename PATH            PATH is the name and path prefix that",
     "                                    specifies where to save the net loads",
     "   --dump-intervals UINT[;UINT]*   UINT is a positive integer time interval",
     "                                    for which a net load will generated",
@@ -67,15 +70,14 @@ char *help[] = {
     " Simulation timing:",
     "   -b, --begin INT                 First time step of the simulation",
     "   -e, --end INT                   Last time step of the simulation",
-    "   -s, --route_steps INT           The number of steps to read routes in",
+    "   -s, --route-steps INT           The number of steps to read routes in",
     "                                   forward (default=0: read all routes)",
     " ",
     " Processing Options:",
-    "   -R, --no-raw-output             No raw output will be generated",
     "   -C, --no-config                 No configuration file will be used",
     "   -v, --verbose                   SUMO will report what it does",
     "   -p, --print-options             Prints option values before processing",
-    "   --help                          This screen",
+    "   -?, --help                      This screen",
     0
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/03/31 06:18:16  dkrajzew
+// help screen corrected
+//
 // Revision 1.5  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -59,6 +62,7 @@ char *help[] = {
     "   -t, --trip-defs FILE           FILE containing trip definitions",
     "   -a, --alternatives FILE        FILE containing route alternatives",
     "   --cell-input FILE              FILE containing cell routes",
+    "   --artemis-input FILE           FILE containing cell routes",
     " ",
     " Output files:",
     "   -o, --output-file FILE         Generated routes will be written to FILE",
