@@ -46,7 +46,7 @@ public:
         , MSCrossSection crossSection
         , MSE3Collector& collector
         )
-        : MSMoveReminder( &( crossSection.laneM ), id )
+        : MSMoveReminder(  crossSection.laneM, id )
           , collectorM( collector )
           , posM( MSUnit::getInstance()->getCells( crossSection.posM ) )
         {}
@@ -75,7 +75,12 @@ public:
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
             // nothing to do for E3
+            return false; // !!!
         }
+
+    void removeOnTripEnd( MSVehicle *veh ) {
+        collectorM.removeOnTripEnd(veh);
+    }
 
 private:
 
