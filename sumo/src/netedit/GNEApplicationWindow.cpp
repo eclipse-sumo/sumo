@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/12/06 00:42:10  miguelliebe
+// Netedit Update (Miguel)
+//
 // Revision 1.2  2004/12/02 13:54:22  agaubatz
 // Netedit update, A. Gaubatz
 //
@@ -953,21 +956,14 @@ GNEApplicationWindow::onCmdReduceVertexesPlus(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdReduceEdges(FXObject*,FXSelector,void*)
 {
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        graph.Reduce_Edges();
-        m_img->DrawGraph(graph);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
+    graph.Reduce_Edges();
     return 1;
 }
 
 long
 GNEApplicationWindow::onCmdMergeVertexes(FXObject*,FXSelector,void*)
 {
-    // Noch einzufügen
+    graph.MergeVertex();
     return 1;
 }
 
@@ -982,7 +978,8 @@ long
 GNEApplicationWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     graph.Export_Edges_XML();
-    return 1;
+    graph.GetTraces(1,500);
+	return 1;
 }
 
 /////////////////////////new Miguel (Ende)

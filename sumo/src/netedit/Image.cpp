@@ -100,7 +100,7 @@ void Image::Erode()
     //Integer-Varaiblen für die Schleifendurchläufe
     FXint i,j,k,m;
 
-    FXbool tester= true;
+    bool tester= true;
 
     //Durchlaufe das Image
     for (i=0 ; i<wid ; i++)
@@ -212,7 +212,7 @@ void Image::CloseGaps()
 
     //Durchlaufe das Image
     for (i=0 ; i<wid ; i++)
-        for (int j=0; j<hei ; j++)
+        for (j=0; j<hei ; j++)
         {
             //Überprüfe die Nachbarn des aktuellen Pixels
             for (k=i-1 ; k<=i+1 ; k++)
@@ -530,23 +530,20 @@ Graph Image::Tracking(Graph gr)
     int wid = m_img->getWidth();
     int hei = m_img->getHeight();
 
-    for(int g=0 ; g<m_img->getWidth() ;++g)
+    for(int g=0 ; g<wid ;++g)
     {
         m_img->setPixel(g,0,FXRGB(255,255,255));
-        m_img->setPixel(g,m_img->getHeight()-1,FXRGB(255,255,255));
+        m_img->setPixel(g,hei-1,FXRGB(255,255,255));
     }
-    for(int h=0 ; h<m_img->getHeight() ;++h)
+    for(int h=0 ; h<hei ;++h)
     {
-        m_img->setPixel(h,0,FXRGB(255,255,255));
-        m_img->setPixel(h,m_img->getWidth()-1,FXRGB(255,255,255));
+        m_img->setPixel(0,h,FXRGB(255,255,255));
+        m_img->setPixel(wid-1,h,FXRGB(255,255,255));
     }
-
-    //Kopiere das Anzeigeimage in das Bearbeitungsimage
-    Copy(m_img,m_transimg);
 
     //Durchlaufe das Bild außer dem Rand
-    for (int i=1 ; i<wid-2 ; ++i)
-        for (int j=1; j<hei-2 ; ++j)
+    for (int i=1 ; i<wid-1 ; ++i)
+        for (int j=1; j<hei-1 ; ++j)
             //Falls der aktuelle Pixel schwarz ist, wird Pixel_Counter aufgerufen.
             //Pixel_Counter erzeugt dann den Graphen, für die an diesem schwarzen Pixel hängende Zusammenhangskomponente
             //dabei muß darauf geachtet werden, daß die ´besuchten´ Pixel nicht nocheinmal besucht werden
@@ -867,7 +864,11 @@ Image::DrawLine(Point p1,Point p2)
 void
 Image::DrawVArray(Graph gr)
 {
-    unsigned int l=0;
+    //Hole Breite und Höhe des Image
+	int wid = m_img->getWidth();
+	int hei = m_img->getHeight();
+	
+	unsigned int l=0;
     //Hole das Knotenarray
     vector<Vertex*> testarray=gr.GetVArray();
 
@@ -878,7 +879,7 @@ Image::DrawVArray(Graph gr)
         Vertex* ptemp=testarray[l];
 
         //Fange Access Violation(Zugriff auf unerlaubte Pixel) ab
-        if (((ptemp->GetX()<499)&&(ptemp->GetY()<499))&&((ptemp->GetX()>0)&&(ptemp->GetY()>0)))
+        if (((ptemp->GetX()<wid-1)&&(ptemp->GetY()<hei-1))&&((ptemp->GetX()>0)&&(ptemp->GetY()>0)))
         {
         //Erzeuge einen Punkt(3Mal3 Pixel) und male ihn
         Point b(ptemp->GetX(),ptemp->GetY());

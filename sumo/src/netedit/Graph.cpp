@@ -3,7 +3,12 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "Graph.h"
+#include "time.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "math.h"
 
+using namespace std;
 //////////////////////////////////////////////////////////////////////
 // Konstruktion/Destruktion
 //////////////////////////////////////////////////////////////////////
@@ -294,55 +299,50 @@ Graph::Reduce_plus()
 
     i = Number_of_Vertex();
 
-    int anzahl=vArray.size();
-
-    for (m;m<anzahl;m++)
+    for (n=0;n<vArray.size();n++)
     {
-        n=0;
-        while (n<vArray.size())
+        Vertex* paktuell=vArray[n];
+        int grad=paktuell->GetDegree();
+
+        if (grad==4)
         {
-            Vertex* paktuell=vArray[n];
-            int grad=paktuell->GetDegree();
+            Vertex* ptemp_null=paktuell->GetNachfolgeVertex(0);
+            Vertex* ptemp_eins=paktuell->GetNachfolgeVertex(1);
 
-            if (grad==4)
+            delta_x1=ptemp_null->GetX()-paktuell->GetX();
+            delta_x2=paktuell->GetX()-ptemp_eins->GetX();
+            delta_y1=ptemp_null->GetY()-paktuell->GetY();
+            delta_y2=paktuell->GetY()-ptemp_eins->GetY();
+            distanz_a=sqrt((double) (delta_x1*delta_x1+delta_y1*delta_y1));
+            distanz_b=sqrt((double) (delta_x2*delta_x2+delta_y2*delta_y2));
+
+            if(distanz_a<distanz_b)
             {
-                Vertex* ptemp_null=paktuell->GetNachfolgeVertex(0);
-                Vertex* ptemp_eins=paktuell->GetNachfolgeVertex(1);
-
-                delta_x1=ptemp_null->GetX()-paktuell->GetX();
-                delta_x2=paktuell->GetX()-ptemp_eins->GetX();
-                delta_y1=ptemp_null->GetY()-paktuell->GetY();
-                delta_y2=paktuell->GetY()-ptemp_eins->GetY();
-                distanz_a=sqrt((double) (delta_x1*delta_x1+delta_y1*delta_y1));
-                distanz_b=sqrt((double) (delta_x2*delta_x2+delta_y2*delta_y2));
-
-                if(distanz_a<distanz_b)
-                {
-                    quotient=(distanz_b/distanz_a);
-                    delta_x1=delta_x1*quotient;
-                    delta_y1=delta_y1*quotient;
-                }
-
-                else
-                {
-                    quotient=(distanz_a/distanz_b);
-                    delta_x2=delta_x2*quotient;
-                    delta_y2=delta_y2*quotient;
-                }
-
-                delta_x=delta_x1-delta_x2;
-                delta_y=delta_y1-delta_y2;
-
-                if (((delta_x<toleranz)&(delta_y<toleranz))&((delta_x>-toleranz)&(delta_y>-toleranz)))
-                {
-                    DelVertex(paktuell->GetX(),paktuell->GetY());
-                    break;
-                }
+                quotient=(distanz_b/distanz_a);
+                delta_x1=delta_x1*quotient;
+                delta_y1=delta_y1*quotient;
             }
-            n++;
-        }
-    }
+
+            else
+            {
+                quotient=(distanz_a/distanz_b);
+                delta_x2=delta_x2*quotient;
+                delta_y2=delta_y2*quotient;
+            }
+
+            delta_x=delta_x1-delta_x2;
+            delta_y=delta_y1-delta_y2;
+
+            if (((delta_x<toleranz)&(delta_y<toleranz))&((delta_x>-toleranz)&(delta_y>-toleranz)))
+            {
+                DelVertex(paktuell->GetX(),paktuell->GetY());
+                n--;
+            } 
+		}
+        n++;
+	}
 }
+
 
 ///////////////////NEU!!!!//////////////////////////////
 void
@@ -387,21 +387,19 @@ void
 Graph::DelDoubleEdge(Vertex* v, Vertex* w)
 {
     Edge* ptemp;
-    unsigned int i;
-    int Anzahl = eArray.size();
-    for(int j=0; j<Anzahl; j++)
-    {
-        for(i=0; i<eArray.size();i++)
-        {
-            ptemp=eArray[i];
-            if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
-            {
-                eArray.erase(eArray.begin()+i);
-                v->DekrementOutDegree();
-                w->DekrementInDegree();
-            }
-        }
-    }
+	unsigned int i;
+	
+	for(i=0; i<eArray.size();i++)
+	{
+			ptemp=eArray[i];
+			if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
+			{
+				eArray.erase(eArray.begin()+i);
+				v->DekrementOutDegree();
+				w->DekrementInDegree();
+				i--;
+			}
+	}
 }
 
 void
@@ -548,6 +546,16 @@ char* Graph::inttostr(int i)
     return itoa(i,pch,10);
 }
 
+char* Graph::doubletostr(double i,int count)
+{
+	int dec;
+	int sig;
+	char* buffer = _ecvt(i,count,&dec,&sig);
+		
+	return (buffer);
+}
+
+/*Liefert den Index eines Knotenobjekts*/
 int Graph::GetIndex(Vertex* v)
 {
     Vertex* temp;
@@ -559,4 +567,314 @@ int Graph::GetIndex(Vertex* v)
     }
     return index;
 }
+
+Graph::GetTraces(int cars, int fuel)
+{
+	string append;
+	
+	const char* mychar;
+	const char* app;
+		
+	time_t rawtime;
+	tm* ptm;
+	
+	FILE* Traces = fopen("Traces1.txt","w");
+		
+		drive(fuel);
+		pfad = GetPfadArray();
+		unsigned int lauf=1;
+	
+		while(lauf <= pfad.size())
+		{
+			Vertex* ptemp=pfad[lauf-1];
+			//ohne malmethoden//
+
+			time(&rawtime);
+			ptm=gmtime(&rawtime);
+
+			double mylat=ptemp->GetGPSLat();
+			double mylon=ptemp->GetGPSLon();
+
+			/****So soll es iterativ aussehen****/
+
+			
+			 
+
+			append="$GPRMC,1";
+			app = append.c_str();
+			fputs(app,Traces);
+
+			/*
+			holen der aktuellen Zeit
+			*/
+			mychar = inttostr(ptm->tm_hour+1);
+			fputs(mychar,Traces);
+		
+			mychar = inttostr(ptm->tm_min);
+			fputs(mychar,Traces);
+			
+			mychar = inttostr(ptm->tm_sec);
+			fputs(mychar,Traces);
+			
+			
+			
+			append=",A,";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+			
+			mychar=inttostr((int)(mylat*100));
+			fputs(mychar,Traces);
+						
+			append=".";
+			app=append.c_str();
+			fputs(app,Traces);
+
+			mychar=doubletostr(mylat*100-(int)(mylat*100),6);
+			fputs(mychar,Traces);
+
+			append=",N,00";
+			app=append.c_str();
+			fputs(app,Traces);
+
+				
+			mychar = inttostr((int)(mylon*100));
+			fputs(mychar,Traces);
+			
+			append=".";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+			mychar = doubletostr(mylon*100-(int)(mylon*100),6);
+			fputs(mychar,Traces);
+			// $ GPRMC,201512,A,1234.23456,N,1234.1234,
+			append=",E,,,";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+		
+
+			/*
+			Holen des aktuellen Datums
+			*/
+
+			mychar = inttostr(ptm->tm_mday);
+			fputs(mychar,Traces);
+			mychar = inttostr(ptm->tm_mon+1);
+			fputs(mychar,Traces);
+			mychar = inttostr(ptm->tm_year+1900);
+			fputs(mychar,Traces);
+
+			append=",,\n";
+			app=append.c_str();
+			fputs(app,Traces);
+
+			// Jetzt das ganze für $GPGGA
+
+			append="$GPGGA,1";
+			app = append.c_str();
+			fputs(app,Traces);
+
+			/*
+			holen der aktuellen Zeit
+			*/
+			mychar = inttostr(ptm->tm_hour+1);
+			fputs(mychar,Traces);
+		
+			mychar = inttostr(ptm->tm_min);
+			fputs(mychar,Traces);
+			
+			mychar = inttostr(ptm->tm_sec);
+			fputs(mychar,Traces);
+			
+			
+			
+			append=",";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+			
+			mychar=inttostr((int)(mylat*100));
+			fputs(mychar,Traces);
+						
+			append=".";
+			app=append.c_str();
+			fputs(app,Traces);
+
+			mychar=doubletostr(mylat*100-(int)(mylat*100),6);
+			fputs(mychar,Traces);
+
+			append=",N,00";
+			app=append.c_str();
+			fputs(app,Traces);
+
+				
+			mychar = inttostr((int)(mylon*100));
+			fputs(mychar,Traces);
+			
+			append=".";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+			mychar = doubletostr(mylon*100-(int)(mylon*100),6);
+			fputs(mychar,Traces);
+			// $ GPRMC,201512,A,1234.23456,N,1234.1234,
+			append=",E,,,,0.0,,,,,\n";
+			app=append.c_str();
+			fputs(app,Traces);
+			
+			lauf++;
+		}
+	
+	// $GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
+
+		
+	fclose(Traces);
+}
+
+Graph::MergeVertex()
+{
+	/*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
+	int tolerance=10;
+	/*Für die Länge einer Kante*/
+	int length;
+	/*Hilfszeiger*/
+	Edge* aktuell;
+	/*Für den Start- und Endknoten einer Kante*/
+	Vertex* start;
+	Vertex* end;
+
+	/*Nacheinander holen jeder Kante*/
+	for(unsigned i=0; i<eArray.size(); i++)
+	{
+		aktuell=eArray[i];
+		length=aktuell->GetLength();
+		/*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
+		if(length<tolerance)
+		{
+			start=aktuell->GetStartingVertex();
+			end=aktuell->GetEndingVertex();
+			
+			/*Koordinaten der aktuellen Start- und Endknoten*/
+			int x1 = start->GetX();
+			int y1 = end  ->GetY();
+			int x2 = start->GetX();
+			int y2 = end  ->GetY();
+			/*Koordinaten des neuen Knotens*/
+			int(xneu)=(x1+x2)/2;
+			int(yneu)=(y1+y2)/2;
+		
+			/*Löschen der zu kurzen Kanten*/
+			DelEdge(start,end);
+			DelEdge(end,start);
+
+			/*Hinzufügen des neuen Kotens*/
+			AddVertexByXY(xneu,yneu);
+			/*Zeiger auf den neuen Knoten*/
+			Vertex* neu = SearchVertex(xneu,yneu);
+
+			
+			/*Hilfsschleife (von Miguel rausgenommen)*/
+			/*int v = eArray.size();
+			for(unsigned int go = 0 ; go<v ;go++)
+				
+			{
+			*/	
+				/*Hole jede Kante*/
+				for(unsigned int j=0; j<eArray.size(); j++)
+				{
+					Edge* aktuell2 = eArray[j];
+					Vertex* start1 = aktuell2->GetStartingVertex();
+					Vertex* end1   = aktuell2->GetEndingVertex();
+			
+					
+					/*Es folgt eine Überprüfung, ob von der aktuell2 Kante der Start oder Endknoten
+					mit einem Knoten der aktuell-Kante übereinstimmt
+					So bekommt man die nachfolger von Start und EndKnoten*/
+
+					if(start1==start || end1==start)
+					{
+						DelEdge(start1,end1);
+						DelEdge(end1,start1);
+						if(start1==start)
+						{
+						mArray.push_back(end1);
+						}
+						
+						else mArray.push_back(start1);
+						j--;
+						if (j>=0) j--;
+					}
+
+					if(start1==end   || end1==end)
+					{
+						DelEdge(start1,end1);
+						DelEdge(end1,start1);
+						if(start1==end)
+						{
+							mArray.push_back(end1);
+						}
+						else mArray.push_back(start1);
+						j--;
+						if (j>=0) j--;
+					}
+				}
+			//}
+
+			/*Löschen der Start- und Endknoten der zu kurzen Kante*/
+			DelVertex4Merge(start);
+			DelVertex4Merge(end);
+
+			
+			/*Hinzufügen von neuen Kanten von den Nachfolgern von Start- und Endknoten zum*/
+			/*jeweiligen neuen Knoten*/
+
+			for(unsigned int m_Node=0; m_Node<mArray.size();m_Node++)
+			{
+				
+				Vertex* myNode = mArray[m_Node];
+				AddEdgeByVertex(myNode,neu);
+				AddEdgeByVertex(neu,myNode);
+			}
+
+			mArray.clear();
+			
+			//neu von miguel
+			
+			/*
+				Da vorne im EdgeArray
+			    Kanten gelöscht werden, 
+			    muß die Laufvariable 
+			    zurückgesetzt werden 
+			*/ 
+			
+			i--;
+			if (i>=0) i--;
+		}
+	}
+}
+
+/*Löschmethode für einen Knoten für den Merger*/
+Graph::DelVertex4Merge(Vertex* v)
+{
+	int i= GetIndex(v);
+	if(i!=1000)
+	{
+		vArray.erase(vArray.begin()+i);
+		DelNachfolger4Merge(v);
+	}
+}
+
+/*Löscht alle Nachfolgenden Kanten eines Knotens*/
+Graph::DelNachfolger4Merge(Vertex* v)
+{
+	Vertex* temp;
+	for(int i=0; i<v->GetNachfolger(); i++)
+	{
+		temp=v->GetNachfolgeVertex(i);
+		DelEdge(v,temp);
+		DelEdge(temp,v);
+	}
+}
+
 

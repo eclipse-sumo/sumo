@@ -1,8 +1,7 @@
-
 #include "ConfigDialog.h"
 #include <cstdlib>
   
-//Test
+
 // Map
 FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_PANEL,                         ConfigDialog::onCmdPanel),
@@ -218,6 +217,7 @@ long ConfigDialog::calculateRGBValues(FXColor color){
   rgba[1]=0.003921568627f*FXGREENVAL(color);
   rgba[2]=0.003921568627f*FXBLUEVAL(color);
   return 1;
-  }
+  int i =10;
+}
 
 

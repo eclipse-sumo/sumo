@@ -23,6 +23,8 @@ private:
     int tracks;
     // Zulässige Höchstgeschwindigkeit
     int speed;
+	//Länge der Kante(Euklidischer Abstand von Start- und Endknoten)
+	double length;
 
 public:
 
@@ -54,6 +56,12 @@ public:
 
     // Setzt die zulässige Höchstgeschwindigkeit
     void SetSpeed(int sp);
+
+	//Setze die Länge der Kante
+	double Setlength();
+
+	//Hole die Länge der Kante
+	double GetLength();
 };
 
 #endif
