@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.16  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -120,6 +123,7 @@
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
+#include "NBMMLDirections.h"
 
 
 /* =========================================================================
@@ -234,7 +238,7 @@ public:
     Position2D geomPosition() const;
 
     /** returns the id of the node */
-    std::string getID();
+    std::string getID() const;
 
     /// adds an incoming edge
     void addIncomingEdge(NBEdge *edge);
@@ -308,6 +312,11 @@ public:
     bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
     void addTrafficLight(NBTrafficLightDefinition *tld);
+
+    NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
+
+    char stateCode(NBEdge *incoming, NBEdge *outgoing);
+
 
     friend class NBNodeCont;
 
@@ -385,7 +394,6 @@ private:
     /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
         Connections are remapped, too */
     void replaceOutgoing(const EdgeVector &which, NBEdge *by);
-
 
 
     void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by);

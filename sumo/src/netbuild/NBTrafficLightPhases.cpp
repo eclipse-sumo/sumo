@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.13  2003/07/21 11:04:06  dkrajzew
 // the default duration of green light phases may now be changed on startup
 //
@@ -276,13 +279,19 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         if(driveMask.any()) {
 			// let the junction be clear from any vehicles before alowing turn left
             //  left movers may drive but have to wait if another vehicle is passing
-			ret->addStep(breakingTime, driveMask, oldBrakeMask|yellow, yellow);
+            if(breakingTime!=0) {
+                ret->addStep(breakingTime, driveMask, oldBrakeMask|yellow, yellow);
+            }
 			// let vehicles moving left pass secure
-            ret->addStep(3, driveMask, brakeMask, std::bitset<64>());
+            if(breakingTime!=0) { // !! something else
+                ret->addStep(3, driveMask, brakeMask, std::bitset<64>());
+            }
             yellow = driveMask;
         }
         // add the dead phase for this junction
-        ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
+        if(breakingTime!=0) {
+            ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
+        }
     }
 #ifdef TL_DEBUG
     DEBUG_OUT << "Phasenfolge (Ende):" << endl;

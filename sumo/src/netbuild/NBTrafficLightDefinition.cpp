@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.6  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -57,6 +60,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBTrafficLightPhases.h"
@@ -133,6 +137,9 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
     size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
+    if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
+        breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
+    }
     return myCompute(breakingTime, oc.getBool("all-logics"));
 /*    NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
         ? buildLoadedTrafficLights(breakingTime)

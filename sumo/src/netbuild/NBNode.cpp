@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.22  2003/07/16 15:32:02  dkrajzew
 // some work on the geometry of nodes
 //
@@ -385,7 +388,7 @@ NBNode::addOutgoingEdge(NBEdge *edge)
 
 
 string
-NBNode::getID()
+NBNode::getID() const
 {
     return _id;
 }
@@ -506,7 +509,7 @@ NBNode::computeType() const
                     (*j)->getPriority());
             } catch (OutOfBoundsException) {
             }
-            if(tmptype<type&&tmptype!=NODETYPE_UNKNOWN) {
+            if(tmptype<type&&tmptype!=NODETYPE_UNKNOWN&&tmptype!=NODETYPE_NOJUNCTION) {
                 type = tmptype;
             }
         }
@@ -1442,6 +1445,66 @@ void
 NBNode::addTrafficLight(NBTrafficLightDefinition *tld)
 {
     myTrafficLights.push_back(tld);
+}
+
+
+NBMMLDirection
+NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
+{
+    if(outgoing==0) {
+        return MMLDIR_NODIR;
+    }
+    double angle =
+        abs(NBHelpers::normRelAngle(
+            incoming->getAngle(), outgoing->getAngle()));
+    // ok, should be a straight connection
+    if(abs(angle)<45) {
+        return MMLDIR_STRAIGHT;
+    }
+
+    NBMMLDirection tmp;
+    // check for left and right, first
+    if(angle>0) {
+        // check whether any othe edge outgoes further to right
+        EdgeVector::const_iterator i =
+            find(_allEdges.begin(), _allEdges.end(), outgoing);
+        while((*i)!=incoming) {
+            if((*i)->getFromNode()==this) {
+                return MMLDIR_PARTRIGHT;
+                NBContHelper::nextCW(&_allEdges, i);
+            }
+        }
+        return MMLDIR_RIGHT;
+    } else {
+        // check whether any othe edge outgoes further to right
+        EdgeVector::const_iterator i =
+            find(_allEdges.begin(), _allEdges.end(), outgoing);
+        while((*i)!=incoming) {
+            if((*i)->getFromNode()==this) {
+                return MMLDIR_PARTLEFT;
+                NBContHelper::nextCCW(&_allEdges, i);
+            }
+        }
+        return MMLDIR_LEFT;
+    }
+    return tmp;
+}
+
+
+char
+NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing)
+{
+    if(outgoing==0) {
+        return 'O'; // always off
+    }
+    if(mustBrake(incoming, outgoing)) {
+        return 'm'; // minor road
+    }
+    if(_type==NODETYPE_RIGHT_BEFORE_LEFT) {
+        return '='; // all the same
+    }
+    // traffic lights are not regardedm here
+    return 'M';
 }
 
 

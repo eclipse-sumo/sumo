@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.21  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -387,7 +390,8 @@ NBEdge::getPriority()
 
 
 int
-NBEdge::getJunctionPriority(NBNode *node) {
+NBEdge::getJunctionPriority(NBNode *node)
+{
     if(node==_from) {
         return _fromJunctionPriority;
     } else {
@@ -437,7 +441,8 @@ NBEdge::getID()
 
 
 string
-NBEdge::getName() {
+NBEdge::getName()
+{
     return _name;
 }
 
@@ -457,19 +462,22 @@ NBEdge::getToNode()
 
 
 string
-NBEdge::getType() {
+NBEdge::getType()
+{
     return _type;
 }
 
 
 double
-NBEdge::getLength() {
+NBEdge::getLength()
+{
     return _length;
 }
 
 
 const EdgeLaneVector *
-NBEdge::getEdgeLanesFromLane(size_t lane) {
+NBEdge::getEdgeLanesFromLane(size_t lane)
+{
     assert(_reachable!=0&&lane<_reachable->size());
     return &(*_reachable)[lane];
 }
@@ -699,6 +707,10 @@ NBEdge::writeSucceeding(std::ostream &into, size_t lane)
             << endl;
     }
     // output list of connected lanes
+/*        // order the outgoing edges by relative angle
+    sort((*_reachable)[lane].begin(), (*_reachable)[lane].end(),
+        NBContHelper::relative_edgelane_sorter(this, _to));*/
+        // go through each connected edge
     for(size_t j=0; j<noApproached; j++) {
         writeSingleSucceeding(into, lane, j);
     }
@@ -715,7 +727,8 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
 	assert(fromlane<_reachable->size());
 	assert(destidx<(*_reachable)[fromlane].size());
     if((*_reachable)[fromlane][destidx].edge==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>"
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\" "
+            << "dir=\"s\" state=\"O\"/>" // !!! check dummy values
             << endl;
         return;
     }
@@ -730,10 +743,49 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     }
 	// write information whether the connection yields
     if(!_to->mustBrake(this, (*_reachable)[fromlane][destidx].edge)) {
-        into << " yield=\"0\"/>" << endl;
+        into << " yield=\"0\"";
     } else {
-        into << " yield=\"1\"/>" << endl;
+        into << " yield=\"1\"";
     }
+    // write the direction information
+    NBMMLDirection dir =
+        _to->getMMLDirection(this, (*_reachable)[fromlane][destidx].edge);
+    if((*_reachable)[fromlane][destidx].edge==_turnDestination) {
+        dir = MMLDIR_TURN;
+    }
+    into << " dir=\"";
+    switch(dir) {
+    case MMLDIR_STRAIGHT:
+        into << "s";
+        break;
+    case MMLDIR_LEFT:
+        into << "l";
+        break;
+    case MMLDIR_RIGHT:
+        into << "r";
+        break;
+    case MMLDIR_TURN:
+        into << "t";
+        break;
+    case MMLDIR_PARTLEFT:
+        into << "L";
+        break;
+    case MMLDIR_PARTRIGHT:
+        into << "R";
+        break;
+    default:
+        throw 1;
+    }
+    into << "\" ";
+    // write the state information
+    if((*_reachable)[fromlane][destidx].tlID!="") {
+        into << "state=\"t";
+    } else {
+        into << "state=\""
+            << _to->stateCode(this, (*_reachable)[fromlane][destidx].edge);
+    }
+    // close
+    into << "\"/>" << endl;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/30 09:21:11  dkrajzew
+// added the generation about link directions and priority
+//
 // Revision 1.9  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -116,6 +119,7 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
+    into << "      <offset>0</offset>" << endl;
 /*
     // write the inlanes
     into << "      <inlinks>";
