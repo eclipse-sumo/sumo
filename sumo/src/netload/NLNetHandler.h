@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2004/01/13 14:28:46  dkrajzew
+// added alternative detector description; debugging
+//
 // Revision 1.19  2004/01/12 15:12:05  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -150,8 +153,16 @@ protected:
         this method */
     virtual void myEndElement(int element, const std::string &name);
 
-    /// adds a detector
+    /** @brief adds a detector
+        Determines the type of the detector first, and then calls the
+         appropriate method */
     virtual void addDetector(const Attributes &attrs);
+
+    /// Builds an e1-detector using the given specification
+    virtual void addE1Detector(const Attributes &attrs);
+
+    /// Builds an e2-detector using the given specification
+    virtual void addE2Detector(const Attributes &attrs);
 
 
 protected:

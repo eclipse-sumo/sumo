@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/01/13 14:28:46  dkrajzew
+// added alternative detector description; debugging
+//
 // Revision 1.14  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -102,6 +105,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 #include "NLDetectorBuilder.h"
 
 
@@ -182,20 +186,28 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             + string("The lane with the id '") + lane
             + string("' is not known."));
     }
-    // compute position
-    if(pos<0) {
-        pos = clane->length() + pos;
-    }
-    // patch position
-    if(pos<0.1) {
-        pos = 0.1;
-    }
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
+    cont = false; //!!!
     if(!cont) {
+        if(length<0) {
+            pos = pos + length;
+            length *= -1;
+        }
+        // compute position
+        if(pos<0) {
+            pos = clane->length() + pos;
+        }
+        // patch position
+        if(pos<0.1) {
+            pos = 0.1;
+        }
         // patch length
         if(pos+length>clane->length()-0.1) {
             length = clane->length() - 0.1 - pos;
+        }
+        if(length<=0) {
+            throw InvalidArgument("The length of detector " + id + " is not positive.");
         }
         det = buildSingleLaneE2Det(id, clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
