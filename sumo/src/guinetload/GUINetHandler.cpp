@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/12/05 10:37:23  dkrajzew
+// made the code a little bit more pretty
+//
 // Revision 1.12  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed
 //
@@ -132,14 +135,13 @@ GUINetHandler::addDetector(const Attributes &attrs) {
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-//             myContainer.addDetector(
-                 GUIDetectorBuilder::buildInductLoop(id,
-                     getString(attrs, SUMO_ATTR_LANE),
-                     getFloat(attrs, SUMO_ATTR_POSITION),
-                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                     getString(attrs, SUMO_ATTR_STYLE),
-                     getString(attrs, SUMO_ATTR_FILE),
-                     _file);
+            GUIDetectorBuilder::buildInductLoop(id,
+                getString(attrs, SUMO_ATTR_LANE),
+                getFloat(attrs, SUMO_ATTR_POSITION),
+                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                getString(attrs, SUMO_ATTR_STYLE),
+                getString(attrs, SUMO_ATTR_FILE),
+                _file);
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
