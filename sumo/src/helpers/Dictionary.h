@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.8  2003/09/05 15:03:34  dkrajzew
+// tried to improve the building/deletion usage
+//
 // Revision 1.7  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -63,6 +66,14 @@ template< typename Key, typename Value >
 class Dictionary
 {
 public:
+    /// Modes of operation.
+    enum Mode {
+        INSERT = 0,             /**< Insert-mode for inserting key-value pairs
+                                 * until mode is switched by setFindMode()  */
+        FIND                    /**< Find-mode is used after finishing
+                                 * insertion. */
+    };
+
     /**
      * Destructor.
      * @note If you are storing pointers you need to delete them seperately.
@@ -108,7 +119,7 @@ public:
      */
     void setFindMode( void )
         {
-            assert( operationModeM == INSERT );
+            //assert( operationModeM == INSERT );
             operationModeM = FIND;
             vectorM.reserve( mapM.size() );
             for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
@@ -152,6 +163,10 @@ public:
             }
         }
 
+    Mode getMode() const {
+        return operationModeM;
+    }
+
 
 protected:
     /// Type of the internal map
@@ -162,14 +177,6 @@ protected:
 
     Map mapM; /**< Map to store the key-value pairs. */
 
-
-    /// Modes of operation.
-    enum Mode {
-        INSERT = 0,             /**< Insert-mode for inserting key-value pairs
-                                 * until mode is switched by setFindMode()  */
-        FIND                    /**< Find-mode is used after finishing
-                                 * insertion. */
-    };
 
     /**
      * Current mode of operation. Is set to INSERT by ctor and once switched to

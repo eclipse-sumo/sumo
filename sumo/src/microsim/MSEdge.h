@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/09/05 15:07:53  dkrajzew
+// tried to improve the building/deletion usage
+//
 // Revision 1.7  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -148,7 +151,8 @@ public:
 	    /// the edge is only used for vehicle emission (begin of trips)
         EDGEFUNCTION_SOURCE = 1,
 	    /// the edge is only used for vehicle deletion (end of trips)
-        EDGEFUNCTION_SINK = 2
+        EDGEFUNCTION_SINK = 2,
+        EDGEFUNCTION_INTERNAL = 3
     };
 
 public:

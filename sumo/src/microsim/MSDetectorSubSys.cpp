@@ -4,7 +4,7 @@
  * @date   Tue Jul 29 10:43:35 2003
  * @version $Id$
  * @brief  Implementation of class MSDetectorSubSys
- * 
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -26,6 +26,7 @@
 void
 MSDetectorSubSys::createDictionaries( void )
 {
+    deleteDictionariesAndContents();
     LaneStateDict::create();
     LoopDict::create();
 //     MSDetector2File<MSInductLoop>::create( 900 );
@@ -69,7 +70,7 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
 //         delete MSDetector2File<MSInductLoop>::getInstance();
 //     }
     delete MSDetector2File::getInstance();
-    
+
     if(LoopDict::created()) {
         LoopDict::ValueVector loopVec(
             LoopDict::getInstance()->getStdVector() );
@@ -83,5 +84,5 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
 
 
 
-} 
+}
 

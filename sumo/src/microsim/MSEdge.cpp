@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/09/05 15:07:53  dkrajzew
+// tried to improve the building/deletion usage
+//
 // Revision 1.8  2003/08/20 11:40:57  dkrajzew
 // option for suppressing output of empty edges within the raw-output added
 //
@@ -149,7 +152,9 @@ MSEdge::DictType MSEdge::myDict;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSEdge::MSEdge(string id) : myID(id), myLaneChanger(0)
+MSEdge::MSEdge(string id)
+    : myID(id), myLaneChanger(0),
+    myAllowed(0), myLanes(0)
 {
 }
 
@@ -157,8 +162,10 @@ MSEdge::MSEdge(string id) : myID(id), myLaneChanger(0)
 MSEdge::~MSEdge()
 {
     delete myLaneChanger;
-    for(AllowedLanesCont::iterator i1=myAllowed->begin(); i1!=myAllowed->end(); i1++) {
-        delete (*i1).second;
+    if(myAllowed!=0) {
+        for(AllowedLanesCont::iterator i1=myAllowed->begin(); i1!=myAllowed->end(); i1++) {
+            delete (*i1).second;
+        }
     }
     delete myAllowed;
     delete myLanes;
