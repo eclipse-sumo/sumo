@@ -18,6 +18,11 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/05/17 12:46:09  croessel
+// Added new method laneChangeBrake2much() because of lane-changers
+// disability to look beyond lanes.
+// Added some debug ifdefs.
+//
 // Revision 1.3  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -131,6 +136,9 @@ class MSVehicleType;
 class MSVehicle : private Counter< MSVehicle >
 {
 public:
+#ifdef _DEBUG
+    friend class MSLaneChanger;
+#endif
 
     using Counter< MSVehicle >::howMany;
 
@@ -160,6 +168,11 @@ public:
     class State
     {
         friend class MSVehicle;
+
+#ifdef _DEBUG
+        friend class MSLaneChanger;
+#endif
+
     public:
         /// Default constructor. Members are initialized to 0.
         State();
@@ -333,6 +346,12 @@ public:
     
     /// Returns current speed
     double speed() const;
+
+    /** Return true if prioritized first vehicle will brake too much
+	during lane-change calculations. This is a problem because the
+	lane-changer doesn't look beyond the lane but will assume the
+	vehicle has to slow down towards the lane end.*/
+    bool laneChangeBrake2much( const State brakeState );
 
 protected:
 
