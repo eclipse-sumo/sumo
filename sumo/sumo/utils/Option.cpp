@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/11 14:38:22  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2002/06/11 13:43:35  dkrajzew
 // Windows eol removed
 //

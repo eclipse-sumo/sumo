@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/11 14:39:26  dkrajzew
+// windows eol removed
+//
 // Revision 1.6  2002/06/11 13:44:32  dkrajzew
 // Windows eol removed
 //

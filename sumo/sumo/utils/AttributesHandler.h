@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/06/11 14:38:21  dkrajzew
+// windows eol removed
+//
 // Revision 1.5  2002/06/11 13:43:36  dkrajzew
 // Windows eol removed
 //

@@ -1,6 +1,6 @@
 <detectors>
 	<detector id="a1_0:500" type="InductLoop" lane="a1_0" pos="500" style="CSV" file="d:\Sumo\tmp\a1_0.cvs" freq="1"/>
-	<detector id="a1_0:500" type="InductLoop" lane="a1_1" pos="500" style="CSV" file="d:\Sumo\tmp\a1_1.cvs" freq="1"/> 
+	<detector id="a1_0:500" type="InductLoop" lane="a1_1" pos="500" style="CSV" file="d:\Sumo\tmp\a1_1.cvs" freq="1"/>
 	<detector id="a1_0:500" type="InductLoop" lane="a1_2" pos="500" style="CSV" file="d:\Sumo\tmp\a1_2.cvs" freq="1"/>
 
 	<detector id="a1_0:500" type="InductLoop" lane="a2_0" pos="500" style="CSV" file="d:\Sumo\tmp\a2_0.cvs" freq="1"/>

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2002/06/11 14:39:24  dkrajzew
+// windows eol removed
+//
 // Revision 1.8  2002/06/11 13:44:33  dkrajzew
 // Windows eol removed
 //
