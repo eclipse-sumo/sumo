@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.10  2002/06/19 15:12:00  croessel
+// In moveExceptFirst: Check for timeheadway < deltaT situations.
+//
 // Revision 1.9  2002/05/29 17:06:03  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -294,7 +297,10 @@ MSLane::moveExceptFirst()
             
             VehCont::iterator pred = veh + 1;
             ( *veh )->move( this, *pred, 0, 0 );
-        }
+
+	    // Check for timeheadway < deltaT
+	    assert( ( *veh )->pos() >= ( *pred )->pos() );
+	}
     }
 }
 
@@ -343,6 +349,9 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
 
                 ( *veh )->move( this, *pred, 0, 0 );
             }
+
+	    // Check for timeheadway < deltaT
+	    assert( ( *veh )->pos() >= ( *pred )->pos() );
         }
     }
 }
