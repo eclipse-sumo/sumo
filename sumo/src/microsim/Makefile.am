@@ -3,29 +3,79 @@ noinst_LIBRARIES = libmicrosim.a
 
 EXTRA_DIST = MSBitSetLogic.cpp MSSimpleTrafficLightLogic.cpp
 
-libmicrosim_a_SOURCES = MSBitSetLogic.h MSDetector.h MSEdge.cpp \
-MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \
-MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \
-MSInductLoop.cpp MSInductLoop.h MSJunction.cpp MSJunction.h \
-MSJunctionControl.cpp MSJunctionControl.h \
-MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h \
-MSLaneChanger.cpp MSLaneChanger.h MSLogicJunction.cpp MSLogicJunction.h \
-MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
-MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
+libmicrosim_a_SOURCES = MSActuatedTrafficLightLogic.cpp \
+MSDetector.cpp \
+MSEdgeControl.cpp \
+MSEdge.cpp \
+MSEmitControl.cpp \
+MSEventControl.cpp \
+MSInductLoop.cpp \
+MSJunctionControl.cpp \
+MSJunction.cpp \
+MSJunctionLogic.cpp \
+MSLaneChanger.cpp \
+MSLane.cpp \
+MSLaneSpeedTrigger.cpp \
+MSLaneState.cpp \
+MSLink.cpp \
+MSLogicJunction.cpp \
+MSNet.cpp \
+MSNoLogicJunction.cpp \
+MSRightOfWayJunction.cpp \
+MSRoute.cpp \
+MSRouteHandler.cpp \
+MSRouteLoaderControl.cpp \
+MSRouteLoader.cpp \
+MSSource.cpp \
+MSSourceLane.cpp \
+MSTrafficLightJunction.cpp \
+MSTrafficLightLogic.cpp \
+MSTriggeredReader.cpp \
+MSTriggeredSource.cpp \
+MSTriggeredSourceXMLHandler.cpp \
+MSTriggeredXMLReader.cpp \
+MSVehicleContainer.cpp \
+MSVehicle.cpp \
+MSVehicleType.cpp \
+MSActuatedTrafficLightLogic.h \
+MSBitSetLogic.h \
+MSDetector.h \
+MSEdgeControl.h \
+MSEdge.h \
+MSEmitControl.h \
+MSEventControl.h \
+MSInductLoop.h \
+MSJunctionControl.h \
+MSJunction.h \
+MSJunctionLogic.h \
+MSLaneChanger.h \
+MSLane.h \
+MSLaneSpeedTrigger.h \
+MSLaneState.h \
+MSLinkCont.h \
+MSLink.h \
+MSLogicJunction.h \
+MSNet.h \
+MSNoLogicJunction.h \
+MSRightOfWayJunction.h \
+MSRoute.h \
+MSRouteHandler.h \
+MSRouteLoaderControl.h \
+MSRouteLoader.h \
 MSSimpleTrafficLightLogic.h \
-MSSource.cpp MSSource.h MSSourceLane.cpp MSSourceLane.h \
-MSTrafficLightJunction.cpp MSTrafficLightJunction.h \
-MSTrafficLightLogic.cpp MSTrafficLightLogic.h \
-MSTriggeredSource.cpp MSTriggeredSource.h \
-MSTriggeredSourceXMLHandler.cpp MSTriggeredSourceXMLHandler.h \
-MSVehicle.cpp MSVehicle.h MSVehicleType.cpp MSVehicleType.h \
-MSLink.cpp MSLink.h MSRoute.cpp MSRoute.h \
-MSTrigger.h MSTriggeredReader.cpp MSTriggeredReader.h \
-MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h \
-MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
-MSRouteHandler.cpp MSRouteHandler.h MSRouteLoader.cpp MSRouteLoader.h \
-MSRouteLoaderControl.cpp MSRouteLoaderControl.h \
-MSVehicleContainer.cpp MSVehicleContainer.h
+MSSource.h \
+MSSourceLane.h \
+MSTrafficLightJunction.h \
+MSTrafficLightLogic.h \
+MSTriggeredReader.h \
+MSTriggeredSource.h \
+MSTriggeredSourceXMLHandler.h \
+MSTriggeredXMLReader.h \
+MSTrigger.h \
+MSVehicleContainer.h \
+MSVehicle.h \
+MSVehicleType.h 
+
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
