@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/08/02 12:50:05  dkrajzew
+// added the possibility to multiply each of the ccordinates with a value individually
+//
 // Revision 1.10  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -103,6 +106,12 @@ public:
         _y *= val;
     }
 
+    /// Multiplies position with the given values
+    void mul(double mx, double my) {
+        _x *= mx;
+        _y *= my;
+    }
+
     /// Adds the given position to this one
     void add(const Position2D &pos) {
         _x += pos._x;
@@ -127,14 +136,14 @@ public:
         _y -= pos._y;
     }
 
-	double scalar() const {
-		return sqrt(_x*_x + _y*_y);
-	}
+    double scalar() const {
+        return sqrt(_x*_x + _y*_y);
+    }
 
     void norm() {
-		double val = scalar();
-		_x = _x / val;
-		_y = _y / val;
+        double val = scalar();
+        _x = _x / val;
+        _y = _y / val;
     }
 
     void reshiftRotate(double xoff, double yoff, double rot) {
