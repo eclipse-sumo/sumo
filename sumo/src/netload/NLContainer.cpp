@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/02/01 10:07:26  dkrajzew
+// performance computation added
+//
 // Revision 1.27  2004/11/23 10:12:45  dkrajzew
 // new detectors usage applied
 //
@@ -524,7 +527,9 @@ NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
     std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(options);
-    MSNet::init( "", edges, junctions, routeLoaders, tlc, streams,
+    MSNet::init( "", edges, junctions, routeLoaders, tlc,
+        !options.getBool("no-duration-log"),
+        streams,
         options.getUIntVector("dump-intervals"),
         options.getString("dump-basename"));
     return MSNet::getInstance();

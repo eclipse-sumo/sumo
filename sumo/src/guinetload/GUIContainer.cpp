@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/02/01 10:07:24  dkrajzew
+// performance computation added
+//
 // Revision 1.17  2004/11/23 10:12:26  dkrajzew
 // new detectors usage applied
 //
@@ -138,7 +141,9 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
         std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(options);
-        GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc, streams,
+        GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc,
+            !options.getBool("no-duration-log"),
+            streams,
             options.getUIntVector("dump-intervals"),
             options.getString("dump-basename"));
         return static_cast<GUINet*>(GUINet::getInstance());

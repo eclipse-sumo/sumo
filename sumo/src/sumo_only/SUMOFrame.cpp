@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/02/01 10:07:27  dkrajzew
+// performance computation added
+//
 // Revision 1.27  2005/01/27 14:32:36  dkrajzew
 // patched undefined state of teleporter if a negative number was given
 //
@@ -170,6 +173,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("route-steps", 's', new Option_Integer(0));
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     // register the report options
+    oc.doRegister("no-duration-log", new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));

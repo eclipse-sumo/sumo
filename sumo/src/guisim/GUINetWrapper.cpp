@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/02/01 10:07:24  dkrajzew
+// performance computation added
+//
 // Revision 1.9  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -46,7 +49,8 @@ namespace
 // logging (value passing) moved from utils to microsim
 //
 // Revision 1.2  2003/08/14 13:47:44  dkrajzew
-// false usage of function-pointers patched; false inclusion of .moc-files removed
+// false usage of function-pointers patched; false inclusion of
+//  .moc-files removed
 //
 // Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
@@ -70,6 +74,8 @@ namespace
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
+#include <microsim/logging/FunctionBinding.h>
+#include <microsim/logging/FuncBinding_UIntParam.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuHeader.h>
@@ -117,7 +123,7 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 7);
+        new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("vehicles running [#]", true,
         new CastingFunctionBinding<MSVehicleControl, double, size_t>(
@@ -146,6 +152,36 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("time step [s]", true,
         new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getCurrentTimeStep));
+    if(getNet().logSimulationDuration()) {
+        ret->mkItem("step duration [ms]", true,
+            new CastingFunctionBinding<GUINet, double, int>(
+                &(getNet()), &GUINet::getWholeDuration));
+        ret->mkItem("simulation duration [ms]", true,
+            new CastingFunctionBinding<GUINet, double, int>(
+                &(getNet()), &GUINet::getSimDuration));
+        /*
+        ret->mkItem("visualisation duration [ms]", true,
+            new CastingFunctionBinding<GUINet, double, int>(
+                &(getNet()), &GUINet::getVisDuration));
+        */
+        ret->mkItem("idle duration [ms]", true,
+            new CastingFunctionBinding<GUINet, double, int>(
+                &(getNet()), &GUINet::getIdleDuration));
+        ret->mkItem("duration factor []", true,
+            new FunctionBinding<GUINet, double>(
+                &(getNet()), &GUINet::getRTFactor));
+        /*
+        ret->mkItem("mean duration factor []", true,
+            new FuncBinding_UIntParam<GUINet, double>(
+                &(getNet()), &GUINet::getMeanRTFactor), 1);
+                */
+        ret->mkItem("ups [#]", true,
+            new FunctionBinding<GUINet, double>(
+                &(getNet()), &GUINet::getUPS));
+        ret->mkItem("mean ups [#]", true,
+            new FunctionBinding<GUINet, double>(
+                &(getNet()), &GUINet::getMeanUPS));
+    }
     // close building
     ret->closeBuilding();
     return ret;
@@ -183,7 +219,7 @@ GUINetWrapper::getNet() const
 Boundary
 GUINetWrapper::getCenteringBoundary() const
 {
-	return getBoundary();
+    return getBoundary();
 }
 
 

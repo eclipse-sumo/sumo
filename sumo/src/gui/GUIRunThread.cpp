@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/02/01 10:07:24  dkrajzew
+// performance computation added
+//
 // Revision 1.27  2004/12/16 12:20:09  dkrajzew
 // debugging
 //
@@ -125,6 +128,7 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/common/SysUtils.h>
 
 
 /* =========================================================================
@@ -188,10 +192,18 @@ GUIRunThread::init(GUINet *net, long start, long end)
 FXint
 GUIRunThread::run()
 {
+    long beg, end;
+    long end2 = -1;
     // perform an endless loop
     while(!_quit) {
         // if the simulation shall be perfomed, do it
         if(!_halting&&_net!=0&&_ok) {
+            if(getNet().logSimulationDuration()) {
+                beg = SysUtils::getCurrentMillis();
+                if(end2!=-1) {
+                    getNet().setIdleDuration((int) (beg-end2));
+                }
+            }
             bool haltAfter =
                 find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
             makeStep();
@@ -199,7 +211,14 @@ GUIRunThread::run()
                 stop();
             }
             double val = mySimDelay.getValue();
-            sleep((int) val);
+            if(getNet().logSimulationDuration()) {
+                end = SysUtils::getCurrentMillis();
+                getNet().setSimDuration((int) (end-beg));
+                end2 = SysUtils::getCurrentMillis();
+            }
+            if((int) val!=0) {
+                sleep((int) val);
+            }
         } else {
             // sleep otherwise
             sleep(500);
@@ -223,7 +242,7 @@ GUIRunThread::makeStep()
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
 #ifdef NETWORKING_BLA
-		_net->networking(_simStartTime, _step);
+        _net->networking(_simStartTime, _step);
 #endif
         mySimulationLock.unlock();
 
@@ -335,7 +354,7 @@ GUIRunThread::deleteSim()
     //
     mySimulationLock.lock();
     if(_net!=0) {
-        _net->closeSimulation();
+        _net->closeSimulation(_simStartTime, _simEndTime);
     }
     while(_simulationInProgress);
     delete _net;
@@ -352,7 +371,7 @@ GUIRunThread::getNet() const
 }
 
 
-MSNet::Time
+SUMOTime
 GUIRunThread::getCurrentTimeStep() const
 {
     return _step;
