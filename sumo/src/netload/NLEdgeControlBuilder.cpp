@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/16 14:43:34  dkrajzew
+// documentation added
+//
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -97,10 +100,12 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
     m_iNoSingle = m_iNoMulti = 0;
 }
 
+
 NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
     delete m_pLaneStorage;
 }
+
 
 void
 NLEdgeControlBuilder::prepare(unsigned int no)
@@ -108,6 +113,7 @@ NLEdgeControlBuilder::prepare(unsigned int no)
     m_pEdges = new EdgeCont();
     m_pEdges->reserve(no);
 }
+
 
 void
 NLEdgeControlBuilder::addEdge(const string &id)
@@ -118,6 +124,7 @@ NLEdgeControlBuilder::addEdge(const string &id)
     }
     m_pEdges->push_back(edge);
 }
+
 
 void
 NLEdgeControlBuilder::chooseEdge(const string &id,
@@ -154,6 +161,7 @@ NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     return lane;
 }
 
+
 void
 NLEdgeControlBuilder::closeLanes()
 {
@@ -170,11 +178,13 @@ NLEdgeControlBuilder::closeLanes()
     m_pLaneStorage->clear();
 }
 
+
 void
 NLEdgeControlBuilder::openAllowedEdge(MSEdge *edge)
 {
     m_pCurrentDestination = edge;
 }
+
 
 void
 NLEdgeControlBuilder::addAllowed(MSLane *lane)
@@ -186,6 +196,7 @@ NLEdgeControlBuilder::addAllowed(MSLane *lane)
     }
     m_pLaneStorage->push_back(lane);
 }
+
 
 void
 NLEdgeControlBuilder::closeAllowedEdge()
@@ -199,6 +210,7 @@ NLEdgeControlBuilder::closeAllowedEdge()
     (*m_pAllowedLanes)[m_pCurrentDestination] = lanes;
 }
 
+
 void
 NLEdgeControlBuilder::closeEdge()
 {
@@ -211,6 +223,7 @@ NLEdgeControlBuilder::closeEdge()
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
         m_pLanes, m_Function);
 }
+
 
 MSEdgeControl *
 NLEdgeControlBuilder::build()

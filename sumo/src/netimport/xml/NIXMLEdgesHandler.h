@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/06/16 14:43:34  dkrajzew
+// documentation added
+//
 // Revision 1.4  2003/05/20 09:44:35  dkrajzew
 // some make-up done (splitting large methods)
 //
@@ -106,7 +109,7 @@ private:
     /// Parses the id from the given attributes
     void setID(const Attributes &attrs);
 
-    // Parses the name from the given attributes
+    /// Parses the name from the given attributes
     void setName(const Attributes &attrs);
 
     /// Sets the type from the given attributes

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/16 14:43:34  dkrajzew
+// documentation added
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -58,11 +61,13 @@
 #include <vector>
 #include <microsim/MSEdge.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class MSEdgeControl;
 class MSLane;
+
 
 /* =========================================================================
  * class definitions
@@ -116,7 +121,7 @@ public:
     virtual MSLane *addLane(MSNet &net, const std::string &id,
         double maxSpeed, double length, bool isDepart);
 
-    void addLane(MSLane *lane, bool isDepartLane);
+//    void addLane(MSLane *lane, bool isDepartLane);
 
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/06/16 14:43:34  dkrajzew
+// documentation added
+//
 // Revision 1.8  2003/06/06 10:40:18  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -250,7 +253,7 @@ public:
     MSNet &getNet();
 
 protected:
-    // builds the route loader control
+    /// builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
 
 private:

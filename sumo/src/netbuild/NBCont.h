@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/06/16 14:43:34  dkrajzew
+// documentation added
+//
 // Revision 1.6  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
@@ -79,13 +82,17 @@ public:
     /// The according lane (semantics may change)
     size_t lane;
 
+    /// The id of the traffic light this link is steered by
     std::string tlID;
 
+    /// The position within the traffic light logic of this link's information
     size_t tlLinkNo;
 
+    /// output operator
 	friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs) {
 		return lhs.edge==rhs.edge && lhs.lane==rhs.lane;
 	}
+
 };
 
 
