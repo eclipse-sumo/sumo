@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/09/25 09:02:51  dkrajzew
+// multiple lane in tl-logic - bug patched
+//
 // Revision 1.6  2003/06/16 08:02:45  dkrajzew
 // further work on Vissim-import
 //
@@ -39,19 +42,31 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <iostream>
+#include <set>
+#include <cassert>
+#include <utils/convert/ToString.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NBTrafficLightLogicVector::NBTrafficLightLogicVector(const NBConnectionVector &inLanes)
     : myInLinks(inLanes)
 {
@@ -94,9 +109,15 @@ NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 void
 NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 {
+    set<string> inLanes;
+    for(NBConnectionVector::const_iterator j=myInLinks.begin(); j!=myInLinks.end(); j++) {
+        assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);
+        string id = (*j).getFrom()->getID() + string("_") + toString<int>((*j).getFromLane());
+        inLanes.insert(id);
+    }
     size_t pos = 0;
     for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++, myInLinks);
+        (*i)->writeXML(os, pos++, inLanes);
     }
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/09/25 09:02:51  dkrajzew
+// multiple lane in tl-logic - bug patched
+//
 // Revision 1.11  2003/09/24 09:56:07  dkrajzew
 // inlanes added to a traffic light logic description
 //
@@ -117,7 +120,7 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 void
 NBTrafficLightLogic::writeXML(ostream &into, size_t no,
-                              const NBConnectionVector &inLinks) const
+                              const std::set<string> &inLanes) const
 {
     into << "   <tl-logic type=\"static\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;
@@ -127,13 +130,12 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
     // write the inlanes
     into << "      <inlanes>";
     bool first = true;
-    for(NBConnectionVector::const_iterator j=inLinks.begin(); j!=inLinks.end(); j++) {
+    for(std::set<string>::const_iterator j=inLanes.begin(); j!=inLanes.end(); j++) {
         if(!first) {
             into << " ";
         }
         first = false;
-        assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);
-        into << (*j).getFrom()->getID() << '_' << (*j).getFromLane();
+        into << (*j);
     }
     into << "</inlanes>" << endl;
     // write the phases

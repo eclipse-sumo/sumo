@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/25 09:02:51  dkrajzew
+// multiple lane in tl-logic - bug patched
+//
 // Revision 1.8  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -55,6 +58,7 @@
 #include <string>
 #include <bitset>
 #include <utility>
+#include <set>
 #include <iostream>
 #include "NBConnectionDefs.h"
 
@@ -86,7 +90,7 @@ public:
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
     void writeXML(std::ostream &into, size_t no,
-        const NBConnectionVector &inLinks) const;
+        const std::set<std::string> &inLanes) const;
 
     /// Debug method showing the phases
     void _debugWritePhases() const;
