@@ -2,9 +2,9 @@
 #define OptionsCont_h
 /***************************************************************************
                           OptionsCont.h
-			  A container for options.
-			  Allows the access of the values of the stored options
-			  using different option names.
+              A container for options.
+              Allows the access of the values of the stored options
+              using different option names.
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.4  2003/07/30 12:54:00  dkrajzew
 // unneeded and deprecated methods and variables removed
 //
@@ -73,7 +76,6 @@
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -82,6 +84,7 @@
 #include <vector>
 #include <iostream>
 #include "Option.h"
+
 
 /* =========================================================================
  * class definitions
@@ -169,7 +172,10 @@ public:
     std::vector<std::string> getSynonymes(const std::string &name) const;
 
     /** resets all options to be the default value */
-    void resetDefaults();
+    void resetWritable();
+
+    /** Returns the infomration whether the named option may be set */
+    bool isWriteable(const std::string &name);
 
     /// returns the information whether the named item is a file name
     bool isFileName(const std::string &name) const;

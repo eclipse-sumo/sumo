@@ -1,8 +1,8 @@
 /***************************************************************************
                           OptionsCont.h
-			  A container for options.
-			  Allows the access of the values of the stored options
-			  using different option names.
+              A container for options.
+              Allows the access of the values of the stored options
+              using different option names.
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.4  2003/07/30 12:54:00  dkrajzew
 // unneeded and deprecated methods and variables removed
 //
@@ -111,7 +114,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -273,7 +276,8 @@ OptionsCont::getUIntVector(const std::string &name) const
 
 
 bool
-OptionsCont::set(const string &name, const string &value, bool isDefault) {
+OptionsCont::set(const string &name, const string &value, bool isDefault)
+{
     Option *o = getSecure(name);
     if(!o->set(value, isDefault)) {
         reportDoubleSetting(name);
@@ -410,11 +414,19 @@ OptionsCont::isBool(const string &name) const
 
 
 void
-OptionsCont::resetDefaults()
+OptionsCont::resetWritable()
 {
     for(ItemAddressContType::iterator i=_addresses.begin(); i!=_addresses.end(); i++) {
-        (*i)->_default = true;
+        (*i)->_writeable = true;
     }
+}
+
+
+bool
+OptionsCont::isWriteable(const std::string &name)
+{
+    Option *o = getSecure(name);
+    return o->isWriteable();
 }
 
 
@@ -431,9 +443,6 @@ OptionsCont::clear()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "OptionsCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -2,9 +2,9 @@
 #define Option_h
 /***************************************************************************
                           Option.h
-			  A class representing a single program option
-			  together with her derivates to represent different
-			  value types
+              A class representing a single program option
+              together with her derivates to represent different
+              value types
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.3  2003/08/20 11:49:55  dkrajzew
 // allowed the retrival of an uint-vector encoded as string; not the best, but the fastest solution
 //
@@ -95,55 +98,81 @@ typedef std::vector<unsigned int> UIntVector;
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */
 class Option {
- private:
-    /** information whether the value is set */
-    bool          _set;
-    /** information whether the value is the default value (is then set) */
-    bool          _default;
- public:
+public:
     /** destructor */
     virtual ~Option();
+
     /** returns the information whether the value is valid */
     bool isSet() const;
+
     /** returns the float value */
     virtual float getFloat() const;
+
     /** returns the long value */
     virtual long getLong() const;
+
     /** returns the int value */
     virtual int getInt() const;
+
     /** returns the string value */
     virtual std::string getString() const;
+
     /** returns the bool value */
     virtual bool getBool() const;
+
     /** returns the bool value */
     virtual const UIntVector &getUIntVector() const;
+
     /** sets the value (used for non-bool options) */
     virtual bool set(std::string v, bool isDefault=false);
+
     /** sets the value (used for bool options) */
     virtual bool set(bool v, bool isDefault=false);
+
     /** returns the string-representation of the value */
     virtual std::string getValue() const;
+
     /** returns the information whether the option is a bool option */
     virtual bool isBool() const;
+
     /** returns the information whether the option holds the default value */
     virtual bool isDefault() const;
+
     /// returns the information whether this option is a file name
     virtual bool isFileName() const;
+
+    /** Returns the information whether the option may be set a further time */
+    bool isWriteable() const;
 
     /** OptionsCont is a friend class as it may reinitialise the option
         to be a default value */
     friend class OptionsCont;
- protected:
+
+protected:
     /** sets the "_set" - information. returns whether the option was a
         default option */
     bool markSet(bool isDefault);
- protected:
+
+protected:
     /** constructor (paramter: value is valid) */
     Option(bool set=false);
+
     /** copy constructor */
     Option(const Option &s);
+
     /** assignment operator */
     virtual Option &operator=(const Option &s);
+
+private:
+    /** information whether the value is set */
+    bool          _set;
+
+    /** information whether the value is the default value (is then set) */
+    bool          _default;
+
+    /** information whether the value may be changed */
+    bool          _writeable;
+
 };
 
 /**
@@ -314,10 +343,8 @@ public:
     std::string getString() const;
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "Option.icc"
-//#endif
 
 #endif
 

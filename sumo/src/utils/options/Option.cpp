@@ -1,8 +1,8 @@
 /***************************************************************************
                           Option.cpp
-			  A class representing a single program option
-			  together with her derivates to represent different
-			  value types
+              A class representing a single program option
+              together with her derivates to represent different
+              value types
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:41:32  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.3  2003/08/20 11:49:55  dkrajzew
 // allowed the retrival of an uint-vector encoded as string; not the best, but the fastest solution
 //
@@ -91,7 +94,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -108,13 +111,13 @@ using namespace std;
  * Option - methods
  * ----------------------------------------------------------------------- */
 Option::Option(bool set)
-    : _set(set), _default(true)
+    : _set(set), _default(true), _writeable(true)
 {
 }
 
 
 Option::Option(const Option &s)
-    : _set(s._set)
+    : _set(s._set), _default(s._default), _writeable(s._writeable)
 {
 }
 
@@ -124,12 +127,15 @@ Option::~Option()
 }
 
 
-Option &Option::operator=(const Option &s)
+Option &
+Option::operator=(const Option &s)
 {
     if(this==&s) {
         return *this;
     }
     _set = s._set;
+    _default = s._default;
+    _writeable = s._writeable;
     return *this;
 }
 
@@ -184,19 +190,15 @@ Option::getUIntVector() const
 
 
 bool
-Option::set(string v, bool isDefault)
+Option::set(string, bool)
 {
-    v = v;
-    isDefault = isDefault;
     throw InvalidArgument("This is an abstract class.");
 }
 
 
 bool
-Option::set(bool v, bool isDefault)
+Option::set(bool, bool)
 {
-    v = v;
-    isDefault = isDefault;
     throw InvalidArgument("This is an abstract class.");
 }
 
@@ -204,9 +206,10 @@ Option::set(bool v, bool isDefault)
 bool
 Option::markSet(bool isDefault)
 {
-    bool ret = _default;
+    bool ret = _writeable;
     _default = isDefault;
     _set = true;
+    _writeable = isDefault;
     return ret;
 }
 
@@ -238,6 +241,12 @@ Option::isFileName() const
     return false;
 }
 
+
+bool
+Option::isWriteable() const
+{
+    return _writeable;
+}
 
 
 /* -------------------------------------------------------------------------
@@ -289,10 +298,10 @@ Option_Integer::set(string v, bool isDefault)
 {
     try {
         _value = TplConvert<char>::_2int(v.c_str());
-	    return markSet(isDefault);
+        return markSet(isDefault);
     } catch (...) {
-	    string s = "'" + v + "' is not a valid integer (should be).";
-	    throw InvalidArgument(s);
+        string s = "'" + v + "' is not a valid integer (should be).";
+        throw InvalidArgument(s);
     }
 }
 
@@ -357,11 +366,11 @@ bool
 Option_Long::set(string v, bool isDefault)
 {
     try {
-	    _value = TplConvert<char>::_2long(v.c_str());
-	    return markSet(isDefault);
+        _value = TplConvert<char>::_2long(v.c_str());
+        return markSet(isDefault);
     } catch (...) {
-	    string s = "'" + v + "' is not a valid long (should be).";
-	    throw InvalidArgument(s);
+        string s = "'" + v + "' is not a valid long (should be).";
+        throw InvalidArgument(s);
     }
 }
 
@@ -487,11 +496,11 @@ bool
 Option_Float::set(string v, bool isDefault)
 {
     try {
-	    _value = TplConvert<char>::_2float(v.c_str());
-	    return markSet(isDefault);
+        _value = TplConvert<char>::_2float(v.c_str());
+        return markSet(isDefault);
     } catch (...) {
-	    string s = "'" + v + "' is not a valid float (should be).";
-	    throw InvalidArgument(s);
+        string s = "'" + v + "' is not a valid float (should be).";
+        throw InvalidArgument(s);
     }
 }
 
@@ -564,7 +573,7 @@ string
 Option_Bool::getValue() const
 {
     if(_value) {
-	    return string("true");
+        return string("true");
     }
     return string("false");
 }
@@ -672,12 +681,12 @@ Option_UIntVector::set(std::string v, bool isDefault)
     try {
         StringTokenizer st(v, ';');
         while(st.hasNext()) {
-	        _value.push_back(TplConvert<char>::_2int(st.next().c_str()));
+            _value.push_back(TplConvert<char>::_2int(st.next().c_str()));
         }
         return markSet(isDefault);
     } catch (...) {
-	    string s = "'" + v + "' is not a valid long (should be).";
-	    throw InvalidArgument(s);
+        string s = "'" + v + "' is not a valid long (should be).";
+        throw InvalidArgument(s);
     }
 }
 
@@ -703,11 +712,7 @@ Option_UIntVector::getString() const
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "Option.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

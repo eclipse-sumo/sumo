@@ -1,8 +1,8 @@
 /***************************************************************************
                           OptionsIO.cpp
-			  Loads the configuration file using "OptionsLoader"
-			  and parses the given command line arguments using
-			  "OptionsParser"
+              Loads the configuration file using "OptionsLoader"
+              and parses the given command line arguments using
+              "OptionsParser"
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.5  2003/10/27 10:55:10  dkrajzew
 // problems on setting gui options patched - the configuration is not loaded directly any more
 //
@@ -120,7 +123,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -150,13 +153,13 @@ OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
     }
     // read the configuration when everything's ok
     if(ret) {
-        oc->resetDefaults();
+        oc->resetWritable();
         ret = loadConfiguration(oc);
     }
     // reparse the options
     //  (overwrite the settings from the configuration file)
     if(ret) {
-        oc->resetDefaults();
+        oc->resetWritable();
         ret = OptionsParser::parse(oc, argc, argv);
     }
     return ret;

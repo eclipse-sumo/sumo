@@ -1,6 +1,6 @@
 /***************************************************************************
                           OptionsParser.cpp
-			  Parses the command line arguments
+              Parses the command line arguments
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -80,7 +83,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -263,10 +266,8 @@ string OptionsParser::convert(char abbr)
     return buf;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "OptionsParser.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

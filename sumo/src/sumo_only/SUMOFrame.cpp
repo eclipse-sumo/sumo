@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/07/02 09:41:32  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.19  2004/04/02 11:27:36  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -173,7 +176,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
                        const std::string &optionName)
 {
     if(!oc.isSet(optionName)) {
-	    return 0;
+        return 0;
     }
     ostream *ret = new ofstream(oc.getString(optionName).c_str(),
         ios::out|ios::trunc);
@@ -202,7 +205,7 @@ SUMOFrame::checkOptions(OptionsCont &oc)
 {
     bool ok = true;
     try {
-        oc.resetDefaults();
+        oc.resetWritable();
         // check the existance of a name for simulation file
         if(!oc.isSet("n")) {
             MsgHandler::getErrorInstance()->inform(

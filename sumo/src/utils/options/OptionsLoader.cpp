@@ -1,8 +1,8 @@
 /***************************************************************************
                           OptionsLoader.cpp
-			  Loads a configuration (XML) using a SAX-Parser
-			  The class itself is a derivation of the
-			  SAX-HandlerBase
+              Loads a configuration (XML) using a SAX-Parser
+              The class itself is a derivation of the
+              SAX-HandlerBase
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:41:39  dkrajzew
+// debugging the repeated setting of a value
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -100,7 +103,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -149,12 +152,12 @@ void OptionsLoader::characters(const XMLCh* const chars,
     }
     if(value.length()>0) {
         try {
-            bool wasDefault;
+            bool isWriteable;
             if(_options->isBool(_item)) {
                 if(value=="0"||value=="false"||value=="FALSE") {
-                    wasDefault = setSecure(_item, false);
+                    isWriteable = setSecure(_item, false);
                 } else {
-                    wasDefault = setSecure(_item, true);
+                    isWriteable = setSecure(_item, true);
                 }
             } else {
                 if(_options->isFileName(_item)) {
@@ -172,12 +175,12 @@ void OptionsLoader::characters(const XMLCh* const chars,
                         }
                         conv += tmp;
                     }
-                    wasDefault = setSecure(_item, conv);
+                    isWriteable = setSecure(_item, conv);
                 } else {
-                    wasDefault = setSecure(_item, value);
+                    isWriteable = setSecure(_item, value);
                 }
             }
-            if(wasDefault) {
+            if(!isWriteable) {
                 _error = true;
             }
         } catch (InvalidArgument e) {
@@ -191,10 +194,10 @@ void OptionsLoader::characters(const XMLCh* const chars,
 bool
 OptionsLoader::setSecure(const std::string &name, bool value)
 {
-    if(!_options->isDefault(name)) {
+    if(_options->isWriteable(name)) {
+        _options->set(name, value);
         return true;
     }
-    _options->set(name, value);
     return false;
 }
 
@@ -202,10 +205,10 @@ OptionsLoader::setSecure(const std::string &name, bool value)
 bool
 OptionsLoader::setSecure(const std::string &name, const std::string &value)
 {
-    if(!_options->isDefault(name)) {
+    if(_options->isWriteable(name)) {
+        _options->set(name, value);
         return true;
     }
-    _options->set(name, value);
     return false;
 }
 
