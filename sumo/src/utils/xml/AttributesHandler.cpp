@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/09/05 15:28:46  dkrajzew
+// secure retrival of boolean values added
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -113,6 +116,13 @@ AttributesHandler::getBool(const Attributes &attrs, int id) const
 {
    return TplConvert<XMLCh>::_2bool(
               getAttributeValueSecure(attrs, id));
+}
+
+bool
+AttributesHandler::getBoolSecure(const Attributes &attrs, int id, bool val) const
+{
+   return TplConvertSec<XMLCh>::_2boolSec(
+              getAttributeValueSecure(attrs, id), val);
 }
 
 std::string

@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/09/05 15:28:46  dkrajzew
+// secure retrival of boolean values added
+//
 // Revision 1.5  2003/08/18 12:49:31  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -105,6 +108,7 @@ public:
 
     /** returns the named (by id) attribute as a bool */
     bool getBool(const Attributes &attrs, int id) const;
+    bool getBoolSecure(const Attributes &attrs, int id, bool val) const;
 
     /** returns the named (by id) attribute as an int */
     int getInt(const Attributes &attrs, int id) const;
