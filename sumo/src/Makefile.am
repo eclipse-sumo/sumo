@@ -20,6 +20,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/sumoxml/libsumoxml.a \
 ./sumo_only/libsumoonly.a \
 ./helpers/libhelpers.a \
+./utils/gfx/libgfx.a \
 -l$(LIB_XERCES)
 
 

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.33  2003/12/04 13:14:08  dkrajzew
+// gfx-module added temporary to sumo
+//
 // Revision 1.32  2003/12/02 21:48:27  roessel
 // Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
 //
@@ -381,8 +384,8 @@ NLNetHandler::addPhase(const Attributes &attrs)
     size_t max = duration;
     try {
         if(m_Type=="actuated"||m_Type=="agentbased") {
-            min = getIntSecure(attrs, SUMO_ATTR_DURATION, -1);
-            max = getIntSecure(attrs, SUMO_ATTR_DURATION, -1);
+            min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
+            max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
         }
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The phase minimum or masimum duration is not numeric.");

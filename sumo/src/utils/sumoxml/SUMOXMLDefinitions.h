@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2003/12/04 13:14:08  dkrajzew
+// gfx-module added temporary to sumo
+//
 // Revision 1.18  2003/11/24 10:19:13  dkrajzew
 // handling of definitions for minimum and maximum phase duration added
 //
@@ -107,8 +110,6 @@ enum TagEnum
     SUMO_TAG_CEDGE,
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
-    /** begin/end of the list of incoming lanes (into a junction) */
-    SUMO_TAG_INLANES,
     /** a detector */
     SUMO_TAG_DETECTOR,
     /** description of a vehicle */
@@ -174,7 +175,11 @@ enum TagEnum
     /// The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
     /// Lane continuation description tag
-    SUMO_TAG_LANECONT
+    SUMO_TAG_LANECONT,
+    /** begin/end of the list of incoming lanes (into a junction) */
+    SUMO_TAG_INCOMING_LANES,
+    /** begin/end of the list of internal lanes (of a junction) */
+    SUMO_TAG_INTERNAL_LANES
 };
 
 
@@ -279,7 +284,11 @@ enum AttrEnum
         // minimum duration of a phase
     SUMO_ATTR_MINDURATION,
         // maximum duration of a phase
-    SUMO_ATTR_MAXDURATION
+    SUMO_ATTR_MAXDURATION,
+    // Attributes for junction-internal lanes
+        // Information within the junction logic which internal lanes block external
+    SUMO_ATTR_FOES
+
 };
 
 
@@ -289,12 +298,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[40];
+extern GenericSAX2Handler::Tag sumotags[41];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[68];
+extern AttributesHandler::Attr sumoattrs[69];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

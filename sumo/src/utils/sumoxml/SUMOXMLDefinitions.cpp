@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/12/04 13:14:08  dkrajzew
+// gfx-module added temporary to sumo
+//
 // Revision 1.16  2003/11/24 10:19:13  dkrajzew
 // handling of definitions for minimum and maximum phase duration added
 //
@@ -79,9 +82,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 40;
+size_t noSumoTags = 41;
 
-GenericSAX2Handler::Tag sumotags[40] =
+GenericSAX2Handler::Tag sumotags[41] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -89,7 +92,6 @@ GenericSAX2Handler::Tag sumotags[40] =
       { "lanes",            SUMO_TAG_LANES },
       { "cedge",            SUMO_TAG_CEDGE },
       { "junction",         SUMO_TAG_JUNCTION },
-      { "inlanes",          SUMO_TAG_INLANES },
       { "detector",         SUMO_TAG_DETECTOR },
       { "vehicle",          SUMO_TAG_VEHICLE },
       { "vtype",            SUMO_TAG_VTYPE },
@@ -122,12 +124,14 @@ GenericSAX2Handler::Tag sumotags[40] =
       { "interval",         SUMO_TAG_INTERVAL },
       { "shape",            SUMO_TAG_SHAPE },
       { "timed_event",      SUMO_TAG_TIMEDEVENT },
-      { "lane_cont",        SUMO_TAG_LANECONT }
+      { "lane_cont",        SUMO_TAG_LANECONT },
+      { "inclanes",         SUMO_TAG_INCOMING_LANES },
+      { "intlanes",         SUMO_TAG_INTERNAL_LANES }
 };
 
-size_t noSumoAttrs = 68;
+size_t noSumoAttrs = 69;
 
-AttributesHandler::Attr sumoattrs[68] =
+AttributesHandler::Attr sumoattrs[69] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -196,7 +200,8 @@ AttributesHandler::Attr sumoattrs[68] =
     { "via",            SUMO_ATTR_VIA },
     { "int_end",        SUMO_ATTR_INTERNALEND },
     { "min_dur",        SUMO_ATTR_MINDURATION },
-    { "max_dur",        SUMO_ATTR_MAXDURATION }
+    { "max_dur",        SUMO_ATTR_MAXDURATION },
+    { "foes",           SUMO_ATTR_FOES }
 };
 
 
