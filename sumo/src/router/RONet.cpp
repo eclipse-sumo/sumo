@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/07 08:36:58  dkrajzew
+// Warnings are now reported to the MsgHandler
+//
 // Revision 1.9  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -237,10 +240,9 @@ RONet::saveType(std::ostream &os, ROVehicleType *type,
                 const std::string &vehID) {
     if(type==0) {
         type = _vehicleTypes.getDefault();
-        // !!! warn??
-        cout << "The vehicle '" << vehID
-            << "' has no valid type; Using default." << endl;
-    // !!! warn??
+        MsgHandler::getWarningInstance()->inform(
+            string("The vehicle '") + vehID
+            + string("' has no valid type; Using default."));
     }
     os << "   ";
     type->xmlOut(os);

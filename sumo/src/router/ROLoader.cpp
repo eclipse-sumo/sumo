@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:36:58  dkrajzew
+// Warnings are now reported to the MsgHandler
+//
 // Revision 1.10  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -65,6 +68,7 @@ namespace
 #include <sax2/XMLReaderFactory.hpp>
 #include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
+#include <utils/convert/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -233,9 +237,9 @@ ROLoader::processRoutesStepWise(long start, long end,
     cout << "Reading time step: " << time
         << "  (" << (time-start) << "/" <<  absNo
         << " = " << setprecision( 2 ) << perc * 100 << "% done)       " << endl;
-
-    cout << "Routes found between time steps " << firstStep
-        << " and " << lastStep << "." << endl;
+    MsgHandler::getMessageInstance()->inform(
+        string("Routes found between time steps ") + toString<int>(firstStep)
+        + string(" and ") + toString<int>(lastStep) + string("."));
 }
 
 long

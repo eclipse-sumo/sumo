@@ -34,6 +34,7 @@
 # include <cmath>
 # include <string>
 # include <utils/common/UtilExceptions.h>
+# include <utils/common/MsgHandler.h>
 # include "ODmatrix.h"
 
 //std::ostream& operator<< (std::ostream& os, const OD_IN& od) {
@@ -74,7 +75,7 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, long *maxele,
 	while (getline (fsSrc, cLine)) {
 		std::istringstream isFLine (cLine);
 		if(n > *maxele-1) {
-			cout << "resize vector!";
+            MsgHandler::getErrorInstance()->inform("resize vector!");
 			throw ProcessError();
 		}
         OD_IN tmp;

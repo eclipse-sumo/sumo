@@ -43,6 +43,8 @@
 # include <cmath>
 # include <string>
 # include <utils/common/UtilExceptions.h>
+# include <utils/common/MsgHandler.h>
+# include <utils/convert/ToString.h>
 # include "ODmatrix.h"
 
 using namespace std;
@@ -56,7 +58,8 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 
 	if(number==0)
 	{
-		cout << "No elements requiered, nothing to do" << endl;
+        MsgHandler::getErrorInstance()->inform(
+            "No elements requiered, nothing to do");
 		throw ProcessError();
 	}
     for(int k=0;k<maxele;k++) {
@@ -65,10 +68,11 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	//int number2=number;
 	if(number>=maxele)
 	{
-		//int number = (number % maxele);
-		cout << "More random numbers requiered as elements!" << endl;
         number = maxele-1;
-		cout << initial-number << " cars get lost" << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("More random numbers requiered as elements!")
+            + string("\n")
+            + toString<int>(initial-number) + string(" cars get lost"));
 	    for(k=0;k<maxele;k++) *(output+k)=k+start;
 		return (number);
 	}
@@ -86,7 +90,8 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 			{
 				*(input+i)=*(input+i+1);
 				if(	*(input+i)<0) {
-					cout << "was faul at "<< i << endl;
+                    MsgHandler::getErrorInstance()->inform(
+                        string("was faul at ") + toString<int>(i));
 					throw ProcessError();
 				}
 			}
