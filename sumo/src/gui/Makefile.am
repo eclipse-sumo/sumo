@@ -24,7 +24,8 @@ GUISUMOViewParent.cpp GUISUMOViewParent.h \
 GUISupplementaryWeightsHandler.cpp GUISupplementaryWeightsHandler.h \
 GUIThreadFactory.cpp GUIThreadFactory.h \
 GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h \
-GUIViewTraffic.cpp GUIViewTraffic.h
+GUIViewTraffic.cpp GUIViewTraffic.h \
+GUIGradientStorage.cpp GUIGradientStorage.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
