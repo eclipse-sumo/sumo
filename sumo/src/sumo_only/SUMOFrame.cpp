@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:38:14  dkrajzew
+// no configuration is loaded as default any more
+//
 // Revision 1.10  2003/06/24 14:38:46  dkrajzew
 // false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
 //
@@ -82,7 +85,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // register the file i/o options
     oc.doRegister("net-files", 'n', new Option_FileName());
     oc.doRegister("route-files", 'r', new Option_FileName());
-//    oc.doRegister("junction-files", 'j', new Option_FileName());
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
@@ -103,11 +105,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register some research options
-    oc.doRegister("initial-density", new Option_Float());
-    oc.doRegister("initial-speed", new Option_Float());
+//    oc.doRegister("initial-density", new Option_Float());
+//    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
-    oc.doRegister("no-config", 'C', new Option_Bool(false));
-    oc.addSynonyme("no-config", "no-configuration");
     oc.doRegister("dump-intervals", new Option_UIntVector(""));
     oc.doRegister("dump-basename", new Option_FileName());;
 }

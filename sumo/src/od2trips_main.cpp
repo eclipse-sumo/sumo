@@ -77,8 +77,6 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
-    oc.doRegister("no-config", 'C', new Option_Bool(false));
-    oc.addSynonyme("no-config", "no-configuration");
     oc.doRegister("begin", 'b', new Option_Long(0));
     oc.doRegister("end", 'e', new Option_Long(86400));
     oc.doRegister("scale", 's', new Option_Float(1));

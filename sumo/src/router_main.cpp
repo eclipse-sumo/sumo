@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/07/07 08:42:26  dkrajzew
+// no configuration is loaded as default any more
+//
 // Revision 1.21  2003/06/24 14:38:46  dkrajzew
 // false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
 //
@@ -187,8 +190,6 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.doRegister("no-config", 'C', new Option_Bool(false));
-    oc.addSynonyme("no-config", "no-configuration");
     // register the data processing options
     oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.doRegister("unsorted", new Option_Bool(false));
