@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/04/16 06:06:29  dkrajzew
+// Build report debugged
+//
 // Revision 1.2  2002/04/15 07:07:56  dkrajzew
 // new loading paradigm implemented
 //
@@ -105,6 +108,7 @@ NLNetBuilder::build() {
     if(!SErrorHandler::errorOccured()) 
         net = container->buildNet();
     delete parser;
+    report(*container);
     delete container;
     return net;
 }
@@ -161,7 +165,6 @@ NLNetBuilder::load(LoadFilter what, string files, NLContainer &cont, SAX2XMLRead
         step++;
     }
     subreport("Loading of " + getDataName(what) + " done.", "Loading of " + getDataName(what) + " failed.");
-    report(cont);
 }
 
 void
@@ -268,4 +271,5 @@ NLNetBuilder::checkFilenames(const std::string &files) {
 
 // Local Variables:
 // mode:C++
-// End:
+// 
+
