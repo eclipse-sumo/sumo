@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/08/20 11:55:49  dkrajzew
+// "Settings"-menu added
+//
 // Revision 1.13  2003/07/16 15:16:26  dkrajzew
 // unneeded uncommented files removed
 //
@@ -224,7 +227,7 @@ private:
     QToolBar *fileTools, *simTools, *_winTools;
 
     /** the windows and the settings menus */
-    QPopupMenu *windowsMenu, *settingsMenu;
+    QPopupMenu *windowsMenu, *_settingsMenu;
 
     /** the thread that loads simulations */
     GUILoadThread *_loadThread;

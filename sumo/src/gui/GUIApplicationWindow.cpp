@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/08/20 11:55:49  dkrajzew
+// "Settings"-menu added
+//
 // Revision 1.20  2003/08/14 13:41:33  dkrajzew
 // a lower priorised update-method is now used
 //
@@ -130,7 +133,10 @@ namespace
 #include "QSimulationEndedEvent.h"
 #include "QMessageEvent.h"
 #include "GUIEvents.h"
-#include "QAboutSUMO.h"
+#include "qdialogs/QAboutSUMO.h"
+#include "qdialogs/QApplicationSettings.h"
+#include "qdialogs/QSimulationSettings.h"
+#include "qdialogs/QMicroscopicViewSettings.h"
 #include "icons/filesave.xpm"
 #include "icons/fileopen.xpm"
 #include "icons/play.xpm"
@@ -205,7 +211,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
 
     // build menu bar
     buildFileMenu();
-//    buildSettingsMenu();
+    buildSettingsMenu();
     buildWindowsMenu();
     buildHelpMenu();
 
@@ -353,9 +359,9 @@ GUIApplicationWindow::buildFileMenu()
 void
 GUIApplicationWindow::buildSettingsMenu()
 {
-    settingsMenu = new QPopupMenu( this );
-    menuBar()->insertItem("&Settings", settingsMenu);
-    connect( settingsMenu, SIGNAL( aboutToShow() ),
+    _settingsMenu = new QPopupMenu( this );
+    menuBar()->insertItem("&Settings", _settingsMenu);
+    connect( _settingsMenu, SIGNAL( aboutToShow() ),
         this, SLOT( settingsMenuAboutToShow() ) );
 }
 
@@ -712,25 +718,29 @@ GUIApplicationWindow::removeChild(QWidget *child)
 void
 GUIApplicationWindow::appSettings()
 {
+    QApplicationSettings appSettings(this, myQuitOnEnd);
+    appSettings.show();
 }
 
 
 void
 GUIApplicationWindow::simSettings()
 {
+    QSimulationSettings simSettings(this);
+    simSettings.show();
 }
 
 
 void
 GUIApplicationWindow::settingsMenuAboutToShow()
 {
-    settingsMenu->clear();
-    settingsMenu->insertItem( "Application Settings", this, SLOT(appSettings()));
-    settingsMenu->insertItem( "Simulation Settings", this, SLOT(simSettings()));
-    settingsMenu->insertSeparator();
+    _settingsMenu->clear();
+    _settingsMenu->insertItem( "Application Settings", this, SLOT(appSettings()));
+    _settingsMenu->insertItem( "Simulation Settings", this, SLOT(simSettings()));
+    _settingsMenu->insertSeparator();
     QWidgetList windows = ws->windowList();
     for ( int i = 0; i < int(windows.count()); ++i ) {
-    	settingsMenu->insertItem(
+    	_settingsMenu->insertItem(
             QString("Settings for:") + windows.at(i)->caption(),
 					 this, SLOT( windowSetings( int ) ) );
     }
