@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2003/06/04 16:20:04  roessel
+// Moved modified code from .h to .cpp.
+//
 // Revision 1.5  2003/05/28 11:19:51  roessel
 // Changed ctor argument from reference to pointer.
 // Added private default-ctor, copy-ctor, assignement-operator declarations.
@@ -41,15 +44,18 @@
 //
 
 #include "MSMoveReminder.h"
-#include "MSLaneState.h"
-#include "MSNet.h"
+class MSLaneState;
+class MSLane;
+
 
 class MSLaneStateReminder : public MSMoveReminder
 {
 public:
     MSLaneStateReminder( double startPos,
                          double endPos,
-                         MSLaneState* ls ) :
+                         MSLaneState* ls,
+                         MSLane* l ) :
+        MSMoveReminder( l ),
         startPosM( startPos ),
         endPosM( endPos ),
         laneStateM( ls )
@@ -61,56 +67,12 @@ public:
     bool isStillActive( MSVehicle& veh,
                         double oldPos,
                         double newPos,
-                        double newSpeed )
-        {
-            // if vehicle has passed the detector completely we shouldn't
-            // be here.
-            double timestepFraction = MSNet::deltaT();
-            if ( newPos <= startPosM ) {
-                return true;
-            }
-            if ( oldPos <= startPosM && newPos > startPosM ) {
-                // vehicle will enter detector
-                timestepFraction = ( newPos-startPosM ) / newSpeed;
-                laneStateM->enterDetectorByMove( veh, timestepFraction );
-            }
-            if ( newPos > endPosM ) {
-                timestepFraction = ( endPosM-oldPos ) / newSpeed;
-                assert( timestepFraction <= MSNet::deltaT() );
-                double timestepFractionReduce = 0;
-                if ( oldPos <= startPosM ) {
-                    // vehicle entered and left detector in one step
-                    timestepFractionReduce = ( startPosM-oldPos ) / newSpeed;
-                    assert( timestepFraction - timestepFractionReduce >= 0 );
-                }
-                laneStateM->addMoveData(
-                    veh, timestepFraction - timestepFractionReduce );
-                laneStateM->leaveDetectorByMove( veh, timestepFraction );
-                return false;
-            }
-            laneStateM->addMoveData( veh, timestepFraction );
-            return true;
-        }
+                        double newSpeed );
 
-    void dismissByLaneChange( MSVehicle& veh )
-        {
-            if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
-                laneStateM->leaveDetectorByLaneChange( veh );
-            }
-        }
-
-    bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
-        {
-            if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
-                laneStateM->enterDetectorByEmitOrLaneChange( veh );
-                return true;
-            }
-            if ( veh.pos() > endPosM ){
-                return false;
-            }
-            return true;
-        }
-
+    void dismissByLaneChange( MSVehicle& veh );
+    
+    bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    
 private:
     double startPosM;
     double endPosM;
