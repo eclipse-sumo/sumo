@@ -23,29 +23,37 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 07:17:23  dkrajzew
+// bug on version computation patched
+//
 // Revision 1.3  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
 // Revision 1.2  2003/02/07 10:52:57  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <sstream>
 #include <utils/convert/TplConvert.h>
 #include "TextHelpers.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 std::string
 TextHelpers::version(std::string str)
 {
@@ -69,7 +77,7 @@ TextHelpers::version(std::string str)
     // change the version
     size_t idx1 = str.rfind('(');
     size_t idx2 = str.rfind(')');
-    long val = TplConvert<char>::_2long(str.substr(idx1, idx2-idx1).c_str());
+    long val = TplConvert<char>::_2long(str.substr(idx1+1, idx2-idx1-1).c_str());
     ostringstream strm;
     strm << str.substr(0, idx1) << val+1 << ")";
     return strm.str();
@@ -77,9 +85,6 @@ TextHelpers::version(std::string str)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "TextHelpers.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
