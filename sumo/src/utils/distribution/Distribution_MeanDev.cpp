@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        Distribution_MeanDev.cpp -  ccc
+//                        Distribution_MeanDev.cpp -
+//      A distribution described by the mean value and std-dev amount
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -22,15 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/28 12:35:22  dkrajzew
+// retrival of a distribution maximum value added; documentation added
+//
 // Revision 1.3  2003/06/06 11:01:09  dkrajzew
 // windows eol removed
 //
 // Revision 1.2  2003/06/05 14:33:44  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,10 +39,13 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
 #include "Distribution.h"
 #include "Distribution_MeanDev.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 Distribution_MeanDev::Distribution_MeanDev(const std::string &id,
                                            double mean, double deviation)
     : Distribution(id), myMeanValue(mean), myDeviation(deviation)
@@ -54,11 +58,14 @@ Distribution_MeanDev::~Distribution_MeanDev()
 }
 
 
+double
+Distribution_MeanDev::getMax() const
+{
+    return myMeanValue + myDeviation;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "Distribution_MeanDev.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        Distribution_Points.cpp -  ccc
+//                        Distribution_Points.cpp -
+//      The description of a distribution by a curve
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -22,15 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/28 12:35:22  dkrajzew
+// retrival of a distribution maximum value added; documentation added
+//
 // Revision 1.3  2003/06/06 11:01:09  dkrajzew
 // windows eol removed
 //
 // Revision 1.2  2003/06/05 14:33:44  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,11 +39,15 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
+#include <cassert>
 #include "Distribution.h"
 #include <utils/geom/Position2DVector.h>
 #include "Distribution_Points.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 Distribution_Points::Distribution_Points(const std::string &id,
                                          const Position2DVector &points)
     : Distribution(id), myPoints(points)
@@ -55,10 +60,16 @@ Distribution_Points::~Distribution_Points()
 }
 
 
+double
+Distribution_Points::getMax() const
+{
+    assert(myPoints.size()>0);
+    const Position2D &p = myPoints.at(myPoints.size()-1);
+    return p.x();
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "Distribution_Points.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
