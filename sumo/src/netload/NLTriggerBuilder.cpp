@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/22 10:05:17  dkrajzew
+// unsupported return value added
+//
 // Revision 1.1  2002/10/17 10:50:18  dkrajzew
 // building of triggers added (initial)
 //
@@ -66,6 +69,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
         }
         return buildLaneSpeedTrigger(net, id, *lane, file);
     }
+    return 0;
 }
 
 MSLaneSpeedTrigger *
