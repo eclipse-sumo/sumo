@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.11  2003/05/27 19:01:26  roessel
+// Removed OutputStyle in ctor (output will be xml).
+//
 // Revision 1.10  2003/05/26 15:31:09  roessel
 // Removed superflous #include "MSLane.h"
 //
@@ -84,10 +87,6 @@ class MSLane;
 class MSLaneState
 {
 public:
-    /** We support two output-styles, gnuplot and "Comma Separated Variable"
-        (CSV). */
-    enum OutputStyle { GNUPLOT, CSV };
-
     /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */
@@ -96,7 +95,6 @@ public:
                  double         begin,
                  double         length,
                  MSNet::Time    sampleIntervall,
-                 OutputStyle    style,
                  std::ofstream* file );
     
     /// Destructor.
@@ -268,8 +266,6 @@ protected:
 
 private:
     std::string idM;
-
-    OutputStyle styleM;
 
     /// File where output goes to.
     std::ofstream* fileM;
