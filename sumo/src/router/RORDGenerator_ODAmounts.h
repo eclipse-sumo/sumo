@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/01/27 08:45:00  dkrajzew
+// given flow definitions an own tag
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -97,13 +100,13 @@ protected:
     void parseInterval(const Attributes &attrs);
 
     /// Parses the trip amount definition
-    void parseTripAmountDef(const Attributes &attrs);
+    void parseFlowAmountDef(const Attributes &attrs);
 
     /// Closes the current embedding interval
     void myEndInterval();
 
     /// Closes the trip amount parsing
-    void myEndTripAmountDef();
+    void myEndFlowAmountDef();
 
 protected:
     /// reader dependent initialisation

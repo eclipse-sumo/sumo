@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/01/27 08:44:13  dkrajzew
+// given flow definitions an own tag
+//
 // Revision 1.22  2004/01/26 07:15:54  dkrajzew
 // new tags added for detector and trip amounts handling
 //
@@ -96,9 +99,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 48;
+size_t noSumoTags = 49;
 
-GenericSAX2Handler::Tag sumotags[48] =
+GenericSAX2Handler::Tag sumotags[49] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -137,6 +140,7 @@ GenericSAX2Handler::Tag sumotags[48] =
       { "edgepos",          SUMO_TAG_EDGEPOS },
       { "routealt",         SUMO_TAG_ROUTEALT },
       { "tripdef",          SUMO_TAG_TRIPDEF },
+      { "flow",             SUMO_TAG_FLOW },
       { "logicno",          SUMO_TAG_LOGICNO },
       { "trigger",          SUMO_TAG_TRIGGER },
       { "step",             SUMO_TAG_STEP },

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/27 08:45:00  dkrajzew
+// given flow definitions an own tag
+//
 // Revision 1.2  2004/01/26 09:56:11  dkrajzew
 // error handling corrected; forgotten call of to interval end and trip building inserted :-)
 //
@@ -209,8 +212,8 @@ RORDGenerator_ODAmounts::myStartElement(int element,
 										const Attributes &attrs)
 {
     switch(element) {
-    case SUMO_TAG_TRIPDEF:
-        parseTripAmountDef(attrs);
+    case SUMO_TAG_FLOW:
+        parseFlowAmountDef(attrs);
         break;
     case SUMO_TAG_INTERVAL:
         parseInterval(attrs);
@@ -220,7 +223,7 @@ RORDGenerator_ODAmounts::myStartElement(int element,
 
 
 void
-RORDGenerator_ODAmounts::parseTripAmountDef(const Attributes &attrs)
+RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
 {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
@@ -256,8 +259,8 @@ RORDGenerator_ODAmounts::parseTripAmountDef(const Attributes &attrs)
             + toString<unsigned int>(myIntervalEnd));
         return;
     }
-    myPeriodTime = getPeriod(attrs, myID);
-    myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
+    myPeriodTime = -1;
+    myNumberOfRepetitions = -1;
     myLane = getLane(attrs);
     myColor = getRGBColorReporting(attrs, myID);
 }
@@ -295,7 +298,7 @@ RORDGenerator_ODAmounts::myEndElement(int element, const std::string &name)
 {
     switch(element) {
     case SUMO_TAG_TRIPDEF:
-        myEndTripAmountDef();
+        myEndFlowAmountDef();
         break;
     case SUMO_TAG_INTERVAL:
         myEndInterval();
@@ -313,7 +316,7 @@ RORDGenerator_ODAmounts::myEndInterval()
 
 
 void
-RORDGenerator_ODAmounts::myEndTripAmountDef()
+RORDGenerator_ODAmounts::myEndFlowAmountDef()
 {
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2004/01/27 08:44:13  dkrajzew
+// given flow definitions an own tag
+//
 // Revision 1.24  2004/01/26 07:15:54  dkrajzew
 // new tags added for detector and trip amounts handling
 //
@@ -187,6 +190,8 @@ enum TagEnum
     SUMO_TAG_ROUTEALT,
     /** a single trip definition (used by router) */
     SUMO_TAG_TRIPDEF,
+    /** a flow definition (used by router) */
+    SUMO_TAG_FLOW,
     /** the number of the logic (traffic light logic) */
     SUMO_TAG_LOGICNO,
     /** a trigger definition */
@@ -340,7 +345,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[48];
+extern GenericSAX2Handler::Tag sumotags[49];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
