@@ -3,13 +3,11 @@ noinst_LIBRARIES = libhelpers.a
 CFRONT_FILES = Command.h \
 SimpleCommand.h \
 SimpleCommand.cpp \
-SimpleCommand.icc \
 Counter.h \
 Counter.cpp \
 Counter.icc \
 Dictionary.h \
 SingletonDictionary.h \
-convert.h \
 OneArgumentCommand.h
 
 libhelpers_a_SOURCES = PreStartInitialised.cpp \
