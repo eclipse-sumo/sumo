@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/10/17 10:45:17  dkrajzew
+// preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
+//
 // Revision 1.2  2002/10/16 16:44:23  dkrajzew
 // globa file include; no usage of MSPerson; single step execution implemented
 //
@@ -146,6 +149,7 @@ class MSEmitControl;
 class MSEventControl;
 class Event;
 class MSDetector;
+class PreStartInitialised;
 
 /**
  */
@@ -250,6 +254,10 @@ public:
         increases the elements of a meanData container. */
     bool withGUI( void );
     
+    void addPreStartInitialisedItem(PreStartInitialised *preinit);
+
+    void preStartInit();
+
 
 #ifdef _DEBUG
     /** a visible variables for the current time step - for debugging
@@ -312,6 +320,10 @@ private:
     /// Container for routes.
     typedef std::map< std::string, const Route* > RouteDict;
     static RouteDict myRoutes;
+
+    /// Container for items to initialise before starting
+    typedef std::vector<PreStartInitialised*> PreStartVector;
+    PreStartVector myPreStartInitialiseItems;
 
     /// Timestep [sec]
     static double myDeltaT;

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/17 10:45:17  dkrajzew
+// preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
+//
 // Revision 1.2  2002/10/16 16:44:23  dkrajzew
 // globa file include; no usage of MSPerson; single step execution implemented
 //
@@ -189,6 +192,7 @@ namespace
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
 #include "MSDetector.h"
+#include "PreStartInitialised.h"
 #include <helpers/ToString.h>
 
 using namespace std;
@@ -348,8 +352,9 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 
 
 void
-MSNet::simulationStep( ostream *craw, Time start, Time myStep )
+MSNet::simulationStep( ostream *craw, Time start, Time step )
 {
+    myStep = step;
 #ifdef _DEBUG
     globaltime = myStep;
 #endif
@@ -493,6 +498,22 @@ bool
 MSNet::withGUI( void )
 {
     return myWithGUI;
+}
+
+
+void 
+MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
+{
+    myPreStartInitialiseItems.push_back(preinit);
+}
+
+
+void 
+MSNet::preStartInit()
+{
+    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin(); i!=myPreStartInitialiseItems.end(); i++) {
+        (*i)->init(*this);
+    }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
