@@ -3,7 +3,7 @@
  * @author Christian Roessel
  * @date   Thu Aug  7 15:06:18 2003
  * @version $Id$
- * @brief  
+ * @brief
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -23,6 +23,9 @@
 #include "MSUnit.h"
 
 MSUnit* MSUnit::instanceM = 0;
+
+const MSUnit::Meters oneKM = 1000.0;
+const MSUnit::Seconds oneHour = 3600.0;
 
 // Local Variables:
 // mode:C++
