@@ -18,7 +18,14 @@
     License as published by the Free Software Foundation; either
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
+namespace
+{
+     const char rcsid[] = "$Id$";
+}
 // $Log$
+// Revision 1.4  2002/06/10 08:33:22  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+//
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -35,7 +42,9 @@
 #include <sax2/Attributes.hpp>
 #include <sax2/DefaultHandler.hpp>
 #include "GenericSAX2Handler.h"
-#include "XMLConvert.h"
+#include "TplConvert.h"
+
+#include "TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -70,7 +79,7 @@ bool GenericSAX2Handler::unknownOccured() const {
 }
 
 void GenericSAX2Handler::startElement(const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname, const Attributes& attrs) {
-   string name = XMLConvert::_2str(qname);
+   string name = TplConvert<XMLCh>::_2str(qname);
    int element = convertTag(name);
    _tagTree.push(element);
    _characters = "";
@@ -80,7 +89,7 @@ void GenericSAX2Handler::startElement(const XMLCh* const uri, const XMLCh* const
 }
 
 void GenericSAX2Handler::endElement(const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname) {
-   string name = XMLConvert::_2str(qname);
+   string name = TplConvert<XMLCh>::_2str(qname);
    int element = convertTag(name);
    if(element<0) 
       _unknownOccured = true;
@@ -95,7 +104,7 @@ void GenericSAX2Handler::endElement(const XMLCh* const uri, const XMLCh* const l
 }
 
 void GenericSAX2Handler::characters(const XMLCh* const chars, const unsigned int length) {
-   _characters += XMLConvert::_2str(chars, length);
+   _characters += TplConvert<XMLCh>::_2str(chars, length);
 }
 
 void GenericSAX2Handler::ignorableWhitespace(const XMLCh* const chars, const unsigned int length) {
@@ -127,6 +136,18 @@ int GenericSAX2Handler::convertTag(const std::string &tag) const {
    if(i==_tagMap.end()) 
       return -1; // !!! should it be reported (as error)
    return (*i).second;
+}
+
+string
+GenericSAX2Handler::buildErrorMessage(const std::string &file, const string &type,
+                              const SAXParseException& exception) {
+    ostringstream buf;
+    buf << type << endl;
+    buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+    buf << " In file: " << file << endl;
+    buf << " At line/column " << exception.getLineNumber()+1 << '/'
+          << exception.getColumnNumber();
+    return buf.str();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

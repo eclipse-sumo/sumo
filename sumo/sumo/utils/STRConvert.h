@@ -30,7 +30,7 @@
 class STRConvert {
  public:
     /** converts the given std::string into an int; 
-        throws XMLUngivenParameterException when the string is empty */
+        throws EmptyData when the string is empty */
      static int _2int(const std::string &str);
 };
 

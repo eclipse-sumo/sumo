@@ -23,14 +23,32 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 2.0  2002/02/14 14:43:28  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.4  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 1.1  2002/02/13 15:48:20  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.3  2002/04/09 12:20:38  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.2  2002/03/22 10:59:38  dkrajzew
+// Memory leak tracing added; ostrstreams replaces by ostringstreams
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
 //
 //
 /* =========================================================================
@@ -43,6 +61,14 @@ namespace
 #include "UtilExceptions.h"
 
 /* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
+
+/* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
@@ -53,17 +79,24 @@ using namespace std;
 bool OptionsParser::parse(OptionsCont *oc, int argc, char **argv) {
     bool ok = true;
     for(int i=1; i<argc; ) {
-      int add;
-      if(i<argc-1)
-        add = check(oc, argv[i], argv[i+1]);
-      else
-        add = check(oc, argv[i]);
-      if(add>0)
-        i += add;
-      else {
-        i += 1;
-        ok = false;
-      }
+        try {
+            int add;
+            if(i<argc-1)
+                add = check(oc, argv[i], argv[i+1]);
+            else
+                add = check(oc, argv[i]);
+            if(add>0)
+                i += add;
+            else {
+                i += 1;
+                ok = false;
+            }
+        } catch (InvalidArgument &e) {
+            cerr << "Error on processing option '" << argv[i] << "':" << endl;
+            cerr << " " << e.msg() << endl;
+            i++;
+            ok = false;
+        }
     }
     return ok;
 }
@@ -74,91 +107,74 @@ int OptionsParser::check(OptionsCont *oc, char *arg1) {
     // check switch
     bool error = false;
     if(isAbbreviation(arg1)) {
-      // set all switches when abbreviated
-      for(int i=1; i<arg1[i]!=0; i++) {
-        try {
-          if(!oc->set(convert(arg1[i]), true)) {
-            error = true;
-          }
-        } catch (InvalidArgument &e) {
-          return -1;
+        // set all switches when abbreviated
+        for(int i=1; i<arg1[i]!=0; i++) {
+            if(!oc->set(convert(arg1[i]), true)) {
+                error = true;
+            }
         }
-      }
     } else {
-	  // set single switch
-      try {
+	    // set single switch
         if(!oc->set(convert(arg1+2), true)) {
-          error = true;
-        } 
-      } catch(InvalidArgument &e) {
-        return -1;
-      }
+            error = true;
+        }
     }
     if(error) return -1;
     return 1;
 }
 
 int OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2) {
-    // the first argument should be an option 
+    // the first argument should be an option
     // (only the second may be a free string)
     if(!checkParameter(arg1)) return -1;
     // process not abbreviated parameters
     if(!isAbbreviation(arg1)) {
-      try {
         if(oc->isBool(convert(arg1+2))) {
-          if(!oc->set(convert(arg1+2), true)) 
-            return -1;
-          return 1;
-        }
-        else {
-          if(!oc->set(convert(arg1+2), convert(arg2))) 
-            return -1;
-          return 2;
-        }
-      } catch (InvalidArgument &e) {
-        return -1;
-      }
-    } 
-    // process abbreviated parameters
-    else {
-      bool error = false;
-      char file = 0;
-      try {
-        for(int i=1; arg1[i]!=0; i++) {
-          if(oc->isBool(convert(arg1[i]))) {
-            if(!oc->set(convert(arg1[i]), true)) {
-              error = true;
-            }
-          } else {
-            if(file!=0) {
-              cout << "Error: The current parameter '" << arg1[i] << "' and the parameter '" << file << "' do both need a value." << endl;
-              error = true;
-            }
-            file = arg1[i];
-          }
-        }
-        if(file!=0) {
-          if(!oc->set(convert(file), convert(arg2))) {
-            error = true;
-          } else
+            if(!oc->set(convert(arg1+2), true))
+                return -1;
+            return 1;
+        } else {
+            if(!oc->set(convert(arg1+2), convert(arg2)))
+                return -1;
             return 2;
         }
+    }
+    // process abbreviated parameters
+    else {
+        bool error = false;
+        char file = 0;
+        for(int i=1; arg1[i]!=0; i++) {
+            if(oc->isBool(convert(arg1[i]))) {
+                if(!oc->set(convert(arg1[i]), true)) {
+                    error = true;
+                }
+            } else {
+                if(file!=0) {
+                    cout << "Error: The current parameter '" << arg1[i] << "' and the parameter '" << file << "' do both need a value." << endl;
+                    error = true;
+                }
+                file = arg1[i];
+            }
+        }
+        if(file!=0) {
+            if(!oc->set(convert(file), convert(arg2))) {
+                error = true;
+            } else
+                return 2;
+        }
         if(error) return -1;
-          return 1;
-      } catch (InvalidArgument &e) {
-        return -1;
-      }
+            return 1;
     }
 }
 
 
 bool OptionsParser::checkParameter(char *arg1) {
-  if(arg1[0]!='-') {
-      cerr << "The parameter " << arg1 << " is not allowed in this context" << endl;
-      cerr << "Switch or parameter name expected." << endl;
-      return false;
-  } 
-  return true;
+    if(arg1[0]!='-') {
+        cerr << "The parameter " << arg1 << " is not allowed in this context" << endl;
+        cerr << "Switch or parameter name expected." << endl;
+        return false;
+    }
+    return true;
 }
 
 bool OptionsParser::isAbbreviation(char *arg1) {

@@ -1,6 +1,6 @@
 /***************************************************************************
                           XMLBuildingExceptions.cpp
-			  Exceptions that may occure while building the 
+			  Exceptions that may occure while building the
 			  structures
                              -------------------
     project              : SUMO
@@ -23,14 +23,32 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 2.0  2002/02/14 14:43:29  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.4  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 1.1  2002/02/13 15:48:20  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.3  2002/04/09 12:20:38  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.2  2002/03/22 10:59:38  dkrajzew
+// Memory leak tracing added; ostrstreams replaces by ostringstreams
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
 //
 // ------------------------------------------
 // moved to 'utils'
@@ -47,6 +65,14 @@ namespace
 #include "XMLBuildingExceptions.h"
 
 /* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
+
+/* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
@@ -57,18 +83,18 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * XMLBuildingException - methods
  * ----------------------------------------------------------------------- */
-XMLBuildingException::XMLBuildingException() 
+XMLBuildingException::XMLBuildingException()
 {
 }
 
 
-XMLBuildingException::~XMLBuildingException() 
+XMLBuildingException::~XMLBuildingException()
 {
 }
 
 
-string 
-XMLBuildingException::getMessage(const string &obj, const string &id) 
+string
+XMLBuildingException::getMessage(const string &obj, const string &id)
 {
   return "Unknown Exception (Object=" + obj + ", id=" + id + ").";
 }
@@ -77,45 +103,20 @@ XMLBuildingException::getMessage(const string &obj, const string &id)
 
 
 /* -------------------------------------------------------------------------
- * XMLUngivenParameterException - methods
- * ----------------------------------------------------------------------- */
-XMLUngivenParameterException::XMLUngivenParameterException() : XMLBuildingException()  
-{
-}
-
-
-XMLUngivenParameterException::~XMLUngivenParameterException() 
-{
-}
-
-
-string 
-XMLUngivenParameterException::getMessage(const string &obj, const string &id) 
-{
-  string _myObj = obj;
-  string _myId = id;
-  if(_myObj=="") _myObj = "<unknown>";
-  if(_myId=="") _myId = "<unknown>";
-  return "The description of the object '" + _myObj + "' with the id '" + _myId + "' is not complete.";
-}
-
-
-
-/* -------------------------------------------------------------------------
  * XMLIdNotGivenException - methods
  * ----------------------------------------------------------------------- */
-XMLIdNotGivenException::XMLIdNotGivenException() : XMLBuildingException()  
+XMLIdNotGivenException::XMLIdNotGivenException() : XMLBuildingException()
 {
 }
 
 
-XMLIdNotGivenException::~XMLIdNotGivenException() 
+XMLIdNotGivenException::~XMLIdNotGivenException()
 {
 }
 
 
-string 
-XMLIdNotGivenException::getMessage(const string &obj, const string &id) 
+string
+XMLIdNotGivenException::getMessage(const string &obj, const string &id)
 {
   string _myObj = obj;
   if(_myObj=="") _myObj = "<unknown>";
@@ -132,13 +133,13 @@ XMLIdNotKnownException::XMLIdNotKnownException(const string object, const string
 }
 
 
-XMLIdNotKnownException::~XMLIdNotKnownException() 
+XMLIdNotKnownException::~XMLIdNotKnownException()
 {
 }
 
 
-string 
-XMLIdNotKnownException::getMessage(const string &obj, const string &id) 
+string
+XMLIdNotKnownException::getMessage(const string &obj, const string &id)
 {
   return "The object " + m_Object + " with the id " + m_Id + " is not known";
 }
@@ -153,13 +154,13 @@ XMLIdAlreadyUsedException::XMLIdAlreadyUsedException(const string object, const 
 }
 
 
-XMLIdAlreadyUsedException::~XMLIdAlreadyUsedException() 
+XMLIdAlreadyUsedException::~XMLIdAlreadyUsedException()
 {
 }
 
 
-string 
-XMLIdAlreadyUsedException::getMessage(const string &obj, const string &id) 
+string
+XMLIdAlreadyUsedException::getMessage(const string &obj, const string &id)
 {
   return "Another " + m_Object + " with the id " + m_Id + " exists";
 }
@@ -169,18 +170,18 @@ XMLIdAlreadyUsedException::getMessage(const string &obj, const string &id)
 /* -------------------------------------------------------------------------
  * XMLDepartLaneDuplicationException - methods
  * ----------------------------------------------------------------------- */
-XMLDepartLaneDuplicationException::XMLDepartLaneDuplicationException() : XMLBuildingException()  
+XMLDepartLaneDuplicationException::XMLDepartLaneDuplicationException() : XMLBuildingException()
 {
 }
 
 
-XMLDepartLaneDuplicationException::~XMLDepartLaneDuplicationException() 
+XMLDepartLaneDuplicationException::~XMLDepartLaneDuplicationException()
 {
 }
 
 
-string 
-XMLDepartLaneDuplicationException::getMessage(const string &obj, const string &id) 
+string
+XMLDepartLaneDuplicationException::getMessage(const string &obj, const string &id)
 {
   string _myId = id;
   if(_myId=="") _myId = "<unknown>";
@@ -192,18 +193,18 @@ XMLDepartLaneDuplicationException::getMessage(const string &obj, const string &i
 /* -------------------------------------------------------------------------
  * XMLInvalidChildException - methods
  * ----------------------------------------------------------------------- */
-XMLInvalidChildException::XMLInvalidChildException() : XMLBuildingException()  
+XMLInvalidChildException::XMLInvalidChildException() : XMLBuildingException()
 {
 }
 
 
-XMLInvalidChildException::~XMLInvalidChildException() 
+XMLInvalidChildException::~XMLInvalidChildException()
 {
 }
 
 
-string 
-XMLInvalidChildException::getMessage(const string &obj, const string &id) 
+string
+XMLInvalidChildException::getMessage(const string &obj, const string &id)
 {
   string _myObj = obj;
   string _myId = id;
@@ -217,18 +218,18 @@ XMLInvalidChildException::getMessage(const string &obj, const string &id)
 /* -------------------------------------------------------------------------
  * XMLInvalidParentException - methods
  * ----------------------------------------------------------------------- */
-XMLInvalidParentException::XMLInvalidParentException() : XMLBuildingException()  
+XMLInvalidParentException::XMLInvalidParentException() : XMLBuildingException()
 {
 }
 
 
-XMLInvalidParentException::~XMLInvalidParentException() 
+XMLInvalidParentException::~XMLInvalidParentException()
 {
 }
 
 
-string 
-XMLInvalidParentException::getMessage(const string &obj, const string &id) 
+string
+XMLInvalidParentException::getMessage(const string &obj, const string &id)
 {
   string _myObj = obj;
   string _myId = id;
@@ -242,18 +243,18 @@ XMLInvalidParentException::getMessage(const string &obj, const string &id)
 /* -------------------------------------------------------------------------
  * XMLKeyDuplicateException - methods
  * ----------------------------------------------------------------------- */
-XMLKeyDuplicateException::XMLKeyDuplicateException() 
+XMLKeyDuplicateException::XMLKeyDuplicateException()
 {
 }
 
 
-XMLKeyDuplicateException::~XMLKeyDuplicateException() 
+XMLKeyDuplicateException::~XMLKeyDuplicateException()
 {
 }
 
 
-string 
-XMLKeyDuplicateException::getMessage(const string &obj, const string &id) 
+string
+XMLKeyDuplicateException::getMessage(const string &obj, const string &id)
 {
   return "Double request-respond definition occured";
 }
@@ -263,42 +264,22 @@ XMLKeyDuplicateException::getMessage(const string &obj, const string &id)
 /* -------------------------------------------------------------------------
  * XMLListEmptyException - methods
  * ----------------------------------------------------------------------- */
-XMLListEmptyException::XMLListEmptyException() 
+XMLListEmptyException::XMLListEmptyException()
 {
 }
 
 
-XMLListEmptyException::~XMLListEmptyException() 
+XMLListEmptyException::~XMLListEmptyException()
 {
 }
 
 
-string 
-XMLListEmptyException::getMessage(const string &obj, const string &id) 
+string
+XMLListEmptyException::getMessage(const string &obj, const string &id)
 {
   return "The list belonging to the '" + obj + "' with the id '" + id + "' must not but is empty";
 }
 
-
-
-/* -------------------------------------------------------------------------
- * XMLNumericFormatException - methods
- * ----------------------------------------------------------------------- */
-XMLNumericFormatException::XMLNumericFormatException() 
-{
-}
-
-
-XMLNumericFormatException::~XMLNumericFormatException() 
-{
-}
-
-
-string 
-XMLNumericFormatException::getMessage(const string &obj, const string &id) 
-{
-  return "Numeric format mismatch.";
-}
 
 
 

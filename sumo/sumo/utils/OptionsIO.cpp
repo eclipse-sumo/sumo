@@ -25,23 +25,44 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2002/04/29 05:38:54  dkrajzew
+// Revision 1.5  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+//
+// Revision 1.7  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
+//
+// Revision 1.6  2002/05/14 04:45:49  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.5  2002/04/29 05:38:18  dkrajzew
 // Better error handling on missing configuration implemented
 //
-// Revision 1.3  2002/04/17 11:19:57  dkrajzew
-// windows-carriage returns removed
+// Revision 1.4  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
 //
-// Revision 1.2  2002/04/16 12:22:59  dkrajzew
+// Revision 1.3  2002/04/17 11:21:52  dkrajzew
+// Windows-carriage returns removed
+//
+// Revision 1.2  2002/04/16 12:28:26  dkrajzew
 // Usage of SUMO_DATA removed
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
 //
-// Revision 2.1  2002/03/20 08:20:57  dkrajzew
-// New configuration-default handling
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
 //
-// Revision 2.0  2002/02/14 14:43:27  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.5  2002/04/09 12:20:37  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.4  2002/03/22 10:59:37  dkrajzew
+// Memory leak tracing added; ostrstreams replaces by ostringstreams
+//
+// Revision 1.3  2002/03/20 08:50:37  dkrajzew
+// Revisions patched
+//
+// Revision 1.2  2002/03/20 08:41:22  dkrajzew
+// New configuration search schema
 //
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
@@ -64,7 +85,17 @@ namespace
 #include "OptionsLoader.h"
 #include "OptionsParser.h"
 #include "FileHelpers.h"
-#include "XMLConvert.h"
+#include "TplConvert.h"
+
+#include "../utils/TplConvert.cpp"
+
+/* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -107,7 +138,7 @@ bool OptionsIO::loadConfiguration(OptionsCont *oc) {
     try {
       XMLPlatformUtils::Initialize();
     } catch (const XMLException& toCatch) {
-      cerr << "Error during XML-initialization: " << XMLConvert::_2str(toCatch.getMessage()) << endl;
+      cerr << "Error during XML-initialization: " << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
       return false;
     }
     // build parser
@@ -126,7 +157,7 @@ bool OptionsIO::loadConfiguration(OptionsCont *oc) {
       if(handler->errorOccured())
         ok = false;
     } catch (const XMLException& toCatch) {
-      cerr << "Error: " << XMLConvert::_2str(toCatch.getMessage()) << endl;
+      cerr << "Error: " << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
       ok = false;
     }
     //XMLPlatformUtils::Terminate();

@@ -2,7 +2,7 @@
 #define XMLBuildingExceptions_h
 /***************************************************************************
                           XMLBuildingException.h
-			  Exceptions that may occure while building the 
+			  Exceptions that may occure while building the
 			  structures
                              -------------------
     project              : SUMO
@@ -21,17 +21,26 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2002/04/15 07:12:54  dkrajzew
-// The exceptions are now public derivations of the base xml-exception
+// Revision 1.3  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.4  2002/06/10 06:54:31  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 2.0  2002/02/14 14:43:29  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
 //
-// Revision 1.1  2002/02/13 15:48:21  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
 //
 // ------------------------------------------
 // moved to 'utils'
@@ -50,9 +59,9 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/** 
+/**
  * XMLBuildingException
- * basic class for all following exception classes 
+ * basic class for all following exception classes
  */
 class XMLBuildingException {
 public:
@@ -65,24 +74,10 @@ public:
 };
 
 /**
- * XMLUngivenParameterException
- * thrown on a missing XML-parameter 
- */
-class XMLUngivenParameterException : public XMLBuildingException {
-public:
-    /** constructor */  
-    XMLUngivenParameterException();
-    /** destructor */
-    ~XMLUngivenParameterException();
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-};
-
-/** 
  * XMLIdNotGivenException
  * thrown when the id is not supplied
  */
-class XMLIdNotGivenException : public XMLBuildingException  {
+class XMLIdNotGivenException : XMLBuildingException  {
 public:
     /** constructor */
     XMLIdNotGivenException();
@@ -92,12 +87,12 @@ public:
     std::string getMessage(const std::string &obj, const std::string &id);
 };
 
-/** 
+/**
  * XMLIdNotKnownException
- * thrown when an object of the named class and id is not known 
- * (was not loaded/parsed) but its parent is known 
+ * thrown when an object of the named class and id is not known
+ * (was not loaded/parsed) but its parent is known
  */
-class XMLIdNotKnownException : public XMLBuildingException  {
+class XMLIdNotKnownException : XMLBuildingException  {
 private:
     /** the object type with the unknown id */
     std::string   m_Object;
@@ -112,13 +107,13 @@ public:
     std::string getMessage(const std::string &obj, const std::string &id);
 };
 
-/** 
+/**
  * XMLIdAlreadyUsedException
- * thrown when a duplicate key for the same object type is given 
+ * thrown when a duplicate key for the same object type is given
  */
-class XMLIdAlreadyUsedException : public XMLBuildingException  {
+class XMLIdAlreadyUsedException : XMLBuildingException  {
 private:
-    /** the object type with the duplicate id */    
+    /** the object type with the duplicate id */
     std::string   m_Object;
     /** previous id of the object */
     std::string   m_Id;
@@ -131,11 +126,11 @@ public:
     std::string getMessage(const std::string &obj, const std::string &id);
 };
 
-/** 
+/**
  * XMLDepartLaneDuplicationException
- * thrown when an edge has two or more defined depart lanes 
+ * thrown when an edge has two or more defined depart lanes
  */
-class XMLDepartLaneDuplicationException : public XMLBuildingException  {
+class XMLDepartLaneDuplicationException : XMLBuildingException  {
 public:
     /** constructor */
     XMLDepartLaneDuplicationException();
@@ -145,12 +140,12 @@ public:
     std::string getMessage(const std::string &obj, const std::string &id);
 };
 
-/** 
+/**
  * XMLInvalidChildException
- * thrown when a child to add to a larger structure is invalid 
- * (f.i. was not formerly known) 
+ * thrown when a child to add to a larger structure is invalid
+ * (f.i. was not formerly known)
  */
-class XMLInvalidChildException : public XMLBuildingException  {
+class XMLInvalidChildException : XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidChildException();
@@ -160,12 +155,12 @@ public:
     std::string getMessage(const std::string &obj, const std::string &id);
 };
 
-/** 
+/**
  * XMLInvalidParentException
- * thrown when a parent to add a child to is not known 
- * (f.i. when the child is not inside of valid tags) 
+ * thrown when a parent to add a child to is not known
+ * (f.i. when the child is not inside of valid tags)
  */
-class XMLInvalidParentException : public XMLBuildingException  {
+class XMLInvalidParentException : XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidParentException();
@@ -176,11 +171,11 @@ public:
 };
 
 
-/** 
+/**
  * XMLKeyDuplicateException
- * thrown when a key-value pair with the same key as given was already set 
+ * thrown when a key-value pair with the same key as given was already set
  */
-class XMLKeyDuplicateException  : public XMLBuildingException {
+class XMLKeyDuplicateException  : XMLBuildingException {
 public:
     /** constructor */
     XMLKeyDuplicateException();
@@ -191,11 +186,11 @@ public:
 };
 
 
-/** 
+/**
  * XMLListEmptyException
- * thrown when an empty list which should have values is used 
+ * thrown when an empty list which should have values is used
  */
-class XMLListEmptyException  : public XMLBuildingException {
+class XMLListEmptyException  : XMLBuildingException {
 public:
     /** constructor */
     XMLListEmptyException();
@@ -204,22 +199,6 @@ public:
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
 };
-
-/** 
- * XMLNumericFormatException
- * Thrown when a numeric value has not the proper format (is alphanumeric,
- * contains two dots or something like that)
- */
-class XMLNumericFormatException  : public XMLBuildingException {
-public:
-    /** constructor */
-    XMLNumericFormatException();
-    /** destructor */
-    ~XMLNumericFormatException();
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-};
-
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

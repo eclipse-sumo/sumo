@@ -25,23 +25,32 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 2.4  2002/03/26 12:48:00  georg
-// method name corrected (DK)
+// Revision 1.4  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 2.3  2002/03/22 11:16:02  dkrajzew
-// ostrstream replaced by ostringstream
+// Revision 1.3  2002/05/14 04:45:49  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
 //
-// Revision 2.2  2002/02/18 11:07:56  traffic
-// removed all c-includes
+// Revision 1.2  2002/04/26 10:08:38  dkrajzew
+// Windows eol removed
 //
-// Revision 2.1  2002/02/18 11:05:47  traffic
-// "getValues()" now returns a string
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
 //
-// Revision 2.0  2002/02/14 14:43:27  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
+// new version-free project name
+//
+// Revision 1.4  2002/04/09 12:20:37  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.3  2002/03/22 10:59:37  dkrajzew
+// Memory leak tracing added; ostrstreams replaces by ostringstreams
+//
+// Revision 1.2  2002/03/20 08:50:37  dkrajzew
+// Revisions patched
 //
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
@@ -54,7 +63,18 @@ namespace
 #include <exception>
 #include <sstream>
 #include "Option.h"
+#include "TplConvert.h"
 #include "UtilExceptions.h"
+
+#include "TplConvert.cpp"
+
+/* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -110,13 +130,13 @@ bool Option::getBool() const {
 bool Option::set(string v, bool isDefault) {
     v = v;
     isDefault = isDefault;
-    throw InvalidArgument("This is an abstract class.");    
+    throw InvalidArgument("This is an abstract class.");
 }
 
 bool Option::set(bool v, bool isDefault) {
     v = v;
     isDefault = isDefault;
-    throw InvalidArgument("This is an abstract class.");    
+    throw InvalidArgument("This is an abstract class.");
 }
 
 bool Option::markSet(bool isDefault) {
@@ -127,7 +147,7 @@ bool Option::markSet(bool isDefault) {
 }
 
 string Option::getValue() const {
-    throw InvalidArgument("This is an abstract class.");    
+    throw InvalidArgument("This is an abstract class.");
 }
 
 bool Option::isBool() const {
@@ -169,11 +189,11 @@ int Option_Integer::getInt() const {
 
 bool Option_Integer::set(string v, bool isDefault) {
     try {
-	_value = atoi(v.c_str());
-	return markSet(isDefault);
+        _value = TplConvert<char>::_2int(v.c_str());
+	    return markSet(isDefault);
     } catch (...) {
-	string s = "'" + v + "' is not a valid integer (should be).";
-	throw InvalidArgument(s);
+	    string s = "'" + v + "' is not a valid integer (should be).";
+	    throw InvalidArgument(s);
     }
 }
 
@@ -214,11 +234,11 @@ long Option_Long::getLong() const {
 
 bool Option_Long::set(string v, bool isDefault) {
     try {
-	_value = atol(v.c_str());
-	return markSet(isDefault);
+	    _value = TplConvert<char>::_2long(v.c_str());
+	    return markSet(isDefault);
     } catch (...) {
-	string s = "'" + v + "' is not a valid long (should be).";
-	throw InvalidArgument(s);
+	    string s = "'" + v + "' is not a valid long (should be).";
+	    throw InvalidArgument(s);
     }
 }
 
@@ -227,7 +247,6 @@ string Option_Long::getValue() const {
     s << _value;
     return string(s.str());
 }
-
 
 
 /* -------------------------------------------------------------------------
@@ -297,11 +316,11 @@ float Option_Float::getFloat() const {
 
 bool Option_Float::set(string v, bool isDefault) {
     try {
-	_value = atof(v.c_str());
-	return markSet(isDefault);
+	    _value = TplConvert<char>::_2float(v.c_str());
+	    return markSet(isDefault);
     } catch (...) {
-	string s = "'" + v + "' is not a valid float (should be).";
-	throw InvalidArgument(s);
+	    string s = "'" + v + "' is not a valid float (should be).";
+	    throw InvalidArgument(s);
     }
 }
 
@@ -347,7 +366,7 @@ bool Option_Bool::set(bool v, bool isDefault) {
 
 string Option_Bool::getValue() const {
     if(_value)
-	return string("true");
+	    return string("true");
     return string("false");
 }
 

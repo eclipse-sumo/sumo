@@ -28,7 +28,7 @@ namespace
 #include <iostream>
 #include <climits>
 #include "STRConvert.h"
-#include "XMLBuildingExceptions.h"
+#include "UtilExceptions.h"
 
 /* =========================================================================
  * used namespaces
@@ -43,7 +43,7 @@ STRConvert::_2int(const string &inp)
 {
     unsigned length = inp.length();
     if(length==0)
-        throw XMLUngivenParameterException();
+        throw EmptyData();
     int val = 0;
     size_t i = 0;
     if(((char) inp.at(i))=='+'||((char) inp.at(i))=='-')
@@ -51,7 +51,7 @@ STRConvert::_2int(const string &inp)
     for(; i<length; i++) {
         val = val * 10;
         if(((char) inp.at(i))>'9' || ((char) inp.at(i))<'0')
-            throw XMLNumericFormatException();
+            throw NumberFormatException();
         else {
             val = val + ((char) inp.at(i) - 48);
         }

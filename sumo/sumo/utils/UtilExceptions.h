@@ -21,14 +21,26 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 2.0  2002/02/14 14:43:29  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.4  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 1.1  2002/02/13 15:48:20  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
 //
 //
 /* =========================================================================
@@ -74,7 +86,7 @@ public:
 
 /**
  * UnsupportedFeature
- * An exception taht is thrown when an (yet) unsupported class or 
+ * An exception that is thrown when an (yet) unsupported class or
  * feature shall be instantiated
  */
 class UnsupportedFeature : public std::exception {
@@ -88,6 +100,32 @@ public:
   ~UnsupportedFeature();
   /** returns the message */
   std::string message();
+};
+
+/**
+ * EmptyData
+ * Thrown when data required by a method is missing
+ */
+class EmptyData : public std::exception {
+public:
+    /** constructor */
+    EmptyData() { }
+    /** destructor */
+    ~EmptyData() { }
+};
+
+/**
+ * NumberFormatException
+ * Thrown when the string that shall be converted into a 
+ * numerical representation has any other chracters then
+ * digits and a dot
+ */
+class NumberFormatException : public std::exception {
+public:
+    /** constructor */
+    NumberFormatException() { }
+    /** destructor */
+    ~NumberFormatException() { }
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/10 08:33:22  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+//
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -113,6 +116,9 @@ protected:
     inline void myCharactersDump(int element, const char *chars);
     /** a dump-methods that may be used to avoid "unused attribute"-warnings */
     inline void myEndElementDump(int element, const std::string &name);
+    /** build an error description */
+    std::string buildErrorMessage(const std::string &file, const std::string &type, 
+        const SAXParseException& exception);
 private:
     /** converts a tag from its string into its numerical representation */
     int convertTag(const std::string &tag) const;

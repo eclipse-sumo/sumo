@@ -1,7 +1,7 @@
 /***************************************************************************
                           OptionsLoader.cpp
 			  Loads a configuration (XML) using a SAX-Parser
-			  The class itself is a derivation of the 
+			  The class itself is a derivation of the
 			  SAX-HandlerBase
                              -------------------
     project              : SUMO
@@ -25,20 +25,35 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.3  2002/05/14 04:55:59  dkrajzew
-// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+// Revision 1.4  2002/06/10 08:33:23  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
-// Revision 1.2  2002/04/08 07:25:36  georg
-// check out/commit test
+// Revision 1.4  2002/06/10 06:54:30  dkrajzew
+// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
 //
-// Revision 2.1  2002/03/20 08:50:10  dkrajzew
-// The langth of the characters-field is now used
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
+// Windows eol removed
 //
-// Revision 2.0  2002/02/14 14:43:28  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.5  2002/04/09 12:20:37  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.4  2002/03/22 10:59:38  dkrajzew
+// Memory leak tracing added; ostrstreams replaces by ostringstreams
+//
+// Revision 1.3  2002/03/20 08:50:37  dkrajzew
+// Revisions patched
+//
+// Revision 1.2  2002/03/20 08:42:59  dkrajzew
+// Better SAX-usage (incorporating the length information for character-fields)
 //
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
@@ -54,10 +69,20 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "XMLConvert.h"
+#include "TplConvert.h"
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
 #include "UtilExceptions.h"
+
+#include "../utils/TplConvert.cpp"
+
+/* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -70,38 +95,38 @@ using namespace std;
 OptionsLoader::OptionsLoader(OptionsCont *oc, const char *file, bool warn, bool verbose) : _error(false), _warn(warn), _file(file), _verbose(verbose), _options(oc), _item() {
 }
 
-OptionsLoader::~OptionsLoader () {
+OptionsLoader::~OptionsLoader() {
 }
 
 void OptionsLoader::startElement(const XMLCh* const name, AttributeList& attributes) {
-  _item = XMLConvert::_2str(name);
+  _item = TplConvert<XMLCh>::_2str(name);
   if(_item=="configuration"||_item=="files"||_item=="defaults"||_item=="reports")
   _item = "";
 }
 
 void OptionsLoader::characters(const XMLCh* const chars, const unsigned int length) {
-  if(_item.length()==0) return;
-  string value = XMLConvert::_2str(chars, length);
-  size_t index = value.find_first_not_of("\n\t \a");
-  if(index==string::npos) return;
-  if(value.length()>0) {
-    try {
-      bool wasDefault;
-      if(_options->isBool(_item)) {
-        if(value=="0"||value=="false"||value=="FALSE")
-          wasDefault = _options->set(_item, false);
-        else
-          wasDefault = _options->set(_item, true);
-      } else {
-        wasDefault = _options->set(_item, value);
-      }
-      if(!wasDefault) {
-        _error = true;
-      }
-    } catch (InvalidArgument &e) {
-      _error = true;
+    if(_item.length()==0) return;
+    string value = TplConvert<XMLCh>::_2str(chars, length);
+    size_t index = value.find_first_not_of("\n\t \a");
+    if(index==string::npos) return;
+        if(value.length()>0) {
+        try {
+            bool wasDefault;
+            if(_options->isBool(_item)) {
+                if(value=="0"||value=="false"||value=="FALSE")
+                    wasDefault = _options->set(_item, false);
+                else
+                    wasDefault = _options->set(_item, true);
+            } else {
+                wasDefault = _options->set(_item, value);
+            }
+            if(!wasDefault) {
+                _error = true;
+            }
+        } catch (InvalidArgument &e) {
+            _error = true;
+        }
     }
-  }
 }
 
 void OptionsLoader::endElement(const XMLCh* const name) {
@@ -109,18 +134,21 @@ void OptionsLoader::endElement(const XMLCh* const name) {
 }
 
 void OptionsLoader::warning(const SAXParseException& exception) {
-    cerr << XMLConvert::buildErrorMessage(_file, "Warning: ", exception);
-    _error = true;
+  cerr << "Warning: " << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
+  _error = true;
 }
 
 void OptionsLoader::error(const SAXParseException& exception) {
-    cerr << XMLConvert::buildErrorMessage(_file, "Error: ", exception);
-    _error = true;
+  cerr << "Error: " + TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
+  _error = true;
 }
 
 void OptionsLoader::fatalError(const SAXParseException& exception) {
-    cerr << XMLConvert::buildErrorMessage(_file, "Fatal-Error:", exception);
-    _error = true;
+  cerr << "Error: " + TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
+  _error = true;
 }
 
 bool OptionsLoader::errorOccured() {

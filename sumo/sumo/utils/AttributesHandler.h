@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/10 08:33:22  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+//
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -64,6 +67,9 @@ public:
     int getInt(const Attributes &attrs, int id) const;
     /** returns the named (by id) attribute as a string */    
     std::string getString(const Attributes &attrs, int id) const;
+    /** returns the named (by id) attributes as a string; 
+        returns the third parameter when the attribute is not found */
+    std::string getStringSecure(const Attributes &attrs, int id, const std::string &str) const;
     /** returns the named (by id) attribute as a long */
     long getLong(const Attributes &attrs, int id) const;
     /** returns the named (by id) attribute as a float */

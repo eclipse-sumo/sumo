@@ -19,7 +19,14 @@
     License as published by the Free Software Foundation; either
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
+namespace
+{
+     const char rcsid[] = "$Id$";
+}
 // $Log$
+// Revision 1.4  2002/06/10 08:33:22  dkrajzew
+// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+//
 // Revision 1.3  2002/04/17 11:19:56  dkrajzew
 // windows-carriage returns removed
 //
@@ -33,8 +40,12 @@
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
-#include "XMLConvert.h"
+#include "TplConvert.h"
+#include "TplConvertSec.h"
 #include "AttributesHandler.h"
+
+#include "TplConvert.cpp"
+#include "TplConvertSec.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -61,32 +72,38 @@ void AttributesHandler::add(int id, const std::string &name) {
 
 int AttributesHandler::getInt(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2int(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2int(attrs.getValue(0, (*i).second));
 }
 
 bool AttributesHandler::getBool(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2bool(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2bool(attrs.getValue(0, (*i).second));
 }
 
 std::string AttributesHandler::getString(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2str(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2str(attrs.getValue(0, (*i).second));
+}
+
+std::string AttributesHandler::getStringSecure(const Attributes &attrs, int id, const std::string &str) const
+{
+   TagMap::const_iterator i=_tags.find(id);
+   return TplConvertSec<XMLCh>::_2strSec(attrs.getValue(0, (*i).second), str);
 }
 
 long AttributesHandler::getLong(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2long(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2long(attrs.getValue(0, (*i).second));
 }
 
 float AttributesHandler::getFloat(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2float(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2float(attrs.getValue(0, (*i).second));
 }
 
 char *AttributesHandler::getCharP(const Attributes &attrs, int id) const {
    TagMap::const_iterator i=_tags.find(id);
-   return XMLConvert::_2char(attrs.getValue(0, (*i).second));
+   return TplConvert<XMLCh>::_2charp(attrs.getValue(0, (*i).second));
 }
 
 void AttributesHandler::check(int id) const {

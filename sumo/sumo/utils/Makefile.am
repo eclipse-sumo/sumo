@@ -6,8 +6,9 @@ GenericSAX2Handler.h Option.cpp Option.h OptionsCont.cpp OptionsCont.h	\
 OptionsIO.cpp OptionsIO.h OptionsLoader.cpp OptionsLoader.h		\
 OptionsParser.cpp OptionsParser.h STRConvert.cpp STRConvert.h		\
 UtilExceptions.cpp UtilExceptions.h XMLBuildingExceptions.cpp		\
-XMLBuildingExceptions.h XMLConvert.cpp XMLConvert.h			\
-StringTokenizer.cpp StringTokenizer.h HelpPrinter.h
+XMLBuildingExceptions.h \
+StringTokenizer.cpp StringTokenizer.h HelpPrinter.h \
+TplConvert.cpp TplConvert.h TplConvertSec.cpp TplConvertSec.h
 
 AM_CPPFLAGS = -I$(XERCESINCLUDE)
 
