@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/07 08:40:09  dkrajzew
+// included new options into the help-screens
+//
 // Revision 1.5  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -74,11 +77,13 @@ char *help[] = {
     "   -e, --end INT                   Last time step of the simulation",
     "   -s, --route-steps INT           The number of steps to read routes in",
     "                                   forward (default=0: read all routes)",
+    " Simulation options:",
+    "   --continue-on-accident          Allows continuation after an accident",
     " ",
-    " Processing Options:",
-    "   -C, --no-config                 No configuration file will be used",
+    " Report Options:",
     "   -v, --verbose                   SUMO will report what it does",
     "   -W, --suppress-warnings         No warnings will be printed",
+    "   -l, --log-file FILE             Writes all messages to the file",
     "   -p, --print-options             Prints option values before processing",
     "   -?, --help                      This screen",
     0

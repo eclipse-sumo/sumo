@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/07/07 08:40:09  dkrajzew
+// included new options into the help-screens
+//
 // Revision 1.9  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -91,12 +94,12 @@ char *help[] = {
     "                                   on an Intel-machine",
     "   --no-last-cell                 Use best, not the last cell-route",
     " ",
-    " Processing Options:",
-    "   -C, --no-config                No configuration file is used",
-    "   -v, --verbose                  SUMO-Netconvert reports what it does",
-    "   -W, --suppress-warnings        No warnings will be printed",
-    "   -p, --print-options            Prints option values before processing",
-    "   --help                         This screen",
+    " Report options:",
+    "   -v, --verbose                   SUMO-ROUTER will report what it does",
+    "   -W, --suppress-warnings         No warnings will be printed",
+    "   -l, --log-file FILE             Writes all messages to the file",
+    "   -p, --print-options             Prints option values before processing",
+    "   -?, --help                      This screen",
     0
 };
 

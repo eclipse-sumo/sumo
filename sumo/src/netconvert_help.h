@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/07/07 08:40:09  dkrajzew
+// included new options into the help-screens
+//
 // Revision 1.6  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -82,14 +85,12 @@ char *help[] = {
     "   -L, --lanenumber INT           The default number of lanes in an edge",
     "   -S, --speed DOUBLE             The default speed on an edge (in m/s)",
     "   -P, --priority INT             The default priority of an edge",
+    " ",
+    " Computational settings:",
     "   -N, --capacity-norm DOUBLE     The factor for flow to no. lanes conv.",
     "   -D, --min-decel DOUBLE         The least vehicle deceleration value used",
     " ",
     " Processing Options:",
-    "   -C, --no-config                No configuration file is used",
-    "   -v, --verbose                  SUMO-Netconvert reports what it does",
-    "   -W, --suppress-warnings        No warnings will be printed",
-    "   -p, --print-options            Prints option values before processing",
     "   --flip-y                       Flips the y-coordinate along zero",
     "   --speed-in-km                  vmax is parsed as given in km/h; XML only",
     "   --use-laneno-as-priority       Uses the number of lanes priority hint",
@@ -97,7 +98,15 @@ char *help[] = {
     "                                     occured (warning is printed)",
 	"   --vissim-offset DOUBLE         Specifies the structure join offset within",
 	"                                     vissim-import",
-    "   --help                         This screen",
+    "   --keep-small-tyellow           Given yellow times are kept even if too ",
+    "                                     they are small",
+    " ",
+    " Report options:",
+    "   -v, --verbose                   SUMO-NETCONVERT will report what it does",
+    "   -W, --suppress-warnings         No warnings will be printed",
+    "   -l, --log-file FILE             Writes all messages to the file",
+    "   -p, --print-options             Prints option values before processing",
+    "   -?, --help                      This screen",
     0
 };
 

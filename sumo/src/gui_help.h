@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/07 08:40:09  dkrajzew
+// included new options into the help-screens
+//
 // Revision 1.5  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -45,12 +48,11 @@ char *help[] = {
     "  http://sumo.sourceforge.net",
     " ",
     "Options:",
-    " Input files:",
+    " General options:",
     "   -w, --max-gl-width <UINT>       The maximum width of openGL-windows",
     "   -h, --max-gl-height <UINT>      The maximum height of openGL-windows",
     "   -c, --configuration <FILE>      Loads the named config on startup",
-    " Process options:",
-    "   -Q, --quit-on-end <BOOL>        Quits the gui when the simulation stops",
+    "   -Q, --quit-on-end               Quits the gui when the simulation stops",
     "   -?, --help                      Prints this screen",
     "   -p, --print-options             Prints option values before processing",
     0
