@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/21 11:05:31  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -103,7 +106,7 @@ TNGRandomNet::RemoveOuterLink(TLink *Link)
 		OuterLinks.erase(li);
 }
 
-
+/*
 bool
 TNGRandomNet::NodesConnected(TNode *Node1, TNode *Node2)
 {
@@ -117,7 +120,7 @@ TNGRandomNet::NodesConnected(TNode *Node1, TNode *Node2)
 	};
 	return Connected;
 }
-
+*/
 
 bool
 TNGRandomNet::CheckAngles(TNode *Node)
@@ -209,7 +212,7 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 	TNodeList::iterator ni;
     for (ni = OuterNodes.begin(); ni != OuterNodes.end(); ++ni) {
 		TNode *on=*ni;
-		if (!NodesConnected(Node, on))
+		if (!Node->connected(on))
 			if ((Node->MaxNeighbours() > Node->LinkList.size()) &&
 				((on)->MaxNeighbours() > (on)->LinkList.size()))
 				if (CanConnect(Node, on))

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/21 11:05:30  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -34,6 +37,11 @@ namespace
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <utils/convert/ToString.h>
 #include "NGNet.h"
 
 
@@ -63,10 +71,10 @@ TNGNet::~TNGNet()
 }
 
 
-int
+std::string
 TNGNet::GetID()
 {
-	return ++myLastID;
+	return toString<int>(++myLastID);
 }
 
 
@@ -179,38 +187,59 @@ TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, float SpaceRad)
 	for (ir=1; ir<NumRadDiv+1; ir++) {
 		for (ic=1; ic<NumCircles+1; ic++) {
 			// create Node
-			Node = new TNode(GetID(), ir, ic);
+			Node = new TNode(
+                toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
 			Node->SetX(RadialToX((ic) * SpaceRad, (ir-1) * angle));
 			Node->SetY(RadialToY((ic) * SpaceRad, (ir-1) * angle));
 			NodeList.push_back(Node);
 			// create Links
 			if (ir > 1) {
-				Link = new TLink(GetID(), Node, FindNode(ir-1, ic));
-				LinkList.push_back(Link);
+                connect(Node, FindNode(ir-1, ic));
 			}
 			if (ic > 1) {
-				Link = new TLink(GetID(), Node, FindNode(ir, ic-1));
-				LinkList.push_back(Link);
+                connect(Node, FindNode(ir, ic-1));
 			}
 			if (ir == NumRadDiv) {
-				Link = new TLink(GetID(), Node, FindNode(1, ic));
-				LinkList.push_back(Link);
+                connect(Node, FindNode(1, ic));
 			}
 		}
 	}
 	// create center
 	// node
-	Node = new TNode(GetID(), 0, 0);
+	Node = new TNode(GetID(), 0, 0, true);
 	Node->SetX(0);
 	Node->SetY(0);
 	NodeList.push_back(Node);
 	// links
 	for (ir=1; ir<NumRadDiv+1; ir++) {
-		Link = new TLink(GetID(), Node, FindNode(ir, 1));
-		LinkList.push_back(Link);
+        connect(Node, FindNode(ir, 1));
 	}
 }
 
+
+void
+TNGNet::connect(TNode *node1, TNode *node2)
+{
+    string id1 = node1->GetID() + "to" + node2->GetID();
+    string id2 = node2->GetID() + "to" + node1->GetID();
+    TLink *link1 = new TLink(id1, node1, node2);
+    TLink *link2 = new TLink(id2, node2, node1);
+    LinkList.push_back(link1);
+    LinkList.push_back(link2);
+}
+
+void
+TNGNet::toNB() const
+{
+    for(TNodeList::const_iterator i1=NodeList.begin(); i1!=NodeList.end(); i1++) {
+        NBNode *node = (*i1)->buildNBNode();
+        NBNodeCont::insert(node);
+    }
+    for(TLinkList::const_iterator i2=LinkList.begin(); i2!=LinkList.end(); i2++) {
+        NBEdge *edge = (*i2)->buildNBEdge();
+        NBEdgeCont::insert(edge);
+    }
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/21 11:05:31  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.2  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -32,33 +35,50 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <algorithm>
 #include "NGNetElements.h"
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBOwnTLDef.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/convert/ToString.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 TNode::TNode()
+    : myID(""), xID(-1), yID(-1), myAmCenter(false)
 {
-	myID = -1;
-	xID = -1;
-	yID = -1;
 }
 
 
-TNode::TNode(int ID)
+TNode::TNode(const std::string &id)
+    : myID(id), xID(-1), yID(-1), myAmCenter(false)
 {
-	myID = ID;
-	xID = -1;
-	yID = -1;
 }
 
 
-TNode::TNode(int ID, int xID, int yID)
+TNode::TNode(const std::string &id, int xIDa, int yIDa)
+    : myID(id), xID(xIDa), yID(yIDa), myAmCenter(false)
 {
-	myID = ID;
-	this->xID = xID;
-	this->yID = yID;
+}
+
+
+TNode::TNode(const std::string &id, int xIDa, int yIDa, bool amCenter)
+    : myID(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter)
+{
 }
 
 
@@ -92,35 +112,100 @@ TNode::RemoveLink(TLink *Link)
 }
 
 
+NBNode *
+TNode::buildNBNode() const
+{
+    // the center will have no logic!
+    if( myAmCenter ) {
+        return new NBNode(myID, (double) myX, (double) myY,
+            NBNode::NODETYPE_NOJUNCTION);
+    }
+    //
+    NBNode *node = new NBNode(myID, (double) myX, (double) myY);
+    // check whether it is a traffic light junction
+    string nodeType = OptionsSubSys::getOptions().getString("j");
+    if(nodeType!="traffic_light") {
+        return node;
+    }
+    // this traffic light is visited the first time
+    NBTrafficLightDefinition *tlDef =
+        new NBOwnTLDef(myID, node);
+    if(!NBTrafficLightLogicCont::insert(myID, tlDef)) {
+        // actually, nothing should fail here
+        delete tlDef;
+        throw ProcessError();
+    }
+    return node;
+}
+
+
+void
+TNode::addLink(TLink *link)
+{
+    LinkList.push_back(link);
+}
+
+
+void
+TNode::removeLink(TLink *link)
+{
+    LinkList.remove(link);
+}
+
+
+bool
+TNode::connected(TNode *node) const
+{
+    for(TLinkList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
+        if(find(node->LinkList.begin(), node->LinkList.end(), *i)!=node->LinkList.end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 //----------------------------------------- TLink ------------------------------------
 // constructors TLink
 TLink::TLink()
+    : myID()
 {
-	myID = 0;
 }
 
 
-TLink::TLink(int ID)
+TLink::TLink(const std::string &id)
+    : myID(id)
 {
-	myID = ID;
 }
 
 
-TLink::TLink(int ID, TNode *StartNode, TNode *EndNode)
+TLink::TLink(const std::string &id, TNode *StartNode, TNode *EndNode)
+    : myID(id), myStartNode(StartNode), myEndNode(EndNode)
 {
-	myID = ID;
-	myStartNode = StartNode;
-	myStartNode->LinkList.push_back(this);
-	myEndNode = EndNode;
-	myEndNode->LinkList.push_back(this);
+	myStartNode->addLink(this);
+	myEndNode->addLink(this);
 }
 
 
 // destructor TLink
 TLink::~TLink()
 {
-	myStartNode->LinkList.remove(this);
-	myEndNode->LinkList.remove(this);
+	myStartNode->removeLink(this);
+	myEndNode->removeLink(this);
+}
+
+
+NBEdge *
+TLink::buildNBEdge() const
+{
+    return new NBEdge(
+        myID, // id
+        myID, // name
+        NBNodeCont::retrieve(myStartNode->GetID()), // from
+        NBNodeCont::retrieve(myEndNode->GetID()), // to
+        "netgen-default", // type
+        13.9, 1, -1, 0 // speed, lane number, length, priority
+        );
 }
 
 

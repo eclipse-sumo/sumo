@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/07/21 11:05:31  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -37,29 +40,51 @@
  */
 class TNGNet
 {
-private:
-    /// last ID given to node or link
-	int myLastID;
 public:
+    /// Constructor
 	TNGNet();
+
+    /// Destructor
 	~TNGNet();
-    /// list of nodes (!!! private)
-	TNodeList NodeList;
-    /// list of links (!!! private)
-	TLinkList LinkList;
+
+    /// Returns the node at the given position
 	TNode* FindNode(int xID, int yID);
+
     /// returns next ID and increases myLastID
-	int GetID();
+	std::string GetID();
+
 	float RadialToX(float radius, float phi);
 	float RadialToY(float radius, float phi);
+
 	/// creates NGNetwork in chequerboard pattern
 	void CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY);
+
 	/** @brief creates NGNetwork in spiderweb pattern
 	    NumRadDiv >= 3
 	    NumCircles >= 1 */
 	void CreateSpiderWeb(int NumRadDiv, int NumCircles, float SpaceRad);
+
 	/// save
 	void SaveNet(char* FileName); // saves NGNetwork to file
+
+    /// Transfer to netbuild-structures
+    void toNB() const;
+
+
+    /// list of nodes
+	TNodeList NodeList;
+
+    /// list of links
+	TLinkList LinkList;
+
+private:
+    /// Connects both noes with two edges, one for each direction
+    void connect(TNode *node1, TNode *node2);
+
+private:
+    /// last ID given to node or link
+	int myLastID;
+
 };
 
 

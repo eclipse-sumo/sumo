@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/21 11:05:30  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.3  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -102,6 +105,15 @@ checkOptions(OptionsCont &oc)
             "You may specify only one type of network to generate at once.");
         return false;
     }
+    // check whether the junction type to use is properly set
+    if(!oc.isDefault("j")) {
+        string type = oc.getString("j");
+        if(type!="traffic_light"&&type!="priority") {
+            MsgHandler::getErrorInstance()->inform(
+                "Only the following junction types are known: traffic_light, priority");
+            return false;
+        }
+    }
     //
     return true;
 }
@@ -112,7 +124,7 @@ void
 fillOptions(OptionsCont &oc)
 {
     // register the file i/o options
-    oc.doRegister("random-net", 'n', new Option_Bool(false));
+    oc.doRegister("random-net", 'r', new Option_Bool(false));
     oc.doRegister("spider-net", 's', new Option_Bool(false));
     oc.doRegister("grid-net", 'g', new Option_Bool(false));
     oc.doRegister("output", 'o', new Option_FileName());
@@ -148,12 +160,13 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("rand-neighbor-dist6", "dist6");
     oc.addSynonyme("rand-iterations", "iterations");
     // register spider-net options
-    oc.doRegister("spider-no-arms", new Option_Integer(13));
-    oc.doRegister("spider-no-circles", new Option_Integer(20));
+    oc.doRegister("spider-arm-number", new Option_Integer(13));
+    oc.doRegister("spider-circle-number", new Option_Integer(20));
     oc.doRegister("spider-space-rad", new Option_Float(100));
-    oc.addSynonyme("spider-no-arms", "no-arms");
-    oc.addSynonyme("spider-no-circles", "no-circles");
-    oc.addSynonyme("spider-space-rad", "space-rad");
+    oc.addSynonyme("spider-arm-number", "arms");
+    oc.addSynonyme("spider-circle-number", "circles");
+    oc.addSynonyme("spider-space-rad", "radius");
+//    oc.doRegister("spider-override-priority-center", new Option_Bool(false));
     // register grid-net options
     oc.doRegister("grid-x-number", new Option_Integer(5));
     oc.doRegister("grid-y-number", new Option_Integer(5));
@@ -167,6 +180,12 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("grid-y-length", "y-length");
     oc.addSynonyme("grid-length", "length");
     oc.addSynonyme("grid-number", "number");
+    // register building options
+    oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
+    oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.doRegister("min-decel", new Option_Float(3.0));
+    oc.doRegister("all-logics", new Option_Bool(false));
+    oc.addSynonyme("default-junction-type", "junctions");
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
@@ -185,9 +204,9 @@ buildNetwork()
     // spider-net
     if(oc.getBool("s")) {
         net->CreateSpiderWeb(
-            oc.getInt("no-circles"),
-            oc.getInt("no-arns"),
-            oc.getFloat("space-rad"));
+            oc.getInt("arms"),
+            oc.getInt("circles"),
+            oc.getFloat("radius"));
         return net;
     }
     // grid-net
@@ -250,11 +269,13 @@ main(int argc, char **argv)
         }
         // build the netgen-network description
         TNGNet *net = buildNetwork();
+        // transfer to the netbuilding structures
+        net->toNB();
 //     	net->SaveNet("test");
         delete net;
         NBNetBuilder nb;
         nb.buildLoaded();
-    } catch (...) {
+    } catch (int) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;

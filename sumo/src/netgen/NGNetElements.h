@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/07/21 11:05:31  dkrajzew
+// patched some bugs found in first real-life execution
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -40,6 +43,8 @@
  * ======================================================================= */
 class TLink;
 class TNode;
+class NBNode;
+class NBEdge;
 
 
 /* =========================================================================
@@ -53,29 +58,58 @@ typedef std::list<TLink*> TLinkList;
  */
 class TNode
 {
-private:
-	float myX;
-	float myY;
-	float myMaxNeighbours;
-	int myID;
 public:
 	// constructors
 	TNode();
-	TNode(int ID);
-	TNode(int ID, int xID, int yID);
+    TNode(const std::string &id);
+	TNode(const std::string &id, int xID, int yID);
+    TNode(const std::string &id, int xID, int yID, bool amCenter);
 	// destructor
 	~TNode();
-	int GetID() {return myID;}
+    const std::string &GetID() const {return myID;}
 	float x() {return myX;}
 	float y() {return myY;}
 	float MaxNeighbours() {return myMaxNeighbours;}
 	void SetMaxNeighbours(float value) {myMaxNeighbours = value;}
 	void SetX(float x) {myX = x;}
 	void SetY(float y) {myY = y;}
+    /// removes link from LinkList
+	void RemoveLink(TLink *Link);
+
+    /// Build the according netbuilder-node
+    NBNode *buildNBNode() const;
+
+    /// adds a link to the list of used
+    void addLink(TLink *link);
+
+    /// removes a link from the list of used
+    void removeLink(TLink *link);
+
+    bool connected(TNode *node) const;
+
 	int xID;
 	int yID;
-	TLinkList LinkList; // list of connected links
-	void RemoveLink(TLink *Link); // removes link from LinkList
+
+    /// list of connected links
+	TLinkList LinkList;
+
+private:
+
+    /// The x-position of the node
+	float myX;
+
+    /// The y-position of the node
+	float myY;
+
+    /// The maximum number of neighbours
+	float myMaxNeighbours;
+
+    /// The id of the node
+    std::string myID;
+
+    /// Information whether this is the center of a cpider-net
+    bool myAmCenter;
+
 };
 
 
@@ -84,20 +118,30 @@ public:
  */
 class TLink
 {
-private:
-	int myID;
-	TNode *myStartNode;
-	TNode *myEndNode;
 public:
 	// constructors
 	TLink();
-	TLink(int ID);
-	TLink(int ID, TNode *StartNode, TNode *EndNode);
+	TLink(const std::string &id);
+	TLink(const std::string &id, TNode *StartNode, TNode *EndNode);
 	// destructor
 	~TLink();
-	int GetID() {return myID;}
+    const std::string &GetID() const {return myID;}
 	TNode* StartNode() {return myStartNode;};
 	TNode* EndNode() {return myEndNode;};
+
+    /// Build the according netbuilder-edge
+    NBEdge *buildNBEdge() const;
+
+private:
+    /// The id of the edge
+    std::string myID;
+
+    /// The node the edge starts at
+	TNode *myStartNode;
+
+    /// The node the edge ends at
+	TNode *myEndNode;
+
 };
 
 
