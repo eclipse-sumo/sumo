@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:24:29  dkrajzew
+// parsing of character sets from char-arrays implemented
+//
 // Revision 1.2  2003/06/05 14:28:05  dkrajzew
 // class templates applied; documentation added
 //
@@ -40,6 +43,7 @@ namespace
 #include <fstream>
 #include "lfontrenderer.h"
 #include "FontStorage.h"
+
 
 
 /* =========================================================================
@@ -121,6 +125,59 @@ FontStorage::add(const std::string &fontname, const std::string &filename)
     font.angle = 0;
     font.italic = false;
 
+    myFonts[fontname] = font;
+}
+
+
+void
+FontStorage::add(const std::string &fontname, const unsigned char * const characters)
+{
+    LFont font;
+    uint id;
+    uint t;
+    uint i;
+    float f;
+
+    size_t off = 0;
+    memcpy(&id, characters+off, sizeof(id)); off += sizeof(id);
+    if (id != 6666)
+        throw "LFontRenderer::LoadFont - wrong file format";
+    memcpy((char*)&font.imageWidth, characters+off, sizeof(uint)); off +=sizeof(uint);
+    memcpy((char*)&font.imageHeight, characters+off, sizeof(uint)); off +=sizeof(uint);
+    memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+    font.defaultHeight = t;
+    for (i=0; i<256; i++)
+    {
+        memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+        font.chars[i].top = (float)t/(float)font.imageHeight;
+
+        memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+        font.chars[i].left = (float)t/(float)font.imageWidth;
+
+        memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+        font.chars[i].bottom = (float)t/(float)font.imageHeight;
+
+        memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+        font.chars[i].right = (float)t/(float)font.imageWidth;
+
+        memcpy((char*)&t, characters+off, sizeof(uint)); off +=sizeof(uint);
+        font.chars[i].enabled = t != 0;
+
+        memcpy((char*)&f, characters+off, sizeof(float)); off +=sizeof(float);
+        font.chars[i].widthFactor = f;
+    }
+    font.buf = (char*)malloc(font.imageHeight*font.imageWidth);
+    if (font.buf == 0)
+        throw "LFontRenderer::LoadFont - could not allocate memory";
+    memcpy(font.buf, characters+off, font.imageWidth*font.imageHeight);
+    font.r = 1;
+    font.g = 0;
+    font.b = .5;
+    font.height = font.defaultHeight;
+    font.name = fontname;
+    font.widthScale = 1;
+    font.angle = 0;
+    font.italic = false;
     myFonts[fontname] = font;
 }
 

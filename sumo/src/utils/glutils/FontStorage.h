@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/18 11:24:29  dkrajzew
+// parsing of character sets from char-arrays implemented
+//
 // Revision 1.2  2003/06/05 14:28:06  dkrajzew
 // class templates applied; documentation added
 //
@@ -52,6 +55,9 @@ public:
 
     /// Reads the font from the given file
     void add(const std::string &name, const std::string &file);
+
+
+    void add(const std::string &fontname, const unsigned char * const characters);
 
     /// Returns the definition of the named font
     LFont get(const std::string &name) const;
