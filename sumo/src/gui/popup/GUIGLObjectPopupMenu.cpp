@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/02 08:25:32  dkrajzew
+// possibility to manipulate objects added
+//
 // Revision 1.1  2004/03/19 12:41:13  dkrajzew
 // porting to FOX
 //
@@ -59,6 +62,8 @@ namespace
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include "GUIGLObjectPopupMenu.h"
 #include <gui/partable/GUIParameterTableWindow.h>
+#include <gui/GUIGlObject_AAManipulatable.h>
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -77,6 +82,8 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,    GUIGLObjectPopupMenu::onCmdShowPhases),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,     GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,  GUIGLObjectPopupMenu::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIGLObjectPopupMenu::onCmdOpenManip),
+
 };
 
 // Object implementation
@@ -100,11 +107,11 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu()
 }
 
 
-
 long
 GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*)
 {
-    myParent->centerTo(myObject->getType(), myObject->microsimID());
+    myParent->centerTo(myObject->getType(),
+        myObject->microsimID(), myObject->getFullName());
     return 1;
 }
 
@@ -130,7 +137,7 @@ GUIGLObjectPopupMenu::onCmdShowPhases(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
 {
-    gfSelect(myObject->getType(), myObject->getGlID());
+    gSelected.select(myObject->getType(), myObject->getGlID());
     myParent->update();
     return 1;
 }
@@ -139,10 +146,20 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*)
 {
-    gfDeselect(myObject->getType(), myObject->getGlID());
+    gSelected.deselect(myObject->getType(), myObject->getGlID());
     myParent->update();
     return 1;
 }
+
+
+long
+GUIGLObjectPopupMenu::onCmdOpenManip(FXObject*,FXSelector,void*)
+{
+    static_cast<GUIGlObject_AAManipulatable*>(myObject)->openManipulator(
+        *myApplication, *myParent);
+    return 1;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/07/02 08:25:32  dkrajzew
+// possibility to manipulate objects added
+//
 // Revision 1.1  2004/03/19 12:41:13  dkrajzew
 // porting to FOX
 //
@@ -44,6 +47,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <vector>
 #include <fx.h>
 
 
@@ -74,11 +78,24 @@ public:
     ~GUIGLObjectPopupMenu();
 
 public:
+    /// Called if the assigned objects shall be centered
     long onCmdCenter(FXObject*,FXSelector,void*);
+
+    /// Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*,FXSelector,void*);
+
+    /// Called if the phases shall be shown (only valid if the object is a tllogic
     long onCmdShowPhases(FXObject*,FXSelector,void*);
+
+    /// Called if the object shall be added to the list of selected objects
     long onCmdAddSelected(FXObject*,FXSelector,void*);
+
+    /// Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*,FXSelector,void*);
+
+    /** @brief Called if the object's manipulator shall be shown
+        This is only valid if the current object is derived from GUIIHaveManipulator */
+    long onCmdOpenManip(FXObject*,FXSelector,void*);
 
 protected:
     /// The parent window
@@ -91,6 +108,7 @@ protected:
     GUIApplicationWindow *myApplication;
 
 protected:
+    /// FOX needs this
     GUIGLObjectPopupMenu() { }
 
 };
