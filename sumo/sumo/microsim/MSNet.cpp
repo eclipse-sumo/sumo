@@ -25,8 +25,11 @@ namespace
 } 
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/10 16:19:34  croessel
+// Modifications due to detector-implementation.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.4  2002/03/14 10:42:10  croessel
 // << ends removed because we use stringstreams.
@@ -119,6 +122,7 @@ extern time_t end;
 //#include <fstream>
 #include <sstream>
 #include <typeinfo>
+#include <algorithm>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
@@ -127,6 +131,7 @@ extern time_t end;
 #include "MSPersonControl.h"
 #include "MSPerson.h"
 #include "MSEdge.h"
+#include "MSDetector.h"
 
 using namespace std;
 
@@ -140,13 +145,16 @@ MSNet::MSNet(string id, MSEdgeControl* ec,
              MSJunctionControl* jc,  
              MSEmitControl* emc,
              MSEventControl* evc,
-             MSPersonControl* wpc) :
+             MSPersonControl* wpc,
+             DetectorCont* detectors ) :
     myID(id),
     myEdges(ec), 
     myJunctions(jc),
     myEmitter(emc), 
     myEvents(evc),
-    myPersons(wpc)
+    myPersons(wpc),
+    myStep(0),
+    myDetectors( detectors )
 {
 }
 
@@ -176,46 +184,53 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
     }
         
     // the simulation loop
-    for (Time step = start; step <= stop; ++step) {
+    for (Time myStep = start; myStep <= stop; ++myStep) {
     
 #ifdef _SPEEDCHECK
-        if(step==100) {
+        if(myStep==100) {
             time(&begin);
             novehicles = 0;
         }
-        if(step==10000) {
+        if(myStep==10000) {
             time(&end);
             int bla = 0;
         }
 #endif    
 
         // process the persons which are no longer waiting or walking
-        processWaitingPersons(step);
+        processWaitingPersons(myStep);
 
         // emit Vehicles
-        myEmitter->emitVehicles(step);
+        myEmitter->emitVehicles(myStep);
         myEdges->detectCollisions();
           
         // execute Events
-        myEvents->execute(step);
+        myEvents->execute(myStep);
           
         // load waiting persons and unload the persons which vehicle 
         // route ends here
         myEdges->loadPersons();
-        myEdges->unloadPersons(this, step);
+        myEdges->unloadPersons(this, myStep);
 
         // move Vehicles
         myEdges->moveExceptFirst();
         myJunctions->moveFirstVehicles();
         myEdges->detectCollisions();
-          
+
+        // Let's detect.
+        for( DetectorCont::iterator detec = myDetectors->begin();
+             detec != myDetectors->end(); ++detec ) {
+            
+            ( *detec )->sample( simSeconds() );
+        }
+
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
         myEdges->detectCollisions();
 
         // simple output.     
         ostringstream XMLOut;
-        XMLOut << "    <timestep id=\"" << step << "\">" << endl;
+        XMLOut << "    <timestep id=\"" << myStep << "\">" << endl;
         XMLOut << MSEdgeControl::XMLOut( *myEdges, 8 );
         XMLOut << "    </timestep>" << endl;
         if ( craw ) { 
@@ -294,6 +309,12 @@ float
 MSNet::deltaT()
 {
     return myDeltaT;
+}
+
+float 
+MSNet::simSeconds()
+{
+    return static_cast< float >( myStep ) * myDeltaT;
 }
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -21,8 +21,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/10 16:19:34  croessel
+// Modifications due to detector-implementation.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.2  2002/03/14 08:09:26  traffic
 // Option for no raw output added
@@ -94,6 +97,7 @@ class MSEmitControl;
 class MSEventControl;
 class Event;
 class MSPersonControl;
+class MSDetector;
 
 /**
  */
@@ -113,14 +117,18 @@ public:
 
     /// Type for time (seconds).
     typedef unsigned int Time;
-     
+
+    /// Detector-container type.
+    typedef vector< MSDetector* > DetectorCont;
+
     /// Use this constructor only.
     MSNet( string id,
            MSEdgeControl* ec,
            MSJunctionControl* jc,
            MSEmitControl* emc,
            MSEventControl* evc,
-           MSPersonControl* wpc );
+           MSPersonControl* wpc,
+           DetectorCont* detectors );
 
     /// Use this to add separetly loaded vehicles
     void addVehicles( MSEmitControl* cont );
@@ -128,16 +136,18 @@ public:
     /// Destructor.
     ~MSNet();
 
-    /** Simulates from timestep start to stop. In each timestep we
-        emit Vehicles, move Vehicles, the Vehicles change Lanes. 
-        The method returns true when the simulation could be finished 
-	without errors, otherwise false */
+    /** Simulates from timestep start to stop. start and stop in
+        timesteps.  In each timestep we emit Vehicles, move Vehicles,
+        the Vehicles change Lanes.  The method returns true when the
+        simulation could be finished without errors, otherwise
+        false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
    
-    /** Inserts a MSNet into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
+    /** Inserts a MSNet into the static dictionary and returns true if
+        the key id isn't already in the dictionary. Otherwise returns
         false. */
     static bool dictionary( std::string id, MSNet* net );
+
     /** Returns the MSNet associated to the key id if exists,
         otherwise returns 0. */
     static MSNet* dictionary( std::string id );
@@ -146,12 +156,18 @@ public:
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
     static bool routeDict( std::string id, Route* route );
+
     /** Returns the MSNet associated to the key id if exists,
         otherwise returns 0. */
     static const MSNet::Route* routeDict( std::string id );
 
     /// Returns the timestep-length in seconds.
     static float deltaT();
+
+    /** Returns the current simulation time in seconds. Current means
+        start-time plus runtime. */
+    float simSeconds();
+
 protected:
 
 private:
@@ -197,6 +213,13 @@ private:
 
     /// Timestep [sec]
     static float myDeltaT;
+
+    /// Current time step.
+    Time myStep;
+
+    /// Container of detectors.
+    DetectorCont* myDetectors;
+
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
     MSNet();
