@@ -108,5 +108,5 @@ private:
    void prepareNewline(const std::string &tosplit);
 };
 
-#
+#endif
 
