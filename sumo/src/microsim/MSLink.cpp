@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/09/05 15:11:43  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.7  2003/08/04 11:42:35  dkrajzew
 // missing deletion of traffic light logics on closing a network added
 //
@@ -50,19 +53,23 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include "MSLink.h"
+#include <cassert>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSLink::MSLink(MSLane* succLane, bool yield,
-               LinkDirection dir, LinkState state )
-    : myLane(succLane),
+MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
+               LinkDirection dir, LinkState state, bool internalEnd ) // !!! subclass
+    : myLane(succLane), myJunctionInlane(via),
     myPrio(!yield), myApproaching(0),
     myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-	myState(state), myAmYellow(false), myDirection(dir)
+	myState(state), myAmYellow(false), myDirection(dir),
+    myIsInternalEnd(internalEnd)
 {
+    assert(internalEnd==false);
 }
 
 
@@ -104,6 +111,9 @@ MSLink::setPriority( bool prio, bool yellow )
 bool
 MSLink::opened() const
 {
+    if(myIsInternalEnd) {
+        return true;
+    }
     return myRespond->test(myRespondIdx);
 }
 

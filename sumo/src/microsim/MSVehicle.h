@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.21  2003/09/05 15:14:52  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.20  2003/08/20 11:44:11  dkrajzew
 // min and max-functions moved to an own definition file
 //
@@ -639,6 +642,8 @@ public:
 
     MSLane *getTargetLane() const;
 
+    MSLane *getTargetViaLane() const;
+
     /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
     int _lcAction;
 
@@ -690,6 +695,7 @@ protected:
 
     /// the lane, the vehicle will be within the next time step
     MSLane *myTarget;
+    MSLane *myTargetVia;
 
     /** @brief The time the vehicle waits
         This is the number of simulation steps the vehicle was not faster than 0.1m/s

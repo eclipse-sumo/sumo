@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/05 15:11:43  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.8  2003/08/21 12:52:15  dkrajzew
 // lane2lane connection display added
 //
@@ -90,7 +93,8 @@ public:
     };
 
     /// Constructor
-    MSLink( MSLane* succLane, bool yield, LinkDirection dir, LinkState state );
+    MSLink( MSLane* succLane, MSLane *via,
+        bool yield, LinkDirection dir, LinkState state, bool internalEnd );
 
     /// Destructor
     ~MSLink();
@@ -122,6 +126,8 @@ public:
     /// MSLink's destination lane.
     MSLane* myLane;
 
+    MSLane *myJunctionInlane;
+
     /// MSLinks's default right of way, true for right of way MSLinks.
     bool myPrio;
 
@@ -150,7 +156,8 @@ public:
     LinkDirection myDirection;
 
 
-
+private:
+    bool myIsInternalEnd;
 private:
     /// default constructor
     MSLink();

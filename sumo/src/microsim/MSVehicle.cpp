@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2003/09/05 15:14:42  dkrajzew
+// first steps for reading of internal lanes
+//
 // Revision 1.28  2003/08/20 11:44:11  dkrajzew
 // min and max-functions moved to an own definition file
 //
@@ -441,6 +444,7 @@ MSVehicle::MSVehicle( string id,
                       int repNo, int repOffset) :
     myLastLaneChangeOffset(0),
     myTarget(0),
+    myTargetVia(0),
     myWaitingTime( 0 ),
     myRepetitionNumber(repNo),
     myPeriod(repOffset),
@@ -887,7 +891,6 @@ MSVehicle::moveFirstChecked()
 				}
 			}
 		}
-
 	}
 	// compute vNext in considering dawdling
     double vNext;
@@ -917,9 +920,11 @@ MSVehicle::moveFirstChecked()
     // update position
     myState.myPos += vNext * MSNet::deltaT();
     myTarget = myLane;
+    myTargetVia = myLane;
 	if(myState.myPos>myLane->length()) {
 		myState.myPos -= myTarget->length();
 		myTarget = (*link)->myLane;
+        myTargetVia = (*link)->myJunctionInlane;
 		assert(myState.myPos<myTarget->length());
 		// we assume there is only one lane the vehicle can pass in
 		//  a single step (otherise it would brake in vSafeCriticalCont)
@@ -982,6 +987,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 		+
         brakeGap(myLane); //myState.mySpeed * MSNet::deltaT() + myType->accelDist();
 	MSLane *nextLane = (*link)->myLane;
+    MSLane *via = (*link)->myJunctionInlane; // !!! myJunctionInlane umbenennen
 
 
 	// compute the velocity to use when the link is not blocked by oter vehicles
@@ -1632,6 +1638,12 @@ MSLane *
 MSVehicle::getTargetLane() const
 {
     return myTarget;
+}
+
+MSLane *
+MSVehicle::getTargetViaLane() const
+{
+    return myTargetVia;
 }
 
 
