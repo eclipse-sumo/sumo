@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/11/26 09:48:58  dkrajzew
+// time display added to the tl-logic visualisation
+//
 // Revision 1.24  2003/11/20 13:05:32  dkrajzew
 // loading and using of predefined vehicle colors added
 //
@@ -412,7 +415,7 @@ GUINet::guiSimulationStep()
 {
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SimplePhaseDef> > >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
     myAggBounderyStorage.initStep();
 }
 
