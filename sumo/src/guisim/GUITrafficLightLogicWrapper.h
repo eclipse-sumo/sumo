@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/01/27 14:20:26  dkrajzew
+// ability to open the complete phase definition added
+//
 // Revision 1.4  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -78,19 +81,27 @@ public:
     std::string microsimID() const;
 
     /// Returns the information whether this object is still active
-	bool active() const;
+    bool active() const;
 
     /// Returns the current phase definition
     CompletePhaseDef getPhaseDef() const;
 
+    /// Builds a GUITLLogicPhasesTrackerWindow which will receive new phases
+    void begin2TrackPhases();
+
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void showPhases();
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
+    //{
+    Boundary getCenteringBoundary() const;
+    //}
 
 public:
+    /**
+     * @class GUITrafficLightLogicWrapperPopupMenu
+     * The popup-menu for a TLS-logic. Adds the functionality to open a
+     *  view on the tls-logic and to start tracking of the tls-logic.
+     */
     class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
     public:
@@ -98,13 +109,18 @@ public:
         GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow &app,
             GUISUMOAbstractView &parent, GUIGlObject &o);
 
+        /// Destructor
         ~GUITrafficLightLogicWrapperPopupMenu();
 
         /// Called if the phases shall be shown
         long onCmdShowPhases(FXObject*,FXSelector,void*);
 
+        /// Called if the phases shall be begun to track
+        long onCmdBegin2TrackPhases(FXObject*,FXSelector,void*);
+
 
     protected:
+        /// protected constructor for FOX
         GUITrafficLightLogicWrapperPopupMenu() { }
 
     };

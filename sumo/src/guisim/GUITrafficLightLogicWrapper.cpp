@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/01/27 14:20:26  dkrajzew
+// ability to open the complete phase definition added
+//
 // Revision 1.6  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -71,6 +74,7 @@ FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
     GUITrafficLightLogicWrapperPopupMenuMap[]=
 {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,    GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
+    FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,   GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
 };
 
 // Object implementation
@@ -93,6 +97,17 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLig
 
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu()
 {
+}
+
+
+
+long
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases(
+        FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper*>(myObject)->begin2TrackPhases();
+    return 1;
 }
 
 
@@ -144,8 +159,21 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     }
     new FXMenuSeparator(ret);
     //
+    new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     return ret;
+}
+
+
+void
+GUITrafficLightLogicWrapper::begin2TrackPhases()
+{
+    GUITLLogicPhasesTrackerWindow *window =
+        new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
+            new FunctionBinding<GUITrafficLightLogicWrapper, CompletePhaseDef>
+                (this, &GUITrafficLightLogicWrapper::getPhaseDef));
+    window->create();
+    window->show();
 }
 
 
@@ -154,8 +182,8 @@ GUITrafficLightLogicWrapper::showPhases()
 {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
-            new FunctionBinding<GUITrafficLightLogicWrapper, CompletePhaseDef>
-                (this, &GUITrafficLightLogicWrapper::getPhaseDef));
+            static_cast<MSSimpleTrafficLightLogic&>(myTLLogic).getPhases());
+    window->setBeginTime(0);
     window->create();
     window->show();
 }
@@ -201,7 +229,7 @@ GUITrafficLightLogicWrapper::microsimID() const
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const
 {
-	throw 1;
+    throw 1;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
