@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/01/26 07:32:46  dkrajzew
+// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+//
 // Revision 1.12  2004/01/13 08:06:55  dkrajzew
 // recent changes applied
 //
@@ -110,7 +113,8 @@ public:
 
 	void init(
 		const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations);
+        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        double det_offset);
 
     /// destructor
     ~MSAgentbasedTrafficLightLogic();
@@ -142,7 +146,8 @@ public:
 protected:
     /// Builds the detectors
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations);
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset);
 
     /// initializes the duration of the phases (except the intergeentimes)
     /// so that the time cycletime tCyle is kept

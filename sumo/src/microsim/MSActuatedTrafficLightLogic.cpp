@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2004/01/26 07:32:46  dkrajzew
+// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+//
 // Revision 1.24  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -118,9 +121,10 @@ template< class _TInductLoop, class _TLaneState >
 void
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::init(
 		const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset)
 {
-    sproutDetectors(lanes, laneContinuations);
+    sproutDetectors(lanes, laneContinuations, det_offset);
 }
 
 
@@ -193,11 +197,12 @@ void
 MSActuatedTrafficLightLogic<_TInductLoop,
                             _TLaneState>::sproutDetectors(
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset)
 {
     // change values for setting the loops and lanestate-detectors, here
     MSNet::Time inductLoopInterval = 1; //
-    double laneStateDetectorLength = 100; // length of the detecor
+//    double laneStateDetectorLength = 100; // length of the detecor
     // as the laneStateDetector shall end at the end of the lane, the position
     // is calculated, not given
     MSNet::Time laneStateDetectorInterval = 1; //
@@ -227,7 +232,7 @@ MSActuatedTrafficLightLogic<_TInductLoop,
         MSLane *lane = (*i);
         double length = lane->length();
         // check whether the position is o.k. (not longer than the lane)
-        double lslen = laneStateDetectorLength;
+        double lslen = det_offset;
         if(lslen>length) {
             lslen = length;
         }

@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/01/26 07:32:46  dkrajzew
+// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+//
 // Revision 1.14  2004/01/13 08:06:55  dkrajzew
 // recent changes applied
 //
@@ -86,9 +89,10 @@ template< class _TE2_ZS_CollectorOverLanes >
 void
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::init(
 		const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset)
 {
-    sproutDetectors(lanes, laneContinuations);
+    sproutDetectors(lanes, laneContinuations, det_offset);
     initializeDuration();
 }
 
@@ -103,10 +107,11 @@ template< class _TE2_ZS_CollectorOverLanes >
 void
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset)
 {
     // change values for setting the detectors, here
-    double laneStateDetectorLength = 75; // length of the detecor
+//    double laneStateDetectorLength = 75; // length of the detecor
     std::vector<MSLane*>::const_iterator i;
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
@@ -116,8 +121,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
 
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
             _TE2_ZS_CollectorOverLanes* det =
-                new _TE2_ZS_CollectorOverLanes( id, lane, 0 );
-            det->init(lane, laneStateDetectorLength, laneContinuations);
+                new _TE2_ZS_CollectorOverLanes( id, DU_TL_CONTROL, lane, 0 );
+            det->init(lane, det_offset, laneContinuations);
 		    det->addDetector( E2::ALL, "detectors" );
             myE2Detectors[lane] = det;
         }
@@ -267,6 +272,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
     }
 
     // some output for control
+    /*
     if (_step == 0) {
         cout << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
         for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
@@ -277,6 +283,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
             cout<<" Dauer: " << _phases[(*it).first]->duration << "  " ;
         }
     }
+    */
 
 
     // increment the index to the current phase

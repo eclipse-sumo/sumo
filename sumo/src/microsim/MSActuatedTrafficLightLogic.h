@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2004/01/26 07:32:46  dkrajzew
+// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+//
 // Revision 1.16  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -114,7 +117,8 @@ public:
 
 	void init(
 		const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations);
+        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        double det_offset);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();
@@ -140,7 +144,8 @@ public:
 protected:
     /// Builds the detectors
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations);
+        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        double det_offset);
 
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;
