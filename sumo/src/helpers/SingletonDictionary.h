@@ -21,6 +21,9 @@
 
 
 // $Log$
+// Revision 1.8  2003/07/22 15:01:12  dkrajzew
+// changed-method added for safe initialisation and destruction
+//
 // Revision 1.7  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -111,6 +114,11 @@ public:
         {
             instanceM = 0;
         }
+
+    static bool created( void ) {
+        return instanceM!=0;
+    }
+
 protected:
     /**
      * Constructor. Only called by create(). Set's operation mode to INSERT.
