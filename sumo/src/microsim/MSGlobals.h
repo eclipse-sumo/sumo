@@ -1,10 +1,11 @@
 #ifndef MSGlobals_h
 #define MSGlobals_h
 
-namespace MSGlobals
+class MSGlobals
 {
-    extern bool myOmitEmptyEdgesOnDump;
-    extern size_t myTimeToGridlock;
+public:
+    static bool myOmitEmptyEdgesOnDump;
+    static size_t myTimeToGridlock;
 };
 
 
