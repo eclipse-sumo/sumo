@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/30 09:30:11  dkrajzew
+// parameter to specify the duration of the red phase of a traffic light added
+//
 // Revision 1.5  2003/07/22 15:17:42  dkrajzew
 // traffic light duration may now be changed on command line
 //
@@ -186,7 +189,7 @@ fillOptions(OptionsCont &oc)
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
     oc.doRegister("traffic-light-green", new Option_Integer());
-    oc.doRegister("traffic-light-red", new Option_Integer());
+//    oc.doRegister("traffic-light-red", new Option_Integer());
     oc.doRegister("traffic-light-yellow", new Option_Integer());
     oc.doRegister("min-decel", new Option_Float(3.0));
     oc.doRegister("all-logics", new Option_Bool(false));
@@ -280,7 +283,7 @@ main(int argc, char **argv)
         delete net;
         NBNetBuilder nb;
         nb.buildLoaded();
-    } catch (int) {
+    } catch (ProcessError) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
