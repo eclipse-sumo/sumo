@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <fx.h>
+#include <gui/GUIGlObjectStorage.h>
+#include <gui/GUIAddWeightsStorage.h>
 
 class GUINet;
 
@@ -38,20 +40,19 @@ extern GUISimInfo *gSimInfo;
 
 extern std::string gCurrentFolder;
 
-/// list of chosen items
-extern std::vector<size_t> gChosenObjects;
-
 
 
 extern float gAggregationRememberingFactor;
 extern FXApp *gFXApp;
 
 
-bool gfIsSelected(int type, size_t id);
+    /** @brief A container for numerical ids of objects
+        in order to make them grippable by openGL */
+extern GUIGlObjectStorage gIDStorage;
 
-void gfSelect(int type, size_t id);
 
-void gfDeselect(int type, size_t id);
+extern GUIAddWeightsStorage gAddWeightsStorage;
+extern std::vector<int> gBreakpoints;
 
 
 #endif

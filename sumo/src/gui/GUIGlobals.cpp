@@ -1,4 +1,7 @@
 #include "GUIGlobals.h"
+#include <gui/GUIGlObjectStorage.h>
+#include <gui/GUIGlobalSelection.h>
+
 #include <algorithm>
 
 using namespace std;
@@ -17,34 +20,13 @@ FXApp *gFXApp = 0;
 
 std::string gCurrentFolder;
 
-std::vector<size_t> gChosenObjects;
 
+GUISelectedStorage gSelected;
 
-bool gfIsSelected(int type, size_t id)
-{
-    std::vector<size_t>::iterator i=
-        find(gChosenObjects.begin(), gChosenObjects.end(), id);
-    return i!=gChosenObjects.end();
-}
+    /** @brief A container for numerical ids of objects
+        in order to make them grippable by openGL */
+GUIGlObjectStorage gIDStorage;
 
+GUIAddWeightsStorage gAddWeightsStorage;
 
-void gfSelect(int type, size_t id)
-{
-    std::vector<size_t>::iterator i=
-        find(gChosenObjects.begin(), gChosenObjects.end(), id);
-    if(i==gChosenObjects.end()) {
-        gChosenObjects.push_back(id);
-    }
-}
-
-
-void gfDeselect(int type, size_t id)
-{
-    std::vector<size_t>::iterator i=
-        find(gChosenObjects.begin(), gChosenObjects.end(), id);
-    if(i!=gChosenObjects.end()) {
-        gChosenObjects.erase(i);
-    }
-}
-
-
+std::vector<int> gBreakpoints;
