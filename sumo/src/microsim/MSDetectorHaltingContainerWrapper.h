@@ -29,14 +29,31 @@
 #include "MSUpdateEachTimestep.h"
 #include <list>
 #include <map>
+#include "MSSubject.h"
 
 class MSVehicle;
 
+namespace halt
+{
+    class BeginOfHalt{};
+    class EndOfHalt{};
+    
+    typedef MSSubject< double, true, BeginOfHalt > HaltBeginSubject;
+    typedef MSSubject< double, true, EndOfHalt >   HaltEndSubject;
+
+    typedef HaltBeginSubject::Observer HaltBeginObserver;
+    typedef HaltEndSubject::Observer   HaltEndObserver;
+}
+
+
 template< class WrappedContainer >
-struct MSDetectorHaltingContainerWrapper :
-    public MSDetectorContainerWrapper< WrappedContainer >,
-    public MSUpdateEachTimestep<
-    MSDetectorHaltingContainerWrapper< WrappedContainer > >
+struct MSDetectorHaltingContainerWrapper
+    :
+    public MSDetectorContainerWrapper< WrappedContainer >
+    , public MSUpdateEachTimestep<
+          MSDetectorHaltingContainerWrapper< WrappedContainer > >
+    , public halt::HaltBeginSubject
+    , public halt::HaltEndSubject
 {
     typedef typename WrappedContainer::iterator HaltingsIt;
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
@@ -74,6 +91,10 @@ struct MSDetectorHaltingContainerWrapper :
                   haltIt != containerM.end(); ++haltIt ) {
                 haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
+                    if ( haltIt->isHaltingM ) {
+                        double arg = 1.0;
+                        halt::HaltEndSubject::notify( arg );
+                    }
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
                     haltIt->haltingDurationM = 0.0;
@@ -87,6 +108,8 @@ struct MSDetectorHaltingContainerWrapper :
                             // halting-duration
                             haltIt->haltingDurationM =
                                 haltIt->timeBelowSpeedThresholdM++;
+                            double arg = 1.0;
+                            halt::HaltBeginSubject::notify( arg );
                         }
                         else {
                             haltIt->haltingDurationM++;
@@ -122,6 +145,23 @@ struct MSDetectorHaltingContainerWrapper :
             return false;
         }
 
+    void attach( halt::HaltBeginObserver* toAttach )
+        {
+            halt::HaltBeginSubject::attach( toAttach );
+        }
+    void detach( halt::HaltBeginObserver* toDetach )
+        {
+            halt::HaltBeginSubject::detach( toDetach );
+        }    
+    void attach( halt::HaltEndObserver* toAttach )
+        {
+            halt::HaltEndSubject::attach( toAttach );
+        }
+    void detach( halt::HaltEndObserver* toDetach )
+        {
+            halt::HaltEndSubject::detach( toDetach );
+        }    
+    
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
     MSUnit::Cells jamDistThresholdM;
@@ -130,9 +170,9 @@ struct MSDetectorHaltingContainerWrapper :
 // specialization for WrappedContainer == map< MSVehicle*, T >
 template< class T >
 struct MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > :
-    public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >,
-    public MSUpdateEachTimestep<
-    MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > >
+    public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+    , public MSUpdateEachTimestep<
+          MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > >
 {
     typedef std::map< MSVehicle*, T > WrappedContainer;
     typedef typename WrappedContainer::iterator HaltingsIt;
@@ -169,27 +209,27 @@ struct MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > :
             for ( HaltingsIt pair = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
                 MSVehicle* veh = pair->first;
-                E3Halting& halt = pair->second;
-                halt.posM += veh->getMovedDistance();
+                E3Halting& halting = pair->second;
+                halting.posM += veh->getMovedDistance();
                 if ( veh->speed() >= speedThresholdM ) {
-                    halt.timeBelowSpeedThresholdM = 0;
-                    halt.isHaltingM = false;
-                    halt.haltingDurationM = 0.0;
+                    halting.timeBelowSpeedThresholdM = 0;
+                    halting.isHaltingM = false;
+                    halting.haltingDurationM = 0.0;
                 }
                 else {
-                    halt.timeBelowSpeedThresholdM++;
-                    if ( halt.timeBelowSpeedThresholdM > timeThresholdM ) {
-                        if ( ! halt.isHaltingM ) {
+                    halting.timeBelowSpeedThresholdM++;
+                    if ( halting.timeBelowSpeedThresholdM > timeThresholdM ) {
+                        if ( ! halting.isHaltingM ) {
                             // beginning of new halt detected
-                            halt.isHaltingM = true;
+                            halting.isHaltingM = true;
                             // time to detect halting contributes to
                             // halting-duration
-                            halt.haltingDurationM =
-                                halt.timeBelowSpeedThresholdM++;
-                            halt.nHalts++;
+                            halting.haltingDurationM =
+                                halting.timeBelowSpeedThresholdM++;
+                            halting.nHalts++;
                         }
                         else {
-                            halt.haltingDurationM++;
+                            halting.haltingDurationM++;
                         }
                     }
                 }
