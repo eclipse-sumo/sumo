@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/26 09:57:14  dkrajzew
+// setting of the default direction percentages corrected
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -134,7 +137,7 @@ ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
     for(i=0; i<defs.size(); i++) {
         for(size_t j=0; j<myFollowingEdges.size(); j++) {
             tmp[i*myFollowingEdges.size()+j] = defs[i]
-                / 100.0 / (defs.size()*myFollowingEdges.size());
+                / 100.0 / (myFollowingEdges.size());
         }
     }
         // parse from less common multiple
@@ -143,7 +146,7 @@ ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
         for(size_t j=0; j<defs.size(); j++) {
             value += tmp[i*defs.size()+j];
         }
-        myParsedTurnings[i] = value;
+        myParsedTurnings.push_back(value);
     }
 }
 
