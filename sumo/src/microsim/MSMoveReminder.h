@@ -23,8 +23,12 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2003/07/21 15:20:36  roessel
+// MSMoveReminder has now an id and a method to get this id.
+//
 // Revision 1.5  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles; the edges
+// do not go through the lanes, the EdgeControl does
 //
 // Revision 1.4  2003/06/10 13:43:00  roessel
 // Added documentation.
@@ -40,6 +44,7 @@
 // further work detectors
 //
 
+#include <string>
 class MSVehicle;
 class MSLane;
 
@@ -61,8 +66,10 @@ public:
      *
      * @param lane Lane on ehich the reminder will work.
      */
-    MSMoveReminder( MSLane* lane ) : laneM( lane ){}
-
+    MSMoveReminder( MSLane* lane, std::string id = "" ) :
+        laneM( lane ),
+        idM( id ) {}
+    
     /**
      * Destructor.
      *
@@ -105,18 +112,30 @@ public:
      */
     virtual bool isActivatedByEmitOrLaneChange( MSVehicle& veh ) = 0;
 
-    /**
+    /** 
+     * Get the reminders id. The default value is "". If the MSMoveReminder
+     * objects are stored in a SingleDictionary, the ids are distinct.
+     * 
+     * @return The reminders id.
+     */
+    std::string getId( void ) const
+        {
+            return idM;
+        }
+    
+    /** 
      * The lane the reminder works on.
      *
      * @return The lane the reminder works on.
      */
-    MSLane* getLane( void )
+    MSLane* getLane( void ) const
         {
             return laneM;
         }
 
 protected:
     MSLane* laneM;              /**< Lane on which the reminder works. */
+    const std::string idM;      /**< Reminders id. */
 };
 
 
