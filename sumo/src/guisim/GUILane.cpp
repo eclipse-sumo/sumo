@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/22 12:38:24  dkrajzew
+// more verbose output to non-empty-vehBuffer - exception added
+//
 // Revision 1.10  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -192,7 +195,7 @@ GUILane::push( MSVehicle* veh )
     _lock.lock();//Display();
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-	    DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
+        DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
 	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
 	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
