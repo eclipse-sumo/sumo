@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.26  2003/07/30 09:08:09  dkrajzew
+// forgotten setting of an infinite distance to the last vehicle patched
+//
 // Revision 1.25  2003/07/22 15:07:40  dkrajzew
 // warnings removed
 //
@@ -886,6 +889,9 @@ MSLane::pop()
     myVehicles.pop_back();
     myUseDefinition->noVehicles--;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
+    if(myVehicles.size()==0) {
+        myLastState = MSVehicle::State(10000, 10000);
+    }
     return first;
 }
 
