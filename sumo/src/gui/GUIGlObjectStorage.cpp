@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/02/10 07:05:05  dkrajzew
+// returning a value before releasing the lock-bug patched
+//
 // Revision 1.5  2003/11/18 14:28:14  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -92,8 +95,9 @@ size_t
 GUIGlObjectStorage::getUniqueID()
 {
     _lock.lock();
-    return myAktID++;
+    size_t ret = myAktID++;
     _lock.unlock();
+    return ret;
 }
 
 
@@ -165,9 +169,6 @@ GUIGlObjectStorage::unblockObject(size_t id)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIGlObjectStorage.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
