@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/04/16 12:21:13  dkrajzew
+// Usage of SUMO_DATA removed
+//
 // Revision 1.2  2002/04/15 06:55:47  dkrajzew
 // new loading paradigm implemented
 //
@@ -102,18 +105,6 @@ checkSettings(OptionsCont *oc) {
     bool ok = true;
     try {
       if(oc!=0) oc->resetDefaults();
-      // check the folder to load the junction logics from
-/*      if(!oc->isSet("j")||!FileHelpers::exists(oc->getString("j"))) {
-        cout << "Error: The named junctions folder '" << oc->getString("j") << "' does not exist." << endl;
-        ok = false;
-      }
-      if(ok) {
-        string dir = oc->getString("j");
-        if(dir.at(dir.length()-1)!='/'&&dir.at(dir.length()-1)!='\\') {
-          dir = dir + '/';
-          oc->set("j", dir);
-        }
-      }*/
       // check the existance of a name for simulation file
       if(!oc->isSet("n")) {
         cout << "Error: No simulation file (-n) specified." << endl;
@@ -128,11 +119,6 @@ checkSettings(OptionsCont *oc) {
         cout << "Error: The end of the simulation (-e) is not specified." << endl;
         ok = false;
       }
-      // check if the output file is given
-/*      if(!oc->isSet("o")) {
-        cout << "Error: No output file (-o) specified." << endl;
-        ok = false;
-      }*/
     } catch (InvalidArgument &e) {
       cout << e.msg() << endl;
       return false;
@@ -151,28 +137,18 @@ OptionsCont *
 getSettings(int argc, char **argv) 
 {
     OptionsCont *oc;
-    try {
-	oc = new OptionsCont("SUMO_DATA");
-    } catch (InvalidArgument &e) {
-       cout << "SUMO requires a data folder." << endl;
-       cout << "Generate a folder anywhere on your file system and copy the contents of " << endl << "the 'data'-folder that came with the SUMO-distribution into it." << endl;
-       return 0;
-    }
+	oc = new OptionsCont();
     // register the file i/o options
-    oc->doRegister("net-file", 'n', new Option_String());
-//    oc->doRegisterSystemPath("junction-folder", 'j', "junctions");
-    oc->doRegister("route-file", 'r', new Option_String());
-    oc->doRegister("junction-file", 'j', new Option_String());
-    oc->doRegister("detector-file", 'd', new Option_String());
+    oc->doRegister("net-files", 'n', new Option_String());
+    oc->doRegister("route-files", 'r', new Option_String());
+    oc->doRegister("junction-files", 'j', new Option_String());
+    oc->doRegister("detector-files", 'd', new Option_String());
     oc->doRegister("output-file", 'o', new Option_String(""));
-    oc->doRegisterSystemPath("configuration-file", 'c', "config/sumo.cfg");
-    oc->addSynonyme("net-file", "net");
-    oc->addSynonyme("simulation-file", "net");
-    oc->addSynonyme("simulation", "net");
-    oc->addSynonyme("s", "net");
-    oc->addSynonyme("route-file", "routes");
-    oc->addSynonyme("junction-file", "junctions");
-    oc->addSynonyme("detector-file", "detectors");
+    oc->doRegister("configuration-file", 'c', new Option_String("sumo.cfg"));
+    oc->addSynonyme("net-files", "net");
+    oc->addSynonyme("route-files", "routes");
+    oc->addSynonyme("junction-files", "junctions");
+    oc->addSynonyme("detector-files", "detectors");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     // register the simulation settings
@@ -183,7 +159,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("warn", 'w', new Option_Bool(true));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
-    oc->doRegister("validate-nodes", new Option_Bool(false));
+//    oc->doRegister("validate-nodes", new Option_Bool(false));
     // register the data processing options
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");

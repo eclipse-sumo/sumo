@@ -25,8 +25,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/16 12:22:59  dkrajzew
+// Usage of SUMO_DATA removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:20:57  dkrajzew
 // New configuration-default handling
@@ -85,15 +88,14 @@ string OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok) {
         cout << "The configurations file '" << path << "' could not be found." << endl;
         ok = false;
     }
-    // check the first default
-    path = oc->getString("c");
-    if(FileHelpers::exists(FileHelpers::removeDir(path)))
-        return FileHelpers::removeDir(path);
-    // check the second default
-    if(FileHelpers::exists(path)) 
-        return path;
-    // report errors
-    cout << "The default configurations file could not be found." << endl;
+    if(ok) {
+        // check the default
+        path = oc->getString("c");
+        if(FileHelpers::exists(path)) 
+            return path;
+        // report errors
+        cout << "The default configurations file could not be found." << endl;
+    }
     return "";      
 }
 

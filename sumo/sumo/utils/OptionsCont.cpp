@@ -25,8 +25,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/16 12:22:59  dkrajzew
+// Usage of SUMO_DATA removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.3  2002/03/20 08:20:00  dkrajzew
 // isDefault - method added
@@ -73,6 +76,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+OptionsCont::OptionsCont() :  
+  _addresses(0), _values(), _path("") 
+{
+}
+
+
 OptionsCont::OptionsCont(string path) :  
   _addresses(0), _values(), _path(path) 
 {
@@ -289,4 +298,5 @@ string OptionsCont::getSystemPath(string ext) const {
 
 // Local Variables:
 // mode:C++
-// End:
+// 
+

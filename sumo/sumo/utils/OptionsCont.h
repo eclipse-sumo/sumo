@@ -22,8 +22,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/16 12:22:59  dkrajzew
+// Usage of SUMO_DATA removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.2  2002/03/20 08:20:00  dkrajzew
 // isDefault - method added
@@ -86,6 +89,8 @@ class OptionsCont {
     /** the name of the enviroment-variable that stores the path */
     std::string         _path;
  public:
+    /** constructor */
+   OptionsCont();
     /** constructor */
    OptionsCont(std::string env);
     /** destructor */
