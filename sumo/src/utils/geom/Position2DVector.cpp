@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/11/18 14:21:20  dkrajzew
+// computation of junction-inlanes geometry added
+//
 // Revision 1.18  2003/11/11 08:01:24  dkrajzew
 // some further methods implemented
 //
@@ -934,6 +937,20 @@ Position2DVector::lineAt(size_t pos) const
 {
     assert(myCont.size()>pos);
     return Line2D(myCont[pos], myCont[pos+1]);
+}
+
+
+Line2D
+Position2DVector::getBegLine() const
+{
+    return lineAt(0);
+}
+
+
+Line2D
+Position2DVector::getEndLine() const
+{
+    return lineAt(myCont.size()-2);
 }
 
 

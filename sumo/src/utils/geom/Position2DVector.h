@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/11/18 14:21:20  dkrajzew
+// computation of junction-inlanes geometry added
+//
 // Revision 1.12  2003/10/15 11:56:30  dkrajzew
 // further work on vissim-import
 //
@@ -187,6 +190,10 @@ public:
     void move2side(double amount);
 
     Line2D lineAt(size_t pos) const;
+
+    Line2D getBegLine() const;
+
+    Line2D getEndLine() const;
 
 
     class as_poly_cw_sorter {

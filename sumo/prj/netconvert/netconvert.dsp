@@ -100,6 +100,10 @@ SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\bezier.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\Boundery.cpp
 # End Source File
 # Begin Source File
@@ -829,6 +833,10 @@ SOURCE=..\..\src\utils\xml\AttributesHandler.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\geom\bezier.h
 # End Source File
 # Begin Source File
 

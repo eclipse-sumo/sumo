@@ -32,6 +32,19 @@ Line2D::extrapolateBy(double length)
 }
 
 
+void
+Line2D::extrapolateFirstBy(double length)
+{
+    myP1 = GeomHelper::extrapolate_first(myP1, myP2, length);
+}
+
+
+void
+Line2D::extrapolateSecondBy(double length)
+{
+    myP2 = GeomHelper::extrapolate_second(myP1, myP2, length);
+}
+
 const Position2D &
 Line2D::p1() const
 {
@@ -93,10 +106,27 @@ Line2D::atan2DegreeAngle() const
 }
 
 
+double
+Line2D::atan2PositiveAngle() const
+{
+    double angle = atan2Angle();
+    if(angle<0) {
+        angle = PI * 2.0 + angle;
+    }
+    return angle;
+}
+
 Position2D
 Line2D::intersectsAt(const Line2D &l) const
 {
     return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
+}
+
+
+bool
+Line2D::intersects(const Line2D &l) const
+{
+    return GeomHelper::intersects(myP1, myP2, l.myP1, l.myP2);
 }
 
 
@@ -123,4 +153,52 @@ Line2D::sub(double x, double y)
 {
     myP1.sub(x, y);
     myP2.sub(x, y);
+}
+
+
+
+
+double
+Line2D::distanceTo(const Position2D &p) const
+{
+    float LineMag;
+    float U;
+
+    LineMag = GeomHelper::Magnitude( myP2, myP1 );
+
+    U = ( ( ( p.x() - myP1.x() ) * ( myP2.x() - myP1.x() ) ) +
+        ( ( p.y() - myP1.y() ) * ( myP2.y() - myP1.y() ) ) /*+
+        ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+         )
+        /
+        ( LineMag * LineMag );
+
+    if( U < 0.0f || U > 1.0f )
+        return -1;   // closest point does not fall within the line segment
+
+    Position2D Intersection(
+        myP1.x() + U * ( myP2.x() - myP1.x() ),
+        myP1.y() + U * ( myP2.y() - myP1.y() ) );
+//    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
+
+    float Distance = GeomHelper::Magnitude( p, Intersection );
+
+    return Distance;
+}
+
+
+Line2D &
+Line2D::reverse()
+{
+    Position2D tmp(myP1);
+    myP1 = myP2;
+    myP2 = tmp;
+    return *this;
+}
+
+
+double
+Line2D::nearestPositionTo(const Position2D &p)
+{
+    return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, p);
 }

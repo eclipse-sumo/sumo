@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/18 14:21:20  dkrajzew
+// computation of junction-inlanes geometry added
+//
 // Revision 1.8  2003/09/05 15:27:38  dkrajzew
 // changes from adding internal lanes and further work on node geometry
 //
@@ -54,6 +57,9 @@
 #include "Position2D.h"
 #include "Position2DVector.h"
 
+
+
+#define PI 3.1415926535897932384626433832795
 
 /* =========================================================================
  * class definitions

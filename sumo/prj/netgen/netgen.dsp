@@ -97,6 +97,10 @@ SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\bezier.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\Boundery.cpp
 # End Source File
 # Begin Source File
