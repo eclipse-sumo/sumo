@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        GUI_E2_ZS_Collector.cpp -
+//  The gui-version of the MS_E2_ZS_Collector, together with the according
+//   wrapper
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Okt 2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2003/11/12 14:00:19  dkrajzew
+// commets added; added parameter windows to all detectors
+//
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSInductLoop.h>
 #include <gui/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
@@ -7,12 +45,21 @@
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <microsim/logging/UIntParametrisedDblFuncBinding.h>
-#include <microsim/logging/DoubleFunctionBinding.h>
 #include <qgl.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUI_E2_ZS_Collector-methods
+ * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id,
 		MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
 		MSUnit::Seconds haltingTimeThreshold,
@@ -31,7 +78,6 @@ GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector()
 }
 
 
-
 GUIDetectorWrapper *
 GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 											GUILaneWrapper &wrapper)
@@ -40,10 +86,12 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
-
+/* -------------------------------------------------------------------------
+ * GUI_E2_ZS_Collector::MyWrapper-methods
+ * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
-                                    GUIGlObjectStorage &idStorage,
-                                    GUILaneWrapper &wrapper)
+                                          GUIGlObjectStorage &idStorage,
+                                          GUILaneWrapper &wrapper)
     : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
     myDetector(detector)
 {
@@ -72,11 +120,9 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 }
 
 
-
 GUI_E2_ZS_Collector::MyWrapper::~MyWrapper()
 {
 }
-
 
 
 Boundery
@@ -86,10 +132,9 @@ GUI_E2_ZS_Collector::MyWrapper::getBoundery() const
 }
 
 
-
 GUIParameterTableWindow *
 GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
-                                             GUISUMOAbstractView &parent)
+                                                   GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this);
@@ -116,6 +161,12 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
         MS_E2_ZS_Collector::SPACE_MEAN_SPEED);
     myMkExistingItem(*ret, "halting duration [?]",
         MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
+    //
+    ret->mkItem("length [m]", false,
+        myDetector.getEndPos()-myDetector.getStartPos());
+    ret->mkItem("position [m]", false,
+        myDetector.getStartPos());
+    ret->mkItem("lane", false, myDetector.getLane()->id());
     // close building
     ret->closeBuilding();
     return ret;
@@ -125,23 +176,15 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
 void
 GUI_E2_ZS_Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
                                                  const std::string &name,
-                                                 MS_E2_ZS_Collector::DetType type)
+                    MS_E2_ZS_Collector::DetType type)
 {
     if(!myDetector.hasDetector(type)) {
         return;
     }
-    DoubleValueSource *binding =
-        new ValueRetriever(myDetector, type, 1);
+    MyValueRetriever *binding =
+        new MyValueRetriever(myDetector, type, 1);
     ret.mkItem(name.c_str(), true, binding);
 }
-
-
-GUIGlObjectType
-GUI_E2_ZS_Collector::MyWrapper::getType() const
-{
-    return GLO_DETECTOR;
-}
-
 
 
 std::string
@@ -149,7 +192,6 @@ GUI_E2_ZS_Collector::MyWrapper::microsimID() const
 {
     return myDetector.getId();
 }
-
 
 
 bool
@@ -199,11 +241,13 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale) const
     glColor3f(0, .8, .8);
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-			GLHelper::drawBoxLine(myFullGeometry.at(i), myShapeRotations[i], myShapeLengths[i], 1.0);
+			GLHelper::drawBoxLine(myFullGeometry.at(i),
+                myShapeRotations[i], myShapeLengths[i], 1.0);
         }
     } else {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-            GLHelper::drawLine(myFullGeometry.at(i), myShapeRotations[i], myShapeLengths[i]);
+            GLHelper::drawLine(myFullGeometry.at(i),
+                myShapeRotations[i], myShapeLengths[i]);
         }
     }
 }
@@ -222,4 +266,13 @@ GUI_E2_ZS_Collector::MyWrapper::getLoop()
     return myDetector;
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUI_E2_ZS_Collector.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 

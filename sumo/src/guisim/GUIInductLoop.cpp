@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        GUIInductLoop.cpp -
+//  The gui-version of the MSInductLoop, together with the according
+//   wrapper
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Aug 2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.7  2003/11/12 14:00:19  dkrajzew
+// commets added; added parameter windows to all detectors
+//
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSInductLoop.h>
 #include <gui/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
@@ -6,12 +44,23 @@
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <microsim/logging/UIntParametrisedDblFuncBinding.h>
-#include <microsim/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/FuncBinding_UIntParam.h>
+#include <microsim/logging/FunctionBinding.h>
 #include <qgl.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUIInductLoop-methods
+ * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
                              double position,
                              MSNet::Time deleteDataAfterSeconds)
@@ -20,12 +69,9 @@ GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
 }
 
 
-
 GUIInductLoop::~GUIInductLoop()
 {
 }
-
-
 
 
 GUIDetectorWrapper *
@@ -36,12 +82,14 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
-
+/* -------------------------------------------------------------------------
+ * GUIInductLoop::MyWrapper-methods
+ * ----------------------------------------------------------------------- */
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, double pos)
     : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
-    myDetector(detector)
+    myDetector(detector), myPosition(pos)
 {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
@@ -54,16 +102,12 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
     myBoundery.add(mySGPosition.x()-5.5, mySGPosition.y()-5.5);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
     mySGRotation = -l.atan2DegreeAngle();
-//    myBegin = wrapper.getBegin();
-//    myEnd = wrapper.getEnd();
 }
-
 
 
 GUIInductLoop::MyWrapper::~MyWrapper()
 {
 }
-
 
 
 Boundery
@@ -82,34 +126,27 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
         new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("flow [veh/h]", true,
-        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+        new FuncBinding_UIntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
-        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+        new FuncBinding_UIntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
-        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+        new FuncBinding_UIntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
-        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+        new FuncBinding_UIntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
-        new DoubleFunctionBinding<GUIInductLoop>(
+        new FunctionBinding<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
+    //
+    ret->mkItem("position [m]", false, myPosition);
+    ret->mkItem("lane", false, myDetector.getLane()->id());
     // close building
     ret->closeBuilding();
     return ret;
 }
-
-
-
-
-GUIGlObjectType
-GUIInductLoop::MyWrapper::getType() const
-{
-    return GLO_DETECTOR;
-}
-
 
 
 std::string
@@ -240,4 +277,13 @@ GUIInductLoop::MyWrapper::getLoop()
     return myDetector;
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIInductLoop.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
