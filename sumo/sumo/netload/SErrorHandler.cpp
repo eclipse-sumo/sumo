@@ -1,6 +1,6 @@
 /***************************************************************************
-                          SErrorHandler.cpp  
-			  container for errors that shall be presented to 
+                          SErrorHandler.cpp
+			  container for errors that shall be presented to
 			  the user
                              -------------------
     project              : SUMO
@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 10:38:44  dkrajzew
+// Strings are now passed as references
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:26  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -58,53 +61,53 @@ bool SErrorHandler::m_WasFatal;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-SErrorHandler::SErrorHandler() 
+SErrorHandler::SErrorHandler()
 {
   m_WasFatal = false;
 }
 
-SErrorHandler::~SErrorHandler() 
+SErrorHandler::~SErrorHandler()
 {
 }
 
-void 
-SErrorHandler::add(string error, bool report) 
+void
+SErrorHandler::add(const string &error, bool report)
 {
   m_Errors.push_back(error);
   if(report)
     cerr << error << endl;
 }
 
-void 
-SErrorHandler::add(char *error, bool report) 
+void
+SErrorHandler::add(char *error, bool report)
 {
   string str = error;
   add(str, report);
 }
 
 
-void 
-SErrorHandler::print() 
+void
+SErrorHandler::print()
 {
   for(Errors::iterator i=m_Errors.begin(); i!=m_Errors.end(); i++) {
     cout << (*i) << endl;
   }
 }
 
-void 
-SErrorHandler::setFatal() 
+void
+SErrorHandler::setFatal()
 {
   m_WasFatal = true;
 }
 
-bool 
-SErrorHandler::wasFatal() 
+bool
+SErrorHandler::wasFatal()
 {
   return m_WasFatal;
 }
 
-bool 
-SErrorHandler::errorOccured() 
+bool
+SErrorHandler::errorOccured()
 {
   return !(m_Errors.size()==0);
 }

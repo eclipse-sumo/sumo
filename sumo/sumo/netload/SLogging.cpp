@@ -1,6 +1,6 @@
 /***************************************************************************
-                          Slogging.cpp  
-			  container for strings that shall be presented to 
+                          Slogging.cpp
+			  container for strings that shall be presented to
 			  the user
                              -------------------
     project              : SUMO
@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 10:38:45  dkrajzew
+// Strings are now passed as references
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:26  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -57,16 +60,16 @@ SLogging::Messages SLogging::m_Messages;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-SLogging::SLogging() 
+SLogging::SLogging()
 {
 }
 
-SLogging::~SLogging() 
+SLogging::~SLogging()
 {
 }
 
-void 
-SLogging::add(string msg, bool report, bool newLine) 
+void
+SLogging::add(const string &msg, bool report, bool newLine)
 {
   m_Messages.push_back(msg);
   if(report) {
@@ -76,8 +79,8 @@ SLogging::add(string msg, bool report, bool newLine)
   }
 }
 
-void 
-SLogging::add(char *msg, bool report, bool newLine) 
+void
+SLogging::add(char *msg, bool report, bool newLine)
 {
   string str = msg;
   add(str, report, newLine);

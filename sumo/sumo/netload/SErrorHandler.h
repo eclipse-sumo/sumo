@@ -1,7 +1,7 @@
 #ifndef SErrorHandler_h
 #define SErrorHandler_h
 /***************************************************************************
-                          SWrrorHandler.h  -  container for errors that 
+                          SWrrorHandler.h  -  container for errors that
 			  shall be presented to the user
                              -------------------
     project              : SUMO
@@ -21,8 +21,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 10:38:45  dkrajzew
+// Strings are now passed as references
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:26  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -50,11 +53,11 @@
  * ======================================================================= */
 /**
  * SErrorHandler
- * The SErrorHandler holds all error messages that shall be presented to the 
+ * The SErrorHandler holds all error messages that shall be presented to the
  * user.
- * The method which adds new error messages to the list is declared static to 
- * allow calling it from methods which did not get the reference to the 
- * SErrorHandler and so avoid the passing of an ErrorHandler to all 
+ * The method which adds new error messages to the list is declared static to
+ * allow calling it from methods which did not get the reference to the
+ * SErrorHandler and so avoid the passing of an ErrorHandler to all
  * error-generating methods.
  */
 class SErrorHandler {
@@ -71,7 +74,7 @@ public:
     /// destructor
     ~SErrorHandler();
     /// adds a new error to the list
-    static void add(std::string error, bool report=false);
+    static void add(const std::string &error, bool report=false);
     static void add(char *error, bool report=false);
     /// lists all errors
     static void print();

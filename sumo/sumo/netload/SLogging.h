@@ -1,7 +1,7 @@
 #ifndef SLogging_h
 #define SLogging_h
 /***************************************************************************
-                          SLogging.h  -  container for strings that shall be 
+                          SLogging.h  -  container for strings that shall be
 			  presented to the user
                              -------------------
     project              : SUMO
@@ -21,8 +21,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 10:38:45  dkrajzew
+// Strings are now passed as references
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:26  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -51,7 +54,7 @@
 /**
  * SLogging
  * SLogging receives all messages that shall be passed to the user.
- * The method that receives such messages from other program-components is 
+ * The method that receives such messages from other program-components is
  * static to avoid complicated passing of pointers to all message-delivarating
  * methods.
  */
@@ -67,7 +70,7 @@ public:
     /// destructor
     ~SLogging();
     /// adds a message to the list of messages to present to the user
-    static void add(std::string msg, bool report=true, bool newLine=true);
+    static void add(const std::string &msg, bool report=true, bool newLine=true);
     static void add(char *msg, bool report=true, bool newLine=true);
 private:
     /** invalid copy constructor */
