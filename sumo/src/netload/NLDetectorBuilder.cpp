@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/02/06 09:02:39  dkrajzew
+// false detector positioning when negative values are used debugged
+//
 // Revision 1.17  2004/01/26 11:06:54  dkrajzew
 // position setting reapplied
 //
@@ -331,7 +334,7 @@ NLDetectorBuilder::addE3Entry(const std::string &lane, float pos)
         throw InvalidArgument("Something is wrong with a detector description.");
     }
     if(pos<0) {
-        pos = clane->length() - pos;
+        pos = clane->length() + pos;
     }
     myE3Definition->myEntries.push_back(MSCrossSection(clane, pos));
 }
@@ -345,7 +348,7 @@ NLDetectorBuilder::addE3Exit(const std::string &lane, float pos)
         throw InvalidArgument("Something is wrong with a detector description.");
     }
     if(pos<0) {
-        pos = clane->length() - pos;
+        pos = clane->length() + pos;
     }
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
 }
