@@ -324,14 +324,14 @@ public:
     std::string getXMLDetectorInfoStart( void ) const;
 
 
-    /**
-     * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
-     *
-     * @see getXMLDetectorInfoStart()
-     *
-     * @return String </detector>
-     */
-    std::string& getXMLDetectorInfoEnd( void ) const;
+//     /**
+//      * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
+//      *
+//      * @see getXMLDetectorInfoStart()
+//      *
+//      * @return String </detector>
+//      */
+//     std::string& getXMLDetectorInfoEnd( void ) const;
 
 
     /**

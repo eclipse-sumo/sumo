@@ -465,11 +465,11 @@ MSLaneState::getXMLDetectorInfoStart( void ) const
     return detectorInfo;
 }
 
-string&
-MSLaneState::getXMLDetectorInfoEnd( void ) const
-{
-    return detectorInfoEndM;
-}
+// string&
+// MSLaneState::getXMLDetectorInfoEnd( void ) const
+// {
+//     return detectorInfoEndM;
+// }
 
 
 MSNet::Time
