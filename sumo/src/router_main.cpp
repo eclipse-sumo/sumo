@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.4  2002/10/22 10:02:47  dkrajzew
+// minor warnings removed
+//
 // Revision 1.3  2002/10/21 10:01:03  dkrajzew
 // routedefs renamed to tripdefs in options
 //
@@ -120,7 +123,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("begin", 'b', new Option_Long(LONG_MIN));
     oc->doRegister("end", 'e', new Option_Long(LONG_MAX));
     // register Gawron's DUE-settings
-    oc->doRegister("gBeta", new Option_Float(0.05));
+    oc->doRegister("gBeta", new Option_Float(float(0.05)));
     oc->doRegister("gA", new Option_Float(1.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
@@ -260,7 +263,7 @@ int main(int argc, char **argv)
         }
         verbose = oc->getBool("v");
         delete oc;
-    } catch (ProcessError &e) {
+    } catch (ProcessError) {
         cout << "Quitting (conversion failed)." << endl;
         ret = 1;
     }

@@ -179,7 +179,7 @@ main(int argc, char **argv)
 		bool verbose = oc->getBool("v");
 		int maxele=50000; // initial number of ODs, finally derived from OD-inputfile
 		int total_cars=0;  // total number of cars, finally derived from OD-inputfile
-		int i, j, k;
+		int i, j;
         const int period = oc->getLong("end") - oc->getLong("begin");
 		// OD list
 		vector<OD_IN> od_in;
