@@ -514,7 +514,6 @@ MSTriggeredSourceXMLHandler::isAttributes2mapSuccess(
 
         // We now have a valid attribute.
         // attrIt->second = ... gives a segfault :-(
-        cout << "key " << key << ", value " << TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) ) << endl;
 
         aMap[ key ] = TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) );
     }
@@ -576,6 +575,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.3  2002/10/17 13:36:27  dkrajzew
+// debug informations removed
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
