@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2002/06/18 18:29:07  croessel
+// Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
+//
 // Revision 1.5  2002/06/18 16:41:50  croessel
 // Re-addition of this file. Is now cfront-compliant.
 //
@@ -55,12 +58,21 @@
 // Initial commit.
 //
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+#include "MSBitSetLogic.h"
+#endif // EXTERNAL_TEMPLATE_DEFINITION
+
 #include <bitset>
 #include <vector>
 #include <cassert>
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
-#include "MSBitSetLogic.h"
+
 
 
 template< size_t N >

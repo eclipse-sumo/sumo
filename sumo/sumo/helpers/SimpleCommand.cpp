@@ -23,14 +23,13 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
+#include "SimpleCommand.h"
+
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-
-
-#include "SimpleCommand.h"
 
 
 //--------------- DO NOT DEFINE ANYTHING AFTER THIS POINT -------------------//
@@ -40,6 +39,9 @@ namespace
 
 
 // $Log$
+// Revision 1.3  2002/06/18 18:29:07  croessel
+// Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
+//
 // Revision 1.2  2002/06/18 17:20:04  croessel
 // Added #ifdef EXTERNAL_TEMPLATE_DEFINITION
 //
