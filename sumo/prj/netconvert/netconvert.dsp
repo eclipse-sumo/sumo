@@ -381,6 +381,10 @@ SOURCE=..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.cpp
 # End Source File
 # Begin Source File
@@ -398,6 +402,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugkl
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -1029,6 +1037,10 @@ SOURCE=..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdgeVecto
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.h
 # End Source File
 # Begin Source File
@@ -1046,6 +1058,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugkl
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.h
 # End Source File
 # Begin Source File
 
