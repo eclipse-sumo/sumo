@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.9  2004/02/10 07:08:49  dkrajzew
+// resetting to find mode now does not generate duplicate lists; write method added
+//
 // Revision 1.8  2003/09/05 15:03:34  dkrajzew
 // tried to improve the building/deletion usage
 //
@@ -49,6 +52,7 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
 
 /**
  * Class that holds key-value pairs and has distinct insert- and find modes.
@@ -121,6 +125,7 @@ public:
         {
             //assert( operationModeM == INSERT );
             operationModeM = FIND;
+            vectorM.clear();
             vectorM.reserve( mapM.size() );
             for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
                 vectorM.push_back( it->second );
@@ -167,6 +172,11 @@ public:
         return operationModeM;
     }
 
+    void write() {
+        for(MapIt it=mapM.begin(); it!=mapM.end(); ++it) {
+            std::cout << (*it).first << "->" << (*it).second << std::endl;
+        }
+    }
 
 protected:
     /// Type of the internal map
