@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/27 08:51:00  dkrajzew
+// cell processing options added
+//
 // Revision 1.3  2004/01/27 08:46:15  dkrajzew
 // shared input possibilities between both routers
 //
@@ -163,6 +166,9 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     //
+    oc.doRegister("unsorted", new Option_Bool(false));
+    oc.doRegister("intel-cell", new Option_Bool(false));
+    oc.doRegister("no-last-cell", new Option_Bool(false));
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
 }
