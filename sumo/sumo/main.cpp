@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/04/17 11:20:40  dkrajzew
+// Windows-carriage returns removed
+//
 // Revision 1.3  2002/04/16 12:21:13  dkrajzew
 // Usage of SUMO_DATA removed
 //
