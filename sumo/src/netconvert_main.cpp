@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/05 14:41:53  dkrajzew
+// further parameter contraining the area of connectors to join (VIssim) added
+//
 // Revision 1.10  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
 //
@@ -186,7 +189,7 @@ joinEdges(int step, bool verbose)
 }
 
 
-/** computes the turning edge for each edge */
+/** computes the turning direction for each edge */
 bool
 computeTurningDirections(int step, bool verbose)
 {
@@ -311,6 +314,18 @@ computeLogic(int step, OptionsCont *oc)
     return NBNodeCont::computeLogics(*oc);
 }
 
+
+/** computes nodes' tl-logics */
+bool
+computeTLLogic(int step, OptionsCont *oc)
+{
+    if(oc->getBool("v")) {
+        cout << "Computing step " << step
+            << ": Computing traffic light logics" << endl;
+    }
+    return NBTrafficLightLogicCont::computeLogics(*oc);
+}
+
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
@@ -347,6 +362,8 @@ compute(OptionsCont *oc)
     if(ok) ok = recheckLanes(step++, verbose);
 //    if(ok) ok = computeLinkPriorities(step++, verbose);
     if(ok) ok = computeLogic(step++, oc);
+    if(ok) ok = computeTLLogic(step++, oc);
+    
     if(ok && oc->getBool("v")) {
         NBNode::reportBuild();
     }

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/06/05 14:41:53  dkrajzew
+// further parameter contraining the area of connectors to join (VIssim) added
+//
 // Revision 1.4  2003/04/04 08:41:47  dkrajzew
 // help screen updated; min-decel usage added
 //
@@ -88,6 +91,8 @@ char *help[] = {
     "   --use-laneno-as-priority       Uses the number of lanes priority hint",
     "   --omit-corrupt-edges           Continues parsing although a corrupt edge",
     "                                     occured (warning is printed)",
+	"   --vissim-offset DOUBLE         Specifies the structure join offset within",
+	"                                     vissim-import",
     "   --help                         This screen",
     0
 };
