@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 15:08:48  dkrajzew
+// vissim requires more steps on building
+//
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -91,6 +94,7 @@ namespace
 #include <netbuild/NBJunctionLogicCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBDistrictCont.h>
+#include <netbuild/NBDistribution.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOptionsIO.h>
 #include <netbuild/NBLoader.h>
@@ -123,6 +127,29 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * computation methods
  * ----------------------------------------------------------------------- */
+
+    
+/** removes dummy edges from junctions */
+bool removeDummyEdges(int step, bool verbose)
+{
+    if(verbose) {
+        cout << "Computing step " << step
+            << ": Removing dummy edges " << endl;
+    }
+    return NBNodeCont::removeDummyEdges(verbose);
+}
+
+
+/** joins edges which connect the same nodes */
+bool joinEdges(int step, bool verbose)
+{
+    if(verbose) {
+        cout << "Computing step " << step
+            << ": Joining double connections " << endl;
+    }
+    return NBNodeCont::recheckEdges(verbose);
+}
+
 
 /** computes the turning edge for each edge */
 bool computeTurningDirections(int step, bool verbose)
@@ -243,6 +270,8 @@ compute(OptionsCont *oc)
     bool ok = true;
     bool verbose = oc->getBool("v");
     int step = 1;
+    if(ok) ok = removeDummyEdges(step++, verbose);
+    if(ok) ok = joinEdges(step++, verbose);
     if(ok) ok = computeTurningDirections(step++, verbose);
     if(ok) ok = sortNodesEdges(step++, verbose);
     if(ok) ok = normaliseNodePositions(step++, verbose);
@@ -276,11 +305,11 @@ save(string path)
     res << endl;
     // write the districts
     NBDistrictCont::writeXML(res);
+    // write edges with lanes and connected edges
+    NBEdgeCont::writeXMLStep1(res);
     // write the logics
     NBJunctionLogicCont::writeXML(res);
     NBTrafficLightLogicCont::writeXML(res);
-    // write edges with lanes and connected edges
-    NBEdgeCont::writeXMLStep1(res);
     // write the nodes
     NBNodeCont::writeXML(res);
     // write the successors of lanes
@@ -301,6 +330,7 @@ clearAll(OptionsCont *oc)
     NBJunctionLogicCont::clear();
     NBDistrictCont::clear();
     NBTrafficLightLogicCont::clear();
+    NBDistribution::clear();
     delete oc;
     XMLSubSys::close();
 }
