@@ -17,7 +17,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
+// Revision 1.27  2004/07/02 09:53:58  dkrajzew
+// some design things
+//
 // Revision 1.26  2004/04/02 11:38:28  dkrajzew
 // extended traffic lights are now no longer template classes
 //
@@ -114,7 +122,7 @@
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
             const std::string &id,
             const Phases &phases,
-			size_t step, size_t delay)
+            size_t step, size_t delay)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
     _continue(false)
 {
@@ -123,7 +131,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
-		const std::vector<MSLane*> &lanes,
+        const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
@@ -299,9 +307,9 @@ MSActuatedTrafficLightLogic::gapControl()
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-		if(myInductLoops.find(*j)==myInductLoops.end()) {
-		    continue;
-		}
+        if(myInductLoops.find(*j)==myInductLoops.end()) {
+            continue;
+        }
                 double actualGap =  myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 double maxGap = 3.1;
                 if (actualGap < maxGap) {

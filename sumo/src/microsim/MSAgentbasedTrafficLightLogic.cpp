@@ -16,7 +16,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
+// Revision 1.19  2004/07/02 09:53:58  dkrajzew
+// some design things
+//
 // Revision 1.18  2004/04/02 11:38:28  dkrajzew
 // extended traffic lights are now no longer template classes
 //
@@ -90,9 +98,9 @@ using namespace std;
  * ======================================================================= */
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
             const std::string &id, const Phases &phases,
-			size_t step, size_t delay)
+            size_t step, size_t delay)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
-    tSinceLastDecision (0), tDecide(1), stepOfLastDecision (0),
+    tDecide(1), tSinceLastDecision (0), stepOfLastDecision (0),
     numberOfValues(3), tCycle(70), deltaLimit (0.1)
 {
 }
@@ -101,7 +109,7 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 void
 MSAgentbasedTrafficLightLogic::init(
         NLDetectorBuilder &nb,
-		const std::vector<MSLane*> &lanes,
+        const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
@@ -135,7 +143,7 @@ MSAgentbasedTrafficLightLogic::sproutDetectors(
             MS_E2_ZS_CollectorOverLanes* det =
                 nb.buildMultiLaneE2Det(laneContinuations, id,
                     DU_TL_CONTROL, lane, 0, det_offset);
-//		    det->addDetector( E2::ALL, "detectors" );
+//          det->addDetector( E2::ALL, "detectors" );
             myE2Detectors[lane] = det;
         }
     }
@@ -179,7 +187,7 @@ MSAgentbasedTrafficLightLogic::initializeDuration()
 void
 MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 {
-	typedef std::pair <size_t, size_t> contentType;
+    typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
     GreenPhasesVector myPhases (_phases.size());
     myPhases.clear();
@@ -262,7 +270,7 @@ MSNet::Time
 MSAgentbasedTrafficLightLogic::nextPhase()
 {
     assert (currentPhaseDef()->minDuration >=0);
-	assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
+    assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
     if(isGreenPhase(_step)) {
         // collects the data for the signal control
         collectData();
@@ -337,7 +345,7 @@ MSAgentbasedTrafficLightLogic::collectData()
                     maxPerBit = tmp;
                 }
                 E2DetectorMap::const_iterator it=myE2Detectors.find(*j);
-	            (*it).second->resetQueueLengthAheadOfTrafficLights();
+                (*it).second->resetQueueLengthAheadOfTrafficLights();
             }
             if (maxPerPhase < maxPerBit) {
                 maxPerPhase = maxPerBit;
@@ -382,11 +390,11 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
     if (stepOfMaxValue == _phases.size())    {
         return;
     }
-	size_t stepOfMinValue = findStepOfMinValue();
+    size_t stepOfMinValue = findStepOfMinValue();
     if (stepOfMinValue == _phases.size())    {
         return;
     }
-	if (stepOfMinValue == stepOfMaxValue)    {
+    if (stepOfMinValue == stepOfMaxValue)    {
         return;
     }
 
@@ -408,19 +416,19 @@ MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
     double MaxValue = -1;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
-		// checks whether the actual duruation is shorter than maxduration
-		// otherwise the phase can't be lenghten
-		size_t maxDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->maxDuration;
+        // checks whether the actual duruation is shorter than maxduration
+        // otherwise the phase can't be lenghten
+        size_t maxDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->maxDuration;
         size_t actDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->duration;
-		if (actDur >= maxDur) {
-			continue;
-		}
-		if ((*it).second > MaxValue) {
+        if (actDur >= maxDur) {
+            continue;
+        }
+        if ((*it).second > MaxValue) {
             MaxValue = (*it).second;
             StepOfMaxValue = (*it).first;
         }
     }
-	return StepOfMaxValue;
+    return StepOfMaxValue;
 }
 
 
@@ -431,30 +439,30 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue()
     double MinValue = 9999;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
-		// checks whether the actual duruation is longer than minduration
-		// otherwise the phase can't be cut
-		size_t minDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->minDuration;
+        // checks whether the actual duruation is longer than minduration
+        // otherwise the phase can't be cut
+        size_t minDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->minDuration;
         size_t actDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->duration;
-		if (actDur <= minDur) {
-			continue;
-		}
-		if ((*it).second < MinValue) {
+        if (actDur <= minDur) {
+            continue;
+        }
+        if ((*it).second < MinValue) {
             MinValue = (*it).second;
             StepOfMinValue = (*it).first;
         }
     }
-	return StepOfMinValue;
+    return StepOfMinValue;
 }
 
 
 MSNet::Time
 MSAgentbasedTrafficLightLogic::duration()
 {
-   	while (currentPhaseDef()->duration==0) {
-		nextStep();
-		setLinkPriorities();
-	}
-	assert(_phases.size()>_step);
+    while (currentPhaseDef()->duration==0) {
+        nextStep();
+        setLinkPriorities();
+    }
+    assert(_phases.size()>_step);
     return currentPhaseDef()->duration;
 }
 
@@ -462,7 +470,7 @@ MSAgentbasedTrafficLightLogic::duration()
 MSActuatedPhaseDefinition *
 MSAgentbasedTrafficLightLogic::currentPhaseDef() const
 {
-	assert(_phases.size()>_step);
+    assert(_phases.size()>_step);
     return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
 }
 
@@ -486,8 +494,8 @@ MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
                                               MSLane *lane) const
 {
 
-	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
-	return (*i).second->getCurrent(what);
+    E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
+    return (*i).second->getCurrent(what);
 }
 
 
