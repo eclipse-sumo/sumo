@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/08/20 11:49:55  dkrajzew
+// allowed the retrival of an uint-vector encoded as string; not the best, but the fastest solution
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -691,6 +694,14 @@ Option_UIntVector::getValue() const
     }
     return string(s.str());
 }
+
+
+std::string
+Option_UIntVector::getString() const
+{
+    return getValue();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
