@@ -6,7 +6,7 @@ dnl create an config-header
 AM_CONFIG_HEADER(config.h)
 
 dnl enabel automake-support
-AM_INIT_AUTOMAKE(sumo,0.8.1)
+AM_INIT_AUTOMAKE(sumo,0.8.2.1)
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
