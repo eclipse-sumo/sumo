@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/07 08:48:35  dkrajzew
+// remved an unneeded debug-output
+//
 // Revision 1.7  2003/06/05 14:33:45  dkrajzew
 // class templates applied; documentation added
 //
@@ -99,7 +102,6 @@ Position2DVector::around(const Position2D &p, double offset) const
         (*(myCont.begin())).x() - p.x(),
         (*(myCont.begin())).y() - p.y());
     angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
-    cout << angle << endl;
     return (!(fabs(angle) < 3.1415926535897932384626433832795));
 }
 
