@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/01 15:15:49  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.5  2003/03/26 12:00:07  dkrajzew
 // debugging for Vissim and Visum-imports
 //
@@ -66,23 +69,15 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 NBDistrict::NBDistrict(const std::string &id, const std::string &name,
-                       bool sourceConnectorsWeighted,
-                       bool sinkConnectorsWeighted,
                        double x, double y)
     : Named(id), _name(name),
-    _sourceConnectorsWeighted(sourceConnectorsWeighted),
-    _sinkConnectorsWeighted(sinkConnectorsWeighted),
     _x(x), _y(y), _posKnown(true)
 {
 }
 
 
-NBDistrict::NBDistrict(const std::string &id, const std::string &name,
-                       bool sourceConnectorsWeighted,
-                       bool sinkConnectorsWeighted)
+NBDistrict::NBDistrict(const std::string &id, const std::string &name)
     : Named(id), _name(name),
-    _sourceConnectorsWeighted(sourceConnectorsWeighted),
-    _sinkConnectorsWeighted(sinkConnectorsWeighted),
     _x(0), _y(0), _posKnown(true)
 {
 }
@@ -96,13 +91,17 @@ NBDistrict::~NBDistrict()
 bool
 NBDistrict::addSource(NBEdge *source, double weight)
 {
-    ConnectorCont::iterator i =
+    if(_id=="3000010") {
+        int bla = 0;
+    }
+    EdgeVector::iterator i =
         find(_sources.begin(), _sources.end(), source);
     if(i!=_sources.end()) {
         return false;
     }
     _sources.push_back(source);
     _sourceWeights.push_back(weight);
+    assert(source->getID()!="");
     return true;
 }
 
@@ -110,13 +109,18 @@ NBDistrict::addSource(NBEdge *source, double weight)
 bool
 NBDistrict::addSink(NBEdge *sink, double weight)
 {
-    ConnectorCont::iterator i =
+    if(_id=="3000010") {
+        int bla = 0;
+    }
+
+    EdgeVector::iterator i =
         find(_sinks.begin(), _sinks.end(), sink);
     if(i!=_sinks.end()) {
         return false;
     }
     _sinks.push_back(sink);
     _sinkWeights.push_back(weight);
+    assert(sink->getID()!="");
     return true;
 }
 
@@ -124,6 +128,9 @@ NBDistrict::addSink(NBEdge *sink, double weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
+    if(_id=="3000022") {
+        int bla = 0;
+    }
     DoubleVectorHelper::normalise(_sourceWeights, 1.0);
     DoubleVectorHelper::normalise(_sinkWeights, 1.0);
     // write the head and the id of the district
@@ -168,6 +175,73 @@ NBDistrict::setCenter(double x, double y)
     _x = x;
     _y = y;
 }
+
+
+void
+NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
+{
+    // temporary structures
+    EdgeVector newList;
+    WeightsCont newWeights;
+    double joinedVal = 0;
+    // go through the list of sinks
+    EdgeVector::iterator i=_sinks.begin();
+    WeightsCont::iterator j=_sinkWeights.begin();
+    for(; i!=_sinks.end(); i++, j++) {
+        NBEdge *tmp = (*i);
+        double val = (*j);
+        if(find(which.begin(), which.end(), tmp)==which.end()) {
+            // if the current edge shall not be replaced, add to the
+            //  temporary list
+            newList.push_back(tmp);
+            newWeights.push_back(val);
+        } else {
+            // otherwise, skip it and add its weight to the one to be inserted
+            //  instead
+            joinedVal += val;
+        }
+    }
+    // add the one to be inserted instead
+    newList.push_back(by);
+    newWeights.push_back(joinedVal);
+    // assign to values
+    _sinks = newList;
+    _sinkWeights = newWeights;
+}
+
+
+void
+NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
+{
+    // temporary structures
+    EdgeVector newList;
+    WeightsCont newWeights;
+    double joinedVal = 0;
+    // go through the list of sinks
+    EdgeVector::iterator i=_sources.begin();
+    WeightsCont::iterator j=_sourceWeights.begin();
+    for(; i!=_sources.end(); i++, j++) {
+        NBEdge *tmp = (*i);
+        double val = (*j);
+        if(find(which.begin(), which.end(), tmp)==which.end()) {
+            // if the current edge shall not be replaced, add to the
+            //  temporary list
+            newList.push_back(tmp);
+            newWeights.push_back(val);
+        } else {
+            // otherwise, skip it and add its weight to the one to be inserted
+            //  instead
+            joinedVal += val;
+        }
+    }
+    // add the one to be inserted instead
+    newList.push_back(by);
+    newWeights.push_back(joinedVal);
+    // assign to values
+    _sources = newList;
+    _sourceWeights = newWeights;
+}
+
 
 
 

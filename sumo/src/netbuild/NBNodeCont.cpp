@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/04/01 15:15:53  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.9  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -88,9 +91,10 @@ namespace
 #include <string>
 #include <map>
 #include <algorithm>
-#include <strstream>
+//#include <strstream>
 #include <utils/geom/Boundery.h>
 #include <utils/convert/ToString.h>
+#include "NBDistrict.h"
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
@@ -121,6 +125,24 @@ int                     NBNodeCont::_internalID = 1;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+bool
+NBNodeCont::insert(const std::string &id, double x, double y,
+                   NBDistrict *district)
+{
+    NodeCont::iterator i = _nodes.find(id);
+    if(i!=_nodes.end()) {
+        if( (*i).second->getXCoordinate()==x &&
+            (*i).second->getYCoordinate()==y) {
+            return true;
+        }
+        return false;
+    }
+    NBNode *node = new NBNode(id, x, y, district);
+    _nodes[id] = node;
+    return true;
+}
+
+
 bool
 NBNodeCont::insert(const string &id, double x, double y)
 {
@@ -210,6 +232,19 @@ NBNodeCont::retrieve(double x, double y)
     }
     return 0;
 }
+
+
+bool
+NBNodeCont::erase(NBNode *node)
+{
+    NodeCont::iterator i = _nodes.find(node->getID());
+    if(i==_nodes.end()) {
+        return false;
+    }
+    _nodes.erase(i);
+    delete node;
+}
+
 
 
 bool

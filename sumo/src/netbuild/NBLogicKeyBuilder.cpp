@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/01 15:15:52  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -36,7 +39,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 #include <string>
-#include <strstream>
+//#include <strstream>
 #include "NBNode.h"
 #include "NBEdge.h"
 #include "NBContHelper.h"

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/04/01 15:15:51  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/03/19 08:03:40  dkrajzew
 // splitting of edges made a little bit more stable
 //
@@ -98,7 +101,7 @@ namespace
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
-#include <strstream>
+//#include <strstream>
 
 
 /* =========================================================================
@@ -491,16 +494,11 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     insert(newEdge);
     // replace old edge by current within the nodes
     //  and delete the old
-    for(i=edges.begin(); i!=edges.end(); i++) {
-//        (*i)->replaceInProceeding(newEdge);
-        from->replaceOutgoing(*i, newEdge);
-        to->replaceIncoming(*i, newEdge);
-    }
+    from->replaceOutgoing(edges, newEdge);
+    to->replaceIncoming(edges, newEdge);
     for(i=edges.begin(); i!=edges.end(); i++) {
         erase(*i);
     }
-    from->removeDoubleEdges();
-    to->removeDoubleEdges();
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/04/01 15:15:53  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.7  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -86,6 +89,7 @@
 #include <iostream>
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
+#include <utils/geom/Position2D.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBConnectionDefs.h"
@@ -96,6 +100,7 @@
  * class declarations
  * ======================================================================= */
 class NBRequest;
+class NBDistrict;
 
 
 /* =========================================================================
@@ -231,8 +236,13 @@ public:
     static const int TYPE_PRIORITY_JUNCTION;
     /** internal type for a right-before-left junction */
     static const int TYPE_RIGHT_BEFORE_LEFT;
+    /** internal type for a district junction */
+    static const int TYPE_DISTRICT;
     /** internal type for a dead-end junction */
     static const int TYPE_DEAD_END;
+
+    /** a counter for the no-junctions build */
+    static int _noDistricts;
 
     /** a counter for the no-junctions build */
     static int _noNoJunctions;
@@ -260,6 +270,9 @@ public:
     NBNode(const std::string &id, double x, double y,
         int type, const std::string &key);
 
+    /** constructor */
+    NBNode(const std::string &id, double x, double y, NBDistrict *district);
+
     /** destructor */
     ~NBNode();
 
@@ -268,6 +281,8 @@ public:
 
     /** return the y-coordinate of the node */
     double getYCoordinate();
+
+    Position2D geomPosition() const;
 
     /** returns the id of the node */
     std::string getID();
@@ -313,6 +328,8 @@ public:
     bool hasIncoming(NBEdge *e) const;
     NBEdge *getOppositeIncoming(NBEdge *e) const;
     NBEdge *getOppositeOutgoing(NBEdge *e) const;
+    void invalidateIncomingConnections();
+    void invalidateOutgoingConnections();
 
     void removeDoubleEdges();
 
@@ -411,9 +428,22 @@ private:
     /// resets the position by the given amount
     void resetby(double xoffset, double yoffset);
 
+    /** @brief Replaces occurences of the first edge within the list of incoming by the second
+        Connections are remapped, too */
+    void replaceIncoming(NBEdge *which, NBEdge *by);
+
+    /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
+        Connections are remapped, too */
+    void replaceIncoming(const EdgeVector &which, NBEdge *by);
+
+    /** @brief Replaces occurences of the first edge within the list of outgoing by the second
+        Connections are remapped, too */
     void replaceOutgoing(NBEdge *which, NBEdge *by);
 
-    void replaceIncoming(NBEdge *which, NBEdge *by);
+    /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
+        Connections are remapped, too */
+    void replaceOutgoing(const EdgeVector &which, NBEdge *by);
+
 
 
     void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by);
@@ -448,6 +478,8 @@ private:
     /** The container for connection block dependencies */
     ConnectionProhibits _blockedConnections;
 
+    /// The district the node is the centre of
+    NBDistrict *myDistrict;
 
     SignalGroupCont mySignalGroups;
 

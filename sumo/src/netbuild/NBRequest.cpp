@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/01 15:15:54  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.5  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -436,7 +439,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
 
     // build the phases
     NBTrafficLightLogic *logic =
-        new NBTrafficLightLogic(key, noLinks);
+        new NBTrafficLightLogic(key, noLinks, 0);//!!!
     for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
         assert(noLinks==cei1.getLinkNumber());

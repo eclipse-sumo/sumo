@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/01 15:15:49  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.4  2003/03/20 16:23:08  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -43,6 +46,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include "NBCont.h"
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
 
@@ -65,13 +69,11 @@ class NBDistrict : public Named {
 public:
     /** @brief constructor with position */
     NBDistrict(const std::string &id, const std::string &name,
-        bool sourceConnectorsWeighted, bool sinkConnectorsWeighted,
         double x, double y);
 
     /** @brief constructor without position
         The position must be computed later */
-    NBDistrict(const std::string &id, const std::string &name,
-        bool sourceConnectorsWeighted, bool sinkConnectorsWeighted);
+    NBDistrict(const std::string &id, const std::string &name);
 
     /// destructor
     ~NBDistrict();
@@ -101,33 +103,30 @@ public:
     /** @brief normalises the districts connection usage propabilities */
     void normalise(DoubleVector &dv, size_t num);
 
+    /// replaces incoming edges from the vector (sinks) by the given edge
+    void replaceIncoming(const EdgeVector &which, NBEdge *by);
+
+    /// replaces outgoing edges from the vector (sources) by the given edge
+    void replaceOutgoing(const EdgeVector &which, NBEdge *by);
+
 private:
     /// a secondary name
     std::string _name;
-
-    /// definition of a vector of connections to the real network
-    typedef std::vector<NBEdge*> ConnectorCont;
 
     /// definition of a vector of connection weights
     typedef DoubleVector WeightsCont;
 
     /// the sources (connection from district to network)
-    ConnectorCont _sources;
+    EdgeVector _sources;
 
     /// the weights of the sources
     WeightsCont _sourceWeights;
 
     /// the sinks (connection from network to district)
-    ConnectorCont _sinks;
+    EdgeVector _sinks;
 
     /// the weights of the sinks
     WeightsCont _sinkWeights;
-
-    /// information whether the sources are weighted
-    bool _sourceConnectorsWeighted;
-
-    /// information whether the sinks are weighted
-    bool _sinkConnectorsWeighted;
 
     /// the position of the distrct (it's mass-middle-point)
     double _x, _y;

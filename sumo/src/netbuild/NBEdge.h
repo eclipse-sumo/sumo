@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/04/01 15:15:51  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/03/26 12:00:08  dkrajzew
 // debugging for Vissim and Visum-imports
 //
@@ -280,6 +283,8 @@ public:
 
     void removeFromConnections(NBEdge *which);
 
+    void invalidateConnections();
+
     bool lanesWereAssigned() const;
 
     /** friend class used for the computation of connections to
@@ -355,6 +360,8 @@ private:
      * by using this enumeration
      */
     enum EdgeBuildingStep {
+        /// the edge has been loaded and connections shall not be added
+        INIT_REJECT_CONNECTIONS = -1,
         /// the edge has been loaded, nothing is computed yet
         INIT = 0,
         /// the relationships between edges are computed/loaded

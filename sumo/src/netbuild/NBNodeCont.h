@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/04/01 15:15:54  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -88,6 +91,13 @@
 
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBDistrict;
+
+
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
 class NBNodeCont
@@ -97,6 +107,10 @@ public:
     typedef std::map<std::string, NBNode*> NodeCont;
 
 public:
+    /** inserts a node into the map */
+    static bool insert(const std::string &id, double x, double y,
+        NBDistrict *district);
+
     /** inserts a node into the map */
     static bool insert(const std::string &id, double x, double y);
 
@@ -109,6 +123,9 @@ public:
 
     /** inserts a node into the map */
     static bool insert(NBNode *node);
+
+    /// Removes the given node, deleting it
+    static bool erase(NBNode *node);
 
     /** returns the node with the given name */
     static NBNode *retrieve(const std::string &id);

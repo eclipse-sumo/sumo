@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/01 15:15:52  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.10  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -124,6 +127,7 @@ namespace
 #include "NBTypeCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBHelpers.h"
+#include "NBDistrict.h"
 #include "NBContHelper.h"
 #include "NBLogicKeyBuilder.h"
 #include "NBRequest.h"
@@ -144,8 +148,10 @@ const int NBNode::TYPE_NOJUNCTION = 0;
 const int NBNode::TYPE_TRAFFIC_LIGHT = 1;
 const int NBNode::TYPE_PRIORITY_JUNCTION = 2;
 const int NBNode::TYPE_RIGHT_BEFORE_LEFT = 3;
+const int NBNode::TYPE_DISTRICT = 4;
 const int NBNode::TYPE_DEAD_END = -1;
 
+int NBNode::_noDistricts = 0;
 int NBNode::_noNoJunctions = 0;
 int NBNode::_noPriorityJunctions = 0;
 int NBNode::_noTrafficLightJunctions = 0;
@@ -404,7 +410,7 @@ NBNode::Phase::addSignalGroupColor(const std::string &signalgroup, TLColor color
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, double x, double y)
-    : _id(id), _x(x), _y(y), _type(-1)
+    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -413,7 +419,7 @@ NBNode::NBNode(const string &id, double x, double y)
 
 NBNode::NBNode(const string &id, double x, double y,
                const std::string &type)
-    : _id(id), _x(x), _y(y), _type(-1)
+    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -431,7 +437,17 @@ NBNode::NBNode(const string &id, double x, double y,
 
 NBNode::NBNode(const std::string &id, double x, double y, int type,
                const std::string &key)
-    : _id(id), _x(x), _y(y), _key(key), _type(type)
+    : _id(id), _x(x), _y(y), _key(key), _type(type), myDistrict(0)
+{
+    _incomingEdges = new EdgeVector();
+    _outgoingEdges = new EdgeVector();
+}
+
+
+
+
+NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
+    : _id(id), _x(x), _y(y), _type(TYPE_DISTRICT), myDistrict(district)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -445,14 +461,25 @@ NBNode::~NBNode()
 }
 
 
-double NBNode::getXCoordinate() {
+double
+NBNode::getXCoordinate() {
     return _x;
 }
 
 
-double NBNode::getYCoordinate() {
+double
+NBNode::getYCoordinate() {
     return _y;
 }
+
+
+Position2D
+NBNode::geomPosition() const
+{
+    return Position2D(_x, _y);
+}
+
+
 
 
 void
@@ -823,6 +850,9 @@ NBNode::writeXML(ostream &into)
         case TYPE_RIGHT_BEFORE_LEFT:
             into << " type=\"" << "right_before_left\"";
             break;
+        case TYPE_DISTRICT:
+            into << " type=\"" << "district\"";
+            break;
         default:
             throw exception();
             break;
@@ -877,7 +907,7 @@ NBNode::computeLogic(long maxSize)
         static_cast<const EdgeVector * const>(_outgoingEdges),
         _blockedConnections);
     // compute the logic if necessary or split the junction
-    if(_type!=TYPE_NOJUNCTION) {
+    if(_type!=TYPE_NOJUNCTION&&_type!=TYPE_DISTRICT) {
         computeLogic(request, maxSize);
     }
     // build the lights when needed
@@ -906,6 +936,9 @@ NBNode::setType(int type)
         _noPriorityJunctions++;
         break;
     case TYPE_RIGHT_BEFORE_LEFT:
+        _noRightBeforeLeftJunctions++;
+        break;
+    case TYPE_DISTRICT:
         _noRightBeforeLeftJunctions++;
         break;
     default:
@@ -1087,6 +1120,23 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
 
 
 void
+NBNode::replaceOutgoing(const EdgeVector &which, NBEdge *by)
+{
+    // replace edges
+    for(EdgeVector::const_iterator i=which.begin(); i!=which.end(); i++) {
+        replaceOutgoing(*i, by);
+    }
+    // removed double occurences
+    removeDoubleEdges();
+    // check whether this node belongs to a district and the edges
+    //  must here be also remapped
+    if(myDistrict!=0) {
+        myDistrict->replaceOutgoing(which, by);
+    }
+}
+
+
+void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
 {
     // replace the edge in the list of incoming nodes
@@ -1103,6 +1153,24 @@ NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by);
 }
+
+
+void
+NBNode::replaceIncoming(const EdgeVector &which, NBEdge *by)
+{
+    // replace edges
+    for(EdgeVector::const_iterator i=which.begin(); i!=which.end(); i++) {
+        replaceIncoming(*i, by);
+    }
+    // removed double occurences
+    removeDoubleEdges();
+    // check whether this node belongs to a district and the edges
+    //  must here be also remapped
+    if(myDistrict!=0) {
+        myDistrict->replaceIncoming(which, by);
+    }
+}
+
 
 
 void
@@ -1461,6 +1529,25 @@ NBNode::getEmptyDir() const
     }
     pos.mul(-1.0/(_incomingEdges->size()+_outgoingEdges->size()));
     return pos;
+}
+
+
+
+void
+NBNode::invalidateIncomingConnections()
+{
+    for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        (*i)->invalidateConnections();
+    }
+}
+
+
+void
+NBNode::invalidateOutgoingConnections()
+{
+    for(EdgeVector::const_iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+        (*i)->invalidateConnections();
+    }
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/04/01 15:15:50  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.9  2003/03/26 12:00:08  dkrajzew
 // debugging for Vissim and Visum-imports
 //
@@ -258,6 +261,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
     myGeom.push_back(
         Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+    if(_priority<0) {
+        _priority = 0;
+    }
 }
 
 
@@ -300,6 +306,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     }
     assert(_length>0);
     assert(myGeom.size()>=2);
+    if(_priority<0) {
+        _priority = 0;
+    }
 }
 
 
@@ -336,40 +345,44 @@ NBEdge::getPriority()
 
 int
 NBEdge::getJunctionPriority(NBNode *node) {
-    if(node==_from)
+    if(node==_from) {
         return _fromJunctionPriority;
-    else
+    } else {
         return _toJunctionPriority;
+    }
 }
 
 
 void
 NBEdge::setJunctionPriority(NBNode *node, int prio)
 {
-    if(node==_from)
+    if(node==_from) {
         _fromJunctionPriority = prio;
-    else
+    } else {
         _toJunctionPriority = prio;
+    }
 }
 
 
 void
 NBEdge::setJunctionAngle(NBNode *node, double angle)
 {
-    if(node==_from)
+    if(node==_from) {
         _fromJunctionAngle = angle;
-    else
+    } else {
         _toJunctionAngle = angle;
+    }
 }
 
 
 double
 NBEdge::getJunctionAngle(NBNode *node)
 {
-    if(node==_from)
+    if(node==_from) {
         return _fromJunctionAngle;
-    else
+    } else {
         return _toJunctionAngle;
+    }
 }
 
 
@@ -615,6 +628,9 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t from, size_t dest)
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 {
+    if(_step==INIT_REJECT_CONNECTIONS) {
+        return true;
+    }
     // check whether the node was merged and now a connection between
     //  not matching edges is tried to be added
     //  This happens f.e. within the ptv VISSIM-example "Beijing"
@@ -639,6 +655,9 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 bool
 NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 {
+    if(_step==INIT_REJECT_CONNECTIONS) {
+        return true;
+    }
     // check whether the node was merged and now a connection between
     //  not matching edges is tried to be added
     //  This happens f.e. within the ptv VISSIM-example "Beijing"
@@ -781,7 +800,8 @@ NBEdge::getConnectedSorted()
 
 
 void
-NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing) {
+NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
+{
     if(outgoing->size()==0) {
         return;
     }
@@ -999,6 +1019,9 @@ NBEdge::sortOutgoingLanesConnections()
 void
 NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
 {
+    if(_step==INIT_REJECT_CONNECTIONS) {
+        return;
+    }
     assert(dest_lane>=0&&dest_lane<=10);
     assert(src_lane>=0&&src_lane<=10);
     // this connection has not yet been set
@@ -1218,6 +1241,22 @@ NBEdge::removeFromConnections(NBEdge *which)
             _succeedinglanes->erase(l);
         }
     }
+}
+
+
+void
+NBEdge::invalidateConnections()
+{
+    delete _connectedEdges;
+    _connectedEdges = 0;
+    _turnDestination = 0;
+    _ToEdges->clear();
+    _reachable->clear();
+    _reachable->resize(_nolanes, EdgeLaneVector());
+    _reachablePriorities->clear();
+    _reachablePriorities->resize(_nolanes, IntVector());
+    _succeedinglanes->clear();
+    _step = INIT_REJECT_CONNECTIONS;
 }
 
 
