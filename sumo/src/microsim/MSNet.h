@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2003/04/04 15:31:48  roessel
+// Commented out the #ifdef _DEBUG because some files claimed that globaltime is unknown. There are several files accessing the "debug" variables globaltime and searchedtime.
+//
 // Revision 1.8  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -284,9 +287,9 @@ public:
     friend class MSRouteHandler;
 
     /// ----------------- debug variables -------------
-#ifdef _DEBUG
+//#ifdef _DEBUG
     static Time globaltime;
-#endif
+//#endif
 
 #ifdef ABS_DEBUG
     /** a visible variable for the current time step - for debugging
