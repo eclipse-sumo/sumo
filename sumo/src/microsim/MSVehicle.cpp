@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2004/02/16 15:21:58  dkrajzew
+// movedDistance-retrival reworked; forgetting predecessors when driving over more than one lane patched
+//
 // Revision 1.49  2004/02/05 16:37:51  dkrajzew
 // e3-debugging: only e3-detectors have to remove killed vehicles; storage for detectors to be informed added
 //
@@ -624,6 +627,7 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
+    myID = "<deleted>";
     //myWaitingPersons.clear();
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
@@ -1239,7 +1243,6 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     size_t view = 1;
     bool nextInternal =
         nextLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
-
     // loop over following lanes
     while(true) {
         // get the next link used
@@ -1298,8 +1301,8 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 
 
     		// the vehicle shall not driver over more than two junctions (by now @!!!)
-	    double vsafeNextLaneEnd =
-		    vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
+//	    double vsafeNextLaneEnd =
+//		    vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
 
     		// compute the velocity to use when the link may be used
 	    vLinkPass =
@@ -1319,7 +1322,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 		    // then let it pass
     		if(seen<decelAbility&&dist2Pred>0) {
 	    		vLinkPass =
-		    		MIN(vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
+		    		MIN3(vLinkPass, vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
     			(*link)->setApproaching(this);
 	    	} else {
 		    	// let it wait in the other cases
@@ -1727,6 +1730,11 @@ MSVehicle::updateMeanData( double entryTimestep,
 void
 MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
 {
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        int textdummy = 0;
+    }
+#endif
     // save the old work reminders, patching the position information
     // add the information about the new offset to the old lane reminders
     double oldLaneLength = myLane->length();
@@ -2022,6 +2030,11 @@ void
 MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
                                 MoveOnReminderMode mode )
 {
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        int textdummy = 0;
+    }
+#endif
     movedDistanceDuringStepM = newPos - oldPos;
     assert( movedDistanceDuringStepM >= 0 );
     // This erasure-idiom works for all stl-sequence-containers

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.33  2004/02/16 15:21:58  dkrajzew
+// movedDistance-retrival reworked; forgetting predecessors when driving over more than one lane patched
+//
 // Revision 1.32  2004/02/05 16:37:51  dkrajzew
 // e3-debugging: only e3-detectors have to remove killed vehicles; storage for detectors to be informed added
 //
@@ -801,7 +804,7 @@ public:
 
     MSUnit::Cells getMovedDistance( void ) const
         {
-            return movedDistanceDuringStepM;
+        return myState.mySpeed*MSNet::deltaT();
         }
 
 public:
