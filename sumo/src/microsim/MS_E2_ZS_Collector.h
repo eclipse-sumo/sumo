@@ -428,6 +428,14 @@ public:
         }
     //@}
 
+	double getStartPos() const {
+		return startPosM;
+	}
+
+	double getEndPos() const {
+		return endPosM;
+	}
+
 protected:
 
     E2ZSDetector* getDetector( DetType type ) const

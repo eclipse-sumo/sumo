@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/02 14:58:26  dkrajzew
+// methods needed for visualisation added
+//
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
 //
@@ -59,7 +62,7 @@ class MSAgentbasedPhaseDefinition;
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 class MSAgentbasedTrafficLightLogic :
         public MSSimpleTrafficLightLogic
 {

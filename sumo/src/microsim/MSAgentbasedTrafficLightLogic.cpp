@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/02 14:58:26  dkrajzew
+// methods needed for visualisation added
+//
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
 //
@@ -41,8 +44,8 @@
 #include "MSAgentbasedTrafficLightLogic.h"
 
 
-template< class _TInductLoop, class _TLaneState >
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>(
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>(
         const std::string &id, const Phases &phases, size_t step,
         const std::vector<MSLane*> &lanes, size_t delay)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
@@ -52,14 +55,14 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::MSAgentbasedTrafficLig
 }
 
 
-template< class _TInductLoop, class _TLaneState >
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::~MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>()
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::~MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>()
 {
 }
 
 
-template< class _TInductLoop, class _TLaneState > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector > MSNet::Time
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::duration() const
 {
     if(_continue) {
         return 1;
@@ -94,8 +97,8 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 
 
 
-template< class _TInductLoop, class _TLaneState > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase()
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector > MSNet::Time
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::nextPhase()
 {
     // checks if the actual phase should be continued
     gapControl();
@@ -112,10 +115,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase()
 
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 void
-MSAgentbasedTrafficLightLogic<_TInductLoop,
-                            _TLaneState>::sproutDetectors(
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::sproutDetectors(
                                 const std::vector<MSLane*> &lanes)
 {
     // change values for setting the loops and lanestate-detectors, here
@@ -172,8 +174,8 @@ MSAgentbasedTrafficLightLogic<_TInductLoop,
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TL" + _id + "_E2DetectorOn_" + lane->id();
-        MS_E2_ZS_Collector* det =
-            new MS_E2_ZS_Collector( id, lane, lspos, lslen );
+        _TE2_ZS_Collector* det =
+            new _TE2_ZS_Collector( id, lane, lspos, lslen );
 		det->addDetector( MS_E2_ZS_Collector::ALL, "detectors" );
         myE2Detectors[lane] = det;
     }
@@ -182,27 +184,27 @@ MSAgentbasedTrafficLightLogic<_TInductLoop,
 
 
 /*
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::linkPriorities() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].breakMask;
 }
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::yellowMask() const
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::yellowMask() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].yellowMask;
 }
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::allowed() const
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::allowed() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].driveMask;
@@ -211,9 +213,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::allowed() const
 
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 size_t
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::nextStep()
 {
     // increment the index to the current phase
     MSNet::Time phaseStart = static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
@@ -222,9 +224,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
     return _step;
 }
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 bool
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::gapControl()
 {
     // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
     MSNet::Time actDuration = MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
@@ -251,9 +253,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 }
 
 
-// template< class _TInductLoop, class _TLaneState >
+// template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 // MSNet::DetectorCont
-// MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
+// MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::getDetectorList() const
 // {
 //     MSNet::DetectorCont ret;
 //     for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
@@ -267,17 +269,17 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 MSActuatedPhaseDefinition *
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::currentPhaseDef()
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentPhaseDef()
 {
     return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
 }
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 double
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::currentForLane(
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentForLane(
 		MS_E2_ZS_Collector::DetType what, MSLane *lane) const
 {
 	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
@@ -285,9 +287,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::currentForLane(
 }
 
 
-template< class _TInductLoop, class _TLaneState >
+template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
 double
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState>::currentForLane(
+MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentForLane(
 		MS_E2_ZS_Collector::DetType what, MSUnit::Seconds lanstNSeconds,
 		MSLane *lane) const
 {
