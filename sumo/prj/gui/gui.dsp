@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GR /GX /O2 /I "d:\libs\xerces-c_2_3_0-win32\include" /I "d:\libs\xerces-c_2_3_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GR /GX /O2 /I "d:\libs\xerces-c_2_3_0-win32\include" /I "d:\libs\xerces-c_2_3_0-win32\include\xercesc" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /I "C:\Benutzer\daniel\own\xerces-c_2_3_0-win32\include" /I "C:\Benutzer\daniel\own\xerces-c_2_3_0-win32\include\xercesc" /I "c:\qt\include" /I "$(QTDIR)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  $(XERCES)\lib\xerces-c_2.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\gui.exe ..\..\bin\gui.exe
@@ -70,7 +70,7 @@ PostBuild_Cmds=copy Release\gui.exe ..\..\bin\gui.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "d:\libs\xerces-c_2_3_0-win32\include" /I "d:\libs\xerces-c_2_3_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "ABS_DEBUG" /D "_AFXDLL" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "ABS_DEBUG" /D "_AFXDLL" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -78,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 opengl32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\gui.exe ..\..\bin\guiD.exe
@@ -2283,17 +2283,5 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # End Group
-# Begin Source File
-
-SOURCE="..\..\..\..\..\libs\qt\lib\qt-mt230nc.lib"
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\libs\qt\lib\qutil.lib
-# End Source File
-# Begin Source File
-
-SOURCE="..\..\..\..\..\libs\xerces-c_2_3_0-win32\lib\xerces-c_2.lib"
-# End Source File
 # End Target
 # End Project
