@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/04/23 12:33:05  dkrajzew
+// new colouring of aggregated views (still in development)
+//
 // Revision 1.4  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -158,8 +161,8 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
         {
             double speed = lane.maxSpeed();
             double maxSpeed = GUILaneWrapper::getOverallMaxSpeed();
-            double fact = speed / maxSpeed / 2.0;
-            glColor3f(1.0-fact, 0.5, 0.5+fact);
+            double fact = speed / maxSpeed;
+            glColor3f(1.0-fact, 0, fact);
         }
         break;
     case GUISUMOAbstractView::LCS_BY_SELECTION:
@@ -179,8 +182,8 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
             if(density==-1) {
                 glColor3f(0.5, 0.5, 0.5);
             } else {
-                density /= 2.0;
-                glColor3f(0.5, 1.0-density, 0.5+density);
+//                density /= 2.0;
+                glColor3f(density, 1.0-density, 0);
             }
         }
         break;
@@ -192,8 +195,9 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
             if(speed==-1) {
                 glColor3f(0.5, 0.5, 0.5);
             } else {
-                speed /= 2.0;
-                glColor3f(1.0-speed, 0.5, 0.5+speed);
+//                speed /= 2.0;
+//                glColor3f(1.0-speed, 0.5, 0.5+speed);
+                glColor3f(1.0-speed, 0, speed);
             }
         }
         break;
@@ -205,8 +209,7 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
             if(halts==-1) {
                 glColor3f(0.5, 0.5, 0.5);
             } else {
-                halts /= 2.0;
-                glColor3f(0.5+halts, 1.0-halts, 0);
+                glColor3f(halts, 0, 0);
             }
         }
         break;
