@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/08/18 12:39:23  dkrajzew
+// missing handling of some vissim3.7-structures added
+//
 // Revision 1.5  2003/06/18 11:35:30  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -99,6 +102,10 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
     } if(type=="tl") {
         return parseRestActuated(id, name, from, type);
     } if(type=="pos") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="nema") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="extern") {
         return parseRestActuated(id, name, from, type);
     }
     MsgHandler::getErrorInstance()->inform(

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/08/18 12:39:22  dkrajzew
+// missing handling of some vissim3.7-structures added
+//
 // Revision 1.2  2003/06/05 11:46:54  dkrajzew
 // class templates applied; documentation added
 //
@@ -82,6 +85,9 @@ public:
         /// as myRead, but returns "DATAEND" when the current field has ended
         std::string readEndSecure(std::istream &from,
             const std::string &excl="");
+
+        std::string readEndSecure(std::istream &from,
+            const std::vector<std::string> &excl);
 
         /// overrides the optional label definition; returns the next tag as done by readEndSecure
         std::string overrideOptionalLabel(std::istream &from,

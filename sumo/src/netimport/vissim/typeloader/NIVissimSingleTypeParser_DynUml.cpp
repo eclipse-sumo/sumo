@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/08/18 12:39:23  dkrajzew
+// missing handling of some vissim3.7-structures added
+//
 // Revision 1.3  2003/03/20 16:32:23  dkrajzew
 // windows eol removed
 //
@@ -37,6 +40,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <iostream>
+#include <vector>
 #include <utils/convert/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "NIVissimSingleTypeParser_DynUml.h"
@@ -65,10 +69,13 @@ NIVissimSingleTypeParser_DynUml::~NIVissimSingleTypeParser_DynUml()
 bool
 NIVissimSingleTypeParser_DynUml::parse(std::istream &from)
 {
+    std::vector<std::string> tmp;
+    tmp.push_back("reisezeit");
+    tmp.push_back("kante");
     readUntil(from, "kirchhoffexponent");
-    string tag = readEndSecure(from, "reisezeit");
+    string tag = readEndSecure(from, tmp);
     while(tag!="DATAEND") {
-        tag = readEndSecure(from, "reisezeit");
+        tag = readEndSecure(from, tmp);
     }
     return true;
 }

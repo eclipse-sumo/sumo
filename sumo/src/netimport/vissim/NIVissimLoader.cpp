@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/08/18 12:39:22  dkrajzew
+// missing handling of some vissim3.7-structures added
+//
 // Revision 1.14  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -102,6 +105,7 @@ namespace
 #include "typeloader/NIVissimSingleTypeParser_Einheitendefinition.h"
 #include "typeloader/NIVissimSingleTypeParser__XVerteilungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser__XKurvedefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Kantensperrung.h"
 
 
 #include "tempstructs/NIVissimTL.h"
@@ -156,6 +160,37 @@ NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
         return "DATAEND";
     }
     if( tmp!=myExcl
+        &&
+        (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
+        ) {
+        return "DATAEND";
+    }
+    return StringUtils::to_lower_case(tmp);
+}
+
+
+std::string
+NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
+                                                      const std::vector<std::string> &excl)
+{
+    std::vector<std::string> myExcl;
+    std::vector<std::string>::const_iterator i;
+    for(i=excl.begin(); i!=excl.end(); i++) {
+        string mes = StringUtils::to_lower_case(*i);
+        myExcl.push_back(mes);
+    }
+    string tmp = myRead(from);
+    if(tmp=="") {
+        return "DATAEND";
+    }
+
+    bool equals = false;
+    for(i=myExcl.begin(); i!=myExcl.end()&&!equals; i++) {
+        if((*i)==tmp) {
+            equals = true;
+        }
+    }
+    if( !equals
         &&
         (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
         ) {
@@ -360,6 +395,10 @@ NIVissimLoader::readContents(istream &strm)
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
             StringUtils::to_lower_case(tag));
+        if(tag=="KANTE") {
+            int bla = 0;
+        }
+        cout << tag << endl;
         if(i==myKnownElements.end()) {
             continue;
         }
@@ -508,6 +547,7 @@ NIVissimLoader::insertKnownElements()
     myKnownElements["einheit"] = VE_Einheitendefinition;
     myKnownElements["streckentyp"] = VE_Streckentypdefinition;
     myKnownElements["kantensperrung"] = VE_Kantensperrung;
+    myKnownElements["kante"] = VE_Kantensperrung;
 
 
     myKnownElements["advance"] = VE_DUMMY;
@@ -598,6 +638,8 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Auswertungsdefinition(*this);
     myParsers[VE_Verkehrszusammensetzungsdefinition] =
         new NIVissimSingleTypeParser_Zusammensetzungsdefinition(*this);
+    myParsers[VE_Kantensperrung] =
+        new NIVissimSingleTypeParser_Kantensperrung(*this);
 
     myParsers[VE_Startzufallszahl] =
         new NIVissimSingleTypeParser_Startzufallszahl(*this);

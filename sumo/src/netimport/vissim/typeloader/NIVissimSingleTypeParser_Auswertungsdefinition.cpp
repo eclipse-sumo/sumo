@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/08/18 12:39:23  dkrajzew
+// missing handling of some vissim3.7-structures added
+//
 // Revision 1.3  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -69,6 +72,11 @@ NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from)
 {
 	string id;
     from >> id; // "typ"
+
+    if(id=="DATENBANK") { // !!! unverified
+        return true;
+    }
+
     string type = myRead(from);
     if(type=="abfluss") {
         while(type!="signalgruppe") {
@@ -88,6 +96,10 @@ NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from)
         }
     } else if (type=="wegeausw") {
     } else if (type=="knoten") {
+    } else if (type=="konvergenz") {
+        while(type!="zeit") {
+            type = myRead(from);
+        }
     }
     return true;
 }
