@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2004/04/02 11:38:28  dkrajzew
+// extended traffic lights are now no longer template classes
+//
 // Revision 1.17  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -24,7 +27,8 @@
 // newest version by jringel
 //
 // Revision 1.15  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+// added the possibility to specify the position (actuated-tlls) / length
+//  (agentbased-tlls) of used detectors
 //
 // Revision 1.14  2004/01/13 08:06:55  dkrajzew
 // recent changes applied
@@ -72,13 +76,19 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 #include "MSAgentbasedTrafficLightLogic.h"
+#include <netload/NLDetectorBuilder.h>
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-template< class _TE2_ZS_CollectorOverLanes >
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>(
+MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
             const std::string &id, const Phases &phases,
 			size_t step, size_t delay)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
@@ -88,27 +98,26 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::MSAgentbasedTrafficLi
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::init(
+MSAgentbasedTrafficLightLogic::init(
+        NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
-    sproutDetectors(lanes, laneContinuations, det_offset);
+    sproutDetectors(nb, lanes, laneContinuations, det_offset);
     initializeDuration();
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::~MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>()
+MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic()
 {
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
+MSAgentbasedTrafficLightLogic::sproutDetectors(
+        NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
@@ -123,19 +132,18 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
         std::string id = "TL_" + _id + "_E2OverLanesDetectorStartingAt_" + lane->id();
 
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
-            _TE2_ZS_CollectorOverLanes* det =
-                new _TE2_ZS_CollectorOverLanes( id, DU_TL_CONTROL, lane, 0 );
-            det->init(lane, det_offset, laneContinuations);
-		    det->addDetector( E2::ALL, "detectors" );
+            MS_E2_ZS_CollectorOverLanes* det =
+                nb.buildMultiLaneE2Det(laneContinuations, id,
+                    DU_TL_CONTROL, lane, 0, det_offset);
+//		    det->addDetector( E2::ALL, "detectors" );
             myE2Detectors[lane] = det;
         }
     }
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::initializeDuration()
+MSAgentbasedTrafficLightLogic::initializeDuration()
 {
      size_t tCycleIst = 0;          // the actual cycletime
      size_t tCycleMin = 0;          // the minimum cycle time
@@ -168,9 +176,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::initializeDuration()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::lengthenCycleTime(size_t toLengthen)
+MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 {
 	typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
@@ -210,9 +217,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::lengthenCycleTime(siz
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::cutCycleTime(size_t toCut)
+MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
@@ -252,8 +258,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::cutCycleTime(size_t t
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
+MSNet::Time
+MSAgentbasedTrafficLightLogic::nextPhase()
 {
     assert (currentPhaseDef()->minDuration >=0);
 	assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
@@ -287,9 +293,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 size_t
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextStep()
+MSAgentbasedTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
     _step++;
@@ -305,9 +310,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextStep()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::collectData()
+MSAgentbasedTrafficLightLogic::collectData()
 {
     //collects the traffic data
 
@@ -356,9 +360,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::collectData()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::aggregateRawData()
+MSAgentbasedTrafficLightLogic::aggregateRawData()
 {
     for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i!=myRawDetectorData.end(); i++) {
         double sum = 0;
@@ -371,9 +374,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::aggregateRawData()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 void
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::calculateDuration()
+MSAgentbasedTrafficLightLogic::calculateDuration()
 {
     aggregateRawData();
     size_t stepOfMaxValue = findStepOfMaxValue();
@@ -399,9 +401,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::calculateDuration()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 size_t
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::findStepOfMaxValue()
+MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 {
     size_t StepOfMaxValue = _phases.size();
     double MaxValue = -1;
@@ -423,9 +424,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::findStepOfMaxValue()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 size_t
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::findStepOfMinValue()
+MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 {
     size_t StepOfMinValue = _phases.size();
     double MinValue = 9999;
@@ -447,8 +447,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::findStepOfMinValue()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::duration()
+MSNet::Time
+MSAgentbasedTrafficLightLogic::duration()
 {
    	while (currentPhaseDef()->duration==0) {
 		nextStep();
@@ -459,18 +459,16 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::duration()
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 MSActuatedPhaseDefinition *
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::currentPhaseDef() const
+MSAgentbasedTrafficLightLogic::currentPhaseDef() const
 {
 	assert(_phases.size()>_step);
     return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 bool
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::isGreenPhase(const size_t testStep) const
+MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
 {
     assert(testStep<=_phases.size());
     if (static_cast<MSActuatedPhaseDefinition*>(_phases[testStep])->getDriveMask().none()) {
@@ -483,10 +481,9 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::isGreenPhase(const si
 }
 
 
-template< class _TE2_ZS_CollectorOverLanes >
 double
-MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::currentForLane(
-		E2::DetType what, MSLane *lane) const
+MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
+                                              MSLane *lane) const
 {
 
 	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
@@ -495,9 +492,6 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::currentForLane(
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSAgentbasedTrafficLightLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

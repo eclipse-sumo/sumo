@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2004/04/02 11:38:28  dkrajzew
+// extended traffic lights are now no longer template classes
+//
 // Revision 1.18  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -71,7 +74,6 @@
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -88,6 +90,14 @@
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
 #include "MSExtendedTrafficLightLogic.h"
+#include "MSInductLoop.h"
+#include "MSLaneState.h"
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NLDetectorBuilder;
 
 
 /* =========================================================================
@@ -101,13 +111,12 @@
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< class _TInductLoop, class _TLaneState >
 class MSActuatedTrafficLightLogic :
         public MSExtendedTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to induct loops lying on them
-    typedef std::map<MSLane*, _TInductLoop*> InductLoopMap;
+    typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
 
     /// Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
@@ -118,7 +127,7 @@ public:
         const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, size_t delay);
 
-	void init(
+	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &edgeContinuations,
         double det_offset);
@@ -146,7 +155,8 @@ public:
 
 protected:
     /// Builds the detectors
-    virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
+    virtual void sproutDetectors(NLDetectorBuilder &nb,
+        const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
@@ -165,15 +175,8 @@ protected:
 
 };
 
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "MSActuatedTrafficLightLogic.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSActuatedTrafficLightLogic.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/04/02 11:38:28  dkrajzew
+// extended traffic lights are now no longer template classes
+//
 // Revision 1.14  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -71,6 +74,7 @@
 #include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include "MS_E2_ZS_CollectorOverLanes.h"
+#include "MSExtendedTrafficLightLogic.h"
 
 
 /* =========================================================================
@@ -78,6 +82,7 @@
  * ======================================================================= */
 class MSLane;
 class MSAgentbasedPhaseDefinition;
+class NLDetectorBuilder;
 
 
 /* =========================================================================
@@ -91,7 +96,6 @@ class MSAgentbasedPhaseDefinition;
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< class _TE2_ZS_CollectorOverLanes >
 class MSAgentbasedTrafficLightLogic :
         public MSExtendedTrafficLightLogic
 {
@@ -114,7 +118,7 @@ public:
         const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, size_t delay);
 
-	void init(
+	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &edgeContinuations,
         double det_offset);
@@ -148,7 +152,8 @@ public:
 
 protected:
     /// Builds the detectors
-    virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
+    virtual void sproutDetectors(NLDetectorBuilder &nb,
+        const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
@@ -209,10 +214,6 @@ protected:
     double deltaLimit;
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "MSAgentbasedTrafficLightLogic.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -18,8 +18,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2004/04/02 11:38:28  dkrajzew
+// extended traffic lights are now no longer template classes
+//
 // Revision 1.25  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
+// added the possibility to specify the position (actuated-tlls) / length
+//  (agentbased-tlls) of used detectors
 //
 // Revision 1.24  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
@@ -84,7 +88,6 @@
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -102,14 +105,15 @@
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
 #include "MSLane.h"
+#include <netload/NLDetectorBuilder.h>
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-template< class _TInductLoop, class _TLaneState >
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
-            const std::string &id, const Phases &phases,
+MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
+            const std::string &id,
+            const Phases &phases,
 			size_t step, size_t delay)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
     _continue(false)
@@ -117,25 +121,24 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLo
 }
 
 
-template< class _TInductLoop, class _TLaneState >
 void
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::init(
+MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
-    sproutDetectors(lanes, laneContinuations, det_offset);
+    sproutDetectors(nb, lanes, laneContinuations, det_offset);
 }
 
 
-template< class _TInductLoop, class _TLaneState >
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::~MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>()
+
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
 {
 }
 
 
-template< class _TInductLoop, class _TLaneState > MSNet::Time
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
+MSNet::Time
+MSActuatedTrafficLightLogic::duration() const
 {
     if(_continue) {
         return 1;
@@ -172,10 +175,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 }
 
 
-
-
-template< class _TInductLoop, class _TLaneState > MSNet::Time
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase()
+MSNet::Time
+MSActuatedTrafficLightLogic::nextPhase()
 {
     // checks if the actual phase should be continued
     gapControl();
@@ -192,10 +193,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase()
 
 
 
-template< class _TInductLoop, class _TLaneState >
 void
-MSActuatedTrafficLightLogic<_TInductLoop,
-                            _TLaneState>::sproutDetectors(
+MSActuatedTrafficLightLogic::sproutDetectors(
+        NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
@@ -223,8 +223,7 @@ MSActuatedTrafficLightLogic<_TInductLoop,
         // Build the induct loop and set it into the container
         std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
         if(myInductLoops.find(lane)==myInductLoops.end()) {
-            _TInductLoop *loop = new _TInductLoop(id, lane, ilpos );
-            myInductLoops[lane] = loop;
+            myInductLoops[lane] = nb.createInductLoop(id, lane, ilpos );
         }
     }
     // build the lane state-detectors
@@ -248,39 +247,8 @@ MSActuatedTrafficLightLogic<_TInductLoop,
 }
 
 
-/*
-template< class _TInductLoop, class _TLaneState >
-const std::bitset<64> &
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
-{
-    assert(_phases.size()>_step);
-    return _phases[_step].breakMask;
-}
-
-
-template< class _TInductLoop, class _TLaneState >
-const std::bitset<64> &
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::yellowMask() const
-{
-    assert(_phases.size()>_step);
-    return _phases[_step].yellowMask;
-}
-
-
-template< class _TInductLoop, class _TLaneState >
-const std::bitset<64> &
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::allowed() const
-{
-    assert(_phases.size()>_step);
-    return _phases[_step].driveMask;
-}
-*/
-
-
-
-template< class _TInductLoop, class _TLaneState >
 size_t
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
+MSActuatedTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
     _step++;
@@ -293,9 +261,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
     return _step;
 }
 
-template< class _TInductLoop, class _TLaneState >
+
 bool
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::isGreenPhase() const
+MSActuatedTrafficLightLogic::isGreenPhase() const
 {
     if (currentPhaseDef()->getDriveMask().none()) {
         return false;
@@ -307,9 +275,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::isGreenPhase() const
 }
 
 
-template< class _TInductLoop, class _TLaneState >
 bool
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
+MSActuatedTrafficLightLogic::gapControl()
 {
     //intergreen times should not be lenghtend
     assert(_phases.size()>_step);
@@ -347,25 +314,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 }
 
 
-// template< class _TInductLoop, class _TLaneState >
-// MSNet::DetectorCont
-// MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
-// {
-//     MSNet::DetectorCont ret;
-//     for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
-//         ret.push_back((*i).second);
-//     }
-// //     for(typename LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
-// //         ret.push_back((*j).second);
-// //     }
-//     return ret;
-// }
-
-
-
-template< class _TInductLoop, class _TLaneState >
 MSActuatedPhaseDefinition *
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::currentPhaseDef() const
+MSActuatedTrafficLightLogic::currentPhaseDef() const
 {
     assert(_phases.size()>_step);
     return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
@@ -373,9 +323,6 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::currentPhaseDef() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSActuatedTrafficLightLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
