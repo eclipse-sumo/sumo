@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/06/18 11:37:48  dkrajzew
+// documentation patched
+//
 // Revision 1.3  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
 //
@@ -59,11 +62,15 @@ public:
     /// Converts german "Umlate" to theri HTML-version
     static std::string to_html(std::string str);
 
-    /// Replaces all occurences of the second string by the third string within the first tsring
+    /** Replaces all occurences of the second string by the third
+        string within the first string */
     static std::string replace(std::string str, const char *what,
         const char *by);
 
+    /** Returns the given double as a string with as many digits
+        after the dot as defined by the second parameter */
     static std::string trim(double val, size_t to);
+
 };
 
 
