@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX)\lib\FOXDLL-1.1.lib /nologo /subsystem:console /incremental:yes /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\gui.exe ..\..\..\bin\gui.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\gui.exe ..\..\..\bin\gui.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
@@ -70,7 +70,7 @@ PostBuild_Cmds=copy Release\gui.exe ..\..\..\bin\gui.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "_AFXDLL" /D "FOXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -81,7 +81,7 @@ LINK32=link.exe
 # ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX)\lib\FOXDLLD-1.1.lib /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Debug\gui.exe ..\..\..\bin\guiD.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\gui.exe ..\..\..\bin\guiD.exe
 # End Special Build Tool
 
 !ENDIF 

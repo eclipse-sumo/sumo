@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "duarouter - Win32 Debug"
@@ -70,7 +70,7 @@ PostBuild_Cmds=copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "BOOST_HAS_THREADS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "BOOST_HAS_THREADS" /D "_AFXDLL" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -81,7 +81,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Debug\duarouter.exe ..\..\..\bin\duarouterD.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\duarouter.exe ..\..\..\bin\duarouterD.exe
 # End Special Build Tool
 
 !ENDIF 
@@ -104,6 +104,10 @@ SOURCE=..\..\..\src\utils\router\FloatValueTimeLine.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\router\IDSupplier.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
 

@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "netconvert - Win32 Debug"
@@ -82,7 +82,7 @@ LINK32=link.exe
 # SUBTRACT LINK32 /pdb:none
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 # End Special Build Tool
 
 !ENDIF 
