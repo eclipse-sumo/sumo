@@ -5,7 +5,8 @@ EXTRA_DIST = MSBitSetLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
 MSAgentbasedTrafficLightLogic.cpp
 
-libmicrosim_a_SOURCES = MSDensity.cpp \
+libmicrosim_a_SOURCES = MSCurrentHaltingDurationSumPerVehicle.cpp \
+MSDensity.cpp \
 MSDetector2File.cpp \
 MSDetectorFileOutput.cpp \
 MSDetectorSubSys.cpp \
@@ -58,6 +59,7 @@ MS_E2_ZS_Collector.cpp \
 MSActuatedTrafficLightLogic.h \
 MSAgentbasedTrafficLightLogic.h \
 MSBitSetLogic.h \
+MSCurrentHaltingDurationSumPerVehicle.h \
 MSDensity.h \
 MSDetector2File.h \
 MSDetectorContainer.h \
