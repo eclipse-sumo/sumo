@@ -210,3 +210,13 @@ Line2D::nearestPositionTo(const Position2D &p)
 {
     return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, p);
 }
+
+
+double
+Line2D::intersectsAtLength(const Line2D &v)
+{
+    Position2D pos =
+        GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
+    return nearestPositionTo(pos);
+}
+

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/02/16 14:00:00  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.14  2003/12/09 11:33:49  dkrajzew
 // made the assignment operator and copy constructor explicite in the wish to save memory
 //
@@ -249,6 +252,10 @@ public:
     void eraseAt(size_t i);
 
     double nearest_position_on_line_to_point(const Position2D &p) const;
+
+    DoubleVector distances(const Position2DVector &s) const;
+
+    double distance(const Position2D &p) const;
 
 private:
 

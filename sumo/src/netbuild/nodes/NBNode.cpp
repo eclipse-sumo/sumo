@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/02/16 13:59:09  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.3  2004/02/06 08:49:22  dkrajzew
 // debugged remapRemoved partially
 //
@@ -1208,13 +1211,25 @@ NBNode::sortNodesEdges()
 {
     // sort the edges
     buildList();
+    if(getID()=="54589828") {
+        int bla = 0;
+        cout << _allEdges << endl;
+    }
     sort(_allEdges.begin(), _allEdges.end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_incomingEdges->begin(), _incomingEdges->end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_outgoingEdges->begin(), _outgoingEdges->end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
+    if(getID()=="54589828") {
+        int bla = 0;
+        cout << _allEdges << endl;
+    }
     sortSmall();
+    if(getID()=="54589828") {
+        int bla = 0;
+        cout << _allEdges << endl;
+    }
     setType(computeType());
     setPriorities();
 #ifdef _DEBUG
@@ -1299,7 +1314,18 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
     if(on.intersects(cross)) {
         DoubleVector posses = on.intersectsAtLengths(cross);
         assert(posses.size()>0);
-        return DoubleVectorHelper::maxValue(posses);
+        // heuristic
+        double val = DoubleVectorHelper::maxValue(posses);
+        if(val<50) {
+            return val;
+        }
+        on.extrapolate(10);
+        cross.extrapolate(10);
+        if(on.intersects(cross)) {
+            DoubleVector posses = on.intersectsAtLengths(cross);
+            assert(posses.size()>0);
+            return DoubleVectorHelper::minValue(posses) - 10;
+        }
     }
     on.extrapolate(10);
     cross.extrapolate(10);

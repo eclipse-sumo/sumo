@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/16 13:59:15  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.1  2004/01/12 15:26:11  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -462,6 +465,9 @@ NBNodeCont::recheckEdges()
         const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
         for(EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
             NBEdge *e = (*j);
+            if(e->getID()=="51835839") {
+                int bla = 0;
+            }
             NBNode *connected = e->getToNode();
             if(connectionCount.find(connected)==connectionCount.end()) {
                 connectionCount[connected] = EdgeVector();
@@ -472,12 +478,75 @@ NBNodeCont::recheckEdges()
         }
         // check whether more than a single edge connect another node
         //  and join them
-        for(std::map<NBNode*, EdgeVector>::iterator k=connectionCount.begin(); k!=connectionCount.end(); k++) {
+        std::map<NBNode*, EdgeVector>::iterator k;
+        for(k=connectionCount.begin(); k!=connectionCount.end(); k++) {
+            // possibly we do not have anything to join...
+            if((*k).second.size()<2) {
+                continue;
+            }
+            // for the edges that seem to be a single street,
+            //  check whether the geometry is similar
+            const EdgeVector &ev = (*k).second;
+            typedef std::vector<EdgeVector> EdgeVV;
+            EdgeVV geometryCombinations;
+            for(EdgeVector::const_iterator l=ev.begin(); l!=ev.end(); ++l) {
+                // append the first one simply to the list of really joinable edges
+                if(geometryCombinations.size()==0) {
+                    EdgeVector tmp;
+                    tmp.push_back(*l);
+                    geometryCombinations.push_back(tmp);
+                    continue;
+                }
+                // check the lists of really joinable edges
+                bool wasPushed = false;
+                for(EdgeVV::iterator m=geometryCombinations.begin(); m!=geometryCombinations.end(); ++m) {
+                    for(EdgeVector::iterator n=(*m).begin(); n!=(*m).end(); ++n) {
+                        if((*n)->isNearEnough2BeJoined2(*l)) {
+                            (*m).push_back(*l);
+                            wasPushed = true;
+                        }
+                    }
+                }
+                if(!wasPushed) {
+                    EdgeVector tmp;
+                    tmp.push_back(*l);
+                    geometryCombinations.push_back(tmp);
+                }
+            }
+            // recheck combinations
+            //  (hate this)
+            bool hasChanged = true;
+            while(hasChanged) {
+                hasChanged = false;
+                for(EdgeVV::iterator m=geometryCombinations.begin(); !hasChanged&&m!=geometryCombinations.end(); ++m) {
+                    for(EdgeVV::iterator n=m+1; !hasChanged&&n!=geometryCombinations.end(); ++n) {
+                        for(EdgeVector::iterator o=(*m).begin(); !hasChanged&&o!=(*m).end(); o++) {
+                            for(EdgeVector::iterator p=(*n).begin(); !hasChanged&&p!=(*n).end(); p++) {
+                                if((*o)->isNearEnough2BeJoined2(*p)) {
+                                    copy((*m).begin(), (*m).end(), back_inserter(*n));
+                                    geometryCombinations.erase(m);
+                                    hasChanged = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // now join finally
+            for(EdgeVV::iterator m=geometryCombinations.begin(); m!=geometryCombinations.end(); ++m) {
+                if((*m).size()>1) {
+                    NBEdgeCont::joinSameNodeConnectingEdges(*m);
+                }
+            }
+        }
+        /*
+        for(k=connectionCount.begin(); k!=connectionCount.end(); k++) {
             // join edges
             if((*k).second.size()>1) {
                 NBEdgeCont::joinSameNodeConnectingEdges((*k).second);
             }
         }
+        */
     }
     return true;
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/02/16 13:58:22  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.11  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -201,24 +204,11 @@ double
 NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 {
     double angle;
-    const Position2DVector &p = e->getGeometry();
     // convert angle if the edge is an outgoing edge
     if(e->getFromNode()==_node) {
-        angle =
-            atan2(
-                (p.at(1).x()-p.at(0).x()),
-                (p.at(1).y()-p.at(0).y()))*180.0/3.14159265;
-        if(angle<0) {
-            angle = 360 + angle;
-        }
+        angle = e->getNormedFromNodeAngle();
     } else {
-        angle =
-            atan2(
-                (p.at(p.size()-2).x()-p.at(p.size()-1).x()),
-                (p.at(p.size()-2).y()-p.at(p.size()-1).y()))*180.0/3.14159265;
-        if(angle<0) {
-            angle = 360 + angle;
-        }
+        angle = e->getNormedToNodeAngle();
     }
     assert(angle>=0&&angle<360);
     return angle;

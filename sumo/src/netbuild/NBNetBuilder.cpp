@@ -54,6 +54,7 @@ NBNetBuilder::inform(int step, const std::string &about)
 bool
 NBNetBuilder::removeDummyEdges(int step)
 {
+    // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges ");
     return NBNodeCont::removeDummyEdges();
 }

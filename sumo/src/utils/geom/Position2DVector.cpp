@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/02/16 14:00:00  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.21  2004/01/12 15:57:21  dkrajzew
 // catching the case of not crossing lines on concatanation
 //
@@ -669,7 +672,7 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
     l1.extrapolateBy(100);
     Line2D l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
-    if(l1.intersects(l2)) {
+    if(l1.intersects(l2)&&l1.intersectsAtLength(l2)<10) { // !!! heuristic
         Position2D p = l1.intersectsAt(l2);
         myCont[myCont.size()-1] = p;
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
@@ -860,6 +863,30 @@ Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const
 }
 
 
+double
+Position2DVector::distance(const Position2D &p) const
+{
+    double shortestDist = 10000000;
+    double nearestPos = 10000;
+    double seen = 0;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        double pos = seen +
+            GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
+        double dist =
+            GeomHelper::distance(p, positionAtLengthPosition(pos));
+        //
+        if(shortestDist<dist) {
+            nearestPos = pos;
+            shortestDist = dist;
+        }
+        //
+    }
+    if(shortestDist==10000000) {
+        return -1;
+    }
+    return shortestDist;
+}
+
 DoubleVector
 Position2DVector::intersectsAtLengths(const Position2DVector &s) const
 {
@@ -985,13 +1012,30 @@ Position2DVector::operator=(const Position2DVector &s)
 }
 
 
-
+DoubleVector
+Position2DVector::distances(const Position2DVector &s) const
+{
+    DoubleVector ret;
+    ContType::const_iterator i;
+    for(i=myCont.begin(); i!=myCont.end(); i++) {
+        double dist = s.distance(*i);
+        // !!! aeh, possible at the ends?
+        if(dist!=-1) {
+            ret.push_back(dist);
+        }
+    }
+    for(i=s.myCont.begin(); i!=s.myCont.end(); i++) {
+        double dist = distance(*i);
+        // !!! aeh, possible at the ends?
+        if(dist!=-1) {
+            ret.push_back(dist);
+        }
+    }
+    return ret;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "Position2DVector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

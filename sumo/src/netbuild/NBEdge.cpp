@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2004/02/16 13:58:22  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.42  2004/01/28 12:40:23  dkrajzew
 // added to possibility to give each lane a speed
 //
@@ -1440,8 +1443,22 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
 bool
 NBEdge::isTurningDirection(NBEdge *edge) const
 {
-    return (_from==edge->_to && _to==edge->_from)
-        || edge == _turnDestination;
+    // maybe it was already set as the turning direction
+    if(edge == _turnDestination) {
+        return true;
+    }
+    // it's not the turning direction if the nodes differ
+    if(_from!=edge->_to || _to!=edge->_from) {
+        return false;
+    }
+    // we have to checke whether the connection between the nodes is
+    //  geometrically similar
+    if( fabs(getNormedFromNodeAngle()-edge->getNormedToNodeAngle()) > 10
+        ||
+        fabs(getNormedToNodeAngle()-edge->getNormedFromNodeAngle()) > 10 ) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -2048,6 +2065,9 @@ void
 NBEdge::computeEdgeShape()
 {
     size_t i;
+    if(_id=="51835838") {
+        int bla = 0;
+    }
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end
         Line2D lb = Line2D(
@@ -2139,6 +2159,46 @@ NBEdge::getLaneID(size_t lane)
     assert(lane<_nolanes);
     return _id + string("_") + toString<size_t>(lane);
 }
+
+
+bool
+NBEdge::isNearEnough2BeJoined2(NBEdge *e)
+{
+    DoubleVector distances = myGeom.distances(e->getGeometry());
+    double max = DoubleVectorHelper::maxValue(distances);
+    return max<7;
+}
+
+
+double
+NBEdge::getNormedFromNodeAngle() const
+{
+    const Position2DVector &p = getGeometry();
+    double angle = atan2(
+        (p.at(1).x()-p.at(0).x()),
+        (p.at(1).y()-p.at(0).y()))*180.0/3.14159265;
+    if(angle<0) {
+        angle = 360 + angle;
+    }
+    assert(angle>=0&&angle<360);
+    return angle;
+}
+
+
+double
+NBEdge::getNormedToNodeAngle() const
+{
+    const Position2DVector &p = getGeometry();
+    double angle = atan2(
+        (p.at(p.size()-2).x()-p.at(p.size()-1).x()),
+        (p.at(p.size()-2).y()-p.at(p.size()-1).y()))*180.0/3.14159265;
+    if(angle<0) {
+        angle = 360 + angle;
+    }
+    assert(angle>=0&&angle<360);
+    return angle;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

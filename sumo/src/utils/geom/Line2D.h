@@ -19,6 +19,7 @@ public:
     Position2D getPositionAtDistance(double offset) const;
     void move2side(double amount);
     DoubleVector intersectsAtLengths(const Position2DVector &v);
+    double intersectsAtLength(const Line2D &v);
     double atan2Angle() const;
     double atan2DegreeAngle() const;
     double atan2PositiveAngle() const;

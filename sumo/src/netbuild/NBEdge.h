@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.31  2004/02/16 13:58:22  dkrajzew
+// some further work on edge geometry
+//
 // Revision 1.30  2004/01/28 12:40:23  dkrajzew
 // added to possibility to give each lane a speed
 //
@@ -429,6 +432,13 @@ public:
 
     double getLaneSpeed(int lane) const;
 
+    bool isNearEnough2BeJoined2(NBEdge *e);
+
+    double getNormedFromNodeAngle() const;
+
+    double getNormedToNodeAngle() const;
+
+
 private:
     /**
      * ToEdgeConnectionsAdder
@@ -562,10 +572,10 @@ private:
     int     _toJunctionPriority;
 
     /// the angle of the edge in the node it is outgoing from
-    double _fromJunctionAngle;
+//    double _fromJunctionAngle;
 
     /// the angle of the edge in the node it is incoming into
-    double _toJunctionAngle;
+//    double _toJunctionAngle;
 
     /// the information what purpose the edge has within a simulation
     EdgeBasicFunction _basicType;
