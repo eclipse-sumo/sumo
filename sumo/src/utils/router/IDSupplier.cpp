@@ -23,12 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:48:08  dkrajzew
+// some style changes
+//
 // Revision 1.2  2003/02/07 10:52:57  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -60,9 +60,6 @@ IDSupplier::getNext()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "IDSupplier.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
