@@ -22,25 +22,24 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSDetectorContainer.h"
-#include "MSOccupancyCorrection.h"
+#include "MSDetectorContainerWrapper.h"
 #include "MSUnit.h"
 #include <numeric>
 #include <cassert>
 
-class MSOccupancyDegree : virtual public MSOccupancyCorrection< double >
+class MSOccupancyDegree
 {
 public:
-    typedef DetectorContainer::Vehicles::InnerCont::value_type Vehicle;
+    typedef DetectorContainer::Vehicles::InnerContainer::value_type Vehicle;
 
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Vehicles Container;
-    typedef Container::InnerCont VehicleCont;
+    typedef Container::InnerContainer VehicleCont;
     
     MSOccupancyDegree( double lengthInMeters, const Container& vehicleCont ) 
         : detectorLengthM( lengthInMeters ),
-          containerM( vehicleCont.containerM )
+          containerWrapperM( vehicleCont )
         {}
 
     virtual ~MSOccupancyDegree( void )
@@ -55,7 +54,7 @@ protected:
 
 private:
     const MSUnit::Meters detectorLengthM;
-    const VehicleCont& containerM;
+    const Container& containerWrapperM;
 };
 
 namespace 
@@ -71,23 +70,26 @@ inline
 MSOccupancyDegree::DetectorAggregate 
 MSOccupancyDegree::getDetectorAggregate( void )
 {
-    int size = containerM.size();
+    int size = containerWrapperM.containerM.size();
     if ( size == 0 ) {
         return 0;
     }
-    double entryCorr(0);
-    double leaveCorr(0);
-    if ( getOccupancyEntryCorrection() > 0 ){
-        entryCorr = ( 1 - getOccupancyEntryCorrection() );
+    double entryCorr(
+        containerWrapperM.occupancyCorrectionM.getOccupancyEntryCorrection() );
+    double leaveCorr(
+        containerWrapperM.occupancyCorrectionM.getOccupancyLeaveCorrection() );
+    if ( entryCorr > 0 ){
+        entryCorr = 1 - entryCorr;
     }
-    if ( getOccupancyLeaveCorrection() > 0 ){
-        leaveCorr = ( 1 - getOccupancyEntryCorrection() );
+    if ( leaveCorr > 0 ){
+        leaveCorr = 1 - leaveCorr;
     }
     double occupancyDegree =
-        ( std::accumulate( containerM.begin(), containerM.end(),
+        ( std::accumulate( containerWrapperM.containerM.begin(),
+                           containerWrapperM.containerM.end(),
                            0.0, occupancySumUp )
-          - containerM.front()->length() * entryCorr
-          - containerM.back()->length() *  leaveCorr ) /
+          - containerWrapperM.containerM.front()->length() * entryCorr
+          - containerWrapperM.containerM.back()->length() *  leaveCorr ) /
         detectorLengthM;
     // Note: in reality a occupancyDegree value should be in
     // [0,1]. Due to size-less intersections and some inability of
@@ -102,7 +104,6 @@ MSOccupancyDegree::getDetectorAggregate( void )
     if ( occupancyDegree > 1 ) {
         occupancyDegree = 1;
     }
-    resetOccupancyCorrection();
     return occupancyDegree;
 }   
 

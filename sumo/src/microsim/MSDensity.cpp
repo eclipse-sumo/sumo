@@ -34,7 +34,6 @@ using namespace std;
 
 MSDensity::MSDensity( double lengthInMeters,
                       const DetectorContainer::Count& counter ) :
-    MSOccupancyCorrection< DetectorAggregate >(),
     detectorLengthM( lengthInMeters / 1000.0 ),
     counterM( counter )
 {}
@@ -43,10 +42,9 @@ MSDensity::MSDensity( double lengthInMeters,
 MSDensity::DetectorAggregate
 MSDensity::getDetectorAggregate( void ) // [veh/km]
 {
-    double nVehOnDet = counterM.containerM -
-        getOccupancyEntryCorrection() -
-        getOccupancyLeaveCorrection();
-    resetOccupancyCorrection();
+    double nVehOnDet = counterM.vehicleCountM -
+        counterM.occupancyCorrectionM.getOccupancyEntryCorrection() -
+        counterM.occupancyCorrectionM.getOccupancyLeaveCorrection();
     return nVehOnDet / detectorLengthM;
 }
 

@@ -22,7 +22,7 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSHaltingDetectorContainer.h"
+#include "MSDetectorHaltingContainerWrapper.h"
 #include "MSUnit.h"
 #include "MSLane.h"
 #include <string>
@@ -33,7 +33,7 @@ protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
-    typedef Container::InnerCont Haltings;
+    typedef Container::InnerContainer Haltings;
 
     MSJamLengthSumInVehicles( double lengthInMeters,
                               const Container& container )
@@ -70,7 +70,7 @@ protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
-    typedef Container::InnerCont Haltings;
+    typedef Container::InnerContainer Haltings;
 
     MSJamLengthSumInMeters( double lengthInMeters,
                             const Container& container )

@@ -25,18 +25,15 @@
 // $Id$
 
 #include <string>
-#include "MSOccupancyCorrection.h"
-#include "MSDoubleDetectorContainer.h"
+#include "MSDetectorCounterContainerWrapper.h"
 
 class MSVehicle;
 class MSLane;
 
-class MSDensity : virtual public MSOccupancyCorrection< double >
+class MSDensity
 {
 protected:
     typedef double DetectorAggregate;
-//     typedef MSVehicle* ContainerItem;
-//     typedef std::list< ContainerItem > VehicleCont;
     typedef DetectorContainer::Count Container;
 
     MSDensity( double lengthInMeters,
@@ -45,18 +42,7 @@ protected:
     virtual ~MSDensity( void )
         {}
 
-//     ContainerItem getNewContainerItem( MSVehicle& veh )
-//         {
-//             return &veh;
-//         }
-
     DetectorAggregate getDetectorAggregate( void );
-
-//     void clearVehicleCont( VehicleCont& cont )
-//         {
-//             cont.clear();
-//         }
-
 
     static std::string getDetectorName( void )
         {

@@ -29,14 +29,12 @@ using namespace std;
 
 MSNVehicles::MSNVehicles( double lengthInMeters,
                           const DetectorContainer::Count& counter ) :
-    MSOccupancyCorrection< DetectorAggregate >(),
     counterM( counter )
 {}
 
 MSNVehicles::DetectorAggregate
 MSNVehicles::getDetectorAggregate( void ) // [veh/km]
 {
-    double nVehOnDet = counterM.containerM;
-    resetOccupancyCorrection();
+    double nVehOnDet = counterM.vehicleCountM;
     return nVehOnDet;
 }

@@ -22,7 +22,7 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSHaltingDetectorContainer.h"
+#include "MSDetectorHaltingContainerWrapper.h"
 #include "MSUnit.h"
 #include "MSE2DetectorInterface.h"
 #include <string>
@@ -33,15 +33,11 @@ class MSQueueLengthAheadOfTrafficLightsInVehicles
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
-//     typedef Container::HaltingsConstIt HaltingsConstIt;
-//     typedef Container::InnerCont Haltings;
     
     MSQueueLengthAheadOfTrafficLightsInVehicles(
         double lengthInMeters,
-//         const Container& container,
         const MSE2DetectorInterface& helperDetector )
-        : //containerM( container ),
-          helperDetectorM( helperDetector ),
+        : helperDetectorM( helperDetector ),
           maxNVehM( 0 )
         {}
 
@@ -70,7 +66,6 @@ protected:
             return "queueLengthAheadOfTrafficLightsInVehicles";
         }
 private:
-//     const Container& containerM;
     const MSE2DetectorInterface& helperDetectorM;
     double maxNVehM;
 };
@@ -82,15 +77,11 @@ class MSQueueLengthAheadOfTrafficLightsInMeters
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
-//     typedef Container::HaltingsConstIt HaltingsConstIt;
-//     typedef Container::InnerCont Haltings;
     
     MSQueueLengthAheadOfTrafficLightsInMeters(
         double lengthInMeters,
-//         const Container& container,
         const MSE2DetectorInterface& helperDetector )
-        : //containerM( container ),
-          helperDetectorM( helperDetector ),
+        : helperDetectorM( helperDetector ),
           maxJamLengthM( 0 )
         {}
     
@@ -120,7 +111,6 @@ protected:
         }
     
 private:
-//     const Container& containerM;
     const MSE2DetectorInterface& helperDetectorM;
     MSUnit::Cells maxJamLengthM;
 };

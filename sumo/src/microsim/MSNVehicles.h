@@ -24,10 +24,9 @@
 //---------------------------------------------------------------------------//
 
 #include <string>
-#include "MSOccupancyCorrection.h"
-#include "MSDoubleDetectorContainer.h"
+#include "MSDetectorCounterContainerWrapper.h"
 
-class MSNVehicles : virtual public MSOccupancyCorrection< double >
+class MSNVehicles
 {
 protected:
     typedef double DetectorAggregate;

@@ -22,7 +22,7 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSHaltingDetectorContainer.h"
+#include "MSDetectorHaltingContainerWrapper.h"
 #include "MSUnit.h"
 #include <string>
 
@@ -32,7 +32,7 @@ protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
-    typedef Container::InnerCont Haltings;
+    typedef Container::InnerContainer Haltings;
     
     MSMaxJamLengthInVehicles( double lengthInMeters,
                               const Container& container )
@@ -76,7 +76,7 @@ protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
-    typedef Container::InnerCont Haltings;
+    typedef Container::InnerContainer Haltings;
     
     MSMaxJamLengthInMeters( double lengthInMeters,
                             const Container& container )

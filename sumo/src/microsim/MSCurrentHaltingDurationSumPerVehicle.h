@@ -22,18 +22,18 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSHaltingDetectorContainer.h"
+#include "MSDetectorHaltingContainerWrapper.h"
 #include <numeric>
 
 class MSCurrentHaltingDurationSumPerVehicle
 {
 public:
-    typedef DetectorContainer::Haltings::InnerCont::value_type Halting;
+    typedef DetectorContainer::Haltings::InnerContainer::value_type Halting;
 
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
-    typedef Container::InnerCont VehicleCont;    
+    typedef Container::InnerContainer HaltingCont;    
 
     MSCurrentHaltingDurationSumPerVehicle( double lengthInMeters,
                                            const Container& vehicleCont ) 
@@ -51,7 +51,7 @@ protected:
         }
     
 private:
-    const VehicleCont& containerM;    
+    const HaltingCont& containerM;    
 };
 
 namespace 

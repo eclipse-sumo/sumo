@@ -22,20 +22,19 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSDetectorContainer.h"
-//#include "MSOccupancyCorrection.h"
+#include "MSDetectorContainerWrapper.h"
 #include "MSUnit.h"
 #include <numeric>
 
-class MSSpaceMeanSpeed //: virtual public MSOccupancyCorrection< double >
+class MSSpaceMeanSpeed
 {
 public:
-    typedef DetectorContainer::Vehicles::InnerCont::value_type Vehicle;
+    typedef DetectorContainer::Vehicles::InnerContainer::value_type Vehicle;
     
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Vehicles Container;
-    typedef Container::InnerCont VehicleCont;
+    typedef Container::InnerContainer VehicleCont;
     
     MSSpaceMeanSpeed( double lengthInMeters, const Container& vehicleCont ) 
         : containerM( vehicleCont.containerM )
