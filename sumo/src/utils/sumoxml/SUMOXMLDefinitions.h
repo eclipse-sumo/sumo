@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2004/01/26 07:15:54  dkrajzew
+// new tags added for detector and trip amounts handling
+//
 // Revision 1.23  2004/01/13 14:29:19  dkrajzew
 // added alternative detector description
 //
@@ -128,6 +131,12 @@ enum TagEnum
     SUMO_TAG_E1DETECTOR,
     /** an e2-detector */
     SUMO_TAG_E2DETECTOR,
+    /** an e3-detector */
+    SUMO_TAG_E3DETECTOR,
+    /** an e3-entry point*/
+    SUMO_TAG_DET_ENTRY,
+    /** an e3-exit point */
+    SUMO_TAG_DET_EXIT,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
@@ -193,7 +202,13 @@ enum TagEnum
     /** begin/end of the list of incoming lanes (into a junction) */
     SUMO_TAG_INCOMING_LANES,
     /** begin/end of the list of internal lanes (of a junction) */
-    SUMO_TAG_INTERNAL_LANES
+    SUMO_TAG_INTERNAL_LANES,
+    /// Incoming edge specification (jp-router)
+    SUMO_TAG_FROMEDGE,
+    /// Outgoing edge specification (jp-router)
+    SUMO_TAG_TOEDGE,
+    /// Sink(s) specification
+    SUMO_TAG_SINK
 };
 
 
@@ -295,22 +310,27 @@ enum AttrEnum
     SUMO_ATTR_VIA,
     SUMO_ATTR_INTERNALEND,
     // Attributes for actuated traffic lights:
-        // minimum duration of a phase
+        /// minimum duration of a phase
     SUMO_ATTR_MINDURATION,
-        // maximum duration of a phase
+        /// maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
     // Attributes for junction-internal lanes
-        // Information within the junction logic which internal lanes block external
+        /// Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
     // Attributes for detectors
-        // Measures to retrieve
+        /// Measures to retrieve
     SUMO_ATTR_MEASURES,
-        // Information whether the detector shall be continued on the folowing lanes
+        /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
     SUMO_ATTR_HALTING_TIME_THRESHHOLD,
     SUMO_ATTR_HALTING_SPEED_THRESHHOLD,
     SUMO_ATTR_JAM_DIST_THRESHHOLD,
-    SUMO_ATTR_DELETE_DATA_AFTER_SECONDS
+    SUMO_ATTR_DELETE_DATA_AFTER_SECONDS,
+    SUMO_ATTR_DET_OFFSET,
+    /// The number of vehicles to emit (od-amount
+    SUMO_ATTR_VEHNO,
+    /// The percentage of something
+    SUMO_ATTR_PERC
 };
 
 
@@ -320,12 +340,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[42];
+extern GenericSAX2Handler::Tag sumotags[48];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[75];
+extern AttributesHandler::Attr sumoattrs[78];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

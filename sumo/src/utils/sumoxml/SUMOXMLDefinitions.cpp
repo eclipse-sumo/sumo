@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/01/26 07:15:54  dkrajzew
+// new tags added for detector and trip amounts handling
+//
 // Revision 1.21  2004/01/13 14:29:19  dkrajzew
 // added alternative detector description
 //
@@ -78,8 +81,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,12 +92,13 @@ namespace
 #include <utils/xml/AttributesHandler.h>
 #include "SUMOXMLDefinitions.h"
 
+
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 42;
+size_t noSumoTags = 48;
 
-GenericSAX2Handler::Tag sumotags[42] =
+GenericSAX2Handler::Tag sumotags[48] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -107,6 +109,9 @@ GenericSAX2Handler::Tag sumotags[42] =
       { "detector",         SUMO_TAG_DETECTOR },
       { "e1-detector",      SUMO_TAG_E1DETECTOR },
       { "e2-detector",      SUMO_TAG_E2DETECTOR },
+      { "e3-detector",      SUMO_TAG_E3DETECTOR },
+      { "det_entry",        SUMO_TAG_DET_ENTRY },
+      { "det_exit",         SUMO_TAG_DET_EXIT },
       { "vehicle",          SUMO_TAG_VEHICLE },
       { "vtype",            SUMO_TAG_VTYPE },
       { "route",            SUMO_TAG_ROUTE },
@@ -139,12 +144,15 @@ GenericSAX2Handler::Tag sumotags[42] =
       { "shape",            SUMO_TAG_SHAPE },
       { "timed_event",      SUMO_TAG_TIMEDEVENT },
       { "inclanes",         SUMO_TAG_INCOMING_LANES },
-      { "intlanes",         SUMO_TAG_INTERNAL_LANES }
+      { "intlanes",         SUMO_TAG_INTERNAL_LANES },
+      { "fromedge",         SUMO_TAG_FROMEDGE },
+      { "toedge",           SUMO_TAG_TOEDGE },
+      { "sink",             SUMO_TAG_SINK }
 };
 
-size_t noSumoAttrs = 75;
+size_t noSumoAttrs = 78;
 
-AttributesHandler::Attr sumoattrs[75] =
+AttributesHandler::Attr sumoattrs[78] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -220,14 +228,14 @@ AttributesHandler::Attr sumoattrs[75] =
     { "time_treshhold", SUMO_ATTR_HALTING_TIME_THRESHHOLD },
     { "speed_treshhold",SUMO_ATTR_HALTING_SPEED_THRESHHOLD },
     { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHHOLD },
-    { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS }
+    { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
+    { "det_offset",     SUMO_ATTR_DET_OFFSET },
+    { "vehno",          SUMO_ATTR_VEHNO },
+    { "perc",           SUMO_ATTR_PERC }
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "SUMOXMLDefinitions.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
