@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.38  2003/11/26 10:59:42  dkrajzew
+// messages from the simulation are now also passed to the message handler; debug couts removed
+//
 // Revision 1.37  2003/11/20 14:43:45  dkrajzew
 // push() debugged; dead code removed
 //
@@ -866,7 +869,11 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
         veh->onTripEnd(*this);
-        cout << "vehicle '" << veh->id() << "' removed!";
+        MsgHandler::getWarningInstance()->inform(
+            string("Vehicle '") + veh->id()
+            + string("' removed due to a collision on push!\n")
+            + string("  Lane: '") + id() + string("' Previous vehicle: '")
+            + myVehBuffer->id() + string("'."));
         MSVehicle::remove(veh->id());
         return true;
     }
@@ -986,7 +993,10 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
                     MSLane& succLinkSource)
 {
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
-    assert( nRouteEdge != 0 );
+    // check whether the vehicle tried to look beyond its route
+    if(nRouteEdge==0 ) {
+        return succLinkSource.myLinks.end();
+    }
     // the link must be from a lane to the right or left from the current lane
     //  we have to do it via the edge
     for ( MSLinkCont::iterator link = succLinkSource.myLinks.begin();

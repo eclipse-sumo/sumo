@@ -63,17 +63,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
         double length,
         const LaneContinuations &laneContinuations)
 {
- cout << "LaneCont-size:" << laneContinuations.size() << endl;
- cout << myID << endl;
- for(LaneContinuations::const_iterator i=laneContinuations.begin(); i!=laneContinuations.end(); i++) {
-     cout << (*i).first << ':';
-     for(std::vector<std::string>::const_iterator j=(*i).second.begin(); j!=(*i).second.end(); j++) {
-	 cout << (*j) << ", ";
-     }
-     cout << endl;
- }
     bool done = false;
-	    cout << "1" << endl;
     while(!done) {
         done = true;
         LengthVector::iterator leni = myLengths.begin();
@@ -96,7 +86,6 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 myDetectorCombinations.erase(deti);
                 // get the lane to look before
                 MSLane *toExtend = lv[lv.size()-1];
-		    cout << toExtend->id() << endl;
                 // and her predecessors
                 LaneContinuations::const_iterator conts =
                     laneContinuations.find(toExtend->id());
@@ -134,7 +123,6 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
             }
         }
     }
-	    cout << "2" << endl;
 }
 
 
@@ -266,11 +254,7 @@ std::string
 MS_E2_ZS_CollectorOverLanes::makeID( const std::string &baseID ,
                                     size_t c, size_t r ) const
 {
- cout << "Halllo1 bla" << endl;
-string ret =  baseID + toString<size_t>(bla++);/*string("[") + toString<size_t>(c)
-		      + string("][") + toString<size_t>(r) + string("]");
-*/
- cout << "Halllo2 bla" << endl;
+string ret =  baseID + toString<size_t>(bla++);
  return ret;
 }
 
