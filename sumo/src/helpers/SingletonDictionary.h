@@ -14,6 +14,9 @@
 
 
 // $Log$
+// Revision 1.2  2003/06/06 10:46:44  dkrajzew
+// missing cassert-inclusion added
+//
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
@@ -22,6 +25,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include <stdexcept>
 #include "Dictionary.h"
 
