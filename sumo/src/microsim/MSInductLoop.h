@@ -393,10 +393,10 @@ protected:
     };
 
     /** 
-     * Deletes data from vehicleDataContM if deleteDataAfterSecondsM
+     * Deletes data from vehicleDataContM if deleteDataAfterStepsM
      * is over. Is called via MSEventControl. 
      * 
-     * @return deleteDataAfterSecondsM to recur the event.
+     * @return deleteDataAfterStepsM to recur the event.
      *
      * @see MSEventControl
      */
