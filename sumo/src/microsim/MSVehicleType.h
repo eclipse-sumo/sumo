@@ -19,14 +19,19 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/05/27 18:40:49  roessel
+// Removed superfluous const.
+//
 // Revision 1.4  2003/05/20 09:31:47  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include
+// complete deletion within destructors implemented; clear-operator added for
+// container; global file include
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -236,7 +241,7 @@ private:
 	static const char * const myTableItems[];
 
 	/// A static list of parameter types
-	static const TableType const myTableItemTypes[];
+	static const TableType myTableItemTypes[];
 
 };
 
