@@ -2,8 +2,8 @@ noinst_LIBRARIES = libmicrosim.a
 
 
 EXTRA_DIST = MSBitSetLogic.cpp \
-MSSimpleTrafficLightLogic.cpp \
-MSActuatedTrafficLightLogic.cpp
+MSActuatedTrafficLightLogic.cpp \
+MSAgentbasedTrafficLightLogic.cpp
 
 libmicrosim_a_SOURCES = MSDensity.cpp \
 MSDetector2File.cpp \
@@ -14,6 +14,7 @@ MSEdge.cpp \
 MSEdgeControl.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
+MSGlobals.cpp \
 MSInductLoop.cpp \
 MSInternalLane.cpp \
 MSJamLengthAheadOfTrafficLights.cpp \
@@ -36,6 +37,7 @@ MSRoute.cpp \
 MSRouteHandler.cpp \
 MSRouteLoader.cpp \
 MSRouteLoaderControl.cpp \
+MSSimpleTrafficLightLogic.cpp \
 MSSource.cpp \
 MSSourceLane.cpp \
 MSTLLogicControl.cpp \
@@ -50,6 +52,7 @@ MSVehicleContainer.cpp \
 MSVehicleType.cpp \
 MS_E2_ZS_Collector.cpp \
 MSActuatedTrafficLightLogic.h \
+MSAgentbasedTrafficLightLogic.h \
 MSBitSetLogic.h \
 MSDensity.h \
 MSDetector2File.h \
@@ -63,6 +66,7 @@ MSEdge.h \
 MSEdgeControl.h \
 MSEmitControl.h \
 MSEventControl.h \
+MSGlobals.h \
 MSHaltingDetectorContainer.h \
 MSInductLoop.h \
 MSInternalLane.h \
@@ -107,7 +111,7 @@ MSUnit.h \
 MSVehicle.h \
 MSVehicleContainer.h \
 MSVehicleType.h \
-MS_E2_ZS_Collector.h 
+MS_E2_ZS_Collector.h
 
 SUBDIRS = actions
 
