@@ -78,19 +78,19 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
     // add items
     ret->mkItem("flow [veh/h]", true,
         new UIntParametrisedDblFuncBinding<GUIInductLoop>(
-            &(getLoop()), GUIInductLoop::getFlow, 1));
+            &(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
         new UIntParametrisedDblFuncBinding<GUIInductLoop>(
-            &(getLoop()), GUIInductLoop::getMeanSpeed, 1));
+            &(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
         new UIntParametrisedDblFuncBinding<GUIInductLoop>(
-            &(getLoop()), GUIInductLoop::getOccupancy, 1));
+            &(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
         new UIntParametrisedDblFuncBinding<GUIInductLoop>(
-            &(getLoop()), GUIInductLoop::getMeanVehicleLength, 1));
+            &(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
         new DoubleFunctionBinding<GUIInductLoop>(
-            &(getLoop()), GUIInductLoop::getTimestepsSinceLastDetection));
+            &(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/08/14 13:47:44  dkrajzew
+// false usage of function-pointers patched; false inclusion of .moc-files removed
+//
 // Revision 1.3  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -53,12 +56,6 @@ namespace
 #include <qwidget.h>
 #include <qpopupmenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
-
-
-#ifndef WIN32
-#include "GUIJunctionWrapper.moc"
-#endif
-
 
 
 /* =========================================================================

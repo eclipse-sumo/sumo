@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/08/14 13:47:44  dkrajzew
+// false usage of function-pointers patched; false inclusion of .moc-files removed
+//
 // Revision 1.14  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -264,18 +267,18 @@ GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
     ret->mkItem("emission period [s]", false, getPeriod());
     ret->mkItem("waiting time [s]", true,
         new UIntFunction2DoubleBinding<GUIVehicle>(
-            this, GUIVehicle::getWaitingTime));
+            this, &GUIVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
         new UIntFunction2DoubleBinding<GUIVehicle>(
-            this, GUIVehicle::getLastLaneChangeOffset));
+            this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("real depart [s]", false, getRealDepartTime());
     ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
         new DoubleFunctionBinding<GUIVehicle>(
-            this, GUIVehicle::pos));
+            this, &GUIVehicle::pos));
     ret->mkItem("speed [m/s]", true,
         new DoubleFunctionBinding<GUIVehicle>(
-            this, GUIVehicle::speed));
+            this, &GUIVehicle::speed));
     // close building
     ret->closeBuilding();
     return ret;

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/08/14 13:47:44  dkrajzew
+// false usage of function-pointers patched; false inclusion of .moc-files removed
+//
 // Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -52,12 +55,6 @@ namespace
 #include <utils/logging/UIntFunction2DoubleBinding.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
-
-
-#ifndef WIN32
-#include "GUINetWrapper.moc"
-#endif
-
 
 
 /* =========================================================================
@@ -111,21 +108,23 @@ GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
     // add items
     ret->mkItem("vehicles running [#]", true,
         new UIntFunction2DoubleBinding<GUINet>(
-            &(getNet()), GUINet::getRunningVehicleNo));
+            &(getNet()), &GUINet::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
         new UIntFunction2DoubleBinding<GUINet>(
-            &(getNet()), GUINet::getEndedVehicleNo));
+            &(getNet()), &GUINet::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
         new UIntFunction2DoubleBinding<GUINet>(
-            &(getNet()), GUINet::getEmittedVehicleNo));
+            &(getNet()), &GUINet::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
         new UIntFunction2DoubleBinding<GUINet>(
-            &(getNet()), GUINet::getLoadedVehicleNo));
-    ret->mkItem("end time [s]", false, OptionsSubSys::getOptions().getInt("e"));
-    ret->mkItem("begin time [s]", false, OptionsSubSys::getOptions().getInt("b"));
+            &(getNet()), &GUINet::getLoadedVehicleNo));
+    ret->mkItem("end time [s]", false,
+        OptionsSubSys::getOptions().getInt("e"));
+    ret->mkItem("begin time [s]", false,
+        OptionsSubSys::getOptions().getInt("b"));
     ret->mkItem("time step [s]", true,
         new UIntFunction2DoubleBinding<GUINet>(
-            &(getNet()), GUINet::getCurrentTimeStep));
+            &(getNet()), &GUINet::getCurrentTimeStep));
     // close building
     ret->closeBuilding();
     return ret;
