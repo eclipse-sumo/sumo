@@ -45,7 +45,6 @@ public:
     typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
     typedef typename ConcreteDetector::VehicleCont VehicleCont;
     typedef typename VehicleCont::iterator VehicleContIter;
-    typedef SingletonDictionary< std::string, MSE2Detector* > Dictionary;
     
     const std::string& getId( void ) const
         {
@@ -76,11 +75,6 @@ protected:
                                      deleteDataAfterSeconds ) ),
           vehOnDetectorM()
         {
-            // insert object into dictionary
-            if ( ! Dictionary::getInstance()->isInsertSuccess( idM, this ) ) {
-                assert( false );
-            }
-
             // start old-data removal through MSEventControl
             Command* deleteData = new SimpleCommand< MSE2Detector >(
                 this, &MSE2Detector::freeContainer );
