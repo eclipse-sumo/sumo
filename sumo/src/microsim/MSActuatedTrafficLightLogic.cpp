@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2003/09/25 09:01:49  dkrajzew
+// ambigous naming of detectors changed
+//
 // Revision 1.17  2003/09/24 09:55:11  dkrajzew
 // bug on duplictae induct loop ids patched
 //
@@ -180,7 +183,7 @@ MSActuatedTrafficLightLogic<_TInductLoop,
             ilpos = length;
         }
         // Build the induct loop and set it into the container
-        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
+        std::string id = "TL" + _id + "_InductLoopOn_" + lane->id();
         _TInductLoop *loop = new _TInductLoop(id, lane, ilpos );
         myInductLoops[lane] = loop;
     }
@@ -195,7 +198,7 @@ MSActuatedTrafficLightLogic<_TInductLoop,
         }
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
+        std::string id = "TL" + _id + "_LaneStateOff_" + lane->id();
         MSLaneState* loop =
             new MSLaneState( id, lane, lspos, lslen );
         myLaneStates[lane] = loop;
