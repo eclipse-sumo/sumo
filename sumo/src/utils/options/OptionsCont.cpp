@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/30 12:54:00  dkrajzew
+// unneeded and deprecated methods and variables removed
+//
 // Revision 1.3  2003/06/24 08:13:51  dkrajzew
 // added the possibiliy to clear the container
 //
@@ -122,21 +125,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 OptionsCont::OptionsCont()
-    : _addresses(), _values(), _path()
+    : _addresses(), _values()
 {
 }
-
-OptionsCont::OptionsCont(const string &path)
-    : _addresses(), _values(), _path(path)
-{
-   char *tmp = getenv(_path.c_str());
-   if(tmp==0) {
-      cout << "You must set the enviroment variable '"
-          << path << "'!" << endl;
-      throw InvalidArgument("Enviroment variable is not set");
-   }
-}
-
 
 OptionsCont::~OptionsCont()
 {
@@ -161,25 +152,6 @@ OptionsCont::doRegister(const string &name1, char abbr, Option *v)
 {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
-}
-
-
-void
-OptionsCont::doRegisterSystemPath(const std::string &name1,
-                                  const std::string &value)
-{
-    Option *o = new Option_String(getSystemPath(value));
-    doRegister(name1, o);
-}
-
-
-void
-OptionsCont::doRegisterSystemPath(const std::string &name1,
-                                  char abbr, const std::string &value)
-{
-    Option *o = new Option_String(getSystemPath(value));
-    doRegister(name1, o);
-    doRegister(convertChar(abbr), o);
 }
 
 
@@ -437,31 +409,12 @@ OptionsCont::isBool(const string &name) const
 }
 
 
-string
-OptionsCont::getPath() const
-{
-    if(_path.length()==0) {
-        throw InvalidArgument("No enviroment variable given.");
-    }
-    char *tmp = getenv(_path.c_str());
-    if(tmp==0) return "";
-    return string(tmp);
-}
-
-
 void
 OptionsCont::resetDefaults()
 {
     for(ItemAddressContType::iterator i=_addresses.begin(); i!=_addresses.end(); i++) {
         (*i)->_default = true;
     }
-}
-
-
-string
-OptionsCont::getSystemPath(const string &ext) const
-{
-    return string(getPath() + string("/") + ext);
 }
 
 

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/07/30 12:54:00  dkrajzew
+// unneeded and deprecated methods and variables removed
+//
 // Revision 1.3  2003/06/24 08:13:51  dkrajzew
 // added the possibiliy to clear the container
 //
@@ -101,9 +104,6 @@ public:
     /** constructor */
     OptionsCont();
 
-    /** constructor */
-    OptionsCont(const std::string &env);
-
     /** destructor */
     ~OptionsCont();
 
@@ -112,14 +112,6 @@ public:
 
     /** adds an option under the given name and the given abbreviation */
     void doRegister(const std::string &name1, char abbr, Option *v);
-
-    /** registers a system path (appends the value to the enviroment-path) */
-    void doRegisterSystemPath(const std::string &name,
-        const std::string &value);
-
-    /** registers a system path (appends the value to the enviroment-path) */
-    void doRegisterSystemPath(const std::string &name1, char abbr,
-        const std::string &value);
 
     /** adds a synonymes for an options name (any order) */
     void addSynonyme(const std::string &name1, const std::string &name2);
@@ -185,9 +177,6 @@ public:
     /** output operator */
     friend std::ostream& operator<<( std::ostream& os, const OptionsCont& oc);
 
-    /** returns the path (not the name) */
-    std::string getPath() const;
-
     /** removes all previous information from the container */
     void clear();
 
@@ -201,9 +190,6 @@ private:
     /** converts an abbreviation into a name */
     std::string convertChar(char abbr) const;
 
-    /** returns the system path */
-    std::string getSystemPath(const std::string &ext) const;
-
 private:
     /** definition of the type that stores the addresses of used options */
     typedef std::vector<Option*> ItemAddressContType;
@@ -216,9 +202,6 @@ private:
 
     /** access map of options */
     KnownContType       _values;
-
-    /** the name of the enviroment-variable that stores the path */
-    std::string         _path;
 
 private:
     /** invalid copy constructor */
