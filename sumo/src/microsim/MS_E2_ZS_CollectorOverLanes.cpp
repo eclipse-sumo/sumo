@@ -229,12 +229,8 @@ MS_E2_ZS_CollectorOverLanes::addDetector( MS_E2_ZS_Collector::DetType type,
                                          std::string detId)
 {
     size_t c = 0;
-    for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-        size_t r = 0;
-        for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
-            (*j)->addDetector(type, makeID(detId, c, r));
-            r++;
-        }
+    for(LaneDetMap::iterator i=myAlreadyBuild.begin(); i!=myAlreadyBuild.end(); i++) {
+        (*i).second->addDetector(type, makeID(detId, c, c));
         c++;
     }
 }
