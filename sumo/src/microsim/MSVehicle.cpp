@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/08/04 11:47:05  dkrajzew
+// vehicle collision on yellow tl patched
+//
 // Revision 1.26  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -846,6 +849,11 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
             vsafeCriticalCont(myVWish);
         }
     }
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        DEBUG_OUT << "->" << myVLinkPass << ", " << myVLinkWait << endl;
+    }
+#endif
 }
 
 
@@ -856,7 +864,7 @@ MSVehicle::moveFirstChecked()
 {
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
-	    DEBUG_OUT << endl << "moveFirstChecked; vsafe:" << vsafe << endl;
+	    int textdummy = 0;
     }
 #endif
     // get vsafe
@@ -874,6 +882,7 @@ MSVehicle::moveFirstChecked()
 			} else {
 				if(v_safe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
 				    v_safe = myState.mySpeed-myType->decelSpeed();
+                    v_safe = min(v_safe, myVLinkPass);
 				}
 			}
 		}
@@ -932,7 +941,13 @@ MSVehicle::moveFirstChecked()
     if(!onLinkEnd&&approachAllowed&&myApproachedLane!=0&&myApproachedLane!=myTarget) {
         myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
     }
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
+	    DEBUG_OUT << "moveFirstChecked; (" << myID << ") v:" << vNext << endl << endl;
+    }
+#endif
 }
+
 
 void
 MSVehicle::_assertPos() const
@@ -1654,7 +1669,7 @@ MSVehicle::getNextPeriodical() const
     }
     return MSNet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
         myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
-        myPeriod, 0);
+        myPeriod);
 }
 
 
