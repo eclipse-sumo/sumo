@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/11/17 07:26:02  dkrajzew
+// computations needed for collecting e2-values over multiple lanes added
+//
 // Revision 1.9  2003/09/25 09:02:51  dkrajzew
 // multiple lane in tl-logic - bug patched
 //
@@ -89,7 +92,7 @@ public:
         std::bitset<64> brakeMask, std::bitset<64> yellowMask);
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
-    void writeXML(std::ostream &into, size_t no,
+    void writeXML(std::ostream &into, size_t no, double distance,
         const std::set<std::string> &inLanes) const;
 
     /// Debug method showing the phases

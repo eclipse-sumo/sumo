@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/11/17 07:26:02  dkrajzew
+// computations needed for collecting e2-values over multiple lanes added
+//
 // Revision 1.7  2003/09/25 09:02:51  dkrajzew
 // multiple lane in tl-logic - bug patched
 //
@@ -109,6 +112,7 @@ NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 void
 NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 {
+    double distance = 250;
     set<string> inLanes;
     for(NBConnectionVector::const_iterator j=myInLinks.begin(); j!=myInLinks.end(); j++) {
         assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);
@@ -117,7 +121,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
     }
     size_t pos = 0;
     for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++, inLanes);
+        (*i)->writeXML(os, pos++, distance, inLanes);
     }
 }
 

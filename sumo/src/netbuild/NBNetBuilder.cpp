@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include "NBNetBuilder.h"
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
@@ -280,6 +281,7 @@ NBNetBuilder::save(string path, OptionsCont &oc)
     // print the computed values
     res << "<net>" << endl << endl;
     res.setf( ios::fixed, ios::floatfield );
+    res << setprecision( 2 );
     // write the numbers of some elements
     std::vector<std::string> ids;
     if(oc.getBool("add-internal-links")) {

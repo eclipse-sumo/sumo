@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2003/11/17 07:26:01  dkrajzew
+// computations needed for collecting e2-values over multiple lanes added
+//
 // Revision 1.32  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -1967,6 +1970,89 @@ NBEdge::getTurnDestination() const
     return _turnDestination;
 }
 
+
+void
+NBEdge::writeLaneContinuation(std::ostream &into, const std::string &lid,
+                              double distance)
+{
+    for(size_t i=0; i<_nolanes; i++) {
+ cout << lid << ":" << getLaneID(i) << endl;
+        if(getLaneID(i)==lid) {
+ cout << "found" << endl;
+            writeLaneContinuation(into, i, distance);
+            return;
+        }
+    }
+    assert(false);
+}
+
+void
+NBEdge::writeLaneContinuation(std::ostream &into, size_t lane,
+                              double distance)
+{
+    // collect continuations
+    StringContMap continuations;
+    getContinuations(lane, distance, continuations);
+    writeContinuations(into, continuations);
+}
+
+void
+NBEdge::getContinuations(size_t lane, double distance, StringContMap &into)
+{
+    // recursion end
+    if(distance<=0) {
+        return;
+    }
+    //
+    string myLaneID = getLaneID(lane);
+	cout << "for " << myLaneID << endl;
+    const EdgeVector &incoming = _from->getIncomingEdges();
+    for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
+        NBEdge *si = *i;
+        // do not print if the edge is not connected to this one
+        if(!si->isConnectedTo(this)) {
+            continue;
+        }
+        // check whether it is connected to this lane
+        size_t nolanes = si->getNoLanes();
+        for(size_t j=0; j<nolanes; j++) {
+            const EdgeLaneVector *elv = si->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+                if((*k).edge==this&&(*k).lane==lane) {
+                    string nextLaneID = si->getLaneID(j);
+			cout << "-> " << nextLaneID << endl;
+                    into[myLaneID].push_back(nextLaneID);
+                    si->getContinuations(j, distance-si->getLength(), into);
+                }
+            }
+        }
+    }
+}
+
+
+void
+NBEdge::writeContinuations(std::ostream &into, StringContMap &from)
+{
+    for(StringContMap::iterator i=from.begin(); i!=from.end(); i++) {
+        into << "      <lane_cont id=\"" << (*i).first << "\" to=\"";
+        std::vector<std::string> &tos = (*i).second;
+        for(std::vector<std::string>::iterator j=tos.begin(); j!=tos.end(); j++) {
+            if(j!=tos.begin()) {
+                into << ' ';
+            }
+            into << *j;
+        }
+        into << "\"/>" << endl;
+    }
+}
+
+
+std::string
+NBEdge::getLaneID(size_t lane)
+{
+    assert(lane<_nolanes);
+    return _id + string("_") + toString<size_t>(lane);
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

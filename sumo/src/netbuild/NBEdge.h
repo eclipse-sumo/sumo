@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.25  2003/11/17 07:26:02  dkrajzew
+// computations needed for collecting e2-values over multiple lanes added
+//
 // Revision 1.24  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -422,6 +425,15 @@ public:
     void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
     NBEdge *getTurnDestination() const;
 
+    typedef std::map<std::string, std::vector<std::string> > StringContMap;;
+
+    void writeLaneContinuation(std::ostream &into, const std::string &lid, double distance);
+
+    std::string getLaneID(size_t lane);
+
+    void getContinuations(size_t lane, double distance, StringContMap &into);
+    void writeContinuations(std::ostream &into, StringContMap &from);
+
 
 private:
     /**
@@ -492,7 +504,6 @@ private:
         const Position2D &to, double lanewidth, size_t lane);
 
     void computeLaneShapes();
-
 
 protected:
     void setTurningDestination(NBEdge *e);
@@ -615,6 +626,9 @@ private:
 
     // !!! describe
     void writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx);
+
+
+    void writeLaneContinuation(std::ostream &into, size_t lane, double distance);
 
 private:
     /** invalid copy constructor */

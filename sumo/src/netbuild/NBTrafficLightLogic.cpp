@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/11/17 07:26:02  dkrajzew
+// computations needed for collecting e2-values over multiple lanes added
+//
 // Revision 1.12  2003/09/25 09:02:51  dkrajzew
 // multiple lane in tl-logic - bug patched
 //
@@ -72,6 +75,7 @@ namespace
 #include <sstream>
 #include <cassert>
 #include "NBEdge.h"
+#include "NBEdgeCont.h"
 #include "NBTrafficLightLogic.h"
 
 
@@ -119,7 +123,7 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 
 void
-NBTrafficLightLogic::writeXML(ostream &into, size_t no,
+NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
                               const std::set<string> &inLanes) const
 {
     into << "   <tl-logic type=\"static\">" << endl;
@@ -128,16 +132,26 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
     into << "      <offset>0</offset>" << endl;
     // write the inlanes
+    std::set<string>::const_iterator j;
     into << "      <inlanes>";
-    bool first = true;
-    for(std::set<string>::const_iterator j=inLanes.begin(); j!=inLanes.end(); j++) {
-        if(!first) {
+//    bool first = true;
+    for(j=inLanes.begin(); j!=inLanes.end(); j++) {
+        if(j!=inLanes.begin()) {
             into << " ";
         }
-        first = false;
+//        first = false;
         into << (*j);
     }
     into << "</inlanes>" << endl;
+    into << "      <cont_dist>" << distance << "</cont_dist>" << endl;
+    // write the inlanes connections
+    for(j=inLanes.begin(); j!=inLanes.end(); j++) {
+//        into << "      <inlane_cont id=\"" << (*j) << ">";
+        string eid = (*j).substr(0, (*j).rfind('_'));
+        NBEdge *e = NBEdgeCont::retrieve(eid);
+        e->writeLaneContinuation(into, (*j), distance);
+//        into << "</inlane_cont>" << endl;
+    }
     // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
