@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/09/22 12:27:02  dkrajzew
+// qt-includion problems patched
+//
 // Revision 1.14  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -70,7 +73,6 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <sumo_version.h>
-#include <qthread.h>
 #include <iostream>
 #include <guisim/GUINet.h>
 #include <guinetload/GUINetBuilder.h>
@@ -84,12 +86,12 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <sumo_only/SUMOFrame.h>
 #include <helpers/SingletonDictionary.h>
-#include "QSimulationLoadedEvent.h"
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
+#include "QSimulationLoadedEvent.h"
 #include "QMessageEvent.h"
 #include "QSimulationEndedEvent.h"
-
+#include <qthread.h>
 
 #include <ctime>
 /* =========================================================================
