@@ -20,6 +20,9 @@
 #define MSEdge_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:40:35  dkrajzew
+// usage of MSPerson removed; will be reimplemented later
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -96,7 +99,6 @@
 #include "MSNet.h"
 
 class MSLane;
-class MSPerson;
 class MSLaneChanger;
 
 /**
@@ -105,8 +107,10 @@ class MSEdge
 {
 public:
     friend class XMLOut;
-    /** Class to generate XML-output for an edges and all lanes hold by 
-        this edge. 
+    friend class GUIEdgeGrid;
+    friend class GUIViewTraffic;
+    /** Class to generate XML-output for an edges and all lanes hold by
+        this edge.
         Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
     class XMLOut
     {
@@ -114,16 +118,16 @@ public:
         XMLOut( const MSEdge& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const XMLOut& obj ); 
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const XMLOut& obj );
     private:
         const MSEdge& myObj;
         unsigned myIndentWidth;
         bool myWithChildElemes;
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const XMLOut& obj );     
+    };
+
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const XMLOut& obj );
 
     
     friend class MeanData;
@@ -150,40 +154,35 @@ public:
                                      const MeanData& obj );    
 
     
-    /// a container specifying container of persons that are waiting for 
-    /// the vehicle-type with the id that is used as key
-    typedef std::map< std::string, MSNet::PersonCont* > WaitingPersonsCont;
-
-
     /// Constructor.
     MSEdge( std::string id );
-    
+
     /// Container for lanes.
     typedef std::vector< MSLane* > LaneCont;
-     
-    /** Associative container with suceeding edges (keys) and allowed 
+
+    /** Associative container with suceeding edges (keys) and allowed
         lanes to reach these edges. */
     typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
 
     /// Destructor.
-    ~MSEdge();
+    virtual ~MSEdge();
 
     /// Initialize the edge.
     void initialize( AllowedLanesCont* allowed, MSLane* departLane,
                      LaneCont* lanes );
-     
-    /** Moves (i.e. makes v- and x-updates) all vehicles currently on 
+
+    /** Moves (i.e. makes v- and x-updates) all vehicles currently on
         the edge's lanes (single- or multi-lane-edge), except the
         first ones on each lane. They will be moved by the
-        junctions. */ 
-    void moveExceptFirstSingle();
-    void moveExceptFirstMulti();
+        junctions. */
+    virtual void moveExceptFirstSingle();
+    virtual void moveExceptFirstMulti();
 
     /** Ask edge's lanes about collisions. Shouldn't be neccessary if
         model is implemented correctly. */
     void detectCollisions( MSNet::Time timestep );
-     
-    /** Get the allowed lanes to reach the destination-edge. If there 
+
+    /** Get the allowed lanes to reach the destination-edge. If there
         is no such edge, get 0. Then you are on the wrong edge. */
     const LaneCont* allowedLanes( const MSEdge& destination ) const;
 
@@ -193,13 +192,6 @@ public:
 
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
     MSLane* leftLane( const MSLane* lane ) const;
-     
-    /// loads waiting persons into vehicles if both are on the same edge
-    void loadPersons();
-    
-    /// processes all persons which public transport system has reached the 
-    /// point the leave it
-    void unloadPersons( MSNet* net, unsigned int time );
 
     /** Inserts edge into the static dictionary and returns true if the key
         id isn't already in the dictionary. Otherwise returns false. */
@@ -209,27 +201,28 @@ public:
         returns 0. */
     static MSEdge* dictionary( std::string id );
 
+    /** Clears the dictionary */
+    static void clear();
+
     /** Returns the edge's number of lanes. */
     unsigned int nLanes() const;
 
-    /** Adds a person waiting for a public vehicle */
-    void addWaitingForPublicVehicle( MSPerson *person, std::string lineId );
-
-    /** Returns the persons waiting for the public transport vehicle 
-        with the given id */
-    MSNet::PersonCont* getWaitingPersonsFor( std::string lineId );
-    
     friend std::ostream& operator<<( std::ostream& os, const MSEdge& edge );
-    
+
     /** Let the edge's vehicles try to change their lanes. */
     void changeLanes();
 
 protected:
-
-private:
     /// Unique ID.
     std::string myID;
-     
+
+    /** Container for the edge's lane. Should be sorted:
+        (right-hand-traffic) the more left the lane, the higher the
+        container-index. */
+    LaneCont* myLanes;
+
+private:
+
     /** Associative container for destination-edge/allowed-lanes
         matching. */
     AllowedLanesCont* myAllowed;
@@ -239,17 +232,8 @@ private:
         side. */
     MSLane* myDepartLane;
 
-    /** Container for the edge's lane. Should be sorted:
-        (right-hand-traffic) the more left the lane, the higher the
-        container-index. */
-    LaneCont* myLanes;
-    
     /** This member will do the lane-change. */
     MSLaneChanger* myLaneChanger;
-
-    /** the container for awaited vehicles; the key is the id of the 
-        vehicle while the value is a list of persons waiting for it */
-    WaitingPersonsCont myWaitingPersons;
 
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSEdge* > DictType;
@@ -257,13 +241,13 @@ private:
 
     /// Default constructor.
     MSEdge();
-     
+
     /// Copy constructor.
     MSEdge( const MSEdge& );
 
     /// Assignment operator.
     MSEdge& operator=(const MSEdge&);
-     
+
 };
 
 

@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEdgeControl.C  -  Coordinates Edge
-                          operations. 
+                          operations.
                              -------------------
     begin                : Mon, 09 Apr 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:40:35  dkrajzew
+// usage of MSPerson removed; will be reimplemented later
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -76,7 +79,7 @@ namespace
 //
 // Revision 1.5  2001/09/06 15:31:25  croessel
 // Added operator<< to class MSEdgeControl for simple text output.
-// 
+//
 // Revision 1.4  2001/08/16 13:07:21  traffic
 // minor MSVC++-problems solved
 //
@@ -84,7 +87,7 @@ namespace
 // CC problems with make_pair repaired
 //
 // Revision 1.2  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -98,7 +101,6 @@ namespace
 #include "MSEdgeControl.h"
 #include "MSEdge.h"
 #include "MSNet.h"
-#include "MSPerson.h"
 #include <iostream>
 #include <vector>
 
@@ -123,6 +125,8 @@ MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane, EdgeCont*
 
 MSEdgeControl::~MSEdgeControl()
 {
+    delete mySingleLaneEdges;
+    delete myMultiLaneEdges;
 }
 
 
@@ -131,7 +135,7 @@ MSEdgeControl::moveExceptFirst()
 {
     EdgeCont::iterator edge;
     // Move vehicles on lanes but hand command
-    // over to the real lanes. 
+    // over to the real lanes.
     for (edge = mySingleLaneEdges->begin();
          edge != mySingleLaneEdges->end(); ++edge) {
         (*edge)->moveExceptFirstSingle();
@@ -148,7 +152,7 @@ MSEdgeControl::changeLanes()
 {
     for ( EdgeCont::iterator edge = myMultiLaneEdges->begin();
           edge != myMultiLaneEdges->end(); ++edge ) {
-        
+
           ( *edge )->changeLanes();
     }
 }
@@ -158,7 +162,7 @@ void
 MSEdgeControl::detectCollisions( MSNet::Time timestep )
 {
     EdgeCont::iterator edge;
-    // Detections is made by the edge's lanes, therefore hand over. 
+    // Detections is made by the edge's lanes, therefore hand over.
     for (edge = mySingleLaneEdges->begin();
          edge != mySingleLaneEdges->end(); ++edge) {
         (*edge)->detectCollisions( timestep );
@@ -166,38 +170,6 @@ MSEdgeControl::detectCollisions( MSNet::Time timestep )
     for (edge = myMultiLaneEdges->begin();
          edge != myMultiLaneEdges->end(); ++edge) {
         (*edge)->detectCollisions( timestep );
-    }
-}
-
-
-void 
-MSEdgeControl::loadPersons() 
-{
-    EdgeCont::iterator edge;
-    // Detections is made by the edge's lanes, therefore hand over. 
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->loadPersons();
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->loadPersons();
-    }
-}
-
-
-void 
-MSEdgeControl::unloadPersons(MSNet *net, unsigned int time) 
-{
-    EdgeCont::iterator edge;
-    // Detections is made by the edge's lanes, therefore hand over. 
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->unloadPersons(net, time);
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->unloadPersons(net, time);
     }
 }
 
@@ -226,6 +198,17 @@ MSEdgeControl::dictionary(string id)
     return it->second;
 }
 
+
+void
+MSEdgeControl::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
 ostream&
 operator<<( ostream& os, const MSEdgeControl& ec )
 {
@@ -236,7 +219,7 @@ operator<<( ostream& os, const MSEdgeControl& ec )
 
 MSEdgeControl::XMLOut::XMLOut( const MSEdgeControl& obj,
                                unsigned indentWidth ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndentWidth( indentWidth )
 {
 }
@@ -248,13 +231,13 @@ operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
     for ( MSEdgeControl::EdgeCont::iterator edg1 =
           obj.myObj.mySingleLaneEdges->begin();
           edg1 != obj.myObj.mySingleLaneEdges->end(); ++edg1 ) {
-         
+
         os << MSEdge::XMLOut( **edg1, obj.myIndentWidth, true );
-    } 
+    }
     for ( MSEdgeControl::EdgeCont::iterator edg2 =
           obj.myObj.myMultiLaneEdges->begin();
           edg2 != obj.myObj.myMultiLaneEdges->end(); ++edg2 ) {
-          
+
         os << MSEdge::XMLOut( **edg2, obj.myIndentWidth, true );
     }
     return os;       
@@ -285,18 +268,16 @@ operator<<( ostream& os, const MSEdgeControl::MeanData& obj )
           
         os << MSEdge::MeanData( **edg2, obj.myIndex, obj.myInterval );
     }
-    return os;       
+    return os;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
-//#include "MSEdgeControl.iC"
+//#include "MSEdgeControl.icc"
 //#endif
 
 // Local Variables:
 // mode:C++
 // End:
-
-
 

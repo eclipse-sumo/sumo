@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:40:35  dkrajzew
+// usage of MSPerson removed; will be reimplemented later
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -86,7 +89,7 @@ namespace
 // Added public method nLanes() that returns the edge's number of lanes.
 //
 // Revision 1.3  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.2  2001/07/13 17:03:34  croessel
@@ -102,7 +105,6 @@ namespace
 
 #include "MSEdge.h"
 #include "MSLane.h"
-#include "MSPerson.h"
 #include "MSNet.h"
 #include "MSLaneChanger.h"
 #include <algorithm>
@@ -120,18 +122,15 @@ MSEdge::MSEdge(string id) : myID(id), myLaneChanger(0)
 }
 
 
-MSEdge::~MSEdge() 
-{  
+MSEdge::~MSEdge()
+{
     delete myLaneChanger;
-    for(WaitingPersonsCont::iterator i=myWaitingPersons.begin(); 
-        i!=myWaitingPersons.end(); i++) {
-        MSNet::PersonCont *cont = (*i).second;
-        for(MSNet::PersonCont::iterator j=cont->begin(); j!=cont->end(); j++) {
-            delete *j;
-        }
-        delete cont;
+    for(AllowedLanesCont::iterator i1=myAllowed->begin(); i1!=myAllowed->end(); i1++) {
+        delete (*i1).second;
     }
-    //myWaitingPersons.clear();
+    delete myAllowed;
+    delete myLanes;
+    // Remark: Lanes are delete using MSLane::clear();
 }
 
 
@@ -139,12 +138,16 @@ void
 MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
                    LaneCont* lanes)
 {
+    assert(allowed!=0);
+    assert(departLane!=0);
+    assert(lanes!=0);
+
     myAllowed = allowed;
     myDepartLane = departLane;
     myLanes = lanes;
 
     if ( myLanes->size() > 1 ) {
-        
+
         myLaneChanger = new MSLaneChanger( myLanes );
     }
 }
@@ -187,7 +190,7 @@ const MSEdge::LaneCont*
 MSEdge::allowedLanes(const MSEdge& destination) const
 {
     AllowedLanesCont::const_iterator it =
-        myAllowed->find(&destination); 
+        myAllowed->find(&destination);
     if (it != myAllowed->end()) {
         return it->second;
     }
@@ -212,42 +215,6 @@ MSEdge::leftLane(const MSLane* lane) const
     return (laneIt != myLanes->end()) ? *laneIt : 0;
 }
 
-void
-MSEdge::loadPersons() 
-{
-    myDepartLane->loadPersons(myWaitingPersons);
-}
-
-
-void
-MSEdge::unloadPersons(MSNet *net, unsigned int time) 
-{
-    myDepartLane->unloadPersons(net, time, myWaitingPersons);
-}
-
-
-void
-MSEdge::addWaitingForPublicVehicle(MSPerson *person, string lineId) {
-    WaitingPersonsCont::iterator i = myWaitingPersons.find(lineId);
-    if(i==myWaitingPersons.end()) {
-        MSNet::PersonCont *cont = new MSNet::PersonCont();
-        cont->push_back(person);
-        myWaitingPersons.insert(WaitingPersonsCont::value_type(lineId, cont));
-    } else {
-        (*i).second->push_back(person);
-    }
-}
-
-
-MSNet::PersonCont *
-MSEdge::getWaitingPersonsFor(string lineId) {
-    WaitingPersonsCont::iterator i = myWaitingPersons.find(lineId);
-    if(i==myWaitingPersons.end()) {
-        return 0;
-    } else {
-        return ((*i).second);
-    }
-}
 
 bool
 MSEdge::dictionary(string id, MSEdge* ptr)
@@ -274,6 +241,16 @@ MSEdge::dictionary(string id)
 }
 
 
+void
+MSEdge::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
 unsigned int
 MSEdge::nLanes() const
 {
@@ -287,7 +264,7 @@ operator<<(ostream& os, const MSEdge& edge)
     return os;
 }
 
-void 
+void
 MSEdge::changeLanes()
 {
     assert( myLaneChanger != 0 );
@@ -298,7 +275,7 @@ MSEdge::changeLanes()
 MSEdge::XMLOut::XMLOut( const MSEdge& obj,
                                unsigned indentWidth,
                                bool withChildElemes ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndentWidth( indentWidth ),
     myWithChildElemes( withChildElemes )
 {
@@ -309,16 +286,16 @@ ostream&
 operator<<( ostream& os, const MSEdge::XMLOut& obj )
 {
     string indent( obj.myIndentWidth , ' ' );
-    os << indent << "<edge id=\"" << obj.myObj.myID << "\">\n";
+    os << indent << "<edge id=\"" << obj.myObj.myID << "\">" << endl;
     if ( obj.myWithChildElemes ) {
-        for ( MSEdge::LaneCont::const_iterator lane = 
+        for ( MSEdge::LaneCont::const_iterator lane =
               obj.myObj.myLanes->begin();
               lane != obj.myObj.myLanes->end(); ++lane) {
-              
+
             os << MSLane::XMLOut( **lane, obj.myIndentWidth + 4, true );
         }
     }
-    os << indent << "</edge>\n";
+    os << indent << "</edge>" << endl;
     return os;   
 }
 
@@ -345,13 +322,13 @@ operator<<( ostream& os, const MSEdge::MeanData& obj )
     }
 
     os << "</edge>\n";
-    return os;   
+    return os;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
-//#include "MSEdge.iC"
+//#include "MSEdge.icc"
 //#endif
 
 // Local Variables:

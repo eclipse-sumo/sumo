@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEdgeControl.h  -  Coordinates Edge
-                          operations. 
+                          operations.
                              -------------------
     begin                : Mon, 09 Apr 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -21,6 +21,9 @@
 #define MSEdgeControl_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:40:35  dkrajzew
+// usage of MSPerson removed; will be reimplemented later
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -96,23 +99,23 @@ class MSEdgeControl
 {
 public:
     friend class XMLOut;
-    /** Class to generate XML-output for all edges hold by an edgecontroller. 
-        Usage, e.g.: cout << XMLOut( myEC, 4) << endl; where myEC is an 
+    /** Class to generate XML-output for all edges hold by an edgecontroller.
+        Usage, e.g.: cout << XMLOut( myEC, 4) << endl; where myEC is an
         edgecontroller object. */
     class XMLOut
     {
     public:
         XMLOut( const MSEdgeControl& obj,
                 unsigned indentWidth );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const XMLOut& obj ); 
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const XMLOut& obj );
     private:
         const MSEdgeControl& myObj;
         unsigned myIndentWidth;
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const XMLOut& obj ); 
+    };
+
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const XMLOut& obj );
 
     friend class MeanData;
     /** Class to generate mean-data-output for all edges hold by an
@@ -141,15 +144,15 @@ public:
 
     /// Container for edges.
     typedef std::vector< MSEdge* > EdgeCont;
-    
+
     /// Use thic constructor only.
     MSEdgeControl( std::string id, EdgeCont* singleLane, EdgeCont*
-                   multiLane); 
+                   multiLane);
 
     /// Destructor.
     ~MSEdgeControl();
 
-    /** Moves (i.e. makes v- and x-updates) all vehicles currently on 
+    /** Moves (i.e. makes v- and x-updates) all vehicles currently on
         the net, except the first ones on each lane. They will by
         moved by the junctions. */
     void moveExceptFirst();
@@ -161,7 +164,7 @@ public:
         model-implementation is correct. */
     void detectCollisions( MSNet::Time timestep );
 
-    /// loads persons waiting for a vehicle into this if it is on the same 
+    /// loads persons waiting for a vehicle into this if it is on the same
     /// edge as the persons
     void loadPersons();
     void unloadPersons( MSNet* net, unsigned int time );
@@ -176,23 +179,24 @@ public:
         otherwise returns 0. */
     static MSEdgeControl* dictionary( std::string id );
 
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const MSEdgeControl& ec ); 
+    /** Clears the dictionary */
+    static void clear();
 
-    
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const MSEdgeControl& ec );
 protected:
 
 private:
     /// Unique ID.
     std::string myID;
-     
+
     /// Single lane edges.
     EdgeCont* mySingleLaneEdges;
 
     /// Multi lane edges.
     EdgeCont* myMultiLaneEdges;
 
-//      /// The edgeController's car-following-model. 
+//      /// The edgeController's car-following-model.
 //      MSModel* myModel;
 
     /// Static dictionary to associate string-ids with objects.
@@ -201,7 +205,7 @@ private:
 
     /// Default constructor.
     MSEdgeControl();
-     
+
     /// Copy constructor.
     MSEdgeControl( const MSEdgeControl& );
 
@@ -214,7 +218,7 @@ private:
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 //#ifndef DISABLE_INLINE
-//#include "MSEdgeControl.iC"
+//#include "MSEdgeControl.icc"
 //#endif
 
 #endif
