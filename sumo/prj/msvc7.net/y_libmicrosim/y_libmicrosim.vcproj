@@ -139,6 +139,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -919,6 +922,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSLinkCont.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSLogicJunction.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1530,6 +1536,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledDet.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.h">
