@@ -305,7 +305,7 @@ public:
                 return std::make_pair( false, (--retIt)->second );
             }
             // check whether it's within a range
-            if(retIt->first.first<time) {
+			if(retIt->first.first<=time) {
                 return std::make_pair( true, (retIt)->second );
             } else {
                 // no, it's within the next range
