@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2004/01/12 14:38:19  dkrajzew
+// to-upper method added
+//
 // Revision 1.5  2003/09/05 15:26:39  dkrajzew
 // umlaute conversion added
 //
@@ -148,6 +151,15 @@ StringUtils::trim(double val, size_t to)
 }
 
 
+void
+StringUtils::upper(std::string &str)
+{
+    for(size_t i=0; i<str.length(); i++) {
+        if(str[i]>='a'&&str[i]<='z') {
+            str[i] = str[i] - 'a' + 'A';
+        }
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2004/01/12 14:38:19  dkrajzew
+// to-upper method added
+//
 // Revision 1.5  2003/09/05 15:26:39  dkrajzew
 // umlaute conversion added
 //
@@ -38,11 +41,11 @@
 // periodical car emission implemented; windows eol removed
 //
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
+
 
 /* =========================================================================
  * class definitions
@@ -74,11 +77,13 @@ public:
         after the dot as defined by the second parameter */
     static std::string trim(double val, size_t to);
 
+    /// Converts the given string to upper characters
+    static void upper(std::string &str);
+
 };
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 //#ifndef DISABLE_INLINE
 //#include "StringUtils.icc"
 //#endif
