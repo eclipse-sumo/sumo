@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:47:42  dkrajzew
+// added the possibility to compute the normal of a vector at 90deg to the vector
+//
 // Revision 1.8  2003/05/21 15:15:43  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -437,6 +440,47 @@ GeomHelper::crossPoint(const Boundery &b, const Position2DVector &v)
 }
 
 
+std::pair<double, double>
+GeomHelper::getNormal90D_CW(double x1, double y1,
+                            double x2, double y2,
+                            double length, double wanted_offset)
+{
+    double dx = x1 - x2;
+    double dy = y1 - y2;
+    if(dx<0) { // fromX<toX -> to right
+        if(dy>0) { // to up right -> lanes to down right (+, +)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, -dx*wanted_offset/length);
+        } else if (dy<0) { // to down right -> lanes to down left (-, +)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, -dx*wanted_offset/length);
+        } else { // to right -> lanes to down (0, +)
+            return std::pair<double, double>
+                (0, -dx*wanted_offset/length);
+        }
+    } else if(dx>0) { // fromX>toX -> to left
+        if(dy>0) { // to up left -> lanes to up right (+, -)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, -dx*wanted_offset/length);
+        } else if (dy<0) { // to down left -> lanes to up left (-, -)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, -dx*wanted_offset/length);
+        } else { // to left -> lanes to up (0, -)
+            return std::pair<double, double>
+                (0, -dx*wanted_offset/length);
+        }
+    } else { // fromX==toX
+        if(dy>0) { // to up -> lanes to right (+, 0)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, 0);
+        } else if (dy<0) { // to down -> lanes to left (-, 0)
+            return std::pair<double, double>
+                (dy*wanted_offset/length, 0);
+        } else { // zero !
+            throw 1;
+        }
+    }
+}
 
 
 

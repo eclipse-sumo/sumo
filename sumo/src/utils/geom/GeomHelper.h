@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/07 08:47:42  dkrajzew
+// added the possibility to compute the normal of a vector at 90deg to the vector
+//
 // Revision 1.4  2003/05/20 09:50:22  dkrajzew
 // further work and debugging
 //
@@ -103,6 +106,10 @@ public:
 
     static Position2D crossPoint(const Boundery &b,
         const Position2DVector &v);
+
+    static std::pair<double, double> getNormal90D_CW(double x1, double y1,
+        double x2, double y2, double length, double wanted_offset);
+
 
 };
 
