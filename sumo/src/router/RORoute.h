@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/04/02 11:25:34  dkrajzew
+// moving the vehicle forward if it shall start at a too short edge added
+//
 // Revision 1.4  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -98,6 +101,10 @@ public:
 
     /// Returns the number of edges in this route
     size_t size() const;
+
+    /** @brief Removes the first edge
+        used if this edge is too short to emit vehicles on */
+    void pruneFirst();
 
 private:
     /// The costs of the route
