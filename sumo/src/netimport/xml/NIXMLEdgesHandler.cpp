@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/19 10:59:34  dkrajzew
+// error output patched
+//
 // Revision 1.7  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -198,7 +201,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             }
         } catch (...) {
             addError(
-                string("Error: Important information (propably the source or the destination node) missing in edge '")
+                string("Important information (propably the source or the destination node) missing in edge '")
                     + myCurrentID + string("'."));
         }
     }
