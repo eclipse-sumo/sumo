@@ -11,14 +11,14 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
-class QVBoxLayout; 
-class QHBoxLayout; 
-class QGridLayout; 
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QLabel;
 class QPushButton;
 
 class QAboutSUMO : public QDialog
-{ 
+{
     Q_OBJECT
 
 public:

@@ -15,7 +15,7 @@ private:
 
     class LinkLaneDesc {
     public:
-        LinkLaneDesc(int lane, int section, 
+        LinkLaneDesc(int lane, int section,
             double start, double end, const std::string &mvmt);
         ~LinkLaneDesc();
         double getStart() const;
@@ -33,8 +33,8 @@ private:
     static size_t getEndIndex(double start, const DoubleVector &poses);
     static size_t count(const std::bitset<64> &lanes);
 
-    
-    
+
+
     typedef std::vector<LinkLaneDesc*> LaneDescVector;
     typedef std::map<std::string, LaneDescVector> Link2LaneDesc;
     static Link2LaneDesc myLinkLaneDescs;

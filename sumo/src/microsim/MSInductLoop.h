@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2003/03/17 14:14:07  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2003/03/03 14:56:20  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -85,7 +88,7 @@
  * size.
  */
 template<class _T>
-class MSInductLoop 
+class MSInductLoop
     : public MSDetector
 {
 public:
@@ -94,7 +97,7 @@ public:
         during samplIntervall seconds data and writes them in style to file.
      */
     MSInductLoop( std::string id, MSLane* lane, double position,
-        MSNet::Time sampleInterval, MSDetector::OutputStyle style, 
+        MSNet::Time sampleInterval, MSDetector::OutputStyle style,
         std::ofstream* file, bool floating);
 
     /// Destructor.
@@ -161,10 +164,10 @@ private:
     /// Speeds sampled
     _T mySpeed;
 
-    /// Occupancy-times sampled 
+    /// Occupancy-times sampled
     _T myOccup;
 
-    /// Veh-lengthes 
+    /// Veh-lengthes
     _T myVehLengths;
 
     /// Number of already processed sampleIntervalls

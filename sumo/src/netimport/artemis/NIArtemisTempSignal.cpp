@@ -6,7 +6,7 @@
 NIArtemisTempSignal::NodeToDescsMap     NIArtemisTempSignal::myDescDict;
 NIArtemisTempSignal::ConnectionToPhases NIArtemisTempSignal::myPhasesDict;
 
-NIArtemisTempSignal::PhaseDescription::PhaseDescription(double perc, 
+NIArtemisTempSignal::PhaseDescription::PhaseDescription(double perc,
                                                         size_t start)
     : myPercentage(perc), myBegin(start)
 {
@@ -20,7 +20,7 @@ NIArtemisTempSignal::PhaseDescription::~PhaseDescription()
 
 
 
-NIArtemisTempSignal::ConnectionPhases::ConnectionPhases(char startPhase, 
+NIArtemisTempSignal::ConnectionPhases::ConnectionPhases(char startPhase,
                                                         char endPhase)
     : myStartPhase(startPhase), myEndPhase(endPhase)
 {
@@ -35,25 +35,25 @@ NIArtemisTempSignal::ConnectionPhases::~ConnectionPhases()
 
 
 
-void 
-NIArtemisTempSignal::addPhase(const std::string &nodeid, 
+void
+NIArtemisTempSignal::addPhase(const std::string &nodeid,
                               char phaseName, double perc, int start)
 {
-    myDescDict[nodeid][phaseName] = 
+    myDescDict[nodeid][phaseName] =
         new PhaseDescription(perc, start);
 }
 
-void 
+void
 NIArtemisTempSignal::addConnectionPhases(const Connection &c,
-                                         char startPhase, char endPhase, 
+                                         char startPhase, char endPhase,
                                          const std::string &group)
 {
-    myPhasesDict[c] = 
+    myPhasesDict[c] =
         new ConnectionPhases(startPhase, endPhase);
 }
 
 
-void 
+void
 NIArtemisTempSignal::close()
 {
     //throw 1;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/17 14:12:19  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -51,7 +54,7 @@
 
 /**
  * The definition of a single phase.
- * We moved it out of the main class to allow later template 
+ * We moved it out of the main class to allow later template
  * parametrisation.
  */
 class ActuatedPhaseDefinition {
@@ -78,7 +81,7 @@ public:
         size_t minDurationArg, size_t maxDurationArg)
     : duration(durationArg), driveMask(driveMaskArg),
     breakMask(breakMaskArg), minDuration(minDurationArg),
-    maxDuration(maxDurationArg) 
+    maxDuration(maxDurationArg)
     { }
 
     /// destructor
@@ -104,7 +107,7 @@ typedef std::vector<ActuatedPhaseDefinition > ActuatedPhases;
  * step is stored within them, not within the logic.
  */
 template< class _TInductLoop, class _TLaneState >
-class MSActuatedTrafficLightLogic : 
+class MSActuatedTrafficLightLogic :
         public MSTrafficLightLogic
 {
 public:
@@ -153,7 +156,7 @@ protected:
 
     /// A map from lanes to lane states lying on them
     LaneStateMap myLaneStates;
-    
+
     /// infomration whether the current phase is the dead-phase
     bool _allRed;
 

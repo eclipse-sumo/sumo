@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 15:00:33  dkrajzew
 // initial commit for artemis-import files
 //
@@ -63,11 +66,11 @@ NIArtemisParser_Signals::myDependentReport()
 {
 /*    string nodeid = myLineParser.get("NodeID");
     // scats info omitted
-    int noPhases = 
+    int noPhases =
         TplConvert<char>::_2int(myLineParser.get("NPhases").c_str());
-    int cycle = 
+    int cycle =
         TplConvert<char>::_2int(myLineParser.get("Cycle").c_str());
-    int offset = 
+    int offset =
         TplConvert<char>::_2int(myLineParser.get("Offset").c_str());*/
 //    !!! insert into node
 }

@@ -8,7 +8,7 @@
 
 class NIArtemisTempSegments {
 public:
-    static void add(const std::string &linkname, int segment, 
+    static void add(const std::string &linkname, int segment,
         double x, double y);
     static void close();
 private:

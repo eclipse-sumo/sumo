@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 15:00:29  dkrajzew
 // initial commit for artemis-import files
 //
@@ -65,12 +68,12 @@ NIArtemisParser_Links::myDependentReport()
     string to = myLineParser.get("To");
     string id = myLineParser.get("ID");
     string name = myLineParser.get("Name");
-    double length = 
+    double length =
         TplConvert<char>::_2float(myLineParser.get("Length").c_str());
-    double speed = 
+    double speed =
         TplConvert<char>::_2float(myLineParser.get("Speed").c_str());
     // costfact omitted
-    int laneno = 
+    int laneno =
         TplConvert<char>::_2int(myLineParser.get("NumLanes").c_str());
     // rest omitted (by now)
 // !!! right-of-way
@@ -81,7 +84,7 @@ NIArtemisParser_Links::myDependentReport()
     // build if both nodes were found
     if(fromNode!=0&&toNode!=0) {
         NBEdge *edge = new NBEdge(id, name, fromNode, toNode,
-            "", speed, laneno, length, 0, 
+            "", speed, laneno, length, 0,
             NBEdge::EDGEFUNCTION_NORMAL);
         NBEdgeCont::insert(edge);
     }

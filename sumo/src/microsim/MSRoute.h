@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/17 14:12:19  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2003/03/03 14:56:24  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -57,7 +60,7 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
  */
 class MSRoute : public Named {
 public:
-    /// Constructor 
+    /// Constructor
 	MSRoute(const std::string &id, const MSEdgeVector &edges,
         bool multipleReferenced);
 

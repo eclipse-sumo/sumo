@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
@@ -86,7 +89,7 @@ NIArtemisParser_HVdests::myDependentReport()
         dir1.add(Position2D(node1->getXCoordinate(), node1->getYCoordinate()));
         NBNode *tmp = new NBNode(origid + "SOURCENode", dir1.x(), dir1.y());
         NBNodeCont::insert(tmp); // !!! check
-        NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE", 
+        NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
             tmp, node1, "", 20.0, 2, -1, 0, NBEdge::EDGEFUNCTION_SOURCE);
         NBEdgeCont::insert(edge); // !!! check
     }
@@ -96,7 +99,7 @@ NIArtemisParser_HVdests::myDependentReport()
         dir2.add(Position2D(node2->getXCoordinate(), node2->getYCoordinate()));
         NBNode *tmp = new NBNode(destid + "SINKNode", dir2.x(), dir2.y());
         NBNodeCont::insert(tmp); // !!! check
-        NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK", 
+        NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
             node2, tmp, "", 20.0, 2, -1, 0, NBEdge::EDGEFUNCTION_SINK);
         NBEdgeCont::insert(edge); // !!! check
     }

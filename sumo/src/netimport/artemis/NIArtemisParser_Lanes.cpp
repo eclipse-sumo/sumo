@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
@@ -63,22 +66,22 @@ void
 NIArtemisParser_Lanes::myDependentReport()
 {
     string link = myLineParser.get("Link");
-    int lane = 
+    int lane =
         TplConvert<char>::_2int(myLineParser.get("Lane").c_str());
-    int section = 
+    int section =
         TplConvert<char>::_2int(myLineParser.get("Section").c_str());
-    double start = 
+    double start =
         TplConvert<char>::_2float(myLineParser.get("Start").c_str());
-    double end = 
+    double end =
         TplConvert<char>::_2float(myLineParser.get("End").c_str());
     string mvmt = myLineParser.get("Mvmt");
     // purpose omitted
-    NIArtemisTempEdgeLanes::add(link, lane, 
+    NIArtemisTempEdgeLanes::add(link, lane,
         section, start, end, mvmt);
 }
 
 
-void 
+void
 NIArtemisParser_Lanes::myClose()
 {
     NIArtemisTempEdgeLanes::close();

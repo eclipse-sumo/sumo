@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.4  2003/03/17 14:14:06  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -118,8 +121,8 @@ MSInductLoop<_T>::~MSInductLoop<_T>()
 //---------------------------------------------------------------------------//
 
 template<class _T>
-MSInductLoop<_T>::MSInductLoop<_T>( string id, MSLane* lane, 
-                                   double position, 
+MSInductLoop<_T>::MSInductLoop<_T>( string id, MSLane* lane,
+                                   double position,
                                    MSNet::Time sampleInterval,
                                    MSDetector::OutputStyle style,
                                    ofstream* file, bool floating) :
@@ -197,7 +200,7 @@ MSInductLoop<_T>::sample( double simSec )
         currVeh = vehs.end();
     } else {
         // find the vehicle
-        currVeh = find_if( vehs.begin(), vehs.end(), 
+        currVeh = find_if( vehs.begin(), vehs.end(),
             bind2nd( MSLane::VehPosition(), myPos ) );
         // do not use a vehicle twice
         if ( currVeh!=vehs.end() && *currVeh == myPassedVeh ) {
@@ -229,7 +232,7 @@ MSInductLoop<_T>::sample( double simSec )
 	        myOccup.add(( *currVeh )->length() / 0.00001);
         }
 	    myVehLengths.add(( *currVeh )->length());
-        
+
         // Remember the vehicle.
 	    myPassedVeh = *currVeh;
 	    myNPassedVeh.add(1);
@@ -374,7 +377,7 @@ MSInductLoop<_T>::writeCSV( MSNet::Time endOfInterv,
 
 
 template<class _T>
-MSNet::Time 
+MSNet::Time
 MSInductLoop<_T>::getLastVehicleTime() const
 {
     return myPassingTime;

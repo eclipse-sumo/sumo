@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/17 14:12:19  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 14:56:18  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -92,16 +95,16 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase(MSLogicJunctio
 
 
 
-template< class _TInductLoop, class _TLaneState > 
-void 
+template< class _TInductLoop, class _TLaneState >
+void
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const std::vector<MSLane*> &lanes)
 {
     // change values for setting the loops and lanestate-detectors, here
-    double inductLoopPosition = 10; // 10m from the end 
-    MSNet::Time inductLoopInterval = 1; // 
+    double inductLoopPosition = 10; // 10m from the end
+    MSNet::Time inductLoopInterval = 1; //
     double laneStateDetectorPosition = 0; // 0m from the end (at the beginning)
     double laneStateDetectorLength = 0; // 0m from the end (at the beginning)
-    MSNet::Time laneStateDetectorInterval = 1; // 
+    MSNet::Time laneStateDetectorInterval = 1; //
 
     std::vector<MSLane*>::const_iterator i;
     // build the induct loops
@@ -114,15 +117,15 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
-        _TInductLoop *loop = new _TInductLoop( "", lane, ilpos, 
-            inductLoopInterval, MSDetector::CSV, 0, true); 
+        _TInductLoop *loop = new _TInductLoop( "", lane, ilpos,
+            inductLoopInterval, MSDetector::CSV, 0, true);
         myInductLoops[lane] = loop;
     }
     // build the lane state-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         double length = lane->length();
-        // check whether the position and the length are ok 
+        // check whether the position and the length are ok
         //  (not longer than the lane)
         double lspos = length - laneStateDetectorPosition - laneStateDetectorLength;
         if(lspos<0) {
@@ -133,7 +136,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
             lslen = length - lspos;
         }
         // Build the lane state detetcor and set it into the container
-        _TLaneState *loop = new _TLaneState( "", lane, lspos, 
+        _TLaneState *loop = new _TLaneState( "", lane, lspos,
             lslen, laneStateDetectorInterval, MSDetector::CSV, 0);
         myLaneStates[lane] = loop;
     }
@@ -142,7 +145,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
 
 
 
-template< class _TInductLoop, class _TLaneState >  
+template< class _TInductLoop, class _TLaneState >
 void
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::applyPhase(MSLogicJunction::Request &request) const
 {
@@ -158,7 +161,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::applyPhase(MSLogicJuncti
 }
 
 
-template< class _TInductLoop, class _TLaneState >  
+template< class _TInductLoop, class _TLaneState >
 const std::bitset<64> &
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
 {
@@ -171,7 +174,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
 }
 
 
-template< class _TInductLoop, class _TLaneState >  
+template< class _TInductLoop, class _TLaneState >
 size_t
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
 {
@@ -189,8 +192,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
 }
 
 
-template< class _TInductLoop, class _TLaneState >  
-MSNet::DetectorCont 
+template< class _TInductLoop, class _TLaneState >
+MSNet::DetectorCont
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
 {
     MSNet::DetectorCont ret;

@@ -5,16 +5,16 @@
 #include <utils/logging/LoggedValue_TimeFloating.h>
 
 
-MSDetector::MSDetector( std::string id, OutputStyle style, 
+MSDetector::MSDetector( std::string id, OutputStyle style,
                        std::ofstream* file, MSNet::Time sampleInterval,
-                       bool floating) 
+                       bool floating)
     : myID( id ), myStyle( style ), myFile( file ),
     mySampleInterval(sampleInterval), myAmTimeFloating(floating)
 {
 }
 
 
-MSDetector::~MSDetector() 
+MSDetector::~MSDetector()
 {
 }
 

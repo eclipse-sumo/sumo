@@ -44,7 +44,7 @@ QGLObjectToolTip::setObjectTip(GUIGlObject *object,
     }*/
 
     if(myLastX!=-1&&myLastY!=-1) {
-/*        QToolTip::remove(&myParent, 
+/*        QToolTip::remove(&myParent,
             QRect(myLastX-1, myLastY-1, myLastX+1, myLastY+1));*/
 //        hide();
         myLastX = -1;
@@ -62,12 +62,12 @@ QGLObjectToolTip::setObjectTip(GUIGlObject *object,
 
 
 
-void 
+void
 QGLObjectToolTip::myClear()
 {
     if(myLastX!=-1&&myLastY!=-1) {
         cout << "Tip: remove#1" << endl;
-        QToolTip::remove(&myParent, 
+        QToolTip::remove(&myParent,
             QRect(myLastX-1, myLastY-1, myLastX+1, myLastY+1));
         myLastX = -1;
         myLastY = -1;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/17 14:18:57  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2003/03/12 16:44:46  dkrajzew
 // further work on artemis-import
 //
@@ -113,7 +116,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse(bool verbose)
     return true;
 }
 
-bool 
+bool
 NIArtemisLoader::NIArtemisSingleDataTypeParser::amOptional() const
 {
     return false;

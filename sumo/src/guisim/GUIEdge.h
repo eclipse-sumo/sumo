@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/17 14:09:10  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2003/03/12 16:52:06  dkrajzew
 // centering of objects debuggt
 //
@@ -121,7 +124,7 @@ private:
 
     /// List of the edge's lanes geometrical information
     LaneWrapperVector _laneGeoms;
-    
+
     /**
      * A class to find the matching lane wrapper
      */

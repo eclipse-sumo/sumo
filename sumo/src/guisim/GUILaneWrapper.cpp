@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/17 14:09:11  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2003/03/12 16:52:06  dkrajzew
 // centering of objects debuggt
 //
@@ -147,7 +150,7 @@ GUILaneWrapper::getOverallMaxSpeed()
 }
 
 
-bool 
+bool
 GUILaneWrapper::forLane(const MSLane &lane) const
 {
     return (&myLane)==(&lane);

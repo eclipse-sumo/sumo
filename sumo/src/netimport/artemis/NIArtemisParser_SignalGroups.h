@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2003/03/12 16:44:47  dkrajzew
 // further work on artemis-import
 //
@@ -52,7 +55,7 @@ protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
-    /** @brief build the loaded signals 
+    /** @brief build the loaded signals
         needs data from "Signals" and "Signal Phases", too */
     void myClose();
 

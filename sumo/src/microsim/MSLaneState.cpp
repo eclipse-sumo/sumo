@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------------//
-//                        MSLaneState.cpp  -  
+//                        MSLaneState.cpp  -
 //  Some kind of induct loops with a length
 //                           -------------------
 //  begin                : Tue, 18 Feb 2003
 //  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR 
+//  organisation         : IVF/DLR
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.2  2003/03/17 14:12:19  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -68,7 +71,7 @@ template<class _T>
 MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
                          double length, MSNet::Time sampleInterval,
                          MSDetector::OutputStyle style,
-                         ofstream *file ) 
+                         ofstream *file )
     : MSDetector( id, style, file ),
     myLane           ( lane ),
     myPos            ( begin ),
@@ -146,7 +149,7 @@ MSLaneState<_T>::sample( double simSec )
         firstVehicle = vehs.end();
     } else {
         // find the vehicle
-        firstVehicle = find_if( vehs.begin(), vehs.end(), 
+        firstVehicle = find_if( vehs.begin(), vehs.end(),
             bind2nd( MSLane::VehPosition(), myPos ) );
     }
     // update interval with zero if no vehicle is on the loop
@@ -160,9 +163,9 @@ MSLaneState<_T>::sample( double simSec )
         myNoSlow.add(0);
         return;
     }
-    // We have now a valid beyond the detector. 
-    MSLane::VehCont::const_iterator lastVehicle = 
-        find_if( firstVehicle, vehs.end(), 
+    // We have now a valid beyond the detector.
+    MSLane::VehCont::const_iterator lastVehicle =
+        find_if( firstVehicle, vehs.end(),
             bind2nd( MSLane::VehPosition(), myPos+myLength ) );
     // go through the vehicles and compute the values
     size_t noVehicles = distance(firstVehicle, lastVehicle);
@@ -189,7 +192,7 @@ MSLaneState<_T>::sample( double simSec )
         myOccup.add( lengths / 0.000001 );
     }
     // this is just an approximation; The first and te last vehicles
-    //  should compete only for the amount of time they are within the 
+    //  should compete only for the amount of time they are within the
     //  field
     myLocalDensity.add( 1.0 - ((myLength - lengths) / myLength) );
 }

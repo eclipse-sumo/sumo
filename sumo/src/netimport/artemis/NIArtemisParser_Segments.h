@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
@@ -47,7 +50,7 @@ public:
 
     /// Segments are not mandatory
     bool amOptional() const { return true; }
-    
+
 
 protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */

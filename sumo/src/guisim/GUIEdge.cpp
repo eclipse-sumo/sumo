@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/17 14:09:10  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2003/03/12 16:52:05  dkrajzew
 // centering of objects debuggt
 //
@@ -222,11 +225,11 @@ GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
 }
 
 
-Position2D 
+Position2D
 GUIEdge::getLanePosition(const MSLane &lane, double pos) const
 {
-    LaneWrapperVector::const_iterator i = 
-        find_if(_laneGeoms.begin(), _laneGeoms.end(), 
+    LaneWrapperVector::const_iterator i =
+        find_if(_laneGeoms.begin(), _laneGeoms.end(),
         lane_wrapper_finder(lane));
     // the lane should be one of this edge
     assert(i!=_laneGeoms.end());

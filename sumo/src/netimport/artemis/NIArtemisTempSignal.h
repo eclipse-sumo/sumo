@@ -7,9 +7,9 @@
 
 class NIArtemisTempSignal {
 public:
-    static void addPhase(const std::string &nodeid, 
+    static void addPhase(const std::string &nodeid,
         char phaseName, double perc, int start);
-    static void addConnectionPhases(const Connection &c, 
+    static void addConnectionPhases(const Connection &c,
         char startPhase, char endPhase, const std::string &group);
     static void close();
 private:

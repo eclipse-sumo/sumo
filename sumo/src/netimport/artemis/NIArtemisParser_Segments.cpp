@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
@@ -63,11 +66,11 @@ void
 NIArtemisParser_Segments::myDependentReport()
 {
     string linkname = myLineParser.get("Link");
-    int segment = 
+    int segment =
         TplConvert<char>::_2int(myLineParser.get("Segment").c_str());
-    double x = 
+    double x =
         TplConvert<char>::_2float(myLineParser.get("StartX").c_str());
-    double y = 
+    double y =
         TplConvert<char>::_2float(myLineParser.get("StartY").c_str());
     // length omitted
     // speed omitted!!!
@@ -75,7 +78,7 @@ NIArtemisParser_Segments::myDependentReport()
 }
 
 
-void 
+void
 NIArtemisParser_Segments::myClose()
 {
     NIArtemisTempSegments::close();

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2003/03/12 16:44:47  dkrajzew
 // further work on artemis-import
 //
@@ -101,21 +104,21 @@ NIArtemisParser_SignalGroups::myDependentReport()
             string("The to node '") + to + string("' is not known within a signal group."));
         return;
     }
-    NBEdge *fromEdge = 
+    NBEdge *fromEdge =
         NBContHelper::findConnectingEdge(
             *node->getIncomingEdges(), fromNode, node);
-    NBEdge *toEdge = 
+    NBEdge *toEdge =
         NBContHelper::findConnectingEdge(
             *node->getOutgoingEdges(), node, toNode);
     if(fromEdge==0) {
         SErrorHandler::add(
-            string("Could not find connection between '") + from 
+            string("Could not find connection between '") + from
             + string("' and '") + nodeid + string("' within a signal group."));
         return;
     }
     if(toEdge==0) {
         SErrorHandler::add(
-            string("Could not find connection between '") + nodeid 
+            string("Could not find connection between '") + nodeid
             + string("' and '") + to + string("' within a signal group."));
         return;
     }

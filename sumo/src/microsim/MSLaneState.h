@@ -2,12 +2,12 @@
 #define MSLaneState_H
 
 //---------------------------------------------------------------------------//
-//                        MSLaneState.h  -  
+//                        MSLaneState.h  -
 //  Some kind of induct loops with a length
 //                           -------------------
 //  begin                : Tue, 18 Feb 2003
 //  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR 
+//  organisation         : IVF/DLR
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2003/03/17 14:12:19  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -130,10 +133,10 @@ private:
     /// Speeds sampled
     _T mySpeed;
 
-    /// Occupancy-times sampled 
+    /// Occupancy-times sampled
     _T myOccup;
 
-    /// Veh-lengths 
+    /// Veh-lengths
     _T myVehLengths;
 
     /// The number of vehicles which are slower than 0.1 m/s

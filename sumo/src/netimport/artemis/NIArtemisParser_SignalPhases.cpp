@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:18:58  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2003/03/03 15:00:33  dkrajzew
 // initial commit for artemis-import files
 //
@@ -64,9 +67,9 @@ NIArtemisParser_SignalPhases::myDependentReport()
 {
     string nodeid = myLineParser.get("NodeID");
     string phase = myLineParser.get("Phase");
-    double perc = 
+    double perc =
         TplConvert<char>::_2float(myLineParser.get("PercentCT").c_str());
-    int start = 
+    int start =
         TplConvert<char>::_2int(myLineParser.get("Start").c_str());
 //    !!! insert
     NIArtemisTempSignal::addPhase(

@@ -10,11 +10,11 @@
 
 using namespace std;
 
-NIArtemisTempSegments::Link2PosInfos 
+NIArtemisTempSegments::Link2PosInfos
         NIArtemisTempSegments::myLinkPosInfos;
 
-NIArtemisTempSegments::SingleGeomPoint::SingleGeomPoint(int segment, 
-                                                       double x, 
+NIArtemisTempSegments::SingleGeomPoint::SingleGeomPoint(int segment,
+                                                       double x,
                                                        double y)
     : mySegment(segment), myX(x), myY(y)
 {
@@ -33,7 +33,7 @@ NIArtemisTempSegments::SingleGeomPoint::getPosition() const
 }
 
 
-int 
+int
 NIArtemisTempSegments::SingleGeomPoint::getSegmentNo() const
 {
     return mySegment;
@@ -43,8 +43,8 @@ NIArtemisTempSegments::SingleGeomPoint::getSegmentNo() const
 
 
 
-void 
-NIArtemisTempSegments::add(const std::string &linkname, int segment, 
+void
+NIArtemisTempSegments::add(const std::string &linkname, int segment,
                           double x, double y)
 {
     myLinkPosInfos[linkname].push_back(
@@ -52,14 +52,14 @@ NIArtemisTempSegments::add(const std::string &linkname, int segment,
 }
 
 
-void 
+void
 NIArtemisTempSegments::close()
 {
-    // go through the read values 
+    // go through the read values
     for(Link2PosInfos::iterator i=myLinkPosInfos.begin(); i!=myLinkPosInfos.end(); i++) {
         // get the current list of segment definitions
         PosInfos infos = (*i).second;
-        // sort them 
+        // sort them
         sort(infos.begin(), infos.end(), info_sorter());
         // build the geomentry list
         Position2DVector geom;
