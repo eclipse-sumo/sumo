@@ -87,10 +87,11 @@ public:
     */
     void EraseStains(ConfigDialog* myDialog);
 
-    /*
+    Graph* Tracking(Graph* gr,ConfigDialog* myDialog);
+	/*
     Erzeugt einen Graphen aus dem minimalen Skelett
     */
-    Graph Tracking(Graph gr, ConfigDialog* myDialog);
+    //Graph Tracking(Graph gr, ConfigDialog* myDialog);
 
     /*
     Hilfsmethode für die Grapherzeugung (Tracking)
@@ -131,6 +132,13 @@ public:
     Erzeugt ein leeres Image
     */
     void EmptyImage();
+
+	//Hat ein Pixel schwarze Nachbarn?
+	Vertex* black_neighbour(Vertex* start);
+	Vertex* black_neighbour(Vertex* lauf, Vertex* altlauf);
+
+	//Ablaufen der schwarzen Pixel bis Counter oder bis zum nächsten Knoten
+	Graph* edgerun(Vertex* start, Graph* gr, Graph* helpgraph, int value);
 
 };
 

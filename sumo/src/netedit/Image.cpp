@@ -607,8 +607,210 @@ void Image::RarifySkeleton()
             }
 }
 
+Graph* Image::Tracking(Graph* gr,ConfigDialog* myDialog)
+{
+	FXSlider* mySlider=myDialog->getNodeSlider();
+	int value= mySlider->getValue();
 
-Graph Image::Tracking(Graph gr,ConfigDialog* myDialog)
+	//Hole die Breite und Höhe des Image
+    int blacks=0;
+	int wid = m_img->getWidth();
+    int hei = m_img->getHeight();
+
+    for(int g=0 ; g<wid ;++g)
+    {
+        m_img->setPixel(g,0,FXRGB(255,255,255));
+        m_img->setPixel(g,hei-1,FXRGB(255,255,255));
+    }
+    for(int h=0 ; h<hei ;++h)
+    {
+        m_img->setPixel(0,h,FXRGB(255,255,255));
+        m_img->setPixel(wid-1,h,FXRGB(255,255,255));
+    }
+    
+	//Durchlaufe das Bild außer dem Rand
+    for (int i=1 ; i<wid-1 ; i++)
+        for (int j=1; j<hei-1 ; j++)
+		{
+			if (m_img->getPixel(i,j)==FXRGB(0,0,0))
+			{
+				blacks=0;
+				for (int k=i-1;k<=i+1;k++)
+					for (int l=j-1;l<=j+1;l++)
+						if (m_img->getPixel(k,l)==FXRGB(0,0,0))
+							blacks++;
+			}
+			if (((blacks==4)&&(CountTransitions(i,j)==3))||((blacks==2)||(blacks==6)))
+			{
+				
+				gr->AddVertexByXY(i,j);
+				blacks=0;
+			}
+		}
+	
+	//Setze Pixel auf rot, auf denen ein Knoten erzeugt wurde
+	vector <Vertex*> myarray=gr->GetVArray();
+	Graph* helpgraph=new Graph();
+	helpgraph->SetVArray(myarray);
+	int tmpx,tmpy;
+	for (int v=0; v<myarray.size(); v++)
+	{
+		tmpx=myarray[v]->GetX();
+		tmpy=myarray[v]->GetY();
+		m_img->setPixel(tmpx,tmpy,FXRGB(255,0,0));
+	}
+	
+	//Jetzt die Kanten erzeugen
+	int arrayanz=myarray.size();
+	for (int x=0; x<arrayanz; x++)
+	{
+		tmpx=myarray[x]->GetX();
+		tmpy=myarray[x]->GetY();
+		if (m_img->getPixel(tmpx,tmpy)==FXRGB(255,0,0))
+		{
+			for (int k=tmpx-1; k<=tmpx+1; k++)
+				for (int l=tmpy-1; l<=tmpy+1; l++)
+					if (m_img->getPixel(k,l)==FXRGB(255,0,0))
+						if ((tmpx!=k)||(tmpy!=l))
+						{
+							Vertex* temp=gr->SearchVertex(k,l);
+							if (gr->SearchEdge(myarray[x],temp)==NULL)
+							{
+								gr->AddEdgeByVertex(myarray[x],temp);
+								gr->AddEdgeByVertex(temp,myarray[x]);
+							}
+						}
+			gr=edgerun(myarray[x],gr,helpgraph,value);
+		}
+	}
+	return gr;
+}
+
+Graph* Image::edgerun(Vertex* start, Graph* gr,Graph* helpgraph,int value)
+{
+	int bnx,bny;
+	Vertex* lauf;
+	Vertex* altlauf;
+	Vertex* hilfslauf;
+	Vertex* last;
+	Vertex* temp;
+	while (black_neighbour(start)!=NULL)
+	{
+		last=start;
+		int counter = value;
+		lauf=black_neighbour(start);
+		altlauf=last;		
+		while (black_neighbour(lauf,altlauf)!=NULL)
+		{
+			if (counter==0)
+			{
+	 			lauf=gr->AddVertexByXY(lauf->GetX(),lauf->GetY());
+				//lauf=gr->SearchVertex(lauf->GetX(),lauf->GetY());
+				gr->AddEdgeByVertex(last,lauf);
+				gr->AddEdgeByVertex(lauf,last);
+				last=lauf;
+				counter=value;
+			}
+			else counter--;
+			m_img->setPixel(lauf->GetX(),lauf->GetY(),FXRGB(255,255,0));
+			hilfslauf=lauf;
+			lauf=black_neighbour(lauf,altlauf);
+			altlauf=hilfslauf;
+		}
+		//Ende der Kette, dann verbinden mit Knoten
+		bnx=lauf->GetX();
+		bny=lauf->GetY();
+		m_img->setPixel(bnx,bny,FXRGB(255,255,0));
+		for (int c=bnx-1; c<=bnx+1; c++)
+			for (int d=bny-1; d<=bny+1; d++)
+				if (m_img->getPixel(c,d)==FXRGB(255,0,0))
+				{
+					temp=helpgraph->SearchVertex(c,d);
+					gr->AddEdgeByVertex(last,temp);
+					gr->AddEdgeByVertex(temp,last);
+					last=temp;
+				}
+	}
+	return gr;
+}
+
+Vertex* Image::black_neighbour(Vertex* start)
+{
+	int a=start->GetX();
+	int b=start->GetY();
+	for (int i=a-1; i<=a+1; i++)
+		for (int j=b-1; j<=b+1; j++)
+			if ((i!=a)||(j!=b))
+				if (m_img->getPixel(i,j)==FXRGB(0,0,0))
+				{
+					Vertex* neighbour= new Vertex(i,j);
+					return neighbour; 
+				}
+	return NULL;
+}
+
+Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
+{
+	int a=lauf->GetX();
+	int b=lauf->GetY();
+	int delta_x=a-altlauf->GetX();
+	int delta_y=b-altlauf->GetY();
+	
+	if ((delta_x!=0)&&(delta_y!=0))
+	{
+		if (((m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(255,0,0))||(m_img->getPixel(a+delta_x,b)==FXRGB(255,0,0)))||(m_img->getPixel(a,b+delta_y)==FXRGB(255,0,0))) return NULL;
+		if (m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(0,0,0))
+		{
+			
+			Vertex* neighbour= new Vertex(a+delta_x,b+delta_y);
+			return neighbour; 
+		}
+		if (m_img->getPixel(a+delta_x,b)==FXRGB(0,0,0))
+		{
+			Vertex* neighbour= new Vertex(a+delta_x,b);
+			return neighbour; 
+		}
+		if (m_img->getPixel(a,b+delta_y)==FXRGB(0,0,0))
+		{
+			Vertex* neighbour= new Vertex(a,b+delta_y);
+			return neighbour; 
+		}
+	}
+	else
+	{
+		if (delta_x!=0)
+		{
+			for (int j=b-1; j<=b+1; j++)
+				if (m_img->getPixel(a+delta_x,j)==FXRGB(255,0,0))
+				{
+					return NULL; 
+				}
+			for (j=b-1; j<=b+1; j++)
+				if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0))
+				{
+					Vertex* neighbour= new Vertex(a+delta_x,j);
+					return neighbour; 
+				}
+		}
+		if (delta_y!=0)
+		{
+			for (int i=a-1; i<=a+1; i++)
+				if (m_img->getPixel(i,b+delta_y)==FXRGB(255,0,0))
+				{
+					return NULL;
+				}
+			for (i=a-1; i<=a+1; i++)
+				if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0))
+				{
+					Vertex* neighbour= new Vertex(i,b+delta_y);
+					return neighbour; 
+				}
+		}
+	}
+	return NULL;
+}
+
+/*Graph Image::Tracking(Graph gr,ConfigDialog* myDialog)
 {
 	FXSlider* mySlider=myDialog->getNodeSlider();
 	int value= mySlider->getValue();
@@ -662,11 +864,9 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
     list<Point>::iterator iter;
     n_List.clear();
     
-	/*Solange der aktuelle Pixel
-	  genau einen Nachbarn hat
-	  (ohne Vorgänger), wird die
-	  Schleife ausgeführt
-    */
+	//Solange der aktuelle Pixel genau einen Nachbarn hat(ohne Vorgänger), wird die
+	//Schleife ausgeführt
+    
 	do
     {
         n_List.clear();
@@ -791,7 +991,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
 	
     return gr;
 }
-
+*/
 
 void Image::EraseStains(ConfigDialog* myDialog)
 {
