@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.18  2002/06/25 10:41:17  croessel
+// safeGap using fabs is not the answer to collisions. Removing it.
+//
 // Revision 1.17  2002/06/21 10:59:09  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
@@ -31,7 +34,8 @@ namespace
 // safeGap is now using fabs
 //
 // Revision 1.15  2002/06/20 08:00:59  dkrajzew
-// template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
+// template and .cpp inclusion inserted due to problems with MSVC++; should
+// be revalidated and removed as soon as possible
 //
 // Revision 1.14  2002/06/19 15:09:12  croessel
 // Changed *Gap methods to check for timeheadway < deltaT states.
@@ -280,9 +284,11 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
 
 MSVehicle::~MSVehicle()
 {
-    for(DestinationCont::iterator i=myPersons.begin(); i!=myPersons.end(); i++) {
-        MSNet::PersonCont *cont = (*i).second;
-        for(MSNet::PersonCont::iterator j=cont->begin(); j!=cont->end(); j++) {
+    for ( DestinationCont::iterator i = myPersons.begin();
+          i != myPersons.end(); ++i ) {
+        MSNet::PersonCont* *cont = (*i).second;
+        for ( MSNet::PersonCont::iterator j = cont->begin();
+              j != cont->end(); ++j ) {
             delete *j;
         }
         delete cont;
@@ -447,7 +453,7 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return max( fabs(gap), timeHeadWayGap( vDecel ) );
+    return max( gap, timeHeadWayGap( vDecel ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
