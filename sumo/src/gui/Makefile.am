@@ -38,7 +38,8 @@ GUIViewTraffic.cpp \
 QAboutSUMO.cpp \
 QGLObjectToolTip.cpp
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(all_includes)
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(all_includes) \
+-I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 SUBDIRS = icons
 
