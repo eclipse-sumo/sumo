@@ -215,6 +215,30 @@ struct MSDetectorDoubleMapWrapper
     void huah() { }
 };
 
+struct TimeMapCont
+    : public MSDetectorMapWrapper<MSUnit::Seconds>
+{
+    TimeMapCont()
+        : MSDetectorMapWrapper<MSUnit::Seconds>()
+        {}
+
+    TimeMapCont(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorMapWrapper<MSUnit::Seconds>( occupancyCorrection )
+        {}
+
+    virtual void enterDetectorByMove( MSVehicle* veh )
+        {
+//            assert( ! hasVehicle( veh ) );
+            MSUnit::Seconds entryTime =
+                MSUnit::getInstance()->getSeconds(
+                    MSNet::getInstance()->timestep() );
+            containerM.insert( std::make_pair( veh, entryTime ) );
+        }
+
+    void huah() { }
+};
+
 
 template< class T >
 struct MSDetectorVehicleInitMapWrapper
@@ -238,7 +262,6 @@ struct MSDetectorVehicleInitMapWrapper
     void huah() { }
 
 };
-
 
 template< class T >
 struct MSDetectorNoInitMapWrapper
@@ -268,12 +291,13 @@ namespace DetectorContainer
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
 
-    typedef MSDetectorDoubleMapWrapper< MSUnit::Seconds > TimeMap;
+//     typedef MSDetectorDoubleMapWrapper< MSUnit::Seconds > TimeMap; 
+    typedef TimeMapCont TimeMap;
 
     class EmptyType{};
 
     typedef MSDetectorNoInitMapWrapper< EmptyType > VehicleMap;
-
+    
 }
 
 #endif // MSDETECTORCONTAINERWRAPPER_H
