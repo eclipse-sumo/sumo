@@ -21,8 +21,12 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.10  2003/05/26 15:31:09  roessel
+// Removed superflous #include "MSLane.h"
+//
 // Revision 1.9  2003/05/26 15:24:15  roessel
-// Removed warnings/errors. Changed return-type of getNumberOfWaiting to double.
+// Removed warnings/errors. Changed return-type of getNumberOfWaiting to
+// double.
 //
 // Revision 1.8  2003/05/26 13:19:20  roessel
 // Completed all get* methods.
@@ -60,7 +64,6 @@
  * ======================================================================= */
 #include "MSNet.h"
 #include "MSVehicle.h"
-#include "MSLane.h"
 #include <string>
 #include <fstream>
 #include <functional>
@@ -75,6 +78,7 @@
  */
 
 class MSMoveReminder;
+class MSLane;
 
 
 class MSLaneState
@@ -88,13 +92,13 @@ public:
         during samplIntervall seconds data and writes them in style to file.
      */
     MSLaneState( std::string     id,
-                  MSLane*        lane,
-                  double         begin,
-                  double         length,
-                  MSNet::Time    sampleIntervall,
-                  OutputStyle    style,
-                  std::ofstream* file );
-
+                 MSLane*        lane,
+                 double         begin,
+                 double         length,
+                 MSNet::Time    sampleIntervall,
+                 OutputStyle    style,
+                 std::ofstream* file );
+    
     /// Destructor.
     ~MSLaneState();
 
