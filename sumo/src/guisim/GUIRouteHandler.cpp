@@ -1,0 +1,157 @@
+/***************************************************************************
+                          GUIRouteHandler.cpp
+              Parser and container for routes during their loading
+                             -------------------
+    project              : SUMO
+    begin                : Mon, 9 Jul 2001
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+        "$Id$";
+}
+// $Log$
+// Revision 1.1  2004/07/02 08:56:12  dkrajzew
+// coloring of routes and vehicle types added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <string>
+#include <map>
+#include <vector>
+#include <microsim/MSRoute.h>
+#include <microsim/MSEdge.h>
+#include <guisim/GUIVehicleType.h>
+#include <guisim/GUIRoute.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSEmitControl.h>
+#include <microsim/MSVehicleControl.h>
+#include "GUIRouteHandler.h"
+#include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/gfx/RGBColor.h>
+#include <utils/gfx/GfxConvHelper.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+GUIRouteHandler::GUIRouteHandler(const std::string &file,
+                                 bool addVehiclesDirectly)
+    : MSRouteHandler(file, addVehiclesDirectly)
+{
+}
+
+
+GUIRouteHandler::~GUIRouteHandler()
+{
+}
+
+
+void
+GUIRouteHandler::addVehicleType(const Attributes &attrs)
+{
+    RGBColor col =
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+    // !!! unsecure
+    try {
+        string id = getString(attrs, SUMO_ATTR_ID);
+        try {
+            addParsedVehicleType(id,
+                getFloat(attrs, SUMO_ATTR_LENGTH),
+                getFloat(attrs, SUMO_ATTR_MAXSPEED),
+                getFloat(attrs, SUMO_ATTR_ACCEL),
+                getFloat(attrs, SUMO_ATTR_DECEL),
+                getFloat(attrs, SUMO_ATTR_SIGMA),
+                col);
+        } catch (XMLIdAlreadyUsedException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
+        } catch (EmptyData) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error in description: missing attribute in a vehicletype-object.");
+        } catch (NumberFormatException) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error in description: one of an vehtype's attributes must be numeric but is not.");
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing id of a vehicle-object.");
+    }
+}
+
+
+void
+GUIRouteHandler::addParsedVehicleType(const string &id, const float length,
+                                      const float maxspeed, const float bmax,
+                                      const float dmax, const float sigma,
+                                      const RGBColor &c)
+{
+    GUIVehicleType *vtype =
+        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
+    if(!MSVehicleType::dictionary(id, vtype)) {
+        throw XMLIdAlreadyUsedException("VehicleType", id);
+    }
+}
+
+
+void
+GUIRouteHandler::closeRoute()
+{
+    int size = m_pActiveRoute->size();
+    if(size==0) {
+        throw XMLListEmptyException();
+    }
+    GUIRoute *route =
+        new GUIRoute(myColor, m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
+    m_pActiveRoute->clear();
+    if(!MSRoute::dictionary(m_ActiveId, route)) {
+        delete route;
+        throw XMLIdAlreadyUsedException("route", m_ActiveId);
+    }
+}
+
+
+void
+GUIRouteHandler::openRoute(const Attributes &attrs)
+{
+    myColor =
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+    MSRouteHandler::openRoute(attrs);
+}
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
