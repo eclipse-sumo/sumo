@@ -23,8 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/12/04 13:23:57  dkrajzew
+// made the output of warnings prettier and more visible
+//
 // Revision 1.1  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+// added a logging windows to the gui (the passing of more than a single lane
+//  to come makes it necessary)
 //
 //
 /* =========================================================================
@@ -78,7 +82,7 @@ GUIMessageWindow::appendText(GUIEvent eType, const std::string &msg)
         break;
     case EVENT_WARNING_OCCURED:
         // color: yellow
-        mmsg += "#666600";
+        mmsg += "#e69800";
         break;
     case EVENT_MESSAGE_OCCURED:
         // color: green
