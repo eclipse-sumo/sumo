@@ -97,15 +97,15 @@ public:
          
         {
             // Set MoveReminders to entries and exits
-            for ( Detector::CrossSectionsIt crossSec = entries.begin();
-                  crossSec != entries.end(); ++crossSec ) {
+            for ( Detector::CrossSectionsIt crossSec1 = entries.begin();
+                  crossSec1 != entries.end(); ++crossSec1 ) {
                 entryRemindersM.push_back(
-                    new Detector::E3EntryReminder( id, *crossSec, *this ) );
+                    new Detector::E3EntryReminder( id, *crossSec1, *this ) );
             }
-            for ( Detector::CrossSectionsIt crossSec = exits.begin();
-                  crossSec != exits.end(); ++crossSec ) {
+            for ( Detector::CrossSectionsIt crossSec2 = exits.begin();
+                  crossSec2 != exits.end(); ++crossSec2 ) {
                 leaveRemindersM.push_back(
-                    new Detector::E3LeaveReminder( id, *crossSec, *this ) );
+                    new Detector::E3LeaveReminder( id, *crossSec2, *this ) );
             }
             
             // insert object into dictionary

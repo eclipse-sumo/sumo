@@ -104,17 +104,17 @@ struct MSDetectorMapWrapper
     typedef T WrappedContainer;
     typedef WrappedContainer InnerContainer;
     typedef typename WrappedContainer::iterator ContainerIt;
+    typedef typename WrappedContainer::data_type Data;
 
     bool hasVehicle( MSVehicle* veh ) const
         {
             return containerM.find( veh ) != containerM.end();
         }
     
-    void enterDetectorByMove( MSVehicle* veh )
+    virtual void enterDetectorByMove( MSVehicle* veh )
         {
             assert( ! hasVehicle( veh ) );
-            containerM.insert( std::make_pair(
-                                   veh, typename T::data_type() ) );
+            containerM.insert( std::make_pair( veh, Data() ) );
         }
 
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )

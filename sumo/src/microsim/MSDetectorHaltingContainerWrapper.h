@@ -209,15 +209,17 @@ struct MSDetectorHaltingContainerWrapper
 };
 
 
-template< class T >
+// template< class T >
 struct MSDetectorHaltingMapWrapper
     :
-    public MSDetectorMapWrapper< T >
-    , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper< T > >
+//     public MSDetectorMapWrapper< T >
+//     , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper< T > >
+    public MSDetectorMapWrapper< std::map< MSVehicle*, DetectorContainer::E3Halting > >
+    , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper >
 {
-    typedef T WrappedContainer;
-    typedef typename WrappedContainer::iterator HaltingsIt;
-    typedef typename WrappedContainer::const_iterator HaltingsConstIt;
+    typedef std::map< MSVehicle*, DetectorContainer::E3Halting > WrappedContainer;
+    typedef WrappedContainer::iterator HaltingsIt;
+    typedef WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
 
     MSDetectorHaltingMapWrapper(
@@ -227,7 +229,7 @@ struct MSDetectorHaltingMapWrapper
         :
         MSDetectorMapWrapper< WrappedContainer >(),
         MSUpdateEachTimestep<
-            MSDetectorHaltingMapWrapper< WrappedContainer > >(),
+            MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
@@ -240,17 +242,24 @@ struct MSDetectorHaltingMapWrapper
         :
         MSDetectorMapWrapper< WrappedContainer >( occupancyCorrection),
         MSUpdateEachTimestep<
-            MSDetectorHaltingMapWrapper< WrappedContainer > >(),
+            MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
 
+    void enterDetectorByMove( MSVehicle* veh )
+        {
+            assert( ! hasVehicle( veh ) );
+            containerM.insert( std::make_pair(
+                                   veh, DetectorContainer::E3Halting( veh ) ) );
+        }
+    
     bool updateEachTimestep( void )
         {
             for ( HaltingsIt pair = containerM.begin();
-                  haltIt != containerM.end(); ++haltIt ) {
+                  pair != containerM.end(); ++pair ) {
                 MSVehicle* veh = pair->first;
-                E3Halting& halting = pair->second;
+                DetectorContainer::E3Halting& halting = pair->second;
                 halting.posM += veh->getMovedDistance();
                 if ( veh->speed() >= speedThresholdM ) {
                     halting.timeBelowSpeedThresholdM = 0;
@@ -293,8 +302,9 @@ namespace DetectorContainer
 
     typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 
-    typedef MSDetectorHaltingMapWrapper<
-        std::map< MSVehicle*, E3Halting > > HaltingsMap;
+//     typedef MSDetectorHaltingMapWrapper<
+//         std::map< MSVehicle*, E3Halting > > HaltingsMap;
+    typedef MSDetectorHaltingMapWrapper HaltingsMap;
 
     typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   
 }
