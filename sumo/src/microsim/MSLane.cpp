@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.35  2003/11/12 13:50:30  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.34  2003/10/27 10:49:21  dkrajzew
 // keeping the pointer to a deleted vehicle - bug patched
 //
@@ -991,7 +994,7 @@ MSLane::succLinkOneLane(const MSEdge* nRouteEdge,
     for ( MSLinkCont::const_iterator link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
 
-        if ( ( *link )->myLane!=0 && ( *link )->myLane->myEdge == nRouteEdge ) {
+        if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
             return link;
         }
     }
@@ -1044,7 +1047,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     for ( MSLinkCont::iterator link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
 
-        if ( ( *link )->myLane!=0 && ( *link )->myLane->myEdge == nRouteEdge ) {
+        if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
             return link;
         }
     }

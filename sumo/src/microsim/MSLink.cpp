@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/12 13:50:30  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.8  2003/09/05 15:11:43  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -69,7 +72,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
 	myState(state), myAmYellow(false), myDirection(dir),
     myIsInternalEnd(internalEnd)
 {
-    assert(internalEnd==false);
+//    assert(internalEnd==false);
 }
 
 
@@ -79,7 +82,8 @@ MSLink::~MSLink()
 
 
 void
-MSLink::setRequestInformation(MSLogicJunction::Request *request,
+MSLink::setRequestInformation(
+        MSLogicJunction::Request *request,
         size_t requestIdx, MSLogicJunction::Respond *respond,
         size_t respondIdx)
 {
@@ -154,6 +158,27 @@ void
 MSLink::setTLState(LinkState state)
 {
     myState = state;
+}
+
+
+bool
+MSLink::amYellow() const
+{
+    return myAmYellow;
+}
+
+
+MSLane *
+MSLink::getLane() const
+{
+    return myLane;
+}
+
+
+bool
+MSLink::havePriority() const
+{
+    return myPrio;
 }
 
 

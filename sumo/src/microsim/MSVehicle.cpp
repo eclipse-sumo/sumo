@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2003/11/12 13:50:30  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.39  2003/11/11 08:36:21  dkrajzew
 // removed some debug-variables
 //
@@ -1042,13 +1045,13 @@ MSVehicle::moveFirstChecked()
 
 	    // the vehicle must change the lane on one of the next lanes
 	    if(!onLinkEnd) {
-		    if((*link)->myPrio) {
+		    if((*link)->havePriority()) {
 			    vSafe = (*i).myVLinkPass;
 		    } else {
 			    if((*link)->opened()) {
 				    vSafe = (*i).myVLinkPass;
 			    } else {
-				    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
+				    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->amYellow()) {
 //	    			    v_safe = myState.mySpeed-myType->decelSpeed();
                         vSafe = /*MIN(v_safe,*/ (*i).myVLinkPass;//);
                     } else {
@@ -1063,7 +1066,7 @@ MSVehicle::moveFirstChecked()
             cont = false;
             break;
         }
-        currentLane = (*link)->myLane;
+        currentLane = (*link)->getLane();
     }
 	// compute vNext in considering dawdling
     double vNext;
@@ -1117,7 +1120,7 @@ MSVehicle::moveFirstChecked()
         if(!onLinkEnd&&approachAllowed&&approachedLane!=0&&myApproachedLane!=myTarget) {
             myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
         }*/
-		approachedLane = (*link)->myLane;
+		approachedLane = (*link)->getLane();
         approachedLane->setApproaching(myState.pos(), this);
         no++;
     }
@@ -1179,7 +1182,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    // if the vehicle drives over the end of the lane, inform the link
 
         // get the following lane
-    	nextLane = (*link)->myLane;
+    	nextLane = (*link)->getLane();
 //        MSLane *via = (*link)->myJunctionInlane; // !!! myJunctionInlane umbenennen
 
     	// compute the velocity to use when the link is not blocked by oter vehicles
@@ -1224,7 +1227,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 		    MIN(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
 
     	// valid, when a vehicle is not on a priorised lane
-	    if(!(*link)->myPrio) {
+	    if(!(*link)->havePriority()) {
 		    // if it has already decelerated to let priorised vehicles pass
     		//  and when the distance to the vehicle on the next lane allows moving
 	    	//  (the check whether other incoming vehicles may stop this one is done later)

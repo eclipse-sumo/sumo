@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/11/12 13:50:30  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.9  2003/09/05 15:11:43  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -56,10 +59,13 @@
 
 #include "MSLogicJunction.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class MSVehicle;
+class MSTrafficLightLogic;
+
 
 /* =========================================================================
  * class definitions
@@ -71,6 +77,13 @@ class MSVehicle;
 class MSLink
 {
 public:
+    /**
+     * @enum LinkState
+     * This enumerations holds the possible right-of-way rules a link
+     * may have.
+     * Beyond the righ-of-way rules, this enumeration also holds the
+     * possible traffic light states.
+     */
     enum LinkState {
         LINKSTATE_ABSTRACT_TL,
         LINKSTATE_TL_GREEN,
@@ -83,6 +96,10 @@ public:
         LINKSTATE_EQUAL
     };
 
+    /**
+     * @enum LinkDirection
+     * The different directions a link may take.
+     */
     enum LinkDirection {
         LINKDIR_STRAIGHT = 0,
         LINKDIR_TURN,
@@ -100,39 +117,43 @@ public:
     ~MSLink();
 
     /// sets the request information
-    void setRequestInformation(MSLogicJunction::Request *request,
-        size_t requestIdx, MSLogicJunction::Respond *respond,
-        size_t respondIdx/*, const std::bitset<64> &previousClear*/);
+    void setRequestInformation(
+        MSLogicJunction::Request *request, size_t requestIdx,
+        MSLogicJunction::Respond *respond, size_t respondIdx);
 
     /// sets the information about an approaching vehicle
     void setApproaching(MSVehicle *approaching);
 
-    /// Some Junctions need to switch the Priority
+    /// Some Junctions need to switch the priority
     void setPriority( bool prio, bool yellow );
 
     /** @brief Returns the information whether the link may be passed
         A valid after the junctions have set their reponds */
     bool opened() const;
 
-
+    /** @brief Removes the incoming vehicle's request
+        Necessary to mask out vehicles having yellow or red. */
     void deleteRequest();
 
+    /// returns the current state of the link
     LinkState getState() const;
 
+    /// Returns the direction the vehicle passing this link take
     LinkDirection getDirection() const;
 
+    /// Sets the current tl-state
     void setTLState(LinkState state);
 
-    /// MSLink's destination lane.
-    MSLane* myLane;
+    /// Returns whether the tl (if this link belongs to one) shows yellow
+    bool amYellow() const;
 
-    MSLane *myJunctionInlane;
+    /// Returns the connected lane
+    MSLane *getLane() const;
 
-    /// MSLinks's default right of way, true for right of way MSLinks.
-    bool myPrio;
+    bool havePriority() const;
 
-    /// the approaching vehicle
-    MSVehicle *myApproaching;
+private:
+    bool myIsInternalEnd;
 
     /// the request to set incoming request into
     MSLogicJunction::Request *myRequest;
@@ -146,21 +167,26 @@ public:
     /// the position within this respond
     size_t myRespondIdx;
 
-    /// The basic state of the link
-    LinkState myState;
+    /// An abstract (hopefully human readable) definition of the link's direction
+    LinkDirection myDirection;
 
 	/// Information whether the tl (if this link belongs to one) shows yellow
 	bool myAmYellow; // !!! deprecated
 
-    /// Am abstract (hopefully human readable) definition of the link's direction
-    LinkDirection myDirection;
+    /// The basic state of the link
+    LinkState myState;
 
+    /// the approaching vehicle
+    MSVehicle *myApproaching;
 
-private:
-    bool myIsInternalEnd;
-private:
-    /// default constructor
-    MSLink();
+    /// MSLink's destination lane.
+    MSLane* myLane;
+
+    /// The following junction-internal lane if used
+    MSLane * const myJunctionInlane;
+
+    /// MSLinks's default right of way, true for right of way MSLinks.
+    bool myPrio;
 
 };
 
