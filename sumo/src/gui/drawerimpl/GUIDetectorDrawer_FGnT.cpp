@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 08:12:12  dkrajzew
+// detector drawers now also draw other additional items
+//
 // Revision 1.4  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -49,7 +52,7 @@ namespace
  * ======================================================================= */
 void
 GUIDetectorDrawer_FGnT::myDrawGLDetectors(size_t *which, size_t maxDetectors,
-                                      double scale)
+                                          double scale)
 {
     for(size_t i=0; i<maxDetectors; i++ ) {
         if(which[i]==0) {
@@ -58,7 +61,7 @@ GUIDetectorDrawer_FGnT::myDrawGLDetectors(size_t *which, size_t maxDetectors,
         size_t pos = 1;
         for(size_t j=0; j<32; j++, pos<<=1) {
             if((which[i]&pos)!=0) {
-                myDetectors[j+(i<<5)]->drawGL_FG(scale, *this);
+                myAdditionals[j+(i<<5)]->drawGL_FG(scale);
             }
         }
     }

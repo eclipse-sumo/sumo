@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 08:12:12  dkrajzew
+// detector drawers now also draw other additional items
+//
 // Revision 1.2  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -29,7 +32,11 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <gui/GUISUMOAbstractView.h>
+//#include <gui/GUISUMOAbstractView.h>
+
+
+
+class GUIGlObject_AbstractAdd;
 
 
 /* =========================================================================
@@ -39,7 +46,7 @@ class GUIBaseDetectorDrawer
 {
 public:
     /// Constructor
-    GUIBaseDetectorDrawer(std::vector<GUIDetectorWrapper*> &detectors);
+    GUIBaseDetectorDrawer(const std::vector<GUIGlObject_AbstractAdd*> &additionals);
 
     /// Destructor
     virtual ~GUIBaseDetectorDrawer();
@@ -62,7 +69,7 @@ protected:
 
 protected:
     /// The list of detectors to consider at drawing
-    std::vector<GUIDetectorWrapper*> &myDetectors;
+    const std::vector<GUIGlObject_AbstractAdd*> &myAdditionals;
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/07/02 08:12:12  dkrajzew
+// detector drawers now also draw other additional items
+//
 // Revision 1.3  2004/01/26 06:39:18  dkrajzew
 // visualisation of e3-detectors added; documentation added
 //
@@ -34,6 +37,7 @@
  * ======================================================================= */
 #include "GUIBaseDetectorDrawer.h"
 
+class GUIAbstractAddGlObject;
 
 /* =========================================================================
  * class definitions
@@ -49,8 +53,8 @@ class GUIDetectorDrawer_FGnT
 {
 public:
     /// Constructor
-    GUIDetectorDrawer_FGnT(std::vector<GUIDetectorWrapper*> &detectors)
-        : GUIBaseDetectorDrawer(detectors) { }
+    GUIDetectorDrawer_FGnT(const std::vector<GUIGlObject_AbstractAdd*> &additionals)
+        : GUIBaseDetectorDrawer(additionals) { }
 
     /// Destructor
     ~GUIDetectorDrawer_FGnT() { }

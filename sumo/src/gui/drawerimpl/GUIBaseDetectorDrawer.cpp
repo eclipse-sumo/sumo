@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 08:12:11  dkrajzew
+// detector drawers now also draw other additional items
+//
 // Revision 1.3  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -50,8 +53,8 @@ namespace
  * method definitions
  * ======================================================================= */
 GUIBaseDetectorDrawer::GUIBaseDetectorDrawer(
-        std::vector<GUIDetectorWrapper*> &detectors)
-    : myDetectors(detectors)
+        const std::vector<GUIGlObject_AbstractAdd*> &additionals)
+    : myAdditionals(additionals)
 {
 }
 
