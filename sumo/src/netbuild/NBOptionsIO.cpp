@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/09/05 14:40:42  dkrajzew
+// options for network building are now commoly set within NBNetBuilder
+//
 // Revision 1.19  2003/08/18 12:49:59  dkrajzew
 // possibility to print node positions added
 //
@@ -148,6 +151,7 @@ namespace
 #include "NBOptionsIO.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include "NBNetBuilder.h"
 
 
 /* =========================================================================
@@ -199,37 +203,14 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.addSynonyme("type-file", "types");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
-    // register building defaults
-    oc.doRegister("type", 'T', new Option_String("Unknown"));
-    oc.doRegister("lanenumber", 'L', new Option_Integer(1));
-    oc.doRegister("speed", 'S', new Option_Float((float) 13.9));
-    oc.doRegister("priority", 'P', new Option_Integer(1));
     // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
-    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
     // register further vissim-options
 	oc.doRegister("vissim-offset", new Option_Float(5.0));
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    // extended
-    oc.doRegister("print-node-positions", new Option_Bool(false));
     // register the data processing options
-    oc.doRegister("recompute-junction-logics", new Option_Bool(false));
-    oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
-    oc.doRegister("flip-y", new Option_Bool(false));
-    oc.doRegister("all-logics", new Option_Bool(false));
     oc.doRegister("speed-in-km", new Option_Bool(false));
-    oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
-    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
-    oc.doRegister("traffic-light-green", new Option_Integer());
-    oc.doRegister("traffic-light-yellow", new Option_Integer());
-    oc.doRegister("x-offset-to-apply", new Option_Float(0));
-    oc.doRegister("y-offset-to-apply", new Option_Float(0));
-    oc.doRegister("rotation-to-apply", new Option_Float(0));
+    // add netbuilding options
+    NBNetBuilder::insertNetBuildOptions(oc);
 }
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/09/05 14:40:42  dkrajzew
+// options for network building are now commoly set within NBNetBuilder
+//
 // Revision 1.7  2003/08/21 13:00:57  dkrajzew
 // random networks debugging
 //
@@ -191,23 +194,9 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("grid-number", "number");
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
-    oc.doRegister("traffic-light-green", new Option_Integer());
-//    oc.doRegister("traffic-light-red", new Option_Integer());
-    oc.doRegister("traffic-light-yellow", new Option_Integer());
-    oc.doRegister("min-decel", new Option_Float(3.0));
-    oc.doRegister("all-logics", new Option_Bool(false));
     oc.addSynonyme("default-junction-type", "junctions");
-    oc.doRegister("x-offset-to-apply", new Option_Float(0));
-    oc.doRegister("y-offset-to-apply", new Option_Float(0));
-    oc.doRegister("rotation-to-apply", new Option_Float(0));
-    oc.doRegister("print-node-positions", new Option_Bool(false));
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
+    // add netbuilding options
+    NBNetBuilder::insertNetBuildOptions(oc);
 }
 
 
