@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2002/10/18 11:51:03  dkrajzew
+// breakRequest or driveRequest may be set, althoug no first vehicle exists due to regarding a longer break gap...; assertion in moveFirst replaced by a check with a normal exit
+//
 // Revision 1.4  2002/10/17 13:35:23  dkrajzew
 // insecure usage of potentially null-link-lanes patched
 //
@@ -748,7 +751,10 @@ MSLane::request() const
 void
 MSLane::moveFirst( bool respond )
 {
-    assert( myFirst );
+    if(myFirst==0) {
+        return;
+    }
+//    assert( myFirst );
     assert( myFirst->pos()<myLength);
     double bla = myFirst->speed();
     // update position and speed
@@ -1584,12 +1590,12 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
         meanFlow    = 0;
     }
     
-    os << "<lane id=\""      << obj.myObj.myID
+    os << "      <lane id=\""      << obj.myObj.myID
        << "\" traveltime=\"" << travelTime
        << "\" speed=\""      << meanSpeed 
        << "\" density=\""    << meanDensity
        << "\" flow=\""       << meanFlow
-       << "\">\n";
+       << "\"/>" << endl;
   
     const_cast< MSLane& >( lane ).resetMeanData( obj.myIndex );
         
