@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.14  2002/06/19 15:09:12  croessel
+// Changed *Gap methods to check for timeheadway < deltaT states.
+//
 // Revision 1.13  2002/06/11 19:38:22  croessel
 // Bugfix: in safeGap(), vDecel should be max(...), not
 // min(...). Otherwise gap is always < 0 and LaneChanger will almost
@@ -391,12 +394,13 @@ MSVehicle::brakeGap( const MSLane* lane ) const
     double vAccel = myState.mySpeed + myType->accel();
     double vNext = min( vAccel, min( myType->maxSpeed(), lane->maxSpeed() ) );
     double gap = vNext * ( myState.mySpeed / ( 2 * myType->decel() ) + myTau );
-    
+
     // If we are very slow, the distance driven with an accelerated speed
     // might be longer.
     double accelDist = ( myState.mySpeed + myType->accel() ) * MSNet::deltaT();
     
-    return max( gap, accelDist );
+    // Don't allow timeHeadWay < deltaT situations.   
+    return max( max( gap, timeHeadWayGap( vNext ) ), accelDist );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -414,9 +418,9 @@ MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
     double vNext = min( vAccel, min( myType->maxSpeed(), lane->maxSpeed() ) );
     double gap = ( vNext - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
-                
-    // safeGap my be negative ( no interaction between vehicles )
-    return max( static_cast<double>( 0 ), gap );            
+
+    // Don't allow timeHeadWay < deltaT situations.
+    return max( gap, timeHeadWayGap( vNext ) );            
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -434,8 +438,8 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
     double gap = ( vDecel - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
 
-    // safeGap my be negative ( no interaction between vehicles )
-    return max( static_cast<double>( 0 ), gap );
+    // Don't allow timeHeadWay < deltaT situations.
+    return max( gap, timeHeadWayGap( vDecel ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
