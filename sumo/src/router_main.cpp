@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.3  2002/10/21 10:01:03  dkrajzew
+// routedefs renamed to tripdefs in options
+//
 // Revision 1.2  2002/10/18 11:35:53  dkrajzew
 // postinitialisation of edges for computation of lane-independent value added
 //
@@ -107,10 +110,11 @@ getSettings(int argc, char **argv)
     oc->doRegister("net-files", 'n', new Option_FileName());
     oc->doRegister("weights", 'w', new Option_FileName());
     oc->doRegister("sumo-input", 's', new Option_FileName());
-    oc->doRegister("route-defs", 'r', new Option_FileName());
+    oc->doRegister("trip-defs", 't', new Option_FileName());
     oc->doRegister("alternatives", 'a', new Option_FileName());
     oc->doRegister("configuration-file", 'c', new Option_FileName("sumo-router.cfg"));
     oc->addSynonyme("net-files", "net");
+    oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     // register the simulation settings
     oc->doRegister("begin", 'b', new Option_Long(LONG_MIN));

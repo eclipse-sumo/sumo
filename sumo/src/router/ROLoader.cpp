@@ -70,8 +70,8 @@ ROLoader::openRoutes(RONet &net)
         openTypedRoutes(new ROSumoRoutesHandler(net), "s");
     }
     // load the XML-route definitions when wished
-    if(_options->isSet("r")) {
-        openTypedRoutes(new RORouteDefHandler(net), "r");
+    if(_options->isSet("t")) {
+        openTypedRoutes(new RORouteDefHandler(net), "t");
     }
     // load the cell-routes when wished
     if(_options->isSet("cell-input")) {
