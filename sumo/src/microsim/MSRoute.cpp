@@ -23,32 +23,51 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:26:23  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.3  2003/03/03 14:56:23  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <cassert>
+#include <algorithm>
 #include "MSRoute.h"
 
+#ifdef ABS_DEBUG
+#include "MSNet.h"
+#include "MSEdge.h"
+#endif
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member variables
+ * ======================================================================= */
 MSRoute::RouteDict MSRoute::myDict;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSRoute::MSRoute(const std::string &id,
-				 const MSEdgeVector &edges,
+                 const MSEdgeVector &edges,
                  bool multipleReferenced)
-	: Named(id), _edges(edges),
+    : Named(id), _edges(edges),
     _multipleReferenced(multipleReferenced)
 {
 }
@@ -61,19 +80,19 @@ MSRoute::~MSRoute()
 MSRouteIterator
 MSRoute::begin() const
 {
-	return _edges.begin();
+    return _edges.begin();
 }
 
 MSRouteIterator
 MSRoute::end() const
 {
-	return _edges.end();
+    return _edges.end();
 }
 
 size_t
 MSRoute::size() const
 {
-	return _edges.size();
+    return _edges.size();
 }
 
 
@@ -81,7 +100,7 @@ MSEdge *
 MSRoute::getLastEdge() const
 {
     assert(_edges.size()>0);
-	return _edges[_edges.size()-1];
+    return _edges[_edges.size()-1];
 }
 
 bool
@@ -136,10 +155,32 @@ MSRoute::inFurtherUse() const
 }
 
 
+bool
+MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
+{
+    // do not replace if the vehicle is already out of the route
+    MSEdgeVector::const_iterator i =
+        std::find(edges.begin(), edges.end(), *currentEdge);
+    if(i==edges.end()) {
+        return false;
+    }
+    MSEdgeVector n;
+    copy(_edges.begin(), std::find(_edges.begin(), _edges.end(), *currentEdge),
+        back_inserter(n));
+    copy(i, edges.end(), back_inserter(n));
+    _edges = n;
+    return true;
+}
+
+
+MSRouteIterator
+MSRoute::find(MSEdge *e) const
+{
+    return std::find(_edges.begin(), _edges.end(), e);
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSRoute.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2004/07/02 09:26:24  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.7  2003/10/17 06:52:01  dkrajzew
 // acceleration is now time-dependent
 //
@@ -116,7 +119,7 @@ class MSVehicleType
 {
 public:
 
-	// !!!
+    // !!!
     friend class MSVehicle;
 
     /// Constructor.
@@ -124,7 +127,7 @@ public:
                    double accel = 0.8, double decel = 4.5, double dawdle = 0.5 );
 
     /// Destructor.
-    ~MSVehicleType();
+    virtual ~MSVehicleType();
 
     /// Get vehicle type's length [m].
     double length() const;
@@ -177,7 +180,7 @@ public:
     /** Clears the dictionary */
     static void clear();
 
-	/// returns the name of the vehicle type
+    /// returns the name of the vehicle type
     const std::string &id() const;
 
 private:

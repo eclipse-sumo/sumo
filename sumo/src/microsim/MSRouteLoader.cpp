@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSRouteLoader.cpp
-			  A class that performs the loading of routes
+              A class that performs the loading of routes
                              -------------------
     project              : SUMO
     begin                : Wed, 6 Nov 2002
@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/07/02 09:26:24  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.4  2004/02/05 16:38:50  dkrajzew
 // the parser is now build using XMLHelpers
 //
@@ -54,30 +57,31 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSRouteLoader::MSRouteLoader(const std::string &file,
-                             MSNet &net)
-    : MSRouteHandler(file, false),
-    myParser(0), _moreAvailable(true)
+MSRouteLoader::MSRouteLoader(MSNet &net,
+                             MSRouteHandler *handler)
+    : //MSRouteHandler(file, false),
+    myParser(0), _moreAvailable(true), myHandler(handler)
 {
-    myParser = XMLHelpers::getSAXReader(*this);
+    myParser = XMLHelpers::getSAXReader(*myHandler);
 }
 
 
 MSRouteLoader::~MSRouteLoader()
 {
     delete myParser;
+    delete myHandler;
 }
 
 
 void
 MSRouteLoader::init()
 {
-    myLastDepart = 0;
+    myHandler->init();
     _moreAvailable = true;
-    myLastReadVehicle = 0;
-    if(!myParser->parseFirst(_file.c_str(), myToken)) {
+    if(!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
         MsgHandler::getErrorInstance()->inform(
-            string("Can not read XML-file '") + _file + string("'."));
+            string("Can not read XML-file '")
+            + myHandler->getFileName() + string("'."));
         throw ProcessError();
     }
 }
@@ -89,27 +93,27 @@ MSRouteLoader::loadUntil(MSNet::Time time, MSVehicleContainer &into)
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
-    if(!_moreAvailable || time < myLastDepart || errorOccured()) {
+    if(!_moreAvailable || time < myHandler->getLastDepart()|| myHandler->errorOccured()) {
         return;
     }
 
     // if a vehicle was read before the call but was not yet added,
     //  add it now
-    if(myLastReadVehicle!=0) {
-        into.add(myLastReadVehicle);
-        myLastReadVehicle = 0;
+    MSVehicle *v = myHandler->retrieveLastReadVehicle();
+    if(v!=0) {
+        into.add(v);
     }
     // read vehicles until specified time or the period to read vehicles
     //  until is reached
     while(myParser->parseNext(myToken)) {
         // return when the last read vehicle is beyond the period
-        if(myLastDepart>=time) {
+        if(myHandler->getLastDepart()>=time) {
             return;
         }
         // otherwise add the last vehicle read (if any)
-        if(myLastReadVehicle!=0) {
-            into.add(myLastReadVehicle);
-            myLastReadVehicle = 0;
+        v = myHandler->retrieveLastReadVehicle();
+        if(v!=0) {
+            into.add(v);
         }
     }
 
@@ -122,15 +126,11 @@ MSRouteLoader::loadUntil(MSNet::Time time, MSVehicleContainer &into)
 bool
 MSRouteLoader::moreAvailable() const
 {
-    return _moreAvailable && !errorOccured();
+    return _moreAvailable && !myHandler->errorOccured();
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSRouteLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -2,7 +2,7 @@
 #define MSRouteLoader_h
 /***************************************************************************
                           MSRouteLoader.h
-			  A class that performs the loading of routes
+              A class that performs the loading of routes
                              -------------------
     project              : SUMO
     begin                : Wed, 6 Nov 2002
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/07/02 09:26:24  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.4  2004/01/26 07:47:55  dkrajzew
 // just some small stlye changes
 //
@@ -49,11 +52,12 @@
 /**
  * @class MSRouteLoader
  */
-class MSRouteLoader : public MSRouteHandler
+class MSRouteLoader// : public MSRouteHandler
 {
 public:
     /// constructor
-    MSRouteLoader(const std::string &file, MSNet &net);
+    MSRouteLoader(MSNet &net,
+        MSRouteHandler *handler);
 
     /// destructor
     ~MSRouteLoader();
@@ -76,6 +80,8 @@ private:
 
     /// information whether more vehicles should be available
     bool _moreAvailable;
+
+    MSRouteHandler *myHandler;
 
 };
 

@@ -2,7 +2,7 @@
 #define MSRouteHandler_h
 /***************************************************************************
                           MSRouteHandler.h
-			  Parser and container for routes during their loading
+              Parser and container for routes during their loading
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/07/02 09:26:24  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.5  2003/11/20 13:28:38  dkrajzew
 // loading and using of a predefined vehicle color added
 //
@@ -34,7 +37,6 @@
 //
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -72,6 +74,8 @@ public:
     /// standard destructor
     virtual ~MSRouteHandler();
 
+    void init();
+
     /// opens a route for the addition of edges
     void openRoute(const std::string &id, bool multiReferenced);
 
@@ -83,7 +87,11 @@ public:
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    void closeRoute();
+    virtual void closeRoute();
+
+    MSNet::Time getLastDepart() const;
+
+    MSVehicle *retrieveLastReadVehicle();
 
 protected:
     /** implementation of the GenericSAXHandler-myStartElement - interface */
@@ -99,12 +107,12 @@ protected:
 
 
     /** parses an occured vehicle type definition */
-    void addVehicleType(const Attributes &attrs);
+    virtual void addVehicleType(const Attributes &attrs);
 
     /** adds the parsed vehicle type */
-    void addParsedVehicleType(const std::string &id, const float length,
-        const float maxspeed, const float bmax,
-        const float dmax, const float sigma, RGBColor &c);
+    virtual void addParsedVehicleType(const std::string &id,
+        const float length, const float maxspeed, const float bmax,
+        const float dmax, const float sigma);
 
 
     /** parses an occured vehicle definition */
@@ -117,7 +125,7 @@ protected:
 
 
     /** opens a route for reading */
-    void openRoute(const Attributes &attrs);
+    virtual void openRoute(const Attributes &attrs);
 
     /** reads the route elements */
     void addRouteElements(const std::string &name,
@@ -130,7 +138,6 @@ protected:
     /// the last vehicle read
     MSVehicle *myLastReadVehicle;
 
-private:
     /// the current route
     MSEdgeVector    *m_pActiveRoute;
 
@@ -144,6 +151,7 @@ private:
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;
+
 
 private:
     /** invalid copy constructor */

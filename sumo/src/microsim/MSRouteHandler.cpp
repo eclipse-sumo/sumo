@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSRouteHandler.cpp
-			  Parser and container for routes during their loading
+              Parser and container for routes during their loading
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/07/02 09:26:24  dkrajzew
+// classes prepared to be derived
+//
 // Revision 1.11  2004/02/02 16:17:30  dkrajzew
 // missing return on broken routes added
 //
@@ -97,14 +100,38 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myLastDepart(0), myLastReadVehicle(0), m_pActiveRoute(0),
     myAddVehiclesDirectly(addVehiclesDirectly)
 {
-	m_pActiveRoute = new MSEdgeVector(); // !!! why a pointer
-	m_pActiveRoute->reserve(100);
+    m_pActiveRoute = new MSEdgeVector(); // !!! why a pointer
+    m_pActiveRoute->reserve(100);
 }
 
 
 MSRouteHandler::~MSRouteHandler()
 {
-	delete m_pActiveRoute;
+    delete m_pActiveRoute;
+}
+
+
+void
+MSRouteHandler::init()
+{
+    myLastDepart = 0;
+    myLastReadVehicle = 0;
+}
+
+
+MSNet::Time
+MSRouteHandler::getLastDepart() const
+{
+    return myLastDepart;
+}
+
+
+MSVehicle *
+MSRouteHandler::retrieveLastReadVehicle()
+{
+    MSVehicle *v = myLastReadVehicle;
+    myLastReadVehicle = 0;
+    return v;
 }
 
 
@@ -131,9 +158,6 @@ MSRouteHandler::myStartElement(int element, const std::string &,
 void
 MSRouteHandler::addVehicleType(const Attributes &attrs)
 {
-    RGBColor col =
-        GfxConvHelper::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,1"));
     // !!! unsecure
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
@@ -143,8 +167,7 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
                 getFloat(attrs, SUMO_ATTR_ACCEL),
                 getFloat(attrs, SUMO_ATTR_DECEL),
-                getFloat(attrs, SUMO_ATTR_SIGMA),
-                col);
+                getFloat(attrs, SUMO_ATTR_SIGMA));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -164,8 +187,7 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
 void
 MSRouteHandler::addParsedVehicleType(const string &id, const float length,
                                     const float maxspeed, const float bmax,
-                                    const float dmax, const float sigma,
-                                    RGBColor &c)
+                                    const float dmax, const float sigma)
 {
     MSVehicleType *vtype =
         new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
@@ -197,7 +219,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
         multiReferenced = getBool(attrs, SUMO_ATTR_MULTIR);
     } catch (...) {
     }
-	m_ActiveId = id;
+    m_ActiveId = id;
     m_IsMultiReferenced = multiReferenced;
 }
 
@@ -207,7 +229,7 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
 {
     RGBColor col =
         GfxConvHelper::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,1"));
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     // try to get the id first
     string id;
@@ -339,25 +361,24 @@ MSRouteHandler::myEndElement(int element, const std::string &)
     }
 }
 
+
 void
 MSRouteHandler::closeRoute()
 {
     int size = m_pActiveRoute->size();
     if(size==0) {
-		throw XMLListEmptyException();
+        throw XMLListEmptyException();
     }
-	MSRoute *route = new MSRoute(m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
+    MSRoute *route = new MSRoute(m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
     m_pActiveRoute->clear();
     if(!MSRoute::dictionary(m_ActiveId, route)) {
-	    delete route;
+        delete route;
         throw XMLIdAlreadyUsedException("route", m_ActiveId);
     }
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSRouteHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
