@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/12/04 13:31:28  dkrajzew
+// detector name changes applied
+//
 // Revision 1.5  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -31,7 +34,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MS_E2_ZS_Collector.h>
+#include <microsim/MSE2Collector.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
@@ -59,7 +62,7 @@ class GUI_E2_ZS_CollectorOverLanes;
  * overridden to signalise that this detector is not used for simulation-
  * -internal reasons, but is placed over the simulation by the user.
  */
-class GUI_E2_ZS_Collector : public MS_E2_ZS_Collector
+class GUI_E2_ZS_Collector : public MSE2Collector
 {
 public:
     /// Constructor
@@ -143,7 +146,7 @@ public:
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-            const std::string &name, MS_E2_ZS_Collector::DetType type);
+            const std::string &name, E2::DetType type);
 
     private:
         void myConstruct(GUI_E2_ZS_Collector &detector,
@@ -183,7 +186,7 @@ public:
         public:
             /// Constructor
             MyValueRetriever(GUI_E2_ZS_Collector &det,
-                MS_E2_ZS_Collector::DetType type, size_t nSec)
+                E2::DetType type, size_t nSec)
                 : myDetector(det), myType(type), myNSec(nSec) { }
 
             /// Destructor
@@ -205,7 +208,7 @@ public:
             GUI_E2_ZS_Collector &myDetector;
 
             /// The type of the value to retrieve
-            MS_E2_ZS_Collector::DetType myType;
+            E2::DetType myType;
 
             /// The aggregation interval
             size_t myNSec;

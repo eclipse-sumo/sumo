@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/12/04 13:31:28  dkrajzew
+// detector name changes applied
+//
 // Revision 1.2  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -112,7 +115,7 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
 }
 */
 
-MS_E2_ZS_Collector *
+MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             double start, double end)
 {
@@ -171,27 +174,27 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIApplicationWindow
         new GUIParameterTableWindow(app, *this);
     // add items
     myMkExistingItem(*ret, "density [?]",
-        MS_E2_ZS_Collector::DENSITY);
+        E2::DENSITY);
     myMkExistingItem(*ret, "jam lengths [veh]",
-        MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES);
+        E2::MAX_JAM_LENGTH_IN_VEHICLES);
     myMkExistingItem(*ret, "jam length [m]",
-        MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS);
+        E2::MAX_JAM_LENGTH_IN_METERS);
     myMkExistingItem(*ret, "jam len sum [veh]",
-        MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES);
+        E2::JAM_LENGTH_SUM_IN_VEHICLES);
     myMkExistingItem(*ret, "jam len sum [m]",
-        MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS);
+        E2::JAM_LENGTH_SUM_IN_METERS);
     myMkExistingItem(*ret, "queue length [veh]",
-        MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
+        E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
     myMkExistingItem(*ret, "queue length [m]",
-        MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
+        E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
     myMkExistingItem(*ret, "vehicles [veh]",
-        MS_E2_ZS_Collector::N_VEHICLES);
+        E2::N_VEHICLES);
     myMkExistingItem(*ret, "occupancy degree [?]",
-        MS_E2_ZS_Collector::OCCUPANCY_DEGREE);
+        E2::OCCUPANCY_DEGREE);
     myMkExistingItem(*ret, "space mean speed [?]",
-        MS_E2_ZS_Collector::SPACE_MEAN_SPEED);
+        E2::SPACE_MEAN_SPEED);
     myMkExistingItem(*ret, "halting duration [?]",
-        MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
+        E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
     //
     ret->mkItem("length [m]", false,
         myDetector.getLength());
@@ -208,7 +211,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIApplicationWindow
 void
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
                                                  const std::string &name,
-                    MS_E2_ZS_Collector::DetType type)
+                                                 E2::DetType type)
 {
     if(!myDetector.hasDetector(type)) {
         return;

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/12/04 13:31:28  dkrajzew
+// detector name changes applied
+//
 // Revision 1.2  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -96,7 +99,7 @@ public:
     }
 
 protected:
-    MS_E2_ZS_Collector *buildCollector(size_t c, size_t r,
+    MSE2Collector *buildCollector(size_t c, size_t r,
         MSLane *l, double start, double end);
 
 
@@ -146,7 +149,7 @@ public:
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-            const std::string &name, MS_E2_ZS_Collector::DetType type);
+            const std::string &name, E2::DetType type);
 
     private:
         /// The wrapped detector
@@ -166,7 +169,7 @@ public:
         public:
             /// Constructor
             MyValueRetriever(GUI_E2_ZS_CollectorOverLanes &det,
-                MS_E2_ZS_Collector::DetType type, size_t nSec)
+                E2::DetType type, size_t nSec)
                 : myDetector(det), myType(type), myNSec(nSec) { }
 
             /// Destructor
@@ -188,7 +191,7 @@ public:
             GUI_E2_ZS_CollectorOverLanes &myDetector;
 
             /// The type of the value to retrieve
-            MS_E2_ZS_Collector::DetType myType;
+            E2::DetType myType;
 
             /// The aggregation interval
             size_t myNSec;
