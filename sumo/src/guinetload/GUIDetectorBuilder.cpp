@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/08/14 13:45:46  dkrajzew
+// new detector usage applied
+//
 // Revision 1.2  2003/08/04 11:35:51  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -96,8 +99,8 @@ GUIDetectorBuilder::buildInductLoop(const std::string &id,
     }
     MSInductLoop *loop = new GUIInductLoop(id, clane, pos);
     // add the file output
-    MSDetector2File<MSInductLoop>* det2file =
-        MSDetector2File<MSInductLoop>::getInstance();
+    MSDetector2File* det2file =
+        MSDetector2File::getInstance();
     det2file->addDetectorAndInterval(loop, filename, splInterval);
 }
 /*
