@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/19 15:20:51  dkrajzew
+// the parsing of positions is now less conservative
+//
 // Revision 1.4  2003/06/18 11:34:25  dkrajzew
 // the arcview-import should be more stable nw when dealing with false tables
 //
@@ -156,7 +159,7 @@ NIArcView_ShapeReader::parsePoint(const std::string &line)
     // get the point description only
     string pd = StringUtils::prune(line.substr(idx1+1, idx2-idx1-2));
     // split at ", "
-    StringTokenizer st(pd, ", ");
+    StringTokenizer st(pd, ",");
     if(st.size()<2) {
         addError("Too few information in a position description");
         return Position2D();
@@ -164,8 +167,8 @@ NIArcView_ShapeReader::parsePoint(const std::string &line)
     // extract points
     try {
         return Position2D(
-            TplConvert<char>::_2float(st.get(0).c_str()),
-            TplConvert<char>::_2float(st.get(1).c_str()));
+            TplConvert<char>::_2float(StringUtils::prune(st.get(0)).c_str()),
+            TplConvert<char>::_2float(StringUtils::prune(st.get(1)).c_str()));
     } catch (NumberFormatException) {
         addError("Not numerical position entry.");
     } catch (EmptyData) {
