@@ -324,6 +324,12 @@ public:
         double occupancyM;      /**< Occupancy of the detector in [s]. */
     };
 
+    /** 
+     * Get the data-clean up interval in timesteps.
+     * 
+     */
+    MSNet::Time getDataCleanUpSteps( void ) const;
+
 protected:
     /**
      * @name Methods called by Reminder methods.
@@ -408,7 +414,7 @@ protected:
 
     const double posM;          /**< Detector's position on lane. */
 
-    MSNet::Time deleteDataAfterSecondsM; /**< Deletion interval. */
+    MSNet::Time deleteDataAfterStepsM; /**< Deletion interval. */
 
     double lastLeaveTimestepM;  /**< Leave-timestep of the last
                                  * vehicle detected. */

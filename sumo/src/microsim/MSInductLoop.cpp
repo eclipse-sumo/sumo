@@ -61,7 +61,7 @@ MSInductLoop::MSInductLoop( const string& id,
                             MSNet::Time deleteDataAfterSeconds ) 
     : MSMoveReminder( lane, id ),
       posM( position ),
-      deleteDataAfterSecondsM( deleteDataAfterSeconds ),
+      deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
       lastLeaveTimestepM( 0 ),
       vehiclesOnDetM(),
       vehicleDataContM()
@@ -81,7 +81,7 @@ MSInductLoop::MSInductLoop( const string& id,
         this, &MSInductLoop::deleteOldData );
     MSEventControl::getEndOfTimestepEvents()->addEvent(
         deleteOldData,
-        deleteDataAfterSecondsM,
+        deleteDataAfterStepsM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
 }
 
@@ -305,6 +305,12 @@ MSInductLoop::buildDetectorWrapper(GUIGlObjectStorage &,
     throw "Only within the gui-version";
 }
 
+MSNet::Time
+MSInductLoop::getDataCleanUpSteps( void ) const
+{
+    return deleteDataAfterStepsM;
+}
+
 
 void
 MSInductLoop::enterDetectorByMove( MSVehicle& veh,
@@ -340,19 +346,18 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 MSNet::Time
 MSInductLoop::deleteOldData( void ) 
 {
-    double deleteBeforeTime =
-        MSNet::getInstance()->timestep() * MSNet::deltaT() -
-        deleteDataAfterSecondsM;
-    if ( deleteBeforeTime > 0 ) {
+    double deleteBeforeTimestep =
+        MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
+    if ( deleteBeforeTimestep > 0 ) {
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
             lower_bound( vehicleDataContM.begin(),
                          vehicleDataContM.end(),
-                         deleteBeforeTime,
+                         deleteBeforeTimestep,
                          leaveTimeLesser() ) );
     }
     return static_cast< MSNet::Time >
-        ( deleteDataAfterSecondsM * MSNet::deltaT() );
+        ( deleteDataAfterStepsM );
 }   
 
 
