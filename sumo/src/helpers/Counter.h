@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:53:12  dkrajzew
+// global inclusion
+//
 // Revision 1.1  2002/10/16 14:44:45  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -49,12 +52,12 @@
 
 /**
    Source:
-   This is a slightly-modified version of an article that appeared in the 
-   April 1998 issue of the C/C++ Users Journal. 
- 
+   This is a slightly-modified version of an article that appeared in the
+   April 1998 issue of the C/C++ Users Journal.
+
    Counting Objects in C++ by Scott Meyers.
 
-   Usage: Derive the CLASS that shall be counted privately from Counter (e.g. 
+   Usage: Derive the CLASS that shall be counted privately from Counter (e.g.
    class CLASS : public Counter< CLASS > { ... } and make the howMany()-method
    available by "using Counter< CLASS >::howMany;".
 */
@@ -63,14 +66,14 @@ class Counter
 {
 public:
     Counter();
-	  
+
     Counter( const Counter& );
 
     ~Counter();
-	  
+
     static size_t howMany();
 
-private:                                 
+private:
     static size_t count;
 };
 

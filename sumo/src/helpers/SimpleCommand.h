@@ -1,6 +1,6 @@
 /***************************************************************************
-                          SimpleCommand.h  -  Command-pattern-class for 
-                          simple commands, that need no parameters and no 
+                          SimpleCommand.h  -  Command-pattern-class for
+                          simple commands, that need no parameters and no
                           undo.
                              -------------------
     begin                : Thu, 20 Dec 2001
@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:53:12  dkrajzew
+// global inclusion
+//
 // Revision 1.1  2002/10/16 14:44:45  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -69,15 +72,15 @@
 
 /**
    See Design-Patterns, Gamma et al.
-   
-   Usage: 
+
+   Usage:
    Create a Command-object, that executes the method "action()" of class T:
    T* receiver = new T;
    ...
    Command* aCommand = new SimpleCommand< T >( receiver, &T::action );
    ...
-   aCommand->execute();  
-   
+   aCommand->execute();
+
  */
 template< class T  >
 class SimpleCommand : public Command
@@ -87,12 +90,12 @@ public:
     typedef MSNet::Time ( T::* Operation )();
 
     SimpleCommand( T* receiver, Operation op );
-     
+
 
     ~SimpleCommand();
 
     /** Execute the command and return an offset for recurring commands
-        or 0 for single-execution commands. */    
+        or 0 for single-execution commands. */
     MSNet::Time execute();
 
 protected:
@@ -100,7 +103,7 @@ protected:
 private:
 
     T* myReceiver;
-    Operation myOperation;    
+    Operation myOperation;
 };
 
 

@@ -1,6 +1,6 @@
 /***************************************************************************
-                          SimpleCommand.cpp  -  Command-pattern-class for 
-                          simple commands, that need no parameters and no 
+                          SimpleCommand.cpp  -  Command-pattern-class for
+                          simple commands, that need no parameters and no
                           undo.
                              -------------------
     begin                : Tue, 28 Jun 2002
@@ -39,6 +39,9 @@ namespace
 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:53:12  dkrajzew
+// global inclusion
+//
 // Revision 1.1  2002/10/16 14:44:45  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

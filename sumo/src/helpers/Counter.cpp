@@ -31,7 +31,7 @@
 
 #include "Counter.h"
 
-template< typename T > 
+template< typename T >
 size_t Counter< T >::count = 0;
 
 
@@ -42,8 +42,8 @@ size_t Counter< T >::count = 0;
 
 
 // $Log$
-// Revision 1.1  2002/10/16 14:44:45  dkrajzew
-// ROOT/sumo moved to ROOT/src
+// Revision 1.2  2002/10/16 16:53:12  dkrajzew
+// global inclusion
 //
 // Revision 1.4  2002/06/19 15:35:45  croessel
 // Minor changes to please MSVC++ shortcomings.

@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:53:12  dkrajzew
+// global inclusion
+//
 // Revision 1.1  2002/10/16 14:44:45  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -49,7 +52,7 @@
 #ifndef Command_H
 #define Command_H
 
-#include "../microsim/MSNet.h"
+#include <microsim/MSNet.h>
 
 /**
    See Design-Patterns, Gamma et al.
@@ -59,13 +62,13 @@ class Command
 public:
     /// virtual destructor
     virtual ~Command( void ) {};
-    
+
     /** Execute the command and return an offset for recurring commands
         or 0 for single-execution commands. */
     virtual MSNet::Time execute() = 0;
 
 protected:
-    
+
 private:
 
 };
