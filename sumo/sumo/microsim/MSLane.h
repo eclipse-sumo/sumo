@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.5  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -136,7 +139,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "MSVehicle.h"
 #include "MSNet.h"
 
 class MSModel;
@@ -559,9 +561,9 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSLane.iC"
-//#endif
+#ifndef DISABLE_INLINE
+#include "MSLane.icc"
+#endif
 
 #endif
 

@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.11  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.10  2002/05/17 13:23:36  croessel
 // Changed novehicles to MSNet::noVehicles
 //
@@ -615,128 +618,6 @@ MSVehicle::nextStateCompete( MSLane* lane,
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool
-MSVehicle::onAllowed( const MSLane* lane ) const
-{
-     MSEdge::LaneCont::const_iterator compare = 
-        find( myAllowedLanes->begin(), myAllowedLanes->end(), lane );
-     return ( compare != myAllowedLanes->end() );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::overlap( const MSVehicle* veh1, const MSVehicle* veh2 )
-{
-    if ( veh1->myState.myPos < veh2->myState.myPos ) {
-        
-        return veh2->myState.myPos - veh2->myType->myLength < 
-               veh1->myState.myPos;
-    }
-    return veh1->myState.myPos - veh1->myType->myLength < 
-           veh2->myState.myPos;
-}
- 
-/////////////////////////////////////////////////////////////////////////////
-
-bool 
-MSVehicle::congested()
-{
-    return myState.mySpeed < 60.0 / 3.6;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSVehicle::vsafe( double speed, 
-                  double decel, 
-                  double gap2pred, 
-                  double predSpeed ) const 
-{
-    // Calculate the Stefan Krauss (SK) vsafe.
-
-    assert( speed >= 0 );
-    assert( gap2pred >= 0 );
-    assert( predSpeed >= 0 );
-    double vsafe = predSpeed + 
-        ( ( gap2pred - predSpeed * myTau ) / 
-          ( ( ( predSpeed + speed ) / ( 2 * decel ) ) + myTau ) );
-
-// This assertion has not the intended meaning because of doubleing inaccuracy.
-//    assert( vsafe <= gap2pred ); // Collision-free condition.
-// This is not the solution, because vsafe allows this vehicle to overlap at 
-// time t+1 with pred at time t.
-//    assert( vsafe <= gap2pred + 0.01 ); 
-    assert( vsafe >= 0 );
-
-    return vsafe;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSVehicle::vaccel( const MSLane* lane ) const
-{
-    // Accelerate until vehicle's max speed reached.
-    double vVehicle = min( myState.mySpeed + myType->accel() * MSNet::deltaT(),
-                          myType->myMaxSpeed );
-    
-    // But don't drive faster than max lane speed.
-    return min( vVehicle, lane->maxSpeed() ); 
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSVehicle::dawdle( double speed ) const
-{
-    // generate random number out of [0,1]
-    double random = static_cast< double >( rand() ) /
-        static_cast< double >( RAND_MAX );
-                   
-    // Dawdle. 
-    // TODO:
-    // We already have a safe speed, if we dawdle max, is it possible
-    // to reduce the speed 2*decel?
-    speed -= myType->dawdle() * myType->accel() * MSNet::deltaT() * random;
-    
-    return max( static_cast< double >( 0 ), speed );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double 
-MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
-{
-    return min( min( v1, v2 ), min ( v3, v4 ) );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double 
-MSVehicle::tau()
-{ 
-    return myTau;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSVehicle::pos() const
-{
-    return myState.myPos;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSVehicle::length() const
-{
-    return myType->length();
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 void 
 MSVehicle::addPerson( MSPerson* person, MSEdge* destinationEdge ) 
 {
@@ -880,11 +761,34 @@ operator<<( ostream& os, const MSVehicle::XMLOut& obj )
 
 /////////////////////////////////////////////////////////////////////////////
 
+double
+MSVehicle::vaccel( const MSLane* lane ) const
+{
+    // Accelerate until vehicle's max speed reached.
+    double vVehicle = min( myState.mySpeed + myType->accel() * MSNet::deltaT(),
+                          myType->myMaxSpeed );
+    
+    // But don't drive faster than max lane speed.
+    return min( vVehicle, lane->maxSpeed() ); 
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::onAllowed( const MSLane* lane ) const
+{
+     MSEdge::LaneCont::const_iterator compare = 
+        find( myAllowedLanes->begin(), myAllowedLanes->end(), lane );
+     return ( compare != myAllowedLanes->end() );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "MSVehicle.iC"
-//#endif
+#ifdef DISABLE_INLINE
+#include "MSVehicle.iC"
+#endif
 
 // Local Variables:
 // mode:C++

@@ -23,13 +23,17 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.9  2002/05/22 16:39:35  croessel
 // advan2left(): First vehicles going to use a prioritized link will not
 // be allowed to change to the left because stayState calculation assumes
 // deceleration.
 //
 // Revision 1.8  2002/05/17 12:36:37  croessel
-// advan2left/right: Check if vehicle brakes too much because of laneChangers disability to look beyond a lane. This caused many crashes.
+// advan2left/right: Check if vehicle brakes too much because of laneChangers
+// disability to look beyond a lane. This caused many crashes.
 //
 // Revision 1.7  2002/05/08 09:29:56  croessel
 // Last change, i.e. test if vrh(target)!=0, moved from change2left/right
@@ -168,36 +172,6 @@ MSLaneChanger::initChanger()
 
 //-------------------------------------------------------------------------//
 
-bool 
-MSLaneChanger::vehInChanger()
-{
-    // If there is at least one valid vehicle under the veh's in myChanger
-    // return true.
-    for ( ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce ) {
-
-        if ( veh( ce ) != 0 ) {
-
-            return true;
-        }
-    }
-    return false;
-}
-
-//-------------------------------------------------------------------------//
-
-MSVehicle* 
-MSLaneChanger::veh( ChangerIt ce )
-{
-    // If ce has a valid vehicle, return it. Otherwise return 0.
-    if ( ce->veh != ce->lane->myVehicles.end() ) {
-
-        return *( ce->veh );
-    }
-    return 0;
-}
-
-//-------------------------------------------------------------------------//
-
 void 
 MSLaneChanger::change()
 {
@@ -322,15 +296,6 @@ MSLaneChanger::findCandidate()
     assert( min != myChanger.end() );
     assert( veh( min ) != 0 );    
     return min;
-}
-
-//-------------------------------------------------------------------------//
-
-bool 
-MSLaneChanger::candiOnAllowed( ChangerIt target )
-{
-    assert( veh( myCandi ) != 0 );
-    return veh( myCandi )->onAllowed( target->lane );
 }
 
 //-------------------------------------------------------------------------//
@@ -716,22 +681,11 @@ MSLaneChanger::advan2left()
 
 //-------------------------------------------------------------------------//
 
-bool
-MSLaneChanger::overlapWithHopped( ChangerIt target )
-{
-    if ( target->hoppedVeh != 0 ) {
-
-        return MSVehicle::overlap( target->hoppedVeh, veh( myCandi ) );
-    }
-    return false;
-}
-
-//-------------------------------------------------------------------------//
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSLaneChanger.icc"
-//#endif
+#ifdef DISABLE_INLINE
+#include "MSLaneChanger.icc"
+#endif
 
 // Local Variables:
 // mode:C++

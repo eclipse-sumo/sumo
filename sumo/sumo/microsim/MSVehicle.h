@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2002/05/29 17:06:04  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.4  2002/05/17 12:46:09  croessel
 // Added new method laneChangeBrake2much() because of lane-changers
 // disability to look beyond lanes.
@@ -421,12 +424,11 @@ private:
 };
 
 
-
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSVehicle.iC"
-//#endif
+#ifndef DISABLE_INLINE
+#include "MSVehicle.icc"
+#endif
 
 #endif
 

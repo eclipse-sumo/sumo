@@ -21,6 +21,9 @@
 #define MSVehicleType_H
 
 // $Log$
+// Revision 1.3  2002/05/29 17:06:04  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.2  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -160,9 +163,9 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSVehicleType.iC"
-//#endif
+#ifndef DISABLE_INLINE
+#include "MSVehicleType.icc"
+#endif
 
 #endif
 

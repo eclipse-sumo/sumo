@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.8  2002/05/14 07:53:09  dkrajzew
 // Windows eol removed
 //
@@ -264,9 +267,9 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSNet.iC"
-//#endif
+#ifndef DISABLE_INLINE
+#include "MSNet.icc"
+#endif
 
 #endif
 

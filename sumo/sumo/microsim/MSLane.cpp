@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.9  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.8  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -642,23 +645,6 @@ MSLane::firstVehSuccLane(const MSLane* srcLane)
 /////////////////////////////////////////////////////////////////////////////
 
 bool
-MSLane::empty() const
-{
-    assert( myVehBuffer == 0 );
-    return myVehicles.empty();
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSLane&
-MSLane::requestLane() const
-{
-    return *myRequestLane;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
 MSLane::decel2much(const MSLane* compete, const MSLane* target,
                    double decelFactor)
 {
@@ -692,30 +678,6 @@ MSLane::decel2much(const MSLane* compete, const MSLane* target,
     
         return true;
     }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSLane::maxSpeed() const
-{
-    return myMaxSpeed;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-double
-MSLane::length() const
-{
-    return myLength;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-const MSEdge&
-MSLane::edge() const                   
-{
-    return *myEdge;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1304,9 +1266,9 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "MSLane.iC"
-//#endif
+#ifdef DISABLE_INLINE
+#include "MSLane.icc"
+#endif
 
 // Local Variables:
 // mode:C++

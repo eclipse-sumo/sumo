@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.3  2002/05/29 17:06:04  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.2  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -127,52 +130,6 @@ MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
 }
 
 
-double
-MSVehicleType::length() const
-{
-    return myLength;
-}
-
-
-double
-MSVehicleType::maxSpeed() const
-{
-    return myMaxSpeed;
-}
-
-
-double
-MSVehicleType::accel() const
-{
-    return myAccel;
-}
-
-
-double
-MSVehicleType::decel() const
-{
-    return myDecel;
-}
-
-
-double
-MSVehicleType::dawdle() const
-{
-    return myDawdle;
-}
-
-double
-MSVehicleType::minDecel()
-{
-    return myMinDecel;
-}
-
-double
-MSVehicleType::maxLength() 
-{
-    return myMaxLength;
-}
-
 bool
 MSVehicleType::dictionary(string id, MSVehicleType* vehType)
 {
@@ -199,9 +156,9 @@ MSVehicleType::dictionary(string id)
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "MSVehicleType.iC"
-//#endif
+#ifdef DISABLE_INLINE
+#include "MSVehicleType.iC"
+#endif
 
 // Local Variables:
 // mode:C++

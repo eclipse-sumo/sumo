@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.2  2002/04/18 12:18:39  croessel
 // Bug-fix: Problem was that a right and a left vehicle could change to a
 // middle lane, even though they were overlapping. Solution: Introduction
@@ -169,9 +172,9 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSLaneChanger.icc"
-//#endif
+#ifndef DISABLE_INLINE
+#include "MSLaneChanger.icc"
+#endif
 
 #endif
 

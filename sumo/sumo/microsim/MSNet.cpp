@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2002/05/29 17:06:03  croessel
+// Inlined some methods. See the .icc files.
+//
 // Revision 1.11  2002/05/14 07:53:09  dkrajzew
 // Windows eol removed
 //
@@ -335,22 +338,12 @@ MSNet::routeDict(string id)
     return it->second;
 }
 
-double
-MSNet::deltaT()
-{
-    return myDeltaT;
-}
 
-double
-MSNet::simSeconds()
-{
-    return static_cast< double >( myStep ) * myDeltaT;
-}
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "MSNet.iC"
-//#endif
+#ifdef DISABLE_INLINE
+#include "MSNet.icc"
+#endif
 
 // Local Variables:
 // mode:C++
