@@ -117,7 +117,7 @@ public:
                                  jamDistThreshold ) ),
           detectorsTDM(11),
           detectorsEDM(2),
-          detectorsE3M(1),
+          detectorsLDM(1),
           containersM(3),
           occupancyCorrectionM(),
           approachingVehStatesDetectorM(0)
@@ -140,7 +140,7 @@ public:
         {
             deleteContainer( detectorsTDM );
             deleteContainer( detectorsEDM );
-            deleteContainer( detectorsE3M );
+            deleteContainer( detectorsLDM );
             deleteContainer( containersM );
             if ( approachingVehStatesDetectorM != 0 ) {
                 delete approachingVehStatesDetectorM;
@@ -279,6 +279,12 @@ public:
                         (*it)->leaveDetectorByMove( &veh );
                     }
                 }
+                for ( DetLDContIter ld = detectorsLDM.begin();
+                      ld != detectorsLDM.end(); ++ld ) {
+                    if ( *ld != 0 ) {
+                        (*ld)->leave( veh );
+                    }
+                }
                 return false;
             }
             return true;
@@ -368,7 +374,7 @@ public:
             std::string result;
             result += getXMLOutput( detectorsTDM, lastNTimesteps );
             result += getXMLOutput( detectorsEDM, lastNTimesteps );
-            result += getXMLOutput( detectorsE3M, lastNTimesteps );
+            result += getXMLOutput( detectorsLDM, lastNTimesteps );
             return result;
         }
 
@@ -410,7 +416,7 @@ public:
 protected:
     MSDetectorInterfaceCommon* getDetector( E2::DetType type ) const
         {
-            assert(type < E2::lastLD );
+            assert( type <= E2::lastLD );
             
             if ( type <= E2::lastTD ){
                 return detectorsTDM[ type ];
@@ -419,13 +425,13 @@ protected:
                 return detectorsEDM[ type - E2::lastTD - 1 ];
             }
             else {
-                return detectorsE3M[ type - E2::lastED - 1 ];
+                return detectorsLDM[ type - E2::lastED - 1 ];
             }
         }
 
     E2::DetType getIndex( E2::DetType type ) const
         {
-            assert(type <= E2::lastLD );
+            assert( type <= E2::lastLD );
             
             if ( type <= E2::lastTD ){
                 return type;
@@ -449,7 +455,7 @@ private:
 
     DetTDCont detectorsTDM;
     DetEDCont detectorsEDM;
-    DetLDCont detectorsE3M;
+    DetLDCont detectorsLDM;
     
     ContainerCont containersM;
 
@@ -677,7 +683,7 @@ private:
                 case E2::HALTING_DURATION_MEAN:
                 {
                     createContainer( E2::HALTINGS );
-                    detectorsE3M[ getIndex( E2::HALTING_DURATION_MEAN ) ] =
+                    detectorsLDM[ getIndex( E2::HALTING_DURATION_MEAN ) ] =
                         new E2HaltingDurationMean(
                             E2HaltingDurationMean::getDetectorName() + detId,
                             deleteDataAfterSecondsM,
