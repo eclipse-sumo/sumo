@@ -1,0 +1,2 @@
+SUBDIRS = cross3ltl_inductloops cross3ltl_meandata cross3ltl_rawdump straight1
+
