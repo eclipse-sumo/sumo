@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/01/26 11:06:54  dkrajzew
+// position setting reapplied
+//
 // Revision 1.16  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -174,6 +177,9 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     if(pos<0) {
         pos = clane->length() + pos;
     }
+    if(pos>clane->length()) {
+        throw InvalidArgument("The position lies beyond the lane's length.");
+    }
     // build the loop
     MSInductLoop *loop = createInductLoop(id, clane, pos);
     // add the file output
@@ -197,15 +203,15 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     MSLane *clane = getLaneChecking(lane);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
-    cont = false; //!!!
     if(!cont) {
-        if(length<0) {
-            pos = pos + length;
-            length *= -1;
-        }
         // compute position
         if(pos<0) {
             pos = clane->length() + pos;
+        }
+        // compute length
+        if(length<0) {
+            pos = pos + length;
+            length *= -1;
         }
         // patch position
         if(pos<0.1) {
@@ -224,6 +230,12 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
+        if(pos<0) {
+            pos = clane->length() + pos;
+        }
+        if(length<=0) {
+            throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
+        }
         det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -252,15 +264,14 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     MSLane *clane = getLaneChecking(lane);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
-    cont = false; //!!!
     if(!cont) {
+        if(pos<0) {
+            pos = clane->length() + pos;
+        }
+        // compute length
         if(length<0) {
             pos = pos + length;
             length *= -1;
-        }
-        // compute position
-        if(pos<0) {
-            pos = clane->length() + pos;
         }
         // patch position
         if(pos<0.1) {
@@ -279,6 +290,12 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
+        if(pos<0) {
+            pos = clane->length() + pos;
+        }
+        if(length<=0) {
+            throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
+        }
         det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, 100000, // !!!
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -313,6 +330,9 @@ NLDetectorBuilder::addE3Entry(const std::string &lane, float pos)
     if(myE3Definition==0) {
         throw InvalidArgument("Something is wrong with a detector description.");
     }
+    if(pos<0) {
+        pos = clane->length() - pos;
+    }
     myE3Definition->myEntries.push_back(MSCrossSection(clane, pos));
 }
 
@@ -323,6 +343,9 @@ NLDetectorBuilder::addE3Exit(const std::string &lane, float pos)
     MSLane *clane = getLaneChecking(lane);
     if(myE3Definition==0) {
         throw InvalidArgument("Something is wrong with a detector description.");
+    }
+    if(pos<0) {
+        pos = clane->length() - pos;
     }
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
 }
