@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/06/05 12:51:26  roessel
+// Modified #includes and changed getString() to toString().
+//
 // Revision 1.1  2003/06/05 11:16:14  roessel
 // Initial commit.
 //
@@ -32,8 +35,8 @@
 #include <map>
 #include "MSNet.h"
 #include "MSEdge.h"
-#include "../helpers/convert.h"
-#include "../helpers/OneArgumentCommand.h"
+#include <utils/convert/ToString.h>
+#include <helpers/OneArgumentCommand.h>
 
 class MSEdge;
 class MSLane;
@@ -92,7 +95,7 @@ public:
             }
             // open file
             std::string filename = Cost::getNamePrefix() + "_" +
-                getString( intervalLength );
+                toString( intervalLength );
             std::ofstream* ofs = new std::ofstream( filename.c_str() );
             assert( ofs != 0 );   
             intervalsAndFilesM.insert(
@@ -191,3 +194,4 @@ MSTravelcostDetector< Cost >::instanceM = 0;
 // Local Variables:
 // mode:C++
 // End:
+
