@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2003/09/24 09:55:11  dkrajzew
+// bug on duplictae induct loop ids patched
+//
 // Revision 1.16  2003/09/23 14:19:59  dkrajzew
 // an easier usage of the current actuated phase definition added
 //
@@ -177,9 +180,8 @@ MSActuatedTrafficLightLogic<_TInductLoop,
             ilpos = length;
         }
         // Build the induct loop and set it into the container
-//         _TInductLoop *loop = new _TInductLoop( "", lane, ilpos,
-//             inductLoopInterval, MSDetector::CSV, 0, true);
-        _TInductLoop *loop = new _TInductLoop( "", lane, ilpos );
+        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
+        _TInductLoop *loop = new _TInductLoop(id, lane, ilpos );
         myInductLoops[lane] = loop;
     }
     // build the lane state-detectors
@@ -193,9 +195,9 @@ MSActuatedTrafficLightLogic<_TInductLoop,
         }
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
+        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
         MSLaneState* loop =
-            new MSLaneState( _id, lane, lspos, lslen );
-//                             laneStateDetectorInterval, 0);
+            new MSLaneState( id, lane, lspos, lslen );
         myLaneStates[lane] = loop;
     }
 }
