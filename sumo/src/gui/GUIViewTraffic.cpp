@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/02/05 16:29:31  dkrajzew
+// memory leaks removed
+//
 // Revision 1.26  2003/12/09 11:23:07  dkrajzew
 // some memory leaks removed
 //
@@ -181,7 +184,8 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
                                GUINet &net)
     : GUISUMOAbstractView(app, parent, net),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
-    myTrackedID(-1), myFontsLoaded(false), myUseFullGeom(true)
+    myTrackedID(-1), myFontsLoaded(false), myUseFullGeom(true),
+    _edges2Show(0), _junctions2Show(0), _detectors2Show(0)
 {
     // build the artifact-instances-to-draw - tables
     _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
@@ -245,7 +249,10 @@ GUIViewTraffic::~GUIViewTraffic()
         delete myJunctionDrawer[i];
         delete myDetectorDrawer[i];
         delete myROWDrawer[i];
-    }       
+    }
+    delete _edges2Show;
+    delete _junctions2Show;
+    delete _detectors2Show;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/02/05 16:29:31  dkrajzew
+// memory leaks removed
+//
 // Revision 1.7  2003/11/20 13:17:33  dkrajzew
 // further work on aggregated views
 //
@@ -79,6 +82,7 @@ QGLObjectToolTip::QGLObjectToolTip(GUISUMOAbstractView *parent)
 
 QGLObjectToolTip::~QGLObjectToolTip()
 {
+    delete _lock;
 }
 
 void

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/02/05 16:29:30  dkrajzew
+// memory leaks removed
+//
 // Revision 1.14  2003/12/12 12:34:35  dkrajzew
 // unwished simulation shutdown bug removed
 //
@@ -233,6 +236,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow&app,
 
 GUISUMOAbstractView::~GUISUMOAbstractView()
 {
+    delete _changer;
+    delete _toolTip;
 }
 
 

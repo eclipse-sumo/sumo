@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/02/05 16:29:30  dkrajzew
+// memory leaks removed
+//
 // Revision 1.20  2003/12/11 06:21:15  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -130,6 +133,9 @@ GUIRunThread::~GUIRunThread()
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    delete myErrorRetriever;
+    delete myMessageRetriever;
+    delete myWarningRetreiver;
     // wait for the thread
     while(_simulationInProgress||_net!=0);
 }
