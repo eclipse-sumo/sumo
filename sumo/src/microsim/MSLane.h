@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.22  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.21  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -222,6 +225,8 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
+#include "output/MSLaneMeanDataValues.h"
+//#include "output/MSLaneMeanData.h"
 
 
 /* =========================================================================
@@ -234,6 +239,8 @@ class MSMoveReminder;
 class GUILaneWrapper;
 class GUIGlObjectStorage;
 class MSVehicleTransfer;
+class OutputDevice;
+class SSLaneMeanData;
 
 
 /* =========================================================================
@@ -258,64 +265,39 @@ public:
 
     friend class GUILaneWrapper;
 
+    friend class MSMeanData_Net;
+    friend class SSMeanData_Net;
+
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
         Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
     class XMLOut
     {
     public:
-    	/// constructor
+        /// constructor
         XMLOut( const MSLane& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
 
-	    /** writes xml-formatted information about the edge
+        /** writes xml-formatted information about the edge
             and optionally her lanes */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
 
     private:
-	    /// the lane to format information from
+        /// the lane to format information from
         const MSLane& myObj;
 
-    	/// the number of indent spaces
+        /// the number of indent spaces
         unsigned myIndentWidth;
 
-	    /// information, whether lane information shall also be written
+        /// information, whether lane information shall also be written
         bool myWithChildElemes;
     };
 
     /// output operator for XML-raw-output
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
-
-    /** Class to generate mean-data-output for all lanes hold by an
-     * edge. Usage, e.g.: cout << MeanData( lane, index, interval)
-     * << endl; where lane is an lane object, index correspond to
-     * the lanes and vehicles data-struct and interval is the sample
-     * length.  */
-    class MeanData
-    {
-    public:
-	    /// constructor
-        MeanData( const MSLane& obj,
-                  unsigned index ,
-                  MSNet::Time interval );
-
-	    /// output operator
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const MeanData& obj );
-
-    private:
-	    /// the lane write information from
-        const MSLane& myObj;
-
-	    /// the index of the information within the lanes' MeanData fields
-        unsigned myIndex;
-
-	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
-        MSNet::Time myInterval;
-    };
 
 
     /** Function-object in order to find the vehicle, that has just
@@ -330,10 +312,6 @@ public:
     };
 
 
-    /// output operator for XML-mean-data output
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const MeanData& obj );
-
     /// Destructor.
     virtual ~MSLane();
 
@@ -343,7 +321,8 @@ public:
             std::string id,
             double maxSpeed,
             double length,
-            MSEdge* egde
+            MSEdge* egde,
+            size_t numericalID
             );
 
     /** Not all lane-members are known at the time the lane is born,
@@ -411,11 +390,11 @@ public:
     /** Clears the dictionary */
     static void clear();
 
-	static size_t dictSize() { return myDict.size(); }
+    static size_t dictSize() { return myDict.size(); }
 
     /// resets the lane's link priorities
     virtual void setLinkPriorities(const std::bitset<64> &prios,
-		const std::bitset<64> &yellowMask, size_t &beginPos);
+        const std::bitset<64> &yellowMask, size_t &beginPos);
 
     /// simple output operator
     friend std::ostream& operator<<( std::ostream& os, const MSLane& lane );
@@ -449,11 +428,11 @@ public:
 
 
     /** Returns the information whether the given link shows at the end
-	    of the list of links (is not valid) */
+        of the list of links (is not valid) */
     bool isLinkEnd(MSLinkCont::const_iterator &i) const;
 
     /** Returns the information whether the given link shows at the end
-	    of the list of links (is not valid) */
+        of the list of links (is not valid) */
     bool isLinkEnd(MSLinkCont::iterator &i);
 
     /// returns the information whether the given edge is the parent edge
@@ -502,6 +481,9 @@ public:
     MSVehicle *removeFirstVehicle();
     MSVehicle *myApproaching;
 
+    size_t getNumericalID() const;
+
+    void add(MSMeanData_Net *newMeanData);
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -510,11 +492,11 @@ protected:
     class PosGreater
     {
     public:
-	    /// the first vehicle
+        /// the first vehicle
         typedef const MSVehicle* first_argument_type;
-	    /// the second vehicle
+        /// the second vehicle
         typedef const MSVehicle* second_argument_type;
-	    /// returns bool
+        /// returns bool
         typedef bool result_type;
 
         /** Returns true if position of first vehicle is greater
@@ -568,6 +550,9 @@ protected:
     /// Unique ID.
     std::string myID;
 
+    /// Unique numerical ID (set on reading by netload)
+    size_t myNumericalID;
+
     /** @brief The lane's vehicles.
         The entering vehicles are inserted at the front
         of  this container and the leaving ones leave from the back, e.g. the
@@ -619,57 +604,9 @@ private:
 
 //----------- Declarations for mean-data calculation
 
-    /**
-     * MeanDataValues
-     * Structure holding values that describe the flow and other physical
-     * properties aggregated over some seconds and normalised by the
-     * aggregation period */
-    struct MeanDataValues
-    {
-        MeanDataValues()
-            : nVehEntireLane( 0 ),
-              nVehContributed( 0 ),
-              nVehLeftLane( 0 ),
-              nVehEnteredLane( 0 ),
-              contTimestepSum( 0 ),
-              discreteTimestepSum( 0 ),
-              speedSum( 0 ),
-              speedSquareSum( 0 ),
-              traveltimeStepSum( 0 )
-            {}
-
-        /// the number of vehicles that passed the entire lane
-        unsigned nVehEntireLane;
-
-        /// the number of vehicles that made up the aggregated data
-        unsigned nVehContributed;
-
-        /// the number of vehicles that left this lane within the
-        /// sample intervall
-        unsigned nVehLeftLane;
-
-        /// the number of vehicles that entered this lane within the
-        /// sample intervall
-        unsigned nVehEnteredLane;
-
-        /// the number of time steps
-        double contTimestepSum;
-
-        /// as contTimestepSum but as an integer
-        unsigned discreteTimestepSum;
-
-        /// the sum of the speeds the vehicles had ont the ...
-        double speedSum;
-
-        /// the sum of squared speeds the vehicles had ont the ...
-        double speedSquareSum;
-
-        /// traveltime sum from vehicles that entirely passed the lane
-        double traveltimeStepSum;
-    };
 
     /** Container of MeanDataValues, one element for each intervall. */
-    std::vector< MeanDataValues > myMeanData;
+    std::vector< MSLaneMeanDataValues > myMeanData;
 
     //----------- End of declarations for mean-data calculation
 

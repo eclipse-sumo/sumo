@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.2  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -56,7 +59,7 @@ class MSLink;
  * class definitions
  * ======================================================================= */
 /**
- * MSSourceLane
+ * @class MSSourceLane
  * Source lanes are lanes which are not accessable for vehicles which come from
  * other lanes. As some constraints change for this lane type, it is an extra
  * class but derived from MSLane.
@@ -69,12 +72,8 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSSourceLane( MSNet &net,
-            std::string id,
-            double maxSpeed,
-            double length,
-            MSEdge* egde
-            );
+    MSSourceLane( MSNet &net, std::string id, double maxSpeed,
+        double length, MSEdge* edge, size_t numericalID);
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );

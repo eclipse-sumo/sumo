@@ -17,14 +17,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
-
 // $Log$
+// Revision 1.6  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.5  2003/09/05 15:15:23  dkrajzew
 // removed some unneeded code
 //
@@ -40,8 +41,6 @@ namespace
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -93,13 +92,9 @@ MSSourceLane::~MSSourceLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSSourceLane::MSSourceLane( MSNet &net,
-                string id,
-                double maxSpeed,
-                double length,
-                MSEdge* edge
-                )
-    : MSLane(net, id, maxSpeed, length, edge)
+MSSourceLane::MSSourceLane( MSNet &net, string id, double maxSpeed,
+                           double length, MSEdge* edge, size_t numericalID)
+    : MSLane(net, id, maxSpeed, length, edge, numericalID)
 {
 }
 
@@ -148,9 +143,9 @@ MSSourceLane::emitTry( MSVehicle& veh )
     myUseDefinition->noVehicles++;
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+    }
 #endif
 
     return true;
@@ -161,34 +156,34 @@ MSSourceLane::emitTry( MSVehicle& veh )
 bool
 MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
-	// emission as last car (in driving direction)
-	MSVehicle *leader = *leaderIt;
-	// get invoked vehicles' positions
-	double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-	// get secure gaps
-	double frontGapNeeded = veh.getSecureGap(*this, *leader);
-	// compute needed room
-	double frontMax = leaderPos - frontGapNeeded;
-	// check whether there is enough room
-	if(frontMax>0) {
-		// emit vehicle if so
-		MSVehicle::State state;
-		state.setPos(frontMax);
-		veh.moveSetState( state );
-		veh.enterLaneAtEmit( this );
-		myVehicles.push_front( &veh );
+    // emission as last car (in driving direction)
+    MSVehicle *leader = *leaderIt;
+    // get invoked vehicles' positions
+    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    // get secure gaps
+    double frontGapNeeded = veh.getSecureGap(*this, *leader);
+    // compute needed room
+    double frontMax = leaderPos - frontGapNeeded;
+    // check whether there is enough room
+    if(frontMax>0) {
+        // emit vehicle if so
+        MSVehicle::State state;
+        state.setPos(frontMax);
+        veh.moveSetState( state );
+        veh.enterLaneAtEmit( this );
+        myVehicles.push_front( &veh );
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+    }
 #endif
 
-		return true;
-	}
-	return false;
+        return true;
+    }
+    return false;
 }
 /*
 bool
@@ -202,9 +197,9 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         myVehicles.push_front( &veh );
 
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using source::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1" << veh.pos() << ", " <<veh.speed() <<  endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        cout << "Using source::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1" << veh.pos() << ", " <<veh.speed() <<  endl;
+    }
 #endif
 
         return true;

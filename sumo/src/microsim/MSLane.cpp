@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.46  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.45  2004/04/23 12:38:43  dkrajzew
 // warnings and errors are now reported to MsgHandler, not cerr
 //
@@ -343,7 +346,6 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -429,15 +431,17 @@ MSLane::MSLane( MSNet &net,
                 string id,
                 double maxSpeed,
                 double length,
-                MSEdge* edge
+                MSEdge* edge,
+                size_t numericalID
                 )  :
     PreStartInitialised(net),
+    myApproaching(0),
     myID( id ),
+    myNumericalID(numericalID),
     myVehicles(),
     myLength( length ),
     myEdge( edge ),
     myMaxSpeed( maxSpeed ),
-    myApproaching(0),
     myVehBuffer( 0 ),
     myMeanData()
 {
@@ -687,9 +691,9 @@ MSLane::emitTry( MSVehicle& veh )
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+    }
 #endif
 
         return true;
@@ -723,16 +727,16 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+    }
 #endif
 
             return true;
         }
         return false;
     } else {
-		// another vehicle is approaching this lane
+        // another vehicle is approaching this lane
         MSVehicle *leader = *leaderIt;
         MSVehicle *follow = myApproaching;
         // get invoked vehicles' positions
@@ -755,9 +759,9 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             myUseDefinition->noVehicles++;
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
+    }
 #endif
 
             return true;
@@ -790,9 +794,9 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
+    }
 #endif
 
         return true;
@@ -828,9 +832,9 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
-	}
+    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
+    }
 #endif
 
         return true;
@@ -844,7 +848,7 @@ MSLane::setCritical()
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // move critical vehicles
     for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
-	    (*i)->moveFirstChecked();
+        (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if(target!=this) {
             target->push(pop());
@@ -915,9 +919,9 @@ MSLane::push(MSVehicle* veh)
 {
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-	    DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
-	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+        DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
+        DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+        DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0
@@ -1125,7 +1129,7 @@ void
 MSLane::resetMeanData( unsigned index )
 {
     assert(index<myMeanData.size());
-    MeanDataValues& md = myMeanData[ index ];
+    MSLaneMeanDataValues& md = myMeanData[ index ];
     md.nVehEntireLane = 0;
     md.nVehContributed = 0;
     md.nVehLeftLane = 0;
@@ -1151,25 +1155,10 @@ MSLane::addVehicleData( double contTimesteps,
                         bool hasEnteredLane,
                         double travelTimesteps)
 {
-     assert(index<myMeanData.size());
-    MeanDataValues& md = myMeanData[ index ];
-
-    if ( hasFinishedEntireLane ) {
-        md.nVehEntireLane       += hasFinishedEntireLane;
-        md.traveltimeStepSum    += travelTimesteps;
-        assert( hasLeftLane );
-    }
-
-    assert(contTimesteps>=0);
-    md.nVehContributed      += 1;
-    md.nVehLeftLane         += hasLeftLane;
-    md.nVehEnteredLane      += hasEnteredLane;
-    md.contTimestepSum      += contTimesteps;
-    md.discreteTimestepSum  += discreteTimesteps;
-    md.speedSum             += speedSum;
-    md.speedSquareSum       += speedSquareSum;
-
-
+    assert(index<myMeanData.size());
+    myMeanData[index].addVehicleData(contTimesteps, discreteTimesteps,
+        speedSum, speedSquareSum, hasFinishedEntireLane,
+        hasLeftLane, hasEnteredLane, travelTimesteps);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1257,110 +1246,14 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::MeanData::MeanData( const MSLane& obj,
-                            unsigned index,
-                            MSNet::Time interval ) :
-    myObj( obj ),
-    myIndex( index ),
-    myInterval( interval )
-{
-    if ( myInterval == 0 ){
-        MsgHandler::getWarningInstance()->inform(
-            "MSLane::MeanData constructor: interval = 0, should be > 0.");
-        MsgHandler::getWarningInstance()->inform(
-            " I will set it to 5 minutes.\n");
-        myInterval = static_cast<unsigned>( 300 / MSNet::deltaT() );
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-ostream&
-operator<<( ostream& os, const MSLane::MeanData& obj )
-{
-    const MSLane& lane = obj.myObj;
-    assert(lane.myMeanData.size()>obj.myIndex);
-    const MSLane::MeanDataValues& meanData = lane.myMeanData[ obj.myIndex ];
-
-    const_cast< MSLane& >( lane ).collectVehicleData( obj.myIndex );
-
-    // calculate mean data
-    double traveltime = -42;
-    double meanSpeed = -43;
-    double meanSpeedSquare = -44;
-    double meanDensity = -45;
-
-    assert( meanData.nVehEntireLane <= meanData.nVehContributed );
-
-    if ( meanData.nVehContributed > 0 ) {
-
-        double intervallLength = obj.myInterval * MSNet::deltaT();
-
-        if(meanData.contTimestepSum!=0) {
-            meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
-            meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
-        } else {
-            meanSpeed   = lane.myMaxSpeed;
-            meanSpeedSquare = -1;
-        }
-
-        meanDensity = ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
-            intervallLength / lane.myLength * 1000.0;
-
-        // only vehicles that used the lane entirely contribute to traveltime
-        if ( meanData.nVehEntireLane > 0 ) {
-            assert(meanData.nVehEntireLane!=0);
-            traveltime = meanData.traveltimeStepSum * MSNet::deltaT() /
-                meanData.nVehEntireLane;
-            assert( traveltime >= lane.myLength / lane.myMaxSpeed );
-
-        }
-        else {
-            // no vehicle left the lane within intervall.
-            // Calculate the traveltime using the measured meanSpeed
-            if(meanSpeed==0) {
-                meanSpeed   = lane.myMaxSpeed;
-                meanSpeedSquare = -1;
-                meanDensity = 0;
-            }
-            assert(meanSpeed!=0);
-            traveltime  = lane.myLength / meanSpeed;
-        }
-    }
-    else { // no vehicles visited the lane within intervall
-
-        meanSpeed   = lane.myMaxSpeed;
-        traveltime  = lane.myLength / meanSpeed;
-        meanSpeedSquare = -1;
-        meanDensity = 0;
-
-    }
-    os << "      <lane id=\""      << obj.myObj.myID
-       << "\" traveltime=\""  << traveltime
-       << "\" speed=\""       << meanSpeed
-       << "\" speedsquare=\"" << meanSpeedSquare
-       << "\" density=\""     << meanDensity
-       << "\" noVehContrib=\""  << meanData.nVehContributed
-       << "\" noVehEntire=\""  << meanData.nVehEntireLane
-       << "\" noVehEntered=\"" << meanData.nVehEnteredLane
-       << "\" noVehLeft=\"" << meanData.nVehLeftLane
-       << "\"/>" << endl;
-
-    const_cast< MSLane& >( lane ).resetMeanData( obj.myIndex );
-
-    return os;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 void
 MSLane::setLinkPriorities(const std::bitset<64> &prios,
-						  const std::bitset<64> &yellowMask,
-						  size_t &beginPos)
+                          const std::bitset<64> &yellowMask,
+                          size_t &beginPos)
 {
     for(MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end()&&beginPos<64; i++) {// !!! hell happens when i>=64
         (*i)->setPriority(prios.test(beginPos), yellowMask.test(beginPos));
-		beginPos++;
+        beginPos++;
     }
 }
 
@@ -1380,7 +1273,7 @@ MSLane::init(MSNet &net)
     // reset mean data information
     myMeanData.clear();
     size_t noIntervals = net.getNDumpIntervalls();
-    myMeanData.insert( myMeanData.end(), noIntervals, MeanDataValues() );
+    myMeanData.insert( myMeanData.end(), noIntervals, MSLaneMeanDataValues() );
     // empty vehicle buffers
     myVehicles.clear();
     myTmpVehicles.clear();
@@ -1532,6 +1425,20 @@ MSLane::removeFirstVehicle()
     myVehicles.erase(myVehicles.end()-1);
     myUseDefinition->noVehicles--;
     return veh;
+}
+
+
+size_t
+MSLane::getNumericalID() const
+{
+    return myNumericalID;
+}
+
+
+void
+MSLane::add(MSMeanData_Net *newMeanData)
+{
+    myMeanData.push_back(MSLaneMeanDataValues());
 }
 
 

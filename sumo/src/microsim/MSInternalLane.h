@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.2  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
-//
 //
 /* =========================================================================
  * included modules
@@ -73,7 +75,7 @@ class MSInternalLane
 public:
     /// Constructor
     MSInternalLane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge *e);
+        double length, MSEdge *e, size_t numericalID);
 
     /// Destructor
     ~MSInternalLane();

@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:58:08  dkrajzew
+// MeanData refactored (moved to microsim/output); numerical id for online routing added
+//
 // Revision 1.3  2003/12/11 06:27:13  dkrajzew
 // unneeded debug-variables removed
 //
 // Revision 1.2  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
-//
 //
 /* =========================================================================
  * included modules
@@ -79,9 +81,9 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 MSInternalLane::MSInternalLane( MSNet &net, string id, double maxSpeed,
-                               double length, MSEdge *e)
+                               double length, MSEdge *e, size_t numericalID)
     :
-    MSLane(net, id, maxSpeed, length, e)
+    MSLane(net, id, maxSpeed, length, e, numericalID)
 {
 }
 
@@ -107,7 +109,6 @@ MSInternalLane::moveNonCritical()
     (*myFoesCont)[myFoesIndex] = true;
     MSLane::moveNonCritical();
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
