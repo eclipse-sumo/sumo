@@ -10,10 +10,10 @@
  */
 class MSActuatedPhaseDefinition : public MSPhaseDefinition{
 public:
-    /// The minimum duration of the pahse
+    /// The minimum duration of the phase
     size_t          minDuration;
 
-    /// The maximum duration of the pahse
+    /// The maximum duration of the phase
     size_t          maxDuration;
 
     /// stores the timestep of the last on-switched of the phase
