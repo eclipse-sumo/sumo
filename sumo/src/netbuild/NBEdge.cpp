@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/08/21 12:55:20  dkrajzew
+// directional information patched
+//
 // Revision 1.24  2003/08/20 11:53:17  dkrajzew
 // further work on node geometry
 //
@@ -756,9 +759,6 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     // write the direction information
     NBMMLDirection dir =
         _to->getMMLDirection(this, (*_reachable)[fromlane][destidx].edge);
-    if((*_reachable)[fromlane][destidx].edge==_turnDestination) {
-        dir = MMLDIR_TURN;
-    }
     into << " dir=\"";
     switch(dir) {
     case MMLDIR_STRAIGHT:

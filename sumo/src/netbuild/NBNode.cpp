@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/08/21 12:55:20  dkrajzew
+// directional information patched
+//
 // Revision 1.25  2003/08/20 11:53:18  dkrajzew
 // further work on node geometry
 //
@@ -477,7 +480,7 @@ NBNode::setPriorities()
         (*i)->setJunctionPriority(this, 0);
     }
     // compute the priorities on junction when needed
-    if(_type==NODETYPE_PRIORITY_JUNCTION&&myTrafficLights.size()==0) {
+    if(_type!=NODETYPE_RIGHT_BEFORE_LEFT) {
         setPriorityJunctionPriorities();
     }
 }
@@ -536,7 +539,8 @@ NBNode::isDistrictCenter() const
 
 
 void
-NBNode::setPriorityJunctionPriorities() {
+NBNode::setPriorityJunctionPriorities()
+{
     if(_incomingEdges->size()==0) {
         return; // !!! what happens with outgoing edges
                 //  (which priority should be assigned here)?
@@ -954,13 +958,13 @@ NBNode::computeNodeShape()
             offset = MAX(offset,(*j2));
             // ok, process both directions
             myPoly.push_back(
-                current->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
+                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
 /*            myPoly.push_back(
                 current->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
 /*            myPoly.push_back(
                 (*li)->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
             myPoly.push_back(
-                (*li)->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
+                (*li)->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
             // and skip the next one
             if(i+1!=_allEdges.end()) {
                 i++;
@@ -969,9 +973,9 @@ NBNode::computeNodeShape()
         } else {
             // process this edge only
             myPoly.push_back(
-                current->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
+                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
             myPoly.push_back(
-                current->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
+                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
         }
     }
     myPoly = myPoly.convexHull();
@@ -1611,9 +1615,12 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
     if(outgoing==0) {
         return MMLDIR_NODIR;
     }
+    if(incoming->isTurningDirection(outgoing)) {
+        return MMLDIR_TURN;
+    }
     double angle =
-        abs(NBHelpers::normRelAngle(
-            incoming->getAngle(), outgoing->getAngle()));
+        NBHelpers::normRelAngle(
+            incoming->getAngle(), outgoing->getAngle());
     // ok, should be a straight connection
     if(abs(angle)<45) {
         return MMLDIR_STRAIGHT;
@@ -1625,22 +1632,24 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
         // check whether any othe edge outgoes further to right
         EdgeVector::const_iterator i =
             find(_allEdges.begin(), _allEdges.end(), outgoing);
+        NBContHelper::nextCW(&_allEdges, i);
         while((*i)!=incoming) {
             if((*i)->getFromNode()==this) {
                 return MMLDIR_PARTRIGHT;
-                NBContHelper::nextCW(&_allEdges, i);
             }
+            NBContHelper::nextCW(&_allEdges, i);
         }
         return MMLDIR_RIGHT;
     } else {
         // check whether any othe edge outgoes further to right
         EdgeVector::const_iterator i =
             find(_allEdges.begin(), _allEdges.end(), outgoing);
+        NBContHelper::nextCCW(&_allEdges, i);
         while((*i)!=incoming) {
-            if((*i)->getFromNode()==this) {
+            if((*i)->getFromNode()==this&&!incoming->isTurningDirection(*i)) {
                 return MMLDIR_PARTLEFT;
-                NBContHelper::nextCCW(&_allEdges, i);
             }
+            NBContHelper::nextCCW(&_allEdges, i);
         }
         return MMLDIR_LEFT;
     }
