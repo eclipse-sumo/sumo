@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/03/19 08:03:40  dkrajzew
+// splitting of edges made a little bit more stable
+//
 // Revision 1.7  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -144,15 +147,15 @@ public:
     static bool appendTurnarounds(bool verbose);
 
     /** @brief Splits the edge at the position nearest to the given node */
-    static void splitAt(NBEdge *edge, NBNode *node);
+    static bool splitAt(NBEdge *edge, NBNode *node);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    static void splitAt(NBEdge *edge, NBNode *node,
+    static bool splitAt(NBEdge *edge, NBNode *node,
         const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    static void splitAt(NBEdge *edge, double edgepos, NBNode *node,
+    static bool splitAt(NBEdge *edge, double edgepos, NBNode *node,
         const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 

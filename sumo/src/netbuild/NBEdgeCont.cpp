@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/03/19 08:03:40  dkrajzew
+// splitting of edges made a little bit more stable
+//
 // Revision 1.7  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -272,16 +275,16 @@ NBEdgeCont::report(bool verbose)
 }
 
 
-void
+bool
 NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
 {
-    splitAt(edge, node,
+    return splitAt(edge, node,
         edge->getID() + string("[0]"), edge->getID() + string("[1]"),
         edge->_nolanes, edge->_nolanes);
 }
 
 
-void
+bool
 NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
@@ -291,12 +294,15 @@ NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
         Position2D(edge->_from->getXCoordinate(), edge->_from->getYCoordinate()),
         Position2D(edge->_to->getXCoordinate(), edge->_to->getYCoordinate()),
         Position2D(node->getXCoordinate(), node->getYCoordinate()));
-    splitAt(edge, pos, node, firstEdgeName, secondEdgeName, noLanesFirstEdge,
-        noLanesSecondEdge);
+    if(pos<=0) {
+        return false;
+    }
+    return splitAt(edge, pos, node, firstEdgeName, secondEdgeName,
+        noLanesFirstEdge, noLanesSecondEdge);
         //!!! does not regard the real edge geometry
 }
 
-void
+bool
 NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
@@ -335,6 +341,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     }
     insert(one);
     insert(two);
+    return true;
 }
 
 
