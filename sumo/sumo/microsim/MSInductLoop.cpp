@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2002/05/16 14:12:42  croessel
+// In constructor: Make sure that vehicles will be detected even at lane end.
+//
 // Revision 1.8  2002/04/18 13:49:29  croessel
 // Added some static_casts in writeData. Added the output of the number of
 // vehicles that contributed to the sampling.
@@ -65,6 +68,7 @@ namespace
 #include "MSInductLoop.h"
 #include "MSLane.h"
 #include "MSEdge.h"
+#include "MSNet.h"
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
@@ -103,7 +107,8 @@ MSInductLoop::MSInductLoop( string         id,
     myVehLengthSum   ( 0 ),
     myNIntervalls    ( 0 )
 {
-    assert( myPos < myLane->length() );
+    // Make sure that vehicles will be detected even at lane-end.
+    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
     assert( myPos > 0 );
 
     // Write header.
