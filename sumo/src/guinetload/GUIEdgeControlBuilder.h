@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/04/02 11:15:25  dkrajzew
+// changes due to the visualisation of the selection status
+//
 // Revision 1.5  2004/03/19 12:56:48  dkrajzew
 // porting to FOX
 //
@@ -33,9 +36,6 @@
 // Revision 1.2  2003/02/07 10:38:19  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -66,7 +66,8 @@ class GUIEdgeControlBuilder : public NLEdgeControlBuilder {
 public:
     /** standard constructor; the parameter is a hint for the maximal number
         of lanes inside an edge */
-    GUIEdgeControlBuilder(unsigned int storageSize=10);
+    GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage,
+        unsigned int storageSize=10);
 
     /// standard destructor
     ~GUIEdgeControlBuilder();
@@ -86,11 +87,9 @@ public:
         double maxSpeed, double length, bool isDepart,
         const Position2DVector &shape);
 
-    /// Adds the shape of the lane
-//    void addLaneShape(const Position2DVector &shape);
-
 private:
-    bool myAllowAggregation;
+    /// The gl-object id giver
+    GUIGlObjectStorage &myGlObjectIDStorage;
 
 private:
     /** invalid copy constructor */

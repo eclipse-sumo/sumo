@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/04/02 11:15:25  dkrajzew
+// changes due to the visualisation of the selection status
+//
 // Revision 1.6  2004/03/19 12:56:48  dkrajzew
 // porting to FOX
 //
@@ -73,8 +76,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIEdgeControlBuilder::GUIEdgeControlBuilder(unsigned int storageSize)
-    : NLEdgeControlBuilder(storageSize)
+GUIEdgeControlBuilder::GUIEdgeControlBuilder(
+        GUIGlObjectStorage &glObjectIDStorage, unsigned int storageSize)
+    : NLEdgeControlBuilder(storageSize),
+    myGlObjectIDStorage(glObjectIDStorage)
 {
 }
 
@@ -86,7 +91,7 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
 void
 GUIEdgeControlBuilder::addEdge(const string &id)
 {
-    MSEdge *edge = new GUIEdge(id);
+    MSEdge *edge = new GUIEdge(id, myGlObjectIDStorage);
     if(!MSEdge::dictionary(id, edge)) {
         throw XMLIdAlreadyUsedException("Edge", id);
     }
