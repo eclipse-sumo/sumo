@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 08:10:56  dkrajzew
+// edition of breakpoints and additional weights added
+//
 // Revision 1.2  2004/04/02 11:07:17  dkrajzew
 // item selection menu entry ids added
 //
@@ -50,6 +53,10 @@ enum {
     //@{ Main Window File Menu - IDs
     /// Open New File - ID
     MID_OPEN,
+    /// Reload the previously loaded simulation
+    MID_RELOAD,
+    /// Loads a file previously loaded
+    MID_RECENTFILE,
     /// Close Simulation - ID
     MID_CLOSE,
     /// About SUMO - ID
@@ -85,6 +92,10 @@ enum {
     //@{ Edit Menu Item - IDs
     /// Open Chosen Editor - ID
     MID_EDITCHOSEN,
+    /// Edit Additional Weights - ID
+    MID_EDIT_ADD_WEIGHTS,
+    /// Edit simulation breakpoints
+    MID_EDIT_BREAKPOINTS,
     //@}
 
     //@{ Settings Menu Item - IDs
@@ -148,6 +159,8 @@ enum {
     MID_ADDSELECT,
     /// Remove from selected Items - Menu Etry
     MID_REMOVESELECT,
+    /// Open the object's manipulator
+    MID_MANIP,
     //@}
 
     //@{ IDs used by Trackers
@@ -192,8 +205,15 @@ enum {
     /// Clear set
     MID_CHOOSEN_CLEAR,
     /// Deselect selected items
-    MID_CHOOSEN_DESELECT
+    MID_CHOOSEN_DESELECT,
     //@}
+
+
+    MID_CLEARPREVIOUS,
+    MID_SUBMIT,
+    MID_PROBABILITY,
+    MID_LEVEL,
+    MID_PERIOD
 
 };
 
