@@ -108,6 +108,30 @@
   </sect1>
 
   <sect1>
+    <title>Usage</title>
+
+    <sect2>
+      <title>Errors</title>
+
+      <sect3>
+        <title>Strange and cryptic Errors</title>
+
+        <para><emphasis>Question: </emphasis>What does the following error
+        mean?</para>
+
+        <para>Warning: No types defined, using defaults... Error: An exception
+        occurred! Type:RuntimeException, Message:The primary document entity
+        could not be opened. Id=&#60;PATH&#62; Error: (At line/column 1/0).
+        Error: Quitting (conversion failed).</para>
+
+        <para><emphasis>Answer:</emphasis> Simply that the file you try to use
+        (&#60;PATH&#62;) does not exist. This is xercec&#39; way to say
+        &#34;file not found&#34;.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Netconvert</title>
 
     <sect2>
