@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/12 14:09:39  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.3  2003/07/30 08:49:26  dkrajzew
 // changed the responsibility of a GLObject
 //
@@ -47,9 +50,11 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
+#include <cassert>
 #include <qpopupmenu.h>
 #include <gui/GUISUMOAbstractView.h>
 #include <gui/GUIGlObject.h>
+#include <guisim/GUITrafficLightLogicWrapper.h>
 #include "QGLObjectPopupMenu.h"
 #include <gui/partable/GUIParameterTableWindow.h>
 
@@ -95,6 +100,13 @@ QGLObjectPopupMenu::showPars()
     myObject.getParameterWindow(myApplication, myParent);
 }
 
+
+void
+QGLObjectPopupMenu::showPhases()
+{
+    assert(myObject.getType()==GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper&>(myObject).showPhases();
+}
 
 
 

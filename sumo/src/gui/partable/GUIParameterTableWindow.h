@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/12 14:09:13  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.4  2003/07/30 08:48:28  dkrajzew
 // new parameter table usage paradigm; undocummented yet
 //
@@ -38,8 +41,11 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
+#include <string>
 #include <qdialog.h>
+#include <helpers/ValueSource.h>
 #include "GUIParameterTableItem.h"
+
 
 /* =========================================================================
  * class declarations
@@ -53,7 +59,6 @@ class QListViewItem;
 class QEvent;
 class QResizeEvent;
 class GUIParameterTable;
-class DoubleValueSource;
 
 
 /* =========================================================================
@@ -72,15 +77,13 @@ public:
 
     virtual void buildParameterPopUp(QMouseEvent * e, GUIParameterTableItem *i);
 
-//    virtual DoubleValueSource *bind(size_t what);
-
     void closeBuilding();
 
-    void mkItem(const char *name, bool dynamic,
-        DoubleValueSource *src);
+    void mkItem(const char *name, bool dynamic, ValueSource<double> *src);
 
-    void mkItem(const char *name, bool dynamic,
-        double value);
+    void mkItem(const char *name, bool dynamic, std::string value);
+
+    void mkItem(const char *name, bool dynamic, double value);
 
 protected:
     /// Callback for events

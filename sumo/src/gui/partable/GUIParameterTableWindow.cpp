@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/12 14:09:13  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.6  2003/08/14 13:38:25  dkrajzew
 // applied other window controls
 //
@@ -132,10 +135,20 @@ GUIParameterTableWindow::resizeEvent ( QResizeEvent *e )
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-        DoubleValueSource *src)
+        ValueSource<double> *src)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
         myTable, name, dynamic, src);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
+                                std::string value)
+{
+    GUIParameterTableItem *i = new GUIParameterTableItem(
+        myTable, name, dynamic, value);
     myItems.push_back(i);
 }
 

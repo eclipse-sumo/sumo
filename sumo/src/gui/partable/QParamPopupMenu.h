@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/11/12 14:09:13  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.2  2003/07/30 08:48:28  dkrajzew
 // new parameter table usage paradigm; undocummented yet
 //
@@ -37,6 +40,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <helpers/ValueSource.h>
 #include <qpopupmenu.h>
 
 
@@ -47,7 +51,6 @@ class GUIParameterTable;
 class GUIParameterTableWindow;
 class GUIGlObject;
 class GUIApplicationWindow;
-class DoubleValueSource;
 
 
 /* =========================================================================
@@ -67,7 +70,7 @@ public:
 	/// Constructor
     QParamPopupMenu(GUIApplicationWindow &app,
         GUIParameterTable &parent, GUIParameterTableWindow &parentWindow,
-        GUIGlObject &o, const std::string &varName, DoubleValueSource *src);
+        GUIGlObject &o, const std::string &varName, ValueSource<double> *src);
 
 	/// Destructor
     ~QParamPopupMenu();
@@ -91,7 +94,7 @@ private:
     std::string myVarName;
 
 
-    DoubleValueSource *mySource;
+    ValueSource<double> *mySource;
 
 };
 

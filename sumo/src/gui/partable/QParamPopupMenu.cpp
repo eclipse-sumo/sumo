@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/11/12 14:09:13  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.5  2003/11/11 08:44:05  dkrajzew
 // synchronisation problems of parameter tracker updates patched; logging moved from utils to microsim
 //
@@ -48,7 +51,7 @@
 #include <gui/vartracker/GUIParameterTracker.h>
 #include <gui/vartracker/TrackerValueDesc.h>
 #include <gui/GUIApplicationWindow.h>
-#include <microsim/logging/DoubleFunctionBinding.h>
+#include <guisim/guilogging/GLObjectValuePassConnector.h>
 
 #ifndef WIN32
 #include "QParamPopupMenu.moc"
@@ -69,7 +72,7 @@ QParamPopupMenu::QParamPopupMenu(GUIApplicationWindow &app,
                                  GUIParameterTableWindow &parentWindow,
                                  GUIGlObject &o,
                                  const std::string &varName,
-                                 DoubleValueSource *src)
+                                 ValueSource<double> *src)
     : QPopupMenu(&parent), myObject(o), myParent(parent),
     myParentWindow(parentWindow), myApplication(app), myVarName(varName),
     mySource(src)
@@ -91,7 +94,8 @@ QParamPopupMenu::newTracker()
     TrackerValueDesc *newTracked = new TrackerValueDesc(
             myVarName, RGBColor(0, 0, 0), &myObject);
     tr->addTracked(newTracked);
-    myApplication.buildSimStepConnection(myObject,
+    // build connection (is automatically set into an execution map)
+    new GLObjectValuePassConnector<double>(myObject,
         mySource->copy(), newTracked);
 }
 

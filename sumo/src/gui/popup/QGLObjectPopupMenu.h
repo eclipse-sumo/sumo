@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/11/12 14:09:39  dkrajzew
+// clean up after recent changes; comments added
+//
 // Revision 1.2  2003/07/30 08:49:26  dkrajzew
 // changed the responsibility of a GLObject
 //
@@ -75,6 +78,10 @@ public slots:
 
     /// Callback called from the "show parameter"-menu option
     void showPars();
+
+    /** @brief Callback called from the "show logic"-menu option
+        Valid only for tl-logics */
+    void showPhases();
 
 protected:
     /// The parent window
