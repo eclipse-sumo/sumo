@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 13:02:29  dkrajzew
+// not reporting one-char-lines bug patched
+//
 // Revision 1.6  2003/04/01 15:28:56  dkrajzew
 // minor changes
 //
@@ -143,7 +146,7 @@ LineReader::readLine(LineHandler &lh)
     while(idx>=0&&toReport.at(idx)<32) {
         idx--;
     }
-    if(idx>0) {
+    if(idx>=0) {
         toReport = toReport.substr(0, idx+1);
     } else {
         toReport = "";
