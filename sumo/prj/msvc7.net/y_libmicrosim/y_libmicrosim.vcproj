@@ -182,6 +182,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSActuatedTrafficLightLogic.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSAgentbasedTrafficLightLogic.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSApproachingVehiclesStates.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">

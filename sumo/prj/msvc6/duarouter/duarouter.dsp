@@ -107,10 +107,6 @@ SOURCE=..\..\..\src\utils\router\IDSupplier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gfx\RGBColor.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\routing_dua\RODijkstraRouter.cpp
 # End Source File
 # Begin Source File

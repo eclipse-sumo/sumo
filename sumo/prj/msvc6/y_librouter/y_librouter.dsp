@@ -193,6 +193,10 @@ SOURCE=..\..\..\src\router\RORunningVehicle.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\router\ROSupplementaryWeightsHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\router\ROTypedXMLRoutesLoader.cpp
 # End Source File
 # Begin Source File
@@ -350,6 +354,10 @@ SOURCE=..\..\..\src\router\RORouteSnippletCont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\RORunningVehicle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\router\ROSupplementaryWeightsHandler.h
 # End Source File
 # Begin Source File
 

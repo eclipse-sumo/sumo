@@ -659,6 +659,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\router\ROSupplementaryWeightsHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -897,6 +900,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORunningVehicle.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\router\ROSupplementaryWeightsHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.h">
