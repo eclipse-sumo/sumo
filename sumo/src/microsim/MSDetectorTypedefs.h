@@ -29,7 +29,7 @@
 #include "MSE2EDDetector.h"
 
 // concrete E2 detectors
-// ZS
+// E2 ZS
 #include "MSDensity.h"
 #include "MSMaxJamLength.h"
 #include "MSJamLengthSum.h"
@@ -38,11 +38,14 @@
 #include "MSOccupancyDegree.h"
 #include "MSSpaceMeanSpeed.h"
 #include "MSCurrentHaltingDurationSumPerVehicle.h"
-// ED
+// E2 ED
 #include "MSNStartedHalts.h"
 #include "MSHaltingDurationSum.h"
+// E2 EFZ
+#include "MSHaltDuration.h"
 
-// concrete E3 detectors
+
+// concrete E3 detectors, all EFZ
 #include "MSE3Traveltime.h"
 #include "MSE3NVehicles.h"
 #include "MSE3MeanNHaltings.h"
@@ -90,6 +93,11 @@ namespace Detector
 
     typedef MSSumDetector< MSE2EDDetector<
         MSHaltingDurationSum >, true > E2HaltingDurationSum;
+
+    // E2 EFZ
+    typedef MSMeanDetector< MSE3Detector<
+        MSHaltDuration>, true > E2HaltingDurationMean;
+    
     
     // E3
     typedef MSSumDetector< MSE3Detector< MSE3NVehicles >, true > E3NVehicles;
