@@ -40,7 +40,7 @@ The simplest way to compile this package is:
      documentation.
 
   4. You can remove the program binaries and object files from the
-     source code directory by typing `make clean'.  
+     source code directory by typing `make clean'.
 
 Compilers and Options
 =====================
