@@ -5,6 +5,8 @@
 #include "Vertex.h"
 #include "time.h"
 #include "stdlib.h"
+#include "ConfigDialog.h"
+
 
 using namespace std;
 
@@ -94,18 +96,19 @@ public:
     //Wandelt einen Integer-Wert in einen String um
     char* inttostr(int i);
 
-    //Wandelt einen Double-Wert in einen String um
-    char* doubletostr(double i,int count);
 
-    //Exportiert Traces
-    void GetTraces(int cars,int fuel);
+	//Wandelt einen Double-Wert in einen String um
+	char* doubletostr(double i,int count);
+	
+	//Exportiert Traces
+	void GetTraces(int cars,int fuel);
+	
+	//Vereinigt zwei nahe Knoten zu einem
+	void MergeVertex(ConfigDialog* my);
 
-    //Vereinigt zwei nahe Knoten zu einem
-    void MergeVertex();
-
-    //Zwei Hilfmethoden für MergeVertex
-    void DelVertex4Merge(Vertex* v);
-    void DelNachfolger4Merge(Vertex* v);
+	//Zwei Hilfmethoden für MergeVertex
+	void DelVertex4Merge(Vertex* v);
+	void DelNachfolger4Merge(Vertex* v);
 
 };
 
