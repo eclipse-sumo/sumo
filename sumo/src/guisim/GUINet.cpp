@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2004/02/05 16:30:59  dkrajzew
+// multiplicate deletion of E3-detectors on application quit patched
+//
 // Revision 1.29  2004/01/26 06:59:38  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -169,7 +172,6 @@ GUINet::~GUINet()
     for(std::vector<GUIDetectorWrapper*>::iterator i2=myDetectorWrapper.begin(); i2!=myDetectorWrapper.end(); i2++) {
         delete (*i2);
     }
-    GUIE3Collector::eraseAll();
         // of tl-logics
     typedef std::map<MSLink*, GUITrafficLightLogicWrapper*> Link2LogicMap;
     typedef std::set<GUITrafficLightLogicWrapper*> LogicSet;

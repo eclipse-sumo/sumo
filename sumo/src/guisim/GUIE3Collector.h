@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/02/05 16:30:59  dkrajzew
+// multiplicate deletion of E3-detectors on application quit patched
+//
 // Revision 1.1  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -75,9 +78,6 @@ public:
 
     /// Returns a list of known e3-instances
     static const InstanceVector &getInstances();
-
-    /// Deletes all build e3-detectors
-    static void eraseAll();
 
 
     /**

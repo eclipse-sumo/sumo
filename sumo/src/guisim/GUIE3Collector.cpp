@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/05 16:30:59  dkrajzew
+// multiplicate deletion of E3-detectors on application quit patched
+//
 // Revision 1.1  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -283,16 +286,6 @@ const GUIE3Collector::InstanceVector &
 GUIE3Collector::getInstances()
 {
     return myInstances;
-}
-
-
-void
-GUIE3Collector::eraseAll()
-{
-    for(InstanceVector::iterator i=myInstances.begin(); i!=myInstances.end(); i++) {
-        delete (*i);
-    }
-    myInstances.clear();
 }
 
 
