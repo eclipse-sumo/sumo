@@ -5,18 +5,15 @@
  * @file   Dictionary.h
  * @author Christian Roessel
  * @date   Wed May  7 12:46:55 2003
- * @version Revision $Revision$
- * from $Date$
- * by $Author$
- *
- * @brief
- *
->>>>>>> 1.3
+ * Revision $Revision$ from $Date$ by $Author$
  *
  * @brief Contains the Dictionary implementation.
  */
 
 // $Log$
+// Revision 1.5  2003/06/06 13:21:23  roessel
+// Documentation refined.
+//
 // Revision 1.4  2003/06/06 13:16:13  roessel
 // Documentation updated. vectorM not static any longer.
 //

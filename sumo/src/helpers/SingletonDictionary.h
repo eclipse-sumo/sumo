@@ -4,16 +4,17 @@
 /**
  * @file   SingletonDictionary.h
  * @author Christian Roessel
- * @date   Wed May  7 12:46:35 2003
- * @version Revision $Revision$
- * from $Date$
- * by $Author$
+ * @date   Started on Wed May  7 12:46:35 2003
+ * $Revision$ from $Date$ by $Author$
  *
  * @brief Contains the SingletonDictiaonary implementation.
  */
 
 
 // $Log$
+// Revision 1.4  2003/06/06 13:21:22  roessel
+// Documentation refined.
+//
 // Revision 1.3  2003/06/06 13:16:13  roessel
 // Documentation updated. vectorM not static any longer.
 //
