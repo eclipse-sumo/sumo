@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2003/11/20 13:13:43  dkrajzew
+// obsolete saving of a lanes geometry twice removed
+//
 // Revision 1.34  2003/11/18 14:25:24  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -669,8 +672,7 @@ NBEdge::writeXMLStep3(std::ostream &into)
         default:
             throw 1;
         }
-        into << "\">"
-            << myGeom << "</edgepos>" << endl;
+        into << "\"/>" << endl;
     }
 }
 
