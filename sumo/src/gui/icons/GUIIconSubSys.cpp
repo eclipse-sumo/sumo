@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/08/02 11:40:41  dkrajzew
+// camera icon added; moved window icons to antother format
+//
 // Revision 1.4  2004/07/05 09:30:58  dkrajzew
 // bug on unitialised icon usage patched
 //
@@ -67,11 +70,12 @@ namespace
 #include "flag.cpp"
 #include "flag_plus.cpp"
 #include "flag_minus.cpp"
-#include "windows_cascade.cpp"
-#include "windows_tile_vertically.cpp"
-#include "windows_tile_horizontally.cpp"
+#include "windows_cascade.xpm"
+#include "windows_tile_vertically.xpm"
+#include "windows_tile_horizontally.xpm"
 #include "reload.cpp"
 #include "manip.cpp"
+#include "camera.xpm"
 /*
 #include "vlimit_20.cpp"
 #include "vlimit_40.cpp"
@@ -124,11 +128,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_FLAG] = new FXGIFIcon(a, flag);
     myIcons[ICON_FLAG_PLUS] = new FXGIFIcon(a, flag_plus);
     myIcons[ICON_FLAG_MINUS] = new FXGIFIcon(a, flag_minus);
-    myIcons[ICON_WINDOWS_CASCADE] = new FXGIFIcon(a, windows_cascade);
-    myIcons[ICON_WINDOWS_TILE_VERT] = new FXGIFIcon(a, windows_tile_vertically);
-    myIcons[ICON_WINDOWS_TILE_HORI] = new FXGIFIcon(a, windows_tile_horizontally);
+    // window arrangements
+    myIcons[ICON_WINDOWS_CASCADE] = new FXXPMIcon(a, windows_cascade_xpm);
+    myIcons[ICON_WINDOWS_TILE_VERT] = new FXXPMIcon(a, windows_tile_vertically_xpm);
+    myIcons[ICON_WINDOWS_TILE_HORI] = new FXXPMIcon(a, windows_tile_horizontally_xpm);
+    // manipulate
     myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
+    myIcons[ICON_CAMERA] = new FXXPMIcon(a, camera_xpm);
 
+    // vss
     myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
     myIcons[ICON_SPEEDLIMIT_040KMH] = 0;//new FXGIFIcon(a, vlimit_40);
     myIcons[ICON_SPEEDLIMIT_060KMH] = 0;//new FXGIFIcon(a, vlimit_60);
