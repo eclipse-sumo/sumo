@@ -167,15 +167,6 @@ AC_ARG_PROGRAM
 
 dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
-data/additional/Makefile
-data/config/Makefile
-data/detectors/Makefile
-data/net_parts/Makefile
-data/nets/Makefile
-data/routes/Makefile
-data/routedefs/Makefile
-data/tools/Makefile
-data/Makefile
 src/gui/Makefile
 src/gui/icons/Makefile
 src/guinetload/Makefile
@@ -184,8 +175,12 @@ src/helpers/Makefile
 src/microsim/Makefile
 src/netbuild/Makefile
 src/netimport/Makefile
+src/netimport/arcview/Makefile
 src/netimport/cell/Makefile
 src/netimport/sumo/Makefile
+src/netimport/vissim/Makefile
+src/netimport/vissim/tempstructs/Makefile
+src/netimport/vissim/typeloader/Makefile
 src/netimport/visum/Makefile
 src/netimport/xml/Makefile
 src/netload/Makefile
@@ -195,13 +190,16 @@ src/sumo_only/Makefile
 src/utils/Makefile
 src/utils/common/Makefile
 src/utils/convert/Makefile
+src/utils/distribution/Makefile
 src/utils/geom/Makefile
+src/utils/gfx/Makefile
 src/utils/importio/Makefile
 src/utils/options/Makefile
 src/utils/router/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 src/Makefile
+tools/Makefile
 Makefile)
 
 

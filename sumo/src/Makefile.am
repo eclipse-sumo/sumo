@@ -8,13 +8,19 @@ sumo_LDFLAGS = -L$(XERCESLIBPATH)
 sumo_LDADD   = ./netload/libnetload.a ./microsim/libmicrosim.a \
 ./utils/common/libcommon.a ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a ./utils/xml/libxml.a \
-./utils/sumoxml/libsumoxml.a ./sumo_only/libsumoonly.a -l$(XERCESLIB)
+./utils/sumoxml/libsumoxml.a ./sumo_only/libsumoonly.a \
+./helpers/libhelpers.a -l$(XERCESLIB)
 
 sumo_netconvert_LDFLAGS = -L$(XERCESLIBPATH)
 sumo_netconvert_LDADD   = ./netbuild/libnetbuild.a \
 ./netimport/cell/libcellimport.a ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a ./netimport/xml/libxmlimport.a \
-./utils/importio/libimportio.a ./utils/geom/libgeom.a \
+./netimport/arcview/libarcviewimport.a \
+./netimport/vissim/libvissimimport.a \
+./netimport/vissim/typeloader/libvissimtypeload.a \
+./netimport/vissim/tempstructs/libvissimtmpstr.a \
+./utils/distribution/libdistribution.a \
+./utils/importio/libimportio.a ./utils/geom/libgeom.a ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a ./utils/options/liboptions.a \
 ./utils/common/libcommon.a ./utils/convert/libconvert.a \
 ./utils/xml/libxml.a -l$(XERCESLIB)
