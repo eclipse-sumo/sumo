@@ -6,9 +6,9 @@
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
-//  copyright            : (C) 2002 by Peter Mieth
+//  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Peter.Mieth@dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2003/04/09 15:57:07  dkrajzew
-// reinsertion of simple OD-matrix
+// Revision 1.5  2003/05/20 09:46:53  dkrajzew
+// usage of split and non-split od-matrices from visum and vissim rechecked
 //
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
@@ -42,7 +42,7 @@
     extern int Get_rand (int, int, int, int*, int*, bool);
 	extern void IndexSort (long int*, long int*, CMPFUN, long int);
 	extern void ODInpread (string , string infiles[MAX_INFILES],
-						   content content[MAX_CONTENT],int*);
+						   struct content content[MAX_CONTENT],int*);
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE

@@ -40,12 +40,11 @@
 using namespace std;
 
 void ODInpread (string OD_filename,string infiles[MAX_INFILES],
-				content content[MAX_CONTENT],int *max_infiles)
+				struct content content[MAX_CONTENT],int *max_infiles)
 	{
 	std::string cLine;
 	char bez1[]="ZUSAMMENSETZUNG";
 	char bez2[]="MATRIXDATEI ";
-	//char bez3[]="BEWERTUNGSDATEI";
 	char bez4[]="NAME";
 	char bez5[]="ANTEIL";
 	char bez6[]="FAHRZEUGTYP";
@@ -54,13 +53,7 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	char delim3[]="V";
 	int ferror = 0;
 	char datin[MAX_LINELENGTH];
-	struct content_tmp {
-		int id;
-		int max;
-		int	cartype[MAX_CARTYPES];
-		float fraction[MAX_CARTYPES];
-	};
-	content_tmp content_tmp[MAX_CONTENT];
+	struct content content_tmp[MAX_CONTENT];
 
 	std::ifstream fsSrc (OD_filename.c_str ());
 
@@ -113,11 +106,12 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	for (i=0;i<(*max_infiles);i++) {
 		for (j=0;j<count3+1;j++) {
 			if (content[i].id==content_tmp[j].id) {
-				content[i].max=content_tmp[j].max;
-				for (k=0;k<content_tmp[j].max;k++) {
-					content[i].cartype[k]=content_tmp[j].cartype[k];
-					content[i].fraction[k]=content_tmp[j].fraction[k];
-				}
+				content[i]=content_tmp[j];
+				//content[i].max=content_tmp[j].max;
+				//for (k=0;k<content_tmp[j].max;k++) {
+				//	content[i].cartype[k]=content_tmp[j].cartype[k];
+				//	content[i].fraction[k]=content_tmp[j].fraction[k];
+				//}
 			}
 		}
 	}

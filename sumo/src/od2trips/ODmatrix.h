@@ -6,9 +6,9 @@
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
-//  copyright            : (C) 2002 by Peter Mieth
+//  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Peter.Mieth@dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
@@ -20,11 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2003/04/09 15:57:06  dkrajzew
-// reinsertion of simple OD-matrix
-//
-// Revision 1.3  2003/04/01 15:22:20  dkrajzew
-// parsing of multiple (vissim)-matrices added
+// Revision 1.5  2003/05/20 09:46:53  dkrajzew
+// usage of split and non-split od-matrices from visum and vissim rechecked
 //
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
@@ -83,7 +80,7 @@ const int MAX_INFILES=200;
 const int MAX_LINELENGTH=500;
 const int MAX_CONTENT=200;
 
-struct content {
+typedef struct content {
 	int id;
 	int max;
 	int	cartype[MAX_CARTYPES];

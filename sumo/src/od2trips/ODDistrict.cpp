@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:46:53  dkrajzew
+// usage of split and non-split od-matrices from visum and vissim rechecked
+//
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
@@ -40,8 +43,19 @@ namespace
 #include <utility>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Named.h>
+#include <utils/common/SErrorHandler.h>
 #include "ODDistrict.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ODDistrict::ODDistrict(const std::string &id)
     : Named(id)
 {
@@ -85,7 +99,10 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
 {
     // check whether at least one elements exists
     if(cont.size()==0) {
-        throw UnknownElement();
+        SErrorHandler::add(
+            string("Trying to use a not existing source/sink at district: ")
+            + string(getID()));
+        throw 1;//ProcessError();
     }
     // compute which item to retrieve
     double val = rand() / RAND_MAX;

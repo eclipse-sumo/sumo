@@ -78,9 +78,12 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
 	for(i=0;i<maxdist;i++) {
 		fsSrc >> *(index+i);
 	}
-	for(i=0;i<2;i++) (getline (fsSrc, cLine));
+	//for(i=0;i<2;i++) (getline (fsSrc, cLine));
+	string bez="Summe";
 	for(i=0;i<maxdist;i++) {
-		getline (fsSrc, cLine);
+		while (cLine.find(bez) == -1) {
+			getline (fsSrc, cLine);
+		}
 		OD_IN tmp;
 		tmp.from=*(index+i);
 		for(j=0;j<maxdist;j++) {
