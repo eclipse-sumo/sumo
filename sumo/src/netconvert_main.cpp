@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/18 13:19:38  dkrajzew
+// memory leak debugging functions included (MSVC)
+//
 // Revision 1.5  2003/03/06 17:19:11  dkrajzew
 // debugging
 //
@@ -116,6 +119,7 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
+   #include <crtdbg.h>
 #endif
 #endif
 
@@ -131,7 +135,7 @@ using namespace std;
  * computation methods
  * ----------------------------------------------------------------------- */
 
-    
+
 /** removes dummy edges from junctions */
 bool removeDummyEdges(int step, bool verbose)
 {
@@ -353,8 +357,12 @@ int main(int argc, char **argv)
 #ifdef _DEBUG
 #ifdef WIN32
     CMemDiff state1;
+    // uncomment next line and insert the context of an undeleted
+    //  allocation to break within it (MSVC++ only)
+    // _CrtSetBreakAlloc(814107);
 #endif
 #endif
+
     bool verbose = false;
     OptionsCont *oc = 0;
     try {
