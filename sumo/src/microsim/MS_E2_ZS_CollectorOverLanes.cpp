@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/02/18 05:25:21  dkrajzew
+// error on computation of the preceding lane using neighbour lane patched
+//
 // Revision 1.13  2004/02/16 14:04:54  dkrajzew
 // bug on extension of lanes that do not have a predeccesor patched
 //
@@ -184,11 +187,12 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                             predeccessors =
             					getLanePredeccessorLanes(tryMe, laneContinuations);
                         }
-                        if(predeccessors.size()!=0&&idx+off<lanes->size()) {
+                        if(predeccessors.size()==0&&idx+off<lanes->size()) {
                             MSLane *tryMe = (*lanes)[idx+off];
                             predeccessors =
             					getLanePredeccessorLanes(tryMe, laneContinuations);
                         }
+                        off++;
                     }
                 }
 
