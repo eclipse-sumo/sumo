@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/07/05 09:31:48  dkrajzew
+// bug on non-MSVC-conform object initialisation patched
+//
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
 //
@@ -59,8 +62,8 @@ GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         int xpos, int ypos)
     : GUIManipulator(app, name, o, 0, 0), myChosenValue(0),
     myParent(&app),
-    myChosenTarget(myChosenValue, this, MID_OPTION), mySpeedTarget(mySpeed)
-    mySpeed(static_cast<GUILaneSpeedTrigger&>(o).getDefaultSpeed()),
+    myChosenTarget(myChosenValue, this, MID_OPTION), mySpeedTarget(mySpeed),
+    mySpeed(static_cast<GUILaneSpeedTrigger&>(o).getDefaultSpeed())
 {
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
