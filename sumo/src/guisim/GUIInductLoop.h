@@ -40,43 +40,25 @@ public:
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
-/*
-        void insertTableParameter(GUIParameterTableWindow *window,
-            QListView *table, double *parameter,
-            QListViewItem **vitems);
-
-        size_t getTableParameterNo() const;
-
-        double getTableParameter(size_t pos) const;
-
-*/
-//        void fillTableParameter(double *parameter) const;
 
         /// Needed to set the id
         friend class GUIGlObjectStorage;
-/*
-        const char * const getTableItem(size_t pos) const;
-*/
-	    bool active() const;
+
+        bool active() const;
 
         double getXCoordinate() const;
         double getYCoordinate() const;
 
         GUIInductLoop &getLoop();
-    protected:
-/*
-        TableType getTableType(size_t pos) const;
-
-        const char *getTableBeginValue(size_t pos) const;
-*/
 
     private:
         GUIInductLoop &myDetector;
         Boundery myBoundery;
-        Position2D myPosition;
-        Position2D myBegin;
-        Position2D myEnd;
-        double myRotation;
+        Position2D myFGPosition;
+        Position2D mySGPosition;
+//        Position2D myBegin;
+//        Position2D myEnd;
+        double myFGRotation, mySGRotation;
 
     };
 

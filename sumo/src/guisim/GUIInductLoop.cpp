@@ -4,6 +4,7 @@
 #include "GUILaneWrapper.h"
 #include "GUIInductLoop.h"
 #include <utils/glutils/GLHelper.h>
+#include <utils/geom/Line2D.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <utils/logging/UIntParametrisedDblFuncBinding.h>
 #include <utils/logging/DoubleFunctionBinding.h>
@@ -45,12 +46,19 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
     : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
     myDetector(detector)
 {
-    myPosition = wrapper.getShape().positionAtLengthPosition(pos);
-    myBoundery.add(myPosition.x()+5.5, myPosition.y()+5.5);
-    myBoundery.add(myPosition.x()-5.5, myPosition.y()-5.5);
-    myRotation = wrapper.getRotation();
-    myBegin = wrapper.getBegin();
-    myEnd = wrapper.getEnd();
+    const Position2DVector &v = wrapper.getShape();
+    myFGPosition = v.positionAtLengthPosition(pos);
+    Line2D l(v.getBegin(), v.getEnd());
+    double sgPos = pos / v.length() * l.length();
+    mySGPosition = l.getPositionAtDistance(sgPos);
+    myBoundery.add(myFGPosition.x()+5.5, myFGPosition.y()+5.5);
+    myBoundery.add(myFGPosition.x()-5.5, myFGPosition.y()-5.5);
+    myBoundery.add(mySGPosition.x()+5.5, mySGPosition.y()+5.5);
+    myBoundery.add(mySGPosition.x()-5.5, mySGPosition.y()-5.5);
+    myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
+    mySGRotation = -l.atan2DegreeAngle();
+//    myBegin = wrapper.getBegin();
+//    myEnd = wrapper.getEnd();
 }
 
 
@@ -114,44 +122,6 @@ GUIInductLoop::MyWrapper::microsimID() const
 }
 
 
-/*
-void
-GUIInductLoop::MyWrapper::insertTableParameter(GUIParameterTableWindow *window,
-                                    QListView *table, double *parameter,
-                                    QListViewItem **vitems)
-{
-}
-
-
-size_t
-GUIInductLoop::MyWrapper::getTableParameterNo() const
-{
-    throw 1;
-}
-
-
-double
-GUIInductLoop::MyWrapper::getTableParameter(size_t pos) const
-{
-    throw 1;
-}
-
-
-
-const char * const
-GUIInductLoop::MyWrapper::getTableItem(size_t pos) const
-{
-    throw 1;
-}
-*/
-
-/*
-void
-GUIInductLoop::MyWrapper::fillTableParameter(double *parameter) const
-{
-}
-*/
-
 
 bool
 GUIInductLoop::MyWrapper::active() const
@@ -159,19 +129,6 @@ GUIInductLoop::MyWrapper::active() const
     return true;
 }
 
-/*
-TableType
-GUIInductLoop::MyWrapper::getTableType(size_t pos) const
-{
-    throw 1;
-}
-
-const char *
-GUIInductLoop::MyWrapper::getTableBeginValue(size_t pos) const
-{
-    throw 1;
-}
-*/
 
 void
 GUIInductLoop::MyWrapper::drawGL_SG(double scale) const
@@ -182,8 +139,8 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale) const
     glColor3f(1, 1, 0);
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
-    glTranslated(myPosition.x(), myPosition.y(), 0);
-    glRotated( myRotation, 0, 0, 1 );
+    glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
+    glRotated( mySGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
     glVertex2f(0-1.0, 2);
     glVertex2f(-1.0, -2);
@@ -232,8 +189,8 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale) const
     glColor3f(1, 1, 0);
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
-    glTranslated(myPosition.x(), myPosition.y(), 0);
-    glRotated( myRotation, 0, 0, 1 );
+    glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
+    glRotated( myFGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
     glVertex2f(0-1.0, 2);
     glVertex2f(-1.0, -2);
@@ -276,14 +233,14 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale) const
 double
 GUIInductLoop::MyWrapper::getXCoordinate() const
 {
-    return myPosition.x();
+    return myFGPosition.x();
 }
 
 
 double
 GUIInductLoop::MyWrapper::getYCoordinate() const
 {
-    return myPosition.y();
+    return myFGPosition.y();
 }
 
 GUIInductLoop &
