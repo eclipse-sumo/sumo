@@ -1,7 +1,6 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSEmitControl.h>
-#include <microsim/MSPersonControl.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <guisim/GUINet.h>
@@ -10,6 +9,8 @@
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include "GUIContainer.h"
+
+using namespace std;
 
 
 GUIContainer::GUIContainer(NLEdgeControlBuilder * const edgeBuilder)
@@ -32,7 +33,6 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
     MSEmitControl *emitters = new MSEmitControl("", m_pVehicles);
     GUINet::initGUINet( m_Id, edges, junctions, emitters,
         m_EventControl,
-        new MSPersonControl(*(new MSPersonControl::WaitingPersons())),
         m_pDetectors, dumpMeanDataIntervalls, baseNameDumpFiles);
     return static_cast<GUINet*>(GUINet::getInstance());
 }

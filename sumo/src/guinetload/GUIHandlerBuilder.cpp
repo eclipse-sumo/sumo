@@ -11,6 +11,8 @@
 #include "GUIContainer.h"
 #include "GUIHandlerBuilder.h"
 
+using namespace std;
+
 GUIHandlerBuilder::GUIHandlerBuilder(NLContainer &container)
     : NLHandlerBuilder(container)
 {

@@ -12,7 +12,6 @@ class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
 class MSEventControl;
-class MSPersonControl;
 
 class GUINet : public MSNet
 {
@@ -22,7 +21,7 @@ public:
     static void preInitGUINet( MSNet::Time startTimeStep );
     static void initGUINet( std::string id,
         MSEdgeControl* ec, MSJunctionControl* jc, MSEmitControl* emc,
-        MSEventControl* evc, MSPersonControl* wpc, DetectorCont* detectors,
+        MSEventControl* evc, DetectorCont* detectors,
         MSNet::TimeVector dumpMeanDataIntervalls, 
         std::string baseNameDumpFiles);
     Position2D getJunctionPosition(const std::string &name) const;

@@ -37,11 +37,11 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep )
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
                    MSEmitControl* emc, MSEventControl* evc,
-                   MSPersonControl* wpc, DetectorCont* detectors,
+                   DetectorCont* detectors,
                    MSNet::TimeVector dumpMeanDataIntervalls, 
                    std::string baseNameDumpFiles)
 {
-    MSNet::init(id, ec, jc, emc, evc, wpc, detectors, 
+    MSNet::init(id, ec, jc, emc, evc, detectors, 
         dumpMeanDataIntervalls, baseNameDumpFiles, true);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     net->_edgeGrid.init();

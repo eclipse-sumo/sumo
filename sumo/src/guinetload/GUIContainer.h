@@ -18,7 +18,7 @@ public:
     /// adds information about the source and the destination junction
     void addSrcDestInfo(const std::string &id, const std::string &from,
         const std::string &to, const std::string &func);
-    void addLane(const string &id, const bool isDepartLane,
+    void addLane(const std::string &id, const bool isDepartLane,
         const float maxSpeed, const float length, const float changeUrge);
 private:
 };
