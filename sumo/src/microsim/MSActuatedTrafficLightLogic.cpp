@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/05/27 18:47:35  roessel
+// Changed call to MSLaneState ctor.
+//
 // Revision 1.8  2003/05/22 09:20:49  roessel
 // Renamed method call numberOfWaiting to getCurrentNumberOfWaiting.
 //
@@ -176,8 +179,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
         }
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        MSLaneState* loop = new MSLaneState( "", lane, lspos,
-            lslen, laneStateDetectorInterval, MSLaneState::CSV, 0);
+        MSLaneState* loop =
+            new MSLaneState( _id, lane, lspos, lslen,
+                             laneStateDetectorInterval, 0);
         myLaneStates[lane] = loop;
     }
 }
