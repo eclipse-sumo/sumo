@@ -145,10 +145,10 @@ private:   // private members
         /**
          */
         struct FrequencyGreater :
-            public std::binary_function< const RouteDistElement,
+            public std::binary_function< RouteDistElement,
                                          double, bool >
         {
-            bool operator() ( const RouteDistElement elem,
+            bool operator() ( RouteDistElement elem,
                               double cmpFreq ) const;
         };
 
@@ -175,6 +175,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.5  2002/09/25 18:15:55  roessel
+// Types in FrequencyGreater::operator() need not be const for g++-3.2
+//
 // Revision 1.4  2002/07/31 17:32:48  roessel
 // Initial sourceforge commit.
 //

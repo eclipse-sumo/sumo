@@ -116,7 +116,7 @@ MSTriggeredSource::RouteDistribution::getSize( void ) const
 
 bool
 MSTriggeredSource::RouteDistribution::FrequencyGreater::operator() (
-    const RouteDistElement elem,
+    RouteDistElement elem,
     double cmpFreq ) const
 {
     return elem.myFrequencySum >= cmpFreq;
@@ -354,6 +354,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.5  2002/09/25 18:15:55  roessel
+// Types in FrequencyGreater::operator() need not be const for g++-3.2
+//
 // Revision 1.4  2002/07/31 17:50:02  roessel
 // Removed unneede include.
 //
