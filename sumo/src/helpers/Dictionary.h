@@ -4,13 +4,25 @@
 /**
  * @file   Dictionary.h
  * @author Christian Roessel
- * @date   Wed May  7 12:46:55 2003
- * Revision $Revision$ from $Date$ by $Author$
+ * @date   Started on Wed May  7 12:46:55 2003
+ * $Revision$ from $Date$ by $Author$
  *
  * @brief Contains the Dictionary implementation.
  */
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+
 // $Log$
+// Revision 1.6  2003/06/06 13:26:40  roessel
+// GPL notice added.
+//
 // Revision 1.5  2003/06/06 13:21:23  roessel
 // Documentation refined.
 //
