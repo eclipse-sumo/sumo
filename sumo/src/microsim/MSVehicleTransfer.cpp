@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.7  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -30,7 +33,6 @@ namespace
 //
 // Revision 1.5  2003/11/20 14:58:21  dkrajzew
 // comments added
-//
 //
 /* =========================================================================
  * included modules
@@ -85,6 +87,9 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 void
 MSVehicleTransfer::checkEmissions(MSNet::Time time)
 {
+    if(time==52334) {
+        int bla = 0;
+    }
     // go through vehicles
     for(VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
         // get the vehicle information

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.13  2003/11/24 10:21:21  dkrajzew
 // some documentation added and dead code removed
 //
@@ -134,16 +137,11 @@ protected:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
 //#include "MSSimpleTrafficLightLogic.cpp"
-#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSSimpleTrafficLightLogic.icc"
-//#endif
 
 #endif
 

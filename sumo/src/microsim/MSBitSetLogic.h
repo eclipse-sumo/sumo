@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -134,9 +137,7 @@ private:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
 #include "MSBitSetLogic.cpp"
-#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /** To make things easier we use a fixed size. 64 will be sufficient even for
@@ -146,9 +147,6 @@ typedef MSBitSetLogic< 64 > MSBitsetLogic;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSBitSetLogic.icc"
-//#endif
 
 #endif
 

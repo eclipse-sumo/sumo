@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.51  2004/02/18 05:30:09  dkrajzew
 // removal of all moveReminders on lane change added
 //
@@ -631,6 +634,11 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
 MSVehicle::~MSVehicle()
 {
     myID = "<deleted>";
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        DEBUG_OUT << "delete:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+    }
+#endif
     //myWaitingPersons.clear();
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
@@ -1782,7 +1790,7 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 {
 //    myApproachedLane = 0;
     myLane = enteredLane;
-    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
+    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() - 1 ),
                     myState.myPos, 0 );
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
@@ -1797,7 +1805,7 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
     myWaitingTime = 0;
     myLane = enteredLane;
-    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
+    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() - 1 ),
                     myState.myPos, myState.mySpeed );
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
@@ -1853,6 +1861,7 @@ MSVehicle::leaveLaneAtLaneChange( void )
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() );
 
+    double savePos = myState.myPos; // have to do this due to double-precision errors
     for ( unsigned index = 0; index < myMeanData.size(); ++index ) {
 
         assert(myMeanData.size()>index);
@@ -1897,13 +1906,14 @@ MSVehicle::leaveLaneAtLaneChange( void )
           rem != myMoveReminders.end(); ++rem ){
         (*rem)->dismissByLaneChange( *this );
     }
-		  std::vector<double>::iterator bla = myOldLaneMoveReminderOffsets.begin();
+    std::vector<double>::iterator off = myOldLaneMoveReminderOffsets.begin();
     for ( rem = myOldLaneMoveReminders.begin();
-          rem != myOldLaneMoveReminders.end(); ++rem, ++bla  ){
-		myState.myPos += (*bla);
+          rem != myOldLaneMoveReminders.end(); ++rem, ++off  ){
+		myState.myPos += (*off);
         (*rem)->dismissByLaneChange( *this );
-		myState.myPos -= (*bla);
+		myState.myPos -= (*off);
     }
+    myState.myPos = savePos; // have to do this due to double-precision errors
 	myMoveReminders.clear();
 	myOldLaneMoveReminders.clear();
 	myOldLaneMoveReminderOffsets.clear();
@@ -2178,17 +2188,43 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
     }
 }
 
+void
+MSVehicle::removeApproachingInformationOnKill()
+{
+    if(myLFLinkLanes.size()==0) {
+        return;
+    }
+    const DriveProcessItem &item = *(myLFLinkLanes.begin());
+    if(!myLane->isLinkEnd((*(myLFLinkLanes.begin())).myLink)) {
+        MSLane *l = (*item.myLink)->getViaLane();
+        if(l==0) {
+            l = (*item.myLink)->getLane();
+        }
+        removeApproachingInformationOnKill(l);
+    }
+}
 
 void
 MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
 {
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        DEBUG_OUT << "rmApp:" << MSNet::globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+    }
+#endif
+    MSLane *current = myLane;
     bool found = false;
     for(DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); i++) {
         const DriveProcessItem &item = *i;
         // ok, leave if a dead end occured
         //  (the vehicle does not drive any further)
-        if(begin->isLinkEnd((*i).myLink)) {
-            return;
+        if(current->isLinkEnd((*i).myLink)) {
+            break;
+        }
+        //
+        current = (*item.myLink)->getViaLane();
+        if(current==0) {
+            current = (*item.myLink)->getLane();
         }
         //
         if((*item.myLink)->getViaLane()==begin||(*item.myLink)->getLane()==begin) {

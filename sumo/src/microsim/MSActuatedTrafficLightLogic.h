@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.17  2004/01/26 07:32:46  dkrajzew
 // added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
 //
@@ -163,9 +166,7 @@ protected:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
 #include "MSActuatedTrafficLightLogic.cpp"
-#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 

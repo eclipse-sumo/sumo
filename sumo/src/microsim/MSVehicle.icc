@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.7  2003/10/17 06:52:01  dkrajzew
 // acceleration is now time-dependent
 //
@@ -226,6 +229,9 @@ inline double
 MSVehicle::gap2pred( const MSVehicle& pred ) const
 {
     double gap = pred.pos() - pred.length() - this->pos();
+	if(gap<0&&gap>-1.0e-13) {
+		gap = 0;
+	}
     assert( gap >= double( 0 ) );
     return gap;
 }

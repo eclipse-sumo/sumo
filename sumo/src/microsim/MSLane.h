@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.21  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.20  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -356,7 +359,7 @@ public:
     virtual void moveCritical();
 
     /// Check if vehicles are too close.
-    void detectCollisions( MSNet::Time timestep ) const;
+    void detectCollisions( MSNet::Time timestep );
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );
@@ -494,10 +497,10 @@ public:
     MoveReminderCont getMoveReminders( void );
 
     // valid for gui-version only
-    virtual GUILaneWrapper *buildLaneWrapper(
-            GUIGlObjectStorage &idStorage, bool allowAggregation);
+    virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
     MSVehicle *removeFirstVehicle();
+    MSVehicle *myApproaching;
 
 
 protected:
@@ -589,7 +592,6 @@ protected:
 
 
     double myBackDistance;
-    MSVehicle *myApproaching;
 
     /** Vehicle-buffer for vehicle that was put onto this lane by a
         junction. The  buffer is neccessary, because of competing

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.14  2004/02/18 05:25:21  dkrajzew
 // error on computation of the preceding lane using neighbour lane patched
 //
@@ -375,6 +378,13 @@ MS_E2_ZS_CollectorOverLanes::getXMLOutput( MSUnit::IntSteps lastNTimesteps )
     std::string result;
     MSUnit::Seconds lastNSeconds =
         MSUnit::getInstance()->getSeconds( lastNTimesteps );
+    if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
+        result += std::string("collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"") +
+            toString( getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES) ) +
+            std::string("\" ");
+        resetQueueLengthAheadOfTrafficLights();
+    }
+    result += myDetectorCombinations[0][0]->getXMLOutput(lastNTimesteps);
     return result;
 }
 

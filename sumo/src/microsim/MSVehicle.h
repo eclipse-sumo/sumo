@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.34  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.33  2004/02/16 15:21:58  dkrajzew
 // movedDistance-retrival reworked; forgetting predecessors when driving over more than one lane patched
 //
@@ -705,6 +708,7 @@ public:
         MSEdge *to);
 
     size_t getWaitingTime() const;
+    void removeApproachingInformationOnKill();
     void removeApproachingInformationOnKill(MSLane *begin);
 
 //    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!

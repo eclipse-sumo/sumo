@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.13  2004/01/26 07:32:46  dkrajzew
 // added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
 //
@@ -179,7 +182,7 @@ protected:
     /// A map of the step of the greenphases and their detectorvalues for several (mumberofValues) cycles
     PhaseValueMap myRawDetectorData;
 
-    /// A map of the step of the greenphases and theri aggregated detectordata
+    /// A map of the step of the greenphases and their aggregated detectordata
     MeanDataMap myMeanDetectorData;
 
     /** @brief the interval in which the trafficlight can make a decision
@@ -208,16 +211,11 @@ protected:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
 #include "MSAgentbasedTrafficLightLogic.cpp"
-#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSAgentbasedTrafficLightLogic.icc"
-//#endif
 
 #endif
 

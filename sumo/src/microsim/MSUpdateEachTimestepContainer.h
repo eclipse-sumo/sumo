@@ -42,11 +42,20 @@ public:
             containerM.push_back( item );
         }
 
+    void removeItemToUpdate( UpdateEachTimestep* item )
+        {
+            typename std::vector< UpdateEachTimestep* >::iterator i =
+                std::find(containerM.begin(), containerM.end(), item);
+            if(i!=containerM.end()) {
+                containerM.erase(i);
+            }
+        }
+
     void updateAll( void )
         {
             using namespace std;
-            for_each( containerM.begin(), containerM.end(),
-                      mem_fun( &UpdateEachTimestep::updateEachTimestep ) );
+            std::for_each( containerM.begin(), containerM.end(),
+                std::mem_fun( &UpdateEachTimestep::updateEachTimestep ) );
         }
 
     ~MSUpdateEachTimestepContainer( void )
@@ -54,6 +63,13 @@ public:
             containerM.clear();
             instanceM = 0;
         }
+
+    void clear() {
+        for(typename std::vector< UpdateEachTimestep* >::iterator i=containerM.begin(); i!=containerM.end(); ++i) {
+            delete (*i);
+        }
+        containerM.clear();
+    }
 
 private:
     MSUpdateEachTimestepContainer( void )

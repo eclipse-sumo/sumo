@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.15  2004/02/18 05:29:11  dkrajzew
 // false resetting of values after swap patched
 //
@@ -383,6 +386,7 @@ MSLaneChanger::change()
                     */
                     // !!! ggf. hierhin auch die safe-gap Zusatzabfrage
                     ) {
+
 
                     // ok, may be swapped
                         // remove vehicle to swap with

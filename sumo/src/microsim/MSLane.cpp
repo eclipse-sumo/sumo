@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.44  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.43  2004/01/26 07:45:36  dkrajzew
 // added the forgotton vehicle departure method call
 //
@@ -523,20 +526,22 @@ MSLane::moveCritical()
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::detectCollisions( MSNet::Time timestep ) const
+MSLane::detectCollisions( MSNet::Time timestep )
 {
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     if ( myVehicles.size() < 2 ) {
         return;
     }
 
-    VehCont::const_iterator lastVeh = myVehicles.end() - 1;
-    for ( VehCont::const_iterator veh = myVehicles.begin();
-          veh != lastVeh; ++veh ) {
+    VehCont::iterator lastVeh = myVehicles.end() - 1;
+    for ( VehCont::iterator veh = myVehicles.begin();
+          veh != lastVeh; ) {
 
         VehCont::const_iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
+            MSVehicle *predV = *pred;
+            MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
             if(!OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 handler = MsgHandler::getWarningInstance();
@@ -553,8 +558,24 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
             if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
-                throw 1;
+/*                predV->leaveLaneAtLaneChange();
+                predV->onTripEnd(*this);
+                resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
+                predV->removeApproachingInformationOnKill(this);
+                MSVehicleTransfer::getInstance()->addVeh(predV);
+*/
+                vehV->leaveLaneAtLaneChange();
+                vehV->onTripEnd(*this);
+                resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
+                vehV->removeApproachingInformationOnKill(this);
+                MSVehicleTransfer::getInstance()->addVeh(vehV);
             }
+            veh = myVehicles.erase(veh); // remove current vehicle
+//            veh = myVehicles.erase(veh); // remove predeccessor
+            myUseDefinition->noVehicles--;
+//            myUseDefinition->noVehicles--;
+        } else {
+            ++veh;
         }
     }
 }
@@ -839,6 +860,7 @@ MSLane::setCritical()
         if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::myTimeToGridlock) {
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
+            veh->removeApproachingInformationOnKill();
             vt->addVeh(veh);
         }
     }
@@ -910,6 +932,7 @@ MSLane::push(MSVehicle* veh)
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
         veh->onTripEnd(*this);
+        resetApproacherDistance();
         veh->removeApproachingInformationOnKill(this);
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
@@ -927,8 +950,9 @@ MSLane::push(MSVehicle* veh)
         return false;
     } else {
         veh->onTripEnd(*this);
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         resetApproacherDistance();
+        veh->removeApproachingInformationOnKill(this);
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
 }
@@ -1475,7 +1499,7 @@ MSLane::getMoveReminders( void )
 
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper(GUIGlObjectStorage &, bool)
+MSLane::buildLaneWrapper(GUIGlObjectStorage &)
 {
     throw "Only within the gui-version";
 }

@@ -34,6 +34,12 @@ public:
                 ToUpdate > >::getInstance()->addItemToUpdate( this );
         }
 
+    virtual ~MSUpdateEachTimestep( void )
+        {
+            MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
+                ToUpdate > >::getInstance()->removeItemToUpdate( this );
+        }
+
     virtual bool updateEachTimestep( void ) = 0;
 };
 

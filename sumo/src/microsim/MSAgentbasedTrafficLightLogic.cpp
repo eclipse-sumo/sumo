@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2004/03/19 13:09:40  dkrajzew
+// debugging
+//
 // Revision 1.16  2004/02/18 05:26:09  dkrajzew
 // newest version by jringel
 //
@@ -79,8 +82,8 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::MSAgentbasedTrafficLi
             const std::string &id, const Phases &phases,
 			size_t step, size_t delay)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
-    tSinceLastDecision (0), tDecide(1), tCycle(70), numberOfValues(3),
-    deltaLimit (0.1), stepOfLastDecision (0)
+    tSinceLastDecision (0), tDecide(1), stepOfLastDecision (0),
+    numberOfValues(3), tCycle(70), deltaLimit (0.1)
 {
 }
 
@@ -264,7 +267,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
     }
 
     // some output for control
-    if (_step == 0) {
+/*    if (_step == 0) {
         cout << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
         for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
             cout<< " step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
@@ -274,7 +277,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::nextPhase()
               cout<<" Dauer: " << _phases[(*it).first]->duration << "  " ;
         }
     }
-
+*/
     // increment the index to the current phase
     nextStep();
     // reset the link priorities
