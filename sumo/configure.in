@@ -29,27 +29,27 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE(debug, 
+AC_ARG_ENABLE(debug,
               [  --enable-debug          enable sumo debugging code [default=no].],
-              [AC_DEFINE(_DEBUG, 1, 
+              [AC_DEFINE(_DEBUG, 1,
                          [Define to 1 in order to enable sumo debugging code.])
 	      ])
 
-AC_ARG_ENABLE(assert, 
+AC_ARG_ENABLE(assert,
               [  --disable-assert        disable assertions [default=no].],
-              [AC_DEFINE(NDEBUG, 1, 
+              [AC_DEFINE(NDEBUG, 1,
                          [Define to 1 in order to disable assertions.])
 	      ])
 
-AC_ARG_ENABLE(inline, 
+AC_ARG_ENABLE(inline,
               [  --disable-inline        disable inlining [default=no].],
-              [AC_DEFINE(DISABLE_INLINE, 1, 
+              [AC_DEFINE(DISABLE_INLINE, 1,
                          [Define to 1 in order to disable inlining.])
 	      ])
 
-AC_ARG_ENABLE(speedcheck, 
+AC_ARG_ENABLE(speedcheck,
               [  --enable-speedcheck     enable sumo speedchecking code [default=no].],
-              [AC_DEFINE(_SPEEDCHECK, 1, 
+              [AC_DEFINE(_SPEEDCHECK, 1,
                          [Define to 1 in order to enable simulation-speed checking.])
 	      ])
 
@@ -162,17 +162,17 @@ dnl perform program name transformation
 AC_ARG_PROGRAM
 
 dnl add here all your Makefiles. These will be created by configure
-AC_OUTPUT(sumo/data/config/Makefile 
+AC_OUTPUT(sumo/data/config/Makefile
 sumo/data/detectors/Makefile
 sumo/data/nets/Makefile
-sumo/data/routes/Makefile 
-sumo/data/routedefs/Makefile 
-sumo/data/Makefile 
+sumo/data/routes/Makefile
+sumo/data/routedefs/Makefile
+sumo/data/Makefile
 sumo/helpers/Makefile
-sumo/microsim/Makefile 
-sumo/netload/Makefile 
+sumo/microsim/Makefile
+sumo/netload/Makefile
 sumo/utils/Makefile
-sumo/Makefile 
+sumo/Makefile
 Makefile)
 
 
