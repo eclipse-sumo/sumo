@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.1  2002/04/10 15:34:21  croessel
+// Renamed MSDetector into MSInductLoop.
+//
 // Revision 1.2  2002/04/10 15:16:15  croessel
 // Get the job done version.
 //
