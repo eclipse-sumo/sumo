@@ -2,6 +2,7 @@
 #define NBNetBuilder_h
 
 #include <string>
+#include <iostream>
 
 class OptionsCont;
 
@@ -13,15 +14,17 @@ public:
     static void insertNetBuildOptions(OptionsCont &oc);
     static void preCheckOptions(OptionsCont &oc);
 
-protected:
     /**
      * @brief computes the structures
      * the order of the computation steps is not variable!!!
      */
     void compute(OptionsCont &oc);
 
-    /** saves the net (not the junction logics) */
+    /** saves the net */
     bool save(std::string path, OptionsCont &oc);
+    bool save(std::ostream &os, OptionsCont &oc);
+
+protected:
 
     void inform(int &step, const std::string &about);
 

@@ -313,13 +313,8 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 
 
 bool
-NBNetBuilder::save(string path, OptionsCont &oc)
+NBNetBuilder::save(ostream &res, OptionsCont &oc)
 {
-    // try to build the output file
-    ofstream res(path.c_str());
-    if(!res.good()) {
-        return false;
-    }
     // print the computed values
     res << "<net>" << endl << endl;
     res.setf( ios::fixed, ios::floatfield );
@@ -358,6 +353,18 @@ NBNetBuilder::save(string path, OptionsCont &oc)
     }
     res << "</net>" << endl;
     return true;
+}
+
+
+bool
+NBNetBuilder::save(string path, OptionsCont &oc)
+{
+    // try to build the output file
+    ofstream res(path.c_str());
+    if(!res.good()) {
+        return false;
+    }
+    return save(res, oc);
 }
 
 
@@ -438,7 +445,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("edges-min-speed", new Option_Float());
     oc.doRegister("keep-edges", new Option_String());
     oc.doRegister("keep-edges.input-file", new Option_FileName());
-    oc.doRegister("keep-edges.postload", new Option_Bool());
+    oc.doRegister("keep-edges.postload", new Option_Bool(false));
 
     oc.doRegister("plain-output", new Option_FileName());
 
