@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/07/02 08:36:25  dkrajzew
+// vss added
+//
 // Revision 1.5  2003/11/12 13:47:18  dkrajzew
 // visualisation of tl-logics added
 //
@@ -31,7 +34,6 @@
 //
 // Revision 1.2  2003/06/05 11:37:30  dkrajzew
 // class templates applied
-//
 //
 /* =========================================================================
  * included modules
@@ -54,22 +56,33 @@
 enum GUIGlObjectType {
     /// The network - empty
     GLO_NETWORK = 0,
+
     /// a vehicles
     GLO_VEHICLE = 1,
+
     /// a tl-logic
     GLO_TLLOGIC = 2,
+
     /// a detector
     GLO_DETECTOR = 4,
+
     /// an emitter
     GLO_EMITTER = 8,
+
     /// a lane
     GLO_LANE = 16,
+
     /// an edge
     GLO_EDGE = 32,
+
     /// a junction
     GLO_JUNCTION = 64,
+
+    /// a lane speed trigger,
+    GLO_LANESPEEDTRIGGER = 128,
+
     /// empty max
-    GLO_MAX = 128
+    GLO_MAX = 256
 
 };
 
