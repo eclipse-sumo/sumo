@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/30 08:49:26  dkrajzew
+// changed the responsibility of a GLObject
+//
 // Revision 1.2  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -64,10 +67,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-QGLObjectPopupMenu::QGLObjectPopupMenu(GUIApplicationWindow *app,
-                                       GUISUMOAbstractView *parent,
-                                       GUIGlObject *o)
-    : QPopupMenu(parent), myParent(parent), myObject(o),
+QGLObjectPopupMenu::QGLObjectPopupMenu(GUIApplicationWindow &app,
+                                       GUISUMOAbstractView &parent,
+                                       GUIGlObject &o)
+    : QPopupMenu(&parent), myParent(parent), myObject(o),
     myApplication(app)
 {
 }
@@ -81,16 +84,18 @@ QGLObjectPopupMenu::~QGLObjectPopupMenu()
 void
 QGLObjectPopupMenu::center()
 {
-    myParent->centerTo(myObject->getType(), myObject->microsimID());
+    myParent.centerTo(myObject.getType(), myObject.microsimID());
 }
+
 
 
 void
 QGLObjectPopupMenu::showPars()
 {
-    // the application gets responsible for this object on building
-    new GUIParameterTableWindow(myApplication, myObject);
+    myObject.getParameterWindow(myApplication, myParent);
 }
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

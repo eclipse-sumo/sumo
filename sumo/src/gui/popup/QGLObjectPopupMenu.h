@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/30 08:49:26  dkrajzew
+// changed the responsibility of a GLObject
+//
 // Revision 1.1  2003/06/06 10:24:36  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -60,8 +63,8 @@ class QGLObjectPopupMenu :
 
 public:
     /// Constructor
-    QGLObjectPopupMenu(GUIApplicationWindow *app,
-        GUISUMOAbstractView *parent, GUIGlObject *o);
+    QGLObjectPopupMenu(GUIApplicationWindow &app,
+        GUISUMOAbstractView &parent, GUIGlObject &o);
 
     /// Destructor
     ~QGLObjectPopupMenu();
@@ -73,15 +76,15 @@ public slots:
     /// Callback called from the "show parameter"-menu option
     void showPars();
 
-private:
+protected:
     /// The parent window
-    GUISUMOAbstractView *myParent; // !!! needed?
+    GUISUMOAbstractView &myParent; // !!! needed?
 
     /// The object that belongs to this popup-menu
-    GUIGlObject *myObject;
+    GUIGlObject &myObject;
 
     /// The main application
-    GUIApplicationWindow *myApplication;
+    GUIApplicationWindow &myApplication;
 
 };
 
