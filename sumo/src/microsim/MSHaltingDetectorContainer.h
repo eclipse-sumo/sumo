@@ -114,31 +114,31 @@ namespace DetectorContainer
 
 namespace Predicate
 {
-//     // specialization
-//     template<>
-//     struct PosGreaterC< DetectorContainer::Haltings > :
-//         public std::binary_function< DetectorContainer::Haltings,
-//                                      double, bool >
-//     {
-//         bool operator() ( const DetectorContainer::Halting& item,
-//                           double pos ) const {
-//             return item.vehM->pos() > pos;
-//         }
-//     };
+    // specialization
+/*    template<>
+    struct PosGreaterC< DetectorContainer::Haltings > :
+        public std::binary_function< DetectorContainer::Haltings,
+                                     double, bool >
+    {
+        bool operator() ( const DetectorContainer::Halting& item,
+                          double pos ) const {
+            return item.vehM->pos() > pos;
+        }
+    };
 
-//     // specialization
-//     template<>
-//     struct VehEqualsC< DetectorContainer::Haltings > :
-//         public std::binary_function< DetectorContainer::Halting,
-//                                      MSVehicle*, bool >
-//     {
-//         bool operator() ( const DetectorContainer::Halting& item,
-//                           const MSVehicle* veh ) const {
-//             return item.vehM == veh;
-//         }
-//     };
+    // specialization
+    template<>
+    struct VehEqualsC< DetectorContainer::Haltings > :
+        public std::binary_function< DetectorContainer::Halting,
+                                     MSVehicle*, bool >
+    {
+        bool operator() ( const DetectorContainer::Halting& item,
+                          const MSVehicle* veh ) const {
+            return item.vehM == veh;
+        }
+    };
 
-
+*/
 	// specialization
     template<>
     struct PosGreaterC< DetectorContainer::Halting > :
@@ -153,15 +153,15 @@ namespace Predicate
 
     // specialization
     template<>
-    struct VehEqualsC< DetectorContainer::Halting > :
-        public std::binary_function< DetectorContainer::Halting&,
-                                     MSVehicle*, bool >
+		struct VehEqualsC< DetectorContainer::Halting > :
+        public std::binary_function< DetectorContainer::Halting, MSVehicle*, bool >
     {
-        bool operator() ( const DetectorContainer::Halting& item,
+        bool operator() ( DetectorContainer::Halting item,
                           const MSVehicle* veh ) const {
             return item.vehM == veh;
         }
     };
+
 }
 
 
