@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/04/14 08:33:02  dkrajzew
+// some further bugs removed
+//
 // Revision 1.15  2003/04/10 15:43:43  dkrajzew
 // emission on non-source lanes debugged
 //
@@ -867,7 +870,7 @@ MSVehicle::moveFirstChecked()
     bool approachAllowed = false;
     bool approachInformationReached = false;
     // dummy for assertion
-    double bla = myState.mySpeed;
+    double assertbla = myState.mySpeed;
     // update position
     myState.myPos += vNext * MSNet::deltaT();
     myTarget = myLane;
@@ -894,7 +897,7 @@ MSVehicle::moveFirstChecked()
 
     // update speed
     myState.mySpeed = vNext;
-    assert(bla-this->myType->decel() <= myState.mySpeed);
+    assert(assertbla-this->myType->decel() <= myState.mySpeed);
 
     // when we did not reach the approached lane yet, we have to
     //  search it, as the vehicle must register itself as the approaching one
@@ -1036,9 +1039,12 @@ MSVehicle::vsafeCriticalCont( double minVSafe )
         // check whether the next lane is empty;
         //  if not, check the last vehicle on this lane
         const State &nextPred = currentLane->myLastState;
-//        if(nextPred!=0) {
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        cout << "nextPred v=" << nextPred.speed() << ", x=" << nextPred.pos() << endl;
+    }
+#endif
             if(drove+nextPred.pos()-MSVehicleType::maxLength()<0) {
-//                minVSafe = 0;
                 myLFLinkLanes.push_back(
                     DriveProcessItem(0, 0) );
                 return;
@@ -1052,6 +1058,14 @@ MSVehicle::vsafeCriticalCont( double minVSafe )
 //        }
         myLFLinkLanes.push_back(
             DriveProcessItem((*link), minVSafe) );
+        // must brake before the end of the next lane
+        if(count==1) {
+            myLFLinkLanes.push_back(
+                DriveProcessItem(0,
+                    vsafe(myState.mySpeed, decelAbility,
+                        drove, 0)));
+            return;
+        }
         if(minVSafe==0) {
             return;
         }
@@ -1062,9 +1076,22 @@ MSVehicle::vsafeCriticalCont( double minVSafe )
         if(!nextOnly) {
             myApproachedLane = currentLane;
         }
+            // somekind of a workaround:
+            //  when approaching very short lanes, try to slow down
+            //  to make deceleration possible
+            if(currentLane->length()<decelAbility) {
+                myLFLinkLanes.push_back(
+                    DriveProcessItem(0,
+                        vsafe(myState.mySpeed, decelAbility, drove, 0)) );
+                return;
+            }
         // check whether vehicle will stop at the next lane
         //  if yes, the currently smallest vsafe can be used
-        drove += currentLane->length();
+        if(!nextOnly) {
+            drove += currentLane->length();
+        } else {
+            drove = dist+1;
+        }
         // when the vehicle ends on the following lane, return
         if(endsOn(*currentLane)) {
             if(drove<0) {
@@ -1629,6 +1656,12 @@ MSVehicle::getNextPeriodical() const
         myPeriod, 0);
 }
 
+
+bool
+MSVehicle::running() const
+{
+    return myLane!=0;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

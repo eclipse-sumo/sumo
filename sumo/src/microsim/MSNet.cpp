@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2003/04/14 08:33:01  dkrajzew
+// some further bugs removed
+//
 // Revision 1.10  2003/04/07 10:29:02  dkrajzew
 // usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
 //
@@ -240,10 +243,10 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 1549450;
-std::string MSNet::searched1 = "5";
-std::string MSNet::searched2 = "3475668";
-std::string MSNet::searchedJunction = "245466";
+MSNet::Time MSNet::searchedtime = 630;
+std::string MSNet::searched1 = "Rand1732";
+std::string MSNet::searched2 = "sss";
+std::string MSNet::searchedJunction = "3253";
 #endif
 
 #ifdef _SPEEDCHECK

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2003/04/14 08:33:04  dkrajzew
+// some further bugs removed
+//
 // Revision 1.10  2003/04/10 15:43:43  dkrajzew
 // emission on non-source lanes debugged
 //
@@ -614,6 +617,9 @@ public:
 
     /// Returns the information whether further vehicles of this type shall be emitted periodically
     bool periodical() const;
+
+    /// Returns the information whether the vehicle was aready emitted
+    bool running() const;
 
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with

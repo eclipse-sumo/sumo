@@ -24,8 +24,8 @@ namespace
 }
 
 // $Log$
-// Revision 1.12  2003/04/10 15:43:43  dkrajzew
-// emission on non-source lanes debugged
+// Revision 1.13  2003/04/14 08:32:57  dkrajzew
+// some further bugs removed
 //
 // Revision 1.11  2003/04/01 15:13:22  dkrajzew
 // bug in emission of vehicles from MSTriggeredSource removed
@@ -468,7 +468,7 @@ MSLane::moveNonCriticalMulti( MSEdge::LaneCont::const_iterator firstNeighLane,
     myApproaching = 0;
     // Buffer last vehicles state.
     if ( myVehicles.size() == 0 ) {
-        myLastState = MSVehicle::State(myLength, 10000);
+        myLastState = MSVehicle::State(10000, 10000);
         myFirstUnsafe = myVehicles.size();
         return;
     }

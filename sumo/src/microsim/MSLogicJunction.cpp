@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/14 08:33:00  dkrajzew
+// some further bugs removed
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -104,15 +107,15 @@ MSLogicJunction::postloadInit()
     size_t respondPos = 0;
     for(InLaneCont::iterator i=myInLanes.begin(); i!=myInLanes.end(); i++) {
         const MSLinkCont &links = (*i).myLane->getLinkCont();
-        std::bitset<64> clearInfo((unsigned long) (0xffffffff));
+/*        std::bitset<64> clearInfo((unsigned long) (0xffffffff));
         // set lanes to clear
         for(size_t k=0; k<links.size(); k++) {
             clearInfo.set(k+requestPos, false);
-        }
+        }*/
         // set information for every link
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                &myRespond, respondPos, clearInfo);
+                &myRespond, respondPos/*, clearInfo*/);
             requestPos++;
         }
         respondPos++;

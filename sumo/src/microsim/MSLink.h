@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/14 08:33:00  dkrajzew
+// some further bugs removed
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -56,7 +59,7 @@ public:
     /// sets the request information
     void setRequestInformation(MSLogicJunction::Request *request,
         size_t requestIdx, MSLogicJunction::Respond *respond,
-        size_t respondIdx, const std::bitset<64> &previousClear);
+        size_t respondIdx/*, const std::bitset<64> &previousClear*/);
 
     /// sets the information about an approaching vehicle
     void setApproaching(MSVehicle *approaching);
@@ -88,9 +91,6 @@ public:
 
     /// the position within this respond
     size_t myRespondIdx;
-
-    /// information how to clear requests of following cars
-    std::bitset<64> myPreviousClear;
 
 private:
     /// default constructor

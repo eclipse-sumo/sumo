@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/04/14 08:34:59  dkrajzew
+// some further bugs removed
+//
 // Revision 1.12  2003/04/10 15:45:19  dkrajzew
 // some lost changes reapplied
 //
@@ -408,12 +411,12 @@ NBNodeCont::searchEdgeInNode(string nodeid, string edgeid)
 
     if( find(n->_outgoingEdges->begin(), n->_outgoingEdges->end(), e)
         !=n->_outgoingEdges->end()) {
-        int bla = 0;
+        int checkdummy = 0;
     }
 
     if( find(n->_incomingEdges->begin(), n->_incomingEdges->end(), e)
         !=n->_incomingEdges->end()) {
-        int bla = 0;
+        int checkdummy = 0;
     }
 
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/04/14 08:34:59  dkrajzew
+// some further bugs removed
+//
 // Revision 1.9  2003/04/10 15:45:20  dkrajzew
 // some lost changes reapplied
 //
@@ -346,15 +349,7 @@ NBRequest::bitsetToXML(string key)
     for(i1=_incoming->begin(); i1!=_incoming->end(); i1++) {
         size_t noLanes = (*i1)->getNoLanes();
         for(size_t k=0; k<noLanes; k++) {
-            const EdgeLaneVector * const connected =
-                (*i1)->getEdgeLanesFromLane(k);
-            for( EdgeLaneVector::const_iterator j=connected->begin();
-                 j!=connected->end(); j++) {
-                os << "         <logicitem request=\"" << pos++
-                    << "\" response=\"";
-                writeResponse(os, *i1, (*j).edge);
-                os << "\"/>" << endl;
-            }
+            pos = writeLaneResponse(os, *i1, k, pos);
         }
     }
     os << "      </logic>" << endl;
@@ -618,8 +613,25 @@ NBRequest::forbidden(NBEdge *from1, NBEdge *to1,
 }
 
 
+int
+NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
+                             int lane, int pos)
+{
+    const EdgeLaneVector * const connected =
+        from->getEdgeLanesFromLane(lane);
+    for( EdgeLaneVector::const_iterator j=connected->begin();
+                j!=connected->end(); j++) {
+        os << "         <logicitem request=\"" << pos++
+            << "\" response=\"";
+        writeResponse(os, from, (*j).edge, lane);
+        os << "\"/>" << endl;
+    }
+    return pos;
+}
+
+
 void
-NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to)
+NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
 {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
@@ -638,6 +650,10 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to)
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '1';
+                } else if((*i)==from&&lane==k) {
+                    // do not prohibit aconnection by
+                    //  others from same lane
+                    os << '0';
                 } else {
                     assert(connected!=0&&k<connected->size());
                     assert(idx<_incoming->size()*_outgoing->size());

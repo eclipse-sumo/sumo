@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.6  2003/04/10 15:45:20  dkrajzew
-// some lost changes reapplied
+// Revision 1.7  2003/04/14 08:35:00  dkrajzew
+// some further bugs removed
 //
 // Revision 1.5  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
@@ -157,8 +157,13 @@ private:
         XML representation */
     std::string bitsetToXML(std::string key);
 
+    /** @brief writes the response of a certain lane
+        Returns the next link index within the junction */
+    int writeLaneResponse(std::ostream &os, NBEdge *from, int lane,
+        int pos);
+
     /** writes the response of a certain link */
-    void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to);
+    void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane);
 
     /** returns the index to the internal combination container */
     size_t getIndex(NBEdge *from, NBEdge *to) const;

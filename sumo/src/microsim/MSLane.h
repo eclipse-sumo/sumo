@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/04/14 08:32:58  dkrajzew
+// some further bugs removed
+//
 // Revision 1.6  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -552,6 +555,12 @@ protected:
     double myFirstDistance;
     MSVehicle *myApproaching;
 
+    /** Vehicle-buffer for vehicle that was put onto this lane by a
+        junction. The  buffer is neccessary, because of competing
+        push- and pop-operations on myVehicles during
+        Junction::moveFirst() */
+    MSVehicle* myVehBuffer;
+
 private:
 
     /** Use this, when there is only a vehicle behind the vehicle to insert */
@@ -567,12 +576,6 @@ private:
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
-
-    /** Vehicle-buffer for vehicle that was put onto this lane by a
-        junction. The  buffer is neccessary, because of competing
-        push- and pop-operations on myVehicles during
-        Junction::moveFirst() */
-    MSVehicle* myVehBuffer;
 
 //----------- Declarations for mean-data calculation
 

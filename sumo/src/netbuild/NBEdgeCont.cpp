@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/04/14 08:34:57  dkrajzew
+// some further bugs removed
+//
 // Revision 1.9  2003/04/01 15:15:51  dkrajzew
 // further work on vissim-import
 //
@@ -544,7 +547,7 @@ NBEdgeCont::search(NBEdge *e)
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         cout << (*i).second << ", " << (*i).second->getID() << endl;
         if((*i).second==e) {
-            int bla = 0;
+            int checkdummy = 0;
         }
     }
     cout << "--------------------------------" << endl;

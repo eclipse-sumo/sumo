@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/04/14 08:33:01  dkrajzew
+// some further bugs removed
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -104,7 +107,7 @@ MSNoLogicJunction::postloadInit()
         const MSLinkCont &links = (*i)->getLinkCont();
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myDump, 0,
-                &myDump, 0, myDump);
+                &myDump, 0/*, myDump*/);
         }
     }
 }

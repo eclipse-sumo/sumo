@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/14 08:33:00  dkrajzew
+// some further bugs removed
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -52,13 +55,12 @@ MSLink::MSLink(MSLane* succLane, bool yield)
 void
 MSLink::setRequestInformation(MSLogicJunction::Request *request,
         size_t requestIdx, MSLogicJunction::Respond *respond,
-        size_t respondIdx, const std::bitset<64> &previousClear)
+        size_t respondIdx)
 {
     myRequest = request;
     myRequestIdx = requestIdx;
     myRespond = respond;
     myRespondIdx = respondIdx;
-    myPreviousClear = previousClear;
 }
 
 
@@ -66,7 +68,6 @@ void
 MSLink::setApproaching(MSVehicle *approaching)
 {
     myApproaching = approaching;
-    (*myRequest) = (*myRequest) & myPreviousClear;
     myRequest->set(myRequestIdx);
 }
 
