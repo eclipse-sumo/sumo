@@ -1,0 +1,226 @@
+body {background-color: white}
+
+img {
+	border: 0px;
+}
+
+hr {
+	display: block;
+	height: 3px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background:#954835;
+	color:#954835;
+}
+
+
+h1 { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:14pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h2 { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+.SUMOMainText { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:normal; 
+	color:#000000; 
+	background-color:#ffffff;
+	}
+
+
+.sgmltag-element { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:bold; 
+	color:#006600; 
+	background-color:#ffffff;
+	}
+ 
+a:link { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+a:visited { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+a:active { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+
+a.SUMOBoldInLineLink:link { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:12pt; 
+	color:#0077bb; 
+	}
+a.SUMOBoldInLineLink:visited { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:12pt; 
+	color:#0077bb; 
+	}
+a.SUMOBoldInLineLink:active { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:12pt; 
+	color:#0077bb; 
+	}
+
+
+
+a.SUMOMainLink:link { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+a.SUMOMainLink:visited { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+a.SUMOMainLink:active { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:10pt; 
+	color:#0077bb; 
+	}
+
+a.SUMOSubLink:link { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:9pt; 
+	color:#0077bb; 
+	margin-left:10px;
+	}
+a.SUMOSubLink:visited { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:9pt; 
+	margin-left:10px;
+	color:#0077bb; 
+	}
+a.SUMOSubLink:active { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:9pt; 
+	margin-left:10px;
+	color:#0077bb; 
+	}
+
+
+a.SUMOSubSubLink:link { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:8pt; 
+	color:#0077bb; 
+	margin-left:20px;
+	}
+a.SUMOSubSubLink:visited { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:8pt; 
+	margin-left:20px;
+	color:#0077bb; 
+	}
+a.SUMOSubSubLink:active { 
+	font-family:Helvetica,Arial,Palatino; 
+	text-decoration:underline; 
+	font-weight:bold; 
+	font-size:8pt; 
+	margin-left:20px;
+	color:#0077bb; 
+	}
+
+/* ---------------------------------------- */
+
+
+div.caution h3 { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:bold; 
+	color:#ff0000; 
+	}
+
+.SUMOMainText.author { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:normal; 
+	color:#000000; 
+	background-color:#ffffff;
+	}
+ 
+h1.SUMOMainText.chapter.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:20pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h2.SUMOMainText.chapter.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:24pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h2.SUMOMainText.chapter.sect1.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:13pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h3.SUMOMainText.chapter.sect2.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:12pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h4.SUMOMainText.chapter.sect3.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:11pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
+h5.SUMOMainText.chapter.sect4.title { 
+	font-family:Helvetica,Arial,Palatino; 
+	font-size:10pt; 
+	font-weight:bold; 
+	color:#000000; 
+	}
+ 
