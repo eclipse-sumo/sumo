@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.5  2003/04/02 11:44:03  dkrajzew
+// continuation of implementation of actuated traffic lights
+//
 // Revision 1.4  2003/03/17 14:14:06  dkrajzew
 // Windows eol removed
 //
@@ -382,6 +385,16 @@ MSInductLoop<_T>::getLastVehicleTime() const
 {
     return myPassingTime;
 }
+
+template<class _T>
+double
+MSInductLoop<_T>::getGap() const
+{
+    double gap = MSNet::globaltime - myPassingTime;
+    return gap;
+}
+
+
 
 //---------------------------------------------------------------------------//
 

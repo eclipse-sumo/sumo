@@ -18,14 +18,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/03/19 08:02:01  dkrajzew
-// debugging due to Linux-build errors
-//
-// Revision 1.2  2003/03/17 14:12:19  dkrajzew
-// Windows eol removed
-//
-// Revision 1.1  2003/03/03 14:56:18  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
+// Revision 1.4  2003/04/02 11:44:02  dkrajzew
+// continuation of implementation of actuated traffic lights
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
@@ -60,7 +54,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLo
     const std::string &id, const ActuatedPhases &phases, size_t step,
     const std::vector<MSLane*> &lanes)
     : MSTrafficLightLogic(id),
-    _allRed(false), _step(step), _phases(phases)
+    _allRed(false), _step(step), _phases(phases), _continue(false)
 {
     sproutDetectors(lanes);
 }
@@ -78,8 +72,34 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
     if(_allRed) {
         return 20;
     }
+    if(_continue) {
+        return 1;
+    }
     assert(_phases.size()>_step);
-    return _phases[_step].duration;
+
+    // define the duration depending from the number of waiting vehicles of the actual phase
+
+    int duration = _phases[_step].minDuration;
+    for(LaneStateMap::const_iterator i=myLaneStates.begin(); i!=myLaneStates.end(); i++)   {
+        MSLane *lane = (*i).first;
+        const MSLinkCont &cont = lane->getLinkCont();
+        for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
+            if((*j)->myPrio)    {
+                double waiting = (*i).second->numberOfWaiting();
+                double passingTime = 1.9;
+                double tmpdur =  passingTime * waiting;
+                if (tmpdur > duration) {
+                    // here we cut the decimal places, because we have to return an integer
+                    duration = tmpdur;
+                }
+                if (duration > _phases[_step].maxDuration)  {
+                    return _phases[_step].maxDuration;
+                }
+            }
+        }
+    }
+
+    return duration;
 }
 
 
@@ -88,6 +108,11 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 template< class _TInductLoop, class _TLaneState > MSNet::Time
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase(MSLogicJunction::InLaneCont &inLanes)
 {
+    // checks if the actual phase should be continued
+    gapControl();
+    if(_continue) {
+        return duration();
+    }
     // increment the index to the current phase
     nextStep();
     // reset the link priorities
@@ -105,8 +130,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
     // change values for setting the loops and lanestate-detectors, here
     double inductLoopPosition = 10; // 10m from the end
     MSNet::Time inductLoopInterval = 1; //
-    double laneStateDetectorPosition = 0; // 0m from the end (at the beginning)
-    double laneStateDetectorLength = 0; // 0m from the end (at the beginning)
+    double laneStateDetectorLength = 100; // length of the detecor
+    // as the laneStateDetector shall end at the end of the lane, the position is calculated, not given
     MSNet::Time laneStateDetectorInterval = 1; //
 
     std::vector<MSLane*>::const_iterator i;
@@ -114,10 +139,13 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         double length = lane->length();
+        double speed = lane->maxSpeed();
+        double gap = 2.5;
+        inductLoopPosition = gap * speed;
         // check whether the lane is long enough
         double ilpos = length - inductLoopPosition;
         if(ilpos<0) {
-            ilpos = 0;
+            ilpos = length;
         }
         // Build the induct loop and set it into the container
         _TInductLoop *loop = new _TInductLoop( "", lane, ilpos,
@@ -128,16 +156,12 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         double length = lane->length();
-        // check whether the position and the length are ok
-        //  (not longer than the lane)
-        double lspos = length - laneStateDetectorPosition - laneStateDetectorLength;
-        if(lspos<0) {
-            lspos = 0;
-        }
-        double lslen = lspos + laneStateDetectorLength;
+        // check whether the position is o.k. (not longer than the lane)
+        double lslen = laneStateDetectorLength;
         if(lslen>length) {
-            lslen = length - lspos;
+            lslen = length;
         }
+        double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         _TLaneState *loop = new _TLaneState( "", lane, lspos,
             lslen, laneStateDetectorInterval, MSDetector::CSV, 0);
@@ -184,6 +208,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
     // increment the index to the current phase
     if(!_allRed) {
         _allRed = true;
+        MSNet::Time phaseStart = _phases[_step]._lastSwitch;
+        MSNet::Time lastDuration = MSNet::globaltime - phaseStart;
+        _phases[_step].duration = lastDuration;
         return _step;
     }
     _allRed = false;
@@ -191,7 +218,43 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
     if(_step==_phases.size()) {
         _step = 0;
     }
+    // resets the _lastSwitch
+    _phases[_step]._lastSwitch = MSNet::globaltime;
     return _step;
+}
+
+template< class _TInductLoop, class _TLaneState >
+bool
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
+{
+
+    // Checks, if the _allRed-Phase is the actual phase. Of course this phase should not be expanded
+    if(_allRed) {
+        return _continue = false;
+    }
+
+    // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
+    MSNet::Time actDuration = MSNet::globaltime - _phases[_step]._lastSwitch;
+    if (actDuration >= _phases[_step].maxDuration) {
+        return _continue = false;
+    }
+
+    // now the gapcontrol starts
+    for(InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++)   {
+        MSLane *lane = (*i).first;
+        const MSLinkCont &cont = lane->getLinkCont();
+        for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
+            if((*j)->myPrio)    {
+                double actualGap = (*i).second->getGap();
+                double maxGap = 3.1;
+                if (actualGap < maxGap) {
+                return _continue = true;
+                }
+            }
+        }
+    }
+
+    return _continue = false;
 }
 
 
@@ -200,10 +263,10 @@ MSNet::DetectorCont
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
 {
     MSNet::DetectorCont ret;
-    for(std::map<MSLane*, _TInductLoop*>::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
+    for(InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
         ret.push_back((*i).second);
     }
-    for(std::map<MSLane*, _TLaneState*>::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
+    for(LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
         ret.push_back((*j).second);
     }
     return ret;

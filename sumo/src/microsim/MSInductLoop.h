@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.5  2003/04/02 11:44:03  dkrajzew
+// continuation of implementation of actuated traffic lights
+//
 // Revision 1.4  2003/03/17 14:14:07  dkrajzew
 // Windows eol removed
 //
@@ -108,6 +111,9 @@ public:
 
     /// Returns the time the last vehicle was at the loop
     MSNet::Time getLastVehicleTime() const;
+
+    /// Returns the timedifference the last vehicle was at the loop and the actual second
+    double getGap() const;
 
 
 protected:

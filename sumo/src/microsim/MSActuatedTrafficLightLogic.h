@@ -20,11 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/03/17 14:12:19  dkrajzew
-// Windows eol removed
-//
-// Revision 1.1  2003/03/03 14:56:19  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
+// Revision 1.3  2003/04/02 11:44:03  dkrajzew
+// continuation of implementation of actuated traffic lights
 //
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
@@ -74,6 +71,9 @@ public:
     /// The maximum duration of the pahse
     size_t          maxDuration;
 
+    /// stores the timestep of the last on-switched of the phase
+    MSNet::Time _lastSwitch;
+
 
     /// constructor
     ActuatedPhaseDefinition(size_t durationArg,
@@ -81,8 +81,11 @@ public:
         size_t minDurationArg, size_t maxDurationArg)
     : duration(durationArg), driveMask(driveMaskArg),
     breakMask(breakMaskArg), minDuration(minDurationArg),
-    maxDuration(maxDurationArg)
-    { }
+    maxDuration(maxDurationArg), _lastSwitch(0)
+    {
+    minDuration = 5;
+    maxDuration = 30;
+    }
 
     /// destructor
     ~ActuatedPhaseDefinition() { }
@@ -141,7 +144,12 @@ public:
     virtual const std::bitset<64> &linkPriorities() const;
 
     /// Returns the index of the phase next to the given phase
+    /// and stores the duration of the phase, which was just sent
+    /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
+
+    /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
+    virtual bool gapControl();
 
     /// Returns a vector of build detectors
     MSNet::DetectorCont getDetectorList() const;
@@ -157,8 +165,13 @@ protected:
     /// A map from lanes to lane states lying on them
     LaneStateMap myLaneStates;
 
-    /// infomration whether the current phase is the dead-phase
+    /// information whether the current phase is the dead-phase
     bool _allRed;
+
+    /// information whether the current phase should be lenghtend
+    bool _continue;
+
+
 
     /// The step within the cycla
     size_t _step;
@@ -168,6 +181,8 @@ protected:
 
     /// static container for all lights being set to red
     static std::bitset<64> _allClear;
+
+
 
 };
 

@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.4  2003/04/02 11:44:03  dkrajzew
+// continuation of implementation of actuated traffic lights
+//
 // Revision 1.3  2003/03/19 08:02:02  dkrajzew
 // debugging due to Linux-build errors
 //
@@ -89,11 +92,12 @@ MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
     mySpeed( sampleInterval ),
     myOccup( sampleInterval ),
     myVehLengths( sampleInterval ),
-    myNoSlow( sampleInterval )
+    myNoSlow( sampleInterval ),
+    myLastUpdateTime (7457467564) // just "to make sure", it is updated within the first call
 {
     // Make sure that vehicles will be detected even at lane-end.
 //    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
-    assert( myPos > 0 );
+    assert( myPos >= 0 );
 
     // return when just a part of a logic (no file)
     if(file==0) {
@@ -200,6 +204,37 @@ MSLaneState<_T>::sample( double simSec )
 }
 
 //---------------------------------------------------------------------------//
+
+template<class _T>
+int
+MSLaneState<_T>::numberOfWaiting()
+{
+    const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
+    if (vehs.size()==0)  {
+        return 0;
+    }
+
+    int waiting = 0;
+    double lastpos = myPos+myLength;
+    for (MSLane::VehCont::const_iterator currVeh=vehs.end()-1; currVeh!=vehs.begin();currVeh--)   {
+        double aktpos = (*currVeh)->pos();
+        double delta = lastpos - aktpos;
+        // define the maximum rear-to-front-distance
+        double rtfd = 10;
+        double deltamax = (*currVeh)->length() + rtfd;
+        if (delta > deltamax) {
+            return waiting;
+        }
+        if (myPos > aktpos) {
+            return waiting;
+        }
+        waiting ++;
+        lastpos = aktpos;
+    }
+    return waiting;
+}
+
+
 
 template<class _T>
 void

@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2003/04/02 11:44:03  dkrajzew
+// continuation of implementation of actuated traffic lights
+//
 // Revision 1.3  2003/03/19 08:02:02  dkrajzew
 // debugging due to Linux-build errors
 //
@@ -70,6 +73,9 @@ public:
 
     /// Call sample every timestep to update the detector.
     void sample( double currSimSeconds );
+
+    /// Returns the number of waiting vehicles on the LaneStateDetector starting from the end of the Detector
+    int numberOfWaiting();
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
@@ -147,6 +153,10 @@ private:
 
     /// Number of already processed sampleIntervalls
     unsigned myNIntervalls;
+
+    /** @brief The information in which time step the detector was asked the last time
+        Needed to reduce the update frequency of the iterators */
+    MSNet::Time myLastUpdateTime;
 
 private:
     /// Default constructor.
