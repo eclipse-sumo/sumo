@@ -302,7 +302,7 @@ MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
         + distance(
             getDismissedStartIterator( lastNTimesteps ), mend );
 
-    string singleInductLoopVehs = "nVehCrossed=\"" +
+    string singleInductLoopVehs = " nVehCrossed=\"" +
         toString( nVehCrossed ) + "\"";
     return nVehContrib + flow + occup + speed + speedSquare + avgVehLength
         + singleInductLoopVehs;
