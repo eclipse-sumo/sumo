@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/07/16 15:31:14  dkrajzew
+// junctions are now able to build gui-wrappers (throws an exception within the gui-version, but the interface is needed)
+//
 // Revision 1.4  2003/07/07 08:16:28  dkrajzew
 // a junction is now able to return its id
 //
@@ -54,6 +57,13 @@
 #include <string>
 #include <vector>
 #include <map>
+
+
+ /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class GUIJunctionWrapper;
+class GUIGlObjectStorage;
 
 
 /* =========================================================================
@@ -93,6 +103,8 @@ public:
         Otherwise returns 0. */
     static MSJunction* dictionary( std::string id);
 
+    static size_t dictSize();
+
     /** Returns the list of all known ids */
     static std::vector<std::string> getNames();
 
@@ -111,6 +123,11 @@ public:
 
     /// Returns the id of the junction
     std::string id() const;
+
+    // valid for gui-version only
+    virtual GUIJunctionWrapper *buildJunctionWrapper(GUIGlObjectStorage &idStorage);
+
+    friend class GUIGrid;
 
 protected:
     /// unique ID

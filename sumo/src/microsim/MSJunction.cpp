@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/07/16 15:31:14  dkrajzew
+// junctions are now able to build gui-wrappers (throws an exception within the gui-version, but the interface is needed)
+//
 // Revision 1.4  2003/07/07 08:16:28  dkrajzew
 // a junction is now able to return its id
 //
@@ -179,6 +182,19 @@ std::string
 MSJunction::id() const
 {
     return myID;
+}
+
+
+GUIJunctionWrapper *
+MSJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage)
+{
+    throw "Only within the gui-version";
+}
+
+size_t
+MSJunction::dictSize()
+{
+    return myDict.size();
 }
 
 
