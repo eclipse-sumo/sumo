@@ -1,25 +1,26 @@
 noinst_LIBRARIES = libmicrosim.a
 
 
-EXTRA_DIST = MSBitSetLogic.cpp
+EXTRA_DIST = MSBitSetLogic.cpp MSSimpleTrafficLightLogic.cpp 
 
-libmicrosim_a_SOURCES = MSLaneChanger.cpp MSRightOfWayJunction.cpp	\
-MSLogicJunction.cpp MSNoLogicJunction.cpp MSJunctionLogic.cpp		\
-MSJunction.cpp MSVehicleType.cpp MSVehicle.cpp MSPersonControl.cpp	\
-MSPerson.cpp MSNet.cpp MSLane.cpp MSEdge.cpp MSJunctionControl.cpp	\
-MSEventControl.cpp MSEmitControl.cpp MSEdgeControl.cpp MSBitSetLogic.h	\
-MSJunctionLogic.h MSPerson.h MSEdge.h MSLane.h MSPersonControl.h	\
-MSEdgeControl.h MSLaneChanger.h MSRightOfWayJunction.h MSEmitControl.h	\
-MSLogicJunction.h MSVehicle.h MSEventControl.h MSVehicleType.h		\
-MSJunction.h MSNet.h MSJunctionControl.h MSNoLogicJunction.h		\
-MSDetector.h MSInductLoop.cpp MSInductLoop.h MSLaneChanger.icc		\
-MSLane.icc MSNet.icc MSVehicle.icc MSVehicleType.icc MSSource.h		\
-MSSource.cpp MSSource.icc MSTriggeredSource.h MSTriggeredSource.cpp	\
-MSTriggeredSource.icc MSTriggeredSourceXMLHandler.h			\
-MSTriggeredSourceXMLHandler.cpp MSTriggeredSourceXMLHandler.icc
+libmicrosim_a_SOURCES = MSBitSetLogic.h MSDetector.h MSEdge.cpp \
+MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \
+MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \
+MSInductLoop.cpp MSInductLoop.h MSJunction.cpp MSJunction.h \
+MSJunctionControl.cpp MSJunctionControl.h \
+MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h \
+MSLaneChanger.cpp MSLaneChanger.h MSLogicJunction.cpp MSLogicJunction.h \
+MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
+MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
+MSSimpleTrafficLightLogic.h \
+MSSource.cpp MSSource.h MSTrafficLightJunction.cpp MSTrafficLightJunction.h \
+MSTrafficLightLogic.cpp MSTrafficLightLogic.h \
+MSTriggeredSource.cpp MSTriggeredSource.h \
+MSTriggeredSourceXMLHandler.cpp MSTriggeredSourceXMLHandler.h \
+MSVehicle.cpp MSVehicle.h MSVehicleType.cpp MSVehicleType.h \
+MSLink.cpp MSLink.h
 
-
-AM_CPPFLAGS = -I$(top_srcdir)/sumo/helpers -I$(top_srcdir)/sumo/utils \
+AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 
