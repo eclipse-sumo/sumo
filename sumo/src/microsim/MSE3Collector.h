@@ -7,7 +7,7 @@
 /// @date    Started Tue Dec 02 2003 22:17 CET
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -49,7 +49,7 @@ namespace E3
     };
 
     DetType& operator++( DetType& det );
-       
+
     enum Containers { VEHICLES = 0
                       , HALTINGS
                       , TRAVELTIME
@@ -73,7 +73,7 @@ public:
         std::string, MSE3Collector* > E3Dictionary;
     typedef std::vector< Detector::E3EntryReminder* > EntryReminders;
     typedef std::vector< Detector::E3LeaveReminder* > LeaveReminders;
-    
+
 
     MSE3Collector(
         std::string id
@@ -94,7 +94,7 @@ public:
         , deleteDataAfterSecondsM( deleteDataAfterSeconds )
         , detectorsM(3)
         , containersM(3)
-         
+
         {
             // Set MoveReminders to entries and exits
             for ( Detector::CrossSectionsIt crossSec1 = entries.begin();
@@ -107,13 +107,13 @@ public:
                 leaveRemindersM.push_back(
                     new Detector::E3LeaveReminder( id, *crossSec2, *this ) );
             }
-            
+
             // insert object into dictionary
             if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
                 assert( false );
             }
         }
-    
+
     virtual ~MSE3Collector( void )
         {
             deleteContainer( entryRemindersM );
@@ -121,8 +121,8 @@ public:
             deleteContainer( detectorsM );
             deleteContainer( containersM );
         }
-    
-    
+
+
 
     // is called from LD::MSMoveReminder if vehicle touches entry-crossSection
     void enter( MSVehicle& veh )
@@ -134,7 +134,7 @@ public:
                 }
             }
         }
-    
+
     // is called from LD::MSMoveReminder if vehicle passes entry-crossSection
     void leave( MSVehicle& veh )
         {
@@ -162,17 +162,17 @@ public:
             }
             else {
                 for ( E3::DetType typ = E3::MEAN_TRAVELTIME;
-                      typ < E3::ALL; ++typ ){    
+                      typ < E3::ALL; ++typ ){
                     createDetector( typ, detId );
                 }
             }
         }
-    
+
     bool hasDetector( E3::DetType type )
         {
             return getDetector( type ) != 0;
         }
-    
+
     double getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type != E3::ALL );
@@ -183,9 +183,23 @@ public:
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
-            return std::numeric_limits< double >::max();
+            return -1;//!!!std::numeric_limits< double >::max();
         }
-    
+
+    const std::string &getId() {
+        return idM;
+    }
+
+    void removeOnTripEnd( MSVehicle *veh ) {
+        for ( ContainerContIter cont = containersM.begin();
+                  cont != containersM.end(); ++cont  ) {
+                if ( *cont != 0 ) {
+                    (*cont)->removeOnTripEnd( veh );
+                }
+        }
+    }
+
+
     /**
      * @name Inherited MSDetectorFileOutput methods.
      *
@@ -232,17 +246,17 @@ public:
             for ( crossSec = entriesM.begin(); crossSec != entriesM.end();
                   ++crossSec ) {
                 entries += "  <entry lane=\"" +
-                    crossSec->laneM.id() + "\" pos=\"" +
+                    crossSec->laneM->id() + "\" pos=\"" +
                     toString( crossSec->posM ) + "\" />\n";
             }
             std::string exits;
             for ( crossSec = exitsM.begin(); crossSec != exitsM.end();
                   ++crossSec ) {
                 exits += "  <entry lane=\"" +
-                    crossSec->laneM.id() + "\" pos=\"" +
+                    crossSec->laneM->id() + "\" pos=\"" +
                     toString( crossSec->posM ) + "\" />\n";
-            }            
-                
+            }
+
             std::string
                 detectorInfo("<detector type=\"E3_Collector\" id=\"" + idM +
                              "\" >\n" + entries + exits );
@@ -259,7 +273,7 @@ public:
         }
     //@}
 
-    
+
 protected:
 
     LDDetector* getDetector( E3::DetType type ) const
@@ -268,25 +282,25 @@ protected:
             return detectorsM[ type ];
         }
 
-private:
+protected:
     std::string idM;
 
     Detector::CrossSections entriesM;
     Detector::CrossSections exitsM;
-    
+
     EntryReminders entryRemindersM;
-    LeaveReminders leaveRemindersM;  
+    LeaveReminders leaveRemindersM;
 
     MSUnit::Steps haltingTimeThresholdM;
     MSUnit::CellsPerStep haltingSpeedThresholdM;
     MSUnit::Seconds deleteDataAfterSecondsM;
-    
+
     DetectorCont detectorsM;
-    
+
     ContainerCont containersM;
 
     static std::string xmlHeaderM;
-    
+
     void createContainer( E3::Containers type )
         {
             switch( type ){
@@ -294,7 +308,7 @@ private:
                 {
                     if ( containersM[ E3::VEHICLES ] == 0 ) {
                         containersM[ E3::VEHICLES ] =
-                            new DetectorContainer::Count();
+                            new DetectorContainer::VehicleMap();
                     }
                     break;
                 }
@@ -322,7 +336,7 @@ private:
                 }
             }
         }
-    
+
     void createDetector( E3::DetType type, std::string detId )
         {
             if ( hasDetector( type ) ) {
@@ -382,11 +396,10 @@ private:
                 if ( *it == 0 ) {
                     continue;
                 }
-                result += std::string("<") +
-                    (*it)->getName() +
-                    std::string(" value=\"") +
+                result += (*it)->getName() +
+                    std::string("=\"") +
                     toString( (*it)->getAggregate( lastNSeconds ) ) +
-                    std::string("\"/>\n");
+                    std::string("\" ");
             }
             return result;
         }
