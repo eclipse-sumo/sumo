@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.7  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -215,6 +218,17 @@ GUIEdge::getLanePosition(const MSLane &lane, double pos) const
     double posX = laneEnd.x() - laneDir.x() * pos;
     double posY = laneEnd.y() - laneDir.y() * pos;
     return Position2D(posX, posY);
+}
+
+
+void
+GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
+{
+    size_t size = MSEdge::dictSize();
+    netsWrappers.reserve(size);
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
+    }
 }
 
 

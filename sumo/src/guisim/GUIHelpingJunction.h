@@ -1,16 +1,10 @@
-#ifndef GUIRightOfWayJunction_H
-#define GUIRightOfWayJunction_H
-
-
+#ifndef GUIHelpingJunction_H
+#define GUIHelpingJunction_H
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MSRightOfWayJunction.h>
-#include <utils/geom/Position2DVector.h>
-#include <bitset>
 #include <vector>
-#include <string>
-
+#include <microsim/MSJunction.h>
 
 /* =========================================================================
  * class declarations
@@ -22,41 +16,31 @@ class GUIGlObjectStorage;
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUIRightOfWayJunction
-    : public MSRightOfWayJunction
+class GUIHelpingJunction
+    : public MSJunction
 {
 public:
-
-    /// Destructor.
-    virtual ~GUIRightOfWayJunction();
-
-    /** Use this constructor only. */
-    GUIRightOfWayJunction( const std::string &id, double x, double y,
-        InLaneCont in, MSJunctionLogic* logic,
-        const Position2DVector &myShape);
-
-    GUIJunctionWrapper *buildJunctionWrapper(GUIGlObjectStorage &idStorage);
-
-
-protected:
-    Position2DVector myShape;
+    static void fill(std::vector<GUIJunctionWrapper*> &list,
+        GUIGlObjectStorage &idStorage);
 
 private:
     /// Default constructor.
-    GUIRightOfWayJunction();
+    GUIHelpingJunction();
 
     /// Copy constructor.
-    GUIRightOfWayJunction( const GUIRightOfWayJunction& );
+    GUIHelpingJunction( const GUIHelpingJunction& );
 
     /// Assignment operator.
-    GUIRightOfWayJunction& operator=( const GUIRightOfWayJunction& );
+    GUIHelpingJunction& operator=( const GUIHelpingJunction& );
+
+    /// Destructor.
+    ~GUIHelpingJunction();
 
 };
 
-
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIRightOfWayJunction.icc"
+//#include "GUIHelpingJunction.icc"
 //#endif
 
 #endif

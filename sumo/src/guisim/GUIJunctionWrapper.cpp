@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.1  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -80,7 +83,7 @@ GUIJunctionWrapper::GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
         MSJunction &junction,
         const Position2DVector &shape)
     : GUIGlObject(idStorage, string("junction:")+junction.id()),
-    myJunction(junction)
+    myJunction(junction), myShape(shape)
 {
 }
 
@@ -168,6 +171,24 @@ GUIJunctionWrapper::getTableParameter(size_t pos) const
 }
 
 
+Boundery
+GUIJunctionWrapper::getBoundery() const
+{
+    Boundery boundery;
+    size_t shapeLength = myShape.size();
+    for(size_t i=0; i<shapeLength; i++) {
+        const Position2D &pos = myShape.at(i);
+        boundery.add(pos.x(), pos.y());
+    }
+    return boundery;
+}
+
+
+const Position2DVector &
+GUIJunctionWrapper::getShape() const
+{
+    return myShape;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.1  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -34,6 +37,7 @@
 #include <string>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/HaveBoundery.h>
 #include <utils/qutils/NewQMutex.h>
 #include <gui/GUIGlObjectStorage.h>
 #include <gui/GUIGlObject.h>
@@ -53,7 +57,8 @@ class MSJunction;
 /**
  */
 class GUIJunctionWrapper :
-            public GUIGlObject {
+            public GUIGlObject,
+            public HaveBoundery {
 public:
     /// constructor
     GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
@@ -73,11 +78,19 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
+    /// returns the shape of the junction
+    const Position2DVector &getShape() const;
+
     double getTableParameter(size_t pos) const;
 
     void fillTableParameter(double *parameter) const;
 
     const char * const getTableItem(size_t pos) const;
+
+    Boundery getBoundery() const;
+
+    static void fill(std::vector<GUIJunctionWrapper*> &list,
+        GUIGlObjectStorage &idStorage);
 
 protected:
 

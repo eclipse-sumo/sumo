@@ -10,6 +10,13 @@
 #include <microsim/MSNoLogicJunction.h>
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class GUIJunctionWrapper;
+class GUIGlObjectStorage;
+
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
 class GUINoLogicJunction
@@ -22,6 +29,8 @@ public:
     /** Use this constructor only. */
     GUINoLogicJunction( const std::string &id, double x, double y,
         InLaneCont* in, const Position2DVector &shape);
+
+    GUIJunctionWrapper *buildJunctionWrapper(GUIGlObjectStorage &idStorage);
 
 private:
     Position2DVector myShape;

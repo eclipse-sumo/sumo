@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.11  2003/06/05 06:29:50  dkrajzew
 // first tries to build under linux: warnings removed; moc-files included Makefiles added
 //
@@ -63,7 +66,8 @@
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <gui/GUIGlObjectStorage.h>
-#include "GUIEdgeGrid.h"
+//#include "GUIEdgeGrid.h"
+#include "GUIGrid.h"
 
 
 /* =========================================================================
@@ -75,6 +79,10 @@ class MSEmitControl;
 class MSEventControl;
 class MSRouteLoaderControl;
 class MSTLLogicControl;
+class GUILaneWrapper;
+class GUIJunctionWrapper;
+class GUIDetectorWrapper;
+class GUIEmitterWrapper;
 
 
 /* =========================================================================
@@ -127,13 +135,16 @@ public:
     friend class GUISUMOAbstractView; // !!!
     friend class GUIEdgeControlBuilder;
     friend class GUILane;
+    friend class GUIGrid;
 
 protected:
     /// default constructor
     GUINet();
 
     /// the grid of edges
-    GUIEdgeGrid _edgeGrid;
+//    GUIEdgeGrid _edgeGrid;
+
+    GUIGrid _grid;
 
     /// the networks boundery
     Boundery _boundery;
@@ -141,6 +152,11 @@ protected:
     /** @brief A container for numerical ids of objects
         in order to make them grippable by openGL */
     GUIGlObjectStorage _idStorage;
+
+    std::vector<GUIEdge*> myEdgeWrapper;
+    std::vector<GUIJunctionWrapper*> myJunctionWrapper;
+    std::vector<GUIDetectorWrapper*> myDetectorWrapper;
+    std::vector<GUIEmitterWrapper*> myEmitter;
 
 };
 

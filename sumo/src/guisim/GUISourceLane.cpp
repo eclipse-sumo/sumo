@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.2  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -65,7 +68,7 @@ GUISourceLane::~GUISourceLane()
 {
 }
 
-
+/*
 void
 GUISourceLane::moveNonCriticalSingle()
 {
@@ -101,23 +104,23 @@ GUISourceLane::moveCriticalMulti()
     _lock.unlock();//Display();
 }
 
-
+*/
 void
-GUISourceLane::moveNonCriticalMulti(MSEdge::LaneCont::const_iterator firstNeighLane,
-                               MSEdge::LaneCont::const_iterator lastNeighLane )
+GUISourceLane::moveNonCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                               const MSEdge::LaneCont::const_iterator &lastNeighLane */)
 {
     _lock.lock();//Display();
-    MSSourceLane::moveNonCriticalMulti(firstNeighLane, lastNeighLane);
+    MSSourceLane::moveNonCritical(/*firstNeighLane, lastNeighLane*/);
     _lock.unlock();//Display();
 }
 
 
 void
-GUISourceLane::moveCriticalMulti(MSEdge::LaneCont::const_iterator firstNeighLane,
-                               MSEdge::LaneCont::const_iterator lastNeighLane )
+GUISourceLane::moveCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                            const MSEdge::LaneCont::const_iterator &lastNeighLane */)
 {
     _lock.lock();//Display();
-    MSSourceLane::moveCriticalMulti(firstNeighLane, lastNeighLane);
+    MSSourceLane::moveCritical(/*firstNeighLane, lastNeighLane*/);
     _lock.unlock();//Display();
 }
 
@@ -181,8 +184,10 @@ void
 GUISourceLane::swapAfterLaneChange()
 {
     _lock.lock();
-    myVehicles = myTmpVehicles;
+    MSLane::swapAfterLaneChange();
+/*    myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
+    myUseDefinition->noVehicles = myVehicles.size();*/
     _lock.unlock();
 }
 

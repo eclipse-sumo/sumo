@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.11  2003/06/05 06:29:50  dkrajzew
 // first tries to build under linux: warnings removed; moc-files included Makefiles added
 //
@@ -67,16 +70,17 @@ namespace
 #include <microsim/MSEmitControl.h>
 #include <gui/GUIGlObjectStorage.h>
 #include <guisim/GUIEdge.h>
-#include "GUIEdgeGrid.h"
+//#include "GUIEdgeGrid.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
+#include "GUIHelpingJunction.h"
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUINet::GUINet()
-    : MSNet(), _edgeGrid(10, 10)
+    : MSNet(), /*_edgeGrid(10, 10), */_grid(*this, 10, 10)
 {
 }
 
@@ -113,8 +117,14 @@ GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
 {
     MSNet::init(id, ec, jc, detectors, rlc, tlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
-    net->_edgeGrid.init();
-    net->_boundery = net->_edgeGrid.getBoundery();
+    // initialise edge storage for gui
+    GUIEdge::fill(net->myEdgeWrapper);
+    GUIHelpingJunction::fill(net->myJunctionWrapper, net->_idStorage);
+    // build the grid
+//    net->_edgeGrid.init();
+    net->_grid.init();
+    // get the boundery
+    net->_boundery = net->_grid.getBoundery();
 }
 
 

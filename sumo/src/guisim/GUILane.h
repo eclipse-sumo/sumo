@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.4  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -79,31 +82,31 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveNonCriticalSingle();
+//    void moveNonCriticalSingle();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveCriticalSingle();
+//    void moveCriticalSingle();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveNonCriticalMulti();
+//    void moveNonCriticalMulti();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveCriticalMulti();
+//    void moveCriticalMulti();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveNonCriticalMulti(
-        MSEdge::LaneCont::const_iterator firstNeighLane,
-        MSEdge::LaneCont::const_iterator lastNeighLane );
+    void moveNonCritical(/*
+        const MSEdge::LaneCont::const_iterator &firstNeighLane,
+        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveCriticalMulti(
-        MSEdge::LaneCont::const_iterator firstNeighLane,
-        MSEdge::LaneCont::const_iterator lastNeighLane );
+    void moveCritical(/*
+        const MSEdge::LaneCont::const_iterator &firstNeighLane,
+        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

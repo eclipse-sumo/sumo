@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/16 15:24:55  dkrajzew
+// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+//
 // Revision 1.4  2003/03/17 14:09:10  dkrajzew
 // Windows eol removed
 //
@@ -113,6 +116,8 @@ public:
 
     /// Returns the given position on the given lane
     Position2D getLanePosition(const MSLane &lane, double pos) const;
+
+    static void fill(std::vector<GUIEdge*> &netsWrappers);
 
 private:
 
