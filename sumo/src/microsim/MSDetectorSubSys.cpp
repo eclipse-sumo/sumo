@@ -68,7 +68,7 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
 //     if(MSDetector2File<MSInductLoop>::created()) {
 //         delete MSDetector2File<MSInductLoop>::getInstance();
 //     }
-    delete MSDetector2File<MSInductLoop>::getInstance();
+    delete MSDetector2File::getInstance();
     
     if(LoopDict::created()) {
         LoopDict::ValueVector loopVec(
