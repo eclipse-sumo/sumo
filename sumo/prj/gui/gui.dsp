@@ -1604,10 +1604,6 @@ SOURCE=..\..\src\utils\dev\MemDiff.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.h
 # End Source File
 # Begin Source File
@@ -1660,7 +1656,11 @@ SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSE2Detector.h
+SOURCE=..\..\src\microsim\MSE2Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSE3Collector.h
 # End Source File
 # Begin Source File
 
