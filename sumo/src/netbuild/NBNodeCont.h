@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 13:33:53  dkrajzew
+// adding of typed nodes added
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -79,6 +82,9 @@ private:
 public:
     /** inserts a node into the map */
     static bool insert(const std::string &id, double x, double y);
+    /** inserts a node into the map */
+    static bool insert(const std::string &id, double x, double y,
+        const std::string &type);
     /** inserts a node into the map */
     static std::pair<double, double> insert(const std::string &id);
     /** inserts a node into the map */

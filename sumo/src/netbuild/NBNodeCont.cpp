@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:33:52  dkrajzew
+// adding of typed nodes added
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -104,6 +107,24 @@ NBNodeCont::insert(const string &id, double x, double y)
         return false;
     }
     NBNode *node = new NBNode(id, x, y);
+    _nodes[id] = node;
+    return true;
+}
+
+
+bool
+NBNodeCont::insert(const string &id, double x, double y,
+                   const std::string &type)
+{
+    NodeCont::iterator i = _nodes.find(id);
+    if(i!=_nodes.end()) {
+        if( (*i).second->getXCoordinate()==x &&
+            (*i).second->getYCoordinate()==y) {
+            return true;
+        }
+        return false;
+    }
+    NBNode *node = new NBNode(id, x, y, type);
     _nodes[id] = node;
     return true;
 }
