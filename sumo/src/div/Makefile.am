@@ -1,7 +1,5 @@
-noinst_LIBRARIES = 
+noinst_LIBRARIES = libdiv.a
 
-CFRONT_FILES =
+libdiv_a_SOURCES = structureparser.cpp structureparser.h
 
-EXTRA_DIST = $(CFRONT_FILES) structureparser.cpp structureparser.h
-
-AM_CPPFLAGS = 
+AM_CPPFLAGS = $(QT_INCLUDES)

@@ -21,26 +21,15 @@ QGLObjectToolTip.cpp QGLObjectToolTip.h QMessageEvent.h \
 QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
 QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
 TableTypes.h \
-GUIApplicationWindow.moc GUIChooser.moc GUISUMOAbstractView.moc \
-GUISUMOViewParent.moc GUIViewTraffic.moc QAboutSUMO.moc \
-QGUIImageField.moc QGUIToggleButton.moc \
 QSimulationEndedEvent.h QSimulationEndedEvent.cpp
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(all_includes) \
+AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 SUBDIRS = icons partable popup vartracker
 
-libgui_a_METASOURCES = GUIApplicationWindow.moc GUIChooser.moc \
-GUISUMOAbstractView.moc GUISUMOViewParent.moc \
-GUIViewTraffic.moc QAboutSUMO.moc \
-QGUIImageField.moc QGUIToggleButton.moc
+METASOURCES = AUTO
 
-# set the include path for X, qt and KDE
-INCLUDES= $(all_includes)
-
-# them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(libgui_a_METASOURCES)
 
 
 
