@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        DistributionCont.cpp -  ccc
+//                        DistributionCont.cpp -
+//  A container for distributions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -22,15 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/28 12:35:37  dkrajzew
+// documentation added
+//
 // Revision 1.3  2003/06/06 11:01:09  dkrajzew
 // windows eol removed
 //
 // Revision 1.2  2003/06/05 14:33:44  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,11 +39,18 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
 #include "DistributionCont.h"
 
+
+/* =========================================================================
+ * static variable definitions
+ * ======================================================================= */
 DistributionCont::TypedDistDict DistributionCont::myDict;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 bool
 DistributionCont::dictionary(const std::string &type, const std::string &id,
                            Distribution *d)
@@ -81,9 +89,6 @@ DistributionCont::dictionary(const std::string &type,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "DistributionCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
