@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2004/07/02 08:31:35  dkrajzew
+// detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
+//
 // Revision 1.30  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
 //
@@ -156,6 +159,7 @@ namespace
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
 #include "GUIAppEnum.h"
+#include "GUIGlObject_AbstractAdd.h"
 #include <utils/foxtools/MFXCheckableButton.h>
 #include "icons/GUIIcons.h"
 #include "icons/GUIIconSubSys.h"
@@ -197,7 +201,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
     : GUISUMOAbstractView(p, app, parent, net, glVis),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _detectors2Show(0)
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0)
 {
     init(net);
 }
@@ -211,7 +215,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
     : GUISUMOAbstractView(p, app, parent, net, glVis, share),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _detectors2Show(0)
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0)
 {
     init(net);
 }
@@ -227,9 +231,9 @@ GUIViewTraffic::init(GUINet &net)
     _junctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
     _junctions2Show = new size_t[_junctions2ShowSize];
     clearUsetable(_junctions2Show, _junctions2ShowSize);
-    _detectors2ShowSize = (net.getDetectorWrapperNo()>>5) + 1;
-    _detectors2Show = new size_t[_detectors2ShowSize];
-    clearUsetable(_detectors2Show, _detectors2ShowSize);
+    _additional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
+    _additional2Show = new size_t[_additional2ShowSize];
+    clearUsetable(_additional2Show, _additional2ShowSize);
     // build the drawers
     myVehicleDrawer[0] =
         new GUIVehicleDrawer_SGnTasTriangle(_net->myEdgeWrapper);
@@ -263,14 +267,14 @@ GUIViewTraffic::init(GUINet &net)
     myJunctionDrawer[5] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
     myJunctionDrawer[6] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
     myJunctionDrawer[7] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
-    myDetectorDrawer[0] = new GUIDetectorDrawer_SGnT(_net->myDetectorWrapper);
-    myDetectorDrawer[1] = new GUIDetectorDrawer_SGwT(_net->myDetectorWrapper);
-    myDetectorDrawer[2] = new GUIDetectorDrawer_FGnT(_net->myDetectorWrapper);
-    myDetectorDrawer[3] = new GUIDetectorDrawer_FGwT(_net->myDetectorWrapper);
-    myDetectorDrawer[4] = new GUIDetectorDrawer_SGnT(_net->myDetectorWrapper);
-    myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(_net->myDetectorWrapper);
-    myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(_net->myDetectorWrapper);
-    myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(_net->myDetectorWrapper);
+    myDetectorDrawer[0] = new GUIDetectorDrawer_SGnT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[1] = new GUIDetectorDrawer_SGwT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[2] = new GUIDetectorDrawer_FGnT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[3] = new GUIDetectorDrawer_FGwT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[4] = new GUIDetectorDrawer_SGnT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(GUIGlObject_AbstractAdd::getObjectList());
+    myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(GUIGlObject_AbstractAdd::getObjectList());
     myROWDrawer[0] = new GUIROWDrawer_SGnT(_net->myEdgeWrapper);
     myROWDrawer[1] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
     myROWDrawer[2] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
@@ -293,7 +297,14 @@ GUIViewTraffic::~GUIViewTraffic()
     }
     delete _edges2Show;
     delete _junctions2Show;
-    delete _detectors2Show;
+    delete _additional2Show;
+}
+
+
+void
+GUIViewTraffic::create()
+{
+    FXGLCanvas::create();
 }
 
 
@@ -313,12 +324,16 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
             FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
     myVehicleColoring->appendItem("by speed");
     myVehicleColoring->appendItem("specified");
+    myVehicleColoring->appendItem("type");
+    myVehicleColoring->appendItem("route");
     myVehicleColoring->appendItem("random#1");
     myVehicleColoring->appendItem("random#2");
     myVehicleColoring->appendItem("lanechange#1");
     myVehicleColoring->appendItem("lanechange#2");
     myVehicleColoring->appendItem("lanechange#3");
     myVehicleColoring->appendItem("waiting#1");
+    myVehicleColoring->appendItem("route change offset");
+    myVehicleColoring->appendItem("route change #");
     myVehicleColoring->setNumVisible(8);
         // lane colors
     new FXButton(&toolbar,
@@ -380,6 +395,8 @@ long
 GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector,void*)
 {
     int index = myVehicleColoring->getCurrentItem();
+    _vehicleColScheme = (VehicleColoringScheme) index;
+    /*
     // set the vehicle coloring scheme in dependec to
     //  the chosen item
     switch(index) {
@@ -407,10 +424,14 @@ GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector,void*)
     case 7:
         _vehicleColScheme = VCS_WAITING1;
         break;
+    case 8:
+        _vehicleColScheme = VCS_ROUTECHANGED;
+        break;
     default:
         _vehicleColScheme = VCS_BY_SPEED;
         break;
     }
+    */
     update();
     return 1;
 }
@@ -467,7 +488,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
-	const Boundery &nb = _net->getBoundery();
+    const Boundery &nb = _net->getBoundery();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
@@ -479,7 +500,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
         _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
-            _edges2Show, _junctions2Show, _detectors2Show, 0);
+            _edges2Show, _junctions2Show, _additional2Show);
         myViewSettings.set(x, y, xoff, yoff);
     }
     // compute lane width
@@ -497,27 +518,27 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
-    myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show,
-        _detectors2ShowSize, scale);
+    myDetectorDrawer[drawerToUse]->drawGLDetectors(_additional2Show,
+        _additional2ShowSize, width);
     myROWDrawer[drawerToUse]->drawGLROWs(*_net,
         _edges2Show, _edges2ShowSize, width);
 
     // draw the Polygons
-    std::map<std::string, Polygon2D*>::iterator ppoly = 
+    std::map<std::string, Polygon2D*>::iterator ppoly =
         MSNet::getInstance()->poly_dic.begin();
     for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
          drawPolygon2D(*(ppoly->second));
     }
-      
+
      /*
-	Position2DVector tmp;
-	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
-	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
-	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
-	tmp.push_front(Position2D(nb.xmin(), nb.getCenter().second/2.0));
-	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
-	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
-	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
+    Position2DVector tmp;
+    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
+    tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
+    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
+    tmp.push_front(Position2D(nb.xmin(), nb.getCenter().second/2.0));
+    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
+    tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
+    tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
 */
 
     // draw vehicles only when they're visible
@@ -527,62 +548,6 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     }
     glPopMatrix();
 }
-
-/*
-void
-GUIViewTraffic::drawPolygon(const Position2DVector &v, const Position2D &center, bool close)
-{
-	glBegin(GL_POLYGON);
-	const Position2DVector::ContType &l = v.getCont();
-	for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-		const Position2D &p = *i;
-		glVertex2f(p.x(), p.y());
-	}
-	glEnd();
-}
-*/
-
-/*
-void
-GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool close)
-{
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_TRIANGLE_STRIP);
-	const Position2DVector::ContType &l = v.getCont();
-    Position2DVector::ContType ::const_iterator i = l.begin();
-    Position2D p1 = *i++;
-    Position2D p2 = *i++;
-    size_t pos = 0;
-	for(; i!=l.end()-1; i++) {
-        Position2D p3 = *i;
-        double x1, x2, y1, y2;
-        if(pos!=0) {
-            double alpha1 = atan2(p1.x()-p2.x(), p1.y()-p2.y());
-            double alpha2 = atan2(p2.x()-p3.x(), p2.y()-p3.y());
-            x1 = p1.x()-cos(alpha1)*lineWidth+cos((alpha1+alpha2)/2.0)*lineWidth;
-            y1 = p1.y()+sin(alpha1)*lineWidth-sin((alpha1+alpha2)/2.0)*lineWidth;
-            x2 = p1.x()+cos(alpha1)*lineWidth-cos((alpha1+alpha2)/2.0)*lineWidth;
-            y2 = p1.y()-sin(alpha1)*lineWidth+sin((alpha1+alpha2)/2.0)*lineWidth;
-        } else {
-            double alpha = atan2(p1.x()-p2.x(), p1.y()-p2.y());
-            x1 = p1.x()-cos(alpha)*lineWidth;
-            y1 = p1.y()+sin(alpha)*lineWidth;
-            x2 = p1.x()+cos(alpha)*lineWidth;
-            y2 = p1.y()-sin(alpha)*lineWidth;
-        }
-        glColor3f(
-            pos==0||pos==3 ? 0 : 1,
-            pos==1||pos==4 ? 0 : 1,
-            pos==2||pos==5 ? 0 : 1);
-        pos++;
-		glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
-        p1 = p2;
-        p2 = p3;
-	}
-	glEnd();
-}
-*/
 
 RGBColor
 GUIViewTraffic::getEdgeColor(GUIEdge *edge) const

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2004/07/02 08:31:35  dkrajzew
+// detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
+//
 // Revision 1.16  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
 //
@@ -121,6 +124,8 @@ public:
         FXGLCanvas *share);
     void init(GUINet &net) ;
 
+    void create();
+
     /// destructor
     virtual ~GUIViewTraffic();
 
@@ -190,10 +195,10 @@ protected:
 
     /** @brief Pointers to tables holding the information which of the items are visible
         All vehicles on visible edges will be drawn */
-    size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
+    size_t *_edges2Show, *_junctions2Show, *_additional2Show;
 
     /// The absolut numbers of the array sizes
-    size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
+    size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
     /// The comboboxes for colour manipulation
     FXComboBox *myVehicleColoring, *myLaneColoring;
