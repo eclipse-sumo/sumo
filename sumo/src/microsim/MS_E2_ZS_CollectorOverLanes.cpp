@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/02/16 14:04:54  dkrajzew
+// bug on extension of lanes that do not have a predeccesor patched
+//
 // Revision 1.12  2004/02/05 16:34:25  dkrajzew
 // made the usage of the detector output end more usable
 //
@@ -169,6 +172,25 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 // and her predecessors
 				std::vector<MSLane*> predeccessors =
 					getLanePredeccessorLanes(toExtend, laneContinuations);
+                if(predeccessors.size()==0) {
+                    int off = 1;
+                    const MSEdge &e = toExtend->edge();
+                    const std::vector<MSLane*> *lanes = e.getLanes();
+                    int idx =
+                        distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
+                    while(predeccessors.size()==0) {
+                        if(idx-off>=0) {
+                            MSLane *tryMe = (*lanes)[idx-off];
+                            predeccessors =
+            					getLanePredeccessorLanes(tryMe, laneContinuations);
+                        }
+                        if(predeccessors.size()!=0&&idx+off<lanes->size()) {
+                            MSLane *tryMe = (*lanes)[idx+off];
+                            predeccessors =
+            					getLanePredeccessorLanes(tryMe, laneContinuations);
+                        }
+                    }
+                }
 
 /*                LaneContinuations::const_iterator conts =
                     laneContinuations.find(toExtend->id());
