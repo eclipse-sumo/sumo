@@ -1971,6 +1971,9 @@ linux*)
   case $host_cpu in
   alpha* | hppa* | i*86 | ia64* | m68* | mips | mipsel | powerpc* | sparc* | s390* | sh* | x86_64* )
     lt_cv_deplibs_check_method=pass_all ;;
+  # the debian people say, arm and glibc 2.3.1 works for them with pass_all
+  arm* )
+    lt_cv_deplibs_check_method=pass_all ;;
   *)
     # glibc up to 2.1.1 does not perform some relocations on ARM
     lt_cv_deplibs_check_method='file_magic ELF [[0-9]][[0-9]]*-bit [[LM]]SB (shared object|dynamic lib )' ;;
@@ -2716,6 +2719,16 @@ case $host_os in
 	# Archives containing C++ object files must be created using
 	# "CC -Bstatic", where "CC" is the KAI C++ compiler.
 	_LT_AC_TAGVAR(old_archive_cmds, $1)='$CC -Bstatic -o $oldlib $oldobjs'
+	;;
+      icpc)
+	# Intel C++
+	with_gnu_ld=yes
+	_LT_AC_TAGVAR(archive_cmds_need_lc, $1)=no
+	_LT_AC_TAGVAR(archive_cmds, $1)='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname $wl$soname -o $lib'
+	_LT_AC_TAGVAR(archive_expsym_cmds, $1)='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+	_LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-rpath,$libdir'
+	_LT_AC_TAGVAR(export_dynamic_flag_spec, $1)='${wl}--export-dynamic'
+	_LT_AC_TAGVAR(whole_archive_flag_spec, $1)='${wl}--whole-archive$convenience ${wl}--no-whole-archive'
 	;;
       cxx)
 	# Compaq C++
@@ -4040,6 +4053,12 @@ AC_MSG_CHECKING([for $compiler option to produce PIC])
 	    _LT_AC_TAGVAR(lt_prog_compiler_wl, $1)='--backend -Wl,'
 	    _LT_AC_TAGVAR(lt_prog_compiler_pic, $1)='-fPIC'
 	    ;;
+	  icpc)
+	    # Intel C++
+	    _LT_AC_TAGVAR(lt_prog_compiler_wl, $1)='-Wl,'
+	    _LT_AC_TAGVAR(lt_prog_compiler_pic, $1)='-KPIC'
+	    _LT_AC_TAGVAR(lt_prog_compiler_static, $1)='-static'
+	    ;;
 	  cxx)
 	    # Compaq C++
 	    # Make sure the PIC flag is empty.  It appears that all Alpha
@@ -4247,6 +4266,14 @@ AC_MSG_CHECKING([for $compiler option to produce PIC])
     newsos6)
       _LT_AC_TAGVAR(lt_prog_compiler_pic, $1)='-KPIC'
       _LT_AC_TAGVAR(lt_prog_compiler_static, $1)='-Bstatic'
+      ;;
+
+    linux*)
+      if test "$CC" = "icc"; then
+	_LT_AC_TAGVAR(lt_prog_compiler_wl, $1)='-Wl,'
+	_LT_AC_TAGVAR(lt_prog_compiler_pic, $1)='-KPIC'
+	_LT_AC_TAGVAR(lt_prog_compiler_static, $1)='-static'
+      fi
       ;;
 
     osf3* | osf4* | osf5*)
@@ -4504,7 +4531,7 @@ EOF
       # If the export-symbols file already is a .def file (1st line
       # is EXPORTS), use it as is.
       # If DATA tags from a recent dlltool are present, honour them!
-      _LT_AC_TAGVAR(archive_expsym_cmds, $1)='if test "x`head -1 $export_symbols`" = xEXPORTS; then
+      _LT_AC_TAGVAR(archive_expsym_cmds, $1)='if test "x`head -n 1 $export_symbols`" = xEXPORTS; then
 	  cp $export_symbols $output_objdir/$soname-def;
 	else
 	  echo EXPORTS > $output_objdir/$soname-def;
