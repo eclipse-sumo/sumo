@@ -76,7 +76,8 @@ protected:
                   , MSUnit::Seconds deleteDataAfterSeconds
                   , const DetectorContainer& container )
         :
-        ConcreteDetector( container )
+        MSE3DetectorInterface( id )
+        , ConcreteDetector( container )
         , aggregatesM()
         , idM( id )
         , deleteDataAfterStepsM(
@@ -89,7 +90,8 @@ protected:
                   , MSUnit::Seconds deleteDataAfterSeconds
                   , const MSE2DetectorInterface& helperDetector )
         :
-        ConcreteDetector( helperDetector )
+        MSE3DetectorInterface( id )
+        , ConcreteDetector( helperDetector )
         , aggregatesM()
         , idM( id )
         , deleteDataAfterStepsM(

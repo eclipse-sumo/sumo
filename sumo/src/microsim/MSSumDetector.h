@@ -67,7 +67,11 @@ protected:
         : DetectorType( id, lengthInMeters,
                         deleteDataAfterSeconds,
                         container )
-        {}
+        {
+            if ( detNameM == "" ) {
+                detNameM = getDetectorName() + "Sum";
+            }
+        }
 
     // Another E2 ZS ctor
     MSSumDetector( std::string id,
@@ -77,7 +81,11 @@ protected:
         : DetectorType( id, lengthInMeters,
                         deleteDataAfterSeconds,
                         helperDetector )
-        {}
+        {
+            if ( detNameM == "" ) {
+                detNameM = getDetectorName() + "Sum";
+            }
+        }
 
     // E2 ED ctor
     MSSumDetector( std::string id,
@@ -86,7 +94,11 @@ protected:
         : DetectorType( id,
                         deleteDataAfterSeconds,
                         container )
-        {}    
+        {
+            if ( detNameM == "" ) {
+                detNameM = getDetectorName() + "Sum";
+            }
+        }    
     
     // E3 ctor
     MSSumDetector( std::string id,
@@ -95,7 +107,11 @@ protected:
         : DetectorType( id,
                         deleteDataAfterSeconds,
                         container )
-        {}    
+        {
+            if ( detNameM == "" ) {
+                detNameM = getDetectorName() + "Sum";
+            }
+        }    
     
     // E* ctors follow here
     

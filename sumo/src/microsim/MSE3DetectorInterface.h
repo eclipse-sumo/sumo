@@ -22,18 +22,17 @@
 //
 //---------------------------------------------------------------------------//
 
+#include "MSDetectorInterfaceCommon.h"
 #include <string>
-#include "MSUnit.h"
 
 class MSVehicle;
 
 class MSE3DetectorInterface
+    :
+    public MSDetectorInterfaceCommon
 {
 public:
-    virtual const std::string& getId( void ) const = 0;
     
-    virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
-
     virtual void leave( MSVehicle& veh ) = 0;
 
     virtual ~MSE3DetectorInterface( void )
@@ -41,7 +40,8 @@ public:
     
 protected:
 
-    MSE3DetectorInterface( void ) 
+    MSE3DetectorInterface( std::string id )
+        : MSDetectorInterfaceCommon( id )
         {}
 
 private:

@@ -22,21 +22,21 @@
 //
 //---------------------------------------------------------------------------//
 
+#include "MSDetectorInterfaceCommon.h"
 #include <string>
-#include "MSUnit.h"
 
 class MSE2EDDetectorInterface
+    :
+    public MSDetectorInterfaceCommon
 {
 public:
-    virtual const std::string& getId( void ) const = 0;
-    
-    virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
     
     virtual ~MSE2EDDetectorInterface( void )
         {}
     
 protected:
-    MSE2EDDetectorInterface( void )
+    MSE2EDDetectorInterface( std::string id )
+        : MSDetectorInterfaceCommon( id )
         {}
 
 private:

@@ -67,7 +67,9 @@ protected:
             id, lengthInMeters,
             deleteDataAfterSeconds,
             container )
-        {}
+        {
+            detNameM = getDetectorName() + "Mean";
+        }
 
     // Another E2 ctor
     MSMeanDetector( std::string id,
@@ -78,7 +80,9 @@ protected:
             id, lengthInMeters,
             deleteDataAfterSeconds,
             helperDetector )
-        {}    
+        {
+            detNameM = getDetectorName() + "Mean";
+        }    
 
     // E3 ctors
     MSMeanDetector( std::string id,
@@ -88,7 +92,9 @@ protected:
             id,
             deleteDataAfterSeconds,
             container )
-        {}    
+        {
+            detNameM = getDetectorName() + "Mean";
+        }    
     
     // E* ctors follow here
 

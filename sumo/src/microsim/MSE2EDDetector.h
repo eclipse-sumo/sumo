@@ -74,7 +74,8 @@ protected:
                     , MSUnit::Seconds deleteDataAfterSeconds
                     , DetectorContainer& container )
         :
-        ConcreteDetector( container )
+        MSE2EDDetectorInterface( id )
+        , ConcreteDetector( container )
         , idM( id )
         , deleteDataAfterStepsM( MSUnit::getInstance()->getIntegerSteps(
                                      deleteDataAfterSeconds ) )
