@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2005/01/27 14:32:36  dkrajzew
+// patched undefined state of teleporter if a negative number was given
+//
 // Revision 1.26  2004/12/20 13:15:59  dkrajzew
 // options output corrected
 //
@@ -295,7 +298,9 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
         oc.getBool("use-internal-links");
     // set the grid lock time
     MSGlobals::gTimeToGridlock =
-        oc.getInt("time-to-teleport");
+        oc.getInt("time-to-teleport")<0
+        ? 0
+        : oc.getInt("time-to-teleport");
     // set the vehicle teleport on false lane options
     MSGlobals::gMinLaneVMax4FalseLaneTeleport =
         oc.getFloat("lc-teleport.lane-min-vmax");
