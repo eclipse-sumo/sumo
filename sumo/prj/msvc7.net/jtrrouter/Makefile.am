@@ -1,1 +1,1 @@
-EXTRA_DIST = jtrrouter.dsp
+EXTRA_DIST = jtrrouter.vcproj

@@ -1,1 +1,1 @@
-EXTRA_DIST = y_libguisim.dsp
+EXTRA_DIST = y_libguisim.vcproj

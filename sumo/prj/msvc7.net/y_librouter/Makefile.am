@@ -1,1 +1,1 @@
-EXTRA_DIST = y_librouter.dsp
+EXTRA_DIST = y_librouter.vcproj

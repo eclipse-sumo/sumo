@@ -1,1 +1,1 @@
-EXTRA_DIST = netconvert.dsp
+EXTRA_DIST = netconvert.vcproj

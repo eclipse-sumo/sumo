@@ -1,1 +1,1 @@
-EXTRA_DIST = z_libutils_convert.dsp
+EXTRA_DIST = z_libutils_convert.vcproj

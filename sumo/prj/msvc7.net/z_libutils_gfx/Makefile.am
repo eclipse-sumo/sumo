@@ -1,1 +1,1 @@
-EXTRA_DIST = z_libutils_gfx.dsp
+EXTRA_DIST = z_libutils_gfx.vcproj

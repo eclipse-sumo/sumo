@@ -1,1 +1,1 @@
-EXTRA_DIST = z_libutils_xml.dsp
+EXTRA_DIST = z_libutils_xml.vcproj

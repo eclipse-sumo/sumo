@@ -1,1 +1,1 @@
-EXTRA_DIST = y_libguinetload.dsp
+EXTRA_DIST = y_libguinetload.vcproj

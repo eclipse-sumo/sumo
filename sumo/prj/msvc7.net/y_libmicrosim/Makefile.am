@@ -1,1 +1,1 @@
-EXTRA_DIST = y_libmicrosim.dsp
+EXTRA_DIST = y_libmicrosim.vcproj

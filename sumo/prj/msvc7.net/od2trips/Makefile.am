@@ -1,1 +1,1 @@
-EXTRA_DIST = od2trips.dsp
+EXTRA_DIST = od2trips.vcproj

@@ -1,1 +1,1 @@
-EXTRA_DIST = netgen.dsp
+EXTRA_DIST = netgen.vcproj

@@ -1,1 +1,1 @@
-EXTRA_DIST = duarouter.dsp
+EXTRA_DIST = duarouter.vcproj

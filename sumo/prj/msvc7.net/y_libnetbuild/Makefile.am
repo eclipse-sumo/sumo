@@ -1,1 +1,1 @@
-EXTRA_DIST = y_libnetbuild.dsp
+EXTRA_DIST = y_libnetbuild.vcproj
