@@ -65,9 +65,11 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
                                   ErasePredicate(), veh ) );
-            assert(containerM.size()>0);
-            assert(eraseIt!=containerM.end());
-            containerM.erase( eraseIt );
+//            assert(containerM.size()>0);
+//            assert(eraseIt!=containerM.end());
+			if(eraseIt!=containerM.end()) {
+				containerM.erase( eraseIt );
+			}
         }
 
     void leaveDetectorByLaneChange( MSVehicle* veh )
