@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2002/05/17 12:36:37  croessel
+// advan2left/right: Check if vehicle brakes too much because of laneChangers disability to look beyond a lane. This caused many crashes.
+//
 // Revision 1.7  2002/05/08 09:29:56  croessel
 // Last change, i.e. test if vrh(target)!=0, moved from change2left/right
 // to congested().
@@ -630,7 +633,10 @@ MSLaneChanger::advan2right()
                                                  neighLead->state(),
                                                  gap2lead );
     }
-    return MSVehicle::State::advantage( changeState, stayState );
+    // Check if vehicle brakes too much because of laneChangers
+    // disability to look beyond a lane and compare the states.
+    return ! vehicle->laneChangeBrake2much( stayState ) &&
+           MSVehicle::State::advantage( changeState, stayState );
 }
 
 //-------------------------------------------------------------------------//
@@ -690,8 +696,10 @@ MSLaneChanger::advan2left()
                                                  gap2lead );
     }
 
-    // Compare the states.
-    return MSVehicle::State::advantage( changeState, stayState );
+    // Check if vehicle brakes too much because of laneChangers
+    // disability to look beyond a lane and compare the states.
+    return ! vehicle->laneChangeBrake2much( stayState ) &&
+           MSVehicle::State::advantage( changeState, stayState );
 }
 
 //-------------------------------------------------------------------------//
