@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2003/04/04 15:36:30  roessel
+// Moved static DictType myDict from private to public
+//
 // Revision 1.7  2003/03/20 16:21:13  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -604,6 +607,10 @@ public:
 
     friend class MSLane; // !!!
 
+    /// Static dictionary to associate string-ids with objects.
+    typedef std::map< std::string, MSVehicle* > DictType;
+    static DictType myDict;
+    
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, MSNet::Time
@@ -626,7 +633,7 @@ protected:
                          double pos,
                          double speed );
 
-protected:
+
     /// information how long ago the vehicle has performed a lane-change
     MSNet::Time myLastLaneChangeOffset;
 
@@ -669,10 +676,6 @@ private:
     /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
     const MSEdge::LaneCont* myAllowedLanes;
-
-    /// Static dictionary to associate string-ids with objects.
-    typedef std::map< std::string, MSVehicle* > DictType;
-    static DictType myDict;
 
     /// Collection of meanDataValues
     struct MeanDataValues
