@@ -1,7 +1,8 @@
+#include <utils/common/Named.h>
 #include "ROLane.h"
 
-ROLane::ROLane(double length, double maxSpeed)
-    : _length(length), _maxSpeed(maxSpeed)
+ROLane::ROLane(const std::string &id, double length, double maxSpeed)
+    : Named(id), _length(length), _maxSpeed(maxSpeed)
 {
 }
 
