@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/21 05:35:18  dkrajzew
+// forgot to remove the usage of an undefinef variable; patched
+//
 // Revision 1.5  2003/07/21 05:16:08  dkrajzew
 // inifinite loop patched; one should make both classes a single templte!
 //
@@ -57,7 +60,7 @@ IntVectorHelper::removeDouble(IntVector &v)
     size_t pos = 0;
     IntVector::iterator i=v.begin();
     while(i!=v.end()) {
-        for(IntVector::iterator j=i+1; j!=v.end()&&!changed; ) {
+        for(IntVector::iterator j=i+1; j!=v.end(); ) {
             if(*i==*j) {
                 j = v.erase(j);
             } else {
