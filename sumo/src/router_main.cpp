@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.5  2002/11/04 08:42:31  dkrajzew
+// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+//
 // Revision 1.4  2002/10/22 10:02:47  dkrajzew
 // minor warnings removed
 //
@@ -273,13 +276,3 @@ int main(int argc, char **argv)
         cout << "Success." << endl;
     return ret;
 }
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "main.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
-

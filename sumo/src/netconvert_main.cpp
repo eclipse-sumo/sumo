@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/11/04 08:42:31  dkrajzew
+// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+//
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
 //
@@ -354,12 +357,4 @@ int main(int argc, char **argv)
     return 0;
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "main.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
 

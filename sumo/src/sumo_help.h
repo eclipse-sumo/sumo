@@ -1,5 +1,36 @@
 #ifndef help_h
 #define help_h
+//---------------------------------------------------------------------------//
+//                        sumo_help.h -  
+//  Help-screen of the simulation module
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//          
+//   This program is free software; you can redistribute it and/or modify  
+//   it under the terms of the GNU General Public License as published by  
+//   the Free Software Foundation; either version 2 of the License, or     
+//   (at your option) any later version.                                   
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2002/11/04 08:42:31  dkrajzew
+// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+//
+//
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 char *help[] = {
     "Usage: sumo [OPTION]*",
@@ -13,8 +44,7 @@ char *help[] = {
     " Input files:",
     "   -n, --net-files FILE[;FILE]*    FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
-    "   -r, --detectors FILE[;FILE]*    FILE is a detector file",
-    "   -s, --source-files FILE[;FILE]* FILE is a source file",
+    "   -a, --additional-files FILE...  FILE is a detector file",
     "   -j, --junctions FILE[;FILE]*    FILE should contain the junction logics",
     "   -c, --configuration FILE        FILE will be used as configuration",
     "                                    1. Default: ./sumo.cfg",
@@ -22,6 +52,10 @@ char *help[] = {
     " Output files:",
     "   -o, --output-file FILE          FILE is the raw output destination file",
     "                                    Default: stdout",
+    "   --dump-basename FILE            FILE is the name and path prefix that",
+    "                                    specifies where to save the net loads",
+    "   --dump-intervals UINT[;UINT]*   UINT is a positive integer time interval",
+    "                                    for which a net load will generated",
     " ",
     " Simulation timing:",
     "   -b, --begin INT                 First time step of the simulation",
@@ -33,6 +67,7 @@ char *help[] = {
     "   -v, --verbose                   SUMO will report what it does",
     "   -p, --print-options             Prints option values before processing",
     "   --help                          This screen",
-    0 };
+    0 
+};
 
 #endif

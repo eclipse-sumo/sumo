@@ -34,7 +34,7 @@ char *help[] = {
     "   -c, --configuration FILE        FILE will be used as configuration",
     "                                    1. Default: ./sumo-od2trips.cfg",
     "   -n, --net-file FILE             net definitions in XML-format",
-    "   -d, --route-file FILE           OD on district basis",
+    "   -d, --od-file FILE              OD on district basis",
     " ",
     " Output files:",
     "   -o, --output-file FILE         The generated trip table will be written"
@@ -45,7 +45,7 @@ char *help[] = {
     "   -v, --verbose                  od2trips reports what it does",
     "   -p, --print-options            Prints option values before processing",
     "   -h, --help                     This screen",
-    0 };
+    0 
+};
 
 #endif
-

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/11/04 08:42:31  dkrajzew
+// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+//
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
 //
@@ -50,6 +53,8 @@ char *help[] = {
     "                                    1. Default: ./sumo-netcovert.cfg",
     "   -n, --xml-node-files FILE[;+]  node definitions in XML-format",
     "   -e, --xml-edge-files FILE[;+]  edge definitions in XML-format",
+    "   -x, --xml-connection-files FILE[;+]",
+    "                                  connection definitions in XML-format",
     "   -t, --type-file FILE           FILE contains type definitions (XML)",
     "   --cell-node-file FILE          node definitions in Cell-format",
     "   --cell-edge-file FILE          edge definitions in Cell-format",
@@ -69,7 +74,7 @@ char *help[] = {
     "   -v, --verbose                  SUMO-Netconvert reports what it does",
     "   -p, --print-options            Prints option values before processing",
     "   --help                         This screen",
-    0 };
+    0 
+};
 
 #endif
-
