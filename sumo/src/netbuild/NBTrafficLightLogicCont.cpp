@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/15 11:49:26  dkrajzew
+// unneeded debug-ifs removed
+//
 // Revision 1.8  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -169,9 +172,6 @@ NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, size_t removedLane,
 {
     for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
         // get the definition
-        if((*i).first=="667") {
-            int bla = 0;
-        }
         NBTrafficLightDefinition *def = (*i).second;
         def->replaceRemoved(removed, removedLane, by, byLane);
     }

@@ -419,9 +419,6 @@ NBLoadedTLDef::setTLControllingInformation() const
             NBConnection tst(conn);
             if(tst.check()) {
                 NBEdge *edge = conn.getFrom();
-                if(edge->getID()=="1000045+1000043[1]") {
-                    int bla = 0;
-                }
                 edge->setControllingTLInformation(
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
                     getID(), pos++);
@@ -507,9 +504,6 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
                 if(possProhibited.getToLane()!=possProhibitor.getToLane()) {
                     continue;
                 }*/
-                if(possProhibited.getFrom()->getID()=="4[1]+477"&&possProhibited.getTo()->getID()=="610"&&possProhibitor.getFrom()->getID()=="476+434[1]"&&possProhibitor.getTo()->getID()=="610") {
-                    int bla = 0;
-                }
                 if( (green.test(pos)||yellow.test(pos))&&possProhibited.getFrom()!=possProhibitor.getFrom()) {
                     if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor, true)) {
                         return true;

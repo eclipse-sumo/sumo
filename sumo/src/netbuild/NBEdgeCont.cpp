@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/10/15 11:45:17  dkrajzew
+// unneeded debug-ifs removed
+//
 // Revision 1.20  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -544,16 +547,10 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     string id;
     NBEdge::EdgeBasicFunction function =
         NBEdge::EDGEFUNCTION_UNKNOWN;
-    if((*(edges.begin()))->getID().substr(0, 10)=="1000006[0]"||(*(edges.begin()))->getID()=="1000112"||(*(edges.begin()))->getID()=="1000111") {
-        int bla = 0;
-    }
     sort(edges.begin(), edges.end(),
         NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
-    if(tpledge->getID().substr(0, 10)=="1000006[0]"||tpledge->getID()=="1000112"||tpledge->getID()=="1000111") {
-        int bla = 0;
-    }
     NBNode *from = tpledge->getFromNode();
     NBNode *to = tpledge->getToNode();
     EdgeVector::const_iterator i;
@@ -603,9 +600,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);
     to->replaceIncoming(edges, newEdge);
-    if(newEdge->getID()=="1000045+1000043[1]") {
-        int bla = 0;
-    }
     // patch connections
     size_t currLane = 0;
     for(i=edges.begin(); i!=edges.end(); i++) {

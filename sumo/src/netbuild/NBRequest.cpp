@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/10/15 11:49:26  dkrajzew
+// unneeded debug-ifs removed
+//
 // Revision 1.20  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -162,6 +165,9 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
 	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
+    if(junction->getID()=="303") {
+        int bla = 0;
+    }
     size_t variations = _incoming->size() * _outgoing->size();
     _forbids.reserve(variations);
     _done.reserve(variations);
@@ -189,14 +195,6 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         const NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection sprohibiting = *k;
-	if( (sprohibiting.getFrom()->getID()=="476+434[1]"||prohibited.getFrom()->getID()=="476+434[1]")
-		&&
-		(sprohibiting.getFrom()->getID()=="4[1]+477"||prohibited.getFrom()->getID()=="4[1]+477")
-		&&
-		(sprohibiting.getTo()->getID()=="610"&&prohibited.getTo()->getID()=="610") ) {
-
-		int bla = 0;
-	}
             bool ok2 = sprohibiting.check();
             if(find(_incoming->begin(), _incoming->end(), sprohibiting.getFrom())==_incoming->end()) {
                 ok2 = false;
@@ -311,22 +309,7 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-	if( (from1->getID()=="476+434[1]"||from2->getID()=="476+434[1]")
-		&&
-		(from1->getID()=="4[1]+477"||from2->getID()=="4[1]+477")
-		&&
-		(to1->getID()=="610"&&to2->getID()=="610") ) {
 
-		int bla = 0;
-	}
-	if( (from1->getID()=="231"||from2->getID()=="231")
-		&&
-		(from1->getID()=="68"||from2->getID()=="68")
-		&&
-		(to1->getID()=="658"&&to2->getID()=="658") ) {
-
-		int bla = 0;
-	}
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -494,11 +477,6 @@ NBRequest::resetSignalised()
                         const EdgeLaneVector *el2 = (*i21)->getEdgeLanesFromLane(j2);
                         for(EdgeLaneVector::const_iterator i22=el2->begin(); i22!=el2->end(); i22++) {
                             int idx2 = getIndex((*i21), (*i22).edge);
-if((*i11)->getID()=="219"&&(*i12).edge->getID()=="10000764"&&(*i21)->getID()=="791"&&(*i22).edge->getID()=="10000764") {
-    const EdgeLane &el1 = (*i12);
-    const EdgeLane &el2 = (*i22);
-    int bla = 0;
-}
                             if(idx2<0) {
                                 continue;
                             }
@@ -628,9 +606,6 @@ void
 NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                          int fromLane, int toLane)
 {
-    if(from!=0&&from->getID()=="10001326"&&to!=0&&to->getID()=="13000028") {
-        int bla = 0;
-    }
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
