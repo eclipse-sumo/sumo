@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.12  2002/08/06 15:40:34  roessel
 // Default constructor needs to be (dummy) implemented.
 //
@@ -122,6 +125,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <fstream>
 #include <iostream>
 #include "MSPerson.h"
 #ifdef _SPEEDCHECK
@@ -182,7 +186,10 @@ public:
                       MSEmitControl* emc,
                       MSEventControl* evc,
                       MSPersonControl* wpc,
-                      DetectorCont* detectors );
+                      DetectorCont* detectors,
+                      std::vector< Time > dumpMeanDataIntervalls,
+                      std::string baseNameDumpFiles,
+                      bool withGUI );
     
     /// Destructor.
     ~MSNet();
@@ -221,6 +228,15 @@ public:
 
     /** Returns the current timestep. */
     Time timestep( void );
+
+    /** Returns the number of unique mean-data-dump-intervalls. In
+        vehicles and lanes you will need one element more for the
+        GUI-dump. */
+    unsigned getNDumpIntervalls( void );
+
+    /** Returns wether we are using a GUI or not. The use of a GUI
+        increases the elements of a meanData container. */
+    bool withGUI( void );
     
 
 #ifdef _DEBUG
@@ -240,14 +256,18 @@ public:
 
 protected:
 
-    /// Use this constructor only.
-    MSNet( string id,
-           MSEdgeControl* ec,
-           MSJunctionControl* jc,
-           MSEmitControl* emc,
-           MSEventControl* evc,
-           MSPersonControl* wpc,
-           DetectorCont* detectors );
+//      /// Use this constructor only.
+//      MSNet( std::string id,
+//             MSEdgeControl* ec,
+//             MSJunctionControl* jc,
+//             MSEmitControl* emc,
+//             MSEventControl* evc,
+//             MSPersonControl* wpc,
+//             DetectorCont* detectors,
+//             std::vector< Time > dumpMeanDataIntervalls,
+//             std::string baseNameDumpFiles,
+//             bool withGUI );
+
     
 private:
     void processWaitingPersons(unsigned int time);
@@ -302,6 +322,31 @@ private:
     /// Container of detectors.
     DetectorCont* myDetectors;
 
+    /// The Net's meanData is a pair of an interval-length and a filehandle.
+    struct MeanData 
+    {
+        MeanData( Time t, ofstream* of ) 
+            : interval( t ),
+              file( of )
+            {}
+        
+        Time interval;
+        ofstream* file;
+    };
+    
+    /** List of intervals and filehandles. At the end of each intervall
+        the mean data (flow, density, speed ...) of each lane is calculated
+        and written to file. */
+    std::vector< MeanData > myMeanData;
+
+    /// Indicates if we are using a GUI.
+    bool myWithGUI;
+    
+    /** Last timestep when mean-data was send to GUI. We need it to
+     * calculate the intervall which may be not const for the GUI. */
+    Time myLastGUIdumpTimestep;
+    
+
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
     MSNet(){};
@@ -318,4 +363,5 @@ private:
 
 // Local Variables:
 // mode:C++
+
 

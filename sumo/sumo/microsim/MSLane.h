@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.7  2002/07/31 17:33:00  roessel
 // Changes since sourceforge cvs request.
 //
@@ -160,8 +163,10 @@ class MSEmitter;
 class MSLane
 {
 public:
+    friend class MSNet;
     friend class MSLaneChanger;
     friend class XMLOut;
+    friend class MeanData;
     friend class MSDetector;
     friend class MSInductLoop;
 
@@ -184,7 +189,30 @@ public:
     
     friend std::ostream& operator<<( std::ostream& os, 
                                      const XMLOut& obj ); 
-                                     
+
+    /** Class to generate mean-data-output for all lanes hold by an
+     * edge. Usage, e.g.: cout << MeanData( lane, index, interval)
+     * << endl; where lane is an lane object, index correspond to
+     * the lanes and vehicles data-struct and interval is the sample
+     * length.  */
+    class MeanData
+    {
+    public:
+        MeanData( const MSLane& obj,
+                  unsigned index ,
+                  MSNet::Time interval );
+        friend std::ostream& operator<<( std::ostream& os, 
+                                         const MeanData& obj ); 
+    private:
+        const MSLane& myObj;
+        unsigned myIndex;
+        MSNet::Time myInterval;
+    };    
+    
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const MeanData& obj );
+
+    
     /** Links represent the connnection between lanes. */
     class Link 
     {
@@ -233,7 +261,11 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSLane( std::string id, double maxSpeed, double length, MSEdge* egde ); 
+    MSLane( std::string id,
+            double maxSpeed,
+            double length,
+            MSEdge* egde
+            ); 
      
     /** Not all lane-members are known at the time the lane is born,
         above all the pointers to other lanes, so we have to
@@ -345,6 +377,19 @@ public:
     /// Returns the objects id.
     string id() { return myID; }
 
+    /** Adds Data for MeanValue calculation. Use this if vehicle
+        leaves a lane during move ( hasFinishedLane=true) or during
+        lanechange (false) or if interval is over (false). */
+    void addVehicleData( double contTimesteps,
+                         unsigned discreteTimesteps,
+                         double travelDistance,
+                         double speedSum,
+                         double speedSquareSum,
+                         unsigned index,
+                         bool hasFinishedLane );
+    
+
+    
 protected:
     /** Function Object for use with Function Adater on vehicle
         containers. */ 
@@ -425,6 +470,13 @@ protected:
         emission is possible. */   
     bool enoughSpace( MSVehicle& veh,
                       double followPos, double leaderPos, double safeSpace );
+
+    /** Resets the MeanData container at the beginning of a new interval.*/
+    void resetMeanData( unsigned index );
+
+    /** Retrieves Data from all vehicles on th lane at the end of
+        an interval. */
+    void collectVehicleData( unsigned index );
     
 private:
     /// Unique ID.
@@ -538,7 +590,35 @@ private:
     double            myTargetPos;
 //----------------------------------------------------------
 
-   
+//----------- Declarations for mean-data calculation
+
+    struct MeanDataValues 
+    {
+        MeanDataValues() 
+            : nVehFinishedLane( 0 ),
+              nVehContributed( 0 ),
+              contTimestepSum( 0 ),
+              discreteTimestepSum( 0 ),
+              distanceSum( 0 ),
+              speedSum( 0 ),
+              speedSquareSum( 0 )
+            {}
+        
+        unsigned nVehFinishedLane;
+        unsigned nVehContributed;
+        double contTimestepSum;
+        unsigned discreteTimestepSum;
+        double distanceSum;
+        double speedSum;
+        double speedSquareSum;
+    };
+
+    /** Container of MeanDataValues, one element for each intervall. */
+    vector< MeanDataValues > myMeanData;
+    
+//----------- End of declarations for mean-data calculation    
+
+    
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSLane* > DictType;
     static DictType myDict;

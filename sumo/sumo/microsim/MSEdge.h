@@ -20,6 +20,9 @@
 #define MSEdge_H
 
 // $Log$
+// Revision 1.3  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.2  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -118,6 +121,31 @@ public:
     
     friend std::ostream& operator<<( std::ostream& os, 
                                      const XMLOut& obj );     
+
+    
+    friend class MeanData;
+    /** Class to generate mean-data-output for all lanes hold by an
+     * edge. Usage, e.g.: cout << MeanData( myEdge, index, interval)
+     * << endl; where myEdge is an edge object, index correspond to
+     * the lanes and vehicles data-struct and interval is the sample
+     * length.  */
+    class MeanData
+    {
+    public:
+        MeanData( const MSEdge& obj,
+                  unsigned index ,
+                  MSNet::Time interval );
+        friend std::ostream& operator<<( std::ostream& os, 
+                                         const MeanData& obj ); 
+    private:
+        const MSEdge& myObj;
+        unsigned myIndex;
+        MSNet::Time myInterval;
+    };    
+    
+    friend std::ostream& operator<<( std::ostream& os, 
+                                     const MeanData& obj );    
+
     
     /// a container specifying container of persons that are waiting for 
     /// the vehicle-type with the id that is used as key

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.2  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -303,7 +306,7 @@ ostream&
 operator<<( ostream& os, const MSEdge::XMLOut& obj )
 {
     string indent( obj.myIndentWidth , ' ' );
-    os << indent << "<edge id=\"" << obj.myObj.myID << "\">" << endl;
+    os << indent << "<edge id=\"" << obj.myObj.myID << "\">\n";
     if ( obj.myWithChildElemes ) {
         for ( MSEdge::LaneCont::const_iterator lane = 
               obj.myObj.myLanes->begin();
@@ -312,7 +315,33 @@ operator<<( ostream& os, const MSEdge::XMLOut& obj )
             os << MSLane::XMLOut( **lane, obj.myIndentWidth + 4, true );
         }
     }
-    os << indent << "</edge>" << endl;
+    os << indent << "</edge>\n";
+    return os;   
+}
+
+
+MSEdge::MeanData::MeanData( const MSEdge& obj,
+                            unsigned index,
+                            MSNet::Time interval ) :
+    myObj( obj ),                           
+    myIndex( index ),
+    myInterval( interval )
+{
+}
+
+
+ostream&
+operator<<( ostream& os, const MSEdge::MeanData& obj )
+{
+    os << "<edge id=\"" << obj.myObj.myID << "\">\n";
+    for ( MSEdge::LaneCont::const_iterator lane = 
+              obj.myObj.myLanes->begin();
+          lane != obj.myObj.myLanes->end(); ++lane) {
+        
+        os << MSLane::MeanData( **lane, obj.myIndex, obj.myInterval );
+    }
+
+    os << "</edge>\n";
     return os;   
 }
 

@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.8  2002/07/31 17:33:01  roessel
 // Changes since sourceforge cvs request.
 //
@@ -450,7 +453,32 @@ public:
     @param The vehicle's predecessor.
     @return vsafe >= v - decel * deltaT */
     bool isInsertBrakeCond( MSVehicle& aPred );
-    
+
+    /** Dumps the collected meanData of the indexed interval to myLane.
+        @param The index of the intervall to dump. */
+    void dumpData( unsigned index );
+
+    /** Update of members if vehicle enters a new lane in the move step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtMove( MSLane* enteredLane );
+
+    /** Update of members if vehicle enters a new lane in the emit step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtEmit( MSLane* enteredLane );
+
+    /** Update of members if vehicle enters a new lane in the laneChange step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtLaneChange( MSLane* enteredLane );
+
+    /** Update of members if vehicle leaves a new lane in the move step. */
+    void leaveLaneAtMove( void );
+
+    /** Update of members if vehicle leaves a new lane in the
+        laneChange step. */
+    void leaveLaneAtLaneChange( void );
+
+    /** Update of MeanData members at every move a vehicle performs. */
+    void meanDataMove( void );
     
 protected:
 
@@ -467,6 +495,19 @@ protected:
     /** Returns the minimum of four doubles. */
     double vMin( double v1, double v2, double v3, double v4 ) const;
 
+    /** Reset meanData of indexed intervall after a dump.
+        @param The index of the intervall to clear. */
+    void resetMeanData( unsigned index );
+    
+    /** Helper for enterLaneAt* methods.
+        @param Timestep when vehicle entered the lane.
+        @param Position where vehicle entered the lane.
+        @param Speed at which vehicle entered the lane. */
+    void updateMeanData( double entryTimestep,
+                         double pos,
+                         double speed );
+    
+    
 private:
     /// Reaction time [sec]
     static double myTau;
@@ -502,6 +543,21 @@ private:
     /// the container for persons
     DestinationCont myPersons;
 
+    /// Collection of meanDataValues
+    struct MeanDataValues
+    {
+        double entryContTimestep;
+        unsigned entryDiscreteTimestep;
+        double entryPos;
+        double speedSum;
+        double speedSquareSum;
+    };
+
+    /// Container of meanDataValues, one element for each mean-interval.
+    vector< MeanDataValues > myMeanData;
+
+    MSLane* myLane;
+    
     /// Default constructor.
     MSVehicle();
 

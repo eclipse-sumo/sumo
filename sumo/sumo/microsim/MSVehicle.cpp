@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.21  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.20  2002/07/31 17:33:01  roessel
 // Changes since sourceforge cvs request.
 //
@@ -321,16 +324,23 @@ MSVehicle::~MSVehicle()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::MSVehicle(string id, MSNet::Route* route, MSNet::Time departTime,
-                     const MSVehicleType* type) :
+MSVehicle::MSVehicle( string id,
+                      MSNet::Route* route,
+                      MSNet::Time departTime,
+                      const MSVehicleType* type ) :
     myID(id),
     myState(),
     myRoute(route),
     myCurrEdge(0),
     myAllowedLanes(0),
     myDesiredDepart(departTime),
-    myType(type)
+    myType(type),
+//      myMeanData( 3 ),
+    myMeanData( MSNet::getInstance()->getNDumpIntervalls() +
+                MSNet::getInstance()->withGUI() ),
+    myLane( 0 )
 {
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -602,6 +612,8 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
+
+    cout << "dec_speed " << myState.mySpeed << "\n";
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -618,6 +630,7 @@ MSVehicle::moveUpdateState( const State newState )
 
     myState.mySpeed = newState.mySpeed;
     assert( myState.mySpeed >= 0 );
+    cout << "upd_speed " << myState.mySpeed << "\n";    
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -632,6 +645,7 @@ MSVehicle::moveSetState( const State newState )
     myState = newState;
     assert( myState.myPos >= 0 );
     assert( myState.mySpeed >= 0 );
+    cout << "set_speed " << myState.mySpeed << "\n";
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -909,6 +923,184 @@ MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
 
 /////////////////////////////////////////////////////////////////////////////
 
+void
+MSVehicle::dumpData( unsigned index )
+{
+    MeanDataValues& md = myMeanData[ index ];
+    
+    double leaveTimestep =
+        static_cast< double >( MSNet::getInstance()->timestep() );
+    
+    myLane->addVehicleData( leaveTimestep - md.entryContTimestep,
+                            MSNet::getInstance()->timestep() -
+                            md.entryDiscreteTimestep,
+                            myState.myPos - md.entryPos,
+                            md.speedSum,
+                            md.speedSquareSum,
+                            index,
+                            false );
+
+    resetMeanData( index );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::resetMeanData( unsigned index )
+{
+    MeanDataValues& md = myMeanData[ index ];
+
+    MSNet::Time timestep = MSNet::getInstance()->timestep();
+    
+    md.entryContTimestep     = static_cast< double >( timestep );
+    md.entryDiscreteTimestep = timestep;
+    md.entryPos              = myState.myPos;
+    md.speedSum              = 0;
+    md.speedSquareSum        = 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::updateMeanData( double entryTimestep,
+                           double pos,
+                           double speed )
+{
+    double speedSquare = speed * speed;
+    unsigned discreteTimestep = MSNet::getInstance()->timestep();
+    
+    for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
+          md != myMeanData.end(); ++md ) {
+        
+        md->entryContTimestep  = entryTimestep;
+        md->entryDiscreteTimestep = discreteTimestep;
+        md->entryPos       = pos;
+        md->speedSum       = speed;
+        md->speedSquareSum = speedSquare;
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::enterLaneAtMove( MSLane* enteredLane )
+{
+    myLane = enteredLane;
+    double entryTimestep =
+        static_cast< double >( MSNet::getInstance()->timestep() ) -
+        myState.myPos / myState.mySpeed;
+    updateMeanData( entryTimestep, 0, myState.mySpeed );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
+{
+    myLane = enteredLane;
+    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
+                    myState.myPos, myState.mySpeed );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
+{
+    myLane = enteredLane;
+    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
+                    myState.myPos, myState.mySpeed );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::leaveLaneAtMove( void )
+{
+    double leaveTimestep =
+        static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
+        ( MSNet::deltaT() - myState.myPos / myState.mySpeed );
+    
+    for ( unsigned index = 0; index < myMeanData.size(); ++index ) {
+
+        MeanDataValues& md = myMeanData[ index ];
+
+//          // LeaveTimestep shouldn't contribute to meanSpeed. At measure
+//          // time the vehicle isn't any longer on current myLane.
+//          double speedSum = md.speedSum - myState.mySpeed;
+//          double speedSquareSum =  md.speedSquareSum -
+//              myState.mySpeed * myState.mySpeed;
+//          if ( speedSum < 0 ) {
+//              speedSum = 0;
+//              speedSquareSum = 0;
+//          }
+        
+        myLane->addVehicleData( leaveTimestep - md.entryContTimestep,
+                                MSNet::getInstance()->timestep() -
+                                md.entryDiscreteTimestep - 1,
+                                myLane->length() - md.entryPos,
+                                md.speedSum,
+                                md.speedSquareSum,
+                                index,
+                                true );
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::leaveLaneAtLaneChange( void )
+{
+    double leaveTimestep =
+        static_cast< double >( MSNet::getInstance()->timestep() );
+    
+    for ( unsigned index = 0; index < myMeanData.size(); ++index ) {
+
+        MeanDataValues& md = myMeanData[ index ];
+
+//          // LeaveTimestep shouldn't contribute to meanSpeed. At measure
+//          // time the vehicle isn't any longer on current myLane.
+//          double speedSum = md.speedSum - myState.mySpeed;
+//          double speedSquareSum =  md.speedSquareSum -
+//              myState.mySpeed * myState.mySpeed;
+//          if ( speedSum < 0 ) {
+//              speedSum = 0;
+//              speedSquareSum = 0;
+//          }
+        
+        myLane->addVehicleData( leaveTimestep - md.entryContTimestep,
+                                MSNet::getInstance()->timestep() -
+                                md.entryDiscreteTimestep - 1,
+                                myState.myPos - md.entryPos,
+                                md.speedSum,
+                                md.speedSquareSum,
+                                index,
+                                false );
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::meanDataMove( void )
+{
+    double speed = myState.mySpeed;
+    double speedSquare = speed * speed;
+    
+    for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
+          md != myMeanData.end(); ++md ) {
+        
+        md->speedSum       += speed;
+        md->speedSquareSum += speedSquare;
+    }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #ifdef DISABLE_INLINE
@@ -918,4 +1110,9 @@ MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
 // Local Variables:
 // mode:C++
 // End:
+
+
+
+
+
 

@@ -21,6 +21,9 @@
 #define MSEdgeControl_H
 
 // $Log$
+// Revision 1.3  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.2  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -107,6 +110,32 @@ public:
     
     friend std::ostream& operator<<( std::ostream& os, 
                                      const XMLOut& obj ); 
+
+    friend class MeanData;
+    /** Class to generate mean-data-output for all edges hold by an
+     * edgecontroller. Usage, e.g.: cout << MeanData( myEC, index,
+     * interval) << endl; where myEC is an edgecontroller object,
+     * index correspond to the lanes and vehicles data-struct and
+     * interval is the sample length. . */
+    class MeanData
+    {
+    public:
+        MeanData( const MSEdgeControl& obj,
+                  unsigned index,
+                  MSNet::Time interval );
+        friend std::ostream& operator<<( std::ostream& os, 
+                                         const MeanData& obj ); 
+    private:
+        const MSEdgeControl& myObj;
+        unsigned myIndex;
+        MSNet::Time myInterval;
+    };    
+    
+    friend std::ostream& operator<<( std::ostream& os, 
+                                     const MeanData& obj ); 
+
+
+
     /// Container for edges.
     typedef std::vector< MSEdge* > EdgeCont;
     
@@ -146,6 +175,8 @@ public:
 
     friend std::ostream& operator<<( std::ostream& os, 
                                      const MSEdgeControl& ec ); 
+
+    
 protected:
 
 private:

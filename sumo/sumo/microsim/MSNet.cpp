@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.16  2002/08/07 12:44:52  roessel
 // Added #include <cassert>
 //
@@ -179,6 +182,7 @@ namespace
 #include "MSPerson.h"
 #include "MSEdge.h"
 #include "MSDetector.h"
+#include <ToString.h>
 
 using namespace std;
 
@@ -222,34 +226,77 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSEmitControl* emc,
              MSEventControl* evc,
              MSPersonControl* wpc,
-             DetectorCont* detectors )
+             DetectorCont* detectors,
+             vector< Time > dumpMeanDataIntervalls,
+             string baseNameDumpFiles,
+             bool withGUI )
 {
     myInstance->myID        = id;
     myInstance->myEdges     = ec;
-    myInstance->myJunctions =  jc;
-    myInstance->myEmitter   =  emc;
-    myInstance->myEvents    =  evc;
-    myInstance->myPersons   =  wpc;
-    myInstance->myDetectors =  detectors;
+    myInstance->myJunctions = jc;
+    myInstance->myEmitter   = emc;
+    myInstance->myEvents    = evc;
+    myInstance->myPersons   = wpc;
+    myInstance->myDetectors = detectors;
+
+    if ( dumpMeanDataIntervalls.size() > 0 ) {
+        
+        sort( dumpMeanDataIntervalls.begin(),
+              dumpMeanDataIntervalls.end() );
+        vector< Time >::iterator newEnd =
+            unique( dumpMeanDataIntervalls.begin(),
+                    dumpMeanDataIntervalls.end() );
+        
+        if ( newEnd != dumpMeanDataIntervalls.end() ) {
+            
+            cerr << "MSNet::MSNet(): Removed duplicate dump-intervalls"
+                 << endl;
+            dumpMeanDataIntervalls.erase(
+                newEnd, dumpMeanDataIntervalls.end() );
+        }
+
+        // Prepare MeanData container, e.g. assign intervals and open files.
+        for ( std::vector< Time >::iterator it =
+                  dumpMeanDataIntervalls.begin();
+              it != dumpMeanDataIntervalls.end(); ++it ) {
+
+            string fileName   = baseNameDumpFiles + "_" + toString( *it );
+            ofstream* filePtr = new ofstream( fileName.c_str() );
+            assert( *filePtr );
+            MSNet::myInstance->myMeanData.push_back(
+                MeanData( *it, filePtr ) );
+        }
+    }    
 }
 
 
-MSNet::MSNet(string id, MSEdgeControl* ec,
-             MSJunctionControl* jc,
-             MSEmitControl* emc,
-             MSEventControl* evc,
-             MSPersonControl* wpc,
-             DetectorCont* detectors ) :
-    myID(id),
-    myEdges(ec),
-    myJunctions(jc),
-    myEmitter(emc),
-    myEvents(evc),
-    myPersons(wpc),
-    myStep(0),
-    myDetectors( detectors )
-{
-}
+//  MSNet::MSNet(string id, MSEdgeControl* ec,
+//               MSJunctionControl* jc,
+//               MSEmitControl* emc,
+//               MSEventControl* evc,
+//               MSPersonControl* wpc,
+//               DetectorCont* detectors,
+//               std::vector< Time > dumpMeanDataIntervalls,
+//               std::string baseNameDumpFiles,
+//               bool withGUI
+//               ) :
+//      myID(id),
+//      myEdges(ec),
+//      myJunctions(jc),
+//      myEmitter(emc),
+//      myEvents(evc),
+//      myPersons(wpc),
+//      myStep(0),
+//      myDetectors( detectors ),
+//      myMeanData( ),
+//      myWithGUI( withGUI ),
+//      myLastGUIdumpTimestep( 0 )
+   
+//  {
+
+//  }
+
+
 
 
 MSNet::~MSNet()
@@ -283,7 +330,8 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
             time(&end);
             double ups = ((double) noVehicles / (double) (end-begin));
             double mups = ups / 1000000.0;
-            cout << noVehicles << " vehicles in " << (end-begin) << " sec" << endl;
+            cout << noVehicles << " vehicles in " << (end-begin)
+                 << " sec" << endl;
             cout << ups << "UPS; " << mups << "MUPS" << endl;
         }
 #endif
@@ -310,22 +358,38 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         myEdges->detectCollisions( myStep );
 
 
-        // Let's detect.
+        // Let's detect induction loops.
         for( DetectorCont::iterator detec = myDetectors->begin();
              detec != myDetectors->end(); ++detec ) {
 
             ( *detec )->sample( simSeconds() );
         }
 
+        // Check if mean-lane-data is due
+        unsigned passedSteps = myStep - start + 1;
+        for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
+
+            Time interval = myMeanData[ i ].interval;
+            if ( passedSteps % interval == 0 ) {
+
+                *(myMeanData[ i ].file)
+                    << "<interval begin=\""
+                    << passedSteps - interval + start
+                    << "\" end=\"" << myStep << "\">\n"
+                    << MSEdgeControl::MeanData( *myEdges, i , interval )
+                    << "</interval>\n";
+            }
+        }
+        
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
         myEdges->detectCollisions( myStep );
 
         // simple output.
         if ( craw ) {
-            (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
-            (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
-            (*craw) << "    </timestep>" << endl;
+            (*craw) << "    <timestep id=\"" << myStep << "\">\n" 
+                    << MSEdgeControl::XMLOut( *myEdges, 8 )
+                    << "    </timestep>\n";
         }
     }
 
@@ -396,6 +460,19 @@ MSNet::routeDict(string id)
     return it->second;
 }
 
+
+unsigned
+MSNet::getNDumpIntervalls( void )
+{
+    return myMeanData.size();
+}
+
+
+bool
+MSNet::withGUI( void )
+{
+    return myWithGUI;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.2  2002/04/24 13:06:47  croessel
 // Changed signature of void detectCollisions() to void detectCollisions(
 // MSNet::Time )
@@ -254,6 +257,34 @@ operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
     return os;       
 }
 
+
+MSEdgeControl::MeanData::MeanData( const MSEdgeControl& obj,
+                                   unsigned index, MSNet::Time interval ) :
+    myObj( obj ),                           
+    myIndex( index ),
+    myInterval( interval )
+{
+}
+
+
+ostream&
+operator<<( ostream& os, const MSEdgeControl::MeanData& obj )
+{
+    for ( MSEdgeControl::EdgeCont::iterator edg1 =
+          obj.myObj.mySingleLaneEdges->begin();
+          edg1 != obj.myObj.mySingleLaneEdges->end(); ++edg1 ) {
+         
+        os << MSEdge::MeanData( **edg1, obj.myIndex, obj.myInterval );
+    } 
+    for ( MSEdgeControl::EdgeCont::iterator edg2 =
+          obj.myObj.myMultiLaneEdges->begin();
+          edg2 != obj.myObj.myMultiLaneEdges->end(); ++edg2 ) {
+          
+        os << MSEdge::MeanData( **edg2, obj.myIndex, obj.myInterval );
+    }
+    return os;       
+}
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
@@ -263,4 +294,6 @@ operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
 // Local Variables:
 // mode:C++
 // End:
+
+
 

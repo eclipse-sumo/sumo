@@ -24,11 +24,15 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.12  2002/07/31 17:33:00  roessel
 // Changes since sourceforge cvs request.
 //
 // Revision 1.15  2002/07/26 11:10:50  dkrajzew
-// unset myAllowedLanes when departing from a source debugged; gap on URGENT_LANECHANGE_WISH added
+// unset myAllowedLanes when departing from a source debugged; gap on
+// URGENT_LANECHANGE_WISH added
 //
 // Revision 1.14  2002/07/24 16:29:40  croessel
 // New method isEmissionSuccess(), used by MSTriggeredSource.
@@ -255,7 +259,11 @@ MSLane::~MSLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::MSLane( string id, double maxSpeed, double length, MSEdge* edge )  :
+MSLane::MSLane( string id,
+                double maxSpeed,
+                double length,
+                MSEdge* edge
+                )  :
     myID( id ),
     myVehicles(),
     myLastVehState(),
@@ -273,7 +281,10 @@ MSLane::MSLane( string id, double maxSpeed, double length, MSEdge* edge )  :
     myPredState( MSVehicle::State() ),
     myTargetLane( 0 ),
     myTargetState( MSVehicle::State() ),
-    myTargetPos( 0 )
+    myTargetPos( 0 ),
+//      myMeanData( 3 )
+    myMeanData( MSNet::getInstance()->getNDumpIntervalls() +
+                MSNet::getInstance()->withGUI() )
 {
 }
 
@@ -285,6 +296,11 @@ MSLane::initialize( MSJunction* backJunction,
 {
     myBackJunction = backJunction;
     myLinks = *links;
+
+//      myMeanData.insert( myMeanData.end(),
+//                         MSNet::getInstance()->getNDumpIntervalls() +
+//                         MSNet::getInstance()->withGUI(),
+//                         MeanDataValues() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -319,10 +335,11 @@ MSLane::moveExceptFirst()
 
             VehCont::iterator pred = veh + 1;
             ( *veh )->move( this, *pred, 0 );
+            ( *veh )->meanDataMove();
 
-	    // Check for timeheadway < deltaT
-	    assert( ( *veh )->pos() < ( *pred )->pos() );
-	}
+            // Check for timeheadway < deltaT
+            assert( ( *veh )->pos() < ( *pred )->pos() );
+        }
     }
 }
 
@@ -372,6 +389,7 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
                 ( *veh )->move( this, *pred, 0);
             }
 
+            ( *veh )->meanDataMove();
             // Check for timeheadway < deltaT
             assert( ( *veh )->pos() < ( *pred )->pos() );
         }
@@ -480,6 +498,7 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
         }
 
         // emit
+        aVehicle->enterLaneAtEmit( this );
         myVehicles.insert( predIt, aVehicle );
         return true;
     }
@@ -493,6 +512,7 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
         case FREE_ON_CURR:
         case FREE_ON_SUCC:
         {
+            aVehicle->enterLaneAtEmit( this );
             myVehicles.push_back( aVehicle );
             return true;
         }
@@ -519,6 +539,7 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
     }
 
     // emit
+    aVehicle->enterLaneAtEmit( this );
     myVehicles.push_back( aVehicle );
     return true;
 }
@@ -534,6 +555,8 @@ MSLane::emitTry( MSVehicle& veh )
                       MSVehicle::tau() +
                       veh.length();
     if ( enoughSpace( veh, 0, myLength, safeSpace ) ) {
+
+        veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
         return true;
     }
@@ -552,6 +575,8 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
                       MSVehicle::tau() +
                       veh.length();
     if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {
+
+        veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
         return true;
     }
@@ -568,6 +593,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
     double safeSpace = (*followIt)->safeEmitGap() + veh.length();
     if ( enoughSpace( veh, followPos,
                       myLength - MSVehicleType::maxLength(), safeSpace ) ) {
+
+        veh.enterLaneAtEmit( this );
         myVehicles.push_back( &veh );
         return true;
     }
@@ -585,6 +612,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
     double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
     double safeSpace = (*followIt)->safeEmitGap() + veh.length();
     if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
+
+        veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );
         return true;
     }
@@ -693,13 +722,17 @@ MSLane::moveFirst( bool respond )
 
             myTargetLane->push( pop() );
         }
+        else {
 
+            myFirst->meanDataMove();
+        }
     }
 
     // Slow down towards lane end.
     else {
 
         myFirst->moveDecel2laneEnd( this );
+        myFirst->meanDataMove();
     }
 }
 
@@ -807,7 +840,9 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     assert( myVehBuffer == 0 );
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
+        
         myVehBuffer = veh;
+        veh->enterLaneAtMove( this );
     }
     else {
         // TODO
@@ -824,6 +859,7 @@ MSLane::pop()
 {
     assert( ! myVehicles.empty() );
     MSVehicle* first = myVehicles.back( );
+    first->leaveLaneAtMove();
     myVehicles.pop_back();
     return first;
 }
@@ -1286,6 +1322,55 @@ MSLane::unloadPersons(MSNet *net, unsigned int time,
 
 /////////////////////////////////////////////////////////////////////////////
 
+void
+MSLane::resetMeanData( unsigned index )
+{
+    MeanDataValues& md = myMeanData[ index ];
+    md.nVehFinishedLane = 0;
+    md.nVehContributed = 0;
+    md.contTimestepSum = 0;
+    md.discreteTimestepSum = 0;
+    md.distanceSum = 0;
+    md.speedSum = 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSLane::addVehicleData( double contTimesteps,
+                        unsigned discreteTimesteps,
+                        double travelDistance,
+                        double speedSum,
+                        double speedSquareSum,
+                        unsigned index,
+                        bool hasFinishedLane )
+{
+    MeanDataValues& md = myMeanData[ index ];
+
+    md.nVehFinishedLane     += hasFinishedLane;
+    md.nVehContributed      += 1;
+    md.contTimestepSum      += contTimesteps;
+    md.discreteTimestepSum  += discreteTimesteps;
+    md.distanceSum          += travelDistance;
+    md.speedSum             += speedSum;
+    md.speedSquareSum       += speedSquareSum;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSLane::collectVehicleData( unsigned index )
+{
+    for ( VehCont::iterator it = myVehicles.begin();
+          it != myVehicles.end(); ++it ) {
+
+        (*it)->dumpData( index );
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+
 ostream&
 operator<<( ostream& os, const MSLane& lane )
 {
@@ -1317,11 +1402,10 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
              obj.myObj.myVehBuffer == 0 ) {
 
             os << indent << "<lane id=\"" << obj.myObj.myID
-               << "\"/>" << endl;
+               << "\"/>\n";
         }
         else { // not empty
-            os << indent << "<lane id=\"" << obj.myObj.myID << "\">"
-               << endl;
+            os << indent << "<lane id=\"" << obj.myObj.myID << "\">\n";
 
             if ( obj.myObj.myVehBuffer != 0 ) {
 
@@ -1338,7 +1422,7 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
                                          false );
             }
 
-            os << indent << "</lane>" << endl;
+            os << indent << "</lane>\n";
 
         }
     }
@@ -1348,9 +1432,75 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
         unsigned nVeh = obj.myObj.myVehicles.size() +
                         ( obj.myObj.myVehBuffer != 0 );
         os << indent << "<lane id=\"" << obj.myObj.myID << "\" nVehicles=\""
-           << nVeh << "\" />" << endl;
+           << nVeh << "\" />\n";
     }
 
+    return os;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+MSLane::MeanData::MeanData( const MSLane& obj,
+                            unsigned index,
+                            MSNet::Time interval ) :
+    myObj( obj ),
+    myIndex( index ),
+    myInterval( interval )
+{
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+ostream&
+operator<<( ostream& os, const MSLane::MeanData& obj )
+{
+    const double meanVehLength = 7.5;
+    const MSLane& lane = obj.myObj;
+    const MSLane::MeanDataValues& meanData = lane.myMeanData[ obj.myIndex ];
+
+    const_cast< MSLane& >( lane ).collectVehicleData( obj.myIndex );
+    
+    // calculate mean data
+    double travelTime;
+    double meanSpeed;
+    double meanDensity;
+    double meanFlow;
+
+    if ( meanData.nVehContributed > 0 ) {
+
+        travelTime  = ( meanData.contTimestepSum *
+                        static_cast< double >( MSNet::deltaT() ) ) /
+            ( meanData.distanceSum / lane.myLength );
+
+        meanSpeed   = meanData.speedSum /
+            static_cast< double >( meanData.discreteTimestepSum );
+
+        meanDensity = static_cast< double >
+            ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
+            ( lane.myLength / meanVehLength *
+              static_cast< double >( obj.myInterval * MSNet::deltaT() ) );
+
+        meanFlow    = static_cast< double >( meanData.nVehFinishedLane ) /
+            static_cast< double >( obj.myInterval ); 
+    }
+    else {
+
+        assert( meanData.nVehContributed == 0 );
+        travelTime  = lane.myLength / lane.myMaxSpeed;
+        meanSpeed   = -1;
+        meanDensity = 0;
+        meanFlow    = 0;
+    }
+    
+    os << "<lane id=\""      << obj.myObj.myID
+       << "\" traveltime=\"" << travelTime
+       << "\" speed=\""      << meanSpeed 
+       << "\" density=\""    << meanDensity
+       << "\" flow=\""       << meanFlow
+       << "\">\n";
+  
+    const_cast< MSLane& >( lane ).resetMeanData( obj.myIndex );
+        
     return os;
 }
 

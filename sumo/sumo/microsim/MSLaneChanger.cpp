@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2002/09/25 17:14:42  roessel
+// MeanData calculation and output implemented.
+//
 // Revision 1.11  2002/07/31 17:33:00  roessel
 // Changes since sourceforge cvs request.
 //
@@ -192,6 +195,7 @@ MSLaneChanger::change()
     // If candidate isn't on an allowed lane, changing to an allowed has
     // priority.
     myCandi = findCandidate();
+    MSVehicle* vehicle = veh( myCandi );
 
     if ( candiOnAllowed( myCandi ) ) {
 
@@ -199,12 +203,16 @@ MSLaneChanger::change()
 
             ( myCandi - 1 )->hoppedVeh = veh( myCandi );
             ( myCandi - 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
+            vehicle->leaveLaneAtLaneChange();
+            vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
             return;
         }
         if ( change2left() ) {
 
             ( myCandi + 1 )->hoppedVeh = veh( myCandi );
             ( myCandi + 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
+            vehicle->leaveLaneAtLaneChange();
+            vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
             return;
         }
     }
@@ -215,6 +223,8 @@ MSLaneChanger::change()
 
             target->hoppedVeh = veh( myCandi );
             target->lane->myTmpVehicles.push_back( veh ( myCandi ) );
+            vehicle->leaveLaneAtLaneChange();
+            vehicle->enterLaneAtLaneChange( target->lane );           
             return;
         }
     }
