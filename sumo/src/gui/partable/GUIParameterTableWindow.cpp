@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/07/02 08:25:01  dkrajzew
+// some design issues
+//
 // Revision 1.9  2004/03/19 12:40:14  dkrajzew
 // porting to FOX
 //
@@ -89,7 +92,7 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
                                                  GUIGlObject &o,
                                                  size_t noRows )
-	: FXMainWindow(
+    : FXMainWindow(
         app.getApp() ,string(o.getFullName() + " Parameter").c_str(),
         NULL,NULL,DECOR_ALL,0,0,300,noRows*20+60),
     myObject(&o),
@@ -105,8 +108,11 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
     myTable->setColumnText(2, "Dynamic");
     FXHeader *header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(0, 150);
     header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemSize(1, 80);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
+    header->setItemSize(2, 60);
 }
 
 
@@ -156,7 +162,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
     }
 
     GUIParam_PopupMenu *p =
-		new GUIParam_PopupMenu(*myApplication, *this,
+        new GUIParam_PopupMenu(*myApplication, *this,
             *myObject, i->getName(), i->getSourceCopy());
     int id;
     if(i->dynamic()) {
