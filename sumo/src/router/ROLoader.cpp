@@ -23,8 +23,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/01/26 09:54:29  dkrajzew
+// the loader now stops on errors as described within the manual
+//
 // Revision 1.13  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.12  2003/08/18 12:44:54  dkrajzew
 // xerces 2.2 and later compatibility patched
@@ -201,10 +206,11 @@ ROLoader::processRoutesStepWise(long start, long end,
     // skip routes that begin before the simulation's begin
     // loop till the end
     bool endReached = false;
+    bool errorOccured = false;
     long time = getMinTimeStep();
     long firstStep = time;
     long lastStep = time;
-    for(; (!endReached||net.furtherStored())&&time<end; time++) {
+    for(; (!endReached||net.furtherStored())&&time<end&&!errorOccured; time++) {
         if(_options.getBool("v")) {
 			double perc =
 				(double) (time-start) / (double) absNo;
@@ -231,6 +237,7 @@ ROLoader::processRoutesStepWise(long start, long end,
                 endReached = false;
             }
         }
+        errorOccured = MsgHandler::getErrorInstance()->wasInformed();
     }
     time = end;
     double perc =
