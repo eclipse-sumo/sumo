@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2004/01/12 15:09:28  dkrajzew
+// some work on the documentation
+//
 // Revision 1.8  2003/07/22 15:09:11  dkrajzew
 // removed warnings
 //
@@ -30,7 +33,8 @@
 // class templates applied; documentation added
 //
 // Revision 1.5  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.4  2003/03/20 16:23:08  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -45,10 +49,12 @@
 // initial commit for net building classes
 //
 // Revision 1.5  2002/06/11 16:00:39  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:54  dkrajzew
 // new computation flow

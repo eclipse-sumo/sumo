@@ -20,12 +20,13 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/12 15:09:28  dkrajzew
+// some work on the documentation
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -41,7 +42,7 @@
  * class definitions
  * ======================================================================= */
 /**
- * NBLinkPossibilityMatrix
+ * @class NBLinkPossibilityMatrix
  * Storing the information which links may be used simultanously, this matrix
  * is simply made by a vector of bitsets
  */

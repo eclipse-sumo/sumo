@@ -2,7 +2,7 @@
 #define Types_h
 /***************************************************************************
                           NBTypeCont.h
-			  A storage for the available types of a section/edge where the type is also defined here
+    A storage for the available types of edges
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/01/12 15:09:28  dkrajzew
+// some work on the documentation
+//
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //

@@ -21,9 +21,6 @@ protected:
     /** saves the net (not the junction logics) */
     bool save(std::string path, OptionsCont &oc);
 
-    /** clears all structures */
-//    void clearAll();
-
     void inform(int step, const std::string &about);
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/12 15:09:28  dkrajzew
+// some work on the documentation
+//
 // Revision 1.5  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -33,15 +36,13 @@
 // updated
 //
 //
-
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
 #include <map>
 #include <iostream>
 #include <string>
@@ -58,14 +59,14 @@ class NBEdge;
  * class definitions
  * ======================================================================= */
 /**
- * NBDistrictCont
+ * @class NBDistrictCont
  * A container of districts
  */
 class NBDistrictCont {
 public:
     /** adds a district to the dictionary;
         returns false if the districts already was in the dictionary */
-    static bool insert(NBDistrict *edge);
+    static bool insert(NBDistrict *district);
 
     /// returns the districts that has the given id
     static NBDistrict *retrieve(const std::string &id);
@@ -100,8 +101,10 @@ private:
 private:
     /** invalid copy constructor */
     NBDistrictCont(const NBDistrictCont &s);
+
     /** invalid assignment operator */
     NBDistrictCont &operator=(const NBDistrictCont &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2004/01/12 15:09:28  dkrajzew
+// some work on the documentation
+//
 // Revision 1.14  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -28,16 +31,21 @@
 // reshifting of networks added
 //
 // Revision 1.12  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.11  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler); this handler
+//  puts it further to output instances. changes: no verbose-parameter needed;
+//  messages are exported to singleton
 //
 // Revision 1.10  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.9  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.8  2003/03/19 08:03:40  dkrajzew
 // splitting of edges made a little bit more stable
@@ -67,10 +75,12 @@
 // Report methods transfered from loader to the containers
 //
 // Revision 1.5  2002/06/11 16:00:39  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow
@@ -120,7 +130,7 @@ class NBEdge;
  * class definitions
  * ======================================================================= */
 /**
- * NBEdgeCont
+ * @class NBEdgeCont
  *
  */
 class NBEdgeCont {
@@ -160,9 +170,6 @@ public:
 
     /** rechecks whether all lanes have a successor */
     static bool recheckLanes();
-
-    /** computes the node-internal priorities of links */
-//    static bool computeLinkPriorities(bool verbose);
 
     /** appends turnarounds */
     static bool appendTurnarounds();
@@ -244,6 +251,7 @@ private:
 
     /** invalid assignment operator */
     NBEdgeCont &operator=(const NBEdgeCont &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
