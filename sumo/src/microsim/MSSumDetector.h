@@ -32,6 +32,9 @@
 template < class DetectorType >
 class MSSumDetector : public DetectorType
 {
+    friend class MS_E2_ZS_Collector; // only MS_E2_ZS_Collector have
+                                     // access to ctor
+    
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
@@ -49,11 +52,16 @@ public:
 protected:
     // E2 Ctor
     MSSumDetector( std::string id,
-                   const double lengthInMeters )
-        : DetectorType( id, lengthInMeters )
+                   double lengthInMeters,
+                   MSUnit::Seconds deleteDataAfterSeconds )
+        : DetectorType( id, lengthInMeters,
+                        deleteDataAfterSeconds )
         {}
 
     // E* ctors follow here
+
+    virtual ~MSSumDetector( void )
+        {}
     
     DetAggregate getSum( MSUnit::Seconds lastNSeconds,
                          AggregatesContIter startIt ) 

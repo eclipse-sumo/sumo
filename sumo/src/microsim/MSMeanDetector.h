@@ -33,6 +33,9 @@
 template < class DetectorType >
 class MSMeanDetector : public MSSumDetector< DetectorType >
 {
+    friend class MS_E2_ZS_Collector; // only MS_E2_ZS_Collector has
+                                     // access to ctor
+    
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
@@ -53,11 +56,16 @@ public:
 protected:
     // E2 ctor
     MSMeanDetector( std::string id,
-                    const double lengthInMeters ) 
-        : MSSumDetector< DetectorType >( id, lengthInMeters )
+                    double lengthInMeters,
+                    MSUnit::Seconds deleteDataAfterSeconds ) 
+        : MSSumDetector< DetectorType >( id, lengthInMeters,
+                                         deleteDataAfterSeconds )
         {}
 
-    // E* ctors follow here    
+    // E* ctors follow here
+
+    ~MSMeanDetector( void )
+        {}
 };
 
 
