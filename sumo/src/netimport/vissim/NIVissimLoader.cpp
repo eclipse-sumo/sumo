@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/09/05 15:18:08  dkrajzew
+// removed some unneeded code
+//
 // Revision 1.16  2003/08/21 12:56:39  dkrajzew
 // unneeded tag output removed
 //
@@ -290,7 +293,7 @@ NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
         }
         name = name.substr(1, name.length()-2);
     }
-    return StringUtils::to_html(name);
+    return StringUtils::convertUmlaute(name);
 }
 
 
@@ -398,10 +401,6 @@ NIVissimLoader::readContents(istream &strm)
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
             StringUtils::to_lower_case(tag));
-        if(tag=="KANTE") {
-            int bla = 0;
-        }
-//        cout << tag << endl;
         if(i==myKnownElements.end()) {
             continue;
         }

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/09/05 15:15:23  dkrajzew
+// removed some unneeded code
+//
 // Revision 1.4  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -109,10 +112,13 @@ MSSourceLane::emit( MSVehicle& veh )
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
     // the precening lane hasn't a much higher MaxSpeed)
     // This safePos is ugly, but we will live with it in this revision.
-    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
+/*    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
     assert( safePos < myLength ); // Lane has to be longer than safePos,
     // otherwise emission (this kind of emission) makes no sense.
+    !!! not in Source lanes
+    */
+
 
     // Here the emission starts
     if ( empty() ) {
