@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/07/02 09:50:54  dkrajzew
+// options changes applied
+//
 // Revision 1.11  2004/02/06 08:54:28  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //
@@ -82,7 +85,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
 #endif
@@ -220,7 +223,7 @@ fillOptions(OptionsCont &oc)
 TNGNet *
 buildNetwork()
 {
-	TNGNet *net = new TNGNet();
+    TNGNet *net = new TNGNet();
     OptionsCont &oc = OptionsSubSys::getOptions();
     srand(oc.getInt("srand"));
     // spider-net
@@ -253,20 +256,20 @@ buildNetwork()
         return net;
     }
     // random net
-	TNGRandomNet RandomNet(net);
-	RandomNet.SetMaxDistance(oc.getFloat("rand-max-distance"));
-	RandomNet.SetMinDistance(oc.getFloat("rand-min-distance"));
-	RandomNet.SetMinLinkAngle(oc.getFloat("min-angle"));
-	RandomNet.SetNumTries(oc.getFloat("num-tries"));
-	RandomNet.SetConnectivity(oc.getFloat("connectivity"));
+    TNGRandomNet RandomNet(net);
+    RandomNet.SetMaxDistance(oc.getFloat("rand-max-distance"));
+    RandomNet.SetMinDistance(oc.getFloat("rand-min-distance"));
+    RandomNet.SetMinLinkAngle(oc.getFloat("min-angle"));
+    RandomNet.SetNumTries(oc.getFloat("num-tries"));
+    RandomNet.SetConnectivity(oc.getFloat("connectivity"));
     RandomNet.NeighbourDistribution.Add(1, oc.getFloat("dist1"));
     RandomNet.NeighbourDistribution.Add(2, oc.getFloat("dist2"));
     RandomNet.NeighbourDistribution.Add(3, oc.getFloat("dist3"));
-	RandomNet.NeighbourDistribution.Add(4, oc.getFloat("dist4"));
-	RandomNet.NeighbourDistribution.Add(5, oc.getFloat("dist5"));
-	RandomNet.NeighbourDistribution.Add(6, oc.getFloat("dist6"));
-	RandomNet.CreateNet(oc.getInt("iterations"));
-	return net;
+    RandomNet.NeighbourDistribution.Add(4, oc.getFloat("dist4"));
+    RandomNet.NeighbourDistribution.Add(5, oc.getFloat("dist5"));
+    RandomNet.NeighbourDistribution.Add(6, oc.getFloat("dist6"));
+    RandomNet.CreateNet(oc.getInt("iterations"));
+    return net;
 }
 
 
@@ -299,7 +302,7 @@ main(int argc, char **argv)
         // build the netgen-network description
         TNGNet *net = buildNetwork();
         // ... and we have to do this...
-        oc.resetDefaults();
+        oc.resetWritable();
         oc.set("no-node-removal", true);
         // transfer to the netbuilding structures
         net->toNB();
@@ -319,12 +322,7 @@ main(int argc, char **argv)
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NetGen.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
