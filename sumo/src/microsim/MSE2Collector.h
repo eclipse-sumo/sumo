@@ -510,6 +510,8 @@ private:
                 {
                     containersM[ E2::HALTINGS ] =
                         new DetectorContainer::HaltingsList(
+                            *laneM,
+                            occupancyCorrectionM,
                             haltingTimeThresholdM,
                             haltingSpeedThresholdM,
                             jamDistThresholdM );
