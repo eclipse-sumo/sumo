@@ -23,6 +23,11 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2002/05/22 16:39:35  croessel
+// advan2left(): First vehicles going to use a prioritized link will not
+// be allowed to change to the left because stayState calculation assumes
+// deceleration.
+//
 // Revision 1.8  2002/05/17 12:36:37  croessel
 // advan2left/right: Check if vehicle brakes too much because of laneChangers disability to look beyond a lane. This caused many crashes.
 //
@@ -616,7 +621,8 @@ MSLaneChanger::advan2right()
     MSVehicle::State   stayState = vehicle->accelState( myCandi->lane );
     MSVehicle::State changeState = MSVehicle::State();
 
-    // Calculate the compareStates.
+
+    // Calculate the compareState.
     if ( neighLead == 0 ) { 
 
         // Vehicles has no neighbour, slow down towards lane-end.
@@ -633,10 +639,8 @@ MSLaneChanger::advan2right()
                                                  neighLead->state(),
                                                  gap2lead );
     }
-    // Check if vehicle brakes too much because of laneChangers
-    // disability to look beyond a lane and compare the states.
-    return ! vehicle->laneChangeBrake2much( stayState ) &&
-           MSVehicle::State::advantage( changeState, stayState );
+
+    return MSVehicle::State::advantage( changeState, stayState );
 }
 
 //-------------------------------------------------------------------------//
@@ -654,6 +658,16 @@ MSLaneChanger::advan2left()
     MSLane*           changeLane = ( myCandi + 1 )->lane;    
     MSVehicle::State   stayState = MSVehicle::State();
     MSVehicle::State changeState = MSVehicle::State();
+
+    // A first car using a prioritized link shouldn't change because
+    // of the LaneChangers disability to look beyond the lane, i.e.
+    // all vehicles are considered to brake towards the lane end. This
+    // will cause some dangerous lanec-changes.
+    bool linkPrio = stayLane->succLink( *vehicle, 1, *stayLane );
+    if ( pred == 0 && linkPrio == true ) {
+
+        return false;
+    }
 
     // If lanes in front of vehicle are empty, there is no need to change.
     // This can change if vehicle looks beyond it's lane in a later release.
@@ -696,11 +710,9 @@ MSLaneChanger::advan2left()
                                                  gap2lead );
     }
 
-    // Check if vehicle brakes too much because of laneChangers
-    // disability to look beyond a lane and compare the states.
-    return ! vehicle->laneChangeBrake2much( stayState ) &&
-           MSVehicle::State::advantage( changeState, stayState );
+    return MSVehicle::State::advantage( changeState, stayState );
 }
+
 
 //-------------------------------------------------------------------------//
 
