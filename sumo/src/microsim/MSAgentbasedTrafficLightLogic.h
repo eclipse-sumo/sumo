@@ -20,11 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.9  2003/11/28 14:08:49  roessel
-// Changes due to new E3 detectors.
-//
-// Revision 1.8  2003/11/28 10:20:38  jringel
-// phases with duration == 0 considered
+// Revision 1.10  2003/12/04 13:27:10  dkrajzew
+// jringels wish for min/max duration applied defaults
 //
 // Revision 1.7  2003/11/24 10:21:20  dkrajzew
 // some documentation added and dead code removed
@@ -34,6 +31,10 @@
 //
 // Revision 1.5  2003/11/04 08:55:28  jringel
 // implemetation of the agentbased trafficlightlogic
+//
+//
+// Revision 1.5 2003/10/28 jringel
+// implemetation of the agent-based logic
 //
 // Revision 1.4  2003/10/08 14:50:28  dkrajzew
 //
@@ -110,12 +111,12 @@ public:
     virtual MSNet::Time nextPhase();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() ;
+    virtual MSNet::Time duration() const;
 
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
     /// or stores the activation-time in _lastphase of the phase next
-    virtual size_t nextStep() ;
+    virtual size_t nextStep();
 
     /// Collects the trafficdata
     virtual void collectData();
