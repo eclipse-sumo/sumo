@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="netedit" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=netedit - Win32 Debug
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "netedit.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "netedit.mak" CFG="netedit - Win32 Debug"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "netedit - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "netedit - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "netedit - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "netedit - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -87,6 +87,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\src\netedit\ColorSelector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netedit\ConfigDialog.cpp
 # End Source File
 # Begin Source File
@@ -133,6 +137,10 @@ SOURCE=..\..\..\src\netedit\Vertex.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\ColorSelector.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\netedit\ConfigDialog.h

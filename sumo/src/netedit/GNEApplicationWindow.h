@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/02 13:54:23  agaubatz
+// Netedit update, A. Gaubatz
+//
 // Revision 1.1  2004/11/23 10:45:06  dkrajzew
 // netedit by A. Gaubatz added
 //
@@ -123,8 +126,8 @@ public:
     long onCmdOpenRecent(FXObject*,FXSelector,void*);
 
     long onCmdClose(FXObject*,FXSelector,void*);
-    long onCmdImport(FXObject*,FXSelector,void*);
-    long onCmdExport(FXObject*,FXSelector,void*);
+    long onCmdLoadImage(FXObject*,FXSelector,void*);
+    long onCmdSaveImage(FXObject*,FXSelector,void*);
 
     /** @brief Called by FOX if the application shall be closed
         Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
@@ -157,13 +160,10 @@ public:
     long onCmdCloseGaps(FXObject*,FXSelector,void*);
 
     /// Filters small black Spots in the Image (only 0/1-Bitmap)
-    long onCmdBlackCorpses(FXObject*,FXSelector,void*);
+    long onCmdEraseStains(FXObject*,FXSelector,void*);
 
     /// Skeletonizes the image (only 0/1-Bitmap)
     long onCmdSkeletonize(FXObject*,FXSelector,void*);
-
-    /// Reduces the Skeleton zu minimum thickness (only 0/1-Bitmap)
-    long onCmdRarify(FXObject*,FXSelector,void*);
 
     /// Creates a graph from the ´street skeleton´
     long onCmdCreateGraph(FXObject*,FXSelector,void*);
@@ -356,7 +356,16 @@ protected:
     Graph graph;
 
     // Image Configuration Dialog
-    FXTestDialog *dialog;
+    ConfigDialog *dialog;
+
+	// default filename for the imagefiledialog
+	FXString imgfilename;
+
+	//Popupbutton for painttool
+	FXPopup* paintpop;
+
+	//Popupbutton for painttool
+	FXPopup* rubberpop;
 
 private:
   int                mdflag;                  // Mouse button down?

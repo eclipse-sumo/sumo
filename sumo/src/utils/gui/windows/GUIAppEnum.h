@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/02 13:54:23  agaubatz
+// Netedit update, A. Gaubatz
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -75,9 +78,9 @@ enum {
     /// Close Simulation - ID
     MID_CLOSE,
     /// Öffne ein Bitmap File
-    MID_IMPORT,
+    MID_LOAD_IMAGE,
     /// Schreibe das Bitmap in ein File
-    MID_EXPORT,
+    MID_SAVE_IMAGE,
     /// About SUMO - ID
     MID_ABOUT,
     //@}
@@ -144,7 +147,7 @@ enum {
     /// Rarify - Menu Entry
     MID_RARIFY,
     /// Rarify - Menu Entry
-    MID_BLACK_CORPSES,
+    MID_ERASE_STAINS,
     /// Create Graph - Menu Entry
     MID_CREATE_GRAPH,
     /// Opens a dialoge window for image-filter configuration

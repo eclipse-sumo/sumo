@@ -85,7 +85,7 @@ public:
     Entfernt scharze Elemente(Fragmente), die
     nicht zu Straßen gehören
     */
-    void BlackCorpses(int deep);
+    void EraseStains(int deep);
 
     /*
     Erzeugt einen Graphen aus dem minimalen Skelett

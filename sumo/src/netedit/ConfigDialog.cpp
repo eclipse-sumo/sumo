@@ -1,306 +1,222 @@
-//Hier habe ich eine Zeile geändert
 #include "ConfigDialog.h"
+#include <cstdlib>
+  
 
 // Map
-FXDEFMAP(FXTestDialog) FXTestDialogMap[]={
-  FXMAPFUNC(SEL_COMMAND,FXTestDialog::ID_PANEL,FXTestDialog::onCmdPanel)
+FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
+  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_PANEL,                         ConfigDialog::onCmdPanel),
+  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_ACCEPT_COLOR,                  ConfigDialog::onCmdAcceptColor),
+  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_DELETE_COLOR,                  ConfigDialog::onCmdDeleteColor),
+  FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_DEL_ALL_COL,                   ConfigDialog::onCmdDeleteAllColors),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_DIL_SLIDER,                     ConfigDialog::onCmdDilSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_DIL_SLIDER,                     ConfigDialog::onCmdDilSlider),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_ERO_SLIDER,                     ConfigDialog::onCmdEroSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_ERO_SLIDER,                     ConfigDialog::onCmdEroSlider),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_ERA_SLIDER,                     ConfigDialog::onCmdEraSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_ERA_SLIDER,                     ConfigDialog::onCmdEraSlider),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_NODE_SLIDER,                    ConfigDialog::onCmdNodeSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_NODE_SLIDER,                    ConfigDialog::onCmdNodeSlider),
+  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_OK,                             ConfigDialog::onCmdOK),
+  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_CANCEL,                         ConfigDialog::onCmdCancel),
   };
 
-// FXTestDialog implementation
-FXIMPLEMENT(FXTestDialog,FXDialogBox,NULL,0)
+// ConfigDialog implementation
+FXIMPLEMENT(ConfigDialog,FXDialogBox,ConfigDialogMap,ARRAYNUMBER(ConfigDialogMap))
 
 
 // Construct a dialog box
-FXTestDialog::FXTestDialog(FXWindow* owner):FXDialogBox(owner,"Test of Dialog Box",DECOR_TITLE|DECOR_BORDER)
-{
+ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Configuration",DECOR_TITLE|DECOR_BORDER)
+{  
+
   // Contents
-  contents=new FXHorizontalFrame(this,LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH);
+  contents=new FXVerticalFrame(this,LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH,0,0,500,500, 0,0,0,0);
 
   // Switcher
   tabbook=new FXTabBook(contents,NULL,ID_PANEL,PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
 
-  //First tab
-  tab1=new FXTabItem(tabbook,"&Nummer 1",NULL);
-  tab_frame1=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe1=new FXVerticalFrame(tab_frame1,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT , 0,0,500,500, 0,0,0,0);
-  simplelist=new FXList(boxframe1,NULL,0,LIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-  simplelist->appendItem("First Entry");
-  simplelist->appendItem("Second Entry");
-  simplelist->appendItem("Third Entry");
-  simplelist->appendItem("Fourth Entry");
+  //First Tab
+	tab1=new FXTabItem(tabbook,"&Street Extraction",NULL);
+	tab_frame1=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
+		boxframe1=new FXVerticalFrame(tab_frame1,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,300,300, 0,0,0,0);
+  
+			new FXLabel(boxframe1,"Choose the colors belonging to the street areas.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
+			new FXHorizontalSeparator(boxframe1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+  
+			boxframe2=new FXHorizontalFrame(boxframe1,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,300,225, 0,0,0,0);
+				colorlist=new FXList(boxframe2,NULL,0,LIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,0,0,150,220);
+				boxframe3=new FXVerticalFrame(boxframe2,FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
+					colorbox=new ColorSelector(boxframe3,this,LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0);
 
-  //Second Tab
-  tab2=new FXTabItem(tabbook,"&Nummer2",NULL);
-  tab_frame2=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe1=new FXVerticalFrame(tab_frame2,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,500,500, 0,0,0,0);
+					new FXButton(boxframe3,"&Delete List \tDelete list.",
+						NULL,this,ID_DEL_ALL_COL,
+						BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
+					new FXButton(boxframe3,"&Delete Color \tDelete the marked color from the list.",
+						NULL,this,ID_DELETE_COLOR,
+						  BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
+					new FXButton(boxframe3,"&Add Color \tAccept the chosen color.",
+				    	NULL,this,ID_ACCEPT_COLOR,
+						BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_BOTTOM,0,0,0,0,0,0,0,0);
+			new FXHorizontalSeparator(boxframe1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+			new FXLabel(boxframe1,"Note:Streetgraph extraction works best with\n unnoisy and sharply defined pictures.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
 
-  new FXLabel(boxframe1,"Choose the colors belonging to the street areas.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
-  new FXHorizontalSeparator(boxframe1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+	//Second tab
+	tab2=new FXTabItem(tabbook,"&Filter",NULL);
+	tab_frame2=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
+		boxframe4=new FXVerticalFrame(tab_frame2,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT , 0,0,300,300, 0,0,0,0);
 
-  boxframe2=new FXHorizontalFrame(boxframe1,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,500,500, 0,0,0,0);
+			new FXLabel(boxframe4,"Set Filter Parameter.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
+			new FXHorizontalSeparator(boxframe4,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+			FXMatrix *myMatrix=new FXMatrix(boxframe4,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
 
-  simplelist=new FXList(boxframe2,NULL,0,LIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-  simplelist->appendItem("First Entry");
-  simplelist->appendItem("Second Entry");
-  simplelist->appendItem("Third Entry");
-  simplelist->appendItem("Fourth Entry");
+  
+				new FXLabel(myMatrix,"&Dilatation:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				dilatationTextField =new FXTextField(myMatrix,4,this,ID_DIL_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				dilatationSlider    =new FXSlider(myMatrix,this,ID_DIL_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				dilatationSlider->setRange(1,10);
+				dilatationSlider->setTickDelta(1);
+				dilatationSlider->setValue(1);
+				dilatationTextField->setEditable(false);
+				dilatationTextField->setText(FXStringVal(dilatationSlider->getValue()));
 
-  FXColorDialog *colordlg=new FXColorDialog(this,"Color Dialog");
 
-  new FXButton(boxframe2,"&Colors...\tPop the color dialog",NULL,colordlg,FXWindow::ID_SHOW,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0,10,10,5,5);
+				new FXLabel(myMatrix,"&Erosion:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				erosionTextField =new FXTextField(myMatrix,4,this,ID_ERO_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				erosionSlider    =new FXSlider(myMatrix,this,ID_ERO_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				erosionSlider->setRange(1,10);
+				erosionSlider->setTickDelta(1);
+				erosionSlider->setValue(1);
+				erosionTextField->setEditable(false); 
+				erosionTextField->setText(FXStringVal(erosionSlider->getValue()));
 
-  new FXLabel(boxframe1,"Note:Streetgraph extraction works best with unnoisy and sharply defined pictures.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
+				new FXLabel(myMatrix,"&Erase Stains:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				eraseStainsTextField =new FXTextField(myMatrix,4,this,ID_ERA_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				eraseStainsSlider    =new FXSlider(myMatrix,this,ID_ERA_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				eraseStainsSlider->setRange(1,15);
+				eraseStainsSlider->setTickDelta(1);
+				eraseStainsSlider->setValue(5);
+				eraseStainsTextField->setEditable(false);
+				eraseStainsTextField->setText(FXStringVal(eraseStainsSlider->getValue()));
+
+				new FXLabel(myMatrix,"&Node Distance:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				nodeDistanceTextField =new FXTextField(myMatrix,4,this,ID_NODE_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				nodeDistanceSlider    =new FXSlider(myMatrix,this,ID_NODE_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				nodeDistanceSlider->setRange(1,50);
+				nodeDistanceSlider->setTickDelta(1);
+				nodeDistanceSlider->setValue(10);
+				nodeDistanceTextField->setEditable(false);
+				nodeDistanceTextField->setText(FXStringVal(nodeDistanceSlider->getValue()));
+
+				new FXLabel(myMatrix,"&Epsilon:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
+				epsilonTextField =new FXTextField(myMatrix,4,this,ID_EPSI_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+				epsilonSlider    =new FXSlider(myMatrix,this,ID_EPSI_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
+				epsilonSlider->setRange(1,1000);
+				epsilonSlider->setTickDelta(1);
+				epsilonSlider->setValue(10);
+				epsilonTextField->setEditable(false);
+				epsilonTextField->setText(FXStringVal((float)epsilonSlider->getValue()/100,2,false));
 
   //Third Tab
-  tab3=new FXTabItem(tabbook,"&Nummer2",NULL);
+
+  tab3=new FXTabItem(tabbook,"&Netconversion",NULL);
   tab_frame3=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe1=new FXVerticalFrame(tab_frame3,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,500,500, 0,0,0,0);
-  simplelist=new FXList(boxframe1,NULL,0,LIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-  simplelist->appendItem("First Entry");
-  simplelist->appendItem("Second Entry");
-  simplelist->appendItem("Third Entry");
-  simplelist->appendItem("Fourth Entry");
+  boxframe1=new FXVerticalFrame(tab_frame3,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,0,0, 0,0,0,0);
+
+
+  buttonframe=new FXHorizontalFrame(contents,LAYOUT_FILL_X|LAYOUT_FILL_Y);
+  	new FXButton(buttonframe,"&OK \tOK.",
+		NULL,this,ID_OK,
+		BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_RIGHT,0,0,70,30,0,0,0,0);
+	new FXButton(buttonframe,"&Cancel \tCancel.",
+		NULL,this,ID_CANCEL,
+		BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_RIGHT,0,0,70,30,0,0,0,0);
 }
 
-
 // Must delete the menus
-FXTestDialog::~FXTestDialog(){
-  delete menu;
-  delete submenu;
+ConfigDialog::~ConfigDialog(){
   delete pane;
   }
 
+long ConfigDialog::onCmdDilSlider(FXObject*,FXSelector sel,void*){
+  dilatationTextField->setText(FXStringVal(dilatationSlider->getValue()));
+  return 1;
+  }
+
+long ConfigDialog::onCmdEroSlider(FXObject*,FXSelector sel,void*){
+  erosionTextField->setText(FXStringVal(erosionSlider->getValue()));
+  return 1;
+  }
+
+long ConfigDialog::onCmdEraSlider(FXObject*,FXSelector sel,void*){
+  eraseStainsTextField->setText(FXStringVal(eraseStainsSlider->getValue()));
+  return 1;
+  }
+
+long ConfigDialog::onCmdNodeSlider(FXObject*,FXSelector sel,void*){
+  nodeDistanceTextField->setText(FXStringVal(nodeDistanceSlider->getValue()));
+  return 1;
+  }
+
+long ConfigDialog::onCmdEpsiSlider(FXObject*,FXSelector sel,void*){
+  epsilonTextField->setText(FXStringVal((float)epsilonSlider->getValue()/100,2,false));
+  return 1;
+  }
+
 // Active panel switched
-long FXTestDialog::onCmdPanel(FXObject*,FXSelector,void* ptr)
+long ConfigDialog::onCmdPanel(FXObject*,FXSelector,void* ptr)
 {
   FXTRACE((1,"Panel = %d\n",(FXint)(long)ptr));
   return 1;
 }
 
-/*
+long ConfigDialog::onCmdAcceptColor(FXObject*,FXSelector,void* ptr)
+{
+  calculateRGBValues(colorbox->getRGBA());
+  FXString colorText;
+  colorText="R: "+(FXStringVal(255.0f*rgba[0],0,FALSE))+
+	        "     G: "+(FXStringVal(255.0f*rgba[1],0,FALSE))+
+			"     B: "+(FXStringVal(255.0f*rgba[2],0,FALSE));
+  if((colorlist->findItem(colorText,-1,SEARCH_FORWARD)==-1)||(colorlist->getNumItems()==0))
+	colorlist->appendItem(colorText);
+  return 1;
+}
 
-#include "fx.h"
+long ConfigDialog::onCmdDeleteAllColors(FXObject*,FXSelector,void* ptr)
+{
+  if(colorlist->getNumItems()>0)
+	colorlist->clearItems();
+  return 1;
+}
 
+long ConfigDialog::onCmdCancel(FXObject*,FXSelector,void* ptr)
+{
+  hide();
+  return 1;
+}
 
-// Main Window
-class TabBookWindow : public FXMainWindow {
-  FXDECLARE(TabBookWindow)
-protected:
-
-  // Member data
-  FXMenuBar*         menubar;
-  FXMenuPane*        filemenu;
-  FXMenuPane*        tabmenu;
-  FXHorizontalFrame* contents;
-  FXTabBook*         tabbook;
-  FXTabItem*         tab1;
-  FXTabItem*         tab2;
-  FXTabItem*         tab3;
-  FXHorizontalFrame* listframe;
-  FXHorizontalFrame* fileframe;
-  FXHorizontalFrame* dirframe;
-  FXList*            simplelist;
-  FXFileList*        filelist;
-  FXDirList*         dirlist;
-
-protected:
-
-  TabBookWindow(){}
-
-public:
-
-  // Message handlers
-  long onCmdTabOrient(FXObject*,FXSelector,void*);
-  long onCmdHideShow(FXObject*,FXSelector,void*);
-  long onCmdPanel(FXObject*,FXSelector,void*);
-
-public:
-
-  // Messages
-  enum{
-    ID_TABS_TOP=FXMainWindow::ID_LAST,
-    ID_TABS_BOTTOM,
-    ID_TABS_LEFT,
-    ID_TABS_RIGHT,
-    ID_HIDESHOW,
-    ID_PANEL
-    };
-public:
-  TabBookWindow(FXApp* a);
-  virtual void create();
-  virtual ~TabBookWindow();
-  };
+long ConfigDialog::onCmdOK(FXObject*,FXSelector,void* ptr)
+{
+  hide();
+  return 1;
+}
 
 
 
-
-// Map
-FXDEFMAP(TabBookWindow) TabBookWindowMap[]={
-  FXMAPFUNCS(SEL_COMMAND,TabBookWindow::ID_TABS_TOP,TabBookWindow::ID_TABS_RIGHT,TabBookWindow::onCmdTabOrient),
-  FXMAPFUNC(SEL_COMMAND,TabBookWindow::ID_HIDESHOW,TabBookWindow::onCmdHideShow),
-  FXMAPFUNC(SEL_COMMAND,TabBookWindow::ID_PANEL,TabBookWindow::onCmdPanel),
-  };
-
-
-// Object implementation
-FXIMPLEMENT(TabBookWindow,FXMainWindow,TabBookWindowMap,ARRAYNUMBER(TabBookWindowMap))
+long ConfigDialog::onCmdDeleteColor(FXObject*,FXSelector,void* ptr)
+{  
+  if((colorlist->getNumItems()>0)&&(colorlist->isItemSelected(colorlist->getCurrentItem())))
+	  colorlist->removeItem(colorlist->getCurrentItem(),FALSE);
+  return 1;
+}
 
 
-
-
-
-// Make some windows
-TabBookWindow::TabBookWindow(FXApp *a):FXMainWindow(a,"Tab Book Test",NULL,NULL,DECOR_ALL,0,0,600,400){
-  FXHorizontalFrame *boxframe;
-
-  // Tooltip
-  new FXToolTip(getApp());
-
-  // Menubar
-  menubar=new FXMenuBar(this,LAYOUT_SIDE_TOP|LAYOUT_FILL_X);
-
-  // Separator
-  new FXHorizontalSeparator(this,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|SEPARATOR_GROOVE);
-
-  // Contents
-  contents=new FXHorizontalFrame(this,LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH);
-
-  // Switcher
-  tabbook=new FXTabBook(contents,this,ID_PANEL,PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
-
-  // First item is a list
-  tab1=new FXTabItem(tabbook,"&Simple List",NULL);
-  listframe=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe=new FXHorizontalFrame(listframe,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
-  simplelist=new FXList(boxframe,NULL,0,LIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-  simplelist->appendItem("First Entry");
-  simplelist->appendItem("Second Entry");
-  simplelist->appendItem("Third Entry");
-  simplelist->appendItem("Fourth Entry");
-
-  // Second item is a file list
-  tab2=new FXTabItem(tabbook,"F&ile List",NULL);
-  fileframe=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe=new FXHorizontalFrame(fileframe,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
-  filelist=new FXFileList(boxframe,NULL,0,ICONLIST_EXTENDEDSELECT|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-
-  // Third item is a directory list
-  tab3=new FXTabItem(tabbook,"T&ree List",NULL);
-  dirframe=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
-  boxframe=new FXHorizontalFrame(dirframe,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
-  dirlist=new FXDirList(boxframe,0,NULL,0,DIRLIST_SHOWFILES|TREELIST_SHOWS_LINES|TREELIST_SHOWS_BOXES|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-
-  // File Menu
-  filemenu=new FXMenuPane(this);
-  new FXMenuCommand(filemenu,"&Simple List",NULL,tabbook,FXTabBar::ID_OPEN_FIRST+0);
-  new FXMenuCommand(filemenu,"F&ile List",NULL,tabbook,FXTabBar::ID_OPEN_FIRST+1);
-  new FXMenuCommand(filemenu,"T&ree List",NULL,tabbook,FXTabBar::ID_OPEN_FIRST+2);
-  new FXMenuCommand(filemenu,"&Quit\tCtl-Q",NULL,getApp(),FXApp::ID_QUIT);
-  new FXMenuTitle(menubar,"&File",NULL,filemenu);
-
-  // Tab side
-  tabmenu=new FXMenuPane(this);
-  new FXMenuCommand(tabmenu,"Hide/Show Tab 2",NULL,this,TabBookWindow::ID_HIDESHOW);
-  new FXMenuCommand(tabmenu,"&Top Tabs",NULL,this,TabBookWindow::ID_TABS_TOP);
-  new FXMenuCommand(tabmenu,"&Bottom Tabs",NULL,this,TabBookWindow::ID_TABS_BOTTOM);
-  new FXMenuCommand(tabmenu,"&Left Tabs",NULL,this,TabBookWindow::ID_TABS_LEFT);
-  new FXMenuCommand(tabmenu,"&Right Tabs",NULL,this,TabBookWindow::ID_TABS_RIGHT);
-  new FXMenuTitle(menubar,"&Tab Placement",NULL,tabmenu);
-
-  }
-
-
-// Clean up
-TabBookWindow::~TabBookWindow(){
-  delete tabmenu;
-  delete filemenu;
-  }
-
-
-// Switch tab orientations
-long TabBookWindow::onCmdTabOrient(FXObject*,FXSelector sel,void*){
-  FXuint sid=FXSELID(sel);
-  switch(sid){
-    case ID_TABS_TOP:
-      tabbook->setTabStyle(TABBOOK_TOPTABS);
-      tab1->setTabOrientation(TAB_TOP);
-      tab2->setTabOrientation(TAB_TOP);
-      tab3->setTabOrientation(TAB_TOP);
-      break;
-    case ID_TABS_BOTTOM:
-      tabbook->setTabStyle(TABBOOK_BOTTOMTABS);
-      tab1->setTabOrientation(TAB_BOTTOM);
-      tab2->setTabOrientation(TAB_BOTTOM);
-      tab3->setTabOrientation(TAB_BOTTOM);
-      break;
-    case ID_TABS_LEFT:
-      tabbook->setTabStyle(TABBOOK_LEFTTABS);
-      tab1->setTabOrientation(TAB_LEFT);
-      tab2->setTabOrientation(TAB_LEFT);
-      tab3->setTabOrientation(TAB_LEFT);
-      break;
-    case ID_TABS_RIGHT:
-      tabbook->setTabStyle(TABBOOK_RIGHTTABS);
-      tab1->setTabOrientation(TAB_RIGHT);
-      tab2->setTabOrientation(TAB_RIGHT);
-      tab3->setTabOrientation(TAB_RIGHT);
-      break;
-    }
+long ConfigDialog::calculateRGBValues(FXColor color){
+  
+  rgba[0]=0.003921568627f*FXREDVAL(color);
+  rgba[1]=0.003921568627f*FXGREENVAL(color);
+  rgba[2]=0.003921568627f*FXBLUEVAL(color);
   return 1;
   }
 
 
-// Hide of show a panel
-long TabBookWindow::onCmdHideShow(FXObject*,FXSelector,void*){
-  if(tab2->shown()){
-    tab2->hide();
-    fileframe->hide();
-    }
-  else{
-    tab2->show();
-    fileframe->show();
-    }
-  tab2->recalc();
-  fileframe->recalc();
-  return 1;
-  }
-
-
-// Active panel switched
-long TabBookWindow::onCmdPanel(FXObject*,FXSelector,void* ptr){
-  FXTRACE((1,"Panel = %d\n",(FXint)(long)ptr));
-  return 1;
-  }
-
-
-// Show up
-void TabBookWindow::create(){
-  FXMainWindow::create();
-  show(PLACEMENT_SCREEN);
-  }
-
-
-
-
-
-// Start the whole thing
-int main(int argc,char *argv[]){
-
-  // Make application
-  FXApp application("TabBook","FoxTest");
-
-  // Open display; this reads registry
-  application.init(argc,argv);
-
-  // Build a window
-  new TabBookWindow(&application);
-
-  // Create app
-  application.create();
-
-  // Run
-  return application.run();
-  }
-
-
-*/

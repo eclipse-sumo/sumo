@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/02 13:54:23  agaubatz
+// Netedit update, A. Gaubatz
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -86,12 +89,24 @@ namespace
 #include "erode.xpm"
 #include "opening.xpm"
 #include "closing.xpm"
-#include "black_corpses.xpm"
+#include "erase_stains.xpm"
 #include "close_gaps.xpm"
 #include "skeletonize.xpm"
 #include "rarify.xpm"
 #include "create_graph.xpm"
 #include "open_bmp_dialog.xpm"
+#include "eyedrop.xpm"
+#include "rubber1x.xpm"
+#include "rubber2x.xpm"
+#include "rubber3x.xpm"
+#include "rubber4x.xpm"
+#include "rubber5x.xpm"
+#include "paintbrush1x.xpm"
+#include "paintbrush2x.xpm"
+#include "paintbrush3x.xpm"
+#include "paintbrush4x.xpm"
+#include "paintbrush5x.xpm"
+
 
 #include "flag.cpp"
 #include "flag_plus.cpp"
@@ -170,12 +185,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
     myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
     myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
-    myIcons[ICON_BLACK_CORPSES] = new FXXPMIcon(a, black_corpses_xpm);
+    myIcons[ICON_ERASE_STAINS] = new FXXPMIcon(a, erase_stains_xpm);
     myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
     myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
     myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
     myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
     myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
+	myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
+	myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
+	myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
+	myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
+	myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
+	myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
+	myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
+	myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
+	myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
+	myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
+	myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
 
     // vss
     myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
@@ -220,7 +246,7 @@ GUIIconSubSys::getIcon(GUIIcon which)
     return myInstance->myIcons[which];
 }
 
-
+ 
 void
 GUIIconSubSys::close()
 {

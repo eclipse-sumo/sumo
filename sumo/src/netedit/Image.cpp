@@ -701,7 +701,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
 }
 
 
-void Image::BlackCorpses(int deep)
+void Image::EraseStains(int deep)
 {
     //Hole Breite und Höhe des Image
     int wid = m_img->getWidth();
