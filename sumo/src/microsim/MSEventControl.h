@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/06/04 16:16:23  roessel
+// MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
+//
 // Revision 1.4  2003/05/27 18:51:46  roessel
 // Made MSEventControl a singleton class.
 // Moved EventSortCrit::operator() into header-file.
@@ -27,7 +30,8 @@
 // updated
 //
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include
+// complete deletion within destructors implemented; clear-operator added for
+// container; global file include
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -106,8 +110,9 @@ class Command;
 class MSEventControl
 {
 public:
-    /// Get the sole instace of this class
-    static MSEventControl* getInstance( void );
+    /// Get the two instances of this class
+    static MSEventControl* getBeginOfTimestepEvents( void );
+    static MSEventControl* getEndOfTimestepEvents( void );
     
     /// Events that should be executed at time.
     typedef std::pair< Command*, MSNet::Time > Event;
@@ -133,11 +138,13 @@ public:
     bool addEvent( Command* operation, MSNet::Time execTime, AdaptType type );
 
     /** @brief Executes time-dependant commands
-        Events are things such as switching traffic-lights, writing output, etc. */
+        Events are things such as switching traffic-lights, writing output,
+        etc. */
     void execute( MSNet::Time time );
 
     /** @brief Inserts eventcontrol into the static dictionary.
-        Returns if the key id isn't already in the dictionary. Otherwise returns
+        Returns if the key id isn't already in the dictionary. Otherwise
+        returns
         false (the control is not inserted then). */
     static bool dictionary( std::string id, MSEventControl* event );
 
@@ -149,8 +156,8 @@ public:
     static void clear();
 
 private:
-    static MSEventControl* myInstance;
-
+    static MSEventControl* myBeginOfTimestepEvents;
+    static MSEventControl* myEndOfTimestepEvents;
     /// Container for time-dependant events, e.g. traffic-light-change.
     typedef std::priority_queue< Event, std::vector< Event >,
                                  EventSortCrit > EventCont;
@@ -164,7 +171,6 @@ private:
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-private:
     /// Default constructor.
     MSEventControl();
 

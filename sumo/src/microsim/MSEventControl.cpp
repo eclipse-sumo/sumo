@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/06/04 16:16:23  roessel
+// MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
+//
 // Revision 1.5  2003/05/27 18:50:00  roessel
 // Made MSEventControl a singleton class.
 // Moved EventSortCrit::operator() into header-file.
@@ -35,7 +38,8 @@ namespace
 // usage of adaption type for mismatched times reimplemented
 //
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include
+// complete deletion within destructors implemented; clear-operator added for
+// container; global file include
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -129,7 +133,8 @@ using namespace std;
  * static member definitions
  * ======================================================================= */
 MSEventControl::DictType MSEventControl::myDict;
-MSEventControl* MSEventControl::myInstance = 0;
+MSEventControl* MSEventControl::myBeginOfTimestepEvents = 0;
+MSEventControl* MSEventControl::myEndOfTimestepEvents = 0;
 
 /* =========================================================================
  * member definitions
@@ -139,13 +144,23 @@ MSEventControl* MSEventControl::myInstance = 0;
 //  * ----------------------------------------------------------------------- */
 
 MSEventControl*
-MSEventControl::getInstance( void )
+MSEventControl::getBeginOfTimestepEvents( void )
 {
-    if ( myInstance == 0 ) {
-        myInstance = new MSEventControl();
+    if ( myBeginOfTimestepEvents == 0 ) {
+        myBeginOfTimestepEvents = new MSEventControl();
     }
-    return myInstance;
+    return myBeginOfTimestepEvents;
 }
+
+MSEventControl*
+MSEventControl::getEndOfTimestepEvents( void )
+{
+    if ( myEndOfTimestepEvents == 0 ) {
+        myEndOfTimestepEvents = new MSEventControl();
+    }
+    return myEndOfTimestepEvents;
+}
+
 
 MSEventControl::MSEventControl( ) :
     myEvents()
@@ -173,11 +188,10 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
                           AdaptType type )
 {
     MSNet::Time currTime = MSNet::getInstance()->timestep();
-    if(type==ADAPT_AFTER_EXECUTION&&execTime<=currTime) {
-        execTime = currTime+1;
+    if ( type == ADAPT_AFTER_EXECUTION && execTime <= currTime ) {
+        execTime = currTime + 1;
     }
     Event newEvent = Event( operation, execTime );
-    if (myEvents.empty()) { cout << "guenther" << endl;}
     myEvents.push( newEvent );
     return true;
 }
