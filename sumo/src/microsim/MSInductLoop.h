@@ -31,7 +31,7 @@
 #include "MSMoveReminder.h"
 #include "MSVehicle.h"
 #include "MSNet.h"
-
+#include "MSDetectorFileOutput.h"
 
 class MSLane;
 class GUIDetectorWrapper;
@@ -64,7 +64,7 @@ class GUILaneWrapper;
  * @see SingletonDictionary
  */
 class MSInductLoop
-    : public MSMoveReminder
+    : public MSMoveReminder, MSDetectorFileOutput
 {
 public:
     /// Type of the dictionary where all MSInductLoop are registered.
@@ -249,7 +249,7 @@ public:
      * @see MSDetector2File
      * @see getXMLOutput
      */
-    static std::string& getXMLHeader( void );
+    std::string& getXMLHeader( void );
 
     /** 
      * Get an opening XML-element containing information about the detector.
@@ -270,7 +270,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoStart
      */
-    static std::string& getXMLDetectorInfoEnd( void );
+    std::string& getXMLDetectorInfoEnd( void );
 
     /** 
      * Get the XML-formatted output of all the get*-methods except

@@ -15,7 +15,7 @@
  * @file   MSLaneState.h
  * @author Christian Roessel
  * @date   Started Tue, 18 Feb 2003
- * $Revision$ from $date$ by $Author$
+ * @version $Id$
  * @brief  Declaration of class MSLaneState and helper functions.
  * 
  */
@@ -30,78 +30,13 @@
 //
 //---------------------------------------------------------------------------//
 
-// $Log$
-// Revision 1.19  2003/07/21 14:59:56  roessel
-// Added two methods getXMLDetectorInfoStart() and getXMLDetectorInfoEnd() and static string detectorInfoEndM.
-//
-// Revision 1.18  2003/07/03 11:00:52  roessel
-// Put global functions in an unnamed namespace to make them local.
-//
-// Revision 1.17  2003/06/10 12:55:11  roessel
-// Added documentation.
-//
-// Revision 1.16  2003/06/06 07:42:31  roessel
-// Thanks, but removed umlaut.
-//
-// Revision 1.15  2003/06/05 16:04:46  dkrajzew
-// had to remove sorting-methods from the VehicleData-structure
-//
-// Revision 1.14  2003/06/05 09:53:46  roessel
-// Numerous changes and new methods/members.
-//
-// Revision 1.13  2003/05/28 15:36:32  roessel
-// Added argument MSNet::Time deleteDataAfterSeconds with default value 900
-// timesteps to constructor.
-//
-// Revision 1.12  2003/05/28 07:51:25  dkrajzew
-// had to add a return value due to the usage of the mem_func-function in
-// combination with for_each (MSVC++-reasons?)
-//
-// Revision 1.11  2003/05/27 19:01:26  roessel
-// Removed OutputStyle in ctor (output will be xml).
-//
-// Revision 1.10  2003/05/26 15:31:09  roessel
-// Removed superflous #include "MSLane.h"
-//
-// Revision 1.9  2003/05/26 15:24:15  roessel
-// Removed warnings/errors. Changed return-type of getNumberOfWaiting to
-// double.
-//
-// Revision 1.8  2003/05/26 13:19:20  roessel
-// Completed all get* methods.
-//
-// Revision 1.7  2003/05/25 17:50:31  roessel
-// Implemented getCurrentNumberOfWaiting.
-// Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
-// a TimestepData entry in timestepDataM every timestep (makes live easier).
-// actionAfterMove calculates the waitingQueueLength and updates the current
-// TimestepData.
-// These two methods must be called in the simulation loop.
-//
-// Revision 1.6  2003/05/23 16:42:22  roessel
-// Added method getCurrentDensity().
-//
-// Revision 1.5  2003/05/21 16:20:44  dkrajzew
-// further work detectors
-//
-// Revision 1.4  2003/04/02 11:44:03  dkrajzew
-// continuation of implementation of actuated traffic lights
-//
-// Revision 1.3  2003/03/19 08:02:02  dkrajzew
-// debugging due to Linux-build errors
-//
-// Revision 1.2  2003/03/17 14:12:19  dkrajzew
-// Windows eol removed
-//
-// Revision 1.1  2003/03/03 14:56:19  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-//
+// $Id$
 
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "MSNet.h"
+#include "MSDetectorFileOutput.h"
 #include <string>
 #include <functional>
 #include <deque>
@@ -133,6 +68,7 @@ class MSLane;
  * @see MSTravelcostDetector
  */
 class MSLaneState
+    : public MSDetectorFileOutput
 {
 public:
     /** 
@@ -143,7 +79,7 @@ public:
      * @param lane Lane where detector woks on.
      * @param begin Startposition of detector.
      * @param length Detectorlength.
-     * @param deleteDataAfterSeconds Dismiss time for collected data. 
+     * @param deleteDataAfterSeconds Dismiss-time for collected data. 
      */
     MSLaneState( std::string    id,
                  MSLane*        lane,
@@ -155,13 +91,13 @@ public:
      * Destructor. Clears containers. Deletes created reminder.
      * 
      */
-    ~MSLaneState();
+    virtual ~MSLaneState();
 
     /**
      * Calculates the meanValue of the waiting-queue length during the
      * lastNTimesteps. Vehicles in a waiting-queue have a gap <= vehLength.
      *
-     * @param lastNTimesteps take data out of the intervall
+     * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now]
      *
      * @return mean waiting-queue length
@@ -306,7 +242,7 @@ public:
      * 
      * @return XML-header and comment.
      */
-    static std::string& getXMLHeader( void );
+    std::string& getXMLHeader( void );
     
     /** 
      * Creates an open xml tag with information about the detector. You
@@ -326,7 +262,7 @@ public:
      * 
      * @return String </detector>
      */
-    static std::string& getXMLDetectorInfoEnd( void );
+    std::string& getXMLDetectorInfoEnd( void );
     
 
     /** 
@@ -442,7 +378,7 @@ public:
      * @see MSTravelcostDetector
      * @return String "MSLaneState"
      */
-    static std::string getNamePrefix( void );
+    std::string getNamePrefix( void );
 
     // forward declarations
     struct TimestepData;

@@ -89,7 +89,7 @@ public:
                   it != intervalsM.end(); ++it ) {
                 for( typename DetectorFileVec::iterator df =
                          it->second.begin(); df != it->second.end(); ++df ) {
-                    *(df->second) << Detector::getXMLDetectorInfoEnd()
+                    *(df->second) << (df->first)->getXMLDetectorInfoEnd()
                                   << std::endl;
                     delete df->second;
                 }
@@ -167,7 +167,7 @@ public:
             }
             
             // write xml-intro
-            *ofs << Detector::getXMLHeader()
+            *ofs << det->getXMLHeader()
                  << det->getXMLDetectorInfoStart() << std::endl;
         }
 
