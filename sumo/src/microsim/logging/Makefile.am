@@ -1,7 +1,4 @@
 EXTRA_DIST = \
-LoggedValue_Single.cpp \
-LoggedValue_TimeFixed.cpp \
-LoggedValue_TimeFloating.cpp \
 CastingFunctionBinding.h \
 FuncBinding_UIntParam.h \
 FunctionBinding.h \
