@@ -5,7 +5,9 @@ EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp
 
-libmicrosim_a_SOURCES = MSDetectorSubSys.cpp \
+libmicrosim_a_SOURCES = MSDensity.cpp \
+MSDetector2File.cpp \
+MSDetectorSubSys.cpp \
 MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
@@ -35,14 +37,18 @@ MSTriggeredReader.cpp \
 MSTriggeredSource.cpp \
 MSTriggeredSourceXMLHandler.cpp \
 MSTriggeredXMLReader.cpp \
+MSUnit.cpp \
 MSVehicleContainer.cpp \
 MSVehicle.cpp \
 MSVehicleType.cpp \
-MSDetector2File.cpp \
-MSUnit.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
+MSDensity.h \
+MSDetector2File.h \
+MSDetectorFileOutput.h \
+MSDetectorPredicates.h \
 MSDetectorSubSys.h \
+MSE2Detector.h \
 MSEdgeControl.h \
 MSEdge.h \
 MSEmitControl.h \
@@ -61,6 +67,7 @@ MSLink.h \
 MSLogicJunction.h \
 MSNet.h \
 MSNoLogicJunction.h \
+MSOccupancyCorrection.h \
 MSRightOfWayJunction.h \
 MSRoute.h \
 MSRouteHandler.h \
@@ -82,8 +89,6 @@ MSMoveReminder.h \
 MSTLLogicControl.cpp \
 MSTLLogicControl.h \
 MSTravelcostDetector.h \
-MSDetector2File.h \
-MSDetectorFileOutput.h \
 MSUnit.h
 
 SUBDIRS = actions
