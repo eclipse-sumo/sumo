@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/10/01 11:13:13  dkrajzew
+// agent-based tl-logic allocation added
+//
 // Revision 1.7  2003/09/24 09:54:11  dkrajzew
 // bug on building induct loops of an actuated tls within the gui patched
 //
@@ -70,6 +73,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>
 //#include <guisim/GUILaneState.h>
 #include "GUIContainer.h"
@@ -197,20 +201,30 @@ GUINetHandler::closeTrafficLightLogic()
     if(_tlLogicNo!=0) {
         return;
     }
-    if(m_Type!="actuated") {
-        MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic(
-                m_Key, m_ActivePhases, 0, m_Offset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-    } else {
+    if(m_Type=="actuated") {
         MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+    } else if (m_Type=="agentbased") {
+        MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState  >
+            *tlLogic =
+            new MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState > (
+                    m_Key, m_ActivePhases, 0,
+                    myContainer.getInLanes(), m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+	} else {
+        MSTrafficLightLogic *tlLogic =
+            new MSSimpleTrafficLightLogic(
+                m_Key, m_ActivePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
