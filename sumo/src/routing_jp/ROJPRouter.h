@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/01/26 09:58:15  dkrajzew
+// sinks are now simply marked as these instead of the usage of a further container
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -31,7 +34,6 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <set>
 #include <router/ROAbstractRouter.h>
 #include <router/ROEdgeVector.h>
 
@@ -54,7 +56,7 @@ class ROJPEdge;
 class ROJPRouter : public ROAbstractRouter {
 public:
     /// Constructor
-    ROJPRouter(RONet &net, const std::set<ROJPEdge*> &endEdges);
+    ROJPRouter(RONet &net);
 
     /// Destructor
     ~ROJPRouter();
@@ -72,9 +74,6 @@ private:
 private:
     /// The network to use
     RONet &myNet;
-
-    /// The edges routes end at
-    std::set<ROJPEdge*> myEndEdges;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/26 09:58:15  dkrajzew
+// sinks are now simply marked as these instead of the usage of a further container
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -55,8 +58,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJPRouter::ROJPRouter(RONet &net, const std::set<ROJPEdge*> &endEdges)
-    : myNet(net), myEndEdges(endEdges)
+ROJPRouter::ROJPRouter(RONet &net)
+    : myNet(net)
 {
 }
 
@@ -79,7 +82,7 @@ ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
 {
     ROEdgeVector ret;
     ROJPEdge *current = from;
-    while(  myEndEdges.find(current)==myEndEdges.end()
+    while(  current->getType()!=ROEdge::ET_SINK
             &&
             ret.size()<myNet.getEdgeNo()*SEC_MULT) {
         ret.add(current);

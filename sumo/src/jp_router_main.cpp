@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/26 09:58:46  dkrajzew
+// sinks are now simply marked as these instead of the usage of a further container
+//
 // Revision 1.1  2004/01/26 07:12:12  dkrajzew
 // now two routers are available - the dua- and the jp-router
 //
@@ -127,7 +130,7 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("weights", "weight-file");
     oc.addSynonyme("flow-definition", "flows");
     oc.addSynonyme("turn-definition", "turns");
-    oc.doRegister("turn-defaults", 'T', new Option_String());
+    oc.doRegister("turn-defaults", 'T', new Option_String("30;50;20"));
     oc.doRegister("sinks", 's', new Option_String());
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
@@ -221,7 +224,7 @@ getTurningDefaults(OptionsCont &oc)
 }
 
 
-std::set<ROJPEdge*>
+void
 loadJPDefinitions(RONet &net, OptionsCont &oc)
 {
 	std::set<ROJPEdge*> ret;
@@ -234,7 +237,10 @@ loadJPDefinitions(RONet &net, OptionsCont &oc)
 	if(oc.isSet("end-streets")) {
 		ROJPHelpers::parseROJPEdges(net, ret, oc.getString("end-streets"));
 	}
-    return ret;
+    // set the sink information into the edges
+    for(std::set<ROJPEdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
+        (*i)->setType(ROEdge::ET_SINK);
+    }
 }
 
 
@@ -264,14 +270,13 @@ setDefaults(OptionsCont &oc)
  * Computes the routes saving them
  */
 void
-startComputation(RONet &net, std::set<ROJPEdge*> &endEdges,
-                 ROLoader &loader, OptionsCont &oc)
+startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // prepare the output
     net.openOutput(
         oc.getString("output"), false);
     // build the router
-    ROJPRouter router(net, endEdges);
+    ROJPRouter router(net);
     // initialise the loader
     loader.openRoutes(net, 1, 1);
     // the routes are sorted - process stepwise
@@ -324,8 +329,8 @@ main(int argc, char **argv)
 
             // build routes
             try {
-                std::set<ROJPEdge*> endEdges = loadJPDefinitions(*net, oc);
-                startComputation(*net, endEdges, loader, oc);
+                loadJPDefinitions(*net, oc);
+                startComputation(*net, loader, oc);
             } catch (SAXParseException e) {
                 MsgHandler::getErrorInstance()->inform(
                     toString<int>(e.getLineNumber()));
