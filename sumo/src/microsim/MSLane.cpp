@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2003/04/10 15:43:43  dkrajzew
+// emission on non-source lanes debugged
+//
 // Revision 1.11  2003/04/01 15:13:22  dkrajzew
 // bug in emission of vehicles from MSTriggeredSource removed
 //
@@ -335,7 +338,7 @@ MSLane::moveNonCriticalSingle()
     // Buffer last vehicles state.
     if ( myVehicles.size() == 0 ) {
         myFirstUnsafe = myVehicles.size();
-        myLastState = MSVehicle::State(myLength, 10000);
+        myLastState = MSVehicle::State(10000, 10000);
         return;
     }
 
@@ -400,7 +403,7 @@ MSLane::moveNonCriticalMulti()
     myApproaching = 0;
     // Buffer last vehicles state.
     if ( myVehicles.size() == 0 ) {
-        myLastState = MSVehicle::State(myLength, 10000);
+        myLastState = MSVehicle::State(10000, 10000);
         myFirstUnsafe = myVehicles.size();
         return;
     }
@@ -712,10 +715,33 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
     // emission as last car (in driving direction)
     MSVehicle *leader = *leaderIt;
     double leaderPos = leader->pos() - leader->length();
-    double safeSpace = 2 * pow( myMaxSpeed, 2 ) /
-                      ( 2 * MSVehicleType::minDecel() ) +
-                      MSVehicle::tau() +
-                      veh.length() + veh.accelDist(); // !!!
+    if(leaderPos<0) {
+        return false;
+    }
+    double safeSpace1 = pow( myMaxSpeed, 2 ) /
+                      ( veh.decelAbility() ) +
+                      MSVehicle::tau() + leader->accelDist() * 2.0;
+    double safeSpace2 = veh.vaccel(this) * MSNet::deltaT() +
+        veh.rigorousBrakeGap(veh.vaccel(this))
+        + (*leaderIt)->length();
+    double vsafe = veh.vsafe(0, veh.decelAbility(), 0, leader->speed());
+    double safeSpace3 =
+        ( (vsafe - leader->speed())
+        * ((vsafe+leader->speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
+        + leader->speed() * MSVehicle::tau();
+    double safeSpace = safeSpace1 > safeSpace2
+        ? safeSpace1 : safeSpace2;
+    safeSpace = safeSpace > safeSpace3
+        ? safeSpace : safeSpace3;
+    safeSpace = safeSpace > veh.decelAbility()
+        ? safeSpace : veh.decelAbility();
+    safeSpace += leader->length();
+    if( myApproaching!=0 ) {
+        if( !myApproaching->isInsertTimeHeadWayCond( veh ) ||
+            ! myApproaching->isInsertBrakeCond( veh ) ) {
+            return false;
+        }
+    }
     if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {
         veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
@@ -768,9 +794,24 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
     // emission between follower and leader.
     double followPos = (*followIt)->pos();
     double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-    double safeSpace = (*followIt)->vaccel(this) * MSNet::deltaT() +
-        (*followIt)->rigorousBrakeGap((*followIt)->vaccel(this))
-        + veh.length();
+    double safeSpace1 = pow( myMaxSpeed, 2 ) /
+                      ( veh.decelAbility() ) +
+                      MSVehicle::tau() + leader->accelDist();
+    double safeSpace2 = veh.vaccel(this) * MSNet::deltaT() +
+        veh.rigorousBrakeGap(veh.vaccel(this))
+        + (*leaderIt)->length();
+    double vsafe = veh.vsafe(0, veh.decelAbility(), 0, leader->speed());
+    double safeSpace3 =
+        ( (vsafe - leader->speed())
+        * ((vsafe+leader->speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
+        + leader->speed() * MSVehicle::tau();
+    double safeSpace = safeSpace1 > safeSpace2
+        ? safeSpace1 : safeSpace2;
+    safeSpace = safeSpace > safeSpace3
+        ? safeSpace : safeSpace3;
+    safeSpace = safeSpace > veh.decelAbility()
+        ? safeSpace : veh.decelAbility();
+    safeSpace += leader->length();
     if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
         veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );

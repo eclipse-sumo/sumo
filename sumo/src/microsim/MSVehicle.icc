@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/04/10 15:43:44  dkrajzew
+// emission on non-source lanes debugged
+//
 // Revision 1.4  2003/04/07 12:12:39  dkrajzew
 // eps reduced for small segments (dawdle2)
 //
@@ -221,6 +224,15 @@ MSVehicle::gap2pred( const MSVehicle& pred ) const
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+inline double
+MSVehicle::gap2predSec( const MSVehicle& pred ) const
+{
+    return pred.pos() - pred.length() - this->pos();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 #ifdef DISABLE_INLINE
 #undef inline
 #endif

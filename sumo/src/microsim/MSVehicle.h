@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2003/04/10 15:43:43  dkrajzew
+// emission on non-source lanes debugged
+//
 // Revision 1.9  2003/04/07 12:12:39  dkrajzew
 // eps reduced for small segments (dawdle2)
 //
@@ -390,6 +393,10 @@ public:
     /** Returns the gap between pred and this vehicle. Assumes they
      * are on parallel lanes. Requires a positive gap. */
     double gap2pred( const MSVehicle& pred ) const;
+
+    /** Returns the gap between pred and this vehicle. Assumes they
+     * are on parallel lanes. Requires a positive gap. */
+    double gap2predSec( const MSVehicle& pred ) const;
 
     /** Returns the vehicels driving distance during one timestep when
         driving with speed. */

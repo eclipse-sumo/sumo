@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/04/10 15:43:43  dkrajzew
+// emission on non-source lanes debugged
+//
 // Revision 1.14  2003/04/09 15:32:29  dkrajzew
 // periodical vehicles must have a period over zero now to be reasserted
 //
@@ -673,9 +676,14 @@ MSVehicle::move( MSLane* lane,
         cout << "movea/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
+    double gap = gap2pred(*pred);
+    if(gap<0.1) {
+        assert(gap>-0.1);
+        gap = 0;
+    }
     double vAccel = vaccel( lane );
     double vSafe  = vsafe( myState.mySpeed, myType->decel(),
-                           gap2pred( *pred ), pred->speed() );
+                           gap, pred->speed() );
 
     double vNext;
     // !!! non - Krauß brake when urgent lane changing failed
@@ -713,7 +721,7 @@ MSVehicle::move( MSLane* lane,
     myState.mySpeed = vNext;
     assert(assertCheck-myType->decel() <= myState.mySpeed);
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
         cout << (assertCheck-myType->decel() - myState.mySpeed) << endl;
         cout << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
@@ -1030,7 +1038,10 @@ MSVehicle::vsafeCriticalCont( double minVSafe )
         const State &nextPred = currentLane->myLastState;
 //        if(nextPred!=0) {
             if(drove+nextPred.pos()-MSVehicleType::maxLength()<0) {
-                minVSafe = 0;
+//                minVSafe = 0;
+                myLFLinkLanes.push_back(
+                    DriveProcessItem(0, 0) );
+                return;
             } else {
         		minVSafe = min(
 	        	    minVSafe,
@@ -1353,7 +1364,7 @@ MSVehicle::isInsertTimeHeadWayCond( double predSpeed, double gap2pred )
 bool
 MSVehicle::isInsertTimeHeadWayCond( MSVehicle& aPred )
 {
-    return gap2pred( aPred ) >= timeHeadWayGap( aPred.speed() );
+    return gap2predSec( aPred ) >= timeHeadWayGap( aPred.speed() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
