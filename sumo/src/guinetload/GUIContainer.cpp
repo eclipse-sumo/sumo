@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/01/12 14:59:51  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.11  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -107,6 +110,7 @@ GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
                           std::string baseNameDumpFiles,*/
                           const OptionsCont &options)
 {
+	closeJunctions();
     MSEdgeControl *edges = 0;
     MSJunctionControl *junctions = 0;
     MSEmitControl *emitters = 0;
@@ -116,7 +120,7 @@ GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
-        GUINet::initGUINet( m_Id, edges, junctions, /*m_pDetectors, */routeLoaders, tlc );
+        GUINet::initGUINet( "", edges, junctions, /*m_pDetectors, */routeLoaders, tlc );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;

@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.12  2003/12/04 13:27:10  dkrajzew
 // jringels wish for min/max duration applied defaults
 //
@@ -67,12 +70,20 @@
  * ======================================================================= */
 template< class _TE2_ZS_CollectorOverLanes >
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>(
-            const std::string &id, const Phases &phases, size_t step,
-            const std::vector<MSLane*> &lanes, size_t delay,
-            std::map<std::string, std::vector<std::string> > &laneContinuations)
-    : MSSimpleTrafficLightLogic(id, phases, step, delay),
+            const std::string &id, const Phases &phases,
+			size_t step, size_t delay)
+    : MSExtendedTrafficLightLogic(id, phases, step, delay),
     tSinceLastDecision (0), tDecide(1), tCycle(75), numberOfValues(3),
     deltaLimit (0.1), stepOfLastDecision (0)
+{
+}
+
+
+template< class _TE2_ZS_CollectorOverLanes >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::init(
+		const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &laneContinuations)
 {
     sproutDetectors(lanes, laneContinuations);
     initializeDuration();

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.23  2003/11/24 10:21:20  dkrajzew
 // some documentation added and dead code removed
 //
@@ -103,11 +106,19 @@
  * ======================================================================= */
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
-            const std::string &id, const Phases &phases, size_t step,
-            const std::vector<MSLane*> &lanes, size_t delay,
-            std::map<std::string, std::vector<std::string> > &laneContinuations)
-    : MSSimpleTrafficLightLogic(id, phases, step, delay),
+            const std::string &id, const Phases &phases,
+			size_t step, size_t delay)
+    : MSExtendedTrafficLightLogic(id, phases, step, delay),
     _continue(false)
+{
+}
+
+
+template< class _TInductLoop, class _TLaneState >
+void
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::init(
+		const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &laneContinuations)
 {
     sproutDetectors(lanes, laneContinuations);
 }

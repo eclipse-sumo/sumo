@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/01/12 14:59:51  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.14  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -191,22 +194,22 @@ GUINetHandler::closeTrafficLightLogic()
         MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
-                    m_Key, m_ActivePhases, 0,
-                    myContainer.getIncomingLanes(), m_Offset, myContinuations);
+				m_Key, m_ActivePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
+		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
     } else if (m_Type=="agentbased") {
         MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes>
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes> (
-                    m_Key, m_ActivePhases, 0,
-                    myContainer.getIncomingLanes(), m_Offset, myContinuations);
+                    m_Key, m_ActivePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
+		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
 	} else {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic(

@@ -20,8 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
+// $Log$
+// Revision 1.6  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
 //
 //
 /* =========================================================================
@@ -165,6 +171,9 @@ protected:
     virtual MSE2Collector *buildCollector(size_t c, size_t r,
         MSLane *l, double start, double end);
 
+
+	std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
+		const LaneContinuations &laneContinuations);
 
 protected:
 	/// The position the collector starts at

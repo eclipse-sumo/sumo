@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.8  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 //
@@ -97,6 +100,9 @@ MS_E2_ZS_CollectorOverLanes::init(
         MSUnit::Meters detLength,
         const LaneContinuations &laneContinuations)
 {
+    if(lane->id()=="218489_0") {
+        int bla = 0;
+    }
     myLength = detLength;
     if(startPosM==0) {
         startPosM = 0.1;
@@ -152,15 +158,18 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 // get the lane to look before
                 MSLane *toExtend = lv[lv.size()-1];
                 // and her predecessors
-                LaneContinuations::const_iterator conts =
+				std::vector<MSLane*> predeccessors =
+					getLanePredeccessorLanes(toExtend, laneContinuations);
+
+/*                LaneContinuations::const_iterator conts =
                     laneContinuations.find(toExtend->id());
                 assert(conts!=laneContinuations.end());
                 const std::vector<std::string> &predeccessors =
-                    (*conts).second;
+                    (*conts).second;*/
                 // go through the predeccessors and extend the detector
-                for(std::vector<std::string>::const_iterator i=predeccessors.begin(); i!=predeccessors.end(); i++) {
+                for(std::vector<MSLane*>::const_iterator i=predeccessors.begin(); i!=predeccessors.end(); i++) {
                     // get the lane
-                    MSLane *l = MSLane::dictionary(*i);
+                    MSLane *l = *i;
                     // compute detector length
                     double lanelen = length - clength;
                     if(lanelen>l->length()) {
@@ -188,6 +197,42 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
             }
         }
     }
+}
+
+
+std::vector<MSLane*>
+MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
+		const LaneContinuations &laneContinuations)
+{
+	string eid = l->edge().id();
+	// check whether any exist
+	if(laneContinuations.find(eid)==laneContinuations.end()) {
+		return std::vector<MSLane*>();
+	}
+	// get predecessing edges
+	typedef std::vector<std::string> StringVector;
+	const StringVector &predIDs = laneContinuations.find(eid)->second;
+	std::vector<MSLane*> ret;
+	// find predecessing lanes
+	for(StringVector::const_iterator i=predIDs.begin(); i!=predIDs.end(); i++) {
+		MSEdge *e = MSEdge::dictionary(*i);
+		assert(e!=0);
+		typedef std::vector<MSLane*> LaneVector;
+		const LaneVector *cl = e->allowedLanes(l->edge());
+		bool fastAbort = false;
+        if(cl!=0) {
+    		for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {
+	    		const MSLinkCont &lc = (*j)->getLinkCont();
+		    	for(MSLinkCont::const_iterator k=lc.begin(); !fastAbort&&k!=lc.end(); k++) {
+			    	if((*k)->getLane()==l) {
+    					ret.push_back(*j);
+	    				fastAbort = true;
+                    }
+				}
+			}
+		}
+	}
+	return ret;
 }
 
 

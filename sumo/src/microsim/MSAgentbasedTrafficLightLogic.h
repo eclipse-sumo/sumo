@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.10  2003/12/04 13:27:10  dkrajzew
 // jringels wish for min/max duration applied defaults
 //
@@ -81,7 +84,7 @@ class MSAgentbasedPhaseDefinition;
  */
 template< class _TE2_ZS_CollectorOverLanes >
 class MSAgentbasedTrafficLightLogic :
-        public MSSimpleTrafficLightLogic
+        public MSExtendedTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to lane state detectors lying on them
@@ -100,8 +103,11 @@ public:
     /// constructor
     MSAgentbasedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, const std::vector<MSLane*> &lanes, size_t delay,
-        std::map<std::string, std::vector<std::string> > &laneContinuations);
+        size_t step, size_t delay);
+
+	void init(
+		const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &edgeContinuations);
 
     /// destructor
     ~MSAgentbasedTrafficLightLogic();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2004/01/12 15:04:16  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.15  2003/11/24 10:21:20  dkrajzew
 // some documentation added and dead code removed
 //
@@ -78,7 +81,7 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
-#include "MSSimpleTrafficLightLogic.h"
+#include "MSExtendedTrafficLightLogic.h"
 
 
 /* =========================================================================
@@ -94,7 +97,7 @@
  */
 template< class _TInductLoop, class _TLaneState >
 class MSActuatedTrafficLightLogic :
-        public MSSimpleTrafficLightLogic
+        public MSExtendedTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to induct loops lying on them
@@ -107,8 +110,11 @@ public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, const std::vector<MSLane*> &lanes, size_t delay,
-        std::map<std::string, std::vector<std::string> > &laneContinuations);
+        size_t step, size_t delay);
+
+	void init(
+		const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &edgeContinuations);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();
