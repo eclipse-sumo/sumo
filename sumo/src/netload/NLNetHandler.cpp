@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.30  2003/11/24 14:33:40  dkrajzew
+// missing iterator initialisation failed
+//
 // Revision 1.29  2003/11/24 10:18:32  dkrajzew
 // handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
 //
@@ -947,7 +950,8 @@ NLNetHandler::computeInitTLSStep()  const
 {
     assert(m_ActivePhases.size()!=0);
     size_t offset = m_Offset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::iterator i;
+    MSSimpleTrafficLightLogic::Phases::const_iterator i
+        = m_ActivePhases.begin();
     size_t step = 0;
     while(true) {
         if(offset<(*i)->duration) {
@@ -964,7 +968,8 @@ NLNetHandler::computeInitTLSEventOffset()  const
 {
     assert(m_ActivePhases.size()!=0);
     size_t offset = m_Offset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::iterator i;
+    MSSimpleTrafficLightLogic::Phases::const_iterator i
+        = m_ActivePhases.begin();
     while(true) {
         if(offset<(*i)->duration) {
             return (*i)->duration-offset;
