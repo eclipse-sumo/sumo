@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2004/07/02 08:35:30  dkrajzew
+// all 0.8.0.2 update steps
+//
 // Revision 1.21  2004/04/23 12:34:54  dkrajzew
 // now, all tracker and tables are updated
 //
@@ -110,6 +113,7 @@ class GUIMessageWindow;
 class GUIEvent;
 class GUIParameterTracker;
 class GUIParameterTableWindow;
+class GUIThreadFactory;
 
 
 /* =========================================================================
@@ -136,11 +140,11 @@ class GUIApplicationWindow :
 public:
 
     /** constructor */
-    GUIApplicationWindow(FXApp* a, int glWidth, int glHeight,
-        const std::string &config);
+    GUIApplicationWindow(FXApp* a, GUIThreadFactory &threadFactory,
+        int glWidth, int glHeight, const std::string &config);
 
     /** destructor */
-    ~GUIApplicationWindow();
+    virtual ~GUIApplicationWindow();
 
     /** @brief Creates the main window
         (required by FOX) */
@@ -168,6 +172,9 @@ public:
     FXGLVisual *getGLVisual() const;
     FXGLCanvas *getBuildGLCanvas() const;
 
+
+    FXFont *getBoldFont();
+
 public:
     /// Closes the log window
     void showLog();
@@ -184,6 +191,8 @@ public:
     /** @brief Called by FOX if a simulation shall be opened
         Called either by FileMenu->Open or the Toolbar Open-Button */
     long onCmdOpen(FXObject*,FXSelector,void*);
+    long onCmdReload(FXObject*,FXSelector,void*);
+    long onCmdOpenRecent(FXObject*,FXSelector,void*);
 
     long onCmdClose(FXObject*,FXSelector,void*);
 
@@ -192,6 +201,8 @@ public:
     long onCmdQuit(FXObject*,FXSelector,void*);
 
     long onCmdEditChosen(FXObject*,FXSelector,void*);
+    virtual long onCmdEditAddWeights(FXObject*,FXSelector,void*);
+    long onCmdEditBreakpoints(FXObject*,FXSelector,void*);
 
     /// Opens the application settings menu
     long onCmdAppSettings(FXObject*,FXSelector,void*);
@@ -210,12 +221,15 @@ public:
     long onCmdNewLaneA(FXObject*,FXSelector,void*);
 
     long onUpdOpen(FXObject*,FXSelector,void*);
+    long onUpdReload(FXObject*,FXSelector,void*);
     long onUpdAddMicro(FXObject*,FXSelector,void*);
     long onUpdAddALane(FXObject*,FXSelector,void*);
     long onUpdStart(FXObject*,FXSelector,void*);
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
     long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
+    virtual long onUpdEditAddWeights(FXObject*,FXSelector,void*);
+    virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
     long onUpdSimSettings(FXObject*sender,FXSelector,void*ptr);
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
@@ -230,7 +244,7 @@ public:
         FXuint ms=1000, void *ptr=NULL);
     FXTimer *removeTimeout(FXObject *tgt, FXSelector sel);
 
-
+    void updateChildren();
 
 private:
     /** starts to load a simulation */
@@ -255,7 +269,7 @@ private:
     /// Builds the tool bar
     void fillToolBar();
 
-private:
+protected:
     /** the name of the simulation */
     std::string _name;
 
@@ -304,21 +318,36 @@ private:
 
     /// The simulation delay
     FXdouble mySimDelay;
+
+    /// List of got requests
     MFXEventQue myEvents;
 
+    /// The menu used for the MDI-windows
     FXMDIMenu *myMDIMenu;
 
+    /// The application menu bar
     FXMenuBar *myMenuBar;
 
+    /// The application tool bar
     FXToolBar *myToolBar;
 
+    /// The gl-visual used
     FXGLVisual *myGLVisual;
 
+    /// the simulation step display
     FXEX::FXLCDLabel *myLCDLabel;
 
+    /// io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
+
+    /// io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
+    /// Font used for popup-menu titles
+    FXFont *myBoldFont;
+
+    /// List of recent files
+    FXRecentFiles myRecentFiles;
 
 };
 

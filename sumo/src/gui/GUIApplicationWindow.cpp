@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2004/07/02 08:35:30  dkrajzew
+// all 0.8.0.2 update steps
+//
 // Revision 1.32  2004/04/23 12:34:54  dkrajzew
 // now, all tracker and tables are updated
 //
@@ -161,6 +164,9 @@ namespace
 #include "dialogs/GUIDialog_SimSettings.h"
 #include "dialogs/GUIDialog_MicroViewSettings.h"
 #include "dialogs/GUIDialog_GLChosenEditor.h"
+#include "dialogs/GUIDialog_EditAddWeights.h"
+#include "dialogs/GUIDialog_Breakpoints.h"
+#include "GUIThreadFactory.h"
 
 
 /* =========================================================================
@@ -180,9 +186,14 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,        GUIApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,      GUIApplicationWindow::onCmdQuit),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN,          GUIApplicationWindow::onCmdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,         GUIApplicationWindow::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,    GUIApplicationWindow::onCmdEditChosen),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN,              GUIApplicationWindow::onCmdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,        GUIApplicationWindow::onCmdOpenRecent),
+    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,            GUIApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,             GUIApplicationWindow::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,        GUIApplicationWindow::onCmdEditChosen),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onCmdEditAddWeights),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
+
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,   GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,   GUIApplicationWindow::onCmdSimSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,         GUIApplicationWindow::onCmdAbout),
@@ -192,14 +203,17 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,          GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,          GUIApplicationWindow::onCmdStep),
 
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN,          GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW, GUIApplicationWindow::onUpdAddMicro),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_LANEAVIEW, GUIApplicationWindow::onUpdAddALane),
-    FXMAPFUNC(SEL_UPDATE,   MID_START,         GUIApplicationWindow::onUpdStart),
-    FXMAPFUNC(SEL_UPDATE,   MID_STOP,          GUIApplicationWindow::onUpdStop),
-    FXMAPFUNC(SEL_UPDATE,   MID_STEP,          GUIApplicationWindow::onUpdStep),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,    GUIApplicationWindow::onUpdEditChosen),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMSETTINGS,   GUIApplicationWindow::onUpdSimSettings),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,     GUIApplicationWindow::onUpdAddMicro),
+    FXMAPFUNC(SEL_UPDATE,   MID_NEW_LANEAVIEW,     GUIApplicationWindow::onUpdAddALane),
+    FXMAPFUNC(SEL_UPDATE,   MID_START,             GUIApplicationWindow::onUpdStart),
+    FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GUIApplicationWindow::onUpdStop),
+    FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onUpdEditAddWeights),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMSETTINGS,       GUIApplicationWindow::onUpdSimSettings),
 
     FXMAPFUNC(SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
@@ -214,6 +228,7 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
  * member method definitions
  * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
+                                           GUIThreadFactory &threadFactory,
                                            int glWidth, int glHeight,
                                            const std::string &config)
     : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,0,0,600,400),
@@ -225,7 +240,6 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 {
     setTarget(this);
     setSelector(MID_WINDOW);
-    gFXApp = a;
     GUIIconSubSys::init(a);
     GUITexturesHelper::init(this);
     // build menu bar
@@ -249,7 +263,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 
     // build the status bar
     myStatusbar = new FXStatusBar(this,
-        LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|STATUSBAR_WITH_DRAGCORNER|FRAME_RAISED);
+        LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
 
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this,
@@ -272,10 +286,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     fillMenuBar();
     fillToolBar();
     // build additional threads
-    myLoadThread =
-        new GUILoadThread(this, myEvents, myLoadThreadEvent);
-    myRunThread =
-        new GUIRunThread(this, *mySimDelayTarget, myEvents, myRunThreadEvent);
+    myLoadThread = threadFactory.buildLoadThread(this, myEvents, myLoadThreadEvent);
+    myRunThread = threadFactory.buildRunThread(this, *mySimDelayTarget, myEvents,
+        myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
 
@@ -296,6 +309,11 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         gStartAtBegin = false;
     }
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
+
+    FXFontDesc fdesc;
+    getApp()->getNormalFont()->getFontDesc(fdesc);
+    fdesc.weight = FONTWEIGHT_BOLD;
+    myBoldFont = new FXFont(getApp(), fdesc);
 }
 
 
@@ -327,6 +345,8 @@ GUIApplicationWindow::create()
 //!!!!    myGLWidth = myGLWidth < root->getWidth() ? myGLWidth : root->getWidth();
 //!!!!    myGLHeight = myGLHeight < root->getHeight() ? myGLHeight : root->getHeight();
 }
+
+
 
 
 
@@ -369,10 +389,31 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuCommand(myFileMenu,
         "&Open Simulation...\tCtl-O\tOpen a Simulation (Configuration File).",
         GUIIconSubSys::getIcon(ICON_OPEN),this,MID_OPEN);
+    new FXMenuCommand(myFileMenu,
+        "&Reload Simulation\tCtl-R\tReloads the Simulation (Configuration File).",
+        GUIIconSubSys::getIcon(ICON_RELOAD),this,MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
         "&Close\tCtl-C\tClose the Simulation.",
         GUIIconSubSys::getIcon(ICON_CLOSE),this,MID_CLOSE);
+        // Recent files
+    FXMenuSeparator* sep1=new FXMenuSeparator(myFileMenu);
+    sep1->setTarget(&myRecentFiles);
+    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu,"&Clear Recent Files",NULL,&myRecentFiles,FXRecentFiles::ID_CLEAR);
+    myRecentFiles.setTarget(this);
+    myRecentFiles.setSelector(MID_RECENTFILE);
+    new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
         "&Quit\tCtl-Q\tQuit the Application.",
         0, this, MID_QUIT, 0);
@@ -381,8 +422,16 @@ GUIApplicationWindow::fillMenuBar()
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar,"&Edit",NULL,myEditMenu);
     new FXMenuCommand(myEditMenu,
-        "Edit Chosen...\t\tOpen a Dialog for editing the List of chosen Items.",
-        NULL,this,MID_EDITCHOSEN);
+        "Edit Chosen...\t\tOpens a Dialog for editing the List of chosen Items.",
+        GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
+    new FXMenuSeparator(myEditMenu);
+    new FXMenuCommand(myEditMenu,
+        "Edit Additional Weights...\t\tOpens a Dialog for editing additional Weights.",
+        0, this, MID_EDIT_ADD_WEIGHTS);
+    new FXMenuSeparator(myEditMenu);
+    new FXMenuCommand(myEditMenu,
+        "Edit Breakpoints...\t\tOpens a Dialog for editing breakpoints.",
+        0, this, MID_EDIT_BREAKPOINTS);
 
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
@@ -407,15 +456,18 @@ GUIApplicationWindow::fillMenuBar()
         "Show Toolbar\t\tToggle the Toolbar on/off.",
         myToolBar, FXWindow::ID_TOGGLESHOWN);
     new FXMenuSeparator(myWindowsMenu);
-    new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",NULL,
+    new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
+        GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
         myMDIClient,FXMDIClient::ID_MDI_TILEHORIZONTAL);
-    new FXMenuCommand(myWindowsMenu,"Tile &Vertically",NULL,
+    new FXMenuCommand(myWindowsMenu,"Tile &Vertically",
+        GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_VERT),
         myMDIClient,FXMDIClient::ID_MDI_TILEVERTICAL);
-    new FXMenuCommand(myWindowsMenu,"C&ascade",NULL,
+    new FXMenuCommand(myWindowsMenu,"C&ascade",
+        GUIIconSubSys::getIcon(ICON_WINDOWS_CASCADE),
         myMDIClient,FXMDIClient::ID_MDI_CASCADE);
     new FXMenuCommand(myWindowsMenu,"&Close",NULL,
         myMDIClient,FXMDIClient::ID_MDI_CLOSE);
-    FXMenuSeparator* sep1=new FXMenuSeparator(myWindowsMenu);
+    sep1=new FXMenuSeparator(myWindowsMenu);
     sep1->setTarget(myMDIClient);
     sep1->setSelector(FXMDIClient::ID_MDI_ANY);
     new FXMenuCommand(myWindowsMenu,NULL,NULL,
@@ -443,6 +495,9 @@ GUIApplicationWindow::fillToolBar()
     // build file tools
     new FXButton(myToolBar,"\t\tOpen a Simulation (Configuration File).",
         GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(myToolBar,"\t\tReload the Simulation (Configuration File).",
+        GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -520,6 +575,28 @@ GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*)
 
 
 long
+GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*)
+{
+    GUIDialog_Breakpoints *chooser =
+        new GUIDialog_Breakpoints(this);
+    chooser->create();
+    chooser->show();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*)
+{
+    GUIDialog_EditAddWeights *chooser =
+        new GUIDialog_EditAddWeights(this);
+    chooser->create();
+    chooser->show();
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
 {
     // get the new file name
@@ -531,9 +608,27 @@ GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-		string file = string(opendialog.getFilename().text());
+        string file = string(opendialog.getFilename().text());
         load(file);
+        myRecentFiles.appendFile(file.c_str());
     }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*)
+{
+    load(myLoadThread->getFileName());
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdOpenRecent(FXObject*,FXSelector,void *data)
+{
+    string file = string((const char*)data);
+    load(file);
     return 1;
 }
 
@@ -551,6 +646,17 @@ GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
         myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr)
+{
+    sender->handle(this,
+        myAmLoading||myLoadThread->getFileName()==""
+        ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
         ptr);
     return 1;
 }
@@ -670,6 +776,28 @@ GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr)
 
 
 long
+GUIApplicationWindow::onUpdEditAddWeights(FXObject *sender,FXSelector,void *ptr)
+{
+    sender->handle(this,
+        !myRunThread->simulationAvailable()||myAmLoading
+        ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr)
+{
+    sender->handle(this,
+        !myRunThread->simulationAvailable()||myAmLoading
+        ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*)
 {
     GUIDialog_AppSettings *d = new GUIDialog_AppSettings(this);
@@ -770,12 +898,14 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         // report failure
         string text = string("Loading of '") + ec->_file + string("' failed!");
         myStatusbar->getStatusLine()->setText(text.c_str());
+        myStatusbar->getStatusLine()->setNormalText(text.c_str());
     } else {
         // initialise global information
         gSimInfo = new GUISimInfo(*(ec->_net));
         // report success
         string text = string("'") + ec->_file + string("' loaded.");
         myStatusbar->getStatusLine()->setText(text.c_str());
+        myStatusbar->getStatusLine()->setNormalText(text.c_str());
         // initialise simulation thread
         myRunThread->init(ec->_net, ec->_begin, ec->_end);
         _wasStarted = false;
@@ -803,13 +933,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
 void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *e)
 {
-    // inform views
-    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
-    // inform other windows
-    int i = 0;
-    for(i=0; i<myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this,FXSEL(SEL_COMMAND,MID_SIMSTEP), 0);
-    }
+    updateChildren();
     ostringstream str;
     str << myRunThread->getCurrentTimeStep();
     myLCDLabel->setText(str.str().c_str());
@@ -873,6 +997,7 @@ GUIApplicationWindow::load(const std::string &file)
     myLoadThread->load(file);
     string text = string("Loading '") + file + string("'.");
     myStatusbar->getStatusLine()->setText(text.c_str());
+    myStatusbar->getStatusLine()->setNormalText(text.c_str());
     update();
 }
 
@@ -1032,6 +1157,25 @@ GUIApplicationWindow::getGLVisual() const
     return myGLVisual;
 }
 
+
+FXFont *
+GUIApplicationWindow::getBoldFont()
+{
+    return myBoldFont;
+}
+
+
+void
+GUIApplicationWindow::updateChildren()
+{
+    // inform views
+    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
+    // inform other windows
+    int i = 0;
+    for(i=0; i<myTrackerWindows.size(); i++) {
+        myTrackerWindows[i]->handle(this,FXSEL(SEL_COMMAND,MID_SIMSTEP), 0);
+    }
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
