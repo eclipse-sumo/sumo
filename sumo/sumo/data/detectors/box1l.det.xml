@@ -1,0 +1,12 @@
+<sumo-detectors>
+
+   <detector id="det00" lane="0_0" pos="100" freq="1" style="CSV"
+   file="./det1.csv"/>
+   <detector id="det10" lane="1_0" pos="100" freq="1" style="CSV"
+   file="./det1.csv"/>
+   <detector id="det20" lane="2_0" pos="100" freq="1" style="CSV"
+   file="./det1.csv"/>
+   <detector id="det30" lane="3_0" pos="100" freq="1" style="CSV"
+   file="./det1.csv"/>
+
+</sumo-detectors>
