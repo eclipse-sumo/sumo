@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.3  2003/03/19 08:02:02  dkrajzew
+// debugging due to Linux-build errors
+//
 // Revision 1.2  2003/03/17 14:12:19  dkrajzew
 // Windows eol removed
 //
@@ -144,10 +147,6 @@ private:
 
     /// Number of already processed sampleIntervalls
     unsigned myNIntervalls;
-
-    /** @brief The information in which time step the detector was asked the last time
-        Needed to reduce the update frequency of the iterators */
-    MSNet::Time myLastUpdateTime;
 
 private:
     /// Default constructor.

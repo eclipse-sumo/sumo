@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.3  2003/03/19 08:02:02  dkrajzew
+// debugging due to Linux-build errors
+//
 // Revision 1.2  2003/03/17 14:12:19  dkrajzew
 // Windows eol removed
 //
@@ -86,8 +89,7 @@ MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
     mySpeed( sampleInterval ),
     myOccup( sampleInterval ),
     myVehLengths( sampleInterval ),
-    myNoSlow( sampleInterval ),
-    myLastUpdateTime (7457467564) // just "to make sure", it is updated within the first call
+    myNoSlow( sampleInterval )
 {
     // Make sure that vehicles will be detected even at lane-end.
 //    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );

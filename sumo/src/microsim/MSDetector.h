@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2003/03/19 08:02:01  dkrajzew
+// debugging due to Linux-build errors
+//
 // Revision 1.3  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -69,7 +72,7 @@ public:
     virtual ~MSDetector();
 
     /// Call sample every timestep to update the detector.
-    void virtual sample( double currSimSeconds ) = 0;
+    virtual void sample( double currSimSeconds ) = 0;
 
 protected:
     /// Object's Id.

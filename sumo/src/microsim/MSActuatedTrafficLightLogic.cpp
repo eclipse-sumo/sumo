@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/19 08:02:01  dkrajzew
+// debugging due to Linux-build errors
+//
 // Revision 1.2  2003/03/17 14:12:19  dkrajzew
 // Windows eol removed
 //
@@ -197,10 +200,10 @@ MSNet::DetectorCont
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
 {
     MSNet::DetectorCont ret;
-    for(InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
+    for(std::map<MSLane*, _TInductLoop*>::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
         ret.push_back((*i).second);
     }
-    for(LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
+    for(std::map<MSLane*, _TLaneState*>::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
         ret.push_back((*j).second);
     }
     return ret;
