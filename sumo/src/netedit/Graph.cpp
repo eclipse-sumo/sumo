@@ -525,9 +525,18 @@ int Graph::GetIndex(Vertex* v)
     return index;
 }
 
-void Graph::GetTraces(int cars, int fuel)
+void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 {
-
+	//Miguel!!!
+	FXSlider* my1=myDialog->getMapscaleSlider();
+	FXTextField* my2=myDialog->getGKRTextField();
+	FXTextField* my3=myDialog->getGKHTextField();
+	int scale=my1->getValue();
+	FXint myFXint1=FXIntVal(my2->getText(),10);
+	FXint myFXint2=FXIntVal(my3->getText(),10);
+	int gkr=myFXint1;
+	int gkh=myFXint2;
+	///Miguel!!!	
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];
@@ -552,6 +561,7 @@ void Graph::GetTraces(int cars, int fuel)
 			ptemp=pfad[m];
 			time(&rawtime);
 			ptm=gmtime(&rawtime);
+			ptemp->px2gps(scale,gkr,gkh);
 			mylat=ptemp->GetGPSLat()*100;
 			mylon=ptemp->GetGPSLon()*100;
 			mylat1=(int)mylat;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/03/31 14:18:45  miguelliebe
+// ConfigDialog upgrade(Bitmap scale)
+//
 // Revision 1.2  2005/01/31 09:27:35  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
 //
@@ -542,7 +545,7 @@ long
 GNEImageProcWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     myGraph.Export_Edges_XML();
-    myGraph.GetTraces(1,1000);
+    myGraph.GetTraces(1,1000,myConfigDialog);
     return 1;
 }
 

@@ -83,7 +83,7 @@ public:
 
 
     //Wandelt die Koordinaten des Knotens in GPS-Koordinaten um
-    void px2gps(int i, int j);
+    void px2gps(int scale, int gkr, int gkh);
     //Hole den Longitude-Wert der GPS-Koordinaten
     double GetGPSLon();
     //Hole den Latitude-Wert der GPS-Koordinaten

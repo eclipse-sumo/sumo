@@ -48,13 +48,20 @@ protected:
   FXTextField*       nodeDistanceTextField;
   FXTextField*       epsilonTextField;
   FXTextField*		 mergeTextField;
+  ///Miguel!!!
+  FXTextField*		 mapscaleTextField;
+  FXTextField*		 gkrTextField;
+  FXTextField*		 gkhTextField;
+  ///Miguel!!!
   FXSlider*          dilatationSlider;
   FXSlider*          erosionSlider;
   FXSlider*          eraseStainsSlider;
   FXSlider*          nodeDistanceSlider;
   FXSlider*          epsilonSlider;
   FXSlider*			 mergeSlider;
-  
+  ///Miguel!!!
+  FXSlider*			 mapscaleSlider;
+  ///Miguel!!!
 public:
 
 
@@ -73,6 +80,12 @@ public:
 	ID_NODE_TEXT,
 	ID_EPSI_SLIDER,
 	ID_EPSI_TEXT,
+	///Miguel!!!
+	ID_MAPSCALE_SLIDER,
+	ID_MAPSCALE_TEXT,
+	ID_GKR_TEXT,
+	ID_GKH_TEXT,
+	///Miguel!!!
 	ID_DEL_ALL_COL,
 	ID_ACCEPT_COLOR,	
 	ID_DELETE_COLOR,
@@ -99,7 +112,9 @@ public:
   long onCmdNodeSlider(FXObject*,FXSelector sel,void*);
   
   long onCmdEpsiSlider(FXObject*,FXSelector sel,void*);
-  
+  ///Miguel!!!
+  long onCmdMapscaleSlider(FXObject*,FXSelector sel,void*);
+  ///Miguel!!!
   long onCmdCancel(FXObject*,FXSelector,void* ptr);
   long onCmdOK(FXObject*,FXSelector,void* ptr);
 
@@ -113,8 +128,11 @@ public:
   FXSlider* getEpsiSlider();
   FXSlider* getEraSlider();
   FXSlider* getMergeSlider();
-
-  
+  ///Miguel!!!
+  FXSlider* getMapscaleSlider();
+  FXTextField* getGKRTextField();
+  FXTextField* getGKHTextField();
+  ///Miguel!!!
   //void create();
   };
 

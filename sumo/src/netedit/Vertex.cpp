@@ -15,8 +15,7 @@ Vertex::Vertex(int i, int j)
     y=j;
     inDegree=0;
     outDegree=0;
-    //Errechnen der GPS-Koordinaten
-    px2gps(i,j);
+    
 }
 
 //Füge einen Pointer auf einen Knoten in das Nachfolgerarray ein
@@ -185,14 +184,16 @@ Vertex::DekrementOutDegree()
 //Wandelt die Koordinaten des Knotens in GPS-Koordinaten um
 
 void
-Vertex::px2gps(int i, int j)
+Vertex::px2gps(int scale, int gkr, int gkh)
 {
     //Berechnet zu x,y-Koordinaten die GK-Koordinaten
     //bei zwei gegebenen GPS-Eckpunkten(der betrachteten Karte)
     double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
     int mKen;
-    double gkx=2601000.25+i*2;
-    double gky=5711999.75-j*2;
+    ///Miguel!!! Hier muß noch der Wert der linken unteren Ecke aus dem ConfigDialog geholt werden und der Faktor gk/pixel
+	
+	double gkx=gkr+x*scale;//2601000.25+x*2;
+    double gky=gkh+x*scale;//5711999.75-y*2;
     const double rho = 180/3.1415926535897932384626433832795;
     e2 = 0.0067192188;
     c = 6398786.849;
