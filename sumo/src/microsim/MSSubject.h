@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <functional>
 #include <vector>
+#include "helpers/TypeTraits.h"
 
 // See Gamma et al. "Design Patterns" for information about the
 // Observer pattern.
@@ -96,6 +97,7 @@ class MSSubject
 {
 public:
     typedef ObservedType Observed;
+    typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
     
     typedef MSObserver<
         Observed
@@ -106,6 +108,7 @@ public:
     typedef Observer* ObserverPtr;
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
+
     
     void attach( ObserverPtr toAttach )
         {
@@ -131,7 +134,7 @@ protected:
             observersM.clear();
         }
 
-    void notify( Observed& aObserved )
+    void notify( ParameterType aObserved )
         {
             for ( ObserversIt observer = observersM.begin();
                   observer != observersM.end(); ++observer ) {

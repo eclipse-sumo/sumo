@@ -34,10 +34,8 @@ public:
 
 protected:
     typedef double DetectorAggregate;
-    typedef halt::HaltEndObserver::Observed Observed;
+    typedef halt::HaltEndObserver::ParameterType ParameterType;
     typedef DetectorContainer::HaltingsList Container;
-//     typedef Container::HaltingsConstIt HaltingsConstIt;
-//     typedef Container::InnerContainer Haltings;
 
     MSNStartedHalts( Container& toObserve )
         :
@@ -51,7 +49,7 @@ protected:
             toObserveM.detach( this );
         }
 
-    virtual void update( Observed& aObserved ) = 0;
+    virtual void update( ParameterType aObserved ) = 0;
     
     static std::string getDetectorName( void )
         {

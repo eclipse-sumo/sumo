@@ -92,8 +92,7 @@ struct MSDetectorHaltingContainerWrapper
                 haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     if ( haltIt->isHaltingM ) {
-                        double arg = 1.0;
-                        halt::HaltEndSubject::notify( arg );
+                        halt::HaltEndSubject::notify( 1 );
                     }
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
@@ -108,8 +107,7 @@ struct MSDetectorHaltingContainerWrapper
                             // halting-duration
                             haltIt->haltingDurationM =
                                 haltIt->timeBelowSpeedThresholdM++;
-                            double arg = 1.0;
-                            halt::HaltBeginSubject::notify( arg );
+                            halt::HaltBeginSubject::notify( 1 );
                         }
                         else {
                             haltIt->haltingDurationM++;

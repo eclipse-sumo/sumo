@@ -33,6 +33,8 @@
 // A concrete subject defines the Observer type by it's base MSSubject
 // (see MSSubject.h).
 
+#include "helpers/TypeTraits.h"
+
 template<
     class ObservedType
     , bool observableIsPassed
@@ -42,8 +44,9 @@ class MSObserver
 {
 public:
     typedef ObservedType Observed;
+    typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
     
-    virtual void update( Observed& aObserved ) = 0;
+    virtual void update( ParameterType aObserved ) = 0;
 
 protected:
     

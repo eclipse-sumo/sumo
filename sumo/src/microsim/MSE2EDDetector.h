@@ -33,7 +33,7 @@ class MSE2EDDetector
 {
 public:
     typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
-    typedef typename ConcreteDetector::Observed Observed;
+    typedef typename ConcreteDetector::ParameterType ParameterType;
     typedef typename ConcreteDetector::Container DetectorContainer;    
     
     
@@ -57,7 +57,7 @@ public:
         }
 
     // inherited from ConcreteDetector form MSObserver
-    void update( Observed& aObserved )
+    void update( ParameterType aObserved )
         {
             aggregatesM.push_back(
                 TimeValue(
