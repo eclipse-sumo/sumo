@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/04/02 10:57:31  dkrajzew
+// deselection of selected items added; saving of selected items names added
+//
 // Revision 1.1  2004/03/19 12:33:36  dkrajzew
 // porting to FOX
 //
@@ -67,8 +70,14 @@ public:
 
     FXbool close(FXbool notify=FALSE);
 
-    long onCmdOK(FXObject*,FXSelector,void*);
-    long onCmdCancel(FXObject*,FXSelector,void*);
+    long onCmdLoad(FXObject*,FXSelector,void*);
+    long onCmdSave(FXObject*,FXSelector,void*);
+    long onCmdDeselect(FXObject*,FXSelector,void*);
+    long onCmdClear(FXObject*,FXSelector,void*);
+    long onCmdClose(FXObject*,FXSelector,void*);
+
+private:
+    void rebuildList();
 
 private:
     /// the list that holds the ids
