@@ -15,7 +15,8 @@ GUINoLogicJunction.cpp GUINoLogicJunction.h \
 GUIGrid.cpp GUIGrid.h GUIHelpingJunction.cpp GUIHelpingJunction.h \
 GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUIInductLoop.cpp GUIInductLoop.h \
-GUIDetectorWrapper.cpp GUIDetectorWrapper.h
+GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
+GUIVehicleTransfer.cpp GUIVehicleTransfer.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
 
