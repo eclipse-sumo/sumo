@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/01/27 14:33:26  dkrajzew
+// code beautifying
+//
 // Revision 1.3  2004/12/12 17:23:59  agaubatz
 // Editor Tool Widgets included
 //
@@ -52,7 +55,6 @@ namespace
 //
 // Revision 1.1  2004/03/19 12:38:57  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * included modules
@@ -195,18 +197,18 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
     myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
     myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
-	myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
-	myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
-	myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
-	myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
-	myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
-	myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
-	myIcons[ICON_RUBBER1X]     = new FXXPMIcon(a, rubber1x_xpm);
-	myIcons[ICON_RUBBER2X]     = new FXXPMIcon(a, rubber2x_xpm);
-	myIcons[ICON_RUBBER3X]     = new FXXPMIcon(a, rubber3x_xpm);
-	myIcons[ICON_RUBBER4X]     = new FXXPMIcon(a, rubber4x_xpm);
-	myIcons[ICON_RUBBER5X]     = new FXXPMIcon(a, rubber5x_xpm);
-	myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+    myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
+    myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
+    myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
+    myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
+    myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
+    myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
+    myIcons[ICON_RUBBER1X]     = new FXXPMIcon(a, rubber1x_xpm);
+    myIcons[ICON_RUBBER2X]     = new FXXPMIcon(a, rubber2x_xpm);
+    myIcons[ICON_RUBBER3X]     = new FXXPMIcon(a, rubber3x_xpm);
+    myIcons[ICON_RUBBER4X]     = new FXXPMIcon(a, rubber4x_xpm);
+    myIcons[ICON_RUBBER5X]     = new FXXPMIcon(a, rubber5x_xpm);
+    myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
 
     // vss
     myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
@@ -251,7 +253,7 @@ GUIIconSubSys::getIcon(GUIIcon which)
     return myInstance->myIcons[which];
 }
 
- 
+
 void
 GUIIconSubSys::close()
 {
