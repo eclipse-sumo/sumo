@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.7  2003/10/30 09:09:55  dkrajzew
 // tl-building order patched
 //
@@ -99,6 +102,10 @@ public:
         NBNode *junction);
 
     /// Constructor
+    NBTrafficLightDefinition(const std::string &id, std::string type,
+        NBNode *junction);
+
+    /// Constructor
     NBTrafficLightDefinition(const std::string &id);
 
     /// Destructor
@@ -138,13 +145,13 @@ public:
     virtual void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing) = 0;
 
-    virtual void replaceRemoved(NBEdge *removed, size_t removedLane,
-        NBEdge *by, size_t byLane) = 0;
+    virtual void replaceRemoved(NBEdge *removed, int removedLane,
+        NBEdge *by, int byLane) = 0;
 
 protected:
     /// Computes the traffic light logic finally in dependence to the type
     virtual NBTrafficLightLogicVector *myCompute(size_t breakingTime,
-        bool buildAll) = 0;
+        std::string type, bool buildAll) = 0;
 
     std::pair<size_t, size_t> getSizes() const;
 
@@ -181,6 +188,8 @@ private:
 
 protected:
 
+    // the type of the traffic light (traffic-light, actuated, agentbased)
+    std::string myType;
 
     /// Definition of the container type for participating nodes
     typedef std::set<NBNode*> NodeCont;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.10  2003/11/17 07:26:02  dkrajzew
 // computations needed for collecting e2-values over multiple lanes added
 //
@@ -93,7 +96,8 @@ public:
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
     void writeXML(std::ostream &into, size_t no, double distance,
-        const std::set<std::string> &inLanes) const;
+        std::string type, const std::set<std::string> &inLanes) const;
+    // !!! the key should be given here, too, instead of storing it
 
     /// Debug method showing the phases
     void _debugWritePhases() const;

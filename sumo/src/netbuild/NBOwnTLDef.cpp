@@ -22,6 +22,14 @@ NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction)
 }
 
 
+NBOwnTLDef::NBOwnTLDef(const std::string &id,
+                       std::string type,
+                       NBNode *junction)
+    : NBTrafficLightDefinition(id, type, junction)
+{
+}
+
+
 NBOwnTLDef::NBOwnTLDef(const std::string &id)
     : NBTrafficLightDefinition(id)
 {
@@ -34,7 +42,7 @@ NBOwnTLDef::~NBOwnTLDef()
 
 
 NBTrafficLightLogicVector *
-NBOwnTLDef::myCompute(size_t breakingTime, bool buildAll)
+NBOwnTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -43,7 +51,7 @@ NBOwnTLDef::myCompute(size_t breakingTime, bool buildAll)
     bool removeTurnArounds = true;
     LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
     NBTrafficLightLogicVector *logics1 =
-        computeTrafficLightLogics(getID(),
+        computeTrafficLightLogics(getID(), type,
             joinLaneLinks, removeTurnArounds, removal,
             appendSmallestOnly, skipLarger, breakingTime);
 
@@ -52,7 +60,7 @@ NBOwnTLDef::myCompute(size_t breakingTime, bool buildAll)
         removeTurnArounds = true;
         removal = LRT_NO_REMOVAL;
         NBTrafficLightLogicVector *logics2 =
-            computeTrafficLightLogics(getID(),
+            computeTrafficLightLogics(getID(), type,
                 joinLaneLinks, removeTurnArounds, removal,
                 appendSmallestOnly, skipLarger, breakingTime);
 
@@ -60,7 +68,7 @@ NBOwnTLDef::myCompute(size_t breakingTime, bool buildAll)
         removeTurnArounds = true;
         removal = LRT_REMOVE_ALL_LEFT;
         NBTrafficLightLogicVector *logics3 =
-            computeTrafficLightLogics(getID(),
+            computeTrafficLightLogics(getID(), type,
                 joinLaneLinks, removeTurnArounds, removal,
                 appendSmallestOnly, skipLarger, breakingTime);
 
@@ -77,6 +85,7 @@ NBOwnTLDef::myCompute(size_t breakingTime, bool buildAll)
 
 NBTrafficLightLogicVector *
 NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
+                                      std::string type,
                                       bool joinLaneLinks,
                                       bool removeTurnArounds,
                                       LinkRemovalType removal,
@@ -106,7 +115,7 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
         maxStromAnz, appendSmallestOnly, skipLarger);
     // compute the possible logics
     NBTrafficLightLogicVector *logics =
-        phases->computeLogics(key, getSizes().second, cei1,
+        phases->computeLogics(key, type, getSizes().second, cei1,
         _links, breakingTime);
     // clean everything
     delete v;
@@ -210,8 +219,8 @@ NBOwnTLDef::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
 
 
 void
-NBOwnTLDef::replaceRemoved(NBEdge *removed, size_t removedLane,
-                           NBEdge *by, size_t byLane)
+NBOwnTLDef::replaceRemoved(NBEdge *removed, int removedLane,
+                           NBEdge *by, int byLane)
 {
 }
 

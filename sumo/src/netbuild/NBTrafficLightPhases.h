@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.7  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -90,6 +93,7 @@ public:
 
     /// Computes the list of traffic lights logics from the stored phase lists
     NBTrafficLightLogicVector *computeLogics(const std::string &key,
+        std::string type,
         size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
         const NBConnectionVector &inLinks, size_t breakingTime) const;
 

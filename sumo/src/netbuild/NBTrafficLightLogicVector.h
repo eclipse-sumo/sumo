@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.5  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -62,7 +65,8 @@ class NBTrafficLightLogic;
 class NBTrafficLightLogicVector {
 public:
     /// Constructor
-    NBTrafficLightLogicVector(const NBConnectionVector &inLanes);
+    NBTrafficLightLogicVector(const NBConnectionVector &inLanes,
+        std::string type);
 
     /// Destructor
     ~NBTrafficLightLogicVector();
@@ -82,6 +86,9 @@ public:
     /// Returns the number of phaselists within this container
     int size() const;
 
+    /// Returns the type of this traffic light logic
+    const std::string &getType() const;
+
 private:
     /// The links participating in this junction
     NBConnectionVector myInLinks;
@@ -91,6 +98,9 @@ private:
 
     /// Container type for the phaselist
     LogicVector _cont;
+
+    /// The type of the logic (traffic-light, actuated, agentbased)
+    std::string myType;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.11  2003/10/30 09:09:55  dkrajzew
 // tl-building order patched
 //
@@ -100,7 +103,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
                                                    const std::set<NBNode*> &junctions)
-    : Named(id), _nodes(junctions)
+    : Named(id), myType("static"), _nodes(junctions)
 {
     for(NodeCont::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
         (*i)->addTrafficLight(this);
@@ -110,7 +113,17 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
                                                    NBNode *junction)
-    : Named(id)
+    : Named(id), myType("static")
+{
+    addNode(junction);
+    junction->addTrafficLight(this);
+}
+
+
+NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
+                                                   std::string type,
+                                                   NBNode *junction)
+    : Named(id), myType(type)
 {
     addNode(junction);
     junction->addTrafficLight(this);
@@ -118,7 +131,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id)
-    : Named(id)
+    : Named(id), myType("static")
 {
 }
 
@@ -145,7 +158,7 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
     if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
         breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
     }
-    return myCompute(breakingTime, oc.getBool("all-logics"));
+    return myCompute(breakingTime, myType, oc.getBool("all-logics"));
 }
 
 

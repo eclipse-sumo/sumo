@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.8  2003/11/17 07:26:02  dkrajzew
 // computations needed for collecting e2-values over multiple lanes added
 //
@@ -70,8 +73,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBTrafficLightLogicVector::NBTrafficLightLogicVector(const NBConnectionVector &inLanes)
-    : myInLinks(inLanes)
+NBTrafficLightLogicVector::NBTrafficLightLogicVector(
+        const NBConnectionVector &inLanes, std::string type)
+    : myInLinks(inLanes), myType(type)
 {
 }
 
@@ -121,7 +125,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
     }
     size_t pos = 0;
     for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++, distance, inLanes);
+        (*i)->writeXML(os, pos++, distance, myType, inLanes);
     }
 }
 
@@ -141,6 +145,13 @@ int
 NBTrafficLightLogicVector::size() const
 {
     return _cont.size();
+}
+
+
+const std::string &
+NBTrafficLightLogicVector::getType() const
+{
+    return myType;
 }
 
 

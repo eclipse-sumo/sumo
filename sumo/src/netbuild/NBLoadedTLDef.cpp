@@ -273,8 +273,8 @@ NBLoadedTLDef::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by)
 
 
 void
-NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, size_t removedLane,
-                                  NBEdge *by, size_t byLane)
+NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
+                                  NBEdge *by, int byLane)
 {
     for(NBConnectionVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if((*i).getTo()==removed
@@ -283,6 +283,9 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, size_t removedLane,
               ||
               (*i).getToLane()==-1) ) {
             (*i).replaceTo(removed, removedLane, by, byLane);
+
+        } else if((*i).getTo()==removed && removedLane==-1) {
+            (*i).replaceTo(removed, by);
         }
 
         if((*i).getFrom()==removed
@@ -291,6 +294,9 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, size_t removedLane,
               ||
               (*i).getFromLane()==-1) ) {
             (*i).replaceFrom(removed, removedLane, by, byLane);
+
+        } else if((*i).getTo()==removed && removedLane==-1) {
+            (*i).replaceFrom(removed, by);
         }
     }
 }
@@ -338,7 +344,7 @@ NBLoadedTLDef::~NBLoadedTLDef()
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(size_t breakingTime, bool buildAll)
+NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
 {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
@@ -399,7 +405,7 @@ NBLoadedTLDef::myCompute(size_t breakingTime, bool buildAll)
 
     // returns the build logic
     NBTrafficLightLogicVector *ret =
-        new NBTrafficLightLogicVector(_links);
+        new NBTrafficLightLogicVector(_links, type);
     ret->add(logic);
     return ret;
 }
@@ -653,8 +659,8 @@ NBLoadedTLDef::remapRemoved(NBEdge *removed,
 
 
 void
-NBLoadedTLDef::replaceRemoved(NBEdge *removed, size_t removedLane,
-                              NBEdge *by, size_t byLane)
+NBLoadedTLDef::replaceRemoved(NBEdge *removed, int removedLane,
+                              NBEdge *by, int byLane)
 {
     for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;

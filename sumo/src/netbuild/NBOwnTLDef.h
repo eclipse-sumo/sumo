@@ -17,6 +17,10 @@ public:
     NBOwnTLDef(const std::string &id, NBNode *junction);
 
     /// Constructor
+    NBOwnTLDef(const std::string &id, std::string type,
+        NBNode *junction);
+
+    /// Constructor
     NBOwnTLDef(const std::string &id);
 
     /// Destructor
@@ -43,15 +47,15 @@ public:
 protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(size_t breakingTime,
-        bool buildAll);
+        std::string type, bool buildAll);
 
     /// Collects the nodes participating in this traffic light
     void collectNodes();
 
     void collectLinks();
 
-    void replaceRemoved(NBEdge *removed, size_t removedLane,
-        NBEdge *by, size_t byLane);
+    void replaceRemoved(NBEdge *removed, int removedLane,
+        NBEdge *by, int byLane);
 
     void setTLControllingInformation() const;
 
@@ -60,7 +64,7 @@ private:
     /** compute the traffic light logics for the current node and the
         given settings */
     NBTrafficLightLogicVector *computeTrafficLightLogics(
-        const std::string &key,
+        const std::string &key, std::string type,
         bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal,
         bool appendSmallestOnly, bool skipLarger,
         size_t breakingTime) const;

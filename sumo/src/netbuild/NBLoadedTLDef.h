@@ -30,8 +30,8 @@ public:
         const NBConnection &getConnection(size_t pos) const;
         void patchTYellow(size_t tyellow);
 //        void patchFalseGreenPhases(double duration);
-        void remap(NBEdge *removed, size_t removedLane,
-            NBEdge *by, size_t byLane);
+        void remap(NBEdge *removed, int removedLane,
+            NBEdge *by, int byLane);
 
         friend class phase_by_time_sorter;
 
@@ -128,7 +128,7 @@ public:
 protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(size_t breakingTime,
-        bool buildAll);
+        std::string type, bool buildAll);
 
     /// Collects the nodes participating in this traffic light
     void collectNodes();
@@ -139,8 +139,8 @@ protected:
         const std::bitset<64> &green, const std::bitset<64> &yellow,
         size_t strmpos) const;
 
-    void replaceRemoved(NBEdge *removed, size_t removedLane,
-        NBEdge *by, size_t byLane);
+    void replaceRemoved(NBEdge *removed, int removedLane,
+        NBEdge *by, int byLane);
 
 private:
     struct Masks {

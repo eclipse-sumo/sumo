@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.14  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -198,12 +201,14 @@ std::ostream &operator<<(std::ostream &os, const NBTrafficLightPhases &p)
 
 NBTrafficLightLogicVector *
 NBTrafficLightPhases::computeLogics(const std::string &key,
+                                    std::string type,
                                     size_t noLinks,
                                     const NBRequestEdgeLinkIterator &cei1,
                                     const NBConnectionVector &inLinks,
                                     size_t breakingTime) const
 {
-    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(inLinks);
+    NBTrafficLightLogicVector *ret =
+        new NBTrafficLightLogicVector(inLinks, type);
     for(size_t i=0; i<_phasesVectorsByLength.size(); i++) {
         for(size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
             ret->add(

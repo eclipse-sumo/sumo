@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.13  2003/11/17 07:26:02  dkrajzew
 // computations needed for collecting e2-values over multiple lanes added
 //
@@ -124,16 +127,17 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 void
 NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
+                              std::string type,
                               const std::set<string> &inLanes) const
 {
-    into << "   <tl-logic type=\"static\">" << endl;
+    into << "   <tl-logic type=\"" << type << "\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
     into << "      <offset>0</offset>" << endl;
     // write the inlanes
     std::set<string>::const_iterator j;
-    into << "      <inlanes>";
+    into << "      <inclanes>";
 //    bool first = true;
     for(j=inLanes.begin(); j!=inLanes.end(); j++) {
         if(j!=inLanes.begin()) {
@@ -142,7 +146,7 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
 //        first = false;
         into << (*j);
     }
-    into << "</inlanes>" << endl;
+    into << "</inclanes>" << endl;
     into << "      <cont_dist>" << distance << "</cont_dist>" << endl;
     // write the inlanes connections
     for(j=inLanes.begin(); j!=inLanes.end(); j++) {

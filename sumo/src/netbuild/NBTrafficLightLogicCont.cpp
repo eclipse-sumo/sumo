@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.10  2003/10/30 09:09:55  dkrajzew
 // tl-building order patched
 //
@@ -79,8 +82,8 @@ using namespace std;
  * static member variables
  * ======================================================================= */
 NBTrafficLightLogicCont::ComputedContType NBTrafficLightLogicCont::_computed;
-
 NBTrafficLightLogicCont::DefinitionContType NBTrafficLightLogicCont::_definitions;
+
 
 /* =========================================================================
  * method definitions
@@ -170,8 +173,8 @@ NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incomin
 
 
 void
-NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, size_t removedLane,
-                                        NBEdge *by, size_t byLane)
+NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, int removedLane,
+                                        NBEdge *by, int byLane)
 {
     for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
         // get the definition

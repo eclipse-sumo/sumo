@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/12/04 13:03:58  dkrajzew
+// possibility to pass the tl-type from the netgenerator added
+//
 // Revision 1.5  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -83,8 +86,8 @@ public:
     static void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing);
 
-    static void replaceRemoved(NBEdge *removed, size_t removedLane,
-        NBEdge *by, size_t byLane);
+    static void replaceRemoved(NBEdge *removed, int removedLane,
+        NBEdge *by, int byLane);
 
     static NBTrafficLightDefinition *getDefinition(const std::string &id);
 
