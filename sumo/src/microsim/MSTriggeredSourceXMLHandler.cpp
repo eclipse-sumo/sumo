@@ -197,13 +197,13 @@ MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": No conversion possible on attribute \"frequency\" "
             "with value " << freqStr << ". Quitting." << endl;
-        return false;
+        throw ProcessError();
     }
     if ( freq < double( 0 ) ) {
 
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Attribute \"frequency\" has value < 0. Quitting." << endl;
-        return false;
+        throw ProcessError();
     }
 
     // Attributes ok, add to routeDist
@@ -227,7 +227,7 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Vehicle " << myEmitId << " does already exist. "
             "Continuing with next element." << endl;
-        return false;
+        throw ProcessError();
     }
 
 
@@ -239,7 +239,7 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Vehicle type " << emitType << " does not exist. "
             "Continuing with next element." << endl;
-        return false;
+        throw ProcessError();
     }
     else {
 
@@ -255,21 +255,21 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
              << ": No conversion possible on attribute \"time\" with value "
              << timeStr << ". Continuing with next element."
              << endl;
-        return false;
+        throw ProcessError();
     }
 
     MSNet::Time roundedTime = static_cast< MSNet::Time > (
             roundToNearestInt( time / double( MSNet::deltaT() ) ) );
-    if ( roundedTime <= myEmitTime ) {
+/*    if ( roundedTime <= myEmitTime ) {
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Emit times not sorted. Continuing with next element."
              << endl;
-        return false;
+        throw ProcessError();
     }
-    else {
+    else {*/
 
         myEmitTime = roundedTime;
-    }
+    //}
 
     // check and assign emission speed
     string speedStr = myEmitAttributes.find( string( "speed" ) )->second;
@@ -279,14 +279,14 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
              << ": No conversion possible on attribute \"speed\" with value "
              << speedStr << ". Continuing with next element."
              << endl;
-        return false;
+        throw ProcessError();
     }
     if ( speed < 0 || speed > mySource.myLane->maxSpeed() ) {
 
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Speed < 0 or > lane's max-speed. "
             "Continuing with next element." << endl;
-        return false;
+        throw ProcessError();
     }
     else {
 
@@ -398,7 +398,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
              << ": Token name \"" << elemName
              << "\" sould be \"routedist\" or \"routedistelem\". Quitting."
              << endl;
-        return false;
+        throw ProcessError();
     }
 
     if ( ! myIsParsedRouteDistToken ) {
@@ -412,7 +412,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
              << ": Token name \"" << elemName
              << "\" sould be \"routedist\". Quitting."
              << endl;
-        return false;
+        throw ProcessError();
     }
     else {
 
@@ -421,7 +421,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
             cerr << "MSTriggeredSource " << mySource.getId()
                  << ": Multiple tokens \"routedist\". Quitting."
                  << endl;
-            return false;
+            throw ProcessError();
         }
 
         if ( elemName == string( "routedistelem" ) ) {
@@ -432,7 +432,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
                 cerr << "MSTriggeredSource " << mySource.getId()
                      << ": Wrong number of attributes during RouteDist"
                     " parsing. Quitting." << endl;
-                return false;
+                throw ProcessError();
             }
 
             if ( ! isAttributes2mapSuccess(
@@ -441,7 +441,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
                 cerr << "MSTriggeredSource " << mySource.getId()
                      << ": Wrong attribute during RouteDist parsing. "
                     "Quiting." << endl;
-                return false;
+                throw ProcessError();
             }
 
             return isProperRouteDistValues();
@@ -452,7 +452,7 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
                  << ": Token name \"" << elemName
                  << "\" sould be \"routedistelem\". Quitting."
                  << endl;
-            return false;
+            throw ProcessError();
         }
     }
 }
@@ -472,14 +472,14 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
              << TplConvert<XMLCh>::_2str( aLocalname )
              << "\" sould be \"emit\". Continuing with next element."
              << endl;
-        return false;
+        throw ProcessError();
     }
     if ( aAttributes.getLength() != myEmitAttributes.size() ) {
 
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Wrong number of attributes. "
             "Continuing with next element." << endl;
-        return false;
+        throw ProcessError();
     }
 
     if ( ! isAttributes2mapSuccess( myEmitAttributes, aAttributes ) ) {
@@ -487,7 +487,7 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Wrong attribute. "
             "Continuing with next element." << endl;
-        return false;
+        throw ProcessError();
     }
 
     mySource.myIsNewEmitFound = true;
@@ -510,7 +510,7 @@ MSTriggeredSourceXMLHandler::isAttributes2mapSuccess(
 
         if ( attrIt == myEmitAttributes.end() ) {
 
-            return false;
+            throw ProcessError();
         }
 
         // We now have a valid attribute.
@@ -576,6 +576,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.5  2002/10/28 12:58:58  dkrajzew
+// errors on parsing the Source-XML-description cause throwing of ProcessErrors now
+//
 // Revision 1.4  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
