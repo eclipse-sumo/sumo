@@ -111,7 +111,7 @@ protected:
             if ( detNameM == "" ) {
                 detNameM = getDetectorName() + "Sum";
             }
-        }    
+        }
     
     // E* ctors follow here
     

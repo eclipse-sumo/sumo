@@ -52,7 +52,7 @@ protected:
             return containerM.hasVehicle( &veh );
         }
 
-    DetectorAggregate getAggregate( MSVehicle& veh ) // [s]
+    DetectorAggregate getValue( MSVehicle& veh ) // [s]
         {
             TravelTimeMap::const_iterator pair =
                 containerM.containerM.find( &veh );

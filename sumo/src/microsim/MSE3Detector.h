@@ -64,12 +64,11 @@ public:
                 return;
             }
             aggregatesM.push_back(
-                TimeValue(
-                    MSNet::getInstance()->simSecond(), getAggregate( veh ) ) );
+                TimeValue( MSNet::getInstance()->simSeconds(),
+                           getValue( veh ) ) );
         }
     
-    
-    virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
+    virtual DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
 protected:
     MSE3Detector( std::string id
@@ -88,10 +87,10 @@ protected:
 
     MSE3Detector( std::string id
                   , MSUnit::Seconds deleteDataAfterSeconds
-                  , const MSE2DetectorInterface& helperDetector )
+                  , DetectorContainer& container )
         :
         MSE3DetectorInterface( id )
-        , ConcreteDetector( helperDetector )
+        , ConcreteDetector( container )
         , aggregatesM()
         , idM( id )
         , deleteDataAfterStepsM(
@@ -99,6 +98,20 @@ protected:
         {
             startOldDataRemoval();
         }
+
+//     MSE3Detector( std::string id
+//                   , MSUnit::Seconds deleteDataAfterSeconds
+//                   , const MSE2DetectorInterface& helperDetector )
+//         :
+//         MSE3DetectorInterface( id )
+//         , ConcreteDetector( helperDetector )
+//         , aggregatesM()
+//         , idM( id )
+//         , deleteDataAfterStepsM(
+//             MSUnit::getInstance()->getIntegerSteps( deleteDataAfterSeconds ) )
+//         {
+//             startOldDataRemoval();
+//         }
 
 
     virtual ~MSE3Detector( void )
@@ -116,7 +129,7 @@ protected:
             }
     };
 
-    AggregatesContIter getAggrContStartIter( MSUnit::Steps lastNTimesteps )
+    AggregatesContIter getAggrContStartIterator( MSUnit::Steps lastNTimesteps )
         {
             return std::lower_bound(
                 aggregatesM.begin(), aggregatesM.end(),
@@ -149,7 +162,7 @@ protected:
     MSUnit::IntSteps freeContainer( void )
         {
             AggregatesContIter end =
-                getAggrContStartIter( deleteDataAfterStepsM );
+                getAggrContStartIterator( deleteDataAfterStepsM );
             aggregatesM.erase( aggregatesM.begin(), end );
             return deleteDataAfterStepsM;
         }

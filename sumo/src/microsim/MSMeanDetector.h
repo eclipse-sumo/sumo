@@ -94,8 +94,19 @@ protected:
             container )
         {
             detNameM = getDetectorName() + "Mean";
-        }    
-    
+        }
+
+    MSMeanDetector( std::string id,
+                    MSUnit::Seconds deleteDataAfterSeconds,
+                    DetectorContainer& container ) 
+        : MSSumDetector< DetectorType, hasTimeValueCont >(
+            id,
+            deleteDataAfterSeconds,
+            container )
+        {
+            detNameM = getDetectorName() + "Mean";
+        }
+                
     // E* ctors follow here
 
     ~MSMeanDetector( void )

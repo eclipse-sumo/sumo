@@ -48,7 +48,7 @@ protected:
             return containerM.hasVehicle( &veh );
         }
     
-    DetectorAggregate getAggregate( MSVehicle& veh )
+    DetectorAggregate getValue( MSVehicle& veh )
         {
             return 1;
         }

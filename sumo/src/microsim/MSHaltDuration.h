@@ -35,6 +35,7 @@ public:
 protected:
     typedef double DetectorAggregate;
     typedef halt::HaltEndObserver::ParameterType ParameterType;
+    typedef DetectorContainer::HaltingsList Container;
     typedef DetectorContainer::HaltingsList HaltingsList;
     typedef HaltingsList::HaltingsIt HaltListIt;
     typedef DetectorContainer::TimeMap HaltDurationMap;
@@ -75,7 +76,7 @@ protected:
             pair->second += toAdd;
         }
 
-    DetectorAggregate getAggregate( MSVehicle& veh ) // [s]
+    DetectorAggregate getValue( MSVehicle& veh ) // [s]
         {
             DurationMapIt pair = durationMapM->containerM.find( &veh );
             assert( pair != durationMapM->containerM.end() );
