@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/11/12 13:59:04  dkrajzew
+// redesigned some classes by changing them to templates
+//
 // Revision 1.18  2003/11/11 08:11:05  dkrajzew
 // logging (value passing) moved from utils to microsim
 //
@@ -96,7 +99,8 @@ namespace
 #include <gui/popup/QGLObjectPopupMenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <microsim/logging/UIntFunction2DoubleBinding.h>
+#include <microsim/logging/CastingFunctionBinding.h>
+#include <microsim/logging/FunctionBinding.h>
 
 
 /* =========================================================================
@@ -271,23 +275,21 @@ GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("type [NAME]", false, (double) 0);
+    ret->mkItem("type [NAME]", false, myType->id());
     ret->mkItem("left same route [#]", false, getRepetitionNo());
     ret->mkItem("emission period [s]", false, getPeriod());
     ret->mkItem("waiting time [s]", true,
-        new UIntFunction2DoubleBinding<MSVehicle>(
+        new CastingFunctionBinding<MSVehicle, double, size_t>(
             this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
-        new UIntFunction2DoubleBinding<GUIVehicle>(
-            this, &GUIVehicle::getLastLaneChangeOffset));
+        new CastingFunctionBinding<GUIVehicle, double, size_t>(
+        this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("real depart [s]", false, getRealDepartTime());
     ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
-        new DoubleFunctionBinding<GUIVehicle>(
-            this, &GUIVehicle::pos));
+        new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::pos));
     ret->mkItem("speed [m/s]", true,
-        new DoubleFunctionBinding<GUIVehicle>(
-            this, &GUIVehicle::speed));
+        new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::speed));
     // close building
     ret->closeBuilding();
     return ret;

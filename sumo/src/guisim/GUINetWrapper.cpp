@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/12 13:59:04  dkrajzew
+// redesigned some classes by changing them to templates
+//
 // Revision 1.3  2003/11/11 08:11:05  dkrajzew
 // logging (value passing) moved from utils to microsim
 //
@@ -55,7 +58,7 @@ namespace
 #include <qwidget.h>
 #include <qpopupmenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
-#include <microsim/logging/UIntFunction2DoubleBinding.h>
+#include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
@@ -110,23 +113,23 @@ GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
         new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("vehicles running [#]", true,
-        new UIntFunction2DoubleBinding<GUINet>(
+        new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-        new UIntFunction2DoubleBinding<GUINet>(
+        new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-        new UIntFunction2DoubleBinding<GUINet>(
+        new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-        new UIntFunction2DoubleBinding<GUINet>(
+        new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getLoadedVehicleNo));
     ret->mkItem("end time [s]", false,
         OptionsSubSys::getOptions().getInt("e"));
     ret->mkItem("begin time [s]", false,
         OptionsSubSys::getOptions().getInt("b"));
     ret->mkItem("time step [s]", true,
-        new UIntFunction2DoubleBinding<GUINet>(
+        new CastingFunctionBinding<GUINet, double, size_t>(
             &(getNet()), &GUINet::getCurrentTimeStep));
     // close building
     ret->closeBuilding();
