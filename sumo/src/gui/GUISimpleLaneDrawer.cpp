@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/15 12:19:36  dkrajzew
+// drawing of row/tls-bars removed
+//
 // Revision 1.11  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -131,9 +134,6 @@ GUISimpleLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
                     for(size_t k=0; k<noLanes; k++) {
                         const GUILaneWrapper &lane = edge->getLaneGeometry(k);
                         drawLaneWithTooltips(lane, scheme, width);
-                        if(width>1.0) {
-                            drawLinkRules(lane);
-                        }
                     }
                 }
             }
@@ -153,9 +153,6 @@ GUISimpleLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
                     for(size_t k=0; k<noLanes; k++) {
                         const GUILaneWrapper &lane = edge->getLaneGeometry(k);
                         drawLaneNoTooltips(lane, scheme, width);
-                        if(width>1.0) {
-                            drawLinkRules(lane);
-                        }
                     }
                 }
             }
@@ -168,61 +165,8 @@ GUISimpleLaneDrawer::initStep(/*const double & width*/)
 {
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
-/*    if(width<1) {
-        _drawLines = true;
-    } else {
-        _drawLines = false;
-    }*/
     glColor3f(0, 0, 0);
 }
-
-
-void
-GUISimpleLaneDrawer::drawLinkRules(const GUILaneWrapper &lane)
-{
-    size_t noLinks = lane.getLinkNumber();
-    double visLength = -lane.visLength();
-    if(noLinks==0) {
-        // draw a grey bar if no links are on the street
-        glColor3f(0.5, 0.5, 0.5);
-        glPushMatrix();
-        const Position2D &beg = lane.getBegin();
-        glTranslated(beg.x(), beg.y(), 0);
-        glRotated( lane.getRotation(), 0, 0, 1 );
-        glBegin( GL_QUADS );
-        glVertex2f(-1.5, visLength+4.0);
-        glVertex2f(-1.5, visLength+4.5);
-        glVertex2f(1.5, visLength+4.5);
-        glVertex2f(1.5, visLength+4.0);
-        glEnd();
-        glPopMatrix();
-        return;
-    }
-    // draw all links
-    float w = 3.0 / (float) noLinks;
-    float x1 = 0;
-    glPushMatrix();
-    const Position2D &beg = lane.getBegin();
-    glTranslated(beg.x(), beg.y(), 0);
-    glRotated( lane.getRotation(), 0, 0, 1 );
-    for(size_t i=0; i<noLinks; i++) {
-        float x2 = x1 + w;
-        MSLink::LinkState state = lane.getLinkState(i);
-        const RGBColor &color = myLinkColors.find(state)->second;
-        glColor3f(color.red(), color.green(), color.blue());
-        glBegin( GL_QUADS );
-        glVertex2f(x1-1.5, visLength+4.0);
-        glVertex2f(x1-1.5, visLength+4.5);
-        glVertex2f(x2-1.5, visLength+4.5);
-        glVertex2f(x2-1.5, visLength+4.0);
-        glEnd();
-        x1 = x2;
-        x2 += w;
-    }
-    glPopMatrix();
-}
-
-
 
 
 void

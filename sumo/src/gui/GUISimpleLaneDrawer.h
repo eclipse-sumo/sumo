@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/08/15 12:19:36  dkrajzew
+// drawing of row/tls-bars removed
+//
 // Revision 1.3  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -85,13 +88,7 @@ private:
     void setLaneColor(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme);
 
-    void drawLinkRules(const GUILaneWrapper &lane);
-
-
 private:
-    /// a pointer set in initStep whether lines or quads shal be drawn
-    bool _drawLines;
-
     /// Definition of a storage for link colors
     typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
 
