@@ -212,7 +212,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/3sims.gif" format="GIF" />
+              <imagedata align="center" fileref="./user_gfx/3sims.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -468,8 +469,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/basic_coordinates.gif"
-              format="GIF" />
+              <imagedata align="center"
+              fileref="./user_gfx/basic_coordinates.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1120,8 +1121,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/netgen_spider1.gif"
-              format="GIF" />
+              <imagedata align="center"
+              fileref="./user_gfx/netgen_spider1.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1135,8 +1136,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/netgen_spider2.gif"
-              format="GIF" />
+              <imagedata align="center"
+              fileref="./user_gfx/netgen_spider2.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1203,8 +1204,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/netgen_random1.gif"
-              format="GIF" />
+              <imagedata align="center"
+              fileref="./user_gfx/netgen_random1.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1639,7 +1640,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./user_gfx/ivf.gif" format="GIF" />
+              <imagedata align="center" fileref="./user_gfx/ivf.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1774,14 +1776,14 @@
           &#60;UINT&#62; -e &#60;UINT&#62;</para>
         </blockquote>
 
-        <para><inlinegraphic fileref="./user_gfx/bulb.gif" format="GIF" /> Remind
-        that you can not insert flow descriptions into a trip definitions
-        file. The opposite (some trip definitions within a flow descriptions
-        file) is possible. You also can give both files at the input file, for
-        example: duarouter(.exe) --flow-defs=&#60;FLOW_DEFS&#62;
-        --trip-defs=&#60;TRIP_DEFS&#62; --net=&#60;SUMO_NET&#62;
-        --output-file=MySUMORoutes.rou.xml -b &#60;UINT&#62; -e
-        &#60;UINT&#62;.</para>
+        <para><inlinegraphic fileref="./user_gfx/bulb.gif" format="GIF" />
+        Remind that you can not insert flow descriptions into a trip
+        definitions file. The opposite (some trip definitions within a flow
+        descriptions file) is possible. You also can give both files at the
+        input file, for example: duarouter(.exe)
+        --flow-defs=&#60;FLOW_DEFS&#62; --trip-defs=&#60;TRIP_DEFS&#62;
+        --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+        &#60;UINT&#62; -e &#60;UINT&#62;.</para>
       </sect2>
 
       <sect2>
@@ -2095,14 +2097,21 @@
           an error.</para></listitem><listitem><para>OPTIONAL: --unsorted</para><para>When
           set to true, all routes are read into the memory before being
           computed. This is necessary if the routes are in a random order
-          within the files that describe them.</para></listitem></itemizedlist></para>
+          within the files that describe them.</para></listitem><listitem><para>OPTIONAL:
+          --move-on-short</para><para>When set to true, all vehicles that
+          shall be emitted on a too short edge ae moved one edge further. The
+          default (false) forces the route to discard the route as its not
+          valid (or even quit the computation).</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
-          --verbose | -v ]</para><para>Prints some information about the
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --stats-period &#60;INT&#62;</para><para>Each &#60;INT&#62;
+          timesteps a small message about how many routes were
+          loaded/build/discarded is printed (value must be larger than 0).</para></listitem><listitem><para>OPTIONAL:
+          [ --verbose | -v ]</para><para>Prints some information about the
           process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
@@ -2218,14 +2227,20 @@
           --max-edges-factor &#60;FLOAT&#62;</para><para>This value describes
           with which factor the number of edges within the net shall be
           multiplied to get the maximum number of edges a route may have.
-          Deafult=2</para></listitem></itemizedlist></para>
+          Deafult=2</para></listitem><listitem><para>OPTIONAL: --move-on-short</para><para>When
+          set to true, all vehicles that shall be emitted on a too short edge
+          ae moved one edge further. The default (false) forces the route to
+          discard the route as its not valid (or even quit the computation).</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
-          --verbose | -v ]</para><para>Prints some information about the
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --stats-period &#60;INT&#62;</para><para>Each &#60;INT&#62;
+          timesteps a small message about how many routes were
+          loaded/build/discarded is printed (value must be larger than 0).</para></listitem><listitem><para>OPTIONAL:
+          [ --verbose | -v ]</para><para>Prints some information about the
           process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
@@ -3117,6 +3132,59 @@
           </listitem>
         </itemizedlist>
       </sect2>
+
+      <sect2>
+        <title>Vehicle Emission States &#38; Trip Durations</title>
+
+        <para>This output contains the simulation-wide number of vehicles that
+        are loaded, emitted, running, waiting to be emitted, have reached
+        their destination and how long they needed to finish the route. The
+        last value is normalised over all vehicles that have reached their
+        destination so far. The information containing all those values is
+        computed for each time step and the output file looks like following:</para>
+
+        <para><sgmltag>&#60;emissions&#62;</sgmltag></para>
+
+        <para><sgmltag> &#60;emission-state
+        time=&#34;&#60;SIMULATION_TIME&#62;&#34;
+        loaded=&#34;&#60;LOADED_VEHICLE_NUMBER&#62;&#34;
+        emitted=&#34;&#60;EMITTED_VEHICLE_NUMBER&#62;&#34;
+        running=&#34;&#60;RUNNING_VEHICLE_NUMBER&#62;&#34;
+        waiting=&#34;&#60;NUMBER_OF_VEHICLES_WAITING_FOR_EMISSION&#62;&#34;
+        ended=&#34;&#60;ENDED_VEHICLE_NUMBER&#62;&#34;
+        meanTravelTime=&#34;&#60;MEAN_TRAVEL_TIME&#62;&#34;/&#62;</sgmltag></para>
+
+        <para><sgmltag> ... further time steps ...</sgmltag></para>
+
+        <para><sgmltag>&#60;/emissions&#62;</sgmltag></para>
+
+        <para>You can force the simulation to generate this output using
+        --emissions-output &#60;FILENAME&#62; or --emissions
+        &#60;FILENAME&#62;.</para>
+      </sect2>
+
+      <sect2>
+        <title>Trip Information</title>
+
+        <para>This output contains the information about each vehicle&#39;s
+        departure time, the time the vehicle wanted to start at (which may be
+        lower than the real departure time) and the time the vehicle has
+        arrived. Such an information is generated for each vehicle as soon as
+        the vehicle has arrived its destination and is removed from the
+        network. The format is as following:</para>
+
+        <para><sgmltag>&#60;tripinfos&#62;</sgmltag></para>
+
+        <para><sgmltag> &#60;tripinfo id=&#34;&#60;VEHICLE_ID&#62;&#34;
+        start=&#34;&#60;DEPARTURE_TIME&#62;&#34;
+        wished=&#34;&#60;WISHED_DEPARTURE_TIME&#62;&#34;
+        end=&#34;&#60;ARRIVAL_TIME&#62;&#34;/&#62;</sgmltag></para>
+
+        <para><sgmltag>&#60;/tripinfos&#62;</sgmltag></para>
+
+        <para>The simulation is forced to generate this output using:
+        --tripinfo-output &#60;FILENAME&#62; or --tripinfo &#60;FILENAME&#62;.</para>
+      </sect2>
     </sect1>
 
     <sect1>
@@ -3226,7 +3294,7 @@
         </sect3>
 
         <sect3>
-          <title>Artifact Defaults</title>
+          <title>Defaults for simulated Devices</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
           --actuating-detector-pos &#60;FLOAT&#62;</para><para>The distance
@@ -3270,13 +3338,14 @@
     <title>Simulation-GUI</title>
 
     <para>The simulation-GUI (graphical user interface) is just a wrapper
-    around the command line simulation. Normally, the user starts this
-    application and loads a simulation&#39;s description specified using a
-    &#34;normal&#34; configuration-file as used by the simulation&#39;s
-    command line version. After loading it - what may dure a time if the
-    network is large or the simulation is forced to load many routes at once -
-    the network shall appear. Your application should then look like the one
-    displayed below (with your own network, of course).</para>
+    around the command line simulation. The normal procedure is to simply
+    start the gui-version like any other Window-based application
+    (double-click on it) and loads a simulation&#39;s description specified
+    using a &#34;normal&#34; configuration-file as used by the
+    simulation&#39;s command line version. After loading it - what may dure a
+    time if the network is large or the simulation is forced to load many
+    routes at once - the network shall appear. Your application should then
+    look like the one displayed below (with your own network, of course).</para>
 
     <figure>
       <title>The GUI-Window with a loaded simulation (violet: names of the
@@ -3310,24 +3379,32 @@
         <sect3>
           <title>File-Menu</title>
 
-          <para><itemizedlist spacing="compact"><listitem><para>Open</para><para>Opens
-          a file dialog that lets you choose a SUMO-configuration file that
-          describes a complete simulation. The simulation described within
-          this file will be loaded. Remark that you have to describe the
-          simulation in full - no further extension is possible.</para><para>You
-          can of course load a simulation if another one is already loaded. In
-          this case, the previous simulation will be closed.</para></listitem><listitem><para>Close</para><para>Closes
+          <para><itemizedlist spacing="compact"><listitem><para>Open
+          SImulation...</para><para>Opens a file dialog that lets you choose a
+          SUMO-configuration file that describes a complete simulation. The
+          simulation described within this file will be loaded. Remark that
+          you have to describe the simulation in full - no further extension
+          is possible.</para><para>You can of course load a simulation if
+          another one is already loaded. In this case, the previous simulation
+          will be closed.</para></listitem><listitem><para>Close</para><para>Closes
           the loaded simulation.</para></listitem><listitem><para>Quit</para><para>Quits
           the application.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Edit-Menu</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Edit Chosen...</para><para>Opens
+          a dialog that lets you load/save and edit the list of chosen items.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Settings-Menu</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Application
-          Settings</para><para>By now, one can only set whether the
+          Settings...</para><para>By now, one can only set whether the
           application shall be closed automatically when the loaded simulation
-          ends.</para></listitem><listitem><para>Simulation Settings</para><para>Displays
+          ends.</para></listitem><listitem><para>Simulation Settings...</para><para>Displays
           the settings as read from the configuration file. This item is only
           accessible if a simulation has been loaded.</para><caution><para>Under
           current development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
@@ -3336,11 +3413,17 @@
         <sect3>
           <title>Windows-Menu</title>
 
-          <para><itemizedlist spacing="compact"><listitem><para>Show Log
-          Window</para><para>By pressing this menu item, you can switch the
-          log window off and on.</para></listitem><listitem><para>Cascade</para><para>Reorders
-          the position of windows.</para></listitem><listitem><para>Tile</para><para>Reorders
-          the position of windows.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>Show Status
+          Line</para><para>By pressing this menu item, you can switch the
+          status line off and on.</para></listitem><listitem><para>Show
+          Message Window</para><para>By pressing this menu item, you can
+          switch the message window off and on.</para></listitem><listitem><para>Show
+          Tool Bar</para><para>By pressing this menu item, you can switch the
+          toolbar off and on.</para></listitem><listitem><para>Tile
+          Horizontally</para><para>Reorders the position of windows.</para></listitem><listitem><para>Tile
+          Vertically</para><para>Reorders the position of windows.</para></listitem><listitem><para>Cascade</para><para>Reorders
+          the position of windows.</para></listitem><listitem><para>Close</para><para>Closes
+          the uppermost window.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -3379,8 +3462,8 @@
           Button <inlinegraphic fileref="./user_gfx/stop.gif" format="GIF" /></para><para>Stops
           a running application. A stopped application can be continued using
           the play-button (see above).</para></listitem><listitem><para>Single
-          Step Button <inlinegraphic fileref="./user_gfx/step.gif" format="GIF" /></para><para>Performs
-          a single simulation step.</para></listitem><listitem><para>Current
+          Step Button <inlinegraphic fileref="./user_gfx/step.gif"
+          format="GIF" /></para><para>Performs a single simulation step.</para></listitem><listitem><para>Current
           Step Field</para><para>After the loaded simulation has been started,
           the information about the current time step is displayed herein.</para></listitem><listitem><para>Simulation
           Speed Control</para><para>The value you can change using this
@@ -3393,15 +3476,15 @@
 
           <para><itemizedlist spacing="compact"><listitem><para>New
           Microscopic View - Button <inlinegraphic
-          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens a
-          new window which displays the streets and vehicles moving on them.</para><caution><para>If
+          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens
+          a new window which displays the streets and vehicles moving on them.</para><caution><para>If
           the previous window is maximized (fills the whole application area),
           the new one will be maximized, too. This lets the previous window
           disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
           both windows.</para></caution></listitem><listitem><para>New
           Lane-Aggregated View - Button <inlinegraphic
-          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens a
-          new window which displays the streets and vehicles moving on them.</para><caution><para>If
+          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens
+          a new window which displays the streets and vehicles moving on them.</para><caution><para>If
           the previous window is maximized (fills the whole application area),
           the new one will be maximized, too. This lets the previous window
           disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
@@ -3442,26 +3525,6 @@
         </sect3>
 
         <sect3>
-          <title>Tracking Settings</title>
-
-          <para><itemizedlist spacing="compact"><listitem><para>Locate
-          Junction - Button <inlinegraphic fileref="./user_gfx/locate_junction.gif"
-          format="GIF" /></para><para>Opens a window that allows to choose a
-          junction name from the set of junctions the network consists of.
-          Pressing ok with a chosen junction zooms the view to this junction.</para></listitem><listitem><para>Locate
-          Edge - Button <inlinegraphic fileref="./user_gfx/locate_edge.gif"
-          format="GIF" /></para><para>Opens a window that allows to choose an
-          edge name from the set of junctions the network consists of.
-          Pressing ok with a chosen edge zooms the view to this edge.</para></listitem><listitem><para>Locate
-          Vehicle - Button <inlinegraphic fileref="./user_gfx/locate_vehicle.gif"
-          format="GIF" /></para><para>Opens a window that allows to choose a
-          vehicle name from the set of vehicle currently driving within the
-          simulation. Pressing ok with a chosen vehicle zooms the view to this
-          vehicle.</para><caution><para>Under current development. (Better do
-          not use it, may terminate the application with an error)</para></caution></listitem></itemizedlist></para>
-        </sect3>
-
-        <sect3>
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Change Vehicle
@@ -3494,15 +3557,39 @@
           Grid - Button <inlinegraphic fileref="./user_gfx/show_grid.gif"
           format="GIF" /></para><para>Turns the visualisation f the grid the
           network is mapped onto on/off. This is rather a debugging feature.</para></listitem><listitem><para>Show
-          Tool Tips - Button <inlinegraphic fileref="./user_gfx/show_tooltips.gif"
-          format="GIF" /></para><para>If this button is activated, the id for
-          the object the mouse pointer is over will be displayed.</para></listitem><listitem><para>Show
-          Full Geometry - Button <inlinegraphic
+          Tool Tips - Button <inlinegraphic
+          fileref="./user_gfx/show_tooltips.gif" format="GIF" /></para><para>If
+          this button is activated, the id for the object the mouse pointer is
+          over will be displayed.</para></listitem><listitem><para>Show Full
+          Geometry - Button <inlinegraphic
           fileref="./user_gfx/show_geometry.gif" format="GIF" /></para><para>Switches
           between full and simple - geometry. The picture beyond shows the
           difference between full and simple geometry mode.</para><figure><title>The
           difference between simple (left) and full (right) geometry mode</title><mediaobject><imageobject><imagedata
-          align="center" fileref="./user_gfx/simple_vs_full_geom.gif" format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
+          align="center" fileref="./user_gfx/simple_vs_full_geom.gif"
+          format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Tracking Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Locate
+          Junction - Button <inlinegraphic
+          fileref="./user_gfx/locate_junction.gif" format="GIF" /></para><para>Opens
+          a window that allows to choose a junction name from the set of
+          junctions the network consists of. Pressing ok with a chosen
+          junction zooms the view to this junction.</para></listitem><listitem><para>Locate
+          Edge - Button <inlinegraphic fileref="./user_gfx/locate_edge.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose an
+          edge name from the set of junctions the network consists of.
+          Pressing ok with a chosen edge zooms the view to this edge.</para></listitem><listitem><para>Locate
+          Vehicle - Button <inlinegraphic
+          fileref="./user_gfx/locate_vehicle.gif" format="GIF" /></para><para>Opens
+          a window that allows to choose a vehicle name from the set of
+          vehicle currently driving within the simulation. Pressing ok with a
+          chosen vehicle zooms the view to this vehicle.</para><caution><para>Under
+          current development. (Better do not use it, may terminate the
+          application with an error)</para></caution></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
