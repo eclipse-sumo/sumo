@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2002/04/15 07:38:52  dkrajzew
+// Addition of routes and detectors removed; a static information about the current time step (globaltime) implemented; output computation is now only invoked when needed
+//
 // Revision 1.4  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -136,12 +139,6 @@ public:
            MSPersonControl* wpc,
            DetectorCont* detectors );
 
-    /// Use this to add separetly loaded vehicles
-    void addVehicles( MSEmitControl* cont );
-
-    /// Use this to add seperatly loaded detectors
-    void addDetectors( DetectorCont *cont);
-
     /// Destructor.
     ~MSNet();
 
@@ -176,6 +173,11 @@ public:
     /** Returns the current simulation time in seconds. Current means
         start-time plus runtime. */
     double simSeconds();
+
+#ifdef _DEBUG
+    /** a visible variables for the current time step - for debugging purposes only */
+    static Time globaltime;
+#endif
 
 protected:
 

@@ -25,6 +25,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.5  2002/04/15 07:38:52  dkrajzew
+// Addition of routes and detectors removed; a static information about the current time step (globaltime) implemented; output computation is now only invoked when needed
+//
 // Revision 1.4  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -146,6 +149,10 @@ using namespace std;
 MSNet::DictType MSNet::myDict;
 MSNet::RouteDict MSNet::myRoutes;
 double MSNet::myDeltaT = 1;
+#ifdef _DEBUG
+MSNet::Time MSNet::globaltime;
+#endif
+
 
 MSNet::MSNet(string id, MSEdgeControl* ec,
              MSJunctionControl* jc,  
@@ -170,22 +177,6 @@ MSNet::~MSNet()
 }
 
 
-void 
-MSNet::addVehicles(MSEmitControl *cont) {
-    if(cont==0) 
-        return;
-    myEmitter->add(cont);
-}
-
-void 
-MSNet::addDetectors( MSNet::DetectorCont *cont) {
-    if(cont==0)
-        return;
-    copy(cont->begin(), cont->end(), back_inserter(*myDetectors));
-    cont->clear();
-}
-
-
 bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
@@ -200,6 +191,9 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         
     // the simulation loop
     for (Time myStep = start; myStep <= stop; ++myStep) {
+#ifdef _DEBUG
+        globaltime = myStep;
+#endif
     
 #ifdef _SPEEDCHECK
         if(myStep==100) {
@@ -244,11 +238,11 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         myEdges->detectCollisions();
 
         // simple output.     
-        ostringstream XMLOut;
-        XMLOut << "    <timestep id=\"" << myStep << "\">" << endl;
-        XMLOut << MSEdgeControl::XMLOut( *myEdges, 8 );
-        XMLOut << "    </timestep>" << endl;
         if ( craw ) { 
+            ostringstream XMLOut;
+            XMLOut << "    <timestep id=\"" << myStep << "\">" << endl;
+            XMLOut << MSEdgeControl::XMLOut( *myEdges, 8 );
+            XMLOut << "    </timestep>" << endl;
             (*craw) << XMLOut.str();
         }
     }
