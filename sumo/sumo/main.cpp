@@ -1,6 +1,6 @@
 /***************************************************************************
                           main.cpp
-			  The main procedure for the conversion / 
+			  The main procedure for the conversion /
 			  building of networks
                              -------------------
     project              : SUMO
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/04/29 13:52:07  dkrajzew
+// the program flow, especially the handling of errors improved
+//
 // Revision 1.5  2002/04/18 06:04:53  dkrajzew
 // Forgotten test switch removed
 //
@@ -81,7 +84,7 @@
  * used namespaces
  * ======================================================================= */
 using namespace std;
- 
+
 /* =========================================================================
  * static variables
  * ======================================================================= */
@@ -98,10 +101,10 @@ time_t	end;
  * data processing methods
  * ----------------------------------------------------------------------- */
 /**
- * checkSettings 
+ * checkSettings
  * Checks the build settings. The following constraints must be valid:
  * - the network-file was specified (otherwise no simulation is existing)
- * - a junction folder must be given 
+ * - a junction folder must be given
  *   (otherwise no junctions can be loaded)
  * - the begin and the end of the simulation must be given
  * Returns true when all constraints are valid
@@ -132,7 +135,7 @@ checkSettings(OptionsCont *oc) {
     return ok;
 }
 
-/** 
+/**
  * getSettings
  * Builds the container of options and parses the configuration file
  * and the command line arguments using it. After this, the settings are
@@ -140,7 +143,7 @@ checkSettings(OptionsCont *oc) {
  * Returns 0 when something failed, otherwise the build OptionsCont.
  */
 OptionsCont *
-getSettings(int argc, char **argv) 
+getSettings(int argc, char **argv)
 {
     OptionsCont *oc;
 	oc = new OptionsCont();
@@ -193,14 +196,19 @@ getSettings(int argc, char **argv)
  */
 ostream *buildRawOutputStream(OptionsCont *oc) {
     if(oc->getBool("R"))
-	return 0;
-    
+	    return 0;
+
     filebuf *fb = new filebuf;
     ostream *craw = new ostream( (oc->getString("o")=="") ?
 	    cout.rdbuf() :
 	    fb->open(oc->getString("o").c_str(), ios::out|ios::trunc));
     if(craw->rdbuf()!=fb)
-	delete fb;
+	    delete fb;
+    if(!craw->good()) {
+        cout << "The output file '" << oc->getString("o") << "' could not be built." << endl;
+        cout << "Simulation failed." << endl;
+        throw ProcessError();
+    }
     return craw;
 }
 
@@ -209,7 +217,10 @@ ostream *buildRawOutputStream(OptionsCont *oc) {
  */
 MSNet *load(OptionsCont *oc) {
     NLNetBuilder builder(*oc);
-    return builder.build();
+    MSNet *ret = builder.build();
+    if(ret==0)
+        throw ProcessError();
+    return ret;
 }
 
 /**
@@ -238,19 +249,13 @@ main(int argc, char **argv)
         HelpPrinter::print(help);
         return 0;
     }
-    
-    // load the net
-    MSNet *net = load(oc);
 
-    // simulate when everything's ok
-    ostream *craw = 0;
-    if(net!=0) {
-        // possibly test the net before simulation
-        //if(oc->getBool("validate-nodes"))
-            //test(net, oc);
+    try {
+        // load the net
+        MSNet *net = load(oc);
 
-        // build the raw output
-        craw = buildRawOutputStream(oc);
+        // simulate when everything's ok
+        ostream *craw = buildRawOutputStream(oc);
         // report the begin when wished
         if(oc->getBool("v"))
             cout << "Simulation started with time: " << oc->getLong("b") << endl;
@@ -269,9 +274,11 @@ main(int argc, char **argv)
         // report the end when wished
         if(oc->getBool("v"))
             cout << "Simulation ended at time: " << oc->getLong("e") << endl;
+        delete net;
+        delete craw;
+    } catch (ProcessError &e) {
+        ret = 1;
     }
-    delete net;
-    delete craw;
     return ret;
 }
 
