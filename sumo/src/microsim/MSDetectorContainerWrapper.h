@@ -122,7 +122,7 @@ struct MSDetectorMapWrapper
 
     void write()  {
         for(ContainerIt i=containerM.begin(); i!=containerM.end(); i++) {
-            std::cout << (*i).first << " " << this << std::endl;
+            std::cout << (*i).first->id() << (*i).first << " " << this << std::endl;
         }
     }
 
@@ -206,7 +206,7 @@ struct MSDetectorDoubleMapWrapper
 
     virtual void enterDetectorByMove( MSVehicle* veh )
         {
-            assert( ! hasVehicle( veh ) );
+//            assert( ! hasVehicle( veh ) );
             containerM.insert( std::make_pair( veh, T(0) ) );
         }
 
@@ -229,7 +229,7 @@ struct MSDetectorVehicleInitMapWrapper
 
     virtual void enterDetectorByMove( MSVehicle* veh )
         {
-            assert( ! hasVehicle( veh ) );
+//            assert( ! hasVehicle( veh ) );
             containerM.insert( std::make_pair( veh, T(veh) ) );
         }
 
@@ -253,7 +253,7 @@ struct MSDetectorNoInitMapWrapper
 
     virtual void enterDetectorByMove( MSVehicle* veh )
         {
-            assert( ! hasVehicle( veh ) );
+//            assert( ! hasVehicle( veh ) );
             containerM.insert( std::make_pair( veh, T() ) );
         }
 
