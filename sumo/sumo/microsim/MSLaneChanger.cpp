@@ -23,6 +23,11 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/04/18 12:18:39  croessel
+// Bug-fix: Problem was that a right and a left vehicle could change to a
+// middle lane, even though they were overlapping. Solution: Introduction
+// of hoppedVeh in ChangeElem and method overlapWithHopped().
+//
 // Revision 1.3  2002/04/18 11:37:33  croessel
 // In updateLanes(): changed swap() against assignment.
 //
@@ -86,10 +91,11 @@ MSLaneChanger::MSLaneChanger( MSEdge::LaneCont* lanes )
     for ( MSEdge::LaneCont::iterator lane = lanes->begin();
           lane != lanes->end(); ++lane ) {
         ChangeElem ce;
-        ce.follow = 0;
-        ce.lead   = 0;
-        ce.lane   = *lane;
-        ce.veh    = ( *lane )->myVehicles.begin();
+        ce.follow    = 0;
+        ce.lead      = 0;
+        ce.lane      = *lane;
+        ce.veh       = ( *lane )->myVehicles.begin();
+        ce.hoppedVeh = 0;
         myChanger.push_back( ce );
     }   
 }
@@ -187,11 +193,13 @@ MSLaneChanger::change()
 
         if ( change2right() ) {
             
+            ( myCandi - 1 )->hoppedVeh = veh( myCandi );
             ( myCandi - 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             return;
         }
         if ( change2left() ) {
 
+            ( myCandi + 1 )->hoppedVeh = veh( myCandi );
             ( myCandi + 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             return;
         }
@@ -201,6 +209,7 @@ MSLaneChanger::change()
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
             
+            target->hoppedVeh = veh( myCandi );
             target->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             return;
         }
@@ -317,6 +326,10 @@ MSLaneChanger::change2right()
         return false;    
     }
     ChangerIt target = myCandi - 1;
+    if ( overlapWithHopped( target ) ) {
+        
+        return false;
+    }
     if ( ! candiOnAllowed( target ) ) {
 
         return false;
@@ -344,6 +357,10 @@ MSLaneChanger::change2left()
     // an allowed one, cancel the try. Otherwise, check some conditions.
     // If they are simultaniously fulfilled, a change is possible.
     ChangerIt target = myCandi + 1;
+    if ( overlapWithHopped( target ) ) {
+        
+        return false;
+    }
     if ( target == myChanger.end() ||
          ! candiOnAllowed( target ) ) {
 
@@ -409,6 +426,10 @@ MSLaneChanger::change2target( ChangerIt target )
 {
     // We are changing to an allowed lane. This change has to be a safe
     // one. Other conditions are irrelevant.
+    if ( overlapWithHopped( target ) ) {
+        
+        return false;
+    }
     if ( 
          ! overlap( target ) &&
            safeChange( target )
@@ -658,6 +679,18 @@ MSLaneChanger::advan2left()
 
     // Compare the states.
     return MSVehicle::State::advantage( changeState, stayState );
+}
+
+//-------------------------------------------------------------------------//
+
+bool
+MSLaneChanger::overlapWithHopped( ChangerIt target )
+{
+    if ( target->hoppedVeh != 0 ) {
+
+        return MSVehicle::overlap( target->hoppedVeh, veh( myCandi ) );
+    }
+    return false;
 }
 
 //-------------------------------------------------------------------------//

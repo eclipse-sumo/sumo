@@ -17,8 +17,13 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/18 12:18:39  croessel
+// Bug-fix: Problem was that a right and a left vehicle could change to a
+// middle lane, even though they were overlapping. Solution: Introduction
+// of hoppedVeh in ChangeElem and method overlapWithHopped().
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.1  2002/03/21 11:31:53  croessel
 // Changed onAllowed to candiOnAllowed. Now the changeCandidate checks
@@ -65,6 +70,7 @@ protected:
         MSVehicle*                lead;
         MSLane*                   lane;
         MSLane::VehCont::iterator veh;
+        MSVehicle*                hoppedVeh;
     };
 
     typedef std::vector< ChangeElem > Changer;
@@ -138,6 +144,10 @@ protected:
     /** Returns true, if candidate has an advantage by changing to the 
         left. */
     bool advan2left();
+
+    /** Returns true if candidate overlaps with a vehicle, that
+        already changed the lane.*/
+    bool overlapWithHopped( ChangerIt target );
 
 private:
     /// Container for ChangeElemements, one for every lane in the edge.
