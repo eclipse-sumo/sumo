@@ -17,21 +17,21 @@ RORouter::~RORouter()
 }
 
 ROEdgeVector
-RORouter::compute(ROEdge *from, ROEdge *to)
+RORouter::compute(ROEdge *from, ROEdge *to, long time)
 {
     // check whether the route is already known
     if(_net.knowsRouteSnipplet(from, to)) {
         return _net.getRouteSnipplet(from, to); // !!! invalid over time
     }
     // otherwise, build, save and return a new route
-    ROEdgeVector ret = dijkstraCompute(from, to);
+    ROEdgeVector ret = dijkstraCompute(from, to, time);
     _net.addRouteSnipplet(ret);
     return ret;
 }
 
 
 ROEdgeVector
-RORouter::dijkstraCompute(ROEdge *from, ROEdge *to) {
+RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
     // retrieve the nodes
     // check the nodes
     if(from==0||to==0) {
@@ -59,7 +59,7 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to) {
 		if(minimumKnot == to)
 			found = true;
 		minimumKnot->setExplored(true);
-        float effort = minimumKnot->getNextEffort();
+        float effort = minimumKnot->getNextEffort(time);
 		// check all ways from the node with the minimal length
         size_t i = 0;
         size_t length_size = minimumKnot->getNoFollowing();
@@ -76,13 +76,22 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to) {
             if(newfront)
                 frontierList.push(help);
 		}
+/*
+        priority_queue<ROEdge*, 
+            vector<ROEdge*>, 
+            NodeByDistanceComperator> tmp(frontierList);
+        while(!tmp.empty()) {
+            ROEdge *edge = tmp.top();
+            tmp.pop();
+            cout << edge->getID() << "(" << edge->getCost(time) << ", " << edge->getEffort() << "), ";
+        }
+        cout << endl;
+*/
 		if(found) {
             return buildPathFrom(to);
 		}
 	}
-    ROEdgeVector ret;
-    ret.add(from);
-	return ret;
+    return buildPathFrom(to);
 }
 
 

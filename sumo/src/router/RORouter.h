@@ -16,18 +16,18 @@ private:
 public:
     RORouter(RONet &net, ROEdgeCont *source);
     ~RORouter();
-    ROEdgeVector compute(ROEdge *from, ROEdge *to);
+    ROEdgeVector compute(ROEdge *from, ROEdge *to, long time);
 private:
     class NodeByDistanceComperator : public std::less<ROEdge*> {
     public:
         explicit NodeByDistanceComperator() { }
         ~NodeByDistanceComperator() { }
         bool operator()(ROEdge *nod1, ROEdge *nod2) const {
-            return nod1->getEffort()<nod2->getEffort();
+            return nod1->getEffort()>nod2->getEffort();
         }
     };
 
-    ROEdgeVector dijkstraCompute(ROEdge *from, ROEdge *to);
+    ROEdgeVector dijkstraCompute(ROEdge *from, ROEdge *to, long time);
     ROEdgeVector buildPathFrom(ROEdge *rbegin);
 };
 
