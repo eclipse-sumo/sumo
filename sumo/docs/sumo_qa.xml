@@ -21,7 +21,7 @@
         GUIApplicationWindow::initMetaObject(void)&#34;
         (?initMetaObject@GUIApplicationWindow@@MAEXXZ)</para>
 
-        <para>Do you have any suggestions to resolve this problem ? </para>
+        <para>Do you have any suggestions to resolve this problem ?</para>
 
         <para><emphasis>Answer:</emphasis> Yes, those files are used by the
         Qt-library (www.troll-tech.com) and are build automatically. If you
@@ -37,7 +37,51 @@
         the environment variable &#34;QTDIR&#34; to the folder you have
         installed Qt into (not to the bin-folder as you may see from the calls
         within the project). This should let MSVC++ build the moc*-files
-        first. </para>
+        first.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Netconvert</title>
+
+    <sect2>
+      <title>Using Windows</title>
+
+      <sect3>
+        <title>The application hangs after a while (few memory consumption,
+        most of the system time)</title>
+
+        <para><emphasis>Question: </emphasis>When I start the SUMO-NETCONEVERT
+        with large networks, the system hangs after a while. The program uses
+        most of the system time, but when I look into the task manager almost
+        no memory is used.</para>
+
+        <para><emphasis>Answer:</emphasis> You are propably running a program
+        compiled in the debug-mode. This yields in at least the triple of
+        normal memory usage and your system hangs. Try to use the normal
+        version, build in Release-mode.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Visualisation</title>
+
+    <sect2>
+      <title>Using Windows</title>
+
+      <sect3>
+        <title>Display flickers in the area of the mouse pointer</title>
+
+        <para><emphasis>Question: </emphasis>Why is the view around the mouse
+        pointer distorted?</para>
+
+        <para><emphasis>Answer:</emphasis> Newer Windows-Versions seem to
+        cache the area under the mouse to apply the mouse shadow afterwards.
+        To avoid this, go to your Systemmenu, then Mouse-&#62;Pointers and
+        disable the mouse shadows. That&#39;s the only solution so far.
+        (Origin: Till Oliver Knoll, via QT Interest List)</para>
       </sect3>
     </sect2>
   </sect1>
