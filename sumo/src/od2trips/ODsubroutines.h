@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 09:38:21  dkrajzew
+// coding style adaptations
+//
 // Revision 1.7  2003/08/21 12:57:59  dkrajzew
 // buffer overflow bug#1 removed
 //
@@ -55,20 +58,21 @@ class ODDistrictCont;
 /* =========================================================================
  * method declarations
  * ======================================================================= */
-extern int ODread (string, vector<OD_IN>&, long*, long*,
+extern int ODread (std::string, std::vector<OD_IN>&, long*, long*,
                    long*, long*, float* );
 
-extern int ODPtvread (string, vector<OD_IN>&, long*, long*, long*,
+extern int ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, long*,
                       long*, float* );
 
-extern int ODWrite (string , vector<OD_OUT>& , long int,
+extern int ODWrite (std::string , std::vector<OD_OUT>& , long int,
                     ODDistrictCont &districts);
 
 extern int Get_rand (int, int, int, int*, int*, bool);
 
 extern void IndexSort (long int*, long int*, CMPFUN, long int);
 
-extern void ODInpread (string , std::vector<std::string> &infiles/*string infiles[MAX_INFILES]*/,
+extern void ODInpread (std::string,
+                       std::vector<std::string> &infiles/*string infiles[MAX_INFILES]*/,
                        std::vector<ODContent> &content/*[MAX_CONTENT]*//*, int**/);
 
 

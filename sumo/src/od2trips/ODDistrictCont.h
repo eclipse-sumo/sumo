@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:38:21  dkrajzew
+// coding style adaptations
+//
 // Revision 1.4  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
 // Revision 1.3  2003/02/07 10:44:19  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,6 +38,7 @@
 
 #include "ODDistrict.h"
 #include <utils/common/NamedObjectCont.h>
+
 
 /* =========================================================================
  * class definitions
@@ -75,9 +76,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ODDistrictCont.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:38:21  dkrajzew
+// coding style adaptations
+//
 // Revision 1.6  2004/01/26 07:08:30  dkrajzew
 // patched errors occuring due to the new NamedOjectMap implementation
 //
@@ -35,9 +38,6 @@ namespace
 // Revision 1.3  2003/02/07 10:44:19  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,8 +50,16 @@ namespace
 #include <utils/common/NamedObjectCont.h>
 #include "ODDistrictCont.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ODDistrictCont::ODDistrictCont()
     : myHadColorized(false)
 {
@@ -109,11 +117,7 @@ ODDistrictCont::getDistrictColor(const std::string &name) const
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODDistrictCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

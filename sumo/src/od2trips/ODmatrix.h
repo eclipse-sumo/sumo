@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 09:38:21  dkrajzew
+// coding style adaptations
+//
 // Revision 1.7  2003/08/21 12:57:59  dkrajzew
 // buffer overflow bug#1 removed
 //
@@ -52,10 +55,6 @@
 
 typedef int (*CMPFUN)(long int, long int);
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
-using namespace std;
 
 /* =========================================================================
  * class definitions
@@ -67,9 +66,9 @@ using namespace std;
 class OD_IN {
 public:
     // source district name
-    string from;
+    std::string from;
     /// destination district name
-    string to;
+    std::string to;
 
     unsigned short int how_many;
 };
@@ -78,9 +77,9 @@ public:
 class OD_OUT {
 public:
     // source district name
-    string from;
+    std::string from;
     /// destination district name
-    string to;
+    std::string to;
     unsigned int type;
     unsigned int time;
 };
@@ -92,10 +91,10 @@ const int MAX_LINELENGTH=500;
 const int MAX_CONTENT=200;
 
 typedef struct content {
-	int id;
-	int max;
-	int	cartype[MAX_CARTYPES];
-	float fraction[MAX_CARTYPES];
+    int id;
+    int max;
+    int cartype[MAX_CARTYPES];
+    float fraction[MAX_CARTYPES];
 } ODContent;
 
 
