@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/12 16:39:19  dkrajzew
+// artemis route support added
+//
 // Revision 1.4  2003/03/03 15:08:21  dkrajzew
 // debugging
 //
@@ -61,6 +64,7 @@ namespace
 #include "ROSUMORoutesHandler.h"
 #include "ROCellRouteDefHandler.h"
 #include "ROSUMOAltRoutesHandler.h"
+#include "ROArtemisRouteDefHandler.h"
 #include "ROTypedRoutesLoader.h"
 
 
@@ -121,6 +125,13 @@ ROLoader::openRoutes(RONet &net)
                 _options.getFloat("gBeta"),
                 _options.getFloat("gA")),
             "cell-input");
+    }
+    // load artemis routes when wished
+    if(_options.isSet("artemis-input")) {
+        openTypedRoutes(
+            new ROArtemisRouteDefHandler(
+                net),
+            "artemis-input");
     }
     // load the sumo-alternative file when wished
     if(_options.isSet("alternatives")) {
