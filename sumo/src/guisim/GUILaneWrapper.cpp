@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/12 16:52:06  dkrajzew
+// centering of objects debuggt
+//
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -143,6 +146,12 @@ GUILaneWrapper::getOverallMaxSpeed()
     return myAllMaxSpeed;
 }
 
+
+bool 
+GUILaneWrapper::forLane(const MSLane &lane) const
+{
+    return (&myLane)==(&lane);
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

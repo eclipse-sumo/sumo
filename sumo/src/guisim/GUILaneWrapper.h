@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/12 16:52:06  dkrajzew
+// centering of objects debuggt
+//
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -95,6 +98,9 @@ public:
 
     /// Returns the fastest known lane speed
     static double getOverallMaxSpeed();
+
+    /// Returns true if the given lane id the lane this wrapper wraps the geometry of
+    bool forLane(const MSLane &lane) const;
 
 protected:
     /// the begin position of the lane

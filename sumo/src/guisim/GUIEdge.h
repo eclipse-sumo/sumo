@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/12 16:52:06  dkrajzew
+// centering of objects debuggt
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -105,6 +108,9 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
+    /// Returns the given position on the given lane
+    Position2D getLanePosition(const MSLane &lane, double pos) const;
+
 private:
 
     /// the origin and the destination junction
@@ -115,6 +121,26 @@ private:
 
     /// List of the edge's lanes geometrical information
     LaneWrapperVector _laneGeoms;
+    
+    /**
+     * A class to find the matching lane wrapper
+     */
+    class lane_wrapper_finder {
+    public:
+        /** constructor */
+        explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }
+
+        /** the comparing function */
+        bool operator() (GUILaneWrapper *wrapper) {
+            return wrapper->forLane(myLane);
+        }
+
+    private:
+        /// The time to search for
+        const MSLane &myLane;
+
+    };
+
 
 private:
     /// invalidated copy constructor

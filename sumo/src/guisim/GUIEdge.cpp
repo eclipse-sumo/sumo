@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:52:05  dkrajzew
+// centering of objects debuggt
+//
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -93,7 +96,7 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
         GUILaneWrapper *wrapper =
-            new GUILaneWrapper(*(*i), x1+xoff, y1+yoff, x2+xoff, y2+yoff);
+            new GUILaneWrapper(*(*i), x1-xoff, y1-yoff, x2-xoff, y2-yoff);
         idStorage.registerObject(wrapper);
         tmp.push_back(wrapper);
         xoff += offsets.first;
@@ -216,6 +219,23 @@ GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     if ( myLanes->size() > 1 ) {
         myLaneChanger = new GUILaneChanger( myLanes );
     }
+}
+
+
+Position2D 
+GUIEdge::getLanePosition(const MSLane &lane, double pos) const
+{
+    LaneWrapperVector::const_iterator i = 
+        find_if(_laneGeoms.begin(), _laneGeoms.end(), 
+        lane_wrapper_finder(lane));
+    // the lane should be one of this edge
+    assert(i!=_laneGeoms.end());
+    // compute the position and return it
+    const Position2D &laneEnd = (*i)->getBegin();
+    const Position2D &laneDir = (*i)->getDirection();
+    double posX = laneEnd.x() - laneDir.x() * pos;
+    double posY = laneEnd.y() - laneDir.y() * pos;
+    return Position2D(posX, posY);
 }
 
 

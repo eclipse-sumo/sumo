@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:52:06  dkrajzew
+// centering of objects debuggt
+//
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -104,15 +107,19 @@ GUINet::getJunctionPosition(const std::string &name) const
 
 
 Position2D
-GUINet::getVehiclePosition(const std::string &name) const
+GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
 {
     MSVehicle *vehicle = MSVehicle::dictionary(name);
+    if(vehicle==0) {
+        // !!!
+    }
     const GUIEdge * const edge =
         static_cast<const GUIEdge * const>(vehicle->getEdge());
     double pos = vehicle->pos();
-    return Position2D(
-        (edge->fromXPos()+edge->toXPos()) / 2.0,
-        (edge->fromYPos()+edge->toYPos()) / 2.0);
+    if(useCenter) {
+        pos -= (vehicle->length() / 2.0);
+    }
+    return edge->getLanePosition(vehicle->getLane(), pos);
 }
 
 
