@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/08/02 11:56:31  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.2  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed
 //
@@ -78,7 +81,7 @@ GUIJunctionControlBuilder::buildNoLogicJunction()
             i!=m_pActiveInLanes.end(); i++) {
         cont->push_back(*i);
     }*/
-    return new GUINoLogicJunction(m_CurrentId, m_X, m_Y,
+    return new GUINoLogicJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, myShape);
 }
 
@@ -90,7 +93,7 @@ GUIJunctionControlBuilder::buildLogicJunction()
 /*    MSRightOfWayJunction::LaneCont internal = getInternalLaneContSecure();
     MSRightOfWayJunction::LaneCont incoming = getIncomingLaneContSecure();*/
     // build the junction
-    return new GUIRightOfWayJunction(m_CurrentId, m_X, m_Y,
+    return new GUIRightOfWayJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype, myShape);
     myShape.clear();
 }
