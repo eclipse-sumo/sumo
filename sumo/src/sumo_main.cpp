@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/07/21 18:17:28  roessel
+// Creation of SingletonDictionaries for Detectors added. Move to another place?
+//
 // Revision 1.13  2003/06/24 14:41:37  dkrajzew
 // the correct step number is now prompted as the step the simulation ended at
 //
@@ -38,7 +41,10 @@ namespace
 // false order of calling XML- and Options-subsystems patched
 //
 // Revision 1.9  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+// or an error now; it is reported to a Singleton (MsgHandler); this handler
+// puts it further to output instances. changes: no verbose-parameter needed;
+// messages are exported to singleton
 //
 // Revision 1.8  2003/06/06 10:54:20  dkrajzew
 // deletion of the MSLaneState-singleton map added
@@ -62,7 +68,8 @@ namespace
 // sources and detectors joined with triggers to additional-files
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
-// Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
+// Moved from ROOT/sumo to ROOT/src; added further help and main files for
+// netconvert, router, od2trips and gui version
 //
 // Revision 1.9  2002/07/31 17:42:10  roessel
 // Changes since sourceforge cvs request.
@@ -71,13 +78,15 @@ namespace
 // Source handling added
 //
 // Revision 1.11  2002/07/11 07:30:43  dkrajzew
-// Option_FileName invented to allow relative path names within the configuration files; two not yet implemented parameter introduced
+// Option_FileName invented to allow relative path names within the
+// configuration files; two not yet implemented parameter introduced
 //
 // Revision 1.10  2002/07/02 12:48:10  dkrajzew
 // --help now does not require -c
 //
 // Revision 1.9  2002/07/02 08:16:19  dkrajzew
-// Program flow changed to allow better options removal; return values corrected
+// Program flow changed to allow better options removal; return values
+// corrected
 //
 // Revision 1.8  2002/06/17 15:57:43  dkrajzew
 // unreferenced variable declarations removed
@@ -104,7 +113,8 @@ namespace
 // help-output added
 //
 // Revision 2.5  2002/03/15 12:45:49  dkrajzew
-// Warning is set to true forever due to bugs in value testing when no warnings are used (will be fixed later)
+// Warning is set to true forever due to bugs in value testing when no
+// warnings are used (will be fixed later)
 //
 // Revision 2.4  2002/03/14 08:09:13  traffic
 // Option for no raw output added
@@ -151,7 +161,9 @@ namespace
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
 #include <helpers/SingletonDictionary.h>
-#include <microsim/MSLaneState.h>
+#include <MSLaneState.h>
+#include <MSInductLoop.h>
+
 
 /* =========================================================================
  * used namespaces
@@ -166,22 +178,68 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 
-/**
- * loads the net, additional routes and the detectors
- */
-MSNet *
-load(OptionsCont &oc) {
-    // build the network first
-    NLNetBuilder builder(oc);
-    MSNet *ret = builder.buildMSNet();
-    if(ret==0) {
-        throw ProcessError();
+namespace 
+{
+    /**
+     * loads the net, additional routes and the detectors
+     */
+    MSNet *
+    load(OptionsCont &oc) {
+        // build the network first
+        NLNetBuilder builder(oc);
+        MSNet *ret = builder.buildMSNet();
+        if(ret==0) {
+            throw ProcessError();
+        }
+        return ret;
     }
-    return ret;
+
+
+    typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
+    typedef SingletonDictionary< std::string, MSInductLoop* > LoopDict;
+
+
+    void
+    createDictionaries( void )
+    {
+        LaneStateDict::create();
+        LoopDict::create();
+    }
+
+    void
+    setDictionariesFindMode( void )
+    {
+        // This is better done during the construction process. But until the
+        // SingletonDictionaries aren't widely used, we can do this here.
+        LaneStateDict::getInstance()->setFindMode();
+        LoopDict::getInstance()->setFindMode();
+    }
+
+    template< class Iter > void
+    deleteDictionaryContents( Iter start, Iter end )
+    {
+        while( start != end ) {
+            delete *start;
+            ++start;
+        }
+    }
+
+    void
+    deleteDictionariesAndContents( void )
+    {
+        LaneStateDict::ValueVector lsVec(
+            LaneStateDict::getInstance()->getStdVector() );
+        deleteDictionaryContents( lsVec.begin(), lsVec.end() );
+        delete LaneStateDict::getInstance();
+    
+        LoopDict::ValueVector loopVec(
+            LoopDict::getInstance()->getStdVector() );
+        deleteDictionaryContents( loopVec.begin(), loopVec.end() );
+        delete LoopDict::getInstance();
+    } 
 }
 
-
-
+#include "microsim/MSDetector2File.h"
 
 /* -------------------------------------------------------------------------
  * main
@@ -189,7 +247,7 @@ load(OptionsCont &oc) {
 int
 main(int argc, char **argv)
 {
-    SingletonDictionary< std::string, MSLaneState* >::create();
+    createDictionaries();
     size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
@@ -205,6 +263,21 @@ main(int argc, char **argv)
         // load the net
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
+        setDictionariesFindMode();
+        MSDetector2File<MSInductLoop>::create( 900 );
+        MSDetector2File<MSInductLoop>* det2file =
+            MSDetector2File<MSInductLoop>::getInstance();
+        LoopDict::ValueVector loops = LoopDict::getInstance()->getStdVector();
+        for(LoopDict::ValueVector::iterator it = loops.begin();
+            it != loops.end(); ++it ) {
+            cout << "id " << (*it)->getId() << endl;
+               
+            det2file->addDetectorAndInterval( (*it)->getId(), 1 );
+            det2file->addDetectorAndInterval( (*it)->getId(), 60 );
+            det2file->addDetectorAndInterval( (*it)->getId(), 900 );
+        } 
+
+        
         // simulate when everything's ok
         ostream *craw = SUMOFrame::buildRawOutputStream(oc);
         // report the begin when wished
@@ -226,7 +299,7 @@ main(int argc, char **argv)
         ret = 1;
     }
     SystemFrame::close();
-    SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
-    delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
+
+    deleteDictionariesAndContents();
     return ret;
 }
