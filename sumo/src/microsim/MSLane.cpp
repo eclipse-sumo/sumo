@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.40  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.39  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -190,8 +193,8 @@ namespace
 // Inlined some methods. See the .icc files.
 //
 // Revision 1.8  2002/04/24 13:06:47  croessel
-// Changed signature of void detectCollisions() to void detectCollisions(
-// MSNet::Time )
+// Changed signature of void detectCollisions()
+//  to void detectCollisions(MSNet::Time )
 //
 // Revision 1.7  2002/04/18 14:51:11  croessel
 // In setDriveRequests(): set gap to UINT_MAX instead of 0 for vehicles
@@ -346,6 +349,7 @@ namespace
 #include "MSLane.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
+#include "MSVehicleControl.h"
 #include <cmath>
 #include <bitset>
 #include <iostream>
@@ -890,7 +894,7 @@ MSLane::push(MSVehicle* veh)
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
         veh->removeApproachingInformationOnKill(this);
-        MSVehicle::remove(veh->id());
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
     // check whether the vehicle has ended his route
@@ -905,7 +909,7 @@ MSLane::push(MSVehicle* veh)
         return false;
     } else {
         veh->onTripEnd(*this);
-        MSVehicle::remove(veh->id());
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         resetApproacherDistance();
         return true;
     }

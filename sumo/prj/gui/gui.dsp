@@ -431,6 +431,10 @@ SOURCE=..\..\src\guisim\GUIVehicle.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUIVehicleControl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.cpp
 # End Source File
 # Begin Source File
@@ -444,10 +448,6 @@ SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\guisim\GUIVehicleTransfer.cpp
 # End Source File
 # Begin Source File
 
@@ -744,6 +744,10 @@ SOURCE=..\..\src\microsim\MSVehicle.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSVehicleContainer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSVehicleControl.cpp
 # End Source File
 # Begin Source File
 
@@ -1498,6 +1502,10 @@ SOURCE=..\..\src\guisim\GUIVehicle.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUIVehicleControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.h
 # End Source File
 # Begin Source File
@@ -1511,10 +1519,6 @@ SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\guisim\GUIVehicleTransfer.h
 # End Source File
 # Begin Source File
 
@@ -1873,6 +1877,10 @@ SOURCE=..\..\src\microsim\MSVehicle.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSVehicleContainer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSVehicleControl.h
 # End Source File
 # Begin Source File
 

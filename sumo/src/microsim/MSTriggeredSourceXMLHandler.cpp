@@ -40,6 +40,7 @@
 #include "MSTriggeredSource.h"
 #include "MSLane.h"
 #include "MSRoute.h"
+#include "MSVehicleControl.h"
 #include <vector>
 #include <utility>
 #include <cassert>
@@ -500,7 +501,7 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
     }
 
     mySource.myIsNewEmitFound = true;
-    MSNet::getInstance()->newUnbuildVehicleLoaded();
+    MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
     return isProperEmitValues();
 }
 
@@ -586,6 +587,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.11  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.10  2003/07/30 09:17:29  dkrajzew
 // now reports to the MessageHandler
 //

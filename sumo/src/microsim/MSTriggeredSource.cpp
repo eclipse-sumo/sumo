@@ -41,7 +41,7 @@ namespace
 #include "MSVehicleType.h"
 #include "MSVehicle.h"
 #include "MSEventControl.h"
-//#include <xercesc/util/PlatformUtils.hpp>
+#include "MSVehicleControl.h"
 #include <utils/common/MsgHandler.h>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
@@ -261,7 +261,7 @@ MSTriggeredSource::emit( void )
 //      }
     // try to emit
     if ( myLane->isEmissionSuccess( myVehicle ) ) {
-        MSNet::getInstance()->myRunningVehNo++;
+        MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
         myIsNewEmitFound = false;
         readNextEmitElement();
         return 0;
@@ -297,12 +297,10 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             emit, aEmitTime,
             MSEventControl::ADAPT_AFTER_EXECUTION ) ) {
 
-        myVehicle = MSNet::getInstance()->buildNewVehicle(
-            aVehicleId,
-            myRouteDist.getRndRoute(),
-            aEmitTime,
+        myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
+            aVehicleId, myRouteDist.getRndRoute(), aEmitTime,
             aVehType, 0, 0, RGBColor(1, 1, 1));
-        MSNet::getInstance()->newUnbuildVehicleBuild();
+        MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
             assert( false ); // !!!
@@ -347,6 +345,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.17  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.16  2003/11/20 13:28:38  dkrajzew
 // loading and using of a predefined vehicle color added
 //

@@ -67,6 +67,7 @@ MSTriggeredXMLReader.cpp \
 MSUnit.cpp \
 MSVehicle.cpp \
 MSVehicleContainer.cpp \
+MSVehicleControl.cpp \
 MSVehicleTransfer.cpp \
 MSVehicleType.cpp \
 MS_E2_ZS_CollectorOverLanes.cpp \
@@ -153,9 +154,10 @@ MSUpdateEachTimestep.h \
 MSUpdateEachTimestepContainer.h \
 MSVehicle.h \
 MSVehicleContainer.h \
+MSVehicleControl.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
-MS_E2_ZS_CollectorOverLanes.h 
+MS_E2_ZS_CollectorOverLanes.h
 
 SUBDIRS = actions logging
 

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.47  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.46  2003/12/02 21:11:50  roessel
 // Changes due to renaming of detector files and classes.
 //
@@ -345,6 +348,7 @@ namespace
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
+#include "MSVehicleControl.h"
 #include <utils/common/MsgHandler.h>
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
@@ -387,7 +391,6 @@ std::string MSNet::searchedJunction = "536";
  * member method definitions
  * ======================================================================= */
 MSNet::MSNet()
-    : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0)
 {
 }
 
@@ -402,21 +405,17 @@ MSNet::getInstance( void )
     return 0;
 }
 
+
 void
-MSNet::preInit( MSVehicleTransfer *vt,
-                MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
-                std::string baseNameDumpFiles)
+MSNet::preInitMSNet(MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
+                    std::string baseNameDumpFiles)
 {
-    assert(vt!=0);
     myInstance = new MSNet();
-    MSVehicleTransfer::setInstance(vt);
-	myInstance->myLoadedVehNo = 0;
-	myInstance->myEmittedVehNo = 0;
-	myInstance->myRunningVehNo = 0;
-	myInstance->myEndedVehNo = 0;
+    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
+    myInstance->myVehicleControl = new MSVehicleControl(*myInstance);
 
     myInstance->myStep = startTimeStep;
-    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles/*, withGUI*/ );
+    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles);
 	myInstance->myEmitter = new MSEmitControl("");
     MSDetectorSubSys::createDictionaries();
 }
@@ -492,6 +491,7 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
     }
 }
 
+
 void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
@@ -536,12 +536,11 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
         myStep++;
-    }   while( myStep <= stop&&myLoadedVehNo>myEndedVehNo);
+    } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
     // exit simulation loop
     closeSimulation(craw);
     return true;
 }
-
 
 
 void
@@ -554,6 +553,7 @@ MSNet::initialiseSimulation(std::ostream *craw)
     }
 }
 
+
 void
 MSNet::closeSimulation(std::ostream *craw)
 {
@@ -563,8 +563,6 @@ MSNet::closeSimulation(std::ostream *craw)
         (*craw) << "</sumo-results>" << endl;
     }
 }
-
-
 
 
 void
@@ -585,8 +583,7 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     // emit Vehicles
     size_t emittedVehNo = myEmitter->emitVehicles(myStep);
-	myEmittedVehNo += emittedVehNo;
-	myRunningVehNo += emittedVehNo;
+    myVehicleControl->vehiclesEmitted(emittedVehNo);
     myEdges->detectCollisions( myStep );
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
 
@@ -741,55 +738,6 @@ MSNet::preStartInit()
 }
 
 
-MSVehicle *
-MSNet::buildNewVehicle( std::string id, MSRoute* route,
-                         MSNet::Time departTime, const MSVehicleType* type,
-                         int repNo, int repOffset, const RGBColor &col)
-{
-    size_t noIntervals = getNDumpIntervalls();
-	myLoadedVehNo++;
-    return new MSVehicle(id, route, departTime, type, noIntervals,
-        repNo, repOffset);
-}
-
-
-void
-MSNet::vehicleHasLeft(const std::string &)
-{
-    assert(myRunningVehNo>0);
-	myRunningVehNo--;
-	myEndedVehNo++;
-}
-
-
-size_t
-MSNet::getLoadedVehicleNo() const
-{
-    return myLoadedVehNo;
-}
-
-
-size_t
-MSNet::getEndedVehicleNo() const
-{
-    return myEndedVehNo;
-}
-
-
-size_t
-MSNet::getRunningVehicleNo() const
-{
-    return myRunningVehNo;
-}
-
-
-size_t
-MSNet::getEmittedVehicleNo() const
-{
-    return myEmittedVehNo;
-}
-
-
 MSNet::Time
 MSNet::getCurrentTimeStep() const
 {
@@ -797,17 +745,10 @@ MSNet::getCurrentTimeStep() const
 }
 
 
-void
-MSNet::newUnbuildVehicleLoaded()
+MSVehicleControl &
+MSNet::getVehicleControl() const
 {
-    myLoadedVehNo++;
-}
-
-
-void
-MSNet::newUnbuildVehicleBuild()
-{
-    myLoadedVehNo--;
+    return *myVehicleControl;
 }
 
 

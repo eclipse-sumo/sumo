@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.5  2003/11/20 14:58:21  dkrajzew
 // comments added
 //
@@ -34,6 +37,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include "MSLane.h"
 #include "MSVehicle.h"
+#include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 
 
@@ -55,7 +59,6 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 void
 MSVehicleTransfer::addVeh(MSLane &from)
 {
-    return;
     // remove the vehicle from the lane
     MSVehicle *veh = from.removeFirstVehicle(*this);
     // get the current edge of the vehicle
@@ -65,7 +68,8 @@ MSVehicleTransfer::addVeh(MSLane &from)
         + e->id() + string("'."));
     // let the vehicle be on the one
     if(veh->proceedVirtualReturnIfEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
-        removeVehicle(veh->id());
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+//        removeVehicle(veh->id());
         return;
     }
     // mark the next one
@@ -108,7 +112,8 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                         string("Vehicle '") + desc.myVeh->id()
                         + string("' ends teleporting on end edge '") + e->id()
                         + string("'."));
-                    removeVehicle(desc.myVeh->id());
+                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
+//                    removeVehicle(desc.myVeh->id());
                     i = myVehicles.erase(i);
                     continue;
                 }
@@ -123,13 +128,13 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
     }
 }
 
-
+/*
 void
 MSVehicleTransfer::removeVehicle(const std::string &id)
 {
     MSVehicle::remove(id);
 }
-
+*/
 
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance()

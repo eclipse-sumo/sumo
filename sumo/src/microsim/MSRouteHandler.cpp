@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.8  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -59,6 +62,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSVehicleControl.h>
 #include "MSRouteHandler.h"
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -76,6 +80,7 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -248,8 +253,8 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
         throw XMLIdNotKnownException("route", routeid);
     }
     MSVehicle *vehicle =
-        MSNet::getInstance()->buildNewVehicle(id, route, depart, vtype,
-            repNumber, repOffset, c);
+        MSNet::getInstance()->getVehicleControl().buildVehicle(id,
+            route, depart, vtype, repNumber, repOffset, c);
     if(!MSVehicle::dictionary(id, vehicle)) {
         throw XMLIdAlreadyUsedException("vehicle", id);
     }

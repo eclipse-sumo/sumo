@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.43  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -356,6 +359,7 @@ namespace
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/gfx/RGBColor.h>
+#include <microsim/MSVehicleControl.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -1459,7 +1463,6 @@ MSVehicle::clear()
 void
 MSVehicle::remove(const std::string &id)
 {
-	MSNet::getInstance()->vehicleHasLeft(id);
     DictType::iterator i = myDict.find(id);
     MSVehicle *veh = (*i).second;
     delete (*i).second;
@@ -1467,9 +1470,7 @@ MSVehicle::remove(const std::string &id)
 }
 
 
-
 /////////////////////////////////////////////////////////////////////////////
-
 
 double
 MSVehicle::speed() const
@@ -1947,9 +1948,9 @@ MSVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return MSNet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
-        myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
-        myPeriod, RGBColor(1, 1, 1));
+    return MSNet::getInstance()->getVehicleControl().buildVehicle(
+        StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
+        myType, myRepetitionNumber-1, myPeriod);
 }
 
 

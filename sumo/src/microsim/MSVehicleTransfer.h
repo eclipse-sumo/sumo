@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.3  2003/11/20 14:58:21  dkrajzew
 // comments added
 //
@@ -56,6 +59,9 @@ class MSVehicle;
 class MSVehicleTransfer
 {
 public:
+    // Default constructor
+    MSVehicleTransfer();
+
     /** @brief Adds a vehicle to this transfer object
         The vehicle is removed from the lane, assuming it is the first one */
     void addVeh(MSLane &firstFrom);
@@ -73,12 +79,7 @@ public:
     /// destructor
     virtual ~MSVehicleTransfer();
 
-    friend class NLNetBuilder;
-
 protected:
-    // Default constructor
-    MSVehicleTransfer();
-
     /// Kills a vehicle from the network
     void removeVehicle(const std::string &id);
 

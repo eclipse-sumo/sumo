@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.29  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.28  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -645,8 +648,7 @@ public:
 
     bool reachingCritical(double laneLength) const;
 
-    /// MSNet is allowed to build vehicles
-    friend class MSNet;
+    friend class MSVehicleControl;
 
     /** Returns the SK-vsafe. */
     double vsafe( double currentSpeed, double decelAbility,

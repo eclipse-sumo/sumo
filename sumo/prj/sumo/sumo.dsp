@@ -317,6 +317,10 @@ SOURCE=..\..\src\microsim\MSVehicleContainer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSVehicleControl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSVehicleTransfer.cpp
 # End Source File
 # Begin Source File
@@ -750,6 +754,10 @@ SOURCE=..\..\src\microsim\MSVehicle.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSVehicleContainer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSVehicleControl.h
 # End Source File
 # Begin Source File
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.37  2003/12/11 06:31:45  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.36  2003/11/20 13:27:42  dkrajzew
 // loading and using of a predefined vehicle color added
 //
@@ -273,6 +276,7 @@ class MSLane;
 class MSLaneState;
 class MSTLLogicControl;
 class MSVehicleTransfer;
+class MSVehicleControl;
 
 
 /* =========================================================================
@@ -311,7 +315,7 @@ public:
      * To finish the initialization call &ref init.
      * @param startTimestep Timestep the simulation will start with.
      */
-    static void preInit( MSVehicleTransfer *vt, Time startTimestep,
+    static void preInitMSNet( Time startTimestep,
         TimeVector dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
 
@@ -397,20 +401,6 @@ public:
     /// initialises items that require it befor simulation start
     void preStartInit();
 
-    /// builds a new vehicle
-    virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset, const RGBColor &col);
-/*
-    virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset);
-*/
-	/// informs the simulation about the destruction of a vehicle
-	void vehicleHasLeft(const std::string &id);
-
-
-
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
@@ -425,13 +415,6 @@ public:
 
     /// ----------------- speedcheck variables -------------
 
-    size_t getLoadedVehicleNo() const;
-
-    size_t getEndedVehicleNo() const;
-
-    size_t getRunningVehicleNo() const;
-
-    size_t getEmittedVehicleNo() const;
 
     Time getCurrentTimeStep() const;
 
@@ -471,10 +454,7 @@ public:
             return vehPerStep / myDeltaT * 3600;
         }
 
-
-    void newUnbuildVehicleLoaded();
-
-    void newUnbuildVehicleBuild();
+    MSVehicleControl &getVehicleControl() const;
 
     friend class MSTriggeredSource;
 
@@ -561,6 +541,9 @@ protected:
         of each lane is calculated and written to file. */
     std::vector< MeanData* > myMeanData;
 
+
+    MSVehicleControl *myVehicleControl;
+
     /// Indicates if we are using a GUI.
 //    bool myWithGUI;
 
@@ -578,14 +561,6 @@ private:
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
     MSNet();
-
-	size_t myLoadedVehNo;
-
-	size_t myEmittedVehNo;
-
-	size_t myRunningVehNo;
-
-	size_t myEndedVehNo;
 
 //     std::vector< MSLaneState* > laneStateDetectorsM;
 };
