@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/04/23 12:36:40  dkrajzew
+// further debugging work - reinserted a missing option
+//
 // Revision 1.9  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -262,7 +265,7 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
             FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
     myLaneColoring->appendItem("by density");
     myLaneColoring->appendItem("by mean speed");
-//    myLaneColoring->appendItem("by mean halts");
+    myLaneColoring->appendItem("by mean halts");
     myLaneColoring->appendItem("black");
     myLaneColoring->appendItem("by purpose");
     myLaneColoring->appendItem("by allowed speed");
