@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2004/01/26 09:53:28  dkrajzew
+// cedges are now written in counter-clockwise order
+//
 // Revision 1.40  2004/01/26 07:05:08  dkrajzew
 // problems on occurence of two backward edges patched
 //
@@ -664,9 +667,17 @@ NBEdge::writeXMLStep1(std::ostream &into)
     }
     into << "      </lanes>" << endl;
     // write the list of connected edges
-    for( LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->begin();
-         l!=_succeedinglanes->end(); l++) {
-        writeConnected(into, (*l).first, (*l).second);
+    const std::vector<NBEdge*> *tmp = getConnectedSorted();
+    std::vector<NBEdge*> sortedConnected = *tmp;
+    if(getTurnDestination()!=0) {
+        sortedConnected.push_back(getTurnDestination());
+    }
+    delete tmp;
+    for(std::vector<NBEdge*>::iterator l=sortedConnected.begin(); l!=sortedConnected.end(); l++) {
+        LanesThatSucceedEdgeCont::iterator m = _succeedinglanes->find(*l);
+        if(m!=_succeedinglanes->end()) {
+            writeConnected(into, (*m).first, (*m).second);
+        }
     }
     // close the edge
     into << "   </edge>" << endl << endl;
