@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/18 11:27:54  dkrajzew
+// some functions commented out removed
+//
 // Revision 1.7  2003/05/21 15:15:40  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -67,37 +70,6 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-/*
-GUIEdgeGrid::EdgeAssigner::EdgeAssigner(double xcellsize,
-                                        double ycellsize,
-                                        GUIEdgeCont *grid,
-                                        GUIEdge *edge, size_t xsize)
-	: _xcellsize(xcellsize), _ycellsize(ycellsize),
-	_grid(grid), _edge(edge),
-	_xsize(xsize)
-{
-}
-
-GUIEdgeGrid::EdgeAssigner::~EdgeAssigner()
-{
-}
-
-void
-GUIEdgeGrid::EdgeAssigner::execute(double x, double y)
-{
-	size_t xcell = (size_t) (x / _xcellsize);
-	size_t ycell = (size_t) (y / _ycellsize);
-	size_t offset = _xsize * ycell + xcell;
-cout << x << ", " << y << ", " << xcell << ", " << ycell << ", " << offset << endl;
-	if(_grid[offset].size()==0) {
-		_grid[offset].push_back(_edge);
-	} else {
-		if(_grid[offset].at(_grid[offset].size()-1)!=_edge)
-			_grid[offset].push_back(_edge);
-	}
-}
-*/
-
 GUIEdgeGrid::GUIEdgeGrid(size_t xsize, size_t ysize)
 	: _xsize(xsize), _ysize(ysize),
     _grid(0), _relations(0)
@@ -142,26 +114,6 @@ GUIEdgeGrid::init() {
         _relations[i] = new GUIEdgeCont[size];
     }
     buildRelationships();
-
-/*
-    for(size_t a1=0; a1<_ysize; a1++) {
-        for(size_t b1=0; b1<_xsize; b1++) {
-            size_t offset = a1*_xsize + b1;
-            cout << char(_grid[offset].size()+'a');
-        }
-        cout << endl;
-    }
-    cout << endl;
-    for(size_t z=0; z<3; z++) {
-        for(size_t a1=0; a1<_ysize; a1++) {
-            for(size_t b1=0; b1<_xsize; b1++) {
-                size_t offset = a1*_xsize + b1;
-                cout << char(_relations[z][offset].size()+'a');
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }*/
 }
 
 

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/06/18 11:27:54  dkrajzew
+// some functions commented out removed
+//
 // Revision 1.8  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -164,28 +167,6 @@ double
 GUIDanielPerspectiveChanger::getZoom() const
 {
     return _zoom;
-    /*
-    double scl = myNetWidth > myNetHeight
-        ? (double) myCanvasWidth / (double) _callback.getMaxGLWidth()
-        : (double) myCanvasHeight / (double) _callback.getMaxGLHeight();
-    return _zoom * scl * 0.95;
-    */
-/*
-
-    double scl = myNetWidth > myNetHeight
-        ? myNetWidth
-        : myNetHeight;
-    double xs = (double) myNetWidth / scl
-        * (double) myCanvasWidth / _callback.getMaxGLWidth();//800.0;
-    double ys = (double) myNetHeight / scl
-        * (double) myCanvasHeight / _callback.getMaxGLWidth();//800.0;
-//    double ys = (double) myNetHeight / (double) myCanvasHeight;
-    cout << "getZoom" << _zoom << ", " << xs << ", " << ys << endl;
-    return xs < ys
-        ? _zoom * xs * 0.95
-        : _zoom * ys * 0.95;
-    return _zoom;
-    */
 }
 
 
