@@ -74,11 +74,11 @@
 <p>Follow the link to <a class="SUMOInLineLink" href="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</a> to see the <a class="SUMOInLineLink" href="http://www.gnu.org/licenses/gpl.html">Licence</a>.</p>
 <p>See <a class="SUMOInLineLink" href="downloads/changes.html">Changes</a> for further information on the changes within the latest releases. See <a class="SUMOInLineLink" href="downloads/rel_policy.html">Release Policy</a> for information on the meaning of the release names.</p>
 
-<br><br>
+<hr>
 
 <p>
-<h2>SUMO - Latest Release (Version 0.8.2)</h2>
-<br>"stable"; All input and command line options will not be changed. Use this for a clean update.<br>
+<h2>SUMO - Latest Release (Version 0.8.2.1)</h2>
+<br>"stable"; All input and command line options will not be changed within the 0.8.2.x-line. Use this for your projects if you want to use the same settings for a longer time.<br>
 <br>Included: sumo, netconvert, netgen, jtrrouter, duarouter, od2trips.<br>
 <br>Please report bugs to
 <script language="JavaScript"  type="text/javascript">
@@ -94,19 +94,20 @@
      document.write('lists');
      document.write('.sourceforge.net');
      document.write('net">');--></script></a> or at <a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607&atid=443421">http://sourceforge.net/tracker/?group_id=45607&atid=443421</a>.
+<b>Please remind that several option names have changed!</b> The most important: "net-files" (router, simulation) is now "net-file"...<br>
+Check user documentation and man-pages for this.<br>
 
-     http://sourceforge.net/tracker/?group_id=45607&atid=443421</a>
 <ul>
     <li>The MS Windows binaries. <br>
     Contains the binaries, all dlls needed and some examples.<br>
-    Download as: <a class="SUMOInLineLink" href="downloads/sumo-winbin-0.8.2.zip">[sumo-winbin-0.8.2.zip, ~4MB]</a><br><br>
+    Download as: <a class="SUMOInLineLink" href="downloads/sumo-winbin-0.8.2.1.zip">[sumo-winbin-0.8.2.1.zip, ~4MB]</a><br><br>
 
     <li>The last stable Linux binaries.<br>
     Please use the source distribution; A compiled version is not supplied.<br><br>
 
-    <li>The last stable source-tarball. This one was built on 06.07.2004. Includes sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio .net-project workspace.<br>
-    Download as: <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.2.tar.gz">[sumo-src-0.8.2.tar.gz, ~4MB]</a>
-    <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.2.zip">[sumo-src-0.8.2.zip, ~4MB]</a><br><br>
+    <li>The last stable source-tarball. This one was built on 21.12.2004. Includes sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio .net-project workspace.<br>
+    Download as: <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.2.1.tar.gz">[sumo-src-0.8.2.1.tar.gz, ~4MB]</a>
+    <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.2.1.zip">[sumo-src-0.8.2.1.zip, ~4MB]</a><br><br>
 
     <li><b>Needed Libraries</b><br>
     Please use the versions we offer you here. We do not know whether or not other versions will be to 100% compatible<br>
@@ -114,11 +115,11 @@
         <li><a class="SUMOInLineLink" href="http://xml.apache.org/xerces-c/index.html">Xerces</a> (XML-parser)<br>
         Windows: <a class="SUMOInLineLink" href="downloads/xerces-c_2_5_0-windows_nt-msvc_60.zip">[.zip] (xerces-c_2_5_0-windows_nt-msvc_60.zip, ~11.1MB)</a><br>
         Linux: <a class="SUMOInLineLink" href="downloads/xerces-c_2_5_0-suse_81-gcc_32.tar.gz">[.tar.gz] (xerces-c_2_5_0-suse_81-gcc_32.tar.gz, ~7.5MB)</a><br>
-        Source Code: <a class="SUMOInLineLink" href="downloads/xerces-c-current.tar.gz">[.tar.gz] (xerces-c-current.tar.gz ~9MB)</a> <a class="SUMOInLineLink" href="downloads/xerces-c-current.zip">[.zip] (xerces-c-current.zip ~13.5MB)</a><br>
+        Source Code: <a class="SUMOInLineLink" href="downloads/xerces-c-current.tar.gz">[.tar.gz] (xerces-c-current.tar.gz ~9MB)</a> or <a class="SUMOInLineLink" href="downloads/xerces-c-src_2_5_0.zip">[.zip] (xerces-c-src_2_5_0.zip ~13.5MB)</a><br>
         <b>Please remark that we had major problems with the version 2.4.0</b><br><br>
 
         <li><a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a> (GUI Toolkit)<br>
-        <img src="images/attention_small.gif" border="0" width="15" height="16"><b>You <font color="red">must</font> download the version 1.2.x. SUMO does not compile with version 1.0 and possibly also not with versions higher than 1.2.</b><br>
+        <img src="images/attention_small.gif" border="0" width="15" height="16"><b>You <font color="red">must</font> download the version 1.2.x. SUMO does not compile with versions below 1.2 and possibly also not with versions higher than 1.2.</b><br>
         Source Code: <a class="SUMOInLineLink" href="downloads/fox-1.2.7.zip">[.zip] (fox-1.2.7.zip, ~6.5MB)</a> (zipped source files)<br>
         Sorry, no binaries are available...<br><br>
     </ul>
@@ -135,10 +136,7 @@
     Contains the binaries, all dlls needed and some examples.<br>
     Download as: <a class="SUMOInLineLink" href="downloads/sumo-winbin-0.8.0.2.zip">[sumo-winbin-0.8.0.2.zip, ~4MB]</a><br><br>
 
-    <li>The last stable Linux binaries.<br>
-    Please use the source distribution; A compiled version is not supplied.<br><br>
-
-    <li>The last stable source-tarball. This one was built on 06.07.2004. Includes sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio .net-project workspace.<br>
+    <li>Source-tarball. This one was built on 06.07.2004. Includes sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio .net-project workspace.<br>
     Download as: <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.0.2.tar.gz">[sumo-src-0.8.0.2.tar.gz, ~4MB]</a>
     <a class="SUMOInLineLink" href="downloads/sumo-src-0.8.0.2.zip">[sumo-src-0.8.0.2.zip, ~4MB]</a><br><br>
 
@@ -148,7 +146,7 @@
         <li><a class="SUMOInLineLink" href="http://xml.apache.org/xerces-c/index.html">Xerces</a> (XML-parser)<br>
         Windows: <a class="SUMOInLineLink" href="downloads/xerces-c_2_5_0-windows_nt-msvc_60.zip">[.zip] (xerces-c_2_5_0-windows_nt-msvc_60.zip, ~11.1MB)</a><br>
         Linux: <a class="SUMOInLineLink" href="downloads/xerces-c_2_5_0-suse_81-gcc_32.tar.gz">[.tar.gz] (xerces-c_2_5_0-suse_81-gcc_32.tar.gz, ~7.5MB)</a><br>
-        Source Code: <a class="SUMOInLineLink" href="downloads/xerces-c-current.tar.gz">[.tar.gz] (xerces-c-current.tar.gz ~9MB)</a> <a class="SUMOInLineLink" href="downloads/xerces-c-current.zip">[.zip] (xerces-c-current.zip ~13.5MB)</a><br>
+        Source Code: <a class="SUMOInLineLink" href="downloads/xerces-c-current.tar.gz">[.tar.gz] (xerces-c-current.tar.gz ~9MB)</a> or <a class="SUMOInLineLink" href="downloads/xerces-c-src_2_5_0.zip">[.zip] (xerces-c-src_2_5_0.zip ~13.5MB)</a><br>
         <b>Please remark that we had major problems with the version 2.4.0</b><br><br>
 
         <li><a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a> (GUI Toolkit)<br>

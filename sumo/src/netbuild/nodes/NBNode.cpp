@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/12/21 12:50:33  dkrajzew
+// post-release clean-up
+//
 // Revision 1.8  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -1387,7 +1390,10 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
     // check both
     if(src==0) {
         // maybe it was removed due to something
-        if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+        if( OptionsSubSys::getOptions().isSet("edges-min-speed")
+            ||
+            OptionsSubSys::getOptions().isSet("keep-edges")) {
+
             MsgHandler::getWarningInstance()->inform(
                 string("Could not set connection from node '") + from->getID()
                 + string("' to node '") + getID() + string("'."));
@@ -1399,7 +1405,10 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
         return;
     }
     if(dest==0) {
-        if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+        if( OptionsSubSys::getOptions().isSet("edges-min-speed")
+            ||
+            OptionsSubSys::getOptions().isSet("keep-edges")) {
+
             MsgHandler::getWarningInstance()->inform(
                 string("Could not set connection from node '") + getID()
                 + string("' to node '") + to->getID() + string("'."));

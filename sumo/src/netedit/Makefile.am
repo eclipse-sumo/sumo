@@ -1,6 +1,5 @@
-noinst_LIBRARIES = libnetedit.a
 
-libnetedit_a_SOURCES = ColorSelector.cpp ColorSelector.h \
+EXTRA_DIST = ColorSelector.cpp ColorSelector.h \
 ConfigDialog.cpp ConfigDialog.h \
 Edge.cpp Edge.h GNEApplicationWindow.cpp GNEApplicationWindow.h \
 GNEViewParent.cpp GNEViewParent.h GNEViewTraffic.cpp GNEViewTraffic.h \

@@ -502,7 +502,7 @@
       <xsl:with-param name="object" select="$context"/>
     </xsl:call-template>
   </xsl:variable>
-  
+
   <!--
   <xsl:message>href.to.uri: <xsl:value-of select="$href.to.uri"/></xsl:message>
   <xsl:message>href.from.uri: <xsl:value-of select="$href.from.uri"/></xsl:message>
@@ -701,8 +701,8 @@
 
   <xsl:variable name="row1" select="$navig.showtitles != 0"/>
   <xsl:variable name="row2" select="count($prev) &gt; 0
-                                    or (count($up) &gt; 0 
-					and generate-id($up) != generate-id($home)
+                                    or (count($up) &gt; 0
+                    and generate-id($up) != generate-id($home)
                                         and $navig.showtitles != 0)
                                     or count($next) &gt; 0"/>
 
@@ -738,7 +738,7 @@
               <th width="60%" align="center">
                 <xsl:choose>
                   <xsl:when test="count($up) > 0
-				  and generate-id($up) != generate-id($home)
+                  and generate-id($up) != generate-id($home)
                                   and $navig.showtitles != 0">
                     <xsl:apply-templates select="$up" mode="object.title.markup"/>
                   </xsl:when>
@@ -914,40 +914,40 @@
     <xsl:param name="direction" select="next"/>
     <xsl:variable name="navtext">
         <xsl:choose>
-	    <xsl:when test="$direction = 'prev'">
-		<xsl:call-template name="gentext.nav.prev"/>
-	    </xsl:when>
-	    <xsl:when test="$direction = 'next'">
-		<xsl:call-template name="gentext.nav.next"/>
-	    </xsl:when>
-	    <xsl:when test="$direction = 'up'">
-		<xsl:call-template name="gentext.nav.up"/>
-	    </xsl:when>
-	    <xsl:when test="$direction = 'home'">
-		<xsl:call-template name="gentext.nav.home"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-		<xsl:text>xxx</xsl:text>
-	    </xsl:otherwise>
-	</xsl:choose>
+        <xsl:when test="$direction = 'prev'">
+        <xsl:call-template name="gentext.nav.prev"/>
+        </xsl:when>
+        <xsl:when test="$direction = 'next'">
+        <xsl:call-template name="gentext.nav.next"/>
+        </xsl:when>
+        <xsl:when test="$direction = 'up'">
+        <xsl:call-template name="gentext.nav.up"/>
+        </xsl:when>
+        <xsl:when test="$direction = 'home'">
+        <xsl:call-template name="gentext.nav.home"/>
+        </xsl:when>
+        <xsl:otherwise>
+        <xsl:text>xxx</xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
     </xsl:variable>
 
     <xsl:choose>
-	<xsl:when test="$navig.graphics != 0">
-	    <img>
-		<xsl:attribute name="src">
-		    <xsl:value-of select="$navig.graphics.path"/>
-		    <xsl:value-of select="$direction"/>
-		    <xsl:value-of select="$navig.graphics.extension"/>
-		</xsl:attribute>
-		<xsl:attribute name="alt">
-		    <xsl:value-of select="$navtext"/>
-		</xsl:attribute>
-	    </img>
-	</xsl:when>
-	<xsl:otherwise>
-	    <xsl:value-of select="$navtext"/>
-	</xsl:otherwise>
+    <xsl:when test="$navig.graphics != 0">
+        <img>
+        <xsl:attribute name="src">
+            <xsl:value-of select="$navig.graphics.path"/>
+            <xsl:value-of select="$direction"/>
+            <xsl:value-of select="$navig.graphics.extension"/>
+        </xsl:attribute>
+        <xsl:attribute name="alt">
+            <xsl:value-of select="$navtext"/>
+        </xsl:attribute>
+        </img>
+    </xsl:when>
+    <xsl:otherwise>
+        <xsl:value-of select="$navtext"/>
+    </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
 
@@ -986,69 +986,71 @@
               <img src="../../images/sumo_full.gif" width="211" height="16"/></td>
           </tr>
           </table>
-		<hr/>
+        <hr/>
 
 
 <!-- Navigation bar begin -->
-		<table border="0">
-		<tr><td valign="top" width="120">
-		<div class="navbar">
-			<a href="../../index.html" class="SUMOMainLink">Home</a><br/>
-			<a href="../../overview.html" class="SUMOMainLink">Overview</a><br/>
-			<a href="../../documentation.html" class="SUMOMainLink">Documentation</a><br/>
-			
-   			<a href="../userdocs.html" class="SUMOSubLink">User Docs</a><br/>
-			<a href="user_index.html" class="SUMOSubSubLink">Index</a><br/>
-			<a href="user_chp01.html" class="SUMOSubSubLink">1. Introduction</a><br/>
-			<a href="user_chp02.html" class="SUMOSubSubLink">2. First Steps</a><br/>
-			<a href="user_chp03.html" class="SUMOSubSubLink">3. Traffic Sims</a><br/>
-			<a href="user_chp04.html" class="SUMOSubSubLink">4. Networks</a><br/>
-			<a href="user_chp05.html" class="SUMOSubSubLink">5. Routes</a><br/>
-			<a href="user_chp06.html" class="SUMOSubSubLink">6. Simulation</a><br/>
-			<a href="user_chp07.html" class="SUMOSubSubLink">7. GUI</a><br/>
-			<a href="user_chp08.html" class="SUMOSubSubLink">8. Tips+Tricks</a><br/>
-			<a href="user_apa.html" class="SUMOSubSubLink">A. Conventions</a><br/>
-			<a href="user_apb.html" class="SUMOSubSubLink">B. Included</a><br/>
-			<a href="user_apc.html" class="SUMOSubSubLink">C. Errors</a><br/>
-			
-			<a href="../devdocs.html" class="SUMOSubLink">Developer Docs</a><br/>
-			
-			<a href="../bibliography.html" class="SUMOSubLink">Bibliography</a><br/>
-			
-			<a href="faq.html" class="SUMOSubLink">FAQ</a><br/>
-			
-			<a href="../../screenshots.html" class="SUMOMainLink">Screenshots</a><br/>
-			<a href="../../downloads.html" class="SUMOMainLink">Downloads</a><br/>
-			<a href="../../participants.html" class="SUMOMainLink">Participants</a><br/>
-			<a href="../../projects.html" class="SUMOMainLink">Projects</a><br/>
-			<a href="../../links.html" class="SUMOMainLink">Links</a><br/>
-			<a href="../../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br/>
-			<a href="../../contact.html" class="SUMOMainLink">Contact</a><br/>
+        <table border="0">
+        <tr><td valign="top" width="120">
+        <div class="navbar">
+            <a href="../../index.html" class="SUMOMainLink">Home</a><br/>
+            <a href="../../overview.html" class="SUMOMainLink">Overview</a><br/>
+            <a href="../../documentation.html" class="SUMOMainLink">Documentation</a><br/>
 
-			<center><br/>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+            <a href="../userdocs.html" class="SUMOSubLink">User Docs</a><br/>
+            <a href="user_index.html" class="SUMOSubSubLink">Index</a><br/>
+            <a href="user_chp01.html" class="SUMOSubSubLink">1. Introduction</a><br/>
+            <a href="user_chp02.html" class="SUMOSubSubLink">2. First Steps</a><br/>
+            <a href="user_chp03.html" class="SUMOSubSubLink">3. Traffic Sims</a><br/>
+            <a href="user_chp04.html" class="SUMOSubSubLink">4. Networks</a><br/>
+            <a href="user_chp05.html" class="SUMOSubSubLink">5. Routes</a><br/>
+            <a href="user_chp06.html" class="SUMOSubSubLink">6. Simulation</a><br/>
+            <a href="user_chp07.html" class="SUMOSubSubLink">7. GUI</a><br/>
+            <a href="user_chp08.html" class="SUMOSubSubLink">8. Tips+Tricks</a><br/>
+            <a href="user_apa.html" class="SUMOSubSubLink">A. Conventions</a><br/>
+            <a href="user_apb.html" class="SUMOSubSubLink">B. Included</a><br/>
+            <a href="user_apc.html" class="SUMOSubSubLink">C. Errors</a><br/>
+
+            <a href="../devdocs.html" class="SUMOSubLink">Developer Docs</a><br/>
+
+            <a href="../bibliography.html" class="SUMOSubLink">Bibliography</a><br/>
+
+            <a href="faq.html" class="SUMOSubLink">FAQ</a><br/>
+
+            <a href="../manpages.html" class="SUMOSubLink">ManPages</a><br/>
+
+            <a href="../../screenshots.html" class="SUMOMainLink">Screenshots</a><br/>
+            <a href="../../downloads.html" class="SUMOMainLink">Downloads</a><br/>
+            <a href="../../participants.html" class="SUMOMainLink">Participants</a><br/>
+            <a href="../../projects.html" class="SUMOMainLink">Projects</a><br/>
+            <a href="../../links.html" class="SUMOMainLink">Links</a><br/>
+            <a href="../../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br/>
+            <a href="../../contact.html" class="SUMOMainLink">Contact</a><br/>
+
+            <center><br/>
+            <a href="http://ivf.dlr.de" class="SUMOMainLink">
             <img src="../../images/logo_dlr.gif" width="40" height="42"/></a>
-			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
+            <a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="../../images/logo_zaik.gif" width="40" height="42"/></a><br/>
 
-			<a href="http://sourceforge.net/projects/sumo/"><img src="../../images/sourceforge.gif" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
-			</center>
-		</div>
-		</td><td width="20"></td>
+            <a href="http://sourceforge.net/projects/sumo/"><img src="../../images/sourceforge.gif" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
+            </center>
+        </div>
+        </td><td width="20"></td>
 <!-- Navigation bar end -->
 
 
-		<td valign="top">
-		<div class="SUMOMainText">
+        <td valign="top">
+        <div class="SUMOMainText">
 <!-- Text area here -->
 
 <!-- -->
 
 
       <xsl:call-template name="header.navigation">
-	<xsl:with-param name="prev" select="$prev"/>
-	<xsl:with-param name="next" select="$next"/>
-	<xsl:with-param name="nav.context" select="$nav.context"/>
+    <xsl:with-param name="prev" select="$prev"/>
+    <xsl:with-param name="next" select="$next"/>
+    <xsl:with-param name="nav.context" select="$nav.context"/>
       </xsl:call-template>
 
       <xsl:call-template name="user.header.content"/>
@@ -1058,18 +1060,18 @@
       <xsl:call-template name="user.footer.content"/>
 
       <xsl:call-template name="footer.navigation">
-	<xsl:with-param name="prev" select="$prev"/>
-	<xsl:with-param name="next" select="$next"/>
-	<xsl:with-param name="nav.context" select="$nav.context"/>
+    <xsl:with-param name="prev" select="$prev"/>
+    <xsl:with-param name="next" select="$next"/>
+    <xsl:with-param name="nav.context" select="$nav.context"/>
       </xsl:call-template>
 
       <xsl:call-template name="user.footer.navigation"/>
 
 <!-- -->
 
-		</div>
-		</td></tr></table>
-		<p></p><hr/>
+        </div>
+        </td></tr></table>
+        <p></p><hr/>
 
 <!-- -->
 

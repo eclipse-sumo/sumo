@@ -241,11 +241,14 @@ bin/Makefile
 prj/Makefile
 prj/msvc6/Makefile
 prj/msvc6/duarouter/Makefile
+prj/msvc6/giant/Makefile
 prj/msvc6/guisim/Makefile
 prj/msvc6/jtrrouter/Makefile
 prj/msvc6/netconvert/Makefile
+prj/msvc6/netedit/Makefile
 prj/msvc6/netgen/Makefile
 prj/msvc6/od2trips/Makefile
+prj/msvc6/routeremapper/Makefile
 prj/msvc6/sumo/Makefile
 prj/msvc6/y_libgui/Makefile
 prj/msvc6/y_libguinetload/Makefile
@@ -257,6 +260,7 @@ prj/msvc6/y_libnetimport/Makefile
 prj/msvc6/y_libnetload/Makefile
 prj/msvc6/y_librouter/Makefile
 prj/msvc6/z_libmicrosim_output/Makefile
+prj/msvc6/z_libmicrosim_tls/Makefile
 prj/msvc6/z_libutils_common/Makefile
 prj/msvc6/z_libutils_convert/Makefile
 prj/msvc6/z_libutils_dev/Makefile
@@ -266,6 +270,7 @@ prj/msvc6/z_libutils_foxtools/Makefile
 prj/msvc6/z_libutils_geom/Makefile
 prj/msvc6/z_libutils_gfx/Makefile
 prj/msvc6/z_libutils_glutils/Makefile
+prj/msvc6/z_libutils_gui/Makefile
 prj/msvc6/z_libutils_importio/Makefile
 prj/msvc6/z_libutils_iodevices/Makefile
 prj/msvc6/z_libutils_options/Makefile
@@ -273,12 +278,15 @@ prj/msvc6/z_libutils_sumoxml/Makefile
 prj/msvc6/z_libutils_xml/Makefile
 prj/msvc7.net/Makefile
 prj/msvc7.net/duarouter/Makefile
+prj/msvc7.net/giant/Makefile
 prj/msvc7.net/guisim/Makefile
 prj/msvc7.net/jtrrouter/Makefile
 prj/msvc7.net/netconvert/Makefile
+prj/msvc7.net/netedit/Makefile
 prj/msvc7.net/netgen/Makefile
 prj/msvc7.net/od2trips/Makefile
 prj/msvc7.net/sumo/Makefile
+prj/msvc7.net/routeremapper/Makefile
 prj/msvc7.net/y_libgui/Makefile
 prj/msvc7.net/y_libguinetload/Makefile
 prj/msvc7.net/y_libguisim/Makefile
@@ -289,6 +297,7 @@ prj/msvc7.net/y_libnetimport/Makefile
 prj/msvc7.net/y_libnetload/Makefile
 prj/msvc7.net/y_librouter/Makefile
 prj/msvc7.net/z_libmicrosim_output/Makefile
+prj/msvc7.net/z_libmicrosim_tls/Makefile
 prj/msvc7.net/z_libutils_common/Makefile
 prj/msvc7.net/z_libutils_convert/Makefile
 prj/msvc7.net/z_libutils_dev/Makefile
@@ -298,6 +307,7 @@ prj/msvc7.net/z_libutils_foxtools/Makefile
 prj/msvc7.net/z_libutils_geom/Makefile
 prj/msvc7.net/z_libutils_gfx/Makefile
 prj/msvc7.net/z_libutils_glutils/Makefile
+prj/msvc7.net/z_libutils_guidiv/Makefile
 prj/msvc7.net/z_libutils_importio/Makefile
 prj/msvc7.net/z_libutils_iodevices/Makefile
 prj/msvc7.net/z_libutils_options/Makefile
@@ -406,6 +416,7 @@ src/netimport/vissim/tempstructs/Makefile
 src/netimport/vissim/typeloader/Makefile
 src/netimport/visum/Makefile
 src/netimport/xml/Makefile
+src/netedit/Makefile
 src/netload/Makefile
 src/od2trips/Makefile
 src/router/Makefile
