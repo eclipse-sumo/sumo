@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/08/14 14:07:55  dkrajzew
+// memory allocation control added
+//
 // Revision 1.7  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -106,8 +109,16 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <ctime>
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#ifdef WIN32
+   #include <utils/dev/MemDiff.h>
+   #include <crtdbg.h>
+#endif
+#endif
 
+#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <microsim/MSNet.h>
@@ -160,14 +171,21 @@ checkInitOptions(OptionsCont &oc)
     return true;
 }
 
-
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char **argv)
 {
-    srand(1040208551);
+#ifdef _DEBUG
+#ifdef WIN32
+    CMemDiff state1;
+    // uncomment next line and insert the context of an undeleted
+    //  allocation to break within it (MSVC++ only)
+//    _CrtSetBreakAlloc(712424);
+#endif
+#endif
+    srand(1465461);
     int ret = 0;
     try {
         if(!SystemFrame::init(true, argc, argv,
