@@ -48,14 +48,6 @@ protected:
             return containerM.hasVehicle( &veh );
         }
 
-    DetectorAggregate getAggregate( MSVehicle& veh ) // [nHalts]
-        {
-            HaltingsMap haltMap = containerM.containerM;
-            HaltingsMap::const_iterator pair = haltMap.find( &veh );
-            assert( pair != haltMap.end() );
-            return pair->second.nHalts;
-        }
-
     DetectorAggregate getValue( MSVehicle& veh ) 
         {
             HaltingsMap::const_iterator pair =
