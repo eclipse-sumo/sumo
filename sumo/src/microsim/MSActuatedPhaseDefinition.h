@@ -2,6 +2,8 @@
 #define MSActuatedPhaseDefinition_h
 
 #include "MSPhaseDefinition.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 /**
  * The definition of a single phase.
@@ -30,6 +32,7 @@ public:
     	minDuration(minDurationArg), maxDuration(maxDurationArg),
         _lastSwitch(0)
     {
+        _lastSwitch = OptionsSubSys::getOptions().getInt("b");
         minDuration = 5; //!!!
         maxDuration = 30; //!!!
     }
