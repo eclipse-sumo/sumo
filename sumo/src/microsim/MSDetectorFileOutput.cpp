@@ -3,9 +3,9 @@
  * @author Christian Roessel
  * @date   Started Mon Sep 22 13:36:13 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -26,4 +26,4 @@
 #include "MSDetectorFileOutput.h"
 
 // static member initialization
-std::string MSDetectorFileOutput::infoEndM = std::string("</detector>");
+//std::string MSDetectorFileOutput::infoEndM = std::string("</detector>");

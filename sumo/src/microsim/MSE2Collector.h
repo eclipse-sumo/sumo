@@ -344,16 +344,7 @@ public:
             return true;
         }
 
-    void removeOnTripEnd( MSVehicle *veh ) {
-        /*
-                for ( ContainerContIter it = containersM.begin();
-                      it != containersM.end(); ++it ) {
-                    if ( *it != 0 ) {
-                        (*it)->removeOnTripEnd( veh );
-                    }
-        }
-        */
-    }
+  //  }
 
     //@}
 
@@ -410,6 +401,11 @@ public:
                              "\" >\n");
             return detectorInfo;
         }
+
+    const std::string& getXMLDetectorInfoEnd( void ) const
+    {
+        return infoEndM;
+    }
 
     /**
      * Get the data-clean up interval in timesteps.
@@ -750,7 +746,8 @@ private:
                 }
             }
         }
-
+private:
+    static std::string infoEndM;
 };
 
 

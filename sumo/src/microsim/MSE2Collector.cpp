@@ -44,6 +44,9 @@ std::string MSE2Collector::xmlHeaderM(
 "- haltingDurationMean [s]\n"
 "-->\n\n");
 
+
+std::string MSE2Collector::infoEndM = std::string("</detector>");
+
 namespace E2
 {
     DetType& operator++( DetType& det )

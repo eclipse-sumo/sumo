@@ -38,7 +38,8 @@
 #include "MSE3MoveReminder.h"
 #include "MSLDDetectorInterface.h"
 #include "MSDetectorTypedefs.h"
-#include "utils/convert/ToString.h"
+#include "MSVehicleQuitReminded.h"
+#include <utils/convert/ToString.h>
 
 namespace E3
 {
@@ -60,7 +61,8 @@ namespace E3
 
 //using namespace E3;
 
-class MSE3Collector : public MSDetectorFileOutput
+class MSE3Collector : public MSDetectorFileOutput,
+        public MSVehicleQuitReminded
 {
 public:
 
@@ -133,6 +135,7 @@ public:
                     (*it)->enterDetectorByMove( &veh );
                 }
             }
+            veh.quitRemindedEntered(this);
         }
 
     // is called from LD::MSMoveReminder if vehicle passes entry-crossSection
@@ -150,6 +153,7 @@ public:
                     (*cont)->leaveDetectorByMove( &veh );
                 }
             }
+            veh.quitRemindedLeft(this);
         }
 
     void addDetector( E3::DetType type, std::string detId = "" )
@@ -252,7 +256,7 @@ public:
             std::string exits;
             for ( crossSec = exitsM.begin(); crossSec != exitsM.end();
                   ++crossSec ) {
-                exits += "  <entry lane=\"" +
+                exits += "  <exit lane=\"" +
                     crossSec->laneM->id() + "\" pos=\"" +
                     toString( crossSec->posM ) + "\" />\n";
             }
@@ -262,6 +266,11 @@ public:
                              "\" >\n" + entries + exits );
             return detectorInfo;
         }
+
+    const std::string& getXMLDetectorInfoEnd( void ) const
+    {
+        return infoEndM;
+    }
 
     /**
      * Get the data-clean up interval in timesteps.
@@ -414,6 +423,9 @@ protected:
                 }
             }
         }
+
+private:
+    static std::string infoEndM;
 };
 
 

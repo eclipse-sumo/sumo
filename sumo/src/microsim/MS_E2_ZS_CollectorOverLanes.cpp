@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/02/05 16:34:25  dkrajzew
+// made the usage of the detector output end more usable
+//
 // Revision 1.11  2004/01/26 07:31:22  dkrajzew
 // differnt detector usage types added
 //
@@ -76,6 +79,7 @@ MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
 "- haltingDurationMean [s]\n"
 "-->\n\n");
 
+std::string MS_E2_ZS_CollectorOverLanes::infoEndM = std::string("</detector>");
 
 /* =========================================================================
  * method definitions

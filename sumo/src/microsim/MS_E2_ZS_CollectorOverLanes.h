@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/02/05 16:34:25  dkrajzew
+// made the usage of the detector output end more usable
+//
 // Revision 1.7  2004/01/26 07:31:22  dkrajzew
 // differnt detector usage types added
 //
@@ -29,6 +32,9 @@
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 // $Log$
+// Revision 1.8  2004/02/05 16:34:25  dkrajzew
+// made the usage of the detector output end more usable
+//
 // Revision 1.7  2004/01/26 07:31:22  dkrajzew
 // differnt detector usage types added
 //
@@ -146,6 +152,11 @@ public:
      */
     std::string  getXMLDetectorInfoStart( void ) const;
 
+    const std::string& getXMLDetectorInfoEnd( void ) const
+    {
+        return infoEndM;
+    }
+
     /**
      * Get the data-clean up interval in timesteps.
      */
@@ -244,6 +255,9 @@ protected:
     LaneDetMap myAlreadyBuild;
 
     DetectorUsage myUsage;
+
+private:
+    static std::string infoEndM;
 
 };
 

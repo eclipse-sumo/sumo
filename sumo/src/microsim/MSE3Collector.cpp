@@ -4,7 +4,7 @@
 /// @date    Started Tue Dec 02 2003 22:17 CET
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -33,12 +33,15 @@ std::string MSE3Collector::xmlHeaderM(
 "- meanNHaltsPerVehicle [n]\n"
 "-->\n\n");
 
+
+std::string MSE3Collector::infoEndM = std::string("</detector>");
+
 namespace E3
 {
     DetType& operator++( DetType& det ) {
         return det = ( ALL == det ) ? MEAN_TRAVELTIME : DetType( det + 1 );
     }
-    
+
     Containers& operator++( Containers& cont ) {
         return cont =
             ( TRAVELTIME == cont ) ? VEHICLES : Containers( cont + 1 );
