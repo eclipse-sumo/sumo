@@ -21,8 +21,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(QTDIR)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;QT_DLL;QT_THREAD_SUPPORT"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FOXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -72,8 +72,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(QTDIR)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;QT_DLL;QT_THREAD_SUPPORT"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FOXDLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -118,26 +118,6 @@
 		<Filter
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIAggregatedLaneDrawer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIApplicationWindow.cpp">
 				<FileConfiguration
@@ -259,26 +239,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIChooser.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIDanielPerspectiveChanger.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -379,6 +339,30 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_SimulationEnded.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGlobals.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlObject.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -399,6 +383,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\popup\GUIGLObjectPopupMenu.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlObjectStorage.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -417,6 +404,12 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGLObjectToolTip.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\icons\GUIIconSubSys.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.cpp">
@@ -579,24 +572,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\partable\GUIParameterTable.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\partable\GUIParam_PopupMenu.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\partable\GUIParameterTableItem.cpp">
@@ -819,6 +795,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\textures\GUITexturesHelper.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -959,606 +938,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\moc_GUIApplicationWindow.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUIChooser.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUIMessageWindow.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\partable\moc_GUIParameterTable.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUISUMOAbstractView.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUISUMOViewParent.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUIViewAggregatedLanes.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_GUIViewTraffic.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_QGUIImageField.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\moc_QGUIToggleButton.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\partable\moc_QParamPopupMenu.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QAboutSUMO.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QApplicationSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\popup\QGLObjectPopupMenu.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\popup\QGLObjectPopupMenuItem.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGLObjectToolTip.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGUIImageField.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGUIToggleButton.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QMicroscopicViewSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\partable\QParamPopupMenu.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QSimulationEndedEvent.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QSimulationSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\vartracker\TrackerValueDesc.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1578,12 +957,15 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\y_libgui.rc">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIAggregatedLaneDrawer.h">
+				RelativePath="..\..\..\src\gui\GUIAppEnum.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIApplicationWindow.h">
@@ -1591,19 +973,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIApplicationWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIApplicationWindow.h -o ..\..\..\src\gui\moc_GUIApplicationWindow.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIApplicationWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIApplicationWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIApplicationWindow.h -o ..\..\..\src\gui\moc_GUIApplicationWindow.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIApplicationWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1622,27 +1002,6 @@
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIChooser.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIChooser.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIChooser.h -o ..\..\..\src\gui\moc_GUIChooser.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIChooser.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIChooser.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIChooser.h -o ..\..\..\src\gui\moc_GUIChooser.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIChooser.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIDanielPerspectiveChanger.h">
 			</File>
 			<File
@@ -1658,16 +1017,64 @@
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_Message.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_SimulationEnded.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_SimulationLoaded.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_SimulationStep.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIEvents.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGlobals.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIGlObject.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\popup\GUIGLObjectPopupMenu.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlObjectStorage.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUIGLObjectToolTip.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlObjectTypes.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\icons\GUIIcons.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\icons\GUIIconSubSys.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.h">
@@ -1696,41 +1103,21 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIMessageWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIMessageWindow.h -o ..\..\..\src\gui\moc_GUIMessageWindow.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIMessageWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIMessageWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIMessageWindow.h -o ..\..\..\src\gui\moc_GUIMessageWindow.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIMessageWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\partable\GUIParameterTable.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTable.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\GUIParameterTable.h -o ..\..\..\src\gui\partable\moc_GUIParameterTable.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_GUIParameterTable.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTable.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\GUIParameterTable.h -o ..\..\..\src\gui\partable\moc_GUIParameterTable.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_GUIParameterTable.cpp"/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\partable\GUIParam_PopupMenu.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\partable\GUIParameterTableItem.h">
@@ -1741,19 +1128,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTableWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\GUIParameterTableWindow.h -o ..\..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTableWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\GUIParameterTableWindow.h -o ..\..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1762,19 +1147,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTracker.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\vartracker\GUIParameterTracker.h -o ..\..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp
-"
-						Outputs="..\..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIParameterTracker.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\vartracker\GUIParameterTracker.h -o ..\..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp
-"
-						Outputs="..\..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1801,19 +1184,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUISUMOAbstractView.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUISUMOAbstractView.h -o ..\..\..\src\gui\moc_GUISUMOAbstractView.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUISUMOAbstractView.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUISUMOAbstractView.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUISUMOAbstractView.h -o ..\..\..\src\gui\moc_GUISUMOAbstractView.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUISUMOAbstractView.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1822,20 +1203,24 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUISUMOViewParent.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUISUMOViewParent.h -o ..\..\..\src\gui\moc_GUISUMOViewParent.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUISUMOViewParent.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUISUMOViewParent.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUISUMOViewParent.h -o ..\..\..\src\gui\moc_GUISUMOViewParent.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUISUMOViewParent.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\textures\GUITextures.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\textures\GUITexturesHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h">
@@ -1843,19 +1228,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUITLLogicPhasesTrackerWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h -o ..\..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp
-"
-						Outputs="..\..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUITLLogicPhasesTrackerWindow.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h -o ..\..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp
-"
-						Outputs="..\..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1876,19 +1259,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIViewAggregatedLanes.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIViewAggregatedLanes.h -o ..\..\..\src\gui\moc_GUIViewAggregatedLanes.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIViewAggregatedLanes.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIViewAggregatedLanes.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIViewAggregatedLanes.h -o ..\..\..\src\gui\moc_GUIViewAggregatedLanes.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIViewAggregatedLanes.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1897,209 +1278,21 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIViewTraffic.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIViewTraffic.h -o ..\..\..\src\gui\moc_GUIViewTraffic.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIViewTraffic.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing GUIViewTraffic.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\GUIViewTraffic.h -o ..\..\..\src\gui\moc_GUIViewTraffic.cpp
-"
-						Outputs="..\..\..\src\gui\moc_GUIViewTraffic.cpp"/>
+						Description=""
+						CommandLine=""
+						Outputs=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QAboutSUMO.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QAboutSUMO.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QAboutSUMO.h -o ..\..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QAboutSUMO.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QAboutSUMO.h -o ..\..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QApplicationSettings.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QApplicationSettings.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QApplicationSettings.h -o ..\..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QApplicationSettings.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QApplicationSettings.h -o ..\..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\popup\QGLObjectPopupMenu.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGLObjectPopupMenu.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\popup\QGLObjectPopupMenu.h -o ..\..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp
-"
-						Outputs="..\..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGLObjectPopupMenu.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\popup\QGLObjectPopupMenu.h -o ..\..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp
-"
-						Outputs="..\..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\popup\QGLObjectPopupMenuItem.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGLObjectToolTip.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGUIImageField.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGUIImageField.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\QGUIImageField.h -o ..\..\..\src\gui\moc_QGUIImageField.cpp
-"
-						Outputs="..\..\..\src\gui\moc_QGUIImageField.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGUIImageField.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\QGUIImageField.h -o ..\..\..\src\gui\moc_QGUIImageField.cpp
-"
-						Outputs="..\..\..\src\gui\moc_QGUIImageField.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QGUIToggleButton.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGUIToggleButton.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\QGUIToggleButton.h -o ..\..\..\src\gui\moc_QGUIToggleButton.cpp
-"
-						Outputs="..\..\..\src\gui\moc_QGUIToggleButton.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QGUIToggleButton.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\QGUIToggleButton.h -o ..\..\..\src\gui\moc_QGUIToggleButton.cpp
-"
-						Outputs="..\..\..\src\gui\moc_QGUIToggleButton.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QMessageEvent.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QMicroscopicViewSettings.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QMicroscopicViewSettings.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QMicroscopicViewSettings.h -o ..\..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QMicroscopicViewSettings.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QMicroscopicViewSettings.h -o ..\..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\partable\QParamPopupMenu.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QParamPopupMenu.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\QParamPopupMenu.h -o ..\..\..\src\gui\partable\moc_QParamPopupMenu.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_QParamPopupMenu.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QParamPopupMenu.h..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\partable\QParamPopupMenu.h -o ..\..\..\src\gui\partable\moc_QParamPopupMenu.cpp
-"
-						Outputs="..\..\..\src\gui\partable\moc_QParamPopupMenu.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QSimulationEndedEvent.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QSimulationLoadedEvent.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\qdialogs\QSimulationSettings.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QSimulationSettings.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QSimulationSettings.h -o ..\..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QSimulationSettings.h ..."
-						CommandLine="%QTDIR%\bin\moc.exe ..\..\..\src\gui\qdialogs\QSimulationSettings.h -o ..\..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
-"
-						Outputs="..\..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QSimulationStepEvent.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\QSUMOEvent.h">
+				RelativePath=".\resource.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\vartracker\TrackerValueDesc.h">

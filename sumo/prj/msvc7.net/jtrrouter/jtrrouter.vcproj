@@ -39,7 +39,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib"
 				OutputFile=".\Debug/jtrrouter.exe"
-				LinkIncremental="1"
+				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="TRUE"
