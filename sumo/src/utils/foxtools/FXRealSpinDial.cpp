@@ -1144,3 +1144,10 @@ FXRealSpinDial::~FXRealSpinDial(){
 }
 
 
+void
+FXRealSpinDial::selectAll(){
+  textField->selectAll();
+}
+
+
+

@@ -282,6 +282,9 @@ public:
   /// Return the format string for number display.
   FXString getNumberFormatString() const;
 
+  /// Mark the text entry as selected
+  void selectAll();
+
   /// Destructor
   virtual ~FXRealSpinDial();
   };
