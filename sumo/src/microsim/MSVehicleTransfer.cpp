@@ -1,3 +1,34 @@
+/***************************************************************************
+                          MSVehicleTransfer.cpp  -
+    A mover of vehicles that got stucked due to grid locks
+                             -------------------
+    begin                : Sep 2003
+    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.5  2003/11/20 14:58:21  dkrajzew
+// comments added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <iostream>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
@@ -5,20 +36,30 @@
 #include "MSVehicle.h"
 #include "MSVehicleTransfer.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 void
 MSVehicleTransfer::addVeh(MSLane &from)
 {
+    return;
     // remove the vehicle from the lane
     MSVehicle *veh = from.removeFirstVehicle(*this);
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->id());
-//    cout << "Vehicle beam init on edge '" << e->id() << "'." << endl;
-//    cout << " Time: " <<  MSNet::getInstance()->getCurrentTimeStep()
-//        << " Vehicle: " << veh->id() << endl;
     MsgHandler::getWarningInstance()->inform(
         string("Vehicle '") + veh->id() + string("' will be teleported; edge '")
         + e->id() + string("'."));
@@ -30,13 +71,10 @@ MSVehicleTransfer::addVeh(MSLane &from)
     // mark the next one
     e = MSEdge::dictionary(veh->getEdge()->id());
     myNoTransfered++;
-//    cout << " In container:" << myVehicles.size() << " Transfers done: "
-//        << myNoTransfered << endl;
     assert(e!=0);
     // save information
     myVehicles.push_back(
         VehicleInformation(veh, MSNet::getInstance()->getCurrentTimeStep(), e));
-//    cout << "Vehicle is virtually on edge '" << e->id() << "'" << endl;
 }
 
 
@@ -56,15 +94,9 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 + string("' ends teleporting on edge '") + e->id()
                 + string("'."));
             i = myVehicles.erase(i);
-//            cout << "Vehicle beam end '" << e->id() << "'." << endl;
-//            cout << " Time: " <<  time
-//                << " Vehicle: " << desc.myVeh->id() << endl;
-//            cout << " In container:" << myVehicles.size() << endl;
         } else {
             // otherwise, check whether a consecutive edge may be used
             if(desc.myProceedTime<time) {
-//                cout << "Vehicle '" << desc.myVeh->id() << "' proceeds from '"
-//                    << desc.myNextPossibleEdge->id() << "'";
                 // get the lanes of the next edge (the one the vehicle wiil be
                 //  virtually on after all these computations)
                 MSLane *tmp = *(desc.myNextPossibleEdge->getLanes()->begin());
@@ -84,14 +116,12 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 // get the time the vehicle needs to pass the current edge
                 desc.myProceedTime = time + tmp->length() / tmp->maxSpeed()
                     * 2.0; // !!! maybe, the time should be compued in other ways
-//                cout << " to '" << nextEdge->id() << "'." << endl;
             }
             i++;
         }
 
     }
 }
-
 
 
 void
@@ -104,7 +134,6 @@ MSVehicleTransfer::removeVehicle(const std::string &id)
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance()
 {
-    assert(myInstance!=0);
     return myInstance;
 }
 
@@ -129,3 +158,8 @@ MSVehicleTransfer::~MSVehicleTransfer()
 }
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
