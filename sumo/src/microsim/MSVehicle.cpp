@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2004/01/26 07:51:44  dkrajzew
+// the vehicle leaves his move reminders when leaving the simulation, now (is still false)
+//
 // Revision 1.46  2004/01/12 15:03:40  dkrajzew
 // removed some unneeded debug-variables
 //
@@ -2115,6 +2118,8 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
     pos += myLane->length();
     oldPos += myLane->length();
 
+    // process reminder
+        // current
     vector< MSMoveReminder* >::iterator rem;
     for ( rem = myMoveReminders.begin();
           rem != myMoveReminders.end(); ++rem ) {
@@ -2122,9 +2127,8 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
         if( (*rem)->isStillActive( *this, oldPos, pos, pspeed) ) {
             assert(false);
         }
-//        (*rem)->dismissCorrectionsOnTripEnd(*this);
     }
-    //
+        // old
     rem = myOldLaneMoveReminders.begin();
     OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
     for (; rem != myOldLaneMoveReminders.end(); ++rem, ++off ) {
@@ -2133,6 +2137,18 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
                 oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
             assert(false);
         }
+    }
+    // remove from reminders
+        // current
+    for ( rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); ++rem ) {
+        // the vehicle may only be at the entry occupancy correction
+        (*rem)->removeOnTripEnd( this );
+    }
+        // old
+    rem = myOldLaneMoveReminders.begin();
+    for (; rem != myOldLaneMoveReminders.end(); ++rem, ++off ) {
+        (*rem)->removeOnTripEnd( this );
     }
 }
 
