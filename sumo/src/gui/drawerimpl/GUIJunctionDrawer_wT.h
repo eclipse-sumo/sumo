@@ -1,5 +1,15 @@
 #ifndef GUIJunctionDrawer_wT_h
 #define GUIJunctionDrawer_wT_h
+//---------------------------------------------------------------------------//
+//                        GUIJunctionDrawer_wT.cpp -
+//  Class for drawing junctions with tooltip information
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 02.09.2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
 //
@@ -10,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //

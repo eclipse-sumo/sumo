@@ -1,8 +1,8 @@
 #ifndef GUIROWDrawer_FG_h
 #define GUIROWDrawer_FG_h
 //---------------------------------------------------------------------------//
-//                        GUIROWDrawer_FG.h -
-//  A class for
+//                        GUILaneDrawer_FGwT.h -
+//  Class for drawing lanes with full geom and tooltip information
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //

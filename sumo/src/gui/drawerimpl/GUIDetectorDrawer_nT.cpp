@@ -1,6 +1,13 @@
-#include <gui/GUISUMOAbstractView.h>
-#include "GUIDetectorDrawer_nT.h"
-#include <guisim/GUIDetectorWrapper.h>
+//---------------------------------------------------------------------------//
+//                        GUIDetectorDrawer_nT.cpp -
+//  Class for drawing detectors with no tooltips
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 02.09.2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
 //
@@ -16,14 +23,19 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
 //
-//
+#include <gui/GUISUMOAbstractView.h>
+#include "GUIDetectorDrawer_nT.h"
+#include <guisim/GUIDetectorWrapper.h>
 
 
-void 
+void
 GUIDetectorDrawer_nT::drawGLDetectors(size_t *which, size_t maxDetectors,
                                       double scale)
 {

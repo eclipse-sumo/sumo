@@ -2,11 +2,11 @@
 #define GUIVehicleDrawer_SGnTasTriangle_h
 //---------------------------------------------------------------------------//
 //                        GUIVehicleDrawer_SGnTasTriangle.h -
-//  A class for vehicle drawing; Vehicles are drawn as triangles
+//  Class for drawing vehicles on simple geom with no tooltip info as triangles
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  copyright            : (C) 2003 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
 //
 //
 /* =========================================================================
@@ -61,8 +63,8 @@ private:
     void drawLanesVehicles(GUILaneWrapper &lane,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
 
-    void drawVehicle(const GUIVehicle &vehicle, 
-        double posX, double posY, double rot, 
+    void drawVehicle(const GUIVehicle &vehicle,
+        double posX, double posY, double rot,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
 
 

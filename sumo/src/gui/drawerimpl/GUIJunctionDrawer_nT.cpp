@@ -1,7 +1,13 @@
-#include <vector>
-#include <guisim/GUIJunctionWrapper.h>
-#include <utils/glutils/GLHelper.h>
-#include "GUIJunctionDrawer_nT.h"
+//---------------------------------------------------------------------------//
+//                        GUIDetectorDrawer_nT.cpp -
+//  Class for drawing detectors with no tooltip information
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 02.09.2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
 //
@@ -17,11 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
 //
 //
+#include <vector>
+#include <guisim/GUIJunctionWrapper.h>
+#include <utils/glutils/GLHelper.h>
+#include "GUIJunctionDrawer_nT.h"
 
 GUIJunctionDrawer_nT::GUIJunctionDrawer_nT(
         std::vector<GUIJunctionWrapper*> &junctions)
@@ -36,7 +49,7 @@ GUIJunctionDrawer_nT::~GUIJunctionDrawer_nT()
 
 
 void
-GUIJunctionDrawer_nT::drawGLJunctions(size_t *which, 
+GUIJunctionDrawer_nT::drawGLJunctions(size_t *which,
         size_t maxJunctions,
         GUISUMOAbstractView::JunctionColoringScheme )
 {

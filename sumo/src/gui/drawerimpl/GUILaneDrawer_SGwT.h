@@ -1,12 +1,12 @@
 #ifndef GUILaneDrawer_SGwT_h
 #define GUILaneDrawer_SGwT_h
 //---------------------------------------------------------------------------//
-//                        GUILaneDrawer_SGwT.h -
-//  A class for lane drawing; Lanes are drawn as straight lines
+//                        GUILaneDrawer_SGwT.cpp -
+//  Class for drawing lanes with simple geometry and tooltips
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  copyright            : (C) 2003 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
@@ -59,7 +62,7 @@ public:
     ~GUILaneDrawer_SGwT();
 
 private:
-    /// draws a single vehicle; 
+    /// draws a single vehicle;
     void drawLane(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme, double width);
 

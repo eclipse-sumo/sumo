@@ -2,11 +2,11 @@
 #define GUILaneDrawer_FGnT_h
 //---------------------------------------------------------------------------//
 //                        GUILaneDrawer_FGnT.h -
-//  A class for lane drawing; Lanes are drawn as straight lines
+//  Class for drawing lanes with full geometry and no tooltips
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  copyright            : (C) 2003 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
