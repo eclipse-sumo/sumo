@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/07/02 08:40:42  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.8  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -76,13 +79,13 @@ using namespace std;
  * GUI_E2_ZS_Collector-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id, DetectorUsage usage,
-		MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
-		MSUnit::Seconds haltingTimeThreshold,
-		MSUnit::MetersPerSecond haltingSpeedThreshold,
-		MSUnit::Meters jamDistThreshold,
-		MSUnit::Seconds deleteDataAfterSeconds)
+        MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
-			haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
+            haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
 {
 }
 
@@ -141,12 +144,12 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     const Position2DVector &v = wrapper.getShape();
     Line2D l(v.getBegin(), v.getEnd());
     mySGPosition = l.getPositionAtDistance(detector.getStartPos());
-	Position2D endPos = l.getPositionAtDistance(detector.getEndPos());
+    Position2D endPos = l.getPositionAtDistance(detector.getEndPos());
     mySGRotation = -l.atan2DegreeAngle();
-	mySGLength = GeomHelper::distance(mySGPosition, endPos);
+    mySGLength = GeomHelper::distance(mySGPosition, endPos);
 
-	// build geometry
-	myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
+    // build geometry
+    myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //
     myShapeRotations.reserve(myFullGeometry.size()-1);
     myShapeLengths.reserve(myFullGeometry.size()-1);
@@ -156,10 +159,10 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
         myShapeLengths.push_back(GeomHelper::distance(f, s));
         myShapeRotations.push_back(atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265);
     }
-	//
-	myBoundery = myFullGeometry.getBoxBoundery();
-	myBoundery.add(mySGPosition);
-	myBoundery.add(endPos);
+    //
+    myBoundery = myFullGeometry.getBoxBoundery();
+    myBoundery.add(mySGPosition);
+    myBoundery.add(endPos);
 }
 
 
@@ -245,8 +248,7 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
-                                          GUIBaseDetectorDrawer &drawer) const
+GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
 {
     float myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -255,7 +257,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
     } else {
         glColor3f(0, .8, .8);
     }
-	double width=2; // !!!
+    double width=2; // !!!
     if(width>1.0) {
         glPushMatrix();
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
@@ -285,8 +287,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale,
-                                          GUIBaseDetectorDrawer &drawer) const
+GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale)
 {
     float myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -295,10 +296,10 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale,
     } else {
         glColor3f(0, .8, .8);
     }
-	double width=2; // !!!
+    double width=2; // !!!
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-			GLHelper::drawBoxLine(myFullGeometry.at(i),
+            GLHelper::drawBoxLine(myFullGeometry.at(i),
                 myShapeRotations[i], myShapeLengths[i], myWidth);
         }
     } else {

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 08:40:42  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.4  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -106,12 +109,10 @@ public:
         Boundery getBoundery() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(double scale,
-            GUIBaseDetectorDrawer &drawer) const;
+        void drawGL_FG(double scale);
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(double scale,
-            GUIBaseDetectorDrawer &drawer) const;
+        void drawGL_SG(double scale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -154,8 +155,7 @@ public:
             bool exit);
 
         /// Draws a single entry/exit point
-        void drawSingleCrossing(const Position2D &pos, double rot,
-            GUIBaseDetectorDrawer &drawer) const;
+        void drawSingleCrossing(const Position2D &pos, double rot) const;
 
     private:
         /// The wrapped detector

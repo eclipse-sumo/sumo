@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 08:40:42  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.4  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -177,43 +180,40 @@ GUIE3Collector::MyWrapper::active() const
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_SG(double scale,
-                                     GUIBaseDetectorDrawer &drawer) const
+GUIE3Collector::MyWrapper::drawGL_SG(double scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3f(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, drawer);
+        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
     }
     glColor3f(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, drawer);
+        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
     }
 }
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_FG(double scale,
-                                     GUIBaseDetectorDrawer &drawer) const
+GUIE3Collector::MyWrapper::drawGL_FG(double scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3f(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, drawer);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
     }
     glColor3f(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, drawer);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
     }
 }
 
 
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
-        double rot,
-        GUIBaseDetectorDrawer &drawer) const
+                                              double rot) const
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();

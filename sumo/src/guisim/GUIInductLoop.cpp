@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/07/02 08:42:13  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.10  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -181,8 +184,7 @@ GUIInductLoop::MyWrapper::active() const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_SG(double scale,
-                                    GUIBaseDetectorDrawer &drawer) const
+GUIInductLoop::MyWrapper::drawGL_SG(double scale)
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);
@@ -232,8 +234,7 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale,
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_FG(double scale,
-                                    GUIBaseDetectorDrawer &drawer) const
+GUIInductLoop::MyWrapper::drawGL_FG(double scale)
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);
@@ -297,9 +298,6 @@ GUIInductLoop::MyWrapper::getLoop()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIInductLoop.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

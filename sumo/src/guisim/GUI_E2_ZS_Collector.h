@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 08:40:42  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.8  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -117,12 +120,10 @@ public:
         Boundery getBoundery() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(double scale,
-            GUIBaseDetectorDrawer &drawer) const;
+        void drawGL_FG(double scale);
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(double scale,
-            GUIBaseDetectorDrawer &drawer) const;
+        void drawGL_SG(double scale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -166,16 +167,16 @@ public:
         double mySGRotation;
 
         /// The length in simple-geometry mode
-		double mySGLength;
+        double mySGLength;
 
         /// A sequence of positions in full-geometry mode
-		Position2DVector myFullGeometry;
+        Position2DVector myFullGeometry;
 
         /// A sequence of lengths in full-geometry mode
-		DoubleVector myShapeLengths;
+        DoubleVector myShapeLengths;
 
         /// A sequence of rotations in full-geometry mode
-		DoubleVector myShapeRotations;
+        DoubleVector myShapeRotations;
 
         /**
          * @class GUI_E2_ZS_Collector::MyWrapper::ValueRetriever

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 08:40:42  dkrajzew
+// changes in the detector drawer applied
+//
 // Revision 1.6  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -68,7 +71,7 @@ namespace
 
 #ifdef _WIN32
 #include <windows.h>
-#include <GL/gl.h>		/* OpenGL header file */
+#include <GL/gl.h>      /* OpenGL header file */
 #endif // _WIN32
 
 
@@ -86,10 +89,10 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes( std::string id,
         DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
-		MSUnit::Seconds haltingTimeThreshold,
-		MSUnit::MetersPerSecond haltingSpeedThreshold,
-		MSUnit::Meters jamDistThreshold,
-		MSUnit::Seconds deleteDataAfterSeconds)
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
     : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
         haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
         deleteDataAfterSeconds)
@@ -105,7 +108,7 @@ GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes()
 
 GUIDetectorWrapper *
 GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
-											GUILaneWrapper &wrapper)
+                                            GUILaneWrapper &wrapper)
 {
     throw 1;
 }
@@ -122,7 +125,7 @@ MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             double start, double end)
 {
-    string id = makeID(l->id(), c, r);
+    string id = makeID(myID, c, r);
     if(start+end<l->length()) {
         start = l->length() - end - 0.1;
     }
@@ -148,7 +151,8 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(l->edge().id()));
         GUILaneWrapper &w = edge->getLaneGeometry(l);
-        GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
+        GUI_E2_ZS_Collector *c =
+            static_cast<GUI_E2_ZS_Collector*>((*i).second);
         GUIDetectorWrapper *dw =
             c->buildDetectorWrapper(idStorage, w, detector, glID);
         mySubWrappers.push_back(dw);
@@ -243,21 +247,19 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale,
-                                                   GUIBaseDetectorDrawer &drawer) const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_SG(scale, drawer);
+        (*i)->drawGL_SG(scale);
     }
 }
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale,
-                                                   GUIBaseDetectorDrawer &drawer) const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_FG(scale, drawer);
+        (*i)->drawGL_FG(scale);
     }
 }
 
@@ -276,13 +278,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getLoop()
 }
 
 
-
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUI_E2_ZS_CollectorOverLanes.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
