@@ -99,7 +99,7 @@
     <sect1>
       <title>Call for Help</title>
 
-      <para>Please let us know when either the document remains any point
+      <para>Please let us know when either the document remains at any point
       unclear or any of the applications does not behave as expected. We also
       seek for some participants and further users, not only to share the
       development tasks, but also to gain some feedback and critics or some
@@ -451,13 +451,25 @@
         <table>
           <title>Module purposes</title>
 
-          <tgroup cols="2">
+          <tgroup cols="3">
+            <thead>
+              <row>
+                <entry>Name</entry>
+
+                <entry>Description</entry>
+
+                <entry>Class Name Prefix</entry>
+              </row>
+            </thead>
+
             <tbody>
               <row>
                 <entry>gui</entry>
 
                 <entry>Classes used by the gui application for window
                 handling, visualisation etc.</entry>
+
+                <entry>GUI*</entry>
               </row>
 
               <row>
@@ -465,6 +477,8 @@
 
                 <entry>Classes derived from netload-classes to load and build
                 guisim-versions of the microsim classes.</entry>
+
+                <entry>GUI*</entry>
               </row>
 
               <row>
@@ -472,12 +486,16 @@
 
                 <entry>Classes derived from microsim-classes to allow their
                 usage within the simulation&#39;s gui-version.</entry>
+
+                <entry>GUI*</entry>
               </row>
 
               <row>
                 <entry>microsim</entry>
 
                 <entry>The microsimulation kernel - classes.</entry>
+
+                <entry>MS*</entry>
               </row>
 
               <row>
@@ -485,6 +503,8 @@
 
                 <entry>Classes to parse loaded (foreign or native) or
                 generated network descriptions into SUMO-networks.</entry>
+
+                <entry>NB*</entry>
               </row>
 
               <row>
@@ -492,6 +512,8 @@
 
                 <entry>Classes for (grid-, spider, random-) network
                 generation.</entry>
+
+                <entry>NG*</entry>
               </row>
 
               <row>
@@ -499,6 +521,8 @@
 
                 <entry>Importers for foreign networks and native network
                 descriptions.</entry>
+
+                <entry>NI*</entry>
               </row>
 
               <row>
@@ -506,6 +530,8 @@
 
                 <entry>Classes used to load networks and to parse additional
                 files.</entry>
+
+                <entry>NL*</entry>
               </row>
 
               <row>
@@ -513,6 +539,8 @@
 
                 <entry>Herein, you can find some classes use by both the
                 dua-router and the jtr-router.</entry>
+
+                <entry>RO*</entry>
               </row>
 
               <row>
@@ -520,6 +548,8 @@
 
                 <entry>utils is not a module itself. Rather, you can find
                 several modules that are used within most of the applications.</entry>
+
+                <entry>*</entry>
               </row>
             </tbody>
           </tgroup>
@@ -532,6 +562,14 @@
             <title>Utils submodules</title>
 
             <tgroup cols="2">
+              <thead>
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
               <tbody>
                 <row>
                   <entry>common</entry>
@@ -637,6 +675,14 @@
           <title>Application dependencies</title>
 
           <tgroup cols="2">
+            <thead>
+              <row>
+                <entry>Application</entry>
+
+                <entry>Used Modules</entry>
+              </row>
+            </thead>
+
             <tbody>
               <row>
                 <entry>DUA-Router</entry>
@@ -692,7 +738,7 @@
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="TheApplicationSub-system">
       <title>The application sub-system</title>
 
       <para>Beside some tools, all of the applications within the SUMO-package
@@ -820,8 +866,8 @@
           <title>The Options Subsystem</title>
 
           <para>All major SUMO applications use the same classes for parsing
-          of command line options and configuration files. Each application
-          has exactly one instance of the <function>OptionsCont</function>
+          command line options and configuration files. Each application has
+          exactly one instance of the <function>OptionsCont</function>
           (options container) - class. Before the command line options are
           parsed, their names, allowed types and their default values must be
           inserted into this container. This is done within a method given to
@@ -926,38 +972,39 @@
           the best way to assure security of the code.</para>
 
           <para>One can check whether a value is available for a certain
-          option calling the OptionsCont-member method bool
-          isSet(&#34;OPTION_NAME&#34;);. If one has to know whether it is the
-          default value given on instantiation of the option (see above) or a
-          value supplied by the user, he/she may call &#34;bool
-          isDefault(&#34;OPRION_NAME&#34;);&#34;, a member method of
-          OptionsCont, too. In dependence to the type of an option, one can
-          retrieve her value using the following methods from OptionsCont:</para>
+          option calling the OptionsCont-member method <function>bool
+          isSet(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;);</function>.
+          If one has to know whether it is the default value given on
+          instantiation of the option (see above) or a value supplied by the
+          user, he/she may call &#34;<function>bool isDefault(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;);</function>&#34;,
+          a member method of OptionsCont, too. In dependence to the type of an
+          option, one can retrieve her value using the following methods from
+          OptionsCont:</para>
 
           <itemizedlist>
             <listitem>
-              <para><function>int getInt(&#34;&#60;OPTION_NAME&#62;&#34;)
+              <para><function>int getInt(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;)
               const;</function></para>
             </listitem>
 
             <listitem>
-              <para><function>long getLong(&#34;&#60;OPTION_NAME&#62;&#34;)
+              <para><function>long getLong(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;)
               const;</function></para>
             </listitem>
 
             <listitem>
-              <para><function>std::string
-              getString(&#34;&#60;OPTION_NAME&#62;&#34;) const;</function></para>
+              <para><function>std::string getString(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;)
+              const;</function></para>
             </listitem>
 
             <listitem>
-              <para><function>float getFloat(&#34;&#60;OPTION_NAME&#62;&#34;)
+              <para><function>float getFloat(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;)
               const;</function></para>
             </listitem>
 
             <listitem>
               <para><function>const UIntVector
-              &#38;OptionsCont::getUIntVector(&#34;&#60;OPTION_NAME&#62;&#34;)
+              &#38;OptionsCont::getUIntVector(&#34;<replaceable>&#60;OPTION_NAME&#62;</replaceable>&#34;)
               const;</function></para>
             </listitem>
           </itemizedlist>
@@ -969,6 +1016,20 @@
           &#34;Option_FileName&#34; returns a string, too. The only difference
           is their type which allows a different processing of the values to
           set when parsing.</para>
+
+          <para>The process of dealing with options is shown within the next
+          picture again:</para>
+
+          <figure>
+            <title>Process of options parsing</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center"
+                fileref="./gfx/dev/OptionsParsing.gif" format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
         </sect3>
 
         <sect3>
@@ -1032,12 +1093,52 @@
       same for all applications that belong to the same of those groups. Due
       to this, withinthe next two chapters, we will describe briefly both
       flows not regarding each of the applications&#39; special issues at
-      first. </para>
+      first.</para>
 
-      <sect2>
+      <sect2 id="ProgramFlowWithinCommandLineApplications">
         <title>Program Flow within Command Line Applications</title>
 
-        <para>... to be described ...</para>
+        <para>All command line applications (sumo, duarouter, jtrrouter,
+        netconvert, netgen, od2trips) are working quite the same way. At
+        first, the subsystem is initialised as described in <link
+        linkend="TheApplicationSub-system">&#34;The application
+        sub-system&#34;</link>. Then, the options are parsed and validated as
+        also already described. If the options are invalid or any other error
+        occured, a &#34;<exceptionname>ProcessError</exceptionname>&#34;
+        exception is thrown and catched within the application&#39;s main.
+        This should allow a very easy error handling as the application is
+        simply terminating and everything that was done until then may be
+        deleted and cleared.</para>
+
+        <para>After the options have been checked, the needed data or the data
+        to parse/translate are loaded. The type of the data of course depends
+        on the application&#39;s purpose but in almost all cases a network the
+        data is referenced to is loaded. Also herein, if an error occurs, a
+        &#34;<exceptionname>ProcessError</exceptionname>&#34; exception is
+        thrown.</para>
+
+        <para>The next step is the processing of the loaded data. In some
+        cases, the data are loaded incrementally as they would not fit into
+        the memory at once. This is the case for the routes within the
+        duarouter (if the <option>--unsorted</option> option is not set) and
+        within the simulation (if the <option>--route-steps
+        <replaceable>&#60;UINT&#62;</replaceable></option> option is set).</para>
+
+        <para>After prepared, data is saved. The last step, which is called in
+        both cases - on failure and on access - is the deletion of all
+        previously loaded and/or computed data.</para>
+
+        <figure>
+          <title>Workflow within command line applications</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+              fileref="./gfx/dev/MainFlowofCommandLineApplications.gif"
+              format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
       </sect2>
 
       <sect2>
@@ -1093,238 +1194,303 @@
     <title>SUMO</title>
 
     <sect1>
-      <title>Detectors</title>
+      <title>Basics</title>
 
-      <para>In the following sections we will describe SUMOs way to
-      communicate with it&#39;s two kinds of detectors, the <link
-      linkend="ExtendedDetectors"><emphasis>extended</emphasis></link> ones,
-      that work on an area of a lane and the <link
-      linkend="UnextendedDetectors"><emphasis>unextended</emphasis></link>
-      ones, that measure at a fixed position on a lane.</para>
+      <para>SUMO is a command line application and its workflow is the same as
+      for others (see <link linkend="ProgramFlowWithinCommandLineApplications">&#34;ProgramFlowWithinCommandLineApplications&#34;</link>).
+      The next two chapter describe some relevant things about data loading
+      and about the simulation itself. The next picture shows the packages
+      used by SUMO.</para>
 
-      <sect2 id="DetectorCommunication">
-        <title>Communication between detectors and SUMO</title>
+      <figure>
+        <title>Packages needed by SUMO</title>
 
-        <para>Detectors are nearly independant from the rest of the
-        simulation. In the simulation loop there is just on call to a static
-        method before the emission and the move of the vehicles, and one call
-        afterwards. The moving vehicles inform the detectors that they have
-        entered or left the detector through <emphasis>move-reminder</emphasis>-objects.
-        These move-reminders have to be provided for each detector. They are
-        instances of small classes, that just check for some condition, e.g.
-        the position of the vehicle (you can check for whatever a vehicle
-        provides). All move-reminders inherit from <literal>MSMoveReminder</literal>.
-        If a condition is met, the reminder informs the detector. All data is
-        collected in the detector-object. And all processing is done there,
-        too. So if you want a special purpose detector, you have to write the
-        detector-class and a corresponding reminder-class.</para>
-
-        <para>But how do the vehicles know about the move-reminders? On
-        creation of a detector object, a reminder-object is created too. It is
-        passed to the lane the detector works on. The lane has a container of
-        move-reminder objects. If a vehicle enters a lane it gets a copy of
-        this container. At every move, the vehicle calls the method
-        <literal>workOnMoveReminders()</literal>. In this call all reminders
-        are asked if they are <literal>isStillActive()</literal>. If not, they
-        are removed from the vehicles move-reminder container, otherwise the
-        detector may be called. The move-reminders have just two additional
-        methods for entering and leaving the lane. Their names are quite
-        self-explanatory: <literal>isActivatedByEmitOrLaneChange()</literal>
-        and <literal>dismissByLaneChange()</literal>.</para>
-
-        <para>Note that the interfaces of detector classes may differ
-        completely. The detector methods that collect data are called by their
-        associated reminders only. There is no need to inherit from a base
-        detector.</para>
-
-        <para>The following <link linkend="DetectorCollaboration">UML-diagram</link>
-        shows the classes and methods that are relevant for the proper
-        operation of the <literal>MSLaneState</literal> detector.</para>
-
-        <mediaobject id="DetectorCollaboration">
+        <mediaobject>
           <imageobject>
-            <imagedata fileref="images/DetectorCollaboration.eps" format="EPS" />
+            <imagedata align="center"
+            fileref="./gfx/dev/SUMOpackagehierarchy.gif" format="GIF" />
           </imageobject>
-
-          <imageobject>
-            <imagedata fileref="images/DetectorCollaboration.png" format="PNG" />
-          </imageobject>
-
-          <caption>
-            <para>Classes and methods used for collabaration between
-            <literal>MSLaneState</literal> detector and the rest of the
-            simulation.</para>
-          </caption>
         </mediaobject>
+      </figure>
+
+      <sect2>
+        <title>Basic Philosophy</title>
+
+        <para>We have tried to make the simulation as fast and as lean as
+        possible. Due to this, the networks are computed in prior, no further
+        network things are computed after the network has bben loaded. We try
+        to use fast structures and fast algorithms. Still, you may find some
+        things within the code that blow it up. Some functions are assumed to
+        be unneeded but are still within the code as they were not removed
+        after new methods have been implemented. Furthermore, some of the
+        values, mainly within the vehicle and/or the lane classes are just
+        some kind of visualisation stuff that should be removed and used
+        optionally. This is also the case for color values and some parts of
+        the geometrical information as both are not needed within the command
+        line version of the simulation. We will try to get rid of these things
+        within the future.</para>
       </sect2>
+    </sect1>
 
-      <sect2 id="ExtendedDetectors">
-        <title>Extended detectors</title>
+    <sect1>
+      <title>Loading</title>
 
-        <para>In real life the <emphasis>extended</emphasis> detectors are
-        realized by headover detectors, like video-cameras on helicopters,
-        bridges, zeppelins. They collect data from an area of a lane. They are
-        ideal to measure <emphasis>densities</emphasis>, because densities are
-        area-measured quantities. They are also the first choice to measure
-        <emphasis>travelcosts</emphasis>. In this case the extended detector
-        covers the lane completely. Sophisticated <emphasis>traffic-signal
-        sequencing</emphasis> depends also on extended detectors.</para>
+      <para>... to be described ...</para>
 
-        <sect3>
-          <title>The <literal>MSLaneState</literal> detector</title>
+      <figure>
+        <title>State diagram of data loading</title>
 
-          <para>Currently there is only one extended detector:
-          <literal>MSLaneState</literal>. This detector covers a part of a
-          lane and collects basic vehicle data, like speed, entry- and
-          leavetime. It provides following methods to get information about
-          the current state of the detector:</para>
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="./gfx/dev/SUMOLoading.gif"
+            format="GIF" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect1>
 
-          <itemizedlist>
-            <listitem>
-              <literallayout><literal>int getCurrentNumberOfWaiting( void )</literal></literallayout>
-            </listitem>
+    <sect1>
+      <title>Simulation</title>
 
-            <listitem>
-              <literallayout><literal>double getCurrentMeanSpeed( void );</literal></literallayout>
-            </listitem>
+      <para>... to be described ...</para>
 
-            <listitem>
-              <literallayout><literal>double getCurrentMeanSpeedSquare( void
-              );</literal></literallayout>
-            </listitem>
+      <sect2>
+        <title>Detectors</title>
 
-            <listitem>
-              <literallayout><literal>double getCurrentDensity( void );</literal></literallayout>
-            </listitem>
-          </itemizedlist>
+        <para>In the following sections we will describe SUMOs way to
+        communicate with it&#39;s two kinds of detectors, the <link
+        linkend="ExtendedDetectors"><emphasis>extended</emphasis></link> ones,
+        that work on an area of a lane and the <link
+        linkend="UnextendedDetectors"><emphasis>unextended</emphasis></link>
+        ones, that measure at a fixed position on a lane.</para>
 
-          <para>To get averaged detector data (averaged over
-          <literal>lastNTimesteps</literal>) you can call the following
-          methods:</para>
+        <sect3 id="DetectorCommunication">
+          <title>Communication between detectors and SUMO</title>
 
-          <itemizedlist>
-            <listitem>
-              <literallayout><literal>double getNumberOfWaiting( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <para>Detectors are nearly independant from the rest of the
+          simulation. In the simulation loop there is just on call to a static
+          method before the emission and the move of the vehicles, and one
+          call afterwards. The moving vehicles inform the detectors that they
+          have entered or left the detector through <emphasis>move-reminder</emphasis>-objects.
+          These move-reminders have to be provided for each detector. They are
+          instances of small classes, that just check for some condition, e.g.
+          the position of the vehicle (you can check for whatever a vehicle
+          provides). All move-reminders inherit from <literal>MSMoveReminder</literal>.
+          If a condition is met, the reminder informs the detector. All data
+          is collected in the detector-object. And all processing is done
+          there, too. So if you want a special purpose detector, you have to
+          write the detector-class and a corresponding reminder-class.</para>
 
-            <listitem>
-              <literallayout><literal>double getMeanSpeed( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <para>But how do the vehicles know about the move-reminders? On
+          creation of a detector object, a reminder-object is created too. It
+          is passed to the lane the detector works on. The lane has a
+          container of move-reminder objects. If a vehicle enters a lane it
+          gets a copy of this container. At every move, the vehicle calls the
+          method <literal>workOnMoveReminders()</literal>. In this call all
+          reminders are asked if they are <literal>isStillActive()</literal>.
+          If not, they are removed from the vehicles move-reminder container,
+          otherwise the detector may be called. The move-reminders have just
+          two additional methods for entering and leaving the lane. Their
+          names are quite self-explanatory: <literal>isActivatedByEmitOrLaneChange()</literal>
+          and <literal>dismissByLaneChange()</literal>.</para>
 
-            <listitem>
-              <literallayout><literal>double getMeanSpeedSquare( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <para>Note that the interfaces of detector classes may differ
+          completely. The detector methods that collect data are called by
+          their associated reminders only. There is no need to inherit from a
+          base detector.</para>
 
-            <listitem>
-              <literallayout><literal>double getMeanDensity( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <para>The following <link linkend="DetectorCollaboration">UML-diagram</link>
+          shows the classes and methods that are relevant for the proper
+          operation of the <literal>MSLaneState</literal> detector.</para>
 
-            <listitem>
-              <literallayout><literal>double getMeanTraveltime( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <mediaobject id="DetectorCollaboration">
+            <imageobject>
+              <imagedata fileref="images/DetectorCollaboration.eps"
+              format="EPS" />
+            </imageobject>
 
-            <listitem>
-              <literallayout><literal>int getNVehContributed( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+            <imageobject>
+              <imagedata fileref="images/DetectorCollaboration.png"
+              format="PNG" />
+            </imageobject>
 
-            <listitem>
-              <literallayout><literal>int getNVehEnteredDetector( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
+            <caption>
+              <para>Classes and methods used for collabaration between
+              <literal>MSLaneState</literal> detector and the rest of the
+              simulation.</para>
+            </caption>
+          </mediaobject>
+        </sect3>
 
-            <listitem>
-              <literallayout><literal>int getNVehLeftDetectorByMove(
-              MSNet::Time lastNTimesteps );</literal></literallayout>
-            </listitem>
+        <sect3 id="ExtendedDetectors">
+          <title>Extended detectors</title>
 
-            <listitem>
-              <literallayout><literal>int getNVehPassedEntireDetector(
-              MSNet::Time lastNTimesteps );</literal></literallayout>
-            </listitem>
+          <para>In real life the <emphasis>extended</emphasis> detectors are
+          realized by headover detectors, like video-cameras on helicopters,
+          bridges, zeppelins. They collect data from an area of a lane. They
+          are ideal to measure <emphasis>densities</emphasis>, because
+          densities are area-measured quantities. They are also the first
+          choice to measure <emphasis>travelcosts</emphasis>. In this case the
+          extended detector covers the lane completely. Sophisticated
+          <emphasis>traffic-signal sequencing</emphasis> depends also on
+          extended detectors.</para>
 
-            <listitem>
-              <literallayout><literal>std::string getXMLOutput( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
-          </itemizedlist>
+          <sect4>
+            <title>The <literal>MSLaneState</literal> detector</title>
+
+            <para>Currently there is only one extended detector:
+            <literal>MSLaneState</literal>. This detector covers a part of a
+            lane and collects basic vehicle data, like speed, entry- and
+            leavetime. It provides following methods to get information about
+            the current state of the detector:</para>
+
+            <itemizedlist>
+              <listitem>
+                <literallayout><literal>int getCurrentNumberOfWaiting( void )</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getCurrentMeanSpeed( void );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getCurrentMeanSpeedSquare( void
+                );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getCurrentDensity( void );</literal></literallayout>
+              </listitem>
+            </itemizedlist>
+
+            <para>To get averaged detector data (averaged over
+            <literal>lastNTimesteps</literal>) you can call the following
+            methods:</para>
+
+            <itemizedlist>
+              <listitem>
+                <literallayout><literal>double getNumberOfWaiting( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getMeanSpeed( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getMeanSpeedSquare( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getMeanDensity( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>double getMeanTraveltime( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>int getNVehContributed( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>int getNVehEnteredDetector(
+                MSNet::Time lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>int getNVehLeftDetectorByMove(
+                MSNet::Time lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>int getNVehPassedEntireDetector(
+                MSNet::Time lastNTimesteps );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>std::string getXMLOutput( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+            </itemizedlist>
+
+            <note>
+              <para>Note that there is a upper limit for <literal>lastNTimesteps</literal>.
+              In order to save memory, the collected data is stored for a
+              bounded interval only. You can adjust this bound through the
+              <literal>MSLaneState</literal> constructor-parameter
+              <literal>deleteDataAfterSeconds</literal>. The default is 15
+              minutes. The deletion is triggerd by <literal>MSEventControl</literal>.</para>
+            </note>
+
+            <para>For more details on this class see the files
+            <literal>MSLaneState.h</literal> and <literal>MSLaneState.cpp</literal>.</para>
+          </sect4>
+
+          <sect4 id="TravelcostDetectors">
+            <title>Extended detectors as travelcost detectors</title>
+
+            <para>If you want to measure travelcosts, you usually put an
+            extended detector on every lane, aggregate the collected data over
+            a fixed interval and write this data to a file. This is, what
+            <literal>MSTravelcostDetector</literal> provides.
+            <literal>MSTravelcostDetector</literal> is a template singleton
+            class. The template parameter is the extended detector to use. So
+            if you call <literal>MSTravelcostDetector&#60; MSLaneState
+            &#62;::create( maxIntervalLength )</literal>. <literal>MSTravelcostDetector</literal>
+            creates <literal>MSLaneState</literal> detectors on every lane,
+            covering the lanes completety. Then you can add sample intervals
+            from 1 to maxIntervalLength seconds (call e.g. <literal>MSTravelcostDetector&#60;
+            MSLaneState &#62;::getInstance()-&#62;addSampleInterval( 60 )</literal>,
+            which adds a 60 seconds interval. The collected data will be
+            written in a file called <literal>MSLaneState_60.xml</literal>).</para>
+
+            <para>The sampling for a specific interval is triggered by
+            <literal>MSEventControl</literal>.</para>
+
+            <para>An extended detector class must provide following methods to
+            be a proper template parameter to <literal>MSTravelcostDetector</literal>:</para>
+
+            <itemizedlist>
+              <listitem>
+                <literallayout><literal>static std::string getNamePrefix( void
+                );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>static std::string&#38; getXMLHeader(
+                void );</literal></literallayout>
+              </listitem>
+
+              <listitem>
+                <literallayout><literal>std::string getXMLOutput( MSNet::Time
+                lastNTimesteps );</literal></literallayout>
+              </listitem>
+            </itemizedlist>
+
+            <para>For an example see <literal>MSLaneState</literal>.</para>
+          </sect4>
+        </sect3>
+
+        <sect3 id="UnextendedDetectors">
+          <title>Unextended detectors</title>
+
+          <para>The real life counterpart of <emphasis>unextended detectors</emphasis>
+          are induction loops. They collect data from a fixed position on a
+          lane when a vehicle passes by. They are predestined for
+          <emphasis>flow measurments</emphasis>.</para>
 
           <note>
-            <para>Note that there is a upper limit for <literal>lastNTimesteps</literal>.
-            In order to save memory, the collected data is stored for a
-            bounded interval only. You can adjust this bound through the
-            <literal>MSLaneState</literal> constructor-parameter
-            <literal>deleteDataAfterSeconds</literal>. The default is 15
-            minutes. The deletion is triggerd by <literal>MSEventControl</literal>.</para>
+            <para>The MSinductionLoop class has to be modified to use the
+            move-reminder concept. The documentation will be added if this
+            task is completed.</para>
           </note>
-
-          <para>For more details on this class see the files
-          <literal>MSLaneState.h</literal> and <literal>MSLaneState.cpp</literal>.</para>
         </sect3>
-
-        <sect3 id="TravelcostDetectors">
-          <title>Extended detectors as travelcost detectors</title>
-
-          <para>If you want to measure travelcosts, you usually put an
-          extended detector on every lane, aggregate the collected data over a
-          fixed interval and write this data to a file. This is, what
-          <literal>MSTravelcostDetector</literal> provides.
-          <literal>MSTravelcostDetector</literal> is a template singleton
-          class. The template parameter is the extended detector to use. So if
-          you call <literal>MSTravelcostDetector&#60; MSLaneState
-          &#62;::create( maxIntervalLength )</literal>. <literal>MSTravelcostDetector</literal>
-          creates <literal>MSLaneState</literal> detectors on every lane,
-          covering the lanes completety. Then you can add sample intervals
-          from 1 to maxIntervalLength seconds (call e.g. <literal>MSTravelcostDetector&#60;
-          MSLaneState &#62;::getInstance()-&#62;addSampleInterval( 60 )</literal>,
-          which adds a 60 seconds interval. The collected data will be written
-          in a file called <literal>MSLaneState_60.xml</literal>).</para>
-
-          <para>The sampling for a specific interval is triggered by
-          <literal>MSEventControl</literal>.</para>
-
-          <para>An extended detector class must provide following methods to
-          be a proper template parameter to <literal>MSTravelcostDetector</literal>:</para>
-
-          <itemizedlist>
-            <listitem>
-              <literallayout><literal>static std::string getNamePrefix( void
-              );</literal></literallayout>
-            </listitem>
-
-            <listitem>
-              <literallayout><literal>static std::string&#38; getXMLHeader(
-              void );</literal></literallayout>
-            </listitem>
-
-            <listitem>
-              <literallayout><literal>std::string getXMLOutput( MSNet::Time
-              lastNTimesteps );</literal></literallayout>
-            </listitem>
-          </itemizedlist>
-
-          <para>For an example see <literal>MSLaneState</literal>.</para>
-        </sect3>
-      </sect2>
-
-      <sect2 id="UnextendedDetectors">
-        <title>Unextended detectors</title>
-
-        <para>The real life counterpart of <emphasis>unextended detectors</emphasis>
-        are induction loops. They collect data from a fixed position on a lane
-        when a vehicle passes by. They are predestined for
-        <emphasis>flow measurments</emphasis>.</para>
-
-        <note>
-          <para>The MSinductionLoop class has to be modified to use the
-          move-reminder concept. The documentation will be added if this task
-          is completed.</para>
-        </note>
       </sect2>
     </sect1>
   </chapter>
@@ -1469,8 +1635,7 @@
           <title>Sorting nodes&#39; edges</title>
 
           <para>An edges angle is compute on construction as the origin and
-          the destination nodes are known, here. <caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" />What about the
+          the destination nodes are known, here. <caution><para>What about the
           edge&#39;s geometry?</para></caution>Still, the angle of course
           depends on whether it is an incoming or an outgoing edge. The
           NBContHelper::edge_by_junction_angle_sorter()-method does consider
@@ -1702,15 +1867,19 @@
       of the computation be very verbose or check some values for certain
       examples. We will present them now, briefly.</para>
 
-      <sect2 id="DebugMacros">
+      <sect2 id="TL_DEBUG">
         <title>TL_DEBUG</title>
 
         <para>This definition lets the computation of traffic lights be very
         verbose.</para>
       </sect2>
 
-      <sect2 id="DebugMacros">
+      <sect2 id="CROSS_TEST">
         <title>CROSS_TEST</title>
+
+        <caution>
+          <para>Deprecated!</para>
+        </caution>
 
         <para>For the cross3ltl-example, this definition checks some values
         that should be true. If not, unfulfilled assertion exceptions are
