@@ -25,6 +25,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2003/05/25 17:54:10  roessel
+// Added a for_each call to MSLaneState::actionBeforeMove and
+// MSLaneState::actionAfterMove to MSNet::simulationStep.
+//
 // Revision 1.16  2003/05/22 11:20:21  roessel
 // Refined the mean-data xml-comment.
 //
@@ -498,7 +502,10 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     // execute Events
     myEvents->execute(myStep);
-
+    
+    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
+              mem_fun( &MSLaneState::actionBeforeMove ) );
+    
     // move Vehicles
     myJunctions->resetRequests();
 
@@ -516,10 +523,10 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         detec != myDetectors->end(); ++detec ) {
         ( *detec )->sample( simSeconds() );
     }
-    for( vector<MSLaneState*>::iterator it=laneStateDetectorsM.begin();
-         it != laneStateDetectorsM.end(); ++it ) {
-        ( *it )->calcWaitingQueueLength();
-    }
+    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
+              mem_fun( &MSLaneState::actionAfterMove ) );
+    
+
 
 
 
