@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/07 10:15:11  dkrajzew
+// glut reinserted
+//
 // Revision 1.5  2003/04/04 15:11:10  roessel
 // Commented out #include <glut.h>
 //
@@ -53,9 +56,12 @@ namespace
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILaneWrapper.h>
-//#include <glut.h>
 #include "GUIViewTraffic.h"
 #include "GUISimpleLaneDrawer.h"
+
+#ifdef WIN32
+#include <glut.h>
+#endif
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/07 10:15:14  dkrajzew
+// glut reinserted
+//
 // Revision 1.7  2003/04/04 15:12:05  roessel
 // Commented out #include <glut.h>
 //
@@ -46,10 +49,12 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILaneWrapper.h>
-//#include <glut.h>
 #include "GUIViewTraffic.h"
 #include "GUITriangleVehicleDrawer.h"
 
+#ifdef WIN32
+#include <glut.h>
+#endif
 
 /* =========================================================================
  * member method definitions

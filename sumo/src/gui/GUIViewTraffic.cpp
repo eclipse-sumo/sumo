@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/04/07 10:15:16  dkrajzew
+// glut reinserted
+//
 // Revision 1.9  2003/04/04 15:13:20  roessel
 // Commented out #include <glut.h>
 // Added #include <qcursor.h>
@@ -58,7 +61,6 @@ namespace
 #include <iostream>
 #include <utility>
 #include <cmath>
-//#include <glut.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
@@ -89,6 +91,11 @@ namespace
 #include "icons/view_traffic/colour_vehicle.xpm"
 #include "icons/view_traffic/show_grid.xpm"
 #include "icons/view_traffic/show_tooltips.xpm"
+
+
+#ifdef WIN32
+#include <glut.h>
+#endif
 
 
 /* =========================================================================
