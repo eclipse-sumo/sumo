@@ -19,6 +19,11 @@
 
 
 // $Log$
+// Revision 1.19  2003/06/05 12:57:08  roessel
+// Modified #includes.
+// Changed calls to operator() of nested structs because of MSVC++ compile
+// problems.
+//
 // Revision 1.18  2003/06/05 09:53:46  roessel
 // Numerous changes and new methods/members.
 //
@@ -97,9 +102,9 @@
 #include "MSNet.h"
 #include "MSEventControl.h"
 #include "MSLaneStateReminder.h"
-#include "../helpers/SimpleCommand.h"
-#include "../helpers/SingletonDictionary.h"
-#include "../helpers/convert.h"
+#include <utils/convert/ToString.h>
+#include <helpers/SimpleCommand.h>
+#include <helpers/SingletonDictionary.h>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
@@ -357,7 +362,7 @@ MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
     double traveltime = accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
-                     VehicleData::leaveTimestepLesser() ),
+                     leaveTimestepLesser() ),
         vehLeftDetectorM.end(),
         0.0,
         traveltimeSum ) *
@@ -377,7 +382,7 @@ MSLaneState::getNVehContributed( MSNet::Time lastNTimesteps )
     int nVehLeft = distance(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
-                     VehicleData::leaveTimestepLesser() ),
+                     leaveTimestepLesser() ),
         vehLeftDetectorM.end() );
     assert( nVehLeft >= 0 );
     nVehContributedM = nVehLeft + vehOnDetectorM.size();
@@ -405,7 +410,7 @@ MSLaneState::getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps )
     return accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
-                     VehicleData::leaveTimestepLesser() ),
+                     leaveTimestepLesser() ),
         vehLeftDetectorM.end(), 0, leftByMoveSum );
 }
 
@@ -416,7 +421,7 @@ MSLaneState::getNVehPassedEntireDetector( MSNet::Time lastNTimesteps )
     return accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
-                     VehicleData::leaveTimestepLesser() ),
+                     leaveTimestepLesser() ),
         vehLeftDetectorM.end(), 0, passedEntireSum );
 }
 
@@ -430,22 +435,22 @@ string
 MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
 {
     string traveltime = string("traveltime=\"") +
-        getString( getMeanTraveltime( lastNTimesteps ) ) + string("\" ");
+        toString( getMeanTraveltime( lastNTimesteps ) ) + string("\" ");
     string speed = string("speed=\"") +
-        getString( getMeanSpeed( lastNTimesteps ) ) + string("\" ");
+        toString( getMeanSpeed( lastNTimesteps ) ) + string("\" ");
     string speedSquare = string("speedsquare=\"") +
-        getString( getMeanSpeedSquare( lastNTimesteps ) ) + string("\" ");
+        toString( getMeanSpeedSquare( lastNTimesteps ) ) + string("\" ");
     string density = string("density=\"") +
-        getString( getMeanDensity( lastNTimesteps ) ) + string("\" ");
+        toString( getMeanDensity( lastNTimesteps ) ) + string("\" ");
     string nVehContrib = string("noVehContrib=\"") +
-        getString( getNVehContributed( lastNTimesteps ) ) + string("\" ");
+        toString( getNVehContributed( lastNTimesteps ) ) + string("\" ");
     string nVehEntire = string("noVehEntire=\"") +
-        getString( getNVehPassedEntireDetector( lastNTimesteps ) ) +
+        toString( getNVehPassedEntireDetector( lastNTimesteps ) ) +
         string("\" ");
     string nVehEntered = string("noVehEntered=\"") +
-        getString( getNVehEnteredDetector( lastNTimesteps ) ) + string("\" ");
+        toString( getNVehEnteredDetector( lastNTimesteps ) ) + string("\" ");
     string nVehLeft = string("noVehLeftByMove=\"") +
-        getString( getNVehLeftDetectorByMove( lastNTimesteps ) ) +
+        toString( getNVehLeftDetectorByMove( lastNTimesteps ) ) +
         string("\"");
     return traveltime + speed + speedSquare + density + nVehContrib +
         nVehEntire + nVehEntered + nVehLeft;
@@ -517,7 +522,7 @@ MSLaneState::leaveDetectorByMove( MSVehicle& veh,
     // insert so that container keeps being sorted
     vehLeftDetectorM.insert(
         find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
-                 bind2nd( VehicleData::leaveTimestepLesser(),
+                 bind2nd( leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
     vehOnDetectorM.erase( dataIt );
@@ -537,7 +542,7 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     // insert so that container keeps being sorted
     vehLeftDetectorM.insert(
         find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
-                 bind2nd( VehicleData::leaveTimestepLesser(),
+                 bind2nd( leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
     vehOnDetectorM.erase( dataIt );
@@ -600,7 +605,7 @@ MSLaneState::deleteOldData( void )
             lower_bound( vehLeftDetectorM.begin(),
                          vehLeftDetectorM.end(),
                          deleteBeforeStep,
-                         VehicleData::leaveTimestepLesser() ) );
+                         leaveTimestepLesser() ) );
     }
     return deleteDataAfterSecondsM;
 }
@@ -664,4 +669,5 @@ MSLaneState::needsNewCalculation( MSNet::Time lastNTimesteps )
 // Local Variables:
 // mode:C++
 // End:
+
 
