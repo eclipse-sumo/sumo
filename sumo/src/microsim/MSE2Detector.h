@@ -43,6 +43,7 @@ class MSE2Detector : public MSE2DetectorInterface,
 {
 public:
     typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
+    typedef typename ConcreteDetector::ContainerItem ContainerItem;
     typedef typename ConcreteDetector::VehicleCont VehicleCont;
     typedef typename VehicleCont::iterator VehicleContIter;
     
@@ -118,16 +119,18 @@ private:
         {
             return std::find_if( vehOnDetectorM.begin(),
                                  vehOnDetectorM.end(),
-                                 std::bind2nd( Predicate::PosGreater(),
-                                               veh.pos() ) );
+                                 std::bind2nd(
+                                     Predicate::PosGreater< ContainerItem >(),
+                                     veh.pos() ) );
         }
 
     VehicleContIter getVehContEraseIterator( MSVehicle& veh )
         {
             return std::find_if( vehOnDetectorM.begin(),
                                  vehOnDetectorM.end(),
-                                 std::bind2nd( Predicate::VehEquals(),
-                                               &veh ) );
+                                 std::bind2nd(
+                                     Predicate::VehEquals< ContainerItem >(),
+                                     &veh ) );
         }   
     
     void enterDetectorByMove( MSVehicle& veh )

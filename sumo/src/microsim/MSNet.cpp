@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.36  2003/09/22 11:47:53  roessel
+// Portability fixes.
+//
 // Revision 1.35  2003/09/22 08:50:34  roessel
 // Added detection of E2_ZS_Collector objects to simulationStep.
 //
@@ -581,8 +584,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     // detect
     MSLaneState::actionsAfterMoveAndEmit();
-    MS_E2_ZS_Collector::Dictionary::ValueVector& E2ZSColl =
-        MS_E2_ZS_Collector::Dictionary::getInstance()->getStdVector();
+    MS_E2_ZS_Collector::E2ZSDictionary::ValueVector& E2ZSColl =
+        MS_E2_ZS_Collector::E2ZSDictionary::getInstance()->getStdVector();
     for_each( E2ZSColl.begin(), E2ZSColl.end(),
               mem_fun( &MS_E2_ZS_Collector::update ) );
 

@@ -23,7 +23,7 @@
 
 #include <string>
 #include <helpers/SingletonDictionary.h>
-
+#include "MS_E2_ZS_Collector.h"
 
 
 class MSLaneState;
@@ -33,7 +33,7 @@ class MSDetectorSubSys {
 public:
     typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
     typedef SingletonDictionary< std::string, MSInductLoop* > LoopDict;
-
+    typedef MS_E2_ZS_Collector::E2ZSDictionary E2ZSDict;
 
     static void createDictionaries( void );
 

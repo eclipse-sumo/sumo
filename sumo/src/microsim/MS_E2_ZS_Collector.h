@@ -24,7 +24,8 @@ public:
     typedef MSE2DetectorInterface E2ZSDetector;
     typedef std::vector< E2ZSDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
-    typedef SingletonDictionary< std::string, MS_E2_ZS_Collector* > Dictionary;
+    typedef SingletonDictionary< std::string,
+                                 MS_E2_ZS_Collector* > E2ZSDictionary;
     
     MS_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
                         MSLane* lane,
@@ -45,18 +46,19 @@ public:
             assert( endPosM - startPosM > 0 && endPosM < laneLength );
             
             // insert object into dictionary
-            if ( ! Dictionary::getInstance()->isInsertSuccess( idM, this ) ) {
+            if ( ! E2ZSDictionary::getInstance()->isInsertSuccess(
+                     idM, this ) ) {
                 assert( false );
             }
-
-            
         }
 
     ~MS_E2_ZS_Collector( void )
         {
             for ( DetContIter it = detectorsM.begin();
                   it != detectorsM.end(); ++it ) {
-                delete *it;
+                if ( *it != 0 ) {
+                    delete *it;
+                }
             }
         }
     
@@ -109,12 +111,13 @@ public:
             }
         }
     
-    void update( void )
+    bool update( void )
         {
             for ( DetContIter it = detectorsM.begin();
                   it != detectorsM.end(); ++it ) {
                 (*it)->update();
             }
+            return true;
         }
 
     /**

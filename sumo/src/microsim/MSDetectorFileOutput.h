@@ -77,8 +77,6 @@ protected:
     static std::string infoEndM;
 };
 
-std::string MSDetectorFileOutput::infoEndM = std::string("</detector>");
-
 #endif
 
 // Local Variables:
