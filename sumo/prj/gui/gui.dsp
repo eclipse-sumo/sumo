@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /w /W0 /GR /GX /O2 /I "d:\libs\xerces-c2_1_0-win32\include" /I "d:\libs\xerces-c2_1_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "ABS_DEBUG" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GR /GX /O2 /I "d:\libs\xerces-c2_1_0-win32\include" /I "d:\libs\xerces-c2_1_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,6 +50,10 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Release\gui.exe ..\..\bin\gui.exe
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
 
@@ -73,6 +77,10 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Debug\gui.exe ..\..\bin\guiD.exe
+# End Special Build Tool
 
 !ENDIF 
 
@@ -102,6 +110,10 @@ SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\FileHelpers.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\glutils\FontStorage.cpp
 # End Source File
 # Begin Source File
 
@@ -181,6 +193,18 @@ SOURCE=..\..\src\guinetload\GUINetHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\partable\GUIParameterTable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\GUIParameterTableWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\vartracker\GUIParameterTracker.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIPerspectiveChanger.cpp
 # End Source File
 # Begin Source File
@@ -197,7 +221,11 @@ SOURCE=..\..\src\guisim\GUISourceLane.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\GUISUMOView.cpp
+SOURCE=..\..\src\gui\GUISUMOAbstractView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
@@ -229,7 +257,23 @@ SOURCE=..\..\src\gui\moc_GUIChooser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\moc_GUISUMOView.cpp
+SOURCE=..\..\src\gui\partable\moc_GUIParameterTable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\moc_GUISUMOAbstractView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\moc_GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
@@ -241,11 +285,19 @@ SOURCE=..\..\src\gui\moc_QAboutSUMO.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\moc_QGUIImageField.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\gui\moc_QGUIToggleButton.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\moc_QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
@@ -433,6 +485,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\Position2DVector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # End Source File
 # Begin Source File
@@ -441,7 +497,19 @@ SOURCE=..\..\src\gui\QAboutSUMO.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\QGLObjectPopupMenu.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QGLObjectPopupMenuItem.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\QGLObjectToolTip.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
@@ -481,6 +549,10 @@ SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\vartracker\TrackerValueDesc.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\UtilExceptions.cpp
 # End Source File
 # Begin Source File
@@ -510,6 +582,10 @@ SOURCE=..\..\src\utils\geom\Boundery.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\geom\Bresenham.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\glutils\FontStorage.h
 # End Source File
 # Begin Source File
 
@@ -615,6 +691,10 @@ SOURCE=..\..\src\gui\GUIGlObjectStorage.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\GUIGlObjectTypes.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUILane.h
 # End Source File
 # Begin Source File
@@ -643,6 +723,87 @@ SOURCE=..\..\src\guinetload\GUINetHandler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\partable\GUIParameterTable.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUIParameterTable.h...
+InputPath=..\..\src\gui\partable\GUIParameterTable.h
+
+"..\..\src\gui\partable\moc_GUIParameterTable.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\GUIParameterTable.h -o ..\..\src\gui\partable\moc_GUIParameterTable.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUIParameterTable.h...
+InputPath=..\..\src\gui\partable\GUIParameterTable.h
+
+"..\..\src\gui\partable\moc_GUIParameterTable.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\GUIParameterTable.h -o ..\..\src\gui\partable\moc_GUIParameterTable.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\GUIParameterTableWindow.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUIParameterTableWindow.h...
+InputPath=..\..\src\gui\partable\GUIParameterTableWindow.h
+
+"..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\GUIParameterTableWindow.h -o ..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUIParameterTableWindow.h...
+InputPath=..\..\src\gui\partable\GUIParameterTableWindow.h
+
+"..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\GUIParameterTableWindow.h -o ..\..\src\gui\partable\moc_GUIParameterTableWindow.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\vartracker\GUIParameterTracker.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUIParameterTracker.h...
+InputPath=..\..\src\gui\vartracker\GUIParameterTracker.h
+
+"..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\vartracker\GUIParameterTracker.h -o ..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUIParameterTracker.h...
+InputPath=..\..\src\gui\vartracker\GUIParameterTracker.h
+
+"..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\vartracker\GUIParameterTracker.h -o ..\..\src\gui\vartracker\moc_GUIParameterTracker.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIPerspectiveChanger.h
 # End Source File
 # Begin Source File
@@ -659,25 +820,52 @@ SOURCE=..\..\src\guisim\GUISourceLane.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\GUISUMOView.h
+SOURCE=..\..\src\gui\GUISUMOAbstractView.h
 
 !IF  "$(CFG)" == "gui - Win32 Release"
 
-# Begin Custom Build - Moc'ing GUISUMOView.h...
-InputPath=..\..\src\gui\GUISUMOView.h
+# Begin Custom Build - Moc'ing GUISUMOAbstractView.h...
+InputPath=..\..\src\gui\GUISUMOAbstractView.h
 
-"..\..\src\gui\moc_GUISUMOView.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOView.h -o ..\..\src\gui\moc_GUISUMOView.cpp
+"..\..\src\gui\moc_GUISUMOAbstractView.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOAbstractView.h -o ..\..\src\gui\moc_GUISUMOAbstractView.cpp
 
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
 
-# Begin Custom Build - Moc'ing GUISUMOView.h...
-InputPath=..\..\src\gui\GUISUMOView.h
+# Begin Custom Build - Moc'ing GUISUMOAbstractView.h...
+InputPath=..\..\src\gui\GUISUMOAbstractView.h
 
-"..\..\src\gui\moc_GUISUMOView.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOView.h -o ..\..\src\gui\moc_GUISUMOView.cpp
+"..\..\src\gui\moc_GUISUMOAbstractView.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOAbstractView.h -o ..\..\src\gui\moc_GUISUMOAbstractView.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUISUMOViewParent.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUISUMOViewParent.h...
+InputPath=..\..\src\gui\GUISUMOViewParent.h
+
+"..\..\src\gui\moc_GUISUMOViewParent.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOViewParent.h -o ..\..\src\gui\moc_GUISUMOViewParent.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUISUMOViewParent.h...
+InputPath=..\..\src\gui\GUISUMOViewParent.h
+
+"..\..\src\gui\moc_GUISUMOViewParent.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUISUMOViewParent.h -o ..\..\src\gui\moc_GUISUMOViewParent.cpp
 
 # End Custom Build
 
@@ -1000,6 +1188,37 @@ InputPath=..\..\src\gui\QAboutSUMO.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\QGLObjectPopupMenu.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h...
+InputPath=..\..\src\gui\QGLObjectPopupMenu.h
+
+"..\..\src\gui\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\QGLObjectPopupMenu.h -o ..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h...
+InputPath=..\..\src\gui\QGLObjectPopupMenu.h
+
+"..\..\src\gui\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\QGLObjectPopupMenu.h -o ..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QGLObjectPopupMenuItem.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\QGLObjectToolTip.h
 # End Source File
 # Begin Source File
@@ -1058,6 +1277,33 @@ InputPath=..\..\src\gui\QGUIToggleButton.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\partable\QParamPopupMenu.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QParamPopupMenu.h...
+InputPath=..\..\src\gui\partable\QParamPopupMenu.h
+
+"..\..\src\gui\partable\moc_QParamPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\QParamPopupMenu.h -o ..\..\src\gui\partable\moc_QParamPopupMenu.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QParamPopupMenu.h...
+InputPath=..\..\src\gui\partable\QParamPopupMenu.h
+
+"..\..\src\gui\partable\moc_QParamPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\partable\QParamPopupMenu.h -o ..\..\src\gui\partable\moc_QParamPopupMenu.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\QSimulationLoadedEvent.h
 # End Source File
 # Begin Source File
@@ -1094,11 +1340,19 @@ SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\TableTypes.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\convert\TplConvert.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\convert\TplConvertSec.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\vartracker\TrackerValueDesc.h
 # End Source File
 # Begin Source File
 

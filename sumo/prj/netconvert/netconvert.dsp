@@ -51,6 +51,10 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Release\netconvert.exe ..\..\bin\netconvert.exe
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "netconvert - Win32 Debug"
 
@@ -66,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "d:\libs\xerces-c2_1_0-win32\include" /I "d:\libs\xerces-c2_1_0-win32\include\xercesc" /I "..\..\src" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "d:\libs\xerces-c2_1_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\xerces-c2_1_0-win32\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /YX /FD /I /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -75,6 +79,11 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Debug\netconvert.exe ..\..\bin\netconvertD.exe
+# End Special Build Tool
 
 !ENDIF 
 
@@ -140,6 +149,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\importio\NamedColumnsParser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBConnection.cpp
 # End Source File
 # Begin Source File
 
@@ -383,6 +396,14 @@ SOURCE=..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.cpp
 # End Source File
 # Begin Source File
@@ -392,6 +413,18 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektorde
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.cpp
 # End Source File
 # Begin Source File
 
@@ -408,6 +441,14 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugty
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -447,7 +488,19 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefi
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -491,7 +544,19 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -508,6 +573,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckende
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -528,6 +597,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschent
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.cpp
 # End Source File
 # Begin Source File
 
@@ -583,7 +656,31 @@ SOURCE=..\..\src\netimport\visum\NIVisumParser_Nodes.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\visum\NIVisumParser_NodesToTrafficLights.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_Phases.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_SignalGroups.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_SignalGroupsToPhases.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_TrafficLights.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\visum\NIVisumParser_Turns.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_TurnsToSignalGroups.cpp
 # End Source File
 # Begin Source File
 
@@ -592,6 +689,10 @@ SOURCE=..\..\src\netimport\visum\NIVisumParser_Types.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netimport\visum\NIVisumParser_VSysTypes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumTL.cpp
 # End Source File
 # Begin Source File
 
@@ -695,6 +796,10 @@ SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\BoolVector.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\Boundery.h
 # End Source File
 # Begin Source File
@@ -768,6 +873,10 @@ SOURCE=..\..\src\utils\common\NamedObjectCont.h
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBCapacity2Lanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBConnection.h
 # End Source File
 # Begin Source File
 
@@ -1039,6 +1148,14 @@ SOURCE=..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdgeVecto
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.h
 # End Source File
 # Begin Source File
@@ -1048,6 +1165,18 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektorde
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.h
 # End Source File
 # Begin Source File
 
@@ -1064,6 +1193,14 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugty
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.h
 # End Source File
 # Begin Source File
 
@@ -1103,7 +1240,19 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefi
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.h
 # End Source File
 # Begin Source File
 
@@ -1147,7 +1296,19 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.h
 # End Source File
 # Begin Source File
 
@@ -1164,6 +1325,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckende
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.h
 # End Source File
 # Begin Source File
 
@@ -1184,6 +1349,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschent
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.h
 # End Source File
 # Begin Source File
 
@@ -1243,7 +1412,31 @@ SOURCE=..\..\src\netimport\visum\NIVisumParser_Nodes.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\visum\NIVisumParser_NodesToTrafficLights.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_Phases.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_SignalGroups.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_SignalGroupsToPhases.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_TrafficLights.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\visum\NIVisumParser_Turns.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumParser_TurnsToSignalGroups.h
 # End Source File
 # Begin Source File
 
@@ -1252,6 +1445,10 @@ SOURCE=..\..\src\netimport\visum\NIVisumParser_Types.h
 # Begin Source File
 
 SOURCE=..\..\src\netimport\visum\NIVisumParser_VSysTypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\visum\NIVisumTL.h
 # End Source File
 # Begin Source File
 
