@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/22 10:06:22  dkrajzew
+// unclosed loading of one of the types patched
+//
 // Revision 1.1  2002/10/16 15:44:01  dkrajzew
 // initial commit for visum importing classes
 //
@@ -665,6 +668,7 @@ NBVisumLoader::addConnector(const std::string &msg) {
     } else {
         _connectorsRead = true;
     }
+    return continueStep();
 }
 
 
