@@ -13,6 +13,9 @@
  */
 
 // $Log$
+// Revision 1.2  2003/06/04 16:09:16  roessel
+// setFindMode creates now a static vector which is returned by reference from getStdVector.
+//
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
@@ -40,7 +43,7 @@
 template< typename Key, typename Value >
 class Dictionary
 {
-public:    // public methods
+public:
 
     /// Destructor. If you are storing pointers you should delete them
     /**
@@ -56,32 +59,33 @@ public:    // public methods
             mapM.clear();
         }
     /// Constructor
-    Dictionary()
-        {
-            operationModeM = INSERT;
-        }
+    Dictionary() :
+        mapM(  ),
+        operationModeM( INSERT )
+        {}
+    
 
     bool isInsertSuccess( Key aKey, Value aValue )
         {
             assert( operationModeM == INSERT );
-            return mapM.insert( std::make_pair( aKey, aValue ) ).second;
-        }
-
+			return mapM.insert( std::make_pair( aKey, aValue ) ).second;
+       	}
+       
     void setFindMode( void )
         {
             assert( operationModeM == INSERT );
             operationModeM = FIND;
+            vectorM.reserve( mapM.size() );
+            for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
+                vectorM.push_back( it->second );
+            }
         }
 
-    std::vector< Value > getStdVector()
+    typedef std::vector< Value > ValueVector;
+    ValueVector& getStdVector()
         {
             assert( operationModeM == FIND );
-            std::vector< Value > vec;
-            vec.reserve( mapM.size() );
-            for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
-                vec.push_back( it->second );
-            }
-            return vec;
+            return vectorM;
         }
 
     Value getValue( Key aKey )
@@ -97,24 +101,19 @@ public:    // public methods
         }
 
 
-private:   // private methods
-
-    /// Not implemented copy-constructor
-    Dictionary( const Dictionary& );
-    /// Not implemented assignment-operator
-    Dictionary& operator=( const Dictionary& );
-
-protected: // protected members
-    std::map< Key, Value > mapM; /**< Map to store the key-value pairs. */
-
+protected:
+    typedef std::map< Key, Value > Map;
     /// The type of an interator to the key-value pair map (for brevity)
-    typedef typename std::map< Key, Value >::iterator MapIt;
+    typedef typename Map::iterator MapIt;   
+    Map mapM; /**< Map to store the key-value pairs. */
+
 
     /// Modes of operation are defined here.
     enum Mode {
         INSERT = 0,             /**< Insert-mode for inserting key-value pairs
                                  * until mode is switched by setFindMode()  */
-        FIND                    /**< Find-mode is used after finishing insertion. */
+        FIND                    /**< Find-mode is used after finishing
+                                 * insertion. */
     };
 
     /**
@@ -126,7 +125,20 @@ protected: // protected members
      */
     Mode operationModeM;
 
+    static ValueVector vectorM;
+    
+private:
+
+    /// Not implemented copy-constructor
+    Dictionary( const Dictionary& );
+    /// Not implemented assignment-operator
+    Dictionary& operator=( const Dictionary& );
 };
+
+// static member initialization
+template< typename Key, typename Value >
+Dictionary< Key, Value >::ValueVector
+Dictionary< Key, Value >::vectorM;
 
 
 // Here I tried to do a specialization for all pointer types, but I failed
