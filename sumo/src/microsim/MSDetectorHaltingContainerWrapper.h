@@ -48,8 +48,8 @@ struct MSDetectorHaltingContainerWrapper :
         MSUnit::CellsPerStep speedThreshold,
         MSUnit::Cells jamDistThreshold )
         : MSDetectorContainerWrapper< WrappedContainer >( occupancyCorrection),
-//           MSUpdateEachTimestep< MSDetectorContainerWrapperBase >(),
-          MSUpdateEachTimestep< MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+          MSUpdateEachTimestep<
+          MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
           timeThresholdM( timeThreshold ),
           speedThresholdM( speedThreshold ),
           jamDistThresholdM( jamDistThreshold )
@@ -57,10 +57,11 @@ struct MSDetectorHaltingContainerWrapper :
 
     bool updateEachTimestep( void )
         {
-            // set isHaltingM and haltingDurationM
+            // set posM isHaltingM and haltingDurationM
             typedef typename WrappedContainer::iterator ContainerIt;
             for ( ContainerIt haltIt = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
+                haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
@@ -91,17 +92,17 @@ struct MSDetectorHaltingContainerWrapper :
                 for ( ContainerIt jamIt = containerM.begin();
                       jamIt != --containerM.end(); /* empty */ ){
                     ContainerIt rearIt = jamIt;
-                    MSVehicle* rear = jamIt->vehM;
-                    MSVehicle* front = (++jamIt)->vehM;
-                    if ( front->pos() - front->length() - rear->pos() <=
+                    ContainerIt frontIt = ++jamIt;
+                    if ( frontIt->posM - frontIt->vehM->length()
+                         - rearIt->posM <=
                          jamDistThresholdM ) {
                         if ( rearIt == containerM.begin() ) {
                             rearIt->isInJamM = true;
                         }
-                        jamIt->isInJamM = true;
+                        frontIt->isInJamM = true;
                     }
                     else {
-                        jamIt->isInJamM = false;
+                        frontIt->isInJamM = false;
                     }
                 }
             }
@@ -119,12 +120,14 @@ namespace DetectorContainer
     {
         Halting( MSVehicle* veh )
             : vehM( veh ),
+              posM( vehM->pos() ),
               timeBelowSpeedThresholdM( 0 ),
               isHaltingM( false ),
               isInJamM( false ),
               haltingDurationM( 0 )
             {}
         MSVehicle* vehM;
+        MSUnit::Cells posM; 
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         bool isInJamM;
