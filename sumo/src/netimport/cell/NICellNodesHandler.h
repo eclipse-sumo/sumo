@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/07/02 09:35:23  dkrajzew
+// adaptation of current FastLane import
+//
 // Revision 1.2  2003/06/18 11:14:48  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -67,9 +70,6 @@ public:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NICellNodesHandler.icc"
-//#endif
 
 #endif
 

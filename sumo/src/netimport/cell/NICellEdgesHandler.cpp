@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 09:35:23  dkrajzew
+// adaptation of current FastLane import
+//
 // Revision 1.4  2004/01/12 15:31:18  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -152,6 +155,16 @@ NICellEdgesHandler::report(const std::string &result)
                 } catch (NumberFormatException) {
                     addError(
                         string("Non-numeric speed value:")
+                        + '\n' + result.c_str());
+                }
+            }
+            // process lane number
+            if(name=="-l") {
+                try {
+                    nolanes = TplConvert<char>::_2float(value.c_str());
+                } catch (NumberFormatException) {
+                    addError(
+                        string("Non-numeric lane number value:")
                         + '\n' + result.c_str());
                 }
             }
