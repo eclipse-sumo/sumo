@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2004/02/18 05:30:09  dkrajzew
+// removal of all moveReminders on lane change added
+//
 // Revision 1.50  2004/02/16 15:21:58  dkrajzew
 // movedDistance-retrival reworked; forgetting predecessors when driving over more than one lane patched
 //
@@ -1889,10 +1892,21 @@ MSVehicle::leaveLaneAtLaneChange( void )
                                 md.enteredLaneWithinIntervall );
     }
     // dismiss the old lane's reminders
-    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+	vector< MSMoveReminder* >::iterator rem;
+    for ( rem = myMoveReminders.begin();
           rem != myMoveReminders.end(); ++rem ){
         (*rem)->dismissByLaneChange( *this );
     }
+		  std::vector<double>::iterator bla = myOldLaneMoveReminderOffsets.begin();
+    for ( rem = myOldLaneMoveReminders.begin();
+          rem != myOldLaneMoveReminders.end(); ++rem, ++bla  ){
+		myState.myPos += (*bla);
+        (*rem)->dismissByLaneChange( *this );
+		myState.myPos -= (*bla);
+    }
+	myMoveReminders.clear();
+	myOldLaneMoveReminders.clear();
+	myOldLaneMoveReminderOffsets.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////
