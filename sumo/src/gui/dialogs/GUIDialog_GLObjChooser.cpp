@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 10:58:27  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.1  2004/03/19 12:33:36  dkrajzew
 // porting to FOX
 //
@@ -53,6 +56,13 @@ namespace
 #include <gui/GUISUMOViewParent.h>
 #include <gui/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
+#include <gui/GUIGlObject.h>
+#include <gui/GUIGlObjectStorage.h>
+#include <gui/icons/GUIIconSubSys.h>
+#include <microsim/MSJunction.h>
+#include <guisim/GUIVehicle.h>
+#include <guisim/GUIEdge.h>
+#include <guisim/GUINet.h>
 #include "GUIDialog_GLObjChooser.h"
 
 
@@ -67,8 +77,8 @@ using namespace std;
  * ======================================================================= */
 FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]=
 {
-    FXMAPFUNC(SEL_COMMAND,  MID_OK,      GUIDialog_GLObjChooser::onCmdOK),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,  GUIDialog_GLObjChooser::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdCancel),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -77,10 +87,10 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-        GUISUMOViewParent *parent, GUIGlObjectType type,
-        std::vector<std::string> &names)
-    : FXMainWindow(gFXApp, "choose", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
+                                               GUIGlObjectType type,
+                                               GUIGlObjectStorage &glStorage)
+    : FXMainWindow(gFXApp, "Instance Action Chooser", NULL, NULL, DECOR_ALL, 0, 0, 300, 300),
     myObjectType(type), myParent(parent)
 {
     FXHorizontalFrame *hbox =
@@ -89,19 +99,59 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     // build the list
     myList = new FXList(hbox, 0, 0,
         LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT);
-    for(std::vector<std::string>::iterator i=names.begin(); i!=names.end(); i++) {
-        myList->appendItem((*i).c_str());
+    std::vector<size_t> ids;
+        // get the ids
+    switch(type) {
+    case GLO_JUNCTION:
+        ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
+        break;
+    case GLO_EDGE:
+        ids = GUIEdge::getIDs();
+        break;
+    case GLO_VEHICLE:
+        ids = GUIVehicle::getIDs();
+        break;
+    default:
+        break;
     }
-    // build the layout
+    for(std::vector<size_t>::iterator i=ids.begin(); i!=ids.end(); i++) {
+        GUIGlObject *o = glStorage.getObjectBlocking(*i);
+        assert(o!=0);
+        const std::string &name = o->microsimID();
+        bool selected = false;
+        if(type==GLO_EDGE) {
+            for(int j=static_cast<GUIEdge*>(o)->nLanes()-1; j>=0; j--) {
+                const GUILaneWrapper &l =
+                    static_cast<GUIEdge*>(o)->getLaneGeometry(j);
+                if(gfIsSelected(GLO_LANE, l.getGlID())) {
+                    selected = true;
+                }
+            }
+        } else {
+            selected = gfIsSelected(type, *i);
+        }
+        if(selected) {
+            myList->appendItem(name.c_str(), GUIIconSubSys::getIcon(ICON_FLAG));
+        } else {
+            myList->appendItem(name.c_str());
+        }
+        glStorage.unblockObject(*i);
+    }
+    // build the buttons
     FXVerticalFrame *layout = new FXVerticalFrame( hbox, LAYOUT_TOP,0,0,0,0,
-        0,0,0,0);
-    // build the "OK"-button
-    new FXButton(layout, "OK\t\t", 0, this, MID_OK,
-        LAYOUT_FIX_WIDTH|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 50, 30);
-    new FXButton(layout, "Cancel\t\t", 0, this, MID_CANCEL,
-        LAYOUT_FIX_WIDTH|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 50, 30);
+        4,4,4,4);
+    new FXButton(layout, "Center\t\t",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
+        this, MID_CHOOSER_CENTER,
+        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+        0, 0, 0, 0, 4, 4, 4, 4);
+
+    new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+    new FXButton(layout, "Cancel\t\t",
+        GUIIconSubSys::getIcon(ICON_NO),
+        this, MID_CANCEL,
+        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+        0, 0, 0, 0, 4, 4, 4, 4);
 }
 
 
@@ -111,7 +161,7 @@ GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser()
 
 
 long
-GUIDialog_GLObjChooser::onCmdOK(FXObject*,FXSelector,void*)
+GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
 {
     int selected = myList->getCurrentItem();
     if(selected>=0) {

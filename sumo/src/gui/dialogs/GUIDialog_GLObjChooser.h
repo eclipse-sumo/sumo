@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/04/02 10:58:27  dkrajzew
+// visualisation whether an item is selected added
+//
 // Revision 1.1  2004/03/19 12:33:36  dkrajzew
 // porting to FOX
 //
@@ -49,6 +52,7 @@
  * class declarations
  * ======================================================================= */
 class GUISUMOViewParent;
+class GUIGlObjectStorage;
 
 
 /* =========================================================================
@@ -67,7 +71,7 @@ class GUIDialog_GLObjChooser : public FXMainWindow
 public:
     /// constructor
     GUIDialog_GLObjChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
-        std::vector<std::string> &names);
+        GUIGlObjectStorage &glStorage);
 
     /// destructor
     ~GUIDialog_GLObjChooser();
@@ -77,7 +81,7 @@ public:
 
     FXbool close(FXbool notify=FALSE);
 
-    long onCmdOK(FXObject*,FXSelector,void*);
+    long onCmdCenter(FXObject*,FXSelector,void*);
     long onCmdCancel(FXObject*,FXSelector,void*);
 
 private:
