@@ -24,6 +24,10 @@ namespace
 }
 */
 // $Log$
+// Revision 1.17  2003/05/28 15:35:47  roessel
+// deleteOldData implemented.
+// Added argument MSNet::Time deleteDataAfterSeconds to constructor.
+//
 // Revision 1.16  2003/05/28 11:18:09  roessel
 // Pass pointer instead of reference to MSLaneStateReminder ctor.
 //
@@ -130,7 +134,8 @@ MSLaneState::MSLaneState( string id,
                           double begin,
                           double length,
                           MSNet::Time sampleInterval,
-                          ofstream *file ) :
+                          ofstream *file,
+                          MSNet::Time deleteDataAfterSeconds ) :
     idM             ( id ),
     fileM           ( file ),
     timestepDataM   ( ),
@@ -141,9 +146,9 @@ MSLaneState::MSLaneState( string id,
     lengthM         ( length ),
     nIntervallsM    ( 0 ),
     sampleIntervalM ( sampleInterval ),
-    deleteDataAfterSecondsM( 900 )
+    deleteDataAfterSecondsM( deleteDataAfterSeconds )
 {
-    assert( posM >= 0 );
+     assert( posM >= 0 );
     assert( posM <= laneM->length() );
     assert( posM + lengthM <= laneM->length() );
 
@@ -172,6 +177,14 @@ MSLaneState::MSLaneState( string id,
         sampleIntervalM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
 
+    // start old-data removal through MSEventControl
+    Command* deleteOldData = new SimpleCommand< MSLaneState >(
+        this, &MSLaneState::deleteOldData );
+    MSEventControl::getInstance()->addEvent(
+        deleteOldData,
+        deleteDataAfterSecondsM,
+        MSEventControl::ADAPT_AFTER_EXECUTION );
+    
 //     // Write header.
 //     switch ( styleM ) {
 //         case GNUPLOT:
@@ -454,8 +467,28 @@ MSLaneState::actionAfterMove( void )
     return true;
 }
 
-
-
+MSNet::Time
+MSLaneState::deleteOldData( void )
+{    
+    // delete timestepDataM partly
+    TimestepDataCont::iterator end = timestepDataM.end();
+    if ( timestepDataM.size() > deleteDataAfterSecondsM ) {
+        end -= deleteDataAfterSecondsM;
+        timestepDataM.erase( timestepDataM.begin(), end );
+    }
+    // delete vehLeftLaneM partly
+    MSNet::Time deleteBeforeStep =
+        MSNet::getInstance()->timestep() - deleteDataAfterSecondsM;
+    if ( deleteBeforeStep > 0 ) {
+        vehLeftLaneM.erase(
+            vehLeftLaneM.begin(),
+            lower_bound( vehLeftLaneM.begin(),
+                         vehLeftLaneM.end(),
+                         deleteBeforeStep,
+                         VehicleData::leaveTimestepLesser() ) );
+    }
+    return deleteDataAfterSecondsM;
+}
 
 void
 MSLaneState::calcWaitingQueueLength( void )
