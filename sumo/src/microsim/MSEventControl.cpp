@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2003/08/06 16:49:40  roessel
+// Better distinction between steps and seconds added.
+//
 // Revision 1.9  2003/07/31 10:49:57  dkrajzew
 // missing deletion added
 //
@@ -190,14 +193,15 @@ MSEventControl::~MSEventControl()
 
 
 bool
-MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
+MSEventControl::addEvent( Command* operation,
+                          MSNet::Time execTimeStep,
                           AdaptType type )
 {
-    MSNet::Time currTime = MSNet::getInstance()->timestep();
-    if ( type == ADAPT_AFTER_EXECUTION && execTime <= currTime ) {
-        execTime = currTime + 1;
+    MSNet::Time currTimeStep = MSNet::getInstance()->timestep();
+    if ( type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep ) {
+        execTimeStep = currTimeStep + 1;
     }
-    Event newEvent = Event( operation, execTime );
+    Event newEvent = Event( operation, execTimeStep );
     myEvents.push( newEvent );
     return true;
 }

@@ -28,6 +28,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/08/06 16:51:02  roessel
+// Better distinction between steps and seconds added.
+//
 // Revision 1.5  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -93,8 +96,9 @@ public:
     /**
      * Execute the command.
      *
-     * @return The receivers operation should return the next interval for
-     * recurring commands and 0 for single-execution commands.
+     * @return The receivers operation should return the next interval
+     * in steps for recurring commands and 0 for single-execution
+     * commands.
      */
     virtual MSNet::Time execute() = 0;
 };

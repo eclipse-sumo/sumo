@@ -58,7 +58,7 @@ template< class Cost >
 class MSTravelcostDetector
 {
 public:
-    /// Type of the internal interval-file map.
+    /// Type of the internal intervalInSteps-file map.
     typedef std::map< MSNet::Time, std::ofstream* > IntervalFileMap;
     /// Type of an iterator to the interval-file map.
     typedef typename IntervalFileMap::iterator IntervalFileMapIt;
@@ -81,10 +81,10 @@ public:
      *
      * @see MSLaneState
      */
-    static void create( MSNet::Time maxIntervalLength )
+    static void create( MSNet::Time maxIntervalInSeconds )
         {
             assert( instanceM == 0 );
-            instanceM = new MSTravelcostDetector( maxIntervalLength );
+            instanceM = new MSTravelcostDetector( maxIntervalInSeconds );
         }
 
     /**
@@ -131,33 +131,34 @@ public:
      * 
      * @param intervalLength Length of the sample interval.
      */
-    void addSampleInterval( MSNet::Time intervalLength )
+    void addSampleInterval( MSNet::Time intervalInSeconds )
         {
-            assert( maxIntervalLengthM >= intervalLength );
-            assert( intervalLength >= 1 );
-            if ( intervalsAndFilesM.find( intervalLength ) !=
+            MSNet::Time intervalInSteps = MSNet::getSteps( intervalInSeconds );
+            assert( maxIntervalInStepsM >= intervalInSteps );
+            assert( intervalInSteps >= 1 );
+            if ( intervalsAndFilesM.find( intervalInSteps ) !=
                  intervalsAndFilesM.end() ) {
                 cerr << "MSTravelcostDetector::addSampleInterval "
-                    "intervalLength " << intervalLength <<
-                    " already added. Ignoring." << endl;
+                    "intervalLength " << intervalInSeconds <<
+                    " s already added. Ignoring." << endl;
                 return;
             }
             // open file
             std::string filename = Cost::getNamePrefix() + "_" +
-                toString( intervalLength ) + ".xml";
+                toString( intervalInSeconds ) + ".xml";
             std::ofstream* ofs = new std::ofstream( filename.c_str() );
             assert( ofs != 0 );   
             intervalsAndFilesM.insert(
-                make_pair( intervalLength, ofs ) );
+                make_pair( intervalInSteps, ofs ) );
             // write xml-intro
             *ofs << Cost::getXMLHeader() << std::endl;
             // add command to MSEventControl
             Command* writeData =
                 new OneArgumentCommand< MSTravelcostDetector, int >
-                ( this, &MSTravelcostDetector::write2file, intervalLength );
+                ( this, &MSTravelcostDetector::write2file, intervalInSteps );
             MSEventControl::getEndOfTimestepEvents()->addEvent(
                 writeData,
-                static_cast<int>( intervalLength / MSNet::deltaT() ) - 1,
+                intervalInSteps - 1,
                 MSEventControl::ADAPT_AFTER_EXECUTION );
         }
 
@@ -171,15 +172,15 @@ public:
      * @return Length of the sample interval. This adds a new Event to
      * MSEventControl that is due in intervalLength timesteps.
      */
-    MSNet::Time write2file( int intervalLength )
+    MSNet::Time write2file( int intervalInSteps )
         {
-            IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalLength );
+            IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalInSteps);
             assert( ifIt != intervalsAndFilesM.end() );
             std::ofstream& ofs = *( ifIt->second );
-            double time = MSNet::getInstance()->simSeconds();
+            double timeInSeconds = MSNet::getInstance()->simSeconds();
             ofs << "<interval begin=\""
-                << time - intervalLength * MSNet::deltaT() + 1
-                << "\" end=\"" << time << ">\n";     
+                << timeInSeconds - MSNet::getSeconds( intervalInSteps ) + 1
+                << "\" end=\"" << timeInSeconds << ">\n";     
             for ( EdgeLaneCostContIt elc = edgeLaneCostsM.begin();
                   elc != edgeLaneCostsM.end(); ++elc ) {
                 ofs << "  <edge id=\"" << elc->first->id() << "\">\n";     
@@ -188,13 +189,13 @@ public:
                     MSLane* lane = lc->first;
                     Cost*   cost = lc->second;
                     ofs << "    <lane id=\"" << lane->id() << "\" "
-                        << cost->getXMLOutput( intervalLength )
+                        << cost->getXMLOutput( intervalInSteps )
                         << "/>\n";
                 }
                 ofs << "  </edge>\n";
             }
             ofs << "</interval>" << endl;
-            return intervalLength;
+            return intervalInSteps;
         }
     
                 
@@ -208,10 +209,10 @@ protected:
      * @param maxIntervalLength Maximum length of a sample interval added by
      * addSampleInterval().
      */
-    MSTravelcostDetector( MSNet::Time maxIntervalLength ) :
+    MSTravelcostDetector( MSNet::Time maxIntervalInSeconds ) :
         intervalsAndFilesM(),
         edgeLaneCostsM(),
-        maxIntervalLengthM( maxIntervalLength )
+        maxIntervalInStepsM( MSNet::getSteps( maxIntervalInSeconds ) )
         {
             // create EdgeLaneCostCont
             typedef std::vector< MSEdge* > Edges;
@@ -229,7 +230,7 @@ protected:
                     Cost* cost = new Cost( id,
                                            lane,
                                            0, lane->length(),
-                                           maxIntervalLength );
+                                           maxIntervalInSeconds );
                     lc.push_back( std::make_pair( lane, cost ) );
                 }
                 edgeLaneCostsM.push_back( std::make_pair( *edge, lc ) );
@@ -247,8 +248,8 @@ private:
     static MSTravelcostDetector* instanceM; /**< The sole instance of this
                                              * class. */
 
-    MSNet::Time maxIntervalLengthM; /**< Maximum interval length to be added
-                                     * by addSampleInterval().*/
+    MSNet::Time maxIntervalInStepsM; /**< Maximum interval length to be added
+                                      * by addSampleInterval().*/
 };
 
 

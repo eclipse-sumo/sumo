@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/08/06 16:49:57  roessel
+// Better distinction between steps and seconds added.
+//
 // Revision 1.6  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -138,7 +141,9 @@ public:
     ~MSEventControl();
 
     /// Adds an Event.
-    bool addEvent( Command* operation, MSNet::Time execTime, AdaptType type );
+    bool addEvent( Command* operation,
+                   MSNet::Time execTimeStep,
+                   AdaptType type );
 
     /** @brief Executes time-dependant commands
         Events are things such as switching traffic-lights, writing output,
