@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/12/13 15:33:46  dkrajzew
+// code beautifying
+//
 // Revision 1.9  2004/12/12 17:23:58  agaubatz
 // Editor Tool Widgets included
 //
@@ -48,10 +51,12 @@
 // new view hierarchy; some debugging done
 //
 // Revision 1.4  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.3  2003/04/14 08:24:57  dkrajzew
-// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+// unneeded display switch and zooming option removed;
+//  new glo-object concept implemented; comments added
 //
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
@@ -107,6 +112,7 @@ public:
         GUINet &net, GUIMainWindow *parentWindow, ViewType view,
         FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
         );
+
     void init(ViewType view, FXGLCanvas *share, GUINet &net);
 
 
@@ -169,7 +175,7 @@ private:
 
     /// information whether the canvas may be rotated
     bool _allowRotation;
-	
+
 	//Editor Frame Widgets
 	FXGroupBox  *groupBox;
 	FXTextField *JunctionNameTextField;
