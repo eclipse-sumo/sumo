@@ -1,0 +1,11 @@
+noinst_LIBRARIES = libsumoimport.a
+
+EXTRA_DIST = 
+
+libsumoimport_a_SOURCES = NBSUMOHandlerDepth.cpp NBSUMOHandlerDepth.h \
+NBSUMOHandlerEdges.cpp NBSUMOHandlerEdges.h \
+NBSUMOHandlerNodes.cpp NBSUMOHandlerNodes.h
+
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src  \
+-I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
+
