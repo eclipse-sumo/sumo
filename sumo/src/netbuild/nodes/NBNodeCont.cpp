@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBNodeCont.h
-			  A container for all of the nets nodes
+              A container for all of the nets nodes
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/07/02 09:27:38  dkrajzew
+// tls guessing added
+//
 // Revision 1.5  2004/04/23 12:41:02  dkrajzew
 // some further work on vissim-import
 //
@@ -154,11 +157,16 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundery.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/convert/ToString.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBJunctionLogicCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBJoinedEdgesMap.h>
+#include <netbuild/NBOwnTLDef.h>
+
 #include "NBNodeCont.h"
 
 
@@ -167,7 +175,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -305,7 +313,7 @@ NBNodeCont::erase(NBNode *node)
     }
     _nodes.erase(i);
     delete node;
-	return true;
+    return true;
 }
 
 
@@ -506,8 +514,8 @@ NBNodeCont::recheckEdges()
                 }
                 // check the lists of really joinable edges
                 bool wasPushed = false;
-                for(EdgeVV::iterator m=geometryCombinations.begin(); m!=geometryCombinations.end(); ++m) {
-                    for(EdgeVector::iterator n=(*m).begin(); n!=(*m).end(); ++n) {
+                for(EdgeVV::iterator m=geometryCombinations.begin(); !wasPushed&&m!=geometryCombinations.end(); ++m) {
+                    for(EdgeVector::iterator n=(*m).begin(); !wasPushed&&n!=(*m).end(); ++n) {
                         if((*n)->isNearEnough2BeJoined2(*l)) {
                             (*m).push_back(*l);
                             wasPushed = true;
@@ -563,14 +571,14 @@ NBNodeCont::recheckEdges()
 bool
 NBNodeCont::removeDummyEdges()
 {
-	size_t no = 0;
+    size_t no = 0;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         no += (*i).second->eraseDummies();
     }
-	if(no!=0) {
+    if(no!=0) {
         MsgHandler::getWarningInstance()->inform(
-		    toString<int>(no) + string(" dummy edges removed."));
-	}
+            toString<int>(no) + string(" dummy edges removed."));
+    }
     return true;
 }
 
@@ -676,6 +684,7 @@ NBNodeCont::removeUnwishedNodes()
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             NBTrafficLightLogicCont::replaceRemoved(continuation, -1, begin, -1);
+            gJoinedEdges.appended(begin->getID(), continuation->getID());
             NBEdgeCont::erase(continuation);
         }
         toRemove.push_back(current);
@@ -689,6 +698,108 @@ NBNodeCont::removeUnwishedNodes()
         string("   ") + toString<int>(no) + string(" nodes removed."));
     return true;
 }
+
+
+bool
+NBNodeCont::guessTLs(OptionsCont &oc)
+{
+    // maybe no tls shall be guessed
+    if(!oc.getBool("guess-tls")) {
+        return true;
+    }
+    // build list of definitely not tls-controlled junctions
+    std::vector<NBNode*> ncontrolled;
+    if(oc.isSet("explicite-no-junctions")) {
+        StringTokenizer st(oc.getString("explicite-no-junctions"), ";");
+        while(st.hasNext()) {
+            string name = st.next();
+            NBNode *n = NBNodeCont::retrieve(name);
+            if(n==0) {
+                MsgHandler::getErrorInstance()->inform(
+                    string(" The node '") + name + string("' to set as not-controlled is not known."));
+                throw ProcessError();
+            }
+            ncontrolled.push_back(n);
+        }
+    }
+
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        NBNode *cur = (*i).second;
+        //  do nothing if already is tl-controlled
+        if(cur->isTLControlled()) {
+            continue;
+        }
+        // do nothing if in the list of explicite non-controlled junctions
+        if(find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
+            continue;
+        }
+
+        // check whether the node has the right amount of incoming edges
+        //  to be controlled by a tl
+        if( cur->getIncomingEdges().size()<oc.getInt("tls-guess.no-incoming-min")
+            ||
+            cur->getIncomingEdges().size()>oc.getInt("tls-guess.no-incoming-max") ) {
+
+            // nope...
+            continue;
+        }
+
+        // check whether the node has the right amount of outgoing edges
+        //  to be controlled by a tl
+        if( cur->getOutgoingEdges().size()<oc.getInt("tls-guess.no-outgoing-min")
+            ||
+            cur->getOutgoingEdges().size()>oc.getInt("tls-guess.no-outgoing-max") ) {
+
+            // nope...
+            continue;
+        }
+
+        // check whether the edges have the correct speed
+        //  to be controlled by a tl
+        if( NBContHelper::getMinSpeed(cur->getIncomingEdges())<oc.getFloat("tls-guess.min-incoming-speed")
+            ||
+            NBContHelper::getMaxSpeed(cur->getIncomingEdges())>oc.getFloat("tls-guess.max-incoming-speed")
+            ||
+            NBContHelper::getMinSpeed(cur->getOutgoingEdges())<oc.getFloat("tls-guess.min-outgoing-speed")
+            ||
+            NBContHelper::getMaxSpeed(cur->getOutgoingEdges())>oc.getFloat("tls-guess.max-outgoing-speed") ) {
+
+            // nope...
+            continue;
+        }
+
+        // hmmm, should be tls-controlled (probably)
+        setAsTLControlled((*i).first);
+
+    }
+    return true;
+}
+
+
+void
+NBNodeCont::setAsTLControlled(const std::string &name)
+{
+    NBNode *node = retrieve(name);
+    if(node==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Building a tl-logic for node '") + name
+            + string("' is not possible."));
+        MsgHandler::getErrorInstance()->inform(
+            string(" The node '") + name + string("' is not known."));
+        throw ProcessError();
+    }
+    NBTrafficLightDefinition *tlDef =
+        new NBOwnTLDef(name, node);
+    if(!NBTrafficLightLogicCont::insert(name, tlDef)) {
+        // actually, nothing should fail here
+        MsgHandler::getErrorInstance()->inform(
+            string("Building a tl-logic for node '") + name
+            + string("' is not possible."));
+        delete tlDef;
+        throw ProcessError();
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

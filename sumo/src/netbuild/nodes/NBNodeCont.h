@@ -2,7 +2,7 @@
 #define NBNodeCont_h
 /***************************************************************************
                           NBNodeCont.h
-			  A container for all of the nets nodes
+              A container for all of the nets nodes
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/07/02 09:27:38  dkrajzew
+// tls guessing added
+//
 // Revision 1.1  2004/01/12 15:26:11  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -226,6 +229,9 @@ public:
 
     static bool removeUnwishedNodes();
 
+    static bool guessTLs(OptionsCont &oc);
+
+    static void setAsTLControlled(const std::string &name);
 
 private:
     /** the running internal id */
@@ -247,9 +253,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBNodeCont.icc"
-//#endif
 
 #endif
 
