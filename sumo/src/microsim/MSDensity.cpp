@@ -19,7 +19,6 @@
 //
 //---------------------------------------------------------------------------//
 
-
 // $Id$
 
 #ifdef HAVE_CONFIG_H
@@ -27,17 +26,16 @@
 #endif // HAVE_CONFIG_H
 
 #include "MSDensity.h"
-#include "MSVehicle.h"
+#include "MSUnit.h"
+#include "MSLane.h"
 #include <cassert>
 
 using namespace std;
 
 MSDensity::MSDensity( const MSLane* lane,
                       const double lengthInMeters ) :
-    occupancyEntryCorrectionM( DetAggregate(0) ),
-    occupancyLeaveCorrectionM( DetAggregate(0) ),
-    entryCorrectionVehM( 0 ),
-    leaveCorrectionVehM( 0 ),
+    MSDetectorPredicates< ContainerItem >(),
+    MSOccupancyCorrection< DetectorAggregate >(),
     detectorLengthM( lengthInMeters / 1000.0 )
 {
     assert( detectorLengthM > 0 );
@@ -45,58 +43,15 @@ MSDensity::MSDensity( const MSLane* lane,
                 lane->length() ) );
 }
 
-MSDensity::~MSDensity( void )
-{}
 
-MSDensity::ContainerItem
-MSDensity::getNewContainerItem( MSVehicle& veh )
-{
-    return &veh;
-}
-
-MSDensity::DetAggregate
-MSDensity::getDetAggregate( const VehicleCont& cont )
+MSDensity::DetectorAggregate
+MSDensity::getDetectorAggregate( const VehicleCont& cont ) // [veh/km]
 {
     double nVehOnDet = cont.size() -
-        occupancyEntryCorrectionM -
-        occupancyLeaveCorrectionM;
-    occupancyEntryCorrectionM = 0.0;
-    occupancyLeaveCorrectionM = 0.0;
-    entryCorrectionVehM = 0;
-    leaveCorrectionVehM = 0;
+        getOccupancyEntryCorrection() -
+        getOccupancyLeaveCorrection();
+    resetOccupancyCorrection();
     return nVehOnDet / detectorLengthM;
 }
 
-void
-MSDensity::occupancyEntryCorrection( const MSVehicle& veh,
-                                     double occupancyFractionOnDet )
-{
-    assert( occupancyFractionOnDet >= 0 &&
-            occupancyFractionOnDet <= 1 );
-    occupancyEntryCorrectionM = DetAggregate(occupancyFractionOnDet);
-    entryCorrectionVehM = &veh;
-}
 
-void
-MSDensity::occupancyLeaveCorrection( const MSVehicle& veh,
-                                     double occupancyFractionOnDet )
-{
-    assert( occupancyFractionOnDet >= 0 &&
-            occupancyFractionOnDet <= 1 );
-    occupancyLeaveCorrectionM = DetAggregate(occupancyFractionOnDet);
-    leaveCorrectionVehM = &veh;
-}
-    
-void
-MSDensity::dismissOccupancyCorrection( const MSVehicle& veh )
-{
-    // Necessary for leaveDetByLaneChange
-    if ( &veh == entryCorrectionVehM ){
-        occupancyEntryCorrectionM = DetAggregate(0);
-        entryCorrectionVehM = 0;
-    }
-    if ( &veh == leaveCorrectionVehM ){
-        occupancyLeaveCorrectionM = DetAggregate(0);
-        leaveCorrectionVehM = 0;
-    }
-}

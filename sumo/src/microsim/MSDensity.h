@@ -25,68 +25,37 @@
 // $Id$
 
 #include <list>
-#include <cassert>
-#include <functional>
-#include "MSVehicle.h"
-#include "MSUnit.h"
+#include "MSOccupancyCorrection.h"
+#include "MSDetectorPredicates.h"
+class MSVehicle;
 class MSLane;
 
-
-class MSDensity
+class MSDensity : public MSDetectorPredicates< MSVehicle* >,
+                  public MSOccupancyCorrection< double >
 {
 public:
-    typedef double DetAggregate; // [veh/km]
+    typedef double DetectorAggregate;
     typedef MSVehicle* ContainerItem;
     typedef std::list< ContainerItem > VehicleCont;
     
     MSDensity( const MSLane* lane,
                const double lengthInMeters );
     
-    ~MSDensity( void );
-    
+    ~MSDensity( void )
+        {}    
 
-    ContainerItem getNewContainerItem( MSVehicle& veh );
+    ContainerItem getNewContainerItem( MSVehicle& veh )
+        {
+            return &veh;
+        }
         
-    DetAggregate getDetAggregate( const VehicleCont& cont ); // [veh/km]
-
-    void occupancyEntryCorrection( const MSVehicle& veh,
-                                   double occupancyFractionOnDet );
-
-    void occupancyLeaveCorrection( const MSVehicle& veh,
-                                   double occupancyFractionOnDet );
-    
-    void dismissOccupancyCorrection( const MSVehicle& veh );
-    
-protected:
-    DetAggregate occupancyEntryCorrectionM;
-    DetAggregate occupancyLeaveCorrectionM;
-    MSVehicle const* entryCorrectionVehM;
-    MSVehicle const* leaveCorrectionVehM;
-
-    struct PosGreater :
-        public std::binary_function< ContainerItem, double, bool >
-    {
-        bool operator() ( const ContainerItem& item, double pos ) const {
-            return item->pos() > pos;
-        }
-    };
-
-    struct VehEquals :
-        public std::binary_function< ContainerItem, MSVehicle*, bool >
-    {
-        bool operator() ( const ContainerItem& item,
-                          const MSVehicle* veh ) const {
-            return item == veh;
-        }
-    };    
-
+    DetectorAggregate getDetectorAggregate( const VehicleCont& cont );
     
 private:
-    const double detectorLengthM; // in km
+    const double detectorLengthM; //  [km]
     MSDensity();
     MSDensity( const MSDensity& );
     MSDensity& operator=( const MSDensity& );
-
 };
 
 
