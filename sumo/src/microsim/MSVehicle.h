@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/10/28 12:59:38  dkrajzew
+// vehicles are now deleted whe the tour is over
+//
 // Revision 1.3  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
@@ -176,9 +179,9 @@ class MSVehicleType;
 class MSVehicle : private Counter< MSVehicle >
 {
 public:
-#ifdef _DEBUG
+//#ifdef _DEBUG
     friend class MSLaneChanger;
-#endif
+//#endif
 
     using Counter< MSVehicle >::howMany;
 
@@ -398,6 +401,8 @@ public:
     /** Returns the MSVehicle associated to the key id if exists,
         otherwise returns 0. */
     static MSVehicle* dictionary( std::string id );
+
+    static void remove(const std::string &id);
 
     /** Clears the dictionary */
     static void clear();

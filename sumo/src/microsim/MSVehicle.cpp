@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2002/10/28 12:59:38  dkrajzew
+// vehicles are now deleted whe the tour is over
+//
 // Revision 1.5  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
@@ -918,6 +921,19 @@ MSVehicle::clear()
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+void 
+MSVehicle::remove(const std::string &id)
+{
+    DictType::iterator i = myDict.find(id);
+    delete (*i).second;
+    myDict.erase(id);
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
 
 double
 MSVehicle::speed() const

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2002/10/28 12:59:38  dkrajzew
+// vehicles are now deleted whe the tour is over
+//
 // Revision 1.5  2002/10/18 11:51:03  dkrajzew
 // breakRequest or driveRequest may be set, althoug no first vehicle exists due to regarding a longer break gap...; assertion in moveFirst replaced by a check with a normal exit
 //
@@ -214,6 +217,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <utils/common/UtilExceptions.h>
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -458,6 +462,10 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
             cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id()
                  << " with " << ( *pred )->id() << " on MSLane " << myID
                  << " during timestep " << timestep << endl;
+            ofstream strm("D:\\projects\\sumo\\Projekte\\I-880\\data2\\error.log");
+            strm << "Yes" << endl;
+            strm.close();
+            throw ProcessError();
         }
     }
 }
@@ -902,6 +910,7 @@ MSLane::push(MSVehicle* veh)
         veh->enterLaneAtMove( this );
     }
     else {
+        MSVehicle::remove(veh->id());
         // TODO
         // This part has to be discussed, quick an dirty solution:
         // Destination reached. Vehicle vanishes.
@@ -1331,6 +1340,7 @@ MSLane::succLink(const MSVehicle& veh, unsigned int nRouteSuccs,
         }
     }
     assert( false ); // There must be a matching edge.
+    return succLinkSource.myLinks.end();
 }
 
 bool 
