@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/07 08:26:33  dkrajzew
+// adapted the importer to the new node type description
+//
 // Revision 1.5  2003/06/18 11:14:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -199,7 +202,8 @@ NIArtemisTempEdgeLanes::close()
             // build the node and try to insert it into the net description
             NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
             if(node==0) {
-                node = new NBNode(nodename, pos.x(), pos.y(), "priority");
+                node = new NBNode(nodename, pos.x(), pos.y(),
+                    NBNode::NODETYPE_PRIORITY_JUNCTION);
                 if(!NBNodeCont::insert(node)) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Problems on adding a lane-splitting node for edge '")

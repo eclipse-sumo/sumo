@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:31:36  dkrajzew
+// adapted the importer to the new node type description
+//
 // Revision 1.3  2003/06/24 08:19:35  dkrajzew
 // some further work on importing traffic lights
 //
@@ -37,7 +40,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
-#include <netbuild/NBTrafficLightDefinition.h>
+#include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include "NIVisumTL.h"
 
@@ -117,9 +120,9 @@ NIVisumTL::SignalGroup::SignalGroup(const std::string &Name,
 {
 }
 
+
 NIVisumTL::SignalGroup::~SignalGroup()
 {
-
 }
 
 std::string NIVisumTL::SignalGroup::GetName()
@@ -127,16 +130,20 @@ std::string NIVisumTL::SignalGroup::GetName()
 	return myName;
 }
 
+
 NBConnectionVector*
 NIVisumTL::SignalGroup::GetConnections()
 {
 	return &myConnections;
 }
 
-NIVisumTL::PhaseMap* NIVisumTL::SignalGroup::GetPhases()
+
+NIVisumTL::PhaseMap*
+NIVisumTL::SignalGroup::GetPhases()
 {
 	return &myPhases;
 }
+
 
  /* -------------------------------------------------------------------------
  * methods from NIVisumTL
@@ -186,7 +193,9 @@ NIVisumTL::NodeVector* NIVisumTL::GetNodes()
 	return &myNodes;
 }
 
-NIVisumTL::PhaseMap* NIVisumTL::GetPhases()
+
+NIVisumTL::PhaseMap*
+NIVisumTL::GetPhases()
 {
 	return &myPhases;
 }
@@ -231,10 +240,9 @@ void NIVisumTL::build()
 	for(NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++)
 	{
 		NBNode *Node = (*ni);
-        NBTrafficLightDefinition *def = new NBTrafficLightDefinition(Node->getID(), Node);
+        NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
         NBTrafficLightLogicCont::insert(Node->getID(), def);
 		def->setCycleDuration(myCycleTime);
-//		Node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
 		// signalgroups
 		for(SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++ )
 		{

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:27:53  dkrajzew
+// adapted the importer to the new node type description
+//
 // Revision 1.3  2003/06/18 11:15:07  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -104,17 +107,15 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         }
         // check whether the type string is valid by converting it to the known
         //  junction types
-        int type = -1;
+        NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
         if(typestr=="none") {
-            type = NBNode::TYPE_NOJUNCTION;
-        } else if(typestr=="traffic_light") {
-            type = NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT;
+            type = NBNode::NODETYPE_NOJUNCTION;
         } else if(typestr=="priority") {
-            type = NBNode::TYPE_PRIORITY_JUNCTION;
+            type = NBNode::NODETYPE_PRIORITY_JUNCTION;
         } else if(typestr=="right_before_left") {
-            type = NBNode::TYPE_RIGHT_BEFORE_LEFT;
+            type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
         } else if(typestr=="DEAD_END") {
-            type = NBNode::TYPE_DEAD_END;
+            type = NBNode::NODETYPE_DEAD_END;
         }
         if(type<0) {
             addError(
@@ -149,7 +150,8 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
                 + string("'."));
         }
         // build the node
-        NBNodeCont::insert(new NBNode(id, x, y, type, key));
+        throw 1; // !!! deprecated
+        NBNodeCont::insert(new NBNode(id, x, y, type));
     } catch (EmptyData) {
         addError("A junction without an id occured.");
     }
