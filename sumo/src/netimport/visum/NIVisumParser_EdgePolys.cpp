@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/16 12:23:51  dkrajzew
+// a further network prune option added
+//
 // Revision 1.1  2004/11/23 10:24:54  dkrajzew
 // added the possibility to read Visum geometries
 //
@@ -104,7 +107,10 @@ NIVisumParser_EdgePolys::myDependentReport()
             failed = false;
         }
         if(failed) {
-            if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+            if( OptionsSubSys::getOptions().isSet("edges-min-speed")
+                ||
+                OptionsSubSys::getOptions().isSet("keep-edges")) {
+
                 WRITE_WARNING(\
                     string("Could not set geometry between node '") + from->getID()\
                     + string("' and node '") + to->getID() + string("'."));
