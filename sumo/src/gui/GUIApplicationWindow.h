@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/04 15:04:53  roessel
+// Added #include <qtoolbutton.h>
+//
 // Revision 1.4  2003/03/17 14:03:24  dkrajzew
 // Dialog about simulation restart debugged
 //
@@ -43,7 +46,7 @@
 #include <iostream>
 #include <qmainwindow.h>
 #include <qworkspace.h>
-
+#include <qtoolbutton.h>
 
 /* =========================================================================
  * class declarations
