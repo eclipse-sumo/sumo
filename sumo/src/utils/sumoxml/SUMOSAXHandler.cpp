@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/01 15:29:30  dkrajzew
+// errors are now reported to SErrorHandler
+//
 // Revision 1.2  2003/02/07 10:53:23  dkrajzew
 // updated
 //
@@ -38,7 +41,9 @@ namespace
 #include <iostream>
 #include <utils/xml/AttributesReadingGenericSAX2Handler.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/convert/ToString.h>
 #include <utils/common/FileErrorReporter.h>
+#include <utils/common/SErrorHandler.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
 
@@ -71,10 +76,15 @@ SUMOSAXHandler::~SUMOSAXHandler()
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    cout << "Warning: "
-        << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
-    cout << " (At line/column " << exception.getLineNumber()+1
-        << '/' << exception.getColumnNumber() << ")." << endl;
+    SErrorHandler::add(
+        string("Warning: ")
+        + TplConvert<XMLCh>::_2str(exception.getMessage()));
+    SErrorHandler::add(
+        string(" (At line/column ")
+        + toString<int>(exception.getLineNumber()+1)
+        + string("/")
+        + toString<int>(exception.getColumnNumber())
+        + string(")."));
     _errorOccured = true;
 }
 
@@ -82,10 +92,15 @@ SUMOSAXHandler::warning(const SAXParseException& exception)
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    cout << "Error: "
-        << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
-    cout << " (At line/column " << exception.getLineNumber()+1
-        << '/' << exception.getColumnNumber() << ")." << endl;
+    SErrorHandler::add(
+        string("Error: ")
+        + TplConvert<XMLCh>::_2str(exception.getMessage()));
+    SErrorHandler::add(
+        string(" (At line/column ")
+        + toString<int>(exception.getLineNumber()+1)
+        + string("/")
+        + toString<int>(exception.getColumnNumber())
+        + string(")."));
     _errorOccured = true;
 }
 
@@ -93,10 +108,15 @@ SUMOSAXHandler::error(const SAXParseException& exception)
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    cout << "Error: "
-        << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
-    cout << " (At line/column " << exception.getLineNumber()+1
-        << '/' << exception.getColumnNumber() << ")." << endl;
+    SErrorHandler::add(
+        string("Error: ")
+        + TplConvert<XMLCh>::_2str(exception.getMessage()));
+    SErrorHandler::add(
+        string(" (At line/column ")
+        + toString<int>(exception.getLineNumber()+1)
+        + string("/")
+        + toString<int>(exception.getColumnNumber())
+        + string(")."));
     _errorOccured = true;
 }
 
