@@ -1,6 +1,6 @@
-SUBDIRS = sumo
+SUBDIRS = src data
 
 AUTOMAKE_OPTIONS = gnu 1.4 dist-zip
 
-EXTRA_DIST = NEWS README ChangeLog depcomp
+EXTRA_DIST = NEWS README ChangeLog depcomp sumo.smp
 
