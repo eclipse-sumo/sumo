@@ -1,3 +1,5 @@
+$Id$
+
 After downloading the sources from cvs call
 
 make -f admin/Makefile.common cvs
@@ -6,3 +8,7 @@ make
 
 to build sumo*. Add configure-option when needed (see ./configure --help 
 for possible options)
+
+See http://www.vandenoever.info/software/KDEautomakemanual.html and
+docs/sumo_dev_common.xml for further information on autotools and the
+build process.
