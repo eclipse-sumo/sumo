@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.26  2003/07/30 09:11:22  dkrajzew
+// a better (correct?) processing of yellow lights added; output corrigued; debugging
+//
 // Revision 1.25  2003/07/22 15:08:28  dkrajzew
 // new detector usage applied
 //
@@ -378,6 +381,10 @@ public:
 
     size_t getEndedVehicleNo() const;
 
+    size_t getRunningVehicleNo() const;
+
+    size_t getEmittedVehicleNo() const;
+
     Time getCurrentTimeStep() const;
 
     static double getSeconds( Time steps )
@@ -492,7 +499,7 @@ private:
 
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
-    MSNet(){};
+    MSNet();
 
 	size_t myLoadedVehNo;
 

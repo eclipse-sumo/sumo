@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.31  2003/07/30 09:11:22  dkrajzew
+// a better (correct?) processing of yellow lights added; output corrigued; debugging
+//
 // Revision 1.30  2003/07/22 15:08:28  dkrajzew
 // new detector usage applied
 //
@@ -317,8 +320,8 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 20000000;
-std::string MSNet::searched1 = "Rand174";
+MSNet::Time MSNet::searchedtime = 254;
+std::string MSNet::searched1 = "E1";
 std::string MSNet::searched2 = "Rand10801";
 std::string MSNet::searchedJunction = "37";
 #endif
@@ -327,6 +330,12 @@ std::string MSNet::searchedJunction = "37";
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
+MSNet::MSNet()
+    : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0)
+{
+}
+
+
 MSNet*
 MSNet::getInstance( void )
 {
@@ -392,7 +401,7 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
             // Write xml-comment
             *filePtr << "<!--\n"
                 "- noVehContrib is the number of vehicles have been on the lane for\n"
-                "  at least on timestep during the current intervall.\n"
+                "  at least one timestep during the current intervall.\n"
                 "  They contribute to speed, speedsquare and density.\n"
                 "  They may not have passed the entire lane.\n"
                 "- noVehEntireLane is the number of vehicles that have passed the\n"
@@ -565,6 +574,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     myLogics->maskRedLinks();
     // check the right-of-way for all junctions
     myJunctions->setAllowed();
+    // set information which vehicles should decelerate
+    myLogics->maskYellowLinks();
 
     // move vehicles which do interact with theri lane's end
     //  (it is now known whether they may drive
@@ -724,7 +735,8 @@ MSNet::buildNewVehicle( std::string id, MSRoute* route,
 void
 MSNet::vehicleHasLeft(const std::string &)
 {
-	myRunningVehNo++;
+    assert(myRunningVehNo>0);
+	myRunningVehNo--;
 	myEndedVehNo++;
 }
 
@@ -741,6 +753,23 @@ MSNet::getEndedVehicleNo() const
 {
     return myEndedVehNo;
 }
+
+
+size_t
+MSNet::getRunningVehicleNo() const
+{
+    return myRunningVehNo;
+}
+
+
+size_t
+MSNet::getEmittedVehicleNo() const
+{
+    return myEmittedVehNo;
+}
+
+
+
 
 
 MSNet::Time
