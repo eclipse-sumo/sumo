@@ -26,12 +26,13 @@
 #include "MSSumDetector.h"
 #include "MSE2Detector.h"
 
-// conrete detectors
+// concrete detectors
 #include "MSDensity.h"
 #include "MSMaxJamLength.h"
 #include "MSJamLengthSum.h"
 #include "MSQueueLengthAheadOfTrafficLights.h"
 #include "MSNVehicles.h"
+#include "MSOccupancyDegree.h"
 #include "MSSpaceMeanSpeed.h"
 #include "MSCurrentHaltingDurationSumPerVehicle.h"
 #include "MSApproachingVehiclesStates.h"
