@@ -7,7 +7,7 @@
  * @date    Started Tue Nov 25 2003 17:04 CET
  * @version $Id$
  *
- * @brief   
+ * @brief
  *
  */
 
@@ -26,7 +26,11 @@
 #include "MSUnit.h"
 #include "MSCrossSection.h"
 #include <string>
-#include "helpers/TypeManip.h"
+#ifdef WIN32
+#include "helpers/msvc6_TypeManip.h"
+#elif
+#include "helpers/gcc_TypeManip.h"
+#endif
 
 class MSE3Collector;
 class MSLane;
@@ -36,7 +40,7 @@ template< bool isEntryReminder >
 class MSE3MoveReminder : public MSMoveReminder
 {
 public:
-    
+
     MSE3MoveReminder(
         std::string id
         , MSCrossSection crossSection
@@ -49,7 +53,7 @@ public:
 
     bool isStillActive(
         MSVehicle& veh
-        , double 
+        , double
         , double newPos
         , double
 
@@ -85,7 +89,7 @@ private:
             collectorM.enter( veh );
             return false;
         }
-    
+
     bool isActive(
         MSVehicle& veh
         , double newPos
@@ -98,10 +102,10 @@ private:
                 return false;
             }
             // crossSection partially left
-            return true;            
+            return true;
         }
 
-    
+
     MSE3Collector& collectorM;
     MSUnit::Cells posM;
 };
