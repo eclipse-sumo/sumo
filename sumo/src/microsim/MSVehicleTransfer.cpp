@@ -19,7 +19,7 @@ MSVehicleTransfer::addVeh(MSLane &from)
 //    cout << " Time: " <<  MSNet::getInstance()->getCurrentTimeStep()
 //        << " Vehicle: " << veh->id() << endl;
     MsgHandler::getWarningInstance()->inform(
-        string("Vehicle '") + veh->id() + string("' will be teleported; edge ('")
+        string("Vehicle '") + veh->id() + string("' will be teleported; edge '")
         + e->id() + string("'."));
     // let the vehicle be on the one
     if(veh->proceedVirtualReturnIfEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
@@ -50,11 +50,11 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
         // check whether the vehicle may be emitted onto a following edge
         if(e->emit(*(desc.myVeh))) {
             // remove from this if so
-            i = myVehicles.erase(i);
             MsgHandler::getWarningInstance()->inform(
                 string("Vehicle '") + desc.myVeh->id()
-                + string("' ends teleporting on edge ('") + e->id()
+                + string("' ends teleporting on edge '") + e->id()
                 + string("'."));
+            i = myVehicles.erase(i);
 //            cout << "Vehicle beam end '" << e->id() << "'." << endl;
 //            cout << " Time: " <<  time
 //                << " Vehicle: " << desc.myVeh->id() << endl;
@@ -72,6 +72,10 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 // let the vehicle move to the next edge
                 if(desc.myVeh->proceedVirtualReturnIfEnded(*this, nextEdge)) {
                     MSVehicle::remove(desc.myVeh->id());
+                    MsgHandler::getWarningInstance()->inform(
+                        string("Vehicle '") + desc.myVeh->id()
+                        + string("' ends teleporting on end edge '") + e->id()
+                        + string("'."));
                     i = myVehicles.erase(i);
                     continue;
                 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/22 07:07:06  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.2  2003/10/06 07:39:44  dkrajzew
 // MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
 //
@@ -45,6 +48,8 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include "GUINet.h"
+#include "GUIVehicle.h"
 #include "GUILaneWrapper.h"
 #include "GUIInternalLane.h"
 
@@ -171,7 +176,7 @@ GUIInternalLane::push( MSVehicle* veh )
     _lock.lock();//Display();
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-	    DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
+        DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
 	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
 	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
@@ -180,10 +185,21 @@ GUIInternalLane::push( MSVehicle* veh )
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
-            MSVehicle::remove(myVehBuffer->id());
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+            myVehBuffer->patchState();
+            myVehBuffer->leaveLaneAtMove();
+    		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
+            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+                static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
+            veh->patchState();
+            veh->leaveLaneAtMove();
+    		static_cast<GUIVehicle*>(veh)->setRemoved();
+            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+                static_cast<GUIVehicle*>(veh)->getGlID());
+    		// maybe the vehicle is being tracked; mark as not within the simulation any longer
+            _lock.unlock();//Display();
             return true;
         }
     }

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.24  2003/10/22 07:06:04  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.23  2003/10/20 07:59:43  dkrajzew
 // grid lock dissolving by vehicle teleportation added
 //
@@ -675,7 +678,12 @@ public:
 
     size_t getWaitingTime() const;
 
+    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!
+
+
     friend class MSLane; // !!!
+    friend class GUIInternalLane; // !!!
+    friend class GUILane; // !!!
 
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicle* > DictType;

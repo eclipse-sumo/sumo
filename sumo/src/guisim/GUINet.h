@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2003/10/22 07:07:06  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.16  2003/09/05 15:01:24  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -164,6 +167,7 @@ public:
     friend class GUISUMOAbstractView; // !!!
     friend class GUIEdgeControlBuilder;
     friend class GUILane;
+    friend class GUIInternalLane;
     friend class GUIGrid;
 
 protected:

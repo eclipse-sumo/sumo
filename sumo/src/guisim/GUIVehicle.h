@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/10/22 07:07:06  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.9  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
@@ -125,7 +128,7 @@ public:
         The method return a size_t, now, as we assume a vehicle will not wait for
         longer than about 50 hours which still fits into a size_t when the simulation
         runs in ms */
-    size_t getWaitingTime() const;
+//    size_t getWaitingTime() const;
 
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/10/22 07:07:06  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.15  2003/08/14 13:47:44  dkrajzew
 // false usage of function-pointers patched; false inclusion of .moc-files removed
 //
@@ -203,13 +206,13 @@ GUIVehicle::getLaneChangeColor2() const
     }
 }
 
-
+/*
 size_t
 GUIVehicle::getWaitingTime() const
 {
     return myWaitingTime;
 }
-
+*/
 
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
@@ -266,8 +269,8 @@ GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
     ret->mkItem("left same route [#]", false, getRepetitionNo());
     ret->mkItem("emission period [s]", false, getPeriod());
     ret->mkItem("waiting time [s]", true,
-        new UIntFunction2DoubleBinding<GUIVehicle>(
-            this, &GUIVehicle::getWaitingTime));
+        new UIntFunction2DoubleBinding<MSVehicle>(
+            this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
         new UIntFunction2DoubleBinding<GUIVehicle>(
             this, &GUIVehicle::getLastLaneChangeOffset));

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.32  2003/10/22 07:02:13  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.31  2003/10/20 07:59:43  dkrajzew
 // grid lock dissolving by vehicle teleportation added
 //
@@ -874,9 +877,13 @@ MSLane::push(MSVehicle* veh)
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+            myVehBuffer->patchState();
+            myVehBuffer->leaveLaneAtMove();
             MSVehicle::remove(myVehBuffer->id());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
+            veh->patchState();
+            veh->leaveLaneAtMove();
             MSVehicle::remove(veh->id());
             return true;
         }
@@ -1485,6 +1492,7 @@ MSVehicle *
 MSLane::removeFirstVehicle(const MSVehicleTransfer &rightsCheck)
 {
     MSVehicle *veh = *(myVehicles.end()-1);
+    veh->patchState();
     veh->leaveLaneAtMove();
     myVehicles.erase(myVehicles.end()-1);
     myUseDefinition->noVehicles--;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2003/10/22 07:06:04  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.34  2003/10/20 07:59:43  dkrajzew
 // grid lock dissolving by vehicle teleportation added
 //
@@ -1091,6 +1094,7 @@ MSVehicle::moveFirstChecked()
         int bla = 0;
     }
 
+    size_t no = 0;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {
         MSLinkCont::const_iterator &link = (*i).myLink;
         // check whether the vehicle was allowed to enter lane
@@ -1123,7 +1127,9 @@ MSVehicle::moveFirstChecked()
         }*/
 		approachedLane = (*link)->myLane;
         approachedLane->setApproaching(myState.pos(), this);
+        no++;
     }
+    assert(no<=1);
     myTarget = approachedLane;
     // update speed
     myState.mySpeed = vNext;
@@ -1169,9 +1175,6 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
         if(nextLane->isLinkEnd(link)) {
             double laneEndVSafe =
                 vsafe(myState.mySpeed, decelAbility, seen, 0);
-/*            if(onePassed&&vLinkWait==0) {
-                vLinkWait = myType->accelSpeed(myState.mySpeed);
-            }*/
             myLFLinkLanes.push_back(
                 DriveProcessItem(nextLane->getLinkCont().end(),
                     MIN(vLinkPass, laneEndVSafe),
@@ -1213,14 +1216,14 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     			vsafe(myState.mySpeed, decelAbility, seen, 0);
 	    }
 
-/*
+
     		// the vehicle shall not driver over more than two junctions (by now @!!!)
 	    double vsafeNextLaneEnd =
-		    vsafe(myState.mySpeed, decelAbility, drove+nextLane->length(), 0);
-*/
+		    vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
+
     		// compute the velocity to use when the link may be used
 	    vLinkPass =
-		    MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
+		    MIN4(vLinkPass, vmaxNextLane, vsafePredNextLane, vsafeNextLaneEnd);
 
 
 	    // if the link may not be used (is blocked by another vehicle) then let the
@@ -1247,7 +1250,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             DriveProcessItem(link, vLinkPass, vLinkWait));
         if(
             /*myState.pos()+vLinkPass*MSNet::deltaT()-nextLane->length()>0*/
-            vsafePredNextLane>0&&dist-seen>0/*||(*link)->myPrio*/) { // die zweite Abfrage wird nicht gebraucht, es muss nur dann gesetzt werden, wenn es tatsächlich überfahren werden kann
+            vsafePredNextLane>0&&dist-seen>0/*||(*link)->myPrio*/) {
 
 		    (*link)->setApproaching(this);
         } else {
@@ -1268,6 +1271,13 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    	myVLinkPass = MIN(myVLinkPass, vSafe);
     		myVLinkWait = MIN(myVLinkWait, vSafe);
     	}*/
+        double vSafe = vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
+        vLinkPass = MIN(vLinkPass, vSafe);
+        vLinkWait = MIN(vLinkWait, vSafe);
+        myLFLinkLanes.push_back(
+            DriveProcessItem(link, vLinkPass, vLinkWait));
+
+
         seen += nextLane->length();
         if(seen>dist) {
             return;
@@ -1998,10 +2008,19 @@ MSVehicle::proceedVirtualReturnIfEnded(MSVehicleTransfer &securityCheck,
         // Dismiss reminders by passing them completely.
         return true;
     }
-    cout << ">>myCurrEdge " << (*myCurrEdge)->id() << endl;
     myAllowedLanes =
         ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
     return false;
+}
+
+
+void
+MSVehicle::patchState(/*const MSVehicleTransfer &rightsCheck*/)
+{
+    double newPos = myLane->length() + myType->length() + 1;
+    double speed = (newPos - myState.myPos) / MSNet::deltaT();
+    myState.myPos = newPos;
+    myState.mySpeed = speed;
 }
 
 

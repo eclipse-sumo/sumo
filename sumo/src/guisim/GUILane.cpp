@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/10/22 07:07:06  dkrajzew
+// patching of lane states on force vehicle removal added
+//
 // Revision 1.13  2003/10/14 14:18:43  dkrajzew
 // false order of deletion and reading from an object patched
 //
@@ -230,6 +233,17 @@ GUILane::push( MSVehicle* veh )
         return false;
     }
     else {
+        // Dismiss reminders by passing them completely.
+        double speed = veh->speed();
+        if ( veh->pos() + speed * MSNet::deltaT() - veh->length() < 0 ){
+            speed = veh->pos() / MSNet::deltaT() + speed + 0,01;
+        }
+        double oldLaneLength = veh->myLane->length();
+        veh->workOnMoveReminders( veh->pos() + oldLaneLength,
+                                  veh->pos() + oldLaneLength + speed *
+                                  MSNet::deltaT(),
+                                  speed );
+
 		static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
