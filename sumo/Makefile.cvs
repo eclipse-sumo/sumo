@@ -1,9 +1,0 @@
-default: all
-
-all:
-#   cat smr.m4 > acinclude.m4
-    aclocal
-    autoheader
-    automake --gnu --add-missing
-    autoconf
-
