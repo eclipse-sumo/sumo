@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <chapter>
@@ -24,7 +24,7 @@
       <para><emphasis>Question: </emphasis>What does &#34;SUMO&#34; mean?</para>
 
       <para><emphasis>Answer:</emphasis> &#34;SUMO&#34; is an acronym for
-      &#34;Simulation of Urban MObility&#34;. </para>
+      &#34;Simulation of Urban MObility&#34;.</para>
     </sect2>
 
     <sect2>
@@ -41,6 +41,36 @@
 
   <sect1>
     <title>Building</title>
+
+    <sect2>
+      <title>Getting the sources</title>
+
+      <sect3>
+        <title>How do I access the CVS using cygwin or Linux?</title>
+
+        <para><emphasis>Question: </emphasis>How do I access the CVS?</para>
+
+        <para><emphasis>Answer:</emphasis> Use the following commands:</para>
+
+        <para><command>export CVS_RSH=ssh</command></para>
+
+        <para><command>cvs -z3
+        -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</command></para>
+
+        <para>Press RETURN if you should be asked for a password.</para>
+      </sect3>
+
+      <sect3>
+        <title>Is there further documentation on the CVS?</title>
+
+        <para><emphasis>Question: </emphasis>Is there further documentation on
+        the CVS?</para>
+
+        <para><emphasis>Answer:</emphasis> Look under <ulink
+        url="http://sourceforge.net/docman/?group_id=1">Sourceforge
+        documentation</ulink> in Section F.</para>
+      </sect3>
+    </sect2>
 
     <sect2>
       <title>Using Windows and MSVC++</title>
@@ -94,8 +124,8 @@
 
         <para><emphasis>Answer:</emphasis> You are propably running a program
         compiled in the debug-mode. This yields in at least the triple of
-        normal memory usage and your system hangs. Try to use the normal
-        version, build in Release-mode.</para>
+        normal memory usage and your system may not be able to solve. Try to
+        use the normal version, build in Release-mode (or buy more RAM :-) ).</para>
       </sect3>
     </sect2>
   </sect1>

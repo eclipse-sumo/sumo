@@ -48,6 +48,9 @@
 
     <!--
     $Log$
+    Revision 1.2  2003/09/05 15:41:42  dkrajzew
+    somue further work
+
     Revision 1.1  2003/02/07 10:25:28  dkrajzew
     v0.7-documentation added
 
@@ -268,7 +271,7 @@ Remark: during this process, the correctness of the values is not validated, it 
   <!-- ---------------------------------------------------- -->
 
   <chapter id="LoadingData">
-	
+
 	<title>Loading of Data</title>
 	<sect1 id="LoadingFlow">
 	  <title>Program Flow</title>

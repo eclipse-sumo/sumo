@@ -4,7 +4,7 @@
 <book>
   <bookinfo>
     <title>SUMO developer documentation</title>
-    <author> 
+    <author>
       <firstname>Christian</firstname>
       <surname>R&ouml;ssel</surname>
       <affiliation>
@@ -21,14 +21,14 @@
 
     <releaseinfo>$Revision$</releaseinfo>
 
-  </bookinfo> 
+  </bookinfo>
 
   <toc>
   </toc>
 
 
   <chapter>
-    <title>Detectors</title> 
+    <title>Detectors</title>
 
     <para>In the following sections we will describe SUMOs way to
     communicate with it's two kinds of detectors, the <link
@@ -39,7 +39,7 @@
 
     <sect1 id="DetectorCommunication">
       <title>Communication between detectors and SUMO</title>
-     
+
       <para>Detectors are nearly independant from the rest of the
       simulation. In the simulation loop there is just on call to a
       static method before the emission and the move of the vehicles,
@@ -97,13 +97,13 @@
 	</caption>
       </mediaobject>
 
-      
+
 
     </sect1>
 
     <sect1 id="ExtendedDetectors">
       <title>Extended detectors</title>
-      
+
       <para>In real life the <emphasis>extended</emphasis> detectors
       are realized by headover detectors, like video-cameras on
       helicopters, bridges, zeppelins. They collect data from an area
@@ -139,11 +139,11 @@
 	    <literallayout><literal>double getCurrentDensity( void );</literal></literallayout>
 	  </listitem>
 	</itemizedlist>
-	
+
 	<para>To get averaged detector data (averaged over
       <literal>lastNTimesteps</literal>) you can call the following
       methods:</para>
-	
+
 	<itemizedlist>
 	  <listitem>
 	    <literallayout><literal>double getNumberOfWaiting( MSNet::Time lastNTimesteps );</literal></literallayout>
@@ -176,7 +176,7 @@
 	    <literallayout><literal>std::string getXMLOutput( MSNet::Time lastNTimesteps );</literal></literallayout>
 	  </listitem>
 	</itemizedlist>
-	
+
 	<note>
 	  <para>Note that there is a upper limit for
 	  <literal>lastNTimesteps</literal>. In order to save memory,
@@ -187,7 +187,7 @@
 	  minutes. The deletion is triggerd by
 	  <literal>MSEventControl</literal>.</para>
 	</note>
-	
+
 	<para>For more details on this class see the files
         <literal>MSLaneState.h</literal> and
         <literal>MSLaneState.cpp</literal>.</para>
@@ -238,7 +238,7 @@
 	<para>For an example see <literal>MSLaneState</literal>.</para>
 
       </sect2>
-      
+
     </sect1>
 
 

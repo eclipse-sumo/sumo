@@ -176,7 +176,7 @@
     format="GIF"></imagedata></imageobject></mediaobject>
     </figure>
 
-    <sect1><title>Data Loading</title> 
+    <sect1><title>Data Loading</title>
        <para>To be described...</para>
     </sect1>
 
@@ -267,7 +267,7 @@
       NBContHelper::edge_by_junction_angle_sorter()-method does
       consider this by checking which type of an edge (incoming or
       outgoing) the current edge is and converts the angles of
-      incoming edges by turning them around 180Ž°.</para>
+      incoming edges by turning them around 180 degree.</para>
       <para>Keep in mind, that our coordinates are as described within
       the user-documentation, the higher a point shall be, the greater
       his y-value, the more to left, the higher his
@@ -277,7 +277,7 @@
       fileref="./gfx/basic_coordinates.gif"
       format="GIF"></imagedata></imageobject></mediaobject></figure>
       <para>It is not assured, that the incoming and outgoing
-      directions of a northern street 
+      directions of a northern street
       are lying beside each other within the list of sorted edges. It
       may rather be, that the outgoing is lying at the begin and the
       incoming at the end.</para>

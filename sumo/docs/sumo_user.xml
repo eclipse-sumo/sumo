@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <book>
   <bookinfo>
     <title>SUMO - Simulation of Urban MObility - user documentation</title>
+
     <author>
       <firstname>Daniel</firstname>
+
       <surname>Krajzewicz</surname>
+
       <affiliation>
         <address><email>Daniel.Krajzewicz@dlr.de</email></address>
       </affiliation>
     </author>
 
-
     <releaseinfo>$Revision$</releaseinfo>
-
   </bookinfo>
 
-
-  <toc>
-  </toc>
-
-
+  <toc></toc>
 
   <chapter>
     <title>Introduction</title>
@@ -57,30 +54,17 @@
     <sect1>
       <title>Features</title>
 
-      <para>
-        <itemizedlist>
-          <listitem><para>High portability (using standard -
-      c++)</para></listitem>
-          <listitem><para>Collision free vehicle
-      movement</para></listitem>
-          <listitem><para>Different vehicle types</para></listitem>
-          <listitem><para>Single-vehicle routing</para></listitem>
-          <listitem><para>Multi-lane streets with lane
-      changing</para></listitem>
-          <listitem><para>Junction-based right-of-way
-      rules</para></listitem>
-          <listitem><para>Hierarchy of junction
-      types</para></listitem>
-          <listitem><para>A fast openGL GUI</para></listitem>
-          <listitem><para>Dynamic routing</para></listitem>
-          <listitem><para>Manages networks with several 10.000 edges
-      (streets)</para></listitem>
-          <listitem><para>Fast execution speed (up to 1.000.000
-      vehicle updates/s on a 1GHz machine)</para></listitem>
-          <listitem><para>Supports import of many network formats
-      (Visum, Vissim, ArcView, XML-Descriptions)</para></listitem>
-        </itemizedlist>
-       </para>
+      <para><itemizedlist><listitem><para>High portability (using standard -
+      c++)</para></listitem><listitem><para>Collision free vehicle movement</para></listitem><listitem><para>Different
+      vehicle types</para></listitem><listitem><para>Single-vehicle routing</para></listitem><listitem><para>Multi-lane
+      streets with lane changing</para></listitem><listitem><para>Junction-based
+      right-of-way rules</para></listitem><listitem><para>Hierarchy of
+      junction types</para></listitem><listitem><para>A fast openGL GUI</para></listitem><listitem><para>Dynamic
+      routing</para></listitem><listitem><para>Manages networks with several
+      10.000 edges (streets)</para></listitem><listitem><para>Fast execution
+      speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>Supports
+      import of many network formats (Visum, Vissim, ArcView,
+      XML-Descriptions)</para></listitem></itemizedlist></para>
     </sect1>
 
     <sect1>
@@ -89,9 +73,9 @@
       <para>This document is still under development and is meant to grow with
       the software. Due to this, you may find it together with the sources
       within out repository at sourceforge (<ulink
-      url="http://sumo.sourceforge.net/projects/sumo">http://sumo.sourceforge.net/projects/sumo</ulink>). In
-      this version, it describes the SUMO-release 0.8. The information about
-      the document state can be found at the end of the document.</para>
+      url="http://sumo.sourceforge.net/projects/sumo">http://sumo.sourceforge.net/projects/sumo</ulink>).
+      In this version, it describes the SUMO-release 0.8. The information
+      about the document state can be found at the end of the document.</para>
 
       <para>We should remark, that this document only covers the usage of the
       software and some description of the models used. Information on the
@@ -138,12 +122,12 @@
       <para>In the latter case, please download the source distribution and
       compile it for your own. We hope to be able to support two
       distributions, one with all needed libraries included and a second
-      without. The description of the building process is found within a 
-      separate document located <ulink url="sumo_build.html">here</ulink>. 
-      </para>
-      <para>If you have built the package on a system not included within 
-      our binary distribution, please let us know and send it to us, so that 
-      we can include it into the pages.</para>
+      without. The description of the building process is found within a
+      separate document located <ulink url="sumo_build.html">here</ulink>.</para>
+
+      <para>If you have built the package on a system not included within our
+      binary distribution, please let us know and send it to us, so that we
+      can include it into the pages.</para>
     </sect1>
 
     <sect1>
@@ -159,23 +143,21 @@
       two folders in here &#34;dos&#34; and &#34;unix&#34;. Choose the
       appropriate one (&#34;dos&#34; if your operating system is MSDOS or MS
       Windows, &#34;unix&#34; if it is Linux or UNIX). You will find a set of
-      scripts in here that allow you a fast generation and removal of the
-      test scenarios. Start &#34;buildExamples&#34; and wait until all
-      networks have been built and all route descriptions are computed.
-      </para>
+      scripts in here that allow you a fast generation and removal of the test
+      scenarios. Start &#34;buildExamples&#34; and wait until all networks
+      have been built and all route descriptions are computed.</para>
 
       <para>After everything is build, go back to the packages folder (two
       folders up) and from there to the folder named &#34;bin&#34;. Here you
       will find the executable files, among them a file named
-      &#34;gui(.exe)&#34;. Start it. After some seconds, a window will
-      pop up. Use &#34;Open...&#34; as usual to open an example scenario. You
-      can find the scenarios you have build by running the script in
+      &#34;gui(.exe)&#34;. Start it. After some seconds, a window will pop up.
+      Use &#34;Open...&#34; as usual to open an example scenario. You can find
+      the scenarios you have build by running the script in
       &#34;../data/examples/&#34;. As we are not allowed to give networks
-      build from digital maps at all, only simple examples are supported. 
-      After the network is loaded, the
-      main area of the window shall display it. Now you can start the
-      simulation by pressing one of the control buttons known from other
-      simulations or from any tape media device.</para>
+      build from digital maps at all, only simple examples are supported.
+      After the network is loaded, the main area of the window shall display
+      it. Now you can start the simulation by pressing one of the control
+      buttons known from other simulations or from any tape media device.</para>
     </sect1>
 
     <sect1>
@@ -187,9 +169,9 @@
       computation time, the networks are stored in quite a complicated format,
       which has to be built from more simple representations first. The
       simulation of traffic is also quite complicated as each vehicle is an
-      individual within. This requires not only a network that 
-      shall be simulated, but also a description of the routes the vehicles 
-      make. They were built, too.</para>
+      individual within. This requires not only a network that shall be
+      simulated, but also a description of the routes the vehicles make. They
+      were built, too.</para>
 
       <para>After both operations - which were performed for all known
       examples within the distribution - both networks and route descriptions
@@ -210,23 +192,21 @@
         traffic simulation.</para>
 
         <para>In traffic research three or four classes of models are
-        distinguished according to the level of detail of the
-        simulation. In macroscopic models traffic flow is the basic
-        entity. Microscopic models simulate the movement of every
-        single vehicle on the street, mostly assuming that the
-        behaviour of the vehicle depends on both, the vehicle's
-        physical abilities to move and the driver's controlling
-        behaviour (Krauss 1998; Janz 1998). Submicroscopic models
-        regard single vehicles like microscopic but extend them by
-        modelling their substructures, which describe the engine's
-        rotation speed in relation to the vehicle's speed or the
-        driver's preferred gear switching actions, for instance. This
-        allows more detailed computations of the emissions produced by
-        the vehicle compared to a simple microscopic simulation
-        (Diekamp 1995; Schreckenberg and Wolf 1998; Helbig et
-        al. 2001). However, submicroscopic models require large
-        computation times. This restrains the size of the networks to
-        be simulated.</para>
+        distinguished according to the level of detail of the simulation. In
+        macroscopic models traffic flow is the basic entity. Microscopic
+        models simulate the movement of every single vehicle on the street,
+        mostly assuming that the behaviour of the vehicle depends on both, the
+        vehicle&#39;s physical abilities to move and the driver&#39;s
+        controlling behaviour (Krauss 1998; Janz 1998). Submicroscopic models
+        regard single vehicles like microscopic but extend them by modelling
+        their substructures, which describe the engine&#39;s rotation speed in
+        relation to the vehicle&#39;s speed or the driver&#39;s preferred gear
+        switching actions, for instance. This allows more detailed
+        computations of the emissions produced by the vehicle compared to a
+        simple microscopic simulation (Diekamp 1995; Schreckenberg and Wolf
+        1998; Helbig et al. 2001). However, submicroscopic models require
+        large computation times. This restrains the size of the networks to be
+        simulated.</para>
 
         <figure>
           <title>The different simulation granularities; from left to right:
@@ -244,7 +224,7 @@
         position described by a floating-point number. In contrast,
         space-discrete simulations are a special kind of cellular automata.
         They use cells and vehicles driving on the simulated streets
-        "jump" from one cell to another (Brockfeld et al 2001).</para>
+        &#34;jump&#34; from one cell to another (Brockfeld et al 2001).</para>
 
         <figure>
           <title>The difference between a space-continuous (top) and a
@@ -257,17 +237,16 @@
           </mediaobject>
         </figure>
 
-        <para>And there is another difference between the available
-        simulation packages. Almost every simulation packages uses an own
-        model for vehicle movement. Almost all models are so-called
+        <para>And there is another difference between the available simulation
+        packages. Almost every simulation packages uses an own model for
+        vehicle movement. Almost all models are so-called
         &#34;car-following-models&#34;: the behaviour of the driver is herein
         meant to be dependent on his distance to the vehicle in front of him
-        and of this vehicle&#39;s speed. Although SUMO is meant to be a
-        test bed for such vehicle models, only one is implemented by now, which
-        was developed by Stefan Kraus. Other obstacles such as traffic lights
-        are of course considered herein, too. Please take a look into
-        &#34;Used models&#34; for a more detailed description of the
-        Krauß-model.</para>
+        and of this vehicle&#39;s speed. Although SUMO is meant to be a test
+        bed for such vehicle models, only one is implemented by now, which was
+        developed by Stefan Kraus. Other obstacles such as traffic lights are
+        of course considered herein, too. Please take a look into &#34;Used
+        models&#34; for a more detailed description of the Krauß-model.</para>
       </sect2>
 
       <sect2>
@@ -299,18 +278,17 @@
             </imageobject>
           </mediaobject>
         </figure>
-
       </sect2>
 
       <sect2>
         <title>User Assignment</title>
 
-        <para>It seems obvious, that each driver is trying to use to
-        shortest path through the network. But when all are trying to do this,
-        some of the roads - mainly the arterial roads would get congested and
-        their benefit would sink. This problem is known to traffic research as
-        the dynamic user assignment. Some approaches have been developed to
-        solve this.</para>
+        <para>It seems obvious, that each driver is trying to use to shortest
+        path through the network. But when all are trying to do this, some of
+        the roads - mainly the arterial roads would get congested and their
+        benefit would sink. This problem is known to traffic research as the
+        dynamic user assignment. Some approaches have been developed to solve
+        this.</para>
       </sect2>
     </sect1>
 
@@ -324,8 +302,8 @@
       due to these goals, the software was split into several parts. Each of
       them has a certain purpose and must be run individually. This is
       something that makes SUMO different to other simulation packages where
-      the dynamical user assignment is made within the simulation itself,
-      not via an external application like here.</para>
+      the dynamical user assignment is made within the simulation itself, not
+      via an external application like here.</para>
 
       <para>The split allows an easier extension of the application&#39;s part
       as they small enough and it also allows the usage of faster data
@@ -350,11 +328,10 @@
       steps. This process is also visualised within the next figure.</para>
 
       <para>Please remark, that most of the tools are command-line tools by
-      now. They do nothing if you just double-click them. Do also
-      notice, that we describe the call parameter in the following chapters
-      which may be also stored in so-called &#34;configuration files&#34; to
-      allow their reuse. This possibility is described on a later place in the
-      document.</para>
+      now. They do nothing if you just double-click them. Do also notice, that
+      we describe the call parameter in the following chapters which may be
+      also stored in so-called &#34;configuration files&#34; to allow their
+      reuse. This possibility is described on a later place in the document.</para>
 
       <figure>
         <title>Process of simulation with SUMO; (grey and rounded: data used;
@@ -383,20 +360,12 @@
         network description readable by SUMO using the SUMO-NETCONVERT tool.
         By now, SUMO-NETCONVERT is capable to parse the following formats:</para>
 
-        <para>
-          <itemizedlist>
-            <listitem><para>ptv VISUM (a macroscopic traffic
-            simulation package)</para></listitem>
-            <listitem><para>ptv VISSIM (a microscopic traffic
-            simulation package)</para></listitem>
-            <listitem><para>ARTEMIS by Prof. Peter Hidas (a microscopic
-            traffic simulation package)</para></listitem>
-	    <listitem><para>CELL by Christian Gawron (a
-            mesoscopic traffic simulation package)</para></listitem>
-	    <listitem><para>ARCVIEW-data base files</para></listitem>
-	    <listitem><para>XML-descriptions</para></listitem>
-          </itemizedlist>
-	</para>
+        <para><itemizedlist><listitem><para>ptv VISUM (a macroscopic traffic
+        simulation package)</para></listitem><listitem><para>ptv VISSIM (a
+        microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
+        by Prof. Peter Hidas (a microscopic traffic simulation package)</para></listitem><listitem><para>CELL
+        by Christian Gawron (a mesoscopic traffic simulation package)</para></listitem><listitem><para>ARCVIEW-data
+        base files</para></listitem><listitem><para>XML-descriptions</para></listitem></itemizedlist></para>
 
         <para>In most of these cases, SUMO-NETCOVERT only needs two parameter:
         the name of the input format followed by the name of the file and the
@@ -453,39 +422,28 @@
             is optional. Each of these attributes has a certain meaning and
             value range:</para>
 
-            <para>
-	    <itemizedlist>
-	    <listitem><para>id: The name of the node; may be any
-	    character string</para></listitem>
-	    <listitem><para>x: The x-position of the node on the plane
-	    in m; must be a floating point number</para></listitem>
-	    <listitem><para>y: The y-position of the node on the plane
-	    in m; must be a floating point number</para></listitem>
-	    <listitem><para>type: An optional type for the node. If
-	    you leave out the type of the node, it is automatically
-	    guessed by SUMO-NETCOVERT but may not be the one you
-	    intentionally thought of. The following types are
-	    possible, any other string is counted as an error and will
-	    yield in a program stop:</para>
-	    <itemizedlist>
-	      <listitem><para>priority: Vehicles have to wait until
-	    vehicles right to them have passed the junction. This is a
-	    very common scheme within Germany.</para></listitem>
-	      <listitem><para>traffic_light: The junction is
-	    controlled by a traffic light.</para></listitem>
-	    </itemizedlist>
-	    <para>We do not have implemented the american way of giving way on
+            <para><itemizedlist><listitem><para>id: The name of the node; may
+            be any character string</para></listitem><listitem><para>x: The
+            x-position of the node on the plane in m; must be a floating point
+            number</para></listitem><listitem><para>y: The y-position of the
+            node on the plane in m; must be a floating point number</para></listitem><listitem><para>type:
+            An optional type for the node. If you leave out the type of the
+            node, it is automatically guessed by SUMO-NETCOVERT but may not be
+            the one you intentionally thought of. The following types are
+            possible, any other string is counted as an error and will yield
+            in a program stop:</para><itemizedlist><listitem><para>priority:
+            Vehicles have to wait until vehicles right to them have passed the
+            junction. This is a very common scheme within Germany.</para></listitem><listitem><para>traffic_light:
+            The junction is controlled by a traffic light.</para></listitem></itemizedlist><para>We
+            do not have implemented the american way of giving way on
             junctions that are not controlled by a traffic light. It is also
             not possible to describe the parameter of the traffic light at
-            this level.</para></listitem>
-	    </itemizedlist>
-
-	    When writing your nodes-file, please do not forget to
-            embed your node definitions into an opening and a closing
-            &#34;tag&#34;. A complete file should like the example
-            below, which is the node file for the &#34;cross1ltl&#34;
-            example. And you may also take a look into our examples
-            using a simple text editor.</para>
+            this level.</para></listitem></itemizedlist> When writing your
+            nodes-file, please do not forget to embed your node definitions
+            into an opening and a closing &#34;tag&#34;. A complete file
+            should like the example below, which is the node file for the
+            &#34;cross1ltl&#34; example. And you may also take a look into our
+            examples using a simple text editor.</para>
 
             <para><sgmltag>&#60;nodes&#62; &#60;!-- The opening tag --&#62;</sgmltag></para>
 
@@ -540,8 +498,8 @@
             <title>Edges description</title>
 
             <para>Edges are described quite the same way as nodes, but do
-            possess other parameter. Within the edges file, each description of
-            a single edge looks like this: <sgmltag>&#60;edge
+            possess other parameter. Within the edges file, each description
+            of a single edge looks like this: <sgmltag>&#60;edge
             id=&#34;&#60;STRING&#62;&#34;
             (fromnode=&#34;&#60;NODE_ID&#62;&#34;
             tonode=&#34;&#60;NODE_ID&#62;&#34; |
@@ -557,10 +515,10 @@
             <para>What does it mean? Every one who knows how XML-files look
             like, should have noticed brackets (&#39;(&#39; and &#39;)&#39;)
             and pipes (&#39;|&#39;) within the definition and these characters
-            are not allowed within XML... What we wanted to show which 
-            parameter are optional. So for the definition of the
-            origin and the destination node, you can either give their names
-            using <sgmltag>fromnode=&#34;&#60;NODE_ID&#62;&#34;
+            are not allowed within XML... What we wanted to show which
+            parameter are optional. So for the definition of the origin and
+            the destination node, you can either give their names using
+            <sgmltag>fromnode=&#34;&#60;NODE_ID&#62;&#34;
             tonode=&#34;&#60;NODE_ID&#62;&#34; </sgmltag>or you give their
             positions using <sgmltag>xfrom=&#34;&#60;FLOAT&#62;&#34;
             yfrom=&#34;&#60;FLOAT&#62; xto=&#34;&#60;FLOAT&#62;&#34;
@@ -595,77 +553,44 @@
 
             <para>The information <sgmltag>spread_type=&#34;center&#34;
             </sgmltag>forces NETCONVERT to spread lanes to both sides of the
-            connection between the begin node and the end node or from the list of
-            lines making up the shape. If not given, lanes are spread to
-            right, as default.</para>
+            connection between the begin node and the end node or from the
+            list of lines making up the shape. If not given, lanes are spread
+            to right, as default.</para>
 
             <para>Let&#39;s list an edge&#39;s attributes again:</para>
 
             <para><itemizedlist><listitem><para>id: The name of the edge; may
             be any character string</para></listitem><listitem><para>Origin
-            and destination node descriptions</para>
-	    <para>Either:</para>
-	    <itemizedlist>
-	      <listitem><para>fromnode: The name of a node within the
-            nodes-file the edge shall start at</para></listitem>
-	      <listitem><para>tonode: The name of a node within the
-            nodes-file the edge shall end at</para></listitem>
-	    </itemizedlist>
-	    <para>or:</para>
-	    <itemizedlist>
-	      <listitem><para>xfrom: The x-position of the node the
-            edge shall start at in m; must be a floating point
-            number</para></listitem>
-	      <listitem><para>yfrom: The y-position of the node the
-            edge shall start at in m; must be a floating point
-            number</para></listitem>
-	      <listitem><para>xto: The x-position of the node the edge
-            shall end at in m; must be a floating point
-            number</para></listitem>
-	      <listitem><para>yto: The y-position of the node the edge
-            shall end at in m; must be a floating point
-            number</para></listitem>
-            </itemizedlist>
-          </listitem>
-	  <listitem><para>Descriptions of the edge&#39;s type and
-            atomic attributes:</para>
-	    <para>Either:</para>
-	    <itemizedlist>
-	      <listitem><para>type: The name of a type within the
-            types-file</para></listitem>
-	    </itemizedlist>
-	    <para>or:</para>
-	    <itemizedlist>
-	      <listitem><para>nolanes: The number of lanes of the
-            edge; must be an integer value</para></listitem>
-	      <listitem><para>speed: The maximum speed allowed on the
-            edge in m/s; must be a floating point
-            number</para></listitem>
-	      <listitem><para>priority: The priority of the edge; must
-            be an integer value</para></listitem>
-	      <listitem><para>length: The length of the edge in meter;
-            must be an float value</para></listitem>
-	    </itemizedlist>
-          </listitem>
-	  <listitem><para>The edges shape:</para>
-	    <itemizedlist>
-	      <listitem><para>shape: List of positions; each position
-            is encoded in x,y (do not separate the numbers with a space!) 
-            in meters; an edge&#39;s
-            shape definition must of course be at least two positions
-            long; an example: shape=&#34;0,0 0,100&#34; describes a
-            vertical edge of one hundred meters.</para></listitem>
-              <listitem><para>spread_type: The description of how to
-            spread the lanes; center spreads lanes to both directions
-            of the shape, any other value to right.</para></listitem>
-	    </itemizedlist>
-	  </listitem>
-	</itemizedlist>
-	The priority plays a role during the computation of the
-            way-giving rules of a node. Larger values for the priority
-            of an edge allow vehicles using it to pass without waiting
-            - if no traffic light is on the node.</para>
-
+            and destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
+            The name of a node within the nodes-file the edge shall start at</para></listitem><listitem><para>tonode:
+            The name of a node within the nodes-file the edge shall end at</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>xfrom:
+            The x-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>yfrom: The
+            y-position of the node the edge shall start at in m; must be a
+            floating point number</para></listitem><listitem><para>xto: The
+            x-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem><listitem><para>yto: The
+            y-position of the node the edge shall end at in m; must be a
+            floating point number</para></listitem></itemizedlist></listitem><listitem><para>Descriptions
+            of the edge&#39;s type and atomic attributes:</para><para>Either:</para><itemizedlist><listitem><para>type:
+            The name of a type within the types-file</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>nolanes:
+            The number of lanes of the edge; must be an integer value</para></listitem><listitem><para>speed:
+            The maximum speed allowed on the edge in m/s; must be a floating
+            point number</para></listitem><listitem><para>priority: The
+            priority of the edge; must be an integer value</para></listitem><listitem><para>length:
+            The length of the edge in meter; must be an float value</para></listitem></itemizedlist></listitem><listitem><para>The
+            edges shape:</para><itemizedlist><listitem><para>shape: List of
+            positions; each position is encoded in x,y (do not separate the
+            numbers with a space!) in meters; an edge&#39;s shape definition
+            must of course be at least two positions long; an example:
+            shape=&#34;0,0 0,100&#34; describes a vertical edge of one hundred
+            meters.</para></listitem><listitem><para>spread_type: The
+            description of how to spread the lanes; center spreads lanes to
+            both directions of the shape, any other value to right.</para></listitem></itemizedlist></listitem></itemizedlist>
+            The priority plays a role during the computation of the way-giving
+            rules of a node. Larger values for the priority of an edge allow
+            vehicles using it to pass without waiting - if no traffic light is
+            on the node.</para>
 
             <para>Even if you supply a type, you can still override the so set
             values by supplying any of the parameter &#34;nolanes&#34;,
@@ -713,6 +638,16 @@
 
             <para>As you see, we have used references to road types and to
             junctions, here.</para>
+
+            <caution>
+              <para><inlinegraphic fileref="./gfx/attention_small.gif"
+              format="GIF" />There are some constraints about the streets&#39;
+              ids. They must not contain any of the following characters:
+              &#39;_&#39; (underline - used for lane ids), &#39;[&#39; and
+              &#39;]&#39; (used for enumerations), &#39; &#39; (space - used
+              as list divider), &#39;*&#39; (star, used as wildcard),
+              &#39;:&#39; (used as marker for internal lanes).</para>
+            </caution>
           </sect4>
 
           <sect4>
@@ -722,10 +657,10 @@
             edges. As described above, the description of an edge should
             include information about the number of lanes, the maximum speed
             allowed on this edge and the edge&#39;s priority. To avoid the
-            explicit definition of eachparameter for every edge,
-            one can use road types, which do encapsulate these parameter under a
-            given name, the road type, which instead may be used on describing
-            the edge.</para>
+            explicit definition of eachparameter for every edge, one can use
+            road types, which do encapsulate these parameter under a given
+            name, the road type, which instead may be used on describing the
+            edge.</para>
 
             <para>Due to the usage, the attributes are of course exactly the
             same as for edges themselves:</para>
@@ -807,12 +742,12 @@
               </listitem>
             </itemizedlist>
 
-            <para>When using this kind of input, NETCONVERT will compute
-            which lanes shall be used if any of the connected edges has more
-            than one lane.</para>
+            <para>When using this kind of input, NETCONVERT will compute which
+            lanes shall be used if any of the connected edges has more than
+            one lane.</para>
 
-            <para>If you also want to explicitly override this computation
-            and set the lanes by hand, use the following: <sgmltag>&#60;connection
+            <para>If you also want to explicitly override this computation and
+            set the lanes by hand, use the following: <sgmltag>&#60;connection
             from=&#34;&#60;FROM_EDGE_ID&#62;&#34;
             to=&#34;&#60;T0_EDGE_ID&#62;&#34;
             lane=&#34;&#60;INT_1&#62;:&#60;INT_2&#62;&#34;/&#62;</sgmltag>.
@@ -1021,8 +956,8 @@
               </listitem>
 
               <listitem>
-                <para>All actuated traffic lights are mapped onto the same type
-                of traffic light (MSActuatedTrafficLight)</para>
+                <para>All actuated traffic lights are mapped onto the same
+                type of traffic light (MSActuatedTrafficLight)</para>
               </listitem>
 
               <listitem>
@@ -1060,7 +995,6 @@
               <title>netconvert(.exe) --vissim=&#60;VISSIM_FILE&#62;
               --output-file=MySUMOFile.net.xml</title>
             </example>
-
           </sect4>
         </sect3>
 
@@ -1069,10 +1003,9 @@
 
           <para>SUMO-NETCONVERT allows building of easy networks. In
           dependence to what is wished, three types of networks can be built.
-          All of them are very sophisticated, but
-          may be used as examples. You are also greatly invited to extend the
-          concepts. Available types are: grid-networks, spider-networks and
-          random-networks.</para>
+          All of them are very sophisticated, but may be used as examples. You
+          are also greatly invited to extend the concepts. Available types
+          are: grid-networks, spider-networks and random-networks.</para>
 
           <sect4>
             <title>Grid-like networks</title>
@@ -1117,12 +1050,12 @@
         <title>Routes Generation</title>
 
         <para>After having your network converted into the SUMO-format, you
-        could take a look at it using the gui-version of the simulation 
-	, but no cars would be driving around. You still need some kind of
+        could take a look at it using the gui-version of the simulation , but
+        no cars would be driving around. You still need some kind of
         description about the vehicles. A vehicle consists of three parts: the
         vehicle itself, its type and the route. We will describe this in
-        detail later as most of the things to generate these
-        descriptions may be done without knowing this.</para>
+        detail later as most of the things to generate these descriptions may
+        be done without knowing this.</para>
 
         <para>If you are importing data from other simulation packages, they
         have own representations of vehicle movements you can use. In case of
@@ -1200,9 +1133,9 @@
             emitted into the network as given by the value of -R
             (--random-per-second). You can also supply values which smaller
             than one. In this case, a single vehicle will be emitted each 1/-R
-            step. Example: -R 0.25 generates a route description, which, 
-            when loaded, forces the simulation to emit a single vehicle 
-            each fourth time step.</para>
+            step. Example: -R 0.25 generates a route description, which, when
+            loaded, forces the simulation to emit a single vehicle each fourth
+            time step.</para>
 
             <para>It is also possible to use this parameter in combination of
             other route definitions, for example supplying some fix routes and
@@ -1338,8 +1271,8 @@
           <title>Importing FastLane-routes</title>
 
           <para>One of the main concepts of FastLane is the Dynamic User
-          Assignment by Christian Gawron. As this mechanism is based on
-          single vehicle routes, those are explicitly given for a FastLane
+          Assignment by Christian Gawron. As this mechanism is based on single
+          vehicle routes, those are explicitly given for a FastLane
           simulation. The router module has only to convert from the FastLane-
           into the SUMO-representation. Do this using the following command:</para>
 
@@ -1636,9 +1569,9 @@
           | -n ] &#60;FILE&#62;</para><para>Informs SUMO-ROUTER to use the
           sumo-network &#60;FILE&#62; for routing.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> The name
-          &#34;net-files&#34; is ambiguous: only one network file can be loaded
-          by now.</para></caution></listitem><listitem><para>OPTIONAL: [
-          --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Prints
+          &#34;net-files&#34; is ambiguous: only one network file can be
+          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Prints
           possible options.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> the name
           &#34;weight-files&#34; is ambigous: only one weight file can be
@@ -1680,7 +1613,7 @@
         </sect3>
 
         <sect3>
-          <title>Simulation timing</title>
+          <title>Simulation times settings</title>
 
           <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
           &#60;UINT&#62;</para><para>A virtual time to specify the begin of
@@ -1709,13 +1642,9 @@
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL:
-          --suppress-short-trip-warnings</para><para>Supresses warning about
-          routes which are not built as they end on the same edge, they start
-          edge.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> In networks
-          where not all edges are connected, this warnings may also occur. It
-          is not very wise to suppress them by default.</para></caution></listitem></itemizedlist></para>
+          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
+          when a described connection could not be build. The default
+          behaviour is to stop with an error.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1739,24 +1668,12 @@
         <sect3>
           <title>Input options</title>
 
-          <para>
-            <itemizedlist>
-              <listitem>
-                <para>OPTIONAL: [ --net-file | -n ]
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --net-file | -n ]
           &#60;FILE&#62;</para><para>The SUMO-network file to use (converted
-          from origin)</para>
-              </listitem>
-              <listitem>
-                <para>OPTIONAL: [
-          --route-file | -d ] &#60;FILE&#62;</para>
-                <para>The file containing a
-          single O/D-matrix. VISSIM</para>
-              </listitem>
-              <listitem>
-                <para>To be completed...</para>
-              </listitem>
-            </itemizedlist>
-          </para>
+          from origin)</para></listitem><listitem><para>OPTIONAL: [
+          --route-file | -d ] &#60;FILE&#62;</para><para>The file containing a
+          single O/D-matrix. VISSIM</para></listitem><listitem><para>To be
+          completed...</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1977,8 +1894,8 @@
 
     <para>Here, only errors that should occur to normal users are reported.
     Some more possible errors exist but should only occur when the network is
-    false what should not happen when it was generated by sumo-netconvert.
-    As said before, we do not expect a normal user to build a network &#34;by
+    false what should not happen when it was generated by sumo-netconvert. As
+    said before, we do not expect a normal user to build a network &#34;by
     hand&#34;. If you are a developer and an error occurs that is not in the
     list below, see into the developer documentation.</para>
 
@@ -2004,11 +1921,11 @@
         set. Possible synonyms: [SYNONYMS]</errorcode><blockquote><para>You
         are setting an option twice. An example: you have typed &#34;sumo -n
         [FILE1] --net [FILE2]&#34;. This is not possible. A list of possible
-        synonyms is supported.</para><para>Set a value only once. When you
-        are sure you have specified the value only once on the command line,
-        your configuration file may contain two definitions for the value. A
-        value may be defined as well in the configuration fine and on he
-        command line but never twice in each of them.</para></blockquote></para>
+        synonyms is supported.</para><para>Set a value only once. When you are
+        sure you have specified the value only once on the command line, your
+        configuration file may contain two definitions for the value. A value
+        may be defined as well in the configuration fine and on he command
+        line but never twice in each of them.</para></blockquote></para>
       </listitem>
 
       <listitem>
@@ -2079,6 +1996,20 @@
         have is that you are using an inappropriate version of XERCES.
         Remember to use a C++ - XERCES version over 1.5 and fits to your
         system (Windows, Linux, Solaris etc.)</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>An exception occured! Type: UTFDataFormatException,
+        Message: invalid byte 2 (L) of a 2-byte-sequence.</errorcode><blockquote><para>Your
+        network obviously uses a name that contains non-latin characters.
+        Older versions of xerces seemed to work with such names, although
+        it&#39;s against the XML-specifications, newer are not. You have to
+        convert them within your input files (mainly within the file used to
+        build the network) and rebuild the network then.</para><para>If you
+        are a programme, you also may take a look at the conversion routine
+        within the class <classname>StringUtils</classname> called
+        <methodname>convertUmlaute</methodname> and try to patch the values to
+        replace within him.</para></blockquote></para>
       </listitem>
 
       <listitem>

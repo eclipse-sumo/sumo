@@ -4,7 +4,7 @@
 <book>
   <bookinfo>
     <title>SUMO developer documentation</title>
-    <author> 
+    <author>
       <firstname>Christian</firstname>
       <surname>R&ouml;ssel</surname>
       <affiliation>
@@ -15,10 +15,10 @@
 
     <releaseinfo>$Revision$</releaseinfo>
 
-  </bookinfo> 
+  </bookinfo>
 
 
-  <toc> 
+  <toc>
   </toc>
 
   <chapter>
@@ -90,7 +90,7 @@
 
     <sect1>
       <title>Adding options to configure</title>
-    
+
       <para>You need to modify the file
       <literal>configure.in.in</literal>. There are some SUMO-specific
       options. Take them as sample and consult the <ulink
@@ -159,7 +159,7 @@
 	  subdirectory to <literal>SUBDIRS</literal> and create a
 	  new <literal>Makefile.am</literal> there.</para>
 	</listitem>
-	
+
       </itemizedlist>
 
       <para>I don't want to go into detail of <literal>Makefile.am</literal> creation. For SUMO we have one top-level <literal>Makefile.am</literal> in the directory <literal>sumo</literal> This needs to be changed only if you add new subdirectories</para>
@@ -177,19 +177,19 @@ libxxx_a_SOURCES = header.h source.cpp
 AM_CPPFLAGS = -I$(top_srcdir)/src/helpers $(QT_INCLUDES) \
 -I$(XERCESINCLUDE)
 
-SUBDIRS = icons 
+SUBDIRS = icons
 
 METASOURCES = AUTO
 </screen>
 
       <sect2>
 	<title>Makefile.am additions for Xerces</title>
-	
+
 	<para>If you need to include Xerces-headers in a specific
 	directory add <literal>-I$(XERCESINCLUDE)
 	-I$(XERCESINCLUDE_PRIOR_1_7)</literal> to
-	<literal>AM_CPPFLAGS</literal>.</para> 
-	
+	<literal>AM_CPPFLAGS</literal>.</para>
+
 	<para>If you need to
 	link against the Xerces-library add
 	<literal>-L$(XERCES_LDFLAGS)</literal> to
@@ -201,7 +201,7 @@ METASOURCES = AUTO
 
       <sect2>
 	<title>Makefile.am additions for QT</title>
-	
+
 	<para>If you need to include QT-headers in a specific
 	directory add <literal>$(QT_INCLUDES)</literal> to
 	<literal>AM_CPPFLAGS</literal> and <literal>METASOURCES =
