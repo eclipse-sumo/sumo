@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/05 15:22:44  dkrajzew
+// handling of internal lanes added
+//
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -83,13 +86,17 @@ RONetHandler::myStartElement(int element, const std::string &name,
         parseEdge(attrs);
         break;
     case SUMO_TAG_LANE:
-        parseLane(attrs);
+        if(_process) {
+            parseLane(attrs);
+        }
         break;
     case SUMO_TAG_JUNCTION:
         parseJunction(attrs);
         break;
     case SUMO_TAG_CEDGE:
-        parseConnEdge(attrs);
+        if(_process) {
+            parseConnEdge(attrs);
+        }
         break;
     default:
         break;
@@ -109,12 +116,15 @@ RONetHandler::parseEdge(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
         }
         string type = getString(attrs, SUMO_ATTR_FUNC);
+        _process = true;
         if(type=="normal") {
             _currentEdge->setType(ROEdge::ET_NORMAL);
         } else if(type=="source") {
             _currentEdge->setType(ROEdge::ET_SOURCE);
         } else if(type=="sink") {
             _currentEdge->setType(ROEdge::ET_SINK);
+        } else if(type=="internal") {
+            _process = false;
         } else {
             throw 1; // !!!
         }
