@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.2  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -64,7 +67,6 @@ namespace
 //
 // Revision 1.5  2003/11/04 08:55:28  jringel
 // implemetation of the agentbased trafficlightlogic
-//
 //
 // Revision 1.5 2003/10/30 jringel
 // agent-based logic implemented
@@ -168,11 +170,11 @@ MSAgentbasedTrafficLightLogic::initializeDuration()
      size_t tDeltaGreen = 0;         // the difference between the actual cycle time and the required cycle time
 
      /// Calculation of starting values
-     for (size_t actStep = 0; actStep!=_phases.size(); actStep++) {
-         size_t dur = static_cast<MSActuatedPhaseDefinition*>(_phases[actStep])->duration;
+     for (size_t actStep = 0; actStep!=myPhases.size(); actStep++) {
+         size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->duration;
          tCycleIst = tCycleIst + dur;
          if (isGreenPhase(actStep)) {
-             size_t mindur = static_cast<MSActuatedPhaseDefinition*>(_phases[actStep])->minDuration;
+             size_t mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->minDuration;
              tCycleMin = tCycleMin + mindur;
          }
          else {
@@ -199,38 +201,38 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
-    GreenPhasesVector myPhases (_phases.size());
-    myPhases.clear();
+    GreenPhasesVector tmp_phases (myPhases.size());
+    tmp_phases.clear();
     size_t maxLengthen = 0;  // the sum of all times, that is possible to lengthen
 
-    /* fills the vector myPhases with the difference between
+    /* fills the vector tmp_phases with the difference between
        duration and maxduration and the _step of the phases.
        only phases with duration < maxDuration are written in the vector.
        sorts the vector after the difference. */
-    for (size_t i_Step = 0; i_Step!=_phases.size(); i_Step++) {
+    for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
         if (isGreenPhase(i_Step)) {
-            size_t dur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->duration;
-            size_t maxdur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->maxDuration;
+            size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
+            size_t maxdur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->maxDuration;
             if (dur < maxdur) {
                 contentType tmp;
                 tmp.second = i_Step;
                 tmp.first = maxdur - dur;
-                myPhases.push_back(tmp);
+                tmp_phases.push_back(tmp);
                 maxLengthen = maxLengthen + tmp.first;
             }
         }
     }
-    sort(myPhases.begin(), myPhases.end());
+    sort(tmp_phases.begin(), tmp_phases.end());
 
     //lengthens the phases acording to the difference between duration and maxDuration
-    for (GreenPhasesVector::iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+    for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
         size_t toLengthenPerPhase = 0;
         double tmpdb = ((*i).first * toLengthen / double(maxLengthen)) + 0.5;
         toLengthenPerPhase = static_cast<size_t>(tmpdb);
         toLengthen = toLengthen - toLengthenPerPhase;
         maxLengthen = maxLengthen - (*i).first;
-        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*i).second])->duration + toLengthenPerPhase;
-        static_cast<MSActuatedPhaseDefinition*>(_phases[(*i).second])->duration = newDur;
+        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration + toLengthenPerPhase;
+        static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
     }
 }
 
@@ -240,38 +242,38 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
-    GreenPhasesVector myPhases (_phases.size());
-    myPhases.clear();
+    GreenPhasesVector tmp_phases (myPhases.size());
+    tmp_phases.clear();
     size_t maxCut = 0;  // the sum of all times, that is possible to cut
 
-    /* fills the vector myPhases with the difference between
+    /* fills the vector tmp_phases with the difference between
        duration and minduration and the _step of the phases.
        only phases with duration > minDuration are written in the vector.
        sorts the vector after the difference. */
-    for (size_t i_Step = 0; i_Step!=_phases.size(); i_Step++) {
+    for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
         if (isGreenPhase(i_Step)) {
-            size_t dur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->duration;
-            size_t mindur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->minDuration;
+            size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
+            size_t mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->minDuration;
             if (dur > mindur) {
                 contentType tmp;
                 tmp.second = i_Step;
                 tmp.first = dur - mindur;
-                myPhases.push_back(tmp);
+                tmp_phases.push_back(tmp);
                 maxCut = maxCut + tmp.first;
             }
         }
     }
-    sort(myPhases.begin(), myPhases.end());
+    sort(tmp_phases.begin(), tmp_phases.end());
 
     //cuts the phases acording to the difference between duration and minDuration
-    for (GreenPhasesVector::iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+    for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
         size_t toCutPerPhase = 0;
         double tmpdb = ((*i).first * toCut / double(maxCut)) + 0.5;
         toCutPerPhase = static_cast<size_t>(tmpdb);
         toCut = toCut - toCutPerPhase;
         maxCut = maxCut - (*i).first;
-        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*i).second])->duration - toCutPerPhase;
-        static_cast<MSActuatedPhaseDefinition*>(_phases[(*i).second])->duration = newDur;
+        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration - toCutPerPhase;
+        static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
     }
 }
 
@@ -281,12 +283,12 @@ MSAgentbasedTrafficLightLogic::nextPhase()
 {
     assert (currentPhaseDef()->minDuration >=0);
     assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
-    if(isGreenPhase(_step)) {
+    if(isGreenPhase(myStep)) {
         // collects the data for the signal control
         collectData();
         // decides wheter greentime shall distributed between phases
         if(tDecide <= tSinceLastDecision) {
-        calculateDuration();
+            calculateDuration();
         }
     }
 
@@ -298,7 +300,7 @@ MSAgentbasedTrafficLightLogic::nextPhase()
             for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {
                 cot<<"  Wert: " << (*itV) ;
             }
-              cot<<" Dauer: " << _phases[(*it).first]->duration << "  " ;
+              cot<<" Dauer: " << myPhases[(*it).first]->duration << "  " ;
         }
     }
 */
@@ -315,16 +317,16 @@ size_t
 MSAgentbasedTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
-    _step++;
-    assert(_step<=_phases.size());
-    if(_step==_phases.size()) {
-        _step = 0;
+    myStep++;
+    assert(myStep<=myPhases.size());
+    if(myStep==myPhases.size()) {
+        myStep = 0;
     }
     // increment the number of cycles since last decision
-    if(_step == stepOfLastDecision) {
+    if(myStep == stepOfLastDecision) {
         tSinceLastDecision = tSinceLastDecision +1;
     }
-    return _step;
+    return myStep;
 }
 
 
@@ -363,18 +365,18 @@ MSAgentbasedTrafficLightLogic::collectData()
         }
     }
     // if still no entry for the phase exists a new entry with an empty value is created
-    if (myRawDetectorData.find(_step) == myRawDetectorData.end() ) {
-                    ValueType firstData;
-                    myRawDetectorData[_step] = firstData;
+    if (myRawDetectorData.find(myStep) == myRawDetectorData.end() ) {
+        ValueType firstData;
+        myRawDetectorData[myStep] = firstData;
     }
     /* checks whether the number of values that are already in the dataqueue is
        the same number of values taht shall be consideres in the traffic control
        if both numbers are the same, the oldest value is deleted */
-    if(myRawDetectorData[_step].size()== numberOfValues) {
-        myRawDetectorData[_step].pop_back();
+    if(myRawDetectorData[myStep].size()== numberOfValues) {
+        myRawDetectorData[myStep].pop_back();
     }
     // adds the detectorvalue of the considered phase
-    myRawDetectorData[_step].push_front(maxPerPhase);
+    myRawDetectorData[myStep].push_front(maxPerPhase);
 }
 
 
@@ -397,11 +399,11 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
 {
     aggregateRawData();
     size_t stepOfMaxValue = findStepOfMaxValue();
-    if (stepOfMaxValue == _phases.size())    {
+    if (stepOfMaxValue == myPhases.size())    {
         return;
     }
     size_t stepOfMinValue = findStepOfMinValue();
-    if (stepOfMinValue == _phases.size())    {
+    if (stepOfMinValue == myPhases.size())    {
         return;
     }
     if (stepOfMinValue == stepOfMaxValue)    {
@@ -411,10 +413,10 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
     double deltaIst = (myMeanDetectorData[stepOfMaxValue] - myMeanDetectorData[stepOfMinValue])
                         / myMeanDetectorData[stepOfMaxValue];
     if (deltaIst > deltaLimit) {
-        _phases[stepOfMaxValue]->duration = _phases[stepOfMaxValue]->duration +1;
-        _phases[stepOfMinValue]->duration = _phases[stepOfMinValue]->duration -1;
+        myPhases[stepOfMaxValue]->duration = myPhases[stepOfMaxValue]->duration +1;
+        myPhases[stepOfMinValue]->duration = myPhases[stepOfMinValue]->duration -1;
         tSinceLastDecision = 0;
-        stepOfLastDecision = _step;
+        stepOfLastDecision = myStep;
     }
 }
 
@@ -422,14 +424,14 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
 size_t
 MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 {
-    size_t StepOfMaxValue = _phases.size();
+    size_t StepOfMaxValue = myPhases.size();
     double MaxValue = -1;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
         // checks whether the actual duruation is shorter than maxduration
         // otherwise the phase can't be lenghten
-        size_t maxDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->maxDuration;
-        size_t actDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->duration;
+        size_t maxDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->maxDuration;
+        size_t actDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->duration;
         if (actDur >= maxDur) {
             continue;
         }
@@ -445,14 +447,14 @@ MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 size_t
 MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 {
-    size_t StepOfMinValue = _phases.size();
+    size_t StepOfMinValue = myPhases.size();
     double MinValue = 9999;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
         // checks whether the actual duruation is longer than minduration
         // otherwise the phase can't be cut
-        size_t minDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->minDuration;
-        size_t actDur = static_cast<MSActuatedPhaseDefinition*>(_phases[(*it).first])->duration;
+        size_t minDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->minDuration;
+        size_t actDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->duration;
         if (actDur <= minDur) {
             continue;
         }
@@ -472,7 +474,7 @@ MSAgentbasedTrafficLightLogic::duration()
         nextStep();
         setLinkPriorities();
     }
-    assert(_phases.size()>_step);
+    assert(myPhases.size()>myStep);
     return currentPhaseDef()->duration;
 }
 
@@ -480,19 +482,19 @@ MSAgentbasedTrafficLightLogic::duration()
 MSActuatedPhaseDefinition *
 MSAgentbasedTrafficLightLogic::currentPhaseDef() const
 {
-    assert(_phases.size()>_step);
-    return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
+    assert(myPhases.size()>myStep);
+    return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
 
 bool
 MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
 {
-    assert(testStep<=_phases.size());
-    if (static_cast<MSActuatedPhaseDefinition*>(_phases[testStep])->getDriveMask().none()) {
+    assert(testStep<=myPhases.size());
+    if (static_cast<MSActuatedPhaseDefinition*>(myPhases[testStep])->getDriveMask().none()) {
         return false;
     }
-    if (static_cast<MSActuatedPhaseDefinition*>(_phases[testStep])->getYellowMask().any()) {
+    if (static_cast<MSActuatedPhaseDefinition*>(myPhases[testStep])->getYellowMask().any()) {
         return false;
     }
     return true;

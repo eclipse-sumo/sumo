@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:42  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -36,7 +39,8 @@
 // actuated traffic lights are now derived from simple traffic lights
 //
 // Revision 1.10  2003/09/17 06:50:45  dkrajzew
-// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+// phase definitions extracted from traffic lights;
+//  MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
 // Revision 1.9  2003/07/30 09:16:10  dkrajzew
 // a better (correct?) processing of yellow lights added; debugging
@@ -51,7 +55,8 @@
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.5  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok);
+//  detector output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.4  2003/04/04 07:13:20  dkrajzew
 // Yellow phases must be now explicetely given
@@ -92,7 +97,6 @@
 class MSSimpleTrafficLightLogic : public MSTrafficLightLogic
 {
 public:
-
     /// definition of a list of phases, being the junction logic
     typedef std::vector<MSPhaseDefinition*> Phases;
 
@@ -125,23 +129,22 @@ public:
     virtual MSNet::Time duration() const;
 
     /// returns the current step
-    size_t step() const { return _step; }
+    size_t step() const;
+
+    /// Returns the phases of this tls
+    const Phases &getPhases() const;
 
 protected:
     /// the list of phases this logic uses
-    Phases _phases;
+    Phases myPhases;
 
     /// static container for all lights being set to red
     static std::bitset<64> _allClear;
 
     /// The current step
-    size_t _step;
+    size_t myStep;
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-//#include "MSSimpleTrafficLightLogic.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,11 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
+// Revision 1.3  2005/01/27 14:22:44  dkrajzew
+// ability to open the complete phase definition added; code style adapted
 //
-// Revision 1.1  2004/11/23 10:18:41  dkrajzew
-// all traffic lights moved to microsim/traffic_lights
+// Revision 1.2  2004/12/10 11:43:57  dksumo
+// parametrisation of actuated traffic lights added
+//
+// Revision 1.1  2004/10/22 12:49:44  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.27  2004/07/02 09:53:58  dkrajzew
 // some design things
@@ -161,7 +164,7 @@ MSActuatedTrafficLightLogic::duration() const
     if(_continue) {
         return 1;
     }
-    assert(_phases.size()>_step);
+    assert(myPhases.size()>myStep);
     if(!isGreenPhase()) {
         return currentPhaseDef()->duration;
     }
@@ -267,15 +270,15 @@ size_t
 MSActuatedTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
-    _step++;
-    assert(_step<=_phases.size());
-    if(_step==_phases.size()) {
-        _step = 0;
+    myStep++;
+    assert(myStep<=myPhases.size());
+    if(myStep==myPhases.size()) {
+        myStep = 0;
     }
     //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch =
+    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
         MSNet::globaltime;
-    return _step;
+    return myStep;
 }
 
 
@@ -296,14 +299,14 @@ bool
 MSActuatedTrafficLightLogic::gapControl()
 {
     //intergreen times should not be lenghtend
-    assert(_phases.size()>_step);
+    assert(myPhases.size()>myStep);
     if(!isGreenPhase()) {
         return _continue = false;
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     MSNet::Time actDuration =
-        MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
+        MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
         return _continue = false;
     }
@@ -317,9 +320,9 @@ MSActuatedTrafficLightLogic::gapControl()
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-        if(myInductLoops.find(*j)==myInductLoops.end()) {
-            continue;
-        }
+                if(myInductLoops.find(*j)==myInductLoops.end()) {
+                    continue;
+                }
                 double actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
@@ -335,8 +338,8 @@ MSActuatedTrafficLightLogic::gapControl()
 MSActuatedPhaseDefinition *
 MSActuatedTrafficLightLogic::currentPhaseDef() const
 {
-    assert(_phases.size()>_step);
-    return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
+    assert(myPhases.size()>myStep);
+    return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
 

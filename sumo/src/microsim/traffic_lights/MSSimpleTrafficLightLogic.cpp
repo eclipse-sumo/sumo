@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:42  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -31,7 +34,8 @@
 // actuated traffic lights are now derived from simple traffic lights
 //
 // Revision 1.8  2003/09/17 06:50:45  dkrajzew
-// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+// phase definitions extracted from traffic lights;
+//  MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
 //
 // Revision 1.7  2003/08/04 11:40:20  dkrajzew
 // false inclusion hierarchy patched; missing inclusions added
@@ -50,7 +54,6 @@
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -82,67 +85,65 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(const std::string &id,
                                                      const Phases &phases,
                                                      size_t step,
                                                      size_t delay)
-    : MSTrafficLightLogic(id, delay), _phases(phases),
-    _step(step)
+    : MSTrafficLightLogic(id, delay), myPhases(phases),
+    myStep(step)
 {
 }
 
 
 MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 {
-    for(size_t i=0; i<_phases.size(); i++) {
-        delete _phases[i];
+    for(size_t i=0; i<myPhases.size(); i++) {
+        delete myPhases[i];
     }
 }
 
 
- const std::bitset<64> &
+const std::bitset<64> &
 MSSimpleTrafficLightLogic::linkPriorities() const
 {
-    assert(_phases.size()>_step);
-    return _phases[_step]->getBreakMask();
+    assert(myPhases.size()>myStep);
+    return myPhases[myStep]->getBreakMask();
 }
 
 
- const std::bitset<64> &
+const std::bitset<64> &
 MSSimpleTrafficLightLogic::yellowMask() const
 {
-    assert(_phases.size()>_step);
-    return _phases[_step]->getYellowMask();
+    assert(myPhases.size()>myStep);
+    return myPhases[myStep]->getYellowMask();
 }
 
 
- const std::bitset<64> &
+const std::bitset<64> &
 MSSimpleTrafficLightLogic::allowed() const
 {
-    assert(_phases.size()>_step);
-    return _phases[_step]->getDriveMask();
+    assert(myPhases.size()>myStep);
+    return myPhases[myStep]->getDriveMask();
 }
 
 
- size_t
+size_t
 MSSimpleTrafficLightLogic::nextStep()
 {
     // increment the index to the current phase
-    _step++;
-    if(_step==_phases.size()) {
-        _step = 0;
+    myStep++;
+    if(myStep==myPhases.size()) {
+        myStep = 0;
     }
-    return _step;
+    return myStep;
 }
 
 
- MSNet::Time
+MSNet::Time
 MSSimpleTrafficLightLogic::duration() const
 {
-    assert(_phases.size()>_step);
-    return _phases[_step]->duration;
+    assert(myPhases.size()>myStep);
+    return myPhases[myStep]->duration;
 }
 
 
-
-
- MSNet::Time
+MSNet::Time
 MSSimpleTrafficLightLogic::nextPhase()
 {
     // increment the index to the current phase
@@ -153,19 +154,22 @@ MSSimpleTrafficLightLogic::nextPhase()
     return duration();
 }
 
-/*
-const MSPhaseDefinition &
-MSSimpleTrafficLightLogic::getPhase(size_t pos) const
+
+size_t
+MSSimpleTrafficLightLogic::step() const
 {
-    return *(_phases[_step]);
+    return myStep;
 }
-*/
+
+
+const MSSimpleTrafficLightLogic::Phases &
+MSSimpleTrafficLightLogic::getPhases() const
+{
+    return myPhases;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSSimpleTrafficLightLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

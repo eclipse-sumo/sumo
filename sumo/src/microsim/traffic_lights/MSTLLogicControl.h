@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:42  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.1  2003/06/05 16:08:36  dkrajzew
 // traffic lights are no longer junction-bound; a separate control is necessary
-//
 //
 /* =========================================================================
  * included modules
@@ -76,11 +78,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSTLLogicControl.icc"
-//#endif
 
 #endif
 

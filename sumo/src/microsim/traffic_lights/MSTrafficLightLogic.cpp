@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:42  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -58,7 +61,6 @@ namespace
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -310,9 +312,6 @@ MSTrafficLightLogic::onSwitch()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSTrafficLightLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:42  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -140,8 +143,10 @@ public:
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
 
+    /// Returns the mask of links that have yellow
     virtual const std::bitset<64> &yellowMask() const = 0;
 
+    /// Returns the mask of links that may move
     virtual const std::bitset<64> &allowed() const = 0;
 
     /// Returns the index of the phase next to the given phase
@@ -180,15 +185,12 @@ public:
     /// Returns this tl-logic's id
     const std::string &id() const;
 
+    /// Adds an action that shall be executed if the tls switched
     void addSwitchAction(DiscreteCommand *a);
 
+    /// Executes commands if the tls switched (!!! should be protected/private)
     void onSwitch();
 
-/*
-    /// Builds the gui-wrapper for this logic
-    virtual GUITrafficLightLogicWrapper *buildTLLogicWrapper(
-        GUIGlObjectStorage &idStorage) const;
-*/
 protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
@@ -257,9 +259,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSTrafficLightLogic.icc"
-//#endif
 
 #endif
 

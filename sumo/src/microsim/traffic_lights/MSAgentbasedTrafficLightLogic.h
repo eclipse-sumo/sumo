@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/27 14:22:45  dkrajzew
+// ability to open the complete phase definition added; code style adapted
+//
 // Revision 1.1  2004/11/23 10:18:41  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -58,7 +61,6 @@
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
-//
 //
 /* =========================================================================
  * included modules
@@ -122,6 +124,7 @@ public:
         size_t step, size_t delay, int learnHorizon, int decHorizon,
         double minDiff, int tcycle);
 
+    /// Initialises the tls with information about incoming lanes
     void init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &edgeContinuations,
@@ -137,9 +140,9 @@ public:
     /// Returns the duration of the given step
     virtual MSNet::Time duration() ;
 
-    /// Returns the index of the phase next to the given phase
-    /// and stores the duration of the phase, which was just sent
-    /// or stores the activation-time in _lastphase of the phase next
+    /** Returns the index of the phase next to the given phase
+        and stores the duration of the phase, which was just sent
+        or stores the activation-time in _lastphase of the phase next */
     virtual size_t nextStep();
 
     /// Collects the trafficdata
@@ -161,8 +164,8 @@ protected:
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
-    /// initializes the duration of the phases (except the intergeentimes)
-    /// so that the time cycletime tCyle is kept
+    /** initializes the duration of the phases (except the intergeentimes)
+        so that the time cycletime tCyle is kept */
     virtual void initializeDuration();
 
     /// lenghtend the actual cycle by an given value
