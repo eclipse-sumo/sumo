@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/20 14:00:25  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/12/16 12:21:38  dkrajzew
 // debugging
 //
@@ -345,7 +348,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
             tvd->unlockValues();
         }
         // write entries
-        for(int j=0; j<max; j++) {
+        for(unsigned int j=0; j<max; j++) {
             for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
                 if(i!=myTracked.begin()) {
                     strm << ';';

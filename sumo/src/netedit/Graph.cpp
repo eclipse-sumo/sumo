@@ -337,10 +337,10 @@ Graph::Reduce_plus()
             {
                 DelVertex(paktuell->GetX(),paktuell->GetY());
                 n--;
-            } 
-		}
+            }
+        }
         n++;
-	}
+    }
 }
 
 
@@ -387,17 +387,17 @@ void
 Graph::DelDoubleEdge(Vertex* v, Vertex* w)
 {
     Edge* ptemp;
-	unsigned int i;
-	
-	for(i=0; i<eArray.size();i++)
-	{
-			ptemp=eArray[i];
-			if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
-			{
-				DelEdge(v,w);
-				i--;
-			}
-	}
+    unsigned int i;
+
+    for(i=0; i<eArray.size();i++)
+    {
+            ptemp=eArray[i];
+            if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
+            {
+                DelEdge(v,w);
+                i--;
+            }
+    }
 }
 
 void
@@ -411,10 +411,10 @@ Graph::Reduce_Edges()
         {
             DelDoubleEdge(etemp->GetStartingVertex(),etemp->GetEndingVertex());
             i--;
-			break;
+            break;
         }
     }
-    
+
 }
 /////////////////////////ENDE NEU!!!!!!!!!!!!!!////////////////////
 
@@ -428,22 +428,22 @@ Graph::Export_Vertexes_XML()
     const char* app=append.c_str();
     const char* app2=append2.c_str();
     char buffer [100];
-	int Vertices= vArray.size();
-	Vertex* temp;
-    
-	FILE* vfile= fopen("export.nod.xml","w");
-    
-	fputs(app,vfile);
+    int Vertices= vArray.size();
+    Vertex* temp;
+
+    FILE* vfile= fopen("export.nod.xml","w");
+
+    fputs(app,vfile);
     for(long i=0 ; i<Vertices; i++)
     {
         temp=vArray[i];
-		int x=temp->GetX();
+        int x=temp->GetX();
         int y=temp->GetY();
-		sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
-		fputs(buffer, vfile);
-	}
-   	fputs(app2,vfile);
-	fclose(vfile);
+        sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
+        fputs(buffer, vfile);
+    }
+    fputs(app2,vfile);
+    fclose(vfile);
 }
 
 void
@@ -460,25 +460,25 @@ Graph::Export_Edges_XML()
     Vertex* end;
     int index_start=0;
     int index_end=0;
-	char buffer [100];
+    char buffer [100];
 
-	FILE* efile= fopen("export.edg.xml","w");
-    
+    FILE* efile= fopen("export.edg.xml","w");
+
     fputs(app,efile);
 
     for(long i=0; i<eArray.size(); i++)
     {
         temp=eArray[i];
         start=temp->GetStartingVertex();
-		end=temp->GetEndingVertex();
-		index_start=GetIndex(start);
-		index_end=GetIndex(end);
-		if ((index_start!=-1)&&(index_end!=-1))
-		{
-			sprintf (buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
-			fputs(buffer,efile);
-		}
-	}
+        end=temp->GetEndingVertex();
+        index_start=GetIndex(start);
+        index_end=GetIndex(end);
+        if ((index_start!=-1)&&(index_end!=-1))
+        {
+            sprintf (buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
+            fputs(buffer,efile);
+        }
+    }
     fputs(app2,efile);
     fclose(efile);
 }
@@ -491,11 +491,11 @@ char* Graph::inttostr(int i)
 
 char* Graph::doubletostr(double i,int count)
 {
-	int dec;
-	int sig;
-	char* buffer = _ecvt(i,count,&dec,&sig);
-		
-	return (buffer);
+    int dec;
+    int sig;
+    char* buffer = _ecvt(i,count,&dec,&sig);
+
+    return (buffer);
 }
 
 /*Liefert den Index eines Knotenobjekts*/
@@ -511,150 +511,150 @@ int Graph::GetIndex(Vertex* v)
     return index;
 }
 
-Graph::GetTraces(int cars, int fuel)
+void Graph::GetTraces(int cars, int fuel)
 {
-	char buffer1 [100];
-	char buffer2 [100];
-	char buffer3 [100];
-	double mylat;
-	double mylon;
-	int mylat1;
-	int mylon1;
-	long mylat2;
-	long mylon2;
-	time_t rawtime;
-	tm* ptm;
-	Vertex* ptemp;
+    char buffer1 [100];
+    char buffer2 [100];
+    char buffer3 [100];
+    double mylat;
+    double mylon;
+    int mylat1;
+    int mylon1;
+    long mylat2;
+    long mylon2;
+    time_t rawtime;
+    tm* ptm;
+    Vertex* ptemp;
 
-	for (int l=1; l<=cars; l++)
-	{
-		sprintf(buffer1,"Trace%2d.txt",l);
-		FILE* Traces = fopen(buffer1,"w");
-		Drive(fuel);
-		pfad = GetPfadArray();
-		for (int m=0; m<pfad.size(); m++)
-		{
-			ptemp=pfad[m];
-			time(&rawtime);
-			ptm=gmtime(&rawtime);
-			mylat=ptemp->GetGPSLat()*100;
-			mylon=ptemp->GetGPSLon()*100;
-			mylat1=(int)mylat;
-			mylon1=(int)mylon;
-			mylat2=(long)((mylat-(int)mylat)*1000000);
-			mylon2=(long)((mylon-(int)mylon)*1000000);
-			//So soll es aussehen
-			//$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
-			//$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
+    for (int l=1; l<=cars; l++)
+    {
+        sprintf(buffer1,"Trace%2d.txt",l);
+        FILE* Traces = fopen(buffer1,"w");
+        Drive(fuel);
+        pfad = GetPfadArray();
+        for (int m=0; m<pfad.size(); m++)
+        {
+            ptemp=pfad[m];
+            time(&rawtime);
+            ptm=gmtime(&rawtime);
+            mylat=ptemp->GetGPSLat()*100;
+            mylon=ptemp->GetGPSLon()*100;
+            mylat1=(int)mylat;
+            mylon1=(int)mylon;
+            mylat2=(long)((mylat-(int)mylat)*1000000);
+            mylon2=(long)((mylon-(int)mylon)*1000000);
+            //So soll es aussehen
+            //$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
+            //$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
 
-			sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
-			fputs(buffer2,Traces);
-			sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
-			fputs(buffer3,Traces);
-		}
-		fclose(Traces);
-		
-	}
+            sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
+            fputs(buffer2,Traces);
+            sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
+            fputs(buffer3,Traces);
+        }
+        fclose(Traces);
+
+    }
 }
 
-Graph::MergeVertex()
+void Graph::MergeVertex()
 {
-	/*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
-	int tolerance=10;
-	/*Für die Länge einer Kante*/
-	int length;
-	/*Hilfszeiger*/
-	Edge* aktuell;
-	//Edge* aktuell2;
-	/*Für den Start- und Endknoten einer Kante*/
-	Vertex* start;
-	Vertex* end;
-	Vertex* start2;
-	Vertex* end2;
-		
-	/*Nacheinander holen jeder Kante*/
-	for(unsigned i=0; i<eArray.size(); i++)
-	{
-		aktuell=eArray[i];
-		length=aktuell->GetLength();
-		/*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
-		if(length<tolerance)
-		{
-			start=aktuell->GetStartingVertex();
-			end=aktuell->GetEndingVertex();
-			
-			//Koordinaten der aktuellen Start- und Endknoten
-		    //werden gemittelt zu den Koordinaten des neuen Knotens
-			int(xneu)=(start->GetX()+end->GetX())/2;
-			int(yneu)=(start->GetY()+end->GetY())/2;
-		
-			/*Löschen der zu kurzen Kanten*/
-			DelEdge(start,end);
-			DelEdge(end,start);
+    /*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
+    int tolerance=10;
+    /*Für die Länge einer Kante*/
+    int length;
+    /*Hilfszeiger*/
+    Edge* aktuell;
+    //Edge* aktuell2;
+    /*Für den Start- und Endknoten einer Kante*/
+    Vertex* start;
+    Vertex* end;
+    Vertex* start2;
+    Vertex* end2;
 
-			/*Hinzufügen des neuen Kotens*/
-			AddVertexByXY(xneu,yneu);
-			/*Zeiger auf den neu hinzugefügten Knoten*/
-			Vertex* neu = SearchVertex(xneu,yneu);
-			
-			//Neu
-			int startnachfolger=start->GetNachfolger();
-			while (startnachfolger>0)
-			{
-				start2=start->GetNachfolgeVertex(startnachfolger-1);
-				mArray.push_back(start2);
-				DelEdge(start,start2);
-				DelEdge(start2,start);
-				startnachfolger--;
-			}
-			
-			int endnachfolger=end->GetNachfolger();	
-			while (endnachfolger>0)
-			{
-				end2=end->GetNachfolgeVertex(endnachfolger-1);
-				mArray.push_back(end2);
-				DelEdge(end,end2);
-				DelEdge(end2,end);
-				endnachfolger--;
-			}
-			
-			/*Löschen der Start- und Endknoten der zu kurzen Kante*/
-			DelVertex4Merge(start);
-			DelVertex4Merge(end);
-			/*Hinzufügen von neuen Kanten von den Nachfolgern von Start- und Endknoten zum*/
-			/*jeweiligen neuen Knoten*/
-			for(unsigned int m_Node=0; m_Node<mArray.size();m_Node++)
-			{
-				AddEdgeByVertex(mArray[m_Node],neu);
-				AddEdgeByVertex(neu,mArray[m_Node]);
-			}
-			mArray.clear();
-			//Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
-			i-=2;
-			if (i<-1) i=-1;
-		
-		}
-	}
+    /*Nacheinander holen jeder Kante*/
+    for(unsigned i=0; i<eArray.size(); i++)
+    {
+        aktuell=eArray[i];
+        length=aktuell->GetLength();
+        /*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
+        if(length<tolerance)
+        {
+            start=aktuell->GetStartingVertex();
+            end=aktuell->GetEndingVertex();
+
+            //Koordinaten der aktuellen Start- und Endknoten
+            //werden gemittelt zu den Koordinaten des neuen Knotens
+            int(xneu)=(start->GetX()+end->GetX())/2;
+            int(yneu)=(start->GetY()+end->GetY())/2;
+
+            /*Löschen der zu kurzen Kanten*/
+            DelEdge(start,end);
+            DelEdge(end,start);
+
+            /*Hinzufügen des neuen Kotens*/
+            AddVertexByXY(xneu,yneu);
+            /*Zeiger auf den neu hinzugefügten Knoten*/
+            Vertex* neu = SearchVertex(xneu,yneu);
+
+            //Neu
+            int startnachfolger=start->GetNachfolger();
+            while (startnachfolger>0)
+            {
+                start2=start->GetNachfolgeVertex(startnachfolger-1);
+                mArray.push_back(start2);
+                DelEdge(start,start2);
+                DelEdge(start2,start);
+                startnachfolger--;
+            }
+
+            int endnachfolger=end->GetNachfolger();
+            while (endnachfolger>0)
+            {
+                end2=end->GetNachfolgeVertex(endnachfolger-1);
+                mArray.push_back(end2);
+                DelEdge(end,end2);
+                DelEdge(end2,end);
+                endnachfolger--;
+            }
+
+            /*Löschen der Start- und Endknoten der zu kurzen Kante*/
+            DelVertex4Merge(start);
+            DelVertex4Merge(end);
+            /*Hinzufügen von neuen Kanten von den Nachfolgern von Start- und Endknoten zum*/
+            /*jeweiligen neuen Knoten*/
+            for(unsigned int m_Node=0; m_Node<mArray.size();m_Node++)
+            {
+                AddEdgeByVertex(mArray[m_Node],neu);
+                AddEdgeByVertex(neu,mArray[m_Node]);
+            }
+            mArray.clear();
+            //Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
+            i-=2;
+            if (i<-1) i=-1;
+
+        }
+    }
 }
 
 /*Löschmethode für einen Knoten für den Merger*/
-Graph::DelVertex4Merge(Vertex* v)
+void Graph::DelVertex4Merge(Vertex* v)
 {
-	if(GetIndex(v)!=-1)
-	{
-		vArray.erase(vArray.begin()+GetIndex(v));
-		DelNachfolger4Merge(v);
-	}
+    if(GetIndex(v)!=-1)
+    {
+        vArray.erase(vArray.begin()+GetIndex(v));
+        DelNachfolger4Merge(v);
+    }
 }
 
 /*Löscht alle Nachfolgenden Kanten eines Knotens*/
-Graph::DelNachfolger4Merge(Vertex* v)
+void Graph::DelNachfolger4Merge(Vertex* v)
 {
-	for(int i=0; i<v->GetNachfolger(); i++)
-	{
-		DelEdge(v,v->GetNachfolgeVertex(i));
-		DelEdge(v->GetNachfolgeVertex(i),v);
-	}
+    for(int i=0; i<v->GetNachfolger(); i++)
+    {
+        DelEdge(v,v->GetNachfolgeVertex(i));
+        DelEdge(v->GetNachfolgeVertex(i),v);
+    }
 }
 
 

@@ -21,8 +21,8 @@ private:
     vector <Vertex*> pfad;
     vector <Vertex*>::iterator p;
 
-	vector <Vertex*> mArray;
-	vector <Vertex*>::iterator m;
+    vector <Vertex*> mArray;
+    vector <Vertex*>::iterator m;
 
 public:
 
@@ -81,31 +81,31 @@ public:
     void Reduce_plus();
 
     int GetIndex(Vertex* v);
-	
-	//Entfernt überflüssige Kanten
+
+    //Entfernt überflüssige Kanten
     void Reduce_Edges();
 
-	//Exportiert eine Knotendatei in XML-Format
+    //Exportiert eine Knotendatei in XML-Format
     void Export_Vertexes_XML();
-	
-	//Exportiert eine Kantendatei in XML-Format
+
+    //Exportiert eine Kantendatei in XML-Format
     void Export_Edges_XML();
 
-	//Wandelt einen Integer-Wert in einen String um
+    //Wandelt einen Integer-Wert in einen String um
     char* inttostr(int i);
 
-	//Wandelt einen Double-Wert in einen String um
-	char* doubletostr(double i,int count);
-	
-	//Exportiert Traces
-	GetTraces(int cars,int fuel);
-	
-	//Vereinigt zwei nahe Knoten zu einem
-	MergeVertex();
+    //Wandelt einen Double-Wert in einen String um
+    char* doubletostr(double i,int count);
 
-	//Zwei Hilfmethoden für MergeVertex
-	DelVertex4Merge(Vertex* v);
-	DelNachfolger4Merge(Vertex* v);
+    //Exportiert Traces
+    void GetTraces(int cars,int fuel);
+
+    //Vereinigt zwei nahe Knoten zu einem
+    void MergeVertex();
+
+    //Zwei Hilfmethoden für MergeVertex
+    void DelVertex4Merge(Vertex* v);
+    void DelNachfolger4Merge(Vertex* v);
 
 };
 

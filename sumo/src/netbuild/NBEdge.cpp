@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2004/12/20 14:00:24  dkrajzew
+// debugging
+//
 // Revision 1.47  2004/11/23 10:21:40  dkrajzew
 // debugging
 //
@@ -770,7 +773,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
         WRITE_WARNING(string("Lane #") + toString<size_t>(lane) + string(" of edge '") + _id + string("' has a maximum velocity of 0."));
     } else if(myLaneSpeeds[lane]<0) {
         MsgHandler::getErrorInstance()->inform(
-            string("Negative velocity (") + toString<float>(myLaneSpeeds[lane])
+            string("Negative velocity (") + toString<double>(myLaneSpeeds[lane])
             + string(" on edge '") + _id + string("' lane#")
             + toString<size_t>(lane) + string("."));
         throw ProcessError();
