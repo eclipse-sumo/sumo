@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/01/12 15:40:54  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/01/12 15:13:00  dkrajzew
 // allowed the extraction of a vector containing the stored items
 //
@@ -35,6 +38,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include "NamedObjectCont.h"
 
 
@@ -113,7 +117,7 @@ NamedObjectCont<T>::erase(const std::string &id)
     if(i==myMap.end()) {
         throw 1; // !!! should not happen
     }
-    T *o = (*i).second;
+    T o = (*i).second;
     myMap.erase(i);
     // and from the vector
     typename ObjectVector::iterator i2 =
@@ -126,6 +130,7 @@ NamedObjectCont<T>::erase(const std::string &id)
 }
 
 
+template<class T>
 const std::vector<T> &
 NamedObjectCont<T>::getVector() const
 {

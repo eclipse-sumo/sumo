@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/12 15:40:54  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/01/12 15:13:00  dkrajzew
 // allowed the extraction of a vector containing the stored items
 //
@@ -90,7 +93,7 @@ protected:
     typedef std::map< std::string, T > IDMap;
 
     /// Definition of the container type iterator
-    typedef typename myCont::iterator myContIt;
+    typedef typename IDMap::iterator myContIt;
 
     /// The map from key to object
     IDMap myMap;
