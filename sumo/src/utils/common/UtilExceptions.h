@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/01/26 07:28:29  dkrajzew
+// something went wrong with the earlier usage of strings
+//
 // Revision 1.5  2003/12/04 13:11:42  dkrajzew
 // message retrival added
 //
@@ -73,7 +76,7 @@
 class UtilException : public std::exception {
 public:
     virtual const std::string &msg() const {
-        return "<no description available>";
+        return std::string("<no description available>");
     }
 };
 
