@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/29 09:22:58  dkrajzew
+// possibility to save the timeline added
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -79,6 +82,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <fstream>
 
 #include <utils/convert/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -87,6 +91,8 @@ namespace
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -109,6 +115,7 @@ FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
     FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
     FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
     FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
 
 };
 
@@ -202,9 +209,15 @@ GUIParameterTracker::buildToolBar()
     myToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag,
         LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
+
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
         TOOLBARGRIP_DOUBLE);
 
+    // save button
+    new FXButton(myToolBar,"\t\tSave the data...",
+        GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // aggregation interval combo
     myAggregationInterval =
         new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
             FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
@@ -285,6 +298,61 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
     TrackedVarsVector::iterator i1;
     for(i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         (*i1)->setAggregationSpan(aggInt);
+    }
+    return 1;
+}
+
+
+long
+GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
+{
+    // get the file name
+    FXFileDialog opendialog(this, "Save Data As...");
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("*.csv"); // cdd=CsvDevilData
+    if(gCurrentFolder.length()!=0) {
+        opendialog.setDirectory(gCurrentFolder.c_str());
+    }
+    if(opendialog.execute()){
+        gCurrentFolder = opendialog.getDirectory().text();
+        string file = string(opendialog.getFilename().text());
+        ofstream strm(file.c_str());
+        if(!strm.good()) {
+            return 1; // !!! inform the user
+        }
+        // write header
+        TrackedVarsVector::iterator i;
+        strm << "# ";
+        for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
+            if(i!=myTracked.begin()) {
+                strm << ';';
+            }
+            TrackerValueDesc *tvd = *i;
+            strm << tvd->getName();
+        }
+        strm << endl;
+        // count entries
+        size_t max = 0;
+        for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
+            TrackerValueDesc *tvd = *i;
+            size_t sizei = tvd->getAggregatedValues().size();
+            if(max<sizei) {
+                max = sizei;
+            }
+            tvd->unlockValues();
+        }
+        // write entries
+        for(int j=0; j<max; j++) {
+            for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
+                if(i!=myTracked.begin()) {
+                    strm << ';';
+                }
+                TrackerValueDesc *tvd = *i;
+                strm << tvd->getAggregatedValues()[j];
+                tvd->unlockValues();
+            }
+            strm << endl;
+        }
     }
     return 1;
 }

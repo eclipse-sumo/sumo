@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/29 09:22:58  dkrajzew
+// possibility to save the timeline added
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -83,6 +86,7 @@ class GUIParameterTracker : public FXMainWindow
 public:
     enum {
         MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
+        MID_SAVE,
         ID_LAST
     };
     /// Constructor (one value is defined)
@@ -119,6 +123,10 @@ public:
 
     /// Called when the aggregation interval (combo) has been changed
     long onCmdChangeAggregation(FXObject*,FXSelector,void*);
+
+    /// Called when the data shall be saved
+    long onCmdSave(FXObject*,FXSelector,void*);
+
 
 protected:
     /// Adds a further variable to display
