@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.15  2003/10/27 10:51:55  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -394,8 +397,11 @@ NIVissimDistrictConnection::clearDict()
 double
 NIVissimDistrictConnection::getMeanSpeed() const
 {
+    //assert(myAssignedVehicles.size()!=0);
+    if(myAssignedVehicles.size()==0) {
+        return -1;
+    }
     double speed = 0;
-    assert(myAssignedVehicles.size()!=0);
     std::vector<std::pair<int, int> >::const_iterator i;
     for(i=myAssignedVehicles.begin(); i!=myAssignedVehicles.end(); i++) {
         speed += (*i).second;

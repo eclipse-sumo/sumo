@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.20  2003/10/27 10:53:16  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -452,6 +455,7 @@ NIVissimLoader::postLoadBuild(double offset)
     NIVissimDistrictConnection::dict_CheckEdgeEnds();
 
     // join clusters when overlapping (different streets are possible)
+    NIVissimEdge::dict_checkEdges2Join();
     NIVissimConnectionCluster::joinBySameEdges(offset);
 //    NIVissimConnectionCluster::joinByDisturbances(offset);
 

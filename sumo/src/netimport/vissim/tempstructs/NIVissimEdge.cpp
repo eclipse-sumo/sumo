@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.18  2003/10/28 07:24:47  dkrajzew
 // false sorting of used connection clusters patched
 //
@@ -209,6 +212,9 @@ NIVissimEdge::buildConnectionClusters()
     //  connections
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         int edgeid = (*i).first;
+    if(edgeid==1000052) {
+        int bla = 0;
+    }
         NIVissimEdge *edge = (*i).second;
         // get all connectors using this edge
         IntVector connectors = edge->myIncomingConnections;
@@ -355,6 +361,9 @@ NIVissimEdge::buildNBEdge(double offset)
     std::pair<NIVissimConnectionCluster*, NBNode *> fromInf, toInf;
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
+    if(myID==1000052) {
+        int bla = 0;
+    }
     sort(myConnectionClusters.begin(), myConnectionClusters.end(),
         connection_cluster_position_sorter(myID));
     sort(myDistrictConnections.begin(), myDistrictConnections.end());
@@ -601,8 +610,9 @@ NIVissimEdge::recheckSpeedPatches()
         if(pos<10) {
             NIVissimDistrictConnection *d =
                 NIVissimDistrictConnection::dict_findForEdge(myID);
-            assert(d!=0);
-            speed = d->getMeanSpeed();
+            if(d!=0) {
+                speed = d->getMeanSpeed();
+            }
         }
     }
     return speed;
@@ -906,7 +916,7 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(double pos)
     }
 }
 
-
+/*
 void
 NIVissimEdge::replaceSpeed(int id, int lane, double speed)
 {
@@ -914,7 +924,7 @@ NIVissimEdge::replaceSpeed(int id, int lane, double speed)
     assert(i!=myDict.end());
     (*i).second->replaceSpeed(lane, speed);
 }
-
+*/
 
 void
 NIVissimEdge::replaceSpeed(int lane, double speed)
@@ -925,6 +935,126 @@ NIVissimEdge::replaceSpeed(int lane, double speed)
     myPatchedSpeeds[lane] = speed;
 }
 
+
+void
+NIVissimEdge::dict_checkEdges2Join()
+{
+    // go through the edges
+    for(DictType::iterator i1=myDict.begin(); i1!=myDict.end(); i1++) {
+        // retrieve needed values from the first edge
+        NIVissimEdge *e1 = (*i1).second;
+        const Position2DVector &g1 = e1->getGeometry();
+        // check all other edges
+        DictType::iterator i2=i1;
+        i2++;
+        for(; i2!=myDict.end(); i2++) {
+            // retrieve needed values from the second edge
+            NIVissimEdge *e2 = (*i2).second;
+            const Position2DVector &g2 = e2->getGeometry();
+            // get the connection description
+            NIVissimConnection *c = e1->getConnectionTo(e2);
+            if(c==0) {
+                c = e2->getConnectionTo(e1);
+            }
+            // the edge must not be a direct contiuation of the other
+            if(c!=0) {
+                if( (c->getFromEdgeID()==e1->getID()&&fabs(c->getFromPosition()-e1->getGeometry().length())<5)
+                    ||
+                    (c->getFromEdgeID()==e2->getID()&&fabs(c->getFromPosition()-e2->getGeometry().length())<5) ) {
+
+                    continue;
+                }
+            }
+            // only parallel edges which do end at the same node
+            //  should be joined
+            // retrieve the "approximating" lines first
+/*            Line2D l1 =
+                c->getFromEdgeID()==e1->getID()
+                ? Line2D(g1.getBegin(), g1.getEnd())
+                : Line2D(g2.getBegin(), g2.getEnd());
+            Line2D l2 =
+                c->getToEdgeID()==e1->getID()
+                ? Line2D(g1.getBegin(), g1.getEnd())
+                : Line2D(g2.getBegin(), g2.getEnd());*/
+            if(e1->getID()==1000063&&e2->getID()==1000064) {
+                int bla = 0;
+            }
+            if(e2->getID()==1000063&&e1->getID()==1000064) {
+                int bla = 0;
+            }
+            Line2D l1 = Line2D(g1.getBegin(), g1.getEnd());
+            Line2D l2 = Line2D(g2.getBegin(), g2.getEnd());
+            // check for parallelity
+            //  !!! the usage of an explicite value is not very fine
+            if(fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())>2.0) {
+                // continue if the lines are not parallel
+                continue;
+            }
+
+            // check whether the same node is approached
+            //  (the distance between the ends should not be too large)
+            //  !!! the usage of an explicite value is not very fine
+            if(GeomHelper::distance(l1.p2(), l2.p2())>10) {
+                // continue if the lines do not end at the same length
+                continue;
+            }
+            // ok, seem to be different lanes for the same edge
+            //  mark as possibly joined later
+            e1->addToTreatAsSame(e2);
+            e2->addToTreatAsSame(e1);
+        }
+    }
+}
+
+
+void
+NIVissimEdge::addToTreatAsSame(NIVissimEdge *e)
+{
+    if(e==this) {
+        return;
+    }
+    // check whether this edge already knows about the other
+    if(find(myToTreatAsSame.begin(), myToTreatAsSame.end(), e)==myToTreatAsSame.end()) {
+        myToTreatAsSame.push_back(e);
+    } else {
+        return; // !!! check this
+    }
+    //
+    std::vector<NIVissimEdge*>::iterator i;
+    // add to all other that shall be treated as same
+    for(i=myToTreatAsSame.begin(); i!=myToTreatAsSame.end(); i++) {
+        (*i)->addToTreatAsSame(e);
+    }
+    for(i=myToTreatAsSame.begin(); i!=myToTreatAsSame.end(); i++) {
+        e->addToTreatAsSame(*i);
+    }
+}
+
+NIVissimConnection*
+NIVissimEdge::getConnectionTo(NIVissimEdge *e)
+{
+    IntVector::iterator i;
+    for(i=myIncomingConnections.begin(); i!=myIncomingConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getFromEdgeID()==e->getID()) {
+            return c;
+        }
+    }
+    for(i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getToEdgeID()==e->getID()) {
+            return c;
+        }
+    }
+    return 0;
+}
+
+
+const std::vector<NIVissimEdge*> &
+NIVissimEdge::getToTreatAsSame() const
+{
+    return myToTreatAsSame;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.10  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -184,6 +187,8 @@ private:
 
     IntVector getDisturbanceParticipators();
 
+    IntVector extendByToTreatAsSame(const IntVector &iv1,
+        const IntVector &iv2) const;
 
 private:
     /// List of connection-ids which participate within this cluster

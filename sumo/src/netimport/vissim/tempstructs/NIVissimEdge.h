@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.10  2003/10/27 10:51:55  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -110,6 +113,11 @@ public:
 
     void removeFromConnectionCluster(NIVissimConnectionCluster *c);
     void addToConnectionCluster(NIVissimConnectionCluster *c);
+    void replaceSpeed(int lane, double speed);
+    void addToTreatAsSame(NIVissimEdge *e);
+
+    NIVissimConnection* getConnectionTo(NIVissimEdge *e);
+    const std::vector<NIVissimEdge*> &getToTreatAsSame() const;
 
     friend class NIVissimNodeDef_Edges;
     friend class NIVissimNodeDef_Poly;
@@ -136,8 +144,9 @@ public:
 
     static void dict_propagateSpeeds();
 
+    static void dict_checkEdges2Join();
 
-    static void replaceSpeed(int id, int lane, double speed);
+//    static void replaceSpeed(int id, int lane, double speed);
 
 private:
     /// The definition for a container for connection clusters
@@ -160,11 +169,11 @@ private:
         NBNode *prevFrom, NBNode *prevTo);
 
     double recheckSpeedPatches();
-    void replaceSpeed(int lane, double speed);
 
     std::vector<NIVissimEdge*> getOutgoingConnected() const;
 
     bool propagateSpeed(double speed);
+
 
 
 
@@ -247,6 +256,8 @@ private:
     DoubleVector myPatchedSpeeds;
 
     double mySpeed;
+
+    std::vector<NIVissimEdge*> myToTreatAsSame;
 
 private:
     /// Definition of the dictionary type

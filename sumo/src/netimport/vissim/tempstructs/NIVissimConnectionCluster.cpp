@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/10/30 09:12:59  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.17  2003/10/28 07:24:01  dkrajzew
 // false edge joining bug patched
 //
@@ -329,6 +332,18 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
 bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset)
 {
+    int id1 = 2000119;
+    int id2 = 2000135;
+    if(find(myConnections.begin(), myConnections.end(), id1)!=myConnections.end()) {
+        if(find(c2->myConnections.begin(), c2->myConnections.end(), id2)!=c2->myConnections.end()) {
+            int bla = 0;
+        }
+    }
+    if(find(c2->myConnections.begin(), c2->myConnections.end(), id1)!=c2->myConnections.end()) {
+        if(find(myConnections.begin(), myConnections.end(), id2)!=myConnections.end()) {
+            int bla = 0;
+        }
+    }
     // join clusters which have at least one connection in common
 	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
 		return true;
@@ -354,9 +369,29 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
 
 
     // join clusters which do share the same incoming or outgoing edges (not mutually)
-    if( IntVectorHelper::subSetExists(myOutgoingEdges, c2->myOutgoingEdges)
+    IntVector extendedOutgoing1;
+    IntVector extendedIncoming1;
+    IntVector extendedOutgoing2;
+    IntVector extendedIncoming2;
+    if(myIncomingEdges.size()>1||c2->myIncomingEdges.size()>1) {
+        extendedOutgoing1 =
+            extendByToTreatAsSame(myOutgoingEdges, myIncomingEdges);
+        extendedIncoming1 =
+            extendByToTreatAsSame(myIncomingEdges, myOutgoingEdges);
+        extendedOutgoing2 =
+            extendByToTreatAsSame(c2->myOutgoingEdges, c2->myIncomingEdges);
+        extendedIncoming2 =
+            extendByToTreatAsSame(c2->myIncomingEdges, c2->myOutgoingEdges);
+    } else {
+        extendedOutgoing1 = myIncomingEdges;
+        extendedIncoming1 = myOutgoingEdges;
+        extendedOutgoing2 = c2->myIncomingEdges;
+        extendedIncoming2 = c2->myOutgoingEdges;
+    }
+
+    if( IntVectorHelper::subSetExists(extendedOutgoing1, extendedOutgoing2)
 			||
-	     IntVectorHelper::subSetExists(myIncomingEdges, c2->myIncomingEdges)
+	     IntVectorHelper::subSetExists(extendedIncoming1, extendedIncoming2)
          ) {
 		return true;
 	}
@@ -364,6 +399,22 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
 }
 
 
+IntVector
+NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector &iv1,
+                                                 const IntVector &iv2) const
+{
+    IntVector ret(iv1);
+    for(IntVector::const_iterator i=iv1.begin(); i!=iv1.end(); i++) {
+        NIVissimEdge *e = NIVissimEdge::dictionary(*i);
+        const std::vector<NIVissimEdge*> treatAsSame = e->getToTreatAsSame();
+        for(std::vector<NIVissimEdge*>::const_iterator j=treatAsSame.begin(); j!=treatAsSame.end(); j++) {
+            if(find(iv2.begin(), iv2.end(), (*j)->getID())==iv2.end()) {
+                ret.push_back((*j)->getID());
+            }
+        }
+    }
+    return ret;
+}
 
 IntVector
 NIVissimConnectionCluster::getDisturbanceParticipators()

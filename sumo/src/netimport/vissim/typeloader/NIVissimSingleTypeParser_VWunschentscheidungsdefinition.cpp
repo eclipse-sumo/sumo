@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/30 09:13:00  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.2  2003/10/27 10:52:41  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -34,9 +37,12 @@ namespace
  * included modules
  * ======================================================================= */
 #include <iostream>
+#include <vector>
+#include <cassert>
 #include <utils/convert/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimEdge.h"
+#include "../tempstructs/NIVissimConnection.h"
 #include "NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h"
 
 
@@ -82,7 +88,10 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &fro
     from >> tag; // vwunsch
     string vwunsch;
     from >> vwunsch; // vwunsch
-    tag = readEndSecure(from, "zeit");
+    std::vector<std::string> tmp;
+    tmp.push_back("zeit");
+    tmp.push_back("fahrzeugklasse");
+    tag = readEndSecure(from, tmp);
     while(tag!="DATAEND"&&tag!="zeit") {
         from >> tag;
         from >> tag;
@@ -95,11 +104,16 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &fro
         from >> tag;
         from >> tag;
     }
-    NIVissimEdge::replaceSpeed(
-        TplConvert<char>::_2int(edgeid.c_str()),
-        TplConvert<char>::_2int(lane.c_str()) - 1,
-        TplConvert<char>::_2float(vwunsch.c_str()));
-
+    int numid = TplConvert<char>::_2int(edgeid.c_str());
+    int numlane = TplConvert<char>::_2int(lane.c_str()) - 1;
+    float numv = TplConvert<char>::_2float(vwunsch.c_str());
+    NIVissimEdge *e = NIVissimEdge::dictionary(numid);
+    if(e==0) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(numid);
+        e = NIVissimEdge::dictionary(c->getToEdgeID());
+        assert(e!=0);
+    }
+    e->replaceSpeed(numlane, numv);
     return true;
 }
 
