@@ -1,8 +1,8 @@
-SUBDIRS = src 
+SUBDIRS = src docs data prj sumo tools
 
 AUTOMAKE_OPTIONS = gnu dist-zip
 
-EXTRA_DIST = NEWS README ChangeLog depcomp sumo.smp
+EXTRA_DIST = NEWS README ChangeLog AUTHORS COPYING INSTALL TODO admin
 
 
 #$(top_srcdir)/configure.in: configure.in.in $(top_srcdir)/subdirs
