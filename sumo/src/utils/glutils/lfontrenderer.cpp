@@ -299,6 +299,7 @@ LFontRenderer::Draw()
 {
     if (m_strCount == 0)
         return;
+/*
 #ifdef GL_VERSION_1_3
     if (m_textureUnits == 0)
         glGetIntegerv(GL_MAX_TEXTURE_UNITS, (GLint*)&m_textureUnits);
@@ -310,6 +311,7 @@ LFontRenderer::Draw()
     }
     glActiveTexture(GL_TEXTURE0);
 #endif
+*/
     if ((m_viewWidth == 0) || (m_viewHeight == 0))
     {
         uint view[4];
@@ -328,7 +330,7 @@ LFontRenderer::Draw(int w, int h)
 {
     if (m_strCount == 0)
         return;
-#ifdef GL_VERSION_1_3
+/*#ifdef GL_VERSION_1_3
     if (m_textureUnits == 0)
         glGetIntegerv(GL_MAX_TEXTURE_UNITS, (GLint*)&m_textureUnits);
     for (uint i=1; i<=m_textureUnits; i++)
@@ -338,7 +340,7 @@ LFontRenderer::Draw(int w, int h)
         glDisable(GL_TEXTURE_2D);
     }
     glActiveTexture(GL_TEXTURE0);
-#endif
+    #endif*/
     if ((m_viewWidth == 0) || (m_viewHeight == 0))
     {
         uint view[4];
