@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 10:33:29  dkrajzew
+// error-handling instead of pure assertions added
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -66,6 +69,7 @@ namespace
 //#include <guisim/GUIEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/common/SErrorHandler.h>
 #include "NLNetBuilder.h"
 #include "NLEdgeControlBuilder.h"
 
@@ -188,6 +192,12 @@ NLEdgeControlBuilder::closeAllowedEdge()
 void
 NLEdgeControlBuilder::closeEdge()
 {
+    if(m_pAllowedLanes==0 || m_pDepartLane==0 || m_pLanes==0) {
+        SErrorHandler::add(
+            string("Something is corrupt with the definition of lanes for the edge '")
+            + m_pActiveEdge->id() + string("'."));
+        return;
+    }
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane, m_pLanes);
 }
 
