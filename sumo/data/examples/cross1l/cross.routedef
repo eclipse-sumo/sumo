@@ -1,0 +1,19 @@
+#name:route:no repetitions:vehicle offset:number of vehicles
+#
+# name:
+#   the name (id) of the route
+# route:
+#   the list of edges to use
+# no repetitions:
+#   the information how often the route shall be repeated
+#   by a single vehicle
+# vehicle offset:
+#   the time between emitting vehicles having the same route
+# number of vehicles:
+#   the number of emissions fo vehicles with the route
+#
+#
+always_right:1i 4o 4i 2o 2i 3o 3i 1o 1i:1:200:1000
+always_left:3i 2o 2i 4o 4i 1o 1i 3o 3i:1:200:1000
+horizontal:2i 1o 1i 2o 2i:1:200:1000
+vertical:3i 4o 4i 3o 3i:1:200:1000
