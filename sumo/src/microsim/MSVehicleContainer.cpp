@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/07/22 15:07:40  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -235,7 +238,7 @@ MSVehicleContainer::isEmpty( ) const
 bool
 MSVehicleContainer::isFull( ) const
 {
-    return currentSize >= array.size( ) - 1;
+    return currentSize >= ((int) array.size( )) - 1;
 }
 
 
@@ -243,7 +246,7 @@ void
 MSVehicleContainer::percolateDown( int hole )
 {
     int child;
-    assert(array.size()>hole);
+    assert(array.size()>(size_t)hole);
     VehicleDepartureVector tmp = array[ hole ];
 
     for( ; hole * 2 <= currentSize; hole = child )

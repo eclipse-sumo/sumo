@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.25  2003/07/22 15:07:40  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2003/07/18 12:36:29  dkrajzew
 // missing reset of vehicle nuzmber after lane change added
 //
@@ -1424,7 +1427,7 @@ MSLane::getMoveReminders( void )
 }
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+MSLane::buildLaneWrapper(GUIGlObjectStorage &)
 {
     throw "Only within the gui-version";
 }

@@ -89,9 +89,9 @@ MSTriggeredSourceXMLHandler::~MSTriggeredSourceXMLHandler( void )
 //---------------------------------------------------------------------------//
 
 void
-MSTriggeredSourceXMLHandler::startElement( const XMLCh* const aUri,
+MSTriggeredSourceXMLHandler::startElement( const XMLCh* const ,
                                            const XMLCh* const aLocalname,
-                                           const XMLCh* const aQname,
+                                           const XMLCh* const ,
                                            const Attributes& aAttributes )
 {
     // The first invocation reads the id and lane of this
@@ -131,9 +131,9 @@ MSTriggeredSourceXMLHandler::startElement( const XMLCh* const aUri,
 //---------------------------------------------------------------------------//
 
 void
-MSTriggeredSourceXMLHandler::endElement( const XMLCh* const aUri,
+MSTriggeredSourceXMLHandler::endElement( const XMLCh* const ,
                                          const XMLCh* const aLocalname,
-                                         const XMLCh* const aQname )
+                                         const XMLCh* const )
 {
     if ( TplConvert<XMLCh>::_2str( aLocalname ) ==
          string( "routedist" ) ) {
@@ -581,6 +581,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.9  2003/07/22 15:07:40  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2003/07/21 11:00:38  dkrajzew
 // informing the network about vehicles still left within the emitters added
 //

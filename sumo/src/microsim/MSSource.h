@@ -59,7 +59,7 @@ public:    // public methods
 	MSEventControl-mechanism.
 	@param aNet Reference to the net to get the current time.
     */
-    virtual void emit( const MSNet& aNet ) {};
+    virtual void emit( const MSNet&  ) {};
 
 protected: // protected methods
     /// Default constructor.
@@ -107,6 +107,9 @@ protected: // protected members
 
 
 // $Log$
+// Revision 1.3  2003/07/22 15:07:40  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
