@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 07:08:30  dkrajzew
+// patched errors occuring due to the new NamedOjectMap implementation
+//
 // Revision 1.5  2004/01/12 15:39:02  dkrajzew
 // reproduces changes to NamedObjectsMap
 //
@@ -87,11 +90,10 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
 void
 ODDistrictCont::colorize()
 {
+    const std::vector<ODDistrict*> &v = getVector();
     size_t pos = 0;
-    for(myContIt i=myMap.begin(); i!=myMap.end(); i++) {
-        ODDistrict *district = (*i).second;
-        district->setColor((double) pos / (double) myMap.size());
-        pos++;
+    for(size_t i=0; i!=v.size(); i++) {
+        v[i]->setColor((double) i / (double) v.size());
     }
 }
 
