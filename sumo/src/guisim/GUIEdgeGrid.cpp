@@ -50,7 +50,7 @@ GUIEdgeGrid::GUIEdgeGrid(size_t xsize, size_t ysize)
 
 GUIEdgeGrid::~GUIEdgeGrid()
 {
-	delete[] _grid;
+//	delete[] _grid;
 }
 
 
