@@ -1,0 +1,444 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/sumo_main.cpp)
+AC_CANONICAL_SYSTEM
+
+dnl create an config-header
+AM_CONFIG_HEADER(config.h)
+
+dnl enabel automake-support
+AM_INIT_AUTOMAKE(sumo,0.8.1)
+
+AC_PREFIX_DEFAULT(/usr/local)
+if test "x$prefix" = "xNONE"; then
+  prefix=$ac_default_prefix
+  ac_configure_args="$ac_configure_args --prefix $prefix"
+fi
+
+dnl Checks for programs.
+AC_PROG_CXX
+AC_PROG_INSTALL
+
+dnl don't create shared libtool-libraries
+dnl AC_DISABLE_SHARED
+
+dnl create static libtool-libraries instead
+dnl AC_ENABLE_STATIC(yes)
+
+dnl enable libtool-support
+AM_PROG_LIBTOOL
+
+
+dnl Check for enable-features that shall go into config.h
+AC_ARG_ENABLE(debug,
+              [  --enable-debug          enable sumo debugging code [default=no].],
+              [AC_DEFINE(_DEBUG, 1,
+                         [Define to 1 in order to enable sumo debugging code.])
+	      ])
+
+AC_ARG_ENABLE(assert,
+              [  --disable-assert        disable assertions [default=no].],
+              [AC_DEFINE(NDEBUG, 1,
+                         [Define to 1 in order to disable assertions.])
+	      ])
+
+AC_ARG_ENABLE(inline,
+              [  --disable-inline        disable inlining [default=no].],
+              [AC_DEFINE(DISABLE_INLINE, 1,
+                         [Define to 1 in order to disable inlining.])
+	      ])
+
+AC_ARG_ENABLE(speedcheck,
+              [  --enable-speedcheck     enable sumo speedchecking code [default=no].],
+              [AC_DEFINE(_SPEEDCHECK, 1,
+                         [Define to 1 in order to enable simulation-speed checking.])
+	      ])
+
+AC_ARG_ENABLE(cfront,
+              [  --enable-cfront         enable external template definitions. [default=no].],
+              [cfront_model=true],[cfront_model=false])
+
+if test x$cfront_model = xtrue; then
+	AC_DEFINE(EXTERNAL_TEMPLATE_DEFINITION, 1,
+		[Define to 1 in order to enable external template definitions (cfront-model).])
+fi
+
+AM_CONDITIONAL(CFRONT, test x$cfront_model = xtrue)
+
+
+dnl ---------------------------------------------
+dnl check for libraries...
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for xerces
+dnl   ... for libs
+AC_ARG_WITH(xerces-libraries,
+    [  --with-xerces-libraries=DIR where the Xerces library is installed.],
+    [  ac_xerces_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for xerces-lib])
+if test x"$ac_xerces_libraries" = x; then
+   if test -e /usr/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/lib
+      ac_xerceslib=xerces
+   elif test -e /usr/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/lib
+      ac_xerceslib=xerces-c
+   elif test -e /usr/local/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/lib
+      ac_xerceslib=xerces
+   elif test -e /usr/local/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/lib
+      ac_xerceslib=xerces-c
+   elif test -e /usr/local/xerces/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/xerces/lib/
+      ac_xerceslib=xerces
+   elif test -e /usr/local/xerces/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/xerces/lib/
+      ac_xerceslib=xerces-c
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_xerces_libraries/libxerces.so"; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path="$ac_xerces_libraries"
+      ac_xerceslib=xerces
+   elif test -e "$ac_xerces_libraries/libxerces-c.so"; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path="$ac_xerces_libraries"
+      ac_xerceslib=xerces-c
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
+   fi
+fi
+XERCES_LDFLAGS="$ac_xerces_lib_path"
+AC_SUBST(XERCES_LDFLAGS)
+LIB_XERCES="$ac_xerceslib"
+AC_SUBST(LIB_XERCES)
+dnl   ... for includes
+AC_ARG_WITH(xerces-includes,
+    [  --with-xerces-includes=DIR  where the Xerces includes are. ],
+    [
+       ac_xerces_includes="$withval"
+    ])
+
+AC_MSG_CHECKING([for xerces-includes])
+if test x"$ac_xerces_includes" = x; then
+   if test -e /usr/include/xercesc; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/include
+   elif test -e /usr/local/include/xercesc; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/include
+   elif test -e /usr/local/xerces/include; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/xerces/include
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
+   fi
+else
+   if test -e "$ac_xerces_includes/xercesc/sax2/SAX2XMLReader.hpp"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-includes not found in "$ac_xerces_includes".])
+   fi
+fi
+XERCES_INCLUDES="$ac_xerces_includes"
+XERCES_INCLUDES_PRIOR_1_7="$ac_xerces_includes/xercesc"
+AC_SUBST(XERCES_INCLUDES)
+AC_SUBST(XERCES_INCLUDES_PRIOR_1_7)
+
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for fox
+dnl   ... for libs
+AC_ARG_WITH(fox-libraries,
+    [  --with-fox-libraries=DIR where the FOX library is installed.],
+    [  ac_fox_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for fox-libraries])
+if test x"$ac_fox_libraries" = x; then
+   if test -e /usr/lib/libFOX-1.2.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/lib
+      ac_foxlib=FOX-1.2
+   elif test -e /usr/local/lib/libFOX-1.2.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/local/lib
+      ac_foxlib=FOX-1.2
+   elif test -e /usr/local/fox/lib/libFOX-1.2.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/local/fox/lib/
+      ac_foxlib=FOX-1.2
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-lib not found. Specify path with option --with-fox-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_fox_libraries/libFOX-1.2.so"; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path="$ac_fox_libraries"
+      ac_foxlib=FOX-1.2
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])
+   fi
+fi
+FOX_LDFLAGS="$ac_fox_lib_path"
+AC_SUBST(FOX_LDFLAGS)
+LIB_FOX="$ac_foxlib"
+AC_SUBST(LIB_FOX)
+
+dnl   ... for includes
+AC_ARG_WITH(fox-includes,
+    [  --with-fox-includes=DIR  where the Fox includes are. ],
+    [
+       ac_fox_includes="$withval"
+    ])
+AC_MSG_CHECKING([for fox-includes])
+if test x"$ac_fox_includes" = x; then
+   if test -e /usr/include/fox-1.2; then
+      AC_MSG_RESULT([yes])
+      ac_fox_includes=/usr/include/fox-1.2
+   elif test -e /usr/local/include/fox-1.2; then
+      AC_MSG_RESULT([yes])
+      ac_fox_includes=/usr/local/include/fox-1.2
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-includes not found. Specify path with option --with-fox-includes=DIR.])
+   fi
+else
+   if test -e "$ac_fox_includes/fx.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-includes not found in "$ac_fox_includes".])
+   fi
+fi
+FOX_INCLUDES="$ac_fox_includes"
+AC_SUBST(FOX_INCLUDES)
+
+dnl ---------------------------------------------
+
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl perform program name transformation
+dnl AC_ARG_PROGRAM
+
+dnl add here all your Makefiles. These will be created by configure
+AC_OUTPUT(
+bin/Makefile
+prj/Makefile
+prj/msvc6/Makefile
+prj/msvc6/duarouter/Makefile
+prj/msvc6/guisim/Makefile
+prj/msvc6/jtrrouter/Makefile
+prj/msvc6/netconvert/Makefile
+prj/msvc6/netgen/Makefile
+prj/msvc6/od2trips/Makefile
+prj/msvc6/sumo/Makefile
+prj/msvc6/y_libgui/Makefile
+prj/msvc6/y_libguinetload/Makefile
+prj/msvc6/y_libguisim/Makefile
+prj/msvc6/y_libmicrosim/Makefile
+prj/msvc6/y_libnetbuild/Makefile
+prj/msvc6/y_libnetgen/Makefile
+prj/msvc6/y_libnetimport/Makefile
+prj/msvc6/y_libnetload/Makefile
+prj/msvc6/y_librouter/Makefile
+prj/msvc6/z_libmicrosim_output/Makefile
+prj/msvc6/z_libutils_common/Makefile
+prj/msvc6/z_libutils_convert/Makefile
+prj/msvc6/z_libutils_dev/Makefile
+prj/msvc6/z_libutils_distribution/Makefile
+prj/msvc6/z_libutils_fonts/Makefile
+prj/msvc6/z_libutils_foxtools/Makefile
+prj/msvc6/z_libutils_geom/Makefile
+prj/msvc6/z_libutils_gfx/Makefile
+prj/msvc6/z_libutils_glutils/Makefile
+prj/msvc6/z_libutils_importio/Makefile
+prj/msvc6/z_libutils_iodevices/Makefile
+prj/msvc6/z_libutils_options/Makefile
+prj/msvc6/z_libutils_sumoxml/Makefile
+prj/msvc6/z_libutils_xml/Makefile
+prj/msvc7.net/Makefile
+prj/msvc7.net/duarouter/Makefile
+prj/msvc7.net/guisim/Makefile
+prj/msvc7.net/jtrrouter/Makefile
+prj/msvc7.net/netconvert/Makefile
+prj/msvc7.net/netgen/Makefile
+prj/msvc7.net/od2trips/Makefile
+prj/msvc7.net/sumo/Makefile
+prj/msvc7.net/y_libgui/Makefile
+prj/msvc7.net/y_libguinetload/Makefile
+prj/msvc7.net/y_libguisim/Makefile
+prj/msvc7.net/y_libmicrosim/Makefile
+prj/msvc7.net/y_libnetbuild/Makefile
+prj/msvc7.net/y_libnetgen/Makefile
+prj/msvc7.net/y_libnetimport/Makefile
+prj/msvc7.net/y_libnetload/Makefile
+prj/msvc7.net/y_librouter/Makefile
+prj/msvc7.net/z_libmicrosim_output/Makefile
+prj/msvc7.net/z_libutils_common/Makefile
+prj/msvc7.net/z_libutils_convert/Makefile
+prj/msvc7.net/z_libutils_dev/Makefile
+prj/msvc7.net/z_libutils_distribution/Makefile
+prj/msvc7.net/z_libutils_fonts/Makefile
+prj/msvc7.net/z_libutils_foxtools/Makefile
+prj/msvc7.net/z_libutils_geom/Makefile
+prj/msvc7.net/z_libutils_gfx/Makefile
+prj/msvc7.net/z_libutils_glutils/Makefile
+prj/msvc7.net/z_libutils_importio/Makefile
+prj/msvc7.net/z_libutils_iodevices/Makefile
+prj/msvc7.net/z_libutils_options/Makefile
+prj/msvc7.net/z_libutils_sumoxml/Makefile
+prj/msvc7.net/z_libutils_xml/Makefile
+data/Makefile
+data/cfg_templates/Makefile
+data/examples/Makefile
+data/examples/dua/Makefile
+data/examples/dua/due2s_automatic/Makefile
+data/examples/dua/due2s_automatic/aggregated/Makefile
+data/examples/dua/due2s_singlestep/Makefile
+data/examples/dua/due2s_singlestep/aggregated/Makefile
+data/examples/dua/due3s_automatic/Makefile
+data/examples/dua/due3s_automatic/aggregated/Makefile
+data/examples/dua/due3s_singlestep/Makefile
+data/examples/dua/due3s_singlestep/aggregated/Makefile
+data/examples/extended/Makefile
+data/examples/extended/variable_speed_signs/Makefile
+data/examples/extended/variable_speed_signs/example1/Makefile
+data/examples/output_tests/Makefile
+data/examples/output_tests/cross3ltl_emissions/Makefile
+data/examples/output_tests/cross3ltl_emissions/output/Makefile
+data/examples/output_tests/cross3ltl_inductloops/Makefile
+data/examples/output_tests/cross3ltl_inductloops/output/Makefile
+data/examples/output_tests/cross3ltl_meandata/Makefile
+data/examples/output_tests/cross3ltl_meandata/output/Makefile
+data/examples/output_tests/cross3ltl_rawdump/Makefile
+data/examples/output_tests/cross3ltl_rawdump/output/Makefile
+data/examples/output_tests/cross3ltl_tripinfo/Makefile
+data/examples/output_tests/cross3ltl_tripinfo/output/Makefile
+data/examples/output_tests/cross3ltl_vehroutes/Makefile
+data/examples/output_tests/cross3ltl_vehroutes/output/Makefile
+data/examples/output_tests/straight1/Makefile
+data/examples/output_tests/straight1/output/Makefile
+data/examples/simple_nets/Makefile
+data/examples/simple_nets/box/Makefile
+data/examples/simple_nets/box/box1l/Makefile
+data/examples/simple_nets/box/box2l/Makefile
+data/examples/simple_nets/box/box3l/Makefile
+data/examples/simple_nets/box/box4l/Makefile
+data/examples/simple_nets/cross/Makefile
+data/examples/simple_nets/cross/cross1l/Makefile
+data/examples/simple_nets/cross/cross1ltl/Makefile
+data/examples/simple_nets/cross/cross3l/Makefile
+data/examples/simple_nets/cross/cross3ltl/Makefile
+data/examples/simple_nets/eight/Makefile
+data/examples/simple_nets/eight/eight1l/Makefile
+data/examples/simple_nets/eight/eight1ltl/Makefile
+data/examples/simple_nets/eight/eight3l/Makefile
+data/examples/simple_nets/eight/eight3ltl/Makefile
+data/examples/traffic_lights/Makefile
+data/examples/traffic_lights/cross3l_actuated/Makefile
+data/examples/traffic_lights/cross3l_agentbased/Makefile
+data/examples/traffic_lights/cross3l_simpletl/Makefile
+data/ressources/Makefile
+data/types/Makefile
+docs/Makefile
+docs/docbook/Makefile
+docs/docbook/gfx/Makefile
+docs/docbook/gfx/dev/Makefile
+docs/docbook/gfx/in_progress/Makefile
+docs/docbook/gfx/user/Makefile
+docs/docbook/xslt/Makefile
+docs/docbook/xslt/sumo_html/Makefile
+docs/internet/Makefile
+docs/internet/css/Makefile
+docs/internet/docs/Makefile
+docs/internet/docs/gen/Makefile
+docs/internet/docs/gen/images/Makefile
+docs/internet/downloads/Makefile
+docs/internet/images/Makefile
+docs/internet/links/Makefile
+docs/internet/screens/Makefile
+src/Makefile
+src/gui/Makefile
+src/gui/dialogs/Makefile
+src/gui/drawerimpl/Makefile
+src/gui/manipulators/Makefile
+src/guinetload/Makefile
+src/guisim/Makefile
+src/guisim/guilogging/Makefile
+src/helpers/Makefile
+src/microsim/Makefile
+src/microsim/actions/Makefile
+src/microsim/lanechanging/Makefile
+src/microsim/logging/Makefile
+src/microsim/output/Makefile
+src/microsim/output/meandata/Makefile
+src/microsim/output/e1_detectors/Makefile
+src/microsim/output/e2_detectors/Makefile
+src/microsim/output/e3_detectors/Makefile
+src/microsim/traffic_lights/Makefile
+src/netbuild/Makefile
+src/netbuild/nodes/Makefile
+src/netgen/Makefile
+src/netimport/Makefile
+src/netimport/arcview/Makefile
+src/netimport/artemis/Makefile
+src/netimport/cell/Makefile
+src/netimport/elmar/Makefile
+src/netimport/sumo/Makefile
+src/netimport/tiger/Makefile
+src/netimport/vissim/Makefile
+src/netimport/vissim/tempstructs/Makefile
+src/netimport/vissim/typeloader/Makefile
+src/netimport/visum/Makefile
+src/netimport/xml/Makefile
+src/netload/Makefile
+src/od2trips/Makefile
+src/router/Makefile
+src/routing_dua/Makefile
+src/routing_jtr/Makefile
+src/sumo_only/Makefile
+src/utils/Makefile
+src/utils/actions/Makefile
+src/utils/common/Makefile
+src/utils/convert/Makefile
+src/utils/dev/Makefile
+src/utils/distribution/Makefile
+src/utils/fonts/Makefile
+src/utils/foxtools/Makefile
+src/utils/geom/Makefile
+src/utils/gfx/Makefile
+src/utils/glutils/Makefile
+src/utils/gui/Makefile
+src/utils/gui/div/Makefile
+src/utils/gui/drawer/Makefile
+src/utils/gui/events/Makefile
+src/utils/gui/globjects/Makefile
+src/utils/gui/images/Makefile
+src/utils/gui/tracker/Makefile
+src/utils/gui/windows/Makefile
+src/utils/importio/Makefile
+src/utils/iodevices/Makefile
+src/utils/options/Makefile
+src/utils/router/Makefile
+src/utils/sumoxml/Makefile
+src/utils/xml/Makefile
+tests/Makefile
+tests/dos/Makefile
+tests/unix/Makefile
+Makefile)
+

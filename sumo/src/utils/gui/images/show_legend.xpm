@@ -1,0 +1,22 @@
+/* XPM */
+static const char * show_legend_xpm[] = {
+"16 16 3 1",
+" 	c None",
+".	c Black",
+"X	c #efc001",
+"           .    ",
+"          .X.   ",
+"         .XXX.  ",
+"        .XXX.X. ",
+"       .XXXXX.  ",
+"      .XXX.X.   ",
+"     .XXXXX.    ",
+"    .XXX.X.     ",
+"   .XXXXX.      ",
+"  .XXX.X.       ",
+" .XXXXX.        ",
+".XXX.X.         ",
+" .XXX.          ",
+"  .X.           ",
+"   .            ",
+"                "};
