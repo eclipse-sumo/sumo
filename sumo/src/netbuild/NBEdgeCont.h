@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/03 14:59:04  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.3  2003/02/13 15:51:05  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -105,6 +108,12 @@ public:
         whether to return the outgoing or the incoming is needed */
     static NBEdge *retrievePossiblySplitted(
         const std::string &id, const std::string &hint, bool incoming);
+
+    /** @brief Tries to retrieve an edge, even if it is splitted
+        To describe which part of the edge shall be returned, a 
+        position hint is supplied */
+    static NBEdge *retrievePossiblySplitted(
+        const std::string &id, double pos);
 
     /** computes edges step1: computation of approached edges */
     static bool computeEdge2Edges();

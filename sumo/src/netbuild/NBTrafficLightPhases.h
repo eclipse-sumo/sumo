@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:59:22  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -127,8 +130,8 @@ public:
     void add(const NBTrafficLightPhases &phases, bool skipLarger);
 //    PhaseIndexVector getBest() const;
     NBTrafficLightLogicVector *computeLogics(const std::string &key,
-        size_t noLinks,
-        const NBRequestEdgeLinkIterator &cei1) const;
+        size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
+        const EdgeVector &inLanes) const;
     NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
         size_t noLinks, const PhaseIndexVector &phaseList,
         const NBRequestEdgeLinkIterator &cei1) const;

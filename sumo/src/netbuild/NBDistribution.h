@@ -11,6 +11,7 @@ public:
         Distribution *d);
     static Distribution *dictionary(const std::string &type,
         const std::string &id);
+    static void clear();
 private:
     typedef std::map<std::string, Distribution*> DistDict;
     typedef std::map<std::string, DistDict> TypedDistDict;

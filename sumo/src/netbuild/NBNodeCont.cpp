@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/03 14:59:10  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.4  2003/02/13 15:51:54  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -304,14 +307,10 @@ NBNodeCont::recheckEdges(bool verbose)
         // count the edges to other nodes outgoing from the current
         //  node
         std::map<NBNode*, EdgeVector> connectionCount;
-        NBNode *bla2 = (*i).second;
         const EdgeVector *outgoing = (*i).second->getOutgoingEdges();
         for(EdgeVector::const_iterator j=outgoing->begin(); j!=outgoing->end(); j++) {
             NBEdge *e = (*j);
             NBNode *connected = e->getToNode();
-            if(connected->getID()=="1483") {
-                int bla = 0;
-            }
             if(connectionCount.find(connected)==connectionCount.end()) {
                 connectionCount[connected] = EdgeVector();
                 connectionCount[connected].push_back(e);
@@ -322,9 +321,6 @@ NBNodeCont::recheckEdges(bool verbose)
         // check whether more than a single edge connect another node
         //  and join them
         for(std::map<NBNode*, EdgeVector>::iterator k=connectionCount.begin(); k!=connectionCount.end(); k++) {
-            if((*i).first=="1456-SourceNode") {
-                int bla = 0;
-            }
             // join edges
             if((*k).second.size()>1) {
                 NBEdgeCont::joinSameNodeConnectingEdges((*k).second);
@@ -333,6 +329,18 @@ NBNodeCont::recheckEdges(bool verbose)
     }
     return true;
 }
+
+
+
+bool 
+NBNodeCont::removeDummyEdges(bool verbose)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->eraseDummies();
+    }
+    return true;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

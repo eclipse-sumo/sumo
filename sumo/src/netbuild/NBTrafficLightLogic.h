@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:59:21  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -37,6 +40,7 @@
 #include <bitset>
 #include <utility>
 #include <iostream>
+#include "NBCont.h"
 
 
 /* =========================================================================
@@ -73,7 +77,8 @@ public:
     ~NBTrafficLightLogic();
     void addStep(size_t duration, std::bitset<64> driveMask,
         std::bitset<64> brakeMask);
-    void writeXML(std::ostream &into, size_t no) const;
+    void writeXML(std::ostream &into, size_t no,
+        const EdgeVector &inLanes) const;
     void _debugWritePhases() const;
     bool equals(const NBTrafficLightLogic &logic) const;
 };

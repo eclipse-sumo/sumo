@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:58:54  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -38,6 +41,7 @@
 #include <iostream>
 #include <utility>
 #include <utils/common/Named.h>
+#include <utils/common/DoubleVector.h>
 
 
 /* =========================================================================
@@ -91,6 +95,9 @@ public:
         Throws an exception when a center was already given */
     void setCenter(double x, double y);
 
+    /** @brief normalises the districts connection usage propabilities */
+    void normalise(DoubleVector &dv, size_t num);
+
 private:
     /// a secondary name
     std::string _name;
@@ -99,7 +106,7 @@ private:
     typedef std::vector<NBEdge*> ConnectorCont;
 
     /// definition of a vector of connection weights
-    typedef std::vector<double> WeightsCont;
+    typedef DoubleVector WeightsCont;
 
     /// the sources (connection from district to network)
     ConnectorCont _sources;

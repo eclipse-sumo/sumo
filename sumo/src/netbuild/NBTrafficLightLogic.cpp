@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:59:19  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -41,6 +44,7 @@ namespace
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "NBEdge.h"
 #include "NBTrafficLightLogic.h"
 
 
@@ -81,12 +85,28 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 
 void
-NBTrafficLightLogic::writeXML(ostream &into, size_t no) const
+NBTrafficLightLogic::writeXML(ostream &into, size_t no,
+                              const EdgeVector &inLanes) const
 {
-    into << "   <tl-logic>" << endl;
+    into << "   <tl-logic type=\"static\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
+    // write the inlanes
+    into << "      <inlanes>";
+    bool first = true;
+    for(EdgeVector::const_iterator j=inLanes.begin(); j!=inLanes.end(); j++) {
+        size_t noLanes = (*j)->getNoLanes();
+        for(size_t k=0; k<noLanes; k++) {
+            if(!first) {
+                into << " ";
+            }
+            first = false;
+            into << (*j)->getID() << "_" << k;
+        }
+    }
+    into << "</inlanes>" << endl;
+    // wrte the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
         std::bitset<64> mask = (*i).driveMask;

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/03/03 14:59:14  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.4  2003/02/13 15:51:55  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -142,6 +145,9 @@ public:
 
     /// Joins edges connecting the same nodes
     static bool recheckEdges(bool verbose);
+
+    /// Removes dummy edges (edges lying completely within a node)
+    static bool removeDummyEdges(bool verbose);
 
 private:
     /** the running internal id */

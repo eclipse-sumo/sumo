@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:59:17  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -36,6 +39,7 @@
 
 #include <bitset>
 #include <vector>
+#include "NBNode.h"
 #include "NBRequest.h"
 #include "NBContHelper.h"
 
@@ -93,6 +97,11 @@ public:
         the defined position must break */
     bool testBrakeMask(int set, size_t pos) const;
 
+    bool getDriveAllowed(const NBNode::SignalGroupCont &defs,
+        double time);
+    bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
+        double time);
+
     friend std::ostream &operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o);
 
 private:
@@ -121,6 +130,7 @@ private:
 
     /// !!!
     bool internJoinLaneForbids(NBEdge *fromEdge, NBEdge *toEdge) const;
+
 
 private:
     /// the request to use

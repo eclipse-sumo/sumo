@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:59:05  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -130,14 +133,13 @@ NBJunctionLogicCont::add(const std::string &key,
     LogicMap::iterator i=_map.find(nkey);
     if(i!=_map.end()) {
         string tmp = (*i).second;
-        if(tmp!=xmlDescription) {
+/*        if(tmp!=xmlDescription) {
             cout << key << endl;
             cout << tmp << endl;
             cout << xmlDescription << endl;
-            int bla = 0;
         } else {
             cout << "Equal." << endl;
-        }
+        }*/
     }
 //
     _map.insert(LogicMap::value_type(nkey, xmlDescription));

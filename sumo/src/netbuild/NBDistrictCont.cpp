@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:58:59  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:43  dkrajzew
 // updated
 //
@@ -136,6 +139,8 @@ NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
     }
     return o->addSink(destination, weight);
 }
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/03 14:59:01  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.4  2003/02/13 15:51:01  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -356,14 +359,10 @@ NBEdge::getEdgeLanesFromLane(size_t lane) {
 void
 NBEdge::computeTurningDirections()
 {
-    if(_id=="1000004[0]") {
-        int bla = 0;
-    }
     EdgeVector *outgoing = _connectedEdges;
     if(outgoing==0) {
         outgoing = _to->getOutgoingEdges();
     }
-    cout << "os: " << outgoing->size() << endl;
     for(EdgeVector::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
         NBEdge *outedge = *i;
         double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
@@ -707,9 +706,6 @@ void
 NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing) {
     if(outgoing->size()==0) {
         return;
-    }
-    if(_id=="93822") {
-        int bla = 0;
     }
     // precompute priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
@@ -1063,6 +1059,117 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by)
         }
     }
 }
+
+
+bool 
+NBEdge::isConnectedTo(NBEdge *e)
+{
+    //
+    if(_connectedEdges==0) {
+        return false;
+    }
+    // 
+    return 
+        find(_connectedEdges->begin(), _connectedEdges->end(), e)
+        !=
+        _connectedEdges->end();
+
+}
+
+
+void 
+NBEdge::remapConnections(const EdgeVector &incoming)
+{
+    for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
+        NBEdge *inc = *i;
+        // We have to do this
+        inc->_step = EDGE2EDGES;
+        // add all connections
+        for(EdgeVector::iterator j=_connectedEdges->begin(); j!=_connectedEdges->end(); j++) {
+            inc->addEdge2EdgeConnection(*j);
+            inc->removeFromConnections(this);
+        }
+    }
+}
+
+
+void
+NBEdge::removeFromConnections(NBEdge *which)
+{
+    // remove from "_connectedEdges"
+    if(_connectedEdges!=0) {
+        for(size_t i=0; i<_connectedEdges->size(); i++) {
+            if((*_connectedEdges)[i]==which) {
+                _connectedEdges->erase(_connectedEdges->begin()+i);
+                i--;
+            }
+        }
+    }
+    // check whether it was the turn destination
+    if(_turnDestination==which) {
+        _turnDestination = 0;
+    }
+    // remove in _ToEdges
+    if(_ToEdges!=0) {
+        bool found = true;
+        std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges->find(which);
+        if(j!=_ToEdges->end()) {
+            _ToEdges->erase(which);
+        }
+    }
+    // remove in _reachable
+    if(_reachable!=0) {
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            EdgeLaneVector::iterator l=(*k).begin();
+            while(l!=(*k).end()) {
+                if((*l).edge==which) {
+                    (*k).erase(l);
+                    l = (*k).begin();
+                } else {
+                    l++;
+                }
+            }
+        }
+    }
+    // remove in _succeedinglanes
+    if(_succeedinglanes!=0) {
+        LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->find(which);
+        if(l!=_succeedinglanes->end()) {
+            _succeedinglanes->erase(l);
+        }
+    }
+}
+
+
+EdgeVector 
+NBEdge::getConnected() const
+{
+    if(_connectedEdges==0) {
+        return EdgeVector();
+    }
+    return EdgeVector(*_connectedEdges);
+}
+
+
+
+bool 
+NBEdge::lanesWereAssigned() const
+{
+    return _step==EDGE2LANES;
+}
+
+
+EdgeVector 
+NBEdge::getEdgesFromLane(size_t lane) const
+{
+    assert(lane<_reachable->size());
+    EdgeVector ret;
+    for(EdgeLaneVector::const_iterator i=(*_reachable)[lane].begin(); i!=(*_reachable)[lane].end(); i++) {
+        ret.push_back((*i).edge);
+    }
+    return ret;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 14:59:04  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.3  2003/02/13 15:51:04  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -287,6 +290,11 @@ NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
     edge->_to->removeDoubleEdges();
     // erase the splitted edge
     erase(edge);
+    // add connections from the first to the second edge
+    size_t noLanes = one->getNoLanes();
+    for(size_t i=0; i<noLanes; i++) {
+        one->addLane2LaneConnection(i, two, i);
+    }
 }
 
 
@@ -294,6 +302,8 @@ void
 NBEdgeCont::erase(NBEdge *edge)
 {
     _edges.erase(edge->getID());
+    edge->_from->removeOutgoing(edge);
+    edge->_to->removeIncoming(edge);
     delete edge;
 }
 
@@ -337,11 +347,6 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
                         ? node->getOutgoingEdges() : node->getIncomingEdges();
                     if(find(cont->begin(), cont->end(), hintedge)!=cont->end()) {
                         return poss_searched;
-                    }
-                    else {
-                        for(EdgeVector::const_iterator q=cont->begin(); q!=cont->end(); q++) {
-                            NBEdge *bla = *q;
-                        }
                     }
                 }
                 idmods++;
@@ -396,9 +401,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
         if(function==NBEdge::EDGEFUNCTION_UNKNOWN) {
             function = (*i)->getBasicType();
         } else {
-            if(function==NBEdge::EDGEFUNCTION_NORMAL) {
-                continue;
-            } else {
+            if(function!=NBEdge::EDGEFUNCTION_NORMAL) {
                 if(function!=(*i)->getBasicType()) {
                     function = NBEdge::EDGEFUNCTION_NORMAL;
                 }
@@ -409,6 +412,10 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
         // build the priority
         if(priority<(*i)->getPriority()) {
             priority = (*i)->getPriority();
+        }
+        // remove all connections to the joined edges
+        for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); j++) {
+            (*i)->removeFromConnections(*j);
         }
     }
     speed /= edges.size();
@@ -425,13 +432,49 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     for(i=edges.begin(); i!=edges.end(); i++) {
         from->replaceOutgoing(*i, newEdge);
         to->replaceIncoming(*i, newEdge);
-        _edges.erase((*i)->getID());
-        delete *i;
+    }
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        erase(*i);
     }
     from->removeDoubleEdges();
     to->removeDoubleEdges();
 }
 
+
+NBEdge *
+NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
+{
+    // check whether the edge was not split, yet
+    NBEdge *edge = retrieve(id);
+    if(edge!=0) {
+        return edge;
+    }
+    // find the part of the edge which matches the position
+    double seen = 0;
+    std::vector<string> names;
+    names.push_back(id + "[1]");
+    names.push_back(id + "[0]");
+    while(true) {
+        // retrieve the first subelement (to follow)
+        string cid = names[names.size()-1];
+        names.pop_back();
+        edge = retrieve(cid);
+        // The edge was splitted; check its subparts within the 
+        //  next step
+        if(edge==0) {
+            names.push_back(cid + "[1]");
+            names.push_back(cid + "[0]");
+        }
+        // an edge with the name was found,
+        //  check whether the position lies within it
+        else {
+            seen += edge->getLength();
+            if(seen>=pos) {
+                return edge;
+            }
+        }
+    }
+}
 
 
 

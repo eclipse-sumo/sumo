@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/03 14:59:15  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -62,6 +65,7 @@
 #include "NBTrafficLightPhases.h"
 #include "NBLinkCliqueContainer.h"
 #include "NBTrafficLightLogicVector.h"
+#include "NBConnectionDefs.h"
 #include "NBContHelper.h"
 
 
@@ -104,7 +108,9 @@ public:
         describe the junctions. These parameter must not be changed during the
         logic's building */
     NBRequest(NBNode *junction, const EdgeVector * const all,
-        const EdgeVector * const incoming, const EdgeVector * const outgoing);
+        const EdgeVector * const incoming, 
+        const EdgeVector * const outgoing,
+        const ConnectionProhibits &loadedProhibits);
 
     /** destructor */
     ~NBRequest();
@@ -117,7 +123,8 @@ public:
     std::pair<size_t, size_t> getSizes() const;
 
     /// builds the traffic light logics
-    int buildTrafficLight(const std::string &key) const;
+    int buildTrafficLight(const std::string &key,
+        const NBNode::SignalGroupCont &defs, size_t cycleTime) const;
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
@@ -156,6 +163,14 @@ private:
     /** computes the relationships between links outgoing left of the given
         link */
     void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
+
+
+    NBTrafficLightLogicVector *buildLoadedTrafficLights(const std::string &key,
+        const NBNode::SignalGroupCont &defs, size_t cycleTime) const;
+
+    NBTrafficLightLogicVector *buildOwnTrafficLights(
+        const std::string &key) const;
+
 
     /** compute the traffic light logics for the current node and the
         given settings */
@@ -207,6 +222,7 @@ private:
 
     /** the link X link is done-checks */
     CombinationsCont  _done;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

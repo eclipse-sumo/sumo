@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/03/03 14:59:06  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.4  2003/02/13 15:51:54  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -75,8 +78,11 @@
 #include <utility>
 #include <string>
 #include <iostream>
+#include <utils/common/Named.h>
+#include <utils/common/DoubleVector.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
+#include "NBConnectionDefs.h"
 #include "NBContHelper.h"
 
 
@@ -109,20 +115,106 @@ public:
     private:
         /// the list of edges that approach the current edge
         std::vector<NBEdge*> *_approaching;
+
         /// the approached current edge
         NBEdge *_currentOutgoing;
+
     public:
         /// constructor
         ApproachingDivider(std::vector<NBEdge*> *approaching,
             NBEdge *currentOutgoing);
+
         /// destructor
         ~ApproachingDivider();
+
         /** the bresenham-callback */
         void execute(double src, double dest);
+
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
         std::deque<size_t> *spread(const std::vector<size_t> &approachingLanes,
             double dest) const;
+
+    };
+
+    enum TLColor {
+        TLCOLOR_UNKNOWN,
+        TLCOLOR_RED,
+        TLCOLOR_YELLOW,
+        TLCOLOR_REDYELLOW,
+        TLCOLOR_GREEN,
+        TLCOLOR_BLINK,
+        TLCOLOR_BLUE // :-)
+    };
+
+
+    class SignalGroup 
+        : public Named {
+    public:
+        SignalGroup(const std::string &id);
+        ~SignalGroup();
+        void addConnection(const Connection &c);
+        void addPhaseBegin(double time, TLColor color);
+        void setYellowTimes(double tRedYellowe, double tYellow);
+        DoubleVector getTimes() const;
+        void sortPhases();
+        size_t getLinkNo() const;
+        bool mayDrive(double time) const;
+        bool mustBrake(double time) const;
+        bool containsConnection(NBEdge *from, NBEdge *to) const;
+
+        friend class phase_by_time_sorter;
+
+    private:
+        class PhaseDef {
+        public:
+            PhaseDef(double time, TLColor color) 
+                : myTime(time), myColor(color) { }
+            PhaseDef(const PhaseDef &p) 
+                : myTime(p.myTime), myColor(p.myColor) { }
+            double myTime;
+            TLColor myColor;
+        };
+
+        class phase_by_time_sorter {
+        public:
+            /// constructor
+            explicit phase_by_time_sorter() { }
+
+            int operator() (const PhaseDef &p1, const PhaseDef &p2) {
+                return p1.myTime<p2.myTime;
+            }
+        };
+
+        ConnectionVector myConnections;
+        typedef std::vector<PhaseDef> GroupsPhases;
+        GroupsPhases myPhases;
+        double myTRedYellow, myTYellow;
+        size_t myNoLinks;
+    };
+
+    class Phase 
+        : public Named {
+    public:
+        Phase(const std::string &id, size_t begin, size_t end);
+        ~Phase();
+/*        void addSignalGroupColor(const std::string &signalgroup, 
+            TLColor color);*/
+    private:
+        std::string mySignalGroup;
+        int myBegin, myEnd;
+        typedef std::map<std::string, TLColor> SignalGroupColorMap;
+        SignalGroupColorMap _groupColors;
+    };
+
+    /// Definition of the container for signal groups
+    typedef std::map<std::string, SignalGroup*> SignalGroupCont;
+
+    class NodesPhases {
+    public:
+        NodesPhases();
+        ~NodesPhases();
+
     };
 
     /** internal type for no-junction */
@@ -212,17 +304,38 @@ public:
     bool hasIncoming(NBEdge *e) const;
     NBEdge *getOppositeIncoming(NBEdge *e) const;
     NBEdge *getOppositeOutgoing(NBEdge *e) const;
-    /*
-    bool hasSingleIncoming() const;
-    bool hasSingleOutgoing() const;
-    NBEdge *getSingleIncoming() const;
-    NBEdge *getSingleOutgoing() const;
-*/
 
     void removeDoubleEdges();
 
 
+    void addSortedLinkFoes(
+        const std::pair<NBEdge*, NBEdge*> &mayDrive,
+        const std::pair<NBEdge*, NBEdge*> &mustStop);
+
+    NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
+    NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
+
+    void eraseDummies();
+
+    void removeOutgoing(NBEdge *edge);
+    void removeIncoming(NBEdge *edge);
+
+    void setCycleDuration(size_t cycleDur);
+    void addSignalGroup(const std::string &id);
+    void addToSignalGroup(const std::string &groupid, 
+        const Connection &connection);
+    void addToSignalGroup(const std::string &groupid, 
+        const ConnectionVector &connections);
+    void addSignalGroupPhaseBegin(const std::string &groupid,
+        double time, TLColor color);
+    void setSignalYellowTimes(const std::string &groupid, 
+        double tRedYellowe, double tYellow);
+
+
+    static SignalGroup *findGroup(const SignalGroupCont &defs, NBEdge *from, NBEdge *to);
+
     friend class NBNodeCont;
+
 
 private:
     /// rotates the junction so that the key fits
@@ -293,6 +406,11 @@ private:
 
     void replaceIncoming(NBEdge *which, NBEdge *by);
 
+
+    void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by);
+
+
+
 private:
     /** the name of the node */
     std::string  _id;
@@ -317,6 +435,14 @@ private:
 
     /// the type of the junction
     int   _type;
+
+    /** The container for connection block dependencies */
+    ConnectionProhibits _blockedConnections;
+
+
+    SignalGroupCont mySignalGroups;
+
+    size_t myCycleDuration;
 
 private:
     /** invalid copy constructor */

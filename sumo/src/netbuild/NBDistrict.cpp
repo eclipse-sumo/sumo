@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:58:53  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:43  dkrajzew
 // updated
 //
@@ -115,6 +118,8 @@ NBDistrict::addSink(NBEdge *sink, double weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
+    normalise(_sourceWeights, _sources.size());
+    normalise(_sinkWeights, _sinks.size());
     // write the head and the id of the district
     into << "   " << "<district id=\"" << _id << "\">" << endl;
     size_t i;
@@ -123,30 +128,14 @@ NBDistrict::writeXML(std::ostream &into)
         // write the head and the id of the source
         assert(i<_sources.size());
         into << "      " << "<dsource id=\"" << _sources[i]->getID()
-            << "\" weight=\"";
-        // write the weight
-        if(_sourceConnectorsWeighted) {
-            assert(i<_sourceWeights.size());
-            into << _sourceWeights[i];
-        } else {
-            into << (1.0/(double) _sources.size());
-        }
-        into << "\"/>" << endl;
+            << "\" weight=\"" << _sourceWeights[i] << "\"/>" << endl;
     }
     // write all sinks
     for(i=0; i<_sinks.size(); i++) {
         // write the head and the id of the sink
         assert(i<_sinks.size());
         into << "      " << "<dsink id=\"" << _sinks[i]->getID()
-            << "\" weight=\"";
-        // write the weight
-        if(_sinkConnectorsWeighted) {
-            assert(i<_sinkWeights.size());
-            into << _sinkWeights[i];
-        } else {
-            into << (1.0/(double) _sinks.size());
-        }
-        into << "\"/>" << endl;
+            << "\" weight=\"" << _sinkWeights[i] << "\"/>" << endl;
     }
     // write the tail
     into << "   " << "</district>" << endl << endl;
@@ -174,6 +163,18 @@ NBDistrict::setCenter(double x, double y)
     _y = y;
 }
 
+
+
+void 
+NBDistrict::normalise(DoubleVector &dv, size_t num)
+{
+    // normalise sources
+    if(_sourceConnectorsWeighted) {
+        DoubleVectorHelper::normalise(dv);
+    } else {
+        dv = DoubleVector(1.0 / (double) num);
+    }
+}
 
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:59:22  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -35,6 +38,7 @@
 
 #include <vector>
 #include <iostream>
+#include "NBCont.h"
 
 /* =========================================================================
  * class declarations
@@ -52,13 +56,15 @@ private:
     typedef std::vector<NBTrafficLightLogic*> LogicVector;
     LogicVector _cont;
 public:
-    NBTrafficLightLogicVector();
+    NBTrafficLightLogicVector(const EdgeVector &inLanes);
     ~NBTrafficLightLogicVector();
     void add(NBTrafficLightLogic *logic);
     void add(const NBTrafficLightLogicVector &cont);
     void writeXML(std::ostream &os) const;
     bool contains(NBTrafficLightLogic *logic) const;
     int size() const;
+private:
+    EdgeVector myInLanes;
 };
 
 

@@ -37,3 +37,15 @@ NBDistribution::dictionary(const std::string &type,
     }
     return (*j).second;
 }
+
+
+void 
+NBDistribution::clear()
+{
+    for(TypedDistDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        DistDict &dict = (*i).second;
+        for(DistDict::iterator j=dict.begin(); j!=dict.end(); j++) {
+            delete (*j).second;
+        }
+    }
+}

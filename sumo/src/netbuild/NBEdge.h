@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/03/03 14:59:03  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.4  2003/02/13 15:50:59  dkrajzew
 // functions for merging edges with the same origin and destination added
 //
@@ -237,9 +240,25 @@ public:
 
     void replaceInConnections(NBEdge *which, NBEdge *by);
 
+    /// Returns the information whethe a connection to the given edge has been added (or computed)
+    bool isConnectedTo(NBEdge *e);
+
     /** returns the list of outgoing edges without the turnaround
         sorted in clockwise direction */
     const std::vector<NBEdge*> *getConnectedSorted();
+
+    /** returns the list of outgoing edges unsorted */
+    EdgeVector getConnected() const;
+
+    /** @brief Remaps the connection in a way tha allows the removal of it 
+        This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
+    void remapConnections(const EdgeVector &incoming);
+
+    EdgeVector getEdgesFromLane(size_t lane) const;
+
+    void removeFromConnections(NBEdge *which);
+
+    bool lanesWereAssigned() const;
 
     /** friend class used for the computation of connections to
         following edges */

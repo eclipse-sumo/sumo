@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:59:22  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -151,11 +154,11 @@ std::ostream &operator<<(std::ostream &os, const NBTrafficLightPhases &p)
 NBTrafficLightLogicVector *
 NBTrafficLightPhases::computeLogics(const std::string &key,
                                     size_t noLinks,
-                                    const NBRequestEdgeLinkIterator &cei1) const
+                                    const NBRequestEdgeLinkIterator &cei1,
+                                    const EdgeVector &inLanes) const
 {
-    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector();
+    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(inLanes);
     for(size_t i=0; i<_phasesVectorsByLength.size(); i++) {
-        cout << i << endl;
         for(size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
             ret->add(
                 buildTrafficLightsLogic(
@@ -174,8 +177,8 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               const PhaseIndexVector &phaseList,
                                               const NBRequestEdgeLinkIterator &cei1) const
 {
-    cout << "IN" << noLinks << endl;
-    NBTrafficLightLogic *ret = new NBTrafficLightLogic(key, noLinks);
+    NBTrafficLightLogic *ret = 
+        new NBTrafficLightLogic(key, noLinks);
     for(size_t i=0; i<phaseList.size(); i++) {
         // add the complete phase
         std::bitset<64> driveMask;
@@ -205,7 +208,6 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
     ret->_debugWritePhases();
     cout << "----------------------------------" << endl;
 #endif
-    cout << "OUT" << endl;
     return ret;
 }
 

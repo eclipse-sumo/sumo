@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:59:22  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -40,7 +43,8 @@ namespace
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 
-NBTrafficLightLogicVector::NBTrafficLightLogicVector()
+NBTrafficLightLogicVector::NBTrafficLightLogicVector(const EdgeVector &inLanes)
+    : myInLanes(inLanes)
 {
 }
 
@@ -80,7 +84,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 {
     size_t pos = 0;
     for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++);
+        (*i)->writeXML(os, pos++, myInLanes);
     }
 }
 

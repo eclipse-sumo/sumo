@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/03 14:58:51  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -60,7 +63,9 @@ class NBEdge;
  * ======================================================================= */
 /** structure specifying a certain lane on a certain edge */
 struct EdgeLane {
+    /// The according edge (semantics may change)
     NBEdge *edge;
+    /// The according lane (semantics may change)
     size_t lane;
 };
 

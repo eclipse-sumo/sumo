@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 14:59:16  dkrajzew
+// debugging; handling of imported traffic light definitions
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -293,7 +296,6 @@ NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos) const
 size_t
 NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int dummy) const
 {
-    cout << "Hallo" << endl;
     // count the number of assigned links
     assert(pos<_positions.size());
     size_t current_pointer = _positions[pos];
@@ -426,6 +428,26 @@ operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o)
     return os;
 }
 
+
+bool 
+NBRequestEdgeLinkIterator::getDriveAllowed(const NBNode::SignalGroupCont &defs,
+                                           double time)
+{
+    NBEdge *from = getFromEdge();
+    NBEdge *to = getToEdge();
+    NBNode::SignalGroup *group = NBNode::findGroup(defs, from, to);
+    return group->mayDrive(time);
+}
+
+bool 
+NBRequestEdgeLinkIterator::getBrakeNeeded(const NBNode::SignalGroupCont &defs,
+                                          double time)
+{
+    NBEdge *from = getFromEdge();
+    NBEdge *to = getToEdge();
+    NBNode::SignalGroup *group = NBNode::findGroup(defs, from, to);
+    return group->mustBrake(time);
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
