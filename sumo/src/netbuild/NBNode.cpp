@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2003/10/14 11:35:28  roessel
+// Declared variable i before the loop because it is accessed afterwards.
+//
 // Revision 1.30  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -461,11 +464,12 @@ NBNode::sortSmall()
     if(_allEdges.size()==0) {
         return;
     }
-    for( vector<NBEdge*>::iterator i=_allEdges.begin();
+    vector<NBEdge*>::iterator i;
+    for( i=_allEdges.begin();
          i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
         swapWhenReversed(i, i+1);
     }
-    if(_allEdges.size()>1&i!=_allEdges.end()) {
+    if(_allEdges.size()>1 && i!=_allEdges.end()) {
         swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
     }
 }
