@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2003/10/15 11:48:13  dkrajzew
+// geometry computation corrigued partially
+//
 // Revision 1.23  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -349,7 +352,7 @@ public:
     friend class NBNodeCont;
 
 
-    double getOffset(Line2D on, Line2D cross);
+    double getOffset(Position2DVector on, Position2DVector cross);
 
     const Position2DVector &getShape() const;
 
@@ -453,8 +456,15 @@ private:
     double chooseLaneOffset2(DoubleVector &chk);
 
     double getCCWAngleDiff(double angle1, double angle2);
+
+
     double getCWAngleDiff(double angle1, double angle2);
 
+
+    void computeJoinSplitNodeShape();
+    void computeRealNodeShape();
+    void addCCWPoint(NBEdge *e, double offset);
+    void addCWPoint(NBEdge *e, double offset);
 
 private:
     /** the name of the node */

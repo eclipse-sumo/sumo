@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2003/10/15 11:48:13  dkrajzew
+// geometry computation corrigued partially
+//
 // Revision 1.31  2003/10/14 11:35:28  roessel
 // Declared variable i before the loop because it is accessed afterwards.
 //
@@ -491,9 +494,6 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
 void
 NBNode::setPriorities()
 {
-/*    if(_id=="618975401") {
-        int bla = 0;
-    }*/
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
@@ -1087,12 +1087,71 @@ NBNode::computeNodeShape()
         (_incomingEdges->size()<2&&_outgoingEdges->size()<2) ) {
         return;
     }*/
+    // check whether this is a real junction between different edges
+    //  or only an edge's split/join
+    bool isRealJunction = false;
+    if(_id=="381") {
+        int bla = 0;
+    }
+    if(_id=="684"||_id=="685") {
+        int bla = 0;
+    }
+    for(EdgeVector::const_iterator i=_allEdges.begin(); i!=_allEdges.end()&&!isRealJunction; i++) {
+        Line2D incLine;
+        if(hasIncoming(*i)) {
+            const Position2DVector &geom = (*i)->getGeometry();
+            incLine = Line2D(geom.at(geom.size()-2), geom.at(geom.size()-1));
+        } else {
+            const Position2DVector &geom = (*i)->getGeometry();
+            incLine = Line2D(geom.at(1), geom.at(0));
+        }
+        NBEdge *e1 = (*i);
+        double angle1 = incLine.atan2DegreeAngle();
+        for(EdgeVector::const_iterator i2=i+1; i2!=_allEdges.end()&&!isRealJunction; i2++) {
+            Line2D outLine;
+            NBEdge *e2 = (*i2);
+            if(hasIncoming(*i2)) {
+                const Position2DVector &geom = (*i2)->getGeometry();
+                outLine = Line2D(geom.at(geom.size()-2), geom.at(geom.size()-1));
+            } else {
+                const Position2DVector &geom = (*i2)->getGeometry();
+                outLine = Line2D(geom.at(1), geom.at(0));
+            }
+            double angle2 = outLine.atan2DegreeAngle();
+            //
+            if(abs(angle1-angle2)>35&&abs(angle1-angle2)<145) {
+                isRealJunction = true;
+            }
+        }
+    }
+    if(_id=="684"||_id=="685") {
+        int bla = 0;
+    }
+    if(_id=="381") {
+        int bla = 0;
+    }
+//    if(isRealJunction) {
+        computeRealNodeShape();
+/*    } else {
+        computeJoinSplitNodeShape();
+    }*/
+    myPoly = myPoly.convexHull();
+    myPoly.closePolygon();
+}
+
+
+void
+NBNode::computeRealNodeShape()
+{
+    if(_id=="545") {
+        int bla = 0;
+    }
     std::vector<double> edgeOffsets;
     EdgeVector::const_iterator i;
     for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
         NBEdge *current = *i;
         // the clockwise and the counter clockwise border;
-        Line2D cb, ccb;
+        Position2DVector cb, ccb;
         // the left and the right crossing line
         // the crossing edges
         EdgeVector::const_iterator ri = i;
@@ -1103,7 +1162,7 @@ NBNode::computeNodeShape()
         cb = current->getCWBounderyLine(this, 2.5);
         // counterclockwise border
         ccb = current->getCCWBounderyLine(this, 2.5);
-        Line2D cl, ccl;
+        Position2DVector cl, ccl;
         if(hasIncoming(current)) {
             // is an incoming edge
             //  the counter clockwise edge is surely not the opposite direction
@@ -1115,8 +1174,8 @@ NBNode::computeNodeShape()
                 NBContHelper::nextCW(&_allEdges, tmpi);
                 double angle =
                     getCWAngleDiff(
-                        cb.atan2DegreeAngle(),
-                        (*tmpi)->getCCWBounderyLine(this, 2.5).atan2DegreeAngle());
+                        cb.lineAt(0).atan2DegreeAngle(),
+                        (*tmpi)->getCCWBounderyLine(this, 2.5).lineAt(0).atan2DegreeAngle());
                 if(angle<90) {
                     cb = (*li)->getCWBounderyLine(this, 2.5);
                     cw = (*li)->width();
@@ -1127,13 +1186,13 @@ NBNode::computeNodeShape()
             cl = (*li)->getCCWBounderyLine(this, 2.5);
         } else {
             NBContHelper::nextCCW(&_allEdges, ri);
-            if((*ri)->isTurningDirection(current)/*&&_incomingEdges->size()>2*/) {
+            if((*ri)->isTurningDirection(current)) {
                 EdgeVector::const_iterator tmpi = ri;
                 NBContHelper::nextCCW(&_allEdges, tmpi);
                 double angle =
                     getCCWAngleDiff(
-                        ccb.atan2DegreeAngle(),
-                        (*tmpi)->getCWBounderyLine(this, 2.5).atan2DegreeAngle());
+                        ccb.lineAt(0).atan2DegreeAngle(),
+                        (*tmpi)->getCWBounderyLine(this, 2.5).lineAt(0).atan2DegreeAngle());
                 if(angle<90) {
                     ccb = (*ri)->getCCWBounderyLine(this, 2.5);
                     ccw = (*ri)->width();
@@ -1146,58 +1205,52 @@ NBNode::computeNodeShape()
         }
         double offr, offl, cca, ca;
         if(ri==i) {
-            offr = 104;
+            offr = 4;
             cca = 360;
         } else {
             offr = getOffset(ccb, ccl);
-            double a1 = ccb.atan2DegreeAngle();
-            double a2 = ccl.atan2DegreeAngle();
-
+            double a1 = ccb.lineAt(0).atan2DegreeAngle();
+            double a2 = ccl.lineAt(0).atan2DegreeAngle();
             cca = getCCWAngleDiff(a1, a2);
-/*            if(angle>180) {
-                angle = 360 - angle;
-            }*/
-            if(cca>180/*&&lw<abs(offr-100)*/) {
+            if(cca>180||cca<10) {
                 offr = -1;
             }
-            double lw1 = fabs(sin(cca*3.1415926535897932384626433832795/180.0)*((*ri)->width()*1.5));
+/*            double lw1 = fabs(sin(cca*3.1415926535897932384626433832795/180.0)*((*ri)->width()*1.5));
             double lw2 = fabs(sin(cca*3.1415926535897932384626433832795/180.0)*(ccw*1.5));
-            if(cca>90&&offr>100&&lw1<fabs(100-offr)&&lw2<fabs(100-offr)) {
-                offr = -1;//100 + fabs(sin(angle*3.1415926535897932384626433832795/180.0)*((*ri)->width()*1.5));
-            }
+            if(cca>90&&lw1<fabs(100-offr)&&lw2<fabs(100-offr)) {
+                offr = -1;
+            }*/
+
         }
         if(li==i) {
-            offl = 104;
+            offl = 4;
             ca = 360;
         } else {
             offl = getOffset(cb, cl);
-            double a1 = cb.atan2DegreeAngle();
-            double a2 = cl.atan2DegreeAngle();
+            double a1 = cb.lineAt(0).atan2DegreeAngle();
+            double a2 = cl.lineAt(0).atan2DegreeAngle();
             ca = getCWAngleDiff(a1, a2);
-/*            if(angle>180) {
-                angle = 360 - angle;
-            }*/
-            if(ca>180/*&&lw<abs(offl-100)*/) {
+            if(ca>180||ca<10) {
                 offl = -1;
             }
-            double lw1 = fabs(sin(ca*3.1415926535897932384626433832795/180.0)*((*li)->width()*1.5));
+/*            double lw1 = fabs(sin(ca*3.1415926535897932384626433832795/180.0)*((*li)->width()*1.5));
             double lw2 = fabs(sin(ca*3.1415926535897932384626433832795/180.0)*(cw*1.5));
-            if(ca>90&&offl>100&&lw1<fabs(100-offl)&&lw2<fabs(100-offl)) {
-                offl = -1;//100 + fabs(sin(angle*3.1415926535897932384626433832795/180.0)*((*li)->width()*1.5));;
-            }
+            if(ca>90&&lw1<fabs(100-offl)&&lw2<fabs(100-offl)) {
+                offl = -1;
+            }*/
 
         }
         if(offr==-1&&offl==-1) {
-            edgeOffsets.push_back(104);
+            edgeOffsets.push_back(4);
         } else if(offr==-1||offl==-1) {
             edgeOffsets.push_back(MAX(offr, offl));
-        } else if(cca!=360-ca) {
+        } /*else if(cca!=360-ca) {
             if(cca>ca) {
                 edgeOffsets.push_back(offl);
             } else {
                 edgeOffsets.push_back(offr);
             }
-        } else {
+        } */else {
             edgeOffsets.push_back(MAX(offr, offl));
         }
     }
@@ -1219,10 +1272,8 @@ NBNode::computeNodeShape()
             }
             offset = MAX(offset,(*j2));
             // ok, process both directions
-            myPoly.push_back(
-                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
-            myPoly.push_back(
-                (*li)->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            addCCWPoint(current, offset);
+            addCWPoint((*li), offset);
             // and skip the next one
             if(i+1!=_allEdges.end()) {
                 i++;
@@ -1235,19 +1286,125 @@ NBNode::computeNodeShape()
             if((*ri)->isTurningDirection(current)) {
                 continue;
             }
-            myPoly.push_back(
-                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
-            myPoly.push_back(
-                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            addCCWPoint(current, offset);
+            addCWPoint(current, offset);
         } else {
             // process this edge only
-            myPoly.push_back(
-                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
-            myPoly.push_back(
-                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            addCCWPoint(current, offset);
+            addCWPoint(current, offset);
         }
     }
-    myPoly = myPoly.convexHull();
+}
+
+
+void
+NBNode::addCCWPoint(NBEdge *e, double offset)
+{
+    Position2DVector l = e->getCCWBounderyLine(this, 1.5);
+    double len = l.length();
+    if(len>=offset) {
+        myPoly.push_back(l.positionAtLengthPosition(offset));
+    } else {
+        myPoly.push_back(l.positionAtLengthPosition(len));
+    }
+}
+
+void
+NBNode::addCWPoint(NBEdge *e, double offset)
+{
+    Position2DVector l = e->getCWBounderyLine(this, 1.5);
+    double len = l.length();
+    if(len>=offset) {
+        myPoly.push_back(l.positionAtLengthPosition(offset));
+    } else {
+        myPoly.push_back(l.positionAtLengthPosition(len));
+    }
+}
+
+void
+NBNode::computeJoinSplitNodeShape()
+{
+    if(_id=="684") {
+        int bla = 0;
+    }
+    std::vector<double> edgeOffsets;
+    EdgeVector::const_iterator i;
+    for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+        Position2DVector o1 = (*i)->getCCWBounderyLine(this, 1.5);
+        Position2DVector o2 = (*i)->getCWBounderyLine(this, 1.5);
+        Position2DVector geom = (*i)->getGeometry();
+        geom.extrapolate(1000);
+        // build normal
+        Line2D incLine;
+        if(hasIncoming(*i)) {
+            incLine = Line2D(geom.at(geom.size()-2), geom.at(geom.size()-1));
+        } else {
+            incLine = Line2D(geom.at(1), geom.at(0));
+        }
+        double xcenter = (incLine.p1().x() + incLine.p2().x()) / 2.0;
+        double ycenter = (incLine.p1().y() + incLine.p2().y()) / 2.0;
+        incLine.sub(xcenter, ycenter);
+        Line2D extrapolated(
+            GeomHelper::extrapolate_first(incLine.p1(), incLine.p2(), 1000),
+            GeomHelper::extrapolate_second(incLine.p1(), incLine.p2(), 1000));
+        Line2D normal(
+            Position2D(extrapolated.p1().y(), extrapolated.p1().x()),
+            Position2D(extrapolated.p2().y(), extrapolated.p2().x()));
+        normal.add(_x, _y);
+        // get cross position
+        double pos;
+        if(hasIncoming(*i)) {
+            pos = 0;//!!!(*i)->getGeometry().length();
+        } else {
+            pos = 0;
+        }
+        if(!geom.intersects(normal.p1(), normal.p2())) {
+            int bla = 0;
+//            continue;//!!! muss immer gelten, tut's nicht
+//            DoubleVector posses = geom.intersectsAtLengths(normal);
+            myPoly.push_back(geom.positionAtLengthPosition(pos));
+/*            myPoly.push_back(
+                (*i)->getCCWBounderyLine(this, 1.5).getPositionAtDistance(pos+100));
+            myPoly.push_back(
+                (*i)->getCWBounderyLine(this, 1.5).getPositionAtDistance(pos+100));*/
+        }
+
+        if(o1.intersects(normal.p1(), normal.p2())) {
+            myPoly.push_back(o1.intersectsAtPoint(normal.p1(), normal.p2()));
+        } else {
+            int bla = 0;
+        }
+        if(o2.intersects(normal.p1(), normal.p2())) {
+            myPoly.push_back(o2.intersectsAtPoint(normal.p1(), normal.p2()));
+        } else {
+            int bla = 0;
+        }
+//        if(geom.intersects(normal.p1(), normal.p2())) {
+        if(!o1.intersects(normal.p1(), normal.p2())
+            &&
+            !o2.intersects(normal.p1(), normal.p2())
+            &&
+            geom.intersects(normal.p1(), normal.p2())
+            ) {
+            assert(geom.intersects(normal.p1(), normal.p2()));
+            DoubleVector posses = geom.intersectsAtLengths(normal);
+            if(posses.size()==0) {
+                int bla = 0;
+                posses = geom.intersectsAtLengths(normal);
+            }
+            if(hasIncoming(*i)) {
+                pos = DoubleVectorHelper::minValue(posses);
+            } else {
+                pos = DoubleVectorHelper::maxValue(posses);
+            }
+            // add geometry point
+            myPoly.push_back(
+                (*i)->getCCWBounderyLine(this, 1.5).positionAtLengthPosition(pos-1000));
+            myPoly.push_back(
+                (*i)->getCWBounderyLine(this, 1.5).positionAtLengthPosition(pos-1000));
+        }
+//        myPoly.push_back(geom.positionAtLengthPosition(pos));
+    }
 }
 
 
@@ -1315,14 +1472,16 @@ NBNode::chooseLaneOffset2(DoubleVector &chk)
 }
 
 double
-NBNode::getOffset(Line2D on, Line2D cross)
+NBNode::getOffset(Position2DVector on, Position2DVector cross)
 {
-//    on.extrapolateBy(100);
-    if(!GeomHelper::intersects(on.p1(), on.p2(), cross.p1(), cross.p2())) {
+    if(!on.intersects(cross)) {
         return -1;
     }
-    Position2D pos = GeomHelper::intersection_position(on.p1(), on.p2(), cross.p1(), cross.p2());
-    return GeomHelper::distance(on.p1(), pos);
+//    on.extrapolateBy(100);
+    DoubleVector posses = on.intersectsAtLengths(cross);
+    assert(posses.size()>0);
+    return DoubleVectorHelper::maxValue(posses);
+//    return on.positionAtLengthPosition(pos);
 }
 
 

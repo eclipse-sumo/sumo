@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2003/10/15 11:45:38  dkrajzew
+// geometry computation corrigued partially
+//
 // Revision 1.28  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -170,6 +173,7 @@ namespace
 #include "NBContHelper.h"
 #include "NBHelpers.h"
 #include <cmath>
+#include <iomanip>
 #include "NBTypeCont.h"
 #include <iostream>
 #include <utils/geom/GeomHelper.h>
@@ -678,6 +682,21 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
 void
 NBEdge::computeLaneShapes()
 {
+    // vissim needs this
+    if(_from==_to) {
+        return;
+    }
+    // extrapolate first
+    // (needed for a better junction shape computation, they will be prunned later)
+    Position2D p1 = GeomHelper::extrapolate_first(
+        myGeom.at(0), myGeom.at(1), 100);
+    Position2D p2 = GeomHelper::extrapolate_second(
+        myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), 100);
+    myGeom.eraseAt(0);
+    myGeom.eraseAt(myGeom.size()-1);
+    myGeom.push_front(p1);
+    myGeom.push_back(p2);
+    // build the shape of each edge
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms.push_back(computeLaneShape(i));
     }
@@ -698,16 +717,33 @@ NBEdge::computeLaneShape(size_t lane)
     Position2D from = myGeom.at(0);
     size_t i = 1;
     std::pair<double, double> offsets;
+    // go thorugh the list of segments
     for(; i<myGeom.size(); i++) {
         Position2D to = myGeom.at(i);
+        // compute the lane position in dependence to the lane
         offsets =
             laneOffset(from, to, 3.5, _nolanes-1-lane);
         shape.push_back(
             Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
         from = to;
     }
+    // end on last segment
     shape.push_back(
         Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
+    // prune the geometry to the begin and the end node
+    //  begin node first
+    if(_id=="17") {
+        int bla = 0;
+        cout << "Junction:" << setprecision(10) <<
+            _from->getXCoordinate() << ", " << _from->getYCoordinate() << endl;
+        cout << "Shape:" << myGeom << endl;
+
+    }
+    shape.pruneFromBeginAt(
+        Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
+    //  then end node
+    shape.pruneFromEndAt(
+        Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
     return shape;
 }
 
@@ -720,6 +756,7 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
     double y1 = from.y();
     double x2 = to.x();
     double y2 = to.y();
+    assert(x1!=x2||y1!=y2);
     double length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
     std::pair<double, double> offsets =
         GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, lanewidth);
@@ -808,9 +845,6 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << " linkno=\"" << (*_reachable)[fromlane][destidx].tlLinkNo << "\"";
     }
 	// write information whether the connection yields
-    if(_to->getID()=="1175"&&_id=="10001326"&&(*_reachable)[fromlane][destidx].edge->getID()=="13000028") {
-        int bla = 0;
-    }
     if(!_to->mustBrake(this,
             (*_reachable)[fromlane][destidx].edge,
             (*_reachable)[fromlane][destidx].lane)) {
@@ -1398,9 +1432,6 @@ NBEdge::getSpeed() const
 void
 NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
 {
-/*    if(_id=="131") {
-        int bla = 0;
-    }*/
     // replace in "_connectedEdges"
     EdgeVector::iterator k = find(
         _connectedEdges.begin(), _connectedEdges.end(), by);
@@ -1777,27 +1808,62 @@ NBEdge::reshiftPosition(double xoff, double yoff, double rot)
 }
 
 
-Line2D
+Position2DVector
 NBEdge::getCWBounderyLine(NBNode *n, double offset)
+{
+    Position2DVector ret;
+    if(_from==n) {
+        // outgoing
+        ret = myLaneGeoms[0];
+    } else {
+        // incoming
+        ret = myLaneGeoms[getNoLanes()-1].reverse();
+    }
+    ret.move2side(-offset);
+//    ret.extrapolate(100.0);
+    return ret;
+}
+
+
+Position2DVector
+NBEdge::getCCWBounderyLine(NBNode *n, double offset)
+{
+    Position2DVector ret;
+    if(_from==n) {
+        // outgoing
+        ret = myLaneGeoms[getNoLanes()-1];
+    } else {
+        // incoming
+        ret = myLaneGeoms[0].reverse();
+    }
+    ret.move2side(offset);
+//    ret.extrapolate(100.0);
+    return ret;
+}
+
+/*
+Line2D
+NBEdge::getNECWBounderyLine(NBNode *n, double offset)
 {
     Line2D ret;
     if(_from==n) {
         // outgoing
         Position2DVector laneGeom = myLaneGeoms[0];
+        assert(laneGeom.size()>1);
         ret = Line2D(laneGeom.at(0), laneGeom.at(1));
     } else {
         // incoming
         Position2DVector laneGeom = myLaneGeoms[getNoLanes()-1];
+        assert(laneGeom.size()>1);
         ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
     }
     ret.move2side(-offset);
-    ret.extrapolateBy(100.0);
     return ret;
 }
 
 
 Line2D
-NBEdge::getCCWBounderyLine(NBNode *n, double offset)
+NBEdge::getNECCWBounderyLine(NBNode *n, double offset)
 {
     Line2D ret;
     if(_from==n) {
@@ -1810,10 +1876,9 @@ NBEdge::getCCWBounderyLine(NBNode *n, double offset)
         ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
     }
     ret.move2side(offset);
-    ret.extrapolateBy(100.0);
     return ret;
 }
-
+*/
 
 double
 NBEdge::width() const
@@ -1866,9 +1931,12 @@ NBEdge::isJoinable() const
 void
 NBEdge::computeEdgeShape()
 {
-/*    if(_id=="246091") {
+    if(_id=="302") {
         int bla = 0;
-    }*/
+    }
+    if(_id=="1000077[0]") {
+        int bla = 0;
+    }
     size_t i;
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end
@@ -1881,42 +1949,36 @@ NBEdge::computeEdgeShape()
         lb.extrapolateBy(100.0);
         le.extrapolateBy(100.0);
         //
+        Position2DVector old = myLaneGeoms[i];
         Position2D nb, ne;
-        if(_from->getShape().intersects(lb.p1(), lb.p2())) {
+        if(_from->getShape().intersects(myLaneGeoms[i])) {
             // get the intersection position with the junction
-            DoubleVector pbv = lb.intersectsAtLengths(_from->getShape());
-            double pb = DoubleVectorHelper::maxValue(pbv);
-            // get the final lines
-            nb = GeomHelper::extrapolate_first(
-                myLaneGeoms[i].at(0),
-                myLaneGeoms[i].at(1), 100-pb);
-        } else {
-            nb = myLaneGeoms[i].at(0);
+            DoubleVector pbv = myLaneGeoms[i].intersectsAtLengths(_from->getShape());
+            if(pbv.size()>0) {
+                double pb = DoubleVectorHelper::maxValue(pbv);
+                if(pb>=0&&pb<=myLaneGeoms[i].length()) {
+                    myLaneGeoms[i] = myLaneGeoms[i].getSubpart(pb, myLaneGeoms[i].length());
+                }
+            }
         }
-        if(_to->getShape().intersects(le.p1(), le.p2())) {
+        if(_to->getShape().intersects(myLaneGeoms[i])) {
             // get the intersection position with the junction
-            DoubleVector pev = le.intersectsAtLengths(_to->getShape());
-            double pe = DoubleVectorHelper::maxValue(pev);
-            // get the final lines
-            ne = GeomHelper::extrapolate_first(
-                myLaneGeoms[i].at(myLaneGeoms[i].size()-1),
-                myLaneGeoms[i].at(myLaneGeoms[i].size()-2), 100-pe);
-        } else {
-            ne = myLaneGeoms[i].at(myLaneGeoms[i].size()-1);
+            DoubleVector pev = myLaneGeoms[i].intersectsAtLengths(_to->getShape());
+            if(pev.size()>0) {
+                double pe = DoubleVectorHelper::minValue(pev);
+                if(pe>=0&&pe<=myLaneGeoms[i].length()) {
+                    myLaneGeoms[i] = myLaneGeoms[i].getSubpart(0, pe);
+                }
+            }
         }
-//        nb = myLaneGeoms[i].at(0);
-//        ne = myLaneGeoms[i].at(myLaneGeoms[i].size()-1);
-        Position2DVector newLaneShape;
-        newLaneShape.push_back(nb);
-        for(size_t j=1; j<myLaneGeoms[i].size()-1; j++) {
-            newLaneShape.push_back(myLaneGeoms[i].at(j));
+        if(((int) myLaneGeoms[i].length())==0) {
+            myLaneGeoms[i] = old;
         }
-        newLaneShape.push_back(ne);
-        myLaneGeoms[i] = newLaneShape;
     }
     // recompute edge's length
     double length = 0;
     for(i=0; i<_nolanes; i++) {
+        assert(myLaneGeoms[i].length()>0);
         length += myLaneGeoms[i].length();
     }
     _length = length / (double) _nolanes;

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2003/10/15 11:45:38  dkrajzew
+// geometry computation corrigued partially
+//
 // Revision 1.21  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -383,8 +386,10 @@ public:
 
     double width() const;
 
-    Line2D getCWBounderyLine(NBNode *n, double offset);
-    Line2D getCCWBounderyLine(NBNode *n, double offset);
+    Position2DVector getCWBounderyLine(NBNode *n, double offset);
+    Position2DVector getCCWBounderyLine(NBNode *n, double offset);
+//    Line2D getNECWBounderyLine(NBNode *n, double offset);
+//    Line2D getNECCWBounderyLine(NBNode *n, double offset);
 
     bool sameType(NBEdge *e) const;
     void append(NBEdge *e);
