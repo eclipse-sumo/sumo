@@ -23,6 +23,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2002/09/25 18:14:09  roessel
+// Bugfix: advan2left(): a succLink was implicitly converted to
+// bool. Thanks to g++-3.2
+//
 // Revision 1.12  2002/09/25 17:14:42  roessel
 // MeanData calculation and output implemented.
 //
@@ -632,7 +636,8 @@ MSLaneChanger::advan2left()
     // of the LaneChangers disability to look beyond the lane, i.e.
     // all vehicles are considered to brake towards the lane end. This
     // will cause some dangerous lanec-changes.
-    bool linkPrio = stayLane->succLink( *vehicle, 1, *stayLane );
+    bool linkPrio =
+        (*(stayLane->succLink( *vehicle, 1, *stayLane )))->myPrio;
     if ( pred == 0 && linkPrio == true ) {
 
         return false;
