@@ -381,6 +381,12 @@ public:
     std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps )
         {
             std::string result;
+            if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
+                result += std::string("queueLengthAheadOfTrafficLightsInVehiclesMax=\"") +
+                    toString( getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES) ) +
+                    std::string("\" ");
+                resetQueueLengthAheadOfTrafficLights();
+            }
             result += getXMLOutput( detectorsTDM, lastNTimesteps );
             result += getXMLOutput( detectorsEDM, lastNTimesteps );
             result += getXMLOutput( detectorsLDM, lastNTimesteps );
@@ -721,9 +727,10 @@ private:
         {
             MSUnit::Seconds lastNSeconds =
                 MSUnit::getInstance()->getSeconds( lastNTimesteps );
+            size_t i = 0;
             std::string result;
             for ( typename Cont::iterator it = container.begin();
-                  it != container.end(); ++it ) {
+                  it != container.end(); ++it, ++i ) {
 
                 if ( *it == 0 ) {
                     continue;
