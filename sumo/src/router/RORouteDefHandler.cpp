@@ -55,8 +55,18 @@ void RORouteDefHandler::myStartElement(int element, const std::string &name,
         long time = getDepartureTime(attrs, id);
         string lane = getLane(attrs);
         // recheck attributes
-        if(from==0||to==0||time<0)
+        if(from==0||to==0||time<0) {
+            if(from==0) {
+                SErrorHandler::add("The from node is not known.");
+            }
+            if(to==0) {
+                SErrorHandler::add("The to node is not known.");
+            }
+            if(time<0) {
+                SErrorHandler::add("The departure time must be positive.");
+            }
             return;
+        }
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = new ROOrigDestRouteDef(id, from, to);
         ROVehicleType *type = _net.addVehicleType(typeID);
