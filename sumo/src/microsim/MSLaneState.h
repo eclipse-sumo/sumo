@@ -1,16 +1,6 @@
 #ifndef MSLaneState_H
 #define MSLaneState_H
 
-//---------------------------------------------------------------------------//
-//                        MSLaneState.h  -
-//  Some kind of induct loops with a length
-//                           -------------------
-//  begin                : Tue, 18 Feb 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
 /**
  * @file   MSLaneState.h
  * @author Christian Roessel
@@ -20,6 +10,7 @@
  * 
  */
 
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -32,22 +23,13 @@
 
 // $Id$
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
 #include "MSNet.h"
 #include "MSDetectorFileOutput.h"
+#include "MSMoveReminder.h"
 #include <string>
-#include <functional>
 #include <deque>
 #include <map>
-#include <iostream>
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-
-class MSMoveReminder;
 class MSLane;
 
 
@@ -56,19 +38,20 @@ class MSLane;
  * aggregated data for waitingQueueLength, MeanSpeed, MeanSpeedSquare,
  * MeanDensity, Traveltime and counts of vehicles that contributed to the
  * data calculation, that enterd the detector, left the detector by move and
- * that passed the detector entirely. If used with MSTravelcostDetector it
- * provides a XML output string. The vehicles connect to the detector
- * via reminder objects, i.e. MSLaneStateReminder. The Detector creates such
- * a reminder and passes it to the corresponding lane. The lane passes the
- * reminder to the vehicles when they enter the lane. In each timestep, the
- * vehicles work on their reminders. If the reminder is active, it passes
- * information to the detector.
- * @see MSLaneStateReminder
+ * that passed the detector entirely. See the get* methods for details.
+ *
+ * It provides XML-Output for use with MSTravelcostDetector and
+ * MSDetector2File via the MSDetectorFileOutput methods.
+ *
+ * Tis detector contacts the vehicles via the MSMoveReminder mechanism.
+ *
  * @see MSMoveReminder
  * @see MSTravelcostDetector
+ * @see MSDetectorFileOutput
  */
 class MSLaneState
-    : public MSDetectorFileOutput
+    : public MSMoveReminder,
+      public MSDetectorFileOutput
 {
 public:
     /** 
@@ -88,11 +71,66 @@ public:
                  MSNet::Time    deleteDataAfterSeconds = 900 );
 
     /** 
-     * Destructor. Clears containers. Deletes created reminder.
-     * 
+     * Destructor. Clears containers.
      */
     virtual ~MSLaneState();
 
+
+    /**
+     * @name Inherited MSMoveReminder methods.
+     *
+     * Methods in this group are inherited from MSMoveReminder. They are
+     * called by the moving, entering and leaving vehicles.
+     * 
+     */
+    //@{
+    /** 
+     * Indicator if the reminders is still active for the passed
+     * vehicle/parameters. If false, the vehicle will erase this
+     * reminder from it's reminder-container. This method will
+     * determine the entry- and leave-time of the counted vehicle and
+     * pass this information to the methods enterDetectorByMove() and
+     * eaveDetectorByMove().
+     * 
+     * @param veh Vehicle that asks this remider.
+     * @param oldPos Position before move.
+     * @param newPos Position after move with newSpeed.
+     * @param newSpeed Moving speed.
+     * 
+     * @return True if vehicle hasn't passed the detector completely.
+     *
+     * @see enterDetectorByMove
+     * @see leaveDetectorByMove
+     */
+    bool isStillActive( MSVehicle& veh,
+                        double oldPos,
+                        double newPos,
+                        double newSpeed );
+    
+
+    /** 
+     *  Informs corresponding detector via leaveDetectorByLaneChange()
+     *  if vehicle leaves by lanechange.
+     * 
+     * @param veh The leaving vehicle.
+     *
+     * @see leaveDetectorByLaneChange
+     */
+    void dismissByLaneChange( MSVehicle& veh );
+ 
+    /** 
+     * Informs corresponding detector if vehicle enters the reminder
+     * by emit or lanechange. Only vehicles that are completely in
+     * front of the detector will return true.
+     * 
+     * @param veh The entering vehilcle.
+     * 
+     * @return True if vehicle is on or in front of the detector.
+     */
+    bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    //@}
+
+    
     /**
      * Calculates the meanValue of the waiting-queue length during the
      * lastNTimesteps. Vehicles in a waiting-queue have a gap <= vehLength.
@@ -651,8 +689,6 @@ protected:
 
 
 private:
-    std::string idM;            /**< Unique id  of the detector. */
-
     TimestepDataCont     timestepDataM; /**< Container for
                                          * TimestepData. There is one
                                          * entry for each
@@ -674,14 +710,9 @@ private:
                                             * vehicles that already left
                                             * the detector. */
 
-    MSLane* laneM;              /**< Lane where detector works on. */
+    double startPosM;                /**< Start-position of the detector. */
 
-    double posM;                /**< Start-position of the detector. */
-
-    double lengthM;             /**< Length on the detector. */
-
-    MSMoveReminder* reminderM;  /**< Reminder created in ctor and passed to
-                                 * laneM. */
+    double endPosM;             /**< End-position of the detector. */
 
     const MSNet::Time deleteDataAfterSecondsM; /**< Keep at least data from
                                                 * the last
@@ -789,8 +820,8 @@ namespace
                                const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.nVehEnteredDetectorM;
-        //@}
     }
+    //@}
 }
 
 #endif

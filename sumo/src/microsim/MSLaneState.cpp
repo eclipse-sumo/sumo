@@ -1,12 +1,3 @@
-//---------------------------------------------------------------------------//
-//                        MSLaneState.cpp  -
-//                           -------------------
-//  begin                : Tue, 18 Feb 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
 /**
  * @file   MSLaneState.cpp
  * @author Christian Roessel
@@ -18,6 +9,7 @@
  *
  */
 
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -32,19 +24,14 @@
 // $Id$
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
 #include "MSLaneState.h"
 #include "MSLane.h"
-#include "MSEdge.h"
 #include "MSNet.h"
 #include "MSEventControl.h"
-#include "MSLaneStateReminder.h"
 #include <utils/convert/ToString.h>
 #include <helpers/SimpleCommand.h>
 #include <helpers/SingletonDictionary.h>
@@ -54,15 +41,8 @@
 #include <cassert>
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
 using namespace std;
 
-
-/* =========================================================================
- * member definitions
- * ======================================================================= */
 
 // static member
 vector< MSLaneState* > MSLaneState::laneStateDetectorsM;
@@ -106,32 +86,29 @@ MSLaneState::~MSLaneState()
     vehOnDetectorM.clear();
     waitingQueueElemsM.clear();
     vehLeftDetectorM.clear();
-    delete reminderM;
 }
 
-//---------------------------------------------------------------------------//
 
 MSLaneState::MSLaneState( string id,
                           MSLane* lane,
                           double begin,
                           double length,
                           MSNet::Time deleteDataAfterSeconds ) :
-    idM               ( id ),
+    MSMoveReminder( lane, id ),
     timestepDataM     ( ),
     vehOnDetectorM    ( ),
     waitingQueueElemsM( ),
     vehLeftDetectorM  ( ),
-    laneM             ( lane ),
-    posM              ( begin ),
-    lengthM           ( length ),
+    startPosM   ( begin ),
     deleteDataAfterSecondsM( deleteDataAfterSeconds ),
     modifiedSinceLastLookupM( true ),
     lookedUpLastNTimestepsM( 0 ),
     nVehContributedM( 0 )
  {
-    assert( posM >= 0 );
-    assert( posM + lengthM <= laneM->length() );
-
+    assert( startPosM >= 0 );
+    assert( startPosM + length <= laneM->length() );
+    endPosM = startPosM + length;
+    
     // insert object into dictionary
     if ( ! SingletonDictionary<
          std::string, MSLaneState* >::getInstance()->isInsertSuccess(
@@ -143,9 +120,7 @@ MSLaneState::MSLaneState( string id,
     laneStateDetectorsM.push_back( this );
 
     // add reminder to lane
-    MSMoveReminder* reminderM =
-        new MSLaneStateReminder( idM, posM, posM + lengthM, this, laneM );
-    laneM->addMoveReminder( reminderM );
+    laneM->addMoveReminder( this );
 
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSLaneState >(
@@ -154,6 +129,71 @@ MSLaneState::MSLaneState( string id,
         deleteOldData,
         deleteDataAfterSecondsM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
+}
+
+
+bool
+MSLaneState::isStillActive( MSVehicle& veh,
+                            double oldPos,
+                            double newPos,
+                            double newSpeed )
+{          
+    // if vehicle has passed the detector completely we shouldn't
+    // be here.
+    // fraction of timestep the vehicle is on the detector after entry.
+    double timestepFraction = MSNet::deltaT();
+    if ( newPos <= startPosM ) {
+        return true;
+    }
+    if ( oldPos <= startPosM && newPos > startPosM ) {
+        // vehicle will enter detector
+        timestepFraction = ( newPos-startPosM ) / newSpeed;
+        assert( timestepFraction <= MSNet::deltaT() &&
+                timestepFraction >= 0 );
+        enterDetectorByMove( veh, 1.0 - timestepFraction );
+    }
+    if ( newPos - veh.length() > endPosM ) {
+        // vehicle will leave detector
+        // fraction of timestep the vehicle is not on the detector
+        // after leave.
+        double fractionReduce = ( newPos - veh.length() - endPosM ) /
+            newSpeed;
+        assert( fractionReduce <= MSNet::deltaT() &&
+                fractionReduce >= 0 &&
+                timestepFraction - fractionReduce > 0 );
+        addMoveData(  veh, newSpeed, timestepFraction - fractionReduce );
+        leaveDetectorByMove( veh, MSNet::deltaT() - fractionReduce );
+        return false;
+    }  
+    addMoveData( veh, newSpeed, timestepFraction );
+    return true;
+}
+
+
+void
+MSLaneState::dismissByLaneChange( MSVehicle& veh )
+{
+    if ( veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM ) {
+        // vehicle is on detector
+        leaveDetectorByLaneChange( veh );
+    }
+}
+
+
+bool
+MSLaneState::isActivatedByEmitOrLaneChange( MSVehicle& veh )
+{
+    if ( veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM ) {
+        // vehicle is on detector
+        enterDetectorByEmitOrLaneChange( veh );
+        return true;
+    }
+    if ( veh.pos() - veh.length() > endPosM ){
+        // vehicle is beyond detector
+        return false;
+    }
+    // vehicle is in front of detector
+    return true;
 }
 
 
@@ -412,7 +452,8 @@ MSLaneState::getXMLDetectorInfoStart( void ) const
 {
     string detectorInfo("<detector type=\"lanestate\" id=\"" + idM +
                         "\" lane=\"" + laneM->id() + "\" startpos=\"" +
-                        toString(posM) + "\" length=\"" + toString(lengthM) +
+                        toString(startPosM) + "\" length=\"" +
+                        toString(endPosM - startPosM) +
                         "\" >\n");
     return detectorInfo;
 }
