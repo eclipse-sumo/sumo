@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/21 14:45:00  dkrajzew
+// error checking improved
+//
 // Revision 1.8  2003/10/14 14:17:29  dkrajzew
 // forgotten setting of information about an read route added
 //
@@ -134,11 +137,13 @@ ROSUMOAltRoutesHandler::startRoute(const Attributes &attrs)
         return;
     }
     // try to get the propability
-    _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -1);
+    _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -10000);
     if(_prob<0) {
         MsgHandler::getErrorInstance()->inform(
             string("Invalid propability in alternative for route '")
-            + _currentAlternatives->getID() + string("'."));
+            + _currentAlternatives->getID() + string("' (")
+            + toString<double>(_prob)
+            + string(")."));
         return;
     }
 }
