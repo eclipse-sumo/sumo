@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIVisumParser_Edges.cpp
-			  Parser for visum-edges
+              Parser for visum-edges
                              -------------------
     project              : SUMO
     begin                : Thu, 14 Nov 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 09:36:35  dkrajzew
+// error on edges with no lanes patched
+//
 // Revision 1.4  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -81,35 +84,38 @@ NIVisumParser_Edges::myDependentReport()
             NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
         NBNode *to = NBNodeCont::retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
-		if(!checkNodes(from, to)) {
-			return;
-		}
+        if(!checkNodes(from, to)) {
+            return;
+        }
         // get the type
         string type = myLineParser.get("Typ");
         // get the street length
-		float length = getLength(from, to);
+        float length = getLength(from, to);
         // get the speed
-		float speed = getSpeed(type);
+        float speed = getSpeed(type);
         // get the information whether the edge is a one-way
         bool oneway =
             TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
-		// get the number of lanes
-		int nolanes = getNoLanes(type);
+        // get the number of lanes
+        int nolanes = getNoLanes(type);
+        if(nolanes==0) {
+            return;
+        }
         // check whether the id is already used
         //  (should be the opposite direction)
         if(NBEdgeCont::retrieve(id)!=0) {
             id = '-' + id;
         }
         // add the edge
-		int prio = NBTypeCont::getPriority(type);
-		insertEdge(id, from, to, type, speed, nolanes, length, prio);
+        int prio = NBTypeCont::getPriority(type);
+        insertEdge(id, from, to, type, speed, nolanes, length, prio);
         // nothing more to do, when the edge is a one-way street
         if(oneway) {
             return;
         }
         // add the opposite edge
         id = '-' + id;
-		insertEdge(id, to, from, type, speed, nolanes, length, prio);
+        insertEdge(id, to, from, type, speed, nolanes, length, prio);
     } catch (OutOfBoundsException) {
         addError2("STRECKE", id, "OutOfBounds");
     } catch (NumberFormatException) {
@@ -123,84 +129,84 @@ NIVisumParser_Edges::myDependentReport()
 bool
 NIVisumParser_Edges::checkNodes(NBNode *from, NBNode *to) const
 {
-	if(from==0) {
-		addError(" The from-node was not found within the net");
-	}
-	if(to==0) {
-		addError(" The to-node was not found within the net");
-	}
-	if(from==to) {
-		addError(" Both nodes are the same");
-	}
-	return from!=0&&to!=0&&from!=to;
+    if(from==0) {
+        addError(" The from-node was not found within the net");
+    }
+    if(to==0) {
+        addError(" The to-node was not found within the net");
+    }
+    if(from==to) {
+        addError(" Both nodes are the same");
+    }
+    return from!=0&&to!=0&&from!=to;
 }
 
 
 float
 NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 {
-	float length = 0;
-	try {
-		length = TplConvertSec<char>::_2floatSec(
-			myLineParser.get("Laenge").c_str(), 0);
-	} catch (OutOfBoundsException) {
-	}
-	// compute when the street's length is not available
-	if(length==0) {
+    float length = 0;
+    try {
+        length = TplConvertSec<char>::_2floatSec(
+            myLineParser.get("Laenge").c_str(), 0);
+    } catch (OutOfBoundsException) {
+    }
+    // compute when the street's length is not available
+    if(length==0) {
         length = GeomHelper::distance(from->getPosition(), to->getPosition());
-	}
-	return length;
+    }
+    return length;
 }
 
 
 float
 NIVisumParser_Edges::getSpeed(const std::string &type) const
 {
-	float speed = 0;
-	try {
-		speed =
-			TplConvertSec<char>::_2floatSec(
-				myLineParser.get("v0-IV").c_str(), -1);
-	} catch (OutOfBoundsException) {
-	}
-	if(speed<=0) {
-		speed = NBTypeCont::getSpeed(type);
-	} else {
-		speed = speed / 3.6;
-	}
-	return speed;
+    float speed = 0;
+    try {
+        speed =
+            TplConvertSec<char>::_2floatSec(
+                myLineParser.get("v0-IV").c_str(), -1);
+    } catch (OutOfBoundsException) {
+    }
+    if(speed<=0) {
+        speed = NBTypeCont::getSpeed(type);
+    } else {
+        speed = speed / 3.6;
+    }
+    return speed;
 }
 
 
 int
 NIVisumParser_Edges::getNoLanes(const std::string &type) const
 {
-	int nolanes = 0;
-	try {
-		nolanes =
-			TplConvertSec<char>::_2intSec(
-				myLineParser.get("Fahrstreifen").c_str(), 0);
-	} catch (UnknownElement) {
-		nolanes = NBTypeCont::getNoLanes(type);
-	}
-	return nolanes;
+    int nolanes = 0;
+    try {
+        nolanes =
+            TplConvertSec<char>::_2intSec(
+                myLineParser.get("Fahrstreifen").c_str(), 0);
+    } catch (UnknownElement) {
+        nolanes = NBTypeCont::getNoLanes(type);
+    }
+    return nolanes;
 }
 
 
 void
 NIVisumParser_Edges::insertEdge(const std::string &id,
-								NBNode *from, NBNode *to,
-								const std::string &type,
-								float speed, int nolanes, float length,
-								int prio) const
+                                NBNode *from, NBNode *to,
+                                const std::string &type,
+                                float speed, int nolanes, float length,
+                                int prio) const
 {
-	NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);
-	if( !NBEdgeCont::insert(e)) {
-		delete e;
-		addError(
-			string(" Duplicate edge occured ('")
-			+ id + string("')."));
-	}
+    NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);
+    if( !NBEdgeCont::insert(e)) {
+        delete e;
+        addError(
+            string(" Duplicate edge occured ('")
+            + id + string("')."));
+    }
 }
 
 
