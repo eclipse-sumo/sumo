@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2002/08/06 15:40:34  roessel
+// Default constructor needs to be (dummy) implemented.
+//
 // Revision 1.11  2002/08/06 14:13:27  roessel
 // New method preInit() and changes in init().
 //
@@ -301,7 +304,7 @@ private:
 
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
-    MSNet();
+    MSNet(){};
 };
 
 
