@@ -3,6 +3,6 @@ sumo-glossary.eng.sgml \
 sumo-netconvert-devdocs.sgml \
 sumo-netconvert-userdocs.sgml \
 sumo-userdocs.sgml \
-sumo_user.xml
+sumo_user.xml 
 
-SUBDIRS = gfx
+SUBDIRS = gfx gfx_netcdev images
