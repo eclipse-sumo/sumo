@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/01/26 07:47:15  dkrajzew
+// patched the false specification of default colors
+//
 // Revision 1.9  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -127,7 +130,8 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
 {
     RGBColor col =
         GfxConvHelper::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,1"));
+    // !!! unsecure
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
@@ -200,7 +204,8 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
 {
     RGBColor col =
         GfxConvHelper::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,1"));
+    // !!! unsecure
     // try to get the id first
     string id;
     try {
