@@ -7,19 +7,19 @@
 CFG=y_libmicrosim - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libmicrosim.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libmicrosim.mak" CFG="y_libmicrosim - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "y_libmicrosim - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "y_libmicrosim - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -154,6 +154,14 @@ SOURCE=..\..\..\src\microsim\MSDetectorSubSys.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\actions\MSDiscreteEventControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1Collector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1MeanSpeed.cpp
 # End Source File
 # Begin Source File
 
@@ -250,6 +258,18 @@ SOURCE=..\..\..\src\microsim\MSLaneSpeedTrigger.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSLaneState.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_DK2002.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_DK2004.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_Krauss.cpp
 # End Source File
 # Begin Source File
 
@@ -441,6 +461,10 @@ SOURCE=..\..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSAbstractLaneChangeModel.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSActuatedPhaseDefinition.h
 # End Source File
 # Begin Source File
@@ -518,6 +542,22 @@ SOURCE=..\..\..\src\microsim\MSDetectorTypedefs.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\actions\MSDiscreteEventControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1MeanSpeed.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSE1MoveReminder.h
 # End Source File
 # Begin Source File
 
@@ -626,6 +666,18 @@ SOURCE=..\..\..\src\microsim\MSLaneSpeedTrigger.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSLaneState.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_DK2002.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_DK2004.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\lanechanging\MSLCM_Krauss.h
 # End Source File
 # Begin Source File
 

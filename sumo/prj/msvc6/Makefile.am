@@ -1,6 +1,6 @@
 SUBDIRS = \
 duarouter \
-gui \
+guisim \
 jtrrouter \
 netconvert \
 netgen \

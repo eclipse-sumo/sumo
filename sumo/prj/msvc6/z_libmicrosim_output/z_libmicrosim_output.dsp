@@ -7,19 +7,19 @@
 CFG=z_libmicrosim_output - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libmicrosim_output.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libmicrosim_output.mak" CFG="z_libmicrosim_output - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "z_libmicrosim_output - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "z_libmicrosim_output - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -85,15 +85,19 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSLaneMeanDataValues.cpp
+SOURCE=..\..\..\src\microsim\output\meandata\MSLaneMeanDataValues.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSMeanData_Net.cpp
+SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Utils.cpp
+SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSXMLRawOut.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -101,19 +105,23 @@ SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Utils.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSLaneMeanDataValues.h
+SOURCE=..\..\..\src\microsim\output\meandata\MSLaneMeanDataValues.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSMeanData_Net.h
+SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Cont.h
+SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Cont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Utils.h
+SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSXMLRawOut.h
 # End Source File
 # End Group
 # End Target

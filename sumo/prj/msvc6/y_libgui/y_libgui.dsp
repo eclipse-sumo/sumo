@@ -189,6 +189,10 @@ SOURCE=..\..\..\src\gui\GUIGLObjectToolTip.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUIGradientStorage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\icons\GUIIconSubSys.cpp
 # End Source File
 # Begin Source File
@@ -365,6 +369,10 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\drawerimpl\GUIColoringSchemesMap.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUIDanielPerspectiveChanger.h
 # End Source File
 # Begin Source File
@@ -478,6 +486,10 @@ SOURCE=..\..\..\src\gui\GUIGLObjectToolTip.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIGlObjectTypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIGradientStorage.h
 # End Source File
 # Begin Source File
 

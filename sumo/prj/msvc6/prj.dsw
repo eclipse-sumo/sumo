@@ -42,7 +42,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "gui"=.\gui\gui.dsp - Package Owner=<4>
+Project: "guisim"=.\guisim\guisim.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -254,6 +254,18 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
     End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "routeremapper"=.\routeremapper\routeremapper.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
 }}}
 
 ###############################################################################
