@@ -92,6 +92,7 @@ MSE3MeanNHaltings.h \
 MSE3MoveReminder.h \
 MSE3NVehicles.h \
 MSE3Traveltime.h \
+MSExtendedTrafficLightLogic.h \
 MSEDDetector.h \
 MSEDDetectorInterface.h \
 MSEdge.h \
