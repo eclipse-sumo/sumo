@@ -1540,7 +1540,7 @@
 
           <blockquote>
             <para>od2trips(.exe) --od-file=VISSIM/test.inp --od-path=VISSIM/
-            --n=MySUMONet.net.xml --output-file=MySUMORoutes.rou.xml </para>
+            --n=MySUMONet.net.xml --output-file=MySUMORoutes.rou.xml</para>
           </blockquote>
 
           <para>After obtaining single vehicle trips using this approach they
@@ -1579,7 +1579,7 @@
           <para>The results are obtained from the simulation using simulated
           detectors. You will find detectors one knows from the real world
           such as induct loops, but also some virtual ones that do allow to
-          gain values one can work with more easily. </para>
+          gain values one can work with more easily.</para>
 
           <para>Basically, the main distinction between detectors SUMO offers
           are their dimensions. The next list shows all available detector
@@ -1656,7 +1656,7 @@
             values are stored in xml-files only. The file attribute tells the
             simulation the to which file the detector shall write his results
             into. The file will be generated, does not have to exist earlier
-            and will be overwritten if existing without any warning. </para>
+            and will be overwritten if existing without any warning.</para>
 
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />The folder the
@@ -1767,7 +1767,7 @@
               </listitem>
 
               <listitem>
-                <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS: </para>
+                <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:</para>
               </listitem>
 
               <listitem>
@@ -1776,31 +1776,31 @@
               </listitem>
 
               <listitem>
-                <para>OCCUPANCY_DEGREE: </para>
+                <para>OCCUPANCY_DEGREE:</para>
               </listitem>
 
               <listitem>
-                <para>SPACE_MEAN_SPEED: </para>
+                <para>SPACE_MEAN_SPEED:</para>
               </listitem>
 
               <listitem>
-                <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE: </para>
+                <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:</para>
               </listitem>
 
               <listitem>
-                <para>N_STARTED_HALTS: </para>
+                <para>N_STARTED_HALTS:</para>
               </listitem>
 
               <listitem>
-                <para>HALTING_DURATION_SUM: </para>
+                <para>HALTING_DURATION_SUM:</para>
               </listitem>
 
               <listitem>
-                <para>HALTING_DURATION_MEAN: </para>
+                <para>HALTING_DURATION_MEAN:</para>
               </listitem>
 
               <listitem>
-                <para>APPROACHING_VEHICLES_STATES: </para>
+                <para>APPROACHING_VEHICLES_STATES:</para>
               </listitem>
             </itemizedlist>
 
@@ -1971,9 +1971,11 @@
         <sect3>
           <title>Error Control</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-accident</para><para>Normally,
-          when an accident occurs, the simulation is stopped. You may allow
-          the simulation to continue setting this value.</para><caution><para><inlinegraphic
+          <para><itemizedlist><listitem><para>OPTIONAL: --quit-on-accident</para><para>Normally,
+          when an accident occurs, the simulationshould continue and manage
+          it. As this is not implemented, yet, the bhaviour on accidents is
+          undefined. In fact, no accidents may occure if the network used is
+          ok (no two foe streams may drive at the same time).</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> By now, the
           behaviour after an accident is not defined; this option should not
           be used, yet. (Still, no accidents occur at normal circumstances)</para></caution></listitem></itemizedlist></para>
