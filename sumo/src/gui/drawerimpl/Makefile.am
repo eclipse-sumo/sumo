@@ -26,7 +26,8 @@ GUIROWDrawer_SGwT.cpp GUIROWDrawer_SGwT.h \
 GUIVehicleDrawer_FGnTasTriangle.cpp GUIVehicleDrawer_FGnTasTriangle.h \
 GUIVehicleDrawer_FGwTasTriangle.cpp GUIVehicleDrawer_FGwTasTriangle.h \
 GUIVehicleDrawer_SGnTasTriangle.cpp GUIVehicleDrawer_SGnTasTriangle.h \
-GUIVehicleDrawer_SGwTasTriangle.cpp GUIVehicleDrawer_SGwTasTriangle.h
+GUIVehicleDrawer_SGwTasTriangle.cpp GUIVehicleDrawer_SGwTasTriangle.h \
+GUIColoringSchemesMap.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
 
