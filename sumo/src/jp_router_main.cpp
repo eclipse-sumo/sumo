@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/02/02 16:22:50  dkrajzew
+// exception handling improved
+//
 // Revision 1.5  2004/01/28 14:20:45  dkrajzew
 // allowed to specify the maximum edge number in a route by a factor
 //
@@ -256,8 +259,8 @@ loadJPDefinitions(RONet &net, OptionsCont &oc)
 		ret = loader.load(oc.getString("turn-definition"));
 	}
 	// add edges specified at the input/within the configuration
-	if(oc.isSet("end-streets")) {
-		ROJPHelpers::parseROJPEdges(net, ret, oc.getString("end-streets"));
+	if(oc.isSet("sinks")) {
+		ROJPHelpers::parseROJPEdges(net, ret, oc.getString("sinks"));
 	}
     // set the sink information into the edges
     for(std::set<ROJPEdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
@@ -363,7 +366,10 @@ main(int argc, char **argv)
                 ret = 1;
             }
         } else {
-            ret = 1;
+            throw ProcessError();
+        }
+        if(MsgHandler::getErrorInstance()->wasInformed()) {
+            throw ProcessError();
         }
     } catch (std::string) {
         MsgHandler::getErrorInstance()->inform(
