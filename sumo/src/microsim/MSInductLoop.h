@@ -224,7 +224,7 @@ public:
      * @return Number of vehicles that passed the detector completely
      * over the lastNTimesteps.
      */
-    int getNVehContributed( MSNet::Time lastNTimesteps ) const;
+    double getNVehContributed( MSNet::Time lastNTimesteps ) const;
     //@}
 
     /**

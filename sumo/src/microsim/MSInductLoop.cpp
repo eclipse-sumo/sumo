@@ -159,8 +159,11 @@ MSInductLoop::getFlow( MSNet::Time lastNTimesteps ) const
 {
     // return unit is [veh/h]
     assert( lastNTimesteps > 0 );
+    MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
     return MSNet::getVehPerHour(
-        getNVehContributed( lastNTimesteps ) / lastNTimesteps );
+        ( getNVehContributed( lastNTimesteps ) + distance(
+            getDismissedStartIterator( lastNTimesteps ), mend ) )
+            / (double) lastNTimesteps);
 }
 
 
@@ -169,7 +172,7 @@ MSInductLoop::getMeanSpeed( MSNet::Time lastNTimesteps ) const
 {
     // return unit is [m/s]
     assert( lastNTimesteps > 0 );
-    int nVeh = getNVehContributed( lastNTimesteps );
+    double nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
@@ -186,7 +189,7 @@ MSInductLoop::getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const
 {
     // unit is [(m/s)^2]
     assert( lastNTimesteps > 0 );
-    int nVeh = getNVehContributed( lastNTimesteps );
+    double nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
@@ -204,7 +207,7 @@ MSInductLoop::getOccupancy( MSNet::Time lastNTimesteps ) const
 {
     // unit is [%]
     assert( lastNTimesteps > 0 );
-    int nVeh = getNVehContributed( lastNTimesteps );
+    double nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return 0;
     }
@@ -220,7 +223,7 @@ double
 MSInductLoop::getMeanVehicleLength( MSNet::Time lastNTimesteps ) const
 {
     assert( lastNTimesteps > 0 );
-    int nVeh = getNVehContributed( lastNTimesteps );
+    double nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
@@ -244,10 +247,10 @@ MSInductLoop::getTimestepsSinceLastDetection() const
 }
 
 
-int
+double
 MSInductLoop::getNVehContributed( MSNet::Time lastNTimesteps ) const
 {
-    return distance( getStartIterator( lastNTimesteps ),
+    return (double) distance( getStartIterator( lastNTimesteps ),
                      vehicleDataContM.end() );
 }
 
