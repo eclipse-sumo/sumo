@@ -1,5 +1,4 @@
-SUBDIRS = admin \
-data \
+SUBDIRS = data \
 docs \
 prj \
 src \
