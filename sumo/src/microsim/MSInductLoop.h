@@ -7,7 +7,7 @@
  * @date   Mon Jul 21 16:14:05 2003
  * @version $Id$
  * @brief  Declaration of class MSInductLoop
- * 
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -52,7 +52,7 @@ class GUILaneWrapper;
  * This detector inserts itself into a SingletonDictionary so that you
  * can access all MSInductLoop instances globally. Use this dictionary
  * to delete the detectors.
- * 
+ *
  * See the get*-methods to learn about what is measured. You can vary
  * the sample-intervall during runtime.
  *
@@ -71,47 +71,47 @@ class MSInductLoop
 public:
     /// Type of the dictionary where all MSInductLoop are registered.
     typedef SingletonDictionary< std::string, MSInductLoop* > InductLoopDict;
-    
-    /** 
+
+    /**
      * Constructor. Adds object into a SingletonDictionary. Sets old-data
      * removal event. Adds reminder to MSLane.
-     * 
+     *
      * @param id Unique id.
      * @param lane Lane where detector woks on.
      * @param position Position of the detector within the lane.
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
-    MSInductLoop( const std::string& id, 
+    MSInductLoop( const std::string& id,
                   MSLane* lane,
-                  double positionInMeters, 
+                  double positionInMeters,
                   MSNet::Time deleteDataAfterSeconds = 900 );
-    
-    
+
+
     /// Destructor. Clears containers.
     ~MSInductLoop();
-    
+
 
     /**
      * @name MSMoveReminder methods.
      *
      * Methods in this group are inherited from MSMoveReminder. They are
      * called by the moving, entering and leaving vehicles.
-     * 
+     *
      */
     //@{
-    /** 
+    /**
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this
      * reminder from it's reminder-container. This method will
      * determine the entry- and leave-time of the counted vehicle and
      * pass this information to the methods enterDetectorByMove() and
      * eaveDetectorByMove().
-     * 
+     *
      * @param veh Vehicle that asks this remider.
      * @param oldPos Position before move.
      * @param newPos Position after move with newSpeed.
      * @param newSpeed Moving speed.
-     * 
+     *
      * @return True if vehicle hasn't passed the detector completely.
      *
      * @see enterDetectorByMove
@@ -121,106 +121,109 @@ public:
                         double oldPos,
                         double newPos,
                         double newSpeed );
-    
 
-    /** 
+
+    /**
      *  Informs corresponding detector via leaveDetectorByLaneChange()
      *  if vehicle leaves by lanechange.
-     * 
+     *
      * @param veh The leaving vehicle.
      *
      * @see leaveDetectorByLaneChange
      */
     void dismissByLaneChange( MSVehicle& veh );
- 
-    /** 
+
+    /**
      * Informs corresponding detector if vehicle enters the reminder
      * by emit or lanechange. Only vehicles that are completely in
      * front of the detector will return true.
-     * 
+     *
      * @param veh The entering vehilcle.
-     * 
+     *
      * @return True if vehicle is on or in front of the detector.
      */
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    void removeOnTripEnd( MSVehicle *veh ) {
+//        leaveDetectorByLaneChange(*veh);
+    }
     //@}
 
     /**
      * @name Get-methods. These are the methods to access the
      * collected vehicle-data.
-     * 
+     *
      */
     //@{
-    /** 
+    /**
      * Calculates the flow in [veh/h] over the given interval.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Flow in [veh/h].
      */
     double getFlow( MSNet::Time lastNTimesteps ) const;
 
-    /** 
+    /**
      * Calculates the mean-speed in [m/s] over the given interval.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Mean-speed in [m/s] averaged over the vehicles that
      * passed during the lastNTimesteps.
      */
     double getMeanSpeed( MSNet::Time lastNTimesteps ) const;
-    
-    /** 
+
+    /**
      * Calculates the mean-speed-square in [m/(s^2)] over the given interval.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Mean-speed-square in [m/(s^2)] averaged over the
      * vehicles that passed during the lastNTimesteps.
      */
     double getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const;
-   
-    /** 
+
+    /**
      * Calculates the occupancy in [%], where 100% means lastNTimesteps.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Occupancy in [%].
      */
     double getOccupancy( MSNet::Time lastNTimesteps ) const;
 
-    /** 
+    /**
      * Calculate the mean-vehicle-length in [m] averaged over the
      * vehicles that passed during the lastNTimesteps.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Mean vehicle-length in [m] averaged over the vehicles
      * that passed during the lastNTimesteps.
      */
     double getMeanVehicleLength( MSNet::Time lastNTimesteps ) const;
 
-    /** 
+    /**
      * Counts the timesteps from the last leaving of the detector to
      * now. If the detector is currently occupied, we return 0.
-     * 
+     *
      * @return Timesteps from last leaving (detection) of the detector
      * to now or 0 if detector is occupied.
      */
     double getTimestepsSinceLastDetection() const;
 
-    /** 
+    /**
      * How many vehicles passed the detector completely over the
      * lastNTimesteps.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return Number of vehicles that passed the detector completely
      * over the lastNTimesteps.
      */
@@ -233,19 +236,19 @@ public:
      * @see MSDetectorFileOutput
      */
     //@{
-    /** 
+    /**
      * Returns a string indentifying an object of this class. Used for
      * distinct filenames in MSDetector2File
-     * 
+     *
      * @see MSDetector2File
      * @return String "MSInductLoop_" + idM
      */
     std::string getNamePrefix( void ) const;
 
-    
-    /** 
+
+    /**
      * Get a header for file output via MSDetector2File
-     * 
+     *
      * @return The static XML-Header which explains the output of getXMLOutput.
      *
      * @see MSDetector2File
@@ -254,13 +257,13 @@ public:
     std::string& getXMLHeader( void ) const;
 
 
-    /** 
+    /**
      * Get the XML-formatted output of all the get*-methods except
      * getTimestepsSinceLastDetection.
-     * 
+     *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
-     * 
+     *
      * @return XML-formatted output of all the get*-methods except
      * getTimestepsSinceLastDetection.
      *
@@ -268,9 +271,9 @@ public:
      */
     std::string getXMLOutput( MSNet::Time lastNTimesteps );
 
-    /** 
+    /**
      * Get an opening XML-element containing information about the detector.
-     * 
+     *
      * @return <detector type="inductionloop" id="det_id"
      * lane="lane_id" pos="det_pos">
      *
@@ -280,9 +283,9 @@ public:
     std::string getXMLDetectorInfoStart( void ) const;
 
 
-    /** 
+    /**
      * Get the closing XML-element to getXMLDetectorInfoStart
-     * 
+     *
      * @return </detector>
      *
      * @see MSDetector2File
@@ -290,24 +293,24 @@ public:
      */
     std::string& getXMLDetectorInfoEnd( void ) const;
 
-    /** 
+    /**
      * Get the data-clean up interval in timesteps.
-     * 
+     *
      */
     MSNet::Time getDataCleanUpSteps( void ) const;
     //@}
 
-    /** 
-     * 
-     * 
-     * 
-     * @return 
+    /**
+     *
+     *
+     *
+     * @return
      */
     virtual GUIDetectorWrapper* buildDetectorWrapper(
         GUIGlObjectStorage& idStorage,
         GUILaneWrapper& wrapper);
 
-    /** 
+    /**
      * Struct to store the data of the counted vehicle
      * internally. These data is fed into a container on which the
      * get*-methods work.
@@ -319,9 +322,9 @@ public:
         VehicleData( MSVehicle& veh,
                      double entryTimestep,
                      double leaveTimestep )
-            : lengthM( veh.length() ), 
-              entryTimeM( MSNet::getSeconds( entryTimestep ) ),  
-              leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),  
+            : lengthM( veh.length() ),
+              entryTimeM( MSNet::getSeconds( entryTimestep ) ),
+              leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),
               speedM( lengthM / ( leaveTimeM - entryTimeM ) ),
               speedSquareM( speedM * speedM ),
               occupancyM( leaveTimeM - entryTimeM )
@@ -340,7 +343,7 @@ protected:
     /**
      * @name Methods called by Reminder methods.
      *
-     * Methods in this group are called by the MSMoveReminder methods 
+     * Methods in this group are called by the MSMoveReminder methods
      * only. They collect data to calculate the get* values.
      *
      *  @see isStillActive
@@ -348,28 +351,28 @@ protected:
      *  @see isActivatedByEmitOrLaneChange
      */
     //@{
-    /** 
+    /**
      * Introduces a vehicle to the detector's map vehiclesOnDetM.
-     * 
+     *
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not neccessary integer) of entrance.
      */
     void enterDetectorByMove( MSVehicle& veh,
                               double entryTimestep );
 
-    /** 
+    /**
      * Removes a vehicle from the detector's map vehiclesOnDetM and
      * adds the vehicle data to the internal vehicleDataContM.
-     * 
+     *
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not neccessary integer) of leaving.
      */
     void leaveDetectorByMove( MSVehicle& veh,
                               double leaveTimestep );
 
-    /** 
+    /**
      * Removes a vehicle from the detector's map vehiclesOnDetM.
-     * 
+     *
      * @param veh The leaving vehicle.
      */
     void leaveDetectorByLaneChange( MSVehicle& veh );
@@ -380,7 +383,7 @@ protected:
      * leaveTime to a fixed leaveTimeBound and returns true if the
      * passed value is lesser than the fixed bound. Used by
      * deleteOldData and getStartIterator.
-     * 
+     *
      */
     struct leaveTimeLesser :
             public std::binary_function< VehicleData, double, bool >
@@ -392,10 +395,10 @@ protected:
         }
     };
 
-    /** 
+    /**
      * Deletes data from vehicleDataContM if deleteDataAfterStepsM
-     * is over. Is called via MSEventControl. 
-     * 
+     * is over. Is called via MSEventControl.
+     *
      * @return deleteDataAfterStepsM to recur the event.
      *
      * @see MSEventControl
@@ -405,18 +408,18 @@ protected:
     typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
                                                         * vehicleDataContM. */
 
-    /** 
+    /**
      * Get the iterator to vehicleDataContM that corresponds to the
      * first element with a leaveTime that is greater than now -
      * lastNTimesteps.
      *
      * @param lastNTimesteps Time-bound to search in is now - lastNTimesteps.
-     * 
+     *
      * @return Iterator to vehicleDataContM.
      */
     VehicleDataCont::const_iterator getStartIterator(
         MSNet::Time lastNTimesteps ) const;
-    
+
 
     const double posM;          /**< Detector's position on lane [cells]. */
 
@@ -444,7 +447,7 @@ protected:
     static std::string xmlDetectorInfoEndM; /**< Closing tag for detector. */
 
 private:
-    
+
     /// Hidden default constructor.
     MSInductLoop();
 
@@ -457,10 +460,10 @@ private:
 
 namespace
 {
-    
+
     /**
      * @name Binary-functions to use with std::accumulate.
-     * 
+     *
      */
     //@{
     /// Adds up VehicleData::speedM
@@ -477,14 +480,14 @@ namespace
         return sumSoFar + data.speedSquareM;
     }
 
-    /// Adds up VehicleData::occupancyM 
+    /// Adds up VehicleData::occupancyM
     inline double occupancySum( double sumSoFar,
                                 const MSInductLoop::VehicleData& data )
     {
         return sumSoFar + data.occupancyM;
     }
 
-    /// Adds up VehicleData::lengthM   
+    /// Adds up VehicleData::lengthM
     inline double lengthSum( double sumSoFar,
                              const MSInductLoop::VehicleData& data )
     {

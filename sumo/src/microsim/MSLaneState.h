@@ -128,6 +128,9 @@ public:
      * @return True if vehicle is on or in front of the detector.
      */
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    void removeOnTripEnd( MSVehicle *veh ) {
+//        leaveDetectorByLaneChange(*veh);
+    }
     //@}
 
 

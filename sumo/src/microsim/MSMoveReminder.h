@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.13  2004/01/26 07:46:23  dkrajzew
+// added the removal of vehicles on removing them from the sim (is still false)
+//
 // Revision 1.12  2003/12/02 21:48:10  roessel
 // Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
 //
@@ -118,7 +121,7 @@ public:
                                 double oldPos,
                                 double newPos,
                                 double newSpeed ) = 0;
-    
+
     /**
      *  Informs corresponding detector if vehicle leaves reminder
      *  by lanechange.
@@ -136,6 +139,9 @@ public:
      * @return True if vehicle enters the reminder.
      */
     virtual bool isActivatedByEmitOrLaneChange( MSVehicle& veh ) = 0;
+
+
+    virtual void removeOnTripEnd( MSVehicle *veh ) = 0;
 
     /**
      * Get the reminders id. The default value is "". If the MSMoveReminder
