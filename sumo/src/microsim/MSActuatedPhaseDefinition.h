@@ -28,13 +28,35 @@ public:
 		const std::bitset<64> &yellowMaskArg,
         int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
-            breakMaskArg, yellowMaskArg),
-    	minDuration(minDurationArg), maxDuration(maxDurationArg),
-        _lastSwitch(0)
+            breakMaskArg, yellowMaskArg), _lastSwitch(0)
     {
         _lastSwitch = OptionsSubSys::getOptions().getInt("b");
-        minDuration = 5; //!!!
-        maxDuration = 30; //!!!
+        // defines minDuration
+		int minDurationDefault = 10;
+		if  (minDurationArg < 0) {
+			if (durationArg < minDurationDefault) {
+				minDuration = durationArg;
+			}
+			else {
+				minDuration = minDurationDefault;
+			}
+		}
+		else {
+			minDuration = minDurationArg;
+			}
+        // defines maxDuration (maxDuration is only used in MSAcuatedTraffifLight Logic)
+		int maxDurationDefault = 30; 
+		if  (maxDurationArg < 0 ) {
+			if (durationArg > maxDurationDefault) {
+				maxDuration = durationArg;
+			}
+			else {
+				maxDuration = maxDurationDefault;
+			}
+		}
+		else {
+			maxDuration = maxDurationArg;
+			}
     }
 
     /// destructor
