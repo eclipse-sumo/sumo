@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/10/17 06:50:02  dkrajzew
+// patched the false usage of a reference
+//
 // Revision 1.15  2003/10/15 11:56:30  dkrajzew
 // further work on vissim-import
 //
@@ -860,7 +863,7 @@ Position2DVector::intersectsAtLengths(const Line2D &s) const
     for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         Line2D l((*i), *(i+1));
         if(GeomHelper::intersects(l.p1(), l.p2(), s.p1(), s.p2())) {
-            Position2D &p =
+            Position2D p =
                 GeomHelper::intersection_position(l.p1(), l.p2(), s.p1(), s.p2());
             double atLength = GeomHelper::distance(l.p1(), p);
             ret.push_back(atLength+pos);
