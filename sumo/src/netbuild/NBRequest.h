@@ -1,0 +1,175 @@
+#ifndef NBRequest_h
+#define NBRequest_h
+/***************************************************************************
+                          NBRequest.h
+			  This class computes the logic of a junction
+                             -------------------
+    project              : SUMO
+    subproject           : netbuilder / netconverter
+    begin                : Tue, 20 Nov 2001
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.1  2002/10/16 15:48:13  dkrajzew
+// initial commit for net building classes
+//
+// Revision 1.4  2002/06/11 16:00:40  dkrajzew
+// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+//
+// Revision 1.3  2002/05/14 04:42:56  dkrajzew
+// new computation flow
+//
+// Revision 1.2  2002/04/26 10:07:12  dkrajzew
+// Windows eol removed; minor double to int conversions removed;
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
+// new version-free project name
+//
+// Revision 1.3  2002/04/09 12:23:09  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.2  2002/03/15 09:19:44  traffic
+// Handling of map logics removed
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <string>
+#include <vector>
+#include <map>
+#include <bitset>
+#include "NBTrafficLightPhases.h"
+#include "NBLinkCliqueContainer.h"
+#include "NBTrafficLightLogicVector.h"
+#include "NBContHelper.h"
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBEdge;
+class NBJunctionTypeIO;
+class NBTrafficLightLogic;
+class NBTrafficLightPhases;
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * NBRequest
+ * Given a special node, this class builds the logic of this (junction)
+ * regarding the relationships between the incoming and outgoing edges and
+ * their priorities. The junction's logic is saved when it does not yet exist.
+ */
+class NBRequest {
+private:
+    /// the node the request is assigned to
+    NBNode *_junction;
+    /** all (icoming and outgoing) of the junctions edges */
+    const EdgeCont * const _all;
+    /** edges incoming to the junction */
+    const EdgeCont * const _incoming;
+    /** edges outgoing from the junction */
+    const EdgeCont * const _outgoing;
+    /** definition of a container to store boolean informations about a link into */
+    typedef std::vector<bool> LinkInfoCont;
+    /** definition of a container for link(edge->edge) X link(edge->edge)
+        combinations (size = |_incoming|*|_outgoing|) */
+    typedef std::vector<LinkInfoCont> CombinationsCont;
+    /** a container for approached lanes of a certain edge */
+    typedef std::map<NBEdge*, LaneCont> OccupiedLanes;
+    /** the link X link blockings */
+    CombinationsCont  _forbids;
+    /** the link X link is done-checks */
+    CombinationsCont  _done;
+
+    enum LinkRemovalType {
+        LRT_NO_REMOVAL, LRT_REMOVE_WHEN_NOT_OWN,
+        LRT_REMOVE_ALL_LEFT
+    };
+
+public:
+    /** constructor
+        The parameter are the logic's lists of edges (all, incoming only and out-
+        going only edges). By now no further informations are needed to describe
+        the junctions. These parameter must not be changed during the logic's
+        building */
+    NBRequest(NBNode *junction, const EdgeCont * const all,
+        const EdgeCont * const incoming, const EdgeCont * const outgoing);
+    /** destructor */
+    ~NBRequest();
+    /** builds the bitset-representation of the logic */
+    void buildBitfieldLogic(const std::string &key);
+    /** returns the number of the junction's lanes and the number
+        of the junction's links in respect */
+    std::pair<size_t, size_t> getSizes() const;
+
+    void buildTrafficLight(const std::string &key) const;
+
+    /// prints the request
+    friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
+    /// the iterator may access the request
+    friend class NBRequestEdgeLinkIterator;
+private:
+    bool forbidden(NBEdge *from1, NBEdge *to1,
+        NBEdge *from2, NBEdge *to2) const;
+
+    /** sets the information that the edge from1->to1 blocks the edge
+        from2->to2 (is higher priorised than this) */
+    void setBlocking(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
+    /** returns the XML-representation of the logic as a bitset-logic
+        XML representation */
+    std::string bitsetToXML(std::string key);
+    /** writes the response of a certain link */
+    void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to);
+    /** returns the index to the internal combination container */
+    size_t getIndex(NBEdge *from, NBEdge *to) const;
+    /** returns the distance between the incoming (from) and the outgoing (to) edge clockwise in edges */
+    size_t distanceCounterClockwise(NBEdge *from, NBEdge *to);
+    /** computes the relationships between links outgoing right of the given link */
+    void computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
+    /** computes the relationships between links outgoing left of the given link */
+    void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
+
+    NBTrafficLightLogicVector *computeTrafficLightLogics(
+        const std::string &key,
+        bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal, 
+        bool appendSmallestOnly, bool skipLarger) const;
+    NBTrafficLightPhases * computePhases(bool joinLaneLinks, 
+        bool removeTurnArounds, LinkRemovalType removal,
+        bool appendSmallestOnly, bool skipLarger) const;
+    NBLinkPossibilityMatrix *getPossibilityMatrix(bool joinLanes,
+        bool removeTurnArounds, LinkRemovalType removalType) const;
+/*    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
+        size_t noLinks, const PhaseIndexVector &phaseList,
+        NBLinkCliqueContainer &cliquen,
+        const NBRequestEdgeLinkIterator &cei1) const;*/
+};
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+//#ifndef DISABLE_INLINE
+//#include "NBRequest.icc"
+//#endif
+
+#endif
+
+// Local Variables:
+// mode:C++
+// End:

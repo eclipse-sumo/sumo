@@ -1,0 +1,885 @@
+/***************************************************************************
+                          NBEdge.cpp
+			  Methods for the representation of a single egde
+                             -------------------
+    project              : SUMO
+    subproject           : netbuilder / netconverter
+    begin                : Tue, 20 Nov 2001
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.1  2002/10/16 15:48:13  dkrajzew
+// initial commit for net building classes
+//
+// Revision 1.10  2002/07/25 08:27:54  dkrajzew
+// A strange bug within divideOnEdges is now prefixed
+//
+// Revision 1.9  2002/07/02 09:00:15  dkrajzew
+// Bug on computation of the real turnaround edge fixed
+//
+// Revision 1.8  2002/06/21 13:17:51  dkrajzew
+// Lane division bug (forgetting the turning direction; cause of segmentation violations under Linux) fixed
+//
+// Revision 1.7  2002/06/18 05:05:08  dkrajzew
+// Lane division bug accessing after the end of an array removed
+//
+// Revision 1.6  2002/06/17 15:19:29  dkrajzew
+// unreferenced variable declarations removed
+//
+// Revision 1.5  2002/06/11 16:00:41  dkrajzew
+// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+//
+// Revision 1.4  2002/06/07 14:58:45  dkrajzew
+// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+//
+// Revision 1.3  2002/05/14 04:42:54  dkrajzew
+// new computation flow
+//
+// Revision 1.2  2002/04/26 10:07:10  dkrajzew
+// Windows eol removed; minor double to int conversions removed;
+//
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
+//
+// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
+// new version-free project name
+//
+// Revision 1.5  2002/04/09 12:21:24  dkrajzew
+// Windows-Memoryleak detection changed
+//
+// Revision 1.4  2002/03/22 10:50:03  dkrajzew
+// Memory leaks debugging added (MSVC++)
+//
+// Revision 1.3  2002/03/15 09:14:26  traffic
+// Changed the number of lanes field into unsigned
+//
+// Revision 1.2  2002/03/11 15:22:12  traffic
+// Priority definition corrected
+//
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
+//
+// Revision 1.1  2001/12/06 13:37:59  traffic
+// files for the netbuilder
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cassert>
+#include "NBEdgeCont.h"
+#include "NBNode.h"
+#include "NBNodeCont.h"
+#include "NBContHelper.h"
+#include "NBHelpers.h"
+#include <cmath>
+#include "NBTypeCont.h"
+#include <iostream>
+#include "NBEdge.h"
+
+/* =========================================================================
+ * debugging definitions (MSVC++ only)
+ * ======================================================================= */
+#ifdef _DEBUG
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+#endif
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+/* =========================================================================
+ * static variables
+ * ======================================================================= */
+const int NBEdge::LINKTYPE_INVALID = 0;
+const int NBEdge::LINKTYPE_UNPRIORISED = 1;
+const int NBEdge::LINKTYPE_PRIORISED = 2;
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * NBEdge::ToEdgeConnectionsAdder-methods
+ * ----------------------------------------------------------------------- */
+void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
+{
+    assert(_transitions.size()>virtEdge);
+    assert(lane>=0&&lane<10);
+    NBEdge *succEdge = _transitions[(int) virtEdge];
+    vector<size_t> lanes;
+    map<NBEdge*, vector<size_t> >::iterator i=_connections->find(succEdge);
+    if(i!=_connections->end())
+        lanes = (*i).second;
+    vector<size_t>::iterator j=find(lanes.begin(), lanes.end(), (size_t) lane);
+    if(j==lanes.end())
+        lanes.push_back((size_t) lane);
+    (*_connections)[succEdge] = lanes;
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * NBEdge::MainDirections-methods
+ * ----------------------------------------------------------------------- */
+NBEdge::MainDirections::MainDirections(std::vector<NBEdge*> &outgoing, NBEdge *parent, NBNode *to)
+{
+    if(outgoing.size()==0)
+        return;
+    // check whether the right turn has a higher priority
+    if(outgoing[0]->getJunctionPriority(to)==1)
+        _dirs.push_back(MainDirections::DIR_RIGHTMOST);
+    // check whether the left turn has a higher priority
+    if(outgoing[outgoing.size()-1]->getJunctionPriority(to)==1)
+        _dirs.push_back(MainDirections::DIR_LEFTMOST);
+    // check whether the forward direction has a higher priority
+    //  get the forward direction
+    vector<NBEdge*> tmp(outgoing);
+    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
+    NBEdge *edge = *(tmp.begin());
+    // check whether it has a higher priority
+    if(edge->getJunctionPriority(to)==1)
+        _dirs.push_back(MainDirections::DIR_FORWARD);
+}
+
+NBEdge::MainDirections::~MainDirections()
+{
+}
+
+bool NBEdge::MainDirections::empty() const
+{
+    return _dirs.empty();
+}
+
+bool NBEdge::MainDirections::includes(Direction d) const {
+    return find(_dirs.begin(), _dirs.end(), d)!=_dirs.end();
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * NBEdge-methods
+ * ----------------------------------------------------------------------- */
+NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
+               string type, double speed, size_t nolanes,
+               double length, int priority, EdgeBasicFunction basic) :
+    _step(INIT), _id(id), _type(type), _nolanes(nolanes),
+    _from(from), _to(to), _length(length), _angle(0),
+    _priority(priority), _speed(speed), _name(name),
+    _connectedEdges(0),
+    _ToEdges(0), _turnDestination(0),
+    _reachable(0),
+    _reachablePriorities(0), _succeedinglanes(0),
+    _fromJunctionPriority(-1), _toJunctionPriority(-1),
+    _basicType(basic)
+{
+    if(_from==0||_to==0) throw std::exception();
+    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(), _to->getXCoordinate(), _to->getYCoordinate());
+    _from->addOutgoingEdge(this);
+    _to->addIncomingEdge(this);
+    // prepare container
+    _reachable = new NBEdge::ReachableFromLaneCont();
+    _reachable->resize(_nolanes, EdgeLaneCont());
+    _reachablePriorities = new NBEdge::ReachablePrioritiesFromLaneCont();
+    _reachablePriorities->resize(_nolanes, IntCont());
+    _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
+    _ToEdges = new map<NBEdge*, vector<size_t> >();
+}
+
+
+NBEdge::~NBEdge()
+{
+    delete _reachable;
+    delete _reachablePriorities;
+    delete _succeedinglanes;
+    delete _ToEdges;
+}
+
+double
+NBEdge::getAngle()
+{
+    return _angle;
+}
+
+
+size_t
+NBEdge::getNoLanes()
+{
+    return _nolanes;
+}
+
+
+int
+NBEdge::getPriority()
+{
+    return _priority;
+}
+
+
+int
+NBEdge::getJunctionPriority(NBNode *node) {
+    if(node==_from)
+        return _fromJunctionPriority;
+    else
+        return _toJunctionPriority;
+}
+
+void
+NBEdge::setJunctionPriority(NBNode *node, int prio)
+{
+    if(node==_from)
+        _fromJunctionPriority = prio;
+    else
+        _toJunctionPriority = prio;
+}
+
+void
+NBEdge::setJunctionAngle(NBNode *node, double angle)
+{
+    if(node==_from)
+        _fromJunctionAngle = angle;
+    else
+        _toJunctionAngle = angle;
+}
+
+double
+NBEdge::getJunctionAngle(NBNode *node)
+{
+    if(node==_from)
+        return _fromJunctionAngle;
+    else
+        return _toJunctionAngle;
+}
+
+string
+NBEdge::getID()
+{
+    return _id;
+}
+
+string
+NBEdge::getName() {
+    return _name;
+}
+
+NBNode *
+NBEdge::getFromNode()
+{
+    return _from;
+}
+
+
+NBNode *
+NBEdge::getToNode()
+{
+    return _to;
+}
+
+
+string
+NBEdge::getType() {
+    return _type;
+}
+
+
+double
+NBEdge::getLength() {
+    return _length;
+}
+
+
+const EdgeLaneCont *
+NBEdge::getEdgeLanesFromLane(size_t lane) {
+    return &(*_reachable)[lane];
+}
+
+
+void 
+NBEdge::computeTurningDirections()
+{
+    EdgeCont *outgoing = _connectedEdges;
+    if(outgoing==0) {
+        outgoing = _to->getOutgoingEdges();
+    }
+    for(EdgeCont::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
+        NBEdge *outedge = *i;
+        double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
+        // do not append the turnaround
+        if(outgoing->size()>1 && relAngle==-180) {
+            if(_turnDestination==0) {
+                _turnDestination = outedge;
+            } else {
+                if( fabs(NBHelpers::relAngle(_angle, _turnDestination->getAngle()))
+                    <
+                    fabs(NBHelpers::relAngle(_angle, outedge->getAngle())) ) {
+                    _turnDestination = outedge;
+                }
+            }
+        }
+    }
+}
+
+
+
+void
+NBEdge::writeXMLStep1(std::ostream &into)
+{
+    // write the edge's begin
+    into << "   <edge id=\"" << _id <<
+        "\" Length=\"" << _length <<
+        "\" Speed=\"" << _speed <<
+        "\" Name=\"" << _name <<
+        "\" NoLanes=\"" << _nolanes <<
+        "\" XFrom=\"" << _from->getXCoordinate() <<
+        "\" YFrom=\"" << _from->getYCoordinate() <<
+        "\" XTo=\"" << _to->getXCoordinate() <<
+        "\" YTo=\"" << _to->getYCoordinate() <<
+        "\" From=\"" << _from->getID() <<
+        "\" To=\"" << _to->getID() <<
+        "\" Priority=\"" << _priority <<
+        "\" Angle=\"" << _angle <<
+        "\" Type=\"" << _type << 
+        "\" Purpose=\"";
+    switch(_basicType) {
+    case EDGEFUNCTION_NORMAL:
+        into << "normal";
+        break;
+    case EDGEFUNCTION_SOURCE:
+        into << "source";
+        break;
+    case EDGEFUNCTION_SINK:
+        into << "sink";
+        break;
+    default:
+        throw 1;
+    }
+    into << "\">" << endl;
+    // write the lanes
+    into << "      <lanes>" << endl;
+    for(size_t i=0; i<_nolanes; i++) {
+        writeLane(into, i);
+    }
+    into << "      </lanes>" << endl;
+    // write the list of connected edges
+    for(LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->begin(); l!=_succeedinglanes->end(); l++) {
+        writeConnected(into, (*l).first, (*l).second);
+    }
+    // close the edge
+    into << "   </edge>" << endl << endl;
+}
+
+
+void
+NBEdge::writeXMLStep2(std::ostream &into)
+{
+    for(size_t i=0; i<_nolanes; i++) {
+        writeSucceeding(into, i);
+    }
+}
+
+
+void
+NBEdge::writeXMLStep3(std::ostream &into)
+{
+    for(size_t i=0; i<_nolanes; i++) {
+        into << "   <edgepos id=\"" << _id << "\""
+            << " from=\"" << _from->getID() << "\""
+            << " to=\"" << _to->getID() << "\""
+            << " function=\"";
+        switch(_basicType) {
+        case EDGEFUNCTION_NORMAL:
+            into << "normal";
+            break;
+        case EDGEFUNCTION_SOURCE:
+            into << "source";
+            break;
+        case EDGEFUNCTION_SINK:
+            into << "sink";
+            break;
+        default:
+            throw 1;
+        }
+        into << "\"/>" << endl;
+    }
+}
+
+
+void
+NBEdge::writeLane(std::ostream &into, size_t lane)
+{
+    // output the lane's attributes
+    into << "         <lane id=\"" << _id << '_' << lane << "\"";
+    // the first lane of an edge will be the depart lane
+    if(lane==0) {
+        into << " depart=\"1\"";
+    } else {
+        into << " depart=\"0\"";
+    }
+    // some further information
+    into << " maxspeed=\"" << _speed << "\" length=\"" << _length <<
+        "\" changeurge=\"0\"/>" << endl;
+}
+
+
+void
+NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneCont &lanes)
+{
+    if(edge==0) {
+        return;
+    }
+    into << "      <cedge id=\"" << edge->getID() << "\">";
+    size_t noApproachers = lanes.size();
+    for(size_t i=0; i<noApproachers; i++) {
+        into << _id << '_' << lanes[i];
+        if(i<noApproachers-1) {
+            into << ' ';
+        }
+    }
+    into << "</cedge>" << endl;
+}
+
+
+void
+NBEdge::writeSucceeding(std::ostream &into, size_t lane)
+{
+    into << "   <succ edge=\"" << _id << "\" lane=\"" << _id << "_"
+        << lane << "\" junction=\"" << _to->getID() << "\">" << endl;
+    // the lane may be unconnented; output information about being invalid
+    size_t noApproached = (*_reachable)[lane].size();
+    if(noApproached==0) {
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>" << endl;
+    }
+    // output list of connected lanes
+    for(size_t j=0; j<noApproached; j++) {
+        writeSingleSucceeding(into, lane, j);
+    }
+    into << "   </succ>" << endl << endl;
+}
+
+
+void
+NBEdge::writeSingleSucceeding(std::ostream &into, size_t from, size_t dest)
+{
+    // check whether the connected lane is invalid
+    //  (should not happen; this is an artefact left from previous versions)
+    if((*_reachable)[from][dest].edge==0) {
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>" << endl;
+        return;
+    }
+    // output the id
+    into << "      <succlane lane=\""
+        << (*_reachable)[from][dest].edge->getID() << '_'
+        << (*_reachable)[from][dest].lane << '\"'; // !!! classe LaneEdge mit getLaneID
+        // output information whether the connection yields
+    if((*_reachablePriorities)[from][dest]==LINKTYPE_UNPRIORISED) {
+        into << " yield=\"1\"/>" << endl;
+    }
+    if((*_reachablePriorities)[from][dest]==LINKTYPE_PRIORISED) {
+        into << " yield=\"0\"/>" << endl;
+    }
+}
+
+
+bool
+NBEdge::addEdge2EdgeConnection(NBEdge *dest)
+{
+    if(_connectedEdges==0) {
+        _connectedEdges = new std::vector<NBEdge*>();
+    }
+    if(find(_connectedEdges->begin(), _connectedEdges->end(), dest)!=_connectedEdges->end()) {
+        _connectedEdges->push_back(dest);
+        return true;
+    }
+    return false;
+}
+
+
+bool
+NBEdge::computeEdge2Edges()
+{
+    if(_step<EDGE2EDGES) {
+        // get the list of possible outgoing edges sorted by direction clockwise
+        //  the edge in the backward direction (turnaround) is not in the list
+        vector<NBEdge*> *edges = getConnectedSorted();
+        // divide the lanes on reachable edges
+        divideOnEdges(edges);
+        delete edges;
+        delete _connectedEdges;
+        _step = EDGE2EDGES;
+    }
+    return true;
+}
+
+
+bool
+NBEdge::recheckLanes(bool verbose) {
+    size_t i;
+    // check:
+    //  if there is a lane with no connections and any neighbour lane has
+    //  more than one connections, try to move one of them
+    for(i=0; i<_nolanes; i++) {
+        if((*_reachable)[i].size()==0) {
+            if(i>0&&(*_reachable)[i-1].size()>1) {
+                moveConnectionToLeft(i-1);
+            } else if(i<_reachable->size()-1&&(*_reachable)[i+1].size()>1) {
+                moveConnectionToRight(i+1);
+            }
+        }
+    }
+    // check:
+    //  go through all lanes and add an empty connection if no connection
+    //  is yet set
+    for(i=0; i<_nolanes; i++) {
+        if((*_reachable)[i].size()==0) {
+            setConnection(i, 0, 0);
+        }
+    }
+    return true;
+}
+
+void
+NBEdge::moveConnectionToLeft(size_t lane) {
+    pair<NBEdge*, size_t> dest = getConnectionRemoving(lane, (*_reachable)[lane].size()-1);
+    setConnection(lane+1, dest.first, dest.second);
+}
+
+void
+NBEdge::moveConnectionToRight(size_t lane) {
+    pair<NBEdge*, size_t> dest = getConnectionRemoving(lane, 0);
+    setConnection(lane-1, dest.first, dest.second);
+}
+
+pair<NBEdge*, size_t>
+NBEdge::getConnectionRemoving(size_t srcLane, size_t pos) {
+    assert(_reachable->size()>srcLane);
+    assert((*_reachable)[srcLane].size()>pos);
+    // get the destination edge and remove from the container
+    EdgeLane edgelane = (*_reachable)[srcLane][pos];
+    (*_reachable)[srcLane].erase((*_reachable)[srcLane].end()-1);
+    // remove the information from the map of how to reach edges
+    NBEdge::LanesThatSucceedEdgeCont::iterator i = _succeedinglanes->find(edgelane.edge);
+    LaneCont lanes = (*i).second;
+    LaneCont::iterator j = find(lanes.begin(), lanes.end(), srcLane);
+    lanes.erase(j);
+    (*_succeedinglanes)[edgelane.edge] = lanes;
+    // return the information
+    return pair<NBEdge*, size_t>(edgelane.edge, edgelane.lane);
+}
+
+
+vector<size_t> NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
+    if(currentOutgoing==_turnDestination) {
+        return vector<size_t>();
+    }
+    map<NBEdge*, vector<size_t> >::iterator i=_ToEdges->find(currentOutgoing);
+    assert(i!=_ToEdges->end());
+    assert((*i).second.size()<=_nolanes);
+    return (*i).second;
+}
+
+
+std::vector<NBEdge*> *
+NBEdge::getConnectedSorted()
+{
+    // check whether connections exist and if not, use edges from the node
+    EdgeCont *outgoing = _connectedEdges;
+    if(outgoing==0) {
+        outgoing = _to->getOutgoingEdges();
+    }
+    // allocate the sorted container
+    size_t size = outgoing->size();
+    vector<NBEdge*> *edges = new vector<NBEdge*>();
+    edges->reserve(size);
+    for(EdgeCont::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
+        NBEdge *outedge = *i;
+        if(outedge!=_turnDestination) {
+            edges->push_back(outedge);
+        }
+    }
+    sort(edges->begin(), edges->end(),
+        NBContHelper::relative_edge_sorter(this, _to));
+    return edges;
+}
+
+
+void
+NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
+    if(outgoing->size()==0) {
+        return;
+    }
+    // precompute priorities; needed as some kind of assumptions for
+    //  priorities of directions (see preparePriorities)
+    vector<size_t> *priorities = preparePriorities(outgoing);
+    //
+    // compute the sum of priorities (needed for normalisation)
+    size_t prioSum = computePrioritySum(priorities);
+    // compute the resulting number of lanes that should be used to
+    //  reach the following edge
+    size_t size = outgoing->size();
+    vector<double> resultingLanes;
+    resultingLanes.reserve(size);
+    double sumResulting = 0; // the sum of resulting lanes
+    double minResulting = 10000; // the least number of lanes to reach an edge
+    size_t i;
+    for(i=0; i<size; i++) {
+        // res will be the number of lanes which are meant to reach the
+        //  current outgoing edge
+        double res = (double) (*priorities)[i] * (double) _nolanes / (double) prioSum;
+        // do not let this number be greater than the number of available lanes
+        if(res>_nolanes)
+            res = _nolanes;
+        // add it to the list
+        resultingLanes.push_back(res);
+        sumResulting += res;
+        if(minResulting>res)
+            minResulting = res;
+    }
+    // compute the number of virtual edges
+    //  a virtual edge is used as a replacement for a real edge from now on
+    //  it shall ollow to divide the existing lanes on this structure without
+    //  regarding the structure of outgoing edges
+    // the next line is absolutely unneeded and false;
+    //  Still, I encountered a conversion from 7,0000000000001400000000000028 to
+    //  an int yielding in 6; This is by far a worse problem and I hope to manage
+    //  it by adding a small offset...
+    // Sorry, Daniel Krajzewicz
+/*
+    double g4t = (sumResulting / minResulting);
+    int rer = int(g4t);
+    double f1 = floor(g4t);
+    double f2 = ceil(g4t);
+*/
+    sumResulting += minResulting / 2;
+    size_t noVirtual = (size_t) (sumResulting / minResulting);
+    // compute the transition from virtual to real edges
+    vector<NBEdge*> transition;
+    transition.reserve(size);
+    for(i=0; i<size; i++) {
+        // tmpNo will be the number of connections from this edge
+        //  to the next edge
+        double tmpNo = (double) resultingLanes[i] / (double) minResulting;
+        for(double j=0; j<tmpNo; j++) {
+    	    assert(outgoing->size()>i);
+            transition.push_back((*outgoing)[i]);
+        }
+    }
+    // assign lanes to edges
+    //  (conversion from virtual to real edges is done)
+    ToEdgeConnectionsAdder *adder = new ToEdgeConnectionsAdder(_ToEdges, transition);
+    Bresenham::compute(adder, _nolanes, noVirtual);
+    delete adder;
+    delete priorities;
+}
+
+
+vector<size_t> *
+NBEdge::preparePriorities(vector<NBEdge*> *outgoing) {
+    // copy the priorities first
+    vector<size_t> *priorities = new vector<size_t>();
+    if(outgoing->size()==0) {
+        return priorities;
+    }
+    priorities->reserve(outgoing->size());
+    vector<NBEdge*>::iterator i;
+    for(i=outgoing->begin(); i!=outgoing->end(); i++) {
+	    assert(((*i)->getJunctionPriority(_to)+1)*2>0);
+        priorities->push_back(((*i)->getJunctionPriority(_to)+1)*2);
+    }
+    // when the right turning direction has not a higher priority, divide
+    //  the importance by 2 due to the possibility to leave the junction
+    //  faster from this lane
+    MainDirections mainDirections(*outgoing, this, _to);
+    if(!mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
+        (*priorities)[0] = (*priorities)[0] / 2;
+    }
+    // HEURISTIC:
+    // when no higher priority exists, let the forward direction be
+    //  the main direction
+    if(mainDirections.empty()) {
+        vector<NBEdge*> tmp(*outgoing);
+        sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
+        i=find(
+            outgoing->begin(),
+            outgoing->end(),
+            *(tmp.begin()));
+        size_t dist = distance(outgoing->begin(), i);
+        (*priorities)[dist] = (*priorities)[dist] * 2;
+    }
+    // return
+    return priorities;
+}
+
+
+size_t
+NBEdge::computePrioritySum(vector<size_t> *priorities)
+{
+    size_t sum = 0;
+    for(vector<size_t>::iterator i=priorities->begin(); i!=priorities->end(); i++) {
+        sum += (*i);
+    }
+    return sum;
+}
+
+
+void
+NBEdge::computeLinkPriorities()
+{
+    // reset all links to unprioritised
+    size_t i;
+    for(i=0; i<_nolanes; i++) {
+        size_t size = (*_reachable)[i].size();
+        (*_reachablePriorities)[i].resize(size, LINKTYPE_UNPRIORISED);
+    }
+    // the link stays unpriorised when the edge is not a prioritised edge
+    // (the vehicles must then always look out for incoming vehicles)
+    if(getJunctionPriority(_to)==0)
+        return;
+    // check whether which links of this priorised edge are always priorised
+    // (don't have to look out for other vehicles)
+    const EdgeCont *nodeEdges = _to->getEdges();
+    for(i=0; i<_nolanes; i++) {
+        size_t size = (*_reachable)[i].size();
+        size_t j;
+        for(j=0; j<size; j++) {
+            if((*_reachable)[i][j].edge!=0) {
+                // when the destination is priorised, the link is priorised
+                // but only when not turning
+                if((*_reachable)[i][j].edge->getJunctionPriority(_to)==1) {
+                    if((*_reachable)[i][j].edge!=_turnDestination)
+                        (*_reachablePriorities)[i][j] = LINKTYPE_PRIORISED;
+                }
+                // otherwise, check whether the direction is on the right side
+                // of the other side of the priorised connection
+                else {
+                    bool found = false;
+                    EdgeCont::const_iterator me = find(nodeEdges->begin(), nodeEdges->end(), this);
+                    me = NBContHelper::nextCCW(nodeEdges, me);
+                    while(!found&&(*me)->getJunctionPriority(_to)!=1) {
+                        if(*me==(*_reachable)[i][j].edge) {
+                            (*_reachablePriorities)[i][j] = LINKTYPE_PRIORISED;
+                            found = true;
+                        }
+                        me = NBContHelper::nextCCW(nodeEdges, me);
+                    }
+                }
+            }
+      // check whether other lanes from this edge may cross and lower the
+      // priority if so.
+      // optimization needed
+/*      bool found = false;
+      if((*_reachablePriorities)[i][j] == NBEdge::LINKTYPE_PRIORISED) {
+        for(size_t k=0; !found && k<_edge->getNoLanes(); k++) {
+          size_t currsize = (*_reachableEdges)[k].size();
+          for(size_t l=0; !found && l<currsize; l++) {
+            if((*_reachableEdges)[i][j]==(*_reachableEdges)[k][l]) {
+              (*_reachablePriorities)[i][j] == NBEdge::LINKTYPE_PRIORISED;
+              found = true;
+            }
+          }
+        }
+      }*/
+      // this code is not needed as no lanes may have the same destination
+      // lane
+    }
+  }
+}
+
+
+void
+NBEdge::appendTurnaround()
+{
+    if(_turnDestination!=0) {
+        setConnection(_nolanes-1, _turnDestination, _turnDestination->getNoLanes()-1);
+    }
+}
+
+
+void
+NBEdge::sortOutgoingLanesConnections()
+{
+    for(size_t i=0; i<_reachable->size(); i++) {
+        sort((*_reachable)[i].begin(), (*_reachable)[i].end(),
+            NBContHelper::relative_edgelane_sorter(this, _to));
+    }
+}
+
+
+
+void
+NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
+{
+    assert(dest_lane>=0&&dest_lane<=10);
+    assert(src_lane>=0&&src_lane<=10);
+    // this connection has not yet been set
+    bool known = false;
+    // find the entry which holds the information which lanes may
+    //  be used to reach the current destination edge
+    LanesThatSucceedEdgeCont::iterator i = _succeedinglanes->find(dest_edge);
+    // if there is no such connection yet,
+    //  build it
+    if(i==_succeedinglanes->end()) {
+        LaneCont lanes;
+        lanes.push_back(src_lane);
+        (*_succeedinglanes)[dest_edge] = lanes;
+    // else
+    } else {
+        // check whether one of the known connections to the current destination
+        //  comes from the same lane as the current to add
+        LaneCont lanes = (*i).second;
+        LaneCont::iterator i = find(lanes.begin(), lanes.end(), src_lane);
+        // if not, append
+        if(i==lanes.end())
+            lanes.push_back(src_lane);
+        // otherwise, mark as known
+        else
+            known = true;
+        (*_succeedinglanes)[dest_edge] = lanes;
+    }
+    // append current connection only if no equal is already known
+    if(!known) {
+	    assert(_reachable->size()>src_lane);
+        EdgeLane el;
+        el.edge = dest_edge;
+        el.lane = dest_lane; // !!! EdgeLane as class
+        (*_reachable)[src_lane].push_back(el);
+    }
+}
+
+
+bool
+NBEdge::isTurningDirection(NBEdge *edge) const
+{
+    return edge == _turnDestination;
+}
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NBEdge.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
