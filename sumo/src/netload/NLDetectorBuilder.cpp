@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/02/16 13:49:08  dkrajzew
+// loading of e2-link-dependent detectors added
+//
 // Revision 1.18  2004/02/06 09:02:39  dkrajzew
 // false detector positioning when negative values are used debugged
 //
@@ -112,6 +115,7 @@ namespace
 #include <microsim/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSDetector2File.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
+#include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
@@ -207,38 +211,14 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if(!cont) {
-        // compute position
-        if(pos<0) {
-            pos = clane->length() + pos;
-        }
-        // compute length
-        if(length<0) {
-            pos = pos + length;
-            length *= -1;
-        }
-        // patch position
-        if(pos<0.1) {
-            pos = 0.1;
-        }
-        // patch length
-        if(pos+length>clane->length()-0.1) {
-            length = clane->length() - 0.1 - pos;
-        }
-        if(length<=0) {
-            throw InvalidArgument("The length of detector " + id + " is not positive.");
-        }
+        convUncontE2PosLength(id, clane, pos, length);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
-        if(pos<0) {
-            pos = clane->length() + pos;
-        }
-        if(length<=0) {
-            throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
-        }
+        convContE2PosLength(id, clane, pos, length);
         det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -268,37 +248,14 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if(!cont) {
-        if(pos<0) {
-            pos = clane->length() + pos;
-        }
-        // compute length
-        if(length<0) {
-            pos = pos + length;
-            length *= -1;
-        }
-        // patch position
-        if(pos<0.1) {
-            pos = 0.1;
-        }
-        // patch length
-        if(pos+length>clane->length()-0.1) {
-            length = clane->length() - 0.1 - pos;
-        }
-        if(length<=0) {
-            throw InvalidArgument("The length of detector " + id + " is not positive.");
-        }
+        convUncontE2PosLength(id, clane, pos, length);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, 100000,// !!!
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
-        if(pos<0) {
-            pos = clane->length() + pos;
-        }
-        if(length<=0) {
-            throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
-        }
+        convContE2PosLength(id, clane, pos, length);
         det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
             clane, pos, length, 100000, // !!!
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -308,6 +265,90 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     // add the file output
     new Command_SaveTLCoupledDet(tll, det,
         MSNet::getInstance()->getCurrentTimeStep(), filename);
+}
+
+
+void
+NLDetectorBuilder::buildE2Detector(const std::string &id,
+        const std::string &lane, float pos, float length,
+        bool cont, MSTrafficLightLogic *tll,
+        const std::string &tolane,
+        const std::string &style, std::string filename,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds )
+{
+    MSLane *clane = getLaneChecking(lane);
+    MSLane *ctoLane = getLaneChecking(tolane);
+    MSLink *link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
+    if(link==0) {
+        throw InvalidArgument(
+            string("The detector output can not be build as no connection between lanes '")
+            + lane + string("' and '") + tolane + string("' exists."));
+    }
+    // check whether the detector may lie over more than one lane
+    MSDetectorFileOutput *det = 0;
+    if(!cont) {
+        convUncontE2PosLength(id, clane, pos, length);
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, 100000,// !!!
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    } else {
+        convContE2PosLength(id, clane, pos, length);
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, 100000, // !!!
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    }
+    // add the file output
+    new Command_SaveTLCoupledLaneDet(tll, det,
+        MSNet::getInstance()->getCurrentTimeStep(), filename, link);
+}
+
+
+void
+NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
+                                         float &pos, float &length)
+{
+    if(pos<0) {
+        pos = clane->length() + pos;
+    }
+    // compute length
+    if(length<0) {
+        pos = pos + length;
+        length *= -1;
+    }
+    // patch position
+    if(pos<0.1) {
+        pos = 0.1;
+    }
+    // patch length
+    if(pos+length>clane->length()-0.1) {
+        length = clane->length() - 0.1 - pos;
+    }
+    if(length<=0) {
+        throw InvalidArgument(
+            string("The length of detector '")
+            + id + string("' is not positive."));
+    }
+}
+
+
+void
+NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane *clane,
+                                       float &pos, float &length)
+{
+    if(pos<0) {
+        pos = clane->length() + pos;
+    }
+    if(length<=0) {
+        throw InvalidArgument("The length of the continuated detector " + id + " is not positive.");
+    }
 }
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2004/02/16 13:49:08  dkrajzew
+// loading of e2-link-dependent detectors added
+//
 // Revision 1.8  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -121,6 +124,18 @@ public:
         MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
         MSUnit::Meters jamDistThreshold = 10,
         MSUnit::Seconds deleteDataAfterSeconds = 1800);
+
+    /// builds a lane-based areal (E2-) detector connected to a link's state
+    void buildE2Detector(const std::string &id,
+        const std::string &lane, float pos, float length,
+        bool cont, MSTrafficLightLogic *tll,
+        const std::string &tolane,
+        const std::string &style, std::string filename,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds );
 
     /// builds a multi-od (E3-) detector
     void beginE3Detector(const std::string &id,
@@ -237,7 +252,16 @@ protected:
     };
 
 protected:
+    /// @brief Returns the named lane; throws an exception if the lane does not exist
     MSLane *getLaneChecking(const std::string &id);
+
+    /// Converts the length and the position information for an uncontiuating detector
+    void convUncontE2PosLength(const std::string &id, MSLane *clane,
+        float &pos, float &length);
+
+    /// Converts the length and the position information for an contiuating detector
+    void convContE2PosLength(const std::string &id, MSLane *clane,
+        float &pos, float &length);
 
 private:
     E3DetectorDefinition *myE3Definition;

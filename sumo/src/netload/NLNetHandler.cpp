@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.44  2004/02/16 13:49:08  dkrajzew
+// loading of e2-link-dependent detectors added
+//
 // Revision 1.43  2004/02/02 16:18:32  dkrajzew
 // a first try to patch the error on loading internal links when theyre not wished
 //
@@ -633,25 +636,46 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
         }
     } catch (EmptyData) {
     }
+    // check whether this is a detector connected to a link
+    std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
     //
     try {
         if(tll!=0) {
-            myDetectorBuilder->buildE2Detector(id,
-                getString(attrs, SUMO_ATTR_LANE),
-                getFloat(attrs, SUMO_ATTR_POSITION),
-                getFloat(attrs, SUMO_ATTR_LENGTH),
-                getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                tll,
-                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                FileHelpers::checkForRelativity(
-                    getString(attrs, SUMO_ATTR_FILE),
-                    _file),
-                getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
-                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-                );
+            if(toLane.length()==0) {
+                myDetectorBuilder->buildE2Detector(id,
+                    getString(attrs, SUMO_ATTR_LANE),
+                    getFloat(attrs, SUMO_ATTR_POSITION),
+                    getFloat(attrs, SUMO_ATTR_LENGTH),
+                    getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                    tll,
+                    getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                    FileHelpers::checkForRelativity(
+                        getString(attrs, SUMO_ATTR_FILE),
+                        _file),
+                    getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
+                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
+                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                    );
+            } else {
+                myDetectorBuilder->buildE2Detector(id,
+                    getString(attrs, SUMO_ATTR_LANE),
+                    getFloat(attrs, SUMO_ATTR_POSITION),
+                    getFloat(attrs, SUMO_ATTR_LENGTH),
+                    getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                    tll, toLane,
+                    getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                    FileHelpers::checkForRelativity(
+                        getString(attrs, SUMO_ATTR_FILE),
+                        _file),
+                    getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
+                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
+                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
+                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                    );
+            }
         } else {
             myDetectorBuilder->buildE2Detector(id,
                 getString(attrs, SUMO_ATTR_LANE),
