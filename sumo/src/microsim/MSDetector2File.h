@@ -31,6 +31,10 @@
 #include <iostream>
 #include <helpers/OneArgumentCommand.h>
 
+/**
+ * Template-singleton class. 
+ * 
+ */
 template< class Detector >
 class MSDetector2File
 {
@@ -40,16 +44,10 @@ public:
     typedef std::vector< DetectorFilePair > DetectorFileVec;
     typedef std::map< MSNet::Time, DetectorFileVec > Intervals;
     
-    static void create( double maxIntervalLengthInSeconds )
-        {
-            assert( instanceM == 0 );
-            instanceM = new MSDetector2File( maxIntervalLengthInSeconds );
-        }
-
     static MSDetector2File* getInstance( void )
         {
             if ( instanceM == 0 ) {
-                throw SingletonNotCreated();
+                instanceM = new MSDetector2File();
             }
             return instanceM;
         }
@@ -71,18 +69,25 @@ public:
             // Detector* should be deleted via the SingletonDictionary
         }
 
-    void addDetectorAndInterval( Detector *det,
-                                 const std::string &filename,
+    void addDetectorAndInterval( Detector* det,
+                                 const std::string& filename,
                                  MSNet::Time intervalInSeconds )
         {
             MSNet::Time intervalInSteps( MSNet::getSteps( intervalInSeconds ));
-            assert( intervalInSteps <= maxIntervalLengthInStepsM );
             assert( intervalInSteps >= 1 );
 
 /*            Detector* det = 
                 DetectorDict::getInstance()->getValue( detectorId );*/
 /*            std::string filename = det->getNamePrefix() + "_" +
                 toString( intervalInSeconds ) + ".xml";*/
+
+            if ( det->getDataCleanUpSteps() < intervalInSteps ) {
+                intervalInSteps = det->getDataCleanUpSteps();
+                cerr << "MSDetector2File::addDetectorAndInterval: "
+                    "intervalInSeconds greater than\ndetectors clean-up "
+                    "interval. Reducing intervalInSeconds to clean-up "
+                    "interval." << endl;
+            }
             std::ofstream* ofs = 0;
             typename Intervals::iterator it =
                 intervalsM.find( intervalInSteps );
@@ -145,15 +150,9 @@ public:
             return intervalInSteps;
         }
 
-    static bool created() {
-        return instanceM!=0;
-    }
     
 protected:
-    MSDetector2File( double maxIntervalLengthInSeconds ) 
-        :
-        maxIntervalLengthInStepsM(
-            MSNet::getSteps( maxIntervalLengthInSeconds ) )
+    MSDetector2File( void )
         {}
                                   
     struct detectorEquals :
@@ -170,13 +169,8 @@ protected:
 private:
     Intervals intervalsM;
     
-    
     static MSDetector2File* instanceM; /**< The sole instance of this
                                         * class. */
-
-    MSNet::Time maxIntervalLengthInStepsM; /**< Maximum interval
-                                     * length to be added by
-                                     * addSampleInterval().*/
 };
 
 
