@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Thu Oct 23 16:22:53 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -28,13 +28,13 @@ template < class ToUpdate >
 class MSUpdateEachTimestep
 {
 public:
-    MSUpdateEachTimestep( void ) 
+    MSUpdateEachTimestep( void )
         {
             MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
                 ToUpdate > >::getInstance()->addItemToUpdate( this );
         }
-    
-    virtual void updateEachTimestep( void ) = 0;
+
+    virtual bool updateEachTimestep( void ) = 0;
 };
 
 #endif // MSUPDATEEACHTIMESTEP_H

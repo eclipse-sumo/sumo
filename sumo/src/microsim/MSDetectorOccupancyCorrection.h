@@ -62,11 +62,12 @@ public:
             }
         }
 
-    void updateEachTimestep( void )
+    bool updateEachTimestep( void )
         {
             resetOccupancyCorrection();
+            return false;
         }
-    
+
     double getOccupancyEntryCorrection( void ) const
         {
             return occupancyEntryCorrectionM;
@@ -83,7 +84,7 @@ public:
           occupancyLeaveCorrectionM(0),
           entryCorrectionVehM(0),
           leaveCorrectionVehM(0)
-        {}    
+        {}
 
     virtual ~MSDetectorOccupancyCorrection( void )
         {}

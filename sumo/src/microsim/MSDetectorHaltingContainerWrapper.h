@@ -55,7 +55,7 @@ struct MSDetectorHaltingContainerWrapper :
           jamDistThresholdM( jamDistThreshold )
         {}
 
-    void updateEachTimestep( void )
+    bool updateEachTimestep( void )
         {
             // set isHaltingM and haltingDurationM
             typedef typename WrappedContainer::iterator ContainerIt;
@@ -105,6 +105,7 @@ struct MSDetectorHaltingContainerWrapper :
                     }
                 }
             }
+            return false;
         }
 
     MSUnit::Steps timeThresholdM;
@@ -149,7 +150,7 @@ namespace Predicate
             return item.vehM->pos() > pos;
         }
     };
-    
+
     // specialization
     template<>
     struct VehEqualsC< DetectorContainer::Halting > :
