@@ -196,6 +196,7 @@ public:
     
     bool hasDetector( E2::DetType type )
         {
+            assert( type < E2::ALL );
             return getDetector( type ) != 0;
         }
 
@@ -507,7 +508,12 @@ private:
 
     void createDetector( E2::DetType type, std::string detId )
         {
-            if ( hasDetector( type ) ) {
+            if ( type == E2::APPROACHING_VEHICLES_STATES ) {
+                if ( approachingVehStatesDetectorM != 0 ) {
+                    return;
+                }
+            }
+            else if ( hasDetector( type ) ) {
                 return;
             }
             using namespace Detector;
