@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/10 15:47:01  dkrajzew
+// random routes are now being prunned to avoid some stress with turning vehicles
+//
 // Revision 1.3  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -88,6 +91,9 @@ public:
     /** @brief Returns the inverse list
         A list which starts at the last element of this list and ends with the first one is returned */
     ROEdgeVector getReverse() const;
+
+    /** @brief removes the first edge */
+    void removeEnds();
 
     /// Output operator
     friend std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev);

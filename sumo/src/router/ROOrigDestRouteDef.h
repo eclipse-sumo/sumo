@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/10 15:47:01  dkrajzew
+// random routes are now being prunned to avoid some stress with turning vehicles
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -55,10 +58,12 @@ class RORouter;
  * @class ROOrigDestRouteDef
  * A route definition where only the begin and the end edge are given.
  */
-class ROOrigDestRouteDef : public RORouteDef {
+class ROOrigDestRouteDef
+    : public RORouteDef {
 public:
     /// Constructor
-    ROOrigDestRouteDef(const std::string &id, ROEdge *from, ROEdge *to);
+    ROOrigDestRouteDef(const std::string &id, ROEdge *from, ROEdge *to,
+        bool removeFirst=false);
 
     /// Destructor
 	virtual ~ROOrigDestRouteDef();
@@ -92,6 +97,10 @@ protected:
 
     /// The begin of the trip
     long _startTime;
+
+    /** @brief Information whether the first edge shall be removed
+        */
+    bool myRemoveFirst;
 
 };
 

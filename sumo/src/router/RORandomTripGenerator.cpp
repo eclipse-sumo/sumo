@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/04/10 15:47:01  dkrajzew
+// random routes are now being prunned to avoid some stress with turning vehicles
+//
 // Revision 1.1  2003/04/09 15:41:19  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -109,7 +112,7 @@ RORandomTripGenerator::readNextRoute(long start)
         // build trip and add
         string id = myIDSupplier.getNext();
         RORouteDef *route =
-            new ROOrigDestRouteDef(id, from, to);
+            new ROOrigDestRouteDef(id, from, to, true);
         _net.addVehicle(id,
             new ROVehicle(id, route, start,
                 _net.getDefaultVehicleType(), -1, 0));

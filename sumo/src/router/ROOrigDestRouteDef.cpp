@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/10 15:47:01  dkrajzew
+// random routes are now being prunned to avoid some stress with turning vehicles
+//
 // Revision 1.5  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -54,8 +57,10 @@ namespace
 using namespace std;
 
 ROOrigDestRouteDef::ROOrigDestRouteDef(const std::string &id,
-                                       ROEdge *from, ROEdge *to)
-    : RORouteDef(id), _from(from), _to(to), _current(0)
+                                       ROEdge *from, ROEdge *to,
+                                       bool removeFirst)
+    : RORouteDef(id), _from(from), _to(to), _current(0),
+    myRemoveFirst(removeFirst)
 {
     assert(_from!=0);
     assert(_to!=0);
@@ -83,7 +88,11 @@ ROOrigDestRouteDef::getTo() const
 RORoute *
 ROOrigDestRouteDef::buildCurrentRoute(RORouter &router, long begin)
 {
-    return new RORoute(_id, 0, 1, router.compute(_from, _to, begin));
+    ROEdgeVector rv = router.compute(_from, _to, begin);
+    if(myRemoveFirst&&rv.size()>1) {
+        rv.removeEnds();
+    }
+    return new RORoute(_id, 0, 1, rv);
 }
 
 

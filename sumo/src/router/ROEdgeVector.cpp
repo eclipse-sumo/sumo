@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/10 15:47:01  dkrajzew
+// random routes are now being prunned to avoid some stress with turning vehicles
+//
 // Revision 1.4  2003/04/04 15:40:17  roessel
 // Changed 'os << " ";' to 'os << string(" ");'
 //
@@ -162,6 +165,13 @@ ROEdgeVector::getReverse() const
     return ret;
 }
 
+
+void
+ROEdgeVector::removeEnds()
+{
+    _edges.erase(_edges.begin());
+    _edges.erase(_edges.end()-1);
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
