@@ -66,6 +66,30 @@
   </sect1>
 
   <sect1>
+    <title>Simulation</title>
+
+    <sect2>
+      <title>Vehicles</title>
+
+      <sect3>
+        <title>No vehicle appears</title>
+
+        <para><emphasis>Question: </emphasis>I have build the network and
+        routes like described, but no vehicle can be seen)</para>
+
+        <para><emphasis>Answer:</emphasis> We encountered this problem under
+        the following circumstances: As we imported a network where the
+        maximum speed allowed on was given in km/h instead of the supposed
+        m/s, no vehicle could be emitted due to a too large space needed for
+        oncoming traffic. Check whether your network description also defines
+        speed in km/h. If so, use the SUMO-NETCONVERT - switch
+        &#34;speed-in-km&#34; to recompute the speed limits. If this does not
+        help, contact us.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Visualisation</title>
 
     <sect2>
