@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/04/29 05:38:54  dkrajzew
+// Better error handling on missing configuration implemented
+//
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -85,21 +88,11 @@ bool OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv) {
 string OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok) {
     string path = oc->getString("c");
     // check the user supplied path
-    if(!oc->isDefault("c")) {
-        if(FileHelpers::exists(path))
-            return path;
-        cout << "The configurations file '" << path << "' could not be found." << endl;
-        ok = false;
-    }
-    if(ok) {
-        // check the default
-        path = oc->getString("c");
-        if(FileHelpers::exists(path)) 
-            return path;
-        // report errors
-        cout << "The default configurations file could not be found." << endl;
-    }
-    return "";      
+    if(FileHelpers::exists(path))
+        return path;
+    cout << "The configurations file '" << path << "' could not be found." << endl;
+    ok = false;
+    return "";
 }
 
 bool OptionsIO::loadConfiguration(OptionsCont *oc) {
@@ -109,7 +102,7 @@ bool OptionsIO::loadConfiguration(OptionsCont *oc) {
         return true;
     bool ok = true;
     string path = getConfigurationPath(oc, ok);
-    if(path.length()==0||!ok) 
+    if(path.length()==0||!ok)
         return false;
     try {
       XMLPlatformUtils::Initialize();
