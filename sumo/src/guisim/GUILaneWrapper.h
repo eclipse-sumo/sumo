@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/08/21 12:50:49  dkrajzew
+// retrival of a links direction added
+//
 // Revision 1.9  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -154,6 +157,7 @@ public:
     size_t getLinkNumber() const;
 
     MSLink::LinkState getLinkState(size_t pos) const;
+    MSLink::LinkDirection getLinkDirection(size_t pos) const;
 
 protected:
 /*

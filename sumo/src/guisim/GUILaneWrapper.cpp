@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/08/21 12:50:49  dkrajzew
+// retrival of a links direction added
+//
 // Revision 1.10  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -309,6 +312,13 @@ MSLink::LinkState
 GUILaneWrapper::getLinkState(size_t pos) const
 {
     return myLane.getLinkCont()[pos]->getState();
+}
+
+
+MSLink::LinkDirection
+GUILaneWrapper::getLinkDirection(size_t pos) const
+{
+    return myLane.getLinkCont()[pos]->getDirection();
 }
 
 
