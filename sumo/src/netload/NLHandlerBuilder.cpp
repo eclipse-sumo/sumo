@@ -164,7 +164,7 @@ void
 NLHandlerBuilder::setEdgeNumber(const Attributes &attrs) {
     try {
         myContainer.setEdgeNumber(getInt(attrs, SUMO_ATTR_NO));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing number of edges.");
     } catch(NumberFormatException) {
@@ -180,7 +180,7 @@ NLHandlerBuilder::chooseEdge(const Attributes &attrs) {
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         myContainer.chooseEdge(id);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
@@ -205,14 +205,14 @@ NLHandlerBuilder::addLane(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {
             SErrorHandler::add(e.getMessage("lane", id));
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 "Error in description: missing attribute in an edge-object.");
-        } catch (NumberFormatException &e) {
+        } catch (NumberFormatException) {
             SErrorHandler::add(
                 "Error in description: one of an edge's attributes must be numeric but is not.");
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of an edge-object.");
     }
@@ -227,7 +227,7 @@ NLHandlerBuilder::openAllowedEdge(const Attributes &attrs) {
         myContainer.openAllowedEdge(id);
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("cedge", id));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of an cedge-object.");
     }
@@ -247,14 +247,14 @@ NLHandlerBuilder::addVehicleType(const Attributes &attrs) {
                 getFloat(attrs, SUMO_ATTR_SIGMA));
         } catch (XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicletype", id));
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 "Error in description: missing attribute in a vehicletype-object.");
-        } catch (NumberFormatException &e) {
+        } catch (NumberFormatException) {
             SErrorHandler::add(
                 "Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a vehicle-object.");
     }
@@ -267,7 +267,7 @@ NLHandlerBuilder::openRoute(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a route-object.");
         return;
@@ -291,7 +291,7 @@ NLHandlerBuilder::addJunctionKey(const Attributes &attrs) {
     try {
         string key = getString(attrs, SUMO_ATTR_KEY);
         myContainer.addKey(key); // !!! wozu?
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
     }
 }
 
@@ -316,15 +316,15 @@ NLHandlerBuilder::addLogicItem(const Attributes &attrs) {
         string response;
         try {
             request = getInt(attrs, SUMO_ATTR_REQUEST);
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add("Missing request key...");
-        } catch (NumberFormatException &e) {
+        } catch (NumberFormatException) {
             SErrorHandler::add(
                 "Error in description: one of the request keys is not numeric.");
         }
         try {
             response = getString(attrs, SUMO_ATTR_RESPONSE);
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add("Missing respond for a request");
         }
         if(request>=0 && response.length()>0)
@@ -342,14 +342,14 @@ NLHandlerBuilder::addTrafoItem(const Attributes &attrs) {
     string links;
     try {
         lane = getInt(attrs, SUMO_ATTR_TO);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing lane number...");
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException) {
         SErrorHandler::add("The lane number is not numeric.");
     }
     try {
         links = getString(attrs, SUMO_ATTR_FROM);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing links in a lane transformation.");
     }
     if(lane>=0 && links.length()>0) {
@@ -377,7 +377,7 @@ NLHandlerBuilder::addPhase(const Attributes &attrs) {
     string phase;
     try {
         phase = getString(attrs, SUMO_ATTR_PHASE);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing phase definition.");
         return;
     }
@@ -385,7 +385,7 @@ NLHandlerBuilder::addPhase(const Attributes &attrs) {
     string brakeMask;
     try {
         brakeMask = getString(attrs, SUMO_ATTR_BRAKE);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing break definition.");
         return;
     }
@@ -397,9 +397,9 @@ NLHandlerBuilder::addPhase(const Attributes &attrs) {
         m_ActivePhases.push_back(
             MSSimpleTrafficLightLogic<64>::PhaseDefinition(
             duration, std::bitset<64>(phase), prios));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing phase duration...");
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException) {
         SErrorHandler::add("The phase duration is not numeric.");
     }
 }
@@ -416,11 +416,11 @@ NLHandlerBuilder::openJunction(const Attributes &attrs) {
                 getString(attrs, SUMO_ATTR_TYPE),
                 getFloat(attrs, SUMO_ATTR_X),
                 getFloat(attrs, SUMO_ATTR_Y));
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 "Error in description: missing attribute in a junction-object.");
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a junction-object.");
     }
@@ -437,7 +437,7 @@ NLHandlerBuilder::addVehicle(const Attributes &attrs) {
                 getString(attrs, SUMO_ATTR_TYPE),
                 getString(attrs, SUMO_ATTR_ROUTE),
                 getLong(attrs, SUMO_ATTR_DEPART));
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 "Error in description: missing attribute in a vehicle-object.");
         } catch(XMLIdNotKnownException &e) {
@@ -445,7 +445,7 @@ NLHandlerBuilder::addVehicle(const Attributes &attrs) {
         } catch(XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicle", id));
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a vehicle-object.");
     }
@@ -470,12 +470,12 @@ NLHandlerBuilder::addDetector(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
             SErrorHandler::add(e.msg());
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 string("The description of the detector '")
                 + id + string("' does not contain a needed value."), true);
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a detector-object.");
     }
@@ -497,12 +497,12 @@ NLHandlerBuilder::addSource(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
             SErrorHandler::add(e.msg());
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 string("The description of the source '")
                 + id + string("' does not contain a needed value."));
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a detector-object.");
     }
@@ -527,12 +527,12 @@ NLHandlerBuilder::addTrigger(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("trigger", id));
         } catch (InvalidArgument &e) {
             SErrorHandler::add(e.msg());
-        } catch (EmptyData &e) {
+        } catch (EmptyData) {
             SErrorHandler::add(
                 string("The description of the trigger '")
                 + id + string("' does not contain a needed value."));
         }
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a trigger-object.");
     }
@@ -558,13 +558,13 @@ NLHandlerBuilder::openSucc(const Attributes &attrs) {
         string id = getString(attrs, SUMO_ATTR_LANE);
         myContainer.openSuccLane(id);
         m_LaneId = id;
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a succ-object.");
     }
     try {
         myContainer.setSuccJunction(getString(attrs, SUMO_ATTR_JUNCTION));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of a succ junction-object.");
     }
@@ -576,7 +576,7 @@ NLHandlerBuilder::addSuccLane(const Attributes &attrs) {
         myContainer.addSuccLane(
             getBool(attrs, SUMO_ATTR_YIELD),
             getString(attrs, SUMO_ATTR_LANE));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
@@ -669,7 +669,7 @@ void
 NLHandlerBuilder::setNodeNumber(const std::string &chars) {
     try {
         myContainer.setNodeNumber(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing number of nodes.");
     } catch(NumberFormatException) {
@@ -717,9 +717,9 @@ NLHandlerBuilder::setRequestSize(const std::string &chars) {
     try {
         _requestSize = STRConvert::_2int(chars);
         m_pActiveLogic->resize(_requestSize);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing request size.");
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException) {
         SErrorHandler::add(
             "Error in description: one of an edge's attributes must be numeric but is not.");
     }
@@ -730,9 +730,9 @@ NLHandlerBuilder::setResponseSize(const std::string &chars) {
     try {
         _responseSize = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing response size.");
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException) {
         SErrorHandler::add(
             "Response size is not numeric! Contact your netconvert-programmer.");
     }
@@ -743,9 +743,9 @@ NLHandlerBuilder::setLaneNumber(const std::string &chars) {
     try {
         _laneNo = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add("Missing lane number.");
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException) {
         SErrorHandler::add(
             "Error in description: one of an edge's attributes must be numeric but is not.");
     }
