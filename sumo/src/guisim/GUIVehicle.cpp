@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/01/27 14:20:56  dkrajzew
+// code beautifying
+//
 // Revision 1.27  2004/12/16 12:20:09  dkrajzew
 // debugging
 //
@@ -75,13 +78,17 @@ namespace
 // has to reapply a changed setting of table parameter
 //
 // Revision 1.10  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease
+//  the search for further couts which must be redirected to the messaaging
+//  subsystem
 //
 // Revision 1.9  2003/06/06 10:29:24  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+// new subfolder holding popup-menus was added due to link-dependencies under
+//  linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
 // Revision 1.8  2003/06/05 06:29:50  dkrajzew
-// first tries to build under linux: warnings removed; moc-files included Makefiles added
+// first tries to build under linux: warnings removed; moc-files included
+//  Makefiles added
 //
 // Revision 1.7  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
@@ -283,7 +290,7 @@ GUIVehicle::~GUIVehicle()
         networking_endOut
             << id() << ";" << MSNet::globaltime << ";"
             << networking_myKnownEdges.size() << ";"
-			<< networking_globalConns << endl;
+            << networking_globalConns << endl;
     }
 #endif
 }
@@ -500,7 +507,7 @@ GUIVehicle::getDesiredDepart() const
 Boundary
 GUIVehicle::getCenteringBoundary() const
 {
-	throw 1;
+    throw 1;
 }
 
 #ifdef NETWORKING_BLA
