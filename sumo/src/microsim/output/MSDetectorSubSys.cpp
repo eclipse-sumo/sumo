@@ -145,3 +145,13 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     }
 }
 
+MSInductLoop *
+MSDetectorSubSys::findInductLoop(const std::string &id)
+{
+    if(LoopDict::created()) {
+        return LoopDict::getInstance()->getValue(id);
+    }
+    return 0;
+}
+
+

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.2  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -98,30 +101,10 @@ public:
     Position2D getPosition() const;
     //@}
 
-    double getDefaultSpeed() const;
-
-
     Boundary getBoundary() const;
-
-    /// Returns the current speed
-    double getCurrentSpeed() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
-
-    void setOverriding(bool val);
-
-    void setOverridingValue(double val);
-
-    double getLoadedSpeed();
-
-
-
-protected:
-    /** the implementation of the SAX-handler interface for reading
-        element begins */
-    void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
 
 public:
     class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
@@ -172,18 +155,6 @@ private:
 
     /// Storage for speed string to avoid recomputation
     std::string myLastValueString;
-
-    /// The original speed allowed on the lanes
-    double myDefaultSpeed;
-
-    /// The information whether the read speed shall be overridden
-    bool myAmOverriding;
-
-    /// The speed to use if overriding the read speed
-    double mySpeedOverrideValue;
-
-    /// The loaded speed
-    double myLoadedSpeed;
 
 };
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/16 12:14:52  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.10  2004/11/24 08:46:42  dkrajzew
 // recent changes applied
 //
@@ -80,10 +83,10 @@ public:
     /// Constructor
     GUI_E2_ZS_Collector(std::string id, DetectorUsage usage, MSLane* lane,
         MSUnit::Meters startPos, MSUnit::Meters detLength,
-        MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-        MSUnit::Meters jamDistThreshold = 10,
-        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
 
     /// Destructor
     ~GUI_E2_ZS_Collector();

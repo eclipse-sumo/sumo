@@ -48,6 +48,8 @@ public:
 */
     static void deleteDictionariesAndContents( void );
 
+    static MSInductLoop *findInductLoop(const std::string &id);
+
 };
 
 #endif

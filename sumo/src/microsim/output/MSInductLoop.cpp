@@ -17,10 +17,21 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
-// $Id$
-
-
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
+// Revision 1.5  2004/12/10 11:42:53  dksumo
+// detectors usage reworked
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
@@ -33,11 +44,19 @@
 #include <utils/convert/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * member variable definitions
+ * ======================================================================= */
 string MSInductLoop::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
 "<!--\n"
@@ -55,6 +74,10 @@ string MSInductLoop::xmlHeaderM(
 
 string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSInductLoop::MSInductLoop( const string& id,
                             MSLane* lane,
                             double positionInMeters,
@@ -71,7 +94,11 @@ MSInductLoop::MSInductLoop( const string& id,
     // insert object into dictionary
     if ( ! InductLoopDict::getInstance()->isInsertSuccess( idM,
                                                            this ) ) {
-        assert( false );
+        MsgHandler::getErrorInstance()->inform(
+            "induct loop '" + idM + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(
+            " (declared twice?)");
+        throw ProcessError();
     }
 
     // start old-data removal through MSEventControl
@@ -295,7 +322,11 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
             getDismissedStartIterator( t ), mend );
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\" ").writeString("nVehContrib=\"").writeString(
+        toString(stopTime)).writeString("\" ");
+    if(dev.needsDetectorName()) {
+        dev.writeString("id=\"").writeString(idM).writeString("\" ");
+    }
+    dev.writeString("nVehContrib=\"").writeString(
         toString(getNVehContributed( t ))).writeString("\" flow=\"").writeString(
         toString(getFlow( t ))).writeString("\" occupancy=\"").writeString(
         toString(getOccupancy( t ))).writeString("\" speed=\"").writeString(
@@ -404,6 +435,9 @@ MSInductLoop::getDismissedStartIterator( MSNet::Time lastNTimesteps ) const
                         dismissedContM.end(),
                         startTime );
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
 // mode:C++

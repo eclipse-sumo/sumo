@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.6  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -65,9 +68,9 @@ public:
     /// Constructor
     GUIE3Collector(std::string id, Detector::CrossSections entries,
         Detector::CrossSections exits,
-        MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0 / 3.6,
-        MSUnit::Seconds deleteDataAfterSeconds = 1800);
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
 
     /// Destructor
     ~GUIE3Collector();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.3  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -132,7 +135,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
         string("speedtrigger:") + id, GLO_LANESPEEDTRIGGER),
-    myAmOverriding(false), myShowAsKMH(true)
+    myShowAsKMH(true)
 {
     mySGPositions.reserve(destLanes.size());
     myFGPositions.reserve(destLanes.size());
@@ -243,13 +246,6 @@ GUILaneSpeedTrigger::active() const
 }
 
 
-double
-GUILaneSpeedTrigger::getCurrentSpeed() const
-{
-    return (*(myDestLanes.begin()))->maxSpeed();
-}
-
-
 Position2D
 GUILaneSpeedTrigger::getPosition() const
 {
@@ -314,7 +310,6 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
             myLastValueString = toString<float>(myLastValue);
             size_t idx = myLastValueString.find('.');
             if(idx!=string::npos) {
-//                idx += 2;
                 if(idx>myLastValueString.length()) {
                     idx = myLastValueString.length();
                 }
@@ -355,57 +350,6 @@ GUILaneSpeedTrigger::openManipulator(GUIMainWindow &app,
     return gui;
 }
 
-
-double
-GUILaneSpeedTrigger::getDefaultSpeed() const
-{
-    return myDefaultSpeed;
-}
-
-
-void
-GUILaneSpeedTrigger::myStartElement(int element, const std::string &name,
-                                   const Attributes &attrs)
-{
-    MSLaneSpeedTrigger::myStartElement(element, name, attrs);
-    myLoadedSpeed = myCurrentSpeed;
-    if(myAmOverriding) {
-        myCurrentSpeed = mySpeedOverrideValue;
-//        processNext();
-    }
-}
-
-
-void
-GUILaneSpeedTrigger::setOverriding(bool val)
-{
-    myAmOverriding = val;
-    if(myAmOverriding) {
-        myCurrentSpeed = mySpeedOverrideValue;
-    } else {
-        myCurrentSpeed = myLoadedSpeed;
-    }
-}
-
-
-void
-GUILaneSpeedTrigger::setOverridingValue(double val)
-{
-    mySpeedOverrideValue = val;
-    if(myAmOverriding) {
-        myCurrentSpeed = mySpeedOverrideValue;
-        processNext();
-    } else {
-        myCurrentSpeed = myLoadedSpeed;
-    }
-}
-
-
-double
-GUILaneSpeedTrigger::getLoadedSpeed()
-{
-    return myLoadedSpeed;
-}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,18 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Id$
+// $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -35,9 +47,15 @@
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <utils/convert/ToString.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 #include "MSE1.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class MSE1Collector : public MSDetectorFileOutput,
                       public MSVehicleQuitReminded
 {
@@ -67,8 +85,11 @@ public:
 
             // insert object into dictionary
             if ( ! E1Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
-                assert( false );
-            }
+                MsgHandler::getErrorInstance()->inform(
+                    "e1-detector '" + idM + "' could not be build;");
+                MsgHandler::getErrorInstance()->inform(
+                    " (declared twice?)");
+                throw ProcessError();            }
         }
 
     /// Dtor. Deletes the created detectors.
@@ -237,6 +258,9 @@ public:
             dev.writeString("<interval begin=\"").writeString(
                 toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
+            if(dev.needsDetectorName()) {
+                dev.writeString("id=\"").writeString(idM).writeString("\" ");
+            }
             writeXMLOutput( dev, detectorsM, startTime, stopTime );
             dev.writeString("/>");
         }
@@ -411,14 +435,13 @@ protected:
             }
         }
 
-private:
-
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+#endif
 
 // Local Variables:
 // mode:C++
 // End:
 
-#endif // MSE1COLLECTOR_H

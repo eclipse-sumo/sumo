@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/12/16 12:14:52  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.9  2004/11/23 10:12:27  dkrajzew
 // new detectors usage applied
 //
@@ -88,9 +91,10 @@ GUIDetectorBuilder::~GUIDetectorBuilder()
 
 MSInductLoop *
 GUIDetectorBuilder::createInductLoop(const std::string &id,
-                                     MSLane *lane, double pos)
+                                     MSLane *lane, double pos,
+                                     int splInterval)
 {
-    return new GUIInductLoop(id, lane, pos);
+    return new GUIInductLoop(id, lane, pos, splInterval);
 }
 
 

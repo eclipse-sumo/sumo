@@ -191,7 +191,11 @@ MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
 {
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\">\n");
+        toString(stopTime)).writeString("\" ");
+    if(dev.needsDetectorName()) {
+        dev.writeString("id=\"dump_").writeString(toString(myInterval)).writeString("\" ");
+    }
+    dev.writeString(">\n");
     write(dev, startTime, stopTime);
     dev.writeString("</interval>");
 }

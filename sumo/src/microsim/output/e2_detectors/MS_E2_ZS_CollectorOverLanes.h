@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/16 12:15:00  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.1  2004/11/23 10:14:28  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
@@ -35,6 +38,9 @@
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 // $Log$
+// Revision 1.2  2004/12/16 12:15:00  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.1  2004/11/23 10:14:28  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
@@ -86,10 +92,10 @@ public:
     /// Constructor
     MS_E2_ZS_CollectorOverLanes( std::string id,
         DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
-        MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-        MSUnit::Meters jamDistThreshold = 10,
-        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
 
     /** @brief Builds the consecutive E2-detectors
         This is not done within the constructor to allow overriding of

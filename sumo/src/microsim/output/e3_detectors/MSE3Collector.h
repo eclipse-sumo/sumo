@@ -41,6 +41,8 @@
 #include <microsim/MSVehicleQuitReminded.h>
 #include <utils/convert/ToString.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 
 ///
@@ -133,9 +135,9 @@ public:
         std::string id
         , Detector::CrossSections entries
         , Detector::CrossSections exits
-        , MSUnit::Seconds haltingTimeThreshold = 1
-        , MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0 / 3.6
-        , MSUnit::Seconds deleteDataAfterSeconds = 1800
+        , MSUnit::Seconds haltingTimeThreshold
+        , MSUnit::MetersPerSecond haltingSpeedThreshold
+        , MSUnit::Seconds deleteDataAfterSeconds
         )
         :
         idM( id )
@@ -164,7 +166,11 @@ public:
 
             // insert object into dictionary
             if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
-                assert( false );
+                MsgHandler::getErrorInstance()->inform(
+                    "e3-detector '" + idM + "' could not be build;");
+                MsgHandler::getErrorInstance()->inform(
+                    " (declared twice?)");
+                throw ProcessError();
             }
         }
 
@@ -339,6 +345,9 @@ public:
             dev.writeString("<interval begin=\"").writeString(
                 toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
+            if(dev.needsDetectorName()) {
+                dev.writeString("id=\"").writeString(idM).writeString("\" ");
+            }
             writeXMLOutput( dev, detectorsM, startTime, stopTime );
             dev.writeString("/>");
         }

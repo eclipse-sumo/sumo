@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.11  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -69,7 +72,7 @@ class GUIInductLoop : public MSInductLoop
 public:
     /// Construtor
     GUIInductLoop(const std::string &id, MSLane* lane, double position,
-        MSNet::Time deleteDataAfterSeconds=900);
+        MSNet::Time deleteDataAfterSeconds);
 
     /// Destructor
     ~GUIInductLoop();

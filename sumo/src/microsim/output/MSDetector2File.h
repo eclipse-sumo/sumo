@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.3  2004/11/25 16:26:48  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -72,7 +75,7 @@ public:
     typedef std::pair< MSDetectorFileOutput*, OutputDevice* > DetectorFilePair;
     /// Container holding DetectorFilePair (with the same interval).
     typedef std::vector< DetectorFilePair > DetectorFileVec;
-    typedef std::pair< MSUnit::IntSteps, MSUnit::IntSteps > IntervalsKey;
+    typedef MSUnit::IntSteps IntervalsKey;
     /// Association of intervals to DetectorFilePair containers.
     typedef std::map< IntervalsKey, DetectorFileVec > Intervals;
 
@@ -101,13 +104,15 @@ public:
      *
      * @param det Existing detector that shall report it's data.
      * @param filename File where the output shall go.
-     * @param sampleInterval Sample interval length
      * @param write2fileInterval Interval at which output is written.
      */
     void addDetectorAndInterval( MSDetectorFileOutput* det,
                                  OutputDevice *device,
-                                 MSUnit::Seconds sampleInterval,
-                                 MSUnit::Seconds write2fileInterval );
+                                 MSUnit::Seconds interval,
+                                 bool reinsert=false);
+
+    void resetInterval(MSDetectorFileOutput* det,
+        MSUnit::Seconds newinterval);
 
 protected:
     /**

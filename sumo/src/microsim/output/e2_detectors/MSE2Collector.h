@@ -40,6 +40,8 @@
 #include <limits>
 #include <microsim/output/MSApproachingVehiclesStates.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 ///
 /// Introduces some enums and consts for use in MSE2Collector.
@@ -159,10 +161,10 @@ public:
         std::string id,
         DetectorUsage usage,
         MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
-        MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0/3.6,
-        MSUnit::Meters jamDistThreshold = 10,
-        MSUnit::Seconds deleteDataAfterSeconds = 1800 )
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
           endPosM( startPos + detLength ),
@@ -191,8 +193,11 @@ public:
             // insert object into dictionary
             if ( ! E2Dictionary::getInstance()->isInsertSuccess(
                      idM, this ) ) {
-                assert( false );
-            }
+                MsgHandler::getErrorInstance()->inform(
+                    "e2-detector '" + idM + "' could not be build;");
+                MsgHandler::getErrorInstance()->inform(
+                    " (declared twice?)");
+                throw ProcessError();            }
         }
 
     /// Dtor. Deletes the created detectors.
@@ -513,6 +518,9 @@ public:
             dev.writeString("<interval begin=\"").writeString(
                 toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
+            if(dev.needsDetectorName()) {
+                dev.writeString("id=\"").writeString(idM).writeString("\" ");
+            }
             if ( hasDetector(
                      E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
                 dev.writeString("queueLengthAheadOfTrafficLightsInVehiclesMax=\"" );

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/12/16 12:14:52  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.6  2004/11/23 10:12:27  dkrajzew
 // new detectors usage applied
 //
@@ -63,7 +66,7 @@ public:
 protected:
     /// Creates the instance of an induct loop (gui-version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
-        MSLane *lane, double pos);
+        MSLane *lane, double pos, int splInterval);
 
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,

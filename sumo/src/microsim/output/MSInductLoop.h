@@ -22,6 +22,19 @@
 //---------------------------------------------------------------------------//
 
 // $Id$
+// $Log$
+// Revision 1.2  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
+// Revision 1.3  2004/12/10 11:42:53  dksumo
+// detectors usage reworked
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <deque>
@@ -34,12 +47,19 @@
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/iodevices/XMLDevice.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 class GUIDetectorWrapper;
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * An unextended detector that measures at a fixed position on a fixed
  * lane. Only vehicles that passed the entire detector are counted. We
@@ -85,7 +105,7 @@ public:
     MSInductLoop( const std::string& id,
                   MSLane* lane,
                   double positionInMeters,
-                  MSNet::Time deleteDataAfterSeconds = 900 );
+                  MSNet::Time deleteDataAfterSeconds);
 
 
     /// Destructor. Clears containers.
@@ -341,7 +361,6 @@ public:
 
     typedef std::vector<double> DismissedCont;
 
-
 protected:
     /**
      * @name Methods called by Reminder methods.
@@ -504,8 +523,11 @@ namespace
     //@}
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
+

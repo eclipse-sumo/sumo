@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.3  2004/11/29 09:21:47  dkrajzew
 // detectors debugging
 //
@@ -58,7 +61,6 @@ namespace
 //
 // Revision 1.8  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
-//
 //
 /* =========================================================================
  * included modules
@@ -122,7 +124,11 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
 {
     // insert object into dictionary
     if ( ! MSDetectorSubSys::E2ZSOLDict::getInstance()->isInsertSuccess(myID, this ) ) {
-        assert( false );
+        MsgHandler::getErrorInstance()->inform(
+            "e2-overlanes-detector '" + myID + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(
+            " (declared twice?)");
+        throw ProcessError();
     }
 }
 
@@ -393,6 +399,9 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
+    if(dev.needsDetectorName()) {
+        dev.writeString("id=\"").writeString(myID).writeString("\" ");
+    }
     if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
         dev.writeString("collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"");
         dev.writeString(

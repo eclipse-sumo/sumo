@@ -109,7 +109,7 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
             MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, dev );
             ret.push_back( det );
             MSDetector2File::getInstance()->addDetectorAndInterval(
-                det, dev, *it, *it);
+                det, dev, *it);
         }
     }
     return ret;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:14:59  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.3  2004/11/25 16:26:47  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -97,34 +100,26 @@ MSDetector2File::~MSDetector2File( void )
                 det->writeXMLDetectorInfoEnd(*(df->second));
                 df->second->closeInfo();
             }
-//!!! deleted in SharedOutputDevices            delete df->second;
         }
     }
     intervalsM.clear();
-    // Detector* should be deleted via the SingletonDictionary!!!
 }
 
 
 void
 MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
                                          OutputDevice *device,
-                                         MSUnit::Seconds sampleInterval,
-                                         MSUnit::Seconds write2fileInterval )
+                                         MSUnit::Seconds interval,
+                                         bool reinsert)
 {
-    if ( det->getDataCleanUpSteps() < sampleInterval ) {
-        sampleInterval = det->getDataCleanUpSteps();
-        WRITE_WARNING("MSDetector2File::addDetectorAndInterval: ");
-        WRITE_WARNING(" Sample interval greater than detectors clean-up interval.");
-        WRITE_WARNING(" Reducing sample interval to clean-up interval.");
-    }
-    if ( det->getDataCleanUpSteps() < write2fileInterval ) {
-        write2fileInterval = det->getDataCleanUpSteps();
+    if ( det->getDataCleanUpSteps() < interval ) {
+        interval = det->getDataCleanUpSteps();
         WRITE_WARNING("MSDetector2File::addDetectorAndInterval: ");
         WRITE_WARNING("Write2File interval greater than detectors clean-up interval.");
         WRITE_WARNING("Reducing Write2File interval to clean-up interval.");
     }
 
-    IntervalsKey key = make_pair( sampleInterval, write2fileInterval );
+    IntervalsKey key = interval;
     Intervals::iterator it = intervalsM.find( key );
     if ( it == intervalsM.end() ) {
         DetectorFileVec detAndFileVec;
@@ -136,9 +131,9 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
             ( this, &MSDetector2File::write2file, key );
         MSEventControl::getEndOfTimestepEvents()->addEvent(
             writeData,
-            OptionsSubSys::getOptions().getInt("begin") + write2fileInterval,
+            OptionsSubSys::getOptions().getInt("begin") + interval,
             MSEventControl::ADAPT_AFTER_EXECUTION );
-        myLastCalls[sampleInterval] =
+        myLastCalls[interval] =
             OptionsSubSys::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
@@ -153,7 +148,7 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
             return;
         }
     }
-    if(device->needsHeader()) {
+    if(!reinsert&&device->needsHeader()) {
         det->writeXMLHeader(*device);
         det->writeXMLDetectorInfoStart(*device);
         device->closeInfo();
@@ -167,10 +162,9 @@ MSDetector2File::write2file( IntervalsKey key )
     Intervals::iterator iIt = intervalsM.find( key );
     assert( iIt != intervalsM.end() );
     DetectorFileVec dfVec = iIt->second;
-    MSUnit::IntSteps sampleInterval = key.first;
-    MSUnit::IntSteps write2fileInterval = key.second;
+    MSUnit::IntSteps interval = key;
     MSUnit::Seconds stopTime = MSNet::getInstance()->simSeconds();
-    MSUnit::Seconds startTime = myLastCalls[sampleInterval];
+    MSUnit::Seconds startTime = myLastCalls[interval];
     // check whether at the end the output was already generated
     if(stopTime==startTime) {
         return 0; // a dummy value only; this should only be the case
@@ -182,14 +176,33 @@ MSDetector2File::write2file( IntervalsKey key )
         it->first->writeXMLOutput( *(it->second), startTime, stopTime-1 );
         it->second->closeInfo();
     }
-    myLastCalls[sampleInterval] = MSNet::getInstance()->simSeconds();
-    return write2fileInterval;
+    myLastCalls[interval] = MSNet::getInstance()->simSeconds();
+    return interval;
 }
 
 
 MSDetector2File::MSDetector2File( void )
 {}
 
+
+void
+MSDetector2File::resetInterval(MSDetectorFileOutput* det,
+                               MSUnit::Seconds newinterval)
+{
+    for(Intervals::iterator i=intervalsM.begin(); i!=intervalsM.end(); ++i) {
+        DetectorFileVec &dets = (*i).second;
+        for(DetectorFileVec::iterator j=dets.begin(); j!=dets.end(); ++j) {
+            DetectorFilePair &dvp = *j;
+            if(dvp.first==det) {
+                DetectorFilePair dvpu = *j;
+                dets.erase(j);
+                addDetectorAndInterval(dvpu.first, dvpu.second,
+                    newinterval, true);
+                return;
+            }
+        }
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
