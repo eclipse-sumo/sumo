@@ -80,7 +80,6 @@ void
 NLNetHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
-    cout << "Start: " << name << endl;
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -507,7 +506,6 @@ void
 NLNetHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
-    cout << "Chars: " << name << endl;
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -693,7 +691,6 @@ NLNetHandler::addInLanes(const std::string &chars) {
 void
 NLNetHandler::myEndElement(int element, const std::string &name)
 {
-    cout << "End: " << name << endl;
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
         case SUMO_TAG_EDGE:
