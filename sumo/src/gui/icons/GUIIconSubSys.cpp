@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 08:16:14  dkrajzew
+// windows layouts added; reload button added
+//
 // Revision 1.2  2004/04/02 10:59:47  dkrajzew
 // selection visualisation flags added
 //
@@ -58,9 +61,26 @@ namespace
 #include "show_geometry.xpm"
 #include "yes.xpm"
 #include "no.xpm"
-#include "flag.xpm"
-#include "flag_plus.xpm"
-#include "flag_minus.xpm"
+#include "flag.cpp"
+#include "flag_plus.cpp"
+#include "flag_minus.cpp"
+#include "windows_cascade.cpp"
+#include "windows_tile_vertically.cpp"
+#include "windows_tile_horizontally.cpp"
+#include "reload.cpp"
+#include "manip.cpp"
+/*
+#include "vlimit_20.cpp"
+#include "vlimit_40.cpp"
+#include "vlimit_60.cpp"
+#include "vlimit_80.cpp"
+#include "vlimit_100.cpp"
+#include "vlimit_120.cpp"
+#include "vlimit_140.cpp"
+#include "vlimit_160.cpp"
+#include "vlimit_180.cpp"
+*/
+//#include "vlimit_200.cpp"
 
 
 /* =========================================================================
@@ -77,6 +97,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
     myIcons[ICON_OPEN] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[ICON_RELOAD] = new FXGIFIcon(a, reload);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);
     myIcons[ICON_START] = new FXXPMIcon(a, play_xpm);
@@ -97,9 +118,25 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_SHOWFULLGEOM] = new FXXPMIcon(a, show_geometry_xpm);
     myIcons[ICON_YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[ICON_NO] = new FXXPMIcon(a, no_xpm);
-    myIcons[ICON_FLAG] = new FXXPMIcon(a, flag_xpm);
-    myIcons[ICON_FLAG_PLUS] = new FXXPMIcon(a, flag_plus_xpm);
-    myIcons[ICON_FLAG_MINUS] = new FXXPMIcon(a, flag_minus_xpm);
+    myIcons[ICON_FLAG] = new FXGIFIcon(a, flag);
+    myIcons[ICON_FLAG_PLUS] = new FXGIFIcon(a, flag_plus);
+    myIcons[ICON_FLAG_MINUS] = new FXGIFIcon(a, flag_minus);
+    myIcons[ICON_WINDOWS_CASCADE] = new FXGIFIcon(a, windows_cascade);
+    myIcons[ICON_WINDOWS_TILE_VERT] = new FXGIFIcon(a, windows_tile_vertically);
+    myIcons[ICON_WINDOWS_TILE_HORI] = new FXGIFIcon(a, windows_tile_horizontally);
+    myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
+/*
+    myIcons[ICON_SPEEDLIMIT_020KMH] = new FXGIFIcon(a, vlimit_20);
+    myIcons[ICON_SPEEDLIMIT_040KMH] = new FXGIFIcon(a, vlimit_40);
+    myIcons[ICON_SPEEDLIMIT_060KMH] = new FXGIFIcon(a, vlimit_60);
+    myIcons[ICON_SPEEDLIMIT_080KMH] = new FXGIFIcon(a, vlimit_80);
+    myIcons[ICON_SPEEDLIMIT_100KMH] = new FXGIFIcon(a, vlimit_100);
+    myIcons[ICON_SPEEDLIMIT_120KMH] = new FXGIFIcon(a, vlimit_120);
+    myIcons[ICON_SPEEDLIMIT_140KMH] = new FXGIFIcon(a, vlimit_140);
+    myIcons[ICON_SPEEDLIMIT_160KMH] = new FXGIFIcon(a, vlimit_160);
+    myIcons[ICON_SPEEDLIMIT_180KMH] = new FXGIFIcon(a, vlimit_180);*/
+//    myIcons[ICON_SPEEDLIMIT_200KMH] = new FXGIFIcon(a, vlimit_200);
+
     // ... and create them
     for(int i=0; i<ICON_MAX; i++) {
         if(myIcons[i]!=0) {
