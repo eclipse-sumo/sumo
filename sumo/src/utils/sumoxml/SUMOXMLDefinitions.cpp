@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/04/14 13:44:59  roessel
+// Added Tags and Attributes for supplementary-weights.
+//
 // Revision 1.23  2004/01/27 08:44:13  dkrajzew
 // given flow definitions an own tag
 //
@@ -99,9 +102,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 49;
+size_t noSumoTags = 51;
 
-GenericSAX2Handler::Tag sumotags[49] =
+GenericSAX2Handler::Tag sumotags[51] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -151,12 +154,14 @@ GenericSAX2Handler::Tag sumotags[49] =
       { "intlanes",         SUMO_TAG_INTERNAL_LANES },
       { "fromedge",         SUMO_TAG_FROMEDGE },
       { "toedge",           SUMO_TAG_TOEDGE },
-      { "sink",             SUMO_TAG_SINK }
+      { "sink",             SUMO_TAG_SINK },
+      { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
+      { "weight",           SUMO_TAG_WEIGHT }
 };
 
-size_t noSumoAttrs = 78;
+size_t noSumoAttrs = 82;
 
-AttributesHandler::Attr sumoattrs[78] =
+AttributesHandler::Attr sumoattrs[82] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -235,7 +240,11 @@ AttributesHandler::Attr sumoattrs[78] =
     { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
     { "det_offset",     SUMO_ATTR_DET_OFFSET },
     { "vehno",          SUMO_ATTR_VEHNO },
-    { "perc",           SUMO_ATTR_PERC }
+    { "perc",           SUMO_ATTR_PERC },
+    { "edge-id",        SUMO_ATTR_EDGE_ID },
+    { "absolut",        SUMO_ATTR_ABSOLUT },
+    { "mult",           SUMO_ATTR_MULT },
+    { "add",            SUMO_ATTR_ADD }
 };
 
 

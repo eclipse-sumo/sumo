@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2004/04/14 13:44:59  roessel
+// Added Tags and Attributes for supplementary-weights.
+//
 // Revision 1.25  2004/01/27 08:44:13  dkrajzew
 // given flow definitions an own tag
 //
@@ -213,7 +216,9 @@ enum TagEnum
     /// Outgoing edge specification (jp-router)
     SUMO_TAG_TOEDGE,
     /// Sink(s) specification
-    SUMO_TAG_SINK
+    SUMO_TAG_SINK,
+    SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
+    SUMO_TAG_WEIGHT
 };
 
 
@@ -335,7 +340,11 @@ enum AttrEnum
     /// The number of vehicles to emit (od-amount
     SUMO_ATTR_VEHNO,
     /// The percentage of something
-    SUMO_ATTR_PERC
+    SUMO_ATTR_PERC,
+    SUMO_ATTR_EDGE_ID,
+    SUMO_ATTR_ABSOLUT,
+    SUMO_ATTR_MULT,
+    SUMO_ATTR_ADD
 };
 
 
@@ -345,12 +354,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[49];
+extern GenericSAX2Handler::Tag sumotags[51];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[78];
+extern AttributesHandler::Attr sumoattrs[82];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
