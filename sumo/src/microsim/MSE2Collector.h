@@ -96,15 +96,12 @@ public:
     typedef SingletonDictionary< std::string,
                                  MSE2Collector* > E2Dictionary;
 
-    MSE2Collector( std::string id, //daraus sollte sich der Filename
-                        // ergeben
-                        MSLane* lane,
-                        MSUnit::Meters startPos,
-                        MSUnit::Meters detLength,
-                        MSUnit::Seconds haltingTimeThreshold = 1,
-                        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-                        MSUnit::Meters jamDistThreshold = 10,
-                        MSUnit::Seconds deleteDataAfterSeconds = 1800 )
+    MSE2Collector( std::string id, DetectorUsage usage,
+        MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::Meters jamDistThreshold = 10,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800 )
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
           endPosM( startPos + detLength ),
@@ -120,7 +117,8 @@ public:
           detectorsLDM(1),
           containersM(3),
           occupancyCorrectionM(),
-          approachingVehStatesDetectorM(0)
+          approachingVehStatesDetectorM(0),
+          myUsage(usage)
         {
             assert( laneM != 0 );
             MSUnit::Meters laneLength =
@@ -147,8 +145,8 @@ public:
             }
         }
 
-    virtual bool amVisible() const {
-        return false;
+    virtual DetectorUsage getUsageType() const {
+        return myUsage;
     }
 
 
@@ -174,7 +172,7 @@ public:
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
-            return std::numeric_limits< double >::max();
+            return -1;//!!!std::numeric_limits< double >::max();
         }
 
 
@@ -191,7 +189,7 @@ public:
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
-            return std::numeric_limits< double >::max();
+            return -1;//!!!std::numeric_limits< double >::max();
         }
 
     bool hasDetector( E2::DetType type )
@@ -345,7 +343,20 @@ public:
             // vehicle is in front of detector
             return true;
         }
+
+    void removeOnTripEnd( MSVehicle *veh ) {
+        /*
+                for ( ContainerContIter it = containersM.begin();
+                      it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->removeOnTripEnd( veh );
+                    }
+        }
+        */
+    }
+
     //@}
+
 
     /**
      * @name Inherited MSDetectorFileOutput methods.
@@ -471,6 +482,8 @@ private:
     MSApproachingVehiclesStates* approachingVehStatesDetectorM;
 
     static std::string xmlHeaderM;
+
+    DetectorUsage myUsage;
 
     void createContainer( E2::Containers type )
         {
