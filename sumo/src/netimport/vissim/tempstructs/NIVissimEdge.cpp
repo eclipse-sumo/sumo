@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/11/17 07:27:16  dkrajzew
+// false heuristics removed
+//
 // Revision 1.20  2003/11/11 08:24:52  dkrajzew
 // debug values removed
 //
@@ -418,9 +421,9 @@ NIVissimEdge::buildNBEdge(double offset)
         if(!NBNodeCont::insert(fromNode)) {
             throw 1;
         }
-    } else if(fromNode->getPosition()!=myGeom.at(0)) {
+    } /* !_! else if(fromNode->getPosition()!=myGeom.at(0)) {
         myGeom.push_front(fromNode->getPosition());
-    }
+    }*/
     if(toNode==0) {
         toInf.first = 0;
         Position2D pos = myGeom.at(myGeom.size()-1);
@@ -430,9 +433,9 @@ NIVissimEdge::buildNBEdge(double offset)
         if(!NBNodeCont::insert(toNode)) {
             throw 1;
         }
-    } else if(toNode->getPosition()!=myGeom.getEnd()) {
+    } /* !_! else if(toNode->getPosition()!=myGeom.getEnd()) {
         myGeom.push_back(toNode->getPosition());
-    }
+    }*/
 
     // extend the edge's shape
 /*    if(toInf.first!=0) {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/11/17 07:27:14  dkrajzew
+// false heuristics removed
+//
 // Revision 1.20  2003/11/11 08:24:51  dkrajzew
 // debug values removed
 //
@@ -373,7 +376,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
             cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
     }
-    // check for connection clusters lying beyond the edge
+/* !_!   // check for connection clusters lying beyond the edge
     i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
@@ -404,7 +407,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
             pos++;
             cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
-    }
+    }*/
 }
 
 bool
@@ -767,7 +770,6 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c)
         }
     }
     recomputeBoundery();
-
 }
 
 
