@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/08/02 12:46:58  dkrajzew
+// using OutputDevices instead of ostreams
+//
 // Revision 1.25  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -517,7 +520,7 @@ NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
     MSJunctionControl *junctions = myJunctionControlBuilder.build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
-    std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
+    std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(options);
     MSNet::init( "", edges, junctions, routeLoaders, tlc, streams);
     return MSNet::getInstance();
 }
