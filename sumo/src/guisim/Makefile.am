@@ -18,7 +18,8 @@ GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUIInductLoop.cpp GUIInductLoop.h \
 GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
-GUIVehicleTransfer.cpp GUIVehicleTransfer.h
+GUIVehicleTransfer.cpp GUIVehicleTransfer.h \
+GUILaneStateBounderiesStorage.cpp GUILaneStateBounderiesStorage.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
 
