@@ -12,7 +12,11 @@ FXSingleEventThread.cpp FXSingleEventThread.h \
 FXThreadEvent.cpp FXThreadEvent.h \
 MFXCheckableButton.cpp MFXCheckableButton.h \
 MFXEventQue.cpp MFXEventQue.h \
-MFXInterThreadEventClient.h
+MFXInterThreadEventClient.h \
+MFXAddEditTypedTable.cpp MFXAddEditTypedTable.h \
+MFXEditableTable.cpp MFXEditableTable.h \
+MFXMenuHeader.cpp MFXMenuHeader.h
+
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I $(FOX_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
