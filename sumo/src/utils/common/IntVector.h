@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/10/30 13:43:09  dkrajzew
+// debug output added
+//
 // Revision 1.3  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
@@ -32,6 +35,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
+#include <iostream>
 
 
 /* =========================================================================
@@ -54,6 +58,8 @@ public:
     static bool subSetExists(const IntVector &v1, const IntVector &v2);
 
 };
+
+std::ostream &operator<<(std::ostream &os, const IntVector &iv);
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

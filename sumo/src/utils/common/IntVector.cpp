@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/10/30 13:43:09  dkrajzew
+// debug output added
+//
 // Revision 1.6  2003/07/21 05:35:18  dkrajzew
 // forgot to remove the usage of an undefinef variable; patched
 //
@@ -82,6 +85,19 @@ IntVectorHelper::subSetExists(const IntVector &v1, const IntVector &v2)
 		}
     }
     return false;
+}
+
+
+std::ostream &
+operator<<(std::ostream &os, const IntVector &iv)
+{
+    for(IntVector::const_iterator i=iv.begin(); i!=iv.end(); i++) {
+        if(i!=iv.begin()) {
+            os << ", ";
+        }
+        os << (*i);
+    }
+    return os;
 }
 
 
