@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 08:08:32  dkrajzew
+// global object selection added
+//
 // Revision 1.2  2004/04/02 10:58:27  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -64,6 +67,7 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
 #include "GUIDialog_GLObjChooser.h"
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -116,19 +120,21 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     }
     for(std::vector<size_t>::iterator i=ids.begin(); i!=ids.end(); i++) {
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
-        assert(o!=0);
+        if(o==0) {
+            continue;
+        }
         const std::string &name = o->microsimID();
         bool selected = false;
         if(type==GLO_EDGE) {
             for(int j=static_cast<GUIEdge*>(o)->nLanes()-1; j>=0; j--) {
                 const GUILaneWrapper &l =
                     static_cast<GUIEdge*>(o)->getLaneGeometry(j);
-                if(gfIsSelected(GLO_LANE, l.getGlID())) {
+                if(gSelected.isSelected(GLO_LANE, l.getGlID())) {
                     selected = true;
                 }
             }
         } else {
-            selected = gfIsSelected(type, *i);
+            selected = gSelected.isSelected(type, *i);
         }
         if(selected) {
             myList->appendItem(name.c_str(), GUIIconSubSys::getIcon(ICON_FLAG));
@@ -187,7 +193,7 @@ FXbool
 GUIDialog_GLObjChooser::close(FXbool notify)
 {
     if(mySelectedID.length()!=0) {
-        myParent->setView(myObjectType, mySelectedID);
+        myParent->setView(myObjectType, mySelectedID, "");
     }
     return FXMainWindow::close(notify);
 }

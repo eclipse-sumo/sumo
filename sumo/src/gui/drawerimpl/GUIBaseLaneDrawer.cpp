@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/07/02 08:12:51  dkrajzew
+// global object selection added
+//
 // Revision 1.5  2004/04/23 12:33:05  dkrajzew
 // new colouring of aggregated views (still in development)
 //
@@ -52,6 +55,7 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
 #include <gui/GUIGlobals.h>
+#include <gui/GUIGlobalSelection.h>
 #include "GUIBaseLaneDrawer.h"
 #include <utils/geom/GeomHelper.h>
 
@@ -167,7 +171,7 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
         break;
     case GUISUMOAbstractView::LCS_BY_SELECTION:
         {
-            if(gfIsSelected(GLO_LANE, lane.getGlID())) {
+            if(gSelected.isSelected(GLO_LANE, lane.getGlID())) {
                 glColor3f(0, 0.8, 0.8);
             } else {
                 glColor3f(0, 0, 0);
@@ -183,6 +187,7 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
                 glColor3f(0.5, 0.5, 0.5);
             } else {
 //                density /= 2.0;
+                //0xe6, 0x98
                 glColor3f(density, 1.0-density, 0);
             }
         }

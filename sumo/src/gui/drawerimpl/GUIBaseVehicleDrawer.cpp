@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/07/02 08:12:51  dkrajzew
+// global object selection added
+//
 // Revision 1.5  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -48,6 +51,8 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIVehicleType.h>
+#include <guisim/GUIRoute.h>
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
 #include "GUIBaseVehicleDrawer.h"
@@ -129,6 +134,20 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             glColor3f(col.red(), col.green(), col.blue());
         }
         break;
+    case GUISUMOAbstractView::VCS_TYPE:
+        {
+            const RGBColor &col =
+                static_cast<const GUIVehicleType&>(vehicle.getVehicleType()).getColor();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_ROUTE:
+        {
+            const RGBColor &col =
+                static_cast<const GUIRoute&>(vehicle.getRoute()).getColor();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
+        break;
     case GUISUMOAbstractView::VCS_RANDOM1:
         {
             const RGBColor &col = vehicle.getRandomColor1();
@@ -165,6 +184,39 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             }
         }
         break;
+    case GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET:
+        {
+            GUIVehicle &v = (GUIVehicle&) (vehicle);
+            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET) ) {
+
+                glColor3f(220.0/255.0, 134.0/255.0, 228.0/255.0);
+            } else {
+                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
+                if(val>300) {
+                    glColor3f(128.0/255.0, 128.0/255.0, 0/255.0);
+                } else {
+                    val = 1.0 - (val / 600.0);
+                    glColor3f(val, val, 0/255.0);
+                }
+            }
+            break;
+        }
+    case GUISUMOAbstractView::VCS_ROUTECHANGENUMBER:
+        {
+            GUIVehicle &v = (GUIVehicle&) (vehicle);
+            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBREROUTE) ) {
+
+                glColor3f(220.0/255.0, 134.0/255.0, 228.0/255.0);
+            } else {
+                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBREROUTE);
+                if(val>10) {
+                    val = 10;
+                }
+                val = val / 10.;
+                glColor3f(val, 1.0-val, 0);
+            }
+            break;
+        }
     default:
         throw 1;
     }

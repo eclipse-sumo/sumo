@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 08:08:32  dkrajzew
+// global object selection added
+//
 // Revision 1.3  2004/04/23 12:32:18  dkrajzew
 // new layout
 //
@@ -52,6 +55,7 @@ namespace
 #include <gui/GUIGlObject.h>
 #include <guisim/GUINet.h>
 #include "GUIDialog_GLChosenEditor.h"
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -130,12 +134,13 @@ void
 GUIDialog_GLChosenEditor::rebuildList()
 {
     myList->clearItems();
-    for(std::vector<size_t>::iterator i=gChosenObjects.begin(); i!=gChosenObjects.end(); ++i) {
-        GUIGlObject *object = gSimInfo->net.getIDStorage().getObjectBlocking(*i);
+    const std::vector<size_t> &chosen = gSelected.getAllSelected();
+    for(std::vector<size_t>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
+        GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
         if(object!=0) {
             std::string name = object->getFullName();
             myList->appendItem(name.c_str());
-            gSimInfo->net.getIDStorage().unblockObject(*i);
+            gIDStorage.unblockObject(*i);
         }
     }
 }
@@ -154,25 +159,14 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
     // get the new file name
     FXFileDialog opendialog(this,"Save List of selected Items");
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.sel.txt");
+    opendialog.setPatternList("*.txt");
     if(gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-		string file = string(opendialog.getFilename().text());
-        ofstream strm(file.c_str());
-        if(!strm.good()) {
-            throw 1; //!!!!
-        }
-        // save selected objects
-        for(std::vector<size_t>::iterator i=gChosenObjects.begin(); i!=gChosenObjects.end(); ++i) {
-            GUIGlObject *object = gSimInfo->net.getIDStorage().getObjectBlocking(*i);
-            if(object!=0) {
-                std::string name = object->getFullName();
-                strm << name << endl;
-            }
-        }
+        string file = string(opendialog.getFilename().text());
+        gSelected.save(-1, file);
     }
     return 1;
 }
@@ -184,28 +178,14 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
     size_t no = myList->getNumItems();
     vector<size_t> selected;
     size_t i;
-    // collect selected items
+    // remove items from list
+    std::vector<size_t> chosen = gSelected.getAllSelected();
+    std::vector<size_t>::iterator j = chosen.begin();
     for(i=0; i<no; i++) {
         if(myList->getItem(i)->isSelected()) {
+            gSelected.deselect(-1, *j);
             selected.push_back(i);
-        }
-    }
-    // remove items from list
-    std::vector<size_t>::iterator j = gChosenObjects.begin();
-    no = gChosenObjects.size();
-    size_t removed = 0;
-    for(i=0; i<no; ) {
-        // if item shall be deselected
-        if(i==*(selected.begin())-removed) {
-            // remove from items-to-remove list
-            selected.erase(selected.begin());
-            // remove from selected items
-            j = gChosenObjects.erase(j);
-            no--;
-            removed++;
         } else {
-            // proceed
-            i++;
             j++;
         }
     }
@@ -221,7 +201,7 @@ long
 GUIDialog_GLChosenEditor::onCmdClear(FXObject*,FXSelector,void*)
 {
     myList->clearItems();
-    gChosenObjects.clear();
+    gSelected.clear();
     return 1;
 }
 
