@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2002/05/14 07:43:51  dkrajzew
+// _SPEEDCHECK-methods moved completely to MSNet
+//
 // Revision 1.6  2002/04/29 13:52:07  dkrajzew
 // the program flow, especially the handling of errors improved
 //
@@ -70,7 +73,6 @@
 #include <iostream>
 #include <fstream>
 #include "netload/SErrorHandler.h"
-#include <ctime>
 //#include <iomanip>
 #include "utils/Option.h"
 #include "utils/OptionsCont.h"
@@ -84,15 +86,6 @@
  * used namespaces
  * ======================================================================= */
 using namespace std;
-
-/* =========================================================================
- * static variables
- * ======================================================================= */
-#ifdef _SPEEDCHECK
-long novehicles;
-time_t	begin;
-time_t	end;
-#endif
 
 /* =========================================================================
  * functions
@@ -259,18 +252,9 @@ main(int argc, char **argv)
         // report the begin when wished
         if(oc->getBool("v"))
             cout << "Simulation started with time: " << oc->getLong("b") << endl;
-
-#ifdef _SPEEDCHECK
-  time(&begin);
-  novehicles = 0;
-#endif
         // simulate
         if(!net->simulate(craw, oc->getLong("b"), oc->getLong("e")))
             ret = 0;
-#ifdef _SPEEDCHECK
-  time(&end);
-#endif
-
         // report the end when wished
         if(oc->getBool("v"))
             cout << "Simulation ended at time: " << oc->getLong("e") << endl;
