@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/08/20 11:58:04  dkrajzew
+// cleaned up a bit
+//
 // Revision 1.10  2003/07/18 12:29:28  dkrajzew
 // removed some warnings
 //
@@ -201,7 +204,6 @@ void
 GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
                                       Boundery bound)
 {
-//    bound.flipY();
     _xpos = -(bound.getCenter().first
         - netBoundery.getCenter().first);
     _ypos = -(bound.getCenter().second

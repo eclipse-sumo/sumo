@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/20 11:58:04  dkrajzew
+// cleaned up a bit
+//
 // Revision 1.11  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -100,12 +103,6 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
-/*    try {
-        SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
-        delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
-    } catch (SingletonNotCreated &e) {
-    }
-    SingletonDictionary< std::string, MSLaneState* >::create();*/
     _net->initialiseSimulation(_craw/*, start, end*/);
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/08/20 11:58:04  dkrajzew
+// cleaned up a bit
+//
 // Revision 1.1  2003/08/14 13:44:14  dkrajzew
 // tls/row - drawer added
 //
@@ -135,7 +138,6 @@ GUIBarROWRulesDrawer::initStep(/*const double & width*/)
 {
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glColor3f(0, 0, 0);
 }
 
 
