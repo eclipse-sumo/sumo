@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/09/24 09:57:13  dkrajzew
+// bug on building induct loops of an actuated tls within the gui patched
+//
 // Revision 1.12  2003/09/22 12:30:23  dkrajzew
 // actuated traffic lights are now derived from simple traffic lights
 //
@@ -263,7 +266,7 @@ private:
     void closeJunctionLogic();
 
     /// ends the loading of a traffic lights logic
-    void closeTrafficLightLogic();
+    virtual void closeTrafficLightLogic();
 
     /// ends the processing of a junction
     virtual void closeJunction();

@@ -876,7 +876,6 @@ NLNetHandler::closeTrafficLightLogic()
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
-//         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/09/24 09:54:11  dkrajzew
+// bug on building induct loops of an actuated tls within the gui patched
+//
 // Revision 1.4  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -90,6 +93,10 @@ private:
     void addJunctionShape(const std::string &chars);
 
     void addLaneShape(const std::string &chars);
+
+    /// ends the loading of a traffic lights logic
+    void closeTrafficLightLogic();
+
 
 private:
     /** invalid copy constructor */

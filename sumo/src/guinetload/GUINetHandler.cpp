@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/09/24 09:54:11  dkrajzew
+// bug on building induct loops of an actuated tls within the gui patched
+//
 // Revision 1.6  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -67,6 +70,8 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <guisim/GUIInductLoop.h>
+//#include <guisim/GUILaneState.h>
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
 #include "GUINetHandler.h"
@@ -184,6 +189,35 @@ GUINetHandler::addLaneShape(const std::string &chars)
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
 }
+
+
+void
+GUINetHandler::closeTrafficLightLogic()
+{
+    if(_tlLogicNo!=0) {
+        return;
+    }
+    if(m_Type!="actuated") {
+        MSTrafficLightLogic *tlLogic =
+            new MSSimpleTrafficLightLogic(
+                m_Key, m_ActivePhases, 0, m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+    } else {
+        MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState  >
+            *tlLogic =
+            new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
+                    m_Key, m_ActivePhases, 0,
+                    myContainer.getInLanes(), m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+    }
+}
+
 
 
 
