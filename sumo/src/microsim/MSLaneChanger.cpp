@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/07/16 15:29:51  dkrajzew
+// myFirstState renamed to myLastState in MSLane
+//
 // Revision 1.8  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -631,7 +634,7 @@ MSLaneChanger::safeChange( ChangerIt target )
         if(targetLane->myApproaching!=0) {
             // Check back gap to following vehicle
             if( vehicle->pos()<vehicle->length() ||
-				!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myFirstDistance, *vehicle, targetLane)) {
+				!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myBackDistance, *vehicle, targetLane)) {
                 return false;
             }
         }
