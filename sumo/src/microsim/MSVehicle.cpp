@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.10  2003/03/12 16:50:56  dkrajzew
 // lane retrival added for centering a vehicle on the display
 //
@@ -248,6 +251,7 @@ namespace
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLinkCont.h"
+#include <utils/importio/StringUtils.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -370,10 +374,13 @@ MSVehicle::MSVehicle( string id,
                       MSRoute* route,
                       MSNet::Time departTime,
                       const MSVehicleType* type,
-                      size_t noMeanData ) :
+                      size_t noMeanData,
+                      int repNo, int repOffset) :
     myLastLaneChangeOffset(0),
     myTarget(0),
     myWaitingTime( 0 ),
+    myRepetitionNumber(repNo),
+    myPeriod(repOffset),
     myID(id),
     myState(),
     myRoute(route),
@@ -1575,6 +1582,27 @@ MSVehicle::getLane() const
 {
     return *myLane;
 }
+
+
+bool
+MSVehicle::periodical() const
+{
+    return myPeriod>0;
+}
+
+
+MSVehicle *
+MSVehicle::getNextPeriodical() const
+{
+    // check whether another one shall be repated
+    if(myRepetitionNumber==0) {
+        return 0;
+    }
+    return MSNet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
+        myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
+        myPeriod, 0);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

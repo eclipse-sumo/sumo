@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.8  2003/03/04 08:44:33  dkrajzew
 // tyni profiler-macros removed
 //
@@ -541,13 +544,15 @@ MSNet::preStartInit()
 MSVehicle *
 MSNet::buildNewVehicle( std::string id, MSRoute* route,
                         MSNet::Time departTime,
-                        const MSVehicleType* type, float *defColor)
+                        const MSVehicleType* type,
+                        int repNo, int repOffset, float *defColor)
 {
     size_t noIntervals = getNDumpIntervalls();
     if(withGUI()) {
         noIntervals++;
     }
-    return new MSVehicle(id, route, departTime, type, noIntervals);
+    return new MSVehicle(id, route, departTime, type, noIntervals,
+        repNo, repOffset);
 }
 
 

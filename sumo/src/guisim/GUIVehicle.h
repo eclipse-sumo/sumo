@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/20 16:19:28  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -82,12 +85,19 @@ public:
         It is only computed for "critical" vehicles */
     long getWaitingTime() const;
 
+    /** @brief Returns the next "periodical" vehicle with the same route
+        We have to duplicate the vehicle if a further has to be emitted with
+        the same settings */
+    virtual MSVehicle *getNextPeriodical() const;
+
+
     /// GUINet is allowed to build vehicles
     friend class GUINet;
 protected:
     /// Use this constructor only.
     GUIVehicle( std::string id, MSRoute* route, MSNet::Time departTime,
-        const MSVehicleType* type, size_t noMeanData, float *defColor);
+        const MSVehicleType* type, size_t noMeanData,
+        int repNo, int repOffset, float *defColor);
 
 private:
     /// the color read from the XML-description

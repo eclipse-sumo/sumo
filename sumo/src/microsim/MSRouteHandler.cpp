@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -172,13 +175,17 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
             "Error in description: missing id of a vehicle-object.");
         return;
     }
+    // try to get some optional values
+    int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
+    int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     // now try to build the rest of the vehicle
     MSVehicle *vehicle = 0;
     try {
         vehicle = addParsedVehicle(id,
             getString(attrs, SUMO_ATTR_TYPE),
             getString(attrs, SUMO_ATTR_ROUTE),
-            getInt(attrs, SUMO_ATTR_DEPART));
+            getInt(attrs, SUMO_ATTR_DEPART),
+            repNumber, repOffset);
     } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing attribute in a vehicle-object.");
@@ -199,7 +206,8 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
 
 MSVehicle *
 MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
-                                 const string &routeid, const long depart)
+                                 const string &routeid, const long &depart,
+                                 int repNumber, int repOffset)
 {
     MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
     if(vtype==0) {
@@ -210,7 +218,8 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
         throw XMLIdNotKnownException("route", routeid);
     }
     MSVehicle *vehicle =
-        MSNet::getInstance()->buildNewVehicle(id, route, depart, vtype, 0);
+        MSNet::getInstance()->buildNewVehicle(id, route, depart, vtype,
+            repNumber, repOffset, 0);
     if(!MSVehicle::dictionary(id, vehicle)) {
         throw XMLIdAlreadyUsedException("vehicle", id);
     }

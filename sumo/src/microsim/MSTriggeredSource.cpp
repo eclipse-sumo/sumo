@@ -290,7 +290,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             aVehicleId,
             myRouteDist.getRndRoute(),
             aEmitTime,
-            aVehType, 0 );
+            aVehType, 0, 0, 0 );
 
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
@@ -336,6 +336,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.6  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.5  2003/02/07 10:41:50  dkrajzew
 // updated
 //

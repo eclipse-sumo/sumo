@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/20 16:23:10  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.3  2003/03/03 14:59:21  dkrajzew
 // debugging; handling of imported traffic light definitions
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:19:28  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.4  2003/03/12 16:52:06  dkrajzew
 // centering of objects debuggt
 //
@@ -135,14 +138,16 @@ GUINet::getEdgeBoundery(const std::string &name) const
 MSVehicle *
 GUINet::buildNewVehicle( std::string id, MSRoute* route,
                        MSNet::Time departTime,
-                       const MSVehicleType* type, float *defColor)
+                       const MSVehicleType* type,
+                       int repNo, int repOffset,
+                       float *defColor)
 {
     size_t noIntervals = getNDumpIntervalls();
     if(withGUI()) {
         noIntervals++;
     }
     GUIVehicle * veh = new GUIVehicle(id, route, departTime,
-        type, noIntervals, defColor);
+        type, noIntervals, repNo, repOffset, defColor);
     _idStorage.registerObject(veh);
     return veh;
 }

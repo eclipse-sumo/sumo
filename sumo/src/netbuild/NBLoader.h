@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/20 16:23:09  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.3  2003/03/12 16:47:54  dkrajzew
 // extension for artemis-import
 //

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -101,7 +104,7 @@ protected:
     /** adds the parsed vehicle */
     MSVehicle *addParsedVehicle(const std::string &id,
         const std::string &vtypeid, const std::string &routeid,
-        const long depart);
+        const long &depart, int repNumber, int repOffset);
 
 
     /** opens a route for reading */

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/03/20 16:19:28  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.4  2003/03/12 16:52:06  dkrajzew
 // centering of objects debuggt
 //
@@ -97,7 +100,8 @@ public:
 
     /// builds a new GUIVehicle
     MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type, float *defColor);
+        MSNet::Time departTime, const MSVehicleType* type,
+        int repNo, int repOffset, float *defColor);
 
 
     friend class GUIViewTraffic; // !!!

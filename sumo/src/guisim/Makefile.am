@@ -18,7 +18,7 @@ GUILane.h \
 GUILaneWrapper.h \
 GUINet.h \
 GUISourceLane.h \
-GUIVehicle.h 
+GUIVehicle.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
 

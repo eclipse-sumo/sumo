@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/03/20 16:21:13  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.6  2003/03/12 16:50:57  dkrajzew
 // lane retrival added for centering a vehicle on the display
 //
@@ -591,11 +594,21 @@ public:
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
+    /// Returns the information whether further vehicles of this type shall be emitted periodically
+    bool periodical() const;
+
+    /** @brief Returns the next "periodical" vehicle with the same route
+        We have to duplicate the vehicle if a further has to be emitted with
+        the same settings */
+    virtual MSVehicle *getNextPeriodical() const;
+
     friend class MSLane; // !!!
+
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, MSNet::Time
-               departTime, const MSVehicleType* type, size_t noMeanData );
+               departTime, const MSVehicleType* type, size_t noMeanData,
+               int repNo, int repOffset);
 
 
     /** Returns the minimum of four doubles. */
@@ -613,6 +626,7 @@ protected:
                          double pos,
                          double speed );
 
+protected:
     /// information how long ago the vehicle has performed a lane-change
     MSNet::Time myLastLaneChangeOffset;
 
@@ -623,19 +637,31 @@ protected:
         This is the number of simulation steps the vehicle was not faster than 0.1m/s */
     long myWaitingTime;
 
+    /// The number of cars that shall be emitted with the same settings
+    int myRepetitionNumber;
+
+    /// The period of time to wait between emissions of cars with the same settings
+    int myPeriod;
+
+    /// Unique ID.
+    std::string myID;
+
+    /// Vehicle's route.
+    MSRoute* myRoute;
+
+    /// Desired departure time (seconds).
+    MSNet::Time myDesiredDepart;
+
+    /// Vehicle-type.
+    const MSVehicleType* myType;
+
 private:
 
     /// Reaction time [sec]
     static double myTau;
 
-    /// Unique ID.
-    std::string myID;
-
     /// Vehicles driving state. here: pos and speed
     State myState;
-
-    /// Vehicle's route.
-    MSRoute* myRoute;
 
     /** Iterator to current route-edge.  */
     MSRouteIterator myCurrEdge;
@@ -643,12 +669,6 @@ private:
     /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
     const MSEdge::LaneCont* myAllowedLanes;
-
-    /// Desired departure time (seconds).
-    MSNet::Time myDesiredDepart;
-
-    /// Vehicle-type.
-    const MSVehicleType* myType;
 
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicle* > DictType;

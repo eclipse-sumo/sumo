@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/03/20 16:23:09  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.8  2003/03/18 13:07:23  dkrajzew
 // usage of node position within xml-edge descriptions allowed
 //
@@ -373,7 +376,7 @@ NBNodeCont::searchEdgeInNode(string nodeid, string edgeid)
 
 }
 
-std::string 
+std::string
 NBNodeCont::getFreeID()
 {
     return "SUMOGenerated" + toString<int>(getNo());

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/03/20 16:21:11  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -113,8 +116,8 @@ MSEmitControl::DictType MSEmitControl::myDict;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSEmitControl::MSEmitControl(string id) :
-    myID(id)
+MSEmitControl::MSEmitControl(string id)
+    : myID(id)
 {
 }
 
@@ -180,6 +183,17 @@ MSEmitControl::tryEmit(MSVehicle *veh,
 {
     if (veh->departEdge().emit(*veh)) {
         // Successful emission.
+            // Check whether another vehicle shall be
+            //  emitted with the same parameter
+        if(veh->periodical()) {
+            MSVehicle *nextPeriodical = veh->getNextPeriodical();
+            if(nextPeriodical!=0) {
+                add(nextPeriodical);
+                // !!! add some kind of a check and an error
+                //  handler, here
+                MSVehicle::dictionary(nextPeriodical->id(), nextPeriodical);
+            }
+        }
     } else {
         // Emission not successful. Store for next-timestep
         // retry in the next step

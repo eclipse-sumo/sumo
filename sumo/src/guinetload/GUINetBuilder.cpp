@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:16:31  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.4  2003/03/12 16:53:41  dkrajzew
 // first extensions for geometry handling
 //

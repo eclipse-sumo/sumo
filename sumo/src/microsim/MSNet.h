@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.7  2003/03/03 14:56:22  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -274,7 +277,8 @@ public:
 
     /// builds a new vehicle
     virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type, float *defColor);
+        MSNet::Time departTime, const MSVehicleType* type,
+        int repNo, int repOffset, float *defColor);
 
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;

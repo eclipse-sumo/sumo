@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:19:28  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -38,7 +41,9 @@ namespace
 #include <cmath>
 #include <vector>
 #include <string>
+#include <utils/importio/StringUtils.h>
 #include <microsim/MSVehicle.h>
+#include "GUINet.h"
 #include "GUIVehicle.h"
 
 using namespace std;
@@ -58,8 +63,9 @@ GUIVehicle::GUIVehicle( std::string id, MSRoute* route,
                        MSNet::Time departTime,
                        const MSVehicleType* type,
                        size_t noMeanData,
+                       int repNo, int repOffset,
                        float *defColor)
-    : MSVehicle(id, route, departTime, type, noMeanData),
+    : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
     GUIGlObject(string("vehicle:")+id)
 {
     // copy the defined color
@@ -160,6 +166,20 @@ GUIVehicle::getWaitingTime() const
 {
     return myWaitingTime;
 }
+
+
+MSVehicle *
+GUIVehicle::getNextPeriodical() const
+{
+    // check whether another one shall be repated
+    if(myRepetitionNumber==0) {
+        return 0;
+    }
+    return GUINet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
+        myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
+        myPeriod, 0);
+}
+
 
 
 

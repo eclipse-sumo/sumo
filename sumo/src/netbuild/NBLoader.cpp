@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/20 16:23:09  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.5  2003/03/12 16:47:53  dkrajzew
 // extension for artemis-import
 //

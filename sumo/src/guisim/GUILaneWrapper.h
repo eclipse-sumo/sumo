@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/20 16:19:28  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.2  2003/03/12 16:52:06  dkrajzew
 // centering of objects debuggt
 //

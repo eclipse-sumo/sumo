@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2003/03/20 16:21:13  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -119,7 +122,7 @@ MSVehicleContainer::moveFrom( MSVehicleContainer &cont )
         return;
     }
     for( VehicleHeap::iterator i=cont.array.begin()+1;
-         i!=cont.array.begin()+cont.currentSize; i++) {
+         i!=cont.array.begin()+cont.currentSize+1; i++) {
         VehicleDepartureVector &v = (*i);
         add(v.first, v.second);
         v.second.clear();

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/03/20 16:21:12  dkrajzew
+// windows eol removed; multiple vehicle emission added
+//
 // Revision 1.5  2003/03/03 14:56:20  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
