@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -61,8 +64,8 @@ using namespace std;
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net, MSLane &destLane,
                                        const std::string &aXMLFilename)
-    : MSTrigger(id),
-    MSTriggeredXMLReader(net, aXMLFilename), _destLane(destLane)
+    : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
+    _destLane(destLane)
 {
 }
 
@@ -87,7 +90,7 @@ MSLaneSpeedTrigger::processNext()
 
 
 void
-MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
+MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
                                    const Attributes &attrs)
 {
     // check whethe the correct tag is read
@@ -119,14 +122,14 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
 
 
 void
-MSLaneSpeedTrigger::myCharacters(int element, const std::string &name,
-                                 const std::string &chars)
+MSLaneSpeedTrigger::myCharacters(int , const std::string &,
+                                 const std::string &)
 {
 }
 
 
 void
-MSLaneSpeedTrigger::myEndElement(int element, const std::string &name)
+MSLaneSpeedTrigger::myEndElement(int , const std::string &)
 {
 }
 

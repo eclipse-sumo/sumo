@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/07/18 12:29:28  dkrajzew
+// removed some warnings
+//
 // Revision 1.9  2003/06/18 11:27:54  dkrajzew
 // some functions commented out removed
 //
@@ -35,8 +38,6 @@
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -60,7 +61,7 @@ using namespace std;
  * ======================================================================= */
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
-    _mouseButtonState(Qt::NoButton), _xpos(0), _ypos(0), _rotation(0), _zoom(100)
+    _xpos(0), _ypos(0), _rotation(0), _zoom(100), _mouseButtonState(Qt::NoButton)
 {
 }
 
@@ -136,7 +137,7 @@ GUIDanielPerspectiveChanger::mousePressEvent ( QMouseEvent *e )
 
 
 void
-GUIDanielPerspectiveChanger::mouseReleaseEvent ( QMouseEvent *e )
+GUIDanielPerspectiveChanger::mouseReleaseEvent ( QMouseEvent * )
 {
     _mouseButtonState = Qt::NoButton;
 }

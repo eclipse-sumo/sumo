@@ -1,4 +1,4 @@
-noinst_LIBRARIES = libnetbuild.a 
+noinst_LIBRARIES = libnetbuild.a
 
 libnetbuild_a_SOURCES = NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \

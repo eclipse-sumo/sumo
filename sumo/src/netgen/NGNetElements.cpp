@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -74,15 +77,15 @@ TNode::~TNode()
 
 
 // Remove Link
-void TNode::RemoveLink(TLink *Link)
+void
+TNode::RemoveLink(TLink *Link)
 {
-	bool found=false;
 	TLinkList::iterator li;
 	li = LinkList.begin();
-	while ((!found) && (li!= LinkList.end())) {
-		if ((*li) = Link) {
-			found = true;
+	while (li!= LinkList.end()) {
+		if ((*li) == Link) {
 			LinkList.erase(li);
+            return;
 		} else
 			li++;
 	}

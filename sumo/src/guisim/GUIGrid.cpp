@@ -32,10 +32,6 @@ GUIGrid::Set::add(size_t no)
     if(i==_cont.end()) {
         // if not, build a new index
         SubSet ss;
-
-        if(index==377) {
-            int bla = 0;
-        }
         ss.myIndex = index;
         ss.mySet = 1<<pos;
         // ... and add it
@@ -55,12 +51,9 @@ GUIGrid::Set::remove(size_t no)
     // check whether an entry with the index exists
     Cont::iterator i = find_if(_cont.begin(), _cont.end(),
         index_finder(index));
-        if((*i).myIndex==377) {
-            int bla = 0;
-        }
     if(i!=_cont.end()) {
         // if yes, clear the information
-        (*i).mySet &= (4294967295 - (1<<pos));
+        (*i).mySet &= (unsigned(4294967295) - (1<<pos));
         // check whether the whoel item can be removed
         if((*i).mySet==0) {
             _cont.erase(i);
@@ -76,12 +69,9 @@ GUIGrid::Set::removeIfIn(const Set &other)
         // check whether an entry with the index exists
         Cont::iterator i = find_if(_cont.begin(), _cont.end(),
             index_finder((*j).myIndex));
-        if((*j).myIndex==377) {
-            int bla = 0;
-        }
         if(i!=_cont.end()) {
             // if yes, clear the information
-            (*i).mySet &= (4294967295 - (*j).mySet);
+            (*i).mySet &= (unsigned(4294967295) - (*j).mySet);
             // check whether the whoel item can be removed
             if((*i).mySet==0) {
                 _cont.erase(i);
@@ -95,9 +85,6 @@ void
 GUIGrid::Set::setInto(size_t *into) const
 {
     for(Cont::const_iterator j=_cont.begin(); j!=_cont.end(); j++) {
-        if((*j).myIndex==377) {
-            int bla = 0;
-        }
         into[(*j).myIndex] |= (*j).mySet;
     }
 }
@@ -189,7 +176,7 @@ GUIGrid::GridCell::removeIfIn(const GridCell &other)
 
 
 
-GUIGrid::GUIGrid(GUINet &net, size_t noXCells, size_t noYCells)
+GUIGrid::GUIGrid(GUINet &net, int noXCells, int noYCells)
     : _xcellsize(0), _ycellsize(0), _boundery(), _grid(0),
     _xsize(noXCells), _ysize(noYCells), _net(net)
 {
@@ -394,13 +381,13 @@ GUIGrid::getCellsContaining(Boundery boundery)
     // compute the cells the lae is going through
     for(size_t y=0; y<_ysize; y++) {
         double ypos1 = double(y) * _ycellsize;
-        for(size_t x=0; x<_xsize; x++) {
+        for(int x=0; x<_xsize; x++) {
             double xpos1 = double(x) * _xcellsize;
             Boundery cellBounds;
             cellBounds.add(xpos1, ypos1);
             cellBounds.add(xpos1+_xcellsize, ypos1+_ycellsize);
             if( boundery.partialWithin(cellBounds) ) {
-            	size_t offset = _xsize * y + x;
+            	int offset = _xsize * y + x;
                 cells.push_back(offset);
             }
         }
@@ -550,14 +537,14 @@ GUIGrid::get(/*GridReader &reader, */int what,
 }
 
 
-size_t
+int
 GUIGrid::getNoXCells() const
 {
     return _xsize;
 }
 
 
-size_t
+int
 GUIGrid::getNoYCells() const
 {
     return _ysize;

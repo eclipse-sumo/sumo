@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.3  2003/06/05 11:38:19  dkrajzew
 // class templates applied; documentation added
 //
@@ -72,8 +75,6 @@ GUIParameterTable::contentsMousePressEvent( QMouseEvent * e )
         QListView::mousePressEvent(e);
         return;
     }
-    // get the item
-    QListViewItem *i = itemAt(QPoint(e->x(), e->y()));
     // build the popup
     QParamPopupMenu *p =
 		new QParamPopupMenu(myApplication, this, myObject, 0);

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.20  2003/07/17 12:16:25  dkrajzew
 // gcc seems to be unable to temporary convert a value to a reference; patched
 //
@@ -1442,14 +1445,14 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, double width)
         ? width
         : myLaneGeoms[0].length()/2.0;
     if(node==_from) {
-	Position2D pos = 
+	Position2D pos =
 	    myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width);
         GeomHelper::transfer_to_side(pos,
             myLaneGeoms[myLaneGeoms.size()-1].at(0), myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[0].size()-1),
             3.5 / 2.0);
 	return pos;
     } else {
-	Position2D pos = 
+	Position2D pos =
 	    myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width);
         GeomHelper::transfer_to_side(pos,
             myLaneGeoms[0].at(myLaneGeoms[0].size()-1), myLaneGeoms[0].at(0),

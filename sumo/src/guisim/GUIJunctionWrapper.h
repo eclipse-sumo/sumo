@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -102,9 +105,9 @@ protected:
 
 protected:
 
-    Position2DVector myShape;
-
     MSJunction &myJunction;
+
+    Position2DVector myShape;
 
     static const char * const myTableItems[];
 

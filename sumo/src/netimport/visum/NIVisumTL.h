@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/06/05 11:51:09  dkrajzew
 // class templates applied; documentation added
 //
@@ -125,26 +128,28 @@ public:
 	// build the trafficlight
 	void build();
 private:
-	// vector of nodes belonging to this traffic light
-	NodeVector myNodes;
-	// vector of used phases if phasedefined
-	PhaseMap myPhases;
-	// vector of used Signalgroups
-	SignalGroupMap mySignalGroups;
 	// name of traffic light
 	std::string myName;
-	// toogles the usage either of phases or of timeperiods in signalgroups
-    bool myPhaseDefined;
+
 	// cycle time of traffic light in seconds
 	double myCycleTime;
+
 	// length of yellow and red-yellow phases
 	double myIntermediateTime;
+
+	// toogles the usage either of phases or of timeperiods in signalgroups
+    bool myPhaseDefined;
+
+	// vector of nodes belonging to this traffic light
+	NodeVector myNodes;
+
+	// vector of used phases if phasedefined
+	PhaseMap myPhases;
+
+	// vector of used Signalgroups
+	SignalGroupMap mySignalGroups;
+
 };
-/* =========================================================================
- * class declaration
- * ======================================================================= */
-/**
- */
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE

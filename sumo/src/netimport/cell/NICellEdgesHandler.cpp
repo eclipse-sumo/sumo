@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/06/18 11:14:48  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -110,7 +113,7 @@ NICellEdgesHandler::report(const std::string &result)
         throw ProcessError();
     }
     // other values
-    float length;
+    float length = -1;
     float speed = NBTypeCont::getDefaultSpeed();
     int priority = NBTypeCont::getDefaultPriority();
     size_t nolanes = NBTypeCont::getDefaultNoLanes();

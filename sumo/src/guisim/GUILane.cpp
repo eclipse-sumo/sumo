@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.7  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -234,9 +237,6 @@ GUILane::swapAfterLaneChange()
 {
     _lock.lock();
     MSLane::swapAfterLaneChange();
-/*    myVehicles = myTmpVehicles;
-    myTmpVehicles.clear();
-    myUseDefinition->noVehicles = myVehicles.size();*/
     _lock.unlock();
 }
 

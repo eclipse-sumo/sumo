@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.11  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -460,7 +463,7 @@ NIVissimTL::dict_SetSignals()
             MsgHandler::getErrorInstance()->inform(string(" Must be a multiple id ('") + id + string("')"));
             continue;
         }
-		def->setCycleDuration(tl->myAbsDuration);
+		def->setCycleDuration((size_t) tl->myAbsDuration);
 //        node->setType(NBTrafficLightDefinition::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -78,7 +81,7 @@ MSRouteHandler::~MSRouteHandler()
 
 
 void
-MSRouteHandler::myStartElement(int element, const std::string &name,
+MSRouteHandler::myStartElement(int element, const std::string &,
                               const Attributes &attrs)
 {
     switch(element) {
@@ -276,7 +279,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
 // ----------------------------------
 
 void
-MSRouteHandler::myEndElement(int element, const std::string &name)
+MSRouteHandler::myEndElement(int element, const std::string &)
 {
     switch(element) {
     case SUMO_TAG_ROUTE:

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/18 12:35:06  dkrajzew
+// removed some warnings
+//
 // Revision 1.10  2003/07/16 15:38:04  dkrajzew
 // some work on computation and handling of geometry information
 //
@@ -114,7 +117,7 @@ GeomHelper::intersects(double x1, double y1, double x2, double y2,
     double denom = a1 * b2 - a2 * b1;
     if ( denom == 0 )
         return ( false );
-    double offset = denom < 0 ? - denom / 2 : denom / 2;
+//    double offset = denom < 0 ? - denom / 2 : denom / 2;
 
     return true;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/18 12:35:06  dkrajzew
+// removed some warnings
+//
 // Revision 1.10  2003/07/07 08:36:58  dkrajzew
 // Warnings are now reported to the MsgHandler
 //
@@ -359,7 +362,7 @@ RONet::getRandomSource()
     }
     // choose an edge by random
     double random = double( rand() ) / double( RAND_MAX );
-    return mySourceEdges[random*(mySourceEdges.size()-1)];
+    return mySourceEdges[(size_t) (random*(mySourceEdges.size()-1))];
 }
 
 
@@ -374,7 +377,7 @@ RONet::getRandomDestination()
     // choose an edge by random
     // choose an edge by random
     double random = double( rand() ) / double( RAND_MAX );
-    return myDestinationEdges[random*(myDestinationEdges.size()-1)];
+    return myDestinationEdges[(size_t) (random*(myDestinationEdges.size()-1))];
 }
 
 

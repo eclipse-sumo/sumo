@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/18 12:29:28  dkrajzew
+// removed some warnings
+//
 // Revision 1.5  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
@@ -129,9 +132,6 @@ private:
     /// the sizes of the window
     int _widthInPixels, _heightInPixels;
 
-    /// the current mouse state
-    Qt::ButtonState _mouseButtonState;
-
     /// the current mouse position
     int _mouseXPosition, _mouseYPosition;
 
@@ -143,6 +143,9 @@ private:
 
     /// the current zoom factor
     double _zoom;
+
+    /// the current mouse state
+    Qt::ButtonState _mouseButtonState;
 
 };
 

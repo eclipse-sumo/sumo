@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -67,9 +70,8 @@ QParamPopupMenu::~QParamPopupMenu()
 void
 QParamPopupMenu::newTracker()
 {
-    GUIParameterTracker *t =
-        new GUIParameterTracker(myApplication, 0,
-            myObject, myItemNo);
+    // the application gets responsible for this object on building
+    new GUIParameterTracker(myApplication, myObject, myItemNo);
 }
 
 

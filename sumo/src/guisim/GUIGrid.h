@@ -16,7 +16,7 @@ class GUIGrid {
 public:
     class GridReader;
 
-    GUIGrid(GUINet &net, size_t noXCells, size_t noYCells);
+    GUIGrid(GUINet &net, int noXCells, int noYCells);
     ~GUIGrid();
     void init();
 //    void get(GridReader &reader, int what);
@@ -27,8 +27,8 @@ public:
         size_t *setEdges, size_t *setJunctions, size_t *setDetectors,
         size_t *setEmitter);
 
-    size_t getNoXCells() const;
-    size_t getNoYCells() const;
+    int getNoXCells() const;
+    int getNoYCells() const;
     double getXCellSize() const;
     double getYCellSize() const;
 
@@ -110,7 +110,7 @@ private:
     Boundery _boundery;
     GridCell *_grid;
     GridCell *_relations[3];
-    size_t _xsize, _ysize;
+    int _xsize, _ysize;
     GUINet &_net;
 };
 

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/06/18 11:31:49  dkrajzew
 // some functions commented out or unneeded debug outputs removed
 //
@@ -88,7 +91,7 @@ MSVehicleContainer::DepartFinder::operator()
  * methods from MSVehicleContainer
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::MSVehicleContainer(int capacity)
-    : array( capacity + 1, VehicleDepartureVector() ), currentSize( 0 )
+    : currentSize(0), array( capacity + 1, VehicleDepartureVector() )
 {
     if(capacity<1)
         throw 1;
@@ -171,10 +174,10 @@ MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
     // Percolate up
     int hole = ++currentSize;
     for( ; hole > 1 && (x.first < array[ hole / 2 ].first); hole /= 2 ) {
-        assert(array.size()>hole);
+        assert(array.size()>(size_t) hole);
         array[ hole ] = array[ hole / 2 ];
     }
-    assert(array.size()>hole);
+    assert(array.size()>(size_t) hole);
     array[ hole ] = x;
 }
 
@@ -249,13 +252,13 @@ MSVehicleContainer::percolateDown( int hole )
         if( child != currentSize && (array[ child + 1 ].first < array[ child ].first) )
             child++;
         if((array[ child ].first < tmp.first) ) {
-            assert(array.size()>hole);
+            assert(array.size()>(size_t) hole);
             array[ hole ] = array[ child ];
         }
         else
             break;
     }
-    assert(array.size()>hole);
+    assert(array.size()>(size_t) hole);
     array[ hole ] = tmp;
 }
 

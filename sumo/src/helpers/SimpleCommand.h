@@ -15,7 +15,7 @@
  * @author Christian Roessel
  * @date   Started Thu, 20 Dec 2001
  * $Revision$ from $Date$ by $Author$
- * 
+ *
  * @brief  Contains the implementation of SimpleCommand
  */
 
@@ -29,6 +29,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/06/06 14:43:35  roessel
 // Moved implementation from .icc to .h
 // Added documentation.
@@ -99,14 +102,14 @@ public:
     /// Type of the function to execute.
     typedef MSNet::Time ( T::* Operation )();
 
-    /** 
+    /**
      * Constructor.
-     * 
+     *
      * @param receiver Pointer to object of type T that will receive a call to
      * one of it's methods.
      * @param operation The objects' method that will be called if execute()
      * is called.
-     * 
+     *
      * @return Pointer to the created SimpleCommand.
      */
     SimpleCommand( T* receiver, Operation operation ) :
@@ -118,10 +121,10 @@ public:
     ~SimpleCommand()
         {}
 
-    /** 
+    /**
      * Execute the command and return an offset for recurring commands
      * or 0 for single-execution command.
-     * 
+     *
      * @return The receivers operation should return the next interval for
      * recurring commands and 0 for single-execution commands.
      */

@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.5  2003/03/18 15:00:32  roessel
 // Changed Loggedvalue to LoggedValue in #includes
 //
@@ -86,7 +89,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
-        const std::string &lane, float pos, long splInterval,
+        const std::string &lane, float pos, int splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath)
 {

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.12  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -71,7 +74,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLo
     const std::string &id, const ActuatedPhases &phases, size_t step,
     const std::vector<MSLane*> &lanes, size_t delay)
     : MSTrafficLightLogic(id, delay),
-    _step(step), _phases(phases), _continue(false)
+    _continue(false), _step(step), _phases(phases)
 {
     sproutDetectors(lanes);
 }
@@ -104,9 +107,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
                 double tmpdur =  passingTime * waiting;
                 if (tmpdur > duration) {
                     // here we cut the decimal places, because we have to return an integer
-                    duration = tmpdur;
+                    duration = (int) tmpdur;
                 }
-                if (duration > _phases[_step].maxDuration)  {
+                if (duration > (int) _phases[_step].maxDuration)  {
                     return _phases[_step].maxDuration;
                 }
             }

@@ -24,7 +24,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 
 sumo_netconvert_SOURCES = netconvert_main.cpp \
 netconvert_help.h
-sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) 
+sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
@@ -50,7 +50,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 
 sumo_netgen_SOURCES = netgen_main.cpp \
 netgen_help.h
-sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS) 
+sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./netbuild/libnetbuild.a \
 ./utils/sumoxml/libsumoxml.a \
@@ -119,7 +119,7 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 $(LIB_QT) \
 $(LIB_X11)
 
-tagreader_SOURCES = tagreader.cpp 
+tagreader_SOURCES = tagreader.cpp
 tagreader_LDFLAGS = $(QT_LDFLAGS) $(X_LDFLAGS)
 tagreader_LDADD   = ./div/libdiv.a \
 $(LIB_QT) \

@@ -21,6 +21,9 @@
 
 
 // $Log$
+// Revision 1.7  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2003/06/06 15:36:15  roessel
 // Refined documentation.
 //
@@ -65,7 +68,7 @@ public:
 /**
  * Singleton class that holds key-value pairs and has distinct insert-
  * and find modes.
- * 
+ *
  * @see Dictionary
  */
 template< typename Key, typename Value >

@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.7  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2003/06/06 13:26:40  roessel
 // GPL notice added.
 //
@@ -46,13 +49,13 @@
 
 /**
  * Class that holds key-value pairs and has distinct insert- and find modes.
- * 
+ *
  * The difference to a std::map is that this class has an INSERT and a FIND
  * operation mode which cannot be mixed. On construction the mode is set
  * to insert until setFindMode() is called. During INSERT you can call
  * only the methods isInsertSuccess() and setFindMode(). During FIND the
  * methods getStdVector(), getValue() and the dtor are allowed.
- * 
+ *
  * @note If you store pointers as Value, the object they are pointing to
  * is not deleted during the dtor call.
  */
@@ -72,23 +75,23 @@ public:
             mapM.clear();
             vectorM.clear();
         }
-    /** 
+    /**
      * Constructor. Sets the operationMode to INSERT.
-     * 
+     *
      */
     Dictionary() :
         mapM(  ),
         operationModeM( INSERT ),
         vectorM( )
         {}
-    
-    /** 
+
+    /**
      * Tries to insert a key-value pair into the dictionary. A call to this
      * method is allowed only in operationMode INSERT.
-     * 
+     *
      * @param aKey Key to be inserted.
      * @param aValue Corresponding value.
-     * 
+     *
      * @return True if insert was successful, false otherwise, i.e. a pair
      * with the same key is already in the Dictionary.
      */
@@ -98,7 +101,7 @@ public:
 			return mapM.insert( std::make_pair( aKey, aValue ) ).second;
        	}
 
-    /** 
+    /**
      * Switches the operationMode from INSERT to FIND. From now on, no
      * additional inserts are allowed. The value-vector is filled with
      * the objects currently in the Dictionay.
@@ -112,16 +115,16 @@ public:
                 vectorM.push_back( it->second );
             }
         }
-    
+
     /**
      * Definition of the returntype of getStdVector
      * @see getStdVector()
      */
     typedef std::vector< Value > ValueVector;
 
-    /** 
+    /**
      * During FIND mode, get a sorted vector of the values in the Dictionary.
-     * 
+     *
      * @return Reference to the sorted vector of values in the Dictionary.
      */
     ValueVector& getStdVector()
@@ -129,11 +132,11 @@ public:
             assert( operationModeM == FIND );
             return vectorM;
         }
-    /** 
+    /**
      * During FIND mode, get the value corresponding to aKey
-     * 
+     *
      * @param aKey Search for this key in Dictionary.
-     * 
+     *
      * @return Value corresponding to aKey if aKey is in Dictionary, 0
      * otherwise.
      */
@@ -155,7 +158,7 @@ protected:
     typedef std::map< Key, Value > Map;
 
     /// Type of the internal maps iterator.
-    typedef typename Map::iterator MapIt;   
+    typedef typename Map::iterator MapIt;
 
     Map mapM; /**< Map to store the key-value pairs. */
 
@@ -183,7 +186,7 @@ protected:
      * @setFindMode()
      */
     ValueVector vectorM;
-    
+
 private:
 
     /// Hidden copy-ctor.

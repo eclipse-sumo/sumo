@@ -53,13 +53,14 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, long *maxele,
 	int ferror = 0;
 	int n = 0;
 	int maximum=0;
+    int i;
 	std::ifstream fsSrc (OD_filename.c_str ());
 	if (!fsSrc) {
 		std::cerr << "Error: Could not open " << OD_filename << "." << std::endl;
 		throw ProcessError();
 	}
 	n = 0;
-	for(int i=0;i<2;i++) (getline (fsSrc, cLine)); // read dummy lines
+	for(i=0;i<2;i++) (getline (fsSrc, cLine)); // read dummy lines
     float start_ini, finish_ini, period;
 	// read begin and end and convert to seconds
 	fsSrc >> start_ini >> finish_ini;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/18 12:35:06  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -38,8 +41,6 @@ namespace
 // router debugging & extension: no routing over sources, random routes added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -57,8 +58,16 @@ namespace
 #include "ROOrigDestRouteDef.h"
 #include "RONet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORandomTripGenerator::RORandomTripGenerator(RONet &net,
                                              const std::string &file)
     : ROTypedRoutesLoader(net),

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.7  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -250,7 +253,7 @@ NBContHelper::edgelane_finder::operator() (const EdgeLane &el) const
 {
     return el.edge==myDestinationEdge
         &&
-        (el.lane ==  myDestinationLane || myDestinationLane<0);
+        ((int) el.lane ==  myDestinationLane || myDestinationLane<0);
 }
 
 

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/05/20 09:31:47  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -141,7 +144,7 @@ MSVehicleType::myTableItems[] =
     "length", 0
 };
 
-const TableType const
+const TableType
 MSVehicleType::myTableItemTypes[] =
 {
     TT_DOUBLE, TT_DOUBLE,

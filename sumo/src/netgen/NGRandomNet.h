@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
@@ -51,6 +54,24 @@ public:
 // ------------------- TNGRandomNet- -------------------------------------------
 class TNGRandomNet
 {
+public:
+	// constructor,
+	TNGRandomNet(TNGNet *Net);
+	// properties,
+	float GetMinLinkAngle() {return myMinLinkAngle;}
+	void SetMinLinkAngle(float value) {myMinLinkAngle = value;}
+	float GetMinDistance() {return myMinDistance;}
+	void SetMinDistance(float value) {myMinDistance = value;}
+	float GetMaxDistance() {return myMaxDistance;}
+	void SetMaxDistance(float value) {myMaxDistance = value;}
+	float GetConnectivity() {return myConnectivity;}
+	void SetConnectivity(float value) {myConnectivity = value;}
+	int GetNumTries() {return myNumTries;}
+	void SetNumTries(int num) {myNumTries = num;}
+	// sets the distrubtion of number of neighbours
+	TNeighbourDistribution NeighbourDistribution;
+	//
+	void CreateNet(int NumNodes);
 private:
 	// lists of all nodes and links
 	TNodeList *Nodes;
@@ -85,24 +106,6 @@ private:
 	void FindPossibleOuterNodes(TNode *Node);
 	// check if two nodes are connected
 	bool NodesConnected(TNode *Node1, TNode *Node2);
-public:
-	// constructor,
-	TNGRandomNet::TNGRandomNet(TNGNet *Net);
-	// properties,
-	float GetMinLinkAngle() {return myMinLinkAngle;}
-	void SetMinLinkAngle(float value) {myMinLinkAngle = value;}
-	float GetMinDistance() {return myMinDistance;}
-	void SetMinDistance(float value) {myMinDistance = value;}
-	float GetMaxDistance() {return myMaxDistance;}
-	void SetMaxDistance(float value) {myMaxDistance = value;}
-	float GetConnectivity() {return myConnectivity;}
-	void SetConnectivity(float value) {myConnectivity = value;}
-	int GetNumTries() {return myNumTries;}
-	void SetNumTries(int num) {myNumTries = num;}
-	// sets the distrubtion of number of neighbours
-	TNeighbourDistribution NeighbourDistribution;
-	//
-	void CreateNet(int NumNodes);
 };
 
 

@@ -7,9 +7,9 @@ $Id$
 #include <iostream>
 
 using namespace std;
- 
 
-StructureParser::StructureParser(std::string datname) 
+
+StructureParser::StructureParser(std::string datname)
 {
   name_out = datname;
   name_out.replace((name_out.end()-3),name_out.end(),"txt");
@@ -47,16 +47,16 @@ ContType::iterator StructureParser::getColumn (ContType::iterator start, std::st
 
 
 
-bool StructureParser::startElement( const QString&, const QString&, 
-                                    const QString& qName, 
+bool StructureParser::startElement( const QString&, const QString&,
+                                    const QString& qName,
                                     const QXmlAttributes& myattr)
 {
     QXmlAttributes a = myattr;
-    
-    std::string tmp = static_cast<std::string>( qName );  
+
+    std::string tmp = static_cast<std::string>( qName );
     ContType::iterator it = tmpcont.end();
     ContType::iterator itS = tmpcont.begin();
-    
+
     if (it==getColumn(itS, tmp))    {
         PairType pt (tmp, "");
         tmpcont.push_back(pt);
@@ -64,29 +64,29 @@ bool StructureParser::startElement( const QString&, const QString&,
         cout << tmp << t;
         outfile << tmp << t ;
     }
-    
+
     int l = a.length();
-    for (int i = 0; i<l; i++)   {          
+    for (int i = 0; i<l; i++)   {
         it = tmpcont.end();
         itS = tmpcont.begin();
         ContType::iterator st = getColumn (itS, tmp );
-        
-        std::string s = static_cast<std::string>( a.localName(i) );    
+
+        std::string s = static_cast<std::string>( a.localName(i) );
         ContType::iterator itF = getColumn(st, s);
-                
+
         if (it == itF ) {
-            std::string v = static_cast<std::string>( a.value(i) );         
+            std::string v = static_cast<std::string>( a.value(i) );
             PairType pt1 (s,v);
             tmpcont.push_back(pt1);
             cout << s << t;
             outfile << s << t ;
         }
-        else    {   
-            std::string v = static_cast<std::string>( a.value(i) );         
-            itF->second = v;         
+        else    {
+            std::string v = static_cast<std::string>( a.value(i) );
+            itF->second = v;
         }
     }
-         
+
     indent ++;
     return TRUE;
 }
@@ -95,7 +95,7 @@ bool StructureParser::startElement( const QString&, const QString&,
 
 bool StructureParser::endElement( const QString&, const QString&, const QString& )
 {
-    if (indent == maxindent)     {   
+    if (indent == maxindent)     {
         outfile << endl;
         cout << endl;
         for (ContType::iterator i = tmpcont.begin(); i !=tmpcont.end(); i++)     {
@@ -103,8 +103,8 @@ bool StructureParser::endElement( const QString&, const QString&, const QString&
             cout << i->second << t ;
         }
     }
-        
-    indent --; 
+
+    indent --;
     return TRUE;
 }
 

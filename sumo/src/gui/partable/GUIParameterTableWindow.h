@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/06/05 11:38:20  dkrajzew
 // class templates applied; documentation added
 //
@@ -56,8 +59,7 @@ class GUIParameterTableWindow : public QDialog
     Q_OBJECT
 public:
     /// Constructor
-    GUIParameterTableWindow( GUIApplicationWindow *app,
-        QWidget * parent, GUIGlObject *o );
+    GUIParameterTableWindow( GUIApplicationWindow *app, GUIGlObject *o );
 
     /// Destructor
     ~GUIParameterTableWindow();

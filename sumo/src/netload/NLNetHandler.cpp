@@ -402,7 +402,7 @@ NLNetHandler::addDetector(const Attributes &attrs) {
                 NLDetectorBuilder::buildInductLoop(id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
-                    getFloat(attrs, SUMO_ATTR_SPLINTERVAL),
+                    getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                     getString(attrs, SUMO_ATTR_STYLE),
                     getString(attrs, SUMO_ATTR_FILE),
                     _file));

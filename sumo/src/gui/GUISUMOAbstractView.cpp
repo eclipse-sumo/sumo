@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/18 12:29:28  dkrajzew
+// removed some warnings
+//
 // Revision 1.5  2003/07/16 15:18:22  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -112,11 +115,10 @@ namespace
 #include "popup/QGLObjectPopupMenu.h"
 #include "GUIApplicationWindow.h"
 
-#include "icons/view_traffic/colour_lane.xpm"
-#include "icons/view_traffic/colour_vehicle.xpm"
-#include "icons/view_traffic/show_grid.xpm"
-#include "icons/view_traffic/show_tooltips.xpm"
-
+//#include "icons/view_traffic/colour_lane.xpm"
+//#include "icons/view_traffic/colour_vehicle.xpm"
+//#include "icons/view_traffic/show_grid.xpm"
+//#include "icons/view_traffic/show_tooltips.xpm"
 
 #ifndef WIN32
 #include "GUISUMOAbstractView.moc"

@@ -51,7 +51,7 @@ using namespace std;
 
 int Get_rand (int number,int maxele, int start, int *input, int *output, bool ini)
 	{
-	int i, check, newele, index, initial;
+	int i, check, newele, index, initial, k;
 	double rand_space;
 
 	initial=number;
@@ -62,7 +62,7 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
             "No elements requiered, nothing to do");
 		throw ProcessError();
 	}
-    for(int k=0;k<maxele;k++) {
+    for(k=0;k<maxele;k++) {
         *(input+k)=k;
     }
 	//int number2=number;

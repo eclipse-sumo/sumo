@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/07/17 12:14:21  dkrajzew
 // NBLoader moved to netimport; NBNetBuilder performs now all the building steps
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/18 12:29:28  dkrajzew
+// removed some warnings
+//
 // Revision 1.3  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -144,7 +147,7 @@ GUISUMOViewParent::buildViewTools()
     addToolBar( _viewTools, tr( "View Settings" ), Top, FALSE );
     // add the recenter - button
     QPixmap icon = QPixmap( recenter_view_xpm );
-    QToolButton *button = new QToolButton( icon, "Recenter View",
+    new QToolButton( icon, "Recenter View",
         QString::null, this, SLOT(recenterView()), _viewTools,
         "recenter view" );
     // add a separator
@@ -323,7 +326,7 @@ GUISUMOViewParent::saveAs()
 
 
 void
-GUISUMOViewParent::print( QPrinter* printer)
+GUISUMOViewParent::print( QPrinter* )
 {
 }
 

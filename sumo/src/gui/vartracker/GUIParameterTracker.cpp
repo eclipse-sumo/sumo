@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/06/18 11:02:33  dkrajzew
 // new fonts usage added
 //
@@ -30,8 +33,6 @@ namespace
 // class templates applied; documentation added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -64,8 +65,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIParameterTracker::GUIParameterTracker( GUIApplicationWindow *app,
-        QWidget * parent )
+GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow *app)
         : myApplication(app)
 {
     setCaption("Tracker");
@@ -79,8 +79,8 @@ GUIParameterTracker::GUIParameterTracker( GUIApplicationWindow *app,
 }
 
 
-GUIParameterTracker::GUIParameterTracker( GUIApplicationWindow *app,
-        QWidget * parent, GUIGlObject *o, size_t itemNo )
+GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow *app,
+                                         GUIGlObject *o, size_t itemNo )
         : myApplication(app)
 {
     setCaption("Tracker");
@@ -167,8 +167,8 @@ GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(GUIApplicationWindow *app,
                                                                         GUIParameterTracker *parent)
-    : QGLWidget(parent), myApplication(app), myParent(*parent),
-    _noDrawing(0)
+    : QGLWidget(parent),
+    myParent(*parent),myApplication(app), _noDrawing(0)
 {
 }
 
@@ -348,18 +348,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
     float height = (float) _heightInPixels;
     float range = (float) desc.getRange();
     float yoff = (float) desc.getYCenter();
-    float max = (float) desc.getMax();
+//    float max = (float) desc.getMax();
     float abs = (height) * (((float)d-yoff)/range) * 0.8f;
     return (height * 0.5f) - abs - 6;
-/*
-		float height = cvsGetHeight();
-		float range = (float) desc.getRange();
-		float yoff = (float) desc.getYCenter();
-		float max = (float) desc.getMax();
-		float bla = (height) * (((float)d-yoff)/range) * 0.8f;
-		return
-			(height * 0.5f) - bla - 6;
-*/
 }
 
 

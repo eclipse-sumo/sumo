@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/07/07 08:31:36  dkrajzew
 // adapted the importer to the new node type description
 //
@@ -150,15 +153,14 @@ NIVisumTL::SignalGroup::GetPhases()
  * ----------------------------------------------------------------------- */
 NIVisumTL::NIVisumTL()
 {
-
 }
+
 
 NIVisumTL::NIVisumTL(const std::string &Name, double CycleTime,
 					 double IntermediateTime, bool PhaseDefined)
-: myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
-myPhaseDefined(PhaseDefined)
+    : myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
+    myPhaseDefined(PhaseDefined)
 {
-
 }
 
 NIVisumTL::~NIVisumTL()
@@ -242,7 +244,7 @@ void NIVisumTL::build()
 		NBNode *Node = (*ni);
         NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
         NBTrafficLightLogicCont::insert(Node->getID(), def);
-		def->setCycleDuration(myCycleTime);
+		def->setCycleDuration((size_t) myCycleTime);
 		// signalgroups
 		for(SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++ )
 		{

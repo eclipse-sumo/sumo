@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/18 12:35:06  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/02/07 10:52:57  dkrajzew
 // updated
 //
@@ -44,10 +47,11 @@ using namespace std;
 
 
 std::string
-TextHelpers::version(std::string str) {
+TextHelpers::version(std::string str)
+{
     bool isVersion = false;
     // check whether this already is a version
-    size_t pos = str.length()-1;
+    int pos = (int) str.length()-1;
     if(str.at(pos)==')') {
         isVersion = true;
         while(pos>=0&&str.at(--pos)!='(') {

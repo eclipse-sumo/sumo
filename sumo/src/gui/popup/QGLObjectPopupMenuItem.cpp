@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.1  2003/06/06 10:24:36  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -67,12 +70,13 @@ QGLObjectPopupMenuItem::~QGLObjectPopupMenuItem()
 
 
 void
-QGLObjectPopupMenuItem::paint ( QPainter * p, const QColorGroup & cg,
-                               bool act, bool enabled,
+QGLObjectPopupMenuItem::paint ( QPainter * p, const QColorGroup &,
+                               bool , bool ,
                                int x, int y, int w, int h )
 {
     p->setFont(myFont);
-    p->drawText( x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, myName.c_str() );
+    p->drawText( x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip,
+        myName.c_str() );
 }
 
 

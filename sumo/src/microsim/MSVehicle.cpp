@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.25  2003/06/19 10:58:34  dkrajzew
 // too conservative computation of the braking gap patched
 //
@@ -435,15 +438,15 @@ MSVehicle::MSVehicle( string id,
     myRepetitionNumber(repNo),
     myPeriod(repOffset),
     myID(id),
-    myState(),
     myRoute(route),
-    myCurrEdge(0),
-    myAllowedLanes(0),
     myDesiredDepart(departTime),
     myType(type),
+    myState(),
+    myLane( 0 ),
+    myCurrEdge(0),
+    myAllowedLanes(0),
 //      myMeanData( 3 ),
     myMeanData( noMeanData ),
-    myLane( 0 ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 )
 {

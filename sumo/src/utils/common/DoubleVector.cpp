@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/18 12:35:06  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
@@ -90,20 +93,13 @@ DoubleVectorHelper::removeDouble(DoubleVector &v)
     size_t pos = 0;
     DoubleVector::iterator i=v.begin();
     while(i!=v.end()) {
-        int no1 = *i;
-        bool changed = false;
-        for(DoubleVector::iterator j=i+1; j!=v.end()&&!changed; j++) {
-            int no2 = *j;
-            if(no1==no2) {
-                v.erase(j);
-                changed = true;
+        double no1 = *i;
+        for(DoubleVector::iterator j=i+1; j!=v.end(); ) {
+            if(no1==*j) {
+                j = v.erase(j);
+            } else {
+                j++;
             }
-        }
-        if(changed) {
-            i = v.begin() + pos;
-        } else {
-            i++;
-            pos++;
         }
     }
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.2  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
@@ -58,11 +61,10 @@ class GUIParameterTracker : public QDialog
 public:
     /// Constructor (one value is defined)
     GUIParameterTracker( GUIApplicationWindow *app,
-        QWidget * parent, GUIGlObject *o, size_t itemNo );
+        GUIGlObject *o, size_t itemNo );
 
     /// Constructor (the tracker is empty)
-    GUIParameterTracker( GUIApplicationWindow *app,
-        QWidget * parent );
+    GUIParameterTracker( GUIApplicationWindow *app );
 
     /// Destructor
     ~GUIParameterTracker();

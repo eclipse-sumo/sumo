@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/18 12:35:05  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -77,8 +80,8 @@ NBConnection::NBConnection(NBEdge *from, int fromLane,
                            NBEdge *to, int toLane)
     : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane)
 {
-    assert(myFromLane<0||from->getNoLanes()>myFromLane);
-    assert(myToLane<0||to->getNoLanes()>myToLane);
+    assert(myFromLane<0||from->getNoLanes()>(size_t) myFromLane);
+    assert(myToLane<0||to->getNoLanes()>(size_t) myToLane);
     myFromID = from->getID();
     myToID = to->getID();
 }
@@ -125,9 +128,10 @@ NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
 
 
 bool
-NBConnection::replaceFrom(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane)
+NBConnection::replaceFrom(NBEdge *which, size_t whichLane,
+                          NBEdge *by, size_t byLane)
 {
-    if(myFrom==which&&(myFromLane==whichLane||myFromLane<0)) {
+    if(myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
         myFrom = by;
         myFromID = myFrom->getID();
         myFromLane = byLane;
@@ -152,7 +156,7 @@ NBConnection::replaceTo(NBEdge *which, NBEdge *by)
 bool
 NBConnection::replaceTo(NBEdge *which, size_t whichLane, NBEdge *by, size_t byLane)
 {
-    if(myTo==which&&(myToLane==whichLane||myFromLane<0)) {
+    if(myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
         myTo = by;
         myToID = myTo->getID();
         myToLane = byLane;

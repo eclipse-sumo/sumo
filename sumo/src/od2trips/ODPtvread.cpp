@@ -52,6 +52,7 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
 	string help;
 	int ferror = 0;
 	int maximum=0;
+    int i;
 	std::ifstream fsSrc (OD_filename.c_str ());
 	if (!fsSrc) {
 		std::cerr << "Error: Could not open " << OD_filename << "." << std::endl;
@@ -60,7 +61,7 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
 	*maxele=0;
 	*total_cars=0;
 	int maxdist,j;
-	for(int i=0;i<4;i++) (getline (fsSrc, cLine)); // read dummy lines
+	for(i=0;i<4;i++) (getline (fsSrc, cLine)); // read dummy lines
     float start_ini, finish_ini;
 	// read begin and end and convert to seconds
 	fsSrc >> start_ini >> finish_ini;

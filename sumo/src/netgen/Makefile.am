@@ -9,4 +9,4 @@ SUBDIRS =
 
 EXTRA_DIST = $(CFRONT_FILES)
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src 
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

@@ -13,8 +13,8 @@
  * @author Christian Roessel
  * @date   Started Thu, 20 Dec 2001
  * $Revision$ from $Date$ by $Author$
- * 
- * @brief Contains the declaration/implementation of the Command base class. 
+ *
+ * @brief Contains the declaration/implementation of the Command base class.
  */
 
 
@@ -28,6 +28,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.4  2003/06/06 14:18:51  roessel
 // Documentation added.
 //
@@ -87,9 +90,9 @@ public:
     /// Destructor.
     virtual ~Command( void ) {};
 
-    /** 
+    /**
      * Execute the command.
-     * 
+     *
      * @return The receivers operation should return the next interval for
      * recurring commands and 0 for single-execution commands.
      */

@@ -28,7 +28,7 @@ NBNetBuilder::~NBNetBuilder()
 }
 
 
-void 
+void
 NBNetBuilder::buildLoaded()
 {
     NBTypeCont::report();

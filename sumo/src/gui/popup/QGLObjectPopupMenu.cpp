@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/18 12:30:14  dkrajzew
+// removed some warnings
+//
 // Revision 1.1  2003/06/06 10:24:36  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -85,10 +88,8 @@ QGLObjectPopupMenu::center()
 void
 QGLObjectPopupMenu::showPars()
 {
-    GUIParameterTableWindow *win =
-        new GUIParameterTableWindow(
-            myApplication,
-            myParent, myObject);
+    // the application gets responsible for this object on building
+    new GUIParameterTableWindow(myApplication, myObject);
 }
 
 

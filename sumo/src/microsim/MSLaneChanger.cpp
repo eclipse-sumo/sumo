@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2003/07/18 12:35:04  dkrajzew
+// removed some warnings
+//
 // Revision 1.9  2003/07/16 15:29:51  dkrajzew
 // myFirstState renamed to myLastState in MSLane
 //
@@ -353,8 +356,7 @@ MSLaneChanger::updateLanes()
     // been pointers, but then I had to change too much of the MSLane code.
     for ( ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce ) {
 
-        ce->lane->myVehicles = ce->lane->myTmpVehicles;
-        ce->lane->myTmpVehicles.clear();
+        ce->lane->swapAfterLaneChange();
     }
 }
 
