@@ -107,7 +107,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         _alternatives.push_back(current);
         _lastUsed = _alternatives.size()-1;
     }
-    // recompute the costs
+    // recompute the costs and (when a new route was added) the propabilities
     AlternativesVector::iterator i;
     for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
@@ -117,6 +117,16 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
             double oldCosts = alt->getCosts();
             double newCosts = alt->recomputeCosts(begin);
             alt->setCosts(_gawronBeta * newCosts + (1.0-_gawronBeta) * oldCosts);
+        }
+        if(_newRoute) {
+            if((*i)!=current) {
+                alt->setPropability(
+                    alt->getPropability() 
+                    * double(_alternatives.size()-1) 
+                    / double(_alternatives.size()));
+            } else {
+                alt->setPropability(1.0 / double(_alternatives.size()));
+            }
         }
     }
     // compute the propabilities
