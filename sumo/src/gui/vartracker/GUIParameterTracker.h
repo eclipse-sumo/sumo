@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/11/11 08:43:04  dkrajzew
+// synchronisation problems of parameter tracker updates patched
+//
 // Revision 1.5  2003/07/30 12:51:42  dkrajzew
 // bugs on resize and font loading partially patched
 //
@@ -47,7 +50,7 @@
 #include <gui/GUIGlObject.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 #include "TrackerValueDesc.h"
 
 
@@ -71,7 +74,7 @@ class GUIParameterTracker : public QMainWindow
 public:
     /// Constructor (one value is defined)
     GUIParameterTracker( GUIApplicationWindow &app, const std::string &name,
-        GUIGlObject &o, DoubleValueSource *src, int xpos, int ypos );
+        GUIGlObject &o, /*DoubleValueSource *src, */int xpos, int ypos );
 
     /// Constructor (the tracker is empty)
     GUIParameterTracker( GUIApplicationWindow &app );
@@ -85,10 +88,12 @@ public:
     /// Returns the information about the largest height allowed for openGL-windows
     int getMaxGLHeight() const;
 
+    void addTracked(TrackerValueDesc *newTracked);
+
 protected:
     /// Adds a further variable to display
-    void addVariable(GUIGlObject *o, const std::string &name,
-        DoubleValueSource *src);
+    void addVariable(GUIGlObject *o, const std::string &name/*,
+        DoubleValueSource *src*/);
 
     /// Callback for events
     bool event ( QEvent *e );

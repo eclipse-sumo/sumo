@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/11/11 08:43:04  dkrajzew
+// synchronisation problems of parameter tracker updates patched
+//
 // Revision 1.9  2003/08/14 13:40:10  dkrajzew
 // a lower priorised update-method is now used
 //
@@ -89,12 +92,12 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
     buildFileTools();
     buildFileMenu();
     setCaption("Tracker");
-    setBaseSize(200, 300);
-    setMinimumSize(200, 300);
+    setBaseSize(300, 200);
+    setMinimumSize(300, 200);
     app.addChild(this, true);
     myPanel = new
         GUIParameterTrackerPanel(myApplication, *this);
-    myPanel->setGeometry(QRect( 0, 0, 200, 300));
+//    myPanel->setGeometry(QRect( 0, 0, 200, 300));
     show();
 }
 
@@ -102,8 +105,8 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
 
 GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
                                          const std::string &name,
-                                         GUIGlObject &o,
-                                         DoubleValueSource *src,
+                                         GUIGlObject &o,/*
+                                         DoubleValueSource *src,*/
                                          int xpos, int ypos)
         : myApplication(app)
 {
@@ -116,7 +119,7 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
     myPanel = new
         GUIParameterTrackerPanel(myApplication, *this);
     setCentralWidget(myPanel);
-    addVariable(&o, name, src);
+//    addVariable(&o, name, src);
     myPanel->move(xpos, ypos);
     show();
 }
@@ -125,16 +128,19 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
 GUIParameterTracker::~GUIParameterTracker()
 {
     myApplication.removeChild(this);
+    for(TrackedVarsVector::iterator i=myTracked.begin(); i!=myTracked.end(); i++) {
+        delete (*i);
+    }
 }
 
 
 void
-GUIParameterTracker::addVariable( GUIGlObject *o, const std::string &name,
-                                 DoubleValueSource *src)
+GUIParameterTracker::addVariable( GUIGlObject *o, const std::string &name/*,
+                                 DoubleValueSource *src*/)
 {
     TrackerValueDesc *newTracked =
         new TrackerValueDesc(
-            name, RGBColor(0, 0, 0), o, src);
+            name, RGBColor(0, 0, 0), o/*, src*/);
     myTracked.push_back(newTracked);
 }
 
@@ -145,10 +151,12 @@ GUIParameterTracker::event ( QEvent *e )
     if(e->type()!=QEvent::User) {
         return QMainWindow::event(e);
     }
+    /*
     for(TrackedVarsVector::iterator i=myTracked.begin(); i!=myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
         desc->simStep();
     }
+    */
     update();
     return TRUE;
 }
@@ -214,6 +222,13 @@ GUIParameterTracker::buildFileTools()
     QToolButton *fileSave = new QToolButton( saveIcon, "Open File",
         QString::null, this, SLOT(load()), fileTools, "open file" );
         */
+}
+
+
+void
+GUIParameterTracker::addTracked(TrackerValueDesc *newTracked)
+{
+    myTracked.push_back(newTracked);
 }
 
 
@@ -372,6 +387,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     const std::vector<float> &values = desc.getValues();
     if(values.size()<2) {
         glPopMatrix();
+        desc.unlockValues();
         return;
     }
 
@@ -393,6 +409,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         xp = xn;
     }
     glEnd();
+    desc.unlockValues();
     glPopMatrix();
     // add current value string
     myFontRenderer.SetColor(red, green, blue);
@@ -415,11 +432,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
     float abs = (height) * (((float)d-yoff)/range) * 0.8f;
     return (height * 0.5f) - abs - 6;
 }
-
-
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/11 08:43:04  dkrajzew
+// synchronisation problems of parameter tracker updates patched
+//
 // Revision 1.4  2003/07/30 08:50:42  dkrajzew
 // tracker debugging (not yet completed)
 //
@@ -53,9 +56,9 @@ namespace
  * ======================================================================= */
 TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    const RGBColor &col,
-                                   GUIGlObject *o,
-                                   DoubleValueSource *src)
-    : myName(name), myObject(o), mySource(src),
+                                   GUIGlObject *o/*,
+                                   DoubleValueSource *src*/)
+    : myName(name), myObject(o)/*, mySource(src)*/,
     myActiveCol(col), myInactiveCol(col),
     myAmActive(true),
     myMin(0), myMax(0)
@@ -69,20 +72,18 @@ TrackerValueDesc::~TrackerValueDesc()
 
 
 void
-TrackerValueDesc::simStep()
+TrackerValueDesc::addValue(double value)
 {
-	if(!myObject->active()) {
-		return;
-	}
-    double val = mySource->getValue();
     if(myValues.size()==0) {
-        myMin = val;
-        myMax = val;
+        myMin = value;
+        myMax = value;
     } else {
-        myMin = val < myMin ? val : myMin;
-        myMax = val > myMax ? val : myMax;
+        myMin = value < myMin ? value : myMin;
+        myMax = value > myMax ? value : myMax;
     }
-    myValues.push_back(val);
+    myLock.lock();
+    myValues.push_back(value);
+    myLock.unlock();
 }
 
 
@@ -126,8 +127,9 @@ TrackerValueDesc::getColor() const
 
 
 const std::vector<float> &
-TrackerValueDesc::getValues() const
+TrackerValueDesc::getValues()
 {
+    myLock.lock();
     return myValues;
 }
 
@@ -137,6 +139,13 @@ TrackerValueDesc::getName() const
 {
     return myName;
 }
+
+void
+TrackerValueDesc::unlockValues()
+{
+    myLock.unlock();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

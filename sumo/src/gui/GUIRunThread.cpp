@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/11/11 08:42:14  dkrajzew
+// synchronisation problems of parameter tracker updates patched
+//
 // Revision 1.13  2003/10/30 08:57:53  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -69,6 +72,7 @@ namespace
 #include <helpers/SingletonDictionary.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
+#include <microsim/logging/DoublePassingConnector.h>
 #include <guisim/GUILaneStateReporter.h>
 #include <qthread.h>
 #include <guisim/GUINet.h>
@@ -128,6 +132,7 @@ GUIRunThread::run()
 	        // execute a single step
             _net->simulationStep(_craw, _simStartTime, _step);
             MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
+            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<DoublePassingConnector> >::getInstance()->updateAll();
 
             // inform parent that a step has been performed
             QThread::postEvent( _parent, new QSimulationStepEvent() );

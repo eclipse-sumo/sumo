@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/11/11 08:43:04  dkrajzew
+// synchronisation problems of parameter tracker updates patched
+//
 // Revision 1.3  2003/07/30 08:50:42  dkrajzew
 // tracker debugging (not yet completed)
 //
@@ -37,7 +40,8 @@
 #include <string>
 #include <vector>
 #include <utils/gfx/RGBColor.h>
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/DoubleValueRetriever.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 
 
 /* =========================================================================
@@ -52,17 +56,14 @@ class GUIGlObject;
 /**
  *
  */
-class TrackerValueDesc {
+class TrackerValueDesc : public DoubleValueRetriever {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
-        GUIGlObject *o, DoubleValueSource *src);
+        GUIGlObject *o);
 
     /// Destructor
     ~TrackerValueDesc();
-
-    /// Updates the value at a simulation step
-    void simStep();
 
     /// returns the maximum value range
     float getRange() const;
@@ -79,11 +80,20 @@ public:
     /// Returns the color to use to display the value
     const RGBColor &getColor() const;
 
-    /// returns the vector of collected values
-    const std::vector<float> &getValues() const;
+    /** @brief returns the vector of collected values
+        The values will be locked - no further addition will be perfomed until
+        the method "unlockValues" will be called */
+    const std::vector<float> &getValues();
 
     /// Retunrs the name of the value
     const std::string &getName() const;
+
+    /// Adds a new value to the list
+    void addValue(double value);
+
+    /// Releases the locking after the values have been drawn
+    void unlockValues();
+
 
 private:
     /// The name of the value
@@ -91,8 +101,6 @@ private:
 
     /// The object to retrieve the information from
     GUIGlObject *myObject;
-
-    DoubleValueSource *mySource;
 
     /// Values collected
     std::vector<float> myValues;
@@ -108,6 +116,9 @@ private:
 
     /// The minimum and the maximum of the value
 	double myMin, myMax;
+
+    // Mutex to avoid parallel drawing and insertion of new items
+    NewQMutex myLock;
 
 };
 
