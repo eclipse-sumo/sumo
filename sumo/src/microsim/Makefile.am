@@ -161,7 +161,7 @@ MSVehicleTransfer.h \
 MSVehicleType.h \
 MS_E2_ZS_CollectorOverLanes.h
 
-SUBDIRS = actions logging
+SUBDIRS = actions
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
