@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/10/27 10:48:52  dkrajzew
+// keeping the pointer to a deleted vehicle - bug patched
+//
 // Revision 1.15  2003/10/22 15:43:49  dkrajzew
 // further work on a correct deletion of vehicles articipating in an accident
 //
@@ -237,6 +240,7 @@ GUILane::push( MSVehicle* veh )
         veh->enterLaneAtMove( this );
         veh->_assertPos();
         _lock.unlock();//Display();
+        setApproaching(veh->pos(), veh);
         return false;
     }
     else {
@@ -256,6 +260,7 @@ GUILane::push( MSVehicle* veh )
             static_cast<GUIVehicle*>(veh)->getGlID());
 		// maybe the vehicle is being tracked; mark as not within the simulation any longer
         _lock.unlock();//Display();
+        resetApproacherDistance();
         return true;
         // TODO
         // This part has to be discussed, quick an dirty solution:

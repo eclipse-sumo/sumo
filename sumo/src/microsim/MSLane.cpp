@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.34  2003/10/27 10:49:21  dkrajzew
+// keeping the pointer to a deleted vehicle - bug patched
+//
 // Revision 1.33  2003/10/22 11:26:07  dkrajzew
 // removeing from lane corrected
 //
@@ -895,6 +898,7 @@ MSLane::push(MSVehicle* veh)
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
         veh->_assertPos();
+        setApproaching(veh->pos(), veh);
         return false;
     }
     else {
@@ -910,6 +914,7 @@ MSLane::push(MSVehicle* veh)
                                   speed );
 
         MSVehicle::remove(veh->id());
+        resetApproacherDistance();
         return true;
         // TODO
         // This part has to be discussed, quick an dirty solution:
