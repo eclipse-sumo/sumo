@@ -56,6 +56,14 @@ protected:
             return pair->second.nHalts;
         }
 
+    DetectorAggregate getValue( MSVehicle& veh ) 
+        {
+            HaltingsMap::const_iterator pair =
+                containerM.containerM.find( &veh );
+            assert( pair != containerM.containerM.end() );
+            return pair->second.nHalts;
+        }
+    
     static std::string getDetectorName( void )
         {
             return "meanNHaltsPerVehicle";
