@@ -108,6 +108,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\convert\ConvHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\distribution\Distribution_MeanDev.cpp
 # End Source File
 # Begin Source File
@@ -204,6 +208,10 @@ SOURCE=..\..\src\netbuild\NBLinkCliqueContainer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netbuild\NBLoadedTLDef.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netbuild\NBLoader.cpp
 # End Source File
 # Begin Source File
@@ -221,6 +229,10 @@ SOURCE=..\..\src\netbuild\NBNodeCont.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBOptionsIO.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBOwnTLDef.cpp
 # End Source File
 # Begin Source File
 
@@ -820,6 +832,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\convert\ConvHelper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\distribution\Distribution.h
 # End Source File
 # Begin Source File
@@ -948,6 +964,10 @@ SOURCE=..\..\src\netbuild\NBLinkPossibilityMatrix.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netbuild\NBLoadedTLDef.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netbuild\NBLoader.h
 # End Source File
 # Begin Source File
@@ -965,6 +985,10 @@ SOURCE=..\..\src\netbuild\NBNodeCont.h
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBOptionsIO.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBOwnTLDef.h
 # End Source File
 # Begin Source File
 

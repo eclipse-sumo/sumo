@@ -135,6 +135,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\convert\ConvHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -195,6 +199,14 @@ SOURCE=..\..\src\gui\GUIGlObjectStorage.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guinetload\GUIJunctionControlBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIJunctionWrapper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUILane.cpp
 # End Source File
 # Begin Source File
@@ -223,6 +235,10 @@ SOURCE=..\..\src\guinetload\GUINetHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUINoLogicJunction.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\partable\GUIParameterTable.cpp
 # End Source File
 # Begin Source File
@@ -236,6 +252,10 @@ SOURCE=..\..\src\gui\vartracker\GUIParameterTracker.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIPerspectiveChanger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIRightOfWayJunction.cpp
 # End Source File
 # Begin Source File
 
@@ -785,6 +805,14 @@ SOURCE=..\..\src\gui\GUIGlObjectTypes.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guinetload\GUIJunctionControlBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIJunctionWrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUILane.h
 # End Source File
 # Begin Source File
@@ -810,6 +838,10 @@ SOURCE=..\..\src\guinetload\GUINetBuilder.h
 # Begin Source File
 
 SOURCE=..\..\src\guinetload\GUINetHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUINoLogicJunction.h
 # End Source File
 # Begin Source File
 
@@ -895,6 +927,10 @@ InputPath=..\..\src\gui\vartracker\GUIParameterTracker.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIPerspectiveChanger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIRightOfWayJunction.h
 # End Source File
 # Begin Source File
 
