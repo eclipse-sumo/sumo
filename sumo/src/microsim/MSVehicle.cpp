@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2003/09/22 12:35:03  dkrajzew
+// vehicle does not decelerate on yellow when halting is not possible
+//
 // Revision 1.29  2003/09/05 15:14:42  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -456,7 +459,6 @@ MSVehicle::MSVehicle( string id,
     myLane( 0 ),
     myCurrEdge(0),
     myAllowedLanes(0),
-//      myMeanData( 3 ),
     myMeanData( noMeanData ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 )
@@ -577,13 +579,8 @@ MSVehicle::brakeGap( double speed ) const
 double
 MSVehicle::rigorousBrakeGap(const double &speed) const
 {
-	throw 1;
-//    double speed = state.mySpeed - myType->decel() * MSNet::deltaT();
+	throw 1; // !!!
     return speed * speed * myType->inversTwoDecel();
- /* !!! ha ha ha
-    speed *
-        ( speed * myType->inversTwoDecel() + myTau );
-        */
 }
 
 
@@ -886,8 +883,8 @@ MSVehicle::moveFirstChecked()
 				v_safe = myVLinkPass;
 			} else {
 				if(v_safe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
-				    v_safe = myState.mySpeed-myType->decelSpeed();
-                    v_safe = MIN(v_safe, myVLinkPass);
+//				    v_safe = myState.mySpeed-myType->decelSpeed();
+                    v_safe = /*MIN(v_safe,*/ myVLinkPass;//);
 				}
 			}
 		}
