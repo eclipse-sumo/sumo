@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/11 08:40:03  dkrajzew
+// consequent position2D instead of two doubles implemented
+//
 // Revision 1.4  2003/10/30 08:57:53  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -262,10 +265,10 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
     glDisable(GL_DEPTH_TEST);
 
 	const Boundery &nb = _net.getBoundery();
-    double x = (nb.getCenter().first - _changer->getXPos()); // center of view
+    double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
-    double y = (nb.getCenter().second - _changer->getYPos()); // center of view
+    double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
 /*!!!    _net._edgeGrid.get(_edges, x, y, xoff, yoff);

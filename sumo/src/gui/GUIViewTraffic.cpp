@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/11/11 08:40:03  dkrajzew
+// consequent position2D instead of two doubles implemented
+//
 // Revision 1.23  2003/10/15 11:37:50  dkrajzew
 // old row-drawer replaced by new ones; setting of name information seems tobe necessary
 //
@@ -365,10 +368,10 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_DEPTH_TEST);
 
 	const Boundery &nb = _net.getBoundery();
-    double x = (nb.getCenter().first - _changer->getXPos()); // center of view
+    double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
-    double y = (nb.getCenter().second - _changer->getYPos()); // center of view
+    double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
 /*!!!    _net._edgeGrid.get(_edges, x, y, xoff, yoff);

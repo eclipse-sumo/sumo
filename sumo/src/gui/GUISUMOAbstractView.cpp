@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/11/11 08:40:03  dkrajzew
+// consequent position2D instead of two doubles implemented
+//
 // Revision 1.11  2003/09/23 14:25:13  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
@@ -526,10 +529,8 @@ GUISUMOAbstractView::applyChanges(double scale,
     double zoom = _changer->getZoom() / 100.0 * scale;
     glScaled(zoom, zoom, 0);
     // Translate to the middle of the net
-    glTranslated(
-        -(_net.getBoundery().getCenter().first),
-        -(_net.getBoundery().getCenter().second),
-        0);
+    Position2D center = _net.getBoundery().getCenter();
+    glTranslated(-center.x(), -center.y(), 0);
     // Translate in dependence to the view position applied by the user
     glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
     // Translate to the mouse pointer, when wished

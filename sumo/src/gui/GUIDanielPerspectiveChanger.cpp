@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/11/11 08:40:03  dkrajzew
+// consequent position2D instead of two doubles implemented
+//
 // Revision 1.11  2003/08/20 11:58:04  dkrajzew
 // cleaned up a bit
 //
@@ -64,7 +67,7 @@ using namespace std;
  * ======================================================================= */
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
-    _xpos(0), _ypos(0), _rotation(0), _zoom(100), _mouseButtonState(Qt::NoButton)
+    myViewCenter(0, 0), _rotation(0), _zoom(100), _mouseButtonState(Qt::NoButton)
 {
 }
 
@@ -100,8 +103,7 @@ GUIDanielPerspectiveChanger::mouseMoveEvent ( QMouseEvent *e )
 void
 GUIDanielPerspectiveChanger::move(int xdiff, int ydiff)
 {
-    _xpos -= _callback.p2m(xdiff);
-    _ypos += _callback.p2m(ydiff);
+    myViewCenter.add(-_callback.p2m(xdiff), _callback.p2m(ydiff));
     _changed = true;
     _callback.update();
 }
@@ -156,14 +158,14 @@ GUIDanielPerspectiveChanger::getRotation() const
 double
 GUIDanielPerspectiveChanger::getXPos() const
 {
-    return _xpos;
+    return myViewCenter.x();
 }
 
 
 double
 GUIDanielPerspectiveChanger::getYPos() const
 {
-    return _ypos;
+    return myViewCenter.y();
 }
 
 
@@ -178,8 +180,7 @@ void
 GUIDanielPerspectiveChanger::recenterView()
 {
     _rotation = 0;
-    _xpos = 0;
-    _ypos = 0;
+    myViewCenter.set(0, 0);
     _zoom = 100;
     _changed = true;
 }
@@ -190,8 +191,9 @@ void
 GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
                                       const Position2D &pos, double radius)
 {
-    _xpos = -(pos.x() - netBoundery.getCenter().first);
-    _ypos = -(pos.y() - netBoundery.getCenter().second);
+    myViewCenter.set(pos);
+    myViewCenter.sub(netBoundery.getCenter());
+    myViewCenter.mul(-1.0);
     _zoom =
         netBoundery.getWidth() < netBoundery.getHeight() ?
         25.0 * netBoundery.getWidth() / radius :
@@ -204,10 +206,9 @@ void
 GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
                                       Boundery bound)
 {
-    _xpos = -(bound.getCenter().first
-        - netBoundery.getCenter().first);
-    _ypos = -(bound.getCenter().second
-        - netBoundery.getCenter().second);
+    myViewCenter.set(bound.getCenter());
+    myViewCenter.sub(netBoundery.getCenter());
+    myViewCenter.mul(-1.0);
     _zoom =
         bound.getWidth() > bound.getHeight() ?
         100.0 * netBoundery.getWidth() / bound.getWidth() :

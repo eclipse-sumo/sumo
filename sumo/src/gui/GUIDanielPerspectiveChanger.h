@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/11 08:40:03  dkrajzew
+// consequent position2D instead of two doubles implemented
+//
 // Revision 1.6  2003/07/18 12:29:28  dkrajzew
 // removed some warnings
 //
@@ -45,13 +48,13 @@
 
 #include <qnamespace.h>
 #include <qevent.h>
+#include <utils/geom/Position2D.h>
 #include "GUIPerspectiveChanger.h"
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class Position2D;
 class Boundery;
 
 
@@ -127,7 +130,7 @@ private:
 
 private:
     /// the current center of the view
-    double _xpos, _ypos;
+    Position2D myViewCenter;
 
     /// the sizes of the window
     int _widthInPixels, _heightInPixels;
