@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.2  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
@@ -36,6 +39,7 @@ namespace
 
 #include <sstream>
 #include <iostream>
+#include <cassert>
 #include "NBEdgeCont.h"
 #include "NBEdge.h"
 #include "NBConnection.h"
@@ -66,9 +70,12 @@ NBConnection::NBConnection(const std::string &fromID, NBEdge *from,
 }
 
 
-NBConnection::NBConnection(NBEdge *from, size_t fromLane, NBEdge *to, size_t toLane)
+NBConnection::NBConnection(NBEdge *from, int fromLane,
+                           NBEdge *to, int toLane)
     : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane)
 {
+    assert(myFromLane<0||from->getNoLanes()>myFromLane);
+    assert(myToLane<0||to->getNoLanes()>myToLane);
     myFromID = from->getID();
     myToID = to->getID();
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.15  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
@@ -708,9 +711,6 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 bool
 NBEdge::computeEdge2Edges()
 {
-    if(_id=="13010064") {
-        int bla = 0;
-    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>EDGE2EDGES) {
@@ -727,9 +727,6 @@ NBEdge::computeEdge2Edges()
 bool
 NBEdge::computeLanes2Edges()
 {
-    if(_id=="13010064") {
-        int bla = 0;
-    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>LANES2EDGES) {
@@ -1373,6 +1370,7 @@ void
 NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                     const std::string &tlID, size_t tlPos)
 {
+    assert(fromLane<0||fromLane<_nolanes);
     // try to use information about the connections if given
     if(fromLane>=0&&toLane>=0) {
         // get the connections outgoing from this lane

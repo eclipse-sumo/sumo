@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/16 08:02:45  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.5  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -65,6 +68,9 @@ NBTrafficLightLogicVector::~NBTrafficLightLogicVector()
 void
 NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic)
 {
+    if(logic==0) {
+        return;
+    }
     if(!contains(logic)) {
         _cont.push_back(logic);
     } else {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
 //
@@ -132,7 +135,6 @@ public:
         typedef std::vector<PhaseDef> GroupsPhases;
         GroupsPhases myPhases;
         double myTRedYellow, myTYellow;
-        size_t myNoLinks;
     };
 
     class Phase
@@ -158,9 +160,9 @@ public:
     NBTrafficLightLogicVector *compute(OptionsCont &oc);
     void setCycleDuration(size_t cycleDur);
     void addSignalGroup(const std::string &id);
-    void addToSignalGroup(const std::string &groupid,
+    bool addToSignalGroup(const std::string &groupid,
         const NBConnection &connection);
-    void addToSignalGroup(const std::string &groupid,
+    bool addToSignalGroup(const std::string &groupid,
         const NBConnectionVector &connections);
     void addSignalGroupPhaseBegin(const std::string &groupid,
         double time, TLColor color);

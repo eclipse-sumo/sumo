@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/16 08:01:57  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -48,12 +51,12 @@
 class NBTrafficLightDefinition;
 
 class NIVissimTL
-        : public NIVissimBoundedClusterObject {
+      /*  : public NIVissimBoundedClusterObject */{
 public:
     NIVissimTL(int id, const std::string &type, const std::string &name,
         double absdur, double offset);
     ~NIVissimTL();
-    void computeBounding();
+//    void computeBounding();
     std::string getType() const;
     int getID() const;
 
@@ -62,7 +65,7 @@ public:
         const std::string &name, double absdur, double offset);
     static bool dictionary(int id, NIVissimTL *o);
     static NIVissimTL *dictionary(int id);
-    static IntVector getWithin(const AbstractPoly &poly, double offset);
+//    static IntVector getWithin(const AbstractPoly &poly, double offset);
     static void clearDict();
     static bool dict_SetSignals();
 
@@ -74,9 +77,6 @@ public:
     typedef std::map<int, SSignalDictType> SignalDictType;
     typedef std::map<int, SGroupDictType> GroupDictType;
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
 /**
  *
  */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.4  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -69,6 +72,9 @@ bool
 NBTrafficLightLogicCont::insert(const std::string &id,
                                 NBTrafficLightLogicVector *logics)
 {
+    if(logics==0) {
+        return false;
+    }
     ComputedContType::iterator i=_computed.find(id);
     if(i!=_computed.end()) {
         _computed[id]->add(*logics);
@@ -120,7 +126,7 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
         // and insert the result after coputation
         if(!insert((*i).first, def->compute(oc))) {
             // should not happen
-            throw 1;
+            cout << " Warning: Could not build traffic lights '" << def->getID() << "'" << endl;
         }
     }
     return true;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/16 08:01:57  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.12  2003/06/05 11:46:54  dkrajzew
 // class templates applied; documentation added
 //
@@ -404,7 +407,7 @@ NIVissimLoader::postLoadBuild(double offset)
 
     // build nodes from clusters
     NIVissimNodeCluster::setCurrentVirtID(NIVissimNodeDef::getMaxID());
-//    NIVissimConnectionCluster::buildNodeClusters();
+    NIVissimConnectionCluster::buildNodeClusters();
 
 //    NIVissimNodeCluster::dict_recheckEdgeChanges();
 

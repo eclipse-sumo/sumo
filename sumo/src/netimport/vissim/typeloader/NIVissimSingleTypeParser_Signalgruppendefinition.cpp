@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/16 08:01:57  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.7  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -112,7 +115,8 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     if(type=="festzeit") {
         return parseFixedTime(id, name, lsaid, from);
     } if(type=="festzeit_fake") {
-        return parseExternFixedTime(id, name, lsaid, from);
+        return parseFixedTime(id, name, lsaid, from);
+//        return parseExternFixedTime(id, name, lsaid, from);
     } if(type=="vas") {
         return parseVAS(id, name, lsaid, from);
     } if(type=="vsplus") {

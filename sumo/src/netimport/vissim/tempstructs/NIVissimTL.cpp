@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/16 08:01:57  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.8  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -165,6 +168,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBTrafficLightDefinition *tl) const
             const EdgeLaneVector *connections = edge->getEdgeLanesFromLane(myLane-1);
             for(EdgeLaneVector::const_iterator i=connections->begin(); i!=connections->end(); i++) {
                 const EdgeLane &conn = *i;
+                assert(myLane-1<edge->getNoLanes());
                 assignedConnections.push_back(
                     NBConnection(edge, myLane-1, conn.edge, conn.lane));
             }
@@ -181,7 +185,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBTrafficLightDefinition *tl) const
         }
     } else {
         // get the edges
-		NBEdge *tmpFrom = tmpFrom = NBEdgeCont::retrievePossiblySplitted(
+		NBEdge *tmpFrom = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
             true);
@@ -201,14 +205,12 @@ NIVissimTL::NIVissimTLSignal::addTo(NBTrafficLightDefinition *tl) const
     // add to the group
     assert(myGroupIDs.size()!=0);
     if(myGroupIDs.size()==1) {
-        tl->addToSignalGroup(
-            toString<int>(*(myGroupIDs.begin())),
+        return tl->addToSignalGroup(toString<int>(*(myGroupIDs.begin())),
             assignedConnections);
     } else {
-        tl->addToSignalGroup(
-            toString<int>(*(myGroupIDs.begin())),
-            assignedConnections);
         // !!!
+        return tl->addToSignalGroup(toString<int>(*(myGroupIDs.begin())),
+            assignedConnections);
     }
 	return true;
 }
@@ -388,7 +390,7 @@ NIVissimTL::dictionary(int id)
     return (*i).second;
 }
 
-
+/*
 IntVector
 NIVissimTL::getWithin(const AbstractPoly &poly, double offset)
 {
@@ -400,8 +402,8 @@ NIVissimTL::getWithin(const AbstractPoly &poly, double offset)
     }
     return ret;
 }
-
-
+*/
+/*
 void
 NIVissimTL::computeBounding()
 {
@@ -413,7 +415,7 @@ NIVissimTL::computeBounding()
     myBoundery = bound;
 //    cout << "TL " << myID << ":" << *myBoundery << endl;
 }
-
+*/
 
 void
 NIVissimTL::clearDict()

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.17  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -349,7 +352,7 @@ NBNode::NBNode(const std::string &id, double x, double y, int type,
 
 
 NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
-    : _id(id), _x(x), _y(y), _type(TYPE_DISTRICT), myDistrict(district)
+    : _id(id), _x(x), _y(y), _type(TYPE_DISTRICT), myDistrict(district), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -904,9 +907,6 @@ NBNode::sortNodesEdges()
 void
 NBNode::computeLanes2Lanes()
 {
-    if(_id=="13010064") {
-        int bla = 0;
-    }
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
@@ -1287,9 +1287,6 @@ NBNode::eraseDummies(bool verbose)
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
-        if(dummy->getID()=="13010022") {
-            int bla = 0;
-        }
 		if(verbose) {
 			cout << " Removing dummy edge '" << dummy->getID() << "'" << endl;
 		}
@@ -1297,14 +1294,14 @@ NBNode::eraseDummies(bool verbose)
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
         for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-            if((*i)->isConnectedTo(dummy)) {
+            if((*i)->isConnectedTo(dummy)&&*i!=dummy) {
                 incomingConnected.push_back(*i);
             }
         }
         // get the list of outgoing edges connected to the dummy
         EdgeVector outgoingConnected;
         for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
-            if(dummy->isConnectedTo(*i)) {
+            if(dummy->isConnectedTo(*i)&&*i!=dummy) {
                 outgoingConnected.push_back(*i);
             }
         }
@@ -1442,7 +1439,22 @@ void
 NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
                      const EdgeVector &outgoing)
 {
+    assert(find(incoming.begin(), incoming.end(), removed)==incoming.end());
     bool changed = true;
+/*
+    if(_id=="84") {
+        for(NBConnectionProhibits::iterator i2=_blockedConnections.begin(); i2!=_blockedConnections.end(); i2++) {
+            const NBConnection &blocker = (*i2).first;
+            const NBConnectionVector &blocked = (*i2).second;
+            cout << blocker.getID() << ":";
+            for(NBConnectionVector::const_iterator i3=blocked.begin(); i3!=blocked.end(); i3++) {
+                cout << (*i3).getID() << ", ";
+            }
+            cout << endl;
+        }
+        cout << "------------------------" << endl;
+    }
+*/
     while(changed) {
         changed = false;
         NBConnectionProhibits blockedConnectionsTmp = _blockedConnections;
@@ -1451,32 +1463,50 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
         for(NBConnectionProhibits::iterator i=blockedConnectionsTmp.begin(); i!=blockedConnectionsTmp.end(); i++) {
             const NBConnection &blocker = (*i).first;
             const NBConnectionVector &blocked = (*i).second;
-            //
+            // check the blocked connections first
+                // check whether any of the blocked must be changed
             bool blockedChanged = false;
             NBConnectionVector newBlocked;
-            for(NBConnectionVector::const_iterator i=blocked.begin(); i!=blocked.end(); i++) {
+            NBConnectionVector::const_iterator i;
+            for(i=blocked.begin(); i!=blocked.end(); i++) {
                 const NBConnection &sblocked = *i;
-                if(blocker.getFrom()==removed) {
-                    assert(blocker.getTo()!=removed);
+                if(sblocked.getFrom()==removed||sblocked.getTo()==removed) {
                     blockedChanged = true;
+                }
+            }
+                // adapt changes if so
+            for(i=blocked.begin(); blockedChanged&&i!=blocked.end(); i++) {
+                const NBConnection &sblocked = *i;
+                if(sblocked.getFrom()==removed&&sblocked.getTo()==removed) {
+                    for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
+                        newBlocked.push_back(NBConnection(*i, *i));
+                    }
+                } else if(sblocked.getFrom()==removed) {
+                    assert(sblocked.getTo()!=removed);
                     for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
                         newBlocked.push_back(NBConnection(*i, sblocked.getTo()));
                     }
-                }
-                if(blocker.getTo()==removed) {
-                    assert(blocker.getFrom()!=removed);
-                    blockedChanged = true;
+                } else if(sblocked.getTo()==removed) {
+                    assert(sblocked.getFrom()!=removed);
                     for(EdgeVector::const_iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
                         newBlocked.push_back(NBConnection(sblocked.getFrom(), *i));
                     }
+                } else {
+                    newBlocked.push_back(NBConnection(sblocked.getFrom(), sblocked.getTo()));
                 }
             }
             if(blockedChanged) {
                 blockedConnectionsNew[blocker] = newBlocked;
+                changed = true;
             }
-            //
+            // if the blocked were kept
             else {
-                if(blocker.getFrom()==removed) {
+                if(blocker.getFrom()==removed&&blocker.getTo()==removed) {
+                    changed = true;
+                    for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
+                        blockedConnectionsNew[NBConnection(*i, *i)] = blocked;
+                    }
+                } else if(blocker.getFrom()==removed) {
                     assert(blocker.getTo()!=removed);
                     changed = true;
                     for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
@@ -1500,6 +1530,20 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
 /*    for(std::vector<NBTrafficLightDefinition*>::iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); i++) {
         (*i)->remapRemoved(removed, incoming, outgoing);
     }*/
+    /*
+    if(_id=="84") {
+        for(NBConnectionProhibits::iterator i2=_blockedConnections.begin(); i2!=_blockedConnections.end(); i2++) {
+            const NBConnection &blocker = (*i2).first;
+            const NBConnectionVector &blocked = (*i2).second;
+            cout << blocker.getID() << ":";
+            for(NBConnectionVector::const_iterator i3=blocked.begin(); i3!=blocked.end(); i3++) {
+                cout << (*i3).getID() << ", ";
+            }
+            cout << endl;
+        }
+        cout << "------------------------" << endl;
+    }
+*/
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/06/16 08:02:44  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
 //
@@ -64,7 +67,7 @@ using namespace std;
  * NBTrafficLightDefinition::SignalGroup-methods
  * ----------------------------------------------------------------------- */
 NBTrafficLightDefinition::SignalGroup::SignalGroup(const std::string &id)
-    : Named(id), myNoLinks(0)
+    : Named(id)
 {
 }
 
@@ -75,8 +78,8 @@ NBTrafficLightDefinition::SignalGroup::~SignalGroup()
 void
 NBTrafficLightDefinition::SignalGroup::addConnection(const NBConnection &c)
 {
+    assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>c.getFromLane());
     myConnections.push_back(c);
-    myNoLinks++;
 }
 
 
@@ -118,7 +121,7 @@ NBTrafficLightDefinition::SignalGroup::getTimes() const
 size_t
 NBTrafficLightDefinition::SignalGroup::getLinkNo() const
 {
-    return myNoLinks;
+    return myConnections.size();
 }
 
 
@@ -161,7 +164,6 @@ NBTrafficLightDefinition::SignalGroup::mustBrake(double time) const
 bool
 NBTrafficLightDefinition::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
 {
-    cout << "containsConn " << myConnections.size() << endl;
     for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if((*i).getFrom()==from&&(*i).getTo()==to) {
             return true;
@@ -183,7 +185,6 @@ NBTrafficLightDefinition::SignalGroup::getConnection(size_t pos) const
 bool
 NBTrafficLightDefinition::SignalGroup::containsIncoming(NBEdge *from) const
 {
-    cout << "containsIn " << myConnections.size() << endl;
     for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if((*i).getFrom()==from) {
             return true;
@@ -202,9 +203,12 @@ NBTrafficLightDefinition::SignalGroup::remapIncoming(NBEdge *which, const EdgeVe
         changed = false;
         for(NBConnectionVector::iterator i=myConnections.begin(); !changed&&i!=myConnections.end(); i++) {
             if((*i).getFrom()==which) {
-                NBConnection conn = (*i);
+                NBConnection conn((*i).getFrom(), (*i).getTo());
                 changed = true;
                 myConnections.erase(i);
+                if(by.size()==0) {
+                    return; // !!! (?)
+                }
                 for(EdgeVector::const_iterator j=by.begin(); j!=by.end(); j++) {
                     NBConnection curr(conn);
                     if(!curr.replaceFrom(which, *j)) {
@@ -221,7 +225,6 @@ NBTrafficLightDefinition::SignalGroup::remapIncoming(NBEdge *which, const EdgeVe
 bool
 NBTrafficLightDefinition::SignalGroup::containsOutgoing(NBEdge *to) const
 {
-    cout << "containsOut " << myConnections.size() << endl;
     for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if((*i).getTo()==to) {
             return true;
@@ -234,15 +237,17 @@ NBTrafficLightDefinition::SignalGroup::containsOutgoing(NBEdge *to) const
 void
 NBTrafficLightDefinition::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by)
 {
-    assert(by.size()>0);
     bool changed = true;
     while(changed) {
         changed = false;
         for(NBConnectionVector::iterator i=myConnections.begin(); !changed&&i!=myConnections.end(); i++) {
             if((*i).getTo()==which) {
-                NBConnection conn = (*i);
+                NBConnection conn((*i).getFrom(), (*i).getTo());
                 changed = true;
                 myConnections.erase(i);
+                if(by.size()==0) {
+                    return; // !!! (?)
+                }
                 for(EdgeVector::const_iterator j=by.begin(); j!=by.end(); j++) {
                     NBConnection curr(conn);
                     if(!curr.replaceTo(which, *j)) {
@@ -318,8 +323,27 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition()
 NBTrafficLightLogicVector *
 NBTrafficLightDefinition::compute(OptionsCont &oc)
 {
+    // assign participating nodes to the request
+    size_t pos = 0;
+    SignalGroupCont::const_iterator m;
+    for(m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
+        SignalGroup *group = (*m).second;
+        size_t linkNo = group->getLinkNo();
+        for(size_t j=0; j<linkNo; j++) {
+            const NBConnection &conn = group->getConnection(j);
+            NBEdge *edge = conn.getFrom();
+            NBNode *node = edge->getToNode();
+            if(find(_nodes.begin(), _nodes.end(), node)==_nodes.end()) {
+                _nodes.push_back(node);
+            }
+        }
+    }
+
     collectEdges();
     collectLinks();
+    if(_incoming.size()==0) {
+        return 0;
+    }
     NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
         ? buildLoadedTrafficLights()
         : buildOwnTrafficLights(
@@ -357,7 +381,7 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
         back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
 
-
+/*
     // assign participating nodes to the request
     size_t pos = 0;
     SignalGroupCont::const_iterator m;
@@ -373,7 +397,7 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
             }
         }
     }
-
+*/
     // count the signals
     size_t noSignals = 0;
     for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
@@ -398,19 +422,25 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
         logic->addStep(duration, masks.first, masks.second, std::bitset<64>()); // !!! yellow ligh is not considered!!!
     }
     // assign the links to the connections
-    pos = 0;
-    for(m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
+    size_t pos = 0;
+    for(SignalGroupCont::const_iterator m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
         SignalGroup *group = (*m).second;
         size_t linkNo = group->getLinkNo();
         for(size_t j=0; j<linkNo; j++) {
             const NBConnection &conn = group->getConnection(j);
-            NBEdge *edge = conn.getFrom();
-            edge->setControllingTLInformation(
-                conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                getID(), pos++);
+            assert(conn.getFromLane()<0||conn.getFrom()->getNoLanes()>conn.getFromLane());
+            NBConnection tst(conn);
+            if(tst.check()) {
+                NBEdge *edge = conn.getFrom();
+                edge->setControllingTLInformation(
+                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
+                    getID(), pos++);
+            } else {
+                cout << "Warning: Could not set signal on connection (signal: "
+                    << getID() << ", group: " << group->getID() << ")" << endl;
+            }
         }
     }
-
     // returns the build logic
     NBTrafficLightLogicVector *ret =
         new NBTrafficLightLogicVector(_links);
@@ -422,9 +452,6 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
 std::pair<std::bitset<64>, std::bitset<64> >
 NBTrafficLightDefinition::buildPhaseMasks(size_t time) const
 {
-    if(_id=="361") {
-        int bla = 0;
-    }
     // set the masks
     std::bitset<64> driveMask;
     std::bitset<64> brakeMask;
@@ -437,9 +464,10 @@ NBTrafficLightDefinition::buildPhaseMasks(size_t time) const
             driveMask[pos] = mayDrive;
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
-            assert(assConn.check());
-            brakeMask[pos] = mustBrake(conn.getFrom(), conn.getTo());
-            pos++;
+            if(assConn.check()) {
+                brakeMask[pos] = mustBrake(conn.getFrom(), conn.getTo());
+                pos++;
+            }
         }
     }
     return std::pair<std::bitset<64>, std::bitset<64> >(driveMask, brakeMask);
@@ -576,22 +604,27 @@ NBTrafficLightDefinition::findGroup(NBEdge *from, NBEdge *to) const
 
 
 
-void
+bool
 NBTrafficLightDefinition::addToSignalGroup(const std::string &groupid,
                          const NBConnection &connection)
 {
-    assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
+    if(mySignalGroups.find(groupid)==mySignalGroups.end()) {
+        return false;
+    }
     mySignalGroups[groupid]->addConnection(connection);
+    return true;
 }
 
 
-void
+bool
 NBTrafficLightDefinition::addToSignalGroup(const std::string &groupid,
                          const NBConnectionVector &connections)
 {
+    bool ok = true;
     for(NBConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
-        addToSignalGroup(groupid, *i);
+        ok &= addToSignalGroup(groupid, *i);
     }
+    return ok;
 }
 
 
@@ -668,8 +701,10 @@ NBTrafficLightDefinition::collectLinks()
             const EdgeLaneVector *connected = incoming->getEdgeLanesFromLane(j);
             for(EdgeLaneVector::const_iterator k=connected->begin(); k!=connected->end(); k++) {
                 const EdgeLane &el = *k;
-                _links.push_back(
-                        NBConnection(incoming, j, el.edge, el.lane));
+                if(el.edge!=0) {
+                    _links.push_back(
+                            NBConnection(incoming, j, el.edge, el.lane));
+                }
             }
         }
     }
@@ -762,12 +797,12 @@ NBTrafficLightDefinition::remapRemoved(NBEdge *removed,
                                        const EdgeVector &incoming,
                                        const EdgeVector &outgoing)
 {
-    if(removed->getID()=="13010022") {
-        int bla = 0;
-    }
 
     for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
+        if(group->getID()=="8"&&removed->getID()=="12") {
+            int bla = 0;
+        }
         if(group->containsIncoming(removed)) {
             group->remapIncoming(removed, incoming);
         }

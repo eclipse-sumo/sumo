@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/16 08:01:57  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.9  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -170,6 +173,8 @@ NIVissimDisturbance::addToNode(NBNode *node)
             myEdge.getEdgeID());
         NIVissimEdge *e2 = NIVissimEdge::dictionary(
             myDisturbance.getEdgeID());
+        cout << " Warning: Ugly split to prohibit '"
+            << e1->getID() << "' by '" << e2->getID() << "'." << endl;
         Position2D pos = e1->crossesEdgeAtPoint(e2);
         string id1 =
             toString<int>(e1->getID()) + string("x") + toString<int>(e2->getID());
@@ -217,23 +222,46 @@ NIVissimDisturbance::addToNode(NBNode *node)
 			}
 //        }
     } else if(pc!=0 && bc==0) {
-        // This has not been tested completely, yet
-        cout << " Warning: Could not prohibit '"
-            << myEdge.getEdgeID() << "' by '"
-            << myDisturbance.getEdgeID() << "'." << endl;
-        refusedProhibits++;
         // The prohibited abstract edge is a connection, the other
         //  is not;
-        // We have to split the other one and add the prohibition
-        //  description
-/*
+        // The connection will be prohibitesd by all connections
+        //  outgoing from the "real" edge
+
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
+            cout << " Warning: Could not prohibit '"
+                << myEdge.getEdgeID() << "' by '"
+                << myDisturbance.getEdgeID() << "'." << endl;
+            refusedProhibits++;
             // What to do with dummy edges?
+            return false;
+        }
+            // get the begin of the prohibited connection
+        string id_pcoe = toString<int>(pc->getFromEdgeID());
+        string id_pcie = toString<int>(pc->getToEdgeID());
+        NBEdge *pcoe = NBEdgeCont::retrievePossiblySplitted(id_pcoe, id_pcie, true);
+        NBEdge *pcie = NBEdgeCont::retrievePossiblySplitted(id_pcie, id_pcoe, false);
+            // check whether it's ending node is the node the prohibited
+            //  edge end at
+        if(pcoe!=0&&pcie!=0&&pcoe->getToNode()==e->getToNode()) {
+            // if so, simply prohibit the connections
+            NBNode *node = e->getToNode();
+            size_t noLanes = e->getNoLanes();
+            const EdgeVector &connected = e->getConnected();
+            for(EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
+                node->addSortedLinkFoes(
+                    NBConnection(e, *i),
+                    NBConnection(pcoe, pcie));
+            }
         } else {
+            cout << " Warning: Would have to split edge '" << e->getID() << "' to build a prohibition" << endl;
+            // quite ugly - why was it not build?
+            return false;
+            /*
             string nid1 = e->getID() + "[0]";
             string nid2 = e->getID() + "[1]";
+
             if(NBEdgeCont::splitAt(e, node)) {
                 node->addSortedLinkFoes(
                         NBConnection(
@@ -243,27 +271,48 @@ NIVissimDisturbance::addToNode(NBNode *node)
                         getConnection(node, myEdge.getEdgeID())
                     );
             }
+            */
         }
-        */
     } else if(bc!=0 && pc==0) {
-        // This has not been tested completely, yet
-        cout << " Warning: Could not prohibit '"
-            << myEdge.getEdgeID() << "' by '"
-            << myDisturbance.getEdgeID() << "'." << endl;
-        refusedProhibits++;
-        // The prohibiteing abstract edge is a connection, the other
+        // The prohibiting abstract edge is a connection, the other
         //  is not;
         // We have to split the other one and add the prohibition
         //  description
-/*
+
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
         if( e->getFromNode()==e->getToNode()) {
+            cout << " Warning: Could not prohibit '"
+                << myEdge.getEdgeID() << "' by '"
+                << myDisturbance.getEdgeID() << "'." << endl;
+            refusedProhibits++;
             // What to do with dummy edges?
             return false;
+        }
+            // get the begin of the prohibiting connection
+        string id_bcoe = toString<int>(bc->getFromEdgeID());
+        string id_bcie = toString<int>(bc->getToEdgeID());
+        NBEdge *bcoe = NBEdgeCont::retrievePossiblySplitted(id_bcoe, id_bcie, true);
+        NBEdge *bcie = NBEdgeCont::retrievePossiblySplitted(id_bcie, id_bcoe, false);
+            // check whether it's ending node is the node the prohibited
+            //  edge end at
+        if(bcoe!=0&&bcie!=0&&bcoe->getToNode()==e->getToNode()) {
+            // if so, simply prohibit the connections
+            NBNode *node = e->getToNode();
+            size_t noLanes = e->getNoLanes();
+            const EdgeVector &connected = e->getConnected();
+            for(EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
+                node->addSortedLinkFoes(
+                    NBConnection(bcoe, bcie),
+                    NBConnection(e, *i));
+            }
         } else {
+            cout << " Warning: Would have to split edge '" << e->getID() << "' to build a prohibition" << endl;
+            return false;
+            /*
+            // quite ugly - why was it not build?
             if(NBEdgeCont::splitAt(e, node)) {
                 node->addSortedLinkFoes(
                         getConnection(node, myDisturbance.getEdgeID()),
@@ -273,8 +322,8 @@ NIVissimDisturbance::addToNode(NBNode *node)
                         )
                     );
             }
+            */
         }
-        */
     } else {
         // both the prohibiting and the prohibited abstract edges
         //  are connections
