@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/01/26 07:13:51  dkrajzew
+// added the possibility to place lsa-detectors at a default position/using a default length
+//
 // Revision 1.8  2003/12/12 12:32:13  dkrajzew
 // continuing on accidents is now meant to be the default behaviour
 //
@@ -85,6 +88,10 @@ char *help[] = {
     "                                   forward (default=0: read all routes)",
     " Simulation options:",
     "   --quit-on-accident              Quits when an accident occures",
+    "   --actuating-detector-pos <FLOAT> The distance to the actuated lsa his",
+    "                                     actuating detectors shall be placed at",
+    "   --agent-detector-len <FLOAT>     The length of the actuating detectors",
+    "                                     of an agentbased lsa",
     "   --srand <INT>                   Initialises the random number generator",
     "                                    with the given value",
     "   --abs-rand                      Set this when the current time shall be",

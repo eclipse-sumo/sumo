@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/26 07:09:33  dkrajzew
+// added the possibility to place lsa-detectors at a default position/using a default length
+//
 // Revision 1.15  2003/12/12 12:31:31  dkrajzew
 // continuing on accidents is now meant to be the default behaviour
 //
@@ -126,6 +129,8 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("dump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     //
+    oc.doRegister("actuating-detector-pos", new Option_Float(100));
+    oc.doRegister("agent-detector-len", new Option_Float(75));
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
 
