@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/05 09:30:58  dkrajzew
+// bug on unitialised icon usage patched
+//
 // Revision 1.3  2004/07/02 08:16:14  dkrajzew
 // windows layouts added; reload button added
 //
@@ -125,16 +128,16 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_WINDOWS_TILE_VERT] = new FXGIFIcon(a, windows_tile_vertically);
     myIcons[ICON_WINDOWS_TILE_HORI] = new FXGIFIcon(a, windows_tile_horizontally);
     myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
-/*
-    myIcons[ICON_SPEEDLIMIT_020KMH] = new FXGIFIcon(a, vlimit_20);
-    myIcons[ICON_SPEEDLIMIT_040KMH] = new FXGIFIcon(a, vlimit_40);
-    myIcons[ICON_SPEEDLIMIT_060KMH] = new FXGIFIcon(a, vlimit_60);
-    myIcons[ICON_SPEEDLIMIT_080KMH] = new FXGIFIcon(a, vlimit_80);
-    myIcons[ICON_SPEEDLIMIT_100KMH] = new FXGIFIcon(a, vlimit_100);
-    myIcons[ICON_SPEEDLIMIT_120KMH] = new FXGIFIcon(a, vlimit_120);
-    myIcons[ICON_SPEEDLIMIT_140KMH] = new FXGIFIcon(a, vlimit_140);
-    myIcons[ICON_SPEEDLIMIT_160KMH] = new FXGIFIcon(a, vlimit_160);
-    myIcons[ICON_SPEEDLIMIT_180KMH] = new FXGIFIcon(a, vlimit_180);*/
+
+    myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
+    myIcons[ICON_SPEEDLIMIT_040KMH] = 0;//new FXGIFIcon(a, vlimit_40);
+    myIcons[ICON_SPEEDLIMIT_060KMH] = 0;//new FXGIFIcon(a, vlimit_60);
+    myIcons[ICON_SPEEDLIMIT_080KMH] = 0;//new FXGIFIcon(a, vlimit_80);
+    myIcons[ICON_SPEEDLIMIT_100KMH] = 0;//new FXGIFIcon(a, vlimit_100);
+    myIcons[ICON_SPEEDLIMIT_120KMH] = 0;//new FXGIFIcon(a, vlimit_120);
+    myIcons[ICON_SPEEDLIMIT_140KMH] = 0;//new FXGIFIcon(a, vlimit_140);
+    myIcons[ICON_SPEEDLIMIT_160KMH] = 0;//new FXGIFIcon(a, vlimit_160);
+    myIcons[ICON_SPEEDLIMIT_180KMH] = 0;//new FXGIFIcon(a, vlimit_180);
 //    myIcons[ICON_SPEEDLIMIT_200KMH] = new FXGIFIcon(a, vlimit_200);
 
     // ... and create them
