@@ -1,7 +1,7 @@
 /****************************************************************************
 ** GUISUMOAbstractView meta object code from reading C++ file 'GUISUMOAbstractView.h'
 **
-** Created: Tue Sep 16 15:42:51 2003
+** Created: Wed Nov 26 09:33:59 2003
 **      by: The Qt MOC ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!

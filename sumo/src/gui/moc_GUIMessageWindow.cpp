@@ -1,20 +1,20 @@
 /****************************************************************************
-** QGUIImageField meta object code from reading C++ file 'QGUIImageField.h'
+** GUIMessageWindow meta object code from reading C++ file 'GUIMessageWindow.h'
 **
-** Created: Wed Nov 26 09:33:59 2003
+** Created: Wed Nov 26 11:25:07 2003
 **      by: The Qt MOC ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#define Q_MOC_QGUIImageField
+#define Q_MOC_GUIMessageWindow
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #define Q_MOC_OUTPUT_REVISION 8
 #elif Q_MOC_OUTPUT_REVISION != 8
 #error "Moc format conflict - please regenerate all moc files"
 #endif
 
-#include "QGUIImageField.h"
+#include "GUIMessageWindow.h"
 #include <qmetaobject.h>
 #include <qapplication.h>
 
@@ -25,39 +25,39 @@
 #endif
 
 
-const char *QGUIImageField::className() const
+const char *GUIMessageWindow::className() const
 {
-    return "QGUIImageField";
+    return "GUIMessageWindow";
 }
 
-QMetaObject *QGUIImageField::metaObj = 0;
+QMetaObject *GUIMessageWindow::metaObj = 0;
 
-void QGUIImageField::initMetaObject()
+void GUIMessageWindow::initMetaObject()
 {
     if ( metaObj )
 	return;
-    if ( strcmp(QToolButton::className(), "QToolButton") != 0 )
-	badSuperclassWarning("QGUIImageField","QToolButton");
+    if ( strcmp(QTextView::className(), "QTextView") != 0 )
+	badSuperclassWarning("GUIMessageWindow","QTextView");
     (void) staticMetaObject();
 }
 
 #ifndef QT_NO_TRANSLATION
-QString QGUIImageField::tr(const char* s)
+QString GUIMessageWindow::tr(const char* s)
 {
-    return ((QNonBaseApplication*)qApp)->translate("QGUIImageField",s);
+    return ((QNonBaseApplication*)qApp)->translate("GUIMessageWindow",s);
 }
 
 #endif // QT_NO_TRANSLATION
-QMetaObject* QGUIImageField::staticMetaObject()
+QMetaObject* GUIMessageWindow::staticMetaObject()
 {
     if ( metaObj )
 	return metaObj;
-    (void) QToolButton::staticMetaObject();
+    (void) QTextView::staticMetaObject();
 #ifndef QT_NO_PROPERTIES
 #endif // QT_NO_PROPERTIES
     QMetaData::Access *slot_tbl_access = 0;
     metaObj = QMetaObject::new_metaobject(
-	"QGUIImageField", "QToolButton",
+	"GUIMessageWindow", "QTextView",
 	0, 0,
 	0, 0,
 #ifndef QT_NO_PROPERTIES

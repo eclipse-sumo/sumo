@@ -1,7 +1,7 @@
 /****************************************************************************
 ** GUIApplicationWindow meta object code from reading C++ file 'GUIApplicationWindow.h'
 **
-** Created: Tue Sep 16 15:42:51 2003
+** Created: Wed Nov 26 11:25:07 2003
 **      by: The Qt MOC ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -71,6 +71,7 @@ QMetaObject* GUIApplicationWindow::staticMetaObject()
     typedef void(GUIApplicationWindow::*m1_t13)(int);
     typedef void(GUIApplicationWindow::*m1_t14)(int);
     typedef void(GUIApplicationWindow::*m1_t15)(int);
+    typedef void(GUIApplicationWindow::*m1_t16)();
     m1_t0 v1_0 = Q_AMPERSAND GUIApplicationWindow::load;
     m1_t1 v1_1 = Q_AMPERSAND GUIApplicationWindow::closeAllWindows;
     m1_t2 v1_2 = Q_AMPERSAND GUIApplicationWindow::start;
@@ -87,8 +88,9 @@ QMetaObject* GUIApplicationWindow::staticMetaObject()
     m1_t13 v1_13 = Q_AMPERSAND GUIApplicationWindow::windowsMenuActivated;
     m1_t14 v1_14 = Q_AMPERSAND GUIApplicationWindow::windowSetings;
     m1_t15 v1_15 = Q_AMPERSAND GUIApplicationWindow::setSimulationDelay;
-    QMetaData *slot_tbl = QMetaObject::new_metadata(16);
-    QMetaData::Access *slot_tbl_access = QMetaObject::new_metaaccess(16);
+    m1_t16 v1_16 = Q_AMPERSAND GUIApplicationWindow::showLog;
+    QMetaData *slot_tbl = QMetaObject::new_metadata(17);
+    QMetaData::Access *slot_tbl_access = QMetaObject::new_metaaccess(17);
     slot_tbl[0].name = "load()";
     slot_tbl[0].ptr = *((QMember*)&v1_0);
     slot_tbl_access[0] = QMetaData::Private;
@@ -137,9 +139,12 @@ QMetaObject* GUIApplicationWindow::staticMetaObject()
     slot_tbl[15].name = "setSimulationDelay(int)";
     slot_tbl[15].ptr = *((QMember*)&v1_15);
     slot_tbl_access[15] = QMetaData::Public;
+    slot_tbl[16].name = "showLog()";
+    slot_tbl[16].ptr = *((QMember*)&v1_16);
+    slot_tbl_access[16] = QMetaData::Public;
     metaObj = QMetaObject::new_metaobject(
 	"GUIApplicationWindow", "QMainWindow",
-	slot_tbl, 16,
+	slot_tbl, 17,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
