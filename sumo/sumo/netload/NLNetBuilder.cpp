@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.7  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -77,8 +80,10 @@ namespace
 #include "NLHandlerBuilder3.h"
 #include "../utils/StringTokenizer.h"
 #include "../utils/OptionsCont.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "../utils/FileHelpers.h"
+
+#include "../utils/TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -96,7 +101,7 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
     try {
         XMLPlatformUtils::Initialize();
     } catch (const XMLException& toCatch) {
-        SErrorHandler::add("Error during XML-initialization: " + XMLConvert::_2str(toCatch.getMessage()));
+        SErrorHandler::add("Error during XML-initialization: " + TplConvert<XMLCh>::_2str(toCatch.getMessage()));
     }
 }
 

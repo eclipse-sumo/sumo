@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -53,11 +56,13 @@ namespace
 #include "NLContainer.h"
 #include "NLHandlerEdgeAllocator.h"
 #include "SErrorHandler.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "NLSAXHandler.h"
 #include "NLTags.h"
 #include "NLLoadFilter.h"
+
+#include "../utils/TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -99,8 +104,8 @@ NLHandlerEdgeAllocator::addEdge(const Attributes &attrs) {
         myContainer.addEdge(id);
     } catch (XMLIdAlreadyUsedException &e) {
         SErrorHandler::add(e.getMessage("edge", id));
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of an edge-object.");
     }
 }
 

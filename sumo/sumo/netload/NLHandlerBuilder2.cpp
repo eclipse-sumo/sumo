@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.5  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -62,7 +65,7 @@ namespace
 #include "NLContainer.h"
 #include "NLHandlerBuilder2.h"
 #include "SErrorHandler.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/StringTokenizer.h"
 #include "../utils/AttributesHandler.h"
@@ -72,6 +75,8 @@ namespace
 #include "NLNetBuilder.h"
 #include "NLLoadFilter.h"
 #include "NLTags.h"
+
+#include "../utils/TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -138,11 +143,11 @@ NLHandlerBuilder2::openJunction(const Attributes &attrs) {
             myContainer.openJunction(id, 
                 _attrHandler.getStringSecure(attrs, ATTR_KEY, ""),
                 _attrHandler.getString(attrs, ATTR_TYPE));
-        } catch (XMLUngivenParameterException &e) {
-            SErrorHandler::add(e.getMessage("junction", id));
+        } catch (EmptyData &e) {
+            SErrorHandler::add("Error in description: missing attribute in a junction-object.");
         }
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("junction", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a junction-object.");
     }
 }
 
@@ -157,15 +162,15 @@ NLHandlerBuilder2::addVehicle(const Attributes &attrs) {
                 _attrHandler.getString(attrs, ATTR_TYPE),
                 _attrHandler.getString(attrs, ATTR_ROUTE),
                 _attrHandler.getLong(attrs, ATTR_DEPART));
-        } catch (XMLUngivenParameterException &e) {
-            SErrorHandler::add(e.getMessage("vehicle", id));
+        } catch (EmptyData &e) {
+            SErrorHandler::add("Error in description: missing attribute in a vehicle-object.");
         } catch(XMLIdNotKnownException &e) {
             SErrorHandler::add(e.getMessage("", ""));
         } catch(XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicle", id));
         }  
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("vehicle", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a vehicle-object.");
     }  
 }
 
@@ -187,8 +192,8 @@ NLHandlerBuilder2::addDetector(const Attributes &attrs) {
         } catch (InvalidArgument &e) {
             SErrorHandler::add(e.msg());
         }
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("detector", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a detector-object.");
     }  
 }
 

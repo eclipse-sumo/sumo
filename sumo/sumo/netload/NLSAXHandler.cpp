@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.5  2002/05/14 04:54:25  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //
@@ -66,9 +69,11 @@ namespace
 #include "../utils/XMLBuildingExceptions.h"
 #include "NLSAXHandler.h"
 #include "SErrorHandler.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "NLTags.h"
 #include "NLLoadFilter.h"
+
+#include "../utils/TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -155,8 +160,7 @@ NLSAXHandler::myCharacters(int element, const std::string &name, const std::stri
 
 void 
 NLSAXHandler::setError(const string &type, const SAXParseException& exception) {
-    SErrorHandler::add(XMLConvert::buildErrorMessage(_file, type, exception), 
-		       true);
+    SErrorHandler::add(buildErrorMessage(_file, type, exception), true);
 }
 
 bool

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.5  2002/06/07 14:39:57  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -78,7 +81,6 @@ namespace
 #include "SLogging.h"
 #include "SErrorHandler.h"
 #include "../utils/XMLBuildingExceptions.h"
-#include "../utils/XMLConvert.h"
 
 
 /* =========================================================================

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -55,12 +58,14 @@ namespace
 #include "NLContainer.h"
 #include "NLHandlerBuilder3.h"
 #include "SErrorHandler.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/AttributesHandler.h"
 #include "NLLoadFilter.h"
 #include "NLNetBuilder.h"
 #include "NLTags.h"
+
+#include "../utils/TplConvert.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -110,8 +115,8 @@ NLHandlerBuilder3::openSuccLane(const Attributes &attrs) {
         string id = _attrHandler.getString(attrs, ATTR_ID);
         myContainer.openSuccLane(id);
         m_LaneId = id;
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("succ", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a succ-object.");
     }
 }
 
@@ -120,8 +125,8 @@ void
 NLHandlerBuilder3::setSuccJunction(const Attributes &attrs) {
     try {
         myContainer.setSuccJunction(_attrHandler.getString(attrs, ATTR_JUNCTION));
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", m_LaneId));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a succ junction-object.");
     }
 }
 
@@ -131,8 +136,8 @@ NLHandlerBuilder3::addSuccLane(const Attributes &attrs) {
         myContainer.addSuccLane(
             _attrHandler.getBool(attrs, ATTR_YIELD),
             _attrHandler.getString(attrs, ATTR_LANE));
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", m_LaneId));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("", ""));
         SErrorHandler::add(string(" While building lane '")+myContainer.getSuccingLaneName()+string("'"));

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/10 08:36:07  dkrajzew
+// Conversion of strings generalized
+//
 // Revision 1.5  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -61,7 +64,7 @@ namespace
 #include "NLContainer.h"
 #include "NLHandlerBuilder1.h"
 #include "SErrorHandler.h"
-#include "../utils/XMLConvert.h"
+#include "../utils/TplConvert.h"
 #include "../utils/STRConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/StringTokenizer.h"
@@ -73,6 +76,7 @@ namespace
 #include "NLTags.h"
 //#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../microsim/MSBitSetLogic.cpp"
+#include "../utils/TplConvert.cpp"
 //#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
@@ -165,8 +169,8 @@ NLHandlerBuilder1::chooseEdge(const Attributes &attrs) {
     try {
         id = _attrHandler.getString(attrs, ATTR_ID);
         myContainer.chooseEdge(id);
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("edge", id));
     }
@@ -188,13 +192,13 @@ NLHandlerBuilder1::addLane(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {
             SErrorHandler::add(e.getMessage("lane", id));
-        } catch (XMLUngivenParameterException &e) {
-            SErrorHandler::add(e.getMessage("edge", id));
-        } catch (XMLNumericFormatException &e) {
-            SErrorHandler::add(e.getMessage("edge", id));
+        } catch (EmptyData &e) {
+            SErrorHandler::add("Error in description: missing attribute in an edge-object.");
+        } catch (NumberFormatException &e) {
+            SErrorHandler::add("Error in description: one of an edge's attributes must be numeric but is not.");
         }
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of an edge-object.");
     }
 }
 
@@ -206,8 +210,8 @@ NLHandlerBuilder1::openAllowedEdge(const Attributes &attrs) {
         myContainer.openAllowedEdge(id);
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("cedge", id));
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of an cedge-object.");
     }
 }
 
@@ -224,13 +228,13 @@ NLHandlerBuilder1::addVehicleType(const Attributes &attrs) {
                 _attrHandler.getFloat(attrs, ATTR_SIGMA));
         } catch (XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicletype", id));
-        } catch (XMLUngivenParameterException &e) {
-            SErrorHandler::add(e.getMessage("vehicletype", id));
-        } catch (XMLNumericFormatException &e) {
-            SErrorHandler::add(e.getMessage("vehicletype", id));
+        } catch (EmptyData &e) {
+            SErrorHandler::add("Error in description: missing attribute in a vehicletype-object.");
+        } catch (NumberFormatException &e) {
+            SErrorHandler::add("Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("vehicletype", "(ID_UNKNOWN!)"));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a vehicle-object.");
     }
 }
 
@@ -240,8 +244,8 @@ NLHandlerBuilder1::openRoute(const Attributes &attrs) {
     try {
         id = _attrHandler.getString(attrs, ATTR_ID);
         myContainer.openRoute(id);
-    } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("route", id));
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a route-object.");
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("route", "(ID_UNKNOWN!)"));
     }
@@ -252,7 +256,7 @@ NLHandlerBuilder1::addJunctionKey(const Attributes &attrs) {
     try {
         string key = _attrHandler.getString(attrs, ATTR_KEY);
         myContainer.addKey(key); // !!! wozu?
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
     }
 }
 
@@ -275,14 +279,14 @@ NLHandlerBuilder1::addLogicItem(const Attributes &attrs) {
         string response;
         try {
             request = _attrHandler.getInt(attrs, ATTR_REQUEST);
-        } catch (XMLUngivenParameterException &e) {
+        } catch (EmptyData &e) {
             SErrorHandler::add("Missing request key...");
-        } catch (XMLNumericFormatException e) {
-            SErrorHandler::add("The request key is not numeric.");
+        } catch (NumberFormatException &e) {
+            SErrorHandler::add("Error in description: one of the request keys is not numeric.");
         }
         try {
             response = _attrHandler.getString(attrs, ATTR_RESPONSE);
-        } catch (XMLUngivenParameterException &e) {
+        } catch (EmptyData &e) {
             SErrorHandler::add("Missing respond for a request");
         }
         if(request>=0 && response.length()>0)
@@ -298,14 +302,14 @@ NLHandlerBuilder1::addTrafoItem(const Attributes &attrs) {
     string links;
     try {
         lane = _attrHandler.getInt(attrs, ATTR_TO);
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
         SErrorHandler::add("Missing lane number...");
-    } catch (XMLNumericFormatException e) {
+    } catch (NumberFormatException &e) {
         SErrorHandler::add("The lane number is not numeric.");
     }
     try {
         links = _attrHandler.getString(attrs, ATTR_FROM);
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
         SErrorHandler::add("Missing links in a lane transformation.");
     }
     if(lane>=0 && links.length()>0)
@@ -437,10 +441,10 @@ NLHandlerBuilder1::setRequestSize(const std::string &chars) {
     try {
         _requestSize = STRConvert::_2int(chars);
         m_pActiveLogic->resize(_requestSize);
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
         SErrorHandler::add("Missing request size.");
-    } catch (XMLNumericFormatException e) {
-        SErrorHandler::add("The request size is not numeric! Contact your netconvert-programmer.");
+    } catch (NumberFormatException &e) {
+        SErrorHandler::add("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
 
@@ -449,9 +453,9 @@ NLHandlerBuilder1::setResponseSize(const std::string &chars) {
     try {
         _responseSize = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
         SErrorHandler::add("Missing response size.");
-    } catch (XMLNumericFormatException e) {
+    } catch (NumberFormatException &e) {
         SErrorHandler::add("Response size is not numeric! Contact your netconvert-programmer.");
     }
 }
@@ -461,10 +465,10 @@ NLHandlerBuilder1::setLaneNumber(const std::string &chars) {
     try {
         _laneNo = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
-    } catch (XMLUngivenParameterException &e) {
+    } catch (EmptyData &e) {
         SErrorHandler::add("Missing lane number.");
-    } catch (XMLNumericFormatException e) {
-        SErrorHandler::add("Lane number is not numeric! Contact your netconvert-programmer.");
+    } catch (NumberFormatException &e) {
+        SErrorHandler::add("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
 
