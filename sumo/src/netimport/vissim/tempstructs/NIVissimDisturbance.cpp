@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.10  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
 //
@@ -44,6 +47,7 @@ namespace
 #include <iostream>
 #include <cassert>
 #include <utils/convert/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundery.h>
 #include <netbuild/NBEdge.h>
@@ -173,13 +177,17 @@ NIVissimDisturbance::addToNode(NBNode *node)
             myEdge.getEdgeID());
         NIVissimEdge *e2 = NIVissimEdge::dictionary(
             myDisturbance.getEdgeID());
-        cout << " Warning: Ugly split to prohibit '"
-            << e1->getID() << "' by '" << e2->getID() << "'." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Ugly split to prohibit '") + toString<int>(e1->getID())
+            + string("' by '") + toString<int>(e2->getID())
+            + string("'."));
         Position2D pos = e1->crossesEdgeAtPoint(e2);
         string id1 =
-            toString<int>(e1->getID()) + string("x") + toString<int>(e2->getID());
+            toString<int>(e1->getID()) + string("x")
+            + toString<int>(e2->getID());
         string id2 =
-            toString<int>(e2->getID()) + string("x") + toString<int>(e1->getID());
+            toString<int>(e2->getID()) + string("x")
+            + toString<int>(e1->getID());
         NBNode *node1 = NBNodeCont::retrieve(id1);
         NBNode *node2 = NBNodeCont::retrieve(id2);
         NBNode *node = 0;
@@ -188,7 +196,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
 			return false;
 /*            node = new NBNode(id1, pos.x(), pos.y(), "priority");
             if(!NBNodeCont::insert(node)) {
-                cout << "nope, NIVissimDisturbance" << endl;
+                 "nope, NIVissimDisturbance" << endl;
                 throw 1;
             }*/
         } else {
@@ -230,9 +238,11 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
-            cout << " Warning: Could not prohibit '"
-                << myEdge.getEdgeID() << "' by '"
-                << myDisturbance.getEdgeID() << "'." << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("Could not prohibit '")
+                + toString<int>(myEdge.getEdgeID()) + string("' by '")
+                + toString<int>(myDisturbance.getEdgeID())
+                + string("'."));
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -255,7 +265,9 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     NBConnection(pcoe, pcie));
             }
         } else {
-            cout << " Warning: Would have to split edge '" << e->getID() << "' to build a prohibition" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("Would have to split edge '")
+                + e->getID() + string("' to build a prohibition"));
             // quite ugly - why was it not build?
             return false;
             /*
@@ -284,9 +296,11 @@ NIVissimDisturbance::addToNode(NBNode *node)
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
         if( e->getFromNode()==e->getToNode()) {
-            cout << " Warning: Could not prohibit '"
-                << myEdge.getEdgeID() << "' by '"
-                << myDisturbance.getEdgeID() << "'." << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("Could not prohibit '")
+                + toString<int>(myEdge.getEdgeID()) + string("' by '")
+                + toString<int>(myDisturbance.getEdgeID())
+                + string("'."));
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -309,7 +323,9 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     NBConnection(e, *i));
             }
         } else {
-            cout << " Warning: Would have to split edge '" << e->getID() << "' to build a prohibition" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("Would have to split edge '")
+                + e->getID() + string("' to build a prohibition"));
             return false;
             /*
             // quite ugly - why was it not build?
@@ -353,7 +369,8 @@ NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
         return NBConnection(toString<int>(c->getFromEdgeID()), from,
             toString<int>(c->getToEdgeID()), to);
     } else {
-        cout << "NIVissimDisturbance: no connection" << endl;
+        MsgHandler::getWarningInstance()->inform(
+            "NIVissimDisturbance: no connection");
         return NBConnection(0, 0);
 //        throw 1; // !!! what to do?
     }
@@ -390,9 +407,10 @@ void
 NIVissimDisturbance::reportRefused()
 {
     if(refusedProhibits>0) {
-        cout << "Warning: Could not build " << refusedProhibits
-            << " of " << myDict.size() << " disturbances."
-            << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Warning: Could not build ") + toString<size_t>(refusedProhibits)
+            + string(" of ") + toString<size_t>(myDict.size())
+            + string(" disturbances."));
     }
 }
 

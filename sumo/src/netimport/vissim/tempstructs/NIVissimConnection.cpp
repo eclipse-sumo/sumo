@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.9  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -301,10 +304,6 @@ NIVissimConnection::dict_buildNBEdgeConnections()
         }
 */
         if(fromEdge==0||toEdge==0) {
-/*			cout << " Warning: Could not build connection between '"
-				<< c->getFromEdgeID() << "' and '"
-				<< c->getToEdgeID() << "'." << endl;
-			ref++;*/
             fromEdge = NBEdgeCont::retrievePossiblySplitted(
                 toString<int>(c->getFromEdgeID()),
                 toString<int>(c->getToEdgeID()),
@@ -318,9 +317,12 @@ NIVissimConnection::dict_buildNBEdgeConnections()
                     toString<int>(c->getFromEdgeID()),
                     toString<int>(c->getToEdgeID()),
                     true);
-	    		cout << " Warning: Could not build connection between '"
-		    		<< c->getFromEdgeID() << "' and '"
-			    	<< c->getToEdgeID() << "'." << endl;
+                MsgHandler::getWarningInstance()->inform(
+                    string("Could not build connection between '")
+                    + toString<int>(c->getFromEdgeID())
+                    + string("' and '")
+                    + toString<int>(c->getToEdgeID())
+                    + string("'."));
 			    ref++;
                 continue;
             }
@@ -359,8 +361,10 @@ NIVissimConnection::dict_buildNBEdgeConnections()
         }
     }
 	if(ref!=0) {
-		cout << "Warning: " << ref << " of " << myDict.size()
-			<< " connections could not be assigned." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            toString<size_t>(ref) + string(" of ")
+            + toString<size_t>(myDict.size())
+            + string(" connections could not be assigned."));
 	}
 }
 

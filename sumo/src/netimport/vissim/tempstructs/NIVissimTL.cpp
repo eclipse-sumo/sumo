@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.10  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -50,10 +53,11 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "NIVissimConnection.h"
-#include <netbuild/NBTrafficLightDefinition.h>
+#include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBLoadedTLDef.h>
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeDef.h"
@@ -154,7 +158,7 @@ NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
 
 
 bool
-NIVissimTL::NIVissimTLSignal::addTo(NBTrafficLightDefinition *tl) const
+NIVissimTL::NIVissimTLSignal::addTo(NBLoadedTLDef *tl) const
 {
     NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
     NBConnectionVector assignedConnections;
@@ -175,7 +179,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBTrafficLightDefinition *tl) const
                     NBConnection(edge, myLane-1, conn.edge, conn.lane));
             }
         } else {
-            cout << "Edge : Lanes were not assigned(!)" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                "Edge : Lanes were not assigned(!)");
             for(size_t j=0; j<edge->getNoLanes(); j++) {
                 const EdgeLaneVector *connections = edge->getEdgeLanesFromLane(j);
                 for(EdgeLaneVector::const_iterator i=connections->begin(); i!=connections->end(); i++) {
@@ -307,7 +312,7 @@ NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid)
 
 
 bool
-NIVissimTL::NIVissimTLSignalGroup::addTo(NBTrafficLightDefinition *tl) const
+NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const
 {
     // get the color at the begin
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
@@ -449,8 +454,7 @@ NIVissimTL::dict_SetSignals()
 			continue;
 		}*/
         string id = toString<int>(tl->myID);
-        NBTrafficLightDefinition *def =
-            new NBTrafficLightDefinition(id);
+        NBLoadedTLDef *def = new NBLoadedTLDef(id);
         if(!NBTrafficLightLogicCont::insert(id, def)) {
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light");
             MsgHandler::getErrorInstance()->inform(string(" Must be a multiple id ('") + id + string("')"));
@@ -462,9 +466,10 @@ NIVissimTL::dict_SetSignals()
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
             if(!(*j).second->addTo(def)) {
-				cout << " Warning: The signal group '" << (*j).first
-					<< "' could not be assigned to tl '"
-					<< tl->myID << "'." << endl;
+                MsgHandler::getWarningInstance()->inform(
+                    string("The signal group '") + toString<int>((*j).first)
+                    + string("' could not be assigned to tl '")
+					+ toString<int>(tl->myID) + string("'."));
 				ref_groups++;
 			}
 			no_groups++;
@@ -473,25 +478,32 @@ NIVissimTL::dict_SetSignals()
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for(SSignalDictType::const_iterator k=signals.begin(); k!=signals.end(); k++) {
             if(!(*k).second->addTo(def)) {
-				cout << " Warning: The signal '" << (*k).first
-					<< "' could not be assigned to tl '"
-					<< tl->myID << "'." << endl;
+                MsgHandler::getWarningInstance()->inform(
+                    string("The signal '") + toString<int>((*k).first)
+                    + string("' could not be assigned to tl '")
+					+ toString<int>(tl->myID) + string("'."));
 				ref_signals++;
 			}
 			no_signals++;
         }
     }
 	if(ref!=0) {
-		cout << "Warning: could not set " << ref << " of " << myDict.size()
-			<< " traffic lights." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Could not set ") + toString<size_t>(ref)
+            + string(" of ") + toString<size_t>(myDict.size())
+			+ string(" traffic lights."));
 	}
 	if(ref_groups!=0) {
-		cout << "Warning: could not set " << ref_groups << " of " << no_groups
-			<< " groups." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Could not set ") + toString<size_t>(ref_groups)
+            + string(" of ") + toString<size_t>(no_groups)
+			+ string(" groups."));
 	}
 	if(ref_signals!=0) {
-		cout << "Warning: could not set " << ref_signals << " of " << no_signals
-			<< " signals." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Could not set ") + toString<size_t>(ref_signals)
+            + string(" of ") + toString<size_t>(no_signals)
+			+ string(" signals."));
 	}
     return true;
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.13  2003/06/24 08:19:35  dkrajzew
 // some further work on importing traffic lights
 //
@@ -48,6 +51,7 @@ namespace
 #include <utils/geom/Boundery.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/IntVector.h>
+#include <utils/common/MsgHandler.h>
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeCluster.h"
@@ -378,18 +382,15 @@ NIVissimConnectionCluster::buildNodeClusters()
         int nodeid = -1;
 
         if((*i)->myConnections.size()>0) {
-            if(*((*i)->myConnections.begin())==47) {
-                int bla = 0;
-            }
             (*i)->recomputeBoundery();
 //            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
             disturbances = NIVissimDisturbance::getWithin((*i)->myBoundery);
             //
-//    cout << "Cluster " << ":" << (*i)->myBoundery << endl;
         }
         nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundery, 5.0);
         if(nodes.size()>1) {
-            cout << "NIVissimConnectionCluster:More than a single node" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                "NIVissimConnectionCluster:More than a single node");
   //          throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
         }
         if(nodes.size()>0) {
@@ -671,7 +672,8 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
             */
     }
     // what else?
-    cout << "NIVissimConnectionCluster: how to get an edge's position?" << endl;
+    MsgHandler::getWarningInstance()->inform(
+        "NIVissimConnectionCluster: how to get an edge's position?");
     // !!!
     assert(myBoundery.xmin()<=myBoundery.xmax());
     NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);

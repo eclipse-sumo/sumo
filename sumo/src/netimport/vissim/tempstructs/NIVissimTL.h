@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.8  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -51,7 +54,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class NBTrafficLightDefinition;
+class NBLoadedTLDef;
 
 class NIVissimTL
       /*  : public NIVissimBoundedClusterObject */{
@@ -91,7 +94,7 @@ public:
         ~NIVissimTLSignal();
         bool isWithin(const Position2DVector &poly) const;
         Position2D getPosition() const;
-        bool addTo(NBTrafficLightDefinition *node) const;
+        bool addTo(NBLoadedTLDef *node) const;
 
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignal *o);
@@ -117,7 +120,7 @@ public:
             bool isGreenBegin, const DoubleVector &times,
             double tredyellow, double tyellow);
         ~NIVissimTLSignalGroup();
-        bool addTo(NBTrafficLightDefinition *node) const;
+        bool addTo(NBLoadedTLDef *node) const;
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignalGroup *o);
         static NIVissimTLSignalGroup *dictionary(int lsaid, int id);

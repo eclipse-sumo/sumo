@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.12  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -308,9 +311,8 @@ NIVissimEdge::buildNBEdge(double offset)
         Position2D pos = myGeom.at(0);
         fromNode =
             new NBNode(toString<int>(myID) + string("-SourceNode"),
-                pos.x(), pos.y(), "no_junction");
+                pos.x(), pos.y(), NBNode::NODETYPE_NOJUNCTION);
         if(!NBNodeCont::insert(fromNode)) {
-            cout << "nope, NIVissimEdge" << endl;
             throw 1;
         }
     }
@@ -318,17 +320,16 @@ NIVissimEdge::buildNBEdge(double offset)
         Position2D pos = myGeom.at(myGeom.size()-1);
         toNode =
             new NBNode(toString<int>(myID) + string("-DestinationNode"),
-                pos.x(), pos.y(), "no_junction");
+                pos.x(), pos.y(), NBNode::NODETYPE_NOJUNCTION);
         if(!NBNodeCont::insert(toNode)) {
-            cout << "nope, NIVissimEdge" << endl;
             throw 1;
         }
     }
     // build the edge
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,
-        50.0/3.6, myNoLanes, myGeom.length(),
-        NBEdge::EDGEFUNCTION_NORMAL);
+        50.0/3.6, myNoLanes, myGeom.length(), 0, myGeom,
+        NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     NBEdgeCont::insert(buildEdge);
     // check whether the edge contains any other clusters
     if(myConnectionClusters.size()>2) {
@@ -367,7 +368,7 @@ NIVissimEdge::getFromNode()
     }
     // build a new node for the edge's begin otherwise
     NBNode *node = new NBNode(toString<int>(myID) + "-begin",
-        beg.x(), beg.y(), "no_junction");
+        beg.x(), beg.y(), NBNode::NODETYPE_NOJUNCTION);
     if(!NBNodeCont::insert(node)) {
         throw 1;
     }
@@ -387,7 +388,7 @@ NIVissimEdge::getToNode()
     }
     // build a new node for the edge's end otherwise
     NBNode *node = new NBNode(toString<int>(myID) + "-end",
-        end.x(), end.y(), "no_junction");
+        end.x(), end.y(), NBNode::NODETYPE_NOJUNCTION);
     if(!NBNodeCont::insert(node)) {
         throw 1;
     }
@@ -406,14 +407,14 @@ NIVissimEdge::remapOneOfNodes(NIVissimDistrictConnection *d,
 
         NBNode *newNode = new NBNode(nid,
             fromNode->getXCoordinate(), fromNode->getYCoordinate(),
-            "no_junction");
+            NBNode::NODETYPE_NOJUNCTION);
         NBNodeCont::erase(fromNode);
         NBNodeCont::insert(newNode);
         return std::pair<NBNode*, NBNode*>(newNode, toNode);
     } else {
         NBNode *newNode = new NBNode(nid,
             toNode->getXCoordinate(), toNode->getYCoordinate(),
-            "no_junction");
+            NBNode::NODETYPE_NOJUNCTION);
         NBNodeCont::erase(toNode);
         NBNodeCont::insert(newNode);
         return std::pair<NBNode*, NBNode*>(fromNode, newNode);
@@ -438,9 +439,8 @@ NIVissimEdge::resolveSameNode(double offset)
             NBNode *node = NBNodeCont::retrieve(nid);
             if(node==0) {
                 node = new NBNode(nid,
-                    pos.x(), pos.y(), "no_junction");
+                    pos.x(), pos.y(), NBNode::NODETYPE_NOJUNCTION);
                 if(!NBNodeCont::insert(node)) {
-                    cout << "nope, NIVissimEdge" << endl;
                     throw 1;
                 }
             }
@@ -452,9 +452,8 @@ NIVissimEdge::resolveSameNode(double offset)
             NBNode *node = NBNodeCont::retrieve(nid);
             if(node==0) {
                 node = new NBNode(nid,
-                    pos.x(), pos.y(), "no_junction");
+                    pos.x(), pos.y(), NBNode::NODETYPE_NOJUNCTION);
                 if(!NBNodeCont::insert(node)) {
-                    cout << "nope, NIVissimEdge" << endl;
                     throw 1;
                 }
             }
@@ -473,9 +472,9 @@ NIVissimEdge::resolveSameNode(double offset)
         if(c->around(myGeom.getBegin(), offset) && !c->around(myGeom.getEnd(), offset)) {
             NBNode *end = new NBNode(
                 toString<int>(myID) + "-End",
-                myGeom.getEnd().x(), myGeom.getEnd().y(), "no_junction");
+                myGeom.getEnd().x(), myGeom.getEnd().y(),
+                NBNode::NODETYPE_NOJUNCTION);
             if(!NBNodeCont::insert(end)) {
-                cout << "nope, NIVissimDisturbance" << endl;
                 throw 1;
             }
             return std::pair<NBNode*, NBNode*>(node, end);
@@ -485,7 +484,8 @@ NIVissimEdge::resolveSameNode(double offset)
         if(!c->around(myGeom.getBegin(), offset) && c->around(myGeom.getEnd(), offset)) {
             NBNode *beg = new NBNode(
                 toString<int>(myID) + "-Begin",
-                myGeom.getBegin().x(), myGeom.getBegin().y(), "no_junction");
+                myGeom.getBegin().x(), myGeom.getBegin().y(),
+                NBNode::NODETYPE_NOJUNCTION);
             if(!NBNodeCont::insert(beg)) {
                 cout << "nope, NIVissimDisturbance" << endl;
                 throw 1;

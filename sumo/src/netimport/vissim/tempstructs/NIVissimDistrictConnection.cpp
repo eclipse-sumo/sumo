@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.11  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -162,7 +165,6 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
                 district->getYCoordinate(),
                 district);
         if(!NBNodeCont::insert(districtNode)) {
-            cout << "nope, NIVissimDistrictConnection" << endl;
             throw 1;
         }
     }
@@ -221,6 +223,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 NBEdge *source =
                     new NBEdge(id, id, districtNode, parkingPlace,
                     "Connection", 100/3.6, 2, 100, 0,
+                    NBEdge::LANESPREAD_RIGHT,
                     NBEdge::EDGEFUNCTION_SOURCE);
                 if(!NBEdgeCont::insert(source)) { // !!! in den Konstruktor
                     throw 1; // !!!
@@ -240,6 +243,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 NBEdge *destination =
                     new NBEdge(id, id, parkingPlace, districtNode,
                     "Connection", 100/3.6, 2, 100, 0,
+                    NBEdge::LANESPREAD_RIGHT,
                     NBEdge::EDGEFUNCTION_SINK);
                 if(!NBEdgeCont::insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!

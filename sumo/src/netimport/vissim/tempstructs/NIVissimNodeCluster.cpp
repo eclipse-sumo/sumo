@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:28:48  dkrajzew
+// adapted the importer to the new node type description; some further work
+//
 // Revision 1.10  2003/06/24 08:19:35  dkrajzew
 // some further work on importing traffic lights
 //
@@ -182,15 +185,8 @@ NIVissimNodeCluster::buildNBNode()
         // get the position (center)
     Position2D pos = crossings.center();
     // build the node
-    NBNode *node = 0;
-    if(myTLID==-1) {
-/*		if(myAmEdgeSplit) {
-	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "no_junction");
-		} else {*/
-	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "priority");
-//		}
-    } else {
-        NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
+/*    if(myTLID!=-1) {
+ !!!        NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
         if(tl->getType()=="festzeit") {
             node = new NBNode(getNodeName(), pos.x(), pos.y(),
                 "traffic_light");
@@ -198,9 +194,11 @@ NIVissimNodeCluster::buildNBNode()
             node = new NBNode(getNodeName(), pos.x(), pos.y(),
                 "actuated_traffic_light");
         }
-    }
+    }*/
+    NBNode *node = new NBNode(getNodeName(), pos.x(), pos.y(),
+        NBNode::NODETYPE_PRIORITY_JUNCTION);
     if(!NBNodeCont::insert(node)) {
-        cout << "nope, NIVissimNodeCluster" << endl;
+        delete node;
         throw 1;
     }
     myNBNode = node;
@@ -237,7 +235,7 @@ NIVissimNodeCluster::getFromNode(int edgeid)
 //                return (*i).first;
                 if(ret!=-1&&(*i).first!=ret) {
                     mult = true;
-                    cout << "NIVissimNodeCluster:DoubleNode:" << ret << endl;
+//                     "NIVissimNodeCluster:DoubleNode:" << ret << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
                 }
@@ -260,7 +258,7 @@ NIVissimNodeCluster::getToNode(int edgeid)
             if(conn!=0&&conn->getFromEdgeID()==edgeid) {
 //                return (*i).first;
                 if(ret!=-1&&ret!=(*i).first) {
-                    cout << "NIVissimNodeCluster: multiple to-nodes" << endl;
+//                  << "NIVissimNodeCluster: multiple to-nodes" << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
 
