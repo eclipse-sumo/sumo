@@ -15,7 +15,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 namespace
 {
     const char rcsid[] =
@@ -23,6 +22,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2003/11/11 08:38:51  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -87,8 +89,8 @@ MSJunction::DictType MSJunction::myDict;
 /* =========================================================================
  * member method definition
  * ======================================================================= */
-MSJunction::MSJunction( std::string id, double x, double y ) :
-    myID( id ), myPosition(x, y)
+MSJunction::MSJunction( std::string id, const Position2D &position)
+    : myID( id ), myPosition(position)
 {
 }
 
@@ -196,9 +198,6 @@ MSJunction::dictSize()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSJunction.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

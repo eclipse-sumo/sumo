@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.6  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -59,7 +62,6 @@
 // Revision 1.1  2001/12/12 17:46:02  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -86,34 +88,6 @@ class MSLane;
 class MSLogicJunction : public MSJunction
 {
 public:
-    /** @brief Holds the information the incoming lanes.
-        Drive- and
-        Brakerequest will be used to distinguish between main- and
-        sideroad-links if necessary (e.g. if a prioritized vehicle
-        has no drive request but it's brake distance is past the
-        junction it may block sideroad vehicles. */
-/*    class InLane
-    {
-    public:
-        // needed to initialise (!!! should be wrapped)
-	    friend class MSLogicJunction;
-
-        // needed to initialise (!!! should be wrapped)
-        friend class MSTrafficLightLogic;
-
-        friend class MSLane;
-
-        /// constructor
-        InLane( MSLane* inLane );
-
-    public: // !!!
-        /// the wrapped lane
-        MSLane* myLane;
-
-        /// invalidated default constructor
-        InLane();
-    };*/
-
     /** Container for incoming lanes. */
     typedef std::vector< MSLane* > LaneCont;
 
@@ -139,7 +113,7 @@ public:
 
 protected:
     /// constructor; this class is virtual
-    MSLogicJunction( std::string id, double x, double y,
+    MSLogicJunction( std::string id, const Position2D &position,
         LaneCont incoming, LaneCont internal );
 
 protected:
@@ -168,9 +142,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSLogicJunction.icc"
-//#endif
 
 #endif
 

@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.8  2003/11/11 08:38:51  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -91,7 +94,7 @@ public:
     virtual ~MSJunction();
 
     /** Use this constructor only. */
-    MSJunction( std::string id, double x, double y );
+    MSJunction( std::string id, const Position2D &position );
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
@@ -163,9 +166,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSJunction.icc"
-//#endif
 
 #endif
 

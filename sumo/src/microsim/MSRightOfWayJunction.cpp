@@ -21,8 +21,10 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-
 // $Log$
+// Revision 1.10  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.9  2003/12/05 14:59:33  dkrajzew
 // removed some unused lines
 //
@@ -96,7 +98,6 @@ namespace
 // Revision 1.1  2001/12/13 15:54:49  croessel
 // Initial commit. Has been MSJunction.cpp before.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -128,11 +129,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSRightOfWayJunction::MSRightOfWayJunction( string id,
-                                            double x, double y,
+                                            const Position2D &position,
                                             LaneCont incoming,
                                             LaneCont internal,
                                             MSJunctionLogic* logic)
-    : MSLogicJunction( id, x, y, incoming, internal ),
+    : MSLogicJunction( id, position, incoming, internal ),
     myLogic( logic )
 {
 }
@@ -158,18 +159,18 @@ bool
 MSRightOfWayJunction::setAllowed()
 {
 #ifdef ABS_DEBUG
-	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
-		DEBUG_OUT << "Request: " << myRequest << endl;
-		DEBUG_OUT << "InnerSt: " << myInnerState<< endl;
-	}
+    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+        DEBUG_OUT << "Request: " << myRequest << endl;
+        DEBUG_OUT << "InnerSt: " << myInnerState<< endl;
+    }
 #endif
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond( myRequest, myInnerState, myRespond );
     deadlockKiller();
 #ifdef ABS_DEBUG
-	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
-		DEBUG_OUT << "Respond: " << myRespond << endl;
-	}
+    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+        DEBUG_OUT << "Respond: " << myRespond << endl;
+    }
 #endif
     return true;
 }
@@ -188,9 +189,9 @@ MSRightOfWayJunction::deadlockKiller()
     //  junctions
     if ( myRespond.none() && myInnerState.none() ) {
 #ifdef ABS_DEBUG
-	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
-		DEBUG_OUT << "Killing deadlock" << endl;
-	}
+    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+        DEBUG_OUT << "Killing deadlock" << endl;
+    }
 #endif
 
         // Handle deadlock: Create randomly a deadlock-free request out of
@@ -224,16 +225,8 @@ MSRightOfWayJunction::deadlockKiller()
     return;
 }
 
-//-------------------------------------------------------------------------//
-
-
-
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSRightOfWayJunction.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

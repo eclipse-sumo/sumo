@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -68,7 +71,6 @@ namespace
 // Revision 1.1  2001/12/13 15:56:47  croessel
 // Initial commit.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -94,9 +96,9 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
-MSLogicJunction::MSLogicJunction(string id, double x, double y,
+MSLogicJunction::MSLogicJunction(string id, const Position2D &position,
                                  LaneCont incoming, LaneCont internal)
-    : MSJunction( id, x, y ),
+    : MSJunction( id, position ),
     myIncomingLanes(incoming), myInternalLanes(internal),
     myRequest(false), myInnerState(false), myRespond(false)
 {
@@ -109,7 +111,6 @@ MSLogicJunction::~MSLogicJunction()
 }
 
 //-------------------------------------------------------------------------//
-
 
 void
 MSLogicJunction::postloadInit()
@@ -138,9 +139,6 @@ MSLogicJunction::postloadInit()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSLogicJunction.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

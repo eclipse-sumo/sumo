@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.5  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -90,7 +93,7 @@ public:
     typedef std::vector< MSLane* > LaneCont;
 
     /** Use this constructor only. */
-    MSNoLogicJunction( std::string id, double x, double y,
+    MSNoLogicJunction( std::string id, const Position2D &position,
         LaneCont incoming, LaneCont internal );
 
     /** Here, do nothing. */
@@ -123,12 +126,11 @@ private:
         set to true for all links.
         This dump is also used as the mask for incoming non-first vehicles */
     static std::bitset<64> myDump;
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSNoLogicJunction.icc"
-//#endif
 
 #endif
 

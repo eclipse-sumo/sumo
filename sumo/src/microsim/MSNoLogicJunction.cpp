@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.5  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -48,8 +51,6 @@ namespace
 // Added MSNoLogicJunction ,,pro forma,,. The code may compile but the
 // class has no real functionality...
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -81,10 +82,10 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSNoLogicJunction::MSNoLogicJunction(string id, double x, double y,
+MSNoLogicJunction::MSNoLogicJunction(string id, const Position2D &position,
                                      LaneCont incoming,
                                      LaneCont internal)
-    : MSJunction( id, x, y ),
+    : MSJunction( id, position ),
     myIncomingLanes( incoming ), myInternalLanes( internal )
 {
 }
@@ -126,9 +127,6 @@ MSNoLogicJunction::postloadInit()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSNoLogicJunction.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

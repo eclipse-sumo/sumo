@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2004/08/02 12:09:39  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.4  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -95,7 +98,7 @@ public:
     virtual ~MSRightOfWayJunction();
 
     /** Use this constructor only. */
-    MSRightOfWayJunction( std::string id, double x, double y,
+    MSRightOfWayJunction( std::string id, const Position2D &position,
         LaneCont incoming, LaneCont internal, MSJunctionLogic* logic );
 
     /** Clears junction's and lane's requests to prepare for the next
@@ -123,9 +126,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSRightOfWayJunction.icc"
-//#endif
 
 #endif
 
