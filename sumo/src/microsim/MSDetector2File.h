@@ -33,18 +33,41 @@
 #include <helpers/OneArgumentCommand.h>
 
 /**
- * Template-singleton class, that controls file-output of instances of class Detector. 
- * 
+ * Template-singleton class, that controls file-output of instances of
+ * class Detector. Just add a existing detector, a filename (maybe
+ * this will change in future) and an interval and the detector-output
+ * will be written to filename at given interval. This process is
+ * triggered by the MSEventControl mechanism.
+ *
+ * The output is in XML-format.
+ *
+ * The template parameter class Detector must offer following methods:
+ * Detector::getNamePrefix()
+ * Detector::getXMLHeader()
+ * Detector::getXMLOutput()
+ * Detector::getXMLDetectorInfoStart()
+ * Detector::getXMLDetectorInfoEnd()
+ *
+ * For a Detector example see MSInductLoop
  */
 template< class Detector >
 class MSDetector2File
 {
 public:
+    /// Type of the Detector's singleton-dictionary.
     typedef SingletonDictionary< std::string, Detector* > DetectorDict;
+    /// A pair of a Detector with it's associated file-stream.
     typedef std::pair< Detector*, std::ofstream* > DetectorFilePair;
+    /// Container holding DetectorFilePair (with the same interval).
     typedef std::vector< DetectorFilePair > DetectorFileVec;
+    /// Association of intervals to DetectorFilePair containers.
     typedef std::map< MSNet::Time, DetectorFileVec > Intervals;
-    
+
+    /** 
+     * Return and/or create the sole instance of this class.
+     * 
+     * @return Sole instance pointer of class MSDetector2File.
+     */
     static MSDetector2File* getInstance( void )
         {
             if ( instanceM == 0 ) {
@@ -53,6 +76,11 @@ public:
             return instanceM;
         }
 
+    /** 
+     * Destructor. Closes all file-streams, resets instance pointer
+     * and clears the interval-DetectorFilePair map.
+     * 
+     */
     ~MSDetector2File( void )
         {
             instanceM = 0;
@@ -69,7 +97,18 @@ public:
             intervalsM.clear();
             // Detector* should be deleted via the SingletonDictionary
         }
-    
+
+    /** 
+     * Prepare a detector for file output at given interval. The
+     * output is triggered by MSEventControl via OneArgumentCommand.
+     *
+     * @see MSEventControl
+     * @see OneArgumentCommand
+     * 
+     * @param det Existing detector that shall report it's data.
+     * @param filename File where the output shall go.
+     * @param intervalInSeconds Interval at which output is written.
+     */
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
                                  MSNet::Time intervalInSeconds )
@@ -84,10 +123,10 @@ public:
 
             if ( det->getDataCleanUpSteps() < intervalInSteps ) {
                 intervalInSteps = det->getDataCleanUpSteps();
-                cerr << "MSDetector2File::addDetectorAndInterval: "
+                std::cerr << "MSDetector2File::addDetectorAndInterval: "
                     "intervalInSeconds greater than\ndetectors clean-up "
                     "interval. Reducing intervalInSeconds to clean-up "
-                    "interval." << endl;
+                    "interval." << std::endl;
             }
             std::ofstream* ofs = 0;
             typename Intervals::iterator it =
@@ -122,7 +161,7 @@ public:
                 else {
                     // detector already in container. Don't add several times
                     std::cerr << "MSDetector2File::addDetectorAndInterval: "
-                        "detector already in container. Ignoring." << endl;
+                        "detector already in container. Ignoring."<< std::endl;
                     return;
                 }
             }
@@ -132,7 +171,20 @@ public:
                  << det->getXMLDetectorInfoStart() << std::endl;
         }
 
-protected:    
+protected:
+    /** 
+     * When interval is over, search interval in map and write data of
+     * all detectors that are associated to this interval to
+     * file. This method is called by an instance of
+     * OneArgumentCommand via MSEventControl.
+     *
+     * @see MSEventControl
+     * @see OneArgumentCommand     
+     * 
+     * @param intervalInSteps The interval that is due.
+     * 
+     * @return intervalInSteps to reactivate the event.
+     */
     MSNet::Time write2file( MSNet::Time intervalInSteps )
         {
             typename Intervals::iterator intervalIt =
@@ -150,10 +202,19 @@ protected:
             }
             return intervalInSteps;
         }
-    
+
+    /// Default constructor.
     MSDetector2File( void )
         {}
-                                  
+
+    /** 
+     * Binary predicate that compares the passed DetectorFilePair's
+     * detector to a fixed one. Returns true if detectors are
+     * equal. (Used to prevent multiple inclusion of a detector for
+     * the same interval.)
+     * 
+     * @see addDetectorAndInterval
+     */
     struct detectorEquals :
         public std::binary_function< DetectorFilePair, Detector*, bool >
     {
@@ -166,7 +227,8 @@ protected:
     
             
 private:
-    Intervals intervalsM;
+    Intervals intervalsM;       /**< Map that hold DetectorFileVec for
+                                 * given intervals. */
     
     static MSDetector2File* instanceM; /**< The sole instance of this
                                         * class. */
