@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/10/17 06:53:08  dkrajzew
+// added the possibility to change the standard-krauss parameter via the command line
+//
 // Revision 1.24  2003/08/21 13:01:39  dkrajzew
 // some bugs patched
 //
@@ -191,6 +194,12 @@ fillOptions(OptionsCont &oc)
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(float(0.9)));
     oc.doRegister("gA", new Option_Float(0.5));
+    // register vehicle type defaults
+    oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
+    oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
+    oc.doRegister("krauss-b", 'B', new Option_Float(float(4.5)));
+    oc.doRegister("krauss-length", 'L', new Option_Float(float(5)));
+    oc.doRegister("krauss-eps", 'E', new Option_Float(float(0.5)));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
@@ -244,6 +253,27 @@ buildOutput(const std::string &name)
         throw ProcessError();
     }
     return ret;
+}
+
+
+/**
+ * Inserts the default from options into the vehicle
+ *  type descriptions
+ */
+void
+setDefaults(OptionsCont &oc)
+{
+    // insert the krauss-values
+    ROVehicleType_Krauss::myDefault_A =
+        oc.getFloat("krauss-a");
+    ROVehicleType_Krauss::myDefault_B =
+        oc.getFloat("krauss-b");
+    ROVehicleType_Krauss::myDefault_EPS =
+        oc.getFloat("krauss-eps");
+    ROVehicleType_Krauss::myDefault_LENGTH =
+        oc.getFloat("krauss-length");
+    ROVehicleType_Krauss::myDefault_MAXSPEED =
+        oc.getFloat("krauss-vmax");
 }
 
 
@@ -309,6 +339,7 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+        setDefaults(oc);
         // load data
         ROLoader loader(oc);
         net = loadNet(loader, oc);
