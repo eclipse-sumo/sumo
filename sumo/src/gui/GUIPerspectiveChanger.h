@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/07 08:11:16  dkrajzew
+// documentation patched to fit into a 80-char display
+//
 // Revision 1.5  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -106,11 +109,14 @@ public:
     /// Informs the changer that the view has beend adapted to changes
     void applied();
 
-    /// Centers the view to the given position, setting it to a size that covers the radius
+    /** @brief Centers the view to the given position,
+        setting it to a size that covers the radius.
+        Used for: Centering of vehicles and junctions */
     virtual void centerTo(const Boundery &netBoundery,
         const Position2D &pos, double radius) = 0;
 
-    /// Centers the view to show the given boundery
+    /** @brief Centers the view to show the given boundery
+        Used for: Centering of lanes */
     virtual void centerTo(const Boundery &netBoundery,
         Boundery bound) = 0;
 
