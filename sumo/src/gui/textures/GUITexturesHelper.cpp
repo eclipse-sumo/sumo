@@ -22,9 +22,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 11:00:34  dkrajzew
+// first try to implement an option for diabling textures
+//
 // Revision 1.1  2004/03/19 12:41:53  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * included modules
@@ -34,6 +36,7 @@ namespace
 #include <fx3d.h>
 #include "GUITexturesHelper.h"
 #include <gui/GUIApplicationWindow.h>
+#include <gui/GUIGlobals.h>
 
 #include "p.xpm"
 #include "pl_1.xpm"
@@ -82,7 +85,7 @@ GUITexturesHelper::init(GUIApplicationWindow *a)
 void
 GUITexturesHelper::assignTextures()
 {
-    if(myWasInitialised) {
+    if(myWasInitialised||!gAllowTextures) {
         return;
     }
     // initialise font drawing
@@ -142,6 +145,9 @@ GUITexturesHelper::drawTexturedBox(GUITexture which,
                                    double sizeX1, double sizeY1,
                                    double sizeX2, double sizeY2)
 {
+    if(!gAllowTextures) {
+        return;
+    }
     if(!myWasInitialised) {
         assignTextures();
     }
@@ -184,6 +190,10 @@ GUITexturesHelper::getFontRenderer()
 void
 GUITexturesHelper::close()
 {
+    if(!myWasInitialised) {
+        // nothing to do
+        return;
+    }
     for(size_t i=0; i<TEXTURE_MAX; i++) {
         delete myTextures[i];
     }
