@@ -226,7 +226,7 @@ GUIGrid::computeBoundery()
 	// get the bounderies of the network
 	for(i=MSJunction::myDict.begin(); i!=MSJunction::myDict.end(); i++) {
 		MSJunction *junction = ((*i).second);
-		ret.add(junction->getXCoordinate(), junction->getYCoordinate());
+		ret.add(junction->getPosition());
 	}
 	return ret;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/11/11 08:13:23  dkrajzew
+// consequent usage of Position2D instead of two doubles
+//
 // Revision 1.12  2003/09/22 12:38:51  dkrajzew
 // detectors need const Lanes
 //
@@ -183,31 +186,13 @@ GUIEdge::getNames()
 }
 
 
-double
-GUIEdge::toXPos() const
+Boundery
+GUIEdge::getBoundery() const
 {
-    return _to->getXCoordinate();
-}
-
-
-double
-GUIEdge::fromXPos() const
-{
-    return _from->getXCoordinate();
-}
-
-
-double
-GUIEdge::toYPos() const
-{
-    return _to->getYCoordinate();
-}
-
-
-double
-GUIEdge::fromYPos() const
-{
-    return _from->getYCoordinate();
+    Boundery ret;
+    ret.add(_to->getPosition());
+    ret.add(_from->getPosition());
+    return ret;
 }
 
 

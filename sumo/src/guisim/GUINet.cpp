@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/11/11 08:13:23  dkrajzew
+// consequent usage of Position2D instead of two doubles
+//
 // Revision 1.20  2003/10/30 08:59:43  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -222,7 +225,7 @@ Position2D
 GUINet::getJunctionPosition(const std::string &name) const
 {
     MSJunction *junction = MSJunction::dictionary(name);
-    return Position2D(junction->getXCoordinate(), junction->getYCoordinate());
+    return Position2D(junction->getPosition());
 }
 
 
@@ -250,9 +253,7 @@ GUINet::getDetectorPosition(const std::string &name) const
         myDetectorDict.find(name);
     assert(i!=myDetectorDict.end());
     GUIDetectorWrapper *tmp = (*i).second;
-    return Position2D(
-        (*i).second->getXCoordinate(),
-        (*i).second->getYCoordinate());
+    return (*i).second->getPosition();
 }
 
 
@@ -262,9 +263,7 @@ GUINet::getEmitterPosition(const std::string &name) const
     std::map<std::string, GUIEmitterWrapper*>::const_iterator i=
         myEmitterDict.find(name);
     assert(i!=myEmitterDict.end());
-    return Position2D(
-        (*i).second->getXCoordinate(),
-        (*i).second->getYCoordinate());
+    return (*i).second->getPosition();
 }
 
 
@@ -279,8 +278,7 @@ Boundery
 GUINet::getEdgeBoundery(const std::string &name) const
 {
     GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
-    return Boundery(
-        edge->fromXPos(), edge->fromYPos(), edge->toXPos(), edge->toYPos());
+    return edge->getBoundery();
 }
 
 

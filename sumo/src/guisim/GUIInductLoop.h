@@ -46,8 +46,7 @@ public:
 
         bool active() const;
 
-        double getXCoordinate() const;
-        double getYCoordinate() const;
+        Position2D getPosition() const;
 
         GUIInductLoop &getLoop();
 

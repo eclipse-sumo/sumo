@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/11 08:13:23  dkrajzew
+// consequent usage of Position2D instead of two doubles
+//
 // Revision 1.8  2003/09/22 12:38:51  dkrajzew
 // detectors need const Lanes
 //
@@ -54,6 +57,7 @@
 #include <vector>
 #include <string>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Boundery.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include "GUILaneWrapper.h"
@@ -90,17 +94,8 @@ public:
     /// returns the names of all edges
     static std::vector<std::string> getNames();
 
-    /// returns the x-position of the edge's end
-    double toXPos() const;
-
-    /// returns the x-position of the edge's begin
-    double fromXPos() const;
-
-    /// returns the y-position of the edge's end
-    double toYPos() const;
-
-    /// returns the y-position of the edge's begin
-    double fromYPos() const;
+    /// Returns the street's geometry
+    Boundery getBoundery() const;
 
     /// returns the id of the edge (!!! not already implemented in MSEdge?)
     std::string getID() const;
