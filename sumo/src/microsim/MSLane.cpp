@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.43  2004/01/26 07:45:36  dkrajzew
+// added the forgotton vehicle departure method call
+//
 // Revision 1.42  2004/01/12 15:03:40  dkrajzew
 // removed some unneeded debug-variables
 //
@@ -899,7 +902,6 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
-        veh->onTripEnd(*this);
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
             + string("' beamed due to a collision on push!\n")
