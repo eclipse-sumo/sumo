@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2004/04/02 11:36:27  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.8  2004/01/26 15:55:04  dkrajzew
 // the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff
 //
@@ -273,11 +276,16 @@ MSEmitControl::checkPrevious(MSNet::Time time)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+size_t
+MSEmitControl::getWaitingVehicleNo() const
+{
+    return myRefusedEmits1.size() + myRefusedEmits2.size();
+}
 
-//#ifdef DISABLE_INLINE
-//#include "MSEmitControl.icc"
-//#endif
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
 // mode:C++

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.35  2004/04/02 11:36:28  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.34  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -257,6 +260,7 @@
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSUnit.h"
+#include "MSCORN.h"
 #include <helpers/Counter.h>
 #include <map>
 #include <string>
@@ -496,6 +500,7 @@ public:
     double accelDist() const;
 
 
+    double getCORNDoubleValue(MSCORN::Function f);
 
     /** moves a vehicle if it is not meant to be running out of the lane
         If there is no neigh, pass 0 to neigh.
@@ -868,9 +873,6 @@ protected:
     /// Desired departure time (seconds).
     MSNet::Time myDesiredDepart;
 
-    /// The vehicle's real depart
-    MSNet::Time myRealDepart;
-
     /// Vehicle-type.
     const MSVehicleType* myType;
 
@@ -968,6 +970,8 @@ private:
 
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;
+
+    std::map<MSCORN::Function, double> myDoubleCORNMap;
 
 };
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/04/02 11:36:28  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.1  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -51,7 +54,7 @@ class MSVehicleType;
 class MSVehicleControl {
 public:
     /// Constructor
-    MSVehicleControl(MSNet &net);
+    MSVehicleControl();
 
     /// Destructor
     virtual ~MSVehicleControl();
@@ -87,11 +90,24 @@ public:
     /// Returns the number of emitted vehicles
     size_t getEmittedVehicleNo() const;
 
+    /// Return the meaning waiting time of vehicles (corn-dependent value)
+    double getMeanWaitingTime() const;
+
+    /// Return the meaning waiting time of vehicles (corn-dependent value)
+    double getMeanTravelTime() const;
+
     /// Informs this instance about the successfull emission of a vehicle
     void vehiclesEmitted(size_t no=1);
 
     /// Returns the information whether all build vehicles have been removed
     bool haveAllVehiclesQuit() const;
+
+    /** @brief Informs this control about a vehicle's emission (corn-dependent value)
+        Normally, this is done "in a batch" as the number of emitted vehicles
+        is given and no explicite information about s single vehicle's emission
+        is needed.
+        Still, we do need this if we want to compute the mean waiting time. */
+    void vehicleEmitted(MSVehicle *v);
 
 protected:
     /// The number of build vehicles
@@ -106,8 +122,11 @@ protected:
     /// The number of removed vehicles
 	size_t myEndedVehNo;
 
-    /// The network this instance belongs to
-    MSNet &myNet;
+    /// The aggregated time vehicles had to wait for departure
+    long myAbsVehWaitingTime;
+
+    /// The aggregated time vehicles needed to aacomplish their route
+    long myAbsVehTravelTime;
 
 };
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.39  2004/04/02 11:36:27  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.38  2004/02/16 15:20:21  dkrajzew
 // used a double for seconds within an hour to avoid number truncation
 //
@@ -51,7 +54,8 @@
 // but not for space-discrete models.
 //
 // Revision 1.28  2003/08/04 11:45:54  dkrajzew
-// missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
+// missing deletion of traffic light logics on closing a network added;
+//  vehicle coloring scheme applied
 //
 // Revision 1.27  2003/07/30 17:27:21  roessel
 // Removed superflous casts in getSeconds and getSteps.
@@ -59,7 +63,8 @@
 // Changed type argument type of getSeconds from Time to double.
 //
 // Revision 1.26  2003/07/30 09:11:22  dkrajzew
-// a better (correct?) processing of yellow lights added; output corrigued; debugging
+// a better (correct?) processing of yellow lights added; output corrigued;
+//  debugging
 //
 // Revision 1.25  2003/07/22 15:08:28  dkrajzew
 // new detector usage applied
@@ -83,16 +88,22 @@
 // the simulation now also ends when the last vehicle vanishes
 //
 // Revision 1.18  2003/06/18 11:33:06  dkrajzew
-// messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
+// messaging system added; speedcheck removed; clearing of all structures
+//  moved from the destructor to an own method
+//  (needed for the gui when loading fails)
 //
 // Revision 1.17  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
 // Revision 1.16  2003/06/05 16:06:47  dkrajzew
-// the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
+// the initialisation and the ending of a simulation must be available to
+//  the gui - simulation mathod was split therefore
 //
 // Revision 1.15  2003/06/05 10:29:54  roessel
-// Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
+// Modified the event-handling in the simulation loop.
+//  Added the new MSTravelcostDetector< MSLaneState > which will
+//  replace the old MeanDataDetectors as an example.
+//  Needs to be shifted to the proper place (where?).
 //
 // Revision 1.14  2003/05/27 18:34:41  roessel
 // Removed parameter MSEventControl* evc from MSNet::init.
@@ -165,7 +176,8 @@
 // Windows eol removed
 //
 // Revision 1.7  2002/05/14 07:45:21  dkrajzew
-// new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
+// new _SPEEDCHECK functions: all methods in MSNet,
+//  computation of UPS and MUPS
 //
 // Revision 1.6  2002/04/17 10:44:13  croessel
 // (Windows) Carriage returns removed.
@@ -232,8 +244,8 @@
 // Added simple text output to simulation-loop.
 //
 // Revision 1.3  2001/07/16 16:00:52  croessel
-// Changed Route-Container type to map<string, Route*>. Added static dictionary
-// methods to access it (same as id-handling).
+// Changed Route-Container type to map<string, Route*>.
+//  Added static dictionary methods to access it (same as id-handling).
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
 // Changed id type from unsigned int to string. Added string-pointer
@@ -242,7 +254,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -286,18 +297,30 @@ class MSVehicleControl;
  * class definitions
  * ======================================================================= */
 /**
- * MSNet
+ * @class MSNet
  * The main simulation class. Holds the network and indirectly vehicles which
- * are stored within a MSEmitControl - emitter which itself is a part of MSNet.
+ * are stored within a MSEmitControl - emitter which itself is a part of
+ * MSNet.
  */
 class MSNet
 {
-    /// for some reasons, we won't be able to use static protected variables
-    /// otherwise
-    friend class GUINet;
+public:
+    /**
+     * @enum MSNetOutputs
+     * List of network-wide outputs
+     */
+    enum MSNetOutputs {
+        /// netstate output
+        OS_NETSTATE = 0,
+        /// emissions output
+        OS_EMISSIONS = 1,
+        /// trip information output
+        OS_TRIPINFO = 2,
+        /// maximum value
+        OS_MAX = 3
+    };
 
 public:
-
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
      */
@@ -305,9 +328,6 @@ public:
 
     /// Type for time (seconds).
     typedef unsigned int Time;
-
-//     /// Detector-container type.
-//     typedef std::vector< MSDetector* > DetectorCont;
 
     /// List of times (intervals or similar)
     typedef std::vector< Time > TimeVector;
@@ -319,22 +339,21 @@ public:
      * @param startTimestep Timestep the simulation will start with.
      */
     static void preInitMSNet( Time startTimestep,
-        TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles);
+        MSVehicleControl *vc,
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+
+    static void preInit( Time startTimestep,
+        MSVehicleControl *vc,
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
-    static void init( std::string id,
-                      MSEdgeControl* ec,
-                      MSJunctionControl* jc,
-//                       DetectorCont* detectors,
-                      MSRouteLoaderControl *rlc,
-                      MSTLLogicControl *tlc);
+    static void init( std::string id, MSEdgeControl* ec,
+        MSJunctionControl* jc, MSRouteLoaderControl *rlc,
+        MSTLLogicControl *tlc, const std::vector<std::ostream*> &streams);
 
     /// Destructor.
     virtual ~MSNet();
-
-
 
     /** @brief Simulates from timestep start to stop.
         start and stop in timesteps.
@@ -342,15 +361,15 @@ public:
         the Vehicles change Lanes.  The method returns true when the
         simulation could be finished without errors, otherwise
         false. */
-    bool simulate( std::ostream *craw, Time start, Time stop );
+    bool simulate( Time start, Time stop );
 
-    void initialiseSimulation(std::ostream *craw);
+    void initialiseSimulation();
 
-    void closeSimulation(std::ostream *craw);
+    void closeSimulation();
 
 
     /// performs a single simulation step
-    void simulationStep( std::ostream *craw, Time start, Time step);
+    void simulationStep( Time start, Time step);
 
     /** @brief Inserts a MSNet into the static dictionary
         Returns true if the key id isn't already in the dictionary.
@@ -393,10 +412,6 @@ public:
         In vehicles and lanes you will need one element more for the
         GUI-dump. */
     unsigned getNDumpIntervalls( void );
-
-    /** @brief Returns wether we are using a GUI or not.
-        The use of a GUI increases the elements of a meanData container. */
-//    bool withGUI( void );
 
     /// adds an item that must be initialised every time the simulation starts
     void addPreStartInitialisedItem(PreStartInitialised *preinit);
@@ -459,12 +474,14 @@ public:
 
     MSVehicleControl &getVehicleControl() const;
 
+    void writeOutput();
+
     friend class MSTriggeredSource;
 
 protected:
     /** initialises the MeanData-container */
     static void initMeanData( TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles/*, bool withGUI*/);
+        std::string baseNameDumpFiles);
 
     /// Unique instance of MSNet
     static MSNet* myInstance;
@@ -509,9 +526,6 @@ protected:
     /// Current time step.
     Time myStep;
 
-//     /// Container of detectors.
-//     DetectorCont* myDetectors;
-
     /// The Net's meanData is a pair of an interval-length and a filehandle.
     class MeanData
     {
@@ -539,22 +553,18 @@ protected:
         std::ofstream* file;
     };
 
-    /** @briefList of intervals and filehandles.
+    /** @brief List of intervals and filehandles.
         At the end of each intervall the mean data (flow, density, speed ...)
         of each lane is calculated and written to file. */
     std::vector< MeanData* > myMeanData;
 
-
+    /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;
 
-    /// Indicates if we are using a GUI.
-//    bool myWithGUI;
+    /// List of output (files)
+    std::vector<std::ostream*> myOutputStreams;
 
-    /** Last timestep when mean-data was send to GUI. We need it to
-     * calculate the intervall which may be not const for the GUI. */
-//    Time myLastGUIdumpTimestep;
-
-private:
+protected:
     /// Copy constructor.
     MSNet( const MSNet& );
 
@@ -565,7 +575,6 @@ private:
         initialisation. */
     MSNet();
 
-//     std::vector< MSLaneState* > laneStateDetectorsM;
 };
 
 

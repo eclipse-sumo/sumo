@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 11:36:28  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.1  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -29,6 +32,7 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include "MSCORN.h"
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
 
@@ -36,9 +40,9 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSVehicleControl::MSVehicleControl(MSNet &net)
+MSVehicleControl::MSVehicleControl()
     : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
-    myNet(net)
+    myAbsVehWaitingTime(0), myAbsVehTravelTime(0)
 {
 }
 
@@ -56,7 +60,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
 {
 	myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type,
-        myNet.getNDumpIntervalls(), repNo, repOffset);
+        MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
 
 
@@ -68,7 +72,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
 {
 	myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type,
-        myNet.getNDumpIntervalls(), repNo, repOffset);
+        MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
 
 
@@ -76,6 +80,17 @@ void
 MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
 {
     assert(myRunningVehNo>0);
+    // check whether to generate the information about the vehicle's trip
+    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPOUTPUT)) {
+        MSCORN::compute_TripInfoOutput(v);
+    }
+    // check whether to save information about the vehicle's trip
+    if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
+        myAbsVehTravelTime +=
+            (MSNet::getInstance()->getCurrentTimeStep()
+            -
+            v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+    }
 	myRunningVehNo--;
 	myEndedVehNo++;
     MSVehicle::remove(v->id());
@@ -126,6 +141,20 @@ MSVehicleControl::getEmittedVehicleNo() const
 }
 
 
+double
+MSVehicleControl::getMeanWaitingTime() const
+{
+    return (double) myAbsVehWaitingTime / (double) myEmittedVehNo;
+}
+
+
+double
+MSVehicleControl::getMeanTravelTime() const
+{
+    return (double) myAbsVehTravelTime / (double) myEndedVehNo;
+}
+
+
 void
 MSVehicleControl::vehiclesEmitted(size_t no)
 {
@@ -138,6 +167,18 @@ bool
 MSVehicleControl::haveAllVehiclesQuit() const
 {
     return myLoadedVehNo==myEndedVehNo;
+}
+
+
+void
+MSVehicleControl::vehicleEmitted(MSVehicle *v)
+{
+    if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
+        myAbsVehWaitingTime +=
+            (v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
+            -
+            v->desiredDepart());
+    }
 }
 
 

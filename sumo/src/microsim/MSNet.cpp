@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.49  2004/04/02 11:36:27  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.48  2004/02/05 16:39:45  dkrajzew
 // removed some memory leaks
 //
@@ -320,7 +323,6 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -352,6 +354,7 @@ namespace
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
 #include "MSVehicleControl.h"
+#include "MSCORN.h"
 #include <utils/common/MsgHandler.h>
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
@@ -383,8 +386,8 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 0;
-std::string MSNet::searched1 = "Rand9";
+MSNet::Time MSNet::searchedtime = 46990;
+std::string MSNet::searched1 = "59";
 std::string MSNet::searched2 = "715a0";
 std::string MSNet::searchedJunction = "536";
 #endif
@@ -410,16 +413,28 @@ MSNet::getInstance( void )
 
 
 void
-MSNet::preInitMSNet(MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
+MSNet::preInitMSNet(MSNet::Time startTimeStep,
+                    MSVehicleControl *vc,
+                    TimeVector dumpMeanDataIntervalls,
                     std::string baseNameDumpFiles)
 {
     myInstance = new MSNet();
-    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
-    myInstance->myVehicleControl = new MSVehicleControl(*myInstance);
+    preInit(startTimeStep, vc, dumpMeanDataIntervalls, baseNameDumpFiles);
+}
 
+
+void
+MSNet::preInit(MSNet::Time startTimeStep,
+               MSVehicleControl *vc,
+               TimeVector dumpMeanDataIntervalls,
+               std::string baseNameDumpFiles)
+{
+    MSCORN::init();
+    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myInstance->myStep = startTimeStep;
     initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles);
 	myInstance->myEmitter = new MSEmitControl("");
+    myInstance->myVehicleControl = vc;
     MSDetectorSubSys::createDictionaries();
 }
 
@@ -499,14 +514,17 @@ void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSRouteLoaderControl *rlc,
-             MSTLLogicControl *tlc)
+             MSTLLogicControl *tlc,
+             const std::vector<std::ostream*> &streams)
 {
+    myInstance->myOutputStreams = streams;
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
     MSDetectorSubSys::setDictionariesFindMode();
+    MSCORN::setTripInfoOutput(streams[OS_TRIPINFO]);
 }
 
 
@@ -527,50 +545,73 @@ MSNet::~MSNet()
     delete myRouteLoaders;
     delete myVehicleControl;
     MSDetectorSubSys::deleteDictionariesAndContents();
+    // close outputs
+    for(size_t i2=0; i2<OS_MAX; i2++) {
+        delete myOutputStreams[i2];
+    }
 }
 
 
 bool
-MSNet::simulate( ostream *craw, Time start, Time stop )
+MSNet::simulate( Time start, Time stop )
 {
-    initialiseSimulation(craw);
+    initialiseSimulation();
     // the simulation loop
     myStep = start;
     do {
 		cout << myStep << (char) 13;
-        simulationStep(craw, start, myStep);
+        simulationStep(start, myStep);
         myStep++;
     } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
     // exit simulation loop
-    closeSimulation(craw);
+    closeSimulation();
     return true;
 }
 
 
 void
-MSNet::initialiseSimulation(std::ostream *craw)
+MSNet::initialiseSimulation()
 {
-    // prepare the "raw" output and print the first line
-    if ( craw ) {
-        (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-            << "<sumo-results>" << endl;
+    // prepare the "netstate" output and print the first line
+    if ( myOutputStreams[OS_NETSTATE]!=0 ) {
+        (*myOutputStreams[OS_NETSTATE]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<sumo-netstate>" << endl;
+    }
+    // ... the same for the vehicle emission state
+    if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
+        (*myOutputStreams[OS_EMISSIONS]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<emissions>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
+    }
+    // ... the same for the vehicle trip information
+    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
+        (*myOutputStreams[OS_TRIPINFO]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<tripinfos>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_TRIPOUTPUT);
     }
 }
 
 
 void
-MSNet::closeSimulation(std::ostream *craw)
+MSNet::closeSimulation()
 {
-	cout << endl;
-    // print the last line of the "raw" output
-    if ( craw ) {
-        (*craw) << "</sumo-results>" << endl;
+    // print the last line of the "netstate" output
+    if ( myOutputStreams[OS_NETSTATE]!=0 ) {
+        (*myOutputStreams[OS_NETSTATE]) << "</sumo-netstate>" << endl;
+    }
+    // ... the same for the vehicle emission state
+    if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
+        (*myOutputStreams[OS_EMISSIONS]) << "</emissions>" << endl;
+    }
+    // ... the same for the vehicle trip information
+    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
+        (*myOutputStreams[OS_TRIPINFO]) << "</tripinfos>" << endl;
     }
 }
 
 
 void
-MSNet::simulationStep( ostream *craw, Time start, Time step )
+MSNet::simulationStep( Time start, Time step )
 {
     myStep = step;
     globaltime = myStep;
@@ -648,13 +689,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         }
     }
 
-    // raw output.
-    if ( craw ) {
-        (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
-        (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
-        (*craw) << "    </timestep>" << endl;
-    }
-
+    // write the output
+    writeOutput();
     // execute endOfTimestepEvents
     MSEventControl::getEndOfTimestepEvents()->execute(myStep);
 
@@ -753,6 +789,35 @@ MSVehicleControl &
 MSNet::getVehicleControl() const
 {
     return *myVehicleControl;
+}
+
+
+void
+MSNet::writeOutput()
+{
+    // netstate output.
+    if ( myOutputStreams[OS_NETSTATE]!=0 ) {
+        (*myOutputStreams[OS_NETSTATE])
+            << "    <timestep id=\"" << myStep << "\">" << endl
+            << MSEdgeControl::XMLOut( *myEdges, 8 )
+            << "    </timestep>" << endl;
+    }
+    // netstate output.
+    if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
+        (*myOutputStreams[OS_EMISSIONS])
+            << "    <emission-state id=\"" << myStep << "\" "
+            << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
+            << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
+            << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
+            << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
+            << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
+            << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
+            << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\"/>"
+            << endl;
+    }
+    // netstate output.
+    if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
+    }
 }
 
 

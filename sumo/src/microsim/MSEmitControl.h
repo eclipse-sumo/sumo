@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/04/02 11:36:27  dkrajzew
+// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+//
 // Revision 1.5  2003/09/17 10:11:37  dkrajzew
 // error on broke vehicle departure map reference patched
 //
@@ -120,6 +123,9 @@ public:
 
     /// adds a list of vehicles to the container
     void moveFrom( MSVehicleContainer &cont );
+
+    /// Returns the number of waiting vehicles
+    size_t getWaitingVehicleNo() const;
 
     /** @brief Inserts emitcontrol into the static dictionary
         Returns true if the key id isn't already in the dictionary (the control
