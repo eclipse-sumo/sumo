@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/22 14:58:33  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.10  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -100,8 +103,8 @@ GUIContainer::~GUIContainer()
 
 
 GUINet *
-GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
-                          std::string baseNameDumpFiles,
+GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
+                          std::string baseNameDumpFiles,*/
                           const OptionsCont &options)
 {
     MSEdgeControl *edges = 0;
@@ -113,7 +116,7 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
-        GUINet::initGUINet( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc );
+        GUINet::initGUINet( m_Id, edges, junctions, /*m_pDetectors, */routeLoaders, tlc );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.3  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -99,7 +102,7 @@ protected:
 
     TableType getTableType(size_t pos) const;
 
-    const char *getTableBeginValue(size_t pos) const { throw 1; }
+    const char *getTableBeginValue(size_t /*pos*/) const { throw 1; }
 
 	bool active() const { return true; }
 

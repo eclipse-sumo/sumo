@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.12  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -110,7 +113,7 @@ public:
 
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-        DetectorCont* detectors, MSRouteLoaderControl *rlc, MSTLLogicControl *tlc);
+        /*DetectorCont* detectors,*/ MSRouteLoaderControl *rlc, MSTLLogicControl *tlc);
 
     /// returns the position of a junction (!!! shouldn't it be a const&?)
     Position2D getJunctionPosition(const std::string &name) const;
@@ -129,6 +132,8 @@ public:
     MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
         int repNo, int repOffset, float *defColor);
+
+    size_t getDetectorWrapperNo() const;
 
 
     friend class GUIViewTraffic; // !!!
@@ -158,6 +163,8 @@ protected:
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
     std::vector<GUIEmitterWrapper*> myEmitter;
 
+private:
+    static void initDetectors();
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.12  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -65,6 +68,8 @@ namespace
 #include <utility>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSInductLoop.h>
+#include <microsim/MSDetectorSubSys.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
@@ -74,13 +79,14 @@ namespace
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIHelpingJunction.h"
+//#include "GUIHelpingDetector.h"
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUINet::GUINet()
-    : MSNet(), /*_edgeGrid(10, 10), */_grid(*this, 10, 10)
+    : MSNet(), _grid(*this, 10, 10)
 {
 }
 
@@ -112,19 +118,46 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
 
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   DetectorCont* detectors, MSRouteLoaderControl *rlc,
+                   /*DetectorCont* detectors, */MSRouteLoaderControl *rlc,
                    MSTLLogicControl *tlc)
 {
-    MSNet::init(id, ec, jc, detectors, rlc, tlc);
+    MSNet::init(id, ec, jc,/*detectors, */rlc, tlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
     GUIEdge::fill(net->myEdgeWrapper);
+    // initialise junction storage for gui
     GUIHelpingJunction::fill(net->myJunctionWrapper, net->_idStorage);
+    // initialise detector storage for gui
+    initDetectors();
     // build the grid
 //    net->_edgeGrid.init();
     net->_grid.init();
     // get the boundery
     net->_boundery = net->_grid.getBoundery();
+}
+
+
+void
+GUINet::initDetectors()
+{
+    GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
+    MSDetectorSubSys::LoopDict::ValueVector loopVec(
+        MSDetectorSubSys::LoopDict::getInstance()->getStdVector() );
+    size_t size = loopVec.size();
+    net->myDetectorWrapper.reserve(size);
+    for(MSDetectorSubSys::LoopDict::ValueVector::iterator
+        i=loopVec.begin(); i!=loopVec.end(); i++) {
+
+        MSLane *lane = (*i)->getLane();
+        GUIEdge *edge =
+            static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
+
+        GUIDetectorWrapper *wrapper =
+            (*i)->buildDetectorWrapper(
+                net->_idStorage, edge->getLaneGeometry(lane));
+        net->myDetectorWrapper.push_back(wrapper);
+    }
+
 }
 
 
@@ -185,6 +218,13 @@ GUINet::buildNewVehicle( std::string id, MSRoute* route,
         id, route, departTime,
         type, noIntervals, repNo, repOffset, defColor);
     return veh;
+}
+
+size_t
+GUINet::getDetectorWrapperNo() const
+{
+    // !!! maybe this should return all the values for lanes, junction, detectors etc.
+    return myDetectorWrapper.size();
 }
 
 

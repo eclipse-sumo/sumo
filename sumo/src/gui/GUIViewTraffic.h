@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.9  2003/07/16 15:18:24  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -139,6 +142,8 @@ protected:
     /// The junction drwaer to use
     GUIJunctionDrawer *_junctionDrawer;
 
+    GUIDetectorDrawer *_detectorDrawer;
+
     /// the coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;
 
@@ -153,8 +158,8 @@ protected:
 
     LFontRenderer myFontRenderer;
 
-    size_t *_edges2Show, *_junctions2Show;
-    size_t _edges2ShowSize, _junctions2ShowSize;
+    size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
+    size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
 };
 
 

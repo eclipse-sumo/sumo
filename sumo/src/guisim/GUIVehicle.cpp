@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.11  2003/06/18 12:54:19  dkrajzew
 // has to reapply a changed setting of table parameter
 //
@@ -369,7 +372,7 @@ GUIVehicle::getTableParameterNo() const
 
 
 const char *
-GUIVehicle::getTableBeginValue(size_t pos) const
+GUIVehicle::getTableBeginValue(size_t /*pos*/) const
 {
     return myType->id().c_str();
 }

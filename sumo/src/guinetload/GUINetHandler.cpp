@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 14:58:33  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.5  2003/07/16 15:21:16  dkrajzew
 // conversion tools splitted and relocated to avoid mandatory inclusion of unused files
 //
@@ -63,7 +66,9 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLBuildingExceptions.h>
 #include "GUIContainer.h"
+#include "GUIDetectorBuilder.h"
 #include "GUINetHandler.h"
 
 
@@ -97,6 +102,38 @@ GUINetHandler::myStartElement(int element, const std::string &name,
         addSourceDestinationInformation(attrs);
     }
 }
+
+
+void
+GUINetHandler::addDetector(const Attributes &attrs) {
+    string id;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+        try {
+//             myContainer.addDetector(
+                 GUIDetectorBuilder::buildInductLoop(id,
+                     getString(attrs, SUMO_ATTR_LANE),
+                     getFloat(attrs, SUMO_ATTR_POSITION),
+                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                     getString(attrs, SUMO_ATTR_STYLE),
+                     getString(attrs, SUMO_ATTR_FILE),
+                     _file);
+        } catch (XMLBuildingException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.msg());
+        } catch (EmptyData) {
+            MsgHandler::getErrorInstance()->inform(
+                string("The description of the detector '")
+                + id + string("' does not contain a needed value."));
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing id of a detector-object.");
+    }
+}
+
+
 
 
 void
@@ -147,6 +184,7 @@ GUINetHandler::addLaneShape(const std::string &chars)
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
 }
+
 
 
 

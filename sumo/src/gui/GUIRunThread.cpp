@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -97,13 +100,13 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
-    try {
+/*    try {
         SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
         delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
     } catch (SingletonNotCreated &e) {
     }
-    SingletonDictionary< std::string, MSLaneState* >::create();
-    _net->initialiseSimulation(_craw, start, end);
+    SingletonDictionary< std::string, MSLaneState* >::create();*/
+    _net->initialiseSimulation(_craw/*, start, end*/);
 }
 
 
@@ -203,7 +206,7 @@ void
 GUIRunThread::deleteSim()
 {
     if(_net!=0) {
-        _net->closeSimulation(_craw, _simStartTime, _step);
+        _net->closeSimulation(_craw/*, _simStartTime, _step*/);
     }
     _halting = true;
     while(_simulationInProgress);

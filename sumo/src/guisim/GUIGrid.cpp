@@ -291,9 +291,9 @@ GUIGrid::computeLaneCells(size_t index, GUILaneWrapper &lane)
     double y22 = end.y() - offsets.second;
 
     // compute the cells the lae is going through
-    for(size_t y=0; y<_ysize; y++) {
+    for(int y=0; y<_ysize; y++) {
         double ypos1 = double(y) * _ycellsize;
-        for(size_t x=0; x<_xsize; x++) {
+        for(int x=0; x<_xsize; x++) {
             double xpos1 = double(x) * _xcellsize;
             if(
                 GeomHelper::intersects(x11, y11, x12, y12,
@@ -379,7 +379,7 @@ GUIGrid::getCellsContaining(Boundery boundery)
 {
     std::vector<size_t> cells;
     // compute the cells the lae is going through
-    for(size_t y=0; y<_ysize; y++) {
+    for(int y=0; y<_ysize; y++) {
         double ypos1 = double(y) * _ycellsize;
         for(int x=0; x<_xsize; x++) {
             double xpos1 = double(x) * _xcellsize;

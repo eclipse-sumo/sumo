@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/22 14:58:33  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.3  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -77,6 +80,9 @@ protected:
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
+    void addDetector(const Attributes &attrs);
+
+
 private:
     /// adds information about the source and the destination junctions
     void addSourceDestinationInformation(const Attributes &attrs);
@@ -84,7 +90,6 @@ private:
     void addJunctionShape(const std::string &chars);
 
     void addLaneShape(const std::string &chars);
-
 
 private:
     /** invalid copy constructor */

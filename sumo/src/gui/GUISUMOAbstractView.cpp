@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.6  2003/07/18 12:29:28  dkrajzew
 // removed some warnings
 //
@@ -111,6 +114,7 @@ namespace
 #include "GUITriangleVehicleDrawer.h"
 #include "GUISimpleLaneDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
+#include <guisim/GUIDetectorWrapper.h>
 #include "GUISUMOAbstractView.h"
 #include "popup/QGLObjectPopupMenu.h"
 #include "GUIApplicationWindow.h"
@@ -140,6 +144,29 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
+void
+GUISUMOAbstractView::GUIDetectorDrawer::drawGLDetectors(size_t *which,
+                                                        size_t maxDetectors,
+                                                        bool showToolTips,
+                                                        double scale)
+{
+    for(size_t i=0; i<maxDetectors; i++ ) {
+        if(which[i]==0) {
+            continue;
+        }
+        size_t pos = 1;
+        for(size_t j=0; j<32; j++, pos<<=1) {
+            if((which[i]&pos)!=0) {
+                if(showToolTips) {
+                    glPushName(myDetectors[j+(i<<5)]->getGlID());
+                }
+                myDetectors[j+(i<<5)]->drawGL(scale);
+            }
+        }
+    }
+}
+
+
 
 GUISUMOAbstractView::ViewSettings::ViewSettings()
     : myX(-1), myY(-1), myXOff(-1), myYOff(-1)
@@ -441,12 +468,12 @@ GUISUMOAbstractView::paintGLGrid()
         * _net._grid.getXCellSize();
     double yend = (_net._grid.getNoYCells())
         * _net._grid.getYCellSize();
-    for(size_t yr=0; yr<_net._grid.getNoYCells()+1; yr++) {
+    for(int yr=0; yr<_net._grid.getNoYCells()+1; yr++) {
         glVertex2f(0, ypos);
         glVertex2f(xend, ypos);
         ypos += _net._grid.getYCellSize();
     }
-    for(size_t xr=0; xr<_net._grid.getNoXCells()+1; xr++) {
+    for(int xr=0; xr<_net._grid.getNoXCells()+1; xr++) {
         glVertex2f(xpos, 0);
         glVertex2f(xpos, yend);
         xpos += _net._grid.getXCellSize();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.8  2003/07/16 15:24:55  dkrajzew
 // GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
 //
@@ -140,6 +143,18 @@ GUIEdge::getLaneGeometry(size_t laneNo)
     assert(laneNo<myLanes->size());
     return *(_laneGeoms[laneNo]);
 }
+
+
+GUILaneWrapper &
+GUIEdge::getLaneGeometry(MSLane *lane)
+{
+    LaneWrapperVector::iterator i=
+        find_if(_laneGeoms.begin(), _laneGeoms.end(),
+            lane_wrapper_finder(*lane));
+    assert(i!=_laneGeoms.end());
+    return *(*i);
+}
+
 
 std::vector<std::string>
 GUIEdge::getNames()

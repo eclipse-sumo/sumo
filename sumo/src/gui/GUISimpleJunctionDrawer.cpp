@@ -19,7 +19,7 @@ GUISimpleJunctionDrawer::~GUISimpleJunctionDrawer()
 void
 GUISimpleJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
                                          bool showToolTips,
-                                         GUISUMOAbstractView::JunctionColoringScheme scheme)
+                                         GUISUMOAbstractView::JunctionColoringScheme )
 {
     glLineWidth(1);
     glColor3f(0, 0, 0);

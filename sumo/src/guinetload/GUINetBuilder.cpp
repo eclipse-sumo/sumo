@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/22 14:58:33  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.7  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -100,9 +103,9 @@ GUINetBuilder::buildGUINet()
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        net = container->buildGUINet(
+        net = container->buildGUINet(/*
             m_pOptions.getUIntVector("dump-intervals"),
-            m_pOptions.getString("dump-basename"),
+            m_pOptions.getString("dump-basename"),*/
             m_pOptions);
     }
     delete parser;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.6  2003/06/06 10:28:45  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -88,7 +91,7 @@ GUIGlObject::setGlID(size_t id)
 
 
 void
-GUIGlObject::insertTableParameter(GUIParameterTableWindow *window,
+GUIGlObject::insertTableParameter(GUIParameterTableWindow *,
                                   QListView *table,
                                   double *parameter,
                                   QListViewItem **vitems)

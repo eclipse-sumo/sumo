@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.12  2003/07/07 08:09:38  dkrajzew
 // Some further error checking was added and the usage of the SystemFrame was refined
 //
@@ -68,6 +71,7 @@ namespace
 #include <iostream>
 #include <guisim/GUINet.h>
 #include <guinetload/GUINetBuilder.h>
+#include <microsim/MSDetectorSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -139,9 +143,11 @@ void GUILoadThread::run()
     }
     // try to load
     try {
+//        MSDetectorSubSys::deleteDictionariesAndContents();
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
+//        MSDetectorSubSys::createDictionaries();
 //        OptionsIO::loadConfiguration(oc);
         GUINetBuilder builder(oc);
         net = builder.buildGUINet();

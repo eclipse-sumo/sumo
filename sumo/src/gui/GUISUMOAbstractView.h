@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.2  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -74,6 +77,7 @@ class QTimerEvent;
 class QGLObjectPopupMenu;
 class GUIApplicationWindow;
 class GUIJunctionWrapper;
+class GUIDetectorWrapper;
 
 
 /* =========================================================================
@@ -253,6 +257,24 @@ public:
     protected:
 
         std::vector<GUIJunctionWrapper*> &myJunctions;
+    };
+
+    class GUIDetectorDrawer {
+    public:
+	    /// constructor
+        GUIDetectorDrawer(std::vector<GUIDetectorWrapper*> &detectors)
+            : myDetectors(detectors) { }
+
+	    /// destructor
+        ~GUIDetectorDrawer() { }
+
+        void drawGLDetectors(size_t *which, size_t maxDetectors,
+            bool showToolTips, double scale
+            /*, JunctionColoringScheme scheme*/);
+
+    protected:
+
+        std::vector<GUIDetectorWrapper*> &myDetectors;
     };
 
     class ViewSettings {

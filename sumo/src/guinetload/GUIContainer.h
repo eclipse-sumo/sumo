@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/22 14:58:33  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.4  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -72,8 +75,8 @@ public:
     ~GUIContainer();
 
     /// builds a GUI-net after the reading of all artifacts
-    GUINet *buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles, const OptionsCont &options);
+    GUINet *buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
+        std::string baseNameDumpFiles, */const OptionsCont &options);
 
     /// adds information about the source and the destination junction
     void addSrcDestInfo(const std::string &id, const std::string &from,

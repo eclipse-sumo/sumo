@@ -9,7 +9,9 @@ GUISourceLane.cpp GUISourceLane.h GUIVehicle.cpp GUIVehicle.h \
 GUIRightOfWayJunction.cpp GUIRightOfWayJunction.h \
 GUINoLogicJunction.cpp GUINoLogicJunction.h \
 GUIGrid.cpp GUIGrid.h GUIHelpingJunction.cpp GUIHelpingJunction.h \
-GUIJunctionWrapper.cpp GUIJunctionWrapper.h
+GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
+GUIInductLoop.cpp GUIInductLoop.h \
+GUIDetectorWrapper.cpp GUIDetectorWrapper.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.16  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -36,10 +39,12 @@ namespace
 // some statistics added; some debugging done
 //
 // Revision 1.12  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged;
+// additional parameter of maximum display size added
 //
 // Revision 1.11  2003/04/14 08:24:57  dkrajzew
-// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+// unneeded display switch and zooming option removed;
+// new gl-object concept implemented; comments added
 //
 // Revision 1.10  2003/04/07 10:15:16  dkrajzew
 // glut reinserted
@@ -49,7 +54,8 @@ namespace
 // Added #include <qcursor.h>
 //
 // Revision 1.8  2003/04/04 08:37:51  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+// comments added; tootip button added
 //
 // Revision 1.7  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
@@ -135,6 +141,7 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow *app,
     _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
     _laneDrawer(new GUISimpleLaneDrawer(_net.myEdgeWrapper)),
     _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
+    _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
     myTrackedID(-1), myFontsLoaded(false)
 {
@@ -144,6 +151,9 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow *app,
     _junctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
     _junctions2Show = new size_t[_junctions2ShowSize];
     clearUsetable(_junctions2Show, _junctions2ShowSize);
+    _detectors2ShowSize = (net.getDetectorWrapperNo()>>5) + 1;
+    _detectors2Show = new size_t[_detectors2ShowSize];
+    clearUsetable(_detectors2Show, _detectors2ShowSize);
 }
 
 
@@ -285,8 +295,8 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     if(myViewSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
-        _net._grid.get(GLO_LANE|GLO_JUNCTION, x, y, xoff, yoff,
-            _edges2Show, _junctions2Show, 0, 0);
+        _net._grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
+            _edges2Show, _junctions2Show, _detectors2Show, 0);
         myViewSettings.set(x, y, xoff, yoff);
     }
     double width = m2p(3.0) * scale;
@@ -294,6 +304,8 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         _useToolTips, _junctionColScheme);
     _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
         _useToolTips, width, _laneColScheme);
+    _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
+        _useToolTips, scale/*, width, _laneColScheme*/);
 
 /*
 	Position2DVector tmp;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/22 14:59:27  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.8  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -277,6 +280,11 @@ GUILaneWrapper::getTableParameter(size_t pos) const
 }
 
 
+const Position2DVector &
+GUILaneWrapper::getShape()
+{
+    return myShape;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

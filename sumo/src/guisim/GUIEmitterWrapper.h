@@ -6,8 +6,8 @@
 class GUIEmitterWrapper
     : public HaveBoundery {
 public:
-    GUIEmitterWrapper() { }
-    ~GUIEmitterWrapper() { }
+    GUIEmitterWrapper();
+    ~GUIEmitterWrapper();
     Boundery getBoundery() const;
 };
 

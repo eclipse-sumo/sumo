@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/07/22 14:56:46  dkrajzew
+// changes due to new detector handling
+//
 // Revision 1.16  2003/07/16 15:16:26  dkrajzew
 // unneeded uncommented files removed
 //
@@ -123,7 +126,7 @@ namespace
 #include "icons/fileopen.xpm"
 #include "icons/play.xpm"
 #include "icons/stop.xpm"
-#include "icons/cont.xpm"
+//#include "icons/cont.xpm"
 #include "icons/step.xpm"
 #include "icons/new_window.xpm"
 
