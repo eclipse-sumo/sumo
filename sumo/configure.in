@@ -6,7 +6,7 @@ dnl create an config-header
 AM_CONFIG_HEADER(config.h)
 
 dnl enabel automake-support
-AM_INIT_AUTOMAKE(sumo,0.7)
+AM_INIT_AUTOMAKE(sumo,0.7.1)
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
@@ -103,15 +103,17 @@ if test x"$ac_xerces_libraries" = x; then
       AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
    fi
 else
-   if test -e "$ac_xerces_lib_path/libxerces.so"; then
+   if test -e "$ac_xerces_libraries/libxerces.so"; then
       AC_MSG_RESULT([yes])
+      ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces
-   elif test -e "$ac_xerces_lib_path/libxerces-c.so"; then
+   elif test -e "$ac_xerces_libraries/libxerces-c.so"; then
       AC_MSG_RESULT([yes])
+      ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces-c
    else
       AC_MSG_RESULT([no])
-      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_lib_path".])
+      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
    fi
 fi
 XERCESLIBPATH="$ac_xerces_lib_path"
@@ -130,30 +132,18 @@ AC_ARG_WITH(xerces-includes,
 
 AC_MSG_CHECKING([for xerces-includes])
 if test x"$ac_xerces_includes" = x; then
-   if test -e /usr/include/xerces; then
+   if test -e /usr/include/xercesc; then
       AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/include/xerces
-   elif test -e /usr/include/xercesc; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/include/xercesc
-   elif test -e /usr/local/include/xerces; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/include/xerces
+      ac_xerces_includes=/usr/include
    elif test -e /usr/local/include/xercesc; then
       AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/include/xercesc
-   elif test -e /usr/local/xerces/include; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/xerces/include
-   elif test -e /usr/local/xercesc/include; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/xercesc/include
+      ac_xerces_includes=/usr/local/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
    fi
 else
-   if test -e "$ac_xerces_includes"; then
+   if test -e "$ac_xerces_includes/xercesc/sax2/SAX2XMLReader.hpp"; then
       AC_MSG_RESULT([yes])
    else
       AC_MSG_RESULT([no])
@@ -161,12 +151,12 @@ else
    fi
 fi
 XERCESINCLUDE="$ac_xerces_includes"
+XERCESINCLUDE_PRIOR_1_7="$ac_xerces_includes/xercesc"
 AC_SUBST(XERCESINCLUDE)
+AC_SUBST(XERCESINCLUDE_PRIOR_1_7)
 
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-
-
 
 
 dnl perform program name transformation

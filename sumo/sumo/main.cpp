@@ -20,6 +20,21 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2002/07/31 17:42:10  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.12  2002/07/22 12:52:23  dkrajzew
+// Source handling added
+//
+// Revision 1.11  2002/07/11 07:30:43  dkrajzew
+// Option_FileName invented to allow relative path names within the configuration files; two not yet implemented parameter introduced
+//
+// Revision 1.10  2002/07/02 12:48:10  dkrajzew
+// --help now does not require -c
+//
+// Revision 1.9  2002/07/02 08:16:19  dkrajzew
+// Program flow changed to allow better options removal; return values corrected
+//
 // Revision 1.8  2002/06/17 15:57:43  dkrajzew
 // unreferenced variable declarations removed
 //
@@ -83,6 +98,7 @@
 #include "utils/UtilExceptions.h"
 #include "utils/FileHelpers.h"
 #include "utils/HelpPrinter.h"
+#include "utils/XMLSubSys.h"
 #include "help.h"
 
 /* =========================================================================
@@ -144,18 +160,20 @@ getSettings(int argc, char **argv)
     OptionsCont *oc;
 	oc = new OptionsCont();
     // register the file i/o options
-    oc->doRegister("net-files", 'n', new Option_String());
-    oc->doRegister("route-files", 'r', new Option_String());
-    oc->doRegister("junction-files", 'j', new Option_String());
-    oc->doRegister("detector-files", 'd', new Option_String());
-    oc->doRegister("output-file", 'o', new Option_String(""));
-    oc->doRegister("configuration-file", 'c', new Option_String("sumo.cfg"));
+    oc->doRegister("net-files", 'n', new Option_FileName());
+    oc->doRegister("route-files", 'r', new Option_FileName());
+    oc->doRegister("junction-files", 'j', new Option_FileName());
+    oc->doRegister("detector-files", 'd', new Option_FileName());
+    oc->doRegister("output-file", 'o', new Option_FileName(""));
+    oc->doRegister("configuration-file", 'c', new Option_FileName("sumo.cfg"));
+    oc->doRegister("source-files", 's', new Option_FileName());
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
     oc->addSynonyme("junction-files", "junctions");
     oc->addSynonyme("detector-files", "detectors");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
+    oc->addSynonyme("source-files", "sources");
     // register the simulation settings
     oc->doRegister("begin", 'b', new Option_Long());
     oc->doRegister("end", 'e', new Option_Long());
@@ -165,6 +183,9 @@ getSettings(int argc, char **argv)
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
 //    oc->doRegister("validate-nodes", new Option_Bool(false));
+    // register some research options
+    oc->doRegister("initial-density", new Option_Float());
+    oc->doRegister("initial-speed", new Option_Float());
     // register the data processing options
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
@@ -194,7 +215,7 @@ ostream *buildRawOutputStream(OptionsCont *oc) {
     if(oc->getBool("R"))
 	    return 0;
 
-    filebuf *fb = new filebuf;
+    filebuf *fb = new filebuf; // !!! possible memory leak
     ostream *craw = new ostream( (oc->getString("o")=="") ?
 	    cout.rdbuf() :
 	    fb->open(oc->getString("o").c_str(), ios::out|ios::trunc));
@@ -220,11 +241,15 @@ MSNet *load(OptionsCont *oc) {
 }
 
 /**
- * some method calls for debugging
+ * method for post-load - net initialisation
  */
-void test(MSNet *net, OptionsCont *oc) {
-    // !!!
-    //net->testJunctions();
+void
+postbuild(OptionsCont &oc, MSNet &net) {
+    // set the initial density and vehicle speed when wished
+/*    if(oc.isSet("initial-density")) {
+        double initialSpeed = oc.isSet("initial-speed") ? oc.getFloat("initial-speed") : 5;
+        net.setInitialState(oc.getFloat("initial-density"), initialSpeed);
+    }*/
 }
 
 /* -------------------------------------------------------------------------
@@ -233,31 +258,34 @@ void test(MSNet *net, OptionsCont *oc) {
 int
 main(int argc, char **argv)
 {
-    int ret = 1;
-    // parse the settings
-    OptionsCont *oc = getSettings(argc, argv);
-    if(oc==0) {
-        cout << "Quitting." << endl;
-        return 1;
-    }
-    // check whether only the help shall be printed
-    if(oc->getBool("help")) {
-        HelpPrinter::print(help);
-        return 0;
-    }
-
+    int ret = 0;
     try {
+        // try to initialise the XML-subsystem
+        if(!XMLSubSys::init()) {
+            return 1;
+        }
+        // parse the settings
+        OptionsCont *oc = getSettings(argc, argv);
+        if(oc==0) {
+            cout << "Quitting." << endl;
+            return 1;
+        }
+        // check whether only the help shall be printed
+        if(oc->getBool("help")) {
+            HelpPrinter::print(help);
+            delete oc;
+            return 0;
+        }
         // load the net
         MSNet *net = load(oc);
-
+        postbuild(*oc, *net);
         // simulate when everything's ok
         ostream *craw = buildRawOutputStream(oc);
         // report the begin when wished
         if(oc->getBool("v"))
             cout << "Simulation started with time: " << oc->getLong("b") << endl;
         // simulate
-        if(!net->simulate(craw, oc->getLong("b"), oc->getLong("e")))
-            ret = 0;
+        net->simulate(craw, oc->getLong("b"), oc->getLong("e"));
         // report the end when wished
         if(oc->getBool("v"))
             cout << "Simulation ended at time: " << oc->getLong("e") << endl;
@@ -266,6 +294,7 @@ main(int argc, char **argv)
     } catch (ProcessError) {
         ret = 1;
     }
+    XMLSubSys::close();
     return ret;
 }
 
