@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/12/11 07:14:04  dkrajzew
+// new netload usage adapted
+//
 // Revision 1.18  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
@@ -200,7 +203,7 @@ namespace
     load(OptionsCont &oc) {
         // build the network first
         NLNetBuilder builder(oc);
-        MSNet *ret = builder.buildMSNet();
+        MSNet *ret = builder.buildNet();
         if(ret==0) {
             throw ProcessError();
         }
