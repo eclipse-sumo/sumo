@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 09:47:01  dkrajzew
+// a simpler API added (should be reworked, subject to change)
+//
 // Revision 1.7  2004/03/19 13:02:29  dkrajzew
 // not reporting one-char-lines bug patched
 //
@@ -157,6 +160,57 @@ LineReader::readLine(LineHandler &lh)
     }
     return moreAvailable;
 }
+
+
+std::string
+LineReader::readLine()
+{
+    string toReport;
+    bool moreAvailable = true;
+    while(toReport.length()==0) {
+        size_t idx = _strBuffer.find('\n');
+        if(idx==0) {
+            _strBuffer = _strBuffer.substr(1);
+            _rread++;
+            return "";
+        }
+        if(idx!=string::npos) {
+            toReport = _strBuffer.substr(0, idx);
+            _strBuffer = _strBuffer.substr(idx+1);
+            _rread += idx+1;
+        } else {
+            if(_read<_available) {
+                _strm.read(_buffer,
+                    _available - _read<1024
+                    ? _available - _read
+                    : 1024);
+                size_t noBytes = _available - _read;
+                noBytes = noBytes > 1024 ? 1024 : noBytes;
+                _strBuffer += string(_buffer, noBytes);
+                _read += 1024;
+            } else {
+                toReport = _strBuffer;
+                moreAvailable = false;
+                if(toReport=="") {
+                   return toReport;
+                }
+            }
+        }
+    }
+    // remove trailing blanks
+    int idx = toReport.length()-1;
+    while(idx>=0&&toReport.at(idx)<32) {
+        idx--;
+    }
+    if(idx>=0) {
+        toReport = toReport.substr(0, idx+1);
+    } else {
+        toReport = "";
+    }
+    return toReport;
+}
+
+
 
 std::string
 LineReader::getFileName() const

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/07/02 09:47:01  dkrajzew
+// a simpler API added (should be reworked, subject to change)
+//
 // Revision 1.5  2003/04/15 09:09:19  dkrajzew
 // documentation added
 //
@@ -79,6 +82,9 @@ public:
 
     /** reads a single (the next) line from the file */
     bool readLine(LineHandler &lh);
+
+    /** reads a single (the next) line from the file and returns it */
+    std::string readLine();
 
     /// closes the reading
     void close();
