@@ -22,27 +22,27 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSDetectorContainer.h"
+#include "MSDetectorContainerWrapper.h"
 #include "MSUnit.h"
-#include "MS_E2_ZS_Collector.h"
+//#include "MS_E2_ZS_Collector.h"
 #include <string>
 #include <vector>
-#include <iterator>
+//#include <iterator>
 
 class MSApproachingVehiclesStates 
 {
-    friend class MS_E2_ZS_Collector; // only MS_E2_ZS_Collector has
-                                     // access to ctor
+    friend class MS_E2_ZS_Collector;
 public:
+
     class VehicleState
     {
     public:
         VehicleState( MSUnit::Cells gap2DetectorEnd,
                       MSUnit::CellsPerStep speed ) 
-            : gap2DetectorEndM( MSUnit::getInstance()->getMeters(
-                                    gap2DetectorEnd ) ),
-              speedM( MSUnit::getInstance()->getMetersPerSecond(
-                          speed ) )
+            : gap2DetectorEndM(
+                MSUnit::getInstance()->getMeters( gap2DetectorEnd ) )
+            , speedM(
+                MSUnit::getInstance()->getMetersPerSecond( speed ) )
             {}
 
         MSUnit::Meters getGap2DetectorEnd( void ) const 
@@ -60,11 +60,13 @@ public:
         MSUnit::MetersPerSecond speedM;
     };
 
+    // the first element of the container corresponds to first vehicle
+    // in driving direction
     typedef std::vector< VehicleState > DetectorAggregate;
     
 protected:
     typedef DetectorContainer::Vehicles Container;
-    typedef Container::InnerCont VehicleCont;
+    typedef Container::InnerContainer VehicleCont;
     
     MSApproachingVehiclesStates( MSUnit::Meters detectorEndPos,
                                  const Container& vehicleCont ) 
@@ -84,6 +86,8 @@ protected:
 
             VehicleCont::const_iterator vehIt = containerM.begin();
             if ( (*vehIt)->pos() > detectorEndPosM ) {
+                // first vehicle left detector partially, start with the next
+                // one.
                 ++vehIt;
             }
             unsigned nValidVehicles = std::distance( vehIt, containerM.end() );
@@ -91,10 +95,12 @@ protected:
                 nApproachingVeh = nValidVehicles;
             }
             
-            for ( unsigned index = 0; index < nApproachingVeh; ++index ) {
+            for ( unsigned index = 0; index < nApproachingVeh;
+                  ++index, ++vehIt ) {
                 statesM.push_back(
-                    VehicleState( detectorEndPosM - (*vehIt)->pos(),
-                                  (*vehIt)->speed() ) );
+                    VehicleState(
+                        detectorEndPosM - (*vehIt)->pos(),
+                        (*vehIt)->speed() ) );
             }
             return statesM;
         }
