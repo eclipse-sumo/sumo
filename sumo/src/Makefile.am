@@ -107,6 +107,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
+./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 -l$(LIB_XERCES)
 
