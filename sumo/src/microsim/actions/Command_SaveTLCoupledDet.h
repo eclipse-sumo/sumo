@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:18:24  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.2  2004/02/16 14:02:57  dkrajzew
 // e2-link-dependent detectors added
-//
 //
 /* =========================================================================
  * included modules
@@ -41,6 +43,7 @@ class MSNet;
 class FileWriter;
 class MSTrafficLightLogic;
 class MSDetectorFileOutput;
+class OutputDevice;
 
 
 /* =========================================================================
@@ -57,8 +60,9 @@ class Command_SaveTLCoupledDet : public DiscreteCommand
 {
 public:
     /// Constructor
-    Command_SaveTLCoupledDet(MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
-        unsigned int begin, const std::string &file);
+    Command_SaveTLCoupledDet(MSTrafficLightLogic *tll,
+        MSDetectorFileOutput *dtf,
+        unsigned int begin, OutputDevice *device);
 
     /// Destructor
     virtual ~Command_SaveTLCoupledDet();
@@ -68,7 +72,7 @@ public:
 
 protected:
     /// The file to write the output to
-    std::ofstream myFile;
+    OutputDevice *myDevice;
 
     /// The logic to use
     MSTrafficLightLogic *myLogic;

@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:18:24  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.1  2004/02/16 14:03:46  dkrajzew
 // e2-link-dependent detectors added
-//
 //
 /* =========================================================================
  * included modules
@@ -33,12 +35,13 @@ namespace
 #include "Action.h"
 #include "Command_SaveTLCoupledLaneDet.h"
 #include <microsim/MSNet.h>
-#include <microsim/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSDetectorFileOutput.h>
+#include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSLinkCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 
 
 /* =========================================================================
@@ -52,9 +55,8 @@ using namespace std;
  * ======================================================================= */
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
         MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
-        unsigned int begin, const std::string &file
-        , MSLink *link)
-    : Command_SaveTLCoupledDet(tll, dtf, begin, file),
+        unsigned int begin, OutputDevice *device, MSLink *link)
+    : Command_SaveTLCoupledDet(tll, dtf, begin, device),
     myLink(link), myLastState(MSLink::LINKSTATE_TL_RED)
 {
 }
@@ -74,9 +76,11 @@ Command_SaveTLCoupledLaneDet::execute()
     if(myLink->getState()==MSLink::LINKSTATE_TL_RED) {
         unsigned int end =
             MSNet::getInstance()->getCurrentTimeStep();
-        myFile << "<interval start=\"" << myStartTime << "\" stop=\"" << end
-            << "\" " << myDetector->getXMLOutput( end-myStartTime )
-            << " />" << endl;
+/*        myDevice->getOStream()
+            << "<interval start=\"" << myStartTime << "\" stop=\"" << end
+            << "\" ";*/
+        myDetector->writeXMLOutput( *myDevice, myStartTime, end );
+//        myDevice->getOStream() << " />" << endl;
         myStartTime = end;
     }
     myLastState = myLink->getState();

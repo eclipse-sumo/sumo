@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:18:24  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.2  2004/02/16 14:02:57  dkrajzew
 // e2-link-dependent detectors added
-//
 //
 /* =========================================================================
  * included modules
@@ -33,11 +35,12 @@ namespace
 #include "Action.h"
 #include "Command_SaveTLCoupledDet.h"
 #include <microsim/MSNet.h>
-#include <microsim/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSDetectorFileOutput.h>
+#include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 
 
 /* =========================================================================
@@ -52,25 +55,16 @@ using namespace std;
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTrafficLightLogic *tll,
                                                    MSDetectorFileOutput *dtf,
                                                    unsigned int begin,
-                                                   const std::string &file)
-    : myLogic(tll), myDetector(dtf), myFile(file.c_str()),
+                                                   OutputDevice *device)
+    : myLogic(tll), myDetector(dtf), myDevice(device),
     myStartTime(begin)
 {
-    if(!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + file
-            + string("'to save the tl-states into could not be opened."));
-        throw ProcessError();
-    }
-    myFile << myDetector->getXMLHeader()
-        << myDetector->getXMLDetectorInfoStart() << endl;
     tll->addSwitchAction(this);
 }
 
 
 Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet()
 {
-    myFile << myDetector->getXMLDetectorInfoEnd() << endl;
 }
 
 
@@ -79,9 +73,11 @@ Command_SaveTLCoupledDet::execute()
 {
     unsigned int end =
         MSNet::getInstance()->getCurrentTimeStep();
-    myFile << "<interval start=\"" << myStartTime << "\" stop=\"" << end
-        << "\" " << myDetector->getXMLOutput( end-myStartTime )
-        << " />" << endl;
+/*    myDevice->getOStream()
+        << "<interval start=\"" << myStartTime << "\" stop=\"" << end
+        << "\" ";*/
+    myDetector->writeXMLOutput( *myDevice, myStartTime, end );
+//    myDevice->getOStream() << " />" << endl;
     myStartTime = end;
     return true;
 }

@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:18:24  dkrajzew
+// new detectors usage applied
+//
 // Revision 1.1  2004/02/16 14:03:46  dkrajzew
 // e2-link-dependent detectors added
-//
 //
 /* =========================================================================
  * included modules
@@ -47,8 +49,7 @@ class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 public:
     /// Constructor
     Command_SaveTLCoupledLaneDet(MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
-        unsigned int begin, const std::string &file
-        , MSLink *link);
+        unsigned int begin, OutputDevice *device, MSLink *link);
 
     /// Destructor
     ~Command_SaveTLCoupledLaneDet();
