@@ -1,0 +1,65 @@
+#ifndef NIVissimSingleTypeParser_Streckentypdefinition_h
+#define NIVissimSingleTypeParser_Streckentypdefinition_h
+/***************************************************************************
+                          NIVissimSingleTypeParser_Streckentypdefinition.h
+
+                             -------------------
+    begin                : Thu, 6 Mar 2003
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.1  2003/03/06 17:12:57  dkrajzew
+// further data parsing
+//
+//
+//
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <iostream>
+#include "../NIVissimLoader.h"
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class NIVissimSingleTypeParser_Streckentypdefinition
+ *
+ */
+class NIVissimSingleTypeParser_Streckentypdefinition :
+        public NIVissimLoader::VissimSingleTypeParser {
+public:
+    /// Constructor
+    NIVissimSingleTypeParser_Streckentypdefinition(NIVissimLoader &parent);
+
+    /// Destructor
+    ~NIVissimSingleTypeParser_Streckentypdefinition();
+
+    /// Parses the data type from the given stream
+    bool parse(std::istream &from);
+
+};
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+//#ifndef DISABLE_INLINE
+//#include "NIVissimSingleTypeParser_Streckentypdefinition.icc"
+//#endif
+
+#endif
+
+// Local Variables:
+// mode:C++
+// End:
