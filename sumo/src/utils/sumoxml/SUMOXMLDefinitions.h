@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/07/08 12:11:08  dkrajzew
+// comma at end of list - warning patched
+//
 // Revision 1.11  2003/07/07 08:50:29  dkrajzew
 // added tags for shapes and lane position description
 //
@@ -141,7 +144,7 @@ enum TagEnum
     /** an aggreagated-output interval */
     SUMO_TAG_INTERVAL,
     /// The tag enclosing an object's shape
-    SUMO_TAG_SHAPE,
+    SUMO_TAG_SHAPE
 };
 
 
@@ -205,7 +208,7 @@ enum AttrEnum
     SUMO_ATTR_NO,
     SUMO_ATTR_PHASE,
     SUMO_ATTR_BRAKE,
-	SUMO_ATTR_YELLOW,
+    SUMO_ATTR_YELLOW,
     SUMO_ATTR_DURATION,
     /** trigger: definition of an object type to be triggered */
     SUMO_ATTR_OBJECTTYPE,
