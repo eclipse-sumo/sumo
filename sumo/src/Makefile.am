@@ -48,19 +48,19 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 -l$(LIB_XERCES)
 
 
-sumo_netgen_SOURCES = netgen_main.cpp \
-netgen_help.h
-sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_netgen_LDADD   = ./netgen/libnetgen.a \
-./netbuild/libnetbuild.a \
-./utils/sumoxml/libsumoxml.a \
-./utils/geom/libgeom.a \
-./utils/options/liboptions.a \
-./utils/common/libcommon.a \
-./utils/importio/libimportio.a \
-./utils/convert/libconvert.a \
-./utils/xml/libxml.a \
--l$(LIB_XERCES)
+#sumo_netgen_SOURCES = netgen_main.cpp \
+#netgen_help.h
+#sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
+#sumo_netgen_LDADD   = ./netgen/libnetgen.a \
+#./netbuild/libnetbuild.a \
+#./utils/sumoxml/libsumoxml.a \
+#./utils/geom/libgeom.a \
+#./utils/options/liboptions.a \
+#./utils/common/libcommon.a \
+#./utils/importio/libimportio.a \
+#./utils/convert/libconvert.a \
+#./utils/xml/libxml.a \
+#-l$(LIB_XERCES)
 
 
 sumo_router_SOURCES = router_main.cpp \
@@ -127,7 +127,9 @@ $(LIB_X11)
 
 
 
-AM_CPPFLAGS = -I$(XERCESINCLUDE) \
+AM_CPPFLAGS = -Imicrosim \
+-Ihelpers \
+-I$(XERCESINCLUDE) \
 -I$(XERCESINCLUDE_PRIOR_1_7) \
 $(QT_INCLUDES)
 
@@ -140,7 +142,6 @@ guisim \
 helpers \
 microsim \
 netbuild \
-netgen \
 netimport \
 netload \
 od2trips \
