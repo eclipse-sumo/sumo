@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.4  2004/08/02 11:49:11  dkrajzew
 // gradients added; documentation added
 //
@@ -31,8 +34,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include "GUIGlobals.h"
-#include <gui/GUIGlObjectStorage.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include <algorithm>
 
@@ -49,23 +51,11 @@ bool gQuitOnEnd;
 bool gStartAtBegin;
 bool gAllowAggregated;
 bool gAllowAggregatedFloating;
-bool gAllowTextures;
 bool gSuppressEndInfo;
 float gAggregationRememberingFactor;
-GUIGradientStorage *gGradients;
 
 GUISimInfo *gSimInfo = 0;
 
-FXApp *gFXApp = 0;
-
-std::string gCurrentFolder;
-
-
-GUISelectedStorage gSelected;
-
-    /** @brief A container for numerical ids of objects
-        in order to make them grippable by openGL */
-GUIGlObjectStorage gIDStorage;
 
 GUIAddWeightsStorage gAddWeightsStorage;
 

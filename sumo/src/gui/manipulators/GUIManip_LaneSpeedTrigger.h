@@ -20,15 +20,24 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:06:50  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "GUIManipulator.h"
 #include <utils/foxtools/FXRealSpinDial.h>
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class GUILaneSpeedTrigger;
+class GUIMainWindow;
 
 
 /* =========================================================================
@@ -47,8 +56,8 @@ public:
         ID_LAST
     };
     /// Constructor
-    GUIManip_LaneSpeedTrigger(GUIApplicationWindow &app,
-        const std::string &name, GUIGlObject_AAManipulatable &o,
+    GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
+        const std::string &name, GUILaneSpeedTrigger &o,
         int xpos, int ypos);
 
     /// Destructor
@@ -62,7 +71,7 @@ public:
     long onCmdChangeOption(FXObject*,FXSelector,void*);
 
 private:
-    GUIApplicationWindow *myParent;
+    GUIMainWindow *myParent;
 
     FXRealSpinDial *myUserDefinedSpeed;
 
@@ -73,6 +82,8 @@ private:
     FXDataTarget mySpeedTarget;
 
     float mySpeed;
+
+    GUILaneSpeedTrigger *myObject;
 
 protected:
     GUIManip_LaneSpeedTrigger() { }

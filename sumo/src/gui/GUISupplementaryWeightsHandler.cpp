@@ -184,21 +184,21 @@ GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.abs = absolutValueM;
+        aw.abs = (float) absolutValueM;
         isAbsolutValueSetM = false;
     }
     if ( isMultValueSetM ){
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.mult = multValueM;
+        aw.mult = (float) multValueM;
         isMultValueSetM = false;
     }
     if ( isAddValueSetM ){
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.add = addValueM;
+        aw.add = (float) addValueM;
         isAddValueSetM = false;
     }
     gAddWeightsStorage.push_back(aw);

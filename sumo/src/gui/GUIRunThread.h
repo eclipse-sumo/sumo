@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.6  2004/07/02 08:28:50  dkrajzew
 // some changes needed to derive the threading classes more easily added
 //
@@ -76,7 +79,7 @@ class GUIRunThread : public FXSingleEventThread
 {
 public:
     /// constructor
-    GUIRunThread(GUIApplicationWindow *mw,
+    GUIRunThread(MFXInterThreadEventClient *mw,
         FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
     /// destructor
@@ -135,7 +138,7 @@ protected:
 
 protected:
     /// the parent application window
-    GUIApplicationWindow    *_parent;
+//    GUIApplicationWindow    *_parent;
 
     /// the loaded simulation network
     GUINet                  *_net;

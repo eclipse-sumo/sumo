@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2004/11/23 10:11:34  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.18  2004/08/02 11:55:35  dkrajzew
 // using coloring schemes stored in a container
 //
@@ -74,15 +77,16 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Polygon2D.h>
 #include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
-#include "GUISUMOAbstractView.h"
-#include "drawerimpl/GUIColoringSchemesMap.h"
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/gui/drawer/GUIBaseLaneDrawer.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -101,7 +105,6 @@ class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
 class GUIBaseVehicleDrawer;
-class GUIBaseLaneDrawer;
 class GUIBaseDetectorDrawer;
 class GUIBaseJunctionDrawer;
 class GUIBaseROWDrawer;
@@ -119,11 +122,11 @@ class GUIViewTraffic : public GUISUMOAbstractView {
   FXDECLARE(GUIViewTraffic)
 public:
     /// constructor
-    GUIViewTraffic(FXComposite *p, GUIApplicationWindow &app,
+    GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
         GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
 
     /// constructor
-    GUIViewTraffic(FXComposite *p, GUIApplicationWindow &app,
+    GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
         GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
         FXGLCanvas *share);
     void init(GUINet &net) ;
@@ -134,7 +137,7 @@ public:
     virtual ~GUIViewTraffic();
 
     /// builds the view toolbars
-    void buildViewToolBars(GUISUMOViewParent &);
+    void buildViewToolBars(GUIGlChildWindow &);
 
     void track(int id);
 
@@ -142,11 +145,22 @@ public:
     long onCmdColourLanes(FXObject*,FXSelector,void*);
     long onCmdShowFullGeom(FXObject*,FXSelector,void*);
 
+    void centerTo(GUIGlObject *o);
+
+    /// shows a vehicle route
+    void showRoute(GUIVehicle *v, int index=-1);
+
+    /// hides a vehicle route
+    void hideRoute(GUIVehicle *v, int index=-1);
+
+    /// Returns the information whether the route of the given vehicle is shown
+    bool amShowingRouteFor(GUIVehicle *v, int index=-1);
 
 protected:
-
+    void draw(const MSRoute &r);
+/*
 void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
-
+*/
 public:
 
 protected:
@@ -157,6 +171,8 @@ protected:
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
+    void drawRoute(const VehicleOps &vo, int routeNo, double darken);
+
 protected:
     /** @brief Instances of the vehicle drawers
         A drawer is chosen in dependence to whether the full or the simple
@@ -166,7 +182,7 @@ protected:
     /** @brief Instances of the lane drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseLaneDrawer *myLaneDrawer[8];
+    GUIBaseLaneDrawer<GUIEdge, GUIEdge, GUILaneWrapper> *myLaneDrawer[8];
 
     /** @brief Instances of the junction drawers
         A drawer is chosen in dependence to whether the full or the simple
@@ -187,7 +203,7 @@ protected:
     VehicleColoringScheme _vehicleColScheme;
 
     /// The coloring scheme of lanes to use
-    LaneColoringScheme _laneColScheme;
+    GUIBaseColorer<GUILaneWrapper> *myLaneColorer;
 
     /// The coloring scheme of junctions to use
     JunctionColoringScheme _junctionColScheme;
@@ -207,9 +223,10 @@ protected:
     /// The widgets for colour manipulation
     FXPopup *myVehColoring, *myLaneColoring;
 
-    static GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+    GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme, GUILaneWrapper>
         myLaneColoringSchemes;
 
+    GUINet *_net;
 
 protected:
     GUIViewTraffic() { }

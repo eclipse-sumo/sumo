@@ -23,18 +23,20 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:06:50  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.2  2004/07/05 09:31:48  dkrajzew
 // bug on non-MSVC-conform object initialisation patched
 //
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "GUIManip_LaneSpeedTrigger.h"
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 
@@ -57,13 +59,14 @@ FXIMPLEMENT(GUIManip_LaneSpeedTrigger, GUIManipulator, GUIManip_LaneSpeedTrigger
  * method definitions
  * ======================================================================= */
 GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
-        GUIApplicationWindow &app,
-        const std::string &name, GUIGlObject_AAManipulatable &o,
+        GUIMainWindow &app,
+        const std::string &name, GUILaneSpeedTrigger &o,
         int xpos, int ypos)
-    : GUIManipulator(app, name, o, 0, 0), myChosenValue(0),
+    : GUIManipulator(app, name, 0, 0), myChosenValue(0),
     myParent(&app),
     myChosenTarget(myChosenValue, this, MID_OPTION), mySpeedTarget(mySpeed),
-    mySpeed(static_cast<GUILaneSpeedTrigger&>(o).getDefaultSpeed())
+    mySpeed(o.getDefaultSpeed()),
+    myObject(&o)
 {
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 

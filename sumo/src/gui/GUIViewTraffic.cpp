@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.32  2004/08/02 11:55:35  dkrajzew
 // using coloring schemes stored in a container
 //
@@ -136,6 +139,7 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSCORN.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Polygon2D.h>
@@ -154,18 +158,24 @@ namespace
 #include "drawerimpl/GUIROWDrawer_FGnT.h"
 #include "drawerimpl/GUIROWDrawer_SGwT.h"
 #include "drawerimpl/GUIROWDrawer_FGwT.h"
-#include "drawerimpl/GUILaneDrawer_SGwT.h"
-#include "drawerimpl/GUILaneDrawer_SGnT.h"
-#include "drawerimpl/GUILaneDrawer_FGwT.h"
-#include "drawerimpl/GUILaneDrawer_FGnT.h"
-#include "GUIPerspectiveChanger.h"
+#include <utils/gui/drawer/GUILaneDrawer_SGwT.h>
+#include <utils/gui/drawer/GUILaneDrawer_SGnT.h>
+#include <utils/gui/drawer/GUILaneDrawer_FGwT.h>
+#include <utils/gui/drawer/GUILaneDrawer_FGnT.h>
 #include "GUIViewTraffic.h"
-#include "GUIApplicationWindow.h"
-#include "GUIAppEnum.h"
-#include "GUIGlObject_AbstractAdd.h"
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include "icons/GUIIcons.h"
-#include "icons/GUIIconSubSys.h"
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <gui/GUIApplicationWindow.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include "GUIColorer_LaneByPurpose.h"
+#include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -195,37 +205,32 @@ FXIMPLEMENT(GUIViewTraffic,GUISUMOAbstractView,GUIViewTrafficMap,ARRAYNUMBER(GUI
 
 
 /* =========================================================================
- * static members definitions
- * ======================================================================= */
-GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
-    GUIViewTraffic::myLaneColoringSchemes;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUIViewTraffic::GUIViewTraffic(FXComposite *p,
-                               GUIApplicationWindow &app,
+                               GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
-    : GUISUMOAbstractView(p, app, parent, net, glVis),
-    _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
+    : GUISUMOAbstractView(p, app, parent, net._grid, glVis),
+    _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _additional2Show(0)
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0),
+    _net(&net)
 {
     init(net);
 }
 
 
 GUIViewTraffic::GUIViewTraffic(FXComposite *p,
-                               GUIApplicationWindow &app,
+                               GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
-    : GUISUMOAbstractView(p, app, parent, net, glVis, share),
-    _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
+    : GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
+    _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _additional2Show(0)
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0),
+    _net(&net)
 {
     init(net);
 }
@@ -261,14 +266,14 @@ GUIViewTraffic::init(GUINet &net)
         new GUIVehicleDrawer_FGnTasTriangle(_net->myEdgeWrapper);
     myVehicleDrawer[7] =
         new GUIVehicleDrawer_FGwTasTriangle(_net->myEdgeWrapper);
-    myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
-    myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
-    myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
-    myLaneDrawer[3] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
-    myLaneDrawer[4] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
-    myLaneDrawer[5] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
-    myLaneDrawer[6] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
-    myLaneDrawer[7] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
+    myLaneDrawer[0] = new GUILaneDrawer_SGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[1] = new GUILaneDrawer_SGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[2] = new GUILaneDrawer_FGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[3] = new GUILaneDrawer_FGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[4] = new GUILaneDrawer_SGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[5] = new GUILaneDrawer_SGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[6] = new GUILaneDrawer_FGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[7] = new GUILaneDrawer_FGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
     myJunctionDrawer[0] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
     myJunctionDrawer[1] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
     myJunctionDrawer[2] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
@@ -294,12 +299,26 @@ GUIViewTraffic::init(GUINet &net)
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
     // lane coloring
-    if(myLaneColoringSchemes.size()==0) {
-        myLaneColoringSchemes.add("black", GUISUMOAbstractView::LCS_BLACK);
-        myLaneColoringSchemes.add("by purpose", GUISUMOAbstractView::LCS_BY_PURPOSE);
-        myLaneColoringSchemes.add("by allowed speed", GUISUMOAbstractView::LCS_BY_SPEED);
-        myLaneColoringSchemes.add("by selection", GUISUMOAbstractView::LCS_BY_SELECTION);
-    }
+    GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
+    myLaneColorer = defLaneColorer;
+    myLaneColoringSchemes.add("black",
+        GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
+    myLaneColoringSchemes.add("by purpose",
+        GUISUMOAbstractView::LCS_BY_PURPOSE,
+        new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+    myLaneColoringSchemes.add("by allowed speed",
+        GUISUMOAbstractView::LCS_BY_SPEED,
+        new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, 150.0/3.6,
+            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+    myLaneColoringSchemes.add("by selection",
+        GUISUMOAbstractView::LCS_BY_SELECTION,
+        new GUIColorer_LaneBySelection<GUILaneWrapper>());
+    myLaneColoringSchemes.add("white",
+        GUISUMOAbstractView::LCS_WHITE,
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
 }
 
 
@@ -315,6 +334,9 @@ GUIViewTraffic::~GUIViewTraffic()
     delete _edges2Show;
     delete _junctions2Show;
     delete _additional2Show;
+    delete myVehColoring;
+    delete myLaneColoring;
+    delete myLocatorPopup;
 }
 
 
@@ -324,11 +346,12 @@ GUIViewTraffic::create()
     FXGLCanvas::create();
     myVehColoring->create();
     myLaneColoring->create();
+    myLocatorPopup->create();
 }
 
 
 void
-GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
+GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 {
     FXToolBar &toolbar = v.getToolBar(*this);
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
@@ -342,7 +365,7 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
 
         // lane colors
     myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
-    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURVEHICLES);
+    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURLANES);
     new FXMenuButton(&toolbar,"\tSet the coloring scheme for lanes",
         GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
         MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
@@ -350,21 +373,30 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
     // build the locator buttons
+    myLocatorPopup = new FXPopup(&toolbar, POPUP_VERTICAL);
         // for junctions
-    new FXButton(&toolbar,
-        "\tLocate Junction\tLocate a Junction within the Network.",
-        GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // for edges
-    new FXButton(&toolbar,
-        "\tLocate Street\tLocate a Street within the Network.",
-        GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // for vehicles
-    new FXButton(&toolbar,
-        "\tLocate Vehicle\tLocate a Vehicle within the Network.",
-        GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myLocatorPopup,
+            "\tLocate Junction\tLocate a Junction within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+            // for edges
+        new FXButton(myLocatorPopup,
+            "\tLocate Street\tLocate a Street within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+            // for vehicles
+        new FXButton(myLocatorPopup,
+            "\tLocate Vehicle\tLocate a Vehicle within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+            // for additional stuff
+        new FXButton(myLocatorPopup,
+            "\tLocate Additional\tLocate an additional Structure within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+    new FXMenuButton(&toolbar,"\tLocate structures",
+        GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
+        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -404,8 +436,8 @@ long
 GUIViewTraffic::onCmdColourLanes(FXObject*,FXSelector sel,void*)
 {
     int index = FXSELID(sel) - MID_COLOURLANES;
-    _laneColScheme =
-        myLaneColoringSchemes.getEnumValue(index);
+    myLaneColorer =
+        myLaneColoringSchemes.getColorer(index);
     update();
     return 1;
 }
@@ -434,12 +466,12 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
-    const Boundery &nb = _net->getBoundery();
+    const Boundary &nb = _net->getBoundary();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * _netScale
+    double xoff = 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to right
     double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * _netScale
+    double yoff = 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
     // reset the tables of things to show if the viewport has changed
     if(myViewSettings.differ(x, y, xoff, yoff)) {
@@ -463,12 +495,36 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show,
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
-        width, _laneColScheme);
+        width, *myLaneColorer);
     myDetectorDrawer[drawerToUse]->drawGLDetectors(_additional2Show,
         _additional2ShowSize, width);
     myROWDrawer[drawerToUse]->drawGLROWs(*_net,
         _edges2Show, _edges2ShowSize, width);
-
+    //
+    for(std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
+        const VehicleOps &vo = *i;
+        switch(vo.type) {
+        case VO_SHOW_ROUTE:
+            {
+                if(vo.routeNo>=0) {
+                    drawRoute(vo, vo.routeNo, 0.25);
+                } else {
+                    int noReroutePlus1 =
+                        (int) vo.vehicle->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
+                    for(int i=noReroutePlus1-1; i>=0; i--) {
+                        double darken =
+                            0.4
+                            / (double) noReroutePlus1
+                            * (double) i;
+                        drawRoute(vo, i, darken);
+                    }
+                }
+            }
+            break;
+        default:
+            break;
+        }
+    }
     // draw the Polygons
     std::map<std::string, Polygon2D*>::iterator ppoly =
         MSNet::getInstance()->poly_dic.begin();
@@ -512,6 +568,105 @@ GUIViewTraffic::track(int id)
 void
 GUIViewTraffic::doInit()
 {
+}
+
+
+void
+GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, double darken)
+{
+    if(_useToolTips) {
+        glPushName(vo.vehicle->getGlID());
+    }
+    RGBColor c =
+        myVehicleDrawer[0]->getVehicleColor(*(vo.vehicle), _vehicleColScheme);
+    c.darken(darken);
+    glColor3d(c.red(), c.green(), c.blue());
+    draw(vo.vehicle->getRoute(routeNo));
+    if(_useToolTips) {
+        glPopName();
+    }
+}
+
+
+void
+GUIViewTraffic::centerTo(GUIGlObject *o)
+{
+    if(o->getType()!=GLO_VEHICLE) {
+        GUISUMOAbstractView::centerTo(o);
+    } else {
+        try {
+            Position2D pos = _net->getVehiclePosition(o->microsimID());
+            Boundary b;
+            b.add(pos);
+            b.grow(20);
+            GUISUMOAbstractView::centerTo(b);
+            _changer->otherChange();
+            update();
+        } catch (GUIExcp_VehicleIsInvisible) {
+        }
+    }
+}
+
+
+void
+GUIViewTraffic::draw(const MSRoute &r)
+{
+    MSRouteIterator i = r.begin();
+    for(; i!=r.end(); ++i) {
+        MSEdge *e = *i;
+        GUIEdge *ge = static_cast<GUIEdge*>(e);
+        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        const DoubleVector &rots = lane.getShapeRotations();
+        const DoubleVector &lengths = lane.getShapeLengths();
+        const Position2DVector &geom = lane.getShape();
+        for(size_t i=0; i<geom.size()-1; i++) {
+            GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.0);
+        }
+    }
+}
+
+
+void
+GUIViewTraffic::showRoute(GUIVehicle *v, int index)
+{
+    VehicleOps vo;
+    vo.vehicle = v;
+    vo.type = VO_SHOW_ROUTE;
+    vo.routeNo = index;
+    myVehicleOps.push_back(vo);
+    update();
+}
+
+
+void
+GUIViewTraffic::hideRoute(GUIVehicle *v, int index)
+{
+    std::vector<VehicleOps>::iterator i =
+        find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
+    while(i!=myVehicleOps.end()) {
+        if((*i).type==VO_SHOW_ROUTE&&(*i).routeNo==index) {
+            i = myVehicleOps.erase(i);
+            update();
+            return;
+        }
+        i = find_if(i+1, myVehicleOps.end(), vehicle_in_ops_finder(v));
+    }
+    update();
+}
+
+
+bool
+GUIViewTraffic::amShowingRouteFor(GUIVehicle *v, int index)
+{
+    std::vector<VehicleOps>::iterator i =
+        find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
+    while(i!=myVehicleOps.end()) {
+        if((*i).type==VO_SHOW_ROUTE&&(*i).routeNo==index) {
+            return true;
+        }
+        i = find_if(i+1, myVehicleOps.end(), vehicle_in_ops_finder(v));
+    }
+    return false;
 }
 
 

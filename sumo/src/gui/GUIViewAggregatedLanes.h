@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.4  2004/08/02 11:55:35  dkrajzew
 // using coloring schemes stored in a container
 //
@@ -68,15 +71,15 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/foxtools/FXMutex.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include "GUISUMOViewParent.h"
-#include "GUISUMOAbstractView.h"
-#include "drawerimpl/GUIColoringSchemesMap.h"
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -110,11 +113,11 @@ class GUIViewAggregatedLanes
     FXDECLARE(GUIViewAggregatedLanes)
 public:
     /// constructor
-    GUIViewAggregatedLanes(FXComposite *p, GUIApplicationWindow &app,
+    GUIViewAggregatedLanes(FXComposite *p, GUIMainWindow &app,
         GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
 
     /// constructor
-    GUIViewAggregatedLanes(FXComposite *p, GUIApplicationWindow &app,
+    GUIViewAggregatedLanes(FXComposite *p, GUIMainWindow &app,
         GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
         FXGLCanvas *share);
 
@@ -124,7 +127,7 @@ public:
     void create();
 
     /// builds the view toolbars
-    void buildViewToolBars(GUISUMOViewParent &);
+    void buildViewToolBars(GUIGlChildWindow &);
 
     long onCmdColourLanes(FXObject*,FXSelector,void*);
     long onCmdAggChoose(FXObject*,FXSelector,void*);
@@ -141,6 +144,7 @@ protected:
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
+
 private:
     void init(GUINet &net);
 
@@ -149,7 +153,7 @@ protected:
     /** @brief Instances of the lane drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseLaneDrawer *myLaneDrawer[8];
+    GUIBaseLaneDrawer<GUIEdge, GUIEdge, GUILaneWrapper> *myLaneDrawer[8];
 
     /** @brief Instances of the junction drawers
         A drawer is chosen in dependence to whether the full or the simple
@@ -168,7 +172,7 @@ protected:
 
 
     /// the coloring scheme of lanes to use
-    LaneColoringScheme _laneColScheme;
+    GUIBaseColorer<GUILaneWrapper> *myLaneColorer;
 
     JunctionColoringScheme _junctionColScheme;
 
@@ -183,8 +187,10 @@ protected:
     bool myUseFullGeom;
 
 
-    static GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
+    GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme, GUILaneWrapper>
         myLaneColoringSchemes;
+
+    GUINet *_net;
 
 
 protected:

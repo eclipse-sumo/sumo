@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:06:50  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
 //
@@ -34,8 +37,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class GUIApplicationWindow;
-class GUIGlObject_AAManipulatable;
+class GUIMainWindow;
 
 
 /* =========================================================================
@@ -45,15 +47,11 @@ class GUIManipulator : public FXDialogBox {
     FXDECLARE(GUIManipulator)
 public:
     /// Constructor
-    GUIManipulator(GUIApplicationWindow &app, const std::string &name,
-        GUIGlObject_AAManipulatable &o, int xpos, int ypos);
+    GUIManipulator(GUIMainWindow &app, const std::string &name,
+        int xpos, int ypos);
 
     /// Destructor
     virtual ~GUIManipulator();
-
-protected:
-    /// The manipulated object
-    GUIGlObject_AAManipulatable *myObject;
 
 protected:
     /// FOX needs this

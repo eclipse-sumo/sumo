@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.2  2004/04/02 11:10:20  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -39,7 +42,7 @@
 #include <string>
 #include <iostream>
 #include <microsim/MSNet.h>
-#include "GUIEvent.h"
+#include <utils/gui/events/GUIEvent.h>
 
 
 /* =========================================================================

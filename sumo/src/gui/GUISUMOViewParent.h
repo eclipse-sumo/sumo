@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.7  2004/08/02 11:55:07  dkrajzew
 // added the possibility to take snapshots
 //
@@ -61,9 +64,10 @@
 #include <vector>
 #include <fx.h>
 #include <utils/geom/Position2D.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include "dialogs/GUIDialog_GLObjChooser.h"
-#include "GUIGlObjectTypes.h"
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/windows/GUIGlChildWindow.h>
 
 
 /* =========================================================================
@@ -84,7 +88,7 @@ class GUIApplicationWindow;
  * allow to choose an artifact and some other view controlling options.
  * The rest of the window is a canvas that contains the display itself
  */
-class GUISUMOViewParent : public FXMDIChild
+class GUISUMOViewParent : public GUIGlChildWindow
 {
     // FOX-declarations
     FXDECLARE(GUISUMOViewParent)
@@ -97,13 +101,11 @@ public:
     /// constructor
     GUISUMOViewParent( FXMDIClient* p, FXGLCanvas *share,
         FXMDIMenu *mdimenu, const FXString& name,
-        GUINet &net, GUIApplicationWindow *parentWindow, ViewType view,
+        GUINet &net, GUIMainWindow *parentWindow, ViewType view,
         FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
         );
     void init(ViewType view, FXGLCanvas *share, GUINet &net);
 
-
-    FXGLCanvas *getBuildGLCanvas() const;
 
     /// destructor
     ~GUISUMOViewParent();
@@ -117,11 +119,11 @@ public:
     long onCmdLocateJunction(FXObject*,FXSelector,void*);
     long onCmdLocateEdge(FXObject*,FXSelector,void*);
     long onCmdLocateVehicle(FXObject*,FXSelector,void*);
+    long onCmdLocateAdd(FXObject *sender,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
     /// centers the view onto the given artifact
-    void setView(GUIGlObjectType type, const std::string &microsimID,
-        const std::string &fullName);
+    void setView(GUIGlObject *o);
 
     /// returns the zooming factor
     double getZoomingFactor() const;
@@ -141,9 +143,7 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
-    FXToolBar &getToolBar(GUISUMOAbstractView &v);
-
-    GUIApplicationWindow *getParent() { return myParent; }
+    GUIMainWindow *getParent() { return myParent; }
 
 private:
     /** builds the toolbar  */
@@ -156,9 +156,6 @@ private:
     /// the zooming factor
     double _zoomingFactor;
 
-    /// the view used
-    GUISUMOAbstractView *_view;
-
     /// information whether the legend shall be shown
     bool _showLegend;
 
@@ -169,10 +166,10 @@ private:
     GUIDialog_GLObjChooser *_chooser;
 
     /// The parent window
-    GUIApplicationWindow *myParent;
+    GUIMainWindow *myParent;
 
     /// The tool bar
-    FXToolBar *myToolBar;
+//    FXToolBar *myToolBar;
 
    /// The thing that makes the toolbar float
 //    FXToolBarShell *myToolBarDrag;

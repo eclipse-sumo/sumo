@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <string>
 
 struct GUIAddWeight {
     std::string edgeID;

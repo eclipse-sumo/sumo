@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.10  2004/08/02 11:55:07  dkrajzew
 // added the possibility to take snapshots
 //
@@ -78,7 +81,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <utils/geom/Position2D.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSJunction.h>
 #include <guisim/GUIEdge.h>
@@ -92,11 +95,15 @@ namespace
 #include "GUIViewAggregatedLanes.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
-#include "GUIGlObjectTypes.h"
-#include "GUIAppEnum.h"
-#include "icons/GUIIcons.h"
-#include "icons/GUIIconSubSys.h"
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIcons.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/div/GUIIOGlobals.h>
 
 
 /* =========================================================================
@@ -117,6 +124,7 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocateAdd),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
 };
@@ -131,12 +139,12 @@ FXIMPLEMENT(GUISUMOViewParent, FXMDIChild, GUISUMOViewParentMap, ARRAYNUMBER(GUI
 GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXGLCanvas *share,FXMDIMenu *mdimenu,
                                      const FXString& name, GUINet &net,
-                                     GUIApplicationWindow *parentWindow,
+                                     GUIMainWindow *parentWindow,
                                      ViewType view, FXIcon* ic, FXPopup* pup,
                                      FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
-    : FXMDIChild( p, name, ic, mdimenu, opts, 10, 10, 300, 200 ),
-    _zoomingFactor(100), _view(0),
+    : GUIGlChildWindow( p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200 ),
+    _zoomingFactor(100),
     _showLegend(true), _allowRotation(false), _chooser(0),
     myParent(parentWindow)
 {
@@ -289,8 +297,12 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateJunction(FXObject *sender,FXSelector,void*)
 {
+    _view->getLocatorPopup(*this)->popdown();
+    _view->getLocatorPopup(*this)->killFocus();
+    _view->getLocatorPopup(*this)->lower();
+    _view->getLocatorPopup(*this)->update();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_JUNCTION, gIDStorage);
     chooser->create();
@@ -300,8 +312,9 @@ GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 {
+    static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_EDGE, gIDStorage);
     chooser->create();
@@ -311,10 +324,23 @@ GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateVehicle(FXObject*,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 {
+    static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_VEHICLE, gIDStorage);
+    chooser->create();
+    chooser->show();
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateAdd(FXObject *sender,FXSelector,void*)
+{
+    static_cast<FXButton*>(sender)->getParent()->hide();
+    GUIDialog_GLObjChooser *chooser =
+        new GUIDialog_GLObjChooser(this, GLO_ADDITIONAL, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -336,11 +362,9 @@ GUISUMOViewParent::setZoomingFactor(double val)
 
 
 void
-GUISUMOViewParent::setView(GUIGlObjectType type,
-                           const std::string &microsimID,
-                           const std::string &fullName)
+GUISUMOViewParent::setView(GUIGlObject *o)
 {
-    _view->centerTo(type, microsimID, fullName);
+    _view->centerTo(o);
 }
 
 
@@ -368,20 +392,6 @@ int
 GUISUMOViewParent::getMaxGLHeight() const
 {
     return myParent->getMaxGLHeight();
-}
-
-
-FXToolBar &
-GUISUMOViewParent::getToolBar(GUISUMOAbstractView &v)
-{
-    return *myToolBar;
-}
-
-
-FXGLCanvas *
-GUISUMOViewParent::getBuildGLCanvas() const
-{
-    return _view;
 }
 
 

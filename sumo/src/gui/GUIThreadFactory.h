@@ -2,6 +2,7 @@
 #define GUIThreadFactory_h
 
 class GUIApplicationWindow;
+class MFXInterThreadEventClient;
 class GUILoadThread;
 class GUIRunThread;
 #include <utils/foxtools/FXRealSpinDial.h>
@@ -14,10 +15,10 @@ class GUIThreadFactory {
 public:
     GUIThreadFactory();
     virtual ~GUIThreadFactory();
-    virtual GUILoadThread *buildLoadThread(GUIApplicationWindow *mw,
+    virtual GUILoadThread *buildLoadThread(MFXInterThreadEventClient *mw,
         MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
-    virtual GUIRunThread *buildRunThread(GUIApplicationWindow *mw,
+    virtual GUIRunThread *buildRunThread(MFXInterThreadEventClient *mw,
         FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.23  2004/08/02 11:44:31  dkrajzew
 // ported to fox 1.2; patched missing unlock on unwished program termination
 //
@@ -102,6 +105,7 @@
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXLCDLabel.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <helpers/ValueRetriever.h>
 #include <helpers/ValueSource.h>
 #include "GUISUMOViewParent.h"
@@ -136,7 +140,7 @@ class GUIThreadFactory;
  * whether aggregated views are allowed is stored within this class, too.
  */
 class GUIApplicationWindow :
-        public FXMainWindow, public MFXInterThreadEventClient
+        public GUIMainWindow, public MFXInterThreadEventClient
 {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
@@ -151,32 +155,11 @@ public:
 
     /** @brief Creates the main window
         (required by FOX) */
-    void create();
+    virtual void create();
 
     /// Detaches the tool/menu bar
-    void detach();
+    virtual void detach();
 
-    /// Returns the maximum width of gl-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the maximum height of gl-windows
-    int getMaxGLHeight() const;
-
-    /// Adds a further child window to the list
-    void addChild(FXMDIChild *child, bool updateOnSimStep=true);
-    void addChild(FXMainWindow *child, bool updateOnSimStep=true);
-
-    /// removes the given child window from the list
-    void removeChild(FXMDIChild *child);
-    void removeChild(FXMainWindow  *child);
-
-    FXCursor *getDefaultCursor();
-
-    FXGLVisual *getGLVisual() const;
-    FXGLCanvas *getBuildGLCanvas() const;
-
-
-    FXFont *getBoldFont();
 
 public:
     /// Closes the log window
@@ -248,7 +231,11 @@ public:
         FXuint ms=1000, void *ptr=NULL);
     FXTimer *removeTimeout(FXObject *tgt, FXSelector sel);
 
-    void updateChildren();
+    FXGLCanvas *getBuildGLCanvas() const;
+    size_t getCurrentSimTime() const;
+
+    FXCursor *getDefaultCursor();
+
 
 private:
     /** starts to load a simulation */
@@ -266,12 +253,12 @@ protected:
     /** called when an event occures */
 //    bool event(QEvent *e);
 
-private:
+protected:
     /// Builds the menu bar
-    void fillMenuBar();
+    virtual void fillMenuBar();
 
     /// Builds the tool bar
-    void fillToolBar();
+    virtual void fillToolBar();
 
 protected:
     /** the name of the simulation */
@@ -296,20 +283,11 @@ protected:
     FXMenuPane *myFileMenu, *myEditMenu, *mySettingsMenu,
         *myWindowsMenu, *myHelpMenu;
 
-    /// The openGL-maximum screen sizes
-    int myGLWidth, myGLHeight;
-
-    std::vector<FXMDIChild*> mySubWindows;
-    std::vector<FXMainWindow*> myTrackerWindows;
-
     /// A window to display messages, warnings and error in
     GUIMessageWindow *myMessageWindow;
 
     /// The splitter that divides the main window into vies and the log window
     FXSplitter *myMainSplitter;
-
-    /// The multi view panel
-    FXMDIClient *myMDIClient;
 
     /// The status bar
     FXStatusBar *myStatusbar;
@@ -335,9 +313,6 @@ protected:
     /// The application tool bar
     FXToolBar *myToolBar;
 
-    /// The gl-visual used
-    FXGLVisual *myGLVisual;
-
     /// the simulation step display
     FXEX::FXLCDLabel *myLCDLabel;
 
@@ -347,14 +322,8 @@ protected:
     /// io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// Font used for popup-menu titles
-    FXFont *myBoldFont;
-
     /// List of recent files
     FXRecentFiles myRecentFiles;
-
-    /// A lock to make the removal and addition of trackers secure
-    FXEX::FXMutex myTrackerLock;
 
 };
 

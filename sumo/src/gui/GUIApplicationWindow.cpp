@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.34  2004/08/02 11:44:31  dkrajzew
 // ported to fox 1.2; patched missing unlock on unwished program termination
 //
@@ -150,18 +153,18 @@ namespace
 #include <utils/foxtools/FXThreadEvent.h>
 #include <sumo_version.h>
 
-#include "GUIAppEnum.h"
-#include "GUIEvent_SimulationStep.h"
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include "GUIEvent_SimulationLoaded.h"
-#include "GUIEvent_SimulationEnded.h"
-#include "GUIEvent_Message.h"
-#include "GUIEvents.h"
-#include "GUIMessageWindow.h"
+#include <utils/gui/events/GUIEvent_SimulationEnded.h>
+#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/events/GUIEvents.h>
+#include <utils/gui/div/GUIMessageWindow.h>
 #include "GUIGlobals.h"
-#include "vartracker/GUIParameterTracker.h"
-#include "partable/GUIParameterTableWindow.h"
-#include "icons/GUIIconSubSys.h"
-#include "textures/GUITexturesHelper.h"
+#include <utils/gui/tracker/GUIParameterTracker.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_SimSettings.h"
@@ -170,6 +173,10 @@ namespace
 #include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include "GUIThreadFactory.h"
+#include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/drawer/GUIGradients.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <guisim/GUINetWrapper.h>
 
 
 /* =========================================================================
@@ -236,18 +243,15 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
                                            GUIThreadFactory &threadFactory,
                                            int glWidth, int glHeight,
                                            const std::string &config)
-    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
+    : GUIMainWindow(a, glWidth, glHeight),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
-    myGLWidth(glWidth), myGLHeight(glHeight),
-    mySimDelay(50),
-    myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO))
+    mySimDelay(50)
 {
     setTarget(this);
     setSelector(MID_WINDOW);
     GUIIconSubSys::init(a);
-    GUITexturesHelper::init(this);
-    gGradients = new GUIGradientStorage(this);
+    GUITexturesHelper::init(getApp());
 
     // build menu bar
     myMenuBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
@@ -316,11 +320,6 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         gStartAtBegin = false;
     }
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
-
-    FXFontDesc fdesc;
-    getApp()->getNormalFont()->getFontDesc(fdesc);
-    fdesc.weight = FONTWEIGHT_BOLD;
-    myBoldFont = new FXFont(getApp(), fdesc);
 }
 
 
@@ -911,7 +910,7 @@ GUIApplicationWindow::eventOccured()
 void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
 {
-    GUITexturesHelper::init(this);
+    GUITexturesHelper::init(getApp());
     myAmLoading = false;
     GUIEvent_SimulationLoaded *ec =
         static_cast<GUIEvent_SimulationLoaded*>(e);
@@ -924,6 +923,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     } else {
         // initialise global information
         gSimInfo = new GUISimInfo(*(ec->_net));
+        gNetWrapper = ec->_net->getWrapper();
         // report success
         string text = string("'") + ec->_file + string("' loaded.");
         myStatusbar->getStatusLine()->setText(text.c_str());
@@ -1103,60 +1103,6 @@ GUIApplicationWindow::closeAllWindows()
 }
 
 
-int
-GUIApplicationWindow::getMaxGLWidth() const
-{
-    return myGLWidth;
-}
-
-
-int
-GUIApplicationWindow::getMaxGLHeight() const
-{
-    return myGLHeight;
-}
-
-
-void
-GUIApplicationWindow::addChild(FXMDIChild *child,
-                               bool updateOnSimStep)
-{
-    mySubWindows.push_back(child);
-}
-
-
-void
-GUIApplicationWindow::removeChild(FXMDIChild *child)
-{
-    std::vector<FXMDIChild*>::iterator i =
-        std::find(mySubWindows.begin(), mySubWindows.end(), child);
-    if(i!=mySubWindows.end()) {
-        mySubWindows.erase(i);
-    }
-}
-
-
-void
-GUIApplicationWindow::addChild(FXMainWindow *child,
-                               bool updateOnSimStep)
-{
-    myTrackerLock.lock();
-    myTrackerWindows.push_back(child);
-    myTrackerLock.unlock();
-}
-
-
-void
-GUIApplicationWindow::removeChild(FXMainWindow *child)
-{
-    myTrackerLock.lock();
-    std::vector<FXMainWindow*>::iterator i =
-        std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
-    myTrackerWindows.erase(i);
-    myTrackerLock.unlock();
-}
-
-
 FXCursor *
 GUIApplicationWindow::getDefaultCursor()
 {
@@ -1179,33 +1125,12 @@ GUIApplicationWindow::removeTimeout(FXObject *tgt, FXSelector sel)
 }
 
 
-FXGLVisual *
-GUIApplicationWindow::getGLVisual() const
+size_t
+GUIApplicationWindow::getCurrentSimTime() const
 {
-    return myGLVisual;
+    return myRunThread->getCurrentTimeStep();
 }
 
-
-FXFont *
-GUIApplicationWindow::getBoldFont()
-{
-    return myBoldFont;
-}
-
-
-void
-GUIApplicationWindow::updateChildren()
-{
-    // inform views
-    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
-    // inform other windows
-    int i = 0;
-    myTrackerLock.lock();
-    for(i=0; i<myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this,FXSEL(SEL_COMMAND,MID_SIMSTEP), 0);
-    }
-    myTrackerLock.unlock();
-}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -23,16 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:06:50  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <fx.h>
 #include <string>
-#include <gui/GUIGlObject_AAManipulatable.h>
 #include <gui/GUIApplicationWindow.h>
 #include "GUIManipulator.h"
 #include <gui/GUIGlobals.h>
@@ -41,26 +42,16 @@ namespace
 /* =========================================================================
  * FOX callback mapping
  * ======================================================================= */
-/*
-FXDEFMAP(GUIManipulator) GUIManipulatorMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK, GUIManipulator::onCmdClose),
-};
-
-FXIMPLEMENT(GUIManipulator, FXDialogBox, GUIManipulatorMap, ARRAYNUMBER(GUIManipulatorMap))
-*/
 FXIMPLEMENT(GUIManipulator, FXDialogBox, NULL, 0)
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIManipulator::GUIManipulator(GUIApplicationWindow &app,
+GUIManipulator::GUIManipulator(GUIMainWindow &app,
                                const std::string &name,
-                               GUIGlObject_AAManipulatable &o,
                                int xpos, int ypos)
-    : FXDialogBox(&app, name.c_str(), DECOR_ALL),
-    myObject(&o)
+    : FXDialogBox(&app, name.c_str(), DECOR_ALL)
 {
 }
 

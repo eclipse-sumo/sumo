@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.8  2004/07/02 08:28:50  dkrajzew
 // some changes needed to derive the threading classes more easily added
 //
@@ -68,6 +71,7 @@ class NLJunctionControlBuilder;
 class GUINetBuilder;
 class OptionsCont;
 class GUIVehicleControl;
+class GUINet;
 
 
 /* =========================================================================
@@ -78,7 +82,7 @@ class GUILoadThread : public FXSingleEventThread
 public:
 
     /// constructor
-    GUILoadThread(GUIApplicationWindow *mw, MFXEventQue &eq,
+    GUILoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,
         FXEX::FXThreadEvent &ev);
 
     /// destructor
@@ -109,6 +113,8 @@ protected:
         bool allowAggregatedViews);
     virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
+    virtual void initDevices();
+
 
     /** @brief Closes the loading process
         This method is called both on success and failure.
@@ -119,7 +125,7 @@ protected:
 
 protected:
     /// the parent window to inform about the loading
-    GUIApplicationWindow *myParent;
+//    GUIApplicationWindow *myParent;
 
     /// the path to load the simulation from
     std::string _file;

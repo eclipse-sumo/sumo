@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.26  2004/07/02 08:28:50  dkrajzew
 // some changes needed to derive the threading classes more easily added
 //
@@ -113,7 +116,7 @@ namespace
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
 #include <guisim/GUIVehicleControl.h>
-#include <microsim/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -129,11 +132,14 @@ namespace
 #include "GUILoadThread.h"
 #include "GUIGlobals.h"
 #include "GUIEvent_SimulationLoaded.h"
-#include "GUIEvent_Message.h"
-#include "GUIEvent_SimulationEnded.h"
-#include "GUIAppEnum.h"
-
+#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/events/GUIEvent_SimulationEnded.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/common/RandHelper.h>
 #include <ctime>
+#include <utils/iodevices/SharedOutputDevices.h>
 
 
 /* =========================================================================
@@ -146,9 +152,9 @@ using namespace FXEX;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUILoadThread::GUILoadThread(GUIApplicationWindow *mw,
+GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
                              MFXEventQue &eq, FXEX::FXThreadEvent &ev)
-    : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
+    : FXSingleEventThread(gFXApp, mw), /*myParent(mw), */myEventQue(eq),
     myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
@@ -157,6 +163,7 @@ GUILoadThread::GUILoadThread(GUIApplicationWindow *mw,
         &GUILoadThread::retrieveMessage);
     myWarningRetreiver = new MsgRetrievingFunction<GUILoadThread>(this,
         &GUILoadThread::retrieveWarning);
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 
 
@@ -178,11 +185,6 @@ GUILoadThread::run()
     // remove old options
     OptionsSubSys::close();
 
-    // register message callbacks
-    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
-    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-
     // try to load the given configuration
     if(!initOptions()) {
         // ok, the options could not be set
@@ -196,6 +198,11 @@ GUILoadThread::run()
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
+    // register message callbacks
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+
     // try to load
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb;
@@ -204,13 +211,15 @@ GUILoadThread::run()
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
+        initDevices();
+        SUMOFrame::setMSGlobals(oc);
         net = static_cast<GUINet*>(builder->buildNet(buildVehicleControl()));
         if(net!=0) {
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
             simEndTime = oc.getInt("e");
         }
-        srand(oc.getInt("srand"));
+        RandHelper::initRandGlobal(oc);
     } catch (UtilException &e) {
         string error = e.msg();
         MsgHandler::getErrorInstance()->inform(error);
@@ -256,6 +265,13 @@ GUIVehicleControl*
 GUILoadThread::buildVehicleControl()
 {
     return new GUIVehicleControl();
+}
+
+
+void
+GUILoadThread::initDevices()
+{
+    SharedOutputDevices::setInstance(new SharedOutputDevices());
 }
 
 

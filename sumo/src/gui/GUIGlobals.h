@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.4  2004/08/02 11:49:11  dkrajzew
 // gradients added; documentation added
 //
@@ -28,11 +31,9 @@
  * included modules
  * ======================================================================= */
 #include <vector>
-#include <string>
 #include <fx.h>
-#include <gui/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIAddWeightsStorage.h>
-#include <gui/GUIGradientStorage.h>
 
 
 /* =========================================================================
@@ -65,31 +66,18 @@ extern bool gAllowAggregated;
 /// Information whether time-floating views are allowed
 extern bool gAllowAggregatedFloating;
 
-/// Information whether to use textures
-extern bool gAllowTextures;
-
 /// Information whether not to display the information about a simulation's end
 extern bool gSuppressEndInfo;
 
 /// Structure holding the used network
 extern GUISimInfo *gSimInfo;
 
-/// The folder used as last
-extern std::string gCurrentFolder;
-
-/// A storage for available gradients
-extern GUIGradientStorage *gGradients;
 
 /// A (global?!!!) value about how fast values shall be replaced within aggregated views
 extern float gAggregationRememberingFactor;
 
-/// Pointer to the FX-Application
-extern FXApp *gFXApp;
 
 
-    /** @brief A container for numerical ids of objects
-        in order to make them grippable by openGL */
-extern GUIGlObjectStorage gIDStorage;
 
 /// Storage for additional weights
 extern GUIAddWeightsStorage gAddWeightsStorage;

@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.24  2004/07/02 08:28:50  dkrajzew
 // some changes needed to derive the threading classes more easily added
 //
@@ -106,12 +109,16 @@ namespace
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
 #include <helpers/SingletonDictionary.h>
-#include "GUIEvent_Message.h"
-#include "GUIEvent_SimulationStep.h"
-#include "GUIEvent_SimulationEnded.h"
+#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/events/GUIEvent_SimulationStep.h>
+#include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include "GUIApplicationWindow.h"
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
 
 
 /* =========================================================================
@@ -124,10 +131,10 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIRunThread::GUIRunThread(GUIApplicationWindow *parent,
+GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
-    : FXSingleEventThread(parent->getApp(), parent), _parent(parent),
+    : FXSingleEventThread(gFXApp, parent), //_parent(parent),
     _net(0), _quit(false), _simulationInProgress(false), _ok(false),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
@@ -137,10 +144,6 @@ GUIRunThread::GUIRunThread(GUIApplicationWindow *parent,
         &GUIRunThread::retrieveMessage);
     myWarningRetreiver = new MsgRetrievingFunction<GUIRunThread>(this,
         &GUIRunThread::retrieveWarning);
-    // register message callbacks
-    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
-    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
 }
 
 
@@ -149,10 +152,6 @@ GUIRunThread::~GUIRunThread()
     // the thread shall stop
     _quit = true;
     deleteSim();
-    // remove message callbacks
-    MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
-    MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetreiver;
@@ -165,13 +164,18 @@ void
 GUIRunThread::init(GUINet *net, long start, long end)
 {
     // delete a maybe existing simulation
-    deleteSim();
+//    deleteSim();
     // assign new values
     _net = net;
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
     _net->initialiseSimulation();
+    // register message callbacks
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 }
 
 
@@ -180,10 +184,6 @@ GUIRunThread::run()
 {
     // perform an endless loop
     while(!_quit) {
-        // sleep when no net is available
-        if(_net==0) {
-            sleep(500);
-        }
         // if the simulation shall be perfomed, do it
         if(!_halting&&_net!=0&&_ok) {
             bool haltAfter =  find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
@@ -191,9 +191,12 @@ GUIRunThread::run()
             if(haltAfter) {
                 stop();
             }
+            double val = mySimDelay.getValue();
+            sleep((int) val);
+        } else {
+            // sleep otherwise
+            sleep(500);
         }
-        double val = mySimDelay.getValue();
-        sleep((int) val);
     }
     // delete a maybe existing simulation at the end
     deleteSim();
@@ -244,6 +247,7 @@ GUIRunThread::makeStep()
             myEventThrow.signal();
         }
     } catch (...) {
+        mySimulationLock.unlock();
         _simulationInProgress = false;
         e = new GUIEvent_SimulationEnded(
             GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
@@ -284,6 +288,7 @@ GUIRunThread::begin()
         _halting = false;
         _ok = true;
     } catch (...) {
+        MsgHandler::getErrorInstance()->inform("A serious error occured.");
         _ok = false;
         _simulationInProgress = false;
         GUIEvent_SimulationEnded *e = new GUIEvent_SimulationEnded(
@@ -314,6 +319,11 @@ void
 GUIRunThread::deleteSim()
 {
     _halting = true;
+    // remove message callbacks
+    MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
+    MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    //
     mySimulationLock.lock();
     if(_net!=0) {
         _net->closeSimulation();
@@ -321,6 +331,7 @@ GUIRunThread::deleteSim()
     while(_simulationInProgress);
     delete _net;
     _net = 0;
+delete SharedOutputDevices::getInstance();
     mySimulationLock.unlock();
 }
 

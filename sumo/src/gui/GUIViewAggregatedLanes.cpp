@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/11/23 10:11:33  dkrajzew
+// adapted the new class hierarchy
+//
 // Revision 1.13  2004/08/02 11:55:35  dkrajzew
 // using coloring schemes stored in a container
 //
@@ -150,18 +153,26 @@ namespace
 #include "drawerimpl/GUIROWDrawer_FGnT.h"
 #include "drawerimpl/GUIROWDrawer_SGwT.h"
 #include "drawerimpl/GUIROWDrawer_FGwT.h"
-#include "drawerimpl/GUILaneDrawer_SGwT.h"
-#include "drawerimpl/GUILaneDrawer_SGnT.h"
-#include "drawerimpl/GUILaneDrawer_FGwT.h"
-#include "drawerimpl/GUILaneDrawer_FGnT.h"
-#include "GUIDanielPerspectiveChanger.h"
+#include <utils/gui/drawer/GUILaneDrawer_SGwT.h>
+#include <utils/gui/drawer/GUILaneDrawer_SGnT.h>
+#include <utils/gui/drawer/GUILaneDrawer_FGwT.h>
+#include <utils/gui/drawer/GUILaneDrawer_FGnT.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include "GUIViewAggregatedLanes.h"
-#include "GUIApplicationWindow.h"
 #include "GUIGlobals.h"
-#include "GUIGlObject_AbstractAdd.h"
-#include "icons/GUIIconSubSys.h"
-#include "GUIAppEnum.h"
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <gui/GUIApplicationWindow.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_GradientByFunctionValue.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
+#include "GUIColorer_LaneByPurpose.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -192,33 +203,26 @@ FXIMPLEMENT(GUIViewAggregatedLanes,GUISUMOAbstractView,GUIViewAggregatedLanesMap
 
 
 /* =========================================================================
- * static members definitions
- * ======================================================================= */
-GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme>
-    GUIViewAggregatedLanes::myLaneColoringSchemes;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
-                               GUIApplicationWindow &app,
+                               GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
-    : GUISUMOAbstractView(p, app, parent, net, glVis),
-    _laneColScheme(LCS_BY_DENSITY), myUseFullGeom(true)
+    : GUISUMOAbstractView(p, app, parent, net._grid, glVis),
+    myUseFullGeom(true), _net(&net)
 {
     init(net);
 }
 
 
 GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
-                               GUIApplicationWindow &app,
+                               GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
-    : GUISUMOAbstractView(p, app, parent, net, glVis, share),
-    _laneColScheme(LCS_BY_DENSITY), myUseFullGeom(true)
+    : GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
+    myUseFullGeom(true), _net(&net)
 {
     init(net);
 }
@@ -236,14 +240,14 @@ GUIViewAggregatedLanes::init(GUINet &net)
     _additional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
     _additional2Show = new size_t[_additional2ShowSize];
     clearUsetable(_additional2Show, _additional2ShowSize);
-    myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
-    myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
-    myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
-    myLaneDrawer[3] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
-    myLaneDrawer[4] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
-    myLaneDrawer[5] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
-    myLaneDrawer[6] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
-    myLaneDrawer[7] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
+    myLaneDrawer[0] = new GUILaneDrawer_SGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[1] = new GUILaneDrawer_SGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[2] = new GUILaneDrawer_FGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[3] = new GUILaneDrawer_FGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[4] = new GUILaneDrawer_SGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[5] = new GUILaneDrawer_SGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[6] = new GUILaneDrawer_FGnT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
+    myLaneDrawer[7] = new GUILaneDrawer_FGwT<GUIEdge, GUIEdge, GUILaneWrapper>(_net->myEdgeWrapper);
     myJunctionDrawer[0] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
     myJunctionDrawer[1] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
     myJunctionDrawer[2] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
@@ -261,16 +265,46 @@ GUIViewAggregatedLanes::init(GUINet &net)
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
     // lane coloring
-    if(myLaneColoringSchemes.size()==0) {
-        myLaneColoringSchemes.add("by density", GUISUMOAbstractView::LCS_BY_DENSITY);
-        myLaneColoringSchemes.add("by mean speed", GUISUMOAbstractView::LCS_BY_MEAN_SPEED);
-        myLaneColoringSchemes.add("by mean halts", GUISUMOAbstractView::LCS_BY_MEAN_HALTS);
-        myLaneColoringSchemes.add("black", GUISUMOAbstractView::LCS_BLACK);
-        myLaneColoringSchemes.add("by purpose", GUISUMOAbstractView::LCS_BY_PURPOSE);
-        myLaneColoringSchemes.add("by allowed speed", GUISUMOAbstractView::LCS_BY_SPEED);
-        myLaneColoringSchemes.add("by selection", GUISUMOAbstractView::LCS_BY_SELECTION);
-    }
+    GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
+    myLaneColorer = defLaneColorer;
+    myLaneColoringSchemes.add("black",
+        GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
+    myLaneColoringSchemes.add("by density",
+        GUISUMOAbstractView::LCS_BY_DENSITY,
+        new GUIColorer_GradientByFunctionValue<GUILaneWrapper, E2::DetType, E2::DetType>(
+            (double) 0, (double) 1,
+            gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 100),
+            (double (GUILaneWrapper::*)(E2::DetType) const) &GUILaneWrapper::getAggregatedFloat,
+            E2::DENSITY));
+    /*
+    myLaneColoringSchemes.add("by mean speed",
+        GUISUMOAbstractView::LCS_BY_MEAN_SPEED,
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
+    myLaneColoringSchemes.add("by mean halts",
+        GUISUMOAbstractView::LCS_BY_MEAN_HALTS,
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
+        */
+    myLaneColoringSchemes.add("by purpose",
+        GUISUMOAbstractView::LCS_BY_PURPOSE,
+        new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+
+//      (double (GUILaneWrapper::*)() const) = GUILaneWrapper::maxSpeed;
+    myLaneColoringSchemes.add("by allowed speed",
+        GUISUMOAbstractView::LCS_BY_SPEED,
+        new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            (double) 0, GUILaneWrapper::getOverallMaxSpeed(),
+            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+
+    myLaneColoringSchemes.add("by selection",
+        GUISUMOAbstractView::LCS_BY_SELECTION,
+        new GUIColorer_LaneBySelection<GUILaneWrapper>());
+    myLaneColoringSchemes.add("white",
+        GUISUMOAbstractView::LCS_WHITE,
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
 }
+
 
 GUIViewAggregatedLanes::~GUIViewAggregatedLanes()
 {
@@ -282,6 +316,8 @@ GUIViewAggregatedLanes::~GUIViewAggregatedLanes()
     delete _edges2Show;
     delete _junctions2Show;
     delete _additional2Show;
+    delete myLaneColoring;
+    delete myLocatorPopup;
 }
 
 
@@ -289,18 +325,20 @@ void
 GUIViewAggregatedLanes::create()
 {
     FXGLCanvas::create();
+    myLaneColoring->create();
+    myLocatorPopup->create();
 }
 
 
 void
-GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
+GUIViewAggregatedLanes::buildViewToolBars(GUIGlChildWindow &v)
 {
     FXToolBar &toolbar = v.getToolBar(*this);
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
     // build coloring tools
         // lane colors
     myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
-    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURVEHICLES);
+    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURLANES);
     new FXMenuButton(&toolbar,"\tSet the coloring scheme for lanes",
         GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
         MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
@@ -331,16 +369,20 @@ GUIViewAggregatedLanes::buildViewToolBars(GUISUMOViewParent &v)
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
     // build the locator buttons
+    myLocatorPopup = new FXPopup(&toolbar, POPUP_VERTICAL);
         // for junctions
-    new FXButton(&toolbar,
-        "\tLocate Junction\tLocate a Junction within the Network.",
-        GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // for edges
-    new FXButton(&toolbar,
-        "\tLocate Street\tLocate a Street within the Network.",
-        GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myLocatorPopup,
+            "\tLocate Junction\tLocate a Junction within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+            // for edges
+        new FXButton(myLocatorPopup,
+            "\tLocate Street\tLocate a Street within the Network.",
+            GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+            ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+    new FXMenuButton(&toolbar,"\tLocate structures",
+        GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
+        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -368,8 +410,8 @@ long
 GUIViewAggregatedLanes::onCmdColourLanes(FXObject*,FXSelector sel,void*)
 {
     int index = FXSELID(sel) - MID_COLOURLANES;
-    _laneColScheme =
-        myLaneColoringSchemes.getEnumValue(index);
+    myLaneColorer =
+        myLaneColoringSchemes.getColorer(index);
     update();
     return 1;
 }
@@ -389,7 +431,7 @@ GUIViewAggregatedLanes::onCmdShowFullGeom(FXObject*sender,FXSelector,void*)
 long
 GUIViewAggregatedLanes::onCmdAggMemory(FXObject*,FXSelector,void*)
 {
-    gAggregationRememberingFactor = myRememberingFactor->getValue();
+    gAggregationRememberingFactor = (float) myRememberingFactor->getValue();
     return 1;
 }
 
@@ -416,12 +458,12 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
 
-    const Boundery &nb = _net->getBoundery();
+    const Boundary &nb = _net->getBoundary();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * _netScale
+    double xoff = 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to right
     double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * _netScale
+    double yoff = 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
     if(myViewSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
@@ -443,7 +485,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
     myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show,
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
-        width, _laneColScheme);
+        width, *myLaneColorer);
 
     // draw the Polygons
     std::map<std::string, Polygon2D*>::iterator ppoly =
