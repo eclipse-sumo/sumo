@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.6  2003/04/10 15:47:01  dkrajzew
 // random routes are now being prunned to avoid some stress with turning vehicles
 //
@@ -86,9 +89,10 @@ ROOrigDestRouteDef::getTo() const
 
 
 RORoute *
-ROOrigDestRouteDef::buildCurrentRoute(RORouter &router, long begin)
+ROOrigDestRouteDef::buildCurrentRoute(RORouter &router, long begin,
+                                      bool continueOnUnbuild)
 {
-    ROEdgeVector rv = router.compute(_from, _to, begin);
+    ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild);
     if(myRemoveFirst&&rv.size()>1) {
         rv.removeEnds();
     }

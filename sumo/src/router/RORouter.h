@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -61,7 +64,8 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
-    ROEdgeVector compute(ROEdge *from, ROEdge *to, long time);
+    ROEdgeVector compute(ROEdge *from, ROEdge *to,
+        long time, bool continueOnUnbuild);
 
 private:
     /// Class to compare (and so sort) nodes by their effort
@@ -80,7 +84,8 @@ private:
     };
 
     /// Computes the route using Dijkstra's algorithm
-    ROEdgeVector dijkstraCompute(ROEdge *from, ROEdge *to, long time);
+    ROEdgeVector dijkstraCompute(ROEdge *from, ROEdge *to,
+        long time, bool continueOnUnbuild);
 
     /// Builds the path from marked edges
     ROEdgeVector buildPathFrom(ROEdge *rbegin);

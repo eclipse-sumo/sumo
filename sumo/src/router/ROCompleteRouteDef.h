@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.4  2003/03/20 17:40:59  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -73,7 +76,7 @@ public:
 
 protected:
     /// Builds the route
-    RORoute *buildCurrentRoute(RORouter &router, long begin);
+    RORoute *buildCurrentRoute(RORouter &router, long begin, bool continueOnUnbuild);
 
     /** @brief Adds an route alternative (see further comments)
         Here, as in most cases, the alternative is the route that was build

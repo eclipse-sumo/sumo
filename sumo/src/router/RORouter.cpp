@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.7  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -52,7 +55,7 @@ namespace
 #include <string>
 #include <deque>
 #include <algorithm>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "RONet.h"
 #include "RORouter.h"
 #include "ROEdge.h"
@@ -69,21 +72,22 @@ RORouter::~RORouter()
 }
 
 ROEdgeVector
-RORouter::compute(ROEdge *from, ROEdge *to, long time)
+RORouter::compute(ROEdge *from, ROEdge *to, long time, bool continueOnUnbuild)
 {
     // check whether the route is already known
     if(_net.knowsRouteSnipplet(from, to)) {
         return _net.getRouteSnipplet(from, to); // !!! invalid over time
     }
     // otherwise, build, save and return a new route
-    ROEdgeVector ret = dijkstraCompute(from, to, time);
+    ROEdgeVector ret = dijkstraCompute(from, to, time, continueOnUnbuild);
     _net.addRouteSnipplet(ret);
     return ret;
 }
 
 
 ROEdgeVector
-RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
+RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time, bool continueOnUnbuild)
+{
     // check the nodes
     if(from==0||to==0) {
         throw exception();
@@ -142,10 +146,12 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
             return buildPathFrom(to);
 		}
 	}
-	cout << endl;
-    SErrorHandler::add(
-        string("No connection between '") + from->getID()
-        + string("' and '") + to->getID() + string("' found."));
+    if(!continueOnUnbuild) {
+	    cout << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("No connection between '") + from->getID()
+            + string("' and '") + to->getID() + string("' found."));
+    }
     return buildPathFrom(to);
 }
 

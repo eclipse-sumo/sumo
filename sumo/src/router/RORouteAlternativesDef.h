@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.3  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -75,7 +78,8 @@ public:
 
 protected:
     /// Build the next route
-    RORoute *buildCurrentRoute(RORouter &router, long begin);
+    RORoute *buildCurrentRoute(RORouter &router, long begin,
+        bool continueOnUnbuild);
 
     /// Adds a build alternative
     void addAlternative(RORoute *current, long begin);

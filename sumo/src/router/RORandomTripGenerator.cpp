@@ -22,8 +22,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// Revision 1.5  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
 // Revision 1.3  2003/05/20 09:48:35  dkrajzew
 // debugging

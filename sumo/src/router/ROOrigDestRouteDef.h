@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.5  2003/04/10 15:47:01  dkrajzew
 // random routes are now being prunned to avoid some stress with turning vehicles
 //
@@ -76,7 +79,8 @@ public:
 
 protected:
     /// Builds the current route from the given information (perform routing, here)
-    RORoute *buildCurrentRoute(RORouter &router, long begin);
+    RORoute *buildCurrentRoute(RORouter &router, long begin,
+        bool continueOnUnbuild);
 
     /** @brief Adds the build route to the container
         Here, the currently new route is added */

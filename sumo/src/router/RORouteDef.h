@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -89,7 +92,8 @@ public:
 protected:
     /** @brief Builds the complete route
         (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute *buildCurrentRoute(RORouter &router, long begin) = 0;
+    virtual RORoute *buildCurrentRoute(RORouter &router, long begin,
+        bool continueOnUnbuild) = 0;
 
     /** @brief Adds an alternative to the list of routes
         (This may be the new route) */

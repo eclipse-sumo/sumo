@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:36:50  dkrajzew
+// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
+//
 // Revision 1.6  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -104,14 +107,16 @@ RORouteAlternativesDef::getTo() const
 
 
 RORoute *
-RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin)
+RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin,
+                                          bool continueOnUnbuild)
 {
     // recompute duration of the last route used
     _alternatives[_lastUsed]->recomputeCosts(begin);
     // build a new route to test whether it is better
     //  !!! after some iterations, no further routes should be build
     RORoute *opt =
-        new RORoute(_id, 0, 1, router.compute(getFrom(), getTo(), begin));
+        new RORoute(_id, 0, 1,
+            router.compute(getFrom(), getTo(), begin, continueOnUnbuild));
     opt->setCosts(opt->recomputeCosts(begin));
     // check whether the same route was already used
     _lastUsed = findRoute(opt);
