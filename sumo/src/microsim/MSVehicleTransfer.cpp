@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/04/23 12:39:26  dkrajzew
+// debug-variables removed
+//
 // Revision 1.8  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -87,9 +90,6 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 void
 MSVehicleTransfer::checkEmissions(MSNet::Time time)
 {
-    if(time==52334) {
-        int bla = 0;
-    }
     // go through vehicles
     for(VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
         // get the vehicle information
