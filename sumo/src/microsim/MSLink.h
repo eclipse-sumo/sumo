@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/02/16 14:23:02  dkrajzew
+// copy constructor and assignment operator invalidated
+//
 // Revision 1.11  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -50,9 +53,6 @@
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -194,14 +194,17 @@ private:
     /// MSLinks's default right of way, true for right of way MSLinks.
     bool myPrio;
 
+private:
+    /// invalidated copy constructor
+    MSLink(const MSLink &s);
+
+    /// invalidated assignment operator
+    MSLink &operator=(const MSLink &s);
+
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSLink.icc"
-//#endif
 
 #endif
 
