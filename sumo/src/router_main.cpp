@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/07/22 15:17:15  dkrajzew
+// documentation
+//
 // Revision 1.22  2003/07/07 08:42:26  dkrajzew
 // no configuration is loaded as default any more
 //
@@ -296,6 +299,7 @@ main(int argc, char **argv)
     int ret = 0;
     RONet *net = 0;
     try {
+        // initialise the application system (messaging, xml, options)
         if(!SystemFrame::init(false, argc, argv,
             fillOptions, checkOptions, help)) {
             throw ProcessError();
