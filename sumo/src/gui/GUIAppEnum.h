@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/08/02 13:14:10  dkrajzew
+// clear message window and coloring scheme changes applied
+//
 // Revision 1.3  2004/07/02 08:10:56  dkrajzew
 // edition of breakpoints and additional weights added
 //
@@ -107,6 +110,8 @@ enum {
     MID_SIMDELAY,
     //@}
 
+    // Clear simulation settings
+    MID_CLEARMESSAGEWINDOW,
 
     //@{ Common View Settings - IDs
     /// Recenter View - Button
@@ -127,6 +132,8 @@ enum {
     MID_SHOWTOOLTIPS,
     /// Show Full Geom - Button
     MID_SHOWFULLGEOM,
+    /// Make Snapshot - Button
+    MID_MAKESNAPSHOT,
     //@}
 
     //@{ Common View IDs
@@ -140,9 +147,9 @@ enum {
     /// Change Vehicle Coloring Scheme- combo
     MID_COLOURVEHICLES,
     /// Change Lane Coloring Scheme- combo
-    MID_COLOURLANES,
+    MID_COLOURLANES = MID_COLOURVEHICLES+100,
     /// Change the aggregation Time Value - combo
-    MID_LANEAGGTIME,
+    MID_LANEAGGTIME = MID_COLOURLANES+100,
     /// The Aggregation Memory - dial
     MID_LANEAGGRMEM,
     //@}
