@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/04/16 06:05:03  dkrajzew
+// Output of the number of build detectors added
+//
 // Revision 1.2  2002/04/15 07:05:35  dkrajzew
 // new loading paradigm implemented
 //
@@ -421,12 +424,14 @@ std::string
 NLContainer::getStatistics() const
 {
   ostringstream buf;
-  buf << "Edges build:" << noEdges << endl;
-  buf << "Lanes build:" << noLanes << endl;
-  buf << "Junctions build:" << noJunctions << endl;
-  buf << "Vehicles build:" << noVehicles << endl;
-  buf << "VehiclesTypes build:" << noVehicleTypes << endl;
-  buf << "Routes build:" << noRoutes << endl << ends;
+  buf << "Edges build: " << noEdges << endl;
+  buf << "Lanes build: " << noLanes << endl;
+  buf << "Junctions build: " << noJunctions << endl;
+  buf << "Vehicles build: " << noVehicles << endl;
+  buf << "VehiclesTypes build: " << noVehicleTypes << endl;
+  buf << "Routes build: " << noRoutes << endl;
+  buf << "Detectors build: " << noDetectors << endl;
+  buf << ends;
   return buf.str();
 }
 
@@ -465,4 +470,5 @@ NLContainer::getDetectors() {
 
 // Local Variables:
 // mode:C++
-// End:
+// 
+
