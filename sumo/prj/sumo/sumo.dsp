@@ -117,7 +117,7 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSDetector.cpp
+SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
 
@@ -138,6 +138,10 @@ SOURCE=..\..\src\microsim\MSEventControl.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInductLoop.cpp
 # End Source File
 # Begin Source File
 
@@ -402,10 +406,6 @@ SOURCE=..\..\src\microsim\MSActuatedTrafficLightLogic.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSBitSetLogic.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSDetector.h
 # End Source File
 # Begin Source File
 

@@ -183,11 +183,23 @@ SOURCE=..\..\src\gui\GUIDanielPerspectiveChanger.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guinetload\GUIDetectorBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIDetectorWrapper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUIEdge.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\guinetload\GUIEdgeControlBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIEmitterWrapper.cpp
 # End Source File
 # Begin Source File
 
@@ -204,6 +216,10 @@ SOURCE=..\..\src\guisim\GUIGrid.cpp
 # Begin Source File
 
 SOURCE=..\..\src\guisim\GUIHelpingJunction.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIInductLoop.cpp
 # End Source File
 # Begin Source File
 
@@ -367,7 +383,7 @@ SOURCE=..\..\src\gui\partable\moc_QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSDetector.cpp
+SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
 
@@ -388,6 +404,10 @@ SOURCE=..\..\src\microsim\MSEventControl.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInductLoop.cpp
 # End Source File
 # Begin Source File
 
@@ -793,6 +813,14 @@ SOURCE=..\..\src\gui\GUIDanielPerspectiveChanger.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guinetload\GUIDetectorBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIDetectorWrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUIEdge.h
 # End Source File
 # Begin Source File
@@ -802,6 +830,10 @@ SOURCE=..\..\src\guisim\GUIEdgeCont.h
 # Begin Source File
 
 SOURCE=..\..\src\guinetload\GUIEdgeControlBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIEmitterWrapper.h
 # End Source File
 # Begin Source File
 
@@ -826,6 +858,10 @@ SOURCE=..\..\src\guisim\GUIGrid.h
 # Begin Source File
 
 SOURCE=..\..\src\guisim\GUIHelpingJunction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIInductLoop.h
 # End Source File
 # Begin Source File
 
@@ -1103,7 +1139,7 @@ SOURCE=..\..\src\microsim\MSBitSetLogic.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSDetector.h
+SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
