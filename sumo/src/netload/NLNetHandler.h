@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2003/12/05 10:26:11  dkrajzew
+// handling of internal links when theyre not wished improved
+//
 // Revision 1.16  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -304,8 +307,10 @@ private:
     /// closes the processing of a lane
     void closeSuccLane();
 
+    /// Parses the given character into an enumeration typed link direction
     MSLink::LinkDirection parseLinkDir(char dir);
 
+    /// Parses the given character into an enumeration typed link state
     MSLink::LinkState parseLinkState(char state);
 
     /// Compute the initial step of a tls-logic from the given offset
@@ -316,7 +321,11 @@ private:
 
 
 private:
+    /// A builder for object actions
     NLDiscreteEventBuilder myActionBuilder;
+
+    /// Information whether the currently parsed edge is internal and not wished, here
+    bool myCurrentIsInternalToSkip;
 
 private:
     /** invalid copy constructor */
@@ -324,6 +333,7 @@ private:
 
     /** invalid assignment operator */
     NLNetHandler &operator=(const NLNetHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

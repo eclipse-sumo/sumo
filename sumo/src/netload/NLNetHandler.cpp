@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.35  2003/12/05 10:26:10  dkrajzew
+// handling of internal links when theyre not wished improved
+//
 // Revision 1.34  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -32,13 +35,15 @@ namespace
 // Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
 //
 // Revision 1.31  2003/11/26 09:35:03  dkrajzew
-// special case of being unset (==-1) applied to min/max of actuated/agentbase phase definitions
+// special case of being unset (==-1) applied to min/max of actuated/agentbase
+//  phase definitions
 //
 // Revision 1.30  2003/11/24 14:33:40  dkrajzew
 // missing iterator initialisation failed
 //
 // Revision 1.29  2003/11/24 10:18:32  dkrajzew
-// handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
+// handling of definitions for minimum and maximum phase duration added;
+//  modified the gld-offsets computation
 //
 //
 /* =========================================================================
@@ -89,7 +94,8 @@ using namespace std;
 NLNetHandler::NLNetHandler(const std::string &file,
                            NLContainer &container)
     : MSRouteHandler(file, true),
-    myContainer(container), _tlLogicNo(-1), m_Offset(0)
+    myContainer(container), _tlLogicNo(-1), m_Offset(0),
+    myCurrentIsInternalToSkip(false)
 {
 }
 
@@ -101,7 +107,7 @@ NLNetHandler::~NLNetHandler()
 
 void
 NLNetHandler::myStartElement(int element, const std::string &name,
-                                  const Attributes &attrs)
+                             const Attributes &attrs)
 {
     // check static net information
     if(wanted(LOADFILTER_NET)) {
@@ -198,6 +204,12 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
+        // omit internal edges if not wished
+        if(!MSGlobals::myUsingInternalLanes&&id[0]==':') {
+            myCurrentIsInternalToSkip = true;
+            return;
+        }
+        myCurrentIsInternalToSkip = false;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             string("Error in description: missing id of an edge-object."));
@@ -223,6 +235,10 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
 void
 NLNetHandler::addLane(const Attributes &attrs)
 {
+    // omit internal edges if not wished
+    if(myCurrentIsInternalToSkip) {
+        return;
+    }
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
@@ -254,6 +270,10 @@ NLNetHandler::addLane(const Attributes &attrs)
 void
 NLNetHandler::openAllowedEdge(const Attributes &attrs)
 {
+    // omit internal edges if not wished
+    if(myCurrentIsInternalToSkip) {
+        return;
+    }
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -387,7 +407,8 @@ NLNetHandler::addPhase(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing phase duration...");
         return;
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
+        MsgHandler::getErrorInstance()->inform(
+            "The phase duration is not numeric.");
         return;
     }
     if(duration==0) {
@@ -406,7 +427,8 @@ NLNetHandler::addPhase(const Attributes &attrs)
             max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
         }
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("The phase minimum or masimum duration is not numeric.");
+        MsgHandler::getErrorInstance()->inform(
+            "The phase minimum or masimum duration is not numeric.");
         return;
     }
     // build the brake mask
@@ -417,13 +439,15 @@ NLNetHandler::addPhase(const Attributes &attrs)
         // for a controlled tls-logic
         m_ActivePhases.push_back(
             new MSActuatedPhaseDefinition(
-            duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
-			min, max));
+                duration, std::bitset<64>(phase),
+                prios, std::bitset<64>(yellowMask),
+			    min, max));
     } else {
         // for an controlled tls-logic
         m_ActivePhases.push_back(
             new MSPhaseDefinition(
-                duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
+                duration, std::bitset<64>(phase),
+                prios, std::bitset<64>(yellowMask)));
     }
     // add phase duration to the absolute duration
     myAbsDuration += duration;
@@ -706,11 +730,20 @@ NLNetHandler::allocateEdges(const std::string &chars)
     size_t idx = chars.find(' ');
     while(idx!=string::npos) {
         string edgeid = chars.substr(beg, idx-beg);
+        // skip internal edges if not wished
+        if(!MSGlobals::myUsingInternalLanes&&edgeid[0]==':') {
+            continue;
+        }
         myContainer.addEdge(edgeid);
         beg = idx + 1;
         idx = chars.find(' ', beg);
     }
     string edgeid = chars.substr(beg);
+    // skip internal edges if not wished
+    //  (the last one shouldn't be internal anyway)
+    if(!MSGlobals::myUsingInternalLanes&&edgeid[0]==':') {
+        return;
+    }
     myContainer.addEdge(edgeid);
 }
 

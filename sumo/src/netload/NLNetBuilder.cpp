@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/12/05 10:26:10  dkrajzew
+// handling of internal links when theyre not wished improved
+//
 // Revision 1.13  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -156,21 +159,22 @@ using namespace std;
 NLNetBuilder::NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr)
     : m_pOptions(oc)
 {
+    // build a vehicle transfer if none was supplied
     if(tr==0) {
         tr = new MSVehicleTransfer();
     }
-    MSNet::preInit(
-        tr,
-        oc.getInt("b"),
-        oc.getUIntVector("dump-intervals"),
-        oc.getString("dump-basename")/*,
-        false*/);
     // set whether empty edges shall be printed on dump
     MSGlobals::myOmitEmptyEdgesOnDump =
         !m_pOptions.getBool("dump-empty-edges");
     // set whether internal lanes shall be used
     MSGlobals::myUsingInternalLanes =
         m_pOptions.getBool("use-internal-links");
+    // preinit network
+    MSNet::preInit(
+        tr,
+        oc.getInt("b"),
+        oc.getUIntVector("dump-intervals"),
+        oc.getString("dump-basename"));
 }
 
 
