@@ -217,6 +217,21 @@ private:
 
 };
 
+/*
+Example supplementary-weights-file: 
+-----------------------------------  
+<?xml version="1.0" standalone="yes"?>
+<supplementary-weights>
+  <interval begin="60" end="119">
+    <weight edge-id="1fi" absolut="42" mult="2.5" add="-21"/>
+    <weight edge-id="2o" mult="13"/>
+  </interval>
+  <interval begin="120" end="179">
+    <weight edge-id="1fi" absolut="48" mult="2.5"/>
+    <weight edge-id="2o" add="7"/>
+  </interval>  
+</supplementary-weights>
+*/
 
 // Local Variables:
 // mode:C++
