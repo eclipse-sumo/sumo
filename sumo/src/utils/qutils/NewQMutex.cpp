@@ -23,24 +23,29 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/12 14:53:18  dkrajzew
+// documentation added; patched some compilation problems
+//
 // Revision 1.2  2003/02/07 10:52:29  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <qthread.h>
 #include "NewQMutex.h"
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NewQMutex::NewQMutex()
-    : _mutex(new QMutex())
+    : _mutex(new QMutex(FALSE))
 {
 }
 

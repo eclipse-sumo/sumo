@@ -20,12 +20,13 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/12 14:53:18  dkrajzew
+// documentation added; patched some compilation problems
+//
 // Revision 1.2  2003/02/07 10:52:29  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -33,28 +34,44 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class QMutex;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class NewQMutex
+ * A wrapper around a simple qt-mutex. We can not use it directly as there
+ *  are some bugs within the definition that make it imposible to use with
+ *  other files which use "bool"(!)
  */
 class NewQMutex {
-private:
-    QMutex *_mutex;
 public:
+    /// Constructor
     NewQMutex();
-    ~NewQMutex();
-    void lock();
-    void unlock();
-    bool locked ();
-};
 
+    /// Destructor
+    ~NewQMutex();
+
+    /// Locks the mutex
+    void lock();
+
+    /// Unlocks the mutex
+    void unlock();
+
+    /// Returns the information whether the mutex is locked
+    bool locked ();
+
+private:
+    /// The wrapped mutex
+    QMutex *_mutex;
+
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
