@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/07/16 15:35:30  dkrajzew
+// unneeded pointer to obsolete MSModel removed
+//
 // Revision 1.11  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -103,7 +106,6 @@ class NLSucceedingLaneBuilder;
 class MSEdge;
 class MSNet;
 class MSRouteCont;
-class MSModel;
 class MSVehicleType;
 class MSVehicle;
 class MSJunctionLogic;
@@ -282,9 +284,6 @@ protected:
     /** pointer to the NLSucceedingLaneBuilder
          (storage for building succeeding lanes) */
     NLSucceedingLaneBuilder   *m_pSLB;
-
-    /// pointer to the used model
-    MSModel                   *m_pModel;
 
     /** pointer to the NLDetectorBuilder
         (storage for building detectors) */
