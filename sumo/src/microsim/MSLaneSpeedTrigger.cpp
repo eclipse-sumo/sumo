@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/23 14:18:15  dkrajzew
+// hierarchy refactored; user-friendly implementation
+//
 // Revision 1.5  2003/09/22 14:56:06  dkrajzew
 // base debugging
 //
@@ -68,7 +71,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net, MSLane &destLane,
                                        const std::string &aXMLFilename)
     : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
-    _destLane(destLane)
+    _destLane(destLane), myHaveNext(false)
 {
 }
 
@@ -121,7 +124,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
     // set the values for the next step as they are valid
     _currentSpeed = speed;
     _offset = MSNet::Time(next) - _offset;
-    _nextRead = true;
+    myHaveNext = true;
 }
 
 
@@ -138,6 +141,11 @@ MSLaneSpeedTrigger::myEndElement(int , const std::string &)
 }
 
 
+bool
+MSLaneSpeedTrigger::nextRead()
+{
+    return myHaveNext;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

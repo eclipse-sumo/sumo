@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/09/23 14:18:15  dkrajzew
+// hierarchy refactored; user-friendly implementation
+//
 // Revision 1.4  2003/09/22 14:56:07  dkrajzew
 // base debugging
 //
@@ -58,7 +61,8 @@ using namespace std;
 MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
                                            const std::string &filename)
     : MSTriggeredReader(net),
-    SUMOSAXHandler("sumo-trigger values", filename)
+    SUMOSAXHandler("sumo-trigger values", filename),
+    myHaveMore(true)
 {
 }
 
@@ -98,6 +102,8 @@ MSTriggeredXMLReader::init(MSNet &net)
     if(readNextTriggered()) {
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
             new MSTriggerCommand(*this), _offset, MSEventControl::ADAPT_AFTER_EXECUTION);
+    } else {
+        myHaveMore = false;
     }
 }
 
@@ -105,12 +111,12 @@ MSTriggeredXMLReader::init(MSNet &net)
 bool
 MSTriggeredXMLReader::readNextTriggered()
 {
-    _nextRead = false;
-    while(myParser->parseNext(myToken)) {
-        if(_nextRead) {
+    while(myHaveMore&&myParser->parseNext(myToken)) {
+        if(nextRead()) {
             return true;
         }
     }
+    myHaveMore = false;
     return false;
 }
 

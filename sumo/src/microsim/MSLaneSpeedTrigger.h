@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/09/23 14:18:15  dkrajzew
+// hierarchy refactored; user-friendly implementation
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -85,12 +88,17 @@ protected:
     /** the implementation of the SAX-handler interface for reading
         element ends */
     void myEndElement(int element, const std::string &name);
+
+    bool nextRead();
+
 private:
     /** the lane the trigger is responsible for */
     MSLane &_destLane;
 
     /** the speed that will be set on the next call */
     double _currentSpeed;
+
+    bool myHaveNext;
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
