@@ -11,6 +11,16 @@
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
+/**
+ * @file   MSLaneState.h
+ * @author Christian Roessel
+ * @date   Started Tue, 18 Feb 2003
+ * $Revision$ from $date$ by $Author$
+ * @brief  Declaration of class MSLaneState and helper functions.
+ * 
+ */
+
+
 //---------------------------------------------------------------------------//
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -21,6 +31,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.17  2003/06/10 12:55:11  roessel
+// Added documentation.
+//
 // Revision 1.16  2003/06/06 07:42:31  roessel
 // Thanks, but removed umlaut.
 //
@@ -92,19 +105,39 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-/**
- * @class MSLaneState
- */
 
 class MSMoveReminder;
 class MSLane;
 
 
+/**
+ * Overhead-detector that works on a part of a MSLane. It provides current and
+ * aggregated data for waitingQueueLength, MeanSpeed, MeanSpeedSquare,
+ * MeanDensity, Traveltime and counts of vehicles that contributed to the
+ * data calculation, that enterd the detector, left the detector by move and
+ * that passed the detector entirely. If used with MSTravelcostDetector it
+ * provides a XML output string. The vehicles connect to the detector
+ * via reminder objects, i.e. MSLaneStateReminder. The Detector creates such
+ * a reminder and passes it to the corresponding lane. The lane passes the
+ * reminder to the vehicles when they enter the lane. In each timestep, the
+ * vehicles work on their reminders. If the reminder is active, it passes
+ * information to the detector.
+ * @see MSLaneStateReminder
+ * @see MSMoveReminder
+ * @see MSTravelcostDetector
+ */
 class MSLaneState
 {
 public:
-    /** Constructor: InductLoop detects on lane at position pos. He collects
-        during samplIntervall seconds data and writes them in style to file.
+    /** 
+     * Constructor. Adds object into a SingletonDictionary. Set old-data
+     * removal event. Adds reminder to MSLane.
+     * 
+     * @param id Unique id.
+     * @param lane Lane where detector woks on.
+     * @param begin Startposition of detector.
+     * @param length Detectorlength.
+     * @param deleteDataAfterSeconds Dismiss time for collected data. 
      */
     MSLaneState( std::string    id,
                  MSLane*        lane,
@@ -112,22 +145,25 @@ public:
                  double         length,
                  MSNet::Time    deleteDataAfterSeconds = 900 );
 
-    /// Destructor.
+    /** 
+     * Destructor. Clears containers. Deletes created reminder.
+     * 
+     */
     ~MSLaneState();
 
     /**
      * Calculates the meanValue of the waiting-queue length during the
      * lastNTimesteps. Vehicles in a waiting-queue have a gap <= vehLength.
      *
-     * @param lastNTimesteps consider data out of the intervall
-     * [now-lastNTimesteps, now]
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]
      *
      * @return mean waiting-queue length
      */
     double getNumberOfWaiting( MSNet::Time lastNTimesteps );
 
     /**
-     * Returns the waitingQueueLength.
+     * Get the waitingQueueLength.
      * Vehicles in a waiting-queue have a gap <= vehLength.
      * If called before the vehicles are
      * moved, the value of the previous timestep is returned, if called
@@ -139,60 +175,272 @@ public:
      */
     int getCurrentNumberOfWaiting( void );
 
+    /** 
+     * Calculates the mean speed averaged over the lastNTimesteps.
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]
+     * 
+     * @return Mean speed averaged over the lastNTimesteps
+     */
     double getMeanSpeed( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Calculates the mean speed of the current timestep.
+     * 
+     * 
+     * @return Current mean speed.
+     */
     double getCurrentMeanSpeed( void );
 
+    /** 
+     * Calculates the mean speed square averaged over the lastNTimesteps.
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]
+     * 
+     * @return Mean speed square averaged over the lastNTimesteps
+     */
     double getMeanSpeedSquare( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Calculates the mean speed square of the current timestep.
+     * 
+     * 
+     * @return Current mean speed square.
+     */
     double getCurrentMeanSpeedSquare( void );
 
+    /** 
+     * Calculates the mean density averaged over the lastNTimesteps.
+     * 
+     * @param lastNTimesteps  take data out of the intervall
+     * (now-lastNTimesteps, now]
+     * 
+     * @return Mean density averaged over the lastNTimesteps.
+     */
     double getMeanDensity( MSNet::Time lastNTimesteps );
-
+    
+    /** 
+     * Calculates the density of the current timestep.
+     * 
+     * 
+     * @return Current density.
+     */
     double getCurrentDensity( void );
 
+    /** 
+     * Calculates the mean traveltime averaged over the lastNTimesteps. Only
+     * vehicles that passed the entire detector contribute. These vehicles
+     * may have entered the detector during a previous intervall.
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]
+     * 
+     * @return Mean traveltime averaged over the lastNTimesteps.
+     */
     double getMeanTraveltime( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Counts the vehicles that added data through addMoveData() over
+     * the lastNTimesteps. These vehicles contribute to
+     * getMeanDensity(), getMeanSpeed() and
+     * getCurrentMeanSpeedSquare().
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now] 
+     * 
+     * @return Number of vehicles that added data over the lastNTimesteps.
+     */
     int getNVehContributed( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Counts the vehicles that entered the detector by move, emit or
+     * lanechange over the lastNTimesteps.
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]  
+     * 
+     * @return Number of vehicles that antered the detector over the
+     * lastNTimesteps.
+     */
     int getNVehEnteredDetector( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Counts the vehicles that left the detector by move over the
+     * lastNTimesteps. Vehicles that left by lanechange or that reached their
+     * destination do not contribute.
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]  
+     * 
+     * @return Number of vehilces that left the detector by move over the
+     * lastNTimesteps.
+     */
     int getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Counts the vehicles that left the detector over the lastNTimesteps
+     * and passed the entire detector without interruption. These vehicles
+     * may have entered the detector before "now - lastNTimesteps". Only
+     * those contribute to getMeanTraveltime().
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now] 
+     * 
+     * @return Numner of vehicles that left the detector over the
+     * lastNTimesteps and passed the entire detector.
+     */
     int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Creates a XML-header explaining the data written by getXMLOutput().
+     * 
+     * @return XML-header and comment.
+     */
     static std::string& getXMLHeader( void );
 
+    /** 
+     * Creates XML-output for the interval (now-lastNTimesteps, now] containing
+     * getMeanTraveltime(), getMeanSpeed(), getMeanSpeedSquare(),
+     * getNVehContributed(), getNVehPassedEntireDetector(),
+     * getNVehEnteredDetector() and getNVehLeftDetectorByMove().
+     * 
+     * @param lastNTimesteps take data out of the intervall
+     * (now-lastNTimesteps, now]
+     * 
+     * @return XML-output of calculated data for the intervall
+     * (now-lastNTimesteps, now] 
+     */
     std::string getXMLOutput( MSNet::Time lastNTimesteps );
 
+    /**
+     * @name Reminder methods.
+     *
+     * Methods in this group are called by MSLaneStateReminder
+     * only. They add the data to calculate the get* values.
+     *
+     * @see MSLaneStateReminder
+     */
+    //@{
+    
+    /** 
+     * Add data from moving vehicles. Each moving vehicle on the
+     * detector has to call this method in every timestep via the reminder
+     * mechanism. 
+     *
+     * @see MSLaneStateReminder
+     * @param veh A reference to the vehicle that adds data.
+     * @param newSpeed The speed with which the vehicle will move in this
+     * timestep.
+     * @param timestepFraction Fraction of the timestep the
+     * vehicle is on the detector.
+     */
     void addMoveData( MSVehicle& veh, double newSpeed,
                       double timestepFraction );
 
+    /** 
+     * Introduces a vehicle to the detector that enters it by move. Called
+     * by MSLaneStateReminder only.
+     *
+     * @see MSLaneStateReminder
+     * @param veh The entering vehicle.
+     * @param enterTimestepFraction Fraction of the timestep the
+     * vehicle is on the detector.
+     */
     void enterDetectorByMove( MSVehicle& veh, double enterTimestepFraction );
 
+    /** 
+     * Introduces a vehicle to the detetctor that enters it by
+     * emission or lanechange. Called by MSLaneStateReminder only.
+     *
+     * @see MSLaneStateReminder
+     * @param veh The entering vehocle.
+     */
     void enterDetectorByEmitOrLaneChange( MSVehicle& veh );
 
+    /** 
+     * Removes a vehicle from the detector that leaves by move. Vehicles that
+     * reached their destination are also handled by this method. Called by
+     * MSLaneStateReminder only.
+     *
+     * @see MSLaneStateReminder
+     * @param veh The leaving vehicle.
+     * @param leaveTimestepFraction Fraction of the timestep the
+     * vehicle is on the detector.
+     */
     void leaveDetectorByMove( MSVehicle& veh, double leaveTimestepFraction );
 
+    /** 
+     * Removes a vehicle from the detector that leaves by lanechange. Called by
+     * MSLaneStateReminder only.
+     *
+     * @see MSLaneStateReminder
+     * @param veh The leaving vehicle.
+     */
     void leaveDetectorByLaneChange( MSVehicle& veh );
 
+    //@}
+
+    /**
+     * @name Simulationloop methods.
+     *
+     * Call the following methods once in every timestep in the
+     * simulation loop. Neccessary for proper operation of the
+     * detector.
+     * 
+     */
+    //@{
+    /** 
+     * Calls for all MSLaneState objects actionBeforeMoveAndEmit() during the
+     * simulation loop. Call it before move and emit is activated.
+     * 
+     */
     static void actionsBeforeMoveAndEmit( void );
 
+    /** 
+     * Calls for all MSLaneState objects actionAfterMoveAndEmit() during the
+     * simulation loop. Call it after move and emit.
+     * 
+     */
     static void actionsAfterMoveAndEmit( void );
+    //@}
 
+    /** 
+     * Returns a string indentifiing the class. Used for filenames in
+     * MSTravelcostDetector
+     * 
+     * @see MSTravelcostDetector
+     * @return String "MSLaneState"
+     */
     static std::string getNamePrefix( void );
 
-
+    // forward declarations
     struct TimestepData;
     struct WaitingQueueElem;
     struct VehicleData;
+    
+    /// Type of the container where all TimestepData are stored.
     typedef std::deque< TimestepData >           TimestepDataCont;
+    /// Type of the container where all WaitingQueueElem are stored.
     typedef std::vector< WaitingQueueElem >      WaitingQueueElemCont;
+    /**
+     * Type of the map where VehicleData of vehicles on the detector
+     * are stored.
+     */
     typedef std::map< std::string, VehicleData > VehicleDataMap;
+    /**
+     * Type of the container where VehicleData of vehicles that left the
+     * detector are stored. 
+     */
     typedef std::deque< VehicleData >            VehicleDataCont;
 
+    /**
+     * Collection of data for each timestep.
+     */
     struct TimestepData
     {
+        /// Sole ctor.
         TimestepData( MSNet::Time timestep ) :
             timestepM( timestep ),
             speedSumM(0),
@@ -203,17 +451,39 @@ public:
             nVehEnteredDetectorM(0)
             {}
 
-        MSNet::Time timestepM;
-        double speedSumM;
-        double speedSquareSumM;
-        double contTimestepSumM;
-        double timestepSumM;
-        int queueLengthM;
-        int nVehEnteredDetectorM;
+        MSNet::Time timestepM;  /**< The timestep the data belongs to. */
+        double speedSumM;       /**< Sum of the speeds the vehicles on the
+                                 * detector added via addMoveData() during
+                                 * timestep. */
+        double speedSquareSumM; /**< Sum of the speedsquares the
+                                 * vehicles on the detector added via
+                                 * addMoveData() during timestep. */
+        double contTimestepSumM; /**< Continuous sum of timesteps the
+                                  * vehicles spend on the
+                                  * detector. Continuous because
+                                  * vehicles enter/leave the detector
+                                  * and contribute only a fraction of
+                                  * a timestep.*/
+        double timestepSumM;    /**< Discrete sum of timesteps the
+                                  * vehicles spend on the
+                                  * detector. Every vehicle
+                                  * contributes 1 even if it spend
+                                  * only a fraction of a timestep. */
+        int queueLengthM;       /**< Length of the waiting queue
+                                 * calculated by
+                                 * actionsAfterMoveAndEmit() after
+                                 * move and emit of all vehicles. */
+        int nVehEnteredDetectorM; /**< Number of vehicles that entered the
+                                   * detector either by move or lanechange or
+                                   * emit.*/
     };
 
+    /**
+     * Collection of data for each vehicle that is or has been on the detector.
+     */
     struct VehicleData
     {
+        /// Sole ctor.
         VehicleData( double entryContTimestep,
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
@@ -221,19 +491,48 @@ public:
             passedEntireDetectorM ( enteredDetectorByMove ),
             leftDetectorByMoveM ( false )
             {}
-
-        double entryContTimestepM;
-        double leaveContTimestepM;
-        bool passedEntireDetectorM;
-        bool leftDetectorByMoveM;
+        
+        double entryContTimestepM; /**< The vehicles entry timestep
+                                    * (continuous) */
+        double leaveContTimestepM; /**< The vehicles leave timestep
+                                    * (continuous). */
+        bool passedEntireDetectorM; /**< Indicator if vehicle passed
+                                     * the entire dtetctor without
+                                     * interruption. */
+        bool leftDetectorByMoveM; /**< Indicator if vehicle left the
+                                   * detector by move. */
     };
 
+    /**
+     * Collection of data for calculation of the
+     * waiting-queue-length. Updated every timestep.
+     */
+    struct WaitingQueueElem
+    {
+        /// Sole ctor.
+        WaitingQueueElem( double pos, double vehLength ) :
+            posM( pos ), vehLengthM( vehLength )
+            {}
 
-    /* schoen gemacht: */
-    /*   \|/*/
-    /*   -O-*/
-    /*   /|\*/
+        double posM;            /**< Current position of vehicle on
+                                 * the detector. */
+        double vehLengthM;      /**< Length of the vehicle.  */
+    };
 
+    /**
+     * @name Predicate classes.
+     * 
+     * Predicate classes working on the nested structs VehicleData and
+     * WaitingQueueElem. They are included in these structs because of
+     * MSVC++ compile-problems.
+     * 
+     */
+    //@{
+    /**
+     * Returns true if passed VehicleData's entryContTimestepM is lesser
+     * than the passed entryTimestepBound.
+     * 
+     */
     struct entryTimestepLesser :
         public std::binary_function< VehicleData, double, bool >
     {
@@ -244,6 +543,11 @@ public:
         }
     };
 
+    /** 
+     * Returns true if passed VehicleDataMap's entryContTimestepM is lesser
+     * than the passed entryTimestepBound.
+     * 
+     */
     struct entryTimestepLesserMap :
             public std::binary_function< VehicleDataMap::value_type,
                 double, bool >
@@ -255,6 +559,11 @@ public:
         }
     };
 
+    /**
+     * Returns true if passed VehicleData's leaveContTimestepM is lesser 
+     * than the passed leaveTimestepBound.
+     * 
+     */
     struct leaveTimestepLesser :
             public std::binary_function< VehicleData, double, bool >
     {
@@ -265,41 +574,87 @@ public:
         }
     };
 
-
-    struct WaitingQueueElem
+    /**
+     * Returns true if first WaitingQueueElem's posM is greater than
+     * the second WaitingQueueElem's posM.
+     * 
+     */
+    struct PosGreater : public std::binary_function<
+        const WaitingQueueElem, const WaitingQueueElem, bool >
     {
-        struct PosGreater : public std::binary_function<
-            const WaitingQueueElem, const WaitingQueueElem, bool >
-        {
-            // Sort criterion for std::vector< WaitingQueueElem >
-            // We sort in descending order
-            bool operator() ( const WaitingQueueElem p1,
-                              const WaitingQueueElem p2 ) const {
-                return p1.posM > p2.posM;
-            }
-        };
-
-        WaitingQueueElem( double pos, double vehLength ) :
-            posM( pos ), vehLengthM( vehLength )
-            {}
-
-        double posM;
-        double vehLengthM;
+        // Sort criterion for std::vector< WaitingQueueElem >
+        // We sort in descending order
+        bool operator() ( const WaitingQueueElem p1,
+                          const WaitingQueueElem p2 ) const {
+            return p1.posM > p2.posM;
+        }
     };
+    //@}
+
 
 protected:
+    /** 
+     * Creates a new TimestepData mand adds it to timestepDataM.
+     * 
+     * @return true. MSVC++ requires a return value, but there is no
+     * need for it.
+     */
     bool actionBeforeMoveAndEmit( void );
 
+    /** 
+     * Currently just calls calcWaitingQueueLength().
+     * 
+     * @return true. MSVC++ requires a return value, but there is no
+     * need for it.
+     */
     bool actionAfterMoveAndEmit( void );
 
+    /** 
+     * Deletes data from timestepDataM and vehLeftDetectorM if 
+     * deleteDataAfterSecondsM is over. Is called via MSEventControl.
+     * 
+     * @return deleteDataAfterSecondsM to recur the event. 
+     */
     MSNet::Time deleteOldData( void );
 
+    /** 
+     * Calculates the waiting-queue-length every timestep from
+     * waitingQueueElemsM and stores value in timestepDataM.
+     * 
+     */
     void calcWaitingQueueLength( void );
 
+    /** 
+     * Calculates a valid timestep out of [0, now] from where accumulation
+     * in the get* methods will start.
+     * 
+     * @param lastNTimesteps Number of timesteps we want to look back.
+     * @see getStartIterator()
+     * @return max( now - lastNTimesteps, 0 )
+     */
     double getStartTimestep( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Indicator if stored value nVehContributedM is still valid.
+     * nVehContributedM needs to be recalculated if one of the Reminder methods
+     * has been called since the last calculation or if the requested interval
+     * has changed.
+     * 
+     * @param lastNTimesteps Interval that is requested.
+     * @see Reminder methods
+     * @return True if new calculation is neccessary, false otherwise.
+     */
     bool needsNewCalculation( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Calculates a valid interator to container from where accumulation
+     * in the get* methods will start.
+     * 
+     * @param lastNTimesteps Number of timesteps we want to look back.
+     * @param container Reference to the container we are interesed in.
+     * @see getStartTimestep()
+     * @return An interator out of [container.begin(), container.end() ).
+     */
     template< class T >
     typename T::iterator getStartIterator( MSNet::Time lastNTimesteps,
                                            T& container )
@@ -313,76 +668,110 @@ protected:
 
 
 private:
-    std::string idM;
+    std::string idM;            /**< Unique id  of the detector. */
 
-    TimestepDataCont     timestepDataM;
-    VehicleDataMap       vehOnDetectorM;
-    WaitingQueueElemCont waitingQueueElemsM;
-    VehicleDataCont      vehLeftDetectorM;
+    TimestepDataCont     timestepDataM; /**< Container for
+                                         * TimestepData. There is one
+                                         * entry for each
+                                         * timestep. This entry
+                                         * accumulates the data from
+                                         * all vehicles on the
+                                         * detector at this
+                                         * timestep.  */
+    
+    VehicleDataMap       vehOnDetectorM; /**< Container for VehicleData of
+                                          * vehicles that are currently on
+                                          * the detector. */
+    WaitingQueueElemCont waitingQueueElemsM; /**< Container for
+                                              * WaitingQueueElem. Cleared every
+                                              * timestep after
+                                              * calcWaitingQueueLength(). */
+    
+    VehicleDataCont      vehLeftDetectorM; /**< Container for VehicleData of
+                                            * vehicles that already left
+                                            * the detector. */
 
-    /// Lane where detector works on.
-    MSLane* laneM;
+    MSLane* laneM;              /**< Lane where detector works on. */
 
-    /// The begin on the lane
-    double posM;
+    double posM;                /**< Start-position of the detector. */
 
-    /// The length on the lane
-    double lengthM;
+    double lengthM;             /**< Length on the detector. */
 
-    MSMoveReminder* reminderM;
+    MSMoveReminder* reminderM;  /**< Reminder created in ctor and passed to
+                                 * laneM. */
 
-    const MSNet::Time deleteDataAfterSecondsM;
+    const MSNet::Time deleteDataAfterSecondsM; /**< Keep at least data from
+                                                * the last
+                                                * deleteDataAfterSecondsM. */
 
-    bool modifiedSinceLastLookupM;
+    bool modifiedSinceLastLookupM; /**< Indicator if container have been
+                                    * modified since last
+                                    * getNVehContributed() call. */
 
-    MSNet::Time lookedUpLastNTimestepsM;
+    MSNet::Time lookedUpLastNTimestepsM; /**< Interval of last
+                                          * getNVehContributed() call. */
 
-    int nVehContributedM;
+    int nVehContributedM;       /**< Returned value of last
+                                 * getNVehContributed() call. */
 
-    static std::vector< MSLaneState* > laneStateDetectorsM;
+    /**< Container that holds all MSLaneState objects. Used by
+     * actionsBeforeMoveAndEmit() and actionsAfterMoveAndEmit(). */
+    static std::vector< MSLaneState* > laneStateDetectorsM; 
 
-    static std::string xmlHeaderM;
+    static std::string xmlHeaderM; /**< String containing a xml-comment. */
 
-    /// Default constructor.
+    /// Hidden constructor.
     MSLaneState();
 
-    /// Copy constructor.
+    /// Hidden copy constructor.
     MSLaneState( const MSLaneState& );
 
-    /// Assignment operator.
+    /// Hidden assignment operator.
     MSLaneState& operator=( const MSLaneState& );
 };
 
+
+/**
+ * @name Binary-functions to use with std::accumulate.
+ * 
+ */
+//@{
+/// Adds up TimestepData::speedSumM.
 inline double speedSum( double sumSoFar,
                         const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSumM;
 }
 
+/// Adds up TimestepData::speedSquareSumM.
 inline double speedSquareSum( double sumSoFar,
                               const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSquareSumM;
 }
 
+/// Adds up TimestepData::contTimestepSumM.
 inline double contTimestepSum( double sumSoFar,
                                const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.contTimestepSumM;
 }
 
+/// Adds up TimestepData::timestepSumM.
 inline double timestepSum( double sumSoFar,
                            const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.timestepSumM;
 }
 
+/// Adds up TimestepData::queueLengthM.
 inline double waitingQueueSum( double sumSoFar,
                                const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.queueLengthM;
 }
 
+/// Adds up traveltimes if vehicles has passed the entire detetctor.
 inline double traveltimeSum( double sumSoFar,
                              const MSLaneState::VehicleData& data )
 {
@@ -392,22 +781,26 @@ inline double traveltimeSum( double sumSoFar,
     return sumSoFar;
 }
 
+/// Adds up VehicleData::leftDetectorByMoveM.
 inline int leftByMoveSum( int sumSoFar,
                           const MSLaneState::VehicleData& data )
 {
     return sumSoFar + data.leftDetectorByMoveM;
 }
 
+/// Adds up VehicleData::passedEntireDetectorM.
 inline int passedEntireSum( int sumSoFar,
                             const MSLaneState::VehicleData& data )
 {
     return sumSoFar + data.passedEntireDetectorM;
 }
 
+/// Adds up TimestepData::nVehEnteredDetectorM.
 inline int nVehEnteredSum( int sumSoFar,
                            const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.nVehEnteredDetectorM;
+    //@}
 }
 
 #endif

@@ -1,12 +1,21 @@
 //---------------------------------------------------------------------------//
 //                        MSLaneState.cpp  -
-//  Some kind of induct loops with a length
 //                           -------------------
 //  begin                : Tue, 18 Feb 2003
 //  copyright            : (C) 2003 by Daniel Krajzewicz
 //  organisation         : IVF/DLR
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
+
+/**
+ * @file   MSLaneState.cpp
+ * @author Christian Roessel
+ * @date   Started Tue, 18 Feb 2003
+ * $Revision$ from $date$ by $Author$
+ * @brief  Definition of class MSLaneState.
+ * 
+ */
+
 
 //---------------------------------------------------------------------------//
 //
@@ -19,6 +28,9 @@
 
 
 // $Log$
+// Revision 1.21  2003/06/10 12:55:11  roessel
+// Added documentation.
+//
 // Revision 1.20  2003/06/05 15:48:36  roessel
 // Added waitingQueueElemsM.push_back() for enterDetector-methods.
 //
@@ -129,6 +141,7 @@ using namespace std;
 vector< MSLaneState* > MSLaneState::laneStateDetectorsM;
 
 string MSLaneState::xmlHeaderM(
+"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
 "<!--\n"
 "- noVehContrib is the number of vehicles have been on the lane for\n"
 "  at least on timestep during the current intervall.\n"
@@ -360,7 +373,6 @@ MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
     if ( nVehPassedEntire == 0 ) {
         return laneM->length() / getMeanSpeedSquare( lastNTimesteps );
     }
-
     
     double traveltime = accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
@@ -623,7 +635,7 @@ MSLaneState::calcWaitingQueueLength( void )
     if ( ! waitingQueueElemsM.empty() ) {
         // veh in waitingQueueElemsM are not sorted
         sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
-              WaitingQueueElem::PosGreater() );
+              PosGreater() );
 
         WaitingQueueElemCont::iterator it =
             waitingQueueElemsM.begin();
