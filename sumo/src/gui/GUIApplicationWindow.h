@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/04/16 10:12:12  dkrajzew
+// fontrendeder removed temporarily
+//
 // Revision 1.6  2003/04/16 09:50:04  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -50,7 +53,7 @@
 #include <qmainwindow.h>
 #include <qworkspace.h>
 #include <qtoolbutton.h>
-#include <utils/glutils/lfontrenderer.h>
+//#include <utils/glutils/lfontrenderer.h>
 
 /* =========================================================================
  * class declarations
@@ -193,7 +196,7 @@ private:
     QPopupMenu * _fileMenu;
 
     /// The opengl-font renderer
-    LFontRenderer myFonts;
+//    LFontRenderer myFonts;
 
     /// The openGL-maximum screen sizes
     int myGLWidth, myGLHeight;

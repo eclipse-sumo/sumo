@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/16 10:12:11  dkrajzew
+// fontrendeder removed temporarily
+//
 // Revision 1.6  2003/04/16 09:50:03  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -126,7 +129,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     _runThread = new GUIRunThread(this, 5);
 
     // initialise font drawing
-    myFonts.LoadFont("std", "d:\\projects\\sumo\\sumo\\data\\fonts\\sumo.fnt");
+//    myFonts.LoadFont("std", "d:\\projects\\sumo\\sumo\\data\\fonts\\sumo.fnt");
 
     // build tool bars
     buildFileTools();
