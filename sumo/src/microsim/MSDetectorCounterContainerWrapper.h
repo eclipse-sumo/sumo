@@ -54,6 +54,7 @@ struct MSDetectorCounterContainerWrapper
 
     void removeOnTripEnd( MSVehicle* veh )
         {
+            --vehicleCountM;
         }
 
 

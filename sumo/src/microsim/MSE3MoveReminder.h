@@ -79,10 +79,6 @@ public:
             return false; // !!!
         }
 
-    void removeOnTripEnd( MSVehicle *veh ) {
-        collectorM.removeOnTripEnd(veh);
-    }
-
 private:
 
     bool isActive(

@@ -58,6 +58,9 @@ public:
             MSUnit::Seconds seconds =
                 MSUnit::getInstance()->getSeconds(
                     std::distance( startIt, aggregatesM.end() ) );
+            if(seconds==0) {
+                return 0;
+            }
             return getSum( lastNSeconds, startIt,
                            Loki::Int2Type< hasTimeValueCont >()) / seconds;
         }

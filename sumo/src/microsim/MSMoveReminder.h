@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.14  2004/02/05 16:36:56  dkrajzew
+// e3-debugging: only e3-detectors have to remove killed vehicles
+//
 // Revision 1.13  2004/01/26 07:46:23  dkrajzew
 // added the removal of vehicles on removing them from the sim (is still false)
 //
@@ -140,8 +143,6 @@ public:
      */
     virtual bool isActivatedByEmitOrLaneChange( MSVehicle& veh ) = 0;
 
-
-    virtual void removeOnTripEnd( MSVehicle *veh ) = 0;
 
     /**
      * Get the reminders id. The default value is "". If the MSMoveReminder
