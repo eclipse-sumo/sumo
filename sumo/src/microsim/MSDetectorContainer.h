@@ -25,7 +25,6 @@
 #include "MSDetectorContainerBase.h"
 #include "MSVehicle.h"
 #include "MSPredicates.h"
-//#include "MS_E2_ZS_Collector.h"
 #include <algorithm>
 #include <functional>
 #include <list>
@@ -33,7 +32,6 @@
 template< typename InnerContainer >
 struct MSDetectorContainer : public MSDetectorContainerBase
 {
-//     typedef typename InnerContainer::value_type ContainerItem;
     typedef typename InnerContainer::const_iterator ContainerConstIt;
     typedef InnerContainer InnerCont;
 
@@ -90,48 +88,8 @@ struct MSDetectorContainer : public MSDetectorContainerBase
 
 };
 
-
-struct MSDoubleDetectorContainer : public MSDetectorContainerBase
-{
-    typedef double Container;
-
-    void enterDetectorByMove( MSVehicle* veh )
-        {
-            ++containerM;
-        }
-
-    void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
-        {
-            ++containerM;
-        }
-
-    void leaveDetectorByMove( void )
-        {
-            --containerM;
-        }
-
-    void leaveDetectorByLaneChange( MSVehicle* veh )
-        {
-            --containerM;
-        }
-
-    void update( void )
-        {}
-
-    MSDoubleDetectorContainer( void )
-        : containerM( 0 )
-        {}
-
-    virtual ~MSDoubleDetectorContainer( void )
-        {}
-
-    Container containerM;
-};
-
-
 namespace DetectorContainer
 {
-    typedef MSDoubleDetectorContainer Count;
     typedef MSDetectorContainer< std::list< MSVehicle* > > Vehicles;
 }
 
