@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/07/02 09:53:05  dkrajzew
+// tried to patch an error on detector loading
+//
 // Revision 1.15  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -166,18 +169,18 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 LaneVector lv = *lanei;
                 DetectorVector dv = *deti;
                 double clength = *leni;
-			    assert(lv.size()>0);
-			    assert(dv.size()>0);
+                assert(lv.size()>0);
+                assert(dv.size()>0);
                 // erase previous elements
-			    assert(leni!=myLengths.end());
+                assert(leni!=myLengths.end());
                 myLengths.erase(leni);
                 myLaneCombinations.erase(lanei);
                 myDetectorCombinations.erase(deti);
                 // get the lane to look before
                 MSLane *toExtend = lv[lv.size()-1];
                 // and her predecessors
-				std::vector<MSLane*> predeccessors =
-					getLanePredeccessorLanes(toExtend, laneContinuations);
+                std::vector<MSLane*> predeccessors =
+                    getLanePredeccessorLanes(toExtend, laneContinuations);
                 if(predeccessors.size()==0) {
                     int off = 1;
                     const MSEdge &e = toExtend->edge();
@@ -188,12 +191,12 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                         if(idx-off>=0) {
                             MSLane *tryMe = (*lanes)[idx-off];
                             predeccessors =
-            					getLanePredeccessorLanes(tryMe, laneContinuations);
+                                getLanePredeccessorLanes(tryMe, laneContinuations);
                         }
                         if(predeccessors.size()==0&&idx+off<lanes->size()) {
                             MSLane *tryMe = (*lanes)[idx+off];
                             predeccessors =
-            					getLanePredeccessorLanes(tryMe, laneContinuations);
+                                getLanePredeccessorLanes(tryMe, laneContinuations);
                         }
                         off++;
                     }
@@ -240,37 +243,37 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
 
 std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
-		const LaneContinuations &laneContinuations)
+        const LaneContinuations &laneContinuations)
 {
-	string eid = l->edge().id();
-	// check whether any exist
-	if(laneContinuations.find(eid)==laneContinuations.end()) {
-		return std::vector<MSLane*>();
-	}
-	// get predecessing edges
-	typedef std::vector<std::string> StringVector;
-	const StringVector &predIDs = laneContinuations.find(eid)->second;
-	std::vector<MSLane*> ret;
-	// find predecessing lanes
-	for(StringVector::const_iterator i=predIDs.begin(); i!=predIDs.end(); i++) {
-		MSEdge *e = MSEdge::dictionary(*i);
-		assert(e!=0);
-		typedef std::vector<MSLane*> LaneVector;
-		const LaneVector *cl = e->allowedLanes(l->edge());
-		bool fastAbort = false;
+    string eid = l->edge().id();
+    // check whether any exist
+    if(laneContinuations.find(eid)==laneContinuations.end()) {
+        return std::vector<MSLane*>();
+    }
+    // get predecessing edges
+    typedef std::vector<std::string> StringVector;
+    const StringVector &predIDs = laneContinuations.find(eid)->second;
+    std::vector<MSLane*> ret;
+    // find predecessing lanes
+    for(StringVector::const_iterator i=predIDs.begin(); i!=predIDs.end(); i++) {
+        MSEdge *e = MSEdge::dictionary(*i);
+        assert(e!=0);
+        typedef std::vector<MSLane*> LaneVector;
+        const LaneVector *cl = e->allowedLanes(l->edge());
+        bool fastAbort = false;
         if(cl!=0) {
-    		for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {
-	    		const MSLinkCont &lc = (*j)->getLinkCont();
-		    	for(MSLinkCont::const_iterator k=lc.begin(); !fastAbort&&k!=lc.end(); k++) {
-			    	if((*k)->getLane()==l) {
-    					ret.push_back(*j);
-	    				fastAbort = true;
+            for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {
+                const MSLinkCont &lc = (*j)->getLinkCont();
+                for(MSLinkCont::const_iterator k=lc.begin(); !fastAbort&&k!=lc.end(); k++) {
+                    if((*k)->getLane()==l) {
+                        ret.push_back(*j);
+                        fastAbort = true;
                     }
-				}
-			}
-		}
-	}
-	return ret;
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 
@@ -409,7 +412,21 @@ std::string
 MS_E2_ZS_CollectorOverLanes::makeID( const std::string &baseID ,
                                     size_t c, size_t r ) const
 {
-string ret =  baseID + toString<size_t>(bla++);
+    string add;
+    switch(myUsage) {
+    case DU_USER_DEFINED:
+        add = "(u)";
+        break;
+    case DU_SUMO_INTERNAL:
+        add = "(i)";
+        break;
+    case DU_TL_CONTROL:
+        add = "(c)";
+        break;
+    default:
+        break;
+    }
+string ret =  baseID + add + toString<size_t>(bla++);
  return ret;
 }
 
