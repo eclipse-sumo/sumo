@@ -179,6 +179,7 @@ sumo/data/detectors/Makefile
 sumo/data/nets/Makefile
 sumo/data/routes/Makefile
 sumo/data/routedefs/Makefile
+sumo/data/toolsMakefile
 sumo/data/Makefile
 sumo/helpers/Makefile
 sumo/microsim/Makefile
