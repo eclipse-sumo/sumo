@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/12 16:35:41  dkrajzew
+// some further functionality added needed by the artemis-import
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -193,6 +196,27 @@ Boundery::partialWithin(const AbstractPoly &poly, double offset) const
         poly.around(Position2D(_xmin, _ymax), offset) ||
         poly.around(Position2D(_xmax, _ymin), offset) ||
         poly.around(Position2D(_xmin, _ymin), offset);
+}
+
+
+void 
+Boundery::grow(double by)
+{
+    _xmax += by;
+    _ymax += by;
+    _xmin -= by;
+    _ymin -= by;
+}
+
+
+void 
+Boundery::flipY()
+{
+    _ymin *= -1.0;
+    _ymax *= -1.0;
+    double tmp = _ymin;
+    _ymin = _ymax;
+    _ymax = tmp;
 }
 
 

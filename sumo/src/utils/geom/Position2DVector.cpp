@@ -1,4 +1,4 @@
-#include <vector>
+#include <queue>
 #include <cmath>
 #include "AbstractPoly.h"
 #include "Position2D.h"
@@ -20,6 +20,13 @@ void
 Position2DVector::push_back(const Position2D &p)
 {
     myCont.push_back(p);
+}
+
+
+void
+Position2DVector::push_front(const Position2D &p)
+{
+    myCont.push_front(p);
 }
 
 
@@ -239,6 +246,46 @@ const Position2D &
 Position2DVector::getEnd() const
 {
     return myCont[myCont.size()-1];
+}
+
+
+std::pair<Position2DVector, Position2DVector> 
+Position2DVector::splitAt(double where) const
+{
+    Position2DVector one;
+    double tmp = 0;
+    ContType::const_iterator i=myCont.begin();
+    Position2D last = myCont.at(0);
+    for(; i!=myCont.end()&&tmp<where; i++) {
+        Position2D curr = (*i);
+        if(i!=myCont.begin()) {
+            tmp += GeomHelper::distance(last, curr);
+        }
+        if(tmp<where) {
+            one.push_back(*i);
+        }
+        last = curr;
+    }
+    Position2DVector two;
+    two.push_back(last);
+    for(; i!=myCont.end(); i++) {
+        two.push_back(*i);
+    }
+    return std::pair<Position2DVector, Position2DVector>(one, two);
+}
+
+
+
+std::ostream &
+operator<<(std::ostream &os, const Position2DVector &geom)
+{
+    for(Position2DVector::ContType::const_iterator i=geom.myCont.begin(); i!=geom.myCont.end(); i++) {
+        if(i!=geom.myCont.begin()) {
+            os << " ";
+        }
+        os << (*i).x() << "," << (*i).y();
+    }
+    return os;
 }
 
 

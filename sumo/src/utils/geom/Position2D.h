@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/12 16:35:39  dkrajzew
+// some further functionality added needed by the artemis-import
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -42,20 +45,48 @@
  *
  */
 class Position2D {
-private:
-    double _x;
-    double _y;
 public:
+    /// default constructor
     Position2D() : _x(0.0), _y(0.0) { }
+
+    /// parametrised constructor
     Position2D(double x, double y)
         : _x(x), _y(y) { }
+
+    /// Destructor
     ~Position2D() { }
+
+    /// Returns the x-position
     double x() const { return _x; }
+
+    /// Returns the y-position
     double y() const { return _y; }
+
+    /// Multiplies both positions with the given value
+    void mul(double val) {
+        _x *= val;
+        _y *= val;
+    }
+
+    /// Adds the given position to this one
+    void add(const Position2D &pos) {
+        _x += pos._x;
+        _y += pos._y;
+    }
+
+    /// Prints to the output
     friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
         os << "(" << p.x() << ", " << p.y() << ")";
         return os;
     }
+
+private:
+    /// The x-position
+    double _x;
+
+    /// The y-position
+    double _y;
+
 };
 
 

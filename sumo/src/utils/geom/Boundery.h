@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/12 16:35:42  dkrajzew
+// some further functionality added needed by the artemis-import
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -63,6 +66,8 @@ public:
     bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
     bool partialWithin(const AbstractPoly &poly, double offset=0) const;
     bool crosses(const Position2D &p1, const Position2D &p2) const;
+    void grow(double by);
+    void flipY();
 
     friend std::ostream &operator<<(std::ostream &os, const Boundery &b);
 private:
