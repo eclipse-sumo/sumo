@@ -69,10 +69,6 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
                                          MSUnit::Seconds sampleInterval,
                                          MSUnit::Seconds write2fileInterval )
 {
-//     MSUnit::IntSteps intervalInSteps(
-//         MSUnit::getInstance()->getIntegerSteps( intervalInSeconds ) );
-//     assert( intervalInSteps >= 1 );
-
     MSUnit::IntSteps sampleSteps(
         MSUnit::getInstance()->getIntegerSteps( sampleInterval ) );
     assert( sampleSteps >= 1 );
@@ -85,13 +81,6 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
     /*            string filename = det->getNamePrefix() + "_" +
                   toString( intervalInSeconds ) + ".xml";*/
 
-//     if ( det->getDataCleanUpSteps() < intervalInSteps ) {
-//         intervalInSteps = det->getDataCleanUpSteps();
-//         cerr << "MSDetector2File::addDetectorAndInterval: "
-//             "intervalInSeconds greater than\ndetectors clean-up "
-//             "interval. Reducing intervalInSeconds to clean-up "
-//             "interval." << endl;
-//     }
     if ( det->getDataCleanUpSteps() < sampleSteps ) {
         sampleSteps = det->getDataCleanUpSteps();
         cerr << "MSDetector2File::addDetectorAndInterval: "
@@ -116,7 +105,6 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
         assert( ofs != 0 );
         detAndFileVec.push_back( make_pair( det, ofs ) );
         intervalsM.insert( make_pair( key, detAndFileVec ) );
-
         // Add command for given key only once to MSEventControl
         Command* writeData =
             new OneArgumentCommand< MSDetector2File, IntervalsKey >

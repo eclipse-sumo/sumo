@@ -80,13 +80,13 @@ public:
      * 
      * @param det Existing detector that shall report it's data.
      * @param filename File where the output shall go.
-     * @param intervalInSeconds Interval at which output is written.
+     * @param sampleInterval Sample interval length
+     * @param write2fileInterval Interval at which output is written.
      */
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
                                  MSUnit::Seconds sampleInterval,
                                  MSUnit::Seconds write2fileInterval );
-    // statt intervalInSeconds zwei Parameter, einen fuer die messintervalllaenge und einen fuer das outputintervall, z.b. gib alle 60 s die werte fuer die letzten 5 min aus. dazu muss ein TwoArgumentCommand gebaut werden
     
 protected:
     /** 
