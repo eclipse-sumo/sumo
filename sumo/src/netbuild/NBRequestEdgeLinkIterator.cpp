@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.4  2003/03/03 14:59:16  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -429,7 +432,7 @@ operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o)
 }
 
 
-bool 
+bool
 NBRequestEdgeLinkIterator::getDriveAllowed(const NBNode::SignalGroupCont &defs,
                                            double time)
 {
@@ -439,7 +442,7 @@ NBRequestEdgeLinkIterator::getDriveAllowed(const NBNode::SignalGroupCont &defs,
     return group->mayDrive(time);
 }
 
-bool 
+bool
 NBRequestEdgeLinkIterator::getBrakeNeeded(const NBNode::SignalGroupCont &defs,
                                           double time)
 {

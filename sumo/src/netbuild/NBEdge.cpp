@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.7  2003/03/12 16:47:52  dkrajzew
 // extension for artemis-import
 //
@@ -257,7 +260,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, double speed, size_t nolanes,
-               double length, int priority, 
+               double length, int priority,
                const Position2DVector &geom,
                EdgeBasicFunction basic) :
     _step(INIT), _id(id), _type(type), _nolanes(nolanes),
@@ -299,6 +302,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::~NBEdge()
 {
+    delete _connectedEdges;
     delete _reachable;
     delete _reachablePriorities;
     delete _succeedinglanes;
@@ -518,7 +522,7 @@ NBEdge::writeXMLStep3(std::ostream &into)
         default:
             throw 1;
         }
-        into << "\">" 
+        into << "\">"
             << myGeom << "</edgepos>" << endl;
     }
 }
@@ -664,6 +668,7 @@ NBEdge::computeEdge2Edges()
     divideOnEdges(edges);
     delete edges;
     delete _connectedEdges;
+    _connectedEdges = 0;
     _step = EDGE2EDGES;
     return true;
 }
@@ -1131,15 +1136,15 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by)
 }
 
 
-bool 
+bool
 NBEdge::isConnectedTo(NBEdge *e)
 {
     //
     if(_connectedEdges==0) {
         return false;
     }
-    // 
-    return 
+    //
+    return
         find(_connectedEdges->begin(), _connectedEdges->end(), e)
         !=
         _connectedEdges->end();
@@ -1147,7 +1152,7 @@ NBEdge::isConnectedTo(NBEdge *e)
 }
 
 
-void 
+void
 NBEdge::remapConnections(const EdgeVector &incoming)
 {
     for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
@@ -1213,7 +1218,7 @@ NBEdge::removeFromConnections(NBEdge *which)
 }
 
 
-EdgeVector 
+EdgeVector
 NBEdge::getConnected() const
 {
     if(_connectedEdges==0) {
@@ -1224,14 +1229,14 @@ NBEdge::getConnected() const
 
 
 
-bool 
+bool
 NBEdge::lanesWereAssigned() const
 {
     return _step==EDGE2LANES;
 }
 
 
-EdgeVector 
+EdgeVector
 NBEdge::getEdgesFromLane(size_t lane) const
 {
     assert(lane<_reachable->size());
@@ -1249,7 +1254,7 @@ NBEdge::getGeometry() const
 }
 
 
-void 
+void
 NBEdge::setGeometry(const Position2DVector &s)
 {
     myGeom = s;

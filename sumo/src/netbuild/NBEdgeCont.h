@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.6  2003/03/12 16:47:53  dkrajzew
 // extension for artemis-import
 //
@@ -116,7 +119,7 @@ public:
         const std::string &id, const std::string &hint, bool incoming);
 
     /** @brief Tries to retrieve an edge, even if it is splitted
-        To describe which part of the edge shall be returned, a 
+        To describe which part of the edge shall be returned, a
         position hint is supplied */
     static NBEdge *retrievePossiblySplitted(
         const std::string &id, double pos);
@@ -145,12 +148,12 @@ public:
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
     static void splitAt(NBEdge *edge, NBNode *node,
-        const std::string &firstEdgeName, const std::string &secondEdgeName, 
+        const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
     static void splitAt(NBEdge *edge, double edgepos, NBNode *node,
-        const std::string &firstEdgeName, const std::string &secondEdgeName, 
+        const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** Removes the given edge from the container (deleting it) */

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.6  2003/03/12 16:47:53  dkrajzew
 // extension for artemis-import
 //
@@ -272,53 +275,49 @@ NBEdgeCont::report(bool verbose)
 void
 NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
 {
-    splitAt(edge, node, 
+    splitAt(edge, node,
         edge->getID() + string("[0]"), edge->getID() + string("[1]"),
         edge->_nolanes, edge->_nolanes);
 }
 
 
-void 
+void
 NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
-                    const std::string &firstEdgeName, 
-                    const std::string &secondEdgeName, 
+                    const std::string &firstEdgeName,
+                    const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
     double pos = GeomHelper::nearest_position_on_line_to_point(
         Position2D(edge->_from->getXCoordinate(), edge->_from->getYCoordinate()),
         Position2D(edge->_to->getXCoordinate(), edge->_to->getYCoordinate()),
         Position2D(node->getXCoordinate(), node->getYCoordinate()));
-    splitAt(edge, pos, node, firstEdgeName, secondEdgeName, noLanesFirstEdge, 
+    splitAt(edge, pos, node, firstEdgeName, secondEdgeName, noLanesFirstEdge,
         noLanesSecondEdge);
         //!!! does not regard the real edge geometry
 }
 
-void 
+void
 NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
-                    const std::string &firstEdgeName, 
-                    const std::string &secondEdgeName, 
+                    const std::string &firstEdgeName,
+                    const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
-    if(edge->getID()=="12-42"&&node->getID()=="12-420x12-421") {
-        int bla = 0;
-    }
-
     // compute the position to split the edge at
     assert(pos<edge->getLength());
     // build the new edges' geometries
-    std::pair<Position2DVector, Position2DVector> geoms = 
+    std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);
     geoms.first.push_back(
         Position2D(node->getXCoordinate(), node->getYCoordinate()));
     geoms.second.push_front(
         Position2D(node->getXCoordinate(), node->getYCoordinate()));
     // build and insert the edges
-    NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName, 
+    NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
         pos, edge->getPriority(), geoms.first, edge->_basicType);
-    NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName, 
+    NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName,
         node, edge->_to, edge->_type, edge->_speed, noLanesSecondEdge,
-        edge->_length-pos, edge->getPriority(), geoms.second, 
+        edge->_length-pos, edge->getPriority(), geoms.second,
         edge->_basicType);
     // replace information about this edge within the nodes
     edge->_from->replaceOutgoing(edge, one);
@@ -391,7 +390,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
 
 
 EdgeVector
-NBEdgeCont::getGeneratedFrom(const std::string &id) 
+NBEdgeCont::getGeneratedFrom(const std::string &id)
 {
     size_t len = id.length();
     EdgeVector ret;
@@ -402,7 +401,7 @@ NBEdgeCont::getGeneratedFrom(const std::string &id)
         if(curr.length()<=len) {
             continue;
         }
-        // the name must be the same as the given id but something 
+        // the name must be the same as the given id but something
         //  beginning with a '[' must be appended to it
         if(curr.substr(0, len)==id&&curr[len]=='[') {
             ret.push_back((*i).second);
@@ -472,7 +471,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
             priority = (*i)->getPriority();
         }
         // remove all connections to the joined edges
-/*        
+/*
         for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); j++) {
             (*i)->removeFromConnections(*j);
         }
@@ -516,7 +515,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
         string cid = names[names.size()-1];
         names.pop_back();
         edge = retrieve(cid);
-        // The edge was splitted; check its subparts within the 
+        // The edge was splitted; check its subparts within the
         //  next step
         if(edge==0) {
             names.push_back(cid + "[1]");
@@ -534,7 +533,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
 }
 
 
-void 
+void
 NBEdgeCont::search(NBEdge *e)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {

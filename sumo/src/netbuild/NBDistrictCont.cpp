@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/03 14:58:59  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -95,15 +98,18 @@ NBDistrictCont::writeXML(ostream &into)
 }
 
 
-int NBDistrictCont::size() {
+int NBDistrictCont::size()
+{
     return _districts.size();
 }
 
 
 void
-NBDistrictCont::clear() {
-    for(DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++)
+NBDistrictCont::clear()
+{
+    for(DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++) {
         delete((*i).second);
+    }
     _districts.clear();
 }
 

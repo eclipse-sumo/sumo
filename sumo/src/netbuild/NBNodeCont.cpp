@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.6  2003/03/06 17:18:42  dkrajzew
 // debugging during vissim implementation
 //
@@ -335,7 +338,7 @@ NBNodeCont::recheckEdges(bool verbose)
 
 
 
-bool 
+bool
 NBNodeCont::removeDummyEdges(bool verbose)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {

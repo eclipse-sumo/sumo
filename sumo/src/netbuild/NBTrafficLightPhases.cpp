@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/03 14:59:22  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -177,7 +180,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               const PhaseIndexVector &phaseList,
                                               const NBRequestEdgeLinkIterator &cei1) const
 {
-    NBTrafficLightLogic *ret = 
+    NBTrafficLightLogic *ret =
         new NBTrafficLightLogic(key, noLinks);
     for(size_t i=0; i<phaseList.size(); i++) {
         // add the complete phase

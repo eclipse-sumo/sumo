@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:22:32  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/12 16:47:52  dkrajzew
 // extension for artemis-import
 //
@@ -125,7 +128,7 @@ NBContHelper::out(std::ostream &os, const std::vector<bool> &v)
 
 
 NBEdge *
-NBContHelper::findConnectingEdge(const EdgeVector &edges, 
+NBContHelper::findConnectingEdge(const EdgeVector &edges,
                                  NBNode *from, NBNode *to)
 {
     for(EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); i++) {

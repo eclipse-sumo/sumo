@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.9  2003/03/12 16:47:54  dkrajzew
 // extension for artemis-import
 //
@@ -276,7 +279,7 @@ NBNode::SignalGroup::~SignalGroup()
 {
 }
 
-void 
+void
 NBNode::SignalGroup::addConnection(const Connection &c)
 {
     myConnections.push_back(c);
@@ -284,15 +287,15 @@ NBNode::SignalGroup::addConnection(const Connection &c)
 }
 
 
-void 
-NBNode::SignalGroup::addPhaseBegin(double time, TLColor color) 
+void
+NBNode::SignalGroup::addPhaseBegin(double time, TLColor color)
 {
     myPhases.push_back(PhaseDef(time, color));
 }
 
 
-void 
-NBNode::SignalGroup::setYellowTimes(double tRedYellow, 
+void
+NBNode::SignalGroup::setYellowTimes(double tRedYellow,
                                     double tYellow)
 {
     myTRedYellow = tRedYellow;
@@ -303,12 +306,12 @@ NBNode::SignalGroup::setYellowTimes(double tRedYellow,
 void
 NBNode::SignalGroup::sortPhases()
 {
-    sort(myPhases.begin(), myPhases.end(), 
+    sort(myPhases.begin(), myPhases.end(),
         phase_by_time_sorter());
 }
 
 
-DoubleVector 
+DoubleVector
 NBNode::SignalGroup::getTimes() const
 {
     DoubleVector ret;
@@ -319,14 +322,14 @@ NBNode::SignalGroup::getTimes() const
 }
 
 
-size_t 
+size_t
 NBNode::SignalGroup::getLinkNo() const
 {
     return myNoLinks;
 }
 
 
-bool 
+bool
 NBNode::SignalGroup::mayDrive(double time) const
 {
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
@@ -343,7 +346,7 @@ NBNode::SignalGroup::mayDrive(double time) const
 }
 
 
-bool 
+bool
 NBNode::SignalGroup::mustBrake(double time) const
 {
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
@@ -360,7 +363,7 @@ NBNode::SignalGroup::mustBrake(double time) const
 }
 
 
-bool 
+bool
 NBNode::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
 {
     for(ConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
@@ -369,7 +372,7 @@ NBNode::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
         }
     }
     return false;
-    
+
 }
 
 
@@ -387,7 +390,7 @@ NBNode::Phase::~Phase()
 }
 
 /*
-void 
+void
 NBNode::Phase::addSignalGroupColor(const std::string &signalgroup, TLColor color)
 {
     assert(_groupColors.find(signalgroup)==_groupColors.end());
@@ -418,8 +421,10 @@ NBNode::NBNode(const string &id, double x, double y,
         _type = TYPE_TRAFFIC_LIGHT;
     } else if(type=="priority") {
         _type = TYPE_PRIORITY_JUNCTION;
+    } else if(type=="no_junction") {
+        _type = TYPE_NOJUNCTION;
     } else {
-        _type = -1;
+        throw 1;
     }
 }
 
@@ -581,14 +586,8 @@ NBNode::setPriorities()
 int
 NBNode::computeType() const
 {
-// !!!
-    if(_incomingEdges->size()==1&&_outgoingEdges->size()>0) {
-//        cout << "HIer" << endl;
-    }
-// !!!
-
     // the type may already be set from the data
-    if(_type>0) {
+    if(_type>=0) {
         return _type;
     }
     // check whether the junction is not a real junction
@@ -880,8 +879,6 @@ NBNode::computeLogic(long maxSize)
     // compute the logic if necessary or split the junction
     if(_type!=TYPE_NOJUNCTION) {
         computeLogic(request, maxSize);
-    } else {
-        computeLogic(request, maxSize); // !!! do something else
     }
     // build the lights when needed
     if(_type==TYPE_TRAFFIC_LIGHT) {
@@ -898,7 +895,6 @@ NBNode::computeLogic(long maxSize)
 void
 NBNode::setType(int type)
 {
-    // !!! TRAFFIC_LIGHT and NO_JUNCTION are not supprted by now
     switch(type) {
     case TYPE_NOJUNCTION:
         _noNoJunctions++;
@@ -915,11 +911,6 @@ NBNode::setType(int type)
     default:
         throw exception();
     }
-    // some types are planned but not yet supported;
-    //  convert these types into known types
-    if(/*type==TYPE_TRAFFIC_LIGHT||*/type==TYPE_NOJUNCTION) {
-        type = TYPE_PRIORITY_JUNCTION;
-    }
     _type = type;
 }
 
@@ -927,13 +918,13 @@ NBNode::setType(int type)
 void
 NBNode::reportBuild()
 {
-    cout << "No Junctions (converted)    : " 
+    cout << "No Junctions (converted)    : "
         << _noNoJunctions << endl;
-    cout << "Traffic Light Junctions     : " 
+    cout << "Traffic Light Junctions     : "
         << _noTrafficLightJunctions << endl;
-    cout << "Priority Junctions          : " 
+    cout << "Priority Junctions          : "
         << _noPriorityJunctions << endl;
-    cout << "Right Before Left Junctions : " 
+    cout << "Right Before Left Junctions : "
         << _noRightBeforeLeftJunctions << endl;
 }
 
@@ -980,9 +971,6 @@ NBNode::computeLogic(NBRequest *request, long maxSize)
         key = NBLogicKeyBuilder::rotateKey(key, norot);
     } //else {
     cout << key << endl;*/
-    if(_id=="10") {
-        int bla = 0;
-    }
         request->buildBitfieldLogic(_id);
     //}
     //setKey(key);
@@ -1094,7 +1082,7 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
         (*_incomingEdges)[i]->replaceInConnections(which, by);
     }
     // replace within the connetion prohibition dependencies
-    replaceInConnectionProhibitions(which, by);   
+    replaceInConnectionProhibitions(which, by);
 }
 
 
@@ -1113,7 +1101,7 @@ NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
         by->addEdge2EdgeConnection(*j);
     }
     // replace within the connetion prohibition dependencies
-    replaceInConnectionProhibitions(which, by);   
+    replaceInConnectionProhibitions(which, by);
 }
 
 
@@ -1280,7 +1268,7 @@ NBNode::getOppositeOutgoing(NBEdge *e) const
 }
 
 
-void 
+void
 NBNode::addSortedLinkFoes(const std::pair<NBEdge*, NBEdge*> &mayDrive,
                           const std::pair<NBEdge*, NBEdge*> &mustStop)
 {
@@ -1342,7 +1330,7 @@ NBNode::eraseDummies()
             pos++;
             continue;
         }
-        // an edge with both its origin and destination being the current 
+        // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
         // get the list of incoming edges connected to the dummy
@@ -1362,7 +1350,7 @@ NBNode::eraseDummies()
 }
 
 
-void 
+void
 NBNode::removeOutgoing(NBEdge *edge)
 {
     EdgeVector::iterator i =
@@ -1373,7 +1361,7 @@ NBNode::removeOutgoing(NBEdge *edge)
 }
 
 
-void 
+void
 NBNode::removeIncoming(NBEdge *edge)
 {
     EdgeVector::iterator i =
@@ -1386,8 +1374,8 @@ NBNode::removeIncoming(NBEdge *edge)
 
 
 
-void 
-NBNode::addToSignalGroup(const std::string &groupid, 
+void
+NBNode::addToSignalGroup(const std::string &groupid,
                          const Connection &connection)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
@@ -1395,8 +1383,8 @@ NBNode::addToSignalGroup(const std::string &groupid,
 }
 
 
-void 
-NBNode::addToSignalGroup(const std::string &groupid, 
+void
+NBNode::addToSignalGroup(const std::string &groupid,
                          const ConnectionVector &connections)
 {
     for(ConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
@@ -1405,7 +1393,7 @@ NBNode::addToSignalGroup(const std::string &groupid,
 }
 
 
-void 
+void
 NBNode::addSignalGroup(const std::string &id)
 {
     assert(mySignalGroups.find(id)==mySignalGroups.end());
@@ -1413,8 +1401,8 @@ NBNode::addSignalGroup(const std::string &id)
 }
 
 
-void 
-NBNode::addSignalGroupPhaseBegin(const std::string &groupid, double time, 
+void
+NBNode::addSignalGroupPhaseBegin(const std::string &groupid, double time,
                                  TLColor color)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
@@ -1422,7 +1410,7 @@ NBNode::addSignalGroupPhaseBegin(const std::string &groupid, double time,
 }
 
 void
-NBNode::setSignalYellowTimes(const std::string &groupid, 
+NBNode::setSignalYellowTimes(const std::string &groupid,
                              double myTRedYellow, double myTYellow)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
@@ -1430,7 +1418,7 @@ NBNode::setSignalYellowTimes(const std::string &groupid,
 }
 
 
-void 
+void
 NBNode::setCycleDuration(size_t cycleDur)
 {
     myCycleDuration = cycleDur;
@@ -1438,7 +1426,7 @@ NBNode::setCycleDuration(size_t cycleDur)
 
 
 NBNode::SignalGroup *
-NBNode::findGroup(const NBNode::SignalGroupCont &defs, 
+NBNode::findGroup(const NBNode::SignalGroupCont &defs,
                   NBEdge *from, NBEdge *to)
 {
     for(SignalGroupCont::const_iterator i=defs.begin(); i!=defs.end(); i++) {
@@ -1450,23 +1438,23 @@ NBNode::findGroup(const NBNode::SignalGroupCont &defs,
 }
 
 
-Position2D 
+Position2D
 NBNode::getEmptyDir() const
 {
     Position2D pos(0, 0);
     EdgeVector::const_iterator i;
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         NBNode *conn = (*i)->getFromNode();
-        Position2D toAdd = 
-            Position2D(conn->getXCoordinate()-_x, 
+        Position2D toAdd =
+            Position2D(conn->getXCoordinate()-_x,
                 conn->getYCoordinate()-_y);
         toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
     for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
         NBNode *conn = (*i)->getToNode();
-        Position2D toAdd = 
-            Position2D(conn->getXCoordinate()-_x, 
+        Position2D toAdd =
+            Position2D(conn->getXCoordinate()-_x,
                 conn->getYCoordinate()-_y);
         toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);

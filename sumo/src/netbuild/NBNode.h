@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.6  2003/03/12 16:47:54  dkrajzew
 // extension for artemis-import
 //
@@ -151,7 +154,7 @@ public:
     };
 
 
-    class SignalGroup 
+    class SignalGroup
         : public Named {
     public:
         SignalGroup(const std::string &id);
@@ -171,9 +174,9 @@ public:
     private:
         class PhaseDef {
         public:
-            PhaseDef(double time, TLColor color) 
+            PhaseDef(double time, TLColor color)
                 : myTime(time), myColor(color) { }
-            PhaseDef(const PhaseDef &p) 
+            PhaseDef(const PhaseDef &p)
                 : myTime(p.myTime), myColor(p.myColor) { }
             double myTime;
             TLColor myColor;
@@ -196,12 +199,12 @@ public:
         size_t myNoLinks;
     };
 
-    class Phase 
+    class Phase
         : public Named {
     public:
         Phase(const std::string &id, size_t begin, size_t end);
         ~Phase();
-/*        void addSignalGroupColor(const std::string &signalgroup, 
+/*        void addSignalGroupColor(const std::string &signalgroup,
             TLColor color);*/
     private:
         std::string mySignalGroup;
@@ -328,14 +331,18 @@ public:
 
     void setCycleDuration(size_t cycleDur);
     void addSignalGroup(const std::string &id);
-    void addToSignalGroup(const std::string &groupid, 
+    void addToSignalGroup(const std::string &groupid,
         const Connection &connection);
-    void addToSignalGroup(const std::string &groupid, 
+    void addToSignalGroup(const std::string &groupid,
         const ConnectionVector &connections);
     void addSignalGroupPhaseBegin(const std::string &groupid,
         double time, TLColor color);
-    void setSignalYellowTimes(const std::string &groupid, 
+    void setSignalYellowTimes(const std::string &groupid,
         double tRedYellowe, double tYellow);
+
+    /** sets the type of the junction */
+    void setType(int type);
+
 
 
     static SignalGroup *findGroup(const SignalGroupCont &defs, NBEdge *from, NBEdge *to);
@@ -379,10 +386,6 @@ private:
 
     /// computes the logic
     void computeLogic(NBRequest *request, long maxSize);
-
-    /** sets the type of the junction
-        some version-dependend conversions are done */
-    void setType(int type);
 
     /** used while fine sorting the incoming and outgoing edges, this method
         performs the swapping of two edges in the _allEdges-list when the

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/03 14:59:15  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -108,7 +111,7 @@ public:
         describe the junctions. These parameter must not be changed during the
         logic's building */
     NBRequest(NBNode *junction, const EdgeVector * const all,
-        const EdgeVector * const incoming, 
+        const EdgeVector * const incoming,
         const EdgeVector * const outgoing,
         const ConnectionProhibits &loadedProhibits);
 

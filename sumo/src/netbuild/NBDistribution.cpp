@@ -39,7 +39,7 @@ NBDistribution::dictionary(const std::string &type,
 }
 
 
-void 
+void
 NBDistribution::clear()
 {
     for(TypedDistDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/03 14:58:53  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -165,7 +168,7 @@ NBDistrict::setCenter(double x, double y)
 
 
 
-void 
+void
 NBDistrict::normalise(DoubleVector &dv, size_t num)
 {
     // normalise sources

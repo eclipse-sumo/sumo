@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.4  2003/03/06 17:18:44  dkrajzew
 // debugging during vissim implementation
 //
@@ -391,7 +394,7 @@ NBRequest::buildTrafficLight(const std::string &key,
                              const NBNode::SignalGroupCont &defs,
                              size_t cycleTime) const
 {
-    NBTrafficLightLogicVector *logics = defs.size()!=0 
+    NBTrafficLightLogicVector *logics = defs.size()!=0
         ? buildLoadedTrafficLights(key, defs, cycleTime)
         : buildOwnTrafficLights(key);
     NBTrafficLightLogicCont::insert(key, logics);
@@ -411,7 +414,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
         (*i).second->sortPhases();
     }
 */
-    // compute the switching times 
+    // compute the switching times
     std::set<double> tmpSwitchTimes;
     for(i=defs.begin(); i!=defs.end(); i++) {
         NBNode::SignalGroup *group = (*i).second;
@@ -421,7 +424,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
         }
     }
     std::vector<double> switchTimes;
-    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(), 
+    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
         back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
 
@@ -430,9 +433,9 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
     for(i=defs.begin(); i!=defs.end(); i++) {
         noLinks += (*i).second->getLinkNo();
     }
-    
+
     // build the phases
-    NBTrafficLightLogic *logic = 
+    NBTrafficLightLogic *logic =
         new NBTrafficLightLogic(key, noLinks);
     for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
@@ -445,7 +448,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
             // get from the difference to the next switching time
             duration = (size_t) ((*(l+1)) - (*l));
         } else {
-            // get from the differenc to the first switching time 
+            // get from the differenc to the first switching time
             duration = (size_t) (duration - (*l) + *(switchTimes.begin())) ;
         }
         // set the masks
@@ -457,7 +460,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
         logic->addStep(duration, driveMask, brakeMask);
     }
     // returns the build logic
-    NBTrafficLightLogicVector *ret = 
+    NBTrafficLightLogicVector *ret =
         new NBTrafficLightLogicVector(*_incoming);
     ret->add(logic);
     return ret;

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/03/17 14:22:33  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.6  2003/03/12 16:47:53  dkrajzew
 // extension for artemis-import
 //
@@ -266,7 +269,7 @@ public:
     /** returns the list of outgoing edges unsorted */
     EdgeVector getConnected() const;
 
-    /** @brief Remaps the connection in a way tha allows the removal of it 
+    /** @brief Remaps the connection in a way tha allows the removal of it
         This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
     void remapConnections(const EdgeVector &incoming);
 

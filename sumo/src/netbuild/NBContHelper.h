@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/17 14:22:32  dkrajzew
+// further debug and windows eol removed
+//
 // Revision 1.3  2003/03/12 16:47:52  dkrajzew
 // extension for artemis-import
 //
@@ -267,9 +270,9 @@ public:
     };
 
 
-    /** Tries to return the first edge within the given container which 
+    /** Tries to return the first edge within the given container which
         connects both given nodes */
-    static NBEdge *findConnectingEdge(const EdgeVector &edges, 
+    static NBEdge *findConnectingEdge(const EdgeVector &edges,
         NBNode *from, NBNode *to);
 
 };
