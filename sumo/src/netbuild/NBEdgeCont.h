@@ -2,7 +2,7 @@
 #define NBEdgeCont_h
 /***************************************************************************
                           NBEdgeCont.h
-			  A container for all of the net's edges
+              A container for all of the net's edges
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2004/07/02 09:30:55  dkrajzew
+// removal of edges with a too low speed added
+//
 // Revision 1.16  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -161,8 +164,8 @@ public:
     /** computes edges, step1: computation of approached edges */
     static bool computeEdge2Edges();
 
-	/// computes edges, step2: computation of which lanes approach the edges)
-	static bool computeLanes2Edges();
+    /// computes edges, step2: computation of which lanes approach the edges)
+    static bool computeLanes2Edges();
 
     /** sorts all lanes of all edges within the container by their direction */
     static bool sortOutgoingLanesConnections();
@@ -231,6 +234,8 @@ public:
 
     static bool computeEdgeShapes();
 
+    static std::vector<std::string> getAllNames();
+
 private:
     static std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);
@@ -245,8 +250,8 @@ private:
     /// the instance of the dictionary
     static EdgeCont _edges;
 
-	/// the number of splits of edges during the building
-	static size_t EdgesSplit;
+    /// the number of splits of edges during the building
+    static size_t EdgesSplit;
 
 private:
     /** invalid copy constructor */
@@ -258,9 +263,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBEdgeCont.icc"
-//#endif
 
 #endif
 

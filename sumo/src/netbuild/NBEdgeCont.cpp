@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBEdgeCont.cpp
-			  A container for all of the nets edges
+              A container for all of the nets edges
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/07/02 09:30:55  dkrajzew
+// removal of edges with a too low speed added
+//
 // Revision 1.26  2004/03/19 13:06:09  dkrajzew
 // some further work on vissim-import and geometry computation
 //
@@ -147,6 +150,8 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
 #include "nodes/NBNodeCont.h"
 #include "NBHelpers.h"
@@ -163,7 +168,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -193,7 +198,17 @@ bool
 NBEdgeCont::insert(NBEdge *edge)
 {
     EdgeCont::iterator i = _edges.find(edge->getID());
-    if(i!=_edges.end()) return false;
+    if(i!=_edges.end()) {
+        return false;
+    }
+    if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+        if(edge->getSpeed()<OptionsSubSys::getOptions().getFloat("edges-min-speed")) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+        }
+    }
     _edges.insert(EdgeCont::value_type(edge->getID(), edge));
     return true;
 }
@@ -363,7 +378,7 @@ NBEdgeCont::report()
         string("   ") + toString<int>(getNo()) + string(" edges loaded."));
     if(EdgesSplit>0) {
         MsgHandler::getWarningInstance()->inform(
-			string("Warning: The split of edges was performed ")
+            string("Warning: The split of edges was performed ")
             + toString<int>(EdgesSplit) + string(" times."));
     }
 }
@@ -440,7 +455,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     }
     insert(one);
     insert(two);
-	EdgesSplit++;
+    EdgesSplit++;
     return true;
 }
 
@@ -730,10 +745,18 @@ NBEdgeCont::computeEdgeShapes()
 }
 
 
+std::vector<std::string>
+NBEdgeCont::getAllNames()
+{
+    std::vector<std::string> ret;
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+        ret.push_back((*i).first);
+    }
+    return ret;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBEdgeCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
