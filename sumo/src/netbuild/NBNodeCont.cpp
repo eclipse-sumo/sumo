@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/06 17:18:42  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.5  2003/03/03 14:59:10  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -341,6 +344,27 @@ NBNodeCont::removeDummyEdges(bool verbose)
     return true;
 }
 
+
+void
+NBNodeCont::searchEdgeInNode(string nodeid, string edgeid)
+{
+    NBNode *n = retrieve(nodeid);
+    NBEdge *e = NBEdgeCont::retrieve(edgeid);
+    if(n==0||e==0) {
+        return;
+    }
+
+    if( find(n->_outgoingEdges->begin(), n->_outgoingEdges->end(), e)
+        !=n->_outgoingEdges->end()) {
+        int bla = 0;
+    }
+
+    if( find(n->_incomingEdges->begin(), n->_incomingEdges->end(), e)
+        !=n->_incomingEdges->end()) {
+        int bla = 0;
+    }
+
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

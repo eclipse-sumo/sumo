@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/03/06 17:18:41  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.7  2003/03/03 14:59:06  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -1073,16 +1076,6 @@ NBNode::resetby(double xoffset, double yoffset)
 void
 NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
 {
-//    if(_id=="1483") {
-/*        cout << "Which: " << which->getID() << ", By: " << by->getID() << endl;
-        for(size_t j=0; j<_outgoingEdges->size(); j++) {
-            if(j!=0) {
-                cout << ", ";
-            }
-            cout << (*_outgoingEdges)[j]->getID();
-        }
-        cout << endl;*/
-//    }
     size_t i;
     // replace the edge in the list of outgoing nodes
     for(i=0; i<_outgoingEdges->size(); i++) {
@@ -1094,15 +1087,6 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
     for(i=0; i<_incomingEdges->size(); i++) {
         (*_incomingEdges)[i]->replaceInConnections(which, by);
     }
-//    if(_id=="1483") {
-/*        for(j=0; j<_outgoingEdges->size(); j++) {
-            if(j!=0) {
-                cout << ", ";
-            }
-            cout << (*_outgoingEdges)[j]->getID();
-        }
-        cout << endl;*/
-    //}
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by);   
 }
@@ -1111,15 +1095,6 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
 void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
 {
-//    if(_id=="1483") {
-        /*for(size_t l=0; l<_outgoingEdges->size(); l++) {
-            if(l!=0) {
-                cout << ", ";
-            }
-            cout << (*_outgoingEdges)[l]->getID();
-        }
-        cout << endl;*/
-//    }
     // replace the edge in the list of incoming nodes
     for(size_t i=0; i<_incomingEdges->size(); i++) {
         if((*_incomingEdges)[i]==which) {
@@ -1303,6 +1278,11 @@ void
 NBNode::addSortedLinkFoes(const std::pair<NBEdge*, NBEdge*> &mayDrive,
                           const std::pair<NBEdge*, NBEdge*> &mustStop)
 {
+    if(mayDrive.first==0||mayDrive.second==0||mustStop.first==0||mustStop.second==0) {
+        cout << "Something went wrong during the building of a connection..." << endl;
+        cout << "  Continuing..." << endl;
+        return; // !!! mark to recompute connections
+    }
     assert(mayDrive.first!=0);
     assert(mayDrive.second!=0);
     assert(mustStop.first!=0);
@@ -1368,6 +1348,7 @@ NBNode::eraseDummies()
         }
         // let the dummy remap its connections
         dummy->remapConnections(incomingConnected);
+//        dummy->removeFromProceeding();
         // delete the dummy
         NBEdgeCont::erase(dummy);
         j = _incomingEdges->begin() + pos;

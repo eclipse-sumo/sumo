@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/03/06 17:18:43  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.5  2003/03/03 14:59:14  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -148,6 +151,9 @@ public:
 
     /// Removes dummy edges (edges lying completely within a node)
     static bool removeDummyEdges(bool verbose);
+
+    static void searchEdgeInNode(std::string nodeid, std::string edgeid);
+
 
 private:
     /** the running internal id */

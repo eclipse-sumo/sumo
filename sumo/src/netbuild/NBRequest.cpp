@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/06 17:18:44  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.3  2003/03/03 14:59:15  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -116,7 +119,7 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         _done.push_back(LinkInfoCont(variations, false));
     }
     // insert loaded prohibits
-    for(ConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
+/*    for(ConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
         const Connection &prohibited = (*j).first;
         size_t idx1 = getIndex(prohibited.first, prohibited.second);
         const ConnectionVector &prohibiting = (*j).second;
@@ -128,6 +131,7 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
             _done[idx1][idx2] = true;
         }
     }
+    */
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/06 17:18:30  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.5  2003/03/03 14:59:01  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -550,6 +553,12 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t from, size_t dest)
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 {
+    // check whether the node was merged and now a connection between
+    //  not matching edges is tried to be added
+    //  This happens f.e. within the ptv VISSIM-example "Beijing"
+    if(_to!=dest->_from) {
+        return false;
+    }
     if(_connectedEdges==0) {
         _connectedEdges = new std::vector<NBEdge*>();
     }
@@ -568,6 +577,12 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 bool
 NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 {
+    // check whether the node was merged and now a connection between
+    //  not matching edges is tried to be added
+    //  This happens f.e. within the ptv VISSIM-example "Beijing"
+    if(_to!=dest->_from) {
+        return false;
+    }
     bool ok = addEdge2EdgeConnection(dest);
     setConnection(from, dest, toLane);
     vector<size_t> &lanes = (_ToEdges->find(dest))->second;
@@ -787,8 +802,8 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     priorities->reserve(outgoing->size());
     vector<NBEdge*>::const_iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
-	    assert(((*i)->getJunctionPriority(_to)+1)*2>0);
         int prio = (*i)->getJunctionPriority(_to);
+	    assert(((*i)->getJunctionPriority(_to)+1)*2>0);
         prio = (prio+1) * 2;
         priorities->push_back(prio);
     }
@@ -1085,10 +1100,12 @@ NBEdge::remapConnections(const EdgeVector &incoming)
         // We have to do this
         inc->_step = EDGE2EDGES;
         // add all connections
-        for(EdgeVector::iterator j=_connectedEdges->begin(); j!=_connectedEdges->end(); j++) {
-            inc->addEdge2EdgeConnection(*j);
-            inc->removeFromConnections(this);
+        if(_connectedEdges!=0) {
+            for(EdgeVector::iterator j=_connectedEdges->begin(); j!=_connectedEdges->end(); j++) {
+                inc->addEdge2EdgeConnection(*j);
+            }
         }
+        inc->removeFromConnections(this);
     }
 }
 

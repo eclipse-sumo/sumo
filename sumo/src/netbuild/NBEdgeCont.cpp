@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/06 17:18:33  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.4  2003/03/03 14:59:04  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -77,6 +80,7 @@ namespace
 #include <string>
 #include <cassert>
 #include <algorithm>
+#include <iostream>
 #include <utils/geom/GeomHelper.h>
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
@@ -319,46 +323,52 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
         return edge;
     }
     // now, we did not find it; we have to look over all possibilities
-    //  iteratively (lloping over two edges)
-
-    std::vector<string> hints;
-    size_t hintmods = 0;
-    hints.push_back(hint);
-    while(hintmods<10) {
-        std::vector<string> ids;
-        ids.push_back(id);
-        for(std::vector<string>::iterator i=hints.begin(); i!=hints.end(); i++) {
-            string act_hintID = *i;
-            NBEdge *hintedge = retrieve(act_hintID);
-            if(hintedge==0) {
-                continue;
-            }
-            size_t idmods = 0;
-            while(idmods<10) {
-                for(std::vector<string>::iterator j=ids.begin(); j!=ids.end(); j++) {
-                    string act_ID = *j;
-                    NBEdge *poss_searched = retrieve(act_ID);
-                    if(poss_searched==0) {
-                        continue;
-                    }
-                    NBNode *node = incoming
-                        ? poss_searched->_to : poss_searched->_from;
-                    const EdgeVector *cont = incoming
-                        ? node->getOutgoingEdges() : node->getIncomingEdges();
-                    if(find(cont->begin(), cont->end(), hintedge)!=cont->end()) {
-                        return poss_searched;
-                    }
-                }
-                idmods++;
-                ids = buildPossibilities(ids);
+    EdgeVector hints;
+        // check whether at least the hint was not splitted
+    NBEdge *hintedge = retrieve(hint);
+    if(hintedge==0) {
+        hints = getGeneratedFrom(hint);
+    } else {
+        hints.push_back(hintedge);
+    }
+    EdgeVector candidates = getGeneratedFrom(id);
+    for(EdgeVector::iterator i=hints.begin(); i!=hints.end(); i++) {
+        NBEdge *hintedge = (*i);
+        for(EdgeVector::iterator j=candidates.begin(); j!=candidates.end(); j++) {
+            NBEdge *poss_searched = (*j);
+            NBNode *node = incoming
+                ? poss_searched->_to : poss_searched->_from;
+            const EdgeVector *cont = incoming
+                ? node->getOutgoingEdges() : node->getIncomingEdges();
+            if(find(cont->begin(), cont->end(), hintedge)!=cont->end()) {
+                return poss_searched;
             }
         }
-        hintmods++;
-        hints = buildPossibilities(hints);
     }
     return 0;
 }
 
+
+EdgeVector
+NBEdgeCont::getGeneratedFrom(const std::string &id) 
+{
+    size_t len = id.length();
+    EdgeVector ret;
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        string curr = (*i).first;
+        // the next check makes it possibly faster - we don not have
+        //  to compare the names
+        if(curr.length()<=len) {
+            continue;
+        }
+        // the name must be the same as the given id but something 
+        //  beginning with a '[' must be appended to it
+        if(curr.substr(0, len)==id&&curr[len]=='[') {
+            ret.push_back((*i).second);
+        }
+    }
+    return ret;
+}
 
 std::vector<std::string>
 NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
@@ -388,8 +398,15 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     string id;
     NBEdge::EdgeBasicFunction function =
         NBEdge::EDGEFUNCTION_UNKNOWN;
+    // retrieve the connected nodes
+    NBEdge *tpledge = *(edges.begin());
+    NBNode *from = tpledge->getFromNode();
+    NBNode *to = tpledge->getToNode();
     EdgeVector::const_iterator i;
     for(i=edges.begin(); i!=edges.end(); i++) {
+        // some assertions
+        assert((*i)->getFromNode()==from);
+        assert((*i)->getToNode()==to);
         // ad the number of lanes the current edge has
         nolanes += (*i)->getNoLanes();
         // build the id
@@ -414,15 +431,13 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
             priority = (*i)->getPriority();
         }
         // remove all connections to the joined edges
+/*        
         for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); j++) {
             (*i)->removeFromConnections(*j);
         }
+        */
     }
     speed /= edges.size();
-    // retrieve the connected nodes
-    NBEdge *tpledge = *(edges.begin());
-    NBNode *from = tpledge->getFromNode();
-    NBNode *to = tpledge->getToNode();
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
         nolanes, -1, priority, function);
@@ -430,6 +445,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
     // replace old edge by current within the nodes
     //  and delete the old
     for(i=edges.begin(); i!=edges.end(); i++) {
+//        (*i)->replaceInProceeding(newEdge);
         from->replaceOutgoing(*i, newEdge);
         to->replaceIncoming(*i, newEdge);
     }
@@ -474,6 +490,19 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
             }
         }
     }
+}
+
+
+void 
+NBEdgeCont::search(NBEdge *e)
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        cout << (*i).second << ", " << (*i).second->getID() << endl;
+        if((*i).second==e) {
+            int bla = 0;
+        }
+    }
+    cout << "--------------------------------" << endl;
 }
 
 

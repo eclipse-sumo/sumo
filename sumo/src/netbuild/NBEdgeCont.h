@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/03/06 17:18:41  dkrajzew
+// debugging during vissim implementation
+//
 // Revision 1.4  2003/03/03 14:59:04  dkrajzew
 // debugging; handling of imported traffic light definitions
 //
@@ -168,9 +171,15 @@ public:
     /// joins the given edges as they connect the same nodes
     static void joinSameNodeConnectingEdges(const EdgeVector &edges);
 
+    /// !!! debug only
+    static void search(NBEdge *e);
+
 private:
     static std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);
+
+
+    static EdgeVector getGeneratedFrom(const std::string &id);
 
 private:
     /// the type of the dictionary where a node may be found by her id
