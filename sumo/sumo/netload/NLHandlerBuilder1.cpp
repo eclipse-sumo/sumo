@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2002/06/19 06:41:21  dkrajzew
+// MSBitSetLogic reincluded for MSVC++
+//
 // Revision 1.8  2002/06/11 14:39:26  dkrajzew
 // windows eol removed
 //
@@ -80,9 +83,9 @@ namespace
 #include "NLSAXHandler.h"
 #include "NLLoadFilter.h"
 #include "NLTags.h"
-//#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "../microsim/MSBitSetLogic.cpp"
+
 #ifdef EXTERNAL_TEMPLATE_DEFINITION
+#include "../microsim/MSBitSetLogic.cpp"
 #include "../utils/TplConvert.cpp"
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
