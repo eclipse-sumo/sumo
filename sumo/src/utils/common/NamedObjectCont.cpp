@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/02/10 17:42:36  roessel
+// Added necessary keyword typename.
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -32,35 +35,37 @@
 #include <map>
 #include "NamedObjectCont.h"
 
-template<class _I>
-NamedObjectCont<_I>::NamedObjectCont()
+template<class T>
+NamedObjectCont<T>::NamedObjectCont<T>()
 {
 }
 
-template<class _I>
-NamedObjectCont<_I>::~NamedObjectCont()
+template< class T >
+NamedObjectCont< T >::~NamedObjectCont<T>()
 {
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for( typename myCont::iterator i=_cont.begin();
+         i!=_cont.end();
+         i++) {
         delete (*i).second;
     }
 }
 
 
-template<class _I>
-bool NamedObjectCont<_I>::add(const std::string &id, _I item) {
+template<class T>
+bool NamedObjectCont<T>::add(const std::string &id, T item) {
     if(_cont.find(id)!=_cont.end()) {
         return false;
     }
-    _cont.insert(myCont::value_type(id, item));
+    _cont.insert(std::make_pair(id, item));
     return true;
 }
 
 
-template<class _I>
-_I
-NamedObjectCont<_I>::get(const std::string &id) const
+template<class T>
+T
+NamedObjectCont<T>::get(const std::string &id) const
 {
-    myCont::const_iterator i = _cont.find(id);
+    typename std::map<std::string, T>::const_iterator i = _cont.find(id);
     if(i==_cont.end()) {
         return 0;
     }
@@ -68,11 +73,11 @@ NamedObjectCont<_I>::get(const std::string &id) const
 }
 
 
-template<class _I>
+template<class T>
 void
-NamedObjectCont<_I>::clear()
+NamedObjectCont<T>::clear()
 {
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(typename myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
         delete (*i).second;
     }
     while(_cont.size()>0) {
@@ -81,19 +86,19 @@ NamedObjectCont<_I>::clear()
 }
 
 
-template<class _I>
+template<class T>
 size_t
-NamedObjectCont<_I>::size() const
+NamedObjectCont<T>::size() const
 {
     return _cont.size();
 }
 
 
-template<class _I>
+template<class T>
 void
-NamedObjectCont<_I>::erase(const std::string &id)
+NamedObjectCont<T>::erase(const std::string &id)
 {
-    myCont::iterator i=_cont.find(id);
+    typename myCont::iterator i=_cont.find(id);
     if(i==_cont.end()) {
         throw 1; // !!! should not happen
     }

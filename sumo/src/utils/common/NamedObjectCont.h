@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/02/10 17:42:36  roessel
+// Added necessary keyword typename.
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -42,7 +45,7 @@
  * An associative storage (map) for objects (pointers to them to be exact),
  * which do have a name.
  */
-template<class _I>
+template<class T>
 class NamedObjectCont {
 public:
     /// Constructor
@@ -54,11 +57,11 @@ public:
     /** @brief Adds an item
         If another item with the same name is already known, false is reported
         and the item is not added. */
-    virtual bool add(const std::string &id, _I item);
+    virtual bool add(const std::string &id, T item);
 
     /** @brief Retrieves an item
         Returns 0 when no such item is stored within the container */
-    _I get(const std::string &id) const;
+    T get(const std::string &id) const;
 
     /// Removes all items from the container (deletes them, too)
     void clear();
@@ -71,10 +74,11 @@ public:
 
 protected:
     /// Definition of the container type
-    typedef std::map<std::string, _I> myCont;
-
+    typedef std::map< std::string, T > myCont;
+    typedef typename myCont::iterator myContIt;
+    
     /// The container
-    myCont  _cont;
+    myCont   _cont;
 
 };
 
