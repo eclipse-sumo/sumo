@@ -6,7 +6,6 @@ GUI_E2_ZS_Collector.cpp \
 GUI_E2_ZS_CollectorOverLanes.cpp \
 GUIE3Collector.cpp \
 GUIEdge.cpp \
-GUIEmitterWrapper.cpp \
 GUIGrid.cpp \
 GUIHelpingJunction.cpp \
 GUIInductLoop.cpp \
@@ -30,7 +29,6 @@ GUI_E2_ZS_CollectorOverLanes.h \
 GUIE3Collector.h \
 GUIEdgeCont.h \
 GUIEdge.h \
-GUIEmitterWrapper.h \
 GUIGrid.h \
 GUIHelpingJunction.h \
 GUIInductLoop.h \
@@ -47,9 +45,15 @@ GUIRightOfWayJunction.h \
 GUISourceLane.h \
 GUITrafficLightLogicWrapper.h \
 GUIVehicleControl.h \
-GUIVehicle.h
+GUIVehicle.h \
+GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
+GUIRoute.cpp GUIRoute.h \
+GUIRouteHandler.cpp GUIRouteHandler.h \
+GUITriggerWrapper.cpp GUITriggerWrapper.h \
+GUIVehicleType.cpp GUIVehicleType.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
+-I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 SUBDIRS = guilogging
 
