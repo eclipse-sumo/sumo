@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/08/20 11:51:27  dkrajzew
+// option for suppressing output of empty edges within the raw-output added
+//
 // Revision 1.9  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -110,6 +113,7 @@ namespace
 #include "NLNetBuilder.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSGlobals.h>
 #include <iostream>
 //#include <strstream>
 #include <vector>
@@ -211,6 +215,8 @@ NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser) {
         ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
             handler, parser);
     }
+    // set whether empty edges shall be printed on dump
+    MSGlobals::myOmitEmptyEdgesOnDump = !m_pOptions.getBool("dump-empty-edges");
     return ok;
 }
 

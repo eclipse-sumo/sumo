@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/20 11:50:54  dkrajzew
+// option for suppressing output of empty edges within the raw-output added
+//
 // Revision 1.11  2003/07/07 08:38:14  dkrajzew
 // no configuration is loaded as default any more
 //
@@ -109,7 +112,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 //    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
     oc.doRegister("dump-intervals", new Option_UIntVector(""));
-    oc.doRegister("dump-basename", new Option_FileName());;
+    oc.doRegister("dump-basename", new Option_FileName());
+    oc.doRegister("dump-empty-edges", new Option_Bool(false));
+
 }
 
 
