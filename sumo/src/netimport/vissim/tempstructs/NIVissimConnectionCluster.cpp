@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.11  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -324,8 +327,10 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
     }
 
     // join clusters which where connections do disturb each other
-    IntVector foes = getDisturbanceParticipators();
-	if(IntVectorHelper::subSetExists(foes, myConnections)) {
+	if( IntVectorHelper::subSetExists(getDisturbanceParticipators(), myConnections)
+        ||
+        IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), c2->myConnections)) {
+
 		return true;
 	}
 

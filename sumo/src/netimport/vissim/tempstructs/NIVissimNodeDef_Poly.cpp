@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -77,7 +80,7 @@ NIVissimNodeDef_Poly::dictionary(int id, const std::string &name,
 }
 
 
-
+/*
 void
 NIVissimNodeDef_Poly::computeBounding()
 {
@@ -87,7 +90,6 @@ NIVissimNodeDef_Poly::computeBounding()
     assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
 }
 
-
 double
 NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 {
@@ -96,6 +98,7 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
         Position2D(myBoundery->xmin(), myBoundery->ymin()),
         Position2D(myBoundery->xmax(), myBoundery->ymax()));
 }
+*/
 
 
 void

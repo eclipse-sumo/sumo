@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:35:30  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.8  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
 //
@@ -55,7 +58,7 @@ namespace
 #include <iostream>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/DoubleVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
@@ -101,12 +104,12 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     from >> lsaid;
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     if(tl==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("A traffic light group with an unknown traffic light occured."));
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("  Group-ID: ") + toString<int>(id)
             );
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("  TrafficLight-ID: ") + toString<int>(lsaid)
             );
         return false;
@@ -130,7 +133,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     } if(type=="pos") {
         return parsePOS(id, name, lsaid, from);
     }
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Unsupported LSA-Type '") + type + string("' occured."));
     return false;
 }

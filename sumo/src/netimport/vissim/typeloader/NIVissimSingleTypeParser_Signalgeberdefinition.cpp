@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/18 11:35:30  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.7  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -52,7 +55,7 @@ namespace
 #include <iostream>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/IntVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"

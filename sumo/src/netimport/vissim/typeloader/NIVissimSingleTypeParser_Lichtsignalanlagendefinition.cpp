@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:35:30  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.4  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -41,7 +44,7 @@ namespace
  * ======================================================================= */
 #include <iostream>
 #include <utils/convert/TplConvert.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h"
@@ -98,7 +101,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
     } if(type=="pos") {
         return parseRestActuated(id, name, from, type);
     }
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Unsupported LSA-Type '") + type + string("' occured."));
     return false;
 }

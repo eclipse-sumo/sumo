@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -47,16 +50,13 @@ public:
     virtual ~NIVissimNodeDef_Edges();
     static bool dictionary(int id, const std::string &name,
         const NIVissimNodeParticipatingEdgeVector &edges);
-    virtual void computeBounding();
+//    virtual void computeBounding();
     virtual void searchAndSetConnections();
     virtual double getEdgePosition(int edgeid) const;
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-/**
- *
- */
+    /**
+     *
+     */
     class id_matches {
     public:
         explicit id_matches(int id) : myEdgeID(id) { }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.8  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -41,7 +44,7 @@ namespace
 #include <iostream>
 #include <cassert>
 #include <utils/common/IntVector.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include <utils/geom/Position2DVector.h>
@@ -311,10 +314,10 @@ NIVissimConnection::dict_buildNBEdgeConnections()
                 toString<int>(c->getFromEdgeID()),
                 false);
             if(fromEdge==0||toEdge==0) {
-            fromEdge = NBEdgeCont::retrievePossiblySplitted(
-                toString<int>(c->getFromEdgeID()),
-                toString<int>(c->getToEdgeID()),
-                true);
+                fromEdge = NBEdgeCont::retrievePossiblySplitted(
+                    toString<int>(c->getFromEdgeID()),
+                    toString<int>(c->getToEdgeID()),
+                    true);
 	    		cout << " Warning: Could not build connection between '"
 		    		<< c->getFromEdgeID() << "' and '"
 			    	<< c->getToEdgeID() << "'." << endl;

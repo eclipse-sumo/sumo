@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -80,7 +83,7 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
 }
 
 
-
+/*
 void
 NIVissimNodeDef_Edges::computeBounding()
 {
@@ -99,17 +102,11 @@ NIVissimNodeDef_Edges::computeBounding()
             boundery->add(e->getGeomPosition(edge->getFromPos()));
             boundery->add(e->getGeomPosition(edge->getToPos()));
         }
-            /*
-        Position2D p = edge->getFrom2DPosition();
-        boundery->add(p.x(), p.y());
-        p = edge->getTo2DPosition();
-        boundery->add(p.x(), p.y());
-        */
     }
     myBoundery = boundery;
     assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
 }
-
+*/
 
 void
 NIVissimNodeDef_Edges::searchAndSetConnections()

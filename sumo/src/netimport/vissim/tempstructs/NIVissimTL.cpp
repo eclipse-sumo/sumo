@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.9  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
 //
@@ -44,11 +47,10 @@ namespace
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundery.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "NIVissimConnection.h"
 #include <netbuild/NBTrafficLightDefinition.h>
-//#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -450,8 +452,8 @@ NIVissimTL::dict_SetSignals()
         NBTrafficLightDefinition *def =
             new NBTrafficLightDefinition(id);
         if(!NBTrafficLightLogicCont::insert(id, def)) {
-            SErrorHandler::add("Error on adding a traffic light");
-            SErrorHandler::add(string(" Must be a multiple id ('") + id + string("')"));
+            MsgHandler::getErrorInstance()->inform("Error on adding a traffic light");
+            MsgHandler::getErrorInstance()->inform(string(" Must be a multiple id ('") + id + string("')"));
             continue;
         }
 		def->setCycleDuration(tl->myAbsDuration);

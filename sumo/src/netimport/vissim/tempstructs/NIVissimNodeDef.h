@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.5  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -37,25 +40,25 @@
 #include <map>
 #include <utils/common/IntVector.h>
 #include <utils/geom/Boundery.h>
-#include "NIVissimBoundedClusterObject.h"
+//#include "NIVissimBoundedClusterObject.h"
 #include "NIVissimExtendedEdgePointVector.h"
 #include "NIVissimNodeCluster.h"
 
 class NIVissimNodeDef
-        : public NIVissimBoundedClusterObject {
+/*        : public NIVissimBoundedClusterObject*/ {
 public:
     NIVissimNodeDef(int id, const std::string &name);
     virtual ~NIVissimNodeDef();
     int buildNodeCluster();
-    virtual void computeBounding() = 0;
-    bool partialWithin(const AbstractPoly &p, double off=0.0) const;
+//    virtual void computeBounding() = 0;
+//    bool partialWithin(const AbstractPoly &p, double off=0.0) const;
     virtual void searchAndSetConnections() = 0;
     virtual double getEdgePosition(int edgeid) const = 0;
 
 public:
     static bool dictionary(int id, NIVissimNodeDef *o);
     static NIVissimNodeDef *dictionary(int id);
-    static IntVector getWithin(const AbstractPoly &p, double off=0.0);
+//    static IntVector getWithin(const AbstractPoly &p, double off=0.0);
 //    static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();
     static size_t dictSize();

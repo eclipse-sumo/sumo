@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.7  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -39,12 +42,17 @@
 #include <utils/geom/Boundery.h>
 #include <utils/common/IntVector.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBNode;
 class NIVissimConnection;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * @class NIVissimConnectionCluster
  * This class holds a list of connections either all outgoing or all
@@ -52,12 +60,6 @@ class NIVissimConnection;
  * This shall be the connections which belong to a single node.
  * It still are not all of the node's connections, as other edges
  * may participate to this node, too.
- */
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-/**
- *
  */
 class NIVissimConnectionCluster {
 public:

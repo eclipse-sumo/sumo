@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.13  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
 //
@@ -43,7 +46,7 @@ namespace
 #include <fstream>
 #include <utils/common/StringUtils.h>
 #include <utils/convert/TplConvert.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVissimLoader.h"
 #include "typeloader/NIVissimSingleTypeParser_Simdauer.h"
@@ -317,7 +320,7 @@ NIVissimLoader::load(OptionsCont &options)
         // try to open the file
     ifstream strm(options.getString("vissim").c_str());
     if(!strm.good()) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The vissim-file '") + options.getString("vissim")
             + string("' was not found."));
         return;
@@ -390,18 +393,13 @@ NIVissimLoader::postLoadBuild(double offset)
     //   buildConnectionClusters & join
 //30.4. brauchen wir noch!    NIVissimNodeDef::dict_assignConnectionsToNodes();
 
-// ??    NIVissimConnectionCluster::dict_recheckNodes();
-
     // build clusters of connections with the same direction and a similar
     //  position along the streets
-	NIVissimConnectionCluster::searchForConnection(10094);
     NIVissimEdge::buildConnectionClusters();
-	NIVissimConnectionCluster::searchForConnection(10094);
 
     // join clusters when overlapping (different streets are possible)
     NIVissimConnectionCluster::joinBySameEdges(offset);
 //    NIVissimConnectionCluster::joinByDisturbances(offset);
-	NIVissimConnectionCluster::searchForConnection(10094);
 
 //    NIVissimConnectionCluster::addTLs(offset);
 

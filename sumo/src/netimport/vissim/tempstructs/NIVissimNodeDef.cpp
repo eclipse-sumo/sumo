@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.8  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -96,6 +99,7 @@ NIVissimNodeDef::buildNodeClusters()
 */
 
 
+/*
 
 IntVector
 NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
@@ -110,14 +114,13 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
     return ret;
 }
 
-
 bool
 NIVissimNodeDef::partialWithin(const AbstractPoly &p, double off) const
 {
     assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
     return myBoundery->partialWithin(p, off);
 }
-
+*/
 
 void
 NIVissimNodeDef::dict_assignConnectionsToNodes()

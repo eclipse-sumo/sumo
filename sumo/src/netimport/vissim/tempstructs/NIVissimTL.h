@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.7  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
 //
@@ -43,7 +46,7 @@
 #include <utils/geom/AbstractPoly.h>
 #include <utils/common/IntVector.h>
 #include <utils/common/DoubleVector.h>
-#include "NIVissimBoundedClusterObject.h"
+//#include "NIVissimBoundedClusterObject.h"
 
 /* =========================================================================
  * class declarations

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.5  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -46,8 +49,8 @@ public:
     virtual ~NIVissimNodeDef_Poly();
     static bool dictionary(int id, const std::string &name,
         const Position2DVector &poly);
-    virtual void computeBounding();
-    double getEdgePosition(int edgeid) const;
+//    virtual void computeBounding();
+//    double getEdgePosition(int edgeid) const;
     void searchAndSetConnections(double offset);
 private:
     Position2DVector myPoly;

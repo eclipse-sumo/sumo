@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/18 11:35:29  dkrajzew
+// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+//
 // Revision 1.5  2003/06/05 11:46:55  dkrajzew
 // class templates applied; documentation added
 //
@@ -66,8 +69,7 @@ public:
 
     void addDisturbance(int disturbance);
 
-    const IntVector &getDisturbances() const
-    { return myDisturbances; }
+    const IntVector &getDisturbances() const;
 
 public:
     static bool dictionary(int id, NIVissimAbstractEdge *e);
