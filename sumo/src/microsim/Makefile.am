@@ -5,7 +5,8 @@ EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp 
 
-libmicrosim_a_SOURCES = MSEdgeControl.cpp \
+libmicrosim_a_SOURCES = MSDetectorSubSys.cpp \
+MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
@@ -39,6 +40,7 @@ MSVehicleType.cpp \
 MSLaneStateReminder.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
+MSDetectorSubSys.h \
 MSEdgeControl.h \
 MSEdge.h \
 MSEmitControl.h \

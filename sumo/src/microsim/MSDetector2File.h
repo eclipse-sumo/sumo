@@ -24,12 +24,12 @@
 // $Id$
 
 #include "MSNet.h"
-#include "SingletonDictionary.h"
+#include <helpers/SingletonDictionary.h>
 #include <string>
 #include <cassert>
 #include <utility>
 #include <iostream>
-#include <OneArgumentCommand.h>
+#include <helpers/OneArgumentCommand.h>
 
 template< class Detector >
 class MSDetector2File
@@ -71,17 +71,18 @@ public:
             // Detector* should be deleted via the SingletonDictionary
         }
 
-    void addDetectorAndInterval( std::string detectorId,
+    void addDetectorAndInterval( Detector *det,
+                                 const std::string &filename,
                                  MSNet::Time intervalInSeconds )
         {
-            cout << "addDetectorAndInterval " <<  intervalInSeconds<< endl;
             MSNet::Time intervalInSteps( MSNet::getSteps( intervalInSeconds ));
             assert( intervalInSteps <= maxIntervalLengthInStepsM );
             assert( intervalInSteps >= 1 );
 
-            Detector* det = DetectorDict::getInstance()->getValue( detectorId);
-            std::string filename = det->getNamePrefix() + "_" +
-                toString( intervalInSeconds ) + ".xml";
+/*            Detector* det = 
+                DetectorDict::getInstance()->getValue( detectorId );*/
+/*            std::string filename = det->getNamePrefix() + "_" +
+                toString( intervalInSeconds ) + ".xml";*/
             std::ofstream* ofs = 0;
             typename Intervals::iterator it =
                 intervalsM.find( intervalInSteps );
@@ -143,6 +144,10 @@ public:
             }
             return intervalInSteps;
         }
+
+    static bool created() {
+        return instanceM!=0;
+    }
     
 protected:
     MSDetector2File( double maxIntervalLengthInSeconds ) 
