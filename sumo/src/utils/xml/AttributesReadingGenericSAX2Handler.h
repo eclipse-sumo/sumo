@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/19 08:12:16  dkrajzew
+// false order of upper class instantiation patched
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -56,8 +59,8 @@ public:
     /** parametrised constructor */
     AttributesReadingGenericSAX2Handler(GenericSAX2Handler::Tag *tags,
         int noTags, AttributesHandler::Attr *attrs, int noAttrs)
-        : GenericSAX2Handler(tags, noTags),
-        AttributesHandler(attrs, noAttrs) { }
+        :  AttributesHandler(attrs, noAttrs),
+           GenericSAX2Handler(tags, noTags) { }
 
     /** destructor */
     virtual ~AttributesReadingGenericSAX2Handler() { }
