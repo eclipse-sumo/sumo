@@ -157,10 +157,10 @@ private:   // private members
         /**
          */
         struct FrequencyGreater :
-            public std::binary_function< const RouteDistElement,
+            public std::binary_function< RouteDistElement,
                                          double, bool >
         {
-            bool operator() ( const RouteDistElement elem,
+            bool operator() ( RouteDistElement elem,
                               double cmpFreq ) const;
         };
 
@@ -187,6 +187,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.5  2003/04/04 15:33:50  roessel
+// Removed the const in struct FrequencyGreater
+//
 // Revision 1.4  2003/02/07 10:41:51  dkrajzew
 // updated
 //
