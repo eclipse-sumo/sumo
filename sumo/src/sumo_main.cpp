@@ -1,7 +1,6 @@
 /***************************************************************************
-                          main.cpp
-			  The main procedure for the conversion /
-			  building of networks
+                          sumo_main.cpp
+              The main procedure for the simulation module
                              -------------------
     project              : SUMO
     subproject           : simulation
@@ -25,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/07/02 09:52:22  dkrajzew
+// changes due to the online-routing implementation
+//
 // Revision 1.21  2004/04/02 11:29:45  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -167,7 +169,10 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSVehicleControl.h>
 #include <netload/NLNetBuilder.h>
+#include <netload/NLEdgeControlBuilder.h>
+#include <netload/NLJunctionControlBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
@@ -208,8 +213,10 @@ namespace
     MSNet *
     load(OptionsCont &oc) {
         // build the network first
-        NLNetBuilder builder(oc);
-        MSNet *ret = builder.buildNet();
+        NLEdgeControlBuilder eb;
+        NLJunctionControlBuilder jb;
+        NLNetBuilder builder(oc, eb, jb);
+        MSNet *ret = builder.buildNet(new MSVehicleControl());
         if(ret==0) {
             throw ProcessError();
         }
