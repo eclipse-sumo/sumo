@@ -18,8 +18,6 @@ FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_NODE_SLIDER,                    ConfigDialog::onCmdNodeSlider),
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
-  FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_MERGE_SLIDER,                   ConfigDialog::onCmdMergeSlider),
-  FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_MERGE_SLIDER,                   ConfigDialog::onCmdMergeSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_OK,                             ConfigDialog::onCmdOK),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_CANCEL,                         ConfigDialog::onCmdCancel),
   };
@@ -71,7 +69,6 @@ ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Confi
 			new FXLabel(boxframe4,"Set Filter Parameter.",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
 			new FXHorizontalSeparator(boxframe4,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 			FXMatrix *myMatrix=new FXMatrix(boxframe4,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
-
   
 				new FXLabel(myMatrix,"&Dilatation:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				dilatationTextField =new FXTextField(myMatrix,4,this,ID_DIL_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
@@ -81,11 +78,7 @@ ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Confi
 				dilatationSlider->setValue(1);
 				dilatationTextField->setEditable(false);
 				dilatationTextField->setText(FXStringVal(dilatationSlider->getValue()));
-
-
-				
-				
-				
+			
 				new FXLabel(myMatrix,"&Erosion:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				erosionTextField =new FXTextField(myMatrix,4,this,ID_ERO_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
 				erosionSlider    =new FXSlider(myMatrix,this,ID_ERO_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
@@ -107,31 +100,21 @@ ConfigDialog::ConfigDialog(FXWindow* owner):FXDialogBox(owner,"Image/Graph Confi
 				new FXLabel(myMatrix,"&Node Distance:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				nodeDistanceTextField =new FXTextField(myMatrix,4,this,ID_NODE_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
 				nodeDistanceSlider    =new FXSlider(myMatrix,this,ID_NODE_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
-				nodeDistanceSlider->setRange(1,50);
+				nodeDistanceSlider->setRange(5,50);
 				nodeDistanceSlider->setTickDelta(1);
-				nodeDistanceSlider->setValue(10);
+				nodeDistanceSlider->setValue(20);
 				nodeDistanceTextField->setEditable(false);
 				nodeDistanceTextField->setText(FXStringVal(nodeDistanceSlider->getValue()));
 
-				new FXLabel(myMatrix,"&Merge Tolerance:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
-				mergeTextField =new FXTextField(myMatrix,4,this,ID_DIL_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
-				mergeSlider    =new FXSlider(myMatrix,this,ID_DIL_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
-				mergeSlider->setRange(1,30);
-				mergeSlider->setTickDelta(1);
-				mergeSlider->setValue(10);
-				mergeTextField->setEditable(false);
-				mergeTextField->setText(FXStringVal(mergeSlider->getValue()));
-				
-				
-				
 				new FXLabel(myMatrix,"&Epsilon:",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_RIGHT);
 				epsilonTextField =new FXTextField(myMatrix,4,this,ID_EPSI_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
 				epsilonSlider    =new FXSlider(myMatrix,this,ID_EPSI_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,0,0,0,0);
-				epsilonSlider->setRange(1,1000);
+				epsilonSlider->setRange(1,20);
 				epsilonSlider->setTickDelta(1);
-				epsilonSlider->setValue(10);
+				epsilonSlider->setValue(7);
 				epsilonTextField->setEditable(false);
-				epsilonTextField->setText(FXStringVal((float)epsilonSlider->getValue()/100,2,false));
+				epsilonTextField->setText(FXStringVal(epsilonSlider->getValue()));
+
 
   //Third Tab
 
@@ -180,15 +163,9 @@ long ConfigDialog::onCmdNodeSlider(FXObject*,FXSelector sel,void*){
   return 1;
   }
 
-long ConfigDialog::onCmdMergeSlider(FXObject*,FXSelector sel,void*){
-  mergeTextField->setText(FXStringVal(mergeSlider->getValue()));
-  mergeSlider->setValue(mergeSlider->getValue());
-  return 1;
-  }
-
 long ConfigDialog::onCmdEpsiSlider(FXObject*,FXSelector sel,void*){
-  epsilonTextField->setText(FXStringVal((float)epsilonSlider->getValue()/100,2,false));
-  epsilonSlider->setValue((float)epsilonSlider->getValue()/100);
+  epsilonTextField->setText(FXStringVal(epsilonSlider->getValue()));
+  epsilonSlider->setValue(epsilonSlider->getValue());
   return 1;
   }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/01/05 23:07:04  miguelliebe
+// debugging
+//
 // Revision 1.1  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -92,6 +95,7 @@ using namespace std;
 FXDEFMAP(GNEViewTraffic) GNEViewTrafficMap[]={
 // new Andreas begin
 	FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GNEViewTraffic::onCmdEditGraph),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,       GUIViewTraffic::onLeftBtnRelease),
 // new Andreas end
 
 };
@@ -135,7 +139,7 @@ GNEViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     _inEditMode = button->amChecked();
-    if(button->amChecked()) {
+    if(_inEditMode) {
 		static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
     } else {
 		static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
@@ -173,7 +177,7 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
     GUIViewTraffic::onLeftBtnRelease(sender, selector, data);
 	FXEvent *e = (FXEvent*) data;
 	//new Andreas
-	if(e->state&&_inEditMode){
+	if(/*e->state&&*/_inEditMode){
 		_lock.lock();
 		if(makeCurrent())
 	{

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/01/05 23:07:04  miguelliebe
+// debugging
+//
 // Revision 1.10  2004/12/21 16:56:24  agaubatz
 // debug
 //
@@ -931,16 +934,18 @@ GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 		graphFlag=true;
 		Graph leergraph;
 		graph=leergraph;
+		Graph* gr =new Graph();
+		gr=&graph;
 		FXDCWindow dc(myCanvas);
 		if(m_img)
 		{
-			graph=m_img->Tracking(graph,dialog);
-			graph.MergeVertex(dialog);
-			graph.Reduce_plus();
+			gr=m_img->Tracking(gr,dialog);
+			gr->MergeVertex();
+			gr->Reduce_plus(dialog);
 			m_img->GetFXImage()->render();
 			dc.drawImage(m_img->GetFXImage(),0,0);
-			vector<Edge*> edges = graph.GetEArray();
-			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+			vector<Edge*> edges = gr->GetEArray();
+			/*for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
 				Edge*e = *i;
 				string name = toString<int>(idbla++);
 				Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
@@ -961,7 +966,7 @@ GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 						"stdtype", speed, lanes, length, -1);
 				}
 			}
-		
+		*/
 
 		}
 	}
@@ -1021,7 +1026,7 @@ GNEApplicationWindow::onCmdReduceVertexes(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdReduceVertexesPlus(FXObject*,FXSelector,void*)
 {
-    graph.Reduce_plus();
+    graph.Reduce_plus(dialog);
     return 1;
 }
 
@@ -1035,7 +1040,7 @@ GNEApplicationWindow::onCmdReduceEdges(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdMergeVertexes(FXObject*,FXSelector,void*)
 {
-    graph.MergeVertex(dialog);
+    graph.MergeVertex();
     return 1;
 }
 
@@ -1155,7 +1160,7 @@ long
 GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 {
     //reset of algorithm flags
-	extrFlag=false;
+	extrFlag=true;
 	graphFlag=false;
 	skelFlag=false;
 	// get the new file name
@@ -1199,7 +1204,7 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 				// prooves if a pixel is coloured
 				if(
 					//not white
-					(col!=FXRGB(255,255,255))||
+					(col!=FXRGB(255,255,255))&&
 					//not black
 					(col!=FXRGB(0,0,0))
 					

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/01/05 23:07:04  miguelliebe
+// debugging
+//
 // Revision 1.1  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -100,6 +103,7 @@ public:
 protected:
 
 	GUISUMOViewParent *par;
+
 
 protected:
     GNEViewTraffic() { }

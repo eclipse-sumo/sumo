@@ -97,7 +97,7 @@ public:
   long onCmdEroSlider(FXObject*,FXSelector sel,void*);
   long onCmdEraSlider(FXObject*,FXSelector sel,void*);
   long onCmdNodeSlider(FXObject*,FXSelector sel,void*);
-  long onCmdMergeSlider(FXObject*,FXSelector sel,void*);
+  
   long onCmdEpsiSlider(FXObject*,FXSelector sel,void*);
   
   long onCmdCancel(FXObject*,FXSelector,void* ptr);
