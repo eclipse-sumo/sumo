@@ -33,7 +33,7 @@
 #include <helpers/OneArgumentCommand.h>
 
 /**
- * Template-singleton class. 
+ * Template-singleton class, that controls file-output of instances of class Detector. 
  * 
  */
 template< class Detector >
@@ -132,7 +132,7 @@ public:
                  << det->getXMLDetectorInfoStart() << std::endl;
         }
 
-    
+protected:    
     MSNet::Time write2file( MSNet::Time intervalInSteps )
         {
             typename Intervals::iterator intervalIt =
@@ -150,9 +150,7 @@ public:
             }
             return intervalInSteps;
         }
-
     
-protected:
     MSDetector2File( void )
         {}
                                   
