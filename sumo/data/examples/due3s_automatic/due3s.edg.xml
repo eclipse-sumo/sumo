@@ -1,0 +1,18 @@
+<edges>
+
+   <edge id="beg" fromnode="absBeg" tonode="beg" type="19" speed="36"/>
+
+   <edge id="beg2left" fromnode="beg" tonode="begleft" type="19" speed="36"/>
+   <edge id="beg2right" fromnode="beg" tonode="begright" type="19" speed="36"/>
+
+   <edge id="left" fromnode="begleft" tonode="endleft" type="19" speed="36"/>
+   <edge id="middle" fromnode="beg" tonode="end" type="19" speed="36"/>
+   <edge id="right" fromnode="begright" tonode="endright" type="19" speed="36"/>
+
+   <edge id="left2end" fromnode="endleft" tonode="end" type="19" speed="36"/>
+   <edge id="right2end" fromnode="endright" tonode="end" type="19" speed="36"/>
+
+   <edge id="end" fromnode="end" tonode="absEnd" type="19" speed="36"/>
+
+</edges>
+
