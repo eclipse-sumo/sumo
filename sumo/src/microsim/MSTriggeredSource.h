@@ -68,9 +68,7 @@ public:
         empty. The sum of @ref myFrequency is not bound
         to a fixed value.
     */
-    MSTriggeredSource(
-        MSEventControl&    aEventControl,
-        std::string        aXMLFilename );
+    MSTriggeredSource(std::string aXMLFilename );
 
 
     /// Destructor.
@@ -166,7 +164,6 @@ private:   // private members
 
     }; // end class RouteDistribution
 
-    MSEventControl& myEventControl;
     RouteDistribution myRouteDist;
     bool myIsWorking;
     bool myIsRouteDistParsed;
@@ -187,6 +184,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.6  2003/06/06 10:39:17  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.5  2003/04/04 15:33:50  roessel
 // Removed the const in struct FrequencyGreater
 //

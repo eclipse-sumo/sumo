@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.11  2003/06/05 16:01:28  dkrajzew
 // MSTLLogicControl added
 //
@@ -66,8 +69,8 @@
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
     const std::string &id, const ActuatedPhases &phases, size_t step,
-    const std::vector<MSLane*> &lanes, MSEventControl &ec, size_t delay)
-    : MSTrafficLightLogic(id, ec, delay),
+    const std::vector<MSLane*> &lanes, size_t delay)
+    : MSTrafficLightLogic(id, delay),
     _step(step), _phases(phases), _continue(false)
 {
     sproutDetectors(lanes);

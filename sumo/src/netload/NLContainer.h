@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/06/06 10:40:18  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.7  2003/06/05 11:52:26  dkrajzew
 // class templates applied; documentation added
 //
@@ -98,7 +101,6 @@ class MSModel;
 class MSVehicleType;
 class MSVehicle;
 class MSJunctionLogic;
-class MSEventControl;
 class MSRouteLoaderControl;
 class OptionsCont;
 class MSTrafficLightLogic;
@@ -238,9 +240,6 @@ public:
     /// adds a list of new detectors to the simulation
     void addDetectors(MSNet::DetectorCont detectors);
 
-    /// returns the used event control
-    MSEventControl &getEventControl() const;
-
     /// end of operations; builds the net
     MSNet *buildMSNet(const OptionsCont &options);
 
@@ -291,9 +290,6 @@ protected:
 
     /// the list of junction keys used
     LogicKeyCont            m_LogicKeys;
-
-    /// the later-used event controller
-    MSEventControl          *m_EventControl;
 
     /// The list of traffic light logics build
     std::vector<MSTrafficLightLogic*> myLogics;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.7  2003/06/05 16:01:28  dkrajzew
 // MSTLLogicControl added
 //
@@ -139,8 +142,7 @@ public:
 public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id, const ActuatedPhases &phases,
-        size_t step, const std::vector<MSLane*> &lanes,
-        MSEventControl &ec, size_t delay);
+        size_t step, const std::vector<MSLane*> &lanes, size_t delay);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();

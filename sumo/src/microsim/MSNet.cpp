@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.21  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.20  2003/06/05 16:06:47  dkrajzew
 // the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
 //
@@ -442,7 +445,6 @@ MSNet::~MSNet()
     delete myEdges;
     delete myJunctions;
     delete myEmitter;
-    delete myEvents;
     delete myDetectors;
     delete myRouteLoaders;
 	delete[] myLanes;
@@ -493,6 +495,8 @@ MSNet::closeSimulation(std::ostream *craw, Time start, Time stop)
     if ( craw ) {
         (*craw) << "</sumo-results>" << endl;
     }
+    typedef MSTravelcostDetector< MSLaneState > Traveltime;
+    Traveltime::remove();
 }
 
 

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/06 10:40:18  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.10  2003/06/05 11:52:26  dkrajzew
 // class templates applied; documentation added
 //
@@ -114,7 +117,6 @@ namespace
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
-#include <microsim/MSEventControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSRouteLoader.h>
 #include <microsim/MSJunctionControl.h>
@@ -157,8 +159,6 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
     noRoutes(0),
     noDetectors(0)
 {
-//     m_EventControl = MSEventControl::getInstance();
-    m_EventControl = 0;
     // ... the storage for the detectors
     m_pDetectors = new MSNet::DetectorCont();
     m_pJCB = new NLJunctionControlBuilder(this);
@@ -429,13 +429,6 @@ NLContainer::addDetectors(MSNet::DetectorCont detectors)
     }
 }
 
-
-
-MSEventControl &
-NLContainer::getEventControl() const
-{
-    return *m_EventControl;
-}
 
 
 // end of operations

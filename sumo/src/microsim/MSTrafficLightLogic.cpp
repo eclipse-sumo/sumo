@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/06 10:39:17  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.4  2003/06/05 16:11:03  dkrajzew
 // new usage of traffic lights implemented
 //
@@ -52,12 +55,11 @@ namespace
 
 MSTrafficLightLogic::DictType MSTrafficLightLogic::_dict;
 
-MSTrafficLightLogic::MSTrafficLightLogic(const std::string &id,
-                                         MSEventControl &ec, size_t delay)
+MSTrafficLightLogic::MSTrafficLightLogic(const std::string &id,  size_t delay)
     : _id(id)
 {
-    ec.addEvent(new SwitchCommand(this), delay,
-        MSEventControl::ADAPT_AFTER_EXECUTION);
+    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+        new SwitchCommand(this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 

@@ -127,11 +127,8 @@ MSTriggeredSource::RouteDistribution::FrequencyGreater::operator() (
 
 //---------------------------------------------------------------------------//
 
-MSTriggeredSource::MSTriggeredSource(
-    MSEventControl&    aEventControl,
-    std::string        aXMLFilename )
+MSTriggeredSource::MSTriggeredSource(std::string aXMLFilename )
     : MSSource(),
-      myEventControl( aEventControl ),
       myIsWorking( false ),
       myIsRouteDistParsed( false ),
       myIsNewEmitFound( false )
@@ -282,7 +279,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
         this, &MSTriggeredSource::emit );
 
 
-    if( myEventControl.addEvent(
+    if( MSEventControl::getBeginOfTimestepEvents()->addEvent(
             emit, aEmitTime,
             MSEventControl::ADAPT_AFTER_EXECUTION ) ) {
 
@@ -336,6 +333,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.8  2003/06/06 10:39:17  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.7  2003/04/09 15:36:16  dkrajzew
 // debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
 //

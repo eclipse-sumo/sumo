@@ -426,10 +426,8 @@ NLNetHandler::addSource(const Attributes &attrs) {
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            NLSourceBuilder::buildTriggeredSource(
-                myContainer.getEventControl(), id,
-                getString(attrs, SUMO_ATTR_FILE),
-                _file);
+            NLSourceBuilder::buildTriggeredSource(id,
+                getString(attrs, SUMO_ATTR_FILE), _file);
             return;
         } catch (XMLBuildingException &e) {
             SErrorHandler::add(e.getMessage("detector", id));
@@ -759,7 +757,7 @@ NLNetHandler::closeTrafficLightLogic() {
     if(m_Type!="actuated") {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic<64>(
-                m_Key, m_ActiveSimplePhases, 0, myContainer.getEventControl(), 0);
+                m_Key, m_ActiveSimplePhases, 0, 0);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActiveSimplePhases.clear();
@@ -769,7 +767,7 @@ NLNetHandler::closeTrafficLightLogic() {
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState > (
                     m_Key, m_ActiveActuatedPhases, 0,
-                    myContainer.getInLanes(), myContainer.getEventControl(), 0);
+                    myContainer.getInLanes(), 0);
         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary

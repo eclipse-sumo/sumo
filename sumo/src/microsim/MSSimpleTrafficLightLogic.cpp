@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.5  2003/06/05 16:07:35  dkrajzew
 // new usage of traffic lights implemented
 //
@@ -54,8 +57,8 @@ std::bitset<64> MSSimpleTrafficLightLogic<N>::_allClear;
 template< size_t N >
 MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
     const std::string &id, const Phases &phases, size_t step,
-    MSEventControl &ec, size_t delay)
-    : MSTrafficLightLogic(id, ec, delay), _phases(phases),
+    size_t delay)
+    : MSTrafficLightLogic(id, delay), _phases(phases),
     _step(step)
 {
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/06 10:39:17  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.5  2003/06/05 16:11:03  dkrajzew
 // new usage of traffic lights implemented
 //
@@ -59,8 +62,7 @@ class MSEventControl;
 class MSTrafficLightLogic {
 public:
     /// Constructor
-    MSTrafficLightLogic(const std::string &id, MSEventControl &ec,
-        size_t delay);
+    MSTrafficLightLogic(const std::string &id, size_t delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();

@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id: ";
 }
 // $Log$
+// Revision 1.2  2003/06/06 10:40:18  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -46,16 +49,15 @@ namespace
  * method definitions
  * ======================================================================= */
 MSSource *
-NLSourceBuilder::buildTriggeredSource(MSEventControl &ec,
-                                      const std::string &id,
+NLSourceBuilder::buildTriggeredSource(const std::string &id,
                                       std::string file,
                                       std::string base)
 {
     // check whether absolute or relative filenames are given
     if(FileHelpers::isAbsolute(file)) {
-        return new MSTriggeredSource(ec, file);
+        return new MSTriggeredSource(file);
     } else {
-        return new MSTriggeredSource(ec,
+        return new MSTriggeredSource(
             FileHelpers::getConfigurationRelative(base, file));
     }
 }

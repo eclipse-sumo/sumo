@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.7  2003/06/05 16:07:36  dkrajzew
 // new usage of traffic lights implemented
 //
@@ -107,7 +110,7 @@ public:
 public:
     /// constructor
     MSSimpleTrafficLightLogic(const std::string &id, const Phases &phases,
-        size_t step, MSEventControl &ec, size_t delay);
+        size_t step, size_t delay);
 
     /// destructor
     ~MSSimpleTrafficLightLogic();

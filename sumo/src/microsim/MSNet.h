@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.17  2003/06/06 10:39:16  dkrajzew
+// new usage of MSEventControl applied
+//
 // Revision 1.16  2003/06/05 16:06:47  dkrajzew
 // the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
 //
@@ -225,11 +228,6 @@ class MSNet
     friend class GUINet;
 
 public:
-    MSEventControl* getEventControl()
-        {
-            return myEvents;
-        }
-
 
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
@@ -377,10 +375,6 @@ protected:
 
     /// Emits cars into the lanes.
     MSEmitControl* myEmitter;
-
-    /** Time-dependant events like traffic-light-changes, output
-        generation etc. */
-    MSEventControl* myEvents;
 
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;

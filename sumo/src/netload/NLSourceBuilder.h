@@ -40,8 +40,8 @@ class MSEventControl;
 class NLSourceBuilder {
 public:
     /// builds a MSTriggeredSource - source
-    static MSSource *buildTriggeredSource(MSEventControl &ec,
-        const std::string &id, std::string file, std::string base);
+    static MSSource *buildTriggeredSource(const std::string &id,
+        std::string file, std::string base);
 
 };
 
