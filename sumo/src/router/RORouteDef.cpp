@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/12/09 11:30:37  dkrajzew
+// false detection whether a vehicle is too long to start from an edge patched
+//
 // Revision 1.11  2003/11/11 08:04:46  dkrajzew
 // avoiding emissions of vehicles on too short edges
 //
@@ -128,7 +131,7 @@ RORouteDef::computeAndSave(OptionsCont &options,
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
-    if(current->getFirst()->getLength()<veh.getType()->getLength()) {
+    if(current->getFirst()->getLength()<=veh.getType()->getLength()) {
         MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh.getID()
             + string("' is too long to start at edge '")
             + current->getFirst()->getID() + string("'."));
