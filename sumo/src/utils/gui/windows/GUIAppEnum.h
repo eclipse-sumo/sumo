@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/02/01 10:13:17  dkrajzew
+// added missing enums for netedit
+//
 // Revision 1.5  2005/01/27 14:35:22  dkrajzew
 // added the netedit-window
 //
@@ -92,10 +95,6 @@ enum {
     MID_RECENTFILE,
     /// Close Simulation - ID
     MID_CLOSE,
-    /// Öffne ein Bitmap File
-    MID_LOAD_IMAGE,
-    /// Schreibe das Bitmap in ein File
-    MID_SAVE_IMAGE,
     /// About SUMO - ID
     MID_ABOUT,
     //@}
@@ -318,7 +317,20 @@ enum {
     MID_PERIOD,
     MID_TIME_SLIDER,
 
+    //@{ IDs for netedit
+    /// Import a network - Menu entry
+    MID_IMPORT_NET,
+    /// Open a bitmap file - Menu entry
+    MID_LOAD_IMAGE,
+    /// Write a loaded bitmap file - Menu entry
+    MID_SAVE_IMAGE,
+    /// ID for the imageviewer
     MID_MAP_IMAGEVIEWER,
+    /// Save generated edges and nodes - Menu entry
+    MID_SAVE_EDGES_NODES,
+    /// Save generated SUMO-network - Menu entry
+    MID_SAVE_NET,
+    //@}
 
 
     MID_LAST
