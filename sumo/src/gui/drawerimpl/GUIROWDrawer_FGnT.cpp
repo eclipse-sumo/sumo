@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.1  2003/10/15 11:35:06  dkrajzew
 // old row-drawer replaced by new ones; setting of name information seems tobe necessary
 //
@@ -61,8 +64,6 @@ namespace
 #include <gui/icons/arrows/pr_3.xpm>
 
 
-
-
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -84,7 +85,8 @@ GUIROWDrawer_FGnT::~GUIROWDrawer_FGnT()
 
 
 void
-GUIROWDrawer_FGnT::drawLinkRules(const GUILaneWrapper &lane)
+GUIROWDrawer_FGnT::drawLinkRules(const GUINet &net,
+                                 const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
     double visLength = -lane.visLength();

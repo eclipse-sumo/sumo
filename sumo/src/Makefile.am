@@ -104,6 +104,7 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./gui/partable/libguipartable.a \
 ./gui/qdialogs/libguiqdialogs.a \
 ./gui/vartracker/libguivartracker.a \
+./gui/tlstracker/libguitlstracker.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/actions/libmsactions.a \

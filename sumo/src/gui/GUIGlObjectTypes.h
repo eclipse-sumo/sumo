@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/12 13:47:18  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.4  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -44,23 +47,30 @@
 /**
  * ChooseableArtifact
  * Enumeration to differ to show the list of which atrifact
- * By now, one can display edges, junctions and vehicles
+ * The order is important during the selection of items for displaying their
+ * tooltips; the item with the lowest type value (beside the network which
+ * does not cause a hit as no "network" is being drawn) will be chosen.
  */
 enum GUIGlObjectType {
     /// The network - empty
     GLO_NETWORK = 0,
     /// a vehicles
     GLO_VEHICLE = 1,
+    /// a tl-logic
+    GLO_TLLOGIC = 2,
     /// a detector
-    GLO_DETECTOR = 2,
+    GLO_DETECTOR = 4,
     /// an emitter
-    GLO_EMITTER = 4,
+    GLO_EMITTER = 8,
     /// a lane
-    GLO_LANE = 8,
+    GLO_LANE = 16,
     /// an edge
-    GLO_EDGE = 16,
+    GLO_EDGE = 32,
     /// a junction
-    GLO_JUNCTION = 32
+    GLO_JUNCTION = 64,
+    /// empty max
+    GLO_MAX = 128
+
 };
 
 

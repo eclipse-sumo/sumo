@@ -24,7 +24,7 @@ GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
-SUBDIRS = drawerimpl icons partable popup qdialogs vartracker
+SUBDIRS = drawerimpl icons partable popup qdialogs tlstracker vartracker
 
 METASOURCES = AUTO
 

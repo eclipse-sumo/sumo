@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -62,13 +65,16 @@ public:
     /// destructor
     virtual ~GUIBaseROWDrawer();
 
-    void drawGLROWs(size_t *which, size_t maxEdges, double width);
+    void drawGLROWs(const GUINet &net,
+        size_t *which, size_t maxEdges, double width);
 
 private:
     /// initialises the drawing
     virtual void initStep();
 
-    virtual void drawLinkRules(const GUILaneWrapper &lane) = 0;
+    /// Function that realises the drawing of lik rules
+    virtual void drawLinkRules(const GUINet &net,
+        const GUILaneWrapper &lane) = 0;
 
     void initTexture(size_t no);
 

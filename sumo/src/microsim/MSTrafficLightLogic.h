@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/11/12 13:51:14  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.10  2003/09/24 13:28:55  dkrajzew
 // retrival of lanes by the position within the bitset added
 //
@@ -42,7 +45,8 @@
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.3  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector
+//  output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
@@ -62,8 +66,14 @@
 #include "MSLogicJunction.h"
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLink;
 class MSEventControl;
+//class GUITrafficLightLogicWrapper;
+//class GUIGlObjectStorage;
+
 
 /* =========================================================================
  * class definitions
@@ -106,7 +116,12 @@ public:
         Otherwise returns 0. */
     static MSTrafficLightLogic *dictionary(const std::string &name);
 
+    /// Clears the dictionary
     static void clear();
+
+    /** @brief Returns the list of loaded logics
+        Used only within the network initialisation so far... */
+    static std::vector<MSTrafficLightLogic*> getList();
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
@@ -145,6 +160,17 @@ public:
     /// Returns the list of links that are controlled by the signals at the given position
     const LinkVector &getLinksAt(size_t i) const;
 
+    /// Returns all affected links
+    const LinkVectorVector &getLinks() const;
+
+    /// Returns this tl-logic's id
+    const std::string &id() const;
+
+/*
+    /// Builds the gui-wrapper for this logic
+    virtual GUITrafficLightLogicWrapper *buildTLLogicWrapper(
+        GUIGlObjectStorage &idStorage) const;
+*/
 protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);

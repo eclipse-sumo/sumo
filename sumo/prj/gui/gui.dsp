@@ -403,6 +403,14 @@ SOURCE=..\..\src\gui\GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUITrafficLightLogicWrapper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUIVehicle.cpp
 # End Source File
 # Begin Source File
@@ -476,6 +484,10 @@ SOURCE=..\..\src\gui\moc_GUISUMOAbstractView.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\moc_GUISUMOViewParent.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp
 # End Source File
 # Begin Source File
 
@@ -1389,6 +1401,37 @@ InputPath=..\..\src\gui\GUISUMOViewParent.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUITLLogicPhasesTrackerWindow.h...
+InputPath=..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h
+
+"..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h -o ..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUITLLogicPhasesTrackerWindow.h...
+InputPath=..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h
+
+"..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h -o ..\..\src\gui\tlstracker\moc_GUITLLogicPhasesTrackerWindow.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUITrafficLightLogicWrapper.h
 # End Source File
 # Begin Source File
 

@@ -23,8 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.1  2003/10/15 11:35:06  dkrajzew
-// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+// old row-drawer replaced by new ones; setting of name information seems to
+//  be necessary
 //
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
@@ -61,8 +65,6 @@ namespace
 #include <gui/icons/arrows/pr_3.xpm>
 
 
-
-
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -84,12 +86,14 @@ GUIROWDrawer_FGwT::~GUIROWDrawer_FGwT()
 
 
 void
-GUIROWDrawer_FGwT::drawLinkRules(const GUILaneWrapper &lane)
+GUIROWDrawer_FGwT::drawLinkRules(const GUINet &net,
+                                 const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
     double visLength = -lane.visLength();
-    const Position2D &end = lane.getShape().getEnd();
-    const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g.at(lane.getShape().size()-2);
     const Position2D &s = end;
     double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
     if(noLinks==0) {
@@ -110,7 +114,6 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUILaneWrapper &lane)
         return;
     }
     // draw all links
-    glPushName(lane.getGlID());
     float w = 3.0 / (float) noLinks;
     float x1 = 0;
     glPushMatrix();
@@ -119,6 +122,22 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUILaneWrapper &lane)
     for(size_t i=0; i<noLinks; i++) {
         float x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
+        switch(state) {
+        case MSLink::LINKSTATE_ABSTRACT_TL:
+        case MSLink::LINKSTATE_TL_GREEN:
+        case MSLink::LINKSTATE_TL_RED:
+        case MSLink::LINKSTATE_TL_YELLOW:
+        case MSLink::LINKSTATE_TL_OFF_BLINKING:
+            glPushName(lane.getLinkTLID(net, i));
+            break;
+        case MSLink::LINKSTATE_MAJOR:
+        case MSLink::LINKSTATE_MINOR:
+        case MSLink::LINKSTATE_EQUAL:
+        case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+        default:
+            glPushName(lane.getGlID());
+            break;
+        }
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3f(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
@@ -127,11 +146,11 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUILaneWrapper &lane)
         glVertex2f(x2-1.5, 0.5);
         glVertex2f(x2-1.5,0.0);
         glEnd();
+        glPopName();
         x1 = x2;
         x2 += w;
     }
     glPopMatrix();
-    glPopName();
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.1  2003/10/15 11:35:06  dkrajzew
 // old row-drawer replaced by new ones; setting of name information seems tobe necessary
 //
@@ -67,11 +70,12 @@ public:
     ~GUIROWDrawer_FGnT();
 
 private:
-    void drawLinkRules(const GUILaneWrapper &lane);
+    /// Function to draw bars as link rules
+    void drawLinkRules(const GUINet &net,
+        const GUILaneWrapper &lane);
 
+    /// Function to draw the direction arrows
     void drawArrows(const GUILaneWrapper &lane);
-
-
 
 };
 

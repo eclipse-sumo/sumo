@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -89,7 +92,8 @@ GUIBaseROWDrawer::~GUIBaseROWDrawer()
 
 
 void
-GUIBaseROWDrawer::drawGLROWs(size_t *which, size_t maxEdges, double width)
+GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
+                             size_t maxEdges, double width)
 {
     if(width<1.0) {
         return;
@@ -112,7 +116,7 @@ GUIBaseROWDrawer::drawGLROWs(size_t *which, size_t maxEdges, double width)
                     if(lane.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                         continue;
                     }
-                    drawLinkRules(lane);
+                    drawLinkRules(net, lane);
                     drawArrows(lane);
                 }
             }

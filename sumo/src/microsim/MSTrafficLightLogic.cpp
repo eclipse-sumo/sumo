@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/11/12 13:51:14  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.9  2003/09/24 13:28:55  dkrajzew
 // retrival of lanes by the position within the bitset added
 //
@@ -48,8 +51,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -66,10 +67,22 @@ namespace
 #include "MSTrafficLightLogic.h"
 #include "MSEventControl.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member variable definitions
+ * ======================================================================= */
 MSTrafficLightLogic::DictType MSTrafficLightLogic::_dict;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSTrafficLightLogic::MSTrafficLightLogic(const std::string &id,  size_t delay)
     : _id(id)
 {
@@ -88,7 +101,6 @@ MSTrafficLightLogic::~MSTrafficLightLogic()
 void
 MSTrafficLightLogic::setLinkPriorities()
 {
-//    size_t pos = 0;
     const std::bitset<64> &linkPrios = linkPriorities();
     const std::bitset<64> &yMask = yellowMask();
     for(size_t i=0; i<myLinks.size(); i++) {
@@ -240,6 +252,34 @@ MSTrafficLightLogic::getLinksAt(size_t i) const
 {
     return myLinks[i];
 }
+
+
+std::vector<MSTrafficLightLogic*>
+MSTrafficLightLogic::getList()
+{
+    std::vector<MSTrafficLightLogic*> ret;
+    ret.reserve(_dict.size());
+    for(DictType::iterator i=_dict.begin(); i!=_dict.end(); i++) {
+        ret.push_back((*i).second);
+    }
+    return ret;
+}
+
+
+const std::string &
+MSTrafficLightLogic::id() const
+{
+    return _id;
+}
+
+
+const MSTrafficLightLogic::LinkVectorVector &
+MSTrafficLightLogic::getLinks() const
+{
+    return myLinks;
+}
+
+
 
 
 
