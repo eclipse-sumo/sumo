@@ -45,12 +45,26 @@ protected:
 
     DetectorAggregate getDetectorAggregate( void )
         {
+            int pos = 0;
             double nVeh = 0.0;
             for ( HaltingsConstIt it = containerM.containerM.begin();
                   it != containerM.containerM.end(); ++it ) {
                 if ( it->isInJamM ) {
                     ++nVeh;
+                    if(pos==0) {
+                        double corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
+                        if(corr!=0) {
+                            nVeh -= (1.0 - corr);
+                        }
+                    }
+                    if(pos==containerM.containerM.size()-1) {
+                        double corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
+                        if(corr!=0) {
+                            nVeh -= (1.0 - corr);
+                        }
+                    }
                 }
+                pos++;
             }
             return nVeh;
         }
@@ -72,9 +86,10 @@ protected:
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
 
-    MSJamLengthSumInMeters( double,
-                            const Container& container )
-        : containerM( container.containerM )
+    MSJamLengthSumInMeters( //const MSDetectorOccupancyCorrection& occupancyCorrection ,
+        double, const Container& container )
+        : containerM( container/*.containerM */)/*,
+        myOccupancyCorrection(occupancyCorrection)*/
         {}
 
     virtual ~MSJamLengthSumInMeters( void )
@@ -83,11 +98,15 @@ protected:
     DetectorAggregate getDetectorAggregate( void )
         {
             double distSum = 0.0;
-            for ( HaltingsConstIt front = containerM.begin();
-                  front != containerM.end(); ++front ) {
+            for ( HaltingsConstIt front = containerM.containerM.begin();
+                  front != containerM.containerM.end(); ++front ) {
                 if ( front->isInJamM ) {
-                    if ( front == containerM.begin() ) {
+                    if ( front == containerM.containerM.begin() ) {
                         distSum += front->vehM->length();
+                        double corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
+                        if(corr!=0) {
+                            distSum -= ((1.0 - corr) * front->vehM->length());
+                        }
                         assert (distSum >= 0);
                     }
                     else {
@@ -101,6 +120,12 @@ protected:
                             else {
                                 distSum +=
                                     front->vehM->pos() - rear->vehM->pos();
+                            }
+                            if(rear==(--containerM.containerM.end())) {
+                                double corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
+                                if(corr!=0) {
+                                    distSum -= ((1.0 - corr) * rear->vehM->length());
+                                }
                             }
                         }
                         else {
@@ -118,7 +143,8 @@ protected:
             return "jamLengthSumInMeters";
         }
 private:
-    const Haltings& containerM;
+    const Container& containerM;
+//    const MSDetectorOccupancyCorrection& myOccupancyCorrection;
 };
 
 
