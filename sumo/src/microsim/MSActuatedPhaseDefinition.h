@@ -13,10 +13,10 @@
 class MSActuatedPhaseDefinition : public MSPhaseDefinition{
 public:
     /// The minimum duration of the phase
-    size_t          minDuration;
+    int minDuration;
 
     /// The maximum duration of the phase
-    size_t          maxDuration;
+    int maxDuration;
 
     /// stores the timestep of the last on-switched of the phase
     MSNet::Time _lastSwitch;
@@ -26,7 +26,7 @@ public:
     MSActuatedPhaseDefinition(size_t durationArg,
         const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
 		const std::bitset<64> &yellowMaskArg,
-        size_t minDurationArg, size_t maxDurationArg)
+        int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
             breakMaskArg, yellowMaskArg),
     	minDuration(minDurationArg), maxDuration(maxDurationArg),
@@ -39,10 +39,6 @@ public:
 
     /// destructor
     ~MSActuatedPhaseDefinition() { }
-
-private:
-    /// invalidated standard constructor
-    MSActuatedPhaseDefinition();
 
 };
 
