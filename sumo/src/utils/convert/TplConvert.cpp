@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/30 12:00:38  roessel
+// Ambigious call to pow(). Changed 10 to 10.0.
+//
 // Revision 1.2  2003/06/19 11:02:02  dkrajzew
 // conversion of floats patched
 //
@@ -202,7 +205,7 @@ float TplConvert<E>::_2float(const E * const data, int length)
         return ret * sgn;
     }
     int exp = _2int(data+i+1, length-i-1);
-    double exp2 = pow(10, exp);
+    double exp2 = pow(10.0, exp);
     return ret*sgn*exp2;
 }
 
