@@ -1,12 +1,78 @@
+//---------------------------------------------------------------------------//
+//                        MS_E2_ZS_CollectorOverLanes.cpp -
+//  A detector which joins E2Collectors over consecutive lanes (backward)
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Oct 2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.8  2004/01/12 14:35:10  dkrajzew
+// documentation added; allowed the writing to files
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include "MS_E2_ZS_CollectorOverLanes.h"
 #include "MSDetectorSubSys.h"
-//#include <utils/common/DOubleVector.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member variable definitions
+ * ======================================================================= */
+std::string
+MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
+"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+"<!--\n"
+"- density [veh/km]\n"
+"- maxJamLengthInVehicles [veh]\n"
+"- maxJamLengthInMeters [m]\n"
+"- jamLengthSumInVehicles [veh]\n"
+"- jamLengthSumInMeters [m]\n"
+"- queueLengthAheadOfTrafficLightsInVehicles [veh]\n"
+"- queueLengthAheadOfTrafficLightsInMeters [m]\n"
+"- nE2Vehicles [veh]\n"
+"- occupancyDegree out of [0,1]\n"
+"- spaceMeanSpeed [m/s]\n"
+"- currentHaltingDurationSumPerVehicle [s]\n"
+"- nStartedHalts [n]\n"
+"- haltingDurationSum [s]\n"
+"- haltingDurationMean [s]\n"
+"-->\n\n");
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         std::string id, MSLane* lane, MSUnit::Meters startPos,
-        //MSUnit::Meters detLength, const LaneContinuations &laneContinuations,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -23,6 +89,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         assert( false );
     }
 }
+
 
 void
 MS_E2_ZS_CollectorOverLanes::init(
@@ -48,8 +115,6 @@ MS_E2_ZS_CollectorOverLanes::init(
     myDetectorCombinations[0].push_back(c);
     myAlreadyBuild[lane] = c;
     extendTo(detLength, laneContinuations);
-
-//    myTmpArray.reserve(myLengths.size());
 }
 
 
@@ -77,10 +142,10 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 LaneVector lv = *lanei;
                 DetectorVector dv = *deti;
                 double clength = *leni;
-		    assert(lv.size()>0);
-		    assert(dv.size()>0);
+			    assert(lv.size()>0);
+			    assert(dv.size()>0);
                 // erase previous elements
-		    assert(leni!=myLengths.end());
+			    assert(leni!=myLengths.end());
                 myLengths.erase(leni);
                 myLaneCombinations.erase(lanei);
                 myDetectorCombinations.erase(deti);
@@ -282,3 +347,10 @@ MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights( void )
         }
     }
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
