@@ -32,7 +32,7 @@
       converting exiting ones. The first is that our interest mainly lies on
       simulation of large urban areas and the networks size speaks against
       inserting and editing them by hand. The second is the high complexity of
-      the SUMO-network format which allows minimum effort on post-processing
+      the SUMO-network format allowing minimum effort on post-processing
       the data after loading it within the simulation. Using this approach,
       the amount of memory used within the simulation is reduced.</para>
     </sect1>
@@ -40,9 +40,11 @@
     <sect1>
       <title>Features of SUMO-NETCONVERT</title>
 
-      <para><itemizedlist><listitem><para>computation of lane to lane
-      connections</para></listitem><listitem><para>computation of traffic
-      lights</para></listitem></itemizedlist></para>
+      <para>
+      <itemizedlist><listitem><para>Computation of lane to lane
+        connections</para></listitem>
+      <listitem><para>Computation of traffic
+        lights</para></listitem></itemizedlist></para>
     </sect1>
 
     <sect1>
@@ -61,7 +63,7 @@
       organised.</para>
 
       <sect2>
-        <title>ToDo</title>
+        <title>To do</title>
 
         <para>- describe constraints of data after they are loaded</para>
       </sect2>
@@ -72,7 +74,7 @@
 
       <para>Please let us know when either the document remains any point
       unclear or the simulation does not behave as expected. Every help is
-      appreciated and you will be mentioned on a prominent space. Thank you.</para>
+      appreciated. Thank you.</para>
     </sect1>
   </chapter>
 
@@ -164,7 +166,7 @@
 
     <para>The process of building networks from loaded data max be splitted
     into steps as shown within the next picture. We will not describe how
-    options are parsed within this document, a further one should be available
+    options are parsed within this document; a further one should be available
     about this topic as this process is common to all modules. The further
     steps are described within the next subchapters.</para>
 
@@ -182,7 +184,7 @@
       within the container classes &#34;NB*Cont&#34; the same way. Now,
       the process of conversion into the SUMO-format, possibly including
       some computation of further needed values, takes place. You may
-      ask why we do need eleven steps (version 0.8) to postprocess the
+      ask why we do need eleven steps (version 0.8) to post process the
       data. Here is the list of actions done and their explanation,
       too.</para>
       <calloutlist>
@@ -201,18 +203,17 @@
         </callout>
         <callout>
           <para>Computing turning directions</para>
-          <para>For each edge known within NBEdgeCont, the edge which
-          outgoes from the node the current edge goes into, is
+          <para>For each edge known within NBEdgeCont, the opposite edge is
           computed. They are left unseen for the next steps and later
           assigned as the turning direction. An edge is regarded as
           being the turning direction if it yields in the same node
-          the current edge offsprings.</para>
+          the current edge springs off.</para>
         </callout>
         <callout><para>Sorting nodes&#39; edges</para>
           <para>For each node known by NBNodeCont, the 3 lists, being
           unsorted so far are sorted: _incoming, _outgoing and
           _allEdges. By doing this, we later know the abstract
-          geometrical relationships betwen edges (which edge is right to
+          geometrical relationships between edges (which edge is right to
           which etc.). The lists are sorted clockwise beginning at the
           edge coming from the most northern direction. </para>
 	  <para>We describe this process more detailed in one of the
@@ -223,11 +224,11 @@
 	</callout>
 	<callout>
 	  <para>Edge to Edge - relationship computation</para>
-	  <para>For  each edge, the list of edges which may be
+	  <para>For  each edge, the list of edges that may be
           approached from it is being computed and which of this
           edge&#39;s lanes are used to do this. It is not yet
-          computed, which lanes will be approached by which of this
-          edge&#39;s lanes.</para>
+          computed, which of this
+          edge&#39;s lanes approaches which lanes.</para>
 	  <para>We describe this process more detailed in one of the
           next subchapters.</para>
         </callout>
@@ -236,7 +237,7 @@
       <para>Before the loaded data may be processed, their container
           must be informed about the end of the loading. By now, this
           is only true for the nodes as the edges do not need any
-          preprocessing. The method
+          pre-processing. The method
           <methodname>NBNodeCont::close()</methodname> is called from
           <methodname>NBLoader::load()</methodname> to precompute the
           nodes. A further description will be given in the next
@@ -245,7 +246,7 @@
           steps. In the first step
           (<methodname>computeEdges()</methodname>) the connections
           between edges are computed. The second
-          step(<methodname>computeNodes()</methodname>) is generating
+          step (<methodname>computeNodes()</methodname>) is generating
           the junction logics for the connecting nodes
           (junctions). During this part of the process, the program
           will terminate when errors are encountered. This is done by
@@ -274,7 +275,7 @@
       fileref="./gfx/basic_coordinates.gif"
       format="GIF"></imagedata></imageobject></mediaobject></figure>
       <para>It is not assured, that the incoming and outgoing
-      directions of a street which is to the north of the junctions
+      directions of a northern street 
       are lying beside each other within the list of sorted edges. It
       may rather be, that the outgoing is lying at the begin and the
       incoming at the end.</para>
@@ -283,10 +284,10 @@
       <sect2><title>Computation of edge to edge -
       relationships</title>
       <para>For each edge, the following is being done: At first, the
-      list of edges which outgo from the junction this edge yields in
+      list of edges outgoing from the junction this edge yields in
       is retrieved. Then, the importance of each connected edge is
       being computed using the priority of the approached edge. This
-      means that higher priorised edges are being approached by a
+      means that more important roads are being approached by a
       higher number of lanes.</para></sect2>
     </sect1>
 
@@ -294,14 +295,14 @@
     <para>Like most of the container methods, this method only invokes
     a method with the same name (here:
     <methodname>close()</methodname>) on all of the classes stored
-    inside itself.</para>
+    inside it.</para>
     <para>The so invoked method NBNode::close() computes the
-    node&#39;s lists of edges. Each node has three lists which are
+    node&#39;s lists of edges. Each node has three lists,
     shown in the next picture.</para>
     <itemizedlist>
       <listitem>
         <para><type>std::vector&#60;NBEdge*&#62;</type>
-          <varname>_allEdges</varname> which holds both the incoming
+          <varname>_allEdges</varname> holds both the incoming
           and the outgoing edges sorted clockwise beginning with the
           edge(s) at the node&#39;s north side (0 degree). Please
           remark, that this of course may be more than one edge as for
@@ -314,13 +315,13 @@
       </listitem>
       <listitem>
         <para><type>std::vector&#60;NBEdge*&#62;*</type>
-          <varname>_incomingEdges</varname> which holds the edges that
+          <varname>_incomingEdges</varname> which the edges that
           yield into the junction sorted as described above.
         </para>
       </listitem>
       <listitem>
         <para><type>std::vector&#60;NBEdge*&#62;*</type>
-	  <varname>_outgoingEdges</varname> which holds the edges that
+	  <varname>_outgoingEdges</varname> which the edges that
           originate at the current junction.
         </para>
       </listitem>
@@ -346,7 +347,7 @@
     </figure>
 
     <para>Additionally, this method also computes the type of the
-    junction as all needed nodes are already known. As this also
+    junction, as all needed nodes are already known. As this also
     involves the setting of the junction priorities the participating
     edges have and we will discuss these computations more briefly
     now.</para>
@@ -357,7 +358,7 @@
       <varlistentry> <term>No Junction</term>
         <listitem>
           <para>Junctions of this type have no function at all. There
-          are no relationships between approaching vehicles modeled. You
+          are no relationships between approaching vehicles modelled. You
           may find such junction on places where two lanes of a road
           merge or a road splits. Crossings with different elevation
           levels may also be counted to this type of junctions. We have
@@ -376,7 +377,7 @@
         <listitem>
           <para>Here, we have at least two streets with a high
           priority while the rest (when given) have a lower
-          priority. The computation of the priorities which are
+          priority. The computation of the priorities that are
           junction-local will be described in the next
           subchapter.</para>
         </listitem>
@@ -395,7 +396,7 @@
     junction types. Except of the case where the junction has only one
     incoming and only one outgoing edge yielding in a &#34;high
     priority&#34; of all edges and the junction becomes a Priority
-    Junction, the type of the junction is determined by combinating
+    Junction, the type of the junction is determined by a function over
     all of the junction&#39;s edges&#39; priorities, determining the
     type of junction for every pair and choosing the least valued type
     (following the upper order where No Junction has the smallest and
@@ -409,7 +410,7 @@
     <para><methodname>getJunctionType()</methodname> uses an internal
     table to look up the junction type resulting from the combination
     of the given edge priorities (types). This table is embedded into
-    the code and can not be changed when the developer wants to stay
+    the code and cannot be changed when the developer wants to stay
     portable over the program versions. We will implement a method for
     loading own tables in the future.</para>
 
@@ -423,7 +424,7 @@
       Priority</title>
       <para>For the later computation of the priorities of connections
       between edges, we have to pinpoint which of a junction&#39;s
-      edges are the priorised ones when the junction is a Priorised
+      edges are the main ones when the junction is a Priorised
       Junction. In the case that a junction connects more than two
       streets, which should be the usual case, we assume two of those
       streets to have a higher &#34;junction priority&#34; than the
@@ -433,8 +434,8 @@
       direction. The next figure shows this problem. That&#39;s why we
       compute the junction-internal priorities of edges.</para>
       <figure>
-        <title>An Example teh Change of an Edges&#39; Priority over
-        more than one Junction</title>
+        <title>An example the how the prioroty of an edge changes over
+        more than one junction</title>
         <mediaobject>
           <imageobject>
             <imagedata fileref="" format="GIF"></imagedata>
@@ -445,7 +446,7 @@
       <para>We must admit, that the method we are using is a set of
       heuristics and has not yet been validated by traffic
       scientists.</para>
-      <para>To compute the priority of an edges within a single
+      <para>To compute the priority of an edge within a single
       junction, we count the distinct priorities of the incoming edges
       of a junction at first. When the number is equal to one, being
       the case when all incoming edges have the same priority, we
@@ -455,17 +456,17 @@
       most opposite direction to the first edge found. When the number
       of distinct priorities of the incoming edges is greater than
       one, we sort the edges first and take the first edge then. If
-      the number of yet unused higher priorised edges is still greater
+      the number of yet unused main edges is still greater
       than one, we take the opposite edge to the edge found at first
       from the list of edges left that have the highest
       priorities. Otherwise, we simply try to get the opposite edge
       without taking the priorities into account - they are the same
       anyway.</para>
-      <para>Both found incoming edges are marked as higher priorised
-      in the junction.</para>
-      <para>After the most priorised incoming edges are known, we use
-      them to find the corresponding outgoing edges and mark the as
-      higher priorised, too.</para>
+      <para>Both found incoming edges are marked as main
+      within the junction.</para>
+      <para>After the main incoming edges are known, we use
+      them to find the corresponding outgoing edges and mark them as
+      main roads, too.</para>
       <figure>
         <title>Program flow to while computing a junction&#39;s
         edges&#39; priorities</title>
@@ -495,7 +496,7 @@
     look at a single junction where the edge we want to compute is
     marked by shading:</para>
     <para>The easiest way in this case would be to let vehicles on the
-    left lane drive to the left, the vehicles on the right lane drive
+    left lane drive to the left; the vehicles on the right lane drive
     to the right and the vehicles on the middle lane drive
     ahead. Still, some junctions may occur where the number of lanes
     does not match the number of possible directions.</para>
@@ -512,7 +513,7 @@
 
     <sect1 id="ComputationJunctionLogic">
       <title>computeNodes() : Computation of a Junction Logic</title>
-      <para>A junction should always consists of more than two streets
+      <para>A junction should always consist of more than two streets
       where a street is a directed connection between two
       points. Streets may have different priorities and vehicles
       driving on roads that have a lower priority should wait for
@@ -523,15 +524,15 @@
       driving on the right side of the road is used. All these
       circumstances make a logic for a junction necessary that decides
       which vehicles may move and which not. Within SUMO, such a logic
-      gets an input vector of bools which represents all possible
+      gets an input vector of booleans which represents all possible
       movements (connections between an incoming lane and an outgoing
       lane) where a set value represents a vehicle that wishes to use
       this connection. The connections themselves were previously
       computed by the &#34;computeEdges()&#34; - method. The output of
-      a logic is a vector of bools, too, but the bools do not longer
+      a logic is a vector of booleans, too, but the booleans do not longer
       represent possible connections but the lanes that are allowed to
       drive.</para>
-      <para>The netconvert is responsible for the building of these
+      <para>NETCONVERT is responsible for the building of these
       logics and the computeNodes() - method performs this
       action.</para>
       <para>Inside SUMO you will find two ways of representation for
@@ -542,10 +543,10 @@
       will find better documentation about these classes in [3,
       4].</para>
       <para>Both representations are supported by the
-      &#34;Netconvert&#34;. As the following diagram shows, during the
+      NETCONVERT. As the following diagram shows, during the
       computation of a single logic, a key is computed at first. This
       key is a unique identifier for the junction logic that is
-      currently build. A closer description of the key will be given
+      currently built. A closer description of the key will be given
       later.</para>
     </sect1>
 
@@ -556,7 +557,7 @@
       logic&#39;s functionality stays the same, even when the key is
       rotated as long as the incoming/outgoing edges are rotated in
       the same way, this method (NBJunctionIO::try2convert) returns
-      the number of rotations to be done to fit the junctions
+      the number of rotations to be done to fit the junction's
       incoming/outgoing edges information to an existing logic. Then,
       this fitting is done by rotating the key and the
       incoming/outgoing edges and the computation is finished for this
@@ -576,7 +577,7 @@
       <para>Independent to whether a MSMapLogic was computed or not,
       the MSBitfieldLogic is then computed, so it may be loaded when
       the other logic could not be found or the user wishes the usage
-      of MSBitfieldLogics only. Each logic is saved directly after
+      of MSBitfieldLogics only. Every logic is saved directly after
       it&#39;s computation using the NBJunctionIO - class. The
       resulting key (which may be changed from a MapLogic- to a
       BitfieldLogic-key) is the assigned to the junction.</para>
@@ -609,7 +610,7 @@
       <para>A developer should respect this paradigm and try to catch every
       false input or situation and report the error to the user providing him
       as many information as available. The further processing may be aborted
-      using a &#34;ProcessError&#34; - exception instance which is caught by
+      using a &#34;ProcessError&#34; - exception instance, which is caught by
       the main method.</para>
 
       <para>Warnings may be reported to the user and we in fact have prepared
@@ -620,7 +621,7 @@
     <sect1 id="DebugMacros">
       <title>Debug Macros</title>
 
-      <para>We have defined some debug macro definitions which let some parts
+      <para>We have defined some debug macro definitions that let some parts
       of the computation be very verbose or check some values for certain
       examples. We will present them now, briefly.</para>
 
@@ -635,17 +636,17 @@
         <title>-D CROSS_TEST</title>
 
         <para>For the cross3ltl-example, this definition checks some values
-        that should be true. If not, unfullfilled assertion exceptions are
+        that should be true. If not, unfulfilled assertion exceptions are
         thrown:</para>
 
         <itemizedlist>
           <listitem>
-            <para>correct turning destinations after
+            <para>Correct turning destinations after
             &#34;computeTurningDirections&#34;</para>
           </listitem>
 
           <listitem>
-            <para>correct order of edges in node &#34;0&#34; after
+            <para>Correct order of edges in node &#34;0&#34; after
             &#34;sortNodesEdges&#34;</para>
           </listitem>
         </itemizedlist>
@@ -686,8 +687,8 @@
   <appendix>
     <title>Error Messages</title>
 
-    <para>When developing the software, you may get some further errors then
-    if you use it only, due to some buildin check routines. Here, only errors
+    <para>When developing the software, you may get some further errors than
+    when using it only, due to some buildin check routines. Here, only errors
     only visible for developers are listed.</para>
 
     <itemizedlist>
