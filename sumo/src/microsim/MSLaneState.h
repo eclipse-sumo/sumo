@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.15  2003/06/05 16:04:46  dkrajzew
+// had to remove sorting-methods from the VehicleData-structure
+//
 // Revision 1.14  2003/06/05 09:53:46  roessel
 // Numerous changes and new methods/members.
 //
@@ -156,9 +159,9 @@ public:
     int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
 
     static std::string& getXMLHeader( void );
-    
+
     std::string getXMLOutput( MSNet::Time lastNTimesteps );
-    
+
     void addMoveData( MSVehicle& veh, double newSpeed,
                       double timestepFraction );
 
@@ -208,37 +211,6 @@ public:
 
     struct VehicleData
     {
-        struct entryTimestepLesser :
-            public std::binary_function< VehicleData, double, bool >
-        {
-            bool operator()( const VehicleData& data,
-                             double entryTimestepBound ) const
-                {
-                    return data.entryContTimestepM < entryTimestepBound;
-                }
-        };
-        
-        struct entryTimestepLesserMap :
-            public std::binary_function< VehicleDataMap::value_type,
-            double, bool >
-        {
-            bool operator()( const VehicleDataMap::value_type& data,
-                             double entryTimestepBound ) const
-                {
-                    return data.second.entryContTimestepM < entryTimestepBound;
-                }
-        };
-
-        struct leaveTimestepLesser :
-            public std::binary_function< VehicleData, double, bool >
-        {
-            bool operator()( const VehicleData& data,
-                             double leaveTimestepBound ) const
-                {
-                    return data.leaveContTimestepM < leaveTimestepBound;
-                }
-        };
-
         VehicleData( double entryContTimestep,
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
@@ -252,6 +224,44 @@ public:
         bool passedEntireDetectorM;
         bool leftDetectorByMoveM;
     };
+
+
+    /* schön gemacht: */
+    /*   \|/*/
+    /*   -O-*/
+    /*   /|\*/
+
+    struct entryTimestepLesser :
+        public std::binary_function< VehicleData, double, bool >
+    {
+        bool operator()( const VehicleData& data,
+                         double entryTimestepBound ) const
+        {
+            return data.entryContTimestepM < entryTimestepBound;
+        }
+    };
+
+    struct entryTimestepLesserMap :
+            public std::binary_function< VehicleDataMap::value_type,
+                double, bool >
+    {
+        bool operator()( const VehicleDataMap::value_type& data,
+                         double entryTimestepBound ) const
+        {
+            return data.second.entryContTimestepM < entryTimestepBound;
+        }
+    };
+
+    struct leaveTimestepLesser :
+            public std::binary_function< VehicleData, double, bool >
+    {
+        bool operator()( const VehicleData& data,
+                         double leaveTimestepBound ) const
+        {
+            return data.leaveContTimestepM < leaveTimestepBound;
+        }
+    };
+
 
     struct WaitingQueueElem
     {
@@ -280,10 +290,10 @@ protected:
     bool actionAfterMoveAndEmit( void );
 
     MSNet::Time deleteOldData( void );
-    
+
     void calcWaitingQueueLength( void );
 
-    double getStartTimestep( MSNet::Time lastNTimesteps );    
+    double getStartTimestep( MSNet::Time lastNTimesteps );
 
     bool needsNewCalculation( MSNet::Time lastNTimesteps );
 
@@ -297,7 +307,7 @@ protected:
             }
             return start;
         }
-    
+
 
 private:
     std::string idM;
@@ -375,7 +385,7 @@ inline double traveltimeSum( double sumSoFar,
 {
     if ( data.passedEntireDetectorM ) {
         return sumSoFar + data.leaveContTimestepM - data.entryContTimestepM;
-    }    
+    }
     return sumSoFar;
 }
 
