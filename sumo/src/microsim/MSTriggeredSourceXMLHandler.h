@@ -11,11 +11,11 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
@@ -44,18 +44,18 @@ class MSVehicleType;
    @class MSTriggeredSourceXMLHandler
    @brief Class to handle XML-input for the MSTriggerdSource class.
 
-   
+
 */
 class MSTriggeredSourceXMLHandler : public DefaultHandler
 {
 
 public:    // public methods
-    /// public constructor.     
+    /// public constructor.
     MSTriggeredSourceXMLHandler( MSTriggeredSource& aSource );
-    
+
     /// Destructor.
     ~MSTriggeredSourceXMLHandler( void );
-    
+
     void startElement( const XMLCh* const uri,
                        const XMLCh* const localname,
                        const XMLCh* const qname,
@@ -64,22 +64,22 @@ public:    // public methods
     void endElement( const XMLCh* const uri,
                      const XMLCh* const localname,
                      const XMLCh* const qname );
-    
+
     void warning( const SAXParseException& exception );
-    
+
     void error( const SAXParseException& exception );
-    
+
     void fatalError( const SAXParseException& exception );
 
-    
+
 protected: // protected methods
 
     bool isParseTriggeredSourceTokenSuccess( const XMLCh* const aLocalname,
                                              const Attributes& aAttributes );
-    
+
     bool isParseRouteDistSuccess( const XMLCh* const aLocalname,
                                   const Attributes& aAttributes );
-    
+
     bool isParseEmitTokenSuccess( const XMLCh* const aLocalname,
                                   const Attributes& aAttributes );
 
@@ -91,20 +91,20 @@ protected: // protected methods
                                  double& converted ) const;
 
     bool isProperRouteDistValues( void );
-    
+
     bool isProperEmitValues( void );
 
     double roundToNearestInt( double toRound ) const;
-    
+
 private:   // private methods
     /// Default constructor.
     MSTriggeredSourceXMLHandler( void );
-     
+
     /// Copy constructor.
     MSTriggeredSourceXMLHandler( const MSTriggeredSourceXMLHandler& );
-    
+
     /// Assignment operator.
-    MSTriggeredSourceXMLHandler& operator=( const MSTriggeredSourceXMLHandler& );     
+    MSTriggeredSourceXMLHandler& operator=( const MSTriggeredSourceXMLHandler& );
 
 protected: // protected members
 
@@ -123,14 +123,14 @@ private:   // private members
     MSNet::Time myEmitTime;
 
     double myEmitSpeed;
-    
+
     MSVehicleType* myEmitVehType;
 
     bool myIsParsedTriggeredSourceToken;
 
     bool myIsParsedRouteDistToken;
 
-};  // end MSTriggeredSourceXMLHandler 
+};  // end MSTriggeredSourceXMLHandler
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
@@ -140,6 +140,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

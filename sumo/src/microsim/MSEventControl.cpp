@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -99,7 +102,7 @@ namespace
 
 #include <cassert>
 #include "MSEventControl.h"
-#include "../helpers/Command.h"
+#include <helpers/Command.h>
 #include "MSNet.h"
 
 using namespace std;
@@ -146,7 +149,7 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
         execTime = currTime + 1;
         cerr << "MSEventControl::addEvent: execTime <= currTime" << endl;
     }
-    
+
     Event newEvent = Event( operation, execTime );
     myEvents.push( newEvent );
     return true;
@@ -219,10 +222,22 @@ MSEventControl::dictionary(string id)
     }
     return it->second;
 }
+
+
+void
+MSEventControl::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
-//#include "MSEventControl.iC"
+//#include "MSEventControl.icc"
 //#endif
 
 // Local Variables:

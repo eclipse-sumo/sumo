@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSJunctionControl.h  -  Coordinates
-                          Junction-operations. 
+                          Junction-operations.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -21,6 +21,9 @@
 #define MSJunctionControl_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -56,7 +59,7 @@
 // parser bugs removed
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -76,7 +79,7 @@ class MSJunctionControl
 public:
     /// Container for Junctions.
     typedef std::vector< MSJunction* > JunctionCont;
-     
+
     /// Use this constructor only.
     MSJunctionControl( std::string id, JunctionCont* j );
 
@@ -94,6 +97,8 @@ public:
     /** Returns the MSEdgeControl associated to the key id if exists,
         otherwise returns 0. */
     static MSJunctionControl* dictionary( std::string id );
+    /** Clears the dictionary */
+    static void clear();
 
 protected:
 
@@ -110,7 +115,7 @@ private:
 
     /// Default constructor.
     MSJunctionControl();
-     
+
     /// Copy constructor.
     MSJunctionControl( const MSJunctionControl& );
 
@@ -122,7 +127,7 @@ private:
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 //#ifndef DISABLE_INLINE
-//#include "MSJunctionControl.iC"
+//#include "MSJunctionControl.icc"
 //#endif
 
 #endif

@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:01  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -27,7 +30,7 @@
 //
 // Revision 1.7  2002/06/20 08:00:59  dkrajzew
 // template and .cpp inclusion inserted due to problems with MSVC++; should
-// be revalidated and removed as soon as possible 
+// be revalidated and removed as soon as possible
 //
 // Revision 1.6  2002/06/18 18:29:07  croessel
 // Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
@@ -96,7 +99,9 @@ template< size_t N >
 MSBitSetLogic< N >::~MSBitSetLogic< N >()
 {
     ( *myLogic ).clear();
+    delete myLogic;
     ( *myTransform ).clear();
+    delete myTransform;
 }
 
 //-------------------------------------------------------------------------//

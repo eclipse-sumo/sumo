@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSVehicleType.h  -  Base Class for Vehicle
-                          parameters. 
+                          parameters.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -21,6 +21,9 @@
 #define MSVehicleType_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -88,7 +91,7 @@ class MSLane;
 class MSVehicleType
 {
 public:
-    
+
     friend class MSVehicle;
 
     /// Constructor.
@@ -97,13 +100,13 @@ public:
 
     /// Destructor.
     ~MSVehicleType();
-     
+
     /// Get vehicle type's length [m].
     double length() const;
 
     /// Get vehicle type's maximum speed [m/s].
     double maxSpeed() const;
-     
+
     /// Get the vehicle type's maximum acceleration [m/s^2]
     double accel() const;
 
@@ -112,20 +115,20 @@ public:
 
     /// Get the vehicle type's dawdle-probability. Out of [0,1]
     double dawdle() const;
-    
+
     /// Returns the minimum deceleration-ability of all vehicle-types.
     static double minDecel();
-    
+
     /// Returns the maximum length of all vehicle-types.
     static double maxLength();
 
     /// Returns precomputed accel * deltaT
     double accelSpeed( void ) const;
 
-    /// Returns precomputed decel * deltaT    
+    /// Returns precomputed decel * deltaT
     double decelSpeed( void ) const;
 
-    /// Returns precomputed ( accel + decel ) * deltaT    
+    /// Returns precomputed ( accel + decel ) * deltaT
     double accelPlusDecelSpeed( void ) const;
 
     /// Returns precomputed 1 / ( 2 * decel )
@@ -136,7 +139,7 @@ public:
 
     /// Returns precomputed decel * deltaT^2
     double decelDist( void ) const;
-    
+
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -144,40 +147,42 @@ public:
     /** Returns the MSVehicleType associated to the key id if exists,
         otherwise returns 0. */
     static MSVehicleType* dictionary( std::string id);
+    /** Clears the dictionary */
+    static void clear();
 
 protected:
-     
+
 private:
     /// Unique ID.
     std::string myID;
-     
+
     /// Vehicle type's length [m].
     double myLength;
-     
+
     /// Vehicle type's maximum speed [m/s].
     double myMaxSpeed;
 
     /// The vehicle type's maximum acceleration [m/s^2]
     double myAccel;
-     
+
     /// The vehicle type's maximum deceleration [m/s^2]
     double myDecel;
 
     /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
     double myDawdle;
 
-    
+
     double myAccelSpeed;
     double myDecelSpeed;
     double myAccelPlusDecelSpeed;
     double myInversTwoDecel;
     double myAccelDist;
     double myDecelDist;
-    
+
     /// Minimum deceleration-ability of all vehicle-types.
     static double myMinDecel;
-    
-    /// Maximum length of all vehicle-types.   
+
+    /// Maximum length of all vehicle-types.
     static double myMaxLength;
 
     /// Static dictionary to associate string-ids with objects.
@@ -186,7 +191,7 @@ private:
 
     /// Default constructor.
     MSVehicleType();
-     
+
     /// Copy constructor.
     MSVehicleType( const MSVehicleType& );
 

@@ -145,10 +145,10 @@ private:   // private members
         /**
          */
         struct FrequencyGreater :
-            public std::binary_function< RouteDistElement,
+            public std::binary_function< const RouteDistElement,
                                          double, bool >
         {
-            bool operator() ( RouteDistElement elem,
+            bool operator() ( const RouteDistElement elem,
                               double cmpFreq ) const;
         };
 
@@ -175,6 +175,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

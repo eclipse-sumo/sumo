@@ -21,6 +21,9 @@
 #define MSEventControl_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -118,6 +121,9 @@ public:
         otherwise returns 0. */
     static MSEventControl* dictionary( std::string id );
 
+    /** Clears the dictionary */
+    static void clear();
+
 //      friend class MSNet;
 protected:
 
@@ -131,7 +137,7 @@ private:
     std::string myID;
 
     /// Container for time-dependant events, e.g. traffic-light-change.
-    typedef std::priority_queue< Event, vector< Event >,
+    typedef std::priority_queue< Event, std::vector< Event >,
                                  EventSortCrit > EventCont;
 
     /// Event-container, holds executable events.
@@ -155,7 +161,7 @@ private:
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 //#ifndef DISABLE_INLINE
-//#include "MSEventControl.iC"
+//#include "MSEventControl.icc"
 //#endif
 
 #endif

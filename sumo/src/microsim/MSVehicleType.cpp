@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSVehicleType.C  -  Base Class for Vehicle
-                          parameters. 
+                          parameters.
                              -------------------
     begin                : Tue, 06 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -135,19 +138,19 @@ MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
     assert( myAccel > 0 );
     assert( myDecel > 0 );
     assert( myDawdle >= 0 && myDawdle <= 1 );
-    
+
     if ( myMinDecel == 0 || myDecel < myMinDecel ) {
-    
+
         myMinDecel = myDecel;
     }
     if ( myLength > myMaxLength ) {
-    
+
         myMaxLength = myLength;
     }
 
     myAccelSpeed          = myAccel * MSNet::deltaT();
     myDecelSpeed          = myDecel * MSNet::deltaT();
-    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT(); 
+    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT();
     myInversTwoDecel      = double( 1 ) / ( double( 2 ) * myDecel );
     myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
     myDecelDist           = myDecel * MSNet::deltaT() * MSNet::deltaT();
@@ -176,6 +179,16 @@ MSVehicleType::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+
+void
+MSVehicleType::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

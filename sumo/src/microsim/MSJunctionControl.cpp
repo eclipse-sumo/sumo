@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSJunctionControl.C  -  Coordinates
-                          Junction-operations. 
+                          Junction-operations.
                              -------------------
     begin                : Tue, 06 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -74,7 +77,7 @@ namespace
 // CC problems with make_pair repaired
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -104,13 +107,14 @@ MSJunctionControl::MSJunctionControl(string id, JunctionCont* j) :
 
 MSJunctionControl::~MSJunctionControl()
 {
+    delete myJunctions;
 }
 
 // Why do we separate setting and collecting requests? Because
 // main road vehicles may set requests at more than on
 // junction. Before we collect, all requests must be set.
 
-void 
+void
 MSJunctionControl::moveFirstVehicles()
 {
     // Why do we need four loops? The problem is that first vehicles can
@@ -125,7 +129,7 @@ MSJunctionControl::moveFirstVehicles()
     for_each ( myJunctions->begin(), myJunctions->end(),
                mem_fun (& MSJunction::moveFirstVehicles ) );
     for_each ( myJunctions->begin(), myJunctions->end(),
-               mem_fun (& MSJunction::vehicles2targetLane ) );    
+               mem_fun (& MSJunction::vehicles2targetLane ) );
 }
 
 
@@ -153,10 +157,20 @@ MSJunctionControl::dictionary(string id)
     return it->second;
 }
 
+
+void
+MSJunctionControl::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
-//#include "MSJunctionControl.iC"
+//#include "MSJunctionControl.icc"
 //#endif
 
 // Local Variables:

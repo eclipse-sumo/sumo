@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEmitControl.C  -  Controls emission of
-                          vehicles into the net. 
+                          vehicles into the net.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:01  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -70,7 +73,7 @@ namespace
 // CC problems with make_pair repaired
 //
 // Revision 1.2  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -107,12 +110,13 @@ MSEmitControl::MSEmitControl(string id, VehCont* allVeh) :
 
 MSEmitControl::~MSEmitControl()
 {
+    delete myAllVeh;
 }
 
-void 
+void
 MSEmitControl::add(MSEmitControl *cont) {
     myAllVeh->reserve(myAllVeh->size() + cont->myAllVeh->size());
-    for(VehCont::iterator i=cont->myAllVeh->begin(); 
+    for(VehCont::iterator i=cont->myAllVeh->begin();
         i!=cont->myAllVeh->end(); i++)
         myAllVeh->push_back(*i);
     sort(myAllVeh->begin(), myAllVeh->end(), departTimeSortCrit);
@@ -127,13 +131,13 @@ MSEmitControl::emitVehicles(MSNet::Time time)
     VehCont refusedEmits; // Tmp-container for vehicles that were
     // not allowed to enter their lane.
     VehCont::iterator veh = myAllVeh->begin();
-    while (veh != myAllVeh->end() && (*veh)->desiredDepart() <= time ) { 
-        if ((*veh)->departLane().emit(**veh) == true) { 
+    while (veh != myAllVeh->end() && (*veh)->desiredDepart() <= time ) {
+        if ((*veh)->departLane().emit(**veh) == true) {
             // Successful emission.
         }
         else {
             // Emission not successful. Store for next-timestep
-            // retry. 
+            // retry.
             refusedEmits.push_back(*veh);
         }
         ++veh;
@@ -144,7 +148,7 @@ MSEmitControl::emitVehicles(MSNet::Time time)
                      refusedEmits.end());
 }
 
-void 
+void
 MSEmitControl::addStarting(MSVehicle *veh) {
     myAllVeh->insert(myAllVeh->begin(), veh);
 }
@@ -172,10 +176,22 @@ MSEmitControl::dictionary(string id)
     }
     return it->second;
 }
+
+
+void
+MSEmitControl::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
-//#include "MSEmitControl.iC"
+//#include "MSEmitControl.icc"
 //#endif
 
 // Local Variables:

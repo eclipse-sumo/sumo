@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSJunctionLogic.h  -  Base class for different 
+                          MSJunctionLogic.h  -  Base class for different
                           kinds of logic-implementations.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -50,13 +53,13 @@ public:
     /// Modifies the passed respond according to the request.
     virtual void respond( const MSLogicJunction::Request& request,
                           MSLogicJunction::Respond& respond ) const = 0;
-                          
+
     /// Returns the logic's number of links.
     unsigned int nLinks();
-    
+
     /// Returns the logic's number of inLanes.
     unsigned int nInLanes();
-    
+
     /** Inserts MSJunctionLogic into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -65,30 +68,32 @@ public:
     /** Returns the MSJunctionLogic associated to the key id if exists,
         otherwise returns 0. */
     static MSJunctionLogic* dictionary( std::string id);
-    
+
+    /** Clears the dictionary */
+    static void clear();
 protected:
     /// Constructor.
     MSJunctionLogic( unsigned int nLinks, unsigned int nInLanes );
-    
+
     /// The logic's number of links.
     unsigned int myNLinks;
-    
+
     /// The logic's number of inLanes.
     unsigned int myNInLanes;
-    
+
 private:
     /** Static dictionary to associate string-ids with objects. */
     typedef std::map< std::string, MSJunctionLogic* > DictType;
     static DictType myDict;
-    
+
     /// Default constructor.
     MSJunctionLogic();
-    
+
     /// Copy constructor.
     MSJunctionLogic(const MSJunctionLogic&);
-    
+
     /// Assignment operator.
-    MSJunctionLogic& operator=(const MSJunctionLogic&);     
+    MSJunctionLogic& operator=(const MSJunctionLogic&);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

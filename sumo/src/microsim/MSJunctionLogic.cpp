@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSJunctionLogic.cpp  -  Base class for different 
+                          MSJunctionLogic.cpp  -  Base class for different
                           kinds of logic-implementations.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -73,7 +76,7 @@ MSJunctionLogic::nInLanes()
 
 //-------------------------------------------------------------------------//
 
-MSJunctionLogic::MSJunctionLogic( unsigned int nLinks, 
+MSJunctionLogic::MSJunctionLogic( unsigned int nLinks,
                                   unsigned int nInLanes ) :
     myNLinks( nLinks ),
     myNInLanes( nInLanes )
@@ -114,6 +117,15 @@ MSJunctionLogic::dictionary( string id )
 }
 
 //-------------------------------------------------------------------------//
+
+void
+MSJunctionLogic::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

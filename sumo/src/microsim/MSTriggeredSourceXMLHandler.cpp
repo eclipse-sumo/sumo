@@ -44,7 +44,8 @@
 #include <cmath>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
-#include "../utils/TplConvert.h"
+#include <utils/convert/TplConvert.h>
+#include <utils/common/UtilExceptions.h>
 
 using namespace std;
 
@@ -98,14 +99,14 @@ MSTriggeredSourceXMLHandler::startElement( const XMLCh* const aUri,
     }
     else if ( mySource.myIsWorking ) {
 
-        
+
         if ( isParseEmitTokenSuccess( aLocalname, aAttributes ) ) {
 
             mySource.scheduleEmit( myEmitId, myEmitTime, myEmitSpeed,
                                    myEmitVehType );
         }
         else {
-            
+
             mySource.readNextEmitElement();
         }
     }
@@ -176,7 +177,7 @@ MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
 {
     // check if route exists
     string routeStr = myRouteDistAttributes.find( string( "routeid" ) )->second;
-    
+
     const MSNet::Route* route = MSNet::routeDict( routeStr );
     if ( route == 0 ) {
 
@@ -514,7 +515,7 @@ MSTriggeredSourceXMLHandler::isAttributes2mapSuccess(
         // We now have a valid attribute.
         // attrIt->second = ... gives a segfault :-(
         cout << "key " << key << ", value " << TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) ) << endl;
-        
+
         aMap[ key ] = TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) );
     }
     return true;
@@ -575,6 +576,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

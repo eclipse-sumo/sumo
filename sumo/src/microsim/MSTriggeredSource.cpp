@@ -41,9 +41,9 @@ namespace
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
-#include "../utils/TplConvert.h"
-#include "../helpers/Command.h"
-#include "../helpers/SimpleCommand.h"
+#include <utils/convert/TplConvert.h>
+#include <helpers/Command.h>
+#include <helpers/SimpleCommand.h>
 #include <cassert>
 #include <algorithm>
 #include <cstdlib>
@@ -199,7 +199,7 @@ MSTriggeredSource::MSTriggeredSource(
 MSTriggeredSource::~MSTriggeredSource( void )
 {
 //    delete myRouteDist;
-    
+
     delete myParser; // Deletes handler???
 }
 
@@ -271,7 +271,7 @@ MSTriggeredSource::emit( void )
 //          myLastEmit = execTime;
         myIsNewEmitFound = false;
         readNextEmitElement();
-        
+
         return 0;
     }
     else {
@@ -298,17 +298,17 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
     Command* emit = new SimpleCommand< MSTriggeredSource >(
         this, &MSTriggeredSource::emit );
 
-  
+
     if( myEventControl.addEvent(
             emit, aEmitTime,
             MSEventControl::ADAPT_AFTER_EXECUTION ) ) {
-        
+
         myVehicle = new MSVehicle(
             aVehicleId,
             const_cast< MSNet::Route* >( myRouteDist.getRndRoute() ),
             aEmitTime,
             aVehType );
-        
+
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
             assert( false ); // !!!
@@ -354,6 +354,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:03  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEmitControl.h  -  Controls emission of
-                          vehicles into the net. 
+                          vehicles into the net.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -21,6 +21,9 @@
 #define MSEmitControl_H
 
 // $Log$
+// Revision 1.2  2002/10/16 16:39:02  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -56,7 +59,7 @@
 // single person simulation added
 //
 // Revision 1.2  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -80,20 +83,20 @@ public:
     typedef std::vector< MSVehicle* > VehCont; // Don't change container type
     // without checking MSEmitControl::emitVehicles. Iterators may
     // become invalid.
-     
-    /** Use this constructor only. It will sort the vehicles by their 
+
+    /** Use this constructor only. It will sort the vehicles by their
         departure time. */
     MSEmitControl( std::string id, VehCont* allVeh );
-     
+
     /// Destructor.
     ~MSEmitControl();
 
     /** adds new vehicles to the list */
     void add( MSEmitControl* cont );
-     
+
     /** Emits vehicles at time, if there are vehicles that want to
         depart at time. If emission is not possible, the vehicles
-        remain in the list. */ 
+        remain in the list. */
     void emitVehicles( MSNet::Time time );
 
     void addStarting( MSVehicle* veh );
@@ -106,18 +109,21 @@ public:
         otherwise returns 0. */
     static MSEmitControl* dictionary( std::string id );
 
+    /** Clears the dictionary */
+    static void clear();
+
 protected:
-     
+
 private:
     /// Unique ID.
     std::string myID;
-     
-    /** The entirety of vehicles that will drive through the net. The 
+
+    /** The entirety of vehicles that will drive through the net. The
         vehicles know their departure-time and route. The container
         is sorted by the vehicles departure time. */
     VehCont* myAllVeh;
 
-//      /** The car-following model. Controls emission permission. */ 
+//      /** The car-following model. Controls emission permission. */
 //      MSModel* myModel;
 
     /// Static dictionary to associate string-ids with objects.
@@ -126,19 +132,19 @@ private:
 
     /// Default constructor.
     MSEmitControl();
-     
+
     /// Copy constructor.
     MSEmitControl(const MSEmitControl&);
-     
+
     /// Assignment operator.
-    MSEmitControl& operator=(const MSEmitControl&);     
+    MSEmitControl& operator=(const MSEmitControl&);
 };
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 //#ifndef DISABLE_INLINE
-//#include "MSEmitControl.iC"
+//#include "MSEmitControl.icc"
 //#endif
 
 #endif
