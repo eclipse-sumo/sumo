@@ -15,7 +15,6 @@ if test "x$prefix" = "xNONE"; then
 fi
 
 dnl Checks for programs.
-AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL
 
@@ -27,6 +26,32 @@ dnl AC_ENABLE_STATIC(yes)
 
 dnl enable libtool-support
 AM_PROG_LIBTOOL
+
+
+dnl Check for enable-features that shall go into config.h
+AC_ARG_ENABLE(debug, 
+              [  --enable-debug          enable sumo debugging code [default=no].],
+              [AC_DEFINE(_DEBUG, 1, 
+                         [Define to 1 in order to enable sumo debugging code.])
+	      ])
+
+AC_ARG_ENABLE(assert, 
+              [  --disable-assert        disable assertions [default=no].],
+              [AC_DEFINE(NDEBUG, 1, 
+                         [Define to 1 in order to disable assertions.])
+	      ])
+
+AC_ARG_ENABLE(inline, 
+              [  --disable-inline        disable inlining [default=no].],
+              [AC_DEFINE(DISABLE_INLINE, 1, 
+                         [Define to 1 in order to disable inlining.])
+	      ])
+
+AC_ARG_ENABLE(speedcheck, 
+              [  --enable-speedcheck     enable sumo speedchecking code [default=no].],
+              [AC_DEFINE(_SPEEDCHECK, 1, 
+                         [Define to 1 in order to enable simulation-speed checking.])
+	      ])
 
 
 dnl Checks for libraries.
@@ -129,7 +154,6 @@ AC_SUBST(XERCESINCLUDE)
 
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_SIZE_T
 
 
 
