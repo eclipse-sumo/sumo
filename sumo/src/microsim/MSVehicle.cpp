@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2003/10/15 11:43:50  dkrajzew
+// false lane-changing rules removed; an (far too large information interface between vehicle and lane-changer implemented
+//
 // Revision 1.30  2003/09/22 12:35:03  dkrajzew
 // vehicle does not decelerate on yellow when halting is not possible
 //
@@ -418,6 +421,135 @@ MSVehicle::State::State( double pos, double speed ) :
 
 
 /* -------------------------------------------------------------------------
+ * MSLaneChangeState
+ * ----------------------------------------------------------------------- */
+MSVehicle::LaneChangeState::LaneChangeState(MSVehicle &veh)
+    : myVehicle(veh), myAction(LCACT_NONE)
+{
+}
+
+
+MSVehicle::LaneChangeState::~LaneChangeState()
+{
+}
+
+
+bool
+MSVehicle::LaneChangeState::wants2Right4Direction(double pos/*,
+                                                    MSLane *neighLane,
+                                                    MSVehicle *neighBefore,
+                                                    MSVehicle *neighAfter*/)
+{
+    return true;
+}
+
+
+bool
+MSVehicle::LaneChangeState::wants2Left4Direction(double pos/*,
+                                                   MSLane *neighLane,
+                                                   MSVehicle *neighBefore,
+                                                   MSVehicle *neighAfter*/)
+{
+    return true;
+}
+
+
+int
+MSVehicle::LaneChangeState::chooseLane(double vsafeCurr, double vsafeLeft,
+                                       double vsafeRight)
+{
+    return 0;
+}
+
+
+void
+MSVehicle::LaneChangeState::proceedInRoute()
+{
+}
+
+
+bool
+MSVehicle::LaneChangeState::acceptBefore(/*double dist, double speed*/)
+{
+    myAction = LCACT_ACCEPTS;
+    return true;
+}
+
+
+bool
+MSVehicle::LaneChangeState::acceptAfter(/*double dist, double speed*/)
+{
+    myAction = LCACT_ACCEPTS;
+    return true;
+}
+
+
+double
+MSVehicle::LaneChangeState::modifySpeed(double onContinue,
+                                        double onAccepting)
+{
+    if(myAction==LCACT_ACCEPTS) {
+        myAction = LCACT_NONE;
+        return onAccepting;
+    }
+    return onContinue;
+}
+
+
+void
+MSVehicle::LaneChangeState::admitChange2Right()
+{
+}
+
+
+void
+MSVehicle::LaneChangeState::admitChange2Left()
+{
+}
+
+
+MSVehicle::LaneChangeState::Action
+MSVehicle::LaneChangeState::getAction() const
+{
+    return myAction;
+}
+
+MSVehicle::LaneChangeState::Direction
+MSVehicle::LaneChangeState::getDirection() const
+{
+    return myDir;
+}
+
+
+void
+MSVehicle::LaneChangeState::setState(Action act)
+{
+    myAction = act;
+}
+
+
+void
+MSVehicle::LaneChangeState::setState(Direction dir)
+{
+    myDir = dir;
+}
+
+
+void
+MSVehicle::LaneChangeState::setIsOverlaping(bool val)
+{
+    myAmOverlaping = val;
+}
+
+
+bool
+MSVehicle::LaneChangeState::isNotOverlaping() const
+{
+    return !myAmOverlaping;
+}
+
+
+/* -------------------------------------------------------------------------
  * departSortCriterium
  * ----------------------------------------------------------------------- */
 bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
@@ -447,7 +579,7 @@ MSVehicle::MSVehicle( string id,
                       int repNo, int repOffset) :
     myLastLaneChangeOffset(0),
     myTarget(0),
-    myTargetVia(0),
+//    myTargetVia(0),
     myWaitingTime( 0 ),
     myRepetitionNumber(repNo),
     myPeriod(repOffset),
@@ -461,7 +593,8 @@ MSVehicle::MSVehicle( string id,
     myAllowedLanes(0),
     myMeanData( noMeanData ),
     myMoveReminders( 0 ),
-    myOldLaneMoveReminders( 0 )
+    myOldLaneMoveReminders( 0 ),
+    myLaneChangeState(*this)
 {
     myCurrEdge = myRoute->begin();
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
@@ -750,12 +883,12 @@ MSVehicle::move( MSLane* lane,
 
     double vNext;
     // !!! non - Krauﬂ brake when urgent lane changing failed
-    if( !myLane->appropriate(this) &&
+/*    if( !myLane->appropriate(this) &&
         (_lcAction&LCA_LANEBEGIN)==0 ) {
         vNext = MIN(vSafe, myState.mySpeed-myType->decelSpeed()/2.0); // !!! full deceleration causes floating point problems
-    }
+    }*/
     // !!! non - Krauﬂ brake when urgent lane changing failed
-    else {
+//    else {
         if ( neigh != 0 ) {
 
             vNext = dawdle( MIN3( vAccel, vSafe, vNeighEqualPos( *neigh ) ) );
@@ -763,7 +896,7 @@ MSVehicle::move( MSLane* lane,
         else {
             vNext = dawdle( MIN( vAccel, vSafe ) );
         }
-    }
+//    }
 	// check needed for the Krauss-model
 	double accelSpace = accelDist()*MSNet::deltaT();
 	if( gap<accelSpace &&
@@ -777,6 +910,12 @@ MSVehicle::move( MSLane* lane,
 
 		vNext = MIN(vNext, gap / MSNet::deltaT());
 	}
+
+    // check whether the driver wants to let someone in
+    //  but only if the vehicle is far enough from the lane's end
+    if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
+//        vNext = myLaneChangeState.modifySpeed(vNext, myState.mySpeed-decelAbility());
+    }
 
     vNext = MAX(0, vNext);
 
@@ -812,50 +951,51 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
+    if(myID=="99"&&myLane->id()=="522_1") {
+        int bla = 0;
+    }
+    if(MSNet::globaltime==54042&&myID=="60") {
+        int bla = 0;
+    }
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
-    //  decelerate when yes
     if(!myLane->appropriate(this)) {
-        double myVWish =
+        // decelerate to lane end when yes
+        double vWish =
             vsafe(myState.mySpeed,
                 myType->decel() * MSNet::deltaT(),
-                myLane->length()-myState.myPos-MSVehicleType::maxLength(),
+                myLane->length()-myState.myPos/*-MSVehicleType::maxLength()*/,
                 0);
-
-        if( (_lcAction&LCA_LANEBEGIN)==0 ) {
-            myVWish = MIN(myVWish, myState.mySpeed-myType->decelSpeed()/2.0); // !!! full deceleration causes floating point problems
-        }
-
         if(pred!=0) {
-            myVWish = MAX(0, MIN(myVWish, vsafe(myState.mySpeed, myType->decel() * MSNet::deltaT(), gap2pred(*pred), pred->speed()) ) );
-        } else {
-            myVWish = MAX(0, myVWish);
+            vWish = MIN(vWish,
+                vsafe(myState.mySpeed, myType->decel() * MSNet::deltaT(),
+                    gap2pred(*pred), pred->speed()) );
         }
-		myVLinkPass = myVWish;
-		myVLinkWait = myVWish;
-    }
-
-
-    else {
+        vWish = MAX(0, vWish);
+        // check whether the driver wants to let someone in
+        if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
+//            vWish = myLaneChangeState.modifySpeed(vWish, myState.mySpeed-decelAbility());
+        }
+        myLFLinkLanes.push_back(
+            DriveProcessItem(myLane->getLinkCont().end(), vWish, vWish));
+    } else {
         // compute other values as in move
-        double vAccel = vaccel( lane );
-        if(pred==0) {
-            vsafeCriticalCont(vAccel);
-        } else {
-            double myVWish =
-                vsafe(myState.mySpeed, myType->decel(), gap2pred( *pred ), pred->speed());
-            // set next links, computing possible speeds
+        double vBeg = vaccel( lane );
+        if(pred!=0) {
+            double vSafe =
+                vsafe(myState.mySpeed, myType->decel(),
+                    gap2pred( *pred ), pred->speed());
             //  the vehcile is bound by the lane speed and must not drive faster
             //  than vsafe to the next vehicle
-            myVWish = MIN(vAccel, myVWish);
-            vsafeCriticalCont(myVWish);
+            vBeg = MIN(vBeg, vSafe);
         }
+        // check whether the driver wants to let someone in
+        if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
+//            vBeg = myLaneChangeState.modifySpeed(vBeg, myState.mySpeed-decelAbility());
+        }
+        // set next links, computing possible speeds
+        vsafeCriticalCont(vBeg);
     }
-#ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "->" << myVLinkPass << ", " << myVLinkWait << endl;
-    }
-#endif
 }
 
 
@@ -869,33 +1009,55 @@ MSVehicle::moveFirstChecked()
 	    int textdummy = 0;
     }
 #endif
+    if(MSNet::globaltime==54042&&myID=="60") {
+        int bla = 0;
+    }
+    if(myID=="99"&&myLane->id()=="522_1") {
+        int bla = 0;
+    }
     // get vsafe
-    double v_safe = myVLinkWait;
-	MSLinkCont::iterator link =
-		myLane->succLinkSec( *this, 1, *myLane );
-	bool onLinkEnd = myLane->isLinkEnd(link);
-	// the vehicle must change the lane on one of the next lanes
-	if(!onLinkEnd) {
-		if((*link)->myPrio) {
-			v_safe = myVLinkPass;
-		} else {
-			if((*link)->opened()) {
-				v_safe = myVLinkPass;
-			} else {
-				if(v_safe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
-//				    v_safe = myState.mySpeed-myType->decelSpeed();
-                    v_safe = /*MIN(v_safe,*/ myVLinkPass;//);
-				}
-			}
-		}
-	}
+    double vSafe = 0;
+    assert(myLFLinkLanes.size()!=0);
+    DriveItemVector::iterator i;
+    MSLane *currentLane = myLane;
+    bool cont = true;
+    for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; i++) {
+        MSLinkCont::const_iterator &link = (*i).myLink;
+//	    	myLane->succLinkSec( *this, 1, *myLane )
+    	bool onLinkEnd = currentLane->isLinkEnd(link);
+
+	    // the vehicle must change the lane on one of the next lanes
+	    if(!onLinkEnd) {
+		    if((*link)->myPrio) {
+			    vSafe = (*i).myVLinkPass;
+		    } else {
+			    if((*link)->opened()) {
+				    vSafe = (*i).myVLinkPass;
+			    } else {
+				    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
+//	    			    v_safe = myState.mySpeed-myType->decelSpeed();
+                        vSafe = /*MIN(v_safe,*/ (*i).myVLinkPass;//);
+                    } else {
+                        vSafe = (*i).myVLinkWait;
+                    }
+                    cont = false;
+			    }
+		    }
+        } else {
+            vSafe = (*i).myVLinkWait;
+            assert(i+1==myLFLinkLanes.end());
+            cont = false;
+            break;
+        }
+        currentLane = (*link)->myLane;
+    }
 	// compute vNext in considering dawdling
     double vNext;
-    if(myState.speed()==0&&v_safe<myType->accelSpeed()) {
+    if(myState.speed()==0&&vSafe<myType->accelSpeed()) {
         // do not dawdle as much on short segments
-        vNext = MAX(double(0), dawdle2( MIN(v_safe, vaccel(myLane)) ));
+        vNext = MAX(double(0), dawdle2( MIN(vSafe, vaccel(myLane)) ));
     } else {
-        vNext = MAX(double(0), dawdle( MIN(v_safe, vaccel(myLane)) ));
+        vNext = MAX(double(0), dawdle( MIN(vSafe, vaccel(myLane)) ));
     }
 
 	// visit waiting time
@@ -904,51 +1066,54 @@ MSVehicle::moveFirstChecked()
     } else {
         myWaitingTime = 0;
     }
-
-    // check whether the vehicle was allowed to enter lane
-    //  otherwise it is decelareted and we do not need to test for it's
-    //  approach on the following lanes when a lane changing is performed
-    bool approachAllowed = false;
-    bool approachInformationReached = false;
-
     // call reminders after vNext is set
     workOnMoveReminders( myState.myPos,
                          myState.myPos + vNext * MSNet::deltaT(), vNext );
+
     // update position
     myState.myPos += vNext * MSNet::deltaT();
-    myTarget = myLane;
-    myTargetVia = myLane;
-	if(myState.myPos>myLane->length()) {
-		myState.myPos -= myTarget->length();
-		myTarget = (*link)->myLane;
-        myTargetVia = (*link)->myJunctionInlane;
-		assert(myState.myPos<myTarget->length());
-		// we assume there is only one lane the vehicle can pass in
+    MSLane *approachedLane = myLane;
+//    myTargetVia = myLane;
+    if(MSNet::globaltime==54042&&myID=="60") {
+        int bla = 0;
+    }
+
+    for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {
+        MSLinkCont::const_iterator &link = (*i).myLink;
+        // check whether the vehicle was allowed to enter lane
+        //  otherwise it is decelareted and we do not need to test for it's
+        //  approach on the following lanes when a lane changing is performed
+//        bool approachAllowed = false;
+//        bool approachInformationReached = false;
+        assert(approachedLane!=0);
+        double bla1 = myState.myPos;
+        double bla2 = approachedLane->length();
+		myState.myPos -= approachedLane->length();
+//        myTargetVia = (*link)->myJunctionInlane;
+        assert(myState.myPos>0);
+//		assert(myState.myPos<myTarget->length());
+/*		// we assume there is only one lane the vehicle can pass in
 		//  a single step (otherise it would brake in vSafeCriticalCont)
 		//  so the approached lane was found
 		approachInformationReached = true;
 		approachAllowed = true;
+        // when we did not reach the approached lane yet, we have to
+        //  search it, as the vehicle must register itself as the approaching one
+        if(!approachInformationReached&&!onLinkEnd) {
+	    	if((*link)->opened()) {
+		    	approachAllowed = true;
+    		}
+        }
+        // set information for lane changing (approaching vehicle)
+        if(!onLinkEnd&&approachAllowed&&approachedLane!=0&&myApproachedLane!=myTarget) {
+            myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
+        }*/
+		approachedLane = (*link)->myLane;
+        approachedLane->setApproaching(myState.pos(), this);
     }
-
+    myTarget = approachedLane;
     // update speed
     myState.mySpeed = vNext;
-
-    // when we did not reach the approached lane yet, we have to
-    //  search it, as the vehicle must register itself as the approaching one
-    if(!approachInformationReached&&!onLinkEnd) {
-		if((*link)->opened()/*&&(*link)->myLane!=myTarget*/) {
-			approachAllowed = true;
-		}
-    }
-    // set information for lane changing (approaching vehicle)
-    if(!onLinkEnd&&approachAllowed&&myApproachedLane!=0&&myApproachedLane!=myTarget) {
-        myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
-    }
-#ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
-	    DEBUG_OUT << "moveFirstChecked; (" << myID << ") v:" << vNext << endl << endl;
-    }
-#endif
 }
 
 
@@ -970,100 +1135,122 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     double decelAbility = myType->decel();
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
-    double drove = myLane->length() - myState.myPos;
-
-
-	MSLinkCont::iterator link =
-		myLane->succLinkSec( *this, 1, *myLane );
-	myApproachedLane = 0;
-	assert(!myLane->isLinkEnd(link));
-
-
+    double seen = myLane->length() - myState.myPos;
+    MSLane *nextLane = myLane;
     // compute the way the vehicle may drive when accelerating
-    double dist = boundVSafe //vaccel(myLane) +
-		+
-        brakeGap(myLane); //myState.mySpeed * MSNet::deltaT() + myType->accelDist();
-	MSLane *nextLane = (*link)->myLane;
-    MSLane *via = (*link)->myJunctionInlane; // !!! myJunctionInlane umbenennen
+    double dist = boundVSafe + brakeGap(myLane);
+//    myApproachedLane = 0;
+
+    double vLinkPass = boundVSafe;
+    double vLinkWait = vLinkPass;
 
 
-	// compute the velocity to use when the link is not blocked by oter vehicles
-		// the vehicle shall be not fastern when reaching the next lane than allowed
-	double vmaxNextLane =
-		vsafe(myState.mySpeed, decelAbility, drove, nextLane->maxSpeed());
-
-		// the vehicle shall keep a secure distance to its predecessor
-		//  (or approach the lane end if the predeccessor is too near)
-	const State &nextLanePred = nextLane->myLastState;
-	double dist2Pred = drove+nextLanePred.pos()-MSVehicleType::maxLength(); // @!!! die echte L‰nge des fahrzeugs
-	double vsafePredNextLane;
-	if(dist2Pred>=0) {
-		// leading vehicle is not overlapping
-		vsafePredNextLane =
-			vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
-		double predDec = MAX(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
-		if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
-
-			vsafePredNextLane =
-				MIN(vsafePredNextLane, dist2Pred / MSNet::deltaT());
-		}
-	} else {
-		// leading vehicle is overlapping (stands within the junction)
-		vsafePredNextLane =
-			vsafe(myState.mySpeed, decelAbility, drove, 0);
-	}
+    // loop over following lanes
+    while(true) {
+        // get the next link used
+    	MSLinkCont::iterator link =
+	    	myLane->succLinkSec( *this, 1, *nextLane );
+        // check whether the lane is a dead end
+        //  (should be valid only on further loop iterations
+        if(nextLane->isLinkEnd(link)) {
+            double laneEndVSafe =
+                vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
+            myLFLinkLanes.push_back(
+                DriveProcessItem(nextLane->getLinkCont().end(),
+                    MIN(vLinkPass, laneEndVSafe),
+                    MIN(vLinkWait, laneEndVSafe)));
+            // the vehicle will not driver further
+            return;
+        }
+        vLinkWait = vLinkPass; // the link was passed
+	    assert(!myLane->isLinkEnd(link));
+	    // if the vehicle drives over the end of the lane, inform the link
+	    if(dist-seen>0/*||(*link)->myPrio*/) { // die zweite Abfrage wird nicht gebraucht, es muss nur dann gesetzt werden, wenn es tats‰chlich ¸berfahren werden kann
+		    (*link)->setApproaching(this);
+	    }
 
 
-		// the vehicle shall not driver over more than two junctions (by now @!!!)
-	double vsafeNextLaneEnd =
-		vsafe(myState.mySpeed, decelAbility, drove+nextLane->length(), 0);
+        // get the following lane
+    	nextLane = (*link)->myLane;
+//        MSLane *via = (*link)->myJunctionInlane; // !!! myJunctionInlane umbenennen
 
-		// compute the velocity to use when the link may be used
-	myVLinkPass =
-		MIN4(boundVSafe, vmaxNextLane, vsafePredNextLane, vsafeNextLaneEnd);
+    	// compute the velocity to use when the link is not blocked by oter vehicles
+	    	// the vehicle shall be not fastern when reaching the next lane than allowed
+    	double vmaxNextLane =
+	    	vsafe(myState.mySpeed, decelAbility, seen, nextLane->maxSpeed());
+
+    		// the vehicle shall keep a secure distance to its predecessor
+	    	//  (or approach the lane end if the predeccessor is too near)
+    	const State &nextLanePred = nextLane->myLastState;
+    	double dist2Pred = seen+nextLanePred.pos()-MSVehicleType::maxLength(); // @!!! die echte L‰nge des fahrzeugs
+    	double vsafePredNextLane;
+    	if(dist2Pred>=0) {
+		    // leading vehicle is not overlapping
+		    vsafePredNextLane =
+			    vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
+		    double predDec = MAX(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
+		    if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
+
+    			vsafePredNextLane =
+	    			MIN(vsafePredNextLane, dist2Pred / MSNet::deltaT());
+		    }
+    	} else {
+	    	// leading vehicle is overlapping (stands within the junction)
+		    vsafePredNextLane =
+    			vsafe(myState.mySpeed, decelAbility, seen, 0);
+	    }
+
+/*
+    		// the vehicle shall not driver over more than two junctions (by now @!!!)
+	    double vsafeNextLaneEnd =
+		    vsafe(myState.mySpeed, decelAbility, drove+nextLane->length(), 0);
+*/
+    		// compute the velocity to use when the link may be used
+	    vLinkPass =
+		    MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
 
 
-	// if the link may not be used (is blocked by another vehicle) then let the
-	//  vehicle decelerate until the end of the street
-	myVLinkWait =
-		MIN(boundVSafe, vsafe(myState.mySpeed, decelAbility, drove, 0));
+	    // if the link may not be used (is blocked by another vehicle) then let the
+	    //  vehicle decelerate until the end of the street
+	    vLinkWait =
+		    MIN(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
 
+    	// valid, when a vehicle is not on a priorised lane
+	    if(!(*link)->myPrio) {
+		    // if it has already decelerated to let priorised vehicles pass
+    		//  and when the distance to the vehicle on the next lane allows moving
+	    	//  (the check whether other incoming vehicles may stop this one is done later)
+		    // then let it pass
+    		if(seen<decelAbility&&dist2Pred>0) {
+	    		vLinkPass =
+		    		MIN(vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
+    			(*link)->setApproaching(this);
+	    	} else {
+		    	// let it wait in the other cases
+			    vLinkPass = vLinkWait;
+		    }
+	    }
+        myLFLinkLanes.push_back(
+            DriveProcessItem(link, vLinkPass, vLinkWait));
 
-	// if the vehicle driver over the end of the lane, inform the link
-	if(myLane->length()<myState.myPos+dist/*||(*link)->myPrio*/) { // die zweite Abfrage wird nicht gebraucht, es muss nur dann gesetzt werden, wenn es tats‰chlich ¸berfahren werden kann
-		(*link)->setApproaching(this);
-	}
+    	// set the information about which lane is being approached
+//	    myApproachedLane = nextLane;
 
-
-	// valid, when a vehicle on a not priorised lane
-	if(!(*link)->myPrio) {
-		// if it has already decelerated to let priorised vehicles pass
-		//  and when the distance to the vehicle on the next lane allows moving
-		//  (the check whether other incoming vehicles may stop this one is done later)
-		// then let it pass
-		if(drove<decelAbility&&dist2Pred>0) {
-			myVLinkPass =
-				MIN(vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
-			(*link)->setApproaching(this);
-		} else {
-			// let it wait in the other cases
-			myVLinkPass = myVLinkWait;
-		}
-	}
-
-	// set the information about which lane is being approached
-	myApproachedLane = nextLane;
-
-	// check the next link for short lanes, too
-	MSLinkCont::iterator link2 =
-		myLane->succLinkSec( *this, 1, *nextLane );
-	// if it is a dead end, all vehicles (priorised or not) must not drive further than
-	//  to its end minus some meters which allow the lanechanging
-	if(nextLane->isLinkEnd(link2)) {
-        double vSafe = vsafe(myState.mySpeed, decelAbility, drove+nextLane->length()/*-MSVehicleType::maxLength()*/, 0);
-		myVLinkPass = MIN(myVLinkPass, vSafe);
-		myVLinkWait = MIN(myVLinkWait, vSafe);
-	}
+    	// check the next link for short lanes, too
+//	    MSLinkCont::iterator link2 =
+//		    myLane->succLinkSec( *this, 1, *nextLane );
+    	// if it is a dead end, all vehicles (priorised or not) must not drive further than
+	    //  to its end minus some meters which allow the lanechanging
+/*	    if(nextLane->isLinkEnd(link2)) {
+            double vSafe = vsafe(myState.mySpeed, decelAbility, drove+nextLane->length(), 0);
+	    	myVLinkPass = MIN(myVLinkPass, vSafe);
+    		myVLinkWait = MIN(myVLinkWait, vSafe);
+    	}*/
+        seen += nextLane->length();
+        if(seen>dist) {
+            return;
+        }
+    }
 }
 
 
@@ -1440,7 +1627,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
 {
     myLane = enteredLane;
     myTarget = enteredLane;
-    myApproachedLane = 0;
+//    myApproachedLane = 0;
     double entryTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() ) -
         myState.myPos / myState.mySpeed;
@@ -1456,7 +1643,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
 void
 MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 {
-    myApproachedLane = 0;
+//    myApproachedLane = 0;
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, 0 );
@@ -1471,7 +1658,7 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 void
 MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
-    myApproachedLane = 0;
+//    myApproachedLane = 0;
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, myState.mySpeed );
@@ -1636,13 +1823,13 @@ MSVehicle::getTargetLane() const
 {
     return myTarget;
 }
-
+/*
 MSLane *
 MSVehicle::getTargetViaLane() const
 {
     return myTargetVia;
 }
-
+*/
 
 
 const MSLane &
@@ -1750,6 +1937,28 @@ MSVehicle::activateRemindersByEmitOrLaneChange()
         }
     }
 }
+
+
+MSVehicle::LaneChangeState &
+MSVehicle::getLaneChangeState(MSLaneChanger &lc)
+{
+    return myLaneChangeState;
+}
+
+
+MSVehicle::LaneChangeState::Action
+MSVehicle::getLaneChangeAction() const
+{
+    return myLaneChangeState.getAction();
+}
+
+
+MSVehicle::LaneChangeState::Direction
+MSVehicle::getLaneChangeDirection() const
+{
+    return myLaneChangeState.getDirection();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.22  2003/10/15 11:43:50  dkrajzew
+// false lane-changing rules removed; an (far too large information interface between vehicle and lane-changer implemented
+//
 // Revision 1.21  2003/09/05 15:14:52  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -228,6 +231,7 @@
 class MSLane;
 class MSVehicleType;
 class MSMoveReminder;
+class MSLaneChanger;
 
 
 /* =========================================================================
@@ -297,6 +301,7 @@ public:
     {
         /// vehicle sets states directly
         friend class MSVehicle;
+        friend class MSLaneChanger;
 
     public:
         /// Default constructor. Members are initialized to 0.
@@ -642,10 +647,10 @@ public:
 
     MSLane *getTargetLane() const;
 
-    MSLane *getTargetViaLane() const;
+//    MSLane *getTargetViaLane() const;
 
     /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
-    int _lcAction;
+//    int _lcAction;
 
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
@@ -666,6 +671,89 @@ public:
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicle* > DictType;
     static DictType myDict;
+
+    class LaneChangeState {
+    public:
+        enum Action {
+            LCACT_NONE,
+            LCACT_ACCEPTS,
+            LCACT_WISHESSPEED,
+            LCACT_WISHESDIRECTION,
+            LCACT_NEEDS_DIRECTION_CHANGE
+        };
+
+        enum Direction {
+            LCDIR_NONE,
+            LCDIR_LEFT,
+            LCDIR_RIGHT
+        };
+
+        LaneChangeState(MSVehicle &veh);
+        ~LaneChangeState();
+        // ob ein Spurwechsel nach rechts erfolgen soll um die ROute zu verfolgen
+        bool wants2Right4Direction(double pos/*,
+            MSLane *neighLane, MSVehicle *neighBefore, MSVehicle *neighAfter*/);
+        // ob ein Spurwechsel nach links erfolgen soll um die ROute zu verfolgen
+        bool wants2Left4Direction(double pos/*,
+            MSLane *neighLane, MSVehicle *neighBefore, MSVehicle *neighAfter*/);
+        // einzuschlagende Richtung wegen Geschw.vorteilen (vorläufig nicht benutzen)
+        int chooseLane(double vsafeCurr, double vsafeLeft, double vsafeRight);
+        // geht ein Schritt in der Route weiter
+        void proceedInRoute();
+        // ob ein Fahrzeug vorne hinein gelassen wird; setzt Aktion
+        bool acceptBefore(/*double dist, double speed*/);
+        // ob ein Fahrzeug hinten hinein gelassen wird; setzt Aktion (sollte ev. zunächst weggelassen werden)
+        bool acceptAfter(/*double dist, double speed*/);
+        // verändert die Geschwindigkeit je nach vorher gesetzter Aktion
+        double modifySpeed(double onContinue, double onAccepting);
+
+        void admitChange2Right();
+        void admitChange2Left();
+
+
+        void setState(Action act);
+        void setState(Direction dir);
+        Action getAction() const;
+        Direction getDirection() const;
+        void setIsOverlaping(bool val);
+        bool isNotOverlaping() const;
+
+    private:
+        // [0:1] Bereitschaft Spurwechsel um schneller zu werden!!!
+        double mySpeedLaneChangeDesire;
+        // [0:1] Kulanz (beim Hereinlassen)!!!
+        double myAcceptence;
+        // [0:1] Aggresivität (beim Einscheren)!!!
+        double myAggresivity;
+        // Entfernung bis relevant!!!
+        double myDistanceTillInteresting;
+        // Entfernung bis nötig!!!
+        double myDistanceTillMandatory;
+
+        // variables
+        // Richtung (rechts/links/nichts)
+        Direction myDir;
+        // Abstand ist bis relevant
+        double myIsDistanceTillInteresting;
+        // Abstand ist bis notwendig
+        double myIsDistanceTillMandatory;
+        // Aktion (Will reinlassen/Will hineingelassen werden/nichts)
+        Action myAction;
+        // Abstand überschaut (mind. Entfernung bis nötig)
+        double myHaeSeen;
+        // Position auf Routenobjekt
+        size_t myPosInRoute;
+
+        MSVehicle &myVehicle;
+        bool myAmOverlaping;
+    };
+
+    LaneChangeState &getLaneChangeState(MSLaneChanger &lc);
+    LaneChangeState::Action getLaneChangeAction() const;
+    LaneChangeState::Direction getLaneChangeDirection() const;
+
+
+
 
 protected:
     /// Use this constructor only.
@@ -695,7 +783,7 @@ protected:
 
     /// the lane, the vehicle will be within the next time step
     MSLane *myTarget;
-    MSLane *myTargetVia;
+//    MSLane *myTargetVia;
 
     /** @brief The time the vehicle waits
         This is the number of simulation steps the vehicle was not faster than 0.1m/s
@@ -728,6 +816,7 @@ protected:
 	/// The lane the vehicle is on
     MSLane* myLane;
 
+    LaneChangeState myLaneChangeState;
 private:
 
     /// Reaction time [sec]
@@ -756,7 +845,7 @@ private:
     /// Container of meanDataValues, one element for each mean-interval.
     std::vector< MeanDataValues > myMeanData;
 
-    MSLane *myApproachedLane;
+//    MSLane *myApproachedLane;
 
 //    double myVWish;
 
@@ -771,13 +860,16 @@ private:
 
     struct DriveProcessItem
     {
-        DriveProcessItem( MSLink* link, double v  ) :
-            myLink( link ), mySpeed(v) { };
-
+        MSLinkCont::const_iterator  myLink;
+        double myVLinkPass;
+        double myVLinkWait;
+        DriveProcessItem( MSLinkCont::const_iterator link, double vPass, double vWait  ) :
+            myLink( link ), myVLinkPass(vPass), myVLinkWait(vWait) { };
+/*
         // Link that leads to myLane.
         MSLink*   myLink;
         // the speed this item allows
-    	double mySpeed;
+    	double mySpeed;*/
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
@@ -792,8 +884,10 @@ private:
         { return ((v1 > v2) ? v1 : v2); };*/
 
 
-	double myVLinkPass;
-	double myVLinkWait;
+//	double myVLinkPass;
+//	double myVLinkWait;
+
+//    struct
 
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     typedef MoveReminderCont::iterator MoveReminderContIt;
