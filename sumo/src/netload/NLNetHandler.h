@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.17  2003/12/05 10:26:11  dkrajzew
 // handling of internal links when theyre not wished improved
 //
@@ -103,6 +106,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * class declarations
  * ======================================================================= */
 class NLContainer;
+class NLDetectorBuilder;
 
 
 /* =========================================================================
@@ -117,7 +121,8 @@ class NLContainer;
 class NLNetHandler : public MSRouteHandler {
 public:
     /// standard constructor
-    NLNetHandler(const std::string &file, NLContainer &container);
+    NLNetHandler(const std::string &file, NLContainer &container,
+        NLDetectorBuilder *detBuilder);
 
     /// Destructor
     virtual ~NLNetHandler();
@@ -326,6 +331,9 @@ private:
 
     /// Information whether the currently parsed edge is internal and not wished, here
     bool myCurrentIsInternalToSkip;
+
+    /// The detector builder to use
+    NLDetectorBuilder *myDetectorBuilder;
 
 private:
     /** invalid copy constructor */

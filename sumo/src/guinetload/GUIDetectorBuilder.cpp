@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/12 14:44:30  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.5  2003/11/11 08:16:50  dkrajzew
 // logging (value passing) moved from utils to microsim
 //
@@ -45,6 +48,8 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSInductLoop.h>
 #include <guisim/GUIInductLoop.h>
+#include <guisim/GUI_E2_ZS_Collector.h>
+#include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -62,69 +67,54 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-void
-GUIDetectorBuilder::buildInductLoop(const std::string &id,
-        const std::string &lane, float pos, int splInterval,
-        const std::string &/*style*/, std::string filename,
-        const std::string &basePath)
+GUIDetectorBuilder::GUIDetectorBuilder()
 {
-     // get the output style
-//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
-     // check whether the file must be converted into a relative path
-     if(!FileHelpers::isAbsolute(filename)) {
-         filename = FileHelpers::getConfigurationRelative(basePath, filename);
-     }
-     // build and check the file
-/*     std::ofstream *file = new std::ofstream(filename.c_str());
-     if(!file->good()) {
-         throw InvalidArgument(
-             string("Could not open output for induct loop '") + id
-             + string("' for writing (file:") + filename
-             + string(")."));
-     }*/
-    // get and check the lane
-    MSLane *clane = MSLane::dictionary(lane);
-    if(clane==0) {
-        throw InvalidArgument(
-            string("On detector building:\n")
-            + string("The lane with the id '") + lane
-            + string("' is not known."));
-    }
-//     // build in dependence to the sample interval
-//     if(splInterval==1) {
-//         return
-//             new MSInductLoop<LoggedValue_Single<double> >
-//                 (id, clane, pos, splInterval, cstyle, file, false);
-//     } else {
-//         return
-//             new MSInductLoop<LoggedValue_TimeFixed<double> >
-//                 (id, clane, pos, splInterval, cstyle, file, false);
-//     }
-    if(pos<0) {
-        pos = clane->length() + pos;
-    }
-    MSInductLoop *loop = new GUIInductLoop(id, clane, pos);
-    // add the file output
-    MSDetector2File* det2file =
-        MSDetector2File::getInstance();
-    det2file->addDetectorAndInterval(loop, filename, splInterval, splInterval);
 }
-/*
-MSDetector::OutputStyle GUIDetectorBuilder::convertStyle(const std::string &id,
-        const std::string &style)
+
+
+GUIDetectorBuilder::~GUIDetectorBuilder()
 {
-     if(style=="GNUPLOT" || style=="GPLOT")
-         return MSDetector::GNUPLOT;
-     if(style=="CSV")
-         return MSDetector::CSV;
-     throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
 }
-*/
+
+
+MSInductLoop *
+GUIDetectorBuilder::createInductLoop(const std::string &id,
+                                     MSLane *lane, double pos)
+{
+    return new GUIInductLoop(id, lane, pos);
+}
+
+
+MSE2Collector *
+GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
+                                               MSLane *lane, float pos,
+                                               float length,
+                                               MSUnit::Seconds haltingTimeThreshold,
+                                               MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                               MSUnit::Meters jamDistThreshold,
+                                               MSUnit::Seconds deleteDataAfterSeconds)
+{
+    return new GUI_E2_ZS_Collector(id, lane, pos, length,
+        haltingTimeThreshold, haltingSpeedThreshold,
+        jamDistThreshold, deleteDataAfterSeconds);
+
+}
+
+
+MS_E2_ZS_CollectorOverLanes *
+GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
+                                              MSLane *lane, float pos,
+                                              MSUnit::Seconds haltingTimeThreshold,
+                                              MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                              MSUnit::Meters jamDistThreshold,
+                                              MSUnit::Seconds deleteDataAfterSeconds)
+{
+    return new GUI_E2_ZS_CollectorOverLanes( id, lane, pos,
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds);
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIDetectorBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

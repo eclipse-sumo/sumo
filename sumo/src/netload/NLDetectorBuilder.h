@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.6  2004/01/12 14:37:32  dkrajzew
 // reading of e2-detectors from files added
 //
@@ -69,6 +72,7 @@
  * class declarations
  * ======================================================================= */
 class MSInductionLoop;
+class MS_E2_ZS_CollectorOverLanes;
 
 
 /* =========================================================================
@@ -80,14 +84,20 @@ class MSInductionLoop;
  */
 class NLDetectorBuilder {
 public:
+    /// Constructor
+    NLDetectorBuilder();
+
+    /// Destructor
+    virtual ~NLDetectorBuilder();
+
     /// builds an induct loop
-    static void buildInductLoop(const std::string &id,
+    void buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath);
 
     /// builds a lane-based areal (E2-) detector
-    static void buildE2Detector(const std::string &id,
+    void buildE2Detector(const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, int splInterval,
         const std::string &/*style*/, std::string filename,
@@ -97,9 +107,9 @@ public:
         MSUnit::Meters jamDistThreshold = 10,
         MSUnit::Seconds deleteDataAfterSeconds = 1800);
 
-private:
+protected:
     /// Builds an e2-detector that lies on only one lane
-    static MSDetectorFileOutput *buildSingleLaneE2Det(const std::string &id,
+    MSDetectorFileOutput *buildSingleLaneE2Det(const std::string &id,
         MSLane *lane, float pos, float length,
         int splInterval,
         MSUnit::Seconds haltingTimeThreshold,
@@ -109,7 +119,7 @@ private:
         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
-    static MSDetectorFileOutput *buildMultiLaneE2Det(const std::string &id,
+    MSDetectorFileOutput *buildMultiLaneE2Det(const std::string &id,
         MSLane *lane, float pos, float length,
         int splInterval,
         MSUnit::Seconds haltingTimeThreshold,
@@ -122,7 +132,27 @@ private:
     typedef std::vector<E2::DetType> E2MeasuresVector;
 
     /// Parses the measures an E2-detector shall compute
-    static E2MeasuresVector parseE2Measures(const std::string &measures);
+    E2MeasuresVector parseE2Measures(const std::string &measures);
+
+    /// Creates the instance of an induct loop (overwritten by gui version)
+    virtual MSInductLoop *createInductLoop(const std::string &id,
+        MSLane *lane, double pos);
+
+    /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
+    virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
+        MSLane *lane, float pos, float length,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
+
+    /// Creates the instance of a multi-lane-e2-detector (overwritten by gui version)
+    virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
+        const std::string &id, MSLane *lane, float pos,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
 
     // converts the name of an output style into it's enumeration value
 /*     static MSDetector::OutputStyle convertStyle(const std::string &id,

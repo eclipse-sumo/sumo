@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.7  2003/12/11 06:19:04  dkrajzew
 // network loading and initialisation improved
 //
@@ -121,6 +124,7 @@ class NLNetHandler;
  * class definitions
  * ======================================================================= */
 /**
+ * @class NLNetBuilder
  * The class is the main interface to load simulations.
  * It is a black-box where only the options must be supplied on the
  * constructor call
@@ -139,15 +143,15 @@ public:
 
 protected:
     /// counts the structures and preallocates them
-    bool load(NLNetHandler *handler, SAX2XMLReader &parser);
+    bool load(NLNetHandler &handler, SAX2XMLReader &parser);
 
     /// loads a described subpart form the given list of files
     bool load(LoadFilter what, const std::string &files,
-        NLNetHandler *handler, SAX2XMLReader &parser);
+        NLNetHandler &handler, SAX2XMLReader &parser);
 
     /// parses the files using the given initialised parser
     bool parse(const std::string &files,
-        NLNetHandler *handler, SAX2XMLReader &parser);
+        NLNetHandler &handler, SAX2XMLReader &parser);
 
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
@@ -169,9 +173,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLNetBuilder.icc"
-//#endif
 
 #endif
 

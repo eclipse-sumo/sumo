@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/01/12 14:44:30  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.1  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -28,25 +31,45 @@
  * ======================================================================= */
 #include <string>
 #include <microsim/MSNet.h>
+#include <netload/NLDetectorBuilder.h>
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * This class builds the detectors from their descriptions
+ * @class GUIDetectorBuilder
+ * This class builds gui-versions of detectors from their descriptions
  */
-class GUIDetectorBuilder {
+class GUIDetectorBuilder : public NLDetectorBuilder {
 public:
-    /// builds an induct loop
-    static void buildInductLoop(const std::string &id,
-        const std::string &lane, float pos, int splInterval,
-        const std::string &style, std::string filename,
-        const std::string &basePath);
+    /// Constructor
+    GUIDetectorBuilder();
 
-private:
-     /// converts the name of an output style into it's enumeration value
-/*     static MSDetector::OutputStyle convertStyle(const std::string &id,
-         const std::string &style);*/
+    /// Destructor
+    ~GUIDetectorBuilder();
+
+protected:
+    /// Creates the instance of an induct loop (gui-version)
+    virtual MSInductLoop *createInductLoop(const std::string &id,
+        MSLane *lane, double pos);
+
+    /// Creates the instance of a single-lane-e2-detector (gui-version)
+    virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
+        MSLane *lane, float pos, float length,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
+
+    /// Creates the instance of a multi-lane-e2-detector (gui-version)
+    virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
+        const std::string &id, MSLane *lane, float pos,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
+
 
 };
 

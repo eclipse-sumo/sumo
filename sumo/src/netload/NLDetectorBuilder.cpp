@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.13  2004/01/12 14:37:32  dkrajzew
 // reading of e2-detectors from files added
 //
@@ -111,6 +114,16 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+NLDetectorBuilder::NLDetectorBuilder()
+{
+}
+
+
+NLDetectorBuilder::~NLDetectorBuilder()
+{
+}
+
+
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
@@ -136,7 +149,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         pos = clane->length() + pos;
     }
     // build the loop
-    MSInductLoop *loop = new MSInductLoop(id, clane, pos);
+    MSInductLoop *loop = createInductLoop(id, clane, pos);
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
@@ -212,10 +225,9 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         MSUnit::Seconds deleteDataAfterSeconds,
                                         const std::string &measures)
 {
-    MSE2Collector *ret = new MSE2Collector(id, lane, pos, length,
+    MSE2Collector *ret = createSingleLaneE2Detector(id, lane, pos, length,
         haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
-
     E2MeasuresVector toAdd = parseE2Measures(measures);
     for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
         ret->addDetector(*i);
@@ -234,10 +246,9 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
                                        MSUnit::Seconds deleteDataAfterSeconds,
                                        const std::string &measures)
 {
-    MS_E2_ZS_CollectorOverLanes *ret =
-        new MS_E2_ZS_CollectorOverLanes( id, lane, pos,
-            haltingTimeThreshold, haltingSpeedThreshold,
-            jamDistThreshold, deleteDataAfterSeconds);
+    MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, lane, pos,
+        haltingTimeThreshold, haltingSpeedThreshold,
+        jamDistThreshold, deleteDataAfterSeconds);
     ret->init(lane, length, MS_E2_ZS_CollectorOverLanes::LaneContinuations());
     E2MeasuresVector toAdd = parseE2Measures(measures);
     for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
@@ -305,6 +316,45 @@ NLDetectorBuilder::parseE2Measures(const std::string &measures)
     }
     return ret;
 }
+
+
+MSInductLoop *
+NLDetectorBuilder::createInductLoop(const std::string &id,
+                                    MSLane *lane, double pos)
+{
+    return new MSInductLoop(id, lane, pos);
+}
+
+
+MSE2Collector *
+NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
+                                              MSLane *lane, float pos,
+                                              float length,
+                                              MSUnit::Seconds haltingTimeThreshold,
+                                              MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                              MSUnit::Meters jamDistThreshold,
+                                              MSUnit::Seconds deleteDataAfterSeconds)
+{
+    return new MSE2Collector(id, lane, pos, length,
+        haltingTimeThreshold, haltingSpeedThreshold,
+        jamDistThreshold, deleteDataAfterSeconds);
+
+}
+
+
+MS_E2_ZS_CollectorOverLanes *
+NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
+                                              MSLane *lane, float pos,
+                                              MSUnit::Seconds haltingTimeThreshold,
+                                              MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                              MSUnit::Meters jamDistThreshold,
+                                              MSUnit::Seconds deleteDataAfterSeconds)
+{
+    return new MS_E2_ZS_CollectorOverLanes( id, lane, pos,
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds);
+}
+
 
             /*
 MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,

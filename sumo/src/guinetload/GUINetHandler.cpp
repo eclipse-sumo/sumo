@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/01/12 14:44:30  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.13  2003/12/05 10:37:23  dkrajzew
 // made the code a little bit more pretty
 //
@@ -64,8 +67,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -107,8 +108,9 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUINetHandler::GUINetHandler(const std::string &file,
-                             NLContainer &container)
-    : NLNetHandler(file, container)
+                             NLContainer &container,
+                             NLDetectorBuilder *detBuilder)
+    : NLNetHandler(file, container, detBuilder)
 {
 }
 
@@ -127,37 +129,6 @@ GUINetHandler::myStartElement(int element, const std::string &name,
         addSourceDestinationInformation(attrs);
     }
 }
-
-
-void
-GUINetHandler::addDetector(const Attributes &attrs) {
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-        try {
-            GUIDetectorBuilder::buildInductLoop(id,
-                getString(attrs, SUMO_ATTR_LANE),
-                getFloat(attrs, SUMO_ATTR_POSITION),
-                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                getString(attrs, SUMO_ATTR_STYLE),
-                getString(attrs, SUMO_ATTR_FILE),
-                _file);
-        } catch (XMLBuildingException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.msg());
-        } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                string("The description of the detector '")
-                + id + string("' does not contain a needed value."));
-        }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
-    }
-}
-
-
 
 
 void
@@ -248,21 +219,9 @@ GUINetHandler::closeTrafficLightLogic()
 }
 
 
-
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUINetHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/01/12 14:44:30  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.13  2003/12/11 06:18:35  dkrajzew
 // network loading and initialisation improved
 //
@@ -81,6 +84,7 @@ namespace
 #include "GUIEdgeControlBuilder.h"
 #include "GUIJunctionControlBuilder.h"
 #include "GUIContainer.h"
+#include "GUIDetectorBuilder.h"
 #include "GUINetBuilder.h"
 
 
@@ -135,18 +139,13 @@ GUINetBuilder::buildNet()
         false);
     GUINet *net = 0;
     // get the matching handler
-    NLNetHandler *handler =
-        new GUINetHandler("", *container);
+    GUINetHandler handler("", *container, new GUIDetectorBuilder());
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        net = container->buildGUINet(/*
-            m_pOptions.getUIntVector("dump-intervals"),
-            m_pOptions.getString("dump-basename"),*/
-            m_pOptions);
+        net = container->buildGUINet(m_pOptions);
     }
     delete parser;
-    delete handler;
     delete container;
     return net;
 }

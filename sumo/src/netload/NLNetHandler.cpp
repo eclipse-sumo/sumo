@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.37  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.36  2004/01/12 14:37:32  dkrajzew
 // reading of e2-detectors from files added
 //
@@ -95,16 +98,18 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLNetHandler::NLNetHandler(const std::string &file,
-                           NLContainer &container)
+                           NLContainer &container,
+                           NLDetectorBuilder *detBuilder)
     : MSRouteHandler(file, true),
     myContainer(container), _tlLogicNo(-1), m_Offset(0),
-    myCurrentIsInternalToSkip(false)
+    myCurrentIsInternalToSkip(false), myDetectorBuilder(detBuilder)
 {
 }
 
 
 NLNetHandler::~NLNetHandler()
 {
+    delete myDetectorBuilder;
 }
 
 
@@ -507,7 +512,7 @@ NLNetHandler::addDetector(const Attributes &attrs)
         // induct loops (E1-detectors)
     if(type=="induct_loop"||type=="E1"||type=="e1") {
         try {
-            NLDetectorBuilder::buildInductLoop(id,
+            myDetectorBuilder->buildInductLoop(id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
                 getInt(attrs, SUMO_ATTR_SPLINTERVAL),
@@ -528,7 +533,7 @@ NLNetHandler::addDetector(const Attributes &attrs)
         // lane-based areal detectors (E2-detectors)
     if(type=="lane_based"||type=="E2"||type=="e2") {
         try {
-            NLDetectorBuilder::buildE2Detector(id,
+            myDetectorBuilder->buildE2Detector(id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
                 getFloat(attrs, SUMO_ATTR_LENGTH),

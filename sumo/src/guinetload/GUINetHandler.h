@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/12 14:44:30  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.5  2003/09/24 09:54:11  dkrajzew
 // bug on building induct loops of an actuated tls within the gui patched
 //
@@ -68,7 +71,7 @@ class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
     GUINetHandler(const std::string &file,
-        NLContainer &container);
+        NLContainer &container, NLDetectorBuilder *detBuilder);
 
     /// standard destructor
     ~GUINetHandler();
@@ -83,9 +86,6 @@ protected:
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
-    void addDetector(const Attributes &attrs);
-
-
 private:
     /// adds information about the source and the destination junctions
     void addSourceDestinationInformation(const Attributes &attrs);
@@ -97,19 +97,16 @@ private:
     /// ends the loading of a traffic lights logic
     void closeTrafficLightLogic();
 
-
 private:
     /** invalid copy constructor */
     GUINetHandler(const GUINetHandler &s);
 
     /** invalid assignment operator */
     GUINetHandler &operator=(const GUINetHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "GUINetHandler.icc"
-//#endif
 
 #endif
 

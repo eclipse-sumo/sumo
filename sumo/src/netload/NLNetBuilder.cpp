@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/12 14:46:21  dkrajzew
+// handling of e2-detectors within the gui added
+//
 // Revision 1.15  2003/12/11 06:19:04  dkrajzew
 // network loading and initialisation improved
 //
@@ -141,6 +144,7 @@ namespace
 #include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
+#include "NLDetectorBuilder.h"
 #include <microsim/MSVehicleTransfer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -198,8 +202,7 @@ NLNetBuilder::buildNet()
         false);
     MSNet *net = 0;
     // get the matching handler
-    NLNetHandler *handler =
-        new NLNetHandler("", *container);
+    NLNetHandler handler("", *container, new NLDetectorBuilder());
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     // try to build a net
@@ -207,14 +210,13 @@ NLNetBuilder::buildNet()
         net = container->buildMSNet(m_pOptions);
     }
     delete parser;
-    delete handler;
     delete container;
     return net;
 }
 
 
 bool
-NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser)
+NLNetBuilder::load(NLNetHandler &handler, SAX2XMLReader &parser)
 {
     // load the net
     bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
@@ -239,11 +241,11 @@ NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser)
 
 
 bool
-NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
+NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler &handler,
                    SAX2XMLReader &parser)
 {
     // initialise the handler for the current type of data
-    handler->setWanted(what);
+    handler.setWanted(what);
     // check whether the list of files does not contain ';'s only
     if(!FileHelpers::checkFileList(files)) {
         MsgHandler::getErrorInstance()->inform(
@@ -256,8 +258,8 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
     MsgHandler::getMessageInstance()->inform(
         string("Loading ") + getDataName(what) + string("..."));
     // start parsing
-    parser.setContentHandler(handler);
-    parser.setErrorHandler(handler);
+    parser.setContentHandler(&handler);
+    parser.setErrorHandler(&handler);
     parse(files, handler, parser);
     // report about loaded structures
     subreport(
@@ -268,7 +270,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
 
 
 bool
-NLNetBuilder::parse(const string &files, NLNetHandler *handler,
+NLNetBuilder::parse(const string &files, NLNetHandler &handler,
                     SAX2XMLReader &parser)
 {
     // for each file in the list
@@ -284,7 +286,7 @@ NLNetBuilder::parse(const string &files, NLNetHandler *handler,
             return false;
         } else {
             // parse the file
-	        handler->setFileName(tmp);
+	        handler.setFileName(tmp);
 	        parser.parse(tmp.c_str());
 	        ok = !(MsgHandler::getErrorInstance()->wasInformed());
         }
