@@ -505,6 +505,10 @@ SOURCE=..\..\src\netbuild\NBTypeCont.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netgen_help.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netgen\NGNet.h
 # End Source File
 # Begin Source File
