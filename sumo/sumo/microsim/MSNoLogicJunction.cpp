@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/08/06 15:50:16  roessel
+// SetFirstVehiclesRequests implemented.
+//
 // Revision 1.2  2002/06/18 10:59:53  croessel
 // Removed some ^M.
 //
@@ -38,7 +41,7 @@ namespace
 
 #include "MSNoLogicJunction.h"
 #include "MSLane.h"
-#include "MSJunctionLogic.h"
+//#include "MSJunctionLogic.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -72,6 +75,10 @@ MSNoLogicJunction::~MSNoLogicJunction()
 bool
 MSNoLogicJunction::setFirstVehiclesRequests()
 {
+    for ( InLaneCont::iterator it = myInLanes->begin();
+          it != myInLanes->end(); ++it ) {
+        ( *it )->setRequest();
+    }
     return true;
 }
 
@@ -101,11 +108,13 @@ MSNoLogicJunction::vehicles2targetLane()
 void
 MSNoLogicJunction::moveVehicles()
 {
-    for ( InLaneCont::iterator in = myInLanes->begin();
-          in != myInLanes->end(); ++in) {
+    for ( InLaneCont::iterator inLaneIt = myInLanes->begin();
+          inLaneIt != myInLanes->end(); ++inLaneIt ) {
 
-        if(!(*in)->empty())
-            ( *in )->moveFirst( true );
+        if( ! ( *inLaneIt )->empty() ) {
+            
+            ( *inLaneIt )->moveFirst( true );
+        }
     }
 }
 
