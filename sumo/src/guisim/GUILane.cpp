@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/12/04 13:35:02  dkrajzew
+// correct usage of detectors when moving over more than a single edge applied
+//
 // Revision 1.21  2003/11/26 10:58:30  dkrajzew
 // messages from the simulation are now also passed to the message handler
 //
@@ -197,9 +200,12 @@ GUILane::push( MSVehicle* veh )
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
             + string("' removed due to a collision on push!\n")
-            + string("  Lane: '") + id() + string("' Previous vehicle: '")
-            + myVehBuffer->id() + string("'."));
+            + string("  Lane: '") + id() + string("', previous vehicle: '")
+            + myVehBuffer->id() + string("', time: ")
+            + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
+            + string("."));
         veh->onTripEnd(*this);
+        veh->removeApproachingInformationOnKill(this);
         static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
