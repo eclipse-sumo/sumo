@@ -212,15 +212,15 @@ AC_ARG_WITH(fox-libraries,
 
 AC_MSG_CHECKING([for fox-lib])
 if test x"$ac_fox_libraries" = x; then
-   if test -e /usr/lib/libFOX-1.1.so; then
+   if test -e /usr/lib/libFOX.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/lib
       ac_foxlib=FOX-1.1
-   elif test -e /usr/local/lib/libFOX-1.1.so; then
+   elif test -e /usr/local/lib/libFOX.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/local/lib
       ac_foxlib=FOX-1.1
-   elif test -e /usr/local/fox/lib/libFOX-1.1.so; then
+   elif test -e /usr/local/fox/lib/libFOX.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/local/fox/lib/
       ac_foxlib=FOX-1.1
@@ -229,10 +229,10 @@ if test x"$ac_fox_libraries" = x; then
       AC_MSG_ERROR([fox-lib not found. Specify path with option --with-fox-libraries=DIR.])
    fi
 else
-   if test -e "$ac_fox_libraries/libFOX-1.1.so"; then
+   if test -e "$ac_fox_libraries/libFOX.so"; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path="$ac_fox_libraries"
-      ac_foxlib=FOX-1.1
+      ac_foxlib=FOX
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])
@@ -254,15 +254,15 @@ AC_ARG_WITH(fox-includes,
 
 AC_MSG_CHECKING([for fox-includes])
 if test x"$ac_fox_includes" = x; then
-   if test -e /usr/include/fox-1.1; then
+   if test -e /usr/include/fox; then
       AC_MSG_RESULT([yes])
-      ac_fox_includes=/usr/include/fox-1.1
-   elif test -e /usr/local/include/fox-1.1; then
+      ac_fox_includes=/usr/include/fox
+   elif test -e /usr/local/include/fox; then
       AC_MSG_RESULT([yes])
-      ac_fox_includes=/usr/local/include/fox-1.1
-   elif test -e /usr/local/fox-1.1/include; then
+      ac_fox_includes=/usr/local/include/fox
+   elif test -e /usr/local/fox/include; then
       AC_MSG_RESULT([yes])
-      ac_fox_includes=/usr/local/fox-1.1/include
+      ac_fox_includes=/usr/local/fox/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([fox-includes not found. Specify path with option --with-fox-includes=DIR.])
