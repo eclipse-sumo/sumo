@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 12:55:10  dkrajzew
+// bug on handling of compiled fonts (partially?) patched
+//
 // Revision 1.3  2003/06/18 11:24:29  dkrajzew
 // parsing of character sets from char-arrays implemented
 //
@@ -60,7 +63,7 @@ public:
     void add(const std::string &fontname, const unsigned char * const characters);
 
     /// Returns the definition of the named font
-    LFont get(const std::string &name) const;
+    const LFont &get(const std::string &name) const;
 
     /// returns the information whether the named font was loaded
     bool has(const std::string &name) const;

@@ -515,8 +515,9 @@ uint LFontRenderer::GetStringWidth(const std::string &string)
 
 
 void
-LFontRenderer::add(LFont font)
+LFontRenderer::add(const LFont &sfont)
 {
+    LFont font(sfont);
     char *buf2 = (char*)malloc(font.imageWidth*font.imageHeight*2);
     for (size_t i=0; i<font.imageWidth*font.imageHeight; i++)
     {
@@ -527,7 +528,9 @@ LFontRenderer::add(LFont font)
 
     glGenTextures(1, &font.textureId);
     glBindTexture(GL_TEXTURE_2D, font.textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, font.imageWidth, font.imageHeight, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, buf2);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA,
+        font.imageWidth, font.imageHeight, 0,
+        GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, buf2);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);

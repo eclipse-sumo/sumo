@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/30 12:55:10  dkrajzew
+// bug on handling of compiled fonts (partially?) patched
+//
 // Revision 1.3  2003/06/18 11:24:29  dkrajzew
 // parsing of character sets from char-arrays implemented
 //
@@ -182,7 +185,7 @@ FontStorage::add(const std::string &fontname, const unsigned char * const charac
 }
 
 
-LFont
+const LFont &
 FontStorage::get(const std::string &name) const
 {
     FontMap::const_iterator i=myFonts.find(name);

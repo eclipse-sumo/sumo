@@ -142,7 +142,7 @@ public:
     uint GetStringWidth(const std::string &string);
 
 
-    void add(LFont font);
+    void add(const LFont &sfont);
 protected:
     void myDraw(int x, int y, int w, int h);
 
