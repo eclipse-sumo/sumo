@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Tue Nov 25 15:23:28 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -26,15 +26,32 @@ class MSLane;
 #include "MSUnit.h"
 #include <vector>
 
-struct MSCrossSection
+class MSCrossSection
 {
-    MSCrossSection( MSLane& lane
-                    , MSUnit::Meters pos ) 
+public:
+    MSCrossSection( MSLane* lane
+                    , MSUnit::Meters pos )
         : laneM( lane )
         , posM( pos )
         {}
 
-    MSLane& laneM;
+    /*
+    MSCrossSection( const MSCrossSection &s )
+        : laneM( s.laneM )
+        , posM( s.posM )
+        {}
+
+    MSCrossSection &operator=( const MSCrossSection &s ) {
+        if(&s==this) {
+            return *this;
+        }
+        laneM = s.laneM;
+        posM = s.posM;
+        return *this;
+    }
+    */
+
+    MSLane* laneM;
     MSUnit::Meters posM;
 };
 
