@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:25:59  dkrajzew
+// windows eol removed
+//
 // Revision 1.2  2003/03/06 17:14:41  dkrajzew
 // more stringent usage of insertion into containers; y-direction flipped
 //

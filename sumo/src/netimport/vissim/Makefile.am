@@ -9,6 +9,6 @@ NIVissimLoader.h
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
 
 SUBDIRS = tempstructs \
-typeloader 
+typeloader
 
 

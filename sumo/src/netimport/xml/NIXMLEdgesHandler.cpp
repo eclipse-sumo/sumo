@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 16:34:54  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/18 13:08:30  dkrajzew
 // usage of node position within xml-edge descriptions allowed
 //

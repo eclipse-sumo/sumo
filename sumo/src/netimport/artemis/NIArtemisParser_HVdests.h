@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/03/20 16:25:11  dkrajzew
+// windows eol removed
+//
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //

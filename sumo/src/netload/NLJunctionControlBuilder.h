@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/20 16:35:44  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:06:33  dkrajzew
 // new import format applied; new detectors applied
 //
