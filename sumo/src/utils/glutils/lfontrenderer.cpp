@@ -29,7 +29,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <iostream>
 #include <iostream>
+#include <qgl.h> // !!! not really a good solution; where to get openGl-defs from?
 #include <fstream>
+#include "lfontrenderer.h"
 
 using namespace std;
 

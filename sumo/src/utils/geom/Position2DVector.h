@@ -1,5 +1,35 @@
 #ifndef Position2DVector_h
 #define Position2DVector_h
+//---------------------------------------------------------------------------//
+//                        Position2DVector.h -
+//  A list of 2D-positions
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.6  2003/06/05 14:33:45  dkrajzew
+// class templates applied; documentation added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <queue>
 #include <iostream>
@@ -7,6 +37,10 @@
 #include "Boundery.h"
 #include "Position2D.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class Position2DVector
         : public AbstractPoly {
 public:
@@ -104,4 +138,15 @@ private:
 
 };
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "Position2DVector.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

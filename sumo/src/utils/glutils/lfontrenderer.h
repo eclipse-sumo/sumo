@@ -31,12 +31,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 #include <vector>
-
+#include <qgl.h> // !!! not really a good solution; where to get openGl-defs from?
 #ifdef _WIN32
 #include <windows.h>
+//#include <glut.h>
 #endif // _WIN32
 
-#include <glut.h>
 //--------------------------------------------------
 
 typedef unsigned int uint;
@@ -47,10 +47,10 @@ typedef unsigned char byte;
 class LCharCoords
 {
 public:
-    GLfloat left;
-    GLfloat top;
-    GLfloat right;
-    GLfloat bottom;
+    float left;
+    float top;
+    float right;
+    float bottom;
     bool enabled;
     float widthFactor;
 };
@@ -59,15 +59,15 @@ class LFont
 {
 public:
     std::string name;
-    GLuint textureId;
+    uint textureId;
     uint defaultHeight;
     uint height;
     uint imageWidth;
     uint imageHeight;
     float widthScale;
     bool italic;
-    GLfloat angle;
-    GLfloat r, g, b;
+    float angle;
+    float r, g, b;
     LCharCoords chars[256];
     char *buf;
 
@@ -79,9 +79,9 @@ public:
     std::string str;
     uint font;  // the font to be used
     uint height; // the height of the font
-    GLfloat r, g, b; // the color
-    GLfloat angle; // the rotation angle
-    GLfloat x, y;  // the position
+    float r, g, b; // the color
+    float angle; // the rotation angle
+    float x, y;  // the position
     float widthScale; // width scale
     bool italic; // true if the font is italic
 };
@@ -114,11 +114,11 @@ public:
     // sets the height of the current font
     void SetHeight(uint height);
     // sets the color of the active font
-    void SetColor(GLfloat red, GLfloat green, GLfloat blue);
+    void SetColor(float red, float green, float blue);
     // returns teh height of the active font
     uint GetHeight();
     // call this to get the color of the active font
-    void GetColor(GLfloat &red, GLfloat &green, GLfloat &blue);
+    void GetColor(float &red, float &green, float &blue);
     // call thos method to output a string
     void StringOut(float x, float y, const std::string &string);
     // this method draws all the strings

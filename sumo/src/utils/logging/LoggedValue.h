@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/05 14:29:39  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.3  2003/04/09 15:36:17  dkrajzew
 // debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
 //
@@ -72,6 +75,9 @@ protected:
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "LoggedValue.icc"
 //#endif
 
