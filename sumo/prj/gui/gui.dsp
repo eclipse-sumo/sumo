@@ -139,6 +139,10 @@ SOURCE=..\..\src\microsim\actions\Command_SaveTLSState.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\DoubleVector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -367,11 +371,19 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FG.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SG.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.cpp
 # End Source File
 # Begin Source File
 
@@ -1290,11 +1302,19 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FG.h
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SG.h
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.h
 # End Source File
 # Begin Source File
 
