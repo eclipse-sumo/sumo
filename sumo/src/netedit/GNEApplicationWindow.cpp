@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/12/09 15:10:34  miguelliebe
+// no message
+//
 // Revision 1.4  2004/12/07 17:05:43  miguelliebe
 // no message
 //
@@ -981,7 +984,7 @@ long
 GNEApplicationWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     graph.Export_Edges_XML();
-    //graph.GetTraces(1,500);
+    graph.GetTraces(1,10);
 	return 1;
 }
 

@@ -23,23 +23,17 @@ private:
     vector <Vertex*> nachfolger;
     // Dynamisches Array, welches alle Pointer auf Vorgaengerknoten enthält
     vector <Vertex*> vorgaenger;
-    // Dynamisches Array, welches alle Pointer auf inzidente Kanten enthält
-    vector <Edge*> inzident;
-
+    
 public:
 
-    //Konstruktoren(1.leer / 2.Koordinaten+Index / 3. Koordinaten)
-    Vertex();
-    Vertex(int i, int j, int iden);
+    //Konstruktoren (Koordinaten)
     Vertex(int i, int j);
 
     //Füge einen Pointer auf einen Knoten in das Nachfolgerarray ein
     void AddNachfolger(Vertex* v);
     //Füge einen Pointer auf einen Knoten in das Vorgaengerarray ein
     void AddVorgaenger(Vertex* v);
-    //Füge einen Pointer auf eine Kante in das Kantenarray ein
-    void AddInzidentEdge(Edge* e);
-
+        
     //Lösche den Pointer an Stelle k aus dem Nachfolgerarray
     void DelNachfolger(int k);
     //Lösche den Pointer an Stelle k aus dem Vorgaengerarray
@@ -49,19 +43,15 @@ public:
     Vertex* GetNachfolgeVertex(int i);
     //Hole den Pointer an Stelle i in dem Vorgaengerarray
     Vertex* GetVorgaengerVertex(int i);
-    //Hole den Pointer an Stelle i in dem Array der inzidenten Kanten
-    Edge* GetInzidentEdge(int i);
-
+    
     //Lösche die Arrays(1.Nachfolgerarray / 2.Vorgaengerarray / 3.Array der Inzidenten Kanten)
     void DelNachfolgeArray();
     void DelVorgaengerArray();
-    void DelInzidentEdge();
-
+    
     //Liefert die Anzahl der Elemente im Array zurück
     size_t GetNachfolger();
     size_t GetVorgaenger();
-    size_t GetInzident();
-
+    
     //Liefert die Koordinaten des Knoten
     int GetX();
     int GetY();
@@ -91,13 +81,14 @@ public:
     void DekrementInDegree();
     void DekrementOutDegree();
 
+
     //Wandelt die Koordinaten des Knotens in GPS-Koordinaten um
     void px2gps(int i, int j);
-
     //Hole den Longitude-Wert der GPS-Koordinaten
     double GetGPSLon();
     //Hole den Latitude-Wert der GPS-Koordinaten
     double GetGPSLat();
+
 };
 
 #endif

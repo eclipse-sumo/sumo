@@ -88,7 +88,7 @@ Graph::DelVertex(int x, int y)
                 }
             }
 
-            ptemp->DelInzidentEdge();
+//            ptemp->DelInzidentEdge();
             ptemp->DelNachfolgeArray();
             ptemp->DelVorgaengerArray();
             vArray.erase(vArray.begin()+k);
@@ -406,31 +406,17 @@ void
 Graph::Reduce_Edges()
 {
     Edge* etemp;
-    Edge* etemp1;
-    Vertex* start;
-    Vertex* end;
-    Vertex* start1;
-    Vertex* end1;
-
     for(long i=0; i<eArray.size();i++)
     {
         etemp=eArray[i];
-        start=etemp->GetStartingVertex();
-        end=etemp->GetEndingVertex();
-
-        for(long j=0; j<eArray.size() ; j++)
+        if(etemp->GetLength()==0)
         {
-            etemp1=eArray[j];
-            start1=etemp1->GetStartingVertex();
-            end1=etemp1->GetEndingVertex();
-
-            if(start==end)
-            {
-                DelDoubleEdge(start,end);
-                break;
-            }
+            DelDoubleEdge(etemp->GetStartingVertex(),etemp->GetEndingVertex());
+            i--;
+			break;
         }
     }
+    
 }
 /////////////////////////ENDE NEU!!!!!!!!!!!!!!////////////////////
 
@@ -450,7 +436,7 @@ Graph::Export_Vertexes_XML()
 	FILE* vfile= fopen("export.nod.xml","w");
     
 	fputs(app,vfile);
-    for(int i=0 ; i<Vertices; i++)
+    for(long i=0 ; i<Vertices; i++)
     {
         temp=vArray[i];
 		int x=temp->GetX();
@@ -476,27 +462,26 @@ Graph::Export_Edges_XML()
     Vertex* end;
     int index_start=0;
     int index_end=0;
-	int Edges= eArray.size();
-    char buffer [60];
+	char buffer [100];
 
 	FILE* efile= fopen("export.edg.xml","w");
     
     fputs(app,efile);
 
-    for(int i=0; i<Edges; i++)
+    for(long i=0; i<eArray.size(); i++)
     {
         temp=eArray[i];
-        if ((temp->GetStartingVertex()!=NULL)&&(temp->GetEndingVertex()!=NULL))
+        start=temp->GetStartingVertex();
+		end=temp->GetEndingVertex();
+		index_start=GetIndex(start);
+		index_end=GetIndex(end);
+		if ((index_start!=-1)||(index_end!=-1))
 		{
-			start=temp->GetStartingVertex();
-			end=temp->GetEndingVertex();
-			index_start=GetIndex(start);
-			index_end=GetIndex(end);
 			sprintf (buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
-			fputs(buffer, efile);
+			fputs(buffer,efile);
 		}
 	}
-    fputs(app2, efile);
+    fputs(app2,efile);
     fclose(efile);
 }
 
@@ -519,7 +504,7 @@ char* Graph::doubletostr(double i,int count)
 int Graph::GetIndex(Vertex* v)
 {
     Vertex* temp;
-    int index=0;
+    int index=-1;
     for (int i=0; i<vArray.size(); i++)
     {
         temp=vArray[i];
@@ -530,166 +515,48 @@ int Graph::GetIndex(Vertex* v)
 
 Graph::GetTraces(int cars, int fuel)
 {
-	string append;
-	
-	const char* mychar;
-	const char* app;
-		
+	char buffer1 [100];
+	char buffer2 [100];
+	char buffer3 [100];
+	double mylat;
+	double mylon;
+	int mylat1;
+	int mylon1;
+	long mylat2;
+	long mylon2;
 	time_t rawtime;
 	tm* ptm;
-	
-	FILE* Traces = fopen("Traces1.txt","w");
-		
+	Vertex* ptemp;
+
+	for (int l=1; l<=cars; l++)
+	{
+		sprintf(buffer1,"Trace%2d.txt",l);
+		FILE* Traces = fopen(buffer1,"w");
 		drive(fuel);
 		pfad = GetPfadArray();
-		unsigned int lauf=1;
-	
-		while(lauf <= pfad.size())
+		for (int m=0; m<pfad.size(); m++)
 		{
-			Vertex* ptemp=pfad[lauf-1];
-			//ohne malmethoden//
-
+			ptemp=pfad[m];
 			time(&rawtime);
 			ptm=gmtime(&rawtime);
+			mylat=ptemp->GetGPSLat()*100;
+			mylon=ptemp->GetGPSLon()*100;
+			mylat1=(int)mylat;
+			mylon1=(int)mylon;
+			mylat2=(long)((mylat-(int)mylat)*1000000);
+			mylon2=(long)((mylon-(int)mylon)*1000000);
+			//So soll es aussehen
+			//$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
+			//$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
 
-			double mylat=ptemp->GetGPSLat();
-			double mylon=ptemp->GetGPSLon();
-
-			/****So soll es iterativ aussehen****/
-
-			
-			 
-
-			append="$GPRMC,1";
-			app = append.c_str();
-			fputs(app,Traces);
-
-			/*
-			holen der aktuellen Zeit
-			*/
-			mychar = inttostr(ptm->tm_hour+1);
-			fputs(mychar,Traces);
-		
-			mychar = inttostr(ptm->tm_min);
-			fputs(mychar,Traces);
-			
-			mychar = inttostr(ptm->tm_sec);
-			fputs(mychar,Traces);
-			
-			
-			
-			append=",A,";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-			
-			mychar=inttostr((int)(mylat*100));
-			fputs(mychar,Traces);
-						
-			append=".";
-			app=append.c_str();
-			fputs(app,Traces);
-
-			mychar=doubletostr(mylat*100-(int)(mylat*100),6);
-			fputs(mychar,Traces);
-
-			append=",N,00";
-			app=append.c_str();
-			fputs(app,Traces);
-
-				
-			mychar = inttostr((int)(mylon*100));
-			fputs(mychar,Traces);
-			
-			append=".";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-			mychar = doubletostr(mylon*100-(int)(mylon*100),6);
-			fputs(mychar,Traces);
-			// $ GPRMC,201512,A,1234.23456,N,1234.1234,
-			append=",E,,,";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-		
-
-			/*
-			Holen des aktuellen Datums
-			*/
-
-			mychar = inttostr(ptm->tm_mday);
-			fputs(mychar,Traces);
-			mychar = inttostr(ptm->tm_mon+1);
-			fputs(mychar,Traces);
-			mychar = inttostr(ptm->tm_year+1900);
-			fputs(mychar,Traces);
-
-			append=",,\n";
-			app=append.c_str();
-			fputs(app,Traces);
-
-			// Jetzt das ganze für $GPGGA
-
-			append="$GPGGA,1";
-			app = append.c_str();
-			fputs(app,Traces);
-
-			/*
-			holen der aktuellen Zeit
-			*/
-			mychar = inttostr(ptm->tm_hour+1);
-			fputs(mychar,Traces);
-		
-			mychar = inttostr(ptm->tm_min);
-			fputs(mychar,Traces);
-			
-			mychar = inttostr(ptm->tm_sec);
-			fputs(mychar,Traces);
-			
-			
-			
-			append=",";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-			
-			mychar=inttostr((int)(mylat*100));
-			fputs(mychar,Traces);
-						
-			append=".";
-			app=append.c_str();
-			fputs(app,Traces);
-
-			mychar=doubletostr(mylat*100-(int)(mylat*100),6);
-			fputs(mychar,Traces);
-
-			append=",N,00";
-			app=append.c_str();
-			fputs(app,Traces);
-
-				
-			mychar = inttostr((int)(mylon*100));
-			fputs(mychar,Traces);
-			
-			append=".";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-			mychar = doubletostr(mylon*100-(int)(mylon*100),6);
-			fputs(mychar,Traces);
-			// $ GPRMC,201512,A,1234.23456,N,1234.1234,
-			append=",E,,,,0.0,,,,,\n";
-			app=append.c_str();
-			fputs(app,Traces);
-			
-			lauf++;
+			sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
+			fputs(buffer2,Traces);
+			sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
+			fputs(buffer3,Traces);
 		}
-	
-	// $GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
-
+		fclose(Traces);
 		
-	fclose(Traces);
+	}
 }
 
 Graph::MergeVertex()

@@ -6,19 +6,7 @@
 
 #include "Vertex.h"
 
-//Konstruktoren(1.leer / 2.Koordinaten+Index / 3. Koordinaten)
-
-Vertex::Vertex(){}
-
-Vertex::Vertex(int i, int j, int iden)
-{
-    //Setzen der Koordinaten, des Index und der Grade
-    x=i;
-    y=j;
-    id=iden;
-    inDegree=0;
-    outDegree=0;
-}
+//Konstruktor (Koordinaten)
 
 Vertex::Vertex(int i, int j)
 {
@@ -27,7 +15,6 @@ Vertex::Vertex(int i, int j)
     y=j;
     inDegree=0;
     outDegree=0;
-
     //Errechnen der GPS-Koordinaten
     px2gps(i,j);
 }
@@ -44,13 +31,6 @@ void
 Vertex::AddVorgaenger(Vertex* v)
 {
     vorgaenger.push_back(v);
-}
-
-//Füge einen Pointer auf eine Kante in das Kantenarray ein
-void
-Vertex::AddInzidentEdge(Edge* e)
-{
-    inzident.push_back(e);
 }
 
 //Lösche den Pointer an Stelle k aus dem Nachfolgerarray
@@ -77,12 +57,7 @@ Vertex* Vertex::GetVorgaengerVertex(int i){
     return vorgaenger[i];
 }
 
-//Hole den Pointer an Stelle i in dem Array der inzidenten Kanten
-Edge* Vertex::GetInzidentEdge(int i){
-    return inzident[i];
-}
-
-//Lösche die Arrays(1.Nachfolgerarray / 2.Vorgaengerarray / 3.Array der Inzidenten Kanten)
+//Lösche die Arrays(1.Nachfolgerarray / 2.Vorgaengerarray )
 void
 Vertex::DelNachfolgeArray()
 {
@@ -95,20 +70,13 @@ Vertex::DelVorgaengerArray()
     vorgaenger.clear();
 }
 
-void
-Vertex::DelInzidentEdge()
-{
-    inzident.clear();
-}
-//Lösche die Arrays(1.Nachfolgerarray / 2.Vorgaengerarray / 3.Array der Inzidenten Kanten) (Ende)
-
 //Liefert die Anzahl der Elemente im Array zurück
+
 size_t
 Vertex::GetNachfolger()
 {
     return nachfolger.size();
 }
-
 
 size_t
 Vertex::GetVorgaenger()
@@ -116,11 +84,6 @@ Vertex::GetVorgaenger()
     return vorgaenger.size();
 }
 
-size_t
-Vertex::GetInzident()
-{
-    return inzident.size();
-}
 //Liefert die Anzahl der Elemente im Array zurück (Ende)
 
 //Liefert die Koordinaten des Knoten
@@ -220,6 +183,7 @@ Vertex::DekrementOutDegree()
 //Verringerung der Grade des Knotens (Ende)
 
 //Wandelt die Koordinaten des Knotens in GPS-Koordinaten um
+
 void
 Vertex::px2gps(int i, int j)
 {

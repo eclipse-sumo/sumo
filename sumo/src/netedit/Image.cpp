@@ -571,17 +571,22 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
     list<Point> n_List;
     list<Point>::iterator iter;
     n_List.clear();
-    do
+    
+	/*Solange der aktuelle Pixel
+	  genau einen Nachbarn hat
+	  (ohne Vorgänger), wird die
+	  Schleife ausgeführt
+    */
+	do
     {
         n_List.clear();
         neighbour_counter=0;
         //Zähle die schwarzen Nachbarpixel des aktuellen Pixels
         //Zähle dabei aber nicht den Vorgängerpixel mit...(k!=i_pre)&&(l!=j_pre)
-        for (int k=i-1 ; k<=i+1 ; ++k)
+        
+		for (int k=i-1 ; k<=i+1 ; ++k)
             for (int l=j-1 ; l<=j+1 ; ++l)
-                if((k>=0)&&(k<m_img->getWidth())&&(l>=0)&&(l<m_img->getHeight()))
-                    if
-                        (
+                if      (
                         (m_img->getPixel(k,l)==FXRGB(0,0,0)&&!((k==i)&&(l==j))&&!((k==i_pre)&&(l==j_pre)))
                         ||
                         (m_img->getPixel(k,l)==FXRGB(0,255,0)&&!((k==i)&&(l==j))&&!((k==i_pre)&&(l==j_pre)))
@@ -591,27 +596,27 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                         Point *pt=new Point(k,l);
                         n_List.push_back(*pt);
                     }
-        //Der Pixel ist ein Endpunkt.. erzeuge Knoten
+        
+		////////////////// 0 Sekunden ///////////////////////////
+		//Der Pixel ist ein Endpunkt.. erzeuge Knoten
         if(neighbour_counter==0)
         {
             for (int k=i-1 ; k<=i+1 ; ++k)
                 for (int l=j-1 ; l<=j+1 ; ++l)
-                    if((k>=0)&&(k<m_img->getWidth())&&(l>=0)&&(l<m_img->getHeight()))
-                        if(m_img->getPixel(k,l)==FXRGB(0,0,255))
-                        {
-                            m_img->setPixel(k,l,FXRGB(255,0,0));
-                            m_img->setPixel(i,j,FXRGB(255,0,0));
-                            closed_circle=true;
-                            for (int n=k-1 ; n<=k+1 ; ++n)
-                                for (int m=l-1 ; m<=l+1 ; ++m)
-                                    if((k>=0)&&(k<m_img->getWidth())&&(l>=0)&&(l<m_img->getHeight()))
-                                        if(m_img->getPixel(n,m)==FXRGB(255,255,0))
-                                        {
-                                            Vertex* temp2=gr.SearchVertex(n,m);
-                                            gr.AddEdgeByVertex(temp,temp2);
-                                            gr.AddEdgeByVertex(temp2,temp);
-                                        }
-                        }
+                    if(m_img->getPixel(k,l)==FXRGB(0,0,255))
+                    {
+                        m_img->setPixel(k,l,FXRGB(255,0,0));
+                        m_img->setPixel(i,j,FXRGB(255,0,0));
+                        closed_circle=true;
+                        for (int n=k-1 ; n<=k+1 ; ++n)
+						    for (int m=l-1 ; m<=l+1 ; ++m)
+                                if(m_img->getPixel(n,m)==FXRGB(255,255,0))
+                                    {
+                                        Vertex* temp2=gr.SearchVertex(n,m);
+                                        gr.AddEdgeByVertex(temp,temp2);
+                                        gr.AddEdgeByVertex(temp2,temp);
+                                    }
+                    }
                     if(closed_circle==false)
                     {
                         //gelb.. Knoten wird erzeugt
@@ -625,6 +630,8 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                         temp=gr.SearchVertex(i,j);
                     }
         }
+		////////////////////// 0 Sekunden Ende ////////////////////////////
+		
         //Der Pixel liegt auf einer ´Linie´..
         if(neighbour_counter==1)
         {
@@ -642,14 +649,16 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                 //gelb
                 m_img->setPixel(i,j,FXRGB(255,255,0));
                 gr.AddVertexByXY(i,j);
-                if(temp!=NULL){
+                if(temp!=NULL)
+				{
                     gr.AddEdgeByVertex(temp,gr.SearchVertex(i,j));
                     gr.AddEdgeByVertex(gr.SearchVertex(i,j),temp);
                 }
                 temp=gr.SearchVertex(i,j);
             }
         }
-        if(n_List.size()==1)
+        
+		if(n_List.size()==1)
         {
             i_pre=i;
             j_pre=j;
@@ -658,24 +667,24 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         }
         else
         {
-
-        iter=n_List.begin();
-        while (iter !=n_List.end())
-        {
-            m_img->setPixel(iter->GetX(),iter->GetY(),FXRGB(0,0,255));
-            iter++;
-        }
+		    iter=n_List.begin();
+			while (iter !=n_List.end())
+			{
+				m_img->setPixel(iter->GetX(),iter->GetY(),FXRGB(0,0,255));
+				iter++;
+			}
         }
         changed=true;
-    }
+	}
     while(neighbour_counter==1);
-
+	
     if(!(n_List.empty()))
     {
         //gelb
         m_img->setPixel(i,j,FXRGB(255,255,0));
         gr.AddVertexByXY(i,j);
-        if(temp!=NULL){
+        if(temp!=NULL)
+		{
             gr.AddEdgeByVertex(temp,gr.SearchVertex(i,j));
             gr.AddEdgeByVertex(gr.SearchVertex(i,j),temp);
         }
@@ -684,17 +693,12 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         while (iter !=n_List.end())
         {
             if(m_img->getPixel(iter->GetX(),iter->GetY())==FXRGB(0,0,255))
-                {
-                gr=Pixel_Counter(iter->GetX(),iter->GetY(),i,j,1,gr,temp);
-                iter++;
-                }
-            else
-            {
-                iter++;
-            }
+				gr=Pixel_Counter(iter->GetX(),iter->GetY(),i,j,1,gr,temp);
+            iter++;
         }
     }
     n_List.clear();
+	
     return gr;
 }
 
