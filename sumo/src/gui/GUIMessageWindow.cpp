@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 08:36:49  dkrajzew
+// is now update only if visible
+//
 // Revision 1.4  2004/04/23 12:35:42  dkrajzew
 // the message window now scrolls to the end if new messages are appended
 //
@@ -134,8 +137,10 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
     FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
-    layout();
-    update();
+    if(isEnabled()) {
+        layout();
+        update();
+    }
 }
 
 
@@ -146,8 +151,10 @@ GUIMessageWindow::addSeparator()
     FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
-    layout();
-    update();
+    if(isEnabled()) {
+        layout();
+        update();
+    }
 }
 
 
