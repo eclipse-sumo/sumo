@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Mon Oct 6 17:52:18 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -52,12 +52,17 @@ struct MSDetectorCounterContainerWrapper
             --vehicleCountM;
         }
 
+    void removeOnTripEnd( MSVehicle* veh )
+        {
+        }
+
+
     MSDetectorCounterContainerWrapper()
         : MSDetectorContainerWrapperBase(),
           vehicleCountM( 0 )
         {}
 
-    
+
     MSDetectorCounterContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),
