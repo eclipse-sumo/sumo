@@ -24,8 +24,14 @@ namespace
 } 
                        
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 12:32:07  croessel
+// Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
+// may drive beyond the lane but are not on a lane that is linked to
+// their next route-edge. A second succLink method, named succLinkSec was
+// needed.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.7  2002/03/27 12:11:09  croessel
 // In constructor initialization of member myLastVeh added.
@@ -768,9 +774,19 @@ void MSLane::setLookForwardState()
         return;
     }
     
-    // Can look beyond lane end.
+    // Can look beyond lane end. Determine the link that will be used.
+    MSLane::LinkCont::iterator link = succLinkSec( *myFirst, 1, *this );
+
+    // The vehicle is on a wrong lane; we assume the vehicle wants to
+    // change the lane but the destination lane is congested.
+    if ( link == myLinks.end() ) {
+
+        myLFState = URGENT_LANECHANGE_WISH;
+        myGap = looked;
+        return;
+    }
+
     // If link is yield-link and veh is still to fast for safe driving.
-    MSLane::LinkCont::iterator link = succLink( *myFirst, 1, *this );
     if ( ( (*link)->myPrio == false ) && 
          ( accelAfterYielding( *myFirst ) == false ) ) {
 
@@ -959,6 +975,14 @@ MSLane::setDriveRequests()
             return;
         }
 
+        case URGENT_LANECHANGE_WISH: {
+            // the vehicle must change the lane to get on a valid lane but
+            // can not because this lane is congested
+            // slow the vehicle down and let it wait as long as necessary
+            myFirst->moveUpdateState( myFirst->nextState( this, myGap ) );
+            return;
+        }
+
         case YIELD_ON_CURR: {
             // Move vehicle slowing down towards the end of this lane.
             myFirst->moveUpdateState( myFirst->nextState( this, myGap ) );
@@ -1068,6 +1092,27 @@ MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs,
         }
     }
     assert( false ); // There must be a matching edge. 
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+MSLane::LinkCont::iterator
+MSLane::succLinkSec(MSVehicle& veh, unsigned int nRouteSuccs, 
+                    MSLane& succLinkSource)
+{
+    const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
+    assert( nRouteEdge != 0 );
+    
+    // Check which link's lane belongs to the nRouteEdge.
+    LinkCont::iterator link;
+    for ( link = succLinkSource.myLinks.begin();
+          link != succLinkSource.myLinks.end() ; ++link ) {
+        
+        if ( ( *link )->myLane->myEdge == nRouteEdge ) {
+            return link;
+        }
+    }
+    return link;
 }
 
 /////////////////////////////////////////////////////////////////////////////

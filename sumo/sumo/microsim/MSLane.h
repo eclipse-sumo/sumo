@@ -21,6 +21,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/04/11 12:32:07  croessel
+// Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
+// may drive beyond the lane but are not on a lane that is linked to
+// their next route-edge. A second succLink method, named succLinkSec was
+// needed.
+//
 // Revision 1.2  2002/04/10 16:17:00  croessel
 // Added friend detectors.
 // Added public id() member-function.
@@ -360,6 +366,13 @@ protected:
     MSLane::LinkCont::iterator succLink( MSVehicle& veh,
                                          unsigned int nRouteSuccs,
                                          MSLane& succLinkSource );
+
+    /** Same as succLink, but does not throw any assertions when
+        the succeeding link could not be found; returns the
+        myLinks.end() instead */      
+    MSLane::LinkCont::iterator succLinkSec( MSVehicle& veh,
+                                            unsigned int nRouteSuccs,
+                                            MSLane& succLinkSource );
      
     /** Insert a vehicle into the lane's vehicle buffer. After
         processing of all MSJunction::moveFirstVehicle, this buffer
@@ -456,7 +469,8 @@ private:
     
     enum LookForwardState { UNDEFINED, FREE_ON_CURR, YIELD_ON_CURR,
                             FREE_ON_SUCC, YIELD_ON_SUCC,
-                            PRED_ON_SUCC, BEYOND_DEST };
+                            PRED_ON_SUCC, BEYOND_DEST,
+                            URGENT_LANECHANGE_WISH };
 
     // This state set in setLookForwardState and used in setDriveRequests
     // to determine the first vehicles desired vnext.
