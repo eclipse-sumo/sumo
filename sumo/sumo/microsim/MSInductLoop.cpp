@@ -24,6 +24,14 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2002/06/12 10:12:47  croessel
+// There was a problem with infinite densities because myPassingSpeed
+// could have the value 0 after reinitializing the detector and detection
+// of a just emitted vehicle with speed = 0. I added a if (speed>0)
+// condition in sample() to detect only the vehicles, that really passed
+// the detector (speed > 0).
+// Set floating-point output to ios::fixed.
+//
 // Revision 1.10  2002/06/06 17:50:55  croessel
 // Calculation of local density refined.
 // New assertions for localDensity.
@@ -187,17 +195,20 @@ MSInductLoop::sample( double simSec )
         return;
     }
 
-    // We have now a valid and not sampled vehicle. Update all data.
-    myLocalDensitySum += localDensity( **currVeh, simSec );
-    mySpeedSum        += ( *currVeh )->speed();
+    // We have now a valid beyond the detector. If its speed is > 0 it
+    // had passed the detector and should be sampled, otherwise it
+    // might be just emitted and should not be sampled.
     if ( ( *currVeh )->speed() > 0 ) {
-        myOccupSum += ( *currVeh )->length() / ( *currVeh )->speed();
-    }
-    myVehLengthSum += ( *currVeh )->length();
+	
+	myLocalDensitySum += localDensity( **currVeh, simSec );
+	mySpeedSum        += ( *currVeh )->speed();
+	myOccupSum        += ( *currVeh )->length() / ( *currVeh )->speed();
+	myVehLengthSum    += ( *currVeh )->length();
     
-    // Remember the vehicle.
-    myPassedVeh = *currVeh;
-    ++myNPassedVeh;
+	// Remember the vehicle.
+	myPassedVeh = *currVeh;
+	++myNPassedVeh;
+    }
 }
 
 //---------------------------------------------------------------------------//
@@ -210,7 +221,7 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
     // Local Density is calculated via the timeheadway and the speed
     // of the leading vehicle. After the first detection there will
     // always be a myPassedVeh.
-    double localDens = 0.0;
+    double localDens    = 0.0;
     double currPassTime = 0.0;
 
     if ( myPassedVeh != 0 ) {
@@ -224,19 +235,15 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 	assert( localDens >= 0 );
     }
 
-    // update members, ignore just emitted vehicles (speed = 0)
-    if ( veh.speed() > 0 ) {
-	 
-	 myPassingSpeed = veh.speed();
-	 if ( myPassedVeh != 0 ) {
-
-	     myPassingTime  = currPassTime;
-	 }
-	 else {
-	      
-	     myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
-	 }
-	 
+    // update members
+    myPassingSpeed = veh.speed(); 
+    if ( myPassedVeh != 0 ) {
+	
+	myPassingTime  = currPassTime;
+    }
+    else {
+	
+	myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
     }
     
     return localDens;
@@ -308,10 +315,11 @@ MSInductLoop::writeGnuPlot( MSNet::Time endOfInterv,
                             double occup,
                             double avgLength )
 {
+    ( *myFile ).setf( ios::fixed, ios::floatfield );
     *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
             << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
             << setw( 9 ) << setprecision( 0 ) << myNPassedVeh << " "
-            << setw(10 ) << setprecision( 2 ) << avgDensity << " "
+	    << setw(10 ) << setprecision( 2 ) << avgDensity << " "
             << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
             << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
             << setw( 8 ) << setprecision( 2 ) << occup << " "
@@ -328,6 +336,7 @@ MSInductLoop::writeCSV( MSNet::Time endOfInterv,
                         double occup,
                         double avgLength )
 {
+    ( *myFile ).setf( ios::fixed, ios::floatfield );     
     *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
             << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
             << setw( 5 ) << setprecision( 0 ) << myNPassedVeh << ";"
