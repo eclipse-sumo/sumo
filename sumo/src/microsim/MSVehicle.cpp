@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:45:41  dkrajzew
+// debugged
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -313,15 +316,6 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
 
 MSVehicle::~MSVehicle()
 {
-    for ( DestinationCont::iterator i = myPersons.begin();
-          i != myPersons.end(); ++i ) {
-        MSNet::PersonCont* cont = (*i).second;
-        for ( MSNet::PersonCont::iterator j = cont->begin();
-              j != cont->end(); ++j ) {
-            delete *j;
-        }
-        delete cont;
-    }
     //myWaitingPersons.clear();
 }
 
@@ -343,7 +337,6 @@ MSVehicle::MSVehicle( string id,
                 MSNet::getInstance()->withGUI() ),
     myLane( 0 )
 {
-    
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -453,6 +446,17 @@ MSVehicle::brakeGap( const MSLane* lane ) const
     return max( max( gap, timeHeadWayGap( vNext ) ), accelDist );
 }
 
+
+double
+MSVehicle::rigorousBrakeGap(const State &state) const
+{
+//    double speed = state.mySpeed - myType->decel() * MSNet::deltaT();
+    return state.mySpeed *
+        ( state.mySpeed * myType->inversTwoDecel() + myTau );
+}
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 
 double
@@ -494,9 +498,9 @@ MSVehicle::hasSafeGap( const MSVehicle& pred,
 
 //      return ( vNext >= this->speed() - myType->decelSpeed() &&
 //               gap   >= timeHeadWayGap( vNext ) );
-    
+
     return ( vNext >= this->speed() - myType->decelSpeed() &&
-             gap   >= timeHeadWayGap( pred.speed() ) );    
+             gap   >= timeHeadWayGap( pred.speed() ) );
 }
 
 
@@ -507,11 +511,19 @@ double
 MSVehicle::safeEmitGap( void ) const
 {
     double vNextMin = max( this->speed() - myType->decelSpeed(),
-                           double( 0 ) );
+                           double( 0 ) ); // ok, minimum next speed
     double safeGap  = vNextMin *
         ( this->speed() * myType->inversTwoDecel() + myTau );
-    return max( safeGap, timeHeadWayGap( vNextMin ) );
+    return max( safeGap, timeHeadWayGap( myState.mySpeed ) ) + myType->accelDist();
 }
+
+
+double
+MSVehicle::accelDist() const 
+{
+    return myType->accelDist();
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -526,7 +538,7 @@ MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
 
         return speed() - myType->decelSpeed();
     }
-    
+
     // Be able to slow down to neighbours speed in following timesteps.
     if ( v >= neigh.speed() + myType->decelSpeed() ) {
 
@@ -572,14 +584,13 @@ MSVehicle::move( MSLane* lane,
 #ifdef _SPEEDCHECK
     MSNet::noVehicles++;
 #endif
-
     double vAccel = vaccel( lane );
     double vSafe  = vsafe( myState.mySpeed, myType->decel(),
                            gap2pred( *pred ), pred->speed() );
 
     double vNext;
     if ( neigh != 0 ) {
-        
+
         vNext = dawdle( min( vAccel,
                              min( vSafe, vNeighEqualPos( *neigh ) ) ) );
     }
@@ -587,12 +598,130 @@ MSVehicle::move( MSLane* lane,
 
         vNext = dawdle( min( vAccel, vSafe ) );
     }
-    
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
 
+    double bla = myState.mySpeed;
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
+    assert(bla-this->myType->decel() <= myState.mySpeed);
+}
+
+
+void 
+MSVehicle::moveRegardingCritical(MSLane* lane, 
+                                 const MSVehicle* pred, 
+                                 const MSVehicle* neigh )
+{
+#ifdef _SPEEDCHECK
+    MSNet::noVehicles++;
+#endif
+    // compute other values as in move
+    double vAccel = vaccel( lane );
+    double vSafe  = vsafeCritical( pred );
+
+    double vNext;
+    if ( neigh != 0 ) {
+
+        vNext = dawdle( min( vAccel,
+                             min( vSafe, vNeighEqualPos( *neigh ) ) ) );
+    }
+    else {
+
+        vNext = dawdle( min( vAccel, vSafe ) );
+    }
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
+
+    double bla = myState.mySpeed;
+    // update position and speed
+    myState.myPos  += vNext * MSNet::deltaT();
+    assert( myState.myPos < lane->length() );
+    myState.mySpeed = vNext;
+    assert(bla-this->myType->decel() <= myState.mySpeed);
+}
+
+
+void 
+ 
+MSVehicle::_assertPos() const
+{
+    assert(myState.myPos<myLane->length());
+}
+
+double 
+MSVehicle::vsafeCritical( const MSVehicle *pred) const
+{
+    double decelAbility = myType->decel();
+    // compute vsafe dependent to the leader
+    double minVSafe = vsafe(myState.mySpeed, myType->decel(), 
+        gap2pred( *pred ), pred->speed());
+    // check whether the vehicle is not on an appropriate lane
+    //  decelerate when yes
+    if(!myLane->appropriate(this)) {
+        return vsafe(myState.mySpeed, decelAbility, 
+            myLane->length() - MSVehicleType::maxLength() - myState.myPos, 0);
+    }
+    // compute the way the vehicle may drive when accelerating
+    double dist = myState.mySpeed * MSNet::deltaT() + myType->accelDist();
+    double left = myLane->length() - myState.myPos;
+    double drove = left;
+    // loop until all the way is checked or vsafe can not get smaller
+    //  check junctions and last vehicles on following lanes
+    const MSLane *currentLane = myLane;
+    while(left>0) {
+        double currentVSafe = minVSafe;
+        MSLane::LinkCont::const_iterator link = 
+            myLane->succLinkSec( *this, 1, *currentLane );
+        // the vehicle will have to stop before the next junction
+        //  due to a lower priority
+        if ( ( (*link)->myPrio == false ) &&
+             ( myLane->willLeaveLane( *this ) == false ) ) {
+            currentVSafe = vsafe(myState.mySpeed, decelAbility, drove, 0);
+            return min(minVSafe, currentVSafe);
+        }
+        // the vehicle will have to stop due to a traffic light
+        if( currentLane->linkClosed(*link) ) {
+            currentVSafe = vsafe(myState.mySpeed, decelAbility, drove, 0);
+            return min(minVSafe, currentVSafe);
+        }
+        // check the progress on the following lane
+        //  (incrementally from lane to lane)
+        currentLane = (*link)->myLane;
+        // check whether the next lane is empty; 
+        //  if not, check the last vehicle on this lane
+        const MSVehicle * const nextPred = currentLane->getLastVehicle();
+        if(nextPred!=0) {
+            currentVSafe = vsafe(myState.mySpeed, decelAbility, 
+                drove, nextPred->speed());
+            if(currentVSafe>minVSafe) {
+                return minVSafe;
+            }
+        }
+        // check whether vehicle will stop at the next lane
+        //  if yes, the currently smallest vsafe can be used
+        drove += currentLane->length();
+        left -= currentLane->length();
+        // when the vehicle ends on the following lane, return
+        if(endsOn(*currentLane)) {
+            currentVSafe = vsafe(myState.mySpeed, decelAbility, drove, 0);
+            minVSafe = min(minVSafe, currentVSafe);
+        }
+        if(drove>dist) {
+            return minVSafe;
+        }
+    }
+    return minVSafe;
+}
+
+bool
+MSVehicle::endsOn(const MSLane &lane) const
+{
+    return lane.inEdge((*myRoute)[myRoute->size()-1]);
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -604,22 +733,24 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
     MSNet::noVehicles++;
 #endif
 
-    double gap = lane->length() - myState.myPos;
-    assert( gap <= brakeGap( lane ) );
+    double gap = lane->length() - myState.myPos; // !!!
+//!!!    assert( gap <= brakeGap( lane ) );
 
     // Slow down and dawdle.
     double vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
     double vNext  = dawdle( vSafe );
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
 
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
-    assert( myState.myPos < lane->length() );
+//    assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
-
-    cout << "dec_speed " << myState.mySpeed << "\n";
 }
 
 ////////////////////////////////////////////////////////////////////////////
+
 
 void
 MSVehicle::moveUpdateState( const State newState )
@@ -633,7 +764,6 @@ MSVehicle::moveUpdateState( const State newState )
 
     myState.mySpeed = newState.mySpeed;
     assert( myState.mySpeed >= 0 );
-    cout << "upd_speed " << myState.mySpeed << "\n";    
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -648,7 +778,6 @@ MSVehicle::moveSetState( const State newState )
     myState = newState;
     assert( myState.myPos >= 0 );
     assert( myState.mySpeed >= 0 );
-    cout << "set_speed " << myState.mySpeed << "\n";
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -680,6 +809,9 @@ MSVehicle::nextState( MSLane* lane,
     }
 
     double vNext   = dawdle( min( vAccel, vSafe ) );
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
     double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be
     // overridden if veh leaves lane.
 
@@ -702,11 +834,14 @@ MSVehicle::nextState( MSLane* lane, double gap ) const
 
     double vAccel  = vaccel( lane );
     double vSafe   = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    vSafe          = dawdle( min( vSafe, vAccel ) );
-    double nextPos = myState.myPos + vSafe * MSNet::deltaT(); // Will be
+    double vNext   = dawdle( min( vSafe, vAccel ) );
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
+    double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be
     // overridden if veh leaves lane.
 
-    return State( nextPos, vSafe );
+    return State( nextPos, vNext );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -721,53 +856,14 @@ MSVehicle::nextStateCompete( MSLane* lane,
                              gap2pred, predState.mySpeed );
 
     double vNext    = dawdle( min( vAccel, vSafe ) );
+    if(vNext<myState.mySpeed-myType->decelSpeed()) {
+        vNext = myState.mySpeed-myType->decelSpeed();
+    }
     double nextPos  = myState.myPos + vNext * MSNet::deltaT();
     return State( nextPos, vNext );
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
-void
-MSVehicle::addPerson( MSPerson* person, MSEdge* destinationEdge )
-{
-    DestinationCont::iterator i = myPersons.find( destinationEdge );
-    if( i == myPersons.end() ) {
-        MSNet::PersonCont* cont = new MSNet::PersonCont();
-        cont->push_back(person);
-        myPersons.insert( DestinationCont::value_type( destinationEdge,
-                                                       cont ) );
-    }
-    else {
-        ( *i ).second->push_back( person );
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSNet::PersonCont*
-MSVehicle::leavingAt( MSEdge* edge )
-{
-    DestinationCont::iterator i = myPersons.find( edge );
-    if( i == myPersons.end() ) {
-        return 0;
-    }
-    return ( ( *i ).second );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSNet::PersonCont*
-MSVehicle::unloadPersons( MSEdge *edge ) {
-    DestinationCont::iterator i = myPersons.find( edge );
-    if ( i == myPersons.end() ) {
-        return 0;
-    }
-    MSNet::PersonCont* cont = ( *i ).second;
-    myPersons.erase( i );
-    return cont;
-}
-
-///////////////////////////////////////////////////////////////////////////
 
 bool
 MSVehicle::dictionary(string id, MSVehicle* ptr)
@@ -792,6 +888,17 @@ MSVehicle::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void
+MSVehicle::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -823,7 +930,7 @@ MSVehicle::laneChangeBrake2much( const State brakeState )
 /////////////////////////////////////////////////////////////////////////////
 
 string
-MSVehicle::id()
+MSVehicle::id() const
 {
     return myID;
 }
@@ -912,7 +1019,7 @@ bool
 MSVehicle::isInsertBrakeCond( double predSpeed, double gap2pred )
 {
     return vsafe( speed(), myType->decel(), gap2pred, predSpeed )
-        >= speed() - myType->decelSpeed();  
+        >= speed() - myType->decelSpeed();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -921,7 +1028,7 @@ bool
 MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
 {
     return vsafe( speed(), myType->decel(), gap2pred( aPred ), aPred.speed() )
-        >= speed() - myType->decelSpeed();  
+        >= speed() - myType->decelSpeed();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -945,7 +1052,6 @@ MSVehicle::dumpData( unsigned index )
 
     resetMeanData( index );
 }
-
 /////////////////////////////////////////////////////////////////////////////
 
 void
@@ -1103,6 +1209,29 @@ MSVehicle::meanDataMove( void )
 
 /////////////////////////////////////////////////////////////////////////////
 
+const MSEdge * const
+MSVehicle::getEdge() const
+{
+    return *myCurrEdge;
+}
+
+
+
+bool 
+MSVehicle::reachingCritical(double laneLength) const
+{
+    // check whether the vehicle will run over the lane when accelerating
+    return (laneLength 
+        - myState.myPos - brakeGap(myLane)) <= 0;
+}
+
+
+double 
+MSVehicle::decelAbility() const
+{
+    return myType->decel() * MSNet::deltaT();
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
@@ -1113,9 +1242,4 @@ MSVehicle::meanDataMove( void )
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
 

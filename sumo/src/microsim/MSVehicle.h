@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:45:42  dkrajzew
+// debugged
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -157,7 +160,7 @@ extern long myvehicles;
 
 #include "MSNet.h"
 #include "MSEdge.h"
-#include "../helpers/Counter.h"
+#include <helpers/Counter.h>
 #include <map>
 #include <string>
 
@@ -225,10 +228,11 @@ public:
                                const State& compareState );
         /// Speed of this state
         double speed() const { return mySpeed; };
-        
-    private:
+
+//!!!    private:
         /// Constructor.
         State( double pos, double speed );
+    private:
         double myPos;
         double mySpeed;
     };
@@ -270,6 +274,9 @@ public:
         vehicle has no predecessor, it has to search within brakeGap
         for collision-free driving. */
     double brakeGap( const MSLane* lane ) const;
+    double rigorousBrakeGap(const State &state) const;
+
+    void _assertPos() const;
 
     /** In "gap2predecessor < interactionGap" region interaction between
         vehicle and predecessor with speed != 0 takes place. Else vehicle
@@ -300,7 +307,7 @@ public:
     /** Returns the gap between pred and this vehicle. Assumes they
      * are on parallel lanes. Requires a positive gap. */
     double gap2pred( const MSVehicle& pred ) const;
-    
+
     /** Returns the vehicels driving distance during one timestep when
         driving with speed. */
     double driveDist( State state ) const;
@@ -312,6 +319,11 @@ public:
     // Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const;
 
+    double decelAbility() const;
+
+    double accelDist() const;
+
+
 ///////////////////////////////////////////////////////////////////////////
 // vnext for vehicles except the first in a lane
 
@@ -322,6 +334,11 @@ public:
     void move( MSLane* lane,
                const MSVehicle* pred,
                const MSVehicle* neigh );
+
+
+    void moveRegardingCritical( MSLane* lane,
+        const MSVehicle* pred, const MSVehicle* neigh );
+
 
     // Slow down towards lane end. Updates state. For first vehicles only.
     void moveDecel2laneEnd( MSLane* lane );
@@ -359,6 +376,7 @@ public:
 
 
 ///////////////////////////////////////////////////////////////////////////
+    bool endsOn(const MSLane &lane) const;
 
     static double tau(); // returns timeconstant
 
@@ -367,16 +385,6 @@ public:
 
     /// Get the vehicle's length.
     double length() const;
-
-    /// adds a person with a destination (used in public vehicles to mark
-    /// the edge the person is stopping at)
-    void addPerson( MSPerson* person, MSEdge* destinationEdge );
-
-    /// returns the persons which leave the vehicle at the given edge
-    MSNet::PersonCont* leavingAt( MSEdge* edge );
-
-    /// returns the persons which have reached their destination edge
-    MSNet::PersonCont* unloadPersons( MSEdge* edge );
 
     /** Inserts a MSVehicle into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
@@ -387,7 +395,10 @@ public:
         otherwise returns 0. */
     static MSVehicle* dictionary( std::string id );
 
-    std::string id();
+    /** Clears the dictionary */
+    static void clear();
+
+    std::string id() const;
 
     friend std::ostream& operator<<(std::ostream& os, const MSVehicle& veh);
 
@@ -428,7 +439,7 @@ public:
     @param Gap to predecessor.
     @return gap2pred >= vPred * deltaT */
     bool isInsertTimeHeadWayCond( double aPredSpeed, double aGap2Pred );
-    
+
     /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
     deltaT" is true. If you want to insert (emit or lanechenage) a vehicle
     behind a predecessor, this condition must be true for collision-free
@@ -457,6 +468,7 @@ public:
     @return vsafe >= v - decel * deltaT */
     bool isInsertBrakeCond( MSVehicle& aPred );
 
+    const MSEdge * const getEdge() const;
     /** Dumps the collected meanData of the indexed interval to myLane.
         @param The index of the intervall to dump. */
     void dumpData( unsigned index );
@@ -482,12 +494,16 @@ public:
 
     /** Update of MeanData members at every move a vehicle performs. */
     void meanDataMove( void );
-    
+
+    bool reachingCritical(double laneLength) const;
+
 protected:
 
     /** Returns the SK-vsafe. */
     double vsafe( double currentSpeed, double decelAbility,
                   double gap2pred, double predSpeed ) const;
+
+    double vsafeCritical( const MSVehicle *pred) const;
 
     /** Return the vehicle's maximum possible speed after acceleration. */
     double vaccel( const MSLane* lane ) const;
@@ -541,11 +557,6 @@ private:
     typedef std::map< std::string, MSVehicle* > DictType;
     static DictType myDict;
 
-    typedef std::map< MSEdge*, MSNet::PersonCont* > DestinationCont;
-
-    /// the container for persons
-    DestinationCont myPersons;
-
     /// Collection of meanDataValues
     struct MeanDataValues
     {
@@ -557,7 +568,7 @@ private:
     };
 
     /// Container of meanDataValues, one element for each mean-interval.
-    vector< MeanDataValues > myMeanData;
+    std::vector< MeanDataValues > myMeanData;
 
     MSLane* myLane;
     
@@ -577,6 +588,7 @@ private:
         { return ((v1 > v2) ? v1 : v2); };
 
 };
+
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
