@@ -4,6 +4,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/UtilExceptions.h>
 #include "NBNode.h"
 #include "NBNodeShapeComputer.h"
 
@@ -72,9 +73,12 @@ NBNodeShapeComputer::compute()
         addInternalGeometry();
     }
     if(ret.size()>3) {
-        ret = ret.convexHull();
-        if(ret.size()>0) {
-            ret.closePolygon();
+        try {
+            ret = ret.convexHull();
+            if(ret.size()>0) {
+                ret.closePolygon();
+            }
+        } catch (ProcessError&) {
         }
     }
     if(ret.size()<4) {

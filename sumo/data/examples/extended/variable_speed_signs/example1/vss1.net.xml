@@ -4,10 +4,10 @@
    <node_count>10</node_count>
 
 
-   <edge id="beg" Length="495.25" Speed="27.80" Name="beg" NoLanes="2" XFrom="0.00" YFrom="20.00" XTo="500.00" YTo="20.00" From="absBeg" To="beg" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="beg" Length="493.25" Speed="27.80" Name="beg" NoLanes="2" XFrom="0.00" YFrom="20.00" XTo="500.00" YTo="20.00" From="absBeg" To="beg" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" maxspeed="27.80" length="495.25" changeurge="0">4.00,14.75 499.25,14.75</lane>
-         <lane id="beg_1" depart="0" maxspeed="27.80" length="495.25" changeurge="0">4.00,18.25 499.25,18.25</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="493.25" changeurge="0">6.00,14.75 499.25,14.75</lane>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="493.25" changeurge="0">6.00,18.25 499.25,18.25</lane>
       </lanes>
       <cedge id="middle" via=":beg">beg_0</cedge>
       <cedge id="beg2left" via=":beg">beg_1</cedge>
@@ -42,17 +42,17 @@
       <cedge id="end" via=":end">left2end_0</cedge>
    </edge>
 
-   <edge id="middle" Length="992.88" Speed="13.90" Name="middle" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="1500.00" YTo="20.00" From="beg" To="end" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="middle" Length="992.87" Speed="13.90" Name="middle" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="1500.00" YTo="20.00" From="beg" To="end" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" maxspeed="13.90" length="992.88" changeurge="0">504.25,18.25 1497.13,18.25</lane>
+         <lane id="middle_0" depart="1" maxspeed="13.90" length="992.87" changeurge="0">504.25,18.25 1497.12,18.25</lane>
       </lanes>
       <cedge id="end" via=":end">middle_0</cedge>
    </edge>
 
-   <edge id="rend" Length="495.00" Speed="27.80" Name="rend" NoLanes="2" XFrom="2000.00" YFrom="20.00" XTo="2500.00" YTo="20.00" From="absEnd" To="rabsEnd" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="rend" Length="493.00" Speed="27.80" Name="rend" NoLanes="2" XFrom="2000.00" YFrom="20.00" XTo="2500.00" YTo="20.00" From="absEnd" To="rabsEnd" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="rend_0" depart="1" maxspeed="27.80" length="495.00" changeurge="0">2001.00,14.75 2496.00,14.75</lane>
-         <lane id="rend_1" depart="0" maxspeed="27.80" length="495.00" changeurge="0">2001.00,18.25 2496.00,18.25</lane>
+         <lane id="rend_0" depart="1" maxspeed="27.80" length="493.00" changeurge="0">2001.00,14.75 2494.00,14.75</lane>
+         <lane id="rend_1" depart="0" maxspeed="27.80" length="493.00" changeurge="0">2001.00,18.25 2494.00,18.25</lane>
       </lanes>
    </edge>
 
@@ -109,32 +109,32 @@
 
    <junction id="absBeg" type="DEAD_END" x="0.00" y="20.00">
       <inclanes></inclanes>
-      <shape>4.00,13.25 4.00,19.75 4.00,13.25</shape>
+      <shape>4.00,19.75 4.00,13.25 6.00,26.00 6.00,14.00 -6.00,14.00 -6.00,26.00 4.00,19.75</shape>
    </junction>
 
    <junction id="absEnd" type="priority" x="2000.00" y="20.00">
       <inclanes>end_0 end_1</inclanes>
-      <shape>1999.00,13.25 2001.00,13.25 2001.00,19.75 1999.00,19.75 1999.00,13.25</shape>
+      <shape>2001.00,13.25 2001.00,19.75 1999.00,19.75 1999.00,13.25 2001.00,13.25 2001.00,13.25</shape>
    </junction>
 
    <junction id="beg" type="priority" x="500.00" y="20.00">
       <inclanes>beg_0 beg_1</inclanes>
-      <shape>499.25,13.25 504.25,16.75 504.25,19.75 503.25,20.75 500.25,20.75 499.25,19.75 499.25,13.25</shape>
+      <shape>499.25,13.25 504.25,16.75 504.25,19.75 503.25,20.75 500.25,20.75 499.25,19.75 499.25,13.25 499.25,13.25</shape>
    </junction>
 
    <junction id="begleft" type="priority" x="500.00" y="520.00">
       <inclanes>beg2left_0</inclanes>
-      <shape>500.25,516.75 503.25,516.75 503.25,519.75 500.25,516.75</shape>
+      <shape>503.25,516.75 503.25,519.75 500.25,516.75 503.25,516.75 503.25,516.75</shape>
    </junction>
 
    <junction id="end" type="priority" x="1500.00" y="20.00">
       <inclanes>left2end_0 middle_0</inclanes>
-      <shape>1496.75,19.25 1499.00,13.25 1500.75,16.75 1500.75,19.75 1499.00,19.75 1496.75,19.25</shape>
+      <shape>1499.00,13.25 1500.75,16.75 1500.75,19.75 1499.00,19.75 1496.75,19.25 1499.00,13.25 1499.00,13.25</shape>
    </junction>
 
    <junction id="endleft" type="priority" x="1500.00" y="520.00">
       <inclanes>left_0</inclanes>
-      <shape>1496.75,516.75 1499.75,516.75 1496.75,519.75 1496.75,516.75</shape>
+      <shape>1499.75,516.75 1496.75,519.75 1496.75,516.75 1499.75,516.75 1499.75,516.75</shape>
    </junction>
 
    <junction id="mid" type="DEAD_END" x="1000.00" y="20.00">
@@ -154,7 +154,7 @@
 
    <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="20.00">
       <inclanes>rend_0 rend_1</inclanes>
-      <shape>2496.00,13.25 2496.00,19.75 2496.00,13.25</shape>
+      <shape>2496.00,13.25 2496.00,19.75 2506.00,26.00 2506.00,14.00 2494.00,14.00 2494.00,26.00 2496.00,13.25</shape>
    </junction>
 
 
