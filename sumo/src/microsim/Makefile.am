@@ -40,6 +40,7 @@ MSLaneChanger.cpp \
 MSLaneSpeedTrigger.cpp \
 MSLaneState.cpp \
 MSLink.cpp \
+MSLinkCont.cpp \
 MSLogicJunction.cpp \
 MSMaxJamLength.cpp \
 MSNStartedHalts.cpp \
