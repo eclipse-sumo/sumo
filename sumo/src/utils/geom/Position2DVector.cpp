@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/09/05 15:27:38  dkrajzew
+// changes from adding internal lanes and further work on node geometry
+//
 // Revision 1.11  2003/08/20 11:47:38  dkrajzew
 // bug in sorting the values by x, then y patched
 //
@@ -49,10 +52,12 @@ namespace
 #include <queue>
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"
 #include "GeomHelper.h"
+#include "Line2D.h"
 
 
 /* =========================================================================
@@ -84,6 +89,13 @@ void
 Position2DVector::push_back(const Position2D &p)
 {
     myCont.push_back(p);
+}
+
+
+void
+Position2DVector::push_back(const Position2DVector &p)
+{
+    copy(p.myCont.begin(), p.myCont.end(), back_inserter(myCont));
 }
 
 
@@ -136,6 +148,9 @@ Position2DVector::overlapsWith(const AbstractPoly &poly, double offset) const
 bool
 Position2DVector::intersects(const Position2D &p1, const Position2D &p2) const
 {
+    if(size()<2) {
+        return false;
+    }
     for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         if(GeomHelper::intersects(*i, *(i+1), p1, p2)) {
             return true;
@@ -569,6 +584,37 @@ Position2DVector::set(size_t pos, const Position2D &p)
 }
 
 
+
+Position2DVector
+Position2DVector::intersectsAtPoints(const Position2D &p1,
+                                     const Position2D &p2) const
+{
+    Position2DVector ret;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        if(GeomHelper::intersects(*i, *(i+1), p1, p2)) {
+            ret.push_back(GeomHelper::intersection_position(*i, *(i+1), p1, p2));
+        }
+    }
+    if(GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2)) {
+        ret.push_back(GeomHelper::intersection_position(
+            *(myCont.end()-1), *(myCont.begin()), p1, p2));
+    }
+    return ret;
+}
+
+
+void
+Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
+{
+    Line2D l1(myCont[myCont.size()-2], myCont[myCont.size()-1]);
+    l1.extrapolateBy(100);
+    Line2D l2(v.myCont[0], v.myCont[1]);
+    l2.extrapolateBy(100);
+    Position2D p = l1.intersectsAt(l2);
+    myCont[myCont.size()-1] = p;
+    copy(v.myCont.begin()+1, v.myCont.end(),
+        back_inserter(myCont));
+}
 
 
 

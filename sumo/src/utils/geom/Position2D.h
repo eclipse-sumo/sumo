@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/09/05 15:27:38  dkrajzew
+// changes from adding internal lanes and further work on node geometry
+//
 // Revision 1.6  2003/08/14 14:05:50  dkrajzew
 // functions to process a nodes geometry added
 //
@@ -98,7 +101,7 @@ public:
 
     /// Prints to the output
     friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
-        os << "(" << p.x() << ", " << p.y() << ")";
+        os << p.x() << "," << p.y();
         return os;
     }
 

@@ -1,6 +1,7 @@
 #include "Position2D.h"
 #include "Line2D.h"
 #include "GeomHelper.h"
+#include <cassert>
 
 Line2D::Line2D()
 {
@@ -63,4 +64,38 @@ Line2D::move2side(double amount)
     std::pair<double, double> p = GeomHelper::getNormal90D_CW(myP1, myP2, amount);
     myP1.add(p.first, p.second);
     myP2.add(p.first, p.second);
+}
+
+
+DoubleVector
+Line2D::intersectsAtLengths(const Position2DVector &v)
+{
+    assert(v.intersects(myP1, myP2));
+    Position2DVector p = v.intersectsAtPoints(myP1, myP2);
+    DoubleVector ret;
+    for(size_t i=0; i<p.size(); i++) {
+        ret.push_back(GeomHelper::distance(myP1, p.at(i)));
+    }
+    return ret;
+}
+
+
+double
+Line2D::atan2Angle() const
+{
+    return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y());
+}
+
+
+double
+Line2D::atan2DegreeAngle() const
+{
+    return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) * 180.0 / 3.1415926535897932384626433832795;
+}
+
+
+Position2D
+Line2D::intersectsAt(const Line2D &l) const
+{
+    return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/09/05 15:27:38  dkrajzew
+// changes from adding internal lanes and further work on node geometry
+//
 // Revision 1.7  2003/08/14 14:04:21  dkrajzew
 // extrapolation of a lines point added
 //
@@ -50,6 +53,7 @@
 
 #include "Position2D.h"
 #include "Position2DVector.h"
+
 
 /* =========================================================================
  * class definitions

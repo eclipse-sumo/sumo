@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/05 15:27:38  dkrajzew
+// changes from adding internal lanes and further work on node geometry
+//
 // Revision 1.8  2003/08/14 14:05:51  dkrajzew
 // functions to process a nodes geometry added
 //
@@ -63,6 +66,7 @@ public:
 
     /// Appends the given position to the list
     void push_back(const Position2D &p);
+    void push_back(const Position2DVector &p);
 
     /// Puts the given position at the begin of the list
     void push_front(const Position2D &p);
@@ -83,10 +87,13 @@ public:
 
     /** Returns the position of the intersection */
     Position2D intersectsAtPoint(const Position2D &p1,
-        const Position2D &p2) const;
+        const Position2D &p2) const; // !!!
+
+    Position2DVector intersectsAtPoints(const Position2D &p1,
+        const Position2D &p2) const; // !!!
 
     /** Returns the position of the intersection */
-    Position2D intersectsAtPoint(const Position2DVector &v1) const;
+    Position2D intersectsAtPoint(const Position2DVector &v1) const; // !!!
 
     /// Removes all information from this list
     void clear();
@@ -136,6 +143,9 @@ public:
     void reshiftRotate(double xoff, double yoff, double rot);
 
     Position2DVector convexHull() const;
+
+    void appendWithCrossingPoint(const Position2DVector &v);
+
 
 	const ContType &getCont() const {
 		return myCont;
