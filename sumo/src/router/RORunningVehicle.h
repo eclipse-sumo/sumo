@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -45,6 +48,11 @@
 
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class RGBColor;
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
@@ -55,9 +63,10 @@
 class RORunningVehicle : public ROVehicle {
 public:
     /// Constructor
-    RORunningVehicle(const std::string &id, RORouteDef *route, long time,
-        ROVehicleType *type, const std::string &lane, float pos,
-        float speed, int period, int repNo);
+    RORunningVehicle(const std::string &id, RORouteDef *route,
+        long time, ROVehicleType *type, const std::string &lane,
+        float pos, float speed,
+        const RGBColor &col, int period, int repNo);
 
     /// Destructor
     ~RORunningVehicle();

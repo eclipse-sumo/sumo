@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -35,13 +38,20 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <string>
+#include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
 #include "ROVehicleType.h"
 
-ROVehicleType::ROVehicleType(const std::string &id)
-    : ReferencedItem(), _id(id)
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
+                             double length)
+    : ReferencedItem(), myID(id), myColor(col), myLength(length)
 {
 }
 
@@ -57,7 +67,7 @@ ROVehicleType::xmlOut(std::ostream &os)
 
 std::string
 ROVehicleType::getID() const {
-    return _id;
+    return myID;
 }
 
 

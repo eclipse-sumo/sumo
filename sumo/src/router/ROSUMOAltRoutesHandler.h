@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -34,14 +37,16 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include "ROTypedXMLRoutesLoader.h"
+#include "ROSUMOHandlerBase.h"
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class RONet;
 class RORouteAlternativesDef;
+
 
 /* =========================================================================
  * class definitions
@@ -50,7 +55,7 @@ class RORouteAlternativesDef;
  * @class ROSUMOAltRoutesHandler
  * A SAX-Handler which parses SUMO-Route-Alternatives.
  */
-class ROSUMOAltRoutesHandler : public ROTypedXMLRoutesLoader {
+class ROSUMOAltRoutesHandler : public ROSUMOHandlerBase {
 public:
     /// Constructor
     ROSUMOAltRoutesHandler(RONet &net, double gawronBeta,
@@ -61,10 +66,6 @@ public:
 
     /// Returns a fully configured duplicate
     ROTypedRoutesLoader *getAssignedDuplicate(const std::string &file) const;
-
-    /** @brief Retunrs the name of the data
-        "precomputed sumo route alternatives" is returned here */
-    std::string getDataName() const;
 
 protected:
     /** the user-impemlented handler method for an opening tag */
@@ -84,16 +85,6 @@ private:
 
     /// Begins the parsing of a route alternative of the opened route
     void startRoute(const Attributes &attrs);
-
-    /// Parses a vehicle
-    void startVehicle(const Attributes &attrs);
-
-    /// Parses a vehicle type
-    void startVehType(const Attributes &attrs);
-
-    /// Retrieves a float from the attributes and reports errors, if any occure
-    float getFloatReporting(const Attributes &attrs, AttrEnum attr,
-        const std::string &id, const std::string &name) ;
 
     /// Ends the processing of a route alternative
     void endAlternative();

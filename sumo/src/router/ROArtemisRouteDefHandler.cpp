@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -39,8 +42,6 @@ namespace
 // artemis route support added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -51,8 +52,8 @@ namespace
 #include <iostream> // !!! debug only
 #include <fstream>
 #include <sstream>
-//#include <ios_base>
 #include <utils/importio/LineHandler.h>
+#include <utils/gfx/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>
@@ -60,15 +61,22 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
-//#include "RORouteAlternative.h"
 #include "RORoute.h"
 #include "ROOrigDestRouteDef.h"
 #include "ROEdgeVector.h"
 #include "RONet.h"
 #include "ROArtemisRouteDefHandler.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROArtemisRouteDefHandler::ROArtemisRouteDefHandler(RONet &net, string file)
     : ROTypedRoutesLoader(net),
     myRouteIDSupplier(string("ARTEMIS_"), 0),
@@ -144,8 +152,8 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
                     ROVehicleType *type = _net.getDefaultVehicleType();
                     string vehID = myVehIDSupplier.getNext();
                     _net.addVehicle(vehID,
-                        new ROVehicle(vehID, route,
-                            start, type, -1, 0));
+                        new ROVehicle(vehID, route, start, type,
+                            RGBColor(),-1, 0));
                     j = poss.end()-1;
                 }
             }

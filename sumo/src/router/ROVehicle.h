@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -44,6 +47,7 @@
 
 #include <string>
 #include <iostream>
+#include <utils/gfx/RGBColor.h>
 
 
 /* =========================================================================
@@ -65,7 +69,7 @@ class ROVehicle {
 public:
     /// Constructor
 	ROVehicle(const std::string &id, RORouteDef *route, long depart,
-        ROVehicleType *type, int period, int repNo);
+        ROVehicleType *type, const RGBColor &color, int period, int repNo);
 
     /// Destructor
 	virtual ~ROVehicle();
@@ -96,6 +100,9 @@ public:
 protected:
     /// The name of the vehicle
 	std::string _id;
+
+    /// The color of the vehicle
+    RGBColor myColor;
 
     /// The type of the vehicle
 	ROVehicleType *_type;

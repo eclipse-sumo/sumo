@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -36,8 +39,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,11 +54,21 @@ namespace
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-ROVehicle::ROVehicle(const std::string &id, RORouteDef *route, long depart,
-                     ROVehicleType *type, int period, int repNo)
-	: _id(id), _type(type), _route(route), _depart(depart),
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+ROVehicle::ROVehicle(const std::string &id, RORouteDef *route,
+                     long depart, ROVehicleType *type,
+                     const RGBColor &color,
+                     int period, int repNo)
+	: _id(id), myColor(color), _type(type), _route(route), _depart(depart),
     _period(period), _repNo(repNo)
 {
 }
@@ -87,6 +98,7 @@ void ROVehicle::xmlOut(std::ostream &os) const
     os << " type=\"" << _type->getID() << "\"";
 	os << " route=\"" << _route->getID() << "\"";
 	os << " depart=\"" << _depart << "\"";
+    os << " color=\"" << myColor << "\"";
     if(_period!=-1) {
         os << " period=\"" << _period << "\"";
         os << " repno=\"" << _repNo << "\"";

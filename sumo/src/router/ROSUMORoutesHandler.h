@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -34,7 +37,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include "ROTypedXMLRoutesLoader.h"
+#include "ROSUMOHandlerBase.h"
 #include <utils/xml/AttributesHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 
@@ -50,7 +53,7 @@ class RONet;
  * @class ROSumoRoutesHandler
  * A hanlder for SUMO-routes.
  */
-class ROSumoRoutesHandler : public ROTypedXMLRoutesLoader {
+class ROSumoRoutesHandler : public ROSUMOHandlerBase {
 public:
     /// Constructor
     ROSumoRoutesHandler(RONet &net, const std::string &file="");
@@ -60,10 +63,6 @@ public:
 
     /// Returns the fully configured sumo-loader
     ROTypedRoutesLoader *getAssignedDuplicate(const std::string &file) const;
-
-    /** @brief returns the name of the loaded data
-        "precomputed sumo routes" is returned here */
-    std::string getDataName() const;
 
 protected:
     /** the user-impemlented handler method for an opening tag */
@@ -80,16 +79,6 @@ protected:
 private:
     /// begins the processing of a route
     void startRoute(const Attributes &attrs);
-
-    /// Parses a vehicle
-    void startVehicle(const Attributes &attrs);
-
-    /// Parses a vehicle type
-    void startVehType(const Attributes &attrs);
-
-    /// Parses a float from the attributes and reports errors, if any
-    float getFloatReporting(const Attributes &attrs, AttrEnum attr,
-        const std::string &id, const std::string &name) ;
 
 private:
     /// the name of the current route

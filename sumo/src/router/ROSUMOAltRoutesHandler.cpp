@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -36,24 +39,21 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/gfx/GfxConvHelper.h>
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 #include "RORouteAlternativesDef.h"
-//#include "RORouteAlternative.h"
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
 #include "ROSUMOAltRoutesHandler.h"
@@ -61,14 +61,23 @@ namespace
 #include "RORoute.h"
 #include "RONet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROSUMOAltRoutesHandler::ROSUMOAltRoutesHandler(RONet &net,
                                                double gawronBeta,
                                                double gawronA,
                                                const std::string &file)
-    : ROTypedXMLRoutesLoader(net, file), _currentAlternatives(0),
+    : ROSUMOHandlerBase(net, "precomputed sumo route alternatives", file),
+    _currentAlternatives(0),
     _gawronBeta(gawronBeta), _gawronA(gawronA)
 {
 }
@@ -130,128 +139,9 @@ ROSUMOAltRoutesHandler::startRoute(const Attributes &attrs)
 
 
 void
-ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
-{
-    // get the vehicle id
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing id in vehicle.");
-        return;
-    }
-    // get vehicle type
-    ROVehicleType *type = 0;
-    try {
-        string name = getString(attrs, SUMO_ATTR_TYPE);
-        type = _net.getVehicleType(name);
-        if(type==0) {
-            MsgHandler::getErrorInstance()->inform(string("The type of the vehicle '") +
-                name + string("' is not known."));
-        }
-    } catch (EmptyData) {
-        if(id.length()!=0) {
-            MsgHandler::getErrorInstance()->inform(string("Missing type in vehicle '") +
-                id + string("'."));
-        }
-    }
-    // get the departure time
-    long time = -1;
-    try {
-        time = getLong(attrs, SUMO_ATTR_DEPART);
-    } catch (EmptyData) {
-        if(id.length()!=0) {
-            MsgHandler::getErrorInstance()->inform(string("Missing departure time in vehicle '") +
-                id + string("'."));
-        }
-    } catch (NumberFormatException) {
-        if(id.length()!=0) {
-            MsgHandler::getErrorInstance()->inform(string("Non-numerical departure time in vehicle '") +
-                id + string("'."));
-        }
-    }
-    // get the route id
-    RORouteDef *route;
-    try {
-        string name = getString(attrs, SUMO_ATTR_ROUTE);
-        route = _net.getRouteDef(name);
-        if(route==0) {
-            MsgHandler::getErrorInstance()->inform(string("The route of the vehicle '") +
-                name + string("' is not known."));
-            return;
-        }
-    } catch (EmptyData) {
-        if(id.length()!=0) {
-            MsgHandler::getErrorInstance()->inform(string("Missing route in vehicle '") +
-                id + string("'."));
-        }
-    }
-    // get further optional information
-    int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
-    int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
-    // build the vehicle
-    _net.addVehicle(id,
-        new ROVehicle(id, route, time, type, repOffset, repNumber));
-    _currentTimeStep = time;
-    _nextRouteRead = true;
-}
-
-
-void
-ROSUMOAltRoutesHandler::startVehType(const Attributes &attrs)
-{
-    // get the vehicle type id
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
-        return;
-    }
-    // get the other values
-    float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED, id,
-        "maxspeed");
-    float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, id,
-        "length");
-    float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL, id,
-        "accel");
-    float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL, id,
-        "decel");
-    float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA, id,
-        "sigma");
-    // build the vehicle type after checking
-    //  by now, only vehicles using the krauss model are supported
-    if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
-        _net.addVehicleType(
-            new ROVehicleType_Krauss(id, accel, decel,
-            sigma, length, maxspeed));
-    }
-}
-
-
-float
-ROSUMOAltRoutesHandler::getFloatReporting(const Attributes &attrs,
-                                          AttrEnum attr,
-                                          const std::string &id,
-                                          const std::string &name)
-{
-    try {
-        return getFloat(attrs, attr);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(string("Missing ") + name + string(" in vehicle '") +
-            id + string("'."));
-    } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(name + string(" in vehicle '") +
-            id + string("' is not numeric."));
-    }
-    return -1;
-}
-
-
-
-void ROSUMOAltRoutesHandler::myCharacters(int element,
-                                          const std::string &name,
-                                          const std::string &chars)
+ROSUMOAltRoutesHandler::myCharacters(int element,
+                                     const std::string &name,
+                                     const std::string &chars)
 {
     // process routes only, all other elements do
     //  not have embedded characters
@@ -300,12 +190,6 @@ ROTypedRoutesLoader *
 ROSUMOAltRoutesHandler::getAssignedDuplicate(const std::string &file) const
 {
     return new ROSUMOAltRoutesHandler(_net, _gawronBeta, _gawronA, file);
-}
-
-
-std::string
-ROSUMOAltRoutesHandler::getDataName() const {
-    return "precomputed sumo route alternatives";
 }
 
 

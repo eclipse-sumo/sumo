@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.3  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -43,6 +46,7 @@
 #include <utils/xml/AttributesHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gfx/RGBColor.h>
 #include <utils/router/IDSupplier.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"
@@ -120,6 +124,9 @@ private:
         This value is optional */
     std::string getLane(const Attributes &attrs);
 
+    RGBColor getRGBColorReporting(const Attributes &attrs,
+        const std::string &id);
+
 private:
     /// generates numerical ids
     IDSupplier _idSupplier;
@@ -156,6 +163,9 @@ private:
 
     /// The list of edges to take when given
     ROEdgeVector myEdges;
+
+    /// The color of the vehicle
+    RGBColor myColor;
 
 private:
     /// we made the copy constructor invalid

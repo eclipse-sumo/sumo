@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -42,26 +45,27 @@ namespace
 
 using namespace std;
 
-double ROVehicleType_Krauss::_defA = 0.8;
-double ROVehicleType_Krauss::_defB = 4.5;
-double ROVehicleType_Krauss::_defEPS = 0.5;
-double ROVehicleType_Krauss::_defLENGTH = 5.0;
-double ROVehicleType_Krauss::_defMAXSPEED = 70;
+double ROVehicleType_Krauss::myDefault_A = 0.8;
+double ROVehicleType_Krauss::myDefault_B = 4.5;
+double ROVehicleType_Krauss::myDefault_EPS = 0.5;
+double ROVehicleType_Krauss::myDefault_LENGTH = 5.0;
+double ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
 
 ROVehicleType_Krauss::ROVehicleType_Krauss()
-    : ROVehicleType("SUMO_DEFAULT_TYPE"),
-    _a(_defA), _b(_defB), _eps(_defEPS), _length(_defLENGTH),
-    _maxSpeed(_defMAXSPEED)
+    : ROVehicleType("KRAUSS_DEFAULT",  RGBColor(1, 1, 0), myDefault_LENGTH),
+    myA(myDefault_A), myB(myDefault_B), myEps(myDefault_EPS),
+    myMaxSpeed(myDefault_MAXSPEED)
 {
 }
 
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
+                                           const RGBColor &col,
+                                           double length,
                                            double a, double b,
                                            double eps,
-                                           double length,
                                            double maxSpeed)
-    : ROVehicleType(id), _a(a), _b(b), _eps(eps), _length(length),
-    _maxSpeed(maxSpeed)
+    : ROVehicleType(id, col, length), myA(a), myB(b), myEps(eps),
+    myMaxSpeed(maxSpeed)
 {
 }
 
@@ -72,12 +76,13 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss()
 std::ostream &
 ROVehicleType_Krauss::xmlOut(std::ostream &os)
 {
-	os << "<vtype id=\"" << _id << "\"";
-	os << " accel=\"" << _a << "\"";
-	os << " decel=\"" << _b << "\"";
-	os << " sigma=\"" << _eps << "\"";
-	os << " length=\"" << _length << "\"";
-	os << " maxspeed=\"" << _maxSpeed << "\"";
+	os << "<vtype id=\"" << myID << "\"";
+	os << " accel=\"" << myA << "\"";
+	os << " decel=\"" << myB << "\"";
+	os << " sigma=\"" << myEps << "\"";
+	os << " length=\"" << myLength << "\"";
+	os << " maxspeed=\"" << myMaxSpeed << "\"";
+    os << " color=\"" << myColor << "\"";
 	os << "/>" << endl;
 	return os;
 }

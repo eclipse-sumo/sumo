@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -54,6 +57,8 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/gfx/RGBColor.h>
+#include <utils/gfx/GfxConvHelper.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "ROOrigDestRouteDef.h"
@@ -94,6 +99,7 @@ void ROTripHandler::myStartElement(int element, const std::string &name,
         myPeriodTime = getPeriod(attrs, myID);
         myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
         myLane = getLane(attrs);
+        myColor = getRGBColorReporting(attrs, myID);
         // recheck attributes
         if(myBeginEdge==0||myEndEdge==0||myDepartureTime<0) {
             if(myDepartureTime<0) {
@@ -281,15 +287,20 @@ ROTripHandler::myEndElement(int element, const std::string &name)
             route = new ROCompleteRouteDef(myID, myEdges);
         }
         ROVehicleType *type = _net.getVehicleTypeSecure(myType);
+        // check whether any errors occured
+        if(MsgHandler::getErrorInstance()->wasInformed()) {
+            return;
+        }
+        // build the vehicle
         if(myPos>=0||mySpeed>=0) {
             _net.addVehicle(myID,
                 new RORunningVehicle(myID, route, myDepartureTime,
-                    type, myLane, myPos, mySpeed, myPeriodTime,
+                    type, myLane, myPos, mySpeed, myColor, myPeriodTime,
                     myNumberOfRepetitions));
         } else {
             _net.addVehicle(myID,
                 new ROVehicle(myID, route, myDepartureTime,
-                    type, myPeriodTime, myNumberOfRepetitions));
+                    type, myColor, myPeriodTime, myNumberOfRepetitions));
         }
         _net.addRouteDef(route);
         _nextRouteRead = true;
@@ -313,6 +324,22 @@ ROTripHandler::getDataName() const
 {
     return "XML-route definitions";
 }
+
+
+RGBColor
+ROTripHandler::getRGBColorReporting(const Attributes &attrs,
+                                    const std::string &id)
+{
+    try {
+        return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
+    } catch (EmptyData) {
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(string("Color in vehicle '")
+            + id + string("' is not numeric."));
+    }
+    return RGBColor(-1, -1, -1);
+}
+
 
 
 

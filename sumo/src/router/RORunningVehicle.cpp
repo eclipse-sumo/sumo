@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -33,8 +36,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,13 +49,23 @@ namespace
 #include "RORunningVehicle.h"
 #include "RORouteDef.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORunningVehicle::RORunningVehicle(const std::string &id, RORouteDef *route,
                                    long time, ROVehicleType *type,
                                    const std::string &lane, float pos,
-                                   float speed, int period, int repNo)
-    : ROVehicle(id, route, time, type, period, repNo),
+                                   float speed,
+                                   const RGBColor &col,
+                                   int period, int repNo)
+    : ROVehicle(id, route, time, type, col, period, repNo),
     _lane(lane), _pos(pos), _speed(speed)
 {
 }

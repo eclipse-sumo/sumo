@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -35,7 +38,14 @@
 
 #include <iostream>
 #include <string>
+#include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+
 
 /* =========================================================================
  * class definitions
@@ -47,7 +57,8 @@
 class ROVehicleType : public ReferencedItem {
 public:
     /// Constructor
-    ROVehicleType(const std::string &id);
+    ROVehicleType(const std::string &id, const RGBColor &col,
+        double length);
 
     /// Destructor
 	virtual ~ROVehicleType();
@@ -60,7 +71,13 @@ public:
 
 protected:
     /// The name of the type
-    std::string _id;
+    std::string myID;
+
+    /// The color of the type
+    RGBColor myColor;
+
+    /// The length of the vehicle
+    double myLength;
 
 };
 

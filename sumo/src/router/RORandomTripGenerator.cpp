@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.5  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -121,8 +124,12 @@ RORandomTripGenerator::readNextRoute(long start)
         RORouteDef *route =
             new ROOrigDestRouteDef(id, from, to, true);
         _net.addVehicle(id,
-            new ROVehicle(id, route, start,
-                _net.getDefaultVehicleType(), -1, 0));
+            new ROVehicle(id, route, start, _net.getDefaultVehicleType(),
+                RGBColor(
+                    double( rand() ) / double( RAND_MAX ) / 2.0 + 0.5,
+                    double( rand() ) / double( RAND_MAX ) / 2.0 + 0.5,
+                    double( rand() ) / double( RAND_MAX )  / 2.0 + 0.5),
+                -1, 0));
         _net.addRouteDef(route);
         _nextRouteRead = true;
         // decrement counter

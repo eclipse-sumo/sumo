@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:36:50  dkrajzew
+// vehicles and routes may now have colors
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -50,7 +53,9 @@ public:
     ROVehicleType_Krauss();
 
     /// Parametrised constructor
-	ROVehicleType_Krauss(const std::string &id, double a, double b, double eps, double length, double maxSpeed);
+	ROVehicleType_Krauss(const std::string &id, const RGBColor &col,
+        double length,
+        double a, double b, double eps, double maxSpeed);
 
     /// Destructor
 	~ROVehicleType_Krauss();
@@ -60,11 +65,12 @@ public:
 
 private:
     /// Krauﬂ-parameter
-	double _a, _b, _eps, _length, _maxSpeed;
+	double myA, myB, myEps, myLength, myMaxSpeed;
 
 private:
     /// default parameter
-    static double _defA, _defB, _defEPS, _defLENGTH, _defMAXSPEED;
+    static double myDefault_A, myDefault_B, myDefault_EPS,
+        myDefault_LENGTH, myDefault_MAXSPEED;
 
 };
 
