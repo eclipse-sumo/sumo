@@ -40,31 +40,52 @@ AC_MSG_CHECKING([for xerces-lib])
 if test x"$ac_xerces_libraries" = x; then
    if test -e /usr/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
-      ac_xerces_libraries=/usr/lib
+      ac_xerces_lib_path=/usr/lib
+      ac_xerceslib=xerces
+   elif test -e /usr/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/lib
+      ac_xerceslib=xerces-c
    elif test -e /usr/local/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
-      ac_xerces_libraries=/usr/local/lib
+      ac_xerces_lib_path=/usr/local/lib
+      ac_xerceslib=xerces
+   elif test -e /usr/local/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/lib
+      ac_xerceslib=xerces-c
    elif test -e /usr/local/xerces/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
-      ac_xerces_libraries=/usr/local/xerces/lib/
+      ac_xerces_lib_path=/usr/local/xerces/lib/
+      ac_xerceslib=xerces
+   elif test -e /usr/local/xerces/lib/libxerces-c.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_lib_path=/usr/local/xerces/lib/
+      ac_xerceslib=xerces-c
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
    fi
 else
-   if test -e "$ac_xerces_libraries/libxerces.so"; then
+   if test -e "$ac_xerces_lib_path/libxerces.so"; then
       AC_MSG_RESULT([yes])
+      ac_xerceslib=xerces
+   elif test -e "$ac_xerces_lib_path/libxerces-c.so"; then
+      AC_MSG_RESULT([yes])
+      ac_xerceslib=xerces-c
    else
       AC_MSG_RESULT([no])
-      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
+      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_lib_path".])
    fi
 fi
-XERCESLIBPATH="$ac_xerces_libraries"
+XERCESLIBPATH="$ac_xerces_lib_path"
 AC_SUBST(XERCESLIBPATH)
+XERCESLIB="$ac_xerceslib"
+AC_SUBST(XERCESLIB)
 
 
 dnl Checks for header files.
-dnl Chechs for Xerces-includes.
+dnl Checks for Xerces-includes.
 AC_ARG_WITH(xerces-includes,
     [  --with-xerces-includes=DIR  where the Xerces includes are. ],
     [
@@ -76,12 +97,21 @@ if test x"$ac_xerces_includes" = x; then
    if test -e /usr/include/xerces; then
       AC_MSG_RESULT([yes])
       ac_xerces_includes=/usr/include/xerces
+   elif test -e /usr/include/xercesc; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/include/xercesc
    elif test -e /usr/local/include/xerces; then
       AC_MSG_RESULT([yes])
       ac_xerces_includes=/usr/local/include/xerces
+   elif test -e /usr/local/include/xercesc; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/include/xercesc
    elif test -e /usr/local/xerces/include; then
       AC_MSG_RESULT([yes])
       ac_xerces_includes=/usr/local/xerces/include
+   elif test -e /usr/local/xercesc/include; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/xercesc/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
@@ -102,12 +132,6 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
 
 
-dnl Checks for library functions.
-
-
-dnl XERCES, just set it
-XERCESLIB="xerces"
-AC_SUBST(XERCESLIB)
 
 
 dnl perform program name transformation
