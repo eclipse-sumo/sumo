@@ -1082,6 +1082,10 @@ SOURCE=..\..\src\microsim\MSTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSTravelcostDetector.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSTrigger.h
 # End Source File
 # Begin Source File
