@@ -17,8 +17,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/06/18 10:59:53  croessel
+// Removed some ^M.
+//
 // Revision 1.2  2002/06/07 14:45:17  dkrajzew
-// Added MSNoLogicJunction ,,pro forma,,. The code may compile but the class has no real functionality...
+// Added MSNoLogicJunction ,,pro forma,,. The code may compile but the
+// class has no real functionality... 
 //
 // Revision 1.1.1.1  2002/04/08 07:21:23  traffic
 // new project name
