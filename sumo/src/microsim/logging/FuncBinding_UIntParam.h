@@ -1,7 +1,8 @@
-#ifndef DoubleFunctionBinding_H
-#define DoubleFunctionBinding_H
+
+#ifndef FuncBinding_UIntParam_H
+#define FuncBinding_UIntParam_H
 /***************************************************************************
-                          DoubleFunctionBinding.h
+                          FuncBinding_UIntParam.h
                              -------------------
     begin                :
     copyright            : (C) 2001 by
@@ -21,44 +22,53 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "DoubleValueSource.h"
+#include <helpers/ValueSource.h>
 
-template< class T  >
-class DoubleFunctionBinding : public DoubleValueSource
+
+template< class _T, typename _R  >
+class FuncBinding_UIntParam : public ValueSource<_R>
 {
 public:
     /// Type of the function to execute.
-    typedef double ( T::* Operation )() const;
+    typedef _R ( _T::* Operation )(size_t) const;
 
-    DoubleFunctionBinding( T* source, Operation operation ) :
+    FuncBinding_UIntParam( _T* source, Operation operation,
+                size_t param )
+                :
         mySource( source ),
-        myOperation( operation )
+        myOperation( operation ),
+        myParam(param)
         {}
 
     /// Destructor.
-    ~DoubleFunctionBinding()
+    ~FuncBinding_UIntParam()
         {}
 
     double getValue() const
         {
-            return ( mySource->*myOperation )();
+            return ( mySource->*myOperation )(myParam);
         }
 
-    DoubleValueSource *copy() const {
-        return new DoubleFunctionBinding<T>(mySource, myOperation);
+    ValueSource<_R> *copy() const {
+        return new FuncBinding_UIntParam<_T, _R>(
+            mySource, myOperation, myParam);
     }
+
 
 protected:
 
 private:
     /// The object the action is directed to.
-    T* mySource;
+    _T* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;
+
+    size_t myParam;
+
 };
 
-#endif // DoubleFunctionBinding_H
+#endif // FuncBinding_UIntParam_H
 
 // Local Variables:
 // mode:C++

@@ -1,7 +1,8 @@
-#ifndef UIntParametrisedDblFuncBinding_H
-#define UIntParametrisedDblFuncBinding_H
+
+#ifndef CastingFunctionBinding_H
+#define CastingFunctionBinding_H
 /***************************************************************************
-                          UIntParametrisedDblFuncBinding.h
+                          CastingFunctionBinding.h
                              -------------------
     begin                :
     copyright            : (C) 2001 by
@@ -21,52 +22,44 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "DoubleValueSource.h"
+#include <helpers/ValueSource.h>
 
-template< class T  >
-class UIntParametrisedDblFuncBinding : public DoubleValueSource
+template< class _T, typename _R, typename _O  >
+class CastingFunctionBinding : public ValueSource<_R>
 {
 public:
     /// Type of the function to execute.
-    typedef double ( T::* Operation )(size_t) const;
+    typedef _O ( _T::* Operation )() const;
 
-    UIntParametrisedDblFuncBinding( T* source, Operation operation,
-                size_t param )
-                :
+    CastingFunctionBinding( _T* source, Operation operation ) :
         mySource( source ),
-        myOperation( operation ),
-        myParam(param)
+        myOperation( operation )
         {}
 
     /// Destructor.
-    ~UIntParametrisedDblFuncBinding()
+    ~CastingFunctionBinding()
         {}
 
-    double getValue() const
+    _R getValue() const
         {
-            return ( mySource->*myOperation )(myParam);
+            return (_R) ( mySource->*myOperation )();
         }
 
-    DoubleValueSource *copy() const {
-        return new UIntParametrisedDblFuncBinding<T>(
-            mySource, myOperation, myParam);
+    ValueSource<_R> *copy() const {
+        return new CastingFunctionBinding<_T, _R, _O>(mySource, myOperation);
     }
-
 
 protected:
 
 private:
     /// The object the action is directed to.
-    T* mySource;
+    _T* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;
-
-    size_t myParam;
-
 };
 
-#endif // UIntParametrisedDblFuncBinding_H
+#endif // CastingFunctionBinding_H
 
 // Local Variables:
 // mode:C++

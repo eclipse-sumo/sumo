@@ -1,7 +1,8 @@
-#ifndef UIntFunction2DoubleBinding_H
-#define UIntFunction2DoubleBinding_H
+
+#ifndef FunctionBinding_H
+#define FunctionBinding_H
 /***************************************************************************
-                          UIntFunction2DoubleBinding.h
+                          FunctionBinding.h
                              -------------------
     begin                :
     copyright            : (C) 2001 by
@@ -21,47 +22,42 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <string>
-#include <utils/convert/TplConvert.h>
-#include "DoubleValueSource.h"
+#include <helpers/ValueSource.h>
 
-template< class T >
-class UIntFunction2DoubleBinding : public DoubleValueSource
+template< class _T, typename _R  >
+class FunctionBinding : public ValueSource<_R>
 {
 public:
     /// Type of the function to execute.
-    typedef size_t ( T::* Operation )() const;
+    typedef _R ( _T::* Operation )() const;
 
-    UIntFunction2DoubleBinding( T* source, Operation operation ) :
+    FunctionBinding( _T* source, Operation operation ) :
         mySource( source ),
         myOperation( operation )
         {}
 
     /// Destructor.
-    ~UIntFunction2DoubleBinding()
+    ~FunctionBinding()
         {}
 
-    double getValue() const
+    _R getValue() const
         {
-            return (double) ( mySource->*myOperation )();
+            return ( mySource->*myOperation )();
         }
 
-    DoubleValueSource *copy() const {
-        return new UIntFunction2DoubleBinding<T>(mySource, myOperation);
+    ValueSource<_R> *copy() const {
+        return new FunctionBinding<_T, _R>(mySource, myOperation);
     }
-
-
-protected:
 
 private:
     /// The object the action is directed to.
-    T* mySource;
+    _T* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;
 };
 
-#endif // UIntFunction2DoubleBinding_H
+#endif // FunctionBinding_H
 
 // Local Variables:
 // mode:C++
