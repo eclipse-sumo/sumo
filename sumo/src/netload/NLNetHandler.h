@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2004/06/17 13:08:16  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.22  2004/04/02 11:23:52  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -241,12 +244,17 @@ protected:
     /// The offset within the junction
     size_t          m_Offset;
 
+    /// the current polygon
+    std::string     poly_name;
+
     double m_DetectorOffset;
     double myStdDetectorPositions;
     double myStdDetectorLengths;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
+
+    std::string actuell_poly_name;
 
 
 private:
@@ -258,6 +266,12 @@ private:
 
     /// adds a lane to the previously opened edge
     void addLane(const Attributes &attrs);
+
+    /// adds a polygon 
+    void addPoly(const Attributes &attrs);
+
+    /// add the position to the Polygon
+    void addPolyPosition(const std::string &chars);
 
     /// opens the list of next edges for processing
     void openAllowedEdge(const Attributes &attrs);
@@ -296,6 +310,9 @@ private:
 
     /// adds the incoming lanes
     void addIncomingLanes(const std::string &chars);
+
+    /// adds the incoming Polygon's Positions
+    void NLNetHandler::addIncomingPolyPosititon(const std::string &chars);
 
     /// adds the internal lanes
     void addInternalLanes(const std::string &chars);

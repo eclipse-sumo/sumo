@@ -13,8 +13,8 @@ Position2DVector.h \
 GeomConvHelper.cpp \
 GeomConvHelper.h \
 HaveBoundery.h \
-Line2D.cpp \
-Line2D.h bezier.h bezier.cpp
+Line2D.cpp Line2D.h bezier.h bezier.cpp \
+Polygon2D.cpp Polygon2D.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)

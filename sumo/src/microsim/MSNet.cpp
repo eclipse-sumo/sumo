@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2004/06/17 13:07:59  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.50  2004/04/23 12:38:43  dkrajzew
 // warnings and errors are now reported to MsgHandler, not cerr
 //
@@ -368,6 +371,7 @@ namespace
 #include "MSDetectorHaltingContainerWrapper.h"
 #include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
+#include <utils/geom/Polygon2D.h>
 
 
 /* =========================================================================
@@ -549,6 +553,10 @@ MSNet::~MSNet()
     for(size_t i2=0; i2<OS_MAX; i2++) {
         delete myOutputStreams[i2];
     }
+    for(PolyDic::iterator j=poly_dic.begin(); j != poly_dic.end(); j++){
+       delete (*j).second;
+    }
+    poly_dic.clear();
 }
 
 
@@ -747,6 +755,7 @@ MSNet::clearAll()
 void
 MSNet::clear()
 {
+
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete (*i).second;
     }
@@ -818,6 +827,19 @@ MSNet::writeOutput()
     // netstate output.
     if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
     }
+}
+
+
+bool 
+MSNet::addPoly(const std::string &name, const std::string &type, 
+               const RGBColor &color)
+{
+    if(MSNet::poly_dic[name] != 0) {
+        return false;
+    }
+    Polygon2D *poly = new Polygon2D(name, type, color);
+    MSNet::poly_dic[name] = poly;
+    return true;
 }
 
 

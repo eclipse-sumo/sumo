@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.40  2004/06/17 13:07:59  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.39  2004/04/02 11:36:27  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -268,6 +271,7 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+#include <utils/geom/Polygon2D.h>
 
 
 
@@ -331,6 +335,18 @@ public:
 
     /// List of times (intervals or similar)
     typedef std::vector< Time > TimeVector;
+
+    /// Definition of the static Container to associate string-ids with
+    /// objects.
+    typedef std::map<std::string, Polygon2D* > PolyDic;
+   
+    /// Static Container to associate string-ids with objects.
+    PolyDic poly_dic;
+
+    /// add the Polygon to the Net
+    bool addPoly(const std::string &name, const std::string &type, 
+        const RGBColor &color);
+
 
     /**
      * @brief Create unique instance of MSNet and initialize with the

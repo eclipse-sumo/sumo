@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/06/17 13:08:15  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.23  2004/04/02 11:23:51  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -161,6 +164,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSRouteLoader.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSRoute.h>
@@ -175,10 +179,11 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/convert/TplConvert.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
-
+#include <utils/gfx/GfxConvHelper.h>
 
 /* =========================================================================
  * used namespaces
@@ -349,6 +354,32 @@ NLContainer::closeLanes()
     m_pECB->closeLanes();
 }
 
+  
+void 
+NLContainer::addPoly(const std::string &name, const std::string &type, 
+                     const std::string &color)
+{
+    RGBColor col;
+    try {
+       col = GfxConvHelper::parseColor(color);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The color definition for polygon '") + name + 
+            string("' is not given, using default."));
+        col = RGBColor(1, 1, 0);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The color definition for polygon '") + name + 
+            string("' is malicious."));
+        return;
+    } 
+    if(!MSNet::getInstance()->addPoly(name, type, col)) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Duplicate polygon '") + name + 
+            string("' occured."));
+    }
+}
+
 
 void
 NLContainer::openAllowedEdge(const string &id)
@@ -456,6 +487,7 @@ NLContainer::addIncomingLane(const string &id)
     }
     m_pJCB->addIncomingLane(lane);
 }
+
 
 void
 NLContainer::addInternalLane(const string &id)

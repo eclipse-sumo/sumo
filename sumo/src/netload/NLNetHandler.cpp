@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.47  2004/06/17 13:08:15  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.46  2004/04/02 11:23:52  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -105,6 +108,9 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/AttributesHandler.h>
+#include <utils/gfx/RGBColor.h>
+#include <utils/gfx/GfxConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
@@ -163,6 +169,9 @@ NLNetHandler::myStartElement(int element, const std::string &name,
             break;
         case SUMO_TAG_LANE:
             addLane(attrs);
+            break;
+        case SUMO_TAG_POLY:
+            addPoly(attrs);
             break;
         case SUMO_TAG_CEDGE:
             openAllowedEdge(attrs);
@@ -320,6 +329,28 @@ NLNetHandler::addLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of an edge-object.");
     }
+}
+
+/// fügt den Polygon hinzu
+void
+NLNetHandler::addPoly(const Attributes &attrs)
+{
+    try {       
+        std::string name = getString(attrs, SUMO_ATTR_NAME);     
+        actuell_poly_name = name;
+        try {           
+            myContainer.addPoly(name,                      
+                getString(attrs, SUMO_ATTR_TYPE),
+                getString(attrs, SUMO_ATTR_COLOR)); 
+
+        } catch (XMLIdAlreadyUsedException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing name of an poly-object.");
+    }
+    
 }
 
 
@@ -961,6 +992,9 @@ NLNetHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_CEDGE:
             addAllowedEdges(chars);
             break;
+        case SUMO_TAG_POLY:
+            addPolyPosition(chars);
+            break;
         case SUMO_TAG_NODECOUNT:
             setNodeNumber(chars);
             break;
@@ -1159,6 +1193,22 @@ NLNetHandler::addIncomingLanes(const std::string &chars)
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
         }
     }
+}
+
+//-----------------------------------------------------------------------------------
+
+
+void          
+NLNetHandler::addPolyPosition(const std::string &chars)
+{
+    Polygon2D *ptr;
+    Position2DVector shape;
+    ptr = MSNet::getInstance()->poly_dic[actuell_poly_name]; 
+    if(ptr==0) {
+        return;
+    }
+    shape = GeomConvHelper::parseShape(chars);
+    ptr->addPolyPosition(shape);
 }
 
 

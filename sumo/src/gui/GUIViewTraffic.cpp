@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2004/06/17 13:06:55  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.29  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -129,6 +132,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/Polygon2D.h>
 #include "GUISUMOViewParent.h"
 #include "drawerimpl/GUIVehicleDrawer_FGwTasTriangle.h"
 #include "drawerimpl/GUIVehicleDrawer_FGnTasTriangle.h"
@@ -498,7 +502,14 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     myROWDrawer[drawerToUse]->drawGLROWs(*_net,
         _edges2Show, _edges2ShowSize, width);
 
-/*
+    // draw the Polygons
+    std::map<std::string, Polygon2D*>::iterator ppoly = 
+        MSNet::getInstance()->poly_dic.begin();
+    for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
+         drawPolygon2D(*(ppoly->second));
+    }
+      
+     /*
 	Position2DVector tmp;
 	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
 	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
@@ -507,9 +518,8 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
 	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymin()));
 	tmp.push_front(Position2D(nb.xmax(), nb.getCenter().second/2.0));
 	tmp.push_front(Position2D(nb.getCenter().first/2.0, nb.ymax()));
-
-	drawPolygon(tmp, 20, true);
 */
+
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,
@@ -517,7 +527,6 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     }
     glPopMatrix();
 }
-
 
 /*
 void
@@ -533,7 +542,7 @@ GUIViewTraffic::drawPolygon(const Position2DVector &v, const Position2D &center,
 }
 */
 
-
+/*
 void
 GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool close)
 {
@@ -573,7 +582,7 @@ GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool cl
 	}
 	glEnd();
 }
-
+*/
 
 RGBColor
 GUIViewTraffic::getEdgeColor(GUIEdge *edge) const

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/06/17 13:06:55  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.12  2004/04/02 11:11:24  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -80,6 +83,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/foxtools/FXMutex.h>
+#include <utils/geom/Polygon2D.h>
 #include "GUIGlObjectTypes.h"
 
 #ifdef _WIN32
@@ -274,6 +278,9 @@ protected:
 
     /// performs the painting of the simulation
     void paintGL();
+
+    /// Draws the given polygon
+    void drawPolygon2D(Polygon2D &polygon);
 
 protected:
     virtual void doPaintGL(int mode, double scale) { }

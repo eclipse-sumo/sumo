@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2004/06/17 13:08:15  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.23  2004/04/02 11:23:51  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -235,6 +238,9 @@ public:
 
     /// closes the addition of an edges lanes
     void closeLanes();
+     
+    /// add a Polygon
+    void addPoly(const std::string &name, const std::string &type, const std::string &color);
 
     /** starts the building of a connection to the next edge;
         this method may throw an exception if no edge with the given id

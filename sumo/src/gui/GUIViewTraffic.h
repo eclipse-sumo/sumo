@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2004/06/17 13:06:55  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.15  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -69,6 +72,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/Polygon2D.h>
 #include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"

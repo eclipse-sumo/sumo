@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/06/17 13:06:55  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.18  2004/04/02 11:11:24  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -948,6 +951,27 @@ GUISUMOAbstractView::getNet() const
 {
     return *_net;
 }
+
+
+void 
+GUISUMOAbstractView::drawPolygon2D(Polygon2D &polygon)
+{   
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glBegin(GL_POLYGON);
+
+    RGBColor color = polygon.getColor();
+    glColor3f(color.red(),color.green(),color.blue()); 
+    Position2DVector position2dV = polygon.getPosition2DVector();
+
+	const Position2DVector::ContType &l = position2dV.getCont();
+	for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
+		const Position2D &p = *i;
+		glVertex2f(p.x(), p.y());
+	}
+   
+    glEnd();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2004/06/17 13:08:48  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.26  2004/04/14 13:44:59  roessel
 // Added Tags and Attributes for supplementary-weights.
 //
@@ -125,6 +128,8 @@ enum TagEnum
     SUMO_TAG_EDGE,
     /** begin/end of the description of a single lane */
     SUMO_TAG_LANE,
+    /** begin/end of the description of a polygon */
+    SUMO_TAG_POLY,
     /** begin/end of the list of lane descriptions */
     SUMO_TAG_LANES,
     /** description of a connected edge */
@@ -354,7 +359,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[51];
+extern GenericSAX2Handler::Tag sumotags[52];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;

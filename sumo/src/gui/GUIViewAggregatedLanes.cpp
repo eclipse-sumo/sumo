@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/06/17 13:06:55  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.10  2004/04/23 12:36:40  dkrajzew
 // further debugging work - reinserted a missing option
 //
@@ -437,6 +440,13 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
+
+    // draw the Polygons
+    std::map<std::string, Polygon2D*>::iterator ppoly = 
+        MSNet::getInstance()->poly_dic.begin();
+    for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
+         drawPolygon2D(*(ppoly->second));
+    }
     glPopMatrix();
 }
 

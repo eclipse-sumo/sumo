@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/06/17 13:08:48  dkrajzew
+// Polygon visualisation added
+//
 // Revision 1.24  2004/04/14 13:44:59  roessel
 // Added Tags and Attributes for supplementary-weights.
 //
@@ -102,13 +105,14 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 51;
+size_t noSumoTags = 52;
 
-GenericSAX2Handler::Tag sumotags[51] =
+GenericSAX2Handler::Tag sumotags[52] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
       { "lane",             SUMO_TAG_LANE },
+      { "poly",             SUMO_TAG_POLY },
       { "lanes",            SUMO_TAG_LANES },
       { "cedge",            SUMO_TAG_CEDGE },
       { "junction",         SUMO_TAG_JUNCTION },
