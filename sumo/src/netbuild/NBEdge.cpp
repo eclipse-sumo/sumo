@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/07/16 15:32:02  dkrajzew
+// some work on the geometry of nodes
+//
 // Revision 1.18  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -296,6 +299,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(_priority<0) {
         _priority = 0;
     }
+    computeLaneShapes();
 }
 
 
@@ -342,6 +346,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(_priority<0) {
         _priority = 0;
     }
+    computeLaneShapes();
 }
 
 
@@ -604,6 +609,15 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     into << shape;
     // close
     into << "</lane>" << endl;
+}
+
+
+void
+NBEdge::computeLaneShapes()
+{
+    for(size_t i=0; i<_nolanes; i++) {
+        myLaneGeoms.push_back(getLaneShape(i));
+    }
 }
 
 
@@ -994,12 +1008,12 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
         return priorities;
     }
         // patch only
-    if(outgoing->size()==_nolanes) {
+/*    if(outgoing->size()==_nolanes) {
         for(size_t i=0; i<_nolanes; i++) {
             priorities->push_back(4);
         }
         return priorities;
-    }
+    }*/
     priorities->reserve(outgoing->size());
     vector<NBEdge*>::const_iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
@@ -1419,19 +1433,42 @@ NBEdge::getMaxLaneOffset()
 
 
 Position2D
+NBEdge::getMinLaneOffsetPositionAt(NBNode *node, double width)
+{
+    width = width < myLaneGeoms[0].length()/2.0
+        ? width
+        : myLaneGeoms[0].length()/2.0;
+    if(node==_from) {
+        return GeomHelper::transfer_to_side(
+            myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width),
+            myLaneGeoms[myLaneGeoms.size()-1].at(0), myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[0].size()-1),
+            3.5 / 2.0);
+    } else {
+        return GeomHelper::transfer_to_side(
+            myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width),
+            myLaneGeoms[0].at(myLaneGeoms[0].size()-1), myLaneGeoms[0].at(0),
+            3.5 / 2.0);
+    }
+}
+
+
+Position2D
 NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, double width)
 {
-    Position2D pos = myGeom.positionAtLengthPosition(width);
+    width = width < myLaneGeoms[0].length()/2.0
+        ? width
+        : myLaneGeoms[0].length()/2.0;
     if(node==_from) {
-        GeomHelper::transfer_to_side(pos,
-            myGeom.at(0), myGeom.at(myGeom.size()-1),
-            3.5 * _nolanes);
+        return GeomHelper::transfer_to_side(
+            myLaneGeoms[0].positionAtLengthPosition(width),
+            myLaneGeoms[0].at(0), myLaneGeoms[0].at(myLaneGeoms[0].size()-1),
+            -3.5 / 2.0);
     } else {
-        GeomHelper::transfer_to_side(pos,
-            myGeom.at(myGeom.size()-1), myGeom.at(0),
-            -3.5 * _nolanes);
+        return GeomHelper::transfer_to_side(
+            myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(myLaneGeoms[myLaneGeoms.size()-1].length() - width),
+            myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[myLaneGeoms.size()-1].size()-1), myLaneGeoms[myLaneGeoms.size()-1].at(0),
+            -3.5 / 2.0);
     }
-    return pos;
 }
 
 
@@ -1501,13 +1538,10 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 void
 NBEdge::normalisePosition()
 {
-    Position2DVector newGeom;
-    for(size_t i=0; i<myGeom.size(); i++) {
-        Position2D pos = myGeom.at(i);
-        pos.add(NBNodeCont::getNetworkOffset());
-        newGeom.push_back(pos);
+    myGeom.resetBy(NBNodeCont::getNetworkOffset());
+    for(size_t i=0; i<_nolanes; i++) {
+        myLaneGeoms[i].resetBy(NBNodeCont::getNetworkOffset());
     }
-    myGeom = newGeom;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/07/16 15:32:02  dkrajzew
+// some work on the geometry of nodes
+//
 // Revision 1.21  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -320,47 +323,6 @@ NBNode::NBNode(const string &id, double x, double y,
     _outgoingEdges = new EdgeVector();
 }
 
-/*
-NBNode::NBNode(const string &id, double x, double y,
-               const std::string &type)
-    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0), _request(0)
-{
-    _incomingEdges = new EdgeVector();
-    _outgoingEdges = new EdgeVector();
-    if(type=="traffic_light") {
-        _type = TYPE_PRIORITY_JUNCTION;
-        NBTrafficLightDefinition *tldef = new NBOwnTLDef(id, this);
-        if(!NBTrafficLightLogicCont::insert(id, tldef)) {
-            delete tldef;
-        }
-    } else if(type=="actuated_traffic_light") {
-        _type = TYPE_PRIORITY_JUNCTION;
-        NBTrafficLightDefinition *tldef = new NBOwnTLDef(id, this);
-        if(!NBTrafficLightLogicCont::insert(id, tldef)) {
-            delete tldef;
-        }
-    } else if(type=="priority") {
-        _type = TYPE_PRIORITY_JUNCTION;
-    } else if(type=="no_junction") {
-        _type = TYPE_NOJUNCTION;
-    } else {
-        throw 1;
-    }
-}
-
-
-
-NBNode::NBNode(const std::string &id, double x, double y, int type,
-               const std::string &key)
-    : _id(id), _x(x), _y(y), _key(key), _type(type), myDistrict(0), _request(0)
-{
-    _incomingEdges = new EdgeVector();
-    _outgoingEdges = new EdgeVector();
-}
-*/
-
-
-
 NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
     : _id(id), _x(x), _y(y), _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
 {
@@ -544,7 +506,7 @@ NBNode::computeType() const
                     (*j)->getPriority());
             } catch (OutOfBoundsException) {
             }
-            if(tmptype<type) {
+            if(tmptype<type&&tmptype!=NODETYPE_UNKNOWN) {
                 type = tmptype;
             }
         }
@@ -739,10 +701,6 @@ NBNode::writeXML(ostream &into)
         case NODETYPE_NOJUNCTION:
             into << " type=\"" << "none\"";
             break;
-/*        case TYPE_SIMPLE_TRAFFIC_LIGHT:
-        case TYPE_ACTUATED_TRAFFIC_LIGHT:
-            into << " type=\"" << "traffic_light\"";
-            break;*/
         case NODETYPE_PRIORITY_JUNCTION:
             into << " type=\"" << "priority\"";
             break;
@@ -770,8 +728,9 @@ NBNode::writeXML(ostream &into)
         string id = (*i)->getID();
         for(size_t j=0; j<noLanes; j++) {
             into << id << '_' << j;
-            if(i!=_incomingEdges->end()-1 || j<noLanes-1)
+            if(i!=_incomingEdges->end()-1 || j<noLanes-1) {
                 into << ' ';
+            }
         }
     }
     into << "</inlanes>" << endl;
@@ -816,9 +775,6 @@ NBNode::setType(BasicNodeType type)
     case NODETYPE_NOJUNCTION:
         _noNoJunctions++;
         break;
-//    case TYPE_SIMPLE_TRAFFIC_LIGHT:
-//    case TYPE_ACTUATED_TRAFFIC_LIGHT:
-//        _noTrafficLightJunctions++;
         break;
     case NODETYPE_PRIORITY_JUNCTION:
         _noPriorityJunctions++;
@@ -878,6 +834,14 @@ NBNode::sortNodesEdges()
 #endif
 #endif
     // compute the shape of the junction
+    //  only junction have a shape, otherwise it's somekind
+    //  of another connection between streets
+    if( (_incomingEdges->size()<1||_outgoingEdges->size()<1)
+        ||
+        (_incomingEdges->size()<2&&_outgoingEdges->size()<2) ) {
+        return;
+    }
+    // compute
     EdgeVector::iterator i;
         // compute the radius first
     double width = 0;
@@ -888,10 +852,22 @@ NBNode::sortNodesEdges()
             : (*i)->getMaxLaneOffset();
     }
         // compute the shape's outer points
+    width *= 1.5;
     for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
-        myPoly.push_back(
-            (*i)->getMaxLaneOffsetPositionAt(this, width));
+        std::string tmpid = (*i)->getID();
+//        if((*i)->getToNode()==this) {
+            Position2D pos =
+                (*i)->getMinLaneOffsetPositionAt(this, width);
+            myPoly.push_back(pos);
+            pos =
+                (*i)->getMaxLaneOffsetPositionAt(this, width);
+            myPoly.push_back(pos);
+//        }
     }
+//    if(_allEdges[0]->getToNode()==this) {
+        myPoly.push_back(_allEdges[0]->getMinLaneOffsetPositionAt(this, width));
+        myPoly.push_back(_allEdges[0]->getMaxLaneOffsetPositionAt(this, width));
+//    }
 }
 
 
@@ -980,6 +956,7 @@ NBNode::resetby(double xoffset, double yoffset)
 {
     _x += xoffset;
     _y += yoffset;
+    myPoly.resetBy(xoffset, yoffset);
 }
 
 
@@ -1139,39 +1116,6 @@ NBNode::hasIncoming(NBEdge *e) const
         !=
         _incomingEdges->end();
 }
-
-/*
-bool
-NBNode::hasSingleIncoming() const
-{
-    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-        NBEdge *e = *i;
-    }
-    return _incomingEdges->size()==1;
-}
-
-
-bool
-NBNode::hasSingleOutgoing() const
-{
-    return _outgoingEdges->size()==1;
-}
-
-
-NBEdge *
-NBNode::getSingleIncoming() const
-{
-    return (*_incomingEdges)[0];
-}
-
-
-NBEdge *
-NBNode::getSingleOutgoing() const
-{
-    return (*_outgoingEdges)[0];
-}
-
-*/
 
 
 NBEdge *

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2003/07/16 15:32:02  dkrajzew
+// some work on the geometry of nodes
+//
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -307,6 +310,7 @@ public:
 
     double getMaxLaneOffset();
 
+    Position2D getMinLaneOffsetPositionAt(NBNode *node, double width);
     Position2D getMaxLaneOffsetPositionAt(NBNode *node, double width);
 
     /// Returns the information whethe a connection to the given edge has been added (or computed)
@@ -429,6 +433,8 @@ private:
     std::pair<double, double> laneOffset(const Position2D &from,
         const Position2D &to, double lanewidth, size_t lane);
 
+    void computeLaneShapes();
+
 private:
     /// the building step
     EdgeBuildingStep _step;
@@ -504,6 +510,7 @@ private:
     /// The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;
 
+    std::vector<Position2DVector> myLaneGeoms;
 
 private:
 
