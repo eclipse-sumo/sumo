@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/19 10:56:03  dkrajzew
+// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+//
 // Revision 1.9  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
 //
@@ -71,6 +74,7 @@ namespace
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "QMessageEvent.h"
+#include "QSimulationEndedEvent.h"
 
 
 /* =========================================================================

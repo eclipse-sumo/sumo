@@ -1,11 +1,11 @@
-#ifndef GUIEvents_h
-#define GUIEvents_h
+#ifndef QSimulationEndedEvent_h
+#define QSimulationEndedEvent_h
 //---------------------------------------------------------------------------//
-//                        GUIEvents.h -
-//  An enumeration of SUMO-Events
+//                        QSimulationEndedEvent.h -
+//  Event send when the the simulation is over
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
+//  begin                : Thu, 19 Jun 2003
 //  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -20,18 +20,10 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2003/06/19 10:56:03  dkrajzew
+// Revision 1.1  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
-// Revision 1.3  2003/06/18 11:04:53  dkrajzew
-// new error processing adapted
 //
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
-//
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -39,43 +31,53 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qevent.h>
+#include "QSUMOEvent.h"
+#include "GUIEvents.h"
 
 
 /* =========================================================================
- * our own event enumeration
+ * class definitions
  * ======================================================================= */
 /**
- * As events are distinguished by their number, here is the enumeration
- * of our custom events
+ * QSimulationEndedEvent
+ * Throw from GUIRunThread to GUIApplicationWindow and then further to all
+ * displays after a step has been performed
  */
-enum GUIEvent {
-    /// send when a simulation has been loaded
-    EVENT_SIMULATION_LOADED,
+class QSimulationEndedEvent : public QSUMOEvent {
+public:
+    enum EndReason {
+        /// the simulation has ended as all vehicles have left it
+        ER_NO_VEHICLES,
 
-    /// send when a simulation step has been performed
-    EVENT_SIMULATION_STEP,
+        /// The simulation has ended as the end time step was reached
+        ER_END_STEP_REACHED
+    };
 
-    /// send when a message occured
-    EVENT_MESSAGE_OCCURED,
+    /// constructor
+    QSimulationEndedEvent(EndReason reason, size_t step);
 
-    /// send when a warning occured
-    EVENT_WARNING_OCCURED,
+    /// destructor
+    ~QSimulationEndedEvent();
 
-    /// send when a error occured
-    EVENT_ERROR_OCCURED,
+    /// Returns the time step the simulation has ended at
+    size_t getTimeStep() const;
 
-    /** @brief Send when the simulation is over;
-        The reason and the time step are stored within the event */
-    EVENT_SIMULATION_ENDED
+    /// Returns the reason the simulation has ended due
+    EndReason getReason() const;
+
+protected:
+    /// The reason the simulation has ended
+    EndReason myReason;
+
+    /// The time step the simulation has ended at
+    size_t myStep;
 
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIEvents.icc"
+//#include "QSimulationEndedEvent.icc"
 //#endif
 
 #endif

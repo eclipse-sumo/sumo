@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/06/19 10:56:03  dkrajzew
+// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+//
 // Revision 1.9  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
 //
@@ -74,6 +77,7 @@ class GUIRunThread;
 class QSimulationLoadedEvent;
 class QLabel;
 class QWidget;
+class QSimulationEndedEvent;
 
 
 /* =========================================================================
@@ -92,7 +96,8 @@ class GUIApplicationWindow:
 
 public:
     /** constructor */
-    GUIApplicationWindow(int glWidth, int glHeight);
+    GUIApplicationWindow(int glWidth, int glHeight, bool quitOnEnd,
+        const std::string &config);
 
     /** destructor */
     ~GUIApplicationWindow();
@@ -175,6 +180,10 @@ private:
     /// resets the simulation tool bar after a simulation was deleted
     void resetSimulationToolBar();
 
+    /// Process an event which informaed about the end of the simulation
+    void processSimulationEndEvent(QSimulationEndedEvent *e);
+
+
 private:
     /** the name of the simulation */
     std::string _name;
@@ -223,6 +232,13 @@ private:
     int myGLWidth, myGLHeight;
 
     std::vector<QWidget*> mySubWindows;
+
+    /// (y/n): the window shall be closed when the simulation has ended
+    bool myQuitOnEnd;
+
+    /// (y/n): the gui loads and starts a simulation at the beginning
+    bool myStartAtBegin;
+
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/19 10:56:03  dkrajzew
+// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+//
 // Revision 1.12  2003/06/18 11:04:22  dkrajzew
 // new error processing adapted; new usage of fonts adapted
 //
@@ -104,6 +107,7 @@ namespace
 #include "GUIApplicationWindow.h"
 #include "QSimulationStepEvent.h"
 #include "QSimulationLoadedEvent.h"
+#include "QSimulationEndedEvent.h"
 #include "QMessageEvent.h"
 #include "GUIEvents.h"
 #include "QAboutSUMO.h"
@@ -148,10 +152,13 @@ const char * singleSimStepText = "Click this button to perform a single simulati
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
+GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
+                                           bool quitOnEnd,
+                                           const std::string &config)
     : QMainWindow( 0, "example application main window", WDestructiveClose ),
     _loadThread(0), _runThread(0),
-    myGLWidth(glWidth), myGLHeight(glHeight)
+    myGLWidth(glWidth), myGLHeight(glHeight),
+    myQuitOnEnd(quitOnEnd), myStartAtBegin(false)
 {
     // recheck the maximum sizes
     QWidget *d = QApplication::desktop();
@@ -219,8 +226,16 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     // start the simulation-thread
     _runThread->start();
 
-/*    // all problems will be supported to this app
-    MsgHandler::getErrorInstance()->addRetriever(this);*/
+    // check whether a simulation shall be started on begin
+    if(config!="") {
+        _fileOpen->setEnabled(FALSE);
+        _fileMenu->setItemEnabled(_loadID, FALSE);
+        _loadThread->init(config);
+        _loadThread->start();
+        statusBar()->message(
+            QString("Loading '") + config.c_str() + QString("'"));
+        myStartAtBegin = true;
+    }
 }
 
 
@@ -354,6 +369,9 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
     }
     _fileOpen->setEnabled(TRUE);
     _fileMenu->setItemEnabled(_loadID, TRUE);
+    if(myStartAtBegin&&ec->_net!=0) {
+        start();
+    }
 }
 
 
@@ -500,8 +518,8 @@ void GUIApplicationWindow::windowsMenuActivated( int id )
 {
     QWidget* w = ws->windowList().at( id );
     if ( w ) {
-	w->showNormal();
-	w->setFocus();
+	    w->showNormal();
+	    w->setFocus();
     }
 }
 
@@ -538,7 +556,7 @@ GUIApplicationWindow::event(QEvent *e)
         return TRUE;
     case EVENT_ERROR_OCCURED:
         {
-            QMessageBox *myBox = new QMessageBox(version,
+            QMessageBox *myBox = new QMessageBox("An error occured!",
                 static_cast<QMessageEvent*>(e)->getMsg().c_str(),
                 QMessageBox::Warning,
                 QMessageBox::Ok | QMessageBox::Default,
@@ -546,10 +564,45 @@ GUIApplicationWindow::event(QEvent *e)
             myBox->exec();
         }
         return TRUE;
+    case EVENT_SIMULATION_ENDED:
+        processSimulationEndEvent(static_cast<QSimulationEndedEvent*>(e));
+        return TRUE;
     default:
         throw 1;
     }
 }
+
+
+void
+GUIApplicationWindow::processSimulationEndEvent(QSimulationEndedEvent *e)
+{
+    // build the text
+    stringstream text;
+    text << "The simulation has ended at time step "
+        << e->getTimeStep() << "." << endl;
+    switch(e->getReason()) {
+    case QSimulationEndedEvent::ER_NO_VEHICLES:
+        text << "Reason: All vehicles have left the simulation.";
+        break;
+    case QSimulationEndedEvent::ER_END_STEP_REACHED:
+        text << "Reason: The final simulation step has been reached.";
+        break;
+    default:
+        throw 1;
+    }
+
+    //
+    QMessageBox *myBox = new QMessageBox("Simulation ended",
+        text.str().c_str(),
+        QMessageBox::Warning,
+        QMessageBox::Ok | QMessageBox::Default,
+        QMessageBox::NoButton, QMessageBox::NoButton);
+    myBox->exec();
+    if(myQuitOnEnd) {
+        qApp->closeAllWindows();
+    }
+}
+
 
 
 void

@@ -1,11 +1,9 @@
-#ifndef GUIEvents_h
-#define GUIEvents_h
 //---------------------------------------------------------------------------//
-//                        GUIEvents.h -
-//  An enumeration of SUMO-Events
+//                        QSimulationEndedEvent.cpp -
+//  Event send when the the simulation is over
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
+//  begin                : Thu, 19 Jun 2003
 //  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -20,18 +18,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2003/06/19 10:56:03  dkrajzew
+// Revision 1.1  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
-// Revision 1.3  2003/06/18 11:04:53  dkrajzew
-// new error processing adapted
-//
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -39,48 +30,35 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qevent.h>
+#include "QSUMOEvent.h"
+#include "GUIEvents.h"
+#include "QSimulationEndedEvent.h"
 
 
 /* =========================================================================
- * our own event enumeration
+ * method definitions
  * ======================================================================= */
-/**
- * As events are distinguished by their number, here is the enumeration
- * of our custom events
- */
-enum GUIEvent {
-    /// send when a simulation has been loaded
-    EVENT_SIMULATION_LOADED,
-
-    /// send when a simulation step has been performed
-    EVENT_SIMULATION_STEP,
-
-    /// send when a message occured
-    EVENT_MESSAGE_OCCURED,
-
-    /// send when a warning occured
-    EVENT_WARNING_OCCURED,
-
-    /// send when a error occured
-    EVENT_ERROR_OCCURED,
-
-    /** @brief Send when the simulation is over;
-        The reason and the time step are stored within the event */
-    EVENT_SIMULATION_ENDED
-
-};
+QSimulationEndedEvent::QSimulationEndedEvent(EndReason reason, size_t step)
+    : QSUMOEvent(EVENT_SIMULATION_ENDED), myReason(reason), myStep(step)
+{
+}
 
 
+QSimulationEndedEvent::~QSimulationEndedEvent()
+{
+}
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIEvents.icc"
-//#endif
 
-#endif
+size_t
+QSimulationEndedEvent::getTimeStep() const
+{
+    return myStep;
+}
 
-// Local Variables:
-// mode:C++
-// End:
+
+QSimulationEndedEvent::EndReason
+QSimulationEndedEvent::getReason() const
+{
+    return myReason;
+}
 

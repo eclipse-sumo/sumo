@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/19 10:56:03  dkrajzew
+// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+//
 // Revision 1.9  2003/06/06 11:12:38  dkrajzew
 // deletion of singletons changed/added
 //
@@ -59,6 +62,7 @@ namespace
 #include <qthread.h>
 #include <guisim/GUINet.h>
 #include "QSimulationStepEvent.h"
+#include "QSimulationEndedEvent.h"
 #include "GUIApplicationWindow.h"
 #include "GUIRunThread.h"
 
@@ -124,6 +128,9 @@ GUIRunThread::run()
             _step++;
 	        // stop the simulation when the last step has been reached
             if(_step==_simEndTime) {
+                QThread::postEvent( _parent,
+                    new QSimulationEndedEvent(
+                        QSimulationEndedEvent::ER_END_STEP_REACHED, _step) );
                 _halting = true;
             }
 	        // stop the execution when only a single step should have
@@ -133,8 +140,15 @@ GUIRunThread::run()
             }
 	        // simulation step is over
             _simulationInProgress = false;
-	        // sleep, but only when the simulation is continuing
+            // check whether all vehicles loaded have left the simulation
+            if(_net->getLoadedVehicleNo()==_net->getEndedVehicleNo()) {
+                _halting = true;
+                QThread::postEvent( _parent,
+                    new QSimulationEndedEvent(
+                        QSimulationEndedEvent::ER_NO_VEHICLES, _step-1) );
+            }
         }
+        // sleep
         msleep(_sleepPeriod);
     }
     // delete a maybe existing simulation at the end
