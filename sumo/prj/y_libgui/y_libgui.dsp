@@ -93,6 +93,10 @@ SOURCE=..\..\src\gui\GUIApplicationWindow.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.cpp
 # End Source File
 # Begin Source File
@@ -405,6 +409,10 @@ InputPath=..\..\src\gui\GUIApplicationWindow.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.h
 # End Source File
 # Begin Source File
 
