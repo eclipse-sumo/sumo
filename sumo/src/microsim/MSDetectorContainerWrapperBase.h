@@ -1,8 +1,8 @@
-#ifndef MSDETECTORCONTAINERBASE_H
-#define MSDETECTORCONTAINERBASE_H
+#ifndef MSDETECTORCONTAINERWRAPPERBASE_H
+#define MSDETECTORCONTAINERWRAPPERBASE_H
 
 /**
- * @file   MSDetectorContainerBase.h
+ * @file   MSDetectorContainerWrapperBase.h
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
  * @version $Id$
@@ -22,19 +22,28 @@
 //
 //---------------------------------------------------------------------------//
 
+#include "MSDetectorOccupancyCorrection.h"
+
 class MSVehicle;
 
-struct MSDetectorContainerBase
+struct MSDetectorContainerWrapperBase
 {
     virtual void enterDetectorByMove( MSVehicle* veh ) = 0;
     virtual void enterDetectorByEmitOrLaneChange( MSVehicle* veh ) = 0;
     virtual void leaveDetectorByMove( MSVehicle* veh ) = 0;
     virtual void leaveDetectorByLaneChange( MSVehicle* veh ) = 0;
-    virtual void update( void ) = 0;
-    virtual ~MSDetectorContainerBase( void ) { }
+
+    MSDetectorContainerWrapperBase(
+        const MSDetectorOccupancyCorrection& occupancyCorrection ) 
+        : occupancyCorrectionM( occupancyCorrection ) 
+        {}
+    
+    virtual ~MSDetectorContainerWrapperBase( void ) {}
+
+    const MSDetectorOccupancyCorrection& occupancyCorrectionM;
 };
 
-#endif // MSDETECTORCONTAINERBASE_H
+#endif // MSDETECTORCONTAINERWRAPPERBASE_H
 
 // Local Variables:
 // mode:C++

@@ -1,10 +1,10 @@
-#ifndef MSDOUBLEDETECTORCONTAINER_H
-#define MSDOUBLEDETECTORCONTAINER_H
+#ifndef MSDETECTORCOUNTERCONTAINERWRAPPER_H
+#define MSDETECTORCOUNTERCONTAINERWRAPPER_H
 
 /**
- * @file   MSDoubleDetectorContainer.h
+ * @file   MSDetectorCounterContainerWrapper.h
  * @author Christian Roessel
- * @date   Started Mon Oct  6 17:52:18 2003
+ * @date   Started Mon Oct 6 17:52:18 2003
  * @version $Id$
  * @brief  
  * 
@@ -22,53 +22,54 @@
 //
 //---------------------------------------------------------------------------//
 
-#include "MSDetectorContainerBase.h"
+#include "MSDetectorContainerWrapperBase.h"
+#include "MSDetectorOccupancyCorrection.h"
 
 class MSVehicle;
 
-struct MSDoubleDetectorContainer : public MSDetectorContainerBase
+struct MSDetectorCounterContainerWrapper
+    : public MSDetectorContainerWrapperBase
 {
     typedef double Container;
 
     void enterDetectorByMove( MSVehicle* veh )
         {
-            ++containerM;
+            ++vehicleCountM;
         }
 
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
         {
-            ++containerM;
+            ++vehicleCountM;
         }
 
     void leaveDetectorByMove( MSVehicle* veh )
         {
-            --containerM;
+            --vehicleCountM;
         }
 
     void leaveDetectorByLaneChange( MSVehicle* veh )
         {
-            --containerM;
+            --vehicleCountM;
         }
 
-    void update( void )
+    MSDetectorCounterContainerWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorContainerWrapperBase( occupancyCorrection ),
+          vehicleCountM( 0 )
         {}
 
-    MSDoubleDetectorContainer( void )
-        : containerM( 0 )
+    virtual ~MSDetectorCounterContainerWrapper( void )
         {}
 
-    virtual ~MSDoubleDetectorContainer( void )
-        {}
-
-    Container containerM;
+    Container vehicleCountM;
 };
 
 namespace DetectorContainer
 {
-    typedef MSDoubleDetectorContainer Count;
+    typedef MSDetectorCounterContainerWrapper Count;
 }
 
-#endif // MSDOUBLEDETECTORCONTAINER_H
+#endif // MSDETECTORCOUNTERCONTAINERWRAPPER_H
 
 // Local Variables:
 // mode:C++

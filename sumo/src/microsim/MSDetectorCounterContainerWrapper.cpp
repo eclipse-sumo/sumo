@@ -1,5 +1,5 @@
 /**
- * @file   MSDoubleDetectorContainer.cpp
+ * @file   MSDetectorCounterContainerWrapper.cpp
  * @author Christian Roessel
  * @date   Started Mon Oct  6 17:53:50 2003
  * @version $Id$
@@ -20,10 +20,10 @@
 //---------------------------------------------------------------------------//
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include "MSDoubleDetectorContainer.h"
+#include "MSDetectorCounterContainerWrapper.h"
 
 // Local Variables:
 // mode:C++
