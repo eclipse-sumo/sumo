@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.53  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.52  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -377,8 +380,10 @@ namespace
 #include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
 #include <utils/geom/Polygon2D.h>
-#include "output/MSMeanData_Net.h"
-#include "output/MSMeanData_Net_Utils.h"
+#include "output/meandata/MSMeanData_Net.h"
+#include "output/meandata/MSMeanData_Net_Utils.h"
+#include "output/MSXMLRawOut.h"
+#include <utils/iodevices/OutputDevice.h>
 
 
 /* =========================================================================
@@ -398,9 +403,9 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 685656757;
-std::string MSNet::searched1 = "486";
-std::string MSNet::searched2 = "715a0";
+MSNet::Time MSNet::searchedtime = 22615;
+std::string MSNet::searched1 = "17361";
+std::string MSNet::searched2 = "999728";
 std::string MSNet::searchedJunction = "536";
 #endif
 
@@ -460,7 +465,7 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSRouteLoaderControl *rlc,
              MSTLLogicControl *tlc,
-             const std::vector<std::ostream*> &streams)
+             const std::vector<OutputDevice*> &streams)
 {
     myInstance->myOutputStreams = streams;
     myInstance->myID           = id;
@@ -534,18 +539,21 @@ MSNet::initialiseSimulation()
 {
     // prepare the "netstate" output and print the first line
     if ( myOutputStreams[OS_NETSTATE]!=0 ) {
-        (*myOutputStreams[OS_NETSTATE]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+        myOutputStreams[OS_NETSTATE]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<sumo-netstate>" << endl;
     }
     // ... the same for the vehicle emission state
     if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
-        (*myOutputStreams[OS_EMISSIONS]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+        myOutputStreams[OS_EMISSIONS]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<emissions>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
     // ... the same for the vehicle trip information
     if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
-        (*myOutputStreams[OS_TRIPINFO]) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+        myOutputStreams[OS_TRIPINFO]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<tripinfos>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_TRIPOUTPUT);
     }
@@ -557,15 +565,15 @@ MSNet::closeSimulation()
 {
     // print the last line of the "netstate" output
     if ( myOutputStreams[OS_NETSTATE]!=0 ) {
-        (*myOutputStreams[OS_NETSTATE]) << "</sumo-netstate>" << endl;
+        myOutputStreams[OS_NETSTATE]->getOStream() << "</sumo-netstate>" << endl;
     }
     // ... the same for the vehicle emission state
     if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
-        (*myOutputStreams[OS_EMISSIONS]) << "</emissions>" << endl;
+        myOutputStreams[OS_EMISSIONS]->getOStream() << "</emissions>" << endl;
     }
     // ... the same for the vehicle trip information
     if ( myOutputStreams[OS_TRIPINFO]!=0 ) {
-        (*myOutputStreams[OS_TRIPINFO]) << "</tripinfos>" << endl;
+        myOutputStreams[OS_TRIPINFO]->getOStream() << "</tripinfos>" << endl;
     }
 }
 
@@ -711,14 +719,11 @@ MSNet::writeOutput()
 {
     // netstate output.
     if ( myOutputStreams[OS_NETSTATE]!=0 ) {
-        (*myOutputStreams[OS_NETSTATE])
-            << "    <timestep id=\"" << myStep << "\">" << endl
-            << MSEdgeControl::XMLOut( *myEdges, 8 )
-            << "    </timestep>" << endl;
+        MSXMLRawOut::write(myOutputStreams[OS_NETSTATE], *myEdges, myStep, 3);
     }
     // netstate output.
     if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
-        (*myOutputStreams[OS_EMISSIONS])
+        myOutputStreams[OS_EMISSIONS]->getOStream()
             << "    <emission-state id=\"" << myStep << "\" "
             << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
             << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.5  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -116,39 +119,6 @@ class OutputDevice;
 class MSEdgeControl
 {
 public:
-    /// allow the xml-raw - output direct access to members
-    friend class XMLOut;
-
-    /** Class to generate XML-output for all edges hold by an edgecontroller.
-        Usage, e.g.: cout << XMLOut( myEC, 4) << endl; where myEC is an
-        edgecontroller object. */
-    class XMLOut
-    {
-    public:
-        /// constructor
-        XMLOut( const MSEdgeControl& obj,
-                unsigned indentWidth );
-
-        /** @brief writes xml-formatted information about all edges known
-            The XMLOut-object holds information whether embedded lanes shall be
-            displayed, too */
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const XMLOut& obj );
-
-    private:
-        /// the edge control to use
-        const MSEdgeControl& myObj;
-
-        /// the number of indent spaces
-        unsigned myIndentWidth;
-    };
-
-    /** writes xml-raw information about all edges known to the MSEdgeControl
-        instance */
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const XMLOut& obj );
-
-
     /// Container for edges.
     typedef std::vector< MSEdge* > EdgeCont;
 

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.11  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -167,43 +170,9 @@ public:
     };
 
 public:
-    /// for output purposes
-    friend class XMLOut;
     /// for access to the dictionary
     friend class GUIEdgeGrid;
     friend class GUIGrid;
-
-    /** Class to generate XML-output for an edges and all lanes hold by
-        this edge.
-        Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
-    class XMLOut
-    {
-    public:
-        /// constructor
-        XMLOut( const MSEdge& obj,
-                unsigned indentWidth ,
-                bool withChildElemes );
-
-        /** writes xml-formatted information about the edge
-            and optionally her lanes */
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const XMLOut& obj );
-
-    private:
-        /// the edge to format information from
-        const MSEdge& myObj;
-
-        /// the number of indent spaces
-        unsigned myIndentWidth;
-
-        /// information, whether lane information shall also be written
-        bool myWithChildElemes;
-    };
-
-    /// output operator for XML-raw-output
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const XMLOut& obj );
-
     /// for data collection
     friend class MSMeanData_Edge;
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.6  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -290,33 +293,6 @@ ostream&
 operator<<( ostream& os, const MSEdgeControl& ec )
 {
     os << "MSEdgeControll: ID = " << ec.myID << endl;
-    return os;
-}
-
-
-MSEdgeControl::XMLOut::XMLOut( const MSEdgeControl& obj,
-                               unsigned indentWidth ) :
-    myObj( obj ),
-    myIndentWidth( indentWidth )
-{
-}
-
-
-ostream&
-operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
-{
-    for ( MSEdgeControl::EdgeCont::iterator edg1 =
-          obj.myObj.mySingleLaneEdges->begin();
-          edg1 != obj.myObj.mySingleLaneEdges->end(); ++edg1 ) {
-
-        os << MSEdge::XMLOut( **edg1, obj.myIndentWidth, true );
-    }
-    for ( MSEdgeControl::EdgeCont::iterator edg2 =
-          obj.myObj.myMultiLaneEdges->begin();
-          edg2 != obj.myObj.myMultiLaneEdges->end(); ++edg2 ) {
-
-        os << MSEdge::XMLOut( **edg2, obj.myIndentWidth, true );
-    }
     return os;
 }
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.42  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.41  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -277,7 +280,7 @@
 #include <utils/geom/Polygon2D.h>
 
 #include "MSInterface_NetRun.h"
-#include "output/MSMeanData_Net_Cont.h"
+#include "output/meandata/MSMeanData_Net_Cont.h"
 
 
 /* =========================================================================
@@ -300,6 +303,7 @@ class MSLaneState;
 class MSTLLogicControl;
 class MSVehicleTransfer;
 class MSVehicleControl;
+class OutputDevice;
 
 
 /* =========================================================================
@@ -372,7 +376,7 @@ public:
      */
     static void init( std::string id, MSEdgeControl* ec,
         MSJunctionControl* jc, MSRouteLoaderControl *rlc,
-        MSTLLogicControl *tlc, const std::vector<std::ostream*> &streams);
+        MSTLLogicControl *tlc, const std::vector<OutputDevice*> &streams);
 
     /// Destructor.
     virtual ~MSNet();
@@ -556,7 +560,7 @@ protected:
     MSVehicleControl *myVehicleControl;
 
     /// List of output (files)
-    std::vector<std::ostream*> myOutputStreams;
+    std::vector<OutputDevice*> myOutputStreams;
 
 protected:
     /// Copy constructor.

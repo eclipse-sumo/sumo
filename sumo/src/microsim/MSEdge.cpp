@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2004/08/02 12:08:39  dkrajzew
+// raw-output extracted; output device handling rechecked
+//
 // Revision 1.13  2004/07/02 09:55:13  dkrajzew
 // MeanData refactored (moved to microsim/output)
 //
@@ -303,52 +306,6 @@ MSEdge::changeLanes()
     assert( myLaneChanger != 0 );
     myLaneChanger->laneChange();
 }
-
-
-MSEdge::XMLOut::XMLOut( const MSEdge& obj,
-                               unsigned indentWidth,
-                               bool withChildElemes ) :
-    myObj( obj ),
-    myIndentWidth( indentWidth ),
-    myWithChildElemes( withChildElemes )
-{
-}
-
-
-ostream&
-operator<<( ostream& os, const MSEdge::XMLOut& obj )
-{
-    //en
-    bool dump = !MSGlobals::myOmitEmptyEdgesOnDump;
-    if ( obj.myWithChildElemes && !dump )
-    {
-        for ( MSEdge::LaneCont::const_iterator lane = obj.myObj.myLanes->begin(); lane != obj.myObj.myLanes->end(); ++lane)
-        {
-            if( ((**lane).getVehicleNumber()!=0) )
-            {
-                dump = true;
-                break;
-            }
-        }
-    }
-    //en
-    if ( dump )
-    {
-        string indent( obj.myIndentWidth , ' ' );
-        os << indent << "<edge id=\"" << obj.myObj.myID << "\">" << endl;
-        if ( obj.myWithChildElemes ) {
-            for ( MSEdge::LaneCont::const_iterator lane =
-                obj.myObj.myLanes->begin();
-                lane != obj.myObj.myLanes->end(); ++lane) {
-
-                os << MSLane::XMLOut( **lane, obj.myIndentWidth + 4, true );
-            }
-        }
-        os << indent << "</edge>" << endl;
-    }
-    return os;
-}
-
 
 
 const std::string &
