@@ -55,9 +55,9 @@ public slots:
 
 private:
     void paintGLEdges();
-    void paintGLVehicles(),
+    void paintGLVehicles();
     void drawSingleGLVehicle(MSVehicle *vehicle, 
-    std::pair<Position2D, Position2D> &pos, double length);
+        std::pair<Position2D, Position2D> &pos, double length);
     void applyChanges();
     void move(int xdiff, int ydiff);
     void zoom(int diff);
