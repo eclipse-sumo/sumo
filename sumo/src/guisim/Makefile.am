@@ -3,6 +3,7 @@ noinst_LIBRARIES = libguisim.a
 EXTRA_DIST =
 
 libguisim_a_SOURCES = GUIEdge.cpp GUIEdge.h  GUIEdgeCont.h \
+GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUIInternalLane.cpp GUIInternalLane.h \
 GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
 GUILaneStateReporter.cpp GUILaneStateReporter.h \
