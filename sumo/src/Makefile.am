@@ -2,7 +2,7 @@ bin_PROGRAMS = sumo \
 sumo-netconvert \
 sumo-netgen \
 sumo-dua-router \
-sumo-jp-router \
+sumo-jtr-router \
 sumo-od2trips \
 sumo-gui \
 tagreader
@@ -28,7 +28,8 @@ sumo_LDADD   = ./netload/libnetload.a \
 sumo_netconvert_SOURCES = netconvert_main.cpp \
 netconvert_help.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
+sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
+./netimport/libnetimport.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -55,6 +56,7 @@ sumo_netgen_SOURCES = netgen_main.cpp \
 netgen_help.h
 sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
+./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/geom/libgeom.a \
@@ -68,8 +70,9 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 
 sumo_dua_router_SOURCES = dua_router_main.cpp dua_router_help.h
 sumo_dua_router_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_dua_router_LDADD   = ./router/librouter.a \
-./utils/routing_dua/libduarouting.a \
+sumo_dua_router_LDADD   = ./routing_dua/libduarouting.a \
+./router/librouter.a \
+./utils/router/librouter.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
@@ -80,10 +83,11 @@ sumo_dua_router_LDADD   = ./router/librouter.a \
 -l$(LIB_XERCES)
 
 
-sumo_jp_router_SOURCES = jp_router_main.cpp jp_router_help.h
-sumo_jp_router_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_jp_router_LDADD   = ./router/librouter.a \
-./utils/routing_jp/libjprouting.a \
+sumo_jtr_router_SOURCES = jtr_router_main.cpp jtr_router_help.h
+sumo_jtr_router_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_jtr_router_LDADD   = ./routing_jtr/libjtrrouting.a \
+./router/librouter.a \
+./utils/router/librouter.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
@@ -168,7 +172,7 @@ netload \
 od2trips \
 router \
 routing_dua \
-routing_jp \
+routing_jtr \
 sumo_only \
 utils
 
