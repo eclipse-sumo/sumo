@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/01/27 14:34:19  dkrajzew
+// added the possibility to display a complete phase
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -96,7 +99,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         ValueSource<CompletePhaseDef> *src)
     : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
         20,20,300,200),
-    myApplication(&app), myTLLogic(&logic)
+    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true)
 {
     myConnector = new GLObjectValuePassConnector<CompletePhaseDef>
         (wrapper, src, this);
@@ -112,6 +115,42 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+}
+
+
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
+        GUIMainWindow &app,
+        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+        const MSSimpleTrafficLightLogic::Phases &phases)
+    : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
+        20,20,300,200),
+    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false)
+{
+    myConnector = 0;
+    size_t height = myTLLogic->getLinks().size() * 20 + 30;
+    setTitle("TLS-Tracker");
+    app.addChild(this, true);
+    for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
+        myLinkNames.push_back(toString<size_t>(i));
+    }
+    FXVerticalFrame *glcanvasFrame =
+        new FXVerticalFrame(this,
+            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+            0,0,0,0,0,0,0,0);
+    myPanel = new
+        GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    // insert phases
+    MSSimpleTrafficLightLogic::Phases::const_iterator j;
+    myLastTime = 0;
+    myBeginTime = 0;
+    for(j=phases.begin(); j!=phases.end(); ++j) {
+        myPhases.push_back(
+            SimplePhaseDef(
+                (*j)->getDriveMask(),
+                (*j)->getYellowMask()));
+        myDurations.push_back((*j)->duration);
+        myLastTime += (*j)->duration;
+    }
 }
 
 
@@ -203,13 +242,19 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
     DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show;
     size_t fpo = myFirstPhaseOffset;
-        // start drawing
+
+    // start drawing
     for(i=30; i<width&&pd!=myDurations.end(); ) {
         // the first phase may be drawn incompletely
         size_t duration = *pd - fpo;
         // compute the heigh and the width of the phase
         h = 1.0 - h10;
-        double x2 = x + (double) duration / width;
+        double a = (double) duration / width;
+        if(!myAmInTrackingMode) {
+            a *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+        }
+        double x2 = x + a;
+
         // go through the links
         for(size_t j=0; j<myTLLogic->getLinks().size(); j++) {
             // determine the current link's color
@@ -265,7 +310,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 
     if(myPhases.size()!=0) {
         GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
-        int tickDist = 60;
+        int tickDist = 20;
         // draw time information
         h = myTLLogic->getLinks().size() * 20 + 12;
         float glh = (float) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
@@ -275,23 +320,30 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             (float) (31-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
             (float) h, timeStr);
             // time ticks
-        MSNet::Time currTime =
-            ((MSNet::Time) (myFirstTime2Show / tickDist) + 1) * tickDist;
-        size_t pos = 31 + currTime - myFirstTime2Show;
+        MSNet::Time currTime = myFirstTime2Show;
+        size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
         float glpos = (float) (pos / width);
         glColor3d(1, 1, 1);
         while(pos<width+50) {
+            double a = (double) tickDist / width;
+            if(!myAmInTrackingMode) {
+                a *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+            }
+            glpos += a;
+            double a2 = (double) tickDist;
+            if(!myAmInTrackingMode) {
+                a2 *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+            }
+            pos += a2;
+            currTime += tickDist;
             timeStr = toString<MSNet::Time>(currTime);
             GUITexturesHelper::getFontRenderer().StringOut(
                 (float) (pos-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
                 (float) h, timeStr);
-            pos += tickDist;
-            currTime += tickDist;
             glBegin(GL_LINES);
             glVertex2d(glpos, glh);
             glVertex2d(glpos, glh-h4);
             glEnd();
-            glpos += (float) (tickDist/width);
         }
     }
 
@@ -390,6 +442,11 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*sender,
 
 
 
+void
+GUITLLogicPhasesTrackerWindow::setBeginTime(MSNet::Time time)
+{
+    myBeginTime = time;
+}
 
 
 /* -------------------------------------------------------------------------
