@@ -84,6 +84,30 @@ fillOptions(OptionsCont &oc)
 }
 
 
+bool
+checkOptions(OptionsCont &oc)
+{
+    bool ok = true;
+    if(!oc.isSet("n")) {
+        MsgHandler::getErrorInstance()->inform(
+            "No net input file (-n) specified.");
+        ok = false;
+    }
+    if(!oc.isSet("d")) {
+        MsgHandler::getErrorInstance()->inform(
+            "No OD input file (-d) specified.");
+        ok = false;
+    }
+    if(!oc.isSet("o")) {
+        MsgHandler::getErrorInstance()->inform(
+            "No trip table output file (-o) specified.");
+        ok = false;
+    }
+    return ok;
+}
+
+
+
 ODDistrictCont *
 loadDistricts(OptionsCont &oc)
 {
@@ -119,7 +143,9 @@ loadDistricts(OptionsCont &oc)
     return ret;
 }
 
-int cmpfun(long int a, long int b)
+
+int
+cmpfun(long int a, long int b)
 {
 	if (a > b)
 		return 1;
@@ -128,6 +154,21 @@ int cmpfun(long int a, long int b)
 	else
 		return 0;
 }
+
+
+int
+getFMatType(const std::string &file)
+{
+    if (file.find(".inp") != string::npos) {
+        return 1; // new format: vissim type
+    }
+    if (file.find(".fma") != string::npos) {
+        return 2; // old fma format
+    }
+    cerr << "Error: Wrong od-file in *.cfg!" << endl;
+    throw ProcessError();
+}
+
 
 /* -------------------------------------------------------------------------
  * main
@@ -140,51 +181,23 @@ main(int argc, char **argv)
     try {
         // initialise subsystems
         if(!SystemFrame::init(false, argc, argv,
-            fillOptions, 0, help)) {
+            fillOptions, checkOptions, help)) {
             throw ProcessError();
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+        string OD_filename = oc.getString("d");
         //
-	    bool ok = true;
-		if(!oc.isSet("n")) {
-            MsgHandler::getErrorInstance()->inform(
-                "No net input file (-n) specified.");
-			ok = false;
-		}
-		if(!oc.isSet("d")) {
-			MsgHandler::getErrorInstance()->inform(
-                "No OD input file (-d) specified.");
-			ok = false;
-		}
-		string OD_filename = oc.getString("d");
-		if(!oc.isSet("o")) {
-            MsgHandler::getErrorInstance()->inform(
-			    "No trip table output file (-o) specified.");
-			ok = false;
-		}
-		string bez1=".inp";
-		string bez2=".fma";
-		int fmatype=0;
-		if (OD_filename.find(bez1) != -1) fmatype=1; // new format: vissim type
-		if (OD_filename.find(bez2) != -1) fmatype=2; // old fma format
-		if(!fmatype) {
-			cerr << "Error: Wrong od-file in *.cfg!" << endl;
-			ok = false;
-		}
-        if(!ok) {
-            return 1;
-        }
+		int fmatype = getFMatType(OD_filename);
 		string OD_outfile = oc.getString("o");
 		string OD_path = oc.getString("i");
-		struct content content[MAX_INFILES]; // helds car types
-		string *infiles = 	new string [MAX_INFILES];
-		int maxfiles=1; //number of OD-Files
+        std::vector<ODContent> content;
+        std::vector<std::string> infiles;
 		// reads out some metadata from *.inp
 		if( fmatype == 1) {
             MsgHandler::getMessageInstance()->inform(
                 "**** VISSIM input data format **** ");
-			ODInpread (OD_filename, infiles, content,&maxfiles);
+			ODInpread (OD_filename, infiles, content/*,&maxfiles*/);
 		} else {
             MsgHandler::getMessageInstance()->inform(
 				"**** Original input data format **** ");
@@ -213,7 +226,7 @@ main(int argc, char **argv)
 		double tmprand, maxrand;
 		float scale, rest;
 		ini=true; // initialize random numbers with time, only first call
-		for (int ifile=0;ifile<maxfiles;ifile++) { // proceed for all *.fma files
+		for (int ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
 			// OD list
 			vector<OD_IN> od_in;
 			vector<OD_IN>::iterator it1;
