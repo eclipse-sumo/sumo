@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/16 09:57:05  dkrajzew
+// additional parameter of maximum display size added
+//
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -37,6 +40,11 @@ char *help[] = {
     "Usage: sumo-gui",
     "Simulation of Urban MObility v0.7 - Simulation Module",
     "  http://sumo.sourceforge.net",
+    " ",
+    "Options:",
+    " Input files:",
+    "   -w, --max-gl-width <UINT>       The maximum width of openGL-windows",
+    "   -h, --max-gl-height <UINT>      The maximum height of openGL-windows",
     0
 };
 

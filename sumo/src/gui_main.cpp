@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/04/16 09:57:05  dkrajzew
+// additional parameter of maximum display size added
+//
 // Revision 1.2  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -95,17 +98,17 @@
 
 #include <iostream>
 #include <fstream>
-#include "microsim/MSNet.h"
-#include "microsim/MSEmitControl.h"
-#include "netload/NLNetBuilder.h"
-#include "utils/options/Option.h"
-#include "utils/options/OptionsCont.h"
-#include "utils/options/OptionsIO.h"
-#include "utils/common/SErrorHandler.h"
-#include "utils/common/UtilExceptions.h"
-#include "utils/common/FileHelpers.h"
-#include "utils/common/HelpPrinter.h"
-#include "utils/xml/XMLSubSys.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSEmitControl.h>
+#include <netload/NLNetBuilder.h>
+#include <utils/options/Option.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsParser.h>
+#include <utils/common/SErrorHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/HelpPrinter.h>
+#include <utils/xml/XMLSubSys.h>
 #include <qstring.h>
 #include <qapplication.h>
 #include <qgl.h>
@@ -119,11 +122,41 @@ using namespace std;
 
 
 /* -------------------------------------------------------------------------
+ * build options
+ * ----------------------------------------------------------------------- */
+OptionsCont *
+getOptions(int argc, char **argv)
+{
+    OptionsCont *oc = new OptionsCont();
+    // register screen size options
+    oc->doRegister("max-gl-width", 'w', new Option_Integer(1152));
+    oc->doRegister("max-gl-height", 'h', new Option_Integer(864));
+    if(!OptionsParser::parse(oc, argc, argv)) {
+        delete oc;
+        return 0;
+    }
+    // check whether the parameter are ok
+    if(oc->getInt("w")<0||oc->getInt("h")<0) {
+        cout
+            << "Both the screen's width and the screen's height must be larger than zero."
+            << endl;
+        delete oc;
+        return 0;
+    }
+    return oc;
+}
+
+
+/* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char **argv)
 {
+    OptionsCont *oc = getOptions(argc, argv);
+    if(oc==0) {
+        return 1;
+    }
 //    srand(time(0));
     srand(1040208551);
     // initialise the xml-subsystem
@@ -137,7 +170,10 @@ main(int argc, char **argv)
 	    return 1;
     }
     // build the main window
-    GUIApplicationWindow * mw = new GUIApplicationWindow();
+    GUIApplicationWindow * mw =
+        new GUIApplicationWindow(
+            oc->getInt("w"),
+            oc->getInt("h"));
     a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
     mw->show();
     int res = a.exec();
