@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.42  2003/10/24 15:24:20  roessel
+// Changes due to new MSUpdateEachTimestep mechanism.
+//
 // Revision 1.41  2003/10/22 15:45:51  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -340,7 +343,10 @@ namespace
 #include <microsim/MSDetectorSubSys.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "MSTrafficLightLogic.h"
-#include "MS_E2_ZS_Collector.h"
+//#include "MS_E2_ZS_Collector.h"
+#include "MSDetectorHaltingContainerWrapper.h"
+#include "MSE2DetectorInterface.h"
+#include "MSDetectorOccupancyCorrection.h"
 
 /* =========================================================================
  * used namespaces
@@ -603,11 +609,14 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     // detect
     MSLaneState::actionsAfterMoveAndEmit();
-    MS_E2_ZS_Collector::E2ZSDictionary::ValueVector& E2ZSColl =
-        MS_E2_ZS_Collector::E2ZSDictionary::getInstance()->getStdVector();
-    for_each( E2ZSColl.begin(), E2ZSColl.end(),
-              mem_fun( &MS_E2_ZS_Collector::update ) );
 
+    MSUpdateEachTimestepContainer<
+        DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<
+        Detector::UpdateE2Detectors >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<
+        Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
+    
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
 

@@ -23,6 +23,10 @@
 #include "MSInductLoop.h"
 #include "MSLaneState.h"
 #include "MSUnit.h"
+#include "MSUpdateEachTimestepContainer.h"
+#include "MSDetectorHaltingContainerWrapper.h"
+#include "MSE2DetectorInterface.h"
+#include "MSDetectorOccupancyCorrection.h"
 
 
 void
@@ -99,6 +103,14 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
         delete E2ZSDict::getInstance();
     }
+
+    delete MSUpdateEachTimestepContainer<
+        DetectorContainer::UpdateHaltings >::getInstance();
+    delete MSUpdateEachTimestepContainer<
+        Detector::UpdateE2Detectors >::getInstance();
+    delete MSUpdateEachTimestepContainer<
+        Detector::UpdateOccupancyCorrections >::getInstance();    
+    
 
     try {
         delete MSUnit::getInstance();
