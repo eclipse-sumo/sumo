@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2002/08/06 14:13:27  roessel
+// New method preInit() and changes in init().
+//
 // Revision 1.10  2002/07/31 17:33:01  roessel
 // Changes since sourceforge cvs request.
 //
@@ -139,6 +142,9 @@ class MSNet
     friend class MSPerson;
 
 public:
+    /** Get a pointer to the unique instance of MSNet (singleton).
+     * @return Pointer to the unique MSNet-instance.
+     */
     static MSNet* getInstance( void );
     
     /// Container for Edges. This are the routes.
@@ -156,6 +162,17 @@ public:
     /// Detector-container type.
     typedef vector< MSDetector* > DetectorCont;
 
+    /** Create unique instance of MSNet and initialize with the
+     * beginning timestep. To finish the initialization call &ref
+     * init.
+     * @param startTimestep Timestep the simulation will start
+     * with.
+     */
+    static void preInit( Time startTimestep );
+
+    /** Initialize the unique MSNet-instance after creation in @ref
+     * preInit.
+     */
     static void init( string id,
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,

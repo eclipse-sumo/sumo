@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2002/08/06 14:13:27  roessel
+// New method preInit() and changes in init().
+//
 // Revision 1.14  2002/07/31 17:33:01  roessel
 // Changes since sourceforge cvs request.
 //
@@ -203,6 +206,14 @@ MSNet::getInstance( void )
 }
 
 void
+MSNet::preInit( MSNet::Time startTimeStep )
+{
+    myInstance = new MSNet();
+    myInstance->myStep = startTimeStep;
+    
+}
+
+void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSEmitControl* emc,
@@ -210,13 +221,13 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSPersonControl* wpc,
              DetectorCont* detectors )
 {
-    myInstance = new MSNet( id,
-                            ec,
-                            jc,
-                            emc,
-                            evc,
-                            wpc,
-                            detectors );
+    myInstance->myID        = id;
+    myInstance->myEdges     = ec;
+    myInstance->myJunctions =  jc;
+    myInstance->myEmitter   =  emc;
+    myInstance->myEvents    =  evc;
+    myInstance->myPersons   =  wpc;
+    myInstance->myDetectors =  detectors;
 }
 
 
