@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/09/17 10:11:37  dkrajzew
+// error on broke vehicle departure map reference patched
+//
 // Revision 1.6  2003/07/30 09:01:02  dkrajzew
 // false return value for number of emitted vehicles patched
 //
@@ -175,16 +178,19 @@ MSEmitControl::emitVehicles(MSNet::Time time)
     // Insert vehicles from myTrips into the net until the vehicles
     // departure time is greater than time.
     // retrieve the list of vehicles to emit within this time step
-    if(!myAllVeh.anyWaitingFor(time)) {
-        return noEmitted;
+    if(myAllVeh.anyWaitingFor(time)) {
+        const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
+        // go through the list and try to emit
+        for( veh=next.begin(); veh!=next.end(); veh++) {
+            noEmitted += tryEmit(*veh, refusedEmits);
+        }
+        // let the MSVehicleContainer clear the vehicles
+        myAllVeh.pop();
     }
-    const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
-    // go through the list and try to emit
-    for( veh=next.begin(); veh!=next.end(); veh++) {
-        noEmitted += tryEmit(*veh, refusedEmits);
+    for(MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); i++) {
+        add(*i);
     }
-    // let the MSVehicleContainer clear the vehicles
-    myAllVeh.pop();
+    myNewPeriodicalAdds.clear();
 	return noEmitted;
 }
 
@@ -202,7 +208,7 @@ MSEmitControl::tryEmit(MSVehicle *veh,
         if(veh->periodical()) {
             MSVehicle *nextPeriodical = veh->getNextPeriodical();
             if(nextPeriodical!=0) {
-                add(nextPeriodical);
+                myNewPeriodicalAdds.push_back(nextPeriodical);
                 // !!! add some kind of a check and an error
                 //  handler, here
                 MSVehicle::dictionary(nextPeriodical->id(), nextPeriodical);

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/09/17 10:11:37  dkrajzew
+// error on broke vehicle departure map reference patched
+//
 // Revision 1.4  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -162,6 +165,8 @@ private:
 
     /** Buffer#1 for vehicles that were not allowed to enter their lane. */
     MSVehicleContainer::VehicleVector myRefusedEmits2;
+
+    MSVehicleContainer::VehicleVector myNewPeriodicalAdds;
 
     /// Default constructor.
     MSEmitControl();
