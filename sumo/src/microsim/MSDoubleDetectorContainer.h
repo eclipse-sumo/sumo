@@ -40,7 +40,7 @@ struct MSDoubleDetectorContainer : public MSDetectorContainerBase
             ++containerM;
         }
 
-    void leaveDetectorByMove( void )
+    void leaveDetectorByMove( MSVehicle* veh )
         {
             --containerM;
         }
