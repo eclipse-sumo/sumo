@@ -95,6 +95,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
             myNumberEditor->show();
             myNumberEditor->raise();
             myNumberEditor->setFocus();
+            myNumberEditor->selectAll();
         }
         break;
     case CT_INT:
@@ -116,6 +117,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
             myNumberEditor->show();
             myNumberEditor->raise();
             myNumberEditor->setFocus();
+            myNumberEditor->selectAll();
         }
         break;
     case CT_BOOL:
@@ -186,7 +188,7 @@ MFXAddEditTypedTable::editEnd()
         item->setText(text);
         handle(this, FXSEL(SEL_CHANGED,0), item);
     }
-    deselectItem(myEditedRow, myEditedCol, true);
+    killSelection(true);
     if(target) {
         MFXEditedTableItem edited;
         edited.item = item;
@@ -214,7 +216,7 @@ MFXAddEditTypedTable::editCancel()
     myEditedItem = 0;
     myEditor->hide();
     setFocus();
-    deselectItem(myEditedRow, myEditedCol, true);
+    killSelection(true);
 }
 
 

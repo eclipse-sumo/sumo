@@ -115,7 +115,7 @@ MFXEditableTable::onLeftBtnClicked(FXObject* sender, FXSelector sel, void* ptr)
     if(c==-1||r==-1) {
         return 1;
     }
-    deselectItem(r, c, false);
+    killSelection(false);
     myEditedItem = getItem(r, c);
     myEditedCol = c;
     myEditedRow = r;
@@ -195,7 +195,7 @@ MFXEditableTable::editEnd()
         item->setText(text);
         handle(this, FXSEL(SEL_CHANGED,0), item);
     }
-    deselectItem(myEditedRow, myEditedCol, true);
+    killSelection(true);
     if(target) {
         MFXEditedTableItem edited;
         edited.item = item;
@@ -224,7 +224,7 @@ MFXEditableTable::editCancel()
     myEditedItem = 0;
     myEditor->hide();
     setFocus();
-    deselectItem(myEditedRow, myEditedCol, true);
+    killSelection(true);
 }
 
 
