@@ -24,6 +24,7 @@ RORouteDef.cpp \
 RORouter.cpp \
 RORouteSnippletCont.cpp \
 RORunningVehicle.cpp \
+ROSUMOHandlerBase.cpp \
 ROSUMOAltRoutesHandler.cpp \
 ROSUMORoutesHandler.cpp \
 ROTripHandler.cpp \
@@ -60,6 +61,7 @@ RORoute.h \
 RORouter.h \
 RORouteSnippletCont.h \
 RORunningVehicle.h \
+ROSUMOHandlerBase.h \
 ROSUMOAltRoutesHandler.h \
 ROSUMORoutesHandler.h \
 ROTripHandler.h \

@@ -21,7 +21,8 @@ QGLObjectToolTip.cpp QGLObjectToolTip.h QMessageEvent.h \
 QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
 QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
 TableTypes.h \
-QSimulationEndedEvent.h QSimulationEndedEvent.cpp
+QSimulationEndedEvent.h QSimulationEndedEvent.cpp \
+GUISimpleJunctionDrawer.cpp GUISimpleJunctionDrawer.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
