@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NBLoader.cpp
+                          NILoader.cpp
                           An interface to the loading operations of the
                           netconverter
                              -------------------
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/07/17 12:15:39  dkrajzew
+// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+//
 // Revision 1.9  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -114,9 +117,9 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/FileHelpers.h>
-#include "NBTypeCont.h"
-#include "NBNodeCont.h"
-#include "NBEdgeCont.h"
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdgeCont.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <netimport/xml/NIXMLEdgesHandler.h>
 #include <netimport/xml/NIXMLNodesHandler.h>
@@ -131,8 +134,8 @@ namespace
 #include <netimport/sumo/NISUMOHandlerNodes.h>
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
-#include "NBLoader.h"
-#include "NLLoadFilter.h"
+#include "NILoader.h"
+#include <netbuild/NLLoadFilter.h>
 #include <utils/convert/TplConvert.h>
 
 
@@ -145,7 +148,7 @@ using namespace std;
 /* =========================================================================
  * method defintions
  * ======================================================================= */
-void NBLoader::load(OptionsCont &oc) {
+void NILoader::load(OptionsCont &oc) {
     // get the report options
     // get the format to use
     //string type = oc.getString("used-file-format");
@@ -173,7 +176,7 @@ void NBLoader::load(OptionsCont &oc) {
  * file loading methods
  * ----------------------------------------------------------------------- */
 void
-NBLoader::loadSUMO(OptionsCont &oc)
+NILoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
     if(oc.isUsableFileList("sumo-net")) {
@@ -191,7 +194,7 @@ NBLoader::loadSUMO(OptionsCont &oc)
 
 
 void
-NBLoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
+NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
                         const string &type)
 {
     // build the handlers to load the data
@@ -208,7 +211,7 @@ NBLoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 
 
 void
-NBLoader::loadXML(OptionsCont &oc) {
+NILoader::loadXML(OptionsCont &oc) {
     // load types
     if(oc.isUsableFileList("t")) {
         NIXMLTypesHandler *handler = new NIXMLTypesHandler();
@@ -248,7 +251,7 @@ NBLoader::loadXML(OptionsCont &oc) {
 
 /** loads a single user-specified file */
 void
-NBLoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
+NILoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
                       const string &type)
 {
     // build parser
@@ -279,7 +282,7 @@ NBLoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
 
 
 void
-NBLoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
+NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
                       const string &type)
 {
     MsgHandler::getMessageInstance()->inform(
@@ -290,7 +293,7 @@ NBLoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
 
 
 void
-NBLoader::loadCell(OptionsCont &oc) {
+NILoader::loadCell(OptionsCont &oc) {
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
@@ -320,7 +323,7 @@ NBLoader::loadCell(OptionsCont &oc) {
 
 
 bool
-NBLoader::useLineReader(LineReader &lr, const std::string &file,
+NILoader::useLineReader(LineReader &lr, const std::string &file,
                         LineHandler &lh) {
     // check opening
     if(!lr.setFileName(file)) {
@@ -334,7 +337,7 @@ NBLoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NBLoader::loadVisum(OptionsCont &oc) {
+NILoader::loadVisum(OptionsCont &oc) {
     if(!oc.isSet("visum")) {
         return;
     }
@@ -346,7 +349,7 @@ NBLoader::loadVisum(OptionsCont &oc) {
 
 
 void
-NBLoader::loadArcView(OptionsCont &oc) {
+NILoader::loadArcView(OptionsCont &oc) {
     if(!oc.isSet("arcview")&&!oc.isSet("arcview-dbf")&&!oc.isSet("arcview-shp")) {
         return;
     }
@@ -398,7 +401,7 @@ NBLoader::loadArcView(OptionsCont &oc) {
 
 
 void
-NBLoader::loadVissim(OptionsCont &oc) {
+NILoader::loadVissim(OptionsCont &oc) {
     if(!oc.isSet("vissim")) {
         return;
     }
@@ -409,7 +412,7 @@ NBLoader::loadVissim(OptionsCont &oc) {
 
 
 void
-NBLoader::loadArtemis(OptionsCont &oc) {
+NILoader::loadArtemis(OptionsCont &oc) {
     if(!oc.isSet("artemis")) {
         return;
     }
@@ -422,7 +425,7 @@ NBLoader::loadArtemis(OptionsCont &oc) {
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBLoader.icc"
+//#include "NILoader.icc"
 //#endif
 
 // Local Variables:

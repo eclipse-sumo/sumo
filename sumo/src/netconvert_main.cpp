@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/07/17 12:14:21  dkrajzew
+// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+//
 // Revision 1.16  2003/07/07 08:41:12  dkrajzew
 // the edges positions are now normalised, too; the edges are joined if connecting the same node
 //
@@ -125,24 +128,22 @@ namespace
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBJunctionLogicCont.h>
-#include <netbuild/NBTypeCont.h>
-#include <netbuild/NBDistrictCont.h>
-#include <netbuild/NBDistribution.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOptionsIO.h>
-#include <netbuild/NBLoader.h>
-#include <netbuild/NBRequest.h>
+#include <netimport/NILoader.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBJunctionLogicCont.h>
+#include <netbuild/NBDistrictCont.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBDistribution.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/HelpPrinter.h>
-#include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
 #include "netconvert_help.h"
 
 
@@ -158,238 +159,16 @@ namespace
 #endif
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
-/* =========================================================================
- * functions
- * ======================================================================= */
-void
-inform(int step, const std::string &about)
-{
-    MsgHandler::getMessageInstance()->inform(
-        string("Computing step ") + toString<int>(step)
-        + string(": ") + about);
-}
 
 /* -------------------------------------------------------------------------
- * computation methods
+ * main
  * ----------------------------------------------------------------------- */
-
-
-/** removes dummy edges from junctions */
-/*
-bool setInit(int step, bool verbose)
-{
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Setting structures to initial " << endl;
-    }
-    NBEdgeCont::setInit(verbose);
-    return true;
-}
-*/
-
-/** removes dummy edges from junctions */
-bool
-removeDummyEdges(int step)
-{
-    inform(step, "Removing dummy edges ");
-    return NBNodeCont::removeDummyEdges();
-}
-
-
-/** joins edges which connect the same nodes */
-bool
-joinEdges(int step)
-{
-    inform(step, "Joining double connections");
-    return NBNodeCont::recheckEdges();
-}
-
-
-/** computes the turning direction for each edge */
-bool
-computeTurningDirections(int step)
-{
-    inform(step, "Computing turning directions");
-    return NBEdgeCont::computeTurningDirections();
-}
-
-
-/** sorts the edges of a node */
-bool
-sortNodesEdges(int step)
-{
-    inform(step, "Sorting nodes' edges, computing shape");
-    return NBNodeCont::sortNodesEdges();
-}
-
-
-/** sets the node positions in a way that nodes are lying at zero */
-bool
-normaliseNodePositions(int step)
-{
-    inform(step, "Normalising node positions");
-    bool ok = NBNodeCont::normaliseNodePositions();
-    if(ok) {
-        ok = NBEdgeCont::normaliseEdgePositions();
-    }
-    return ok;
-}
-
-
-/** computes edges 2 edges - relationships
-    (step1: computation of approached edges) */
-bool
-computeEdge2Edges(int step)
-{
-    inform(step, "Computing Approached Edges");
-    return NBEdgeCont::computeEdge2Edges();
-}
-
-
-/** computes edges 2 edges - relationships
-    (step2: computation of which lanes approach the edges) */
-bool
-computeLanes2Edges(int step)
-{
-    inform(step, "Computing Approaching Lanes");
-    return NBEdgeCont::computeLanes2Edges();
-}
-
-
-/** computes edges 2 edges - relationships
-    (step3: division of lanes to approached edges) */
-bool
-computeLanes2Lanes(int step)
-{
-    inform(step, "Dividing of Lanes on Approached Lanes");
-    bool ok = NBNodeCont::computeLanes2Lanes();
-    if(ok) {
-        return NBEdgeCont::sortOutgoingLanesConnections();
-    }
-    return ok;
-}
-
-/** rechecks whether all lanes have a following lane/edge */
-bool
-recheckLanes(int step)
-{
-    inform(step, "Rechecking of lane endings");
-    return NBEdgeCont::recheckLanes();
-}
-
-
-/** computes the node-internal priorities of links */
-/*bool
-computeLinkPriorities(int step, bool verbose)
-{
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Computing Link Priorities" << endl;
-    }
-    return NBEdgeCont::computeLinkPriorities(verbose);
-}
-*/
-
-/** appends the turnarounds */
-bool
-appendTurnarounds(int step)
-{
-    inform(step, "Appending Turnarounds");
-    return NBEdgeCont::appendTurnarounds();
-}
-
-
-/** computes nodes' logics */
-bool
-computeLogic(int step, OptionsCont &oc)
-{
-    inform(step, "Computing node logics");
-    return NBNodeCont::computeLogics(oc);
-}
-
-
-/** computes nodes' tl-logics */
-bool
-computeTLLogic(int step, OptionsCont &oc)
-{
-    inform(step, "Computing traffic light logics");
-    return NBTrafficLightLogicCont::computeLogics(oc);
-}
-
-
-/* -------------------------------------------------------------------------
- * data processing methods
- * ----------------------------------------------------------------------- */
-/**
- * computes the structures
- * the order of the computation steps is not variable!!!
- */
-void
-compute(OptionsCont &oc)
-{
-    bool ok = true;
-    int step = 1;
-//    if(ok) ok = setInit(step++);
-    if(ok) ok = removeDummyEdges(step++);
-    if(ok) ok = joinEdges(step++);
-    if(ok) ok = computeTurningDirections(step++);
-    if(ok) ok = sortNodesEdges(step++);
-    if(ok) ok = normaliseNodePositions(step++);
-    if(ok) ok = computeEdge2Edges(step++);
-    if(ok) ok = computeLanes2Edges(step++);
-    if(ok) ok = computeLanes2Lanes(step++);
-    if(ok) ok = appendTurnarounds(step++);
-    if(ok) ok = recheckLanes(step++);
-//    if(ok) ok = computeLinkPriorities(step++);
-    if(ok) ok = computeLogic(step++, oc);
-    if(ok) ok = computeTLLogic(step++, oc);
-
-    NBNode::reportBuild();
-    NBRequest::reportWarnings();
-    if(!ok) throw ProcessError();
-}
-
-/** saves the net (not the junction logics) */
-bool
-save(string path)
-{
-    // try to build the output file
-    ofstream res(path.c_str());
-    if(!res.good()) {
-        return false;
-    }
-    // print the computed values
-    res << "<net>" << endl << endl;
-    res.setf( ios::fixed, ios::floatfield );
-    // write the ocunt of some elements
-        // write the list of edges
-    NBEdgeCont::writeXMLEdgeList(res);
-        // write the number of nodes
-    NBNodeCont::writeXMLNumber(res);
-    res << endl;
-    // write the districts
-    NBDistrictCont::writeXML(res);
-    // write edges with lanes and connected edges
-    NBEdgeCont::writeXMLStep1(res);
-    // write the logics
-    NBJunctionLogicCont::writeXML(res);
-    NBTrafficLightLogicCont::writeXML(res);
-    // write the nodes
-    NBNodeCont::writeXML(res);
-    // write the successors of lanes
-    NBEdgeCont::writeXMLStep2(res);
-    // write the positions of edges
-    NBEdgeCont::writeXMLStep3(res);
-    res << "</net>" << endl;
-    return true;
-}
-
-/** clears all structures */
 void
 clearAll()
 {
@@ -400,13 +179,11 @@ clearAll()
     NBDistrictCont::clear();
     NBTrafficLightLogicCont::clear();
     NBDistribution::clear();
-    XMLSubSys::close();
 }
 
-/* -------------------------------------------------------------------------
- * main
- * ----------------------------------------------------------------------- */
-int main(int argc, char **argv)
+
+int 
+main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
@@ -432,19 +209,13 @@ int main(int argc, char **argv)
             oc.getFloat("S"),
             oc.getInt("P"));
         // load data
-        NBLoader::load(oc);
+        NILoader::load(oc);
         // check whether any errors occured
         if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-        NBTypeCont::report();
-        NBEdgeCont::report();
-        NBNodeCont::report();
-        // perform the computation
-        compute(oc);
-        // save network when wished
-        save(oc.getString("o"));
-        // remove everything from the memory
+        NBNetBuilder nb;
+        nb.buildLoaded();
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;

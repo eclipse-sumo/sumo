@@ -1,4 +1,4 @@
-noinst_LIBRARIES = libnetbuild.a libnetbuildmain.a
+noinst_LIBRARIES = libnetbuild.a 
 
 libnetbuild_a_SOURCES = NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \
@@ -20,9 +20,8 @@ NBTrafficLightLogicVector.cpp NBTrafficLightLogicVector.h \
 NBTrafficLightPhases.cpp NBTrafficLightPhases.h \
 NBType.cpp NBType.h NBTypeCont.cpp NBTypeCont.h NLLoadFilter.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
-NBLoadedTLDef.cpp NBLoadedTLDef.h
-
-libnetbuildmain_a_SOURCES = NBLoader.cpp NBLoader.h
+NBLoadedTLDef.cpp NBLoadedTLDef.h \
+NBNetBuilder.cpp NBNetBuilder.h
 
 CFRONT_FILES =
 

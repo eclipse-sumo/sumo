@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/17 12:14:21  dkrajzew
+// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+//
 // Revision 1.1  2003/07/16 15:41:17  dkrajzew
 // network generator added
 //
@@ -29,10 +32,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-# include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
-
+#include <netbuild/NBNetBuilder.h>
 #include <netgen/NGNet.h>
 #include <netgen/NGRandomNet.h>
 #include <utils/options/OptionsCont.h>
@@ -244,9 +247,10 @@ main(int argc, char **argv)
         }
         // build the netgen-network description
         TNGNet *net = buildNetwork();
-        	net->SaveNet("test");
-
+//     	net->SaveNet("test");
         delete net;
+        NBNetBuilder nb;
+        nb.buildLoaded();
     } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");

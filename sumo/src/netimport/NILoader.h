@@ -1,7 +1,7 @@
-#ifndef NBLoader_h
-#define NBLoader_h
+#ifndef NILoader_h
+#define NILoader_h
 /***************************************************************************
-                          NBLoader.h
+                          NILoader.h
                           An interface to the loading operations of the
                           netconverter
                              -------------------
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.1  2003/07/17 12:15:39  dkrajzew
+// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+//
 // Revision 1.6  2003/06/19 07:17:21  dkrajzew
 // new message subsystem paradigm applied
 //
@@ -66,7 +69,7 @@
  * included modules
  * ======================================================================= */
 #include <string>
-#include "NLLoadFilter.h"
+#include <netbuild/NLLoadFilter.h>
 
 
 /* =========================================================================
@@ -83,13 +86,13 @@ class SAX2XMLReader;
  * class declarations
  * ======================================================================= */
 /**
- * NBLoader
+ * NILoader
  * This class loads the specified data using a loading method that accords
  * to the data type specified by the user.
  * Subclasses may be used for the loading process, too, as it is done while
  * loading the XML-descriptions.
  */
-class NBLoader {
+class NILoader {
 public:
     /** loads data from the files specified in the given option container */
     static void load(OptionsCont &oc);
@@ -136,7 +139,7 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NBLoader.icc"
+//#include "NILoader.icc"
 //#endif
 
 #endif

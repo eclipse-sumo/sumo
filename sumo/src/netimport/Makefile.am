@@ -1,8 +1,13 @@
-noinst_LIBRARIES =
+noinst_LIBRARIES = libnetimport.a 
 
-EXTRA_DIST =
+libnetimport_a_SOURCES = NILoader.cpp NILoader.h
 
-AM_CPPFLAGS =
+CFRONT_FILES =
+
+EXTRA_DIST = $(CFRONT_FILES)
+
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
+-I$(XERCESINCLUDE) -I$(XERCESINCLUDE)/xercesc
 
 SUBDIRS = artemis \
 arcview \
@@ -11,7 +16,4 @@ sumo \
 vissim \
 visum \
 xml
-
-
-
 
