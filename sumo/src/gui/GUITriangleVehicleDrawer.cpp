@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/02 11:50:27  dkrajzew
+// a working tool tip implemented
+//
 // Revision 1.5  2003/03/12 16:55:19  dkrajzew
 // centering of objects debugged
 //
@@ -221,7 +224,7 @@ GUITriangleVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
     //  vehicle side will be yellow, otherwise green/red in dependence
     // whether a lanechange is needed
     // vehicles on false lanes will be red (others green)
-    if((vehicle._lcAction&MSVehicle::LCA_LEFT)!=0) {
+    if((vehicle._lcAction&MSVehicle::LCA_RIGHT)!=0) {
         glColor3f(1, 1, 0);
     } else {
         if((vehicle._lcAction&MSVehicle::LCA_URGENT)!=0) {
@@ -246,7 +249,7 @@ GUITriangleVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
     //  vehicle side will be yellow, otherwise green/red in dependence
     // whether a lanechange is needed
     // vehicles on false lanes will be red (others green)
-    if((vehicle._lcAction&MSVehicle::LCA_RIGHT)!=0) {
+    if((vehicle._lcAction&MSVehicle::LCA_LEFT)!=0) {
         glColor3f(1, 1, 0);
     } else {
         if((vehicle._lcAction&MSVehicle::LCA_URGENT)!=0) {

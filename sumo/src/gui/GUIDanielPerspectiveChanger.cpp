@@ -26,7 +26,7 @@ GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger()
 void
 GUIDanielPerspectiveChanger::mouseMoveEvent ( QMouseEvent *e )
 {
-    _callback.setTooltipPosition(e->x(), e->y());
+    _callback.setTooltipPosition(e->x(), e->y(), e->globalX(), e->globalY());
     int xdiff = _mouseXPosition - e->x();
     int ydiff = _mouseYPosition - e->y();
     switch(_mouseButtonState) {
@@ -36,6 +36,8 @@ GUIDanielPerspectiveChanger::mouseMoveEvent ( QMouseEvent *e )
     case Qt::RightButton:
         zoom(ydiff);
         rotate(xdiff);
+    default:
+        _callback.updateToolTip();
     }
     _mouseXPosition = e->x();
     _mouseYPosition = e->y();

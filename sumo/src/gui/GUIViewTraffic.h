@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/02 11:50:28  dkrajzew
+// a working tool tip implemented
+//
 // Revision 1.3  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
@@ -97,9 +100,11 @@ public:
     bool allowRotation() const;
 
     /// Returns the gl-id of the object under the given coordinates
-    void setTooltipPosition(size_t x, size_t y);
+    void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
 
     void makeCurrent();
+
+    void updateToolTip();
 
 public slots:
     /** changes the vehicle colouring scheme to the on stored under the given
@@ -306,6 +311,8 @@ private:
     QGLObjectToolTip *_toolTip;
 
     size_t _toolTipX, _toolTipY;
+
+    size_t _mouseX, _mouseY;
 
     GUIEdgeGrid::GUIEdgeSet _edges;
 

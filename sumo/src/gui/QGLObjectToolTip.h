@@ -1,22 +1,20 @@
 #ifndef QGLObjectToolTip_h
 #define QGLObjectToolTip_h
 
-#include <qtooltip.h>
+#include <qdialog.h>
+#include <qpainter.h>
 
 class GUIViewTraffic;
 class GUIGlObject;
 class NewQMutex;
 
 class QGLObjectToolTip :
-        public QToolTip
+        public QDialog
 {
 public:
     QGLObjectToolTip(GUIViewTraffic *parent);
     ~QGLObjectToolTip();
-    void myClear();
     friend class GUIViewTraffic;
-protected:
-    void maybeTip( const QPoint &p );
 private:
     void setObjectTip(GUIGlObject *object,
         size_t x, size_t y);
@@ -25,6 +23,8 @@ private:
     GUIViewTraffic &myParent;
     int myLastX, myLastY;
     NewQMutex *_lock;
+    QPainter _painter;
+    int _textHeight;
 };
 
 #endif

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/02 11:50:28  dkrajzew
+// a working tool tip implemented
+//
 // Revision 1.6  2003/03/20 16:17:52  dkrajzew
 // windows eol removed
 //
@@ -60,7 +63,7 @@ namespace
 #include <qevent.h>
 #include <qpainter.h>
 #include <qtoolbar.h>
-#include <qtooltip.h>
+#include <qdialog.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
 #include <utils/gfx/RGBColor.h>
@@ -254,6 +257,9 @@ GUIViewTraffic::mouseMoveEvent ( QMouseEvent *e )
 void
 GUIViewTraffic::mousePressEvent ( QMouseEvent *e )
 {
+    if(_useToolTips) {
+        _toolTip->hide();
+    }
     _changer->mousePressEvent(e);
 }
 
@@ -261,6 +267,9 @@ GUIViewTraffic::mousePressEvent ( QMouseEvent *e )
 void
 GUIViewTraffic::mouseReleaseEvent ( QMouseEvent *e )
 {
+    if(_useToolTips) {
+        _toolTip->hide();
+    }
     _changer->mouseReleaseEvent(e);
 }
 
@@ -290,7 +299,6 @@ GUIViewTraffic::initializeGL()
     glDisable(GL_LINE_SMOOTH);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     _changer->otherChange();
-    QToolTip::add(this, geometry(), "hallo");
 	GUINet::unlockAlloc();
     _lock.unlock();
 }
@@ -312,6 +320,30 @@ GUIViewTraffic::resizeGL( int width, int height )
         return;
     }*/
     _changer->otherChange();
+    _lock.unlock();
+}
+
+
+void
+GUIViewTraffic::updateToolTip()
+{
+    if(!_useToolTips) {
+        return;
+    }
+    makeCurrent();
+    _lock.lock();
+    _noDrawing++;
+    // initialise the select mode
+    const int SENSITIVITY = 2;
+    double scale = double(_widthInPixels)/double(SENSITIVITY);
+    applyChanges(scale, _toolTipX+_mouseHotspotX,
+        _toolTipY+_mouseHotspotY);
+    // paint in select mode
+    doPaintGL(GL_SELECT, scale);
+//    glFlush();
+//    swapBuffers();
+    // mark end-of-drawing
+    _noDrawing--;
     _lock.unlock();
 }
 
@@ -352,7 +384,8 @@ GUIViewTraffic::paintGL()
     LaneColoringScheme tmp = _laneColScheme;
     _laneColScheme = LCS_BY_SPEED;
     double scale = double(_widthInPixels)/double(SENSITIVITY);
-    applyChanges(scale, _toolTipX+_mouseHotspotX, _toolTipY+_mouseHotspotY);
+    applyChanges(scale, _toolTipX+_mouseHotspotX,
+        _toolTipY+_mouseHotspotY);
     // paint in select mode
     doPaintGL(GL_SELECT, scale);//GL_SELECT, scale);
 //    doPaintGL(GL_RENDER, scale);
@@ -418,13 +451,13 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         if(idMax!=0) {
             GUINet::lockAlloc();
             GUIGlObject *object = _net._idStorage.getObjectBlocking(idMax);
+            _toolTip->setObjectTip(object, _mouseX, _mouseY);
             if(object!=0) {
-                _toolTip->setObjectTip(object, _toolTipX, _toolTipY);
                 _net._idStorage.unblockObject();
-            } else {
-                _toolTip->myClear();//_toolTip->clear();
             }
             GUINet::unlockAlloc();
+        } else {
+            _toolTip->hide();
         }
     }
     glPopMatrix();
@@ -572,6 +605,11 @@ GUIViewTraffic::applyChanges(double scale,
     glScaled(2.0/_netScale, 2.0/_netScale, 0);
     // Apply the zoom and the scale
     double zoom = _changer->getZoom() / 100.0 * scale;
+/*    double xs = ((double) _widthInPixels) / 800.0;
+    double ys = ((double) _heightInPixels) / 600.0;
+    zoom = xs<ys
+        ? zoom * xs
+        : zoom * ys;*/
     glScaled(zoom, zoom, 0);
     // Translate to the middle of the net
     glTranslated(
@@ -790,10 +828,13 @@ GUIViewTraffic::getObjectAt(size_t xat, size_t yat)
 */
 
 void
-GUIViewTraffic::setTooltipPosition(size_t x, size_t y)
+GUIViewTraffic::setTooltipPosition(size_t x, size_t y,
+                                   size_t mouseX, size_t mouseY)
 {
     _toolTipX = x;
     _toolTipY = y;
+    _mouseX = mouseX;
+    _mouseY = mouseY;
 }
 
 
