@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/04/09 15:32:29  dkrajzew
+// periodical vehicles must have a period over zero now to be reasserted
+//
 // Revision 1.13  2003/04/07 12:12:38  dkrajzew
 // eps reduced for small segments (dawdle2)
 //
@@ -1607,7 +1610,7 @@ MSVehicle *
 MSVehicle::getNextPeriodical() const
 {
     // check whether another one shall be repated
-    if(myRepetitionNumber==0) {
+    if(myRepetitionNumber<=0) {
         return 0;
     }
     return MSNet::getInstance()->buildNewVehicle(StringUtils::version1(myID),

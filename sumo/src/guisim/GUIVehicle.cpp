@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/09 15:32:28  dkrajzew
+// periodical vehicles must have a period over zero now to be reasserted
+//
 // Revision 1.4  2003/03/20 17:31:41  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -175,7 +178,7 @@ MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
     // check whether another one shall be repated
-    if(myRepetitionNumber==0) {
+    if(myRepetitionNumber<=0) {
         return 0;
     }
     return GUINet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
