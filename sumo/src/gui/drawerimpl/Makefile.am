@@ -5,6 +5,7 @@ EXTRA_DIST =
 
 libguidrawerimpl_a_SOURCES = \
 GUIAggregatedLaneDrawer.cpp GUIAggregatedLaneDrawer.h \
+GUIBaseDetectorDrawer.cpp GUIBaseDetectorDrawer.h \
 GUIBaseJunctionDrawer.cpp GUIBaseJunctionDrawer.h \
 GUIBaseLaneDrawer.cpp GUIBaseLaneDrawer.h \
 GUIBaseROWDrawer.cpp GUIBaseROWDrawer.h \
