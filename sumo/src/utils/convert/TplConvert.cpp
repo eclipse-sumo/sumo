@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/07/02 09:43:05  dkrajzew
+// tried to improve string2float-conversion (still buggy)
+//
 // Revision 1.3  2003/06/30 12:00:38  roessel
 // Ambigious call to pow(). Changed 10 to 10.0.
 //
@@ -37,7 +40,6 @@
 // Revision 1.2  2002/06/10 07:40:22  dkrajzew
 // documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,27 +52,24 @@
 
 
 /* =========================================================================
- * used namespaces
- * ======================================================================= */
-using namespace std;
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
 template<class E>
-std::string TplConvert<E>::_2str(const E * const data)
+std::string
+TplConvert<E>::_2str(const E * const data)
 {
    return _2str(data, getLength(data));
 }
 
 
 template<class E>
-std::string TplConvert<E>::_2str(const E * const data, int length)
+std::string
+TplConvert<E>::_2str(const E * const data, int length)
 {
     if(data==0||length==0) {
         throw EmptyData();
     }
-    string str;
+    std::string str;
     str.reserve(length);
     for(int i=0; i<length; i++) {
         str = str + (char) data[i];
@@ -80,14 +79,16 @@ std::string TplConvert<E>::_2str(const E * const data, int length)
 
 
 template<class E>
-int TplConvert<E>::_2int(const E * const data)
+int
+TplConvert<E>::_2int(const E * const data)
 {
     return _2int(data, INT_MAX);
 }
 
 
 template<class E>
-int TplConvert<E>::_2int(const E * const data, int length)
+int
+TplConvert<E>::_2int(const E * const data, int length)
 {
     if(data==0||length==0||data[0]==0) {
         throw EmptyData();
@@ -118,14 +119,16 @@ int TplConvert<E>::_2int(const E * const data, int length)
 
 
 template<class E>
-long TplConvert<E>::_2long(const E * const data)
+long
+TplConvert<E>::_2long(const E * const data)
 {
     return _2long(data, INT_MAX);
 }
 
 
 template<class E>
-long TplConvert<E>::_2long(const E * const data, int length)
+long
+TplConvert<E>::_2long(const E * const data, int length)
 {
     if(data==0||length==0||data[0]==0) {
         throw EmptyData();
@@ -156,13 +159,16 @@ long TplConvert<E>::_2long(const E * const data, int length)
 
 
 template<class E>
-float TplConvert<E>::_2float(const E * const data)
+float
+TplConvert<E>::_2float(const E * const data)
 {
     return _2float(data, INT_MAX);
 }
 
+
 template<class E>
-float TplConvert<E>::_2float(const E * const data, int length)
+float
+TplConvert<E>::_2float(const E * const data, int length)
 {
     if(data==0||length==0||data[0]==0) {
         throw EmptyData();
@@ -177,7 +183,7 @@ float TplConvert<E>::_2float(const E * const data, int length)
         i++;
         sgn = -1;
     }
-    for(; i<length&&data[i]!=0&&data[i]!='.'; i++) {
+    for(; i<length&&data[i]!=0&&data[i]!='.'&&data[i]!='e'&&data[i]!='E'; i++) {
         ret = ret * 10;
         char akt = (char) data[i];
         if(akt<'0'||akt>'9') {
@@ -185,7 +191,7 @@ float TplConvert<E>::_2float(const E * const data, int length)
         }
         ret = ret + akt - 48;
     }
-    if((char) data[i]!='.') {
+    if((char) data[i]!='.'&&data[i]!='e'&&data[i]!='E') {
         if(i==0) {
             throw EmptyData();
         }
@@ -211,14 +217,16 @@ float TplConvert<E>::_2float(const E * const data, int length)
 
 
 template<class E>
-bool TplConvert<E>::_2bool(const E * const data)
+bool
+TplConvert<E>::_2bool(const E * const data)
 {
     return _2bool(data, 1);
 }
 
 
 template<class E>
-bool TplConvert<E>::_2bool(const E * const data, int length)
+bool
+TplConvert<E>::_2bool(const E * const data, int length)
 {
     if(data==0||length==0||data[0]==0) {
         throw EmptyData();
@@ -229,14 +237,16 @@ bool TplConvert<E>::_2bool(const E * const data, int length)
 
 
 template<class E>
-char *TplConvert<E>::_2charp(const E * const data)
+char *
+TplConvert<E>::_2charp(const E * const data)
 {
     return _2charp(data, getLength(data));
 }
 
 
 template<class E>
-char *TplConvert<E>::_2charp(const E * const data, int length)
+char *
+TplConvert<E>::_2charp(const E * const data, int length)
 {
     if(length==0||data==0) {
         throw EmptyData();
@@ -252,7 +262,8 @@ char *TplConvert<E>::_2charp(const E * const data, int length)
 
 
 template<class E>
-E *TplConvert<E>::duplicate(const E * const s)
+E *
+TplConvert<E>::duplicate(const E * const s)
 {
     int i=0;
     for(;s[i]!=0; i++);
@@ -266,7 +277,8 @@ E *TplConvert<E>::duplicate(const E * const s)
 
 
 template<class E>
-size_t TplConvert<E>::getLength(const E * const data)
+size_t
+TplConvert<E>::getLength(const E * const data)
 {
     if(data==0) {
         return 0;
@@ -276,10 +288,8 @@ size_t TplConvert<E>::getLength(const E * const data)
     return i;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "TplConvert.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

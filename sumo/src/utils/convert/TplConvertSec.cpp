@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/07/02 09:43:05  dkrajzew
+// tried to improve string2float-conversion (still buggy)
+//
 // Revision 1.1  2002/10/16 15:03:56  dkrajzew
 // initial commit for classes that perform string conversions
 //
@@ -31,7 +34,6 @@
 // Revision 1.2  2002/06/10 07:40:22  dkrajzew
 // documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -41,98 +43,127 @@
 #include "TplConvert.h"
 #include "TplConvertSec.h"
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
-using namespace std;
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 template<class E>
-std::string TplConvertSec<E>::_2strSec(const E * const data,
-                                       const string &def) {
+std::string
+TplConvertSec<E>::_2strSec(const E * const data,
+                           const std::string &def)
+{
     return _2strSec(data, TplConvert<E>::getLength(data), def);
 }
 
+
 template<class E>
-std::string TplConvertSec<E>::_2strSec(const E * const data, int length,
-                                       const string &def) {
+std::string
+TplConvertSec<E>::_2strSec(const E * const data, int length,
+                           const std::string &def)
+{
     if(data==0||length==0) {
       return def;
     }
     return TplConvert<E>::_2str(data, length);
 }
 
+
 template<class E>
-int TplConvertSec<E>::_2intSec(const E * const data, int def) {
+int
+TplConvertSec<E>::_2intSec(const E * const data, int def)
+{
     return _2intSec(data, INT_MAX, def);
 }
 
+
 template<class E>
-int TplConvertSec<E>::_2intSec(const E * const data, int length, int def) {
+int
+TplConvertSec<E>::_2intSec(const E * const data, int length, int def)
+{
     if(data==0||length==0||data[0]==0) {
         return def;
     }
     return TplConvert<E>::_2int(data, length);
 }
 
+
 template<class E>
-long TplConvertSec<E>::_2longSec(const E * const data, long def) {
+long
+TplConvertSec<E>::_2longSec(const E * const data, long def)
+{
     return _2longSec(data, INT_MAX, def);
 }
 
+
 template<class E>
-long TplConvertSec<E>::_2longSec(const E * const data, int length, long def) {
+long
+TplConvertSec<E>::_2longSec(const E * const data, int length, long def)
+{
     if(data==0||length==0||data[0]==0) {
         return def;
     }
     return TplConvert<E>::_2long(data, length);
 }
 
+
 template<class E>
-float TplConvertSec<E>::_2floatSec(const E * const data, float def) {
+float
+TplConvertSec<E>::_2floatSec(const E * const data, float def)
+{
     return _2floatSec(data, INT_MAX, def);
 }
 
+
 template<class E>
-float TplConvertSec<E>::_2floatSec(const E * const data, int length, float def) {
+float
+TplConvertSec<E>::_2floatSec(const E * const data, int length, float def)
+{
     if(data==0||length==0||data[0]==0) {
         return def;
     }
     return TplConvert<E>::_2float(data, length);
 }
 
+
 template<class E>
-bool TplConvertSec<E>::_2boolSec(const E * const data, bool def) {
+bool
+TplConvertSec<E>::_2boolSec(const E * const data, bool def)
+{
    return _2boolSec(data, 1, def);
 }
 
+
 template<class E>
-bool TplConvertSec<E>::_2boolSec(const E * const data, int length, bool def) {
+bool
+TplConvertSec<E>::_2boolSec(const E * const data, int length, bool def)
+{
     if(data==0||length==0||data[0]==0) {
         return def;
     }
     return TplConvert<E>::_2bool(data, length);
 }
 
+
 template<class E>
-char *TplConvertSec<E>::_2charpSec(const E * const data, char *def) {
+char *
+TplConvertSec<E>::_2charpSec(const E * const data, char *def)
+{
     return _2charpSec(data, TplConvert<E>::getLength(data), def);
 }
 
+
 template<class E>
-char *TplConvertSec<E>::_2charpSec(const E * const data, int length, char *def) {
+char *
+TplConvertSec<E>::_2charpSec(const E * const data, int length, char *def)
+{
     if(data==0||length==0) {
         return copy(def);
     }
     return TplConvert<E>::_2charp(data, length);
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "TplConvertSec.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
