@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/04/24 10:32:05  dkrajzew
+// Unfound files are now only reported once
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -68,7 +71,7 @@ class NLSAXHandler;
 /**
  * NLNetBuilder
  * The class is the main interface to load simulations.
- * It is a black-box where only the options must be supplied on the 
+ * It is a black-box where only the options must be supplied on the
  * constructor call
  * It is assumed that the simulation is stored in a XML-file.
  */
@@ -86,7 +89,7 @@ public:
     MSNet *build();
 private:
     /// counts the structures and preallocates them
-    void count(NLContainer &container, SAX2XMLReader &parser);
+    bool count(NLContainer &container, SAX2XMLReader &parser);
     /// counts the structures and preallocates them
     void load(NLContainer &container, SAX2XMLReader &parser);
     /// loads a described subpart form the given list of files
@@ -94,7 +97,7 @@ private:
     /// prepares the parser for processing using the current handler
     void prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step);
     /// parses the files using the given initialised parser
-    void parse(const std::string &files, SAX2XMLReader &parser);
+    bool parse(const std::string &files, SAX2XMLReader &parser);
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
     /// returns the list of handlers needed to parse the given data type
@@ -103,7 +106,7 @@ private:
     void subreport(const std::string &ok, const std::string &wrong) ;
     /// prints the final report
     void report(const NLContainer &container);
-    /// returns false when only ':' are supplied (no filename) 
+    /// returns false when only ':' are supplied (no filename)
     bool checkFilenames(const std::string &files);
 private:
     /** invalid copy operator */

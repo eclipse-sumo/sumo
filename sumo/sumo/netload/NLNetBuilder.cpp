@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/04/24 10:32:05  dkrajzew
+// Unfound files are now only reported once
+//
 // Revision 1.4  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -78,7 +81,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(const OptionsCont &oc) 
+NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
     : m_pOptions(oc)
 {
     // during the net parsing
@@ -92,7 +95,7 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
 
 
 
-NLNetBuilder::~NLNetBuilder() 
+NLNetBuilder::~NLNetBuilder()
 {
   // termination of the XML-helpers
   XMLPlatformUtils::Terminate();
@@ -104,49 +107,54 @@ NLNetBuilder::build() {
     NLContainer *container = new NLContainer();
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
     parser->setFeature(XMLString::transcode("http://xml.org/sax/features/validation"), false);
-    count(*container, *parser);
-    load(*container, *parser);
-    subreport("Loading done.", "Loading failed.");
+    bool ok = count(*container, *parser);
     MSNet *net = 0;
-    if(!SErrorHandler::errorOccured()) 
-        net = container->buildNet();
+    if(ok) {
+        load(*container, *parser);
+        subreport("Loading done.", "Loading failed.");
+        if(!SErrorHandler::errorOccured())
+            net = container->buildNet();
+    }
     delete parser;
-    report(*container);
+    if(ok)
+        report(*container);
     delete container;
     return net;
 }
 
-void 
+bool
 NLNetBuilder::count(NLContainer &container, SAX2XMLReader &parser) {
 //    if(m_pOptions.getBool("v"))
 //        cout << "Loading " << getDataName(what) << "..." << endl;
+    bool ok = true;
     NLSAXHandler *handler = new NLHandlerCounter(container, LOADFILTER_ALL);
     prepareParser(parser, handler, 0);
     parse(m_pOptions.getString("n"), parser);
     if(m_pOptions.isSet("j")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_LOGICS);
-        parse(m_pOptions.getString("j"), parser);
+        ok = parse(m_pOptions.getString("j"), parser);
     }
-    if(m_pOptions.isSet("d")) {
+    if(ok&&m_pOptions.isSet("d")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DETECTORS);
-        parse(m_pOptions.getString("d"), parser);
+        ok = parse(m_pOptions.getString("d"), parser);
     }
-    if(m_pOptions.isSet("r")) {
+    if(ok&&m_pOptions.isSet("r")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DYNAMIC);
-        parse(m_pOptions.getString("r"), parser);
+        ok = parse(m_pOptions.getString("r"), parser);
     }
     delete handler;
     container.preallocate();
+    return ok;
 }
 
-void 
+void
 NLNetBuilder::load(NLContainer &container, SAX2XMLReader &parser) {
     load(LOADFILTER_ALL, m_pOptions.getString("n"), container, parser);
-    if(m_pOptions.isSet("j")) 
+    if(m_pOptions.isSet("j"))
         load(LOADFILTER_LOGICS, m_pOptions.getString("j"), container, parser);
-    if(m_pOptions.isSet("d")) 
+    if(m_pOptions.isSet("d"))
         load(LOADFILTER_DETECTORS, m_pOptions.getString("d"), container, parser);
-    if(m_pOptions.isSet("r")) 
+    if(m_pOptions.isSet("r"))
         load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"), container, parser);
 }
 
@@ -178,20 +186,23 @@ NLNetBuilder::prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int st
         cout << "Step " << step << ": " << handler->getMessage() << endl;
 }
 
-void
-NLNetBuilder::parse(const string &files, SAX2XMLReader &parser) 
+bool
+NLNetBuilder::parse(const string &files, SAX2XMLReader &parser)
 {
+    bool ok = true;
     StringTokenizer st(files, ';');
-    while(st.hasNext()) {
+    while(ok&&st.hasNext()) {
         string tmp = st.next();
         parser.parse(tmp.c_str());
+        ok = !(SErrorHandler::errorOccured());
     }
+    return ok;
 }
 
-string 
+string
 NLNetBuilder::getDataName(LoadFilter forWhat) {
     switch(forWhat) {
-    case LOADFILTER_ALL: 
+    case LOADFILTER_ALL:
         return "net";
         break;
     case LOADFILTER_LOGICS:
@@ -213,7 +224,7 @@ std::vector<NLSAXHandler*>
 NLNetBuilder::getHandler(LoadFilter forWhat, NLContainer &container)  {
     std::vector<NLSAXHandler*> ret;
     switch(forWhat) {
-    case LOADFILTER_ALL: 
+    case LOADFILTER_ALL:
         ret.push_back(new NLHandlerEdgeAllocator(container, forWhat));
         ret.push_back(new NLHandlerBuilder1(container, forWhat));
         ret.push_back(new NLHandlerBuilder2(container, forWhat));
@@ -237,9 +248,9 @@ NLNetBuilder::getHandler(LoadFilter forWhat, NLContainer &container)  {
 
 
 void
-NLNetBuilder::subreport(const std::string &ok, const std::string &wrong) 
+NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 {
-    if(!SErrorHandler::errorOccured()) 
+    if(!SErrorHandler::errorOccured())
         SLogging::add(ok.c_str());
     else {
         SErrorHandler::print();
@@ -250,9 +261,9 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 
 
 void
-NLNetBuilder::report(const NLContainer &container) 
+NLNetBuilder::report(const NLContainer &container)
 {
-    if(SErrorHandler::errorOccured()) 
+    if(SErrorHandler::errorOccured())
         SErrorHandler::print();
     else {
         if(m_pOptions.getBool("v"))
@@ -274,5 +285,5 @@ NLNetBuilder::checkFilenames(const std::string &files) {
 
 // Local Variables:
 // mode:C++
-// 
+//
 
