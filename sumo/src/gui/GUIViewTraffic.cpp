@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2004/12/13 15:34:47  dkrajzew
+// window resize on controls show/hide implemented
+//
 // Revision 1.34  2004/12/12 17:23:58  agaubatz
 // Editor Tool Widgets included
 //
@@ -363,10 +366,15 @@ GUIViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     _inEditMode = button->amChecked();
-	if(button->amChecked())
+    if(button->amChecked()) {
 		par->getEditGroupBox()->show();
-	else
+    } else {
 		par->getEditGroupBox()->hide();
+    }
+    recalc();
+    _widthInPixels = getWidth();
+    _heightInPixels = getHeight();
+    _changer->otherChange();
     update();
     return 1;
 }
