@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/04/14 13:53:50  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.12  2004/03/19 13:03:01  dkrajzew
 // some style adaptions
 //
@@ -68,6 +71,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 #include "ROLane.h"
 #include "ROEdge.h"
 
@@ -82,7 +86,12 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROEdge::ROEdge(const std::string &id)
-    : _id(id), _dist(0), _speed(-1), _usingTimeLine(false)
+    : _id(id), _dist(0), _speed(-1), 
+      _supplementaryWeightAbsolut(0),
+      _supplementaryWeightAdd(0),
+      _supplementaryWeightMult(0),
+      _usingTimeLine(false),
+      _hasSupplementaryWeights(false)
 {
 }
 
@@ -93,6 +102,9 @@ ROEdge::~ROEdge()
         delete (*i).first;
         delete (*i).second;
     }
+    delete _supplementaryWeightAbsolut;
+    delete _supplementaryWeightAdd;
+    delete _supplementaryWeightMult;
 }
 
 
@@ -101,22 +113,6 @@ ROEdge::postloadInit(size_t idx)
 {
     // !!! only when not lanes but the edge shall be used for routing
     if(_usingTimeLine) {
-//         FloatValueTimeLine *tmp = (*(_laneCont.begin())).second;
-//         for(size_t i=0; i<tmp->noDefinitions(); i++) {
-//             double currValue = 0;
-//             FloatValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
-//             for(LaneUsageCont::iterator j=_laneCont.begin();
-//                 j!=_laneCont.end(); j++) {
-//                 double tmp = (*j).second->getValue(range.first);
-//                 if(tmp<0) {
-//                     tmp = _dist / _speed;
-//                 }
-//                 currValue += tmp;
-//             }
-
-//             currValue = currValue / _laneCont.size();
-//             _ownValueLine.addValue(range, currValue);
-//         }
         // get the number of the ValuedTimeRanges that are in the
         // container associated to the first lane. We assume, that all
         // lanes have the same number of ValuedTimeRanges and that the
@@ -194,11 +190,47 @@ ROEdge::addFollower(ROEdge *s)
 
 
 float
-ROEdge::getMyEffort(long time) const
+ROEdge::getMyEffort( long time ) const
 {
-    if(_usingTimeLine) {
-        return _ownValueLine.getValue(time);
-    } else {
+    if ( _usingTimeLine ) {
+        FloatValueTimeLine::SearchResult searchResult;
+        FloatValueTimeLine::SearchResult supplementarySearchResult;
+
+        bool hasAbsolutValue = false;
+        if ( _hasSupplementaryWeights == true ) {
+            searchResult =
+                _supplementaryWeightAbsolut->getSearchStateAndValue( time );
+            if ( searchResult.first == true ) {
+                hasAbsolutValue = true;
+            }
+        }
+        
+        if ( ! hasAbsolutValue ) {
+            searchResult = _ownValueLine.getSearchStateAndValue( time );
+            if ( searchResult.first == false ) {
+                cerr << "ROEdge::getMyEffort(id " << _id
+                     << " ): no interval matches passed time "
+                     << time
+                     << ". Using last value in _ownValueLine." << endl;
+            }
+        }
+        
+        if ( _hasSupplementaryWeights == true ) {    
+            supplementarySearchResult =
+                _supplementaryWeightMult->getSearchStateAndValue( time );
+            if ( supplementarySearchResult.first == true ) {
+                searchResult.second *= supplementarySearchResult.second;
+            }
+            supplementarySearchResult =
+                _supplementaryWeightAdd->getSearchStateAndValue( time );
+            if ( supplementarySearchResult.first == true ) {
+                searchResult.second += supplementarySearchResult.second;
+            }
+        }
+
+        return searchResult.second;        
+    }
+    else {
         return _dist / _speed;
     }
 }
@@ -268,6 +300,22 @@ ROEdge::getLength() const
 {
     assert(_laneCont.size()!=0);
     return (*(_laneCont.begin())).first->getLength();
+}
+
+void
+ROEdge::setSupplementaryWeights( const FloatValueTimeLine* absolut,
+                                 const FloatValueTimeLine* add,
+                                 const FloatValueTimeLine* mult )
+{
+    assert( _usingTimeLine ); // Supplementary weights make no sense without
+                              // "normal" weights.
+    _supplementaryWeightAbsolut = absolut;
+    _supplementaryWeightAdd     = add;
+    _supplementaryWeightMult    = mult;
+    assert( _supplementaryWeightAbsolut != 0 &&
+            _supplementaryWeightAdd     != 0 &&
+            _supplementaryWeightMult    != 0 );
+    _hasSupplementaryWeights = true;
 }
 
 

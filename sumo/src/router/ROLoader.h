@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/04/14 13:53:50  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.5  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -88,6 +91,15 @@ public:
     /// Loads the net weights
     bool loadWeights(RONet &net);
 
+    /// Parse the supplementary-weights-file. This will add
+    /// supplementary weights to the RONet's ROEdges.
+    ///
+    /// @param net The net to which the weights should be aaded.
+    ///
+    /// @return True on successful parsing.
+    ///
+    bool loadSupplementaryWeights( RONet& net ); 
+    
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
     void openRoutes(RONet &net, float gBeta, float gA);

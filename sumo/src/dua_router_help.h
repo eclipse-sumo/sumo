@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/04/14 13:53:49  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.1  2004/01/26 07:12:12  dkrajzew
 // now two routers are available - the dua- and the jp-router
 //
@@ -75,8 +78,10 @@ char *help[] = {
     "   -c, --configuration FILE       FILE will be used as configuration",
     "                                    1. Default: ./sumo-netcovert.cfg",
     "  Network description:",
-    "   -n, --net-files FILE           FILE containing the SUMO-net",
-    "   -w, --weights FILE             FILE containing the weights of the net",
+    "   -n, --net-files FILE             FILE containing the SUMO-net",
+    "   -w, --weights FILE               FILE containing the weights of the net",
+    "   -S, --supplementary-weights FILE FILE containing the supplementary-weights",
+    "                                    of the net",
     " ",
     "  Route descriptions:",
     "   -s, --sumo-input FILE          FILE containing SUMO-routes",
@@ -116,5 +121,9 @@ char *help[] = {
     "   -?, --help                      This screen",
     0
 };
+
+// Local Variables:
+// mode:C++
+// End:
 
 #endif

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/04/14 13:53:50  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.15  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -95,6 +98,7 @@ namespace
 #include "ROLoader.h"
 #include "RORDLoader_TripDefs.h"
 #include "ROWeightsHandler.h"
+#include "ROSupplementaryWeightsHandler.h"
 #include "RORDLoader_SUMORoutes.h"
 #include "RORDLoader_Cell.h"
 #include "RORDLoader_SUMOAlt.h"
@@ -267,7 +271,7 @@ ROLoader::getMinTimeStep() const
 
 
 void
-ROLoader::processAllRoutes(unsigned int start, unsigned int end,
+ROLoader::processAllRoutes(unsigned int, unsigned int end,
                            RONet &net,
                            ROAbstractRouter &router)
 {
@@ -436,6 +440,33 @@ ROLoader::loadWeights(RONet &net)
         MsgHandler::getMessageInstance()->inform("done.");
     } else {
         MsgHandler::getMessageInstance()->inform("failed.");
+    }
+    return ok;
+}
+
+bool
+ROLoader::loadSupplementaryWeights( RONet& net )
+{
+    string filename = _options.getString( "S" );
+    if( ! FileHelpers::exists( filename ) ) {
+        MsgHandler::getErrorInstance()->inform(
+            string( "The supplementary-weights file '" ) + filename +
+            string( "' does not exist!" ) );
+        return false;
+    }
+    
+    ROSupplementaryWeightsHandler handler( _options, net, filename );
+    MsgHandler::getMessageInstance()->inform(
+        "Loading precomputed supplementary net-weights." );
+
+	XMLHelpers::runParser( handler, filename );
+    bool ok = ! MsgHandler::getErrorInstance()->wasInformed();
+
+    if ( ok ) {
+        MsgHandler::getMessageInstance()->inform( "done." );
+    }
+    else {
+        MsgHandler::getMessageInstance()->inform( "failed." );
     }
     return ok;
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/04/14 13:53:50  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.9  2004/01/27 10:31:50  dkrajzew
 // patched some linux-warnings
 //
@@ -137,9 +140,24 @@ public:
     /// Returns the index (numeric id) of the edge
     size_t getIndex() const;
 
-    /// reurns the effort for this edge only
+    /// returns the effort for this edge only
     float getMyEffort(long time) const;
-
+    
+    /// Takes pointers to FloatValueTimeLines and assigns them to the
+    /// classes supplementary weights. You must provide all three
+    /// FloatValueTimeLines and they must be valid objects. These
+    /// objects will be deleted on deletion of this ROEdge. The flag
+    /// hasSupplementaryWeights will be set to true and getMyEffort()
+    /// will use this supplementary weights in subsequent calls.
+    ///
+    /// @param absolut Pointer to the absolut-FloatValueTimeLine.
+    /// @param add Pointer to the add-FloatValueTimeLine.
+    /// @param mult Pointer to the mult-FloatValueTimeLine.
+    ///
+    void setSupplementaryWeights( const FloatValueTimeLine* absolut,
+                                  const FloatValueTimeLine* add,
+                                  const FloatValueTimeLine* mult );
+    
 protected:
     /// The id of the edge
     std::string _id;
@@ -159,6 +177,13 @@ protected:
     /// Container storing passing time varying over time for the edge
     FloatValueTimeLine _ownValueLine;
 
+    /// "Absolut" supplementary weights.
+    const FloatValueTimeLine* _supplementaryWeightAbsolut;
+    /// "Add" supplementary weights.
+    const FloatValueTimeLine* _supplementaryWeightAdd;
+    /// "Multiplication" supplementary weights.
+    const FloatValueTimeLine* _supplementaryWeightMult;
+
     /// List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 
@@ -170,6 +195,10 @@ protected:
 
     /// The index (numeric id) of the edge
     size_t myIndex;
+
+    /// Flag that indicates, if the supplementary weights have been
+    /// set. Initially false.
+    bool _hasSupplementaryWeights;
 
 private:
     /// we made the copy constructor invalid

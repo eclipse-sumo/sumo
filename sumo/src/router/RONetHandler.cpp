@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/04/14 13:53:50  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.8  2004/02/10 07:16:05  dkrajzew
 // removed some debug-variables
 //
@@ -93,7 +96,7 @@ RONetHandler::~RONetHandler()
 
 
 void
-RONetHandler::myStartElement(int element, const std::string &name,
+RONetHandler::myStartElement(int element, const std::string&,
                              const Attributes &attrs)
 {
     switch(element) {
@@ -240,7 +243,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
 
 
 void
-RONetHandler::myCharacters(int element, const std::string &name,
+RONetHandler::myCharacters(int element, const std::string&,
                            const std::string &chars)
 {
     if(element==SUMO_TAG_EDGES) {
@@ -261,7 +264,7 @@ RONetHandler::preallocateEdges(const std::string &chars)
 
 
 void
-RONetHandler::myEndElement(int element, const std::string &name)
+RONetHandler::myEndElement(int, const std::string&)
 {
 }
 

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/04/14 13:53:49  roessel
+// Changes and additions in order to implement supplementary-weights.
+//
 // Revision 1.4  2004/04/02 11:30:35  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded
 //
@@ -252,6 +255,7 @@ fillOptions(OptionsCont &oc)
     //
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
+    oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
 }
 
 
@@ -275,6 +279,11 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     }
     // initialise the network
     net->postloadInit();
+
+    if ( oc.isSet( "S" ) ) {
+        loader.loadSupplementaryWeights( *net );
+    }
+    
     return net;
 }
 
