@@ -28,7 +28,7 @@
 
 class MSVehicle;
 
-template< class InnerContainer >
+template< typename InnerContainer >
 struct MSHaltingDetectorContainer :
     public MSDetectorContainer< InnerContainer >
 {
@@ -93,8 +93,6 @@ struct MSHaltingDetectorContainer :
     MSUnit::Cells jamDistThresholdM;
 };
 
-
-
 namespace DetectorContainer
 {
     struct Halting
@@ -114,19 +112,32 @@ namespace DetectorContainer
     typedef MSHaltingDetectorContainer< std::list< Halting > > Haltings;
 }
 
-// // Specialization
-// template<>
-// struct DetectorContainer::Haltings
-// {
-//     typedef std::list< DetectorContainer::Halting > Container;
-    
+namespace Predicate 
+{
+    // specialization
+    template<>
+    struct PosGreater< DetectorContainer::Haltings > :
+        public std::binary_function< DetectorContainer::Haltings,
+                                     double, bool >
+    {
+        bool operator() ( const DetectorContainer::Halting& item,
+                          double pos ) const {
+            return item.vehM->pos() > pos;
+        }
+    };    
 
-
-//     Container containerM;
-//     MSUnit::Steps timeThresholdM;
-//     MSUnit::CellsPerStep speedThresholdM;
-// };
-
+    // specialization
+    template<>
+    struct VehEquals< DetectorContainer::Haltings > :
+        public std::binary_function< DetectorContainer::Halting,
+                                     MSVehicle*, bool >
+    {
+        bool operator() ( const DetectorContainer::Halting& item,
+                          const MSVehicle* veh ) const {
+            return item.vehM == veh;
+        }
+    };
+}
 
 
 #endif // MSTHRESHOLDDETECTORCONTAINER_H
