@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/08/20 11:47:38  dkrajzew
+// bug in sorting the values by x, then y patched
+//
 // Revision 1.10  2003/08/14 14:05:50  dkrajzew
 // functions to process a nodes geometry added
 //
@@ -432,7 +435,10 @@ int
 Position2DVector::increasing_x_y_sorter::operator() (const Position2D &p1,
                                                  const Position2D &p2) const
 {
-    return p1.x()<p2.x() || p1.y()<p2.y();
+    if(p1.x()!=p2.x()) {
+        return p1.x()<p2.x();
+    }
+    return p1.y()<p2.y();
 }
 
 
