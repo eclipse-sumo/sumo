@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/08/02 12:40:19  dkrajzew
+// method renamed due to semantic reasons
+//
 // Revision 1.10  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -76,7 +79,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
         string("Vehicle '") + veh->id() + string("' will be teleported; edge '")
         + e->id() + string("'."));
     // let the vehicle be on the one
-    if(veh->proceedVirtualReturnIfEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
+    if(veh->proceedVirtualReturnWhetherEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -115,7 +118,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 // get the one beyond the one the vehicle moved to
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->id());
                 // let the vehicle move to the next edge
-                if(desc.myVeh->proceedVirtualReturnIfEnded(*this, nextEdge)) {
+                if(desc.myVeh->proceedVirtualReturnWhetherEnded(*this, nextEdge)) {
                     MsgHandler::getWarningInstance()->inform(
                         string("Vehicle '") + desc.myVeh->id()
                         + string("' ends teleporting on end edge '") + e->id()
