@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/10/17 10:43:59  dkrajzew
+// MSLaneSpeedTrigger is now friend of MSLane
+//
 // Revision 1.2  2002/10/16 16:43:48  dkrajzew
 // regard of artifactsarising from traffic lights implemented; debugged
 //
@@ -176,6 +179,7 @@ public:
     friend class MeanData;
     friend class MSDetector;
     friend class MSInductLoop;
+    friend class MSLaneSpeedTrigger;
 
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
