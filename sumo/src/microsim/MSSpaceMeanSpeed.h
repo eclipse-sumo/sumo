@@ -44,7 +44,7 @@ protected:
     virtual ~MSSpaceMeanSpeed( void )
         {}
     
-    DetectorAggregate getDetectorAggregate( void );
+    DetectorAggregate getDetectorAggregate( void ); // [m/s]
     
         static std::string getDetectorName( void )
         {
@@ -73,7 +73,7 @@ MSSpaceMeanSpeed::getDetectorAggregate( void )
     }
     double spaceMeanSpeed =
         std::accumulate( containerM.begin(), containerM.end(),
-                         0.0, speedSum ) / containerM.size();
+                         0.0, speedSum ) / size;
     return MSUnit::getInstance()->getMetersPerSecond( spaceMeanSpeed );
 }   
 
