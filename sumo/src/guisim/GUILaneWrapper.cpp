@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/07/02 08:54:11  dkrajzew
+// some design issues
+//
 // Revision 1.20  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -83,9 +86,6 @@ namespace
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -112,7 +112,9 @@ namespace
 #include <gui/icons/GUIIconSubSys.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <gui/popup/GUIGLObjectPopupMenu.h>
-
+#include <gui/GUIApplicationWindow.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -134,11 +136,6 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-
-
-
-
-
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
     : GUIGlObject(idStorage, string("lane:")+lane.id()),
@@ -261,17 +258,19 @@ GUILaneWrapper::getPopUpMenu(GUIApplicationWindow &app,
                              GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    if(gfIsSelected(GLO_LANE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    if(gSelected.isSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+        new FXMenuCommand(ret, "Add To Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
     //
@@ -454,6 +453,13 @@ unsigned int
 GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
 {
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
+}
+
+
+const MSEdge&
+GUILaneWrapper::getMSEdge() const
+{
+    return myLane.edge();
 }
 
 

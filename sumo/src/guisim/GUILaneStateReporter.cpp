@@ -20,7 +20,7 @@ GUILaneStateReporter::GUILaneStateReporter(
     assert(lane->length()>0.2);
     addDetector(E2::DENSITY);
     addDetector(E2::SPACE_MEAN_SPEED);
-    addDetector(E2::HALTING_DURATION_MEAN);
+//    addDetector(E2::HALTING_DURATION_MEAN);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/07/02 08:54:11  dkrajzew
+// some design issues
+//
 // Revision 1.14  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -90,6 +93,7 @@ class MSNet;
 class GUINet;
 class Position2DVector;
 class GUIGLObjectPopupMenu;
+class MSEdge;
 
 
 /* =========================================================================
@@ -179,9 +183,11 @@ public:
 
     double getAggregatedFloat(E2::DetType what) const;
 
+    const MSEdge& getMSEdge() const;
+
 
 protected:
-	bool active() const { return true; }
+    bool active() const { return true; }
 
 private:
     void buildAggregatedValuesStorage();

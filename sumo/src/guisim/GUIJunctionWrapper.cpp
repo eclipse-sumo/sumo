@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 08:54:11  dkrajzew
+// some design issues
+//
 // Revision 1.7  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -61,12 +64,15 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <gui/GUIAppEnum.h>
 #include <gui/GUISUMOAbstractView.h>
 #include <gui/icons/GUIIconSubSys.h>
 #include "GUIJunctionWrapper.h"
 #include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -97,17 +103,19 @@ GUIJunctionWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    if(gfIsSelected(GLO_LANE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Select", 0, ret, MID_REMOVESELECT);
+    if(gSelected.isSelected(GLO_JUNCTION, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Select", 0, ret, MID_ADDSELECT);
+        new FXMenuCommand(ret, "Add To Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
     return ret;
 }

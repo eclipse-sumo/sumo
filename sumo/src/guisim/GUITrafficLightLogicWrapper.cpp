@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 08:54:11  dkrajzew
+// some design issues
+//
 // Revision 1.4  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -48,6 +51,8 @@ namespace
 #include <microsim/logging/FunctionBinding.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
 #include "GUITrafficLightLogicWrapper.h"
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -77,17 +82,19 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIApplicationWindow &app,
 {
     myApp = &app;
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    if(gfIsSelected(GLO_LANE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    if(gSelected.isSelected(GLO_TLLOGIC, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+        new FXMenuCommand(ret, "Add To Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
     //

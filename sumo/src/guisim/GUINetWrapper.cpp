@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 08:54:11  dkrajzew
+// some design issues
+//
 // Revision 1.7  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -44,7 +47,6 @@ namespace
 //
 // Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
-//
 //
 /* =========================================================================
  * included modules
@@ -67,6 +69,8 @@ namespace
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <gui/GUIApplicationWindow.h>
 
 
 /* =========================================================================
@@ -95,7 +99,7 @@ GUINetWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
