@@ -1,10 +1,12 @@
 bin_PROGRAMS = sumo
-sumo_SOURCES = main.cpp 
+sumo_SOURCES = main.cpp help.h
 
-EXTRA_DIST = help.h
+if CFRONT
+CFRONT_LIB = ./helpers/libhelpers.a
+endif CFRONT
 
 sumo_LDFLAGS = -L$(XERCESLIBPATH) 
-sumo_LDADD   = ./netload/libnetload.a ./microsim/libmicrosim.a ./utils/libutils.a -l$(XERCESLIB)
+sumo_LDADD   = $(CFRONT_LIB) ./netload/libnetload.a ./microsim/libmicrosim.a ./utils/libutils.a -l$(XERCESLIB)
 
 AM_CPPFLAGS = -Imicrosim -Inetload -Iutils -I$(XERCESINCLUDE)
 
