@@ -76,6 +76,14 @@
       <para>We should also remark, that the previous division of documents
       where each document described a single application is now abandonned. We
       hope to make the process of simulation clearlier understoodable.</para>
+
+      <sect2>
+        <title>ToDo</title>
+
+        <para>- Describe ArcView-Import</para>
+
+        <para></para>
+      </sect2>
     </sect1>
 
     <sect1>
@@ -306,7 +314,7 @@
   </chapter>
 
   <chapter>
-    <title>Complete Usage Description</title>
+    <title>Usage Description</title>
 
     <sect1>
       <title>The Workflow of preparing a Simulation</title>
@@ -315,7 +323,18 @@
       steps - which we will also describe in a greater detail within the next
       subchapters: generation of the road network and generation of the
       vehicle movements. After this, you can perform your first simulation
-      steps.</para>
+      steps. This process is also visualised wothin the next figure.</para>
+
+      <figure>
+        <title>Process of simulation with SUMO; (grey and rounded: data used;
+        white: program calls)</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/simsteps1.gif" format="GIF" scale="1" />
+          </imageobject>
+        </mediaobject>
+      </figure>
 
       <sect2>
         <title>Network Generation</title>
@@ -327,7 +346,7 @@
         the format of the road network used by SUMO is not meant to be edited
         by a human being and will also not be described herein due to its
         complexity. Take a look into the developer documentation if you want
-        more information about this, please. </para>
+        more information about this, please.</para>
 
         <para>Having data describing the network, you may convert them into a
         network description readable by SUMO using the SUMO-NETCONVERT tool.
@@ -356,6 +375,19 @@
         <para>The only exception to this rule occurs if you want to use
         XML-descriptions of the network and we will describe this a little bit
         more detailed, now. This is the common way to build own networks.</para>
+
+        <para>Here, again a figure may explain what to do beside the
+        descriptions given next.</para>
+
+        <figure>
+          <title>Building a network</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/simsteps-netconv.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
 
         <sect3>
           <title>Building Networks from own XML-descriptions</title>
@@ -741,7 +773,7 @@
 
             <itemizedlist>
               <listitem>
-                <para>Nodes (id, position, type) </para>
+                <para>Nodes (id, position, type)</para>
               </listitem>
 
               <listitem>
@@ -845,7 +877,7 @@
             to this, the import is quite clumsy and may not work with all
             networks. Also, we have to insert additional edges into our
             networks to simulate the Vissim-parking places, originally being
-            nodes, which we do not have. </para>
+            nodes, which we do not have.</para>
 
             <para>Known problems:</para>
 
@@ -868,16 +900,83 @@
                 <para>Additional source and sink links must be build</para>
               </listitem>
             </itemizedlist>
+
+            <para>An usage example could be this one:</para>
+
+            <example>
+              <title>SUMO-NETCONVERT --vissim=&#60;VISSIM_FILE&#62;
+              --output-file=MySUMOFile.net.xml</title>
+            </example>
           </sect4>
 
           <sect4>
             <title>Importing VISUM-networks</title>
 
-            <para>If you have tried the version 0.7 you have possibly missed
-            the possibility to specify the connections between the edges for
-            yourself. This is possibly using a further file, the connections
-            file. The connection file specifies which edges outgoing from a
-            jun</para>
+            <para>Visum is a macroscopic simulation developed by ptv. As the
+            network description does not posess any information about the
+            number of lanes, we have to generate it from the street&#39;s
+            flow. The computation is done by diving the flow through a fix
+            value, 2000 by default. This yields in a realistic network but
+            fails on &#39;feeder roads&#39; where vehicles are emitted. Some
+            further parameter allow to fix the problem.</para>
+
+            <para>An usage example could be this one:</para>
+
+            <example>
+              <title>SUMO-NETCONVERT --vissim=&#60;VISSIM_FILE&#62;
+              --output-file=MySUMOFile.net.xml</title>
+            </example>
+
+            <para>As mentioned above, some further parameter may help:</para>
+
+            <para>!!!</para>
+          </sect4>
+        </sect3>
+
+        <sect3>
+          <title>Automatic network generation</title>
+
+          <para> SUMO-NETCONVERT allows building of easy networks. In
+          dependence to what is wished, three types of networks can be build.
+          All of them are not as sophisticated as those generated by !!!, but
+          may be used as examples. You are also greatly invited to extend the
+          concepts. Available types are: grid-networks, spider-networks and
+          random-networks.</para>
+
+          <sect4>
+            <title>Grid-like networks</title>
+
+            <para>Each of the maps we&#39;ve got from NavTech, being encoded
+            in the ArcView database format, describes an area of a single
+            state or federal state. This is much too large for our purposes,
+            as we are mainly interested in urban traffic. In fact, we have not
+            tried out which ressources are needed to perform the simulation of
+            a single german federal state with SUMO, although this should be
+            possible at all.</para>
+          </sect4>
+
+          <sect4>
+            <title>Spider-net-like networks</title>
+
+            <para>Each of the maps we&#39;ve got from NavTech, being encoded
+            in the ArcView database format, describes an area of a single
+            state or federal state. This is much too large for our purposes,
+            as we are mainly interested in urban traffic. In fact, we have not
+            tried out which ressources are needed to perform the simulation of
+            a single german federal state with SUMO, although this should be
+            possible at all.</para>
+          </sect4>
+
+          <sect4>
+            <title>Random networks</title>
+
+            <para>Each of the maps we&#39;ve got from NavTech, being encoded
+            in the ArcView database format, describes an area of a single
+            state or federal state. This is much too large for our purposes,
+            as we are mainly interested in urban traffic. In fact, we have not
+            tried out which ressources are needed to perform the simulation of
+            a single german federal state with SUMO, although this should be
+            possible at all.</para>
           </sect4>
         </sect3>
       </sect2>
@@ -885,7 +984,157 @@
       <sect2>
         <title>Routes Generation</title>
 
-        <para>Further,</para>
+        <para>After having your network converted into the SUMO-format, you
+        could take a look at it using the gui-version of the simulation (see
+        !!!), but no cars would be driving around. You still need some kind of
+        description about the vehicles. A vehicle consists of three parts: the
+        vehicle itself, its type and the route itself. We will describe this
+        in detail later (!!!) as most of the things to generate these
+        descriptions may be done without knowing this.</para>
+
+        <para>If you are importing data from other simulation packages, they
+        have own representations of vehicle movements you can use. In case of
+        using ArcView-data or if you do not have the vehicle movement data,
+        you have to generate the movements by your own. We will now describe,
+        how to import vehicle movements from other simulations and how to
+        build own movement descriptions.</para>
+
+        <para>Before doing this, we want to why you possibly need two programs
+        to do it: Within the real life single vehicles are using a route the
+        driver knows which may be any list of streets the vehicle passes. This
+        is quite simple but the amount of data needed to describe this is very
+        large. Due to this, vehicle movements are often given as the amount of
+        vehicles moving from one point to another point within the network. A
+        point in this sense may be a position on the street, but mostly it is
+        something like a district or a complex of buildings. Given such an
+        information, you have to generate single trips from this so called
+        OD-matrix (Origin/Destination-matrix) using the SUMO-OD2TRIP-tool.</para>
+
+        <figure>
+          <title>Building trips from the OD-matrix</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/simsteps-od2trips.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>As trip definitions mostly contain the places the vehicle starts
+        and ends his trip at, but not which edges have to be passed, they have
+        to be fed into SUMO-ROUTER. This tools computes the list of edges the
+        vehicle passes and saves them into a route file.</para>
+
+        <figure>
+          <title>Building routes from trips</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/simsteps-router.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>As the process of route building is not as similar given
+        different input as the building of networks is, we also present it
+        explicitely for each supported simulation package, now. Information of
+        how to build routes from scratch is also given.</para>
+
+        <sect3>
+          <title>Importing Artemis-routes</title>
+
+          <para>Although originally ARTEMIS-routes are stored within an
+          OD-matrix, the import within SUMO is done using the SUMO-ROUTER
+          program.</para>
+
+          <para>This is basically done this way:</para>
+
+          <example>
+            <title>SUMO-ROUTER --artemis=&#60;ARTEMIS_FOLDER&#62;
+            --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+            &#60;UINT&#62; -e &#60;UINT&#62;</title>
+          </example>
+
+          <para><inlinegraphic fileref="./gfx/attention_small.gif"
+          format="GIF" /> Remind that you have to specify the begin and the
+          end of the simulation. This is quite inconsequent as our mechanisms
+          would allow import of repeateable routes, too. This is just not yet
+          implemented.</para>
+        </sect3>
+
+        <sect3>
+          <title>Importing FastLane-routes</title>
+
+          <para>One of the main concepts of FastLane is the Dynamic User
+          Assignment by Christian Gawron [!!!]. As this mechanism is based on
+          single vehicle routes, those are explicitely given for a FastLane
+          simulation. The router module has only to convert from the FastLane-
+          into the SUMO-representation. Do this using the following command:</para>
+
+          <example>
+            <title>SUMO-ROUTER --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
+            --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
+            &#60;UINT&#62; -e &#60;UINT&#62;</title>
+          </example>
+
+          <para>If you are familiar with FastLane, you may have noticed that
+          you have only to supply one file name while FastLane uses two to
+          describe the routes: one *.driver and one *.rinfo file. As both
+          files do have the same name and only the extension differs, you have
+          to give the name without the extension. So if your files have the
+          names &#34;foo.driver&#34; and &#34;foo.rinfo&#34;, write
+          &#34;--cell=foo&#34;.</para>
+
+          <para>FastLanes stores routes within a very large file what makes
+          the process quite slow. If you want to speed it up for the future,
+          you can tell SUMO-ROUTER to save some temporary files using
+          &#34;--save-cell-rindex&#34;. A further file named
+          &#34;foo.rindex&#34; will be generated. It speeds up the processing
+          by a factor of ten or so.</para>
+
+          <para>As FastLane is portable, you may encounter files generated on
+          a Windows-machine. Those files give some strange warnings, something
+          that should not happen if you supply the right net. To avoid them,
+          use the &#34;--intel-cell&#34; switch to tell SUMO-ROUTER it has to
+          turn the byte order.</para>
+
+          <para>You can also decide whether the best, not the last route a
+          driver took shall be used: set the switch &#34;--no-last-cell&#34;
+          for this.</para>
+        </sect3>
+
+        <sect3>
+          <title>Importing VISSIM-routes</title>
+
+          <para>!!!</para>
+        </sect3>
+
+        <sect3>
+          <title>Importing VISUM-routes</title>
+
+          <para>Visum-routes are stored in one or more OD-matrices. !!!</para>
+        </sect3>
+
+        <sect3>
+          <title>Building own routes from scratch</title>
+
+          <para>You have either the possibility to generate completely random
+          routes or to exactl describe what you want and pass this information
+          to SUMO-ROUTER to complete this description by necessary information
+          and allow to load routes build this way into the simulation.</para>
+
+          <sect4>
+            <title>Generating random routes</title>
+
+            <para>!!!!</para>
+          </sect4>
+
+          <sect4>
+            <title>Generating described routes</title>
+
+            <para></para>
+          </sect4>
+        </sect3>
       </sect2>
 
       <sect2>
@@ -893,18 +1142,225 @@
 
         <para></para>
       </sect2>
+
+      <sect2>
+        <title>Further Structures</title>
+
+        <para></para>
+
+        <sect3>
+          <title>Detectors</title>
+
+          <para></para>
+        </sect3>
+
+        <sect3>
+          <title>Emitter</title>
+
+          <para></para>
+        </sect3>
+
+        <sect3>
+          <title>Lanestate changer</title>
+
+          <para></para>
+        </sect3>
+      </sect2>
     </sect1>
 
     <sect1>
-      <title>The Workflow of preparing a Simulation</title>
+      <title>Command Line Options</title>
 
-      <para></para>
-    </sect1>
+      <sect2>
+        <title>SUMO Command Line Arguments</title>
 
-    <sect1>
-      <title>Network Generation</title>
+        <sect3>
+          <title>Input options</title>
 
-      <para></para>
+          <para><itemizedlist><listitem><para>MANDATORY: [ --net-files | --net
+          | -n ] &#60;FILE&#62;</para><para>The network file to use.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> the name
+          &#34;network-files&#34; is ambigous: only one network file can be
+          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --route-files | --routes | -r ] &#60;FILE&#62;</para><para>The
+          file with routes that shall be used</para></listitem><listitem><para>OPTIONAL:
+          [ --additional-files | --additional | -a ] &#60;FILE&#62;</para><para>Additional
+          files to load. You may specify detectors or emitters within these
+          files to avoid manipulation of the network files themselves.</para></listitem><listitem><para>OPTIONAL:
+          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Output options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --output-file |
+          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
+          the &#34;raw&#34; output into; No raw output is generated if the
+          file is not given.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> The
+          &#34;raw&#34; output is becoming very large very fast.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --dump-basename ] &#60;PATH&#62;</para><para>Specifies the base
+          name to save aggregated network load information under. As you may
+          specify more than a single aggregation time, the complete name for
+          the file is build by appending the aggregatation interval and the
+          &#34;.xml&#34;-extension to the given name.</para><para>Example:
+          given &#34;--dump-basename=./aggregated/run1_&#34; and
+          &#34;--dump-intervals=5;15;30&#34;, the files
+          &#34;./aggregated/run1_5.xml&#34;,
+          &#34;./aggregated/run1_15.xml&#34; and
+          &#34;./aggregated/run1_30.xml&#34; are being build.</para><para>This
+          parameter does only work in combination with
+          &#34;--dump-intervals&#34;, all other usage is undefined (!!!).</para></listitem><listitem><para>OPTIONAL:
+          [ --dump-intervals ] &#60;UNIT&#62;[;&#60;UINT&#62;]*</para><para>Specifies
+          the aggregation times to use for the load information.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation timing</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
+          &#60;UINT&#62;</para><para>A virtual time the simulation starts at.
+          All routes which begin before this time are skipped.</para></listitem><listitem><para>MANDATORY:
+          [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time the
+          simulation ends at. All further routes are not processed.</para></listitem><listitem><para>OPTIONAL:
+          [ --route-steps | -s ] &#60;UNIT&#62;</para><para>Within large
+          areas, loading of all routes easily could yield in problems with a
+          full computer memory. Due to this, you may optionally specify a time
+          the interval for which the next routes shall be loaded. If this
+          value is not given or zero, all routes are loaded before the
+          simulation begins.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Processing options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --no-config | -C ]</para><para>Surpresses
+          the loading of a configuration file. Otherwise a configuration file
+          is mandatory.</para></listitem><listitem><para>OPTIONAL: [ --verbose
+          | -v ]</para><para>Prints some information about the process during
+          execution.</para></listitem><listitem><para>OPTIONAL: [
+          --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-NETCONVERT Command Line Arguments</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-ROUTER Command Line Arguments</title>
+
+        <para></para>
+
+        <sect3>
+          <title>Input options</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --net-files | --net
+          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-ROUTER to use the
+          sumo-network &#60;FILE&#62; for routing.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> the name
+          &#34;net-files&#34; is ambigous: only one network file can be loaded
+          by now.</para></caution></listitem><listitem><para>OPTIONAL: [
+          --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Prints
+          possible options.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> the name
+          &#34;weight-files&#34; is ambigous: only one weight file can be
+          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --cell-input | --cell ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Informs
+          SUMO-ROUTER to process the files
+          &#60;FILE_NAME(NO_EXTENSION)&#62;.driver and
+          &#60;FILE_NAME(NO_EXTENSION)&#62;.rinfo as route definition files</para></listitem><listitem><para>OPTIONAL:
+          [ --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Builds
+          routes from ARTEMIS-data stored in &#60;PATH&#62;</para></listitem><listitem><para>OPTIONAL:
+          [ --sumo-input | --sumo | -s ] &#60;FILE&#62;</para><para>Builds
+          routes from previous sumo-routes</para></listitem><listitem><para>OPTIONAL:
+          [ --trip-defs | --trips | -t ] &#60;FILE&#62;</para><para>Informs
+          SUMO-ROUTER to use the trip definitions stored in &#60;FILE&#62;.
+          Such trip definitions may be the ouput of SUMO-OD2TRIPS or made by
+          hand.</para></listitem><listitem><para>OPTIONAL: [ --alternatives |
+          -a ] &#60;FILE&#62;</para><para>Uses route alternatives from file;
+          See also the documentation on Christian Gawron&#39;s Dynamic User
+          Assignment</para></listitem><listitem><para>OPTIONAL: [
+          --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Output options</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
+          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
+          the computed routes into.</para></listitem><listitem><para>OPTIONAL:
+          [ --save-cell-rindex ]</para><para>The index to each route within
+          the FastLane-rinfo file is saved under
+          &#60;FILE_NAME(NO_EXTENSION)&#62;.rindex. (Only for
+          FastLane-processing)</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation timing</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
+          &#60;UINT&#62;</para><para>A virtual time to specify the begin of
+          route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
+          [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time to specify
+          the end of route computation. Later routes are skipped.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Variable settings</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --gBeta ]
+          &#60;DOUBLE&#62;</para><para>Gawron&#39;s g-beta; See also the
+          documentation on Christian Gawron&#39;s Dynamic User Assignment.</para><para>Only
+          for processing of alternatives.</para></listitem><listitem><para>OPTIONAL:
+          [ --gA ] &#60;DOUBLE&#62;</para><para>Gawron&#39;s g-A; See also the
+          documentation on Christian Gawron&#39;s Dynamic User Assignment</para><para>Only
+          for processing of alternatives.</para><para>A default value is
+          supplied.</para></listitem><listitem><para>OPTIONAL: [ --intel-cell
+          ]</para><para>Switches the byte order within the
+          FastLane-.driver-files</para><para>Only for processing of
+          FastLane-routes.</para></listitem><listitem><para>OPTIONAL: [
+          --no-last-cell ]</para><para>Use best, not the last cell-route.</para><para>Only
+          for processing of FastLane-routes.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Processing options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --no-config | -C ]</para><para>Surpresses
+          the loading of a configuration file. Otherwise a configuration file
+          is mandatory.</para></listitem><listitem><para>OPTIONAL: [ --verbose
+          | -v ]</para><para>Prints some information about the process during
+          execution.</para></listitem><listitem><para>OPTIONAL: [
+          --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-short-trip-warnings ]</para><para>Surpresses warning
+          about routes which are not build as they end on the same edge they
+          start edge.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> In networks
+          where not all edges are connected, this warnings may also occur. It
+          is not very wise to suppress them by default.</para></caution></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-OD2TRIPS Command Line Arguments</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-GUI Command Line Arguments</title>
+
+        <para></para>
+      </sect2>
     </sect1>
 
     <sect1>
@@ -965,6 +1421,16 @@
   </chapter>
 
   <chapter>
+    <title>Example Scenarios</title>
+
+    <sect1>
+      <title>Example1 : How to generate and simulate a virtual city</title>
+
+      <para></para>
+    </sect1>
+  </chapter>
+
+  <chapter>
     <title>Used Models</title>
 
     <sect1>
@@ -975,16 +1441,6 @@
 
     <sect1>
       <title>DUA: Gawron-Model</title>
-
-      <para></para>
-    </sect1>
-  </chapter>
-
-  <chapter>
-    <title>Example Scenarios</title>
-
-    <sect1>
-      <title>Example1 : How to generate and simulate a virtual city</title>
 
       <para></para>
     </sect1>
@@ -1039,32 +1495,10 @@
         lane-changing implementation.</para>
       </sect2>
     </sect1>
-
-    <sect1>
-      <title>Main Software Paradigms</title>
-
-      <para>Two basic design goals are approached: the software shall be fast
-      and it shall be portable. Due to this, the very first versions were
-      concipated to be run from the command line - no graphical interface was
-      supplied at first and all parameter had to be inserted by hand. Also,
-      due to these goals, the software was split into several parts. Each of
-      them has a certain purpose and must be run individually. This is
-      something that makes SUMO different to other simulation packages where
-      f.e. the dynamical user assignment is made within the simulation itself,
-      not via an external application like here.</para>
-
-      <para>The split allows an easier extension of the application&#39;s part
-      as they small enough and it also allows the usage of faster data
-      structures, each adjusted to the current purpose, instead of using
-      complicated and ballast-loaded ones. Still, this makes the usage of SUMO
-      a little bit uncomfortable in comparison to other simulation packages.
-      As there are still other things to do, we are not thinking of a redesign
-      towards an integrated approach by now.</para>
-    </sect1>
   </chapter>
 
   <appendix>
-    <title>Command Line Arguments</title>
+    <title>Data Type Descriptions</title>
 
     <formalpara>
       <title>SUMO Command Line Arguments</title>
