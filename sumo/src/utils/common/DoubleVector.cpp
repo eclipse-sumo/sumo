@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/21 05:16:08  dkrajzew
+// inifinite loop patched; one should make both classes a single templte!
+//
 // Revision 1.7  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
@@ -93,14 +96,14 @@ DoubleVectorHelper::removeDouble(DoubleVector &v)
     size_t pos = 0;
     DoubleVector::iterator i=v.begin();
     while(i!=v.end()) {
-        double no1 = *i;
         for(DoubleVector::iterator j=i+1; j!=v.end(); ) {
-            if(no1==*j) {
+            if(*i==*j) {
                 j = v.erase(j);
             } else {
                 j++;
             }
         }
+        i++;
     }
 }
 

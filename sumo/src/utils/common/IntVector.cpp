@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/21 05:16:08  dkrajzew
+// inifinite loop patched; one should make both classes a single templte!
+//
 // Revision 1.4  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
@@ -54,21 +57,14 @@ IntVectorHelper::removeDouble(IntVector &v)
     size_t pos = 0;
     IntVector::iterator i=v.begin();
     while(i!=v.end()) {
-        int no1 = *i;
-        bool changed = false;
-        for(IntVector::iterator j=i+1; j!=v.end()&&!changed; j++) {
-            int no2 = *j;
-            if(no1==no2) {
-                v.erase(j);
-                changed = true;
+        for(IntVector::iterator j=i+1; j!=v.end()&&!changed; ) {
+            if(*i==*j) {
+                j = v.erase(j);
+            } else {
+                j++;
             }
         }
-        if(changed) {
-            i = v.begin() + pos;
-        } else {
-            i++;
-            pos++;
-        }
+        i++;
     }
 }
 
