@@ -42,6 +42,7 @@ namespace
 #include "MSVehicle.h"
 #include "MSEventControl.h"
 //#include <xercesc/util/PlatformUtils.hpp>
+#include <utils/common/MsgHandler.h>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <utils/convert/TplConvert.h>
@@ -140,16 +141,18 @@ MSTriggeredSource::MSTriggeredSource(std::string aXMLFilename )
 
         if ( ! myParser->parseFirst( aXMLFilename.c_str(), myToken ) )
         {
-            cerr << "MSTriggeredSource " << myID
-                 << " scanFirst() failed. Quitting" << endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("MSTriggeredSource ") + myID
+                + string(" scanFirst() failed. Quitting"));
             throw ProcessError();
         }
 
         // Get first token which contains source-id and lane-id
         if ( ! myParser->parseNext( myToken ) ) {
-            cerr << "MSTriggeredSource " << myID
-                 << " Couldn't parse first token of file "
-                 << aXMLFilename << ". Quitting." << endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("MSTriggeredSource ") + myID
+                + string(" Couldn't parse first token of file ")
+                + aXMLFilename);
             throw ProcessError();
         }
 
@@ -159,9 +162,10 @@ MSTriggeredSource::MSTriggeredSource(std::string aXMLFilename )
             while ( ! myIsRouteDistParsed && myIsWorking ) { // !!!
 
                 if ( ! myParser->parseNext( myToken ) ) {
-                    cerr << "MSTriggeredSource " << myID
-                         << " Couldn't parse RouteDistribution of file "
-                         << aXMLFilename << ". Quitting." << endl;
+                    MsgHandler::getErrorInstance()->inform(
+                        string("MSTriggeredSource ") + myID
+                        + string(" Couldn't parse RouteDistribution of file ")
+                        + aXMLFilename);
                     throw ProcessError();
                 }
             }
@@ -170,19 +174,20 @@ MSTriggeredSource::MSTriggeredSource(std::string aXMLFilename )
         // Get second token which contains the first emit parameters.
         while ( myIsWorking && ! myIsNewEmitFound ) {
             if ( ! myParser->parseNext( myToken ) ) {
-                cerr << "MSTriggeredSource " << myID
-                     << " Couldn't parse second token of file "
-                    << aXMLFilename << ". Quitting." << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("MSTriggeredSource ") + myID
+                    + string(" Couldn't parse second token of file ")
+                    + aXMLFilename);
                 throw ProcessError();
             }
         }
     }
 
     catch ( const XMLException& toCatch ) {
-        cerr << "An error occured: '" << aXMLFilename << "'\n"
-             << "Exception message is: \n"
-             << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
-             << "\n" << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("An error occured: '") + aXMLFilename
+            + string("'\n") + string("Exception message is: \n")
+            + TplConvert<XMLCh>::_2str( toCatch.getMessage() ));
         throw ProcessError();
     }
 }
@@ -269,7 +274,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
                                  const MSVehicleType* aVehType )
 {
     if ( ! myIsWorking ) {
-        cerr << "can't happen" << endl;
+        MsgHandler::getErrorInstance()->inform("can't happen");
         assert( false );
     }
 
@@ -308,18 +313,18 @@ MSTriggeredSource::readNextEmitElement( void )
 
         try {
             if ( myParser->parseNext( myToken ) == false ) {
-
-                cout << "MSTriggeredSource " << myID
-                     << ": Finished parsing." << endl;
+                MsgHandler::getMessageInstance()->inform(
+                    string("MSTriggeredSource ") + myID
+                    + string(": Finished parsing."));
                 myIsWorking = false;
             }
         }
 
         catch ( const XMLException& toCatch ) {
-            cerr << "An error occured:\n"
-                 << "Exception message is: \n"
-                 << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
-                 << "\n" << endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("An error occured:\n")
+                + string("Exception message is: \n")
+                + TplConvert<XMLCh>::_2str( toCatch.getMessage() ));
             myIsWorking = false;
             throw ProcessError();
         }
@@ -333,6 +338,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.9  2003/06/24 14:34:24  dkrajzew
+// errors are now reported to the MsgHandler
+//
 // Revision 1.8  2003/06/06 10:39:17  dkrajzew
 // new usage of MSEventControl applied
 //
