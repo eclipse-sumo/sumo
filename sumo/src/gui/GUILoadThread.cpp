@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/09/22 14:54:22  dkrajzew
+// some refactoring on GUILoadThread-usage
+//
 // Revision 1.15  2003/09/22 12:27:02  dkrajzew
 // qt-includion problems patched
 //
@@ -116,9 +119,10 @@ GUILoadThread::~GUILoadThread()
 
 
 void
-GUILoadThread::init(const string &file)
+GUILoadThread::load(const string &file)
 {
     _file = file;
+    start();
 }
 
 
@@ -129,7 +133,9 @@ void GUILoadThread::run()
     int simStartTime = 0;
     int simEndTime = 0;
 
+    // remove old options
     OptionsSubSys::close();
+    // try to load the given configuration
     if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
         // ok, the options could not be set
         QThread::postEvent( _parent,
@@ -148,12 +154,9 @@ void GUILoadThread::run()
     }
     // try to load
     try {
-//        MSDetectorSubSys::deleteDictionariesAndContents();
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-//        MSDetectorSubSys::createDictionaries();
-//        OptionsIO::loadConfiguration(oc);
         GUINetBuilder builder(oc);
         net = builder.buildGUINet(_parent->aggregationAllowed());
         if(net!=0) {
@@ -181,12 +184,14 @@ void GUILoadThread::run()
         string(_file)) );
 }
 
+
 void
 GUILoadThread::inform(const std::string &msg)
 {
     QThread::postEvent( _parent,
         new QMessageEvent(MsgHandler::MT_ERROR, msg));
 }
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/09/22 14:54:22  dkrajzew
+// some refactoring on GUILoadThread-usage
+//
 // Revision 1.22  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -241,8 +244,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
     if(config!="") {
         _fileOpen->setEnabled(FALSE);
         _fileMenu->setItemEnabled(_loadID, FALSE);
-        _loadThread->init(config);
-        _loadThread->start();
+        _loadThread->load(config);
         statusBar()->message(
             QString("Loading '") + config.c_str() + QString("'"));
         myStartAtBegin = true;
@@ -407,8 +409,7 @@ void GUIApplicationWindow::load()
         closeAllWindows();
         _fileOpen->setEnabled(FALSE);
         _fileMenu->setItemEnabled(_loadID, FALSE);
-        _loadThread->init(string(fn.ascii()));
-        _loadThread->start();
+        _loadThread->load(string(fn.ascii()));
         statusBar()->message( QString("Loading '") + fn + QString("'"));
     }  else {
     	statusBar()->message( "Loading aborted", 2000 );

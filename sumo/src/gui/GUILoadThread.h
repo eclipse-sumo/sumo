@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/09/22 14:54:22  dkrajzew
+// some refactoring on GUILoadThread-usage
+//
 // Revision 1.3  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
 //
@@ -62,7 +65,7 @@ public:
     ~GUILoadThread();
 
     /// begins the loading of the given file
-    void init(const std::string &file);
+    void load(const std::string &file);
 
     /** starts the thread
     	the thread ends after the net has been loaded */
