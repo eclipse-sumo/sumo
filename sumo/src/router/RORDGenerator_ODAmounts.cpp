@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/26 09:56:11  dkrajzew
+// error handling corrected; forgotten call of to interval end and trip building inserted :-)
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -228,8 +231,20 @@ RORDGenerator_ODAmounts::parseTripAmountDef(const Attributes &attrs)
     myType = getVehicleType(attrs);
     myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
     mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
-    myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);
-    myIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, myUpperIntervalEnd);
+    try {
+        myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);
+    } catch (NumberFormatException &e) {
+        MsgHandler::getErrorInstance()->inform(
+            string("An interval begin is not numeric."));
+        return;
+    }
+    try {
+        myIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, myUpperIntervalEnd);
+    } catch (NumberFormatException &e) {
+        MsgHandler::getErrorInstance()->inform(
+            string("An interval end is not numeric."));
+        return;
+    }
     myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, myID);
     if(myIntervalEnd<=myIntervalBegin) {
         MsgHandler::getErrorInstance()->inform(
@@ -251,8 +266,20 @@ RORDGenerator_ODAmounts::parseTripAmountDef(const Attributes &attrs)
 void
 RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
 {
-    myUpperIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
-    myUpperIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
+    try {
+        myUpperIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
+    } catch (NumberFormatException &e) {
+        MsgHandler::getErrorInstance()->inform(
+            string("An interval begin is not numeric."));
+        return;
+    }
+    try {
+        myUpperIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
+    } catch (NumberFormatException &e) {
+        MsgHandler::getErrorInstance()->inform(
+            string("An interval end is not numeric."));
+        return;
+    }
 }
 
 
@@ -268,8 +295,10 @@ RORDGenerator_ODAmounts::myEndElement(int element, const std::string &name)
 {
     switch(element) {
     case SUMO_TAG_TRIPDEF:
+        myEndTripAmountDef();
         break;
     case SUMO_TAG_INTERVAL:
+        myEndInterval();
         break;
     }
 }
