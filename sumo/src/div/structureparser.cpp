@@ -29,20 +29,27 @@ bool StructureParser::startDocument()
 
 ContType::iterator StructureParser::getColumn (ContType::iterator start, std::string tofound)
 {
-//     for (  ContType::iterator i = start; i !=tmpcont.end(); i++)    {
-//         if (i->first == tofound)    {
-//             break;
-//         };
-//     }
-//     return i;
+    ContType::iterator i; 
+    for (i = start; i !=tmpcont.end(); i++)    {
+         if (i->first == tofound)    {
+             break;
+         };
+     }
+     return i;
 
     // TODO: Julia, does it make sense to return start, if tofound is not
     // in the container tmpcont?
-    ContType::iterator i = start;
-    while ( i->first != tofound  && i != tmpcont.end() ) {
+    // Christian, yes because sometimes the result that tofound is not in 
+    // the container is searched 
+
+    // Christian, I don't know why, but the while loop doesn't work
+/*    
+    ContType::iterator i = tmpcont.end();
+    while ( (i->first) != tofound  && i != tmpcont.end() ) {
         ++i;
     }
     return i;
+*/
 }
 
 
