@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/11 08:19:46  dkrajzew
+// made the code a little bit more pretty
+//
 // Revision 1.5  2003/10/17 06:49:05  dkrajzew
 // set the number of lanes of sources and sinks to three
 //
@@ -189,17 +192,17 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
         return 0;
     }
     // get the coordinates of the new node
-    double x = dest->getXCoordinate()
-        + (dist->getXCoordinate() - dest->getXCoordinate()) / 10;
-    double y = dest->getYCoordinate()
-        + (dist->getYCoordinate() - dest->getYCoordinate()) / 10;
+    double x = dest->getPosition().x()
+        + (dist->getPosition().x() - dest->getPosition().x()) / 10;
+    double y = dest->getPosition().y()
+        + (dist->getPosition().y() - dest->getPosition().y()) / 10;
     // translate in dependence to the type
     if(dir==NBEdge::EDGEFUNCTION_SINK) {
-        x += (dist->getYCoordinate() - dest->getYCoordinate()) / 100;
-        y -= (dist->getXCoordinate() - dest->getXCoordinate()) / 100;
+        x += (dist->getPosition().y() - dest->getPosition().y()) / 100;
+        y -= (dist->getPosition().x() - dest->getPosition().x()) / 100;
     } else {
-        x -= (dist->getYCoordinate() - dest->getYCoordinate()) / 100;
-        y += (dist->getXCoordinate() - dest->getXCoordinate()) / 100;
+        x -= (dist->getPosition().y() - dest->getPosition().y()) / 100;
+        y += (dist->getPosition().x() - dest->getPosition().x()) / 100;
     }
     // build the id
     string nid;

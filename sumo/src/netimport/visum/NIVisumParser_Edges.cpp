@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/11/11 08:19:46  dkrajzew
+// made the code a little bit more pretty
+//
 // Revision 1.2  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
@@ -37,6 +40,7 @@ namespace
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
+#include <utils/geom/GeomHelper.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Edges.h"
 
@@ -140,11 +144,7 @@ NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 	}
 	// compute when the street's length is not available
 	if(length==0) {
-		double xb = from->getXCoordinate();
-		double xe = to->getXCoordinate();
-		double yb = from->getYCoordinate();
-		double ye = to->getYCoordinate();
-		length = sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
+        length = GeomHelper::distance(from->getPosition(), to->getPosition());
 	}
 	return length;
 }
