@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/05/28 07:52:31  dkrajzew
+// new usage of MSEventControl adapted
+//
 // Revision 1.9  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -96,7 +99,7 @@ public:
     /// initialises the network (after the loading)
     static void initGUINet( std::string id,
         MSEdgeControl* ec, MSJunctionControl* jc,
-        MSEventControl* evc, DetectorCont* detectors,
+        DetectorCont* detectors,
         MSRouteLoaderControl *rlc);
 
     /// returns the position of a junction (!!! shouldn't it be a const&?)

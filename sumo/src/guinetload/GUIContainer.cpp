@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/28 07:54:54  dkrajzew
+// new usage of MSEventControl adapted
+//
 // Revision 1.7  2003/05/21 15:15:40  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -100,8 +103,7 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
         MSEdgeControl *edges = m_pECB->build();
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-        GUINet::initGUINet( m_Id, edges, junctions, m_EventControl,
-			m_pDetectors, routeLoaders );
+        GUINet::initGUINet( m_Id, edges, junctions, m_pDetectors, routeLoaders );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;

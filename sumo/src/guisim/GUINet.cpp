@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/05/28 07:52:31  dkrajzew
+// new usage of MSEventControl adapted
+//
 // Revision 1.9  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -102,11 +105,10 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
 
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   MSEventControl* evc,
                    DetectorCont* detectors,
                    MSRouteLoaderControl *rlc)
 {
-    MSNet::init(id, ec, jc, evc, detectors, rlc);
+    MSNet::init(id, ec, jc, detectors, rlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     net->_edgeGrid.init();
     net->_boundery = net->_edgeGrid.getBoundery();
