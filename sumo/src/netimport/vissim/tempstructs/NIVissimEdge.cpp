@@ -334,6 +334,9 @@ NIVissimEdge::buildNBEdge()
                 pos.x(), pos.y(), "no_junction");
         NBNodeCont::insert(toNode);
     }
+    if(fromNode==toNode) {
+        int bla = 0;
+    }
     // build the edge
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,

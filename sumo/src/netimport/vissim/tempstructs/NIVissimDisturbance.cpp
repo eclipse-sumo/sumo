@@ -234,28 +234,33 @@ NIVissimDisturbance::addToNode(NBNode *node)
         } else {
             node = node1==0 ? node2 : node1;
         }
-        NBEdgeCont::splitAt(
-            NBEdgeCont::retrievePossiblySplitted(
-                toString<int>(e1->getID()), myEdge.getPosition()),
-                node);
-        NBEdgeCont::splitAt(
-            NBEdgeCont::retrievePossiblySplitted(
-                toString<int>(e2->getID()), myDisturbance.getPosition()),
-                node);
-        node->addSortedLinkFoes(
-                std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(
-                        toString<int>(e1->getID()) + string("[0]")),
-                    NBEdgeCont::retrieve(
-                        toString<int>(e1->getID()) + string("[1]"))
-                ),
-                std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(
-                        toString<int>(e2->getID()) + string("[0]")),
-                    NBEdgeCont::retrieve(
-                        toString<int>(e2->getID()) + string("[1]"))
-                )
-            );
+/*        if( e1->getFromNode()==e1->getToNode() ||
+            e2->getFromNode()==e2->getToNode()) {
+            // What to do with dummy edges?
+        } else */
+            NBEdgeCont::splitAt(
+                NBEdgeCont::retrievePossiblySplitted(
+                    toString<int>(e1->getID()), myEdge.getPosition()),
+                    node);
+            NBEdgeCont::splitAt(
+                NBEdgeCont::retrievePossiblySplitted(
+                    toString<int>(e2->getID()), myDisturbance.getPosition()),
+                    node);
+            node->addSortedLinkFoes(
+                    std::pair<NBEdge*, NBEdge*>(
+                        NBEdgeCont::retrieve(
+                            toString<int>(e1->getID()) + string("[0]")),
+                        NBEdgeCont::retrieve(
+                            toString<int>(e1->getID()) + string("[1]"))
+                    ),
+                    std::pair<NBEdge*, NBEdge*>(
+                        NBEdgeCont::retrieve(
+                            toString<int>(e2->getID()) + string("[0]")),
+                        NBEdgeCont::retrieve(
+                            toString<int>(e2->getID()) + string("[1]"))
+                    )
+                );
+//        }
     } else if(pc!=0 && bc==0) {
         // This has not been tested completely, yet
 //        cout << "Warning!!!" << endl;
@@ -266,16 +271,21 @@ NIVissimDisturbance::addToNode(NBNode *node)
         //  description
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
-        string nid1 = e->getID() + "[0]";
-        string nid2 = e->getID() + "[1]";
-        NBEdgeCont::splitAt(e, node);
-        node->addSortedLinkFoes(
-                std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(nid1),
-                    NBEdgeCont::retrieve(nid2)
-                ),
-                getConnection(node, myEdge.getEdgeID())
-            );
+        if(e->getFromNode()==e->getToNode()) {
+            // What to do with dummy edges?
+        } else {
+            string nid1 = e->getID() + "[0]";
+            string nid2 = e->getID() + "[1]";
+            if(NBEdgeCont::splitAt(e, node)) {
+                node->addSortedLinkFoes(
+                        std::pair<NBEdge*, NBEdge*>(
+                            NBEdgeCont::retrieve(nid1),
+                            NBEdgeCont::retrieve(nid2)
+                        ),
+                        getConnection(node, myEdge.getEdgeID())
+                    );
+            }
+        }
     } else if(bc!=0 && pc==0) {
         // This has not been tested completely, yet
 //        cout << "Warning!!!" << endl;
@@ -288,14 +298,19 @@ NIVissimDisturbance::addToNode(NBNode *node)
             toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
-        NBEdgeCont::splitAt(e, node);
-        node->addSortedLinkFoes(
-                getConnection(node, myDisturbance.getEdgeID()),
-                std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(nid1),
-                    NBEdgeCont::retrieve(nid2)
-                )
-            );
+        if( e->getFromNode()==e->getToNode()) {
+            // What to do with dummy edges?
+        } else {
+            if(NBEdgeCont::splitAt(e, node)) {
+                node->addSortedLinkFoes(
+                        getConnection(node, myDisturbance.getEdgeID()),
+                        std::pair<NBEdge*, NBEdge*>(
+                            NBEdgeCont::retrieve(nid1),
+                            NBEdgeCont::retrieve(nid2)
+                        )
+                    );
+            }
+        }
     } else {
         // both the prohibiting and the prohibited abstract edges
         //  are connections
