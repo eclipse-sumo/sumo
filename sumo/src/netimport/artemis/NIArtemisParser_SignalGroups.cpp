@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/12 16:44:47  dkrajzew
+// further work on artemis-import
+//
 // Revision 1.1  2003/03/03 15:00:31  dkrajzew
 // initial commit for artemis-import files
 //
@@ -78,32 +81,58 @@ NIArtemisParser_SignalGroups::myDependentReport()
     // "satflow" omitted
     // get the according structures
     NBNode *node = NBNodeCont::retrieve(nodeid);
-    NBEdge *fromEdge = NBEdgeCont::retrieve(from);
-    NBEdge *toEdge = NBEdgeCont::retrieve(to);
+    NBNode *fromNode = NBNodeCont::retrieve(from);
+    NBNode *toNode = NBNodeCont::retrieve(to);
         // check whether the node is valid
     if(node==0) {
         SErrorHandler::add(
-            string("The node '") + from + string("' is not known within a signal group."));
+            string("The node '") + nodeid + string("' is not known within a signal group."));
         return;
     }
         // check whether the incoming edge is valid
-    if(fromEdge==0) {
+    if(fromNode==0) {
         SErrorHandler::add(
-            string("The from edge '") + from + string("' is not known within a signal group."));
+            string("The from node '") + from + string("' is not known within a signal group."));
         return;
     }
         // check whether the outgoing edge is valid
+    if(toNode==0) {
+        SErrorHandler::add(
+            string("The to node '") + to + string("' is not known within a signal group."));
+        return;
+    }
+    NBEdge *fromEdge = 
+        NBContHelper::findConnectingEdge(
+            *node->getIncomingEdges(), fromNode, node);
+    NBEdge *toEdge = 
+        NBContHelper::findConnectingEdge(
+            *node->getOutgoingEdges(), node, toNode);
+    if(fromEdge==0) {
+        SErrorHandler::add(
+            string("Could not find connection between '") + from 
+            + string("' and '") + nodeid + string("' within a signal group."));
+        return;
+    }
     if(toEdge==0) {
         SErrorHandler::add(
-            string("The to edge '") + from + string("' is not known within a signal group."));
+            string("Could not find connection between '") + nodeid 
+            + string("' and '") + to + string("' within a signal group."));
         return;
     }
     // compute the phases
     Connection c(fromEdge, toEdge);
     NIArtemisTempSignal::addConnectionPhases(c, startPhase, endPhase,
         group);
-//    !!! insert
 }
+
+void
+NIArtemisParser_SignalGroups::myClose()
+{
+    NIArtemisTempSignal::close();
+}
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

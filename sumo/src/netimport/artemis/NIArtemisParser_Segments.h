@@ -1,7 +1,7 @@
-#ifndef NIArtemisParser_SignalGroups_h
-#define NIArtemisParser_SignalGroups_h
+#ifndef NIArtemisParser_Segments_h
+#define NIArtemisParser_Segments_h
 /***************************************************************************
-                          NIArtemisParser_SignalGroups.h
+                          NIArtemisParser_Segments.h
                              -------------------
     project              : SUMO
     begin                : Mon, 10 Feb 2003
@@ -19,11 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2003/03/12 16:44:47  dkrajzew
+// Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
-//
-// Revision 1.1  2003/03/03 15:00:36  dkrajzew
-// initial commit for artemis-import files
 //
 //
 /* =========================================================================
@@ -36,31 +33,36 @@
  * class definitions
  * ======================================================================= */
 /**
- * @class NIArtemisParser_SignalGroups
+ * @class NIArtemisParser_Segments
  */
-class NIArtemisParser_SignalGroups :
+class NIArtemisParser_Segments :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_SignalGroups(NIArtemisLoader &parent,
+    NIArtemisParser_Segments(NIArtemisLoader &parent,
         const std::string &dataName);
 
     /// Destructor
-    ~NIArtemisParser_SignalGroups();
+    ~NIArtemisParser_Segments();
+
+    /// Segments are not mandatory
+    bool amOptional() const { return true; }
+    
 
 protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
-    /** @brief build the loaded signals 
-        needs data from "Signals" and "Signal Phases", too */
+    /** @brief Called after loading all segment definitions
+        Sets the geometrical information of the edges.
+        Speed definitions are not yet supported */
     void myClose();
 
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_SignalGroups.icc"
+//#include "NIArtemisParser_Segments.icc"
 //#endif
 
 #endif

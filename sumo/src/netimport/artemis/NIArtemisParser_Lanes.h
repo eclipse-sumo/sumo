@@ -1,7 +1,7 @@
-#ifndef NIArtemisParser_SignalGroups_h
-#define NIArtemisParser_SignalGroups_h
+#ifndef NIArtemisParser_Lanes_h
+#define NIArtemisParser_Lanes_h
 /***************************************************************************
-                          NIArtemisParser_SignalGroups.h
+                          NIArtemisParser_Lanes.h
                              -------------------
     project              : SUMO
     begin                : Mon, 10 Feb 2003
@@ -19,11 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2003/03/12 16:44:47  dkrajzew
+// Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
-//
-// Revision 1.1  2003/03/03 15:00:36  dkrajzew
-// initial commit for artemis-import files
 //
 //
 /* =========================================================================
@@ -36,31 +33,31 @@
  * class definitions
  * ======================================================================= */
 /**
- * @class NIArtemisParser_SignalGroups
+ * @class NIArtemisParser_Lanes
  */
-class NIArtemisParser_SignalGroups :
+class NIArtemisParser_Lanes :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_SignalGroups(NIArtemisLoader &parent,
+    NIArtemisParser_Lanes(NIArtemisLoader &parent,
         const std::string &dataName);
 
     /// Destructor
-    ~NIArtemisParser_SignalGroups();
+    ~NIArtemisParser_Lanes();
 
 protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
-    /** @brief build the loaded signals 
-        needs data from "Signals" and "Signal Phases", too */
+    /** @brief Called after loading all segment definitions
+        Inserts lane definitions into the edges, propably splitting them */
     void myClose();
 
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_SignalGroups.icc"
+//#include "NIArtemisParser_Lanes.icc"
 //#endif
 
 #endif

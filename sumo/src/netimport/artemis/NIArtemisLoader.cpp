@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/12 16:44:46  dkrajzew
+// further work on artemis-import
+//
 // Revision 1.1  2003/03/03 15:00:26  dkrajzew
 // initial commit for artemis-import files
 //
@@ -32,6 +35,7 @@ namespace
  * ======================================================================= */
 #include <string>
 #include <utils/common/SErrorHandler.h>
+#include <utils/importio/StringUtils.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include "NIArtemisLoader.h"
@@ -40,6 +44,11 @@ namespace
 #include "NIArtemisParser_Signals.h"
 #include "NIArtemisParser_SignalGroups.h"
 #include "NIArtemisParser_SignalPhases.h"
+#include "NIArtemisParser_Lanes.h"
+#include "NIArtemisParser_Segments.h"
+#include "NIArtemisParser_HVdests.h"
+#include "NIArtemisTempSignal.h"
+#include "NIArtemisTempEdgeLanes.h"
 
 
 /* =========================================================================
@@ -80,13 +89,36 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse(bool verbose)
     }
     string file = myParent.getFileName() + getDataName();
     LineReader reader(file);
+    if(!reader.good()) {
+        if(!amOptional()) {
+            SErrorHandler::add(
+                string("Problems on parsing '") + file + string("'."));
+            return false;
+        } else {
+            if(myWorkVerbose) {
+                cout << "not supplied (no error)." << endl;
+            }
+            return true;
+        }
+    }
+    // parser-dependent init
+    myInitialise();
     // skip/set names
     reader.readAll(*this);
     if(myWorkVerbose) {
         cout << "done." << endl;
     }
+    // parser-dependent close
+    myClose();
     return true;
 }
+
+bool 
+NIArtemisLoader::NIArtemisSingleDataTypeParser::amOptional() const
+{
+    return false;
+}
+
 
 
 const std::string &
@@ -96,15 +128,31 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::getDataName() const
 }
 
 
+void
+NIArtemisLoader::NIArtemisSingleDataTypeParser::myInitialise()
+{
+}
+
+
+void
+NIArtemisLoader::NIArtemisSingleDataTypeParser::myClose()
+{
+}
+
+
+
 bool
 NIArtemisLoader::NIArtemisSingleDataTypeParser::report(
     const std::string &line)
 {
     if(myStep==0) {
         myLineParser.reinit(line, "\t", "\t", true);
+        myStep++;
     } else {
-        myLineParser.parseLine(line);
-        myDependentReport();
+        if(StringUtils::prune(line).length()!=0) {
+            myLineParser.parseLine(line);
+            myDependentReport();
+        }
     }
     return true;
 }
@@ -150,12 +198,22 @@ NIArtemisLoader::NIArtemisLoader(const std::string &file)
         new NIArtemisParser_Nodes(*this, "Nodes.txt"));
     mySingleDataParsers.push_back(
         new NIArtemisParser_Links(*this, "Links.txt"));
+    // signals must be loaded before the edges are splitted
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Links(*this, "Signals.txt"));
+        new NIArtemisParser_Signals(*this, "Signals.txt"));
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Links(*this, "Signal Phases.txt"));
+        new NIArtemisParser_SignalPhases(*this, "Signal Phases.txt"));
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Links(*this, "Signal Groups.txt"));
+        new NIArtemisParser_SignalGroups(*this, "Signal Groups.txt"));
+    // segments must be loaded before the edges are splitted
+    mySingleDataParsers.push_back(
+        new NIArtemisParser_Segments(*this, "Segments.txt"));
+    // edges are splitted when adding lane infomration
+    mySingleDataParsers.push_back(
+        new NIArtemisParser_Lanes(*this, "Lanes.txt"));
+    // needed for insertion of source and destination edges
+    mySingleDataParsers.push_back(
+        new NIArtemisParser_HVdests(*this, "HVdests.txt"));
 }
 
 

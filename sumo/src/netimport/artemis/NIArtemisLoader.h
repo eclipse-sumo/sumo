@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/03/12 16:44:47  dkrajzew
+// further work on artemis-import
+//
 // Revision 1.1  2003/03/03 15:00:34  dkrajzew
 // initial commit for artemis-import files
 //
@@ -87,7 +90,17 @@ public:
             Returns values from the visum-file; Checks whether the data type is over */
         bool report(const std::string &line);
 
+        /// returns the information whether the data is optional
+        virtual bool amOptional() const;
+
+
     protected:
+        /// performs some initialisation if necessary
+        virtual void myInitialise();
+
+        /// performs some procedures on closin if necessary
+        virtual void myClose();
+
         /** @brief builds structures from read data
             When this method which must be implemented by derived classes, each
             loading a certain type of visum-data, the line parser contains the

@@ -1,11 +1,11 @@
-#ifndef NIArtemisParser_SignalGroups_h
-#define NIArtemisParser_SignalGroups_h
+#ifndef NIArtemisParser_HVdests_h
+#define NIArtemisParser_HVdests_h
 /***************************************************************************
-                          NIArtemisParser_SignalGroups.h
+                          NIArtemisParser_HVdests.h
                              -------------------
     project              : SUMO
-    begin                : Mon, 10 Feb 2003
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
+    begin                : Wed, 13 Feb 2003
+    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
     author               : Daniel Krajzewicz
     email                : Daniel.Krajzewicz@dlr.de
  ***************************************************************************/
@@ -19,11 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2003/03/12 16:44:47  dkrajzew
+// Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
-//
-// Revision 1.1  2003/03/03 15:00:36  dkrajzew
-// initial commit for artemis-import files
 //
 //
 /* =========================================================================
@@ -36,31 +33,30 @@
  * class definitions
  * ======================================================================= */
 /**
- * @class NIArtemisParser_SignalGroups
+ * @class NIArtemisParser_HVdests
  */
-class NIArtemisParser_SignalGroups :
+class NIArtemisParser_HVdests :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_SignalGroups(NIArtemisLoader &parent,
+    NIArtemisParser_HVdests(NIArtemisLoader &parent,
         const std::string &dataName);
 
     /// Destructor
-    ~NIArtemisParser_SignalGroups();
+    ~NIArtemisParser_HVdests();
+
+    /// HVdests are not mandatory
+    bool amOptional() const { return true; }
 
 protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
-    /** @brief build the loaded signals 
-        needs data from "Signals" and "Signal Phases", too */
-    void myClose();
-
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_SignalGroups.icc"
+//#include "NIArtemisParser_HVdests.icc"
 //#endif
 
 #endif

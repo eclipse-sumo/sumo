@@ -23,10 +23,25 @@ private:
         size_t myBegin;
     };
 
-    typedef std::map<char, PhaseDescription> NameToDescMap;
+
+    typedef std::map<char, PhaseDescription*> NameToDescMap;
     typedef std::map<std::string, NameToDescMap> NodeToDescsMap;
 
-    static NodeToDescsMap myDict;
+    static NodeToDescsMap myDescDict;
+
+
+    class ConnectionPhases {
+    public:
+        ConnectionPhases(char startPhase, char endPhase);
+        ~ConnectionPhases();
+    private:
+        char myStartPhase, myEndPhase;
+    };
+
+    typedef std::map<Connection, ConnectionPhases*> ConnectionToPhases;
+
+    static ConnectionToPhases myPhasesDict;
+
 };
 
 #endif
