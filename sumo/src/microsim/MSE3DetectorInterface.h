@@ -35,12 +35,15 @@ public:
     virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
     virtual void leave( MSVehicle& veh ) = 0;
+
+    virtual ~MSE3DetectorInterface( void )
+        {}
     
 protected:
 
     MSE3DetectorInterface( void ) 
         {}
-    
+
 private:
     
 };

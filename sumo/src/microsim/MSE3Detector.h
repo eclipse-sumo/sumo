@@ -59,12 +59,11 @@ public:
 
     void leave( MSVehicle& veh )
         {
-            DetAggregate aggr = getAggregate( veh );
             if ( ! hasVehicle( veh ) ) {
                 // vehicle left detector but did not enter it.
                 return;
             }
-            timeValuesM.push_back(
+            aggregatesM.push_back(
                 TimeValue(
                     MSNet::getInstance()->simSecond(), getAggregate( veh ) ) );
         }
@@ -78,7 +77,7 @@ protected:
                   , const DetectorContainer& container )
         :
         ConcreteDetector( container )
-        , timeValuesM()
+        , aggregatesM()
         , idM( id )
         , deleteDataAfterStepsM(
             MSUnit::getInstance()->getIntegerSteps( deleteDataAfterSeconds ) )
@@ -91,7 +90,7 @@ protected:
                   , const MSE2DetectorInterface& helperDetector )
         :
         ConcreteDetector( helperDetector )
-        , timeValuesM()
+        , aggregatesM()
         , idM( id )
         , deleteDataAfterStepsM(
             MSUnit::getInstance()->getIntegerSteps( deleteDataAfterSeconds ) )
@@ -102,7 +101,7 @@ protected:
 
     virtual ~MSE3Detector( void )
         {
-            timeValuesM.clear();
+            aggregatesM.clear();
         }
 
     struct TimeLesser :
@@ -115,10 +114,10 @@ protected:
             }
     };
 
-    AggregatesContIter getTimeValueContStartIter(MSUnit::Steps lastNTimesteps)
+    AggregatesContIter getAggrContStartIter( MSUnit::Steps lastNTimesteps )
         {
             return std::lower_bound(
-                timeValuesM.begin(), timeValuesM.end(),
+                aggregatesM.begin(), aggregatesM.end(),
                 getStartTime( lastNTimesteps ),
                 TimeLesser() );
         }
@@ -148,12 +147,12 @@ protected:
     MSUnit::IntSteps freeContainer( void )
         {
             AggregatesContIter end =
-                getTimeValueContStartIter( deleteDataAfterStepsM );
-            timeValuesM.erase( timeValuesM.begin(), end );
+                getAggrContStartIter( deleteDataAfterStepsM );
+            aggregatesM.erase( aggregatesM.begin(), end );
             return deleteDataAfterStepsM;
         }
 
-    AggregatesCont timeValuesM;
+    AggregatesCont aggregatesM;
     
 private:
     const std::string idM;

@@ -58,7 +58,7 @@ namespace E3
     Containers& operator++( Containers& cont );
 }
 
-using namespace E3;
+//using namespace E3;
 
 class MS_E3_Collector : public MSDetectorFileOutput
 {
@@ -168,29 +168,30 @@ public:
             }
         }
 
-    void addDetector( DetType type, std::string detId = "" )
+    void addDetector( E3::DetType type, std::string detId = "" )
         {
             if ( detId == "" ) {
                 detId = idM;
             }
-            if ( type != ALL ) {
+            if ( type != E3::ALL ) {
                 createDetector( type, detId );
             }
             else {
-                for ( DetType typ = MEAN_TRAVELTIME; typ < ALL; ++typ ){    
+                for ( E3::DetType typ = E3::MEAN_TRAVELTIME;
+                      typ < E3::ALL; ++typ ){    
                     createDetector( typ, detId );
                 }
             }
         }
     
-    bool hasDetector( DetType type )
+    bool hasDetector( E3::DetType type )
         {
             return getDetector( type ) != 0;
         }
     
-    double getAggregate( DetType type, MSUnit::Seconds lastNSeconds )
+    double getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
         {
-            assert( type != ALL );
+            assert( type != E3::ALL );
             E3Detector* det = getDetector( type );
             if ( det != 0 ){
                 return det->getAggregate( lastNSeconds );
@@ -295,9 +296,9 @@ public:
     
 protected:
 
-    E3Detector* getDetector( DetType type ) const
+    E3Detector* getDetector( E3::DetType type ) const
         {
-            assert( type != ALL );
+            assert( type != E3::ALL );
             return detectorsM[ type ];
         }
 
@@ -320,29 +321,29 @@ private:
 
     static std::string xmlHeaderM;
     
-    void createContainer( Containers type )
+    void createContainer( E3::Containers type )
         {
             switch( type ){
-                case VEHICLES:
+                case E3::VEHICLES:
                 {
-                    if ( containersM[ VEHICLES ] == 0 ) {
-                        containersM[ VEHICLES ] =
+                    if ( containersM[ E3::VEHICLES ] == 0 ) {
+                        containersM[ E3::VEHICLES ] =
                             new DetectorContainer::Count();
                     }
                     break;
                 }
-                case TRAVELTIME:
+                case E3::TRAVELTIME:
                 {
-                    if ( containersM[ TRAVELTIME ] == 0 ) {
-                        containersM[ TRAVELTIME ] =
+                    if ( containersM[ E3::TRAVELTIME ] == 0 ) {
+                        containersM[ E3::TRAVELTIME ] =
                             new DetectorContainer::TraveltimeMap();
                     }
                     break;
                 }
-                case HALTINGS:
+                case E3::HALTINGS:
                 {
-                    if ( containersM[ HALTINGS ] == 0 ) {
-                        containersM[ HALTINGS ] =
+                    if ( containersM[ E3::HALTINGS ] == 0 ) {
+                        containersM[ E3::HALTINGS ] =
                             new DetectorContainer::HaltingsMap(
                                 haltingTimeThresholdM,
                                 haltingSpeedThresholdM );
@@ -356,44 +357,44 @@ private:
             }
         }
     
-    void createDetector( DetType type, std::string detId )
+    void createDetector( E3::DetType type, std::string detId )
         {
             if ( hasDetector( type ) ) {
                 return;
             }
             using namespace Detector;
             switch ( type ) {
-                case MEAN_TRAVELTIME:
+                case E3::MEAN_TRAVELTIME:
                 {
-                    createContainer( TRAVELTIME );
-                    detectorsM[ MEAN_TRAVELTIME ] =
+                    createContainer( E3::TRAVELTIME );
+                    detectorsM[ E3::MEAN_TRAVELTIME ] =
                         new E3Traveltime(
                             E3Traveltime::getDetectorName() + detId,
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::TraveltimeMap* >(
-                                containersM[ TRAVELTIME ] ) );
+                                containersM[ E3::TRAVELTIME ] ) );
                     break;
                 }
-                case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
+                case E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
                 {
-                    createContainer( HALTINGS );
-                    detectorsM[ MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
+                    createContainer( E3::HALTINGS );
+                    detectorsM[ E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
                         new E3MeanNHaltings(
                             E3MeanNHaltings::getDetectorName() + detId,
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsMap* >(
-                                containersM[ HALTINGS ] ) );
+                                containersM[ E3::HALTINGS ] ) );
                     break;
                 }
-                case NUMBER_OF_VEHICLES:
+                case E3::NUMBER_OF_VEHICLES:
                 {
-                    createContainer( VEHICLES );
-                    detectorsM[ NUMBER_OF_VEHICLES ] =
+                    createContainer( E3::VEHICLES );
+                    detectorsM[ E3::NUMBER_OF_VEHICLES ] =
                         new E3NVehicles(
                             E3NVehicles::getDetectorName() + detId,
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::VehicleMap* >(
-                                containersM[ VEHICLES ] ) );
+                                containersM[ E3::VEHICLES ] ) );
                     break;
                 }
                 default:
