@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/08/15 12:19:16  dkrajzew
+// legend display patched
+//
 // Revision 1.5  2003/08/14 13:42:43  dkrajzew
 // definition of the tls/row - drawer added
 //
@@ -61,6 +64,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/qutils/NewQMutex.h>
+#include <utils/glutils/lfontrenderer.h>
 //#include <guisim/GUIEdgeGrid.h>
 #include "GUIChooser.h"
 #include "GUIGlObjectTypes.h"
@@ -121,6 +125,8 @@ public:
 
     /// pixels-to-meters conversion method
     double p2m(double pixel);
+
+    std::pair<double, double> canvas2World(double x, double y);
 
     /// Returns the information whether rotation is allowd
     bool allowRotation() const;
@@ -359,8 +365,6 @@ protected:
     /// draws the legend
     void displayLegend();
 
-    void displayLegend2();
-
     /// centers the view to the given position and size
     void centerTo(Position2D pos, double radius);
 
@@ -411,8 +415,6 @@ protected:
     /// The current mouse position (if the mouse is over this canvas)
     size_t _mouseX, _mouseY;
 
-//    GUIEdgeGrid::GUIEdgeSet _edges;
-
     /// Offset to the mouse-hotspot from the mouse position
     int _mouseHotspotX, _mouseHotspotY;
 
@@ -436,6 +438,9 @@ protected:
 
     /// the description of the viewport
     ViewSettings myViewSettings;
+
+    /// The openGL-font drawer
+    LFontRenderer myFontRenderer;
 
 };
 

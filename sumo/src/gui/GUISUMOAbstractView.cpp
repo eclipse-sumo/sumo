@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/08/15 12:19:16  dkrajzew
+// legend display patched
+//
 // Revision 1.8  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -110,6 +113,7 @@ namespace
 #include <qpopupmenu.h>
 #include <qgl.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/convert/ToString.h>
 #include "QGUIToggleButton.h"
 #include "QGUIImageField.h"
 #include "QGLObjectToolTip.h"
@@ -239,7 +243,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow&app,
     _changer = new GUIDanielPerspectiveChanger(*this);
     _changer->setNetSizes((size_t) nw, (size_t) nh);
     _toolTip = new QGLObjectToolTip(this);
-    setMouseTracking(true);
+    setMouseTracking(TRUE);
 }
 
 
@@ -325,6 +329,7 @@ GUISUMOAbstractView::initializeGL()
     glViewport( 0, 0, _parent.getMaxGLWidth()-1, _parent.getMaxGLHeight()-1 );
     glClearColor( 1.0, 1.0, 1.0, 1 );
     _changer->otherChange();
+    myFontRenderer.add(_app.myFonts.get("std8"));
     doInit();
     _lock.unlock();
 }
@@ -477,6 +482,10 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id)
 void
 GUISUMOAbstractView::paintGLGrid()
 {
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
     glLineWidth(1);
     glBegin( GL_LINES );
 
@@ -573,6 +582,7 @@ GUISUMOAbstractView::applyChanges(double scale,
 void
 GUISUMOAbstractView::displayLegend()
 {
+    // compute the scale bar length
     size_t length = 1;
     const string text("10000000000");
     size_t noDigits = 1;
@@ -586,74 +596,63 @@ GUISUMOAbstractView::displayLegend()
         noDigits++;
 //        text = text + string("0");
     }
-    glLineWidth(3.0);
+    double lineWidth = 1.0;
+    glLineWidth(lineWidth);
 
-    float xpb = (p2m(10) - _changer->getXPos()) / _changer->getZoom();
-    float xpe = (p2m(10 + 100) - _changer->getXPos()) / _changer->getZoom();
-    float ypb = (p2m(10) - _changer->getYPos()) / _changer->getZoom();
-    float ype = (p2m(10) - _changer->getYPos()) / _changer->getZoom();
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
 
-    int x = 0;
-    int w = width();
-    int y = 0;
-    int h = height();
-//    glOrtho(x, x+w, y+h, y, 1, 10);
+    // draw the scale bar
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+
+    myFontRenderer.SetColor(0, 0, 0);
+    double len = (double) pixelSize / (double) (_parent.getMaxGLWidth()-1) * 2.0;
     glColor3f(0, 0, 0);
     glBegin( GL_LINES );
-    float size = 2.0 / (double) pixelSize / (double) width();
-    size = 10;
-    glVertex2f(xpb, ypb);
-    glVertex2f(xpe, ype);
+    // vertical
+    glVertex2f(-.98, -.98);
+    glVertex2f(-.98+len, -.98);
+    // tick at begin
+    glVertex2f(-.98, -.98);
+    glVertex2f(-.98, -.97);
+    myFontRenderer.StringOut(10, (double) (_parent.getMaxGLHeight()-30), "0m");
+    // tick at end
+    glVertex2f(-.98+len, -.98);
+    glVertex2f(-.98+len, -.97);
+    myFontRenderer.StringOut(10+pixelSize, (double) (_parent.getMaxGLHeight()-30),
+        text.substr(0, noDigits) + "m");
     glEnd();
+    myFontRenderer.Draw();
 
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glOrtho(0, width(), 0, height(), 1, 10);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glOrtho(0, width(), 0, height(), 1, 10);
+    // draw the current position
+/*
+    std::pair<double, double> c = canvas2World(_mouseX, _mouseY);
+    string out = toString<double>(c.first) + ", " + toString<double>(c.second);
+    myFontRenderer.StringOut(width()-100, (double) (_parent.getMaxGLHeight()-20),
+        out);
+*/
 
-    glBegin( GL_LINES );
-    glVertex2f(-200, -200);
-    glVertex2f(200, 200);
-    glEnd();
-
-
+    // restore matrices
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
-
-
 }
 
-void
-GUISUMOAbstractView::displayLegend2()
-{
-    size_t length = 1;
-    const string text("10000000000");
-    size_t noDigits = 1;
-    size_t pixelSize = 0;
-    while(true) {
-        pixelSize = (size_t) m2p((double) length);
-        if(pixelSize>20) {
-            QPainter paint( this );
-            paint.setPen( QColor(0, 0, 0) );
-            size_t h = height();
-            paint.drawLine( 10, h-10, 10+pixelSize, h-10 );
-            paint.drawLine( 10, h-10, 10, h-15);
-            paint.drawLine( 10+pixelSize, h-10, 10+pixelSize, h-15);
-            paint.drawText( 10, h-10, QString("0m"));
-            //text = text + string("m");
-            paint.drawText( 10+pixelSize, h-10, QString(text.c_str()));
-            break;
-        }
-        length *= 10;
-        noDigits++;
-//        text = text + string("0");
-    }
-    //
 
+std::pair<double, double>
+GUISUMOAbstractView::canvas2World(double x, double y)
+{
+    double xret = p2m(x-(_parent.getMaxGLWidth())/2.0)-_changer->getXPos();
+    double yret = p2m(y-(_parent.getMaxGLHeight())/2.0)-_changer->getYPos();
+    return std::pair<double, double>(xret, yret);
 }
 
 
@@ -794,9 +793,6 @@ GUISUMOAbstractView::paintEvent ( QPaintEvent *e )
     makeCurrent();
     glDraw();*/
     QGLWidget::paintEvent(e);
-    if(_parent.showLegend()) {
-        displayLegend2();
-    }
 }
 
 
