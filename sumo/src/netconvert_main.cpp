@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/06 17:19:11  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/03/03 15:08:48  dkrajzew
 // vissim requires more steps on building
 //
@@ -270,15 +273,22 @@ compute(OptionsCont *oc)
     bool ok = true;
     bool verbose = oc->getBool("v");
     int step = 1;
+    size_t size = NBNodeCont::size();
+//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
+//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = removeDummyEdges(step++, verbose);
+//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
+//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = joinEdges(step++, verbose);
+//    NBEdgeCont::search((NBEdge*) 0x00db2a48);
+//    NBNodeCont::searchEdgeInNode("3", "3");
     if(ok) ok = computeTurningDirections(step++, verbose);
     if(ok) ok = sortNodesEdges(step++, verbose);
     if(ok) ok = normaliseNodePositions(step++, verbose);
     if(ok) ok = computeEdge2Edges(step++, verbose);
     if(ok) ok = computeEdges2Lanes(step++, verbose);
-    if(ok) ok = recheckLanes(step++, verbose);
     if(ok) ok = appendTurnarounds(step++, verbose);
+    if(ok) ok = recheckLanes(step++, verbose);
     if(ok) ok = computeLinkPriorities(step++, verbose);
     if(ok) ok = computeLogic(step++, oc);
     if(ok && oc->getBool("v")) NBNode::reportBuild();
@@ -378,6 +388,7 @@ int main(int argc, char **argv)
         clearAll(oc);
         cout << "Quitting (conversion failed)." << endl;
         return 1; // !!!
+
     }
     clearAll(oc);
     // report about ending
