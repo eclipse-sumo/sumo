@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/04/17 11:19:57  dkrajzew
+// windows-carriage returns removed
+//
 // Revision 1.2  2002/04/16 06:52:01  dkrajzew
 // documentation added; coding standard attachements added
 //

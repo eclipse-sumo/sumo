@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/04/17 11:19:57  dkrajzew
+// windows-carriage returns removed
+//
 // Revision 1.3  2002/04/16 12:25:37  dkrajzew
 // Security assertion included into getPath
 //
