@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/04/23 12:32:18  dkrajzew
+// new layout
+//
 // Revision 1.2  2004/04/02 10:57:30  dkrajzew
 // deselection of selected items added; saving of selected items names added
 //
@@ -92,32 +95,29 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIApplicationWindow *parent)
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 4, 4);
+        0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
     new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 4, 4);
+        0, 0, 0, 0, 4, 4, 3, 3);
 
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
     // "Deselect Chosen"
     new FXButton(layout, "Deselect Chosen\t\t", 0, this, MID_CHOOSEN_DESELECT,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 4, 4);
-
-    new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
+        0, 0, 0, 0, 4, 4, 3, 3);
     // "Clear List"
     new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 4, 4);
+        0, 0, 0, 0, 4, 4, 3, 3);
 
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
     // "Close"
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 4, 4);
+        0, 0, 0, 0, 4, 4, 3, 3);
 }
 
 

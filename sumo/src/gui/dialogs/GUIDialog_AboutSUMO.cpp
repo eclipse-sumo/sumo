@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/23 12:31:41  dkrajzew
+// new layout
+//
 // Revision 1.1  2004/03/19 12:33:36  dkrajzew
 // porting to FOX
 //
 // Revision 1.1  2004/03/19 12:32:26  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * included modules
@@ -165,45 +167,52 @@ static const char* zaik_icon[] = {
  * ======================================================================= */
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
                                          int x, int y)
-    : FXDialogBox( parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 300, 200)
+    : FXDialogBox( parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 0, 0)
 {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this,
-            LAYOUT_SIDE_BOTTOM|FRAME_NONE|LAYOUT_FILL_X,
-            0,0,0,0,5,5,5,5);
+            LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
+            0,0,0,0, 0,0,1,1);
     // build icons
     FXHorizontalFrame *f2 =
-        new FXHorizontalFrame(f1, FRAME_NONE, 0,0,0,0,3,3,3,3);
+        new FXHorizontalFrame(f1,
+            LAYOUT_TOP|LAYOUT_CENTER_X|FRAME_NONE, 0,0,0,0, 0, 0, 1, 1);
     myDLRIcon = new FXXPMIcon(gFXApp, dlr_icon);
     myZAIKIcon = new FXXPMIcon(gFXApp, zaik_icon);
-    new FXButton(f2,"\tDLR\t.", myDLRIcon, 0, 0, LAYOUT_FIX_Y|ICON_ABOVE_TEXT,
-        5, 5, 40+5, 42+5);
-    new FXButton(f2,"\tZAIK\t.", myZAIKIcon, 0, 0, LAYOUT_FIX_Y|ICON_ABOVE_TEXT,
-        40+10, 5, 40+5, 42+5);
+    new FXButton(f2,"\tDLR\t.", myDLRIcon, 0, 0,
+        LAYOUT_CENTER_Y|TEXT_OVER_ICON, 5, 0, 40+5, 0,  0,0,0,0);
+    new FXButton(f2,"\tZAIK\t.", myZAIKIcon, 0, 0,
+        LAYOUT_CENTER_Y|TEXT_OVER_ICON, 40+10, 0, 40+5, 0,  0,0,0,0);
     // "SUMO <VERSION>"
     FXVerticalFrame *f4 =
-        new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,1,1,1,1);
+        new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,   20,0,0,0);
     FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FONTWEIGHT_BOLD);
     FXLabel *l = new FXLabel(f4, "SUMO 0.8", 0,
-        LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL);
+        LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
+        0,0,0,0, 0,0,0,0);
     l->setFont(fnt);
     new FXLabel(f4, "Simulation of Urban MObility", 0,
-        LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL);
+        LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
+        0,0,0,0, 0,0,0,0);
         //
     // additional infos
     FXVerticalFrame *f3 =
         new FXVerticalFrame(f1,
             FRAME_NONE,
-            0,0,0,0,1,1,1,1);
+            0,0,0,0, 0,0,0,0);
     // copyright notice
-    new FXLabel(f3, "A microscopic, multi-modal, open source", 0,
-        LABEL_NORMAL);
-    new FXLabel(f3, "road traffic simulation.", 0, LABEL_NORMAL);
+    new FXLabel(f3, "A microscopic, multi-modal, open source",
+        0, LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
+    new FXLabel(f3, "road traffic simulation.",
+        0, LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
+
     new FXLabel(f3, "(c) Institute of Transportation Research/DLR and ZAIK",
-        0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL);
-    new FXLabel(f3, "2000-2004", 0, LABEL_NORMAL);
-    new FXLabel(f3, "http://sumo.sourceforge.net", 0,
-        LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL);
+        0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,5,0);
+    new FXLabel(f3, "2000-2004",
+        0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
+
+    new FXLabel(f3, "http://sumo.sourceforge.net",
+        0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 5,5,5,5);
     // ok-button
     new FXButton(f1,"OK\t\t", 0, this, ID_ACCEPT,
         LAYOUT_FIX_WIDTH|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|FRAME_THICK|FRAME_RAISED,
