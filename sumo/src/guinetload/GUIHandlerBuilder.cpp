@@ -46,7 +46,7 @@ GUIHandlerBuilder::addSourceDestinationInformation(const Attributes &attrs) {
         string func= getString(attrs, SUMO_ATTR_FUNC);
         static_cast<GUIContainer&>(myContainer).addSrcDestInfo(id, from, 
             to, func);
-    } catch (EmptyData &e) {
+    } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: An edge has no information about the from/to-node");
     }
