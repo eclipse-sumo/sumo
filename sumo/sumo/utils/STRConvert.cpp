@@ -41,7 +41,7 @@ using namespace std;
 int 
 STRConvert::_2int(const string &inp) 
 {
-    int length = inp.length();
+    unsigned length = inp.length();
     if(length==0)
         throw XMLUngivenParameterException();
     int val = 0;
