@@ -32,7 +32,7 @@ public:
 
     //Methoden für Knoten
 
-    void AddVertexByXY(int x, int y);
+    Vertex* AddVertexByXY(int x, int y);
 
     Vertex* SearchVertex(int x, int y);
 
@@ -41,7 +41,7 @@ public:
     void PushVertex(int index, int xNew, int yNew);
 
     vector<Vertex*> GetVArray();
-
+	void SetVArray(vector<Vertex*> myarray);
     vector<Vertex*> GetPfadArray();
 
     vector<Edge*> GetEArray();
@@ -80,7 +80,7 @@ public:
     //Entfernt Knoten, die kolineare Kanten verbinden
     void Reduce();
     //Entfernt Knoten, die kolineare Kanten verbinden (besser)
-    void Reduce_plus();
+    void Reduce_plus(ConfigDialog* my);
 
     int GetIndex(Vertex* v);
 
@@ -104,7 +104,7 @@ public:
 	void GetTraces(int cars,int fuel);
 	
 	//Vereinigt zwei nahe Knoten zu einem
-	void MergeVertex(ConfigDialog* my);
+	void MergeVertex();
 
 	//Zwei Hilfmethoden für MergeVertex
 	void DelVertex4Merge(Vertex* v);

@@ -17,12 +17,11 @@ using namespace std;
 
 Graph::Graph(){}
 
-void
-Graph::AddVertexByXY(int x, int y)
+Vertex* Graph::AddVertexByXY(int x, int y)
 {
-
     Vertex* ptemp=new Vertex(x,y);
     vArray.push_back(ptemp);
+	return ptemp;
 }
 
 //Sucht den Knoten mit den Koodinatenten x,y in dem Knotenarray//
@@ -130,6 +129,11 @@ Edge* Graph::SearchEdge(Vertex* v, Vertex* w)
 vector<Vertex*> Graph::GetVArray()
 {
     return vArray;
+}
+
+void Graph::SetVArray(vector<Vertex*> myarray)
+{
+	vArray=myarray;
 }
 
 vector<Vertex*> Graph::GetPfadArray()
@@ -280,10 +284,11 @@ Graph::Reduce()
 }
 
 void
-Graph::Reduce_plus()
+Graph::Reduce_plus(ConfigDialog* my)
 {
-    double toleranz=7;
-    int i;
+    FXSlider* mySlider= my->getEpsiSlider();
+	double toleranz=(double)(mySlider->getValue());
+	int i;
     int m=0;
     unsigned int n=0;
     double delta_x=0;
@@ -567,15 +572,14 @@ void Graph::GetTraces(int cars, int fuel)
 	}
 }
 
-void Graph::MergeVertex(ConfigDialog* my)
+void Graph::MergeVertex()
 {
-	FXSlider* mySlider= my->getMergeSlider();
-	int tolerance=mySlider->getValue();
+	
+	int tolerance=5;
 	
 	/*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
 	/*Für die Länge einer Kante*/
 	int length;
-	
 	/*Hilfszeiger*/
 	Edge* aktuell;
 	//Edge* aktuell2;
@@ -606,9 +610,8 @@ void Graph::MergeVertex(ConfigDialog* my)
 			DelEdge(end,start);
 
 			/*Hinzufügen des neuen Kotens*/
-			AddVertexByXY(xneu,yneu);
 			/*Zeiger auf den neu hinzugefügten Knoten*/
-			Vertex* neu = SearchVertex(xneu,yneu);
+			Vertex* neu = AddVertexByXY(xneu,yneu);
 			
 			//Neu
 			int startnachfolger=start->GetNachfolger();
@@ -641,9 +644,10 @@ void Graph::MergeVertex(ConfigDialog* my)
 				AddEdgeByVertex(mArray[m_Node],neu);
 				AddEdgeByVertex(neu,mArray[m_Node]);
 			}
-			mArray.clear();
+			
 			//Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
-			i-=2;
+			i-=2+mArray.size()*2;
+			mArray.clear();
 			if (i<-1) i=-1;
 		
 		}
