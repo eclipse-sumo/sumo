@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/09/25 09:03:53  dkrajzew
+// some methods added, needed for the computation of line rotation
+//
 // Revision 1.12  2003/09/05 15:27:38  dkrajzew
 // changes from adding internal lanes and further work on node geometry
 //
@@ -240,6 +243,24 @@ Position2DVector::positionAtLengthPosition(double pos) const
     } while(++i!=myCont.end()-1);
     return positionAtLengthPosition(*(myCont.end()-1),
         *(myCont.begin()), pos-seenLength);
+}
+
+
+double
+Position2DVector::rotationDegreeAtLengthPosition(double pos) const
+{
+    ContType::const_iterator i=myCont.begin();
+    double seenLength = 0;
+    do {
+        double nextLength = GeomHelper::distance(*i, *(i+1));
+        if(seenLength+nextLength>pos) {
+            Line2D l(*i, *(i+1));
+            return l.atan2DegreeAngle();
+        }
+        seenLength += nextLength;
+    } while(++i!=myCont.end()-1);
+    Line2D l(*(myCont.end()-1), *(myCont.begin()));
+    return l.atan2DegreeAngle();
 }
 
 

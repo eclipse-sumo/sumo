@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/09/25 09:03:53  dkrajzew
+// some methods added, needed for the computation of line rotation
+//
 // Revision 1.9  2003/09/05 15:27:38  dkrajzew
 // changes from adding internal lanes and further work on node geometry
 //
@@ -107,6 +110,9 @@ public:
 
     /// Returns the position at the given length
     Position2D positionAtLengthPosition(double pos) const;
+
+    /// Returns the position at the given length
+    double rotationDegreeAtLengthPosition(double pos) const;
 
     /// Returns the position between the two given point at the specified position */
     static Position2D positionAtLengthPosition(const Position2D &p1,

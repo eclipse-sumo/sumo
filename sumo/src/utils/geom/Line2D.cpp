@@ -99,3 +99,13 @@ Line2D::intersectsAt(const Line2D &l) const
 {
     return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
 }
+
+
+double
+Line2D::length() const
+{
+    return sqrt(
+        (myP1.x()-myP2.x())*(myP1.x()-myP2.x())
+        +
+        (myP1.y()-myP2.y())*(myP1.y()-myP2.y()));
+}

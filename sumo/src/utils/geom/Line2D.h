@@ -20,6 +20,8 @@ public:
     double atan2Angle() const;
     double atan2DegreeAngle() const;
     Position2D intersectsAt(const Line2D &l) const;
+    double length() const;
+
 private:
     Position2D myP1, myP2;
 };
