@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/08/02 12:43:07  dkrajzew
+// got rid of the shapelib-interface; conversion of geocoordinates added
+//
 // Revision 1.6  2004/01/12 15:53:00  dkrajzew
 // work on code style
 //
@@ -50,7 +53,7 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
-#include "NIArcView_ShapeReader.h"
+//#include "NIArcView_ShapeReader.h"
 #include "shapereader.h"
 
 /* =========================================================================
@@ -63,8 +66,8 @@ class OptionsCont;
  * class definitions
  * ======================================================================= */
 class NIArcView_Loader :
-    public FileErrorReporter,
-    public LineHandler
+    public FileErrorReporter/*,
+    public LineHandler*/
 {
 public:
     /// Contructor
@@ -76,9 +79,6 @@ public:
 
     /// loads the navtech-data
     void load(OptionsCont &options);
-
-    /// Retrieves data from the dbf-file
-    bool report(const std::string &line);
 
 private:
     bool parseBin();
@@ -102,32 +102,18 @@ private:
 
 
 private:
-    /// The shape reader
-    NIArcView_ShapeReader myShapeReader;
-
-    /// Information whether the current line is the first line
-    bool myIsFirstLine;
-
-    /// The line reader which parses the dbf-file
-    LineReader myLineReader;
-
-    /// The number of the current link
-    size_t myCurrentLink;
-
     /// parser of the dbf-file columns
     NamedColumnsParser myColumnsParser;
 
     std::string myDBFName;
     std::string mySHPName;
     shapereader myBinShapeReader;
-    bool myWorkInBinModus;
+    int myNameAddition;
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArcView_Loader.icc"
-//#endif
 
 #endif
 

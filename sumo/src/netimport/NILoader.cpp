@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/08/02 12:46:23  dkrajzew
+// got rid of the shapelib-interface; conversion of geocoordinates added
+//
 // Revision 1.4  2004/07/02 09:34:37  dkrajzew
 // elmar and tiger import added
 //
@@ -368,8 +371,8 @@ NILoader::loadArcView(OptionsCont &oc) {
                 string(" Use EITHER \"--arcview\" OR \"--arcview-dbf\"/\"--arcview-shp\""));
             return;
         }
-        dbf_file = oc.getString("arcview") + string("_dbf.txt");
-        shp_file = oc.getString("arcview") + string("_shp.txt");
+        dbf_file = oc.getString("arcview") + string(".dbf");
+        shp_file = oc.getString("arcview") + string(".shp");
     }
         // check whether only one of the files was given (when explicite
         //  file names for bith structures are given)

@@ -1,6 +1,9 @@
 #include "shapereader.h"
+#include <cassert>
+#include <utils/geom/GeomHelper.h>
 
 shapereader::shapereader()
+    : myWasInitialised(false)
 {
     iRecord =       0;
     nEntities =     0;
@@ -11,6 +14,7 @@ shapereader::shapereader()
 }
 
 shapereader::shapereader(char * sfile, char * dfile)
+    : myWasInitialised(false)
 {
     iRecord =       0;
     nEntities =     0;
@@ -42,7 +46,7 @@ shapereader::openFiles(const char * sfile, const char * dfile)
 
     if( hSHP == NULL )
     {
-	return 1; // cant open shp- or shx-file
+    return 1; // cant open shp- or shx-file
     }
 
     hDBF = DBFOpen( dfile, "rb" );
@@ -228,6 +232,7 @@ shapereader::readSHP()
 int// if iRecord == nEntities the returnvalue is one
 shapereader::forwardShape()
 {
+    assert( iRecord < nEntities );
     if ( iRecord < nEntities )
     {
         iRecord++;
@@ -264,9 +269,22 @@ shapereader::getgeoStruct()
     myPoints.clear();
 
     for(int j = 0; j < psShape->nVertices; j++ )
-	{
-        myPoints.push_back( Position2D( psShape->padfY[j], psShape->padfX[j] ) );
-	}
+    {
+        double x = psShape->padfX[j];
+        double y = psShape->padfY[j];
+        if(!myWasInitialised) {
+            myWasInitialised = true;
+            myInitX = x;
+            myInitY = y;
+        }
+        double ys = y;
+        x = (x-myInitX);
+        y = (y-myInitY);
+        double x1 = x * 111.320*1000;
+        double y1 = y * 111.136*1000;
+        x1 *= cos(ys*PI/180.0);
+        myPoints.push_back( Position2D( x1, y1 ) );
+    }
     return 0;
 }
 
@@ -305,22 +323,22 @@ shapereader::getReverseShape() const
 {
     Position2D p;
     for(int j = 0, iPart = 1; j < psShape->nVertices; j++ )
-	{
-        const char	*pszPartType = "";
+    {
+        const char  *pszPartType = "";
 
         if( j == 0 && psShape->nParts > 0 )
             cout << SHPPartTypeName( psShape->panPartType[0] ) << endl;
             //pszPartType = SHPPartTypeName( psShape->panPartType[0] );
 
-	    if( iPart < psShape->nParts && psShape->panPartStart[iPart] == j )
-	    {
+        if( iPart < psShape->nParts && psShape->panPartStart[iPart] == j )
+        {
             cout << SHPPartTypeName( psShape->panPartType[iPart] ) << endl;
                 //pszPartType = SHPPartTypeName( psShape->panPartType[iPart] );
-		iPart++;
+        iPart++;
 
-	    }
+        }
         p = myPoints.at(j);
         cout << p.x() << "\t"   << p.y() << endl;
-	}
+    }
     //myPoints.debug();
 }*/
