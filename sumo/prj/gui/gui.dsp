@@ -551,10 +551,6 @@ SOURCE=..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.cpp
 # End Source File
 # Begin Source File
@@ -579,7 +575,7 @@ SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSE2DetectorInterface.cpp
+SOURCE=..\..\src\microsim\MSE2Collector.cpp
 # End Source File
 # Begin Source File
 
@@ -1641,6 +1637,10 @@ SOURCE=..\..\src\microsim\MSDetector2File.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSDetectorContainer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDetectorContainerWrapper.h
 # End Source File
 # Begin Source File
 
