@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/08/02 12:44:12  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.5  2004/01/12 15:31:18  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -91,7 +94,7 @@ NICellNodesHandler::report(const std::string &result)
             try {
                 x = TplConvert<char>::_2float(st.next().c_str());
                 y = TplConvert<char>::_2float(st.next().c_str());
-                if(!NBNodeCont::insert(id, x, y)) {
+                if(!NBNodeCont::insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Could not build node '") + id + string("'."));
                 }

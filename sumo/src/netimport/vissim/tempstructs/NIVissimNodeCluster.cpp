@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/08/02 12:44:27  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.12  2004/01/12 15:33:02  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -68,7 +71,7 @@ int NIVissimNodeCluster::myCurrentID = 1;
 NIVissimNodeCluster::NIVissimNodeCluster(int id, int nodeid, int tlid,
                                          const IntVector &connectors,
                                          const IntVector &disturbances,
-										 bool amEdgeSplitOnly)
+                                         bool amEdgeSplitOnly)
     : myID(id), myNodeID(nodeid), myTLID(tlid),
     myConnectors(connectors), myDisturbances(disturbances),
     myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly)
@@ -100,7 +103,7 @@ int
 NIVissimNodeCluster::dictionary(int nodeid, int tlid,
                                 const IntVector &connectors,
                                 const IntVector &disturbances,
-								bool amEdgeSplitOnly)
+                                bool amEdgeSplitOnly)
 {
     int id = nodeid;
     if(nodeid<0) {
@@ -155,36 +158,36 @@ NIVissimNodeCluster::buildNBNode()
 
     // compute the position
     Position2DVector crossings;
-	IntVector::iterator i, j;
-	// check whether this is a split of an edge only
-	if(myAmEdgeSplit) {
-// !!! should be		assert(myTLID==-1);
+    IntVector::iterator i, j;
+    // check whether this is a split of an edge only
+    if(myAmEdgeSplit) {
+// !!! should be        assert(myTLID==-1);
         for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
             crossings.push_back(c1->getFromGeomPosition());
-		}
-	} else {
+        }
+    } else {
         // compute the places the connections cross
-		for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-			NIVissimAbstractEdge *c1 = NIVissimAbstractEdge::dictionary(*i);
-			c1->buildGeom();
-			for(j=i+1; j!=myConnectors.end(); j++) {
-	            NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
-				c2->buildGeom();
-	            if(c1->crossesEdge(c2)) {
-		            crossings.push_back(c1->crossesEdgeAtPoint(c2));
-			    }
-	        }
-		}
+        for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
+            NIVissimAbstractEdge *c1 = NIVissimAbstractEdge::dictionary(*i);
+            c1->buildGeom();
+            for(j=i+1; j!=myConnectors.end(); j++) {
+                NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
+                c2->buildGeom();
+                if(c1->crossesEdge(c2)) {
+                    crossings.push_back(c1->crossesEdgeAtPoint(c2));
+                }
+            }
+        }
         // alternative way: compute via positions of crossings
-		if(crossings.size()==0) {
-	        for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-		        NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
-			    crossings.push_back(c1->getFromGeomPosition());
-				crossings.push_back(c1->getToGeomPosition());
-			}
-		}
-	}
+        if(crossings.size()==0) {
+            for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
+                NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+                crossings.push_back(c1->getFromGeomPosition());
+                crossings.push_back(c1->getToGeomPosition());
+            }
+        }
+    }
         // get the position (center)
     Position2D pos = crossings.center();
     // build the node
@@ -198,7 +201,7 @@ NIVissimNodeCluster::buildNBNode()
                 "actuated_traffic_light");
         }
     }*/
-    NBNode *node = new NBNode(getNodeName(), pos.x(), pos.y(),
+    NBNode *node = new NBNode(getNodeName(), pos,
         NBNode::NODETYPE_PRIORITY_JUNCTION);
     if(!NBNodeCont::insert(node)) {
         delete node;

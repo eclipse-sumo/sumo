@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 12:44:11  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -120,7 +123,7 @@ NIArtemisParser_Nodes::myDependentReport()
         break;
     }
     // build if ok
-    NBNode *node = new NBNode(id, x, y, myType);
+    NBNode *node = new NBNode(id, Position2D(x, y), myType);
     if(!NBNodeCont::insert(node)) {
         // should never happen
         delete node;

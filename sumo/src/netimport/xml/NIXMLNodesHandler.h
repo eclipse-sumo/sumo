@@ -2,7 +2,7 @@
 #define NIXMLNodesHandler_h
 /***************************************************************************
                           NIXMLNodesHandler.h
-			  Used to load the XML-description of the nodes given in a
+              Used to load the XML-description of the nodes given in a
            XML-format
                              -------------------
     project              : SUMO
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/08/02 12:44:28  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.5  2003/07/07 08:33:15  dkrajzew
 // further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
 //
@@ -61,11 +64,11 @@
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/geom/Position2D.h>
 
 
 /* =========================================================================
@@ -113,7 +116,6 @@ private:
     void processTrafficLightDefinitions(const Attributes &attrs,
         NBNode *currentNode);
 
-
 private:
     /// A reference to the program's options
     OptionsCont &_options;
@@ -122,7 +124,7 @@ private:
     std::string myID;
 
     /// The position of the currently parsed node
-    double myX, myY;
+    Position2D myPosition;
 
     /// The (optional) type of the node currently parsed
     std::string myType;
@@ -137,9 +139,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIXMLNodesHandler.icc"
-//#endif
 
 #endif
 

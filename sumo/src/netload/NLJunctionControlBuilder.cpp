@@ -1,7 +1,7 @@
 /***************************************************************************
                           NLJunctionControlBuilder.cpp
-			  Container for MSJunctionControl-structures during
-			  their building
+              Container for MSJunctionControl-structures during
+              their building
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/08/02 12:47:30  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.10  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -171,8 +174,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
             + string("' on junction '") + id + string("'."));
         throw ProcessError();
     }
-    m_X = x;
-    m_Y = y;
+    myPosition.set(x, y);
 }
 
 
@@ -239,7 +241,7 @@ NLJunctionControlBuilder::buildNoLogicJunction()
             i!=m_pActiveInLanes.end(); i++) {
         cont->push_back(*i);
     }*/
-    return new MSNoLogicJunction(m_CurrentId, m_X, m_Y,
+    return new MSNoLogicJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes);
 }
 
@@ -251,7 +253,7 @@ NLJunctionControlBuilder::buildLogicJunction()
 /*    MSRightOfWayJunction::LaneCont internal = getInternalLaneContSecure();
     MSRightOfWayJunction::LaneCont incoming = getIncomingLaneContSecure();*/
     // build the junction
-    return new MSRightOfWayJunction(m_CurrentId, m_X, m_Y,
+    return new MSRightOfWayJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype);
 }
 

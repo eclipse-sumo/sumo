@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 12:44:11  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2004/01/12 15:30:47  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -203,9 +206,9 @@ NIArtemisTempEdgeLanes::close()
                 edge->getGeometry().positionAtLengthPosition(poses[k]-lengthRemoved);
             assert(pos.x()>0&&pos.y()>0);
             // build the node and try to insert it into the net description
-            NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
+            NBNode *node = NBNodeCont::retrieve(pos);
             if(node==0) {
-                node = new NBNode(nodename, pos.x(), pos.y(),
+                node = new NBNode(nodename, pos,
                     NBNode::NODETYPE_PRIORITY_JUNCTION);
                 if(!NBNodeCont::insert(node)) {
                     MsgHandler::getErrorInstance()->inform(

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/08/02 12:41:40  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.3  2004/03/19 13:03:52  dkrajzew
 // removed some warnings
 //
@@ -28,11 +31,11 @@
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <list>
+#include <utils/geom/Position2D.h>
 
 
 /* =========================================================================
@@ -62,22 +65,21 @@ typedef std::list<TLink*> TLinkList;
 class TNode
 {
 public:
-	// constructors
-	TNode();
+    // constructors
+    TNode();
     TNode(const std::string &id);
-	TNode(const std::string &id, int xID, int yID);
+    TNode(const std::string &id, int xID, int yID);
     TNode(const std::string &id, int xID, int yID, bool amCenter);
-	// destructor
-	~TNode();
+    // destructor
+    ~TNode();
     const std::string &GetID() const {return myID;}
-	float x() {return myX;}
-	float y() {return myY;}
-	float MaxNeighbours() {return myMaxNeighbours;}
-	void SetMaxNeighbours(float value) {myMaxNeighbours = value;}
-	void SetX(float x) {myX = x;}
-	void SetY(float y) {myY = y;}
+    const Position2D &getPosition() const { return myPosition; }
+    float MaxNeighbours() {return myMaxNeighbours;}
+    void SetMaxNeighbours(float value) {myMaxNeighbours = value;}
+    void SetX(float x) { myPosition.set(x, myPosition.y()); }
+    void SetY(float y) { myPosition.set(myPosition.x(), y); }
     /// removes link from LinkList
-	void RemoveLink(TLink *Link);
+    void RemoveLink(TLink *Link);
 
     /// Build the according netbuilder-node
     NBNode *buildNBNode() const;
@@ -90,24 +92,21 @@ public:
 
     bool connected(TNode *node) const;
 
-	int xID;
-	int yID;
+    int xID;
+    int yID;
 
     /// list of connected links
-	TLinkList LinkList;
+    TLinkList LinkList;
 
 private:
     /// The id of the node
     std::string myID;
 
-    /// The x-position of the node
-	float myX;
-
-    /// The y-position of the node
-	float myY;
+    /// The position of the node
+    Position2D myPosition;
 
     /// The maximum number of neighbours
-	float myMaxNeighbours;
+    float myMaxNeighbours;
 
     /// Information whether this is the center of a cpider-net
     bool myAmCenter;
@@ -121,15 +120,15 @@ private:
 class TLink
 {
 public:
-	// constructors
-	TLink();
-	TLink(const std::string &id);
-	TLink(const std::string &id, TNode *StartNode, TNode *EndNode);
-	// destructor
-	~TLink();
+    // constructors
+    TLink();
+    TLink(const std::string &id);
+    TLink(const std::string &id, TNode *StartNode, TNode *EndNode);
+    // destructor
+    ~TLink();
     const std::string &GetID() const {return myID;}
-	TNode* StartNode() {return myStartNode;};
-	TNode* EndNode() {return myEndNode;};
+    TNode* StartNode() {return myStartNode;};
+    TNode* EndNode() {return myEndNode;};
 
     /// Build the according netbuilder-edge
     NBEdge *buildNBEdge() const;
@@ -139,19 +138,15 @@ private:
     std::string myID;
 
     /// The node the edge starts at
-	TNode *myStartNode;
+    TNode *myStartNode;
 
     /// The node the edge ends at
-	TNode *myEndNode;
+    TNode *myEndNode;
 
 };
 
 
-
-
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NGNetElements.icc"
 //#endif
 
 #endif

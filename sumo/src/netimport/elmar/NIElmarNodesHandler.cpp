@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/08/02 12:44:12  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
@@ -114,7 +117,7 @@ NIElmarNodesHandler::report(const std::string &result)
     x1 *= cos(ys*PI/180.0);
 //    y1 *= 4.0/2.0;
 
-    NBNode *n = new NBNode(id, x1, y1);
+    NBNode *n = new NBNode(id, Position2D(x1, y1));
     if(!NBNodeCont::insert(n)) {
         delete n;
         MsgHandler::getErrorInstance()->inform(

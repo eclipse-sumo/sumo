@@ -1,7 +1,7 @@
 /***************************************************************************
                           NIXMLEdgesHandler.cpp
-			  Realises the loading of the edges given in a
-			  XML-format
+              Realises the loading of the edges given in a
+              XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/08/02 12:44:28  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.12  2004/01/12 15:36:36  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -136,7 +139,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -378,9 +381,13 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
         myCurrentBegNodeID!="" &&
         myCurrentEndNodeID!="") {
 
-        if(NBNodeCont::insert(myCurrentBegNodeID, myBegNodeXPos, myBegNodeYPos))
-            if(NBNodeCont::insert(myCurrentEndNodeID, myEndNodeXPos, myEndNodeYPos))
+        Position2D begPos(myBegNodeXPos, myBegNodeYPos);
+        Position2D endPos(myEndNodeXPos, myEndNodeYPos);
+        if(NBNodeCont::insert(myCurrentBegNodeID, begPos)) {
+            if(NBNodeCont::insert(myCurrentEndNodeID, endPos)) {
                 coherent = true;
+            }
+        }
     }
 
 
@@ -393,27 +400,23 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
         myCurrentBegNodeID=="" &&
         myCurrentEndNodeID=="") {
 
-        myFromNode = NBNodeCont::retrieve(myBegNodeXPos, myBegNodeYPos);
-        myToNode = NBNodeCont::retrieve(myEndNodeXPos, myEndNodeYPos);
+        Position2D begPos(myBegNodeXPos, myBegNodeYPos);
+        Position2D endPos(myEndNodeXPos, myEndNodeYPos);
+        myFromNode = NBNodeCont::retrieve(begPos);
+        myToNode = NBNodeCont::retrieve(endPos);
         if(myFromNode!=0 && myToNode!=0) {
             coherent = true;
         } else {
             if(myFromNode==0) {
                 myFromNode =
-                    new NBNode(
-                        NBNodeCont::getFreeID(),
-                        myBegNodeXPos,
-                        myBegNodeYPos);
+                    new NBNode(NBNodeCont::getFreeID(), begPos);
                 if(!NBNodeCont::insert(myFromNode)) {
                     throw 1;
                 }
             }
             if(myToNode==0) {
                 myToNode =
-                    new NBNode(
-                        NBNodeCont::getFreeID(),
-                        myEndNodeXPos,
-                        myEndNodeYPos);
+                    new NBNode(NBNodeCont::getFreeID(), endPos);
                 if(!NBNodeCont::insert(myToNode)) {
                     throw 1;
                 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 12:44:11  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.6  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -99,7 +102,7 @@ NIArtemisParser_HVdests::myDependentReport()
     if(NBEdgeCont::retrieve(origid + "SOURCE")==0) {
         dir1.mul(10.0);
         dir1.add(node1->getPosition());
-        NBNode *tmp = new NBNode(origid + "SOURCENode", dir1.x(), dir1.y());
+        NBNode *tmp = new NBNode(origid + "SOURCENode", dir1);
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
             tmp, node1, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
@@ -110,7 +113,7 @@ NIArtemisParser_HVdests::myDependentReport()
     if(NBEdgeCont::retrieve(destid + "SINK")==0) {
         dir2.mul(10.0);
         dir2.add(node2->getPosition());
-        NBNode *tmp = new NBNode(destid + "SINKNode", dir2.x(), dir2.y());
+        NBNode *tmp = new NBNode(destid + "SINKNode", dir2);
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
             node2, tmp, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,

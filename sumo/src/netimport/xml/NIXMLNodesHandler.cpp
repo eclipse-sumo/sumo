@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIXMLNodesHandler.h
-			  Used to load the XML-description of the nodes given in a
+              Used to load the XML-description of the nodes given in a
            XML-format
                              -------------------
     project              : SUMO
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 12:44:28  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.6  2004/01/12 15:36:36  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -85,7 +88,6 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -113,7 +115,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -164,10 +166,10 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
     myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     // check whether there is a traffic light to assign this node to
     // build the node
-    NBNode *node = new NBNode(myID, myX, myY);
+    NBNode *node = new NBNode(myID, myPosition);
     // insert the node
     if(!NBNodeCont::insert(node)) {
-        if(NBNodeCont::retrieve(myX, myY)!=0) {
+        if(NBNodeCont::retrieve(myPosition)!=0) {
             addError(string("Duplicate node occured. ID='") + myID
                 + string("'"));
         }
@@ -185,8 +187,9 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
 {
     // retrieve the positions
     try {
-        myX = getFloat(attrs, SUMO_ATTR_X);
-        myY = getFloat(attrs, SUMO_ATTR_Y);
+        double x = getFloat(attrs, SUMO_ATTR_X);
+        double y = getFloat(attrs, SUMO_ATTR_Y);
+        myPosition.set(x, y);
     } catch (NumberFormatException) {
         addError(string("Not numeric value for position (at node ID='") + myID
             + string("')."));
@@ -198,7 +201,7 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
     }
     // check whether the y-axis shall be flipped
     if(_options.getBool("flip-y")) {
-        myY *= -1.0;
+        myPosition.mul(1.0, -1.0);
     }
     return true;
 }
@@ -257,9 +260,6 @@ NIXMLNodesHandler::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIXMLNodesHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/08/02 12:44:13  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.2  2004/07/05 09:32:22  dkrajzew
 // false geometry assignment patched
 //
@@ -210,10 +213,9 @@ int bla = 0;
 NBNode *
 NITigerLoader::getNode(const Position2D &p)
 {
-    NBNode *n = NBNodeCont::retrieve(p.x(), p.y());
+    NBNode *n = NBNodeCont::retrieve(p);
     if(n==0) {
-        n = new NBNode(toString<int>(bla++),
-            p.x(), p.y());
+        n = new NBNode(toString<int>(bla++), p);
         if(!NBNodeCont::insert(n)) {
             MsgHandler::getErrorInstance()->inform(
                 string("Could not insert node at position ")

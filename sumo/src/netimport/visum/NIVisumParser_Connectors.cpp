@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIVisumParser_Connectors.cpp
-			  Parser for visum-connectors
+              Parser for visum-connectors
                              -------------------
     project              : SUMO
     begin                : Thu, 14 Nov 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 12:44:28  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -214,10 +217,10 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
         nid = "-" + nid;
     }
     // insert the node
-    if(!NBNodeCont::insert(nid, x, y)) {
+    if(!NBNodeCont::insert(nid, Position2D(x, y))) {
         x += 0.1;
         y -= 0.1;
-        if(!NBNodeCont::insert(nid, x, y, dist)) {
+        if(!NBNodeCont::insert(nid, Position2D(x, y), dist)) {
             addError(
                 "Ups, this should not happen: A district lies on a node.");
             return 0;

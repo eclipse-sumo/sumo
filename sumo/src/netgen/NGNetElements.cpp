@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 12:41:40  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2004/03/19 13:03:52  dkrajzew
 // removed some warnings
 //
@@ -97,14 +100,14 @@ TNode::TNode(const std::string &id, int xIDa, int yIDa, bool amCenter)
 // destructor TNode
 TNode::~TNode()
 {
-	TLinkList::iterator li;
+    TLinkList::iterator li;
     //for (li = LinkList.begin(); li != LinkList.end(); ++li) {
-	//	delete (*li);
-	//}
-	while (LinkList.size() != 0) {
-		li = LinkList.begin();
-		delete (*li);
-	}
+    //  delete (*li);
+    //}
+    while (LinkList.size() != 0) {
+        li = LinkList.begin();
+        delete (*li);
+    }
 }
 
 
@@ -112,15 +115,15 @@ TNode::~TNode()
 void
 TNode::RemoveLink(TLink *Link)
 {
-	TLinkList::iterator li;
-	li = LinkList.begin();
-	while (li!= LinkList.end()) {
-		if ((*li) == Link) {
-			LinkList.erase(li);
+    TLinkList::iterator li;
+    li = LinkList.begin();
+    while (li!= LinkList.end()) {
+        if ((*li) == Link) {
+            LinkList.erase(li);
             return;
-		} else
-			li++;
-	}
+        } else
+            li++;
+    }
 }
 
 
@@ -129,11 +132,11 @@ TNode::buildNBNode() const
 {
     // the center will have no logic!
     if( myAmCenter ) {
-        return new NBNode(myID, (double) myX, (double) myY,
+        return new NBNode(myID, myPosition,
             NBNode::NODETYPE_NOJUNCTION);
     }
     //
-    NBNode *node = new NBNode(myID, (double) myX, (double) myY);
+    NBNode *node = new NBNode(myID, myPosition);
     // check whether it is a traffic light junction
     string nodeType = OptionsSubSys::getOptions().getString("default-junction-type");
     if(nodeType=="priority") {
@@ -197,16 +200,16 @@ TLink::TLink(const std::string &id)
 TLink::TLink(const std::string &id, TNode *StartNode, TNode *EndNode)
     : myID(id), myStartNode(StartNode), myEndNode(EndNode)
 {
-	myStartNode->addLink(this);
-	myEndNode->addLink(this);
+    myStartNode->addLink(this);
+    myEndNode->addLink(this);
 }
 
 
 // destructor TLink
 TLink::~TLink()
 {
-	myStartNode->removeLink(this);
-	myEndNode->removeLink(this);
+    myStartNode->removeLink(this);
+    myEndNode->removeLink(this);
 }
 
 

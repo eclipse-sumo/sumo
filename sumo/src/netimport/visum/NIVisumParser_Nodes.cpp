@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIVisumParser_Nodes.cpp
-			  Parser for visum-nodes
+              Parser for visum-nodes
                              -------------------
     project              : SUMO
     begin                : Thu, 14 Nov 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/08/02 12:44:28  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.3  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -75,7 +78,7 @@ NIVisumParser_Nodes::myDependentReport()
         double x = TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
         double y = TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // add to the list
-        if(!NBNodeCont::insert(id, x, y)) {
+        if(!NBNodeCont::insert(id, Position2D(x, y))) {
             addError(
                 string(" Duplicate node occured ('")
                 + id + string("')."));

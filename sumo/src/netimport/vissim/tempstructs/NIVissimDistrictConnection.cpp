@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/08/02 12:44:13  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.20  2004/07/02 09:36:03  dkrajzew
 // setting of a default speed for unset districts added
 //
@@ -216,10 +219,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
         // build the node
         string id = "District" + district->getID();
         NBNode *districtNode =
-            new NBNode(id,
-                district->getPosition().x(),
-                district->getPosition().y(),
-                district);
+            new NBNode(id, district->getPosition(), district);
         if(!NBNodeCont::insert(districtNode)) {
             throw 1;
         }

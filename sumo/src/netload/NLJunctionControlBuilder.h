@@ -2,8 +2,8 @@
 #define NLJunctionControlBuilder_h
 /***************************************************************************
                           NLJunctionControlBuilder.h
-			  Container for MSJunctionControl-structures during
-			  their building
+              Container for MSJunctionControl-structures during
+              their building
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2004/08/02 12:47:30  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.7  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -74,6 +77,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
+#include <utils/geom/Position2D.h>
 #include "NLContainer.h"
 
 
@@ -181,7 +185,7 @@ protected:
     int                         m_Type;
 
     /// the position of the junction
-    double                      m_X, m_Y;
+    Position2D                  myPosition;
 
     /** the time delay to the next traffic light switch
         (when the current junction has traffic lights) */

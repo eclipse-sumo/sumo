@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/08/02 12:44:12  dkrajzew
+// using Position2D instead of two doubles
+//
 // Revision 1.5  2004/01/12 15:31:53  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -155,7 +158,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         }
         // build the node
         throw 1; // !!! deprecated
-        NBNodeCont::insert(new NBNode(id, x, y, type));
+        NBNodeCont::insert(new NBNode(id, Position2D(x, y), type));
     } catch (EmptyData) {
         addError("A junction without an id occured.");
     }
