@@ -7,9 +7,9 @@
  * @author  Christian Roessel <christian.roessel@dlr.de>
  * @date    Started Fri Nov 21 12:44:14 2003
  * @version $Id$
- * 
- * @brief   
- * 
+ *
+ * @brief
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -33,7 +33,11 @@
 // A concrete subject defines the Observer type by it's base MSSubject
 // (see MSSubject.h).
 
-#include "helpers/TypeTraits.h"
+#ifdef WIN32
+#include "helpers/msvc6_TypeTraits.h"
+#elif
+#include "helpers/gcc_TypeTraits.h"
+#endif
 
 template<
     class ObservedType
@@ -44,20 +48,20 @@ class MSObserverPassesObserved
 public:
     typedef ObservedType Observed;
     typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
-    
+
     virtual void update( ParameterType aObserved ) = 0;
 
 protected:
-    
+
     MSObserverPassesObserved( void ){}
 
     virtual ~MSObserverPassesObserved( void ){}
 
 private:
-    
+
     MSObserverPassesObserved( const MSObserverPassesObserved& );
-    MSObserverPassesObserved& operator=( const MSObserverPassesObserved& );    
-    
+    MSObserverPassesObserved& operator=( const MSObserverPassesObserved& );
+
 };
 
 
@@ -73,16 +77,16 @@ public:
     virtual bool update( void ) = 0;
 
 protected:
-    
+
     MSObserver( void ){};
 
     virtual ~MSObserver( void ){}
-    
+
 private:
-    
+
     MSObserver( const MSObserver& );
-    MSObserver& operator=( const MSObserver& );    
-    
+    MSObserver& operator=( const MSObserver& );
+
 };
 
 

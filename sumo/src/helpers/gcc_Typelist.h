@@ -2,14 +2,14 @@
 // The Loki Library
 // Copyright (c) 2001 by Andrei Alexandrescu
 // This code accompanies the book:
-// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design 
+// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design
 //     Patterns Applied". Copyright (c) 2001. Addison-Wesley.
-// Permission to use, copy, modify, distribute and sell this software for any 
-//     purpose is hereby granted without fee, provided that the above copyright 
-//     notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+//     purpose is hereby granted without fee, provided that the above copyright
+//     notice appear in all copies and that both that copyright notice and this
 //     permission notice appear in supporting documentation.
-// The author or Addison-Welsey Longman make no representations about the 
-//     suitability of this software for any purpose. It is provided "as is" 
+// The author or Addison-Welsey Longman make no representations about the
+//     suitability of this software for any purpose. It is provided "as is"
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -18,13 +18,13 @@
 #ifndef TYPELIST_INC_
 #define TYPELIST_INC_
 
-#include "NullType.h"
-#include "TypeManip.h"
+#include "gcc_NullType.h"
+#include "gcc_TypeManip.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // macros TYPELIST_1, TYPELIST_2, ... TYPELIST_50
 // Each takes a number of arguments equal to its numeric suffix
-// The arguments are type names. TYPELIST_NN generates a typelist containing 
+// The arguments are type names. TYPELIST_NN generates a typelist containing
 //     all types passed as arguments, in that order.
 // Example: TYPELIST_2(char, int) generates a type containing char and int.
 ////////////////////////////////////////////////////////////////////////////////
@@ -383,7 +383,7 @@ namespace Loki
         {
             enum { value = 0 };
         };
-        
+
         template <class T, class U>
         struct Length< Typelist<T, U> >
         {
@@ -393,7 +393,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 // class template TypeAt
 // Finds the type at a given index in a typelist
-// Invocation (TList is a typelist and index is a compile-time integral 
+// Invocation (TList is a typelist and index is a compile-time integral
 //     constant):
 // TypeAt<TList, index>::Result
 // returns the type in position 'index' in TList
@@ -401,7 +401,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, unsigned int index> struct TypeAt;
-        
+
         template <class Head, class Tail>
         struct TypeAt<Typelist<Head, Tail>, 0>
         {
@@ -417,10 +417,10 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 // class template TypeAtNonStrict
 // Finds the type at a given index in a typelist
-// Invocations (TList is a typelist and index is a compile-time integral 
+// Invocations (TList is a typelist and index is a compile-time integral
 //     constant):
 // a) TypeAt<TList, index>::Result
-// returns the type in position 'index' in TList, or NullType if index is 
+// returns the type in position 'index' in TList, or NullType if index is
 //     out-of-bounds
 // b) TypeAt<TList, index, D>::Result
 // returns the type in position 'index' in TList, or D if index is out-of-bounds
@@ -432,17 +432,17 @@ namespace Loki
         {
             typedef DefaultType Result;
         };
-        
+
         template <class Head, class Tail, typename DefaultType>
         struct TypeAtNonStrict<Typelist<Head, Tail>, 0, DefaultType>
         {
             typedef Head Result;
         };
-        
+
         template <class Head, class Tail, unsigned int i, typename DefaultType>
         struct TypeAtNonStrict<Typelist<Head, Tail>, i, DefaultType>
         {
-            typedef typename 
+            typedef typename
                 TypeAtNonStrict<Tail, i - 1, DefaultType>::Result Result;
         };
 
@@ -455,19 +455,19 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T> struct IndexOf;
-        
+
         template <class T>
         struct IndexOf<NullType, T>
         {
             enum { value = -1 };
         };
-        
+
         template <class T, class Tail>
         struct IndexOf<Typelist<T, Tail>, T>
         {
             enum { value = 0 };
         };
-        
+
         template <class Head, class Tail, class T>
         struct IndexOf<Typelist<Head, Tail>, T>
         {
@@ -486,31 +486,31 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T> struct Append;
-        
+
         template <> struct Append<NullType, NullType>
         {
             typedef NullType Result;
         };
-        
+
         template <class T> struct Append<NullType, T>
         {
             typedef TYPELIST_1(T) Result;
         };
-        
+
         template <class Head, class Tail>
         struct Append<NullType, Typelist<Head, Tail> >
         {
             typedef Typelist<Head, Tail> Result;
         };
-        
+
         template <class Head, class Tail, class T>
         struct Append<Typelist<Head, Tail>, T>
         {
-            typedef Typelist<Head, 
+            typedef Typelist<Head,
                     typename Append<Tail, T>::Result>
                 Result;
         };
-        
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template Erase
 // Erases the first occurence, if any, of a type in a typelist
@@ -520,7 +520,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T> struct Erase;
-        
+
         template <class T>                         // Specialization 1
         struct Erase<NullType, T>
         {
@@ -536,7 +536,7 @@ namespace Loki
         template <class Head, class Tail, class T> // Specialization 3
         struct Erase<Typelist<Head, Tail>, T>
         {
-            typedef Typelist<Head, 
+            typedef Typelist<Head,
                     typename Erase<Tail, T>::Result>
                 Result;
         };
@@ -565,7 +565,7 @@ namespace Loki
         struct EraseAll<Typelist<Head, Tail>, T>
         {
             // Go all the way down the list removing the type
-            typedef Typelist<Head, 
+            typedef Typelist<Head,
                     typename EraseAll<Tail, T>::Result>
                 Result;
         };
@@ -578,7 +578,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList> struct NoDuplicates;
-        
+
         template <> struct NoDuplicates<NullType>
         {
             typedef NullType Result;
@@ -603,7 +603,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T, class U> struct Replace;
-        
+
         template <class T, class U>
         struct Replace<NullType, T, U>
         {
@@ -633,19 +633,19 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T, class U> struct ReplaceAll;
-        
+
         template <class T, class U>
         struct ReplaceAll<NullType, T, U>
         {
             typedef NullType Result;
         };
-        
+
         template <class T, class Tail, class U>
         struct ReplaceAll<Typelist<T, Tail>, T, U>
         {
             typedef Typelist<U, typename ReplaceAll<Tail, T, U>::Result> Result;
         };
-        
+
         template <class Head, class Tail, class T, class U>
         struct ReplaceAll<Typelist<Head, Tail>, T, U>
         {
@@ -663,13 +663,13 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList> struct Reverse;
-        
+
         template <class T>
         struct Reverse< TYPELIST_1(T) >
         {
             typedef TYPELIST_1(T) Result;
         };
-        
+
         template <class Head, class Tail>
         struct Reverse< Typelist<Head, Tail> >
         {
@@ -686,13 +686,13 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList, class T> struct MostDerived;
-        
+
         template <class T>
         struct MostDerived<NullType, T>
         {
             typedef T Result;
         };
-        
+
         template <class Head, class Tail, class T>
         struct MostDerived<Typelist<Head, Tail>, T>
         {
@@ -709,30 +709,30 @@ namespace Loki
 // Arranges the types in a typelist so that the most derived types appear first
 // Invocation (TList is a typelist):
 // DerivedToFront<TList>::Result
-// returns the reordered TList 
+// returns the reordered TList
 ////////////////////////////////////////////////////////////////////////////////
 
         template <class TList> struct DerivedToFront;
-        
+
         template <>
         struct DerivedToFront<NullType>
         {
             typedef NullType Result;
         };
-        
+
         template <class Head, class Tail>
         struct DerivedToFront< Typelist<Head, Tail> >
         {
         private:
             typedef typename MostDerived<Tail, Head>::Result
                 TheMostDerived;
-            typedef typename ReplaceAll<Tail, 
+            typedef typename ReplaceAll<Tail,
                 TheMostDerived, Head>::Result Temp;
             typedef typename DerivedToFront<Temp>::Result L;
         public:
             typedef Typelist<TheMostDerived, L> Result;
         };
-        
+
     }   // namespace TL
 }   // namespace Loki
 
@@ -747,7 +747,7 @@ namespace Loki
 //          Friedrik Hedman who fixed the bug but didn't send the fix;
 //          Kevin Cline who sent the first actual fix)
 // May 13, 2002: TYPELIST_46 called TYPELIST_45 with only 44 parameters.
-//      Credit due to Robert Minsk     
+//      Credit due to Robert Minsk
 ////////////////////////////////////////////////////////////////////////////////
 
 #endif // TYPELIST_INC_

@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Thu Sep 18 13:51:35 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 
@@ -29,7 +29,11 @@
 #include <string>
 #include "MSUnit.h"
 #include "MSSumDetector.h"
-#include "helpers/TypeManip.h"
+#ifdef WIN32
+#include "helpers/msvc6_TypeManip.h"
+#elif
+#include "helpers/gcc_TypeManip.h"
+#endif
 
 template < class DetectorType
            , bool hasTimeValueCont = false >
@@ -37,20 +41,20 @@ class MSMeanDetector : public MSSumDetector< DetectorType, hasTimeValueCont >
 {
     friend class MSE2Collector; // only MSE2/3Collector has
     friend class MSE3Collector; // access to ctor
-    
+
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
 //     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
     typedef typename DetectorType::Container DetectorContainer;
-    
-    DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) 
+
+    DetAggregate getAggregate( MSUnit::Seconds lastNSeconds )
         {
             // returns the mean value of the lastNSeconds
             AggregatesContIter startIt =
                 getAggrContStartIterator(
                     MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
-            MSUnit::Seconds seconds = 
+            MSUnit::Seconds seconds =
                 MSUnit::getInstance()->getSeconds(
                     std::distance( startIt, aggregatesM.end() ) );
             return getSum( lastNSeconds, startIt,
@@ -62,7 +66,7 @@ protected:
     MSMeanDetector( std::string id,
                     double lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
-                    const DetectorContainer& container ) 
+                    const DetectorContainer& container )
         : MSSumDetector< DetectorType, hasTimeValueCont >(
             id, lengthInMeters,
             deleteDataAfterSeconds,
@@ -75,19 +79,19 @@ protected:
     MSMeanDetector( std::string id,
                     double lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
-                    const TD::MSDetectorInterface& helperDetector ) 
+                    const TD::MSDetectorInterface& helperDetector )
         : MSSumDetector< DetectorType, hasTimeValueCont >(
             id, lengthInMeters,
             deleteDataAfterSeconds,
             helperDetector )
         {
             detNameM = getDetectorName() + "Mean";
-        }    
+        }
 
     // E3 ctors
     MSMeanDetector( std::string id,
                     MSUnit::Seconds deleteDataAfterSeconds,
-                    const DetectorContainer& container ) 
+                    const DetectorContainer& container )
         : MSSumDetector< DetectorType, hasTimeValueCont >(
             id,
             deleteDataAfterSeconds,
@@ -98,7 +102,7 @@ protected:
 
     MSMeanDetector( std::string id,
                     MSUnit::Seconds deleteDataAfterSeconds,
-                    DetectorContainer& container ) 
+                    DetectorContainer& container )
         : MSSumDetector< DetectorType, hasTimeValueCont >(
             id,
             deleteDataAfterSeconds,
@@ -106,7 +110,7 @@ protected:
         {
             detNameM = getDetectorName() + "Mean";
         }
-                
+
     // E* ctors follow here
 
     ~MSMeanDetector( void )

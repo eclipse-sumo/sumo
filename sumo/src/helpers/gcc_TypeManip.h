@@ -2,14 +2,14 @@
 // The Loki Library
 // Copyright (c) 2001 by Andrei Alexandrescu
 // This code accompanies the book:
-// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design 
+// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design
 //     Patterns Applied". Copyright (c) 2001. Addison-Wesley.
-// Permission to use, copy, modify, distribute and sell this software for any 
-//     purpose is hereby granted without fee, provided that the above copyright 
-//     notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+//     purpose is hereby granted without fee, provided that the above copyright
+//     notice appear in all copies and that both that copyright notice and this
 //     permission notice appear in supporting documentation.
-// The author or Addison-Welsey Longman make no representations about the 
-//     suitability of this software for any purpose. It is provided "as is" 
+// The author or Addison-Welsey Longman make no representations about the
+//     suitability of this software for any purpose. It is provided "as is"
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ namespace Loki
     {
         enum { value = v };
     };
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template Type2Type
 // Converts each type into a unique, insipid type
@@ -45,7 +45,7 @@ namespace Loki
     {
         typedef T OriginalType;
     };
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template Select
 // Selects one of two types based upon a boolean constant
@@ -66,7 +66,7 @@ namespace Loki
     {
         typedef U Result;
     };
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big)
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,27 +112,27 @@ namespace Loki
         enum { exists2Way = exists && Conversion<U, T>::exists };
         enum { sameType = false };
     };
-    
+
     template <class T>
-    struct Conversion<T, T>    
+    struct Conversion<T, T>
     {
         enum { exists = 1, exists2Way = 1, sameType = 1 };
     };
-    
+
     template <class T>
-    struct Conversion<void, T>    
+    struct Conversion<void, T>
     {
         enum { exists = 0, exists2Way = 0, sameType = 0 };
     };
-    
+
     template <class T>
-    struct Conversion<T, void>    
+    struct Conversion<T, void>
     {
         enum { exists = 1, exists2Way = 0, sameType = 0 };
     };
-    
+
     template <>
-    class Conversion<void, void>    
+    class Conversion<void, void>
     {
     public:
         enum { exists = 1, exists2Way = 1, sameType = 1 };
@@ -141,8 +141,8 @@ namespace Loki
 
 ////////////////////////////////////////////////////////////////////////////////
 // macro SUPERSUBCLASS
-// Invocation: SUPERSUBCLASS(B, D) where B and D are types. 
-// Returns true if B is a public base of D, or if B and D are aliases of the 
+// Invocation: SUPERSUBCLASS(B, D) where B and D are types.
+// Returns true if B is a public base of D, or if B and D are aliases of the
 // same type.
 //
 // Caveat: might not work if T and U are in a private inheritance hierarchy.
@@ -154,7 +154,7 @@ namespace Loki
 
 ////////////////////////////////////////////////////////////////////////////////
 // macro SUPERSUBCLASS
-// Invocation: SUPERSUBCLASS(B, D) where B and D are types. 
+// Invocation: SUPERSUBCLASS(B, D) where B and D are types.
 // Returns true if B is a public base of D.
 //
 // Caveat: might not work if T and U are in a private inheritance hierarchy.

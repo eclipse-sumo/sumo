@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Thu Sep 18 13:50:25 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -28,7 +28,12 @@
 #include <numeric>
 #include <string>
 #include "MSUnit.h"
-#include "helpers/TypeManip.h"
+#ifdef WIN32
+#include "helpers/msvc6_TypeManip.h"
+#elif
+#include "helpers/gcc_TypeManip.h"
+#endif
+
 #include "MSTDDetectorInterface.h"
 
 template < class DetectorType
@@ -37,17 +42,17 @@ template < class DetectorType
 class MSSumDetector : public DetectorType
 {
     enum ContainerType { JUST_VALUE = 0, TIME_VALUE_STRUCT };
-    
+
     friend class MSE2Collector; // only MSE2/3Collector have
     friend class MSE3Collector; // access to ctor
-    
+
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
 //     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
     typedef typename DetectorType::Container DetectorContainer;
-    
-    DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) 
+
+    DetAggregate getAggregate( MSUnit::Seconds lastNSeconds )
         {
             // returns the sum of the lastNSeconds
             AggregatesContIter startIt =
@@ -56,7 +61,7 @@ public:
             return getSum( lastNSeconds, startIt,
                            Loki::Int2Type< hasTimeValueCont >() );
         }
-    
+
 protected:
     // E2 ZS Ctor
     MSSumDetector( std::string id,
@@ -97,8 +102,8 @@ protected:
             if ( detNameM == "" ) {
                 detNameM = getDetectorName() + "Sum";
             }
-        }    
-    
+        }
+
     // E3 ctor
     MSSumDetector( std::string id,
                    MSUnit::Seconds deleteDataAfterSeconds,
@@ -111,16 +116,16 @@ protected:
                 detNameM = getDetectorName() + "Sum";
             }
         }
-    
+
     // E* ctors follow here
-    
+
 
     virtual ~MSSumDetector( void )
         {}
-    
+
     DetAggregate getSum( MSUnit::Seconds,
                          AggregatesContIter startIt,
-                         Loki::Int2Type< false > ) 
+                         Loki::Int2Type< false > )
         {
             // returns the sum of the lastNSeconds
             return std::accumulate( startIt , aggregatesM.end(),
@@ -129,7 +134,7 @@ protected:
 
     DetAggregate getSum( MSUnit::Seconds,
                          AggregatesContIter startIt,
-                         Loki::Int2Type< true > ) 
+                         Loki::Int2Type< true > )
         {
             // returns the sum of the lastNSeconds
             DetAggregate retVal = 0;

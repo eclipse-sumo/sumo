@@ -1,14 +1,14 @@
 #ifndef TYPETRAITS_INC_
 #define TYPETRAITS_INC_
 
-#include "Typelist.h"
+#include "gcc_Typelist.h"
 
 namespace Loki
 {
 ////////////////////////////////////////////////////////////////////////////////
 // class template IsCustomUnsignedInt
 // Offers a means to integrate nonstandard built-in unsigned integral types
-// (such as unsigned __int64 or unsigned long long int) with the TypeTraits 
+// (such as unsigned __int64 or unsigned long long int) with the TypeTraits
 //     class template defined below.
 // Invocation: IsCustomUnsignedInt<T> where T is any type
 // Defines 'value', an enum that is 1 iff T is a custom built-in unsigned
@@ -21,12 +21,12 @@ namespace Loki
     struct IsCustomUnsignedInt
     {
         enum { value = 0 };
-    };        
+    };
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template IsCustomSignedInt
 // Offers a means to integrate nonstandard built-in unsigned integral types
-// (such as unsigned __int64 or unsigned long long int) with the TypeTraits 
+// (such as unsigned __int64 or unsigned long long int) with the TypeTraits
 //     class template defined below.
 // Invocation: IsCustomSignedInt<T> where T is any type
 // Defines 'value', an enum that is 1 iff T is a custom built-in signed
@@ -39,7 +39,7 @@ namespace Loki
     struct IsCustomSignedInt
     {
         enum { value = 0 };
-    };        
+    };
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template IsCustomFloat
@@ -56,7 +56,7 @@ namespace Loki
     struct IsCustomFloat
     {
         enum { value = 0 };
-    };        
+    };
 
 ////////////////////////////////////////////////////////////////////////////////
 // Helper types for class template TypeTraits defined below
@@ -71,7 +71,7 @@ namespace Loki
         typedef TYPELIST_3(bool, char, wchar_t) StdOtherInts;
         typedef TYPELIST_3(float, double, long double) StdFloats;
     }
-        
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template TypeTraits
 // Figures out various properties of any given type
@@ -134,30 +134,30 @@ namespace Loki
             enum { result = false };
             typedef NullType PointeeType;
         };
-        
+
         template <class U> struct PointerTraits<U*>
         {
             enum { result = true };
             typedef U PointeeType;
         };
-        
+
         template <class U> struct ReferenceTraits
         {
             enum { result = false };
             typedef U ReferredType;
         };
-        
+
         template <class U> struct ReferenceTraits<U&>
         {
             enum { result = true };
             typedef U ReferredType;
         };
-        
+
         template <class U> struct PToMTraits
         {
             enum { result = false };
         };
-        
+
         template <class U, class V>
         struct PToMTraits<U V::*>
         {
@@ -169,7 +169,7 @@ namespace Loki
             typedef U Result;
             enum { isConst = 0 };
         };
-        
+
         template <class U> struct UnConst<const U>
         {
             typedef U Result;
@@ -181,7 +181,7 @@ namespace Loki
             typedef U Result;
             enum { isVolatile = 0 };
         };
-        
+
         template <class U> struct UnVolatile<volatile U>
         {
             typedef U Result;
@@ -194,36 +194,36 @@ namespace Loki
 
         enum { isReference = ReferenceTraits<T>::result };
         typedef typename ReferenceTraits<T>::ReferredType ReferredType;
-        
+
         enum { isMemberPointer = PToMTraits<T>::result };
-    
-        enum { isStdUnsignedInt = 
+
+        enum { isStdUnsignedInt =
             TL::IndexOf<Private::StdUnsignedInts, T>::value >= 0 };
-        enum { isStdSignedInt = 
+        enum { isStdSignedInt =
             TL::IndexOf<Private::StdSignedInts, T>::value >= 0 };
         enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt ||
             TL::IndexOf<Private::StdOtherInts, T>::value >= 0 };
         enum { isStdFloat = TL::IndexOf<Private::StdFloats, T>::value >= 0 };
         enum { isStdArith = isStdIntegral || isStdFloat };
-        enum { isStdFundamental = isStdArith || isStdFloat || 
+        enum { isStdFundamental = isStdArith || isStdFloat ||
             Conversion<T, void>::sameType };
-            
+
         enum { isUnsignedInt = isStdUnsignedInt || IsCustomUnsignedInt<T>::value };
         enum { isSignedInt = isStdSignedInt || IsCustomSignedInt<T>::value };
         enum { isIntegral = isStdIntegral || isUnsignedInt || isSignedInt };
         enum { isFloat = isStdFloat || IsCustomFloat<T>::value };
         enum { isArith = isIntegral || isFloat };
         enum { isFundamental = isStdFundamental || isArith || isFloat };
-        
+
         typedef typename Select<isStdArith || isPointer || isMemberPointer,
                 T, ReferredType&>::Result
             ParameterType;
-        
+
         enum { isConst = UnConst<T>::isConst };
         typedef typename UnConst<T>::Result NonConstType;
         enum { isVolatile = UnVolatile<T>::isVolatile };
         typedef typename UnVolatile<T>::Result NonVolatileType;
-        typedef typename UnVolatile<typename UnConst<T>::Result>::Result 
+        typedef typename UnVolatile<typename UnConst<T>::Result>::Result
             UnqualifiedType;
     };
 }

@@ -28,7 +28,11 @@
 #include <functional>
 #include <vector>
 #include <cassert>
-#include "helpers/TypeTraits.h"
+#ifdef WIN32
+#include "helpers/msvc6_TypeTraits.h"
+#elif
+#include "helpers/gcc_TypeTraits.h"
+#endif
 
 // See Gamma et al. "Design Patterns" for information about the
 // Observer pattern.
