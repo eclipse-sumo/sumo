@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 10:33:29  dkrajzew
 // error-handling instead of pure assertions added
 //
@@ -65,18 +68,20 @@ namespace
 #include <map>
 #include <algorithm>
 #include <microsim/MSLane.h>
+#include <microsim/MSSourceLane.h>
 #include <microsim/MSEdge.h>
-//#include <guisim/GUIEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/SErrorHandler.h>
 #include "NLNetBuilder.h"
 #include "NLEdgeControlBuilder.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -115,33 +120,38 @@ NLEdgeControlBuilder::addEdge(const string &id)
 }
 
 void
-NLEdgeControlBuilder::chooseEdge(const string &id)
+NLEdgeControlBuilder::chooseEdge(const string &id,
+                                 MSEdge::EdgeBasicFunction function)
 {
     m_pActiveEdge = MSEdge::dictionary(id);
-    if(/* NLNetBuilder::check && */m_pActiveEdge==0) {
+    if(m_pActiveEdge==0) {
         throw XMLIdNotKnownException("edge", id);
     }
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();
+    m_Function = function;
 }
 
-MSEdge *
-NLEdgeControlBuilder::getActiveReference()
-{
-    return m_pActiveEdge;
-}
 
-void
-NLEdgeControlBuilder::addLane(MSLane *lane, bool isDepart)
+MSLane *
+NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
+                              double maxSpeed, double length, bool isDepart)
 {
     // checks if the depart lane was set before
     if(isDepart&&m_pDepartLane!=0) {
       throw XMLDepartLaneDuplicationException();
     }
+    MSLane *lane = 0;
+    if(m_Function==MSEdge::EDGEFUNCTION_SOURCE) {
+        lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge);
+    } else {
+        lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge);
+    }
     m_pLaneStorage->push_back(lane);
     if(isDepart) {
         m_pDepartLane = lane;
     }
+    return lane;
 }
 
 void
@@ -198,7 +208,8 @@ NLEdgeControlBuilder::closeEdge()
             + m_pActiveEdge->id() + string("'."));
         return;
     }
-    m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane, m_pLanes);
+    m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
+        m_pLanes, m_Function);
 }
 
 MSEdgeControl *

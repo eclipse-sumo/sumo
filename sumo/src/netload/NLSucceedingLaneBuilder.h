@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:49  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -49,44 +52,54 @@
  * included modules
  * ======================================================================= */
 #include <string>
-#include <microsim/MSLane.h>
+#include <microsim/MSLinkCont.h>
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class MSJunction;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * NLSucceedingLaneBuilder
  * A container for the temporary storage of a lanes succeeding lanes while
  * parsing them
  */
 class NLSucceedingLaneBuilder {
-private:
-    /// the id of the lane the succeeding lanes are added to
-    std::string m_CurrentLane;
-    /// the id of the succeeding junction
-    std::string m_JunctionId;
-    /// the list of connections
-    MSLane::LinkCont   *m_SuccLanes;
-
 public:
     /// standard constructor
     NLSucceedingLaneBuilder();
-    /// standard destructor
+
+    /// Destructor
     ~NLSucceedingLaneBuilder();
+
     /** opens the computation of a container holding the succeding lanes of
         a lane */
     void openSuccLane(const std::string &laneId);
-    /// sets the succeding junction
-    void setSuccJunction(const std::string &junctionId);
+
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId);
+
     /// closes the building
     void closeSuccLane();
+
     /// returns the name of the lane the succeeding lanes are added to
     std::string getSuccingLaneName() const;
+
+private:
+    /// the id of the lane the succeeding lanes are added to
+    std::string m_CurrentLane;
+
+    /// the list of connections
+    MSLinkCont   *m_SuccLanes;
+
 private:
     /** invalid copy constructor */
     NLSucceedingLaneBuilder(const NLSucceedingLaneBuilder &s);
+
     /** invalid assignment operator */
     NLSucceedingLaneBuilder &operator=(const NLSucceedingLaneBuilder &s);
 };

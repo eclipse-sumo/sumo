@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 10:32:41  dkrajzew
 // sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
 //
@@ -90,50 +93,60 @@ class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;
 class SAX2XMLReader;
-class NLHandlerBuilder;
+class NLNetHandler;
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * NLNetBuilder
  * The class is the main interface to load simulations.
  * It is a black-box where only the options must be supplied on the
  * constructor call
  * It is assumed that the simulation is stored in a XML-file.
  */
 class NLNetBuilder {
-protected:
-    /// the options to get the names from
-    const OptionsCont &m_pOptions;
-    /// the different data types
 public:
     /// standard constructor
     NLNetBuilder(const OptionsCont &oc);
-    /// standard destructor
+
+    /// Destructor
     virtual ~NLNetBuilder();
+
     /// the net loading method
     MSNet *buildMSNet();
+
 protected:
     /// counts the structures and preallocates them
-    bool load(NLHandlerBuilder *handler, SAX2XMLReader &parser);
+    bool load(NLNetHandler *handler, SAX2XMLReader &parser);
+
     /// loads a described subpart form the given list of files
     bool load(LoadFilter what, const std::string &files,
-        NLHandlerBuilder *handler, SAX2XMLReader &parser);
+        NLNetHandler *handler, SAX2XMLReader &parser);
+
     /// parses the files using the given initialised parser
     bool parse(const std::string &files,
-        NLHandlerBuilder *handler, SAX2XMLReader &parser);
+        NLNetHandler *handler, SAX2XMLReader &parser);
+
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
+
     /// reports the process (done or failure)
     void subreport(const std::string &ok, const std::string &wrong) ;
+
     /// prints the final report
     void report(const NLContainer &container);
+
+protected:
+    /// the options to get the names from
+    const OptionsCont &m_pOptions;
+
 private:
     /** invalid copy operator */
     NLNetBuilder(const NLNetBuilder &s);
+
     /** invalid assignment operator */
     NLNetBuilder &operator=(const NLNetBuilder &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

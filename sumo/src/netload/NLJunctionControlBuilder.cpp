@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -77,10 +80,12 @@ namespace
 #include "NLJunctionControlBuilder.h"
 #include "NLContainer.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * static variables
@@ -90,6 +95,7 @@ const int NLJunctionControlBuilder::TYPE_TRAFFIC_LIGHT = 1;
 const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 2;
 const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 3;
 const int NLJunctionControlBuilder::TYPE_DEAD_END = 4;
+
 
 /* =========================================================================
  * method definitions
@@ -208,7 +214,7 @@ MSJunction *
 NLJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
-    MSRightOfWayJunction::InLaneCont *cont = getInLaneContSecure();
+    MSRightOfWayJunction::InLaneCont cont = getInLaneContSecure();
     // build the junction
     return new MSRightOfWayJunction(m_CurrentId, m_X, m_Y,
         cont, jtype);
@@ -219,7 +225,7 @@ MSJunction *
 NLJunctionControlBuilder::buildTrafficLightJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
-    MSRightOfWayJunction::InLaneCont *cont = getInLaneContSecure();
+    MSRightOfWayJunction::InLaneCont cont = getInLaneContSecure();
     // get the traffic light logic
     MSTrafficLightLogic *tlLogic = MSTrafficLightLogic::dictionary(m_CurrentId);//m_TLKey);
     if(tlLogic==0) {
@@ -242,17 +248,15 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
     return jtype;
 }
 
-MSRightOfWayJunction::InLaneCont *
+MSRightOfWayJunction::InLaneCont
 NLJunctionControlBuilder::getInLaneContSecure()
 {
     // build the inlane container
-    MSRightOfWayJunction::InLaneCont *cont =
-        new MSRightOfWayJunction::InLaneCont();
-    cont->reserve(m_pActiveInLanes.size());
+    MSRightOfWayJunction::InLaneCont cont;
+    cont.reserve(m_pActiveInLanes.size());
     for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
-        MSRightOfWayJunction::InLane *lane =
-            new MSRightOfWayJunction::InLane(*i);
-        cont->push_back(lane);
+        MSRightOfWayJunction::InLane lane(*i);
+        cont.push_back(lane);
     }
     return cont;
 }

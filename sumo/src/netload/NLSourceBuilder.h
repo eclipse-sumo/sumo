@@ -23,17 +23,18 @@
  * ======================================================================= */
 #include <string>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class MSSource;
 class MSEventControl;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * NLSourceBuilder
  * This class builds the sources
  */
 class NLSourceBuilder {
@@ -41,6 +42,7 @@ public:
     /// builds a MSTriggeredSource - source
     static MSSource *buildTriggeredSource(MSEventControl &ec,
         const std::string &id, std::string file, std::string base);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -53,4 +55,3 @@ public:
 // Local Variables:
 // mode:C++
 //
-

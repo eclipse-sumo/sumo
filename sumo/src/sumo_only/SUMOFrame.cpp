@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        SUMOFrame.cpp -
+//  Some helping methods for usage within sumo and sumo-gui
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 11:19:37  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <fstream>
 #include <utils/options/OptionsCont.h>
@@ -6,8 +44,16 @@
 #include <microsim/MSJunction.h>
 #include "SUMOFrame.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 OptionsCont *
 SUMOFrame::getOptions()
 {
@@ -26,8 +72,9 @@ SUMOFrame::getOptions()
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     // register the simulation settings
-    oc->doRegister("begin", 'b', new Option_Long());
-    oc->doRegister("end", 'e', new Option_Long());
+    oc->doRegister("begin", 'b', new Option_Integer());
+    oc->doRegister("end", 'e', new Option_Integer());
+    oc->doRegister("route-steps", 's', new Option_Integer(0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
     oc->doRegister("warn", 'w', new Option_Bool(true));
@@ -48,9 +95,7 @@ SUMOFrame::getOptions()
     return oc;
 }
 
-/**
- * Builds the ostream used for raw data output
- */
+
 ostream *
 SUMOFrame::buildRawOutputStream(OptionsCont *oc) {
     if(oc->getBool("R"))
@@ -71,9 +116,21 @@ SUMOFrame::buildRawOutputStream(OptionsCont *oc) {
     return craw;
 }
 
-void 
+
+void
 SUMOFrame::postbuild(MSNet &net)
 {
     MSJunction::postloadInitContainer();
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "SUMOFrame.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

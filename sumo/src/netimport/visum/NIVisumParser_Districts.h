@@ -1,11 +1,12 @@
-#ifndef NLTriggerBuilder_h
-#define NLTriggerBuilder_h
+#ifndef NIVisumParser_Districts_h
+#define NIVisumParser_Districts_h
 /***************************************************************************
-                          NLTriggerBuilder.h
-                          A building helper for triggers
+                          NIVisumParser_Districts.h
+			  Parser for visum-districts
                              -------------------
-    begin                : Thu, 17 Oct 2002
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    project              : SUMO
+    begin                : Thu, 14 Nov 2002
+    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     author               : Daniel Krajzewicz
     email                : Daniel.Krajzewicz@dlr.de
  ***************************************************************************/
@@ -18,50 +19,49 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+// $Log$
+// Revision 1.1  2003/02/07 11:14:54  dkrajzew
+// updated
+//
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <string>
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class MSTrigger;
-class MSNet;
-class MSLaneSpeedTrigger;
+#include "NIVisumLoader.h"
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * This class builds trigger objects.
+ * @class NIVisumParser_Districts
+ * Within visum, districts are used as the origin and the end point of trips.
+ * This class parses districts from visum-files into a SUMO-XML format.
  */
-class NLTriggerBuilder {
+class NIVisumParser_Districts :
+        public NIVisumLoader::NIVisumSingleDataTypeParser {
 public:
-    /** @brief builds the specified trigger
-        The certain type and purpose of the trigger is not yet known */
-    static MSTrigger *buildTrigger(MSNet &net,
-        const std::string &id,
-        const std::string &objecttype, const std::string &objectid,
-        const std::string &objectattr,
-        std::string file, std::string base);
+    /// Constructor
+    NIVisumParser_Districts(NIVisumLoader &parent,
+        const std::string &dataName);
 
-private:
-    /// builds a lane speed trigger
-    static MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
-        const std::string &id, MSLane &lane,
-        const std::string &file);
+    /// Destructor
+    ~NIVisumParser_Districts();
+
+protected:
+    /** @brief Parses a single district using data from the inherited NamedColumnsParser. */
+    void myDependentReport();
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NLTriggerBuilder.icc"
+//#include "NIVisumParser_Districts.icc"
 //#endif
 
 #endif
 
 // Local Variables:
 // mode:C++
-//
+// End:
+

@@ -1,0 +1,218 @@
+/***************************************************************************
+                          NIVisumParser_Connectors.cpp
+			  Parser for visum-connectors
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 14 Nov 2002
+    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.1  2003/02/07 11:14:54  dkrajzew
+// updated
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <netbuild/NBHelpers.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBDistrictCont.h>
+#include <netbuild/NBDistrict.h>
+#include <netbuild/NBNode.h>
+#include <utils/convert/TplConvert.h>
+#include <utils/convert/TplConvertSec.h>
+#include "NIVisumLoader.h"
+#include "NIVisumParser_Connectors.h"
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+NIVisumParser_Connectors::NIVisumParser_Connectors(NIVisumLoader &parent,
+        const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+{
+}
+
+
+NIVisumParser_Connectors::~NIVisumParser_Connectors()
+{
+}
+
+
+void
+NIVisumParser_Connectors::myDependentReport()
+{
+    try {
+        // get the source district
+        string bez =
+            NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
+        // get the destination node
+        string node =
+            NBHelpers::normalIDRepresentation(myLineParser.get("KnotNr"));
+        NBNode *dest = NBNodeCont::retrieve(node);
+        if(dest==0) {
+            addError(
+                string("The node '") + bez + string("' is not known."));
+            return;
+        }
+        // get the weight of the connection
+        double proz = getWeightedFloat("Proz");
+        if(proz>0) {
+            proz /= 100;
+        }
+        // get the duration to wait
+        double retard =
+            TplConvertSec<char>::_2floatSec(
+                myLineParser.get("t0-IV").c_str(), -1);
+        // get the type;
+        //  use a standard type with a large speed when a type is not given
+        string type =
+            NBHelpers::normalIDRepresentation(myLineParser.get("Typ"));
+
+        double speed;
+        int prio, nolanes;
+        if(type.length()==0) {
+            speed = 10000;
+            nolanes = 1;
+            prio = 0;
+        } else {
+            speed = NBTypeCont::getSpeed(type);
+            nolanes = NBTypeCont::getNoLanes(type);
+            prio = NBTypeCont::getPriority(type);
+        }
+        // add the connectors as an edge
+        string id = bez + string("-") + node;
+        // get the information whether this is a sink or a source
+        string dir = myLineParser.get("Richtung");
+        if(dir.length()==0) {
+            dir = "QZ";
+        }
+        // build the source when needed
+        if(dir.find('Q')!=string::npos) {
+            NBNode *src = buildDistrictNode(bez, dest,
+                NBEdge::EDGEFUNCTION_SOURCE);
+            if(src==0) {
+                addError(
+                    string("The district '")
+                    + bez + string("' is not known."));
+                return;
+            }
+            NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
+                speed, 2/*nolanes*/, 200.0, prio, NBEdge::EDGEFUNCTION_SOURCE);
+            if(!NBEdgeCont::insert(edge)) {
+                addError(
+                    string("A duplicate edge id occured (ID='") + id
+                    + string("')."));
+            } else {
+                NBDistrictCont::addSource(bez, edge, proz);
+            }
+        }
+        // build the sink when needed
+        if(dir.find('Z')!=string::npos) {
+            NBNode *src = buildDistrictNode(bez, dest,
+                NBEdge::EDGEFUNCTION_SINK);
+            if(src==0) {
+                addError(
+                    string("The district '") + bez
+                    + string("' is not known."));
+                return;
+            }
+            id = string("-") + id;
+            NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
+                speed, 3/*nolanes*/, 2000.0, prio, NBEdge::EDGEFUNCTION_SINK);
+            if(!NBEdgeCont::insert(edge)) {
+                addError(
+                    string("A duplicate edge id occured (ID='") + id
+                    + string("')."));
+            } else {
+                NBDistrictCont::addSink(bez, edge, proz);
+            }
+        }
+    } catch (OutOfBoundsException) {
+        addError2("ANBINDUNG", "", "OutOfBounds");
+    } catch (NumberFormatException) {
+        addError2("ANBINDUNG", "", "NumberFormat");
+    } catch (UnknownElement) {
+        addError2("ANBINDUNG", "", "UnknownElement");
+    }
+}
+
+
+NBNode *
+NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
+                                            NBNode *dest,
+                                            NBEdge::EdgeBasicFunction dir)
+{
+    // get the district
+    NBDistrict *dist = NBDistrictCont::retrieve(id);
+    if(dist==0) {
+        return 0;
+    }
+    // get the coordinates of the new node
+    double x = dest->getXCoordinate()
+        + (dist->getXCoordinate() - dest->getXCoordinate()) / 10;
+    double y = dest->getYCoordinate()
+        + (dist->getYCoordinate() - dest->getYCoordinate()) / 10;
+    // translate in dependence to the type
+    if(dir==NBEdge::EDGEFUNCTION_SINK) {
+        x += (dist->getYCoordinate() - dest->getYCoordinate()) / 100;
+        y -= (dist->getXCoordinate() - dest->getXCoordinate()) / 100;
+    } else {
+        x -= (dist->getYCoordinate() - dest->getYCoordinate()) / 100;
+        y += (dist->getXCoordinate() - dest->getXCoordinate()) / 100;
+    }
+    // build the id
+    string nid;
+    nid = id + "-" + dest->getID();
+    if(dir==NBEdge::EDGEFUNCTION_SINK) {
+        nid = "-" + nid;
+    }
+    // insert the node
+    if(!NBNodeCont::insert(nid, x, y)) {
+        x += 0.1;
+        y -= 0.1;
+        if(!NBNodeCont::insert(nid, x, y)) {
+            addError(
+                "Ups, this should not happen: A district lies on a node.");
+            return 0;
+        }
+    }
+    // return the node
+    return NBNodeCont::retrieve(nid);
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVisumParser_Connectors.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -65,7 +68,6 @@ class MSLane;
  * class definitions
  * ======================================================================= */
 /**
- * NLEdgeControlBuilder
  * This class is the container for MSEdge-instances while they are build.
  * As instances of the MSEdge-class contain references to other instances of
  * this class which may not yet be known at their generation, they are
@@ -85,70 +87,98 @@ class NLEdgeControlBuilder {
 public:
     /// definition of the used storage for edges
     typedef std::vector<MSEdge*> EdgeCont;
+
+public:
+    /** @brief standard constructor;
+        the parameter is a hint for the maximal number of lanes inside an edge */
+    NLEdgeControlBuilder(unsigned int storageSize=10);
+
+    /// Destructor
+    virtual ~NLEdgeControlBuilder();
+
+    /** Prepares the builder for the building of the specified number of
+        edges (preallocates ressources) */
+    void prepare(unsigned int no);
+
+    /** @brief Adds an edge with the given id to the list of edges;
+        This method throws an XMLIdAlreadyUsedException when the id was
+        already used for another edge */
+    virtual void addEdge(const std::string &id);
+
+    /// chooses the previously added edge as the current edge
+    void chooseEdge(const std::string &id,
+        MSEdge::EdgeBasicFunction function);
+
+    /** @brief Adds a lane to the current edge;
+        This method throws an XMLDepartLaneDuplicationException when the
+        lane is marked to be the depart lane and another so marked lane
+        was added before */
+    virtual MSLane *addLane(MSNet &net, const std::string &id,
+        double maxSpeed, double length, bool isDepart);
+
+    void addLane(MSLane *lane, bool isDepartLane);
+
+    /// closes (ends) the addition of lanes to the current edge
+    void closeLanes();
+
+    /** Begins the specification of lanes that may be used to reach the given
+        edge from the current edge */
+    void openAllowedEdge(MSEdge *edge);
+
+    /** @brief Adds a lane that may be used to reach the edge previously specified by "openAllowedEdge"
+        This method throws an XMLInvalidChildException when the lane is
+        not belonging to the current edge */
+    void addAllowed(MSLane *lane);
+
+    /// closes the specification of lanes that may be used to reach an edge
+    void closeAllowedEdge();
+
+    /** @brief Closes the building of an edge;
+        The edge is completely described by now and may not be opened again
+        what is not tested!!! */
+    void closeEdge();
+
+    /// builds the MSEdgeControl-class which holds all edges
+    MSEdgeControl *build();
+
 protected:
     /** storage for edges; to allow the splitting of edges after their number
         is known, they are hold inside this vector and laterly moved into two
         vectors, one for single-lane-edges and one for multi-lane-edges
         respectively */
     EdgeCont                  *m_pEdges;
+
     /// pointer to the currently chosen edge
     MSEdge                    *m_pActiveEdge;
+
     /// pointer to a temporary lane storage
     MSEdge::LaneCont          *m_pLaneStorage;
+
     /// list of the lanes that belong to the current edge
     MSEdge::LaneCont          *m_pLanes;
+
     /// pointer to the following edge the structure is currently working on
     MSEdge                    *m_pCurrentDestination;
+
     /// connection to following edges from the current edge
     MSEdge::AllowedLanesCont  *m_pAllowedLanes;
+
     /// pointer to the depart lane
     MSLane                    *m_pDepartLane;
+
     /// number of single-lane-edges
     unsigned int              m_iNoSingle;
+
     /// number of multi-lane-edges
     unsigned int              m_iNoMulti;
-public:
-    /** standard constructor; the parameter is a hint for the maximal number
-        of lanes inside an edge */
-    NLEdgeControlBuilder(unsigned int storageSize=10);
-    /// standard destructor
-    virtual ~NLEdgeControlBuilder();
-    /** prepares the builder for the building of the specified number of
-        edges (preallocates ressources) */
-    void prepare(unsigned int no);
-    /** adds an edge with the given id to the list of edges; this method
-        throws an XMLIdAlreadyUsedException when the id was already used for
-        another edge */
-    virtual void addEdge(const std::string &id);
-    /// chooses the previously added edge as the current edge
-    void chooseEdge(const std::string &id);
-    /** returns the pointer to the edge the builder is currently working on
-        (needed?!!!) */
-    MSEdge *getActiveReference();
-    /** adds a lane to the current edge; this method throws an
-        XMLDepartLaneDuplicationException when the lane is marked to be the
-        depart lane and another so marked lane was added before */
-    void addLane(MSLane *lane, bool isDepartLane);
-    /// closes (ends) the addition of lanes to the current edge
-    void closeLanes();
-    /** begins the specification of lanes that may be used to reach the given
-        edge from the current edge */
-    void openAllowedEdge(MSEdge *edge);
-    /** adds a lane that may be used to reach the edge previously specified by
-        "openAllowedEdge"; this method throws an XMLInvalidChildException when
-        the lane is not belonging to the current edge */
-    void addAllowed(MSLane *lane);
-    /// closes the specification of lanes that may be used to reach an edge
-    void closeAllowedEdge();
-    /** closes the building of an edge; the edge is completely described by
-        now and may not be opened again what is not tested!!! */
-    void closeEdge();
 
-    /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl *build();
+    /// the function of the current edge
+    MSEdge::EdgeBasicFunction m_Function;
+
 private:
     /** invalid copy constructor */
     NLEdgeControlBuilder(const NLEdgeControlBuilder &s);
+
     /** invalid assignment operator */
     NLEdgeControlBuilder &operator=(const NLEdgeControlBuilder &s);
 };
@@ -164,8 +194,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-

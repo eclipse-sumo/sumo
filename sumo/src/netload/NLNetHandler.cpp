@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NLHandlerBuilder.cpp
+                          NLNetHandler.cpp
 			  The third-step - handler building structures
                              -------------------
     project              : SUMO
@@ -31,7 +31,7 @@ namespace
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
 #include "NLContainer.h"
-#include "NLHandlerBuilder.h"
+#include "NLNetHandler.h"
 #include "NLDetectorBuilder.h"
 #include "NLSourceBuilder.h"
 #include "NLTriggerBuilder.h"
@@ -55,27 +55,32 @@ namespace
 #include <microsim/MSSimpleTrafficLightLogic.cpp>
 #endif
 
+
 /* =========================================================================
  * using namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder::NLHandlerBuilder(NLContainer &container)
-    : SUMOSAXHandler(true, true), myContainer(container), _tlLogicNo(-1)
+NLNetHandler::NLNetHandler(bool verbose, bool warn, const std::string &file,
+                           NLContainer &container)
+    : MSRouteHandler(verbose, warn, file, true),
+    myContainer(container), _tlLogicNo(-1)
 {
 }
 
-NLHandlerBuilder::~NLHandlerBuilder()
+NLNetHandler::~NLNetHandler()
 {
 }
 
 void
-NLHandlerBuilder::myStartElement(int element, const std::string &name,
+NLNetHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
+    cout << "Start: " << name << endl;
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -107,22 +112,8 @@ NLHandlerBuilder::myStartElement(int element, const std::string &name,
         default:
             break;
         }
-    }
-    // check dynamic components
-    if(wanted(LOADFILTER_DYNAMIC)) {
-        switch(element) {
-        case SUMO_TAG_VEHICLE:
-            addVehicle(attrs);
-            break;
-        case SUMO_TAG_VTYPE:
-            addVehicleType(attrs);
-            break;
-        case SUMO_TAG_ROUTE:
-            openRoute(attrs);
-            break;
-        default:
-            break;
-        }
+        // all routes wil be read from the network description!
+        MSRouteHandler::myStartElement(element, name, attrs);
     }
     // check junction logics
     if(wanted(LOADFILTER_LOGICS)) {
@@ -161,7 +152,7 @@ NLHandlerBuilder::myStartElement(int element, const std::string &name,
 
 
 void
-NLHandlerBuilder::setEdgeNumber(const Attributes &attrs) {
+NLNetHandler::setEdgeNumber(const Attributes &attrs) {
     try {
         myContainer.setEdgeNumber(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
@@ -175,22 +166,33 @@ NLHandlerBuilder::setEdgeNumber(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::chooseEdge(const Attributes &attrs) {
+NLNetHandler::chooseEdge(const Attributes &attrs) {
+    // get the id
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        myContainer.chooseEdge(id);
     } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("edge", id));
     }
+    // get the function
+    string func;
+    try {
+        func = getString(attrs, SUMO_ATTR_FUNC);
+    } catch (EmptyData) {
+        SErrorHandler::add(
+            "Error in description: missing function of an edge-object.");
+    } catch (XMLIdNotKnownException &e) {
+        SErrorHandler::add(e.getMessage("edge", id));
+    }
+    myContainer.chooseEdge(id, func);
 }
 
 
 void
-NLHandlerBuilder::addLane(const Attributes &attrs) {
+NLNetHandler::addLane(const Attributes &attrs) {
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
@@ -220,7 +222,7 @@ NLHandlerBuilder::addLane(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::openAllowedEdge(const Attributes &attrs) {
+NLNetHandler::openAllowedEdge(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -235,59 +237,7 @@ NLHandlerBuilder::openAllowedEdge(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::addVehicleType(const Attributes &attrs) {
-    try {
-        string id = getString(attrs, SUMO_ATTR_ID);
-        try {
-            myContainer.addVehicleType(id,
-                getFloat(attrs, SUMO_ATTR_LENGTH),
-                getFloat(attrs, SUMO_ATTR_MAXSPEED),
-                getFloat(attrs, SUMO_ATTR_ACCEL),
-                getFloat(attrs, SUMO_ATTR_DECEL),
-                getFloat(attrs, SUMO_ATTR_SIGMA));
-        } catch (XMLIdAlreadyUsedException &e) {
-            SErrorHandler::add(e.getMessage("vehicletype", id));
-        } catch (EmptyData) {
-            SErrorHandler::add(
-                "Error in description: missing attribute in a vehicletype-object.");
-        } catch (NumberFormatException) {
-            SErrorHandler::add(
-                "Error in description: one of an vehtype's attributes must be numeric but is not.");
-        }
-    } catch (EmptyData) {
-        SErrorHandler::add(
-            "Error in description: missing id of a vehicle-object.");
-    }
-}
-
-
-void
-NLHandlerBuilder::openRoute(const Attributes &attrs) {
-    // get the id
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
-        SErrorHandler::add(
-            "Error in description: missing id of a route-object.");
-        return;
-    } catch (XMLIdNotKnownException &e) {
-        SErrorHandler::add(e.getMessage("route", "(ID_UNKNOWN!)"));
-        return;
-    }
-    // get the information whether the route shall be deleted after
-    // being passed 
-    bool multiReferenced = false;
-    try {
-        multiReferenced = getBool(attrs, SUMO_ATTR_MULTIR);
-    } catch (...) {
-    }
-    myContainer.openRoute(id, multiReferenced);
-}
-
-
-void
-NLHandlerBuilder::addJunctionKey(const Attributes &attrs) {
+NLNetHandler::addJunctionKey(const Attributes &attrs) {
     try {
         string key = getString(attrs, SUMO_ATTR_KEY);
         myContainer.addKey(key); // !!! wozu?
@@ -297,7 +247,7 @@ NLHandlerBuilder::addJunctionKey(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::initJunctionLogic() {
+NLNetHandler::initJunctionLogic() {
     m_Key = "";
     m_pActiveLogic = new MSBitsetLogic::Logic();
     m_pActiveTrafo = new MSBitsetLogic::Link2LaneTrafo();
@@ -310,7 +260,7 @@ NLHandlerBuilder::initJunctionLogic() {
 
 
 void
-NLHandlerBuilder::addLogicItem(const Attributes &attrs) {
+NLNetHandler::addLogicItem(const Attributes &attrs) {
     if(_responseSize>0&&_requestSize>0) {
         int request = -1;
         string response;
@@ -337,7 +287,7 @@ NLHandlerBuilder::addLogicItem(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::addTrafoItem(const Attributes &attrs) {
+NLNetHandler::addTrafoItem(const Attributes &attrs) {
     int lane = -1;
     string links;
     try {
@@ -359,7 +309,7 @@ NLHandlerBuilder::addTrafoItem(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::initTrafficLightLogic()
+NLNetHandler::initTrafficLightLogic()
 {
     m_Key = "";
     m_ActivePhases.clear();
@@ -369,7 +319,7 @@ NLHandlerBuilder::initTrafficLightLogic()
 
 
 void
-NLHandlerBuilder::addPhase(const Attributes &attrs) {
+NLNetHandler::addPhase(const Attributes &attrs) {
     if(_tlLogicNo!=0) {
         return;
     }
@@ -406,10 +356,13 @@ NLHandlerBuilder::addPhase(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::openJunction(const Attributes &attrs) {
+NLNetHandler::openJunction(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
+        if(id=="10") {
+            int bla = 0;
+        }
         try {
             myContainer.openJunction(id,
                 getStringSecure(attrs, SUMO_ATTR_KEY, ""),
@@ -428,32 +381,7 @@ NLHandlerBuilder::openJunction(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::addVehicle(const Attributes &attrs) {
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-        try {
-            myContainer.addVehicle(id,
-                getString(attrs, SUMO_ATTR_TYPE),
-                getString(attrs, SUMO_ATTR_ROUTE),
-                getLong(attrs, SUMO_ATTR_DEPART));
-        } catch (EmptyData) {
-            SErrorHandler::add(
-                "Error in description: missing attribute in a vehicle-object.");
-        } catch(XMLIdNotKnownException &e) {
-            SErrorHandler::add(e.getMessage("", ""));
-        } catch(XMLIdAlreadyUsedException &e) {
-            SErrorHandler::add(e.getMessage("vehicle", id));
-        }
-    } catch (EmptyData) {
-        SErrorHandler::add(
-            "Error in description: missing id of a vehicle-object.");
-    }
-}
-
-
-void
-NLHandlerBuilder::addDetector(const Attributes &attrs) {
+NLNetHandler::addDetector(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -483,7 +411,7 @@ NLHandlerBuilder::addDetector(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::addSource(const Attributes &attrs) {
+NLNetHandler::addSource(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -510,7 +438,7 @@ NLHandlerBuilder::addSource(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::addTrigger(const Attributes &attrs) {
+NLNetHandler::addTrigger(const Attributes &attrs) {
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -539,21 +467,8 @@ NLHandlerBuilder::addTrigger(const Attributes &attrs) {
 }
 
 
-/*void
-NLHandlerBuilder::openSuccLane(const Attributes &attrs) {
-    try {
-        string id = getString(attrs, SUMO_ATTR_ID);
-        myContainer.openSuccLane(id);
-        m_LaneId = id;
-    } catch (EmptyData &e) {
-        SErrorHandler::add(
-            "Error in description: missing id of a succ-object.");
-    }
-}*/
-
-
 void
-NLHandlerBuilder::openSucc(const Attributes &attrs) {
+NLNetHandler::openSucc(const Attributes &attrs) {
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
         myContainer.openSuccLane(id);
@@ -562,16 +477,10 @@ NLHandlerBuilder::openSucc(const Attributes &attrs) {
         SErrorHandler::add(
             "Error in description: missing id of a succ-object.");
     }
-    try {
-        myContainer.setSuccJunction(getString(attrs, SUMO_ATTR_JUNCTION));
-    } catch (EmptyData) {
-        SErrorHandler::add(
-            "Error in description: missing id of a succ junction-object.");
-    }
 }
 
 void
-NLHandlerBuilder::addSuccLane(const Attributes &attrs) {
+NLNetHandler::addSuccLane(const Attributes &attrs) {
     try {
         myContainer.addSuccLane(
             getBool(attrs, SUMO_ATTR_YIELD),
@@ -595,9 +504,10 @@ NLHandlerBuilder::addSuccLane(const Attributes &attrs) {
 
 
 void
-NLHandlerBuilder::myCharacters(int element, const std::string &name,
+NLNetHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
+    cout << "Chars: " << name << endl;
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -616,16 +526,8 @@ NLHandlerBuilder::myCharacters(int element, const std::string &name,
         default:
             break;
         }
-    }
-    // check dynamic components
-    if(wanted(LOADFILTER_DYNAMIC)) {
-        switch(element) {
-        case SUMO_TAG_ROUTE:
-            addRouteElements(name, chars);
-            break;
-        default:
-            break;
-        }
+        // all routes wil be read from the network description!
+        MSRouteHandler::myCharacters(element, name, chars);
     }
     // check junction logics
     if(wanted(LOADFILTER_LOGICS)) {
@@ -652,12 +554,11 @@ NLHandlerBuilder::myCharacters(int element, const std::string &name,
             break;
         }
     }
-
 }
 
 
 void
-NLHandlerBuilder::allocateEdges(const std::string &chars) {
+NLNetHandler::allocateEdges(const std::string &chars) {
     StringTokenizer st(chars);
     while(st.hasNext()) {
         myContainer.addEdge(st.next());
@@ -666,7 +567,7 @@ NLHandlerBuilder::allocateEdges(const std::string &chars) {
 
 
 void
-NLHandlerBuilder::setNodeNumber(const std::string &chars) {
+NLNetHandler::setNodeNumber(const std::string &chars) {
     try {
         myContainer.setNodeNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
@@ -680,7 +581,7 @@ NLHandlerBuilder::setNodeNumber(const std::string &chars) {
 
 
 void
-NLHandlerBuilder::addAllowedEdges(const std::string &chars) {
+NLNetHandler::addAllowedEdges(const std::string &chars) {
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -694,26 +595,9 @@ NLHandlerBuilder::addAllowedEdges(const std::string &chars) {
     }
 }
 
-void
-NLHandlerBuilder::addRouteElements(const std::string &name,
-                                    const std::string &chars) {
-    StringTokenizer st(chars);
-    if(/* NLNetBuilder::check&& */st.size()==0)
-        SErrorHandler::add("Empty route (" + name + ")");
-    else {
-        while(st.hasNext()) {
-            string set = st.next();
-            try {
-                myContainer.addRoutesEdge(set);
-            } catch (XMLIdNotKnownException &e) {
-                SErrorHandler::add(e.getMessage("routes edge", ""));
-            }
-        }
-    }
-}
 
 void
-NLHandlerBuilder::setRequestSize(const std::string &chars) {
+NLNetHandler::setRequestSize(const std::string &chars) {
     try {
         _requestSize = STRConvert::_2int(chars);
         m_pActiveLogic->resize(_requestSize);
@@ -726,7 +610,7 @@ NLHandlerBuilder::setRequestSize(const std::string &chars) {
 }
 
 void
-NLHandlerBuilder::setResponseSize(const std::string &chars) {
+NLNetHandler::setResponseSize(const std::string &chars) {
     try {
         _responseSize = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
@@ -739,7 +623,7 @@ NLHandlerBuilder::setResponseSize(const std::string &chars) {
 }
 
 void
-NLHandlerBuilder::setLaneNumber(const std::string &chars) {
+NLNetHandler::setLaneNumber(const std::string &chars) {
     try {
         _laneNo = STRConvert::_2int(chars);
         m_pActiveTrafo->resize(_responseSize);
@@ -753,7 +637,7 @@ NLHandlerBuilder::setLaneNumber(const std::string &chars) {
 
 
 void
-NLHandlerBuilder::setKey(const std::string &chars) 
+NLNetHandler::setKey(const std::string &chars)
 {
     if(chars.length()==0) {
         SErrorHandler::add("No key given for the current junction logic.");
@@ -763,7 +647,7 @@ NLHandlerBuilder::setKey(const std::string &chars)
 }
 
 void
-NLHandlerBuilder::setTLLogicNo(const std::string &chars) {
+NLNetHandler::setTLLogicNo(const std::string &chars) {
     _tlLogicNo = TplConvertSec<char>::_2intSec(chars.c_str(), -1);
     if(_tlLogicNo<0) {
         SErrorHandler::add("Somenthing is wrong with a traffic light logic number.");
@@ -774,22 +658,24 @@ NLHandlerBuilder::setTLLogicNo(const std::string &chars) {
 
 
 void
-NLHandlerBuilder::addLogicItem(int request, const string &response) {
+NLNetHandler::addLogicItem(int request, const string &response) {
     bitset<64> use(response);
+    assert(m_pActiveLogic->size()>request);
     (*m_pActiveLogic)[request] = use;
     _requestItems++;
 }
 
 void
-NLHandlerBuilder::addTrafoItem(const string &links, int lane) {
+NLNetHandler::addTrafoItem(const string &links, int lane) {
     bitset<64> use(links);
+    assert(m_pActiveTrafo->size()>lane);
     (*m_pActiveTrafo)[lane] = use;
     _trafoItems++;
 }
 
 
 void
-NLHandlerBuilder::addInLanes(const std::string &chars) {
+NLNetHandler::addInLanes(const std::string &chars) {
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -805,8 +691,9 @@ NLHandlerBuilder::addInLanes(const std::string &chars) {
 // ----------------------------------
 
 void
-NLHandlerBuilder::myEndElement(int element, const std::string &name)
+NLNetHandler::myEndElement(int element, const std::string &name)
 {
+    cout << "End: " << name << endl;
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
         case SUMO_TAG_EDGE:
@@ -825,19 +712,8 @@ NLHandlerBuilder::myEndElement(int element, const std::string &name)
             closeSuccLane();
             break;
         }
-    }
-    if(wanted(LOADFILTER_DYNAMIC)) {
-        switch(element) {
-        case SUMO_TAG_ROUTE:
-            try {
-                myContainer.closeRoute();
-            } catch (XMLListEmptyException &e) {
-                SErrorHandler::add(e.getMessage("route", ""));
-            } catch (XMLIdAlreadyUsedException &e) {
-                SErrorHandler::add(e.getMessage("route", ""));
-            }
-            break;
-        }
+        // All routes will be read from the network description!
+        MSRouteHandler::myEndElement(element, name);
     }
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -855,7 +731,7 @@ NLHandlerBuilder::myEndElement(int element, const std::string &name)
 
 
 void
-NLHandlerBuilder::closeJunction() {
+NLNetHandler::closeJunction() {
     try {
         myContainer.closeJunction();
     } catch (XMLIdAlreadyUsedException &e) {
@@ -867,7 +743,7 @@ NLHandlerBuilder::closeJunction() {
 
 
 void
-NLHandlerBuilder::closeJunctionLogic() {
+NLNetHandler::closeJunctionLogic() {
     if(_trafoItems!=_laneNo||_requestItems!=_requestSize) {
         SErrorHandler::add(
 	        string("The description for the junction logic '") +
@@ -882,18 +758,18 @@ NLHandlerBuilder::closeJunctionLogic() {
 
 
 void
-NLHandlerBuilder::closeTrafficLightLogic() {
+NLNetHandler::closeTrafficLightLogic() {
     if(_tlLogicNo!=0) {
         return;
     }
     MSTrafficLightLogic *tlLogic =
-        new MSSimpleTrafficLightLogic<64>(m_Key, m_ActivePhases);
+        new MSSimpleTrafficLightLogic<64>(m_Key, m_ActivePhases, 0);
     MSTrafficLightLogic::dictionary(m_Key, tlLogic); // !!! replacement within the dictionary
     m_ActivePhases.clear();
 }
 
 void
-NLHandlerBuilder::closeSuccLane() {
+NLNetHandler::closeSuccLane() {
     try {
         myContainer.closeSuccLane();
     } catch (XMLIdNotKnownException &e) {
@@ -905,27 +781,27 @@ NLHandlerBuilder::closeSuccLane() {
 
 
 std::string
-NLHandlerBuilder::getMessage() const {
+NLNetHandler::getMessage() const {
     return "Loading routes, lanes and vehicle types...";
 }
 
 
 bool
-NLHandlerBuilder::wanted(LoadFilter filter) const
+NLNetHandler::wanted(LoadFilter filter) const
 {
     return (_filter&filter)!=0;
 }
 
 
 void
-NLHandlerBuilder::setWanted(LoadFilter filter)
+NLNetHandler::setWanted(LoadFilter filter)
 {
     _filter = filter;
 }
 
 
 void
-NLHandlerBuilder::setError(const string &type,
+NLNetHandler::setError(const string &type,
                        const SAXParseException& exception)
 {
     SErrorHandler::add(buildErrorMessage(_file, type, exception), true);
@@ -935,7 +811,7 @@ NLHandlerBuilder::setError(const string &type,
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NLHandlerBuilder.icc"
+//#include "NLNetHandler.icc"
 //#endif
 
 // Local Variables:

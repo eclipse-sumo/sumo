@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -59,6 +62,9 @@
 #include "NLContainer.h"
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSEventControl;
 
 
@@ -66,7 +72,6 @@ class MSEventControl;
  * method definitions
  * ======================================================================= */
 /**
- * NLJunctionControlBuilder
  * NLJunctionControlBuilder is the container for MSJunction-instances while
  * their building until they are transfered into a MSJunctionControl-instance
  * at last.
@@ -75,77 +80,114 @@ class MSEventControl;
  * The result is a MSJunctionControl-instance holding the parsed MSJunction-
  * -instances
  */
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class NLJunctionControlBuilder {
-private:
-  typedef std::vector<MSLane*> LaneCont;
-    /// the list of the simulations junctions
-    MSJunctionControl::JunctionCont          *m_pJunctions;
-    /// the list of the incoming lanes of the currently chosen junction
-    LaneCont                    m_pActiveInLanes;
-    /// the id of the currently chosen junction
-    std::string                 m_CurrentId;
-    /// the key of the currently chosen junction
-    std::string                 m_Key;
-    /** the key of the traffic loght logic when the current junction
-        has traffic lights */
-    std::string                 m_TLKey;
-    /// the type of the currently chosen junction
-    int                         m_Type;
-    /// the container used
-    NLContainer                 *m_Container;
-    /// the position of the junction
-    double                      m_X, m_Y;
-    /** the time delay to the next traffic light switch
-        (when the current junction has traffic lights) */
-    size_t                      m_Delay;
-    /** the junction's traffic lights' first phase index
-        (when the current junction has traffic lights) */
-    size_t                      m_InitStep;
-private:
-    /// numerical representation for a junction with no purpose
-    static const int TYPE_NOJUNCTION;
-    /// numerical representation for a traffic light-steered junction
-    static const int TYPE_TRAFFIC_LIGHT;
-    /** numerical representation for a junction where vehicles cominng
-        from the right side may drive as first */
-    static const int TYPE_RIGHT_BEFORE_LEFT;
-    /** numerical representation of a junction where a street has a
-        higher priority */
-    static const int TYPE_PRIORITY_JUNCTION;
-    /** a dead end (all roads end here) */
-    static const int TYPE_DEAD_END;
 public:
     /// standard constructor
     NLJunctionControlBuilder(NLContainer *container);
-    /// standard destructor
+
+    /// Destructor
     ~NLJunctionControlBuilder();
+
     /// preallocates space for the found number of junctions
     void prepare(unsigned int no);
+
     /// begins the processing of the named junction
     void openJunction(const std::string &id, const std::string &key,
         const std::string &type, double x, double y);
-    /// adds an incoming lane to the previously chosen junction
+
+    /// Adds an incoming lane to the previously chosen junction
     void addInLane(MSLane *lane);
-    /// adds the key to the junction
-    /** closes (ends) the processing of the current junction;
-        this method may throw a XMLIdAlreadyUsedException when a junction
+
+    /** @brief Closes (ends) the processing of the current junction;
+        This method may throw a XMLIdAlreadyUsedException when a junction
         with the same id as the current was already added */
     void closeJunction();
-    /** builds the MSJunctionControl which holds all of the simulations
+
+    /** Builds the MSJunctionControl which holds all of the simulations
         junctions */
     MSJunctionControl *build();
 
 private:
     /** builds a junction that does not use a logic */
     MSJunction *buildNoLogicJunction();
+
     /** builds a junction with a logic */
     MSJunction *buildLogicJunction();
+
+    /** builds a traffic light junction */
     MSJunction *buildTrafficLightJunction();
+
+    /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();
-    MSRightOfWayJunction::InLaneCont *getInLaneContSecure();
+
+    /** builds the junction's list of lanes catching occuring errors */
+    MSRightOfWayJunction::InLaneCont getInLaneContSecure();
+
+private:
+    /// Definition of a lane vector
+    typedef std::vector<MSLane*> LaneCont;
+
+    /// the list of the simulations junctions
+    MSJunctionControl::JunctionCont          *m_pJunctions;
+
+    /// the list of the incoming lanes of the currently chosen junction
+    LaneCont                    m_pActiveInLanes;
+
+    /// the id of the currently chosen junction
+    std::string                 m_CurrentId;
+
+    /// the key of the currently chosen junction
+    std::string                 m_Key;
+
+    /** the key of the traffic loght logic when the current junction
+        has traffic lights */
+    std::string                 m_TLKey;
+
+    /// the type of the currently chosen junction
+    int                         m_Type;
+
+    /// the container used
+    NLContainer                 *m_Container;
+
+    /// the position of the junction
+    double                      m_X, m_Y;
+
+    /** the time delay to the next traffic light switch
+        (when the current junction has traffic lights) */
+    size_t                      m_Delay;
+
+    /** the junction's traffic lights' first phase index
+        (when the current junction has traffic lights) */
+    size_t                      m_InitStep;
+
+private:
+    /// numerical representation for a junction with no purpose
+    static const int TYPE_NOJUNCTION;
+
+    /// numerical representation for a traffic light-steered junction
+    static const int TYPE_TRAFFIC_LIGHT;
+
+    /** numerical representation for a junction where vehicles cominng
+        from the right side may drive as first */
+    static const int TYPE_RIGHT_BEFORE_LEFT;
+
+    /** numerical representation of a junction where a street has a
+        higher priority */
+    static const int TYPE_PRIORITY_JUNCTION;
+
+    /** a dead end (all roads end here) */
+    static const int TYPE_DEAD_END;
+
 private:
     /** invalid copy operator */
     NLJunctionControlBuilder(const NLJunctionControlBuilder &s);
+
     /** invalid assignment operator */
     NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
 };

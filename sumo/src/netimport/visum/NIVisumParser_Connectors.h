@@ -1,11 +1,12 @@
-#ifndef NLTriggerBuilder_h
-#define NLTriggerBuilder_h
+#ifndef NIVisumParser_Connectors_h
+#define NIVisumParser_Connectors_h
 /***************************************************************************
-                          NLTriggerBuilder.h
-                          A building helper for triggers
+                          NIVisumParser_Connectors.h
+			  Parser for visum-connectors
                              -------------------
-    begin                : Thu, 17 Oct 2002
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    project              : SUMO
+    begin                : Thu, 14 Nov 2002
+    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     author               : Daniel Krajzewicz
     email                : Daniel.Krajzewicz@dlr.de
  ***************************************************************************/
@@ -18,50 +19,57 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+// $Log$
+// Revision 1.1  2003/02/07 11:14:54  dkrajzew
+// updated
+//
+//
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <string>
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class MSTrigger;
-class MSNet;
-class MSLaneSpeedTrigger;
+#include "NIVisumLoader.h"
+#include <netbuild/NBEdge.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * This class builds trigger objects.
+ * @class NIVisumParser_Connectors
+ * Parses connectors from a visum-file. Connectors are used to connect districts
+ * and the "real" road network. Both types (ingoing and outgoing) are supported.
  */
-class NLTriggerBuilder {
+class NIVisumParser_Connectors :
+        public NIVisumLoader::NIVisumSingleDataTypeParser {
 public:
-    /** @brief builds the specified trigger
-        The certain type and purpose of the trigger is not yet known */
-    static MSTrigger *buildTrigger(MSNet &net,
-        const std::string &id,
-        const std::string &objecttype, const std::string &objectid,
-        const std::string &objectattr,
-        std::string file, std::string base);
+    /// Constructor
+    NIVisumParser_Connectors(NIVisumLoader &parent,
+        const std::string &dataName);
+
+    /// Destructor
+    ~NIVisumParser_Connectors();
+
+protected:
+    /** @brief Parses data of a single connector;
+        Values are stored within the inherited NamedColumnsParser */
+    void myDependentReport();
 
 private:
-    /// builds a lane speed trigger
-    static MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
-        const std::string &id, MSLane &lane,
-        const std::string &file);
+    /// Builds a node which belongs to a district - is not a part of the "real" road network
+    NBNode *buildDistrictNode(const std::string &id, NBNode *dest,
+        NBEdge::EdgeBasicFunction dir);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NLTriggerBuilder.icc"
+//#include "NIVisumParser_Connectors.icc"
 //#endif
 
 #endif
 
 // Local Variables:
 // mode:C++
-//
+// End:
+

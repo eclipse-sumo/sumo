@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/22 10:05:17  dkrajzew
 // unsupported return value added
 //
@@ -42,15 +45,19 @@ namespace
 #include "NLTriggerBuilder.h"
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 MSTrigger *
-NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id, 
-                               const std::string &objecttype, 
-                               const std::string &objectid, 
+NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
+                               const std::string &objecttype,
+                               const std::string &objectid,
                                const std::string &objectattr,
                                std::string file, std::string base)
 {
@@ -74,7 +81,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
 
 MSLaneSpeedTrigger *
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
-                                        const std::string &id, 
+                                        const std::string &id,
                                         MSLane &lane,
                                         const std::string &file)
 {

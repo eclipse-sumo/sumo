@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -58,21 +61,25 @@ namespace
 #include <vector>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSLinkCont.h>
 #include "NLNetBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 NLSucceedingLaneBuilder::NLSucceedingLaneBuilder()
+    //: m_Junction(0)
 {
-    m_SuccLanes = new MSLane::LinkCont();
+    m_SuccLanes = new MSLinkCont();
     m_SuccLanes->reserve(10);
 }
 
@@ -88,19 +95,13 @@ NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 }
 
 void
-NLSucceedingLaneBuilder::setSuccJunction(const string &junctionId)
-{
-    m_JunctionId = junctionId;
-}
-
-void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId)
 {
     if(laneId=="SUMO_NO_DESTINATION") {
         m_SuccLanes->push_back(new MSLink(0, 0));
     } else {
         MSLane *lane = MSLane::dictionary(laneId);
-        if(/* NLNetBuilder::check&& */ lane==0) {
+        if(lane==0) {
             throw XMLIdNotKnownException("lane", laneId);
         }
         m_SuccLanes->push_back(new MSLink(lane, yield));
@@ -111,22 +112,20 @@ void
 NLSucceedingLaneBuilder::closeSuccLane()
 {
     MSLane *current = MSLane::dictionary(m_CurrentLane);
-    MSJunction *junction = MSJunction::dictionary(m_JunctionId);
     if(current==0) {
         throw XMLIdNotKnownException("lane", m_CurrentLane);
     }
-    if(junction==0) {
-       throw XMLIdNotKnownException("junction", m_JunctionId);
-    }
-    MSLane::LinkCont *cont = new MSLane::LinkCont();
+    MSLinkCont *cont = new MSLinkCont();
     cont->reserve(m_SuccLanes->size());
     copy(m_SuccLanes->begin(), m_SuccLanes->end(), back_inserter(*cont));
-    current->initialize(junction, cont);
+    current->initialize(/*m_Junction, */cont);
     m_SuccLanes->clear();
+//    m_Junction = 0;
 }
 
 std::string
-NLSucceedingLaneBuilder::getSuccingLaneName() const {
+NLSucceedingLaneBuilder::getSuccingLaneName() const
+{
     return m_CurrentLane;
 }
 

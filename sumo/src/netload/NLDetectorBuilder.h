@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:36:47  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -52,7 +55,6 @@
  * class definitions
  * ======================================================================= */
 /**
- * NLDetectorBuilder
  * This class builds the detectors from their descriptions
  */
 class NLDetectorBuilder {
@@ -62,10 +64,12 @@ public:
         const std::string &lane, float pos, long splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath);
+
 private:
     /// converts the name of an output style into it's enumeration value
     static MSDetector::OutputStyle convertStyle(const std::string &id,
         const std::string &style);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

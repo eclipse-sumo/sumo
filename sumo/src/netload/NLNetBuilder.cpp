@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 11:18:56  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 10:32:41  dkrajzew
 // sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
 //
@@ -101,7 +104,7 @@ namespace
 #include <utils/common/SErrorHandler.h>
 #include <utils/common/SLogging.h>
 #include "NLContainer.h"
-#include "NLHandlerBuilder.h"
+#include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
@@ -120,8 +123,13 @@ using namespace std;
 NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
     : m_pOptions(oc)
 {
-    MSNet::preInit(oc.getLong("b"));
+    MSNet::preInit(
+        oc.getInt("b"),
+        oc.getUIntVector("dump-intervals"),
+        oc.getString("dump-basename"),
+        false);
 }
+
 
 
 
@@ -139,13 +147,19 @@ NLNetBuilder::buildMSNet() {
         false);
     MSNet *net = 0;
     // get the matching handler
-    NLHandlerBuilder *handler = new NLHandlerBuilder(*container);
+    NLNetHandler *handler =
+        new NLNetHandler(m_pOptions.getBool("v"), m_pOptions.getBool("w"),
+            "", *container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
+    // prepare for building of route readers
+    string route_files = "";
+    if(m_pOptions.isSet("r")) {
+        route_files = m_pOptions.getString("r");
+    }
+    // try to build a net
     if(!SErrorHandler::errorOccured()) {
-        net = container->buildMSNet(
-            m_pOptions.getUIntVector("dump-intervals"),
-            m_pOptions.getString("dump-basename"));
+        net = container->buildMSNet(m_pOptions);
     }
     delete parser;
     if(ok)
@@ -157,18 +171,13 @@ NLNetBuilder::buildMSNet() {
 
 
 bool
-NLNetBuilder::load(NLHandlerBuilder *handler, SAX2XMLReader &parser) {
+NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser) {
     // load the net
     bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
         handler, parser);
     // load the junctions
     if(m_pOptions.isSet("j")&&ok) {
         ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"),
-            handler, parser);
-    }
-    // load the routes
-    if(m_pOptions.isSet("r")&&ok) {
-        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
             handler, parser);
     }
     // load additional net elements (sources, detectors, ...)
@@ -180,7 +189,7 @@ NLNetBuilder::load(NLHandlerBuilder *handler, SAX2XMLReader &parser) {
 }
 
 bool
-NLNetBuilder::load(LoadFilter what, const string &files, NLHandlerBuilder *handler,
+NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
                    SAX2XMLReader &parser) {
     // initialise the handler for the current type of data
     handler->setWanted(what);
@@ -208,12 +217,13 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLHandlerBuilder *handl
 
 
 bool
-NLNetBuilder::parse(const string &files, NLHandlerBuilder *handler,
+NLNetBuilder::parse(const string &files, NLNetHandler *handler,
                     SAX2XMLReader &parser)
 {
     // for each file in the list
     StringTokenizer st(files, ';');
-    while(st.hasNext()) {
+    bool ok = true;
+    while(st.hasNext()&&ok) {
         // check whether the file exists
         string tmp = st.next();
         if(!FileHelpers::exists(tmp)) {
@@ -225,10 +235,10 @@ NLNetBuilder::parse(const string &files, NLHandlerBuilder *handler,
             // parse the file
 	        handler->setFileName(tmp);
 	        parser.parse(tmp.c_str());
-	        return !(SErrorHandler::errorOccured());
+	        ok = !(SErrorHandler::errorOccured());
         }
     }
-    return true;
+    return ok;
 }
 
 string
@@ -242,9 +252,6 @@ NLNetBuilder::getDataName(LoadFilter forWhat) {
         break;
     case LOADFILTER_NETADD:
         return "additional net elements";
-        break;
-    case LOADFILTER_DYNAMIC:
-        return "vehicles and routes";
         break;
     default:
         break;
@@ -269,7 +276,7 @@ void
 NLNetBuilder::report(const NLContainer &container)
 {
     if(!SErrorHandler::errorOccured() && m_pOptions.getBool("v")) {
-        SLogging::add(container.getStatistics());
+//        SLogging::add(container.getStatistics());
     }
 }
 
