@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/16 15:34:07  dkrajzew
+// conversion tools splitted and relocated to avoid mandatory inclusion of unused files
+//
 // Revision 1.9  2003/07/07 08:32:19  dkrajzew
 // adapted the importer to the new lane geometry description
 //
@@ -116,10 +119,11 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
-#include <utils/convert/ConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -129,10 +133,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -471,7 +477,7 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
     }
     // try to build shape
     try {
-        Position2DVector shape = ConvHelper::parseShape(shpdef);
+        Position2DVector shape = GeomConvHelper::parseShape(shpdef);
         if(shape.size()==1) {
             addError(string("The shape of edge '") + myCurrentID
                 + string("' has only one entry."));
