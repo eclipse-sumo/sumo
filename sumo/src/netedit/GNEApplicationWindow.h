@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/20 23:07:23  der_maik81
+// all algorithms get the configdialog as parameter
+//
 // Revision 1.3  2004/12/16 12:17:03  dkrajzew
 // debugging
 //
@@ -56,6 +59,7 @@
 #include "Image.h"
 #include "Graph.h"
 #include "ConfigDialog.h"
+#include "InfoDialog.h"
 
 
 /* =========================================================================
@@ -361,6 +365,7 @@ protected:
 
     // Image Configuration Dialog
     ConfigDialog *dialog;
+	InfoDialog *dialog2;
 
 	// default filename for the imagefiledialog
 	FXString imgfilename;
@@ -375,6 +380,7 @@ private:
   int                mdflag;                  // Mouse button down?
   int                dirty;                   // Canvas has been painted?
   FXColor            drawColor;               // Color for the line
+  int                m_mergeTol;
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/12/20 23:07:08  der_maik81
+// all algorithms get the configdialog as parameter
+//
 // Revision 1.8  2004/12/16 12:17:03  dkrajzew
 // debugging
 //
@@ -115,7 +118,7 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 
 #include "Image.h"
-#include "ConfigDialog.h"
+
 
 /* =========================================================================
  * used namespaces
@@ -220,6 +223,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     // No image loaded, yet.
     m_img=NULL;
 	dialog=new ConfigDialog(this);
+	dialog2 = new InfoDialog(this);
 
 
     setTarget(this);
@@ -798,16 +802,27 @@ long GNEApplicationWindow::onUpdClear(FXObject* sender,FXSelector,void*){
 //new
 
 /////////////////////////new Andeas (Anfang)
+
+bool extrFlag=false;
 long
 GNEApplicationWindow::onCmdExtractStreets(FXObject*,FXSelector,void*)
 {
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->ExtractStreets();
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
+    
+	
+
+	if(extrFlag==false){
+		extrFlag=true;
+		FXDCWindow dc(myCanvas);
+		if(m_img)
+		{
+			m_img->ExtractStreets();
+			m_img->GetFXImage()->render();
+			dc.drawImage(m_img->GetFXImage(),0,0);
+			
+		}
+	}
+	else 
+		dialog2->show();
     return 1;
 }
 
@@ -817,7 +832,7 @@ GNEApplicationWindow::onCmdErode(FXObject*,FXSelector,void*)
     FXDCWindow dc(myCanvas);
     if(m_img)
     {
-        m_img->Erode();
+        m_img->Erode(dialog);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
     }
@@ -830,7 +845,7 @@ GNEApplicationWindow::onCmdDilate(FXObject*,FXSelector,void*)
     FXDCWindow dc(myCanvas);
     if(m_img)
     {
-        m_img->Dilate();
+        m_img->Dilate(dialog);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
     }
@@ -843,7 +858,7 @@ GNEApplicationWindow::onCmdOpening(FXObject*,FXSelector,void*)
     FXDCWindow dc(myCanvas);
     if(m_img)
     {
-        m_img->Opening();
+        m_img->Opening(dialog);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
     }
@@ -856,7 +871,7 @@ GNEApplicationWindow::onCmdClosing(FXObject*,FXSelector,void*)
     FXDCWindow dc(myCanvas);
     if(m_img)
     {
-        m_img->Closing();
+        m_img->Closing(dialog);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
     }
@@ -876,17 +891,24 @@ GNEApplicationWindow::onCmdCloseGaps(FXObject*,FXSelector,void*)
     return 1;
 }
 
+bool skelFlag=false;
 long
 GNEApplicationWindow::onCmdSkeletonize(FXObject*,FXSelector,void*)
 {
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->CreateSkeleton();
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    return 1;
+	if(skelFlag==false)
+	{
+		skelFlag=true;
+		FXDCWindow dc(myCanvas);
+		if(m_img)
+		{
+			m_img->CreateSkeleton();
+			m_img->GetFXImage()->render();
+			dc.drawImage(m_img->GetFXImage(),0,0);
+		}
+	}
+	else
+		dialog2->show();
+	return 1;
 }
 
 long
@@ -895,7 +917,7 @@ GNEApplicationWindow::onCmdEraseStains(FXObject*,FXSelector,void*)
     FXDCWindow dc(myCanvas);
     if(m_img)
     {
-        m_img->EraseStains(15);
+        m_img->EraseStains(dialog);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
     }
@@ -904,42 +926,51 @@ GNEApplicationWindow::onCmdEraseStains(FXObject*,FXSelector,void*)
 
 
 int idbla = 0;
-
+bool graphFlag=false;
 long
 GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 {
-    Graph leergraph;
-    graph=leergraph;
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        graph=m_img->Tracking(graph);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-        vector<Edge*> edges = graph.GetEArray();
-        for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-            Edge*e = *i;
-            string name = toString<int>(idbla++);
-            Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
-            NBNode *fromNode = NBNodeCont::retrieve(fromPos);
-            if(fromNode==0) {
-                fromNode = new NBNode(name, fromPos);
-            }
-            Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
-            NBNode *toNode = NBNodeCont::retrieve(toPos);
-            if(toNode==0) {
-                toNode = new NBNode(name, toPos);
-            }
-            if(fromNode!=toNode) {
-                int lanes = 1;
-                double speed = 13.8;
-                double length = -1;
-                NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
-                    "stdtype", speed, lanes, length, -1);
-            }
-        }
+    if(graphFlag==false)
+	{
+		graphFlag=true;
+		Graph leergraph;
+		graph=leergraph;
+		FXDCWindow dc(myCanvas);
+		if(m_img)
+		{
+			graph=m_img->Tracking(graph,dialog);
+			graph.MergeVertex(dialog);
+			graph.Reduce_plus();
+			m_img->GetFXImage()->render();
+			dc.drawImage(m_img->GetFXImage(),0,0);
+			vector<Edge*> edges = graph.GetEArray();
+			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+				Edge*e = *i;
+				string name = toString<int>(idbla++);
+				Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
+				NBNode *fromNode = NBNodeCont::retrieve(fromPos);
+				if(fromNode==0) {
+					fromNode = new NBNode(name, fromPos);
+				}
+				Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
+				NBNode *toNode = NBNodeCont::retrieve(toPos);
+				if(toNode==0) {
+					toNode = new NBNode(name, toPos);
+				}
+				if(fromNode!=toNode) {
+					int lanes = 1;
+					double speed = 13.8;
+					double length = -1;
+					NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
+						"stdtype", speed, lanes, length, -1);
+				}
+			}
+		
 
-    }
+		}
+	}
+	else
+		dialog2->show();
     return 1;
 }
 
@@ -1008,7 +1039,7 @@ GNEApplicationWindow::onCmdReduceEdges(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdMergeVertexes(FXObject*,FXSelector,void*)
 {
-    graph.MergeVertex();
+    graph.MergeVertex(dialog);
     return 1;
 }
 
@@ -1023,7 +1054,7 @@ long
 GNEApplicationWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     graph.Export_Edges_XML();
-    graph.GetTraces(1,10);
+    graph.GetTraces(1,1000);
 	return 1;
 }
 
@@ -1127,8 +1158,14 @@ GNEApplicationWindow::onCmdClose(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 {
-    // get the new file name
-    FXFileDialog opendialog(this,"Öffne BitMap");
+    //reset of algorithm flags
+	extrFlag=false;
+	graphFlag=false;
+	skelFlag=false;
+	// get the new file name
+    
+	
+	FXFileDialog opendialog(this,"Öffne BitMap");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.bmp");
     if(gCurrentFolder.length()!=0) {
@@ -1150,9 +1187,39 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
         m_img = new Image(img,getApp());
         myCanvas->setWidth(m_img->GetFXImage()->getWidth());
         myCanvas->setHeight(m_img->GetFXImage()->getHeight());
-        FXDCWindow dc(myCanvas);
+        
+		
+		//Sets the Flag for Extract Streets if a sceletton is loaded
+		FXint wid = m_img->GetFXImage()->getWidth();
+		FXint hei = m_img->GetFXImage()->getHeight();
+		
+		for (FXint i=0 ; i<wid ; ++i)
+		{	
+			for (FXint j=0; j<hei ; ++j)
+			{
+
+				FXColor col=m_img->GetFXImage()->getPixel(i,j);
+
+				// prooves if a pixel is coloured
+				if(
+					//not white
+					(col!=FXRGB(255,255,255))||
+					//not black
+					(col!=FXRGB(0,0,0))
+					
+				)
+					extrFlag=true;
+			}
+		}
+
+
+
+
+		FXDCWindow dc(myCanvas);
         dc.drawImage(m_img->GetFXImage(),0,0);
-    }
+    
+	
+	}
     return 1;
 
 }
