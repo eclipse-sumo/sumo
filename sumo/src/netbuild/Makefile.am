@@ -9,8 +9,7 @@ NBJunctionLogicCont.cpp NBJunctionLogicCont.h \
 NBJunctionTypesMatrix.cpp NBJunctionTypesMatrix.h \
 NBLinkCliqueContainer.cpp NBLinkCliqueContainer.h \
 NBLinkPossibilityMatrix.h \
-NBLogicKeyBuilder.cpp NBLogicKeyBuilder.h NBNode.cpp NBNode.h \
-NBNodeCont.cpp NBNodeCont.h \
+NBLogicKeyBuilder.cpp NBLogicKeyBuilder.h \
 NBRequest.cpp NBRequest.h \
 NBRequestEdgeLinkIterator.cpp NBRequestEdgeLinkIterator.h \
 NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \
@@ -25,7 +24,7 @@ NBNetBuilder.cpp NBNetBuilder.h
 
 CFRONT_FILES =
 
-SUBDIRS =
+SUBDIRS = nodes
 
 EXTRA_DIST = $(CFRONT_FILES)
 
