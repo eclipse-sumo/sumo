@@ -1,11 +1,12 @@
 noinst_LIBRARIES = libmicrosim.a
 
 
-EXTRA_DIST = MSBitSetLogic.cpp \
-MSActuatedTrafficLightLogic.cpp \
-MSAgentbasedTrafficLightLogic.cpp
+EXTRA_DIST = MSBitSetLogic.cpp 
 
 libmicrosim_a_SOURCES = \
+MSActuatedTrafficLightLogic.cpp \
+MSAgentbasedTrafficLightLogic.cpp \
+MSCORN.cpp MSCORN.h \
 MSCrossSection.cpp \
 MSCurrentHaltingDurationSumPerVehicle.cpp \
 MSDensity.cpp \
