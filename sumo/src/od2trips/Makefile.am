@@ -7,7 +7,6 @@ ODDistrict.cpp \
 ODDistrictHandler.cpp \
 ODGetRand.cpp \
 ODIndexSort.cpp \
-ODread.cpp \
 ODwrite.cpp \
 ODDistrictCont.h \
 ODDistrict.h \
