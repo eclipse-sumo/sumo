@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/11 08:00:30  dkrajzew
+// consequent usage of Position2D instead of two doubles
+//
 // Revision 1.5  2003/05/20 09:50:19  dkrajzew
 // further work and debugging
 //
@@ -100,11 +103,10 @@ Boundery::add(const Boundery &p)
 
 
 
-std::pair<double, double>
+Position2D
 Boundery::getCenter() const
 {
-    return std::pair<double, double>
-        ( (_xmin+_xmax)/2.0, (_ymin+_ymax)/2.0);
+    return Position2D( (_xmin+_xmax)/2.0, (_ymin+_ymax)/2.0);
 }
 
 double

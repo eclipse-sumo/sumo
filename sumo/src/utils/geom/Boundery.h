@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/11/11 08:00:31  dkrajzew
+// consequent usage of Position2D instead of two doubles
+//
 // Revision 1.5  2003/05/20 09:50:20  dkrajzew
 // further work and debugging
 //
@@ -63,7 +66,7 @@ public:
     void add(double x, double y);
     void add(const Position2D &p);
     void add(const Boundery &p);
-    std::pair<double, double> getCenter() const;
+    Position2D getCenter() const;
     double xmin() const;
     double xmax() const;
     double ymin() const;
