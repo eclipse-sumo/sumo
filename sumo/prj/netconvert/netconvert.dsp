@@ -224,6 +224,10 @@ SOURCE=..\..\src\netbuild\NBRequestEdgeLinkIterator.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netbuild\NBTrafficLightDefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netbuild\NBTrafficLightLogic.cpp
 # End Source File
 # Begin Source File
@@ -957,6 +961,10 @@ SOURCE=..\..\src\netbuild\NBRequest.h
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBRequestEdgeLinkIterator.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBTrafficLightDefinition.h
 # End Source File
 # Begin Source File
 

@@ -350,6 +350,10 @@ SOURCE=..\..\src\microsim\MSLaneState.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSLaneStateReminder.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSLink.cpp
 # End Source File
 # Begin Source File
@@ -394,7 +398,7 @@ SOURCE=..\..\src\microsim\MSSourceLane.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSTrafficLightJunction.cpp
+SOURCE=..\..\src\microsim\MSTLLogicControl.cpp
 # End Source File
 # Begin Source File
 
@@ -511,6 +515,14 @@ SOURCE=..\..\src\gui\QGLObjectPopupMenuItem.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\QGLObjectToolTip.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QGUIImageField.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QGUIToggleButton.cpp
 # End Source File
 # Begin Source File
 
@@ -1002,6 +1014,10 @@ SOURCE=..\..\src\microsim\MSLaneState.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSLaneStateReminder.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSLink.h
 # End Source File
 # Begin Source File
@@ -1011,6 +1027,10 @@ SOURCE=..\..\src\microsim\MSLinkCont.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLogicJunction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSMoveReminder.h
 # End Source File
 # Begin Source File
 
@@ -1054,7 +1074,7 @@ SOURCE=..\..\src\microsim\MSSourceLane.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSTrafficLightJunction.h
+SOURCE=..\..\src\microsim\MSTLLogicControl.h
 # End Source File
 # Begin Source File
 

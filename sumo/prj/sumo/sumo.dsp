@@ -205,7 +205,7 @@ SOURCE=..\..\src\microsim\MSSourceLane.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSTrafficLightJunction.cpp
+SOURCE=..\..\src\microsim\MSTLLogicControl.cpp
 # End Source File
 # Begin Source File
 
@@ -485,7 +485,7 @@ SOURCE=..\..\src\microsim\MSSourceLane.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSTrafficLightJunction.h
+SOURCE=..\..\src\microsim\MSTLLogicControl.h
 # End Source File
 # Begin Source File
 
