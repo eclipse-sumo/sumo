@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/11/20 13:23:43  dkrajzew
+// detector-related debugging
+//
 // Revision 1.7  2003/11/18 14:31:00  dkrajzew
 // usage of a colon instead of a dot patched
 //
@@ -212,6 +215,7 @@ GUIInternalLane::push( MSVehicle* veh )
             return true;
         }
     }
+    veh->destReached(myEdge);
     myVehBuffer = veh;
     veh->enterLaneAtMove( this );
     veh->_assertPos();
