@@ -24,6 +24,10 @@ namespace
 } 
 
 // $Log$
+// Revision 1.7  2002/05/08 11:36:26  croessel
+// destReached() changed to allow routes to include the destination-edge
+// several times before reaching the destination.
+//
 // Revision 1.6  2002/04/24 15:22:08  croessel
 // Bugfix: changed myType->decel() into myType->accel() in dadwle().
 //
@@ -321,32 +325,31 @@ MSVehicle::hasSuccEdge(unsigned int nSuccs) const
 bool
 MSVehicle::destReached( const MSEdge* targetEdge )
 {
-    MSNet::Route::const_iterator lastEdgeIt = myRoute->end() - 1;
-
-    if ( targetEdge == *lastEdgeIt ) {
-
-        myCurrEdge = lastEdgeIt;
-        myAllowedLanes = 
-            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );                
+    // search for the target in the vehicle's route. Usually there is
+    // only one iteration. Only for very short edges a vehicle can
+    // "jump" over one ore more edges in one timestep.
+    MSNet::Route::const_iterator edgeIt = myCurrEdge;
+    
+    while ( *edgeIt != targetEdge ) {
+        
+        ++edgeIt;
+        assert( edgeIt != myRoute->end() );
+    }
+    
+    myCurrEdge = edgeIt;
+         
+    // Check if destination-edge is reached. Update allowedLanes makes 
+    // only sense if destination isn't reached.
+    MSNet::Route::const_iterator destination = myRoute->end() - 1;
+    
+    if ( myCurrEdge == destination ) {
+        
         return true;
     }
-
     else {
         
-        // search for the target in the vehicle's route. Usually there is
-        // only one iteration. Only for very short edges a vehicle can
-        // "jump" over one ore more edges in one timestep.
-        MSNet::Route::const_iterator edgeIt = myCurrEdge;
-
-        while ( *edgeIt != targetEdge ) {
-     
-            ++edgeIt;
-            assert( edgeIt != myRoute->end() );
-        }
-
-        myCurrEdge = edgeIt;
         myAllowedLanes = 
-            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );          
+            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );         
         return false;
     }
 }
