@@ -20,6 +20,10 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2003/06/23 15:53:27  roessel
+// Refinement of if-condition in dismissByLaneChange and
+// isActivatedByEmitOrLaneChange.
+//
 // Revision 1.3  2003/06/10 13:24:08  roessel
 // Added documentation.
 //
@@ -78,7 +82,8 @@ MSLaneStateReminder::isStillActive( MSVehicle& veh,
 void
 MSLaneStateReminder::dismissByLaneChange( MSVehicle& veh )
 {
-    if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
+    if ( veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM ) {
+        // vehicle is on detector
         laneStateM->leaveDetectorByLaneChange( veh );
     }
 }
@@ -86,13 +91,16 @@ MSLaneStateReminder::dismissByLaneChange( MSVehicle& veh )
 bool
 MSLaneStateReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-    if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
+    if ( veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM ) {
+        // vehicle is on detector
         laneStateM->enterDetectorByEmitOrLaneChange( veh );
         return true;
     }
-    if ( veh.pos() > endPosM ){
+    if ( veh.pos() - veh.length() > endPosM ){
+        // vehicle is beyond detector
         return false;
     }
+    // vehicle is in front of detector
     return true;
 }
 
