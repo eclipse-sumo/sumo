@@ -8,6 +8,16 @@
     email                : roessel@zpr.uni-koeln.de
  ***************************************************************************/
 
+/**
+ * @file   Command.h
+ * @author Christian Roessel
+ * @date   Started Thu, 20 Dec 2001
+ * $Revision$ from $Date$ by $Author$
+ * 
+ * @brief Contains the declaration/implementation of the Command base class. 
+ */
+
+
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,6 +28,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/06/06 14:18:51  roessel
+// Documentation added.
+//
 // Revision 1.3  2003/02/07 10:40:13  dkrajzew
 // updated
 //
@@ -60,24 +73,28 @@
 #include <microsim/MSNet.h>
 
 /**
-   See Design-Patterns, Gamma et al.
+ * Base class for all Command classes. A concrete command will hold a
+ * receiver and an operation on the receiver. This operation will be performed
+ * when execute() is called.
+ * @see Design Patterns, Gamma et al.
+ * @see SimpleCommand
+ * @see OneArgumentCommand
+ * @see MSEventControl
  */
 class Command
 {
 public:
-    /// virtual destructor
+    /// Destructor.
     virtual ~Command( void ) {};
 
-    /** Execute the command and return an offset for recurring commands
-        or 0 for single-execution commands. */
+    /** 
+     * Execute the command.
+     * 
+     * @return The receivers operation should return the next interval for
+     * recurring commands and 0 for single-execution commands.
+     */
     virtual MSNet::Time execute() = 0;
 };
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "Command.icc"
-//#endif
 
 #endif
 
