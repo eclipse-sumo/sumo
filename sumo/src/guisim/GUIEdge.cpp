@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/04/02 11:20:35  dkrajzew
+// changes needed to visualise the selection status
+//
 // Revision 1.15  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -95,8 +98,9 @@ using namespace std;
 /* =========================================================================
  * included modules
  * ======================================================================= */
-GUIEdge::GUIEdge(std::string id)
-    : MSEdge(id), _from(0), _to(0)
+GUIEdge::GUIEdge(std::string id, GUIGlObjectStorage &idStorage)
+    : MSEdge(id), GUIGlObject(idStorage, string("edge:") + id),
+    _from(0), _to(0)
 {
 }
 
@@ -170,6 +174,19 @@ GUIEdge::getNames()
 }
 
 
+std::vector<size_t>
+GUIEdge::getIDs()
+{
+    std::vector<size_t> ret;
+    ret.reserve(MSEdge::myDict.size());
+    for(MSEdge::DictType::iterator i=MSEdge::myDict.begin();
+        i!=MSEdge::myDict.end(); i++) {
+        ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());
+    }
+    return ret;
+}
+
+
 Boundery
 GUIEdge::getBoundery() const
 {
@@ -230,10 +247,29 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
 }
 
 
+
+GUIGlObjectType
+GUIEdge::getType() const
+{
+    return GLO_EDGE;
+}
+
+
+std::string
+GUIEdge::microsimID() const
+{
+    return id();
+}
+
+
+bool
+GUIEdge::active() const
+{
+    return true;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIEdge.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/04/02 11:20:35  dkrajzew
+// changes needed to visualise the selection status
+//
 // Revision 1.23  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -110,6 +113,7 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <gui/GUIAppEnum.h>
+#include <gui/icons/GUIIconSubSys.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -187,6 +191,22 @@ GUIVehicle::getNames()
 }
 
 
+std::vector<size_t>
+GUIVehicle::getIDs()
+{
+    std::vector<size_t> ret;
+    ret.reserve(MSVehicle::myDict.size());
+    for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin();
+        i!=MSVehicle::myDict.end(); i++) {
+        MSVehicle *veh = (*i).second;
+        if(veh->running()) {
+            ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
+        }
+    }
+    return ret;
+}
+
+
 const RGBColor &
 GUIVehicle::getDefinedColor() const
 {
@@ -251,7 +271,8 @@ GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,
     new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuCommand(ret, "Center",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
     if(gfIsSelected(GLO_LANE, getGlID())) {
@@ -282,7 +303,6 @@ GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
     ret->mkItem("last lane change [s]", true,
         new CastingFunctionBinding<GUIVehicle, double, size_t>(
         this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("real depart [s]", false, getRealDepartTime());
     ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
         new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::pos));
@@ -341,13 +361,6 @@ size_t
 GUIVehicle::getLastLaneChangeOffset() const
 {
     return myLastLaneChangeOffset;
-}
-
-
-size_t
-GUIVehicle::getRealDepartTime() const
-{
-    return myRealDepart;
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2004/04/02 11:20:35  dkrajzew
+// changes needed to visualise the selection status
+//
 // Revision 1.15  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -114,8 +117,11 @@ public:
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
 
-    /// retunrs the names of all available vehicles
+    /** Returns the list of all known junctions as their names */
     static std::vector<std::string> getNames();
+
+    /** Returns the list of all known junctions as their ids */
+    static std::vector<size_t> getIDs();
 
     /// returns the color of the vehicle defined in the xml-description
     const RGBColor &getDefinedColor() const;
@@ -162,7 +168,6 @@ public:
     int getRepetitionNo() const;
     int getPeriod() const;
     size_t getLastLaneChangeOffset() const;
-    size_t getRealDepartTime() const;
     size_t getDesiredDepart() const;
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/04/02 11:20:35  dkrajzew
+// changes needed to visualise the selection status
+//
 // Revision 1.11  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -66,6 +69,7 @@
 #include <utils/geom/Boundery.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <gui/GUIGlObject.h>
 #include "GUILaneWrapper.h"
 
 
@@ -84,11 +88,11 @@ class GUIGlObjectStorage;
 /**
  * This is the gui-version of the MSEgde
  */
-class GUIEdge : public MSEdge
+class GUIEdge : public MSEdge, public GUIGlObject
 {
 public:
     /// constructor
-    GUIEdge(std::string id);
+    GUIEdge(std::string id, GUIGlObjectStorage &idStorage);
 
     /// destructor
     ~GUIEdge();
@@ -97,8 +101,11 @@ public:
     void initJunctions(MSJunction *from, MSJunction *to,
         GUIGlObjectStorage &idStorage);
 
-    /// returns the names of all edges
+    /** Returns the list of all known junctions as their names */
     static std::vector<std::string> getNames();
+
+    /** Returns the list of all known junctions as their ids */
+    static std::vector<size_t> getIDs();
 
     /// Returns the street's geometry
     Boundery getBoundery() const;
@@ -132,6 +139,25 @@ public:
     Position2D getLanePosition(const MSLane &lane, double pos) const;
 
     static void fill(std::vector<GUIEdge*> &netsWrappers);
+
+
+    /// Returns an own popup-menu
+    virtual GUIGLObjectPopupMenu *getPopUpMenu(
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent)
+        { throw 1; }
+
+    /// Returns an own parameter window
+    virtual GUIParameterTableWindow *getParameterWindow(
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent)
+        { throw 1; }
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
+
+    /// returns the id of the object as known to microsim
+    std::string microsimID() const;
+
+    bool active() const;
 
 private:
 
@@ -174,9 +200,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIEdge.icc"
-//#endif
 
 #endif
 
