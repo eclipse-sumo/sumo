@@ -1,0 +1,22 @@
+To DOs
+Andreas added:
+- wenn man netedit beendet bekommt man einen access violation fehler
+- das icon im ImageDialog wird nicht angezeigt.. vielleicht fehlt init(getApp()) für die icon klasse
+- undo/redo-Funktion implementieren
+- Farbauswahldialog.. wenn farbeintrag gewählt wird soll well aktualisiert werden
+- Daten aus ImageDialog an die Image Methoden übergeben
+- Filterfunktionen anpassen (mehr Parameter)
+- graphgenerierung bug
+- flags setzten für strassenflächen extrahiert ja/nein usw.
+- Farben nur aus dem Image bereich wählen können beim Farbauswahldialog
+- Mauszeiger ändern bei Auswahl des Mal- oder Radierwerkzeuges
+- Radierwerkzeug implementieren
+- Extract Streets-Icon ändern.. ist dem Raster-Icon sehr ähnlich
+- EditButton:ist defaultmäßig auf true gestellt
+- beim Simulationsablauf wird deas glCanvas nicht aktualisiert.. die Fahrzeuge bewegen sich nicht
+
+Miguel added:
+
+Maik added:
+
+Daniel added:
