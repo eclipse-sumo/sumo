@@ -4,10 +4,11 @@
 /**
  * @file   MSLaneStateReminder.h
  * @author Christian Roessel
- * @date   Wed May 21 10:50:44 2003
+ * @date   Started Wed May 21 10:50:44 2003
  *
- * @brief
+ * $Revision$ from $Date$ by $Author$.
  *
+ * @brief Declarations of class MSLaneStateReminder.
  *
  */
 
@@ -22,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.7  2003/06/10 13:24:07  roessel
+// Added documentation.
+//
 // Revision 1.6  2003/06/04 16:20:04  roessel
 // Moved modified code from .h to .cpp.
 //
@@ -47,10 +51,22 @@
 class MSLaneState;
 class MSLane;
 
-
+/**
+ * A kind of a MSMoveReminder that reminds all vehicles on the reminder to
+ * pass data to the corresponding MSLaneState detector.
+ * 
+ */
 class MSLaneStateReminder : public MSMoveReminder
 {
 public:
+    /** 
+     * Sole constructor.
+     * 
+     * @param startPos Start-position of the reminder.
+     * @param endPos  End-position of the reminder.
+     * @param ls Corresponding MSLaneState object.
+     * @param l MSLane the reminder works on
+     */
     MSLaneStateReminder( double startPos,
                          double endPos,
                          MSLaneState* ls,
@@ -61,30 +77,57 @@ public:
         laneStateM( ls )
         {}
 
+    /// Destructor.
     ~MSLaneStateReminder( void )
         {}
-
+    /** 
+     * Indicator if the reminders is still active for the passed
+     * vehicle/parameters. If false, the vehicle will erase this reminder
+     * from it's reminder-container. This method will pass all neccessary
+     * data to laneStateM. 
+     * 
+     * @param veh Vehicle that asks this remider.
+     * @param oldPos Position before move.
+     * @param newPos Position after move with newSpeed.
+     * @param newSpeed Moving speed.
+     * 
+     * @return True if vehicle hasn't passed the detector completely.
+     */
     bool isStillActive( MSVehicle& veh,
                         double oldPos,
                         double newPos,
                         double newSpeed );
-
+    /** 
+     * Informs laneStateM if vehicle leaves reminder/detector by lanechange.
+     * 
+     * @param veh The leaving vehicle.
+     */
     void dismissByLaneChange( MSVehicle& veh );
     
+    /** 
+     * Informs laneStateM if vehicle enters the reminder/detector by emit
+     * or lanechange.
+     * 
+     * @param veh The entering vehilcle.
+     * 
+     * @return True if vehicle enters reminder/detector in front of endPosM.
+     */
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
     
 private:
-    double startPosM;
-    double endPosM;
-    MSLaneState* laneStateM;
+    double startPosM;           /**< Reminders start-position. */
+    
+    double endPosM;             /**< Reminders end-position. */
+    
+    MSLaneState* laneStateM;    /**< Corresponding MSLaneState */
 
     /// Default constructor.
-    MSLaneStateReminder();
+    MSLaneStateReminder(); 
 
-    /// Copy constructor.
+    /// Hidden copy constructor.      
     MSLaneStateReminder( const MSLaneStateReminder& );
 
-    /// Assignment operator.
+    /// Hidden assignment operator.
     MSLaneStateReminder& operator=( const MSLaneStateReminder& );
 };
 

@@ -1,10 +1,11 @@
 /**
  * @file   MSLaneStateReminder.cpp
  * @author Christian Roessel
- * @date   Wed May 21 10:42:24 2003
+ * @date   Started Wed May 21 10:42:24 2003
  *
- * @brief
+ * $Revision$ from $Date$ by $Author$.
  *
+ * @brief Definitions of class MSLaneStateReminder.
  *
  */
 
@@ -19,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.3  2003/06/10 13:24:08  roessel
+// Added documentation.
+//
 // Revision 1.2  2003/06/04 16:20:03  roessel
 // Moved modified code from .h to .cpp.
 //
