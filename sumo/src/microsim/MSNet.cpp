@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.34  2003/08/21 12:54:01  dkrajzew
+// cleaned up
+//
 // Revision 1.33  2003/08/07 10:06:30  roessel
 // Added static member myCellLength and some conversion methods from
 // cells to meters, steps to seconds etc.. This will be moved out to a
@@ -510,17 +513,6 @@ MSNet::initialiseSimulation(std::ostream *craw/*, Time start, Time stop*/)
         (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<sumo-results>" << endl;
     }
-
-//     SingletonDictionary<
-//         std::string, MSLaneState* >::getInstance()->setFindMode();
-//     laneStateDetectorsM = SingletonDictionary<
-//         std::string, MSLaneState* >::getInstance()->getStdVector();
-/*
-    typedef MSTravelcostDetector< MSLaneState > Traveltime;
-    Traveltime::create( 900 );
-    Traveltime::getInstance()->addSampleInterval( 60 );
-    Traveltime::getInstance()->addSampleInterval( 300 );
-    */
 }
 
 void
@@ -531,13 +523,6 @@ MSNet::closeSimulation(std::ostream *craw/*, Time start, Time stop*/)
     if ( craw ) {
         (*craw) << "</sumo-results>" << endl;
     }
-    /*
-    typedef MSTravelcostDetector< MSLaneState > Traveltime;
-    try {
-        delete Traveltime::getInstance();
-    } catch (SingletonNotCreated &e) {
-    }
-    */
 }
 
 
@@ -567,12 +552,6 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 	myRunningVehNo += emittedVehNo;
 
     myEdges->detectCollisions( myStep );
-
-//     // execute Events
-//     myEvents->execute(myStep);
-
-
-
     myJunctions->resetRequests();
 
     // move Vehicles
@@ -596,14 +575,6 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     MSLaneState::actionsAfterMoveAndEmit();
 
     myEdges->detectCollisions( myStep );
-
-//     // Let's detect.
-//     for( DetectorCont::iterator detec = myDetectors->begin();
-//         detec != myDetectors->end(); ++detec ) {
-//         ( *detec )->sample( simSeconds() );
-//     }
-
-
 
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
@@ -724,7 +695,6 @@ MSNet::preStartInit()
         i!=myPreStartInitialiseItems.end(); i++) {
         (*i)->init(*this);
     }
-    srand(1040208551);
 }
 
 
