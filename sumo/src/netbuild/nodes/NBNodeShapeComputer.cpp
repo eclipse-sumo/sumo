@@ -23,9 +23,6 @@ Position2DVector
 NBNodeShapeComputer::compute()
 {
     Position2DVector ret;
-    if(myNode.getID()=="new4") {
-        int bla = 0;
-    }
     // compute the shape of the junction
     //  only junction have a shape, otherwise it's somekind
     //  of another connection between streets
@@ -426,13 +423,25 @@ NBNodeShapeComputer::isSimpleContinuation(const NBNode &n) const
     const EdgeVector incoming = n.getIncomingEdges();
     const EdgeVector outgoing = n.getOutgoingEdges();
     if(incoming.size()==1&&outgoing.size()==1) {
-        return true;
+        // both must have the same number of lanes
+        return
+            (*(incoming.begin()))->getNoLanes()
+            ==
+            (*(outgoing.begin()))->getNoLanes();
     }
     // two in and two out and both in reverse direction
     if(incoming.size()==2&&outgoing.size()==2) {
         for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
             NBEdge *in = *i;
-            if(find_if(outgoing.begin(), outgoing.end(), NBContHelper::opposite_finder(in))==outgoing.end()) {
+            EdgeVector::const_iterator opposite =
+                find_if(outgoing.begin(), outgoing.end(), NBContHelper::opposite_finder(in));
+            // must have an opposite edge
+            if(opposite==outgoing.end()) {
+                return false;
+            }
+            // both must have the same number of lanes
+            NBContHelper::nextCW(&outgoing, opposite);
+            if(in->getNoLanes()!=(*opposite)->getNoLanes()) {
                 return false;
             }
         }
