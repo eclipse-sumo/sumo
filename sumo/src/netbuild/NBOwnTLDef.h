@@ -34,6 +34,8 @@ public:
         LRT_REMOVE_ALL_LEFT
     };
 
+    void setParticipantsInformation();
+
 public:
     void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing);

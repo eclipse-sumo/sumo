@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/10/30 09:09:55  dkrajzew
+// tl-building order patched
+//
 // Revision 1.6  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -126,6 +129,9 @@ public:
 
     virtual void setTLControllingInformation() const = 0;
 
+    virtual void setParticipantsInformation();
+
+
 //    virtual bool includes(NBEdge *from, NBEdge *to) const; // !!! collectLinks must have been called in prior
 
 public:
@@ -140,12 +146,11 @@ protected:
     virtual NBTrafficLightLogicVector *myCompute(size_t breakingTime,
         bool buildAll) = 0;
 
-    /// Collects the nodes participating in this traffic light
-    virtual void collectNodes() = 0;
-
-    virtual void collectLinks() = 0;
-
     std::pair<size_t, size_t> getSizes() const;
+
+    virtual void collectLinks();
+
+    void collectEdges();
 
 
 
@@ -167,8 +172,6 @@ private:
 */
     size_t computeBrakingTime(double minDecel) const;
 
-
-    void collectEdges();
 
     /// returns the information whether the given link is a left-mover
     bool isLeftMover(NBEdge *from, NBEdge *to) const;

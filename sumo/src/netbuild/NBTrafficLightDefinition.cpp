@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/30 09:09:55  dkrajzew
+// tl-building order patched
+//
 // Revision 1.10  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -128,11 +131,6 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition()
 NBTrafficLightLogicVector *
 NBTrafficLightDefinition::compute(OptionsCont &oc)
 {
-    // assign participating nodes to the request
-    collectNodes();
-    // collect the infomration about participating edges and links
-    collectEdges();
-    collectLinks();
     // it is not really a traffic light if no incoming edge exists
     if(_incoming.size()==0) {
         MsgHandler::getWarningInstance()->inform(
@@ -148,11 +146,6 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
         breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
     }
     return myCompute(breakingTime, oc.getBool("all-logics"));
-/*    NBTrafficLightLogicVector *logics = mySignalGroups.size()!=0
-        ? buildLoadedTrafficLights(breakingTime)
-        : buildOwnTrafficLights(breakingTime,
-            oc.getBool("all-logics"));*/
-//    return logics;
 }
 
 
@@ -163,6 +156,14 @@ NBTrafficLightDefinition::computeBrakingTime(double minDecel) const
     return (size_t) (vmax / minDecel);
 }
 
+
+void
+NBTrafficLightDefinition::setParticipantsInformation()
+{
+    // collect the infomration about participating edges and links
+    collectEdges();
+    collectLinks();
+}
 
 
 void
@@ -187,7 +188,6 @@ NBTrafficLightDefinition::collectEdges()
         if(j!=myOutgoing.end()) {
             _within.push_back(edge);
             _incoming.erase(_incoming.begin() + pos);
-//            _outgoing.erase(j);
         } else {
             pos++;
         }
@@ -348,19 +348,6 @@ NBTrafficLightDefinition::addNode(NBNode *node)
     _nodes.insert(node);
     node->addTrafficLight(this);
 }
-
-/*
-bool
-NBTrafficLightDefinition::includes(NBEdge *from, NBEdge *to) const
-{
-    for(NBConnectionVector::const_iterator i=_links.begin(); i!=_links.end(); i++) {
-        if((*i).getFrom()==from&&(*i).getTo()==to) {
-            return true;
-        }
-    }
-    return false;
-}
-*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

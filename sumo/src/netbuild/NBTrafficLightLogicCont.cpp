@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/10/30 09:09:55  dkrajzew
+// tl-building order patched
+//
 // Revision 1.9  2003/10/15 11:49:26  dkrajzew
 // unneeded debug-ifs removed
 //
@@ -194,7 +197,13 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id)
 bool
 NBTrafficLightLogicCont::setTLControllingInformation()
 {
-    for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+    DefinitionContType::iterator i;
+    // set the information about all participants, first
+    for(i=_definitions.begin(); i!=_definitions.end(); i++) {
+        (*i).second->setParticipantsInformation();
+    }
+    // insert the information about the tl-controlling
+    for(i=_definitions.begin(); i!=_definitions.end(); i++) {
         (*i).second->setTLControllingInformation();
     }
     return true;

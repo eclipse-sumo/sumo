@@ -177,6 +177,16 @@ NBOwnTLDef::collectLinks()
 
 
 void
+NBOwnTLDef::setParticipantsInformation()
+{
+    // assign participating nodes to the request
+    collectNodes();
+    // collect the infomration about participating edges and links
+    collectEdges();
+    collectLinks();
+}
+
+void
 NBOwnTLDef::setTLControllingInformation() const
 {
     // set the information about the link's positions within the tl into the
