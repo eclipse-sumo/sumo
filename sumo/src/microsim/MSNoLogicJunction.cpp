@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSNoLogicJunction.cpp  
+                          MSNoLogicJunction.cpp
                              -------------------
     begin                : Thu, 06 Jun 2002
     copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:29  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -34,7 +37,7 @@ namespace
 //
 // Revision 1.1  2002/06/07 14:45:17  dkrajzew
 // Added MSNoLogicJunction ,,pro forma,,. The code may compile but the
-// class has no real functionality... 
+// class has no real functionality...
 //
 //
 
@@ -48,14 +51,14 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include <cmath>
- 
+
 using namespace std;
 
 //-------------------------------------------------------------------------//
 
-MSNoLogicJunction::MSNoLogicJunction( string id, 
+MSNoLogicJunction::MSNoLogicJunction( string id, double x, double y,
 				      InLaneCont* in) :
-    MSJunction( id ),
+    MSJunction( id, x, y ),
     myInLanes( in )
 {
 }
@@ -103,7 +106,7 @@ MSNoLogicJunction::vehicles2targetLane()
           it != myInLanes->end(); ++it ) {
         ( *it )->integrateNewVehicle();
     }
-    return true;    
+    return true;
 }
 
 //-------------------------------------------------------------------------//
@@ -115,7 +118,7 @@ MSNoLogicJunction::moveVehicles()
           inLaneIt != myInLanes->end(); ++inLaneIt ) {
 
         if( ! ( *inLaneIt )->empty() ) {
-            
+
             ( *inLaneIt )->moveFirst( true );
         }
     }

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSLogicJunction.h  -  Base class for junctions 
+                          MSLogicJunction.h  -  Base class for junctions
                           with one ore more logics.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:29  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -56,7 +59,7 @@ class MSLogicJunction : public MSJunction
 public:
     /// Destructor.
     virtual ~MSLogicJunction();
-     
+
     /** Container for first-vehicle's request. Each element of this
         container represents one particular link from one lane to
         another. */
@@ -66,7 +69,7 @@ public:
         lane-bound, not link-bound, so the size maybe smaller than
         the RequestCont's one. */
     typedef std::vector< bool > Respond;
-     
+
     /** Return type for lane's drive request. There are drive
         requests (a lane will send a drive request if the first
         vehicle would leave the lane with it's vNext) and brake
@@ -76,12 +79,12 @@ public:
         What is returned? The begin and end iterator of a Request
         representing the lane's suceeding lanes. The order
         corresponds to myLogic and myInLanes. */
-    class DriveBrakeRequest 
+    class DriveBrakeRequest
     {
     public:
         friend class MSLogicJunction;
         friend class MSRightOfWayJunction;
-          
+
         DriveBrakeRequest( Request request,
                            bool driveRequest,
                            bool brakeRequest);
@@ -93,23 +96,23 @@ public:
         Request myRequest;
         bool myDriveRequest;
         bool myBrakeRequest;
-              
+
         DriveBrakeRequest();
-    };       
-    
+    };
+
 protected:
 
-    MSLogicJunction( std::string id );
-    
+    MSLogicJunction( std::string id, double x, double y );
+
 private:
     /// Default constructor.
     MSLogicJunction();
-    
+
     /// Copy constructor.
     MSLogicJunction( const MSLogicJunction& );
-    
+
     /// Assignment operator.
-    MSLogicJunction& operator=( const MSLogicJunction& );     
+    MSLogicJunction& operator=( const MSLogicJunction& );
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSNoLogicJunction.h  -  Junction that needs no 
+                          MSNoLogicJunction.h  -  Junction that needs no
                           logic, e.g. for exits.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:29  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -25,7 +28,7 @@
 //
 // Revision 1.2  2002/06/07 14:45:17  dkrajzew
 // Added MSNoLogicJunction ,,pro forma,,. The code may compile but the
-// class has no real functionality... 
+// class has no real functionality...
 //
 // Revision 1.1.1.1  2002/04/08 07:21:23  traffic
 // new project name
@@ -60,27 +63,27 @@ class MSNoLogicJunction  : public MSJunction
 public:
     /// Destructor.
     ~MSNoLogicJunction();
-    
+
     /** Container for incoming lanes. */
     typedef std::vector< MSLane* > InLaneCont;
-    
+
     /** Use this constructor only. */
-    MSNoLogicJunction( std::string id, InLaneCont* in );
-    
+    MSNoLogicJunction( std::string id, double x, double y, InLaneCont* in );
+
     /** Here, do nothing. */
     bool clearRequests();
 
     /** Here, do nothing. */
     bool setFirstVehiclesRequests();
 
-    /** Look forward and move the vehicles to their target lane resp. 
+    /** Look forward and move the vehicles to their target lane resp.
         set them in the succeeding lane's buffer. */
     bool moveFirstVehicles();
-    
-    /** Integrate the moved vehicles into their target-lane. This is 
+
+    /** Integrate the moved vehicles into their target-lane. This is
         neccessary if you use not thread-safe containers. */
     bool vehicles2targetLane();
-    
+
 protected:
     void moveVehicles();
 
@@ -90,12 +93,12 @@ private:
 
     /// Default constructor.
     MSNoLogicJunction();
-    
+
     /// Copy constructor.
     MSNoLogicJunction( const MSNoLogicJunction& );
-    
+
     /// Assignment operator.
-    MSNoLogicJunction& operator=( const MSNoLogicJunction& );     
+    MSNoLogicJunction& operator=( const MSNoLogicJunction& );
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

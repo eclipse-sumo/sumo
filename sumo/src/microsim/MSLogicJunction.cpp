@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSLogicJunction.cpp  -  Base class for junctions 
+                          MSLogicJunction.cpp  -  Base class for junctions
                           with one ore more logics.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:29  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -82,13 +85,14 @@ MSLogicJunction::DriveBrakeRequest::driveRequest() const
 
 //-------------------------------------------------------------------------//
 
-MSLogicJunction::MSLogicJunction( string id ) : MSJunction( id )
+MSLogicJunction::MSLogicJunction( string id, double x, double y )
+    : MSJunction( id, x, y )
 {
 }
 
 //-------------------------------------------------------------------------//
 
-MSLogicJunction::~MSLogicJunction() 
+MSLogicJunction::~MSLogicJunction()
 {
 }
 

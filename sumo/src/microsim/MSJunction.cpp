@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSJunction.cpp  -  Base class for all kinds of 
+                          MSJunction.cpp  -  Base class for all kinds of
                                              junctions.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:28  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -45,6 +48,8 @@ namespace
 
 #include "MSJunction.h"
 
+class MSLink;
+
 using namespace std;
 
 //-------------------------------------------------------------------------//
@@ -54,8 +59,8 @@ MSJunction::DictType MSJunction::myDict;
 
 //-------------------------------------------------------------------------//
 
-MSJunction::MSJunction( std::string id ) :
-    myID( id )
+MSJunction::MSJunction( std::string id, double x, double y ) :
+    myID( id ), myX(x), myY(y)
 {
 }
 
@@ -93,6 +98,65 @@ MSJunction::dictionary( string id )
 }
 
 //-------------------------------------------------------------------------//
+
+void
+MSJunction::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+std::vector<std::string>
+MSJunction::getNames()
+{
+    std::vector<std::string> ret;
+    ret.reserve(MSJunction::myDict.size());
+    for(MSJunction::DictType::iterator i=MSJunction::myDict.begin();
+        i!=MSJunction::myDict.end(); i++) {
+        ret.push_back((*i).first);
+    }
+    return ret;
+}
+
+//-------------------------------------------------------------------------//
+
+double
+MSJunction::getXCoordinate() const
+{
+    return myX;
+}
+
+//-------------------------------------------------------------------------//
+
+double
+MSJunction::getYCoordinate() const
+{
+    return myY;
+}
+
+bool 
+MSJunction::linkClosed(const MSLink * link) const
+{
+    return false;
+}
+
+void 
+MSJunction::postloadInit()
+{
+}
+
+
+void 
+MSJunction::postloadInitContainer()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        (*i).second->postloadInit();
+    }
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

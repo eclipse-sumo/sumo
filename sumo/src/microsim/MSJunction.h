@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSJunction.h  -  Base class for all kinds of 
+                          MSJunction.h  -  Base class for all kinds of
                                            junctions.
                              -------------------
     begin                : Wed, 12 Dez 2001
@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:42:28  dkrajzew
+// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -41,19 +44,25 @@
 #define MSJunction_H
 
 #include <string>
+#include <vector>
 #include <map>
+#include "MSLink.h"
 
 /**
  */
 class MSJunction
 {
 public:
+    friend class GUIEdgeGrid;
+
     /// Destructor.
     virtual ~MSJunction();
-    
-    /** Use this constructor only. */    
-    MSJunction( std::string id );
-    
+
+    /** Use this constructor only. */
+    MSJunction( std::string id, double x, double y );
+
+    virtual void postloadInit();
+
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
     virtual bool clearRequests() = 0;
@@ -66,8 +75,8 @@ public:
         according to the right of way rules and move the vehicles on
         their lane resp. set them in the succeeding lane's buffer. */
     virtual bool moveFirstVehicles() = 0;
-    
-    /** Integrate the moved vehicles into their target-lane. This is 
+
+    /** Integrate the moved vehicles into their target-lane. This is
         neccessary if you use not thread-safe containers. */
     virtual bool vehicles2targetLane() = 0;
 
@@ -79,24 +88,42 @@ public:
     /** Returns the MSEdgeControl associated to the key id if exists,
         otherwise returns 0. */
     static MSJunction* dictionary( std::string id);
-    
+
+    /** returns the list of all known ids */
+    static std::vector<std::string> getNames();
+
+    /** Clears the dictionary */
+    static void clear();
+
+    static void postloadInitContainer();
+
+    /** returns the x-position */
+    double getXCoordinate() const;
+    /** returns the y-position */
+    double getYCoordinate() const;
+
+    virtual bool linkClosed(const MSLink * link) const;
+
 protected:
     // unique ID
     std::string myID;
 
-private:
     /** Static dictionary to associate string-ids with objects. */
     typedef std::map< std::string, MSJunction* > DictType;
     static DictType myDict;
-    
+
+    /** the position */
+    double myX, myY;
+
+private:
     /// Default constructor.
     MSJunction();
-    
+
     /// Copy constructor.
     MSJunction( const MSJunction& );
-    
+
     /// Assignment operator.
-    MSJunction& operator=( const MSJunction& );     
+    MSJunction& operator=( const MSJunction& );
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
