@@ -107,6 +107,10 @@ SOURCE=..\..\..\src\netedit\GNEApplicationWindow.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netedit\GNEImageProcWindow.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netedit\GNEViewParent.cpp
 # End Source File
 # Begin Source File
@@ -120,6 +124,10 @@ SOURCE=..\..\..\src\netedit\Graph.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\netedit\Image.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\InfoDialog.cpp
 # End Source File
 # Begin Source File
 
@@ -147,6 +155,10 @@ SOURCE=..\..\..\src\netedit\Vertex.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\src\netedit\ColorSelector.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netedit\ConfigDialog.h
 # End Source File
 # Begin Source File
@@ -163,6 +175,18 @@ SOURCE=..\..\..\src\netedit\GNEApplicationWindow.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netedit\GNEImageProcWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\GNENetBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\GNEViewParent.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netedit\GNEViewTraffic.h
 # End Source File
 # Begin Source File
@@ -172,6 +196,10 @@ SOURCE=..\..\..\src\netedit\Graph.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netedit\Image.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\InfoDialog.h
 # End Source File
 # Begin Source File
 
