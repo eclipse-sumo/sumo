@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.13  2003/05/26 15:24:15  roessel
+// Removed warnings/errors. Changed return-type of getNumberOfWaiting to double.
+//
 // Revision 1.12  2003/05/26 13:56:57  roessel
 // changed push_back to sorted-insert in leaveDetectorByMove and
 // leaveDetectorByLaneChange.
@@ -49,7 +52,8 @@ namespace
 // further work detectors
 //
 // Revision 1.5  2003/04/04 15:29:09  roessel
-// Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due to compiler warnings (number too long for unsigned long)
+// Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due
+// to compiler warnings (number too long for unsigned long)
 //
 // Revision 1.4  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
@@ -126,7 +130,8 @@ MSLaneState::MSLaneState( string id,
     posM            ( begin ),
     lengthM         ( length ),
     nIntervallsM    ( 0 ),
-    sampleIntervalM ( sampleInterval )
+    sampleIntervalM ( sampleInterval ),
+    deleteDataAfterSecondsM( 900 )
 {
     assert( posM >= 0 );
     assert( posM <= laneM->length() );
@@ -185,13 +190,8 @@ MSLaneState::MSLaneState( string id,
     }
 }
 
-//---------------------------------------------------------------------------//
 
-
-
-//---------------------------------------------------------------------------//
-
-int
+double
 MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
 {
     assert( lastNTimesteps > 0 );
@@ -247,7 +247,8 @@ MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
     }
     double denominator = 
         accumulate( getStartIterator( lastNTimesteps ),
-                    timestepDataM.end(), 0.0, contTimestepSum );
+                    timestepDataM.end(), 0.0, contTimestepSum ) *
+        MSNet::deltaT();
     if ( denominator == 0 ) {
         return 0;
     }
@@ -266,7 +267,7 @@ MSLaneState::getCurrentMeanSpeed( void )
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSumM / data.contTimestepSumM;  
+    return data.speedSumM / ( data.contTimestepSumM * MSNet::deltaT() );
 }
 
 double
@@ -278,7 +279,8 @@ MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
     }
     double denominator = 
         accumulate( getStartIterator( lastNTimesteps ),
-                    timestepDataM.end(), 0.0, contTimestepSum );
+                    timestepDataM.end(), 0.0, contTimestepSum ) *
+        MSNet::deltaT();
     if ( denominator == 0 ) {
         return 0;
     }
@@ -297,7 +299,7 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSquareSumM / data.contTimestepSumM;
+    return data.speedSquareSumM / ( data.contTimestepSumM * MSNet::deltaT() );
 }
 
 double
@@ -335,7 +337,7 @@ MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
                      VehicleData::leaveTimestepLesser() ),
         vehLeftLaneM.end(),
         0.0,
-        traveltimeSum );
+        traveltimeSum ) * MSNet::deltaT();
 }
 
 void
@@ -596,74 +598,3 @@ MSLaneState::writeCSV( MSNet::Time endOfInterv,
 // mode:C++
 // End:
 
-
-// void
-// MSLaneState::sample( double simSec )
-// {
-
-//     // If sampleIntervall is over, write the data to file and reset the
-//     // detector.
-//     ++myNSamples;
-//     if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
-//          mySampleIntervall ) {
-// 		myNSamples = 0;
-//         ++myNIntervalls;
-//         if(myFile!=0) {
-//             writeData();
-//         }
-//     }
-
-//     const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
-//     MSLane::VehCont::const_iterator firstVehicle;
-//     if ( myLane->empty() ) {
-//         // no vehicles on lane
-//         firstVehicle = vehs.end();
-//     } else {
-//         // find the vehicle
-//         firstVehicle = find_if( vehs.begin(), vehs.end(),
-//             bind2nd( MSLane::VehPosition(), myPos ) );
-//     }
-//     // update interval with zero if no vehicle is on the loop
-//     if(firstVehicle==vehs.end()) {
-//         // no vehicle was found
-//         myVehicleNo.add(0);
-//         myLocalDensity.add(0);
-//         mySpeed.add(0);
-//         myOccup.add(0);
-//         myVehLengths.add(0);
-//         myNoSlow.add(0);
-//         return;
-//     }
-//     // We have now a valid beyond the detector.
-//     MSLane::VehCont::const_iterator lastVehicle =
-//         find_if( firstVehicle, vehs.end(),
-//             bind2nd( MSLane::VehPosition(), myPos+myLength ) );
-//     // go through the vehicles and compute the values
-//     size_t noVehicles = distance(firstVehicle, lastVehicle);
-//     double speeds = 0;
-//     double lengths = 0;
-//     size_t noSlow = 0;
-//     for(MSLane::VehCont::const_iterator i=firstVehicle; i!=lastVehicle; i++) {
-//         MSVehicle *veh = *i;
-//         double speed = veh->speed();
-//         speeds += speed;
-//         if(speed<0.1) {
-//             noSlow++;
-//         }
-//         lengths += veh->length();
-//     }
-//     // update values
-//     myNoSlow.add(noSlow);
-//     myVehicleNo.add(noVehicles);
-//     mySpeed.add(speeds / (double) noVehicles);
-//     myVehLengths.add(lengths / (double) noVehicles);
-//     if(speeds!=0) {
-//         myOccup.add( lengths / speeds );
-//     } else {
-//         myOccup.add( lengths / 0.000001 );
-//     }
-//     // this is just an approximation; The first and te last vehicles
-//     //  should compete only for the amount of time they are within the
-//     //  field
-//     myLocalDensity.add( 1.0 - ((myLength - lengths) / myLength) );
-// }

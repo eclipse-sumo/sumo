@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.9  2003/05/26 15:24:15  roessel
+// Removed warnings/errors. Changed return-type of getNumberOfWaiting to double.
+//
 // Revision 1.8  2003/05/26 13:19:20  roessel
 // Completed all get* methods.
 //
@@ -104,7 +107,7 @@ public:
      *
      * @return mean waiting-queue length
      */
-    int getNumberOfWaiting( MSNet::Time lastNTimesteps );
+    double getNumberOfWaiting( MSNet::Time lastNTimesteps );
 
     /** 
      * Returns the waitingQueueLength.
@@ -161,7 +164,6 @@ public:
         }
     };
 
-protected:
     struct TimestepData;
     struct WaitingQueueElem;
     struct VehicleData;
@@ -169,31 +171,6 @@ protected:
     typedef std::vector< WaitingQueueElem >      WaitingQueueElemCont;
     typedef std::map< std::string, VehicleData > VehicleDataMap;
     typedef std::deque< VehicleData >            VehicleDataCont;
-
-    void calcWaitingQueueLength( void );
-    
-    TimestepDataCont::iterator getStartIterator( MSNet::Time lastNTimesteps );
-    
-    /// Write the data according to OutputStyle when the sampleIntervall
-    /// is over.
-    MSNet::Time writeData();
-
-    /// Write in gnuplot-style to myFile.
-    void writeGnuPlot( MSNet::Time endOfInterv,
-                       double avgDensity,
-                       double avgSpeed,
-                       double avgSpeedSquare,
-                       double avgTraveltime,
-                       int avgNumberOfWaiting );
-
-    /// Write in CSV-style to myFile.
-    void writeCSV( MSNet::Time endOfInterv,
-                   double avgDensity,
-                   double avgSpeed,
-                   double avgSpeedSquare,
-                   double avgTraveltime,
-                   int avgNumberOfWaiting );
-
 
     struct TimestepData
     {
@@ -216,8 +193,8 @@ protected:
 
     struct VehicleData
     {
-        struct leaveTimestepLesser
-            : public binary_function<VehicleData, double, bool>
+        struct leaveTimestepLesser :
+            public std::binary_function< VehicleData, double, bool >
         {
             bool operator()( const VehicleData& data,
                              double leaveTimestep ) const
@@ -259,6 +236,32 @@ protected:
         double vehLengthM;
     };
 
+protected:
+ 
+    void calcWaitingQueueLength( void );
+    
+    TimestepDataCont::iterator getStartIterator( MSNet::Time lastNTimesteps );
+    
+    /// Write the data according to OutputStyle when the sampleIntervall
+    /// is over.
+    MSNet::Time writeData();
+
+    /// Write in gnuplot-style to myFile.
+    void writeGnuPlot( MSNet::Time endOfInterv,
+                       double avgDensity,
+                       double avgSpeed,
+                       double avgSpeedSquare,
+                       double avgTraveltime,
+                       int avgNumberOfWaiting );
+
+    /// Write in CSV-style to myFile.
+    void writeCSV( MSNet::Time endOfInterv,
+                   double avgDensity,
+                   double avgSpeed,
+                   double avgSpeedSquare,
+                   double avgTraveltime,
+                   int avgNumberOfWaiting );
+
 private:
     std::string idM;
 
@@ -288,7 +291,7 @@ private:
 
     MSMoveReminder* reminderM;
 
-    const MSNet::Time deleteDataAfterSeconds = 900;
+    const MSNet::Time deleteDataAfterSecondsM;
 
     /// Default constructor.
     MSLaneState();
