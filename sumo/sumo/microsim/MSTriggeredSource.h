@@ -67,16 +67,18 @@ public:    // public methods
     /** @brief Customized construtor
 	
 	@param aId String-id of the TriggeredSource object.
+	@param aLane Emission Lane	
 	@param aFilename Name of the file that contains the starting 
 	times and speeds.
 	@param aRouteDist RouteDistribution-container, should not be 
 	empty. The sum of @ref myFrequency is not bound 
 	to a fixed value.
-	@param isValidated Flag, if input-file is validated. If not, 
+	@param isValidated Flag shows if input-file is validated. If not, 
 	source won't work.
     */
     MSTriggeredSource(
 	std::string        aId,
+	MSLane*            aLane,
 	const char*        aFilename,
 	RouteDistribution* aRouteDist,
 	bool               isValidated );
@@ -127,6 +129,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.2  2002/06/12 19:41:06  croessel
+// Added a emission lane.
+//
 // Revision 1.1  2002/06/12 19:15:12  croessel
 // Initial commit.
 //

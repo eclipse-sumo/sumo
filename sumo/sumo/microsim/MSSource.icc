@@ -27,8 +27,9 @@
 #endif // DISABLE_INLINE
 //--------------- DEFINE INLINE FUNCTIONS HERE ------------------------------//
 
-MSSource::MSSource( string id )
-     : myID( id )
+MSSource::MSSource( string aId, MSLane* aLane )
+     : myID( aId ),
+       myLane( aLane )
 {
 }
 
@@ -46,6 +47,9 @@ MSSource::getId( void )
 
 
 // $Log$
+// Revision 1.2  2002/06/12 19:41:05  croessel
+// Added a emission lane.
+//
 // Revision 1.1  2002/06/12 19:15:12  croessel
 // Initial commit.
 //

@@ -22,6 +22,7 @@
 
 #include <string>
 class MSNet;
+class MSLane;
 
 
 /**
@@ -54,8 +55,9 @@ public:    // public methods
 protected: // protected methods
     /** @brief Constructor called by inherited classes.
 	@param aId String-Id of the Source-object
+	@param aLane Emission Lane
     */
-    MSSource( std::string aId );
+    MSSource( std::string aId, MSLane* aLane );
 
 private:   // private methods
     /// Default constructor.
@@ -71,7 +73,9 @@ protected: // protected members
     /// Id of the source
     std::string myID;
 
-
+    /// Emission lane.
+    MSLane* myLane;
+     
 private:   // private members
 
 
@@ -86,6 +90,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.2  2002/06/12 19:41:05  croessel
+// Added a emission lane.
+//
 // Revision 1.1  2002/06/12 19:15:11  croessel
 // Initial commit.
 //
