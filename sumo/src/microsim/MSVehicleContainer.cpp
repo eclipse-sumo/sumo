@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/06/18 11:31:49  dkrajzew
+// some functions commented out or unneeded debug outputs removed
+//
 // Revision 1.3  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -101,8 +104,6 @@ MSVehicleContainer::~MSVehicleContainer()
 void
 MSVehicleContainer::add( MSVehicle *veh )
 {
-//    cout << "pre add(veh)" << endl;
-//    showArray();
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
@@ -117,8 +118,6 @@ MSVehicleContainer::add( MSVehicle *veh )
         // add vehicle to an existing heap-item
         (*i).second.push_back(veh);
     }
-//    cout << "post add(veh)" << endl;
-//    showArray();
 }
 
 
@@ -141,8 +140,6 @@ MSVehicleContainer::moveFrom( MSVehicleContainer &cont )
 void
 MSVehicleContainer::add( MSNet::Time time, const VehicleVector &cont )
 {
-//    cout << "pre add(time, cont)" << endl;
-//    showArray();
     VehicleHeap::iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
             DepartFinder(time));
@@ -155,8 +152,6 @@ MSVehicleContainer::add( MSNet::Time time, const VehicleVector &cont )
         stored.reserve(stored.size() + cont.size());
         copy(cont.begin(), cont.end(), back_inserter(stored));
     }
-//    cout << "post add(time, cont)" << endl;
-//    showArray();
 }
 
 
@@ -164,8 +159,6 @@ MSVehicleContainer::add( MSNet::Time time, const VehicleVector &cont )
 void
 MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
 {
-//    cout << "pre addReplacing" << endl;
-//    showArray();
     if( isFull( ) ) {
         std::vector<VehicleDepartureVector> array2((array.size()-1)*2+1, VehicleDepartureVector());
         for(size_t i=array.size(); i-->0; ) {
@@ -183,22 +176,15 @@ MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
     }
     assert(array.size()>hole);
     array[ hole ] = x;
- //   cout << "post addReplacing" << endl;
-//    showArray();
 }
 
 
 bool
 MSVehicleContainer::anyWaitingFor(MSNet::Time time) const
 {
-//    cout << "pre anyWaitingFor(time, cont)" << time <<endl;
-//    showArray();
     VehicleHeap::const_iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
             DepartFinder(time));
-//    assert(j==array.begin()+1);
-//    cout << "post anyWaitingFor(time, cont)" << time <<endl;
-//    showArray();
     return j!=array.begin()+currentSize+1;
 }
 
@@ -227,16 +213,12 @@ void
 MSVehicleContainer::pop()
 
 {
-//    cout << "pre pop" <<endl;
-//    showArray();
     if( isEmpty( ) )
         throw 1;//!!!Underflow( );
 
     assert(array.size()>1);
     array[ 1 ] = array[ currentSize-- ];
     percolateDown( 1 );
-//    cout << "post pop" <<endl;
-//    showArray();
 }
 
 
