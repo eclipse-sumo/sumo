@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLSAXHandler.cpp
-			  Virtual handler that reacts on incoming tags; 
+			  Virtual handler that reacts on incoming tags;
 			  parent to the handlers that represent the parsing
 			  steps
                              -------------------
@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/04/24 10:38:22  dkrajzew
+// False usage of strstream in error report changed into a corrected usage of stringstream
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -50,7 +53,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
-#include <strstream>
+#include <sstream>
 #include <sax/HandlerBase.hpp>
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
@@ -70,7 +73,7 @@ namespace
 using namespace std;
 
 
-GenericSAX2Handler::Tag NLSAXHandler::_tags[21] = 
+GenericSAX2Handler::Tag NLSAXHandler::_tags[21] =
 {
 /* 00 */  { "simulation", NLTag_simulation },
 /* 01 */  { "edge", NLTag_edge },
@@ -98,68 +101,68 @@ GenericSAX2Handler::Tag NLSAXHandler::_tags[21] =
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLSAXHandler::NLSAXHandler(NLContainer &container, LoadFilter filter) 
+NLSAXHandler::NLSAXHandler(NLContainer &container, LoadFilter filter)
     : GenericSAX2Handler(_tags, 21), myContainer(container), _filter(filter)
 {
 }
 
-NLSAXHandler::~NLSAXHandler() 
+NLSAXHandler::~NLSAXHandler()
 {
 }
 
-void 
-NLSAXHandler::warning(const SAXParseException& exception) 
+void
+NLSAXHandler::warning(const SAXParseException& exception)
 {
-    ostrstream buf;
-    buf << "XML-Warning:" + XMLConvert::_2str(exception.getMessage()) << endl; 
+    ostringstream buf;
+    buf << "XML-Warning:" + XMLConvert::_2str(exception.getMessage()) << endl;
 /*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_' 
+      buf << " (At line/column " << exception.getLineNumber()+1 << '_'
           << exception.getColumnNumber() << ')';
 /*    }  */
-    SErrorHandler::add(buf.str());
+    SErrorHandler::add(buf.str(), true);
     GenericSAX2Handler::warning(exception);
 }
 
-void 
-NLSAXHandler::error(const SAXParseException& exception) 
+void
+NLSAXHandler::error(const SAXParseException& exception)
 {
-    ostrstream buf;
+    ostringstream buf;
     buf << "XML-Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
 /*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_' 
+      buf << " (At line/column " << exception.getLineNumber()+1 << '_'
           << exception.getColumnNumber() << ')';
 /*    }  */
-    SErrorHandler::add(buf.str());
+    SErrorHandler::add(buf.str(), true);
     GenericSAX2Handler::error(exception);
 }
 
-void 
-NLSAXHandler::fatalError(const SAXParseException& exception) 
+void
+NLSAXHandler::fatalError(const SAXParseException& exception)
 {
-    ostrstream buf;
+    ostringstream buf;
     buf << "XML-Fatal Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
 /*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " <<  exception.getLineNumber()+1 << '/' << 
+      buf << " (At line/column " <<  exception.getLineNumber()+1 << '/' <<
           exception.getColumnNumber() << ')';
 /*    }  */
-    SErrorHandler::add(buf.str());
+    SErrorHandler::add(buf.str(), true);
     SErrorHandler::setFatal();
     GenericSAX2Handler::fatalError(exception);
 }
 
-void 
+void
 NLSAXHandler::myStartElement(int element, const std::string &name, const Attributes &attrs) {
 }
 
-void 
+void
 NLSAXHandler::myEndElement(int element, const std::string &name) {
 }
 
-void 
+void
 NLSAXHandler::myCharacters(int element, const std::string &name, const std::string &chars) {
 }
 
-bool 
+bool
 NLSAXHandler::wanted(LoadFilter filter) const {
     return (_filter&filter)!=0;
 }
