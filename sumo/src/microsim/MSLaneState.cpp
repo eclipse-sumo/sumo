@@ -119,8 +119,8 @@ MSLaneState::MSLaneState( string id,
     // insert object in static container
     laneStateDetectorsM.push_back( this );
 
-    // add reminder to lane
-    laneM->addMoveReminder( this );
+//     // add reminder to lane
+//     laneM->addMoveReminder( this );
 
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSLaneState >(

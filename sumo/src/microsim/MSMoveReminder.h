@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.10  2003/10/07 10:19:09  roessel
+// Moved lane->addMoveReminder from ctors to base class MSMoveReminder ctor.
+//
 // Revision 1.9  2003/10/01 11:29:01  dkrajzew
 // missing inclusion added
 //
@@ -55,8 +58,9 @@
 
 #include <string>
 #include <cassert>
+#include "MSLane.h"
 class MSVehicle;
-class MSLane;
+
 
 /**
  * Base class of all move-reminders. During move, the vehicles call
@@ -78,7 +82,11 @@ public:
      */
     MSMoveReminder( MSLane* lane, std::string id ) :
         laneM( lane ),
-        idM( id ) {}
+        idM( id )
+        {
+            // add reminder to lane
+            laneM->addMoveReminder( this );
+        }
 
     /**
      * Destructor.

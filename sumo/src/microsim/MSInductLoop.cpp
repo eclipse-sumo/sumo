@@ -74,7 +74,7 @@ MSInductLoop::MSInductLoop( const string& id,
         assert( false );
     }
     
-    laneM->addMoveReminder( this );
+//     laneM->addMoveReminder( this );
     
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSInductLoop >(
