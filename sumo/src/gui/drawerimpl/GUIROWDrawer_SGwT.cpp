@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:05:22  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.6  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -61,7 +64,7 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
-#include <gui/textures/GUITexturesHelper.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include "GUIROWDrawer_SGwT.h"
 
 #ifdef _WIN32
@@ -107,10 +110,10 @@ GUIROWDrawer_SGwT::drawLinkRules(const GUINet &net,
         glTranslated(beg.x(), beg.y(), 0);
         glRotated( lane.getRotation(), 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2f(-1.5, visLength+.0);
-        glVertex2f(-1.5, visLength+.5);
-        glVertex2f(1.5, visLength+.5);
-        glVertex2f(1.5, visLength+.0);
+        glVertex2d(-1.5, visLength+.0);
+        glVertex2d(-1.5, visLength+.5);
+        glVertex2d(1.5, visLength+.5);
+        glVertex2d(1.5, visLength+.0);
         glEnd();
         glPopMatrix();
         glPopName();
@@ -118,7 +121,7 @@ GUIROWDrawer_SGwT::drawLinkRules(const GUINet &net,
     }
     // draw all links
     glPushName(lane.getGlID());
-    float w = 3.0 / (float) noLinks;
+    float w = 3.0f / (float) noLinks;
     float x1 = 0;
     glPushMatrix();
     const Position2D &beg = lane.getBegin();
@@ -128,12 +131,12 @@ GUIROWDrawer_SGwT::drawLinkRules(const GUINet &net,
         float x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         const RGBColor &color = myLinkColors.find(state)->second;
-        glColor3f(color.red(), color.green(), color.blue());
+        glColor3d(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
-        glVertex2f(x1-1.5, visLength+0.0);
-        glVertex2f(x1-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.0);
+        glVertex2d(x1-1.5, visLength+0.0);
+        glVertex2d(x1-1.5, visLength+0.5);
+        glVertex2d(x2-1.5, visLength+0.5);
+        glVertex2d(x2-1.5, visLength+0.0);
         glEnd();
         x1 = x2;
         x2 += w;

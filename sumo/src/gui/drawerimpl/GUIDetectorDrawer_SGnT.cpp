@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:05:22  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.5  2004/07/02 08:12:12  dkrajzew
 // detector drawers now also draw other additional items
 //
@@ -42,7 +45,7 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <gui/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUIDetectorDrawer_SGnT.h"
 #include <guisim/GUIDetectorWrapper.h>
 

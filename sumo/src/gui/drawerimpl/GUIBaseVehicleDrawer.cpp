@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:05:21  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.7  2004/08/02 11:30:54  dkrajzew
 // refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
 //
@@ -70,14 +73,14 @@ namespace
 /* =========================================================================
  * static members definitions
  * ======================================================================= */
-GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme>
+GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle>
     GUIBaseVehicleDrawer::myColoringSchemes;
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIBaseVehicleDrawer::GUIBaseVehicleDrawer(std::vector<GUIEdge*> &edges)
+GUIBaseVehicleDrawer::GUIBaseVehicleDrawer(const std::vector<GUIEdge*> &edges)
     : myEdges(edges)
 {
 }
@@ -125,8 +128,8 @@ GUIBaseVehicleDrawer::initStep()
 }
 
 
-void
-GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
+RGBColor
+GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         GUISUMOAbstractView::VehicleColoringScheme scheme)
 {
     switch(scheme) {
@@ -135,62 +138,66 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             double speed = vehicle.speed();
             double maxSpeed = 30; // !!!
             double fact = speed / maxSpeed / 2.0;
-            glColor3f(1.0-fact, 0.5, 0.5+fact);
+            return RGBColor(1.0-fact, 0.5, 0.5+fact);
         }
         break;
     case GUISUMOAbstractView::VCS_SPECIFIED:
         {
             const RGBColor &col = vehicle.getDefinedColor();
-            glColor3f(col.red(), col.green(), col.blue());
+            return RGBColor(col.red(), col.green(), col.blue());
         }
         break;
     case GUISUMOAbstractView::VCS_TYPE:
         {
             const RGBColor &col =
                 static_cast<const GUIVehicleType&>(vehicle.getVehicleType()).getColor();
-            glColor3f(col.red(), col.green(), col.blue());
+            return RGBColor(col.red(), col.green(), col.blue());
         }
         break;
     case GUISUMOAbstractView::VCS_ROUTE:
         {
             const RGBColor &col =
                 static_cast<const GUIRoute&>(vehicle.getRoute()).getColor();
-            glColor3f(col.red(), col.green(), col.blue());
+            return RGBColor(col.red(), col.green(), col.blue());
         }
         break;
     case GUISUMOAbstractView::VCS_RANDOM1:
         {
             const RGBColor &col = vehicle.getRandomColor1();
-            glColor3f(col.red(), col.green(), col.blue());
+            return RGBColor(col.red(), col.green(), col.blue());
         }
         break;
     case GUISUMOAbstractView::VCS_RANDOM2:
         {
             const RGBColor &col = vehicle.getRandomColor2();
-            glColor3f(col.red(), col.green(), col.blue());
+            return RGBColor(col.red(), col.green(), col.blue());
         }
         break;
     case GUISUMOAbstractView::VCS_LANECHANGE1:
         {
             float color = vehicle.getPassedColor() / (float) 255;
-            glColor3f(color, color, color);
+            return RGBColor(color, color, color);
         }
         break;
     case GUISUMOAbstractView::VCS_LANECHANGE2:
         {
-            const RGBColor &col = vehicle.getLaneChangeColor2();
-            glColor3f(col.red(), col.green(), col.blue());
+            return vehicle.getLaneChangeColor2();
+        }
+        break;
+    case GUISUMOAbstractView::VCS_LANECHANGE3:
+        {
+            return  RGBColor(1, 1, 0);
         }
         break;
     case GUISUMOAbstractView::VCS_WAITING1:
         {
-            float color = double(vehicle.getWaitingTime())
-                / 512.0;
+            float color = float(vehicle.getWaitingTime())
+                / 512.0f;
             if(color>1.0) {
-                glColor3f(0, 0, 0);
+                return RGBColor(0, 0, 0);
             } else {
-                color = 1.0 - color;
-                glColor3f(color, color, color);
+                color = 1.0f - color;
+                return RGBColor(color, color, color);
             }
         }
         break;
@@ -199,14 +206,14 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             GUIVehicle &v = (GUIVehicle&) (vehicle);
             if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET) ) {
 
-                glColor3f(220.0/255.0, 134.0/255.0, 228.0/255.0);
+                return RGBColor(220.0f/255.0f, 134.0f/255.0f, 228.0f/255.0f);
             } else {
                 double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
                 if(val>300) {
-                    glColor3f(128.0/255.0, 128.0/255.0, 0/255.0);
+                    glColor3d(128.0f/255.0f, 128.0f/255.0f, 0/255.0f);
                 } else {
-                    val = 1.0 - (val / 600.0);
-                    glColor3f(val, val, 0/255.0);
+                    val = 1.0f - (val / 600.0f);
+                    return RGBColor(val, val, 0/255.0f);
                 }
             }
             break;
@@ -214,16 +221,16 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
     case GUISUMOAbstractView::VCS_ROUTECHANGENUMBER:
         {
             GUIVehicle &v = (GUIVehicle&) (vehicle);
-            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBREROUTE) ) {
+            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) ) {
 
-                glColor3f(220.0/255.0, 134.0/255.0, 228.0/255.0);
+                return RGBColor(220.0/255.0, 134.0/255.0, 228.0/255.0);
             } else {
-                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBREROUTE);
+                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
                 if(val>10) {
                     val = 10;
                 }
                 val = val / 10.;
-                glColor3f(val, 1.0-val, 0);
+                return RGBColor(val, 1.0-val, 0);
             }
             break;
         }
@@ -236,12 +243,145 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
                 if(prob>1) {
                     prob = 1;
                 }
-                glColor3f(prob, 0.3, 1.0-prob);
+                return RGBColor(prob, 0.3, 1.0-prob);
             } else {
                 if(prob<-1) {
                     prob = -1;
                 }
-                glColor3f(0.3, -prob, 1.0+prob);
+                return RGBColor(0.3, -prob, 1.0+prob);
+            }
+            break;
+        }
+    default:
+        throw 1;
+    }
+}
+
+
+
+
+void
+GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
+        GUISUMOAbstractView::VehicleColoringScheme scheme)
+{
+    switch(scheme) {
+    case GUISUMOAbstractView::VCS_BY_SPEED:
+        {
+            double speed = vehicle.speed();
+            double maxSpeed = 30; // !!!
+            double fact = speed / maxSpeed / 2.0;
+            glColor3d(1.0-fact, 0.5, 0.5+fact);
+        }
+        break;
+    case GUISUMOAbstractView::VCS_SPECIFIED:
+        {
+            const RGBColor &col = vehicle.getDefinedColor();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_TYPE:
+        {
+            const RGBColor &col =
+                static_cast<const GUIVehicleType&>(vehicle.getVehicleType()).getColor();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_ROUTE:
+        {
+            const RGBColor &col =
+                static_cast<const GUIRoute&>(vehicle.getRoute()).getColor();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_RANDOM1:
+        {
+            const RGBColor &col = vehicle.getRandomColor1();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_RANDOM2:
+        {
+            const RGBColor &col = vehicle.getRandomColor2();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_LANECHANGE1:
+        {
+            float color = vehicle.getPassedColor() / (float) 255;
+            glColor3d(color, color, color);
+        }
+        break;
+    case GUISUMOAbstractView::VCS_LANECHANGE2:
+        {
+            const RGBColor &col = vehicle.getLaneChangeColor2();
+            glColor3d(col.red(), col.green(), col.blue());
+        }
+        break;
+    case GUISUMOAbstractView::VCS_LANECHANGE3:
+        {
+            glColor3d(1, 1, 0);
+        }
+        break;
+    case GUISUMOAbstractView::VCS_WAITING1:
+        {
+            double color = double(vehicle.getWaitingTime())
+                / 512.0;
+            if(color>1.0) {
+                glColor3d(0, 0, 0);
+            } else {
+                color = 1.0 - color;
+                glColor3d(color, color, color);
+            }
+        }
+        break;
+    case GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET:
+        {
+            GUIVehicle &v = (GUIVehicle&) (vehicle);
+            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET) ) {
+
+                glColor3d(220.0/255.0, 134.0/255.0, 228.0/255.0);
+            } else {
+                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
+                if(val>300) {
+                    glColor3d(128.0/255.0, 128.0/255.0, 0/255.0);
+                } else {
+                    val = 1.0 - (val / 600.0);
+                    glColor3d(val, val, 0/255.0);
+                }
+            }
+            break;
+        }
+    case GUISUMOAbstractView::VCS_ROUTECHANGENUMBER:
+        {
+            GUIVehicle &v = (GUIVehicle&) (vehicle);
+            if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) ) {
+
+                glColor3d(220.0/255.0, 134.0/255.0, 228.0/255.0);
+            } else {
+                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
+                if(val>10) {
+                    val = 10;
+                }
+                val = val / 10.;
+                glColor3d(val, 1.0-val, 0);
+            }
+            break;
+        }
+    case GUISUMOAbstractView::VCS_LANECHANGE4:
+        {
+            const MSLCM_DK2004 &model =
+                static_cast<const MSLCM_DK2004 &>(vehicle.getLaneChangeModel());
+            double prob = model.getProb();
+            if(prob>0) {
+                if(prob>1) {
+                    prob = 1;
+                }
+                glColor3d(prob, 0.3, 1.0-prob);
+            } else {
+                if(prob<-1) {
+                    prob = -1;
+                }
+                glColor3d(0.3, -prob, 1.0+prob);
             }
             break;
         }
@@ -256,17 +396,17 @@ GUIBaseVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
 {
     // vehicles are red if the lane change is urgent
     if((vehicle.getLaneChangeModel().getState()&LCA_URGENT)!=0) {
-        glColor3f(1, 0.3, 0.3);
+        glColor3d(1, 0.3f, 0.3f);
         return;
     }
     // vehicles are purpleif a lane change is wished (but not urgent)
     if((vehicle.getLaneChangeModel().getState()&LCA_SPEEDGAIN)!=0) {
-        glColor3f(0.3, 0.3, 1);
+        glColor3d(0.3f, 0.3f, 1);
         return;
     }
     // vehicles that want to stay at their lanes and are not interacting
     //  are blue
-    glColor3f(0.3, 1, 0.3);
+    glColor3d(0.3f, 1, 0.3f);
 }
 
 
@@ -274,22 +414,37 @@ void
 GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 {
     // vehicle side will be yellow on their right side if changing to right,
-    if((vehicle.getLaneChangeModel().getState()&LCA_RIGHT)!=0) {
-        glColor3f(1, 1, 0);
+    if((vehicle.getLaneChangeModel().getState()&(LCA_RIGHT|LCA_URGENT))!=0) {
+        glColor3d(1, 1, 0);
     } else {
+        // vehicles are purpleif a lane change is wished (but not urgent)
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER))!=0) {
+            glColor3d(1, 0.3f, 0.3f);
+            return;
+        }
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBACKBLOCKER)!=0) {
+            glColor3d(1, 1, 1);
+            return;
+        }
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBACKBLOCKER_STANDING)!=0) {
+            glColor3d(1, 1, 0);
+            return;
+        }
         // vehicles are red if the lane change is urgent
         if((vehicle.getLaneChangeModel().getState()&LCA_AMBLOCKINGLEADER)!=0) {
-            glColor3f(0.3, 0.3, 1);
+            glColor3d(0.3f, 0.3f, 1);
             return;
         }
         // vehicles are purpleif a lane change is wished (but not urgent)
-        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGSECONDFOLLOWER))!=0) {
-            glColor3f(1, 0.3, 0.3);
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0) {
+            glColor3d(1, 0, 1);
             return;
         }
         // vehicles that want to stay at their lanes and are not interacting
         //  are blue
-        glColor3f(0.3, 1, 0.3);
+        glColor3d(0.3f, 1, 0.3f);
     }
 }
 
@@ -297,27 +452,42 @@ GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 void
 GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
 {
-    if((vehicle.getLaneChangeModel().getState()&LCA_LEFT)!=0) {
-        glColor3f(1, 1, 0);
+    if((vehicle.getLaneChangeModel().getState()&(LCA_LEFT|LCA_URGENT))!=0) {
+        glColor3d(1, 1, 0);
     } else {
+        // vehicles are purpleif a lane change is wished (but not urgent)
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER))!=0) {
+            glColor3d(1, 0.3f, 0.3f);
+            return;
+        }
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBACKBLOCKER)!=0) {
+            glColor3d(1, 1, 1);
+            return;
+        }
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBACKBLOCKER_STANDING)!=0) {
+            glColor3d(1, 1, 0);
+            return;
+        }
         // vehicles are red if the lane change is urgent
         if((vehicle.getLaneChangeModel().getState()&LCA_AMBLOCKINGLEADER)!=0) {
-            glColor3f(0.3, 0.3, 1);
+            glColor3d(0.3f, 0.3f, 1);
             return;
         }
         // vehicles are purpleif a lane change is wished (but not urgent)
-        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGSECONDFOLLOWER))!=0) {
-            glColor3f(1, 0.3, 0.3);
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0) {
+            glColor3d(1, 0, 1);
             return;
         }
         // vehicles that want to stay at their lanes and are not interacting
         //  are blue
-        glColor3f(0.3, 1, 0.3);
+        glColor3d(0.3f, 1, 0.3f);
     }
 }
 
 
-GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &
+GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &
 GUIBaseVehicleDrawer::getSchemesMap()
 {
     return myColoringSchemes;

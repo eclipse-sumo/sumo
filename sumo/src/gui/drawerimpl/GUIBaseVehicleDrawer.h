@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:05:21  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.4  2004/08/02 11:30:54  dkrajzew
 // refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
 //
@@ -40,8 +43,8 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
-#include <gui/GUISUMOAbstractView.h>
-#include "GUIColoringSchemesMap.h"
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
 
 /* =========================================================================
@@ -49,6 +52,7 @@
  * ======================================================================= */
 class GUILaneWrapper;
 class GUIVehicle;
+class GUIEdge;
 
 
 /* =========================================================================
@@ -60,29 +64,23 @@ class GUIVehicle;
 class GUIBaseVehicleDrawer {
 public:
     /// constructor
-    GUIBaseVehicleDrawer(std::vector<GUIEdge*> &edges);
+    GUIBaseVehicleDrawer(const std::vector<GUIEdge*> &edges);
 
     /// destructor
     virtual ~GUIBaseVehicleDrawer();
 
+    /// Draws the vehicles that are on the marked edges
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
 
-    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &
+    /// Returns the list of available coloring schemes
+    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &
         getSchemesMap();
 
-protected:
-    /// initialises the drawing
-    void initStep();
+    /// sets the colour of the vehicle to draw
+    RGBColor getVehicleColor(const GUIVehicle &vehicle,
+        GUISUMOAbstractView::VehicleColoringScheme scheme);
 
-    virtual void drawLanesVehicles(GUILaneWrapper &lane,
-        GUISUMOAbstractView::VehicleColoringScheme scheme) = 0;
-
-    /// draws a single vehicle; no tool-tip informations (faster)
-/*    virtual void drawVehicle(const GUILaneWrapper &lane,
-        const GUIVehicle &veh,
-        GUISUMOAbstractView::VehicleColoringScheme scheme) = 0;
-*/
     /// sets the colour of the vehicle to draw
     void setVehicleColor(const GUIVehicle &vehicle,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
@@ -97,10 +95,20 @@ protected:
     void setVehicleColor3Of3(const GUIVehicle &vehicle);
 
 protected:
-    /// The list of edges to consider at drawing
-    std::vector<GUIEdge*> &myEdges;
+    /// initialises the drawing
+    void initStep();
 
-    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme>
+    /// Draws all vehicles that are on the given lane
+    virtual void drawLanesVehicles(GUILaneWrapper &lane,
+        GUISUMOAbstractView::VehicleColoringScheme scheme) = 0;
+
+protected:
+    /// The list of edges to consider at drawing
+    const std::vector<GUIEdge*> &myEdges;
+
+    /** @brief The list of coloring schemes that may be used
+        They are not fixed as they may change in dependence to the available parameter */
+    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle>
         myColoringSchemes;
 
 };

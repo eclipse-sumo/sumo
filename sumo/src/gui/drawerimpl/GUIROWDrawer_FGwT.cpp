@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:05:22  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.6  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -63,7 +66,7 @@ namespace
 #include <guisim/GUILaneWrapper.h>
 #include "GUIROWDrawer_FGwT.h"
 #include <utils/geom/Position2DVector.h>
-#include <gui/textures/GUITexturesHelper.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -111,17 +114,17 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUINet &net,
         glTranslated(end.x(), end.y(), 0);
         glRotated( rot, 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2f(-1.5, 4.0);
-        glVertex2f(-1.5, 4.5);
-        glVertex2f(1.5, 4.5);
-        glVertex2f(1.5, 4.0);
+        glVertex2d(-1.5, 4.0);
+        glVertex2d(-1.5, 4.5);
+        glVertex2d(1.5, 4.5);
+        glVertex2d(1.5, 4.0);
         glEnd();
         glPopMatrix();
         glPopName();
         return;
     }
     // draw all links
-    float w = 3.0 / (float) noLinks;
+    float w = 3.0f / (float) noLinks;
     float x1 = 0;
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
@@ -146,12 +149,12 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUINet &net,
             break;
         }
         const RGBColor &color = myLinkColors.find(state)->second;
-        glColor3f(color.red(), color.green(), color.blue());
+        glColor3d(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
-        glVertex2f(x1-1.5, 0.0);
-        glVertex2f(x1-1.5, 0.5);
-        glVertex2f(x2-1.5, 0.5);
-        glVertex2f(x2-1.5,0.0);
+        glVertex2d(x1-1.5, 0.0);
+        glVertex2d(x1-1.5, 0.5);
+        glVertex2d(x2-1.5, 0.5);
+        glVertex2d(x2-1.5,0.0);
         glEnd();
         glPopName();
         x1 = x2;

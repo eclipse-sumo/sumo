@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:05:21  dkrajzew
+// removed some warnings and adapted the new class hierarchy
+//
 // Revision 1.4  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -42,7 +45,7 @@
 #include <map>
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSLink.h>
-#include <gui/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 
 /* =========================================================================
