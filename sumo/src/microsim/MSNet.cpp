@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.26  2003/06/24 14:49:52  dkrajzew
+// unneded members removed (will be replaced, soon)
+//
 // Revision 1.25  2003/06/24 14:31:58  dkrajzew
 // retrieval of current time step added
 //
@@ -320,8 +323,6 @@ MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
                 std::string baseNameDumpFiles/*, bool withGUI*/ )
 {
     myInstance = new MSNet();
-	myInstance->myLanes = 0;
-	myInstance->myVehOnLanes = 0;
 	myInstance->myLoadedVehNo = 0;
 	myInstance->myEmittedVehNo = 0;
 	myInstance->myRunningVehNo = 0;
@@ -420,9 +421,7 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
 
-	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
-	myInstance->myVehOnLanes = new size_t[MSLane::dictSize()];
-
+//	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
 }
 
 
@@ -441,8 +440,6 @@ MSNet::~MSNet()
     delete myEmitter;
     delete myDetectors;
     delete myRouteLoaders;
-	delete[] myLanes;
-	delete[] myVehOnLanes;
 }
 
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.21  2003/06/24 14:49:52  dkrajzew
+// unneded members removed (will be replaced, soon)
+//
 // Revision 1.20  2003/06/24 14:31:58  dkrajzew
 // retrieval of current time step added
 //
@@ -449,9 +452,6 @@ protected:
     /** Last timestep when mean-data was send to GUI. We need it to
      * calculate the intervall which may be not const for the GUI. */
 //    Time myLastGUIdumpTimestep;
-
-	MSLane **myLanes;
-	size_t *myVehOnLanes;
 
 private:
     /// Copy constructor.
