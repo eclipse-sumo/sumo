@@ -36,7 +36,7 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
         getLaneOffsets(x1, y1, x2, y2, length, 3.5);
     double xoff = offsets.first;
     double yoff = offsets.second;
-    for(LaneCont::iterator i=myLanes->begin(); i<myLanes->end(); i++) {
+    for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
         static_cast<GUILane*>(*i)->setPosition(x1+xoff, y1+yoff, x2+xoff, y2+yoff);
         xoff += offsets.first;
         yoff += offsets.second;
