@@ -135,10 +135,6 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\convert\ConvHelper.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -155,7 +151,15 @@ SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\GeomConvHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\GeomHelper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\glutils\GLHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -187,15 +191,19 @@ SOURCE=..\..\src\guinetload\GUIEdgeControlBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\guisim\GUIEdgeGrid.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\gui\GUIGlObject.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIGlObjectStorage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIGrid.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIHelpingJunction.cpp
 # End Source File
 # Begin Source File
 
@@ -260,6 +268,10 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIRunThread.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUISimpleJunctionDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -703,7 +715,15 @@ SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\GeomConvHelper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\GeomHelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\glutils\GLHelper.h
 # End Source File
 # Begin Source File
 
@@ -785,10 +805,6 @@ SOURCE=..\..\src\guinetload\GUIEdgeControlBuilder.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\guisim\GUIEdgeGrid.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\gui\GUIEvents.h
 # End Source File
 # Begin Source File
@@ -802,6 +818,14 @@ SOURCE=..\..\src\gui\GUIGlObjectStorage.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIGlObjectTypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIGrid.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIHelpingJunction.h
 # End Source File
 # Begin Source File
 
@@ -935,6 +959,10 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIRunThread.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUISimpleJunctionDrawer.h
 # End Source File
 # Begin Source File
 

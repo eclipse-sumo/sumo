@@ -108,15 +108,15 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\convert\ConvHelper.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\distribution\Distribution_MeanDev.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\distribution\Distribution_Points.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\distribution\DistributionCont.cpp
 # End Source File
 # Begin Source File
 
@@ -133,6 +133,10 @@ SOURCE=..\..\src\utils\common\FileHelpers.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\geom\GeomConvHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -832,10 +836,6 @@ SOURCE=..\..\src\utils\geom\Bresenham.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\convert\ConvHelper.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\distribution\Distribution.h
 # End Source File
 # Begin Source File
@@ -845,6 +845,10 @@ SOURCE=..\..\src\utils\distribution\Distribution_MeanDev.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\distribution\Distribution_Points.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\distribution\DistributionCont.h
 # End Source File
 # Begin Source File
 

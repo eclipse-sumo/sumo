@@ -97,6 +97,10 @@ SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\Bresenham.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\router\CellDriverInfoParser.cpp
 # End Source File
 # Begin Source File
@@ -110,6 +114,10 @@ SOURCE=..\..\src\utils\common\FileHelpers.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\gfx\GfxConvHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -158,6 +166,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
 
@@ -242,6 +254,10 @@ SOURCE=..\..\src\router\RORunningVehicle.cpp
 # Begin Source File
 
 SOURCE=..\..\src\router\ROSUMOAltRoutesHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\router\ROSUMOHandlerBase.cpp
 # End Source File
 # Begin Source File
 
@@ -345,6 +361,10 @@ SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\Bresenham.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\router\CellDriverInfoParser.h
 # End Source File
 # Begin Source File
@@ -358,6 +378,14 @@ SOURCE=..\..\src\utils\common\FileHelpers.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\gfx\GfxConvHelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\geom\HaveBoundery.h
 # End Source File
 # Begin Source File
 
@@ -410,6 +438,10 @@ SOURCE=..\..\src\utils\options\OptionsSubSys.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ReferencedItem.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\gfx\RGBColor.h
 # End Source File
 # Begin Source File
 
@@ -506,6 +538,10 @@ SOURCE=..\..\src\router\RORunningVehicle.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ROSUMOAltRoutesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\router\ROSUMOHandlerBase.h
 # End Source File
 # Begin Source File
 
