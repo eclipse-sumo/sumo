@@ -17,7 +17,8 @@ sumo_od2trips_SOURCES = od2trips_main.cpp \
 od2trips_help.h
 
 sumo_gui_SOURCES = gui_main.cpp \
-gui_help.h
+gui_help.h \
+sumo_version.cpp sumo_version.h
 
 sumo_LDFLAGS = -L$(XERCESLIBPATH) \
 $(all_libraries)
@@ -88,14 +89,15 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./gui/vartracker/libguivartracker.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./utils/common/libcommon.a \
 ./utils/xml/libxml.a \
 ./utils/sumoxml/libsumoxml.a \
-./utils/common/libcommon.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
 ./sumo_only/libsumoonly.a \
 ./helpers/libhelpers.a \
 ./utils/geom/libgeom.a \
+./utils/fonts/libfonts.a \
 ./utils/gfx/libgfx.a \
 ./utils/qutils/libqutils.a \
 ./utils/glutils/libglutils.a \
@@ -126,5 +128,5 @@ router \
 sumo_only \
 utils
 
-EXTRA_DIST = version.cpp
+EXTRA_DIST = sumo_version.cpp sumo_version.h
 
