@@ -1,5 +1,6 @@
 bin_PROGRAMS = sumo \
 sumo-netconvert \
+sumo-netgen \
 sumo-router \
 sumo-od2trips \
 sumo-gui \
@@ -24,7 +25,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 sumo_netconvert_SOURCES = netconvert_main.cpp \
 netconvert_help.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) 
-sumo_netconvert_LDADD   = ./netbuild/libnetbuildmain.a \
+sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -47,6 +48,21 @@ sumo_netconvert_LDADD   = ./netbuild/libnetbuildmain.a \
 -l$(LIB_XERCES)
 
 
+sumo_netgen_SOURCES = netgen_main.cpp \
+netgen_help.h
+sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS) 
+sumo_netgen_LDADD   = ./netgen/libnetgen.a \
+./netbuild/libnetbuild.a \
+./utils/sumoxml/libsumoxml.a \
+./utils/geom/libgeom.a \
+./utils/options/liboptions.a \
+./utils/common/libcommon.a \
+./utils/importio/libimportio.a \
+./utils/convert/libconvert.a \
+./utils/xml/libxml.a \
+-l$(LIB_XERCES)
+
+
 sumo_router_SOURCES = router_main.cpp \
 router_help.h
 sumo_router_LDFLAGS = -L$(XERCES_LDFLAGS)
@@ -54,6 +70,7 @@ sumo_router_LDADD   = ./router/librouter.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
+./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/router/librouter.a \
@@ -123,6 +140,7 @@ guisim \
 helpers \
 microsim \
 netbuild \
+netgen \
 netimport \
 netload \
 od2trips \
