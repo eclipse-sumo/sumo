@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2003/10/17 06:52:01  dkrajzew
+// acceleration is now time-dependent
+//
 // Revision 1.32  2003/10/16 08:33:49  dkrajzew
 // new lane changing rules implemented
 //
@@ -803,14 +806,15 @@ MSVehicle::safeEmitGap( void ) const
                            double( 0 ) ); // ok, minimum next speed
     double safeGap  = vNextMin *
         ( this->speed() * myType->inversTwoDecel() + myTau );
-    return MAX( safeGap, timeHeadWayGap( myState.mySpeed ) ) + myType->accelDist();
+    return MAX( safeGap, timeHeadWayGap( myState.mySpeed ) ) +
+        myType->accelDist(myState.mySpeed);
 }
 
 
 double
 MSVehicle::accelDist() const
 {
-    return myType->accelDist();
+    return myType->accelDist(myState.mySpeed);
 }
 
 
@@ -949,6 +953,9 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
                                  const MSVehicle* neigh )
 {
+    if(MSNet::globaltime==54777&&myID=="7534") {
+        int bla = 0;
+    }
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
         DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
@@ -1012,7 +1019,7 @@ MSVehicle::moveFirstChecked()
 	    int textdummy = 0;
     }
 #endif
-    if(MSNet::globaltime==54042&&myID=="60") {
+    if(MSNet::globaltime==54777&&myID=="7534") {
         int bla = 0;
     }
     if(myID=="99"&&myLane->id()=="522_1") {
@@ -1043,7 +1050,7 @@ MSVehicle::moveFirstChecked()
                     } else {
                         vSafe = (*i).myVLinkWait;
                     }
-                    cont = false;
+//                    cont = false;
 			    }
 		    }
         } else {
@@ -1056,8 +1063,8 @@ MSVehicle::moveFirstChecked()
     }
 	// compute vNext in considering dawdling
     double vNext;
-    if(myState.speed()==0&&vSafe<myType->accelSpeed()) {
-        // do not dawdle as much on short segments
+    if(myState.speed()==0&&vSafe<myType->accelSpeed(0)) {
+        // do not dawdle too much on short segments
         vNext = MAX(double(0), dawdle2( MIN(vSafe, vaccel(myLane)) ));
     } else {
         vNext = MAX(double(0), dawdle( MIN(vSafe, vaccel(myLane)) ));
@@ -1077,7 +1084,7 @@ MSVehicle::moveFirstChecked()
     myState.myPos += vNext * MSNet::deltaT();
     MSLane *approachedLane = myLane;
 //    myTargetVia = myLane;
-    if(MSNet::globaltime==54042&&myID=="60") {
+    if(MSNet::globaltime==54777&&myID=="7534") {
         int bla = 0;
     }
 
@@ -1147,6 +1154,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     double vLinkPass = boundVSafe;
     double vLinkWait = vLinkPass;
 
+    bool onePassed = false;
 
     // loop over following lanes
     while(true) {
@@ -1157,12 +1165,15 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
         //  (should be valid only on further loop iterations
         if(nextLane->isLinkEnd(link)) {
             double laneEndVSafe =
-                vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
+                vsafe(myState.mySpeed, decelAbility, seen, 0);
+/*            if(onePassed&&vLinkWait==0) {
+                vLinkWait = myType->accelSpeed(myState.mySpeed);
+            }*/
             myLFLinkLanes.push_back(
                 DriveProcessItem(nextLane->getLinkCont().end(),
                     MIN(vLinkPass, laneEndVSafe),
-                    MIN(vLinkWait, laneEndVSafe)));
-            // the vehicle will not driver further
+                    MIN(vLinkPass, laneEndVSafe)));
+            // the vehicle will not drive further
             return;
         }
         vLinkWait = vLinkPass; // the link was passed
@@ -1258,6 +1269,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
         if(seen>dist) {
             return;
         }
+        onePassed = true;
     }
 }
 
@@ -1427,7 +1439,7 @@ MSVehicle::laneChangeBrake2much( const State brakeState )
 {
     // SK-vnext can reduce speed about decel, dawdle about accel.
     double minAllowedNextSpeed =
-        MAX( myState.mySpeed - myType->accelPlusDecelSpeed(), double( 0 ) );
+        MAX( myState.mySpeed - myType->accelPlusDecelSpeed(myState.mySpeed), double( 0 ) );
 
     if ( brakeState.mySpeed < minAllowedNextSpeed ) {
 
@@ -1490,7 +1502,7 @@ double
 MSVehicle::vaccel( const MSLane* lane ) const
 {
     // Accelerate until vehicle's max speed reached.
-    double vVehicle = MIN( myState.mySpeed + myType->accelSpeed(), myType->myMaxSpeed );
+    double vVehicle = MIN( myState.mySpeed + myType->accelSpeed(myState.mySpeed), myType->myMaxSpeed );
 
     // But don't drive faster than max lane speed.
     return MIN( vVehicle, lane->maxSpeed() );
@@ -1822,7 +1834,7 @@ MSVehicle::decelAbility() const
 double
 MSVehicle::accelAbility() const
 {
-    return myType->accel() * MSNet::deltaT();
+    return myType->accel(myState.mySpeed) * MSNet::deltaT();
 }
 
 

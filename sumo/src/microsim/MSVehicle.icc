@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/10/17 06:52:01  dkrajzew
+// acceleration is now time-dependent
+//
 // Revision 1.6  2003/08/20 11:44:11  dkrajzew
 // min and max-functions moved to an own definition file
 //
@@ -85,7 +88,7 @@ MSVehicle::dawdle( double speed ) const
     // TODO:
     // We already have a safe speed, if we dawdle max, is it possible
     // to reduce the speed 2*decel?
-    speed -= myType->dawdle() * myType->accelSpeed() * random;
+    speed -= myType->dawdle() * myType->accelSpeed(speed) * random;
 
     return MAX( double( 0 ), speed );
 }

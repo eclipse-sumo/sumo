@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/10/17 06:52:01  dkrajzew
+// acceleration is now time-dependent
+//
 // Revision 1.6  2003/07/30 10:02:38  dkrajzew
 // support for the vehicle display removed by now
 //
@@ -130,7 +133,7 @@ public:
     double maxSpeed() const;
 
     /// Get the vehicle type's maximum acceleration [m/s^2]
-    double accel() const;
+    double accel(double v) const;
 
     /// Get the vehicle type's maximum deceleration [m/s^2]
     double decel() const;
@@ -145,19 +148,19 @@ public:
     static double maxLength();
 
     /// Returns precomputed accel * deltaT
-    double accelSpeed( void ) const;
+    double accelSpeed( double v ) const;
 
     /// Returns precomputed decel * deltaT
     double decelSpeed( void ) const;
 
     /// Returns precomputed ( accel + decel ) * deltaT
-    double accelPlusDecelSpeed( void ) const;
+    double accelPlusDecelSpeed( double v ) const;
 
     /// Returns precomputed 1 / ( 2 * decel )
     double inversTwoDecel( void ) const;
 
     /// Returns precomputed accel * deltaT^2
-    double accelDist( void ) const;
+    double accelDist( double v ) const;
 
     /// Returns precomputed decel * deltaT^2
     double decelDist( void ) const;
@@ -197,11 +200,11 @@ private:
     double myDawdle;
 
 
-    double myAccelSpeed;
+//    double myAccelSpeed;
     double myDecelSpeed;
-    double myAccelPlusDecelSpeed;
+//    double myAccelPlusDecelSpeed;
     double myInversTwoDecel;
-    double myAccelDist;
+//    double myAccelDist;
     double myDecelDist;
 
     /// Minimum deceleration-ability of all vehicle-types.

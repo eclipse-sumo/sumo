@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/10/17 06:52:01  dkrajzew
+// acceleration is now time-dependent
+//
 // Revision 1.6  2003/07/30 10:02:38  dkrajzew
 // support for the vehicle display removed by now
 //
@@ -171,11 +174,11 @@ MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
         myMaxLength = myLength;
     }
 
-    myAccelSpeed          = myAccel * MSNet::deltaT();
+//    myAccelSpeed          = myAccel * MSNet::deltaT();
     myDecelSpeed          = myDecel * MSNet::deltaT();
-    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT();
+//    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT();
     myInversTwoDecel      = double( 1 ) / ( double( 2 ) * myDecel );
-    myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
+//    myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
     myDecelDist           = myDecel * MSNet::deltaT() * MSNet::deltaT();
 }
 
