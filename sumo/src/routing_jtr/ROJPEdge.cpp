@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/16 13:48:07  dkrajzew
+// false usage of a random number patched
+//
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
@@ -121,7 +124,7 @@ ROJPEdge::chooseNext(unsigned int time) const
         size_t pos = 0;
         for(j=myParsedTurnings.begin(); j!=myParsedTurnings.end(); j++) {
             chosen = chosen - (*j);
-            if(chosen<=0) {
+            if(chosen<0) {
                 return static_cast<ROJPEdge*>(myFollowingEdges[pos]);
             }
             pos++;
