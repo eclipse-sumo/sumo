@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -36,8 +36,8 @@ struct MSHaltingDetectorContainer :
     typedef typename InnerContainer::iterator HaltingsIt;
     typedef typename InnerContainer::const_iterator HaltingsConstIt;
     typedef InnerContainer InnerCont;
-    
-    
+
+
     MSHaltingDetectorContainer( MSUnit::Steps timeThreshold,
                                 MSUnit::CellsPerStep speedThreshold,
                                 MSUnit::Cells jamDistThreshold )
@@ -45,7 +45,7 @@ struct MSHaltingDetectorContainer :
           speedThresholdM(  speedThreshold ),
           jamDistThresholdM( jamDistThreshold )
         {}
-    
+
     void update( void )
         {
             // set isHaltingM
@@ -108,15 +108,15 @@ namespace DetectorContainer
         bool isHaltingM;
         bool isInJamM;
     };
-    
+
     typedef MSHaltingDetectorContainer< std::list< Halting > > Haltings;
 }
 
-namespace Predicate 
+namespace Predicate
 {
     // specialization
     template<>
-    struct PosGreater< DetectorContainer::Haltings > :
+    struct PosGreaterC< DetectorContainer::Haltings > :
         public std::binary_function< DetectorContainer::Haltings,
                                      double, bool >
     {
@@ -124,11 +124,11 @@ namespace Predicate
                           double pos ) const {
             return item.vehM->pos() > pos;
         }
-    };    
+    };
 
     // specialization
     template<>
-    struct VehEquals< DetectorContainer::Haltings > :
+    struct VehEqualsC< DetectorContainer::Haltings > :
         public std::binary_function< DetectorContainer::Halting,
                                      MSVehicle*, bool >
     {
@@ -137,6 +137,31 @@ namespace Predicate
             return item.vehM == veh;
         }
     };
+
+
+	// specialization
+    template<>
+    struct PosGreaterC< DetectorContainer::Halting > :
+        public std::binary_function< DetectorContainer::Halting,
+                                     double, bool >
+    {
+        bool operator() ( const DetectorContainer::Halting& item,
+                          double pos ) const {
+            return item.vehM->pos() > pos;
+        }
+    };
+
+    // specialization
+    template<>
+		struct VehEqualsC< DetectorContainer::Halting > :
+        public std::binary_function< DetectorContainer::Halting, MSVehicle*, bool >
+    {
+        bool operator() ( DetectorContainer::Halting item,
+                          const MSVehicle* veh ) const {
+            return item.vehM == veh;
+        }
+    };
+
 }
 
 
