@@ -9,6 +9,7 @@
     project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Thu, 12 September 2002
+	modified			 : Thu, 25 March 2003, INVENT purposes
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     author               : Peter Mieth
     email                : Peter.Mieth@dlr.de
@@ -22,9 +23,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-/* =========================================================================
- * included modules
- * ======================================================================= */
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -38,7 +36,7 @@
 
 using namespace std;
 
-int ODwrite (string OD_outfile, vector<OD_OUT>& od_out, int total_cars)
+int ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars)
 
 	{
 	int ferror = 0;
@@ -48,26 +46,15 @@ int ODwrite (string OD_outfile, vector<OD_OUT>& od_out, int total_cars)
 		throw ProcessError();
 	}
     fsSrc << "<tripdefs>" << endl;
-	for(int i=0;i<total_cars;i++)
+	for(long int i=0;i<total_cars;i++)
 	{
 		fsSrc << "   <tripdef id=\"" << i << "\"" << " " << "depart=\"" << od_out[i].time << "\"" <<" ";
 		fsSrc << "from=\"" << od_out[i].from << "\"" << " ";
-		fsSrc << "to=\"" << od_out[i].to << "\"" << " " << "type=\"0\"/>" << endl;
+		fsSrc << "to=\"" << od_out[i].to << "\"" << " " << "type=\"";
+		fsSrc << od_out[i].type << "\"" << "/>"<< endl;
 	}
     fsSrc << "</tripdefs>" << endl;
 	fsSrc.close ();
 	return (ferror);
 }
-
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODwrite.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
-
 

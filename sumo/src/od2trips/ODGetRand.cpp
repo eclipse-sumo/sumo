@@ -28,9 +28,6 @@
  *                                                                         *
  ***************************************************************************/
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
 # include <cstdlib>
 # include <ctime>
 # include <cmath>
@@ -47,16 +44,13 @@
 
 using namespace std;
 
-int Get_rand (unsigned short number,int maxele, int *input, int *output, bool ini)
+int Get_rand (int number,int maxele, int start, int *input, int *output, bool ini)
 	{
-	int i, check, newele, index;
+	int i, check, newele, index, initial;
 	double rand_space;
 
-	if(number>=maxele)
-	{
-		cout << "More random numbers requiered as elements!" << endl;
-        number = maxele-1;
-	}
+	initial=number;
+
 	if(number==0)
 	{
 		cout << "No elements requiered, nothing to do" << endl;
@@ -65,6 +59,14 @@ int Get_rand (unsigned short number,int maxele, int *input, int *output, bool in
     for(int k=0;k<maxele;k++) {
         *(input+k)=k;
     }
+	if(number>=maxele)
+	{
+		cout << "More random numbers requiered as elements!" << endl;
+        number = maxele-1;
+		cout << initial-number << " cars get lost" << endl;
+	    for(k=0;k<maxele;k++) *(output+k)=k;
+		return (number);
+	}
 	check=0;
 	newele=maxele;
     if(ini) srand(time(0));
@@ -73,7 +75,7 @@ int Get_rand (unsigned short number,int maxele, int *input, int *output, bool in
 		rand_space = 1. * (newele-1) / RAND_MAX;
 		index = (int) (rand() * rand_space);
 		if(index==maxele) index--;
-		*(output+check) = *(input+index);
+		*(output+check) = *(input+index)+start;
 		++check;
 		for (i=index;i<newele-1;i++)
 			{
@@ -88,16 +90,4 @@ int Get_rand (unsigned short number,int maxele, int *input, int *output, bool in
 	}
 	return (number);
 }
-
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODGetRand.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
-
 

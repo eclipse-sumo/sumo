@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/01 15:22:20  dkrajzew
+// parsing of multiple (vissim)-matrices added
+//
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
@@ -41,7 +44,7 @@
 # include <ctime>
 # include <string>
 
-typedef int (*CMPFUN)(int, int);
+typedef int (*CMPFUN)(long int, long int);
 
 /* =========================================================================
  * used namespaces
@@ -54,6 +57,7 @@ using namespace std;
 /**
  *
  */
+/// OD attributes input
 class OD_IN {
 public:
   string from;
@@ -61,14 +65,28 @@ public:
   unsigned short int how_many;
 };
 
-
 /// OD attributes output
 class OD_OUT {
 public:
   string from;
   string to;
+  unsigned int type;
   unsigned int time;
 };
+
+/// Meta data input
+const int MAX_CARTYPES=100;
+const int MAX_INFILES=200;
+const int MAX_LINELENGTH=500;
+const int MAX_CONTENT=200;
+
+struct content {
+	int id;
+	int max;
+	int	cartype[MAX_CARTYPES];
+	float fraction[MAX_CARTYPES];
+	};
+
 
 
 

@@ -13,6 +13,7 @@
     project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Thu, 10 September 2002
+	modified			 : Thu, 25 March 2003, from int to long int
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     author               : Peter Mieth, based on quicksort
     email                : Peter.Mieth@dlr.de
@@ -29,9 +30,10 @@
 
 #define INSERTION_SORT_BOUND 16 /* boundary point to use insertion sort */
 
-#define uint32 unsigned int
+#define uint32 long int
+//#define uint32 unsigned int
 
-typedef int (*CMPFUN)(int, int);
+typedef int (*CMPFUN)(long int, long int);
 
 
 
@@ -41,12 +43,12 @@ typedef int (*CMPFUN)(int, int);
  *
  * Return Value: none
  */
-void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
+void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 {
   uint32 stack_pointer = 0;
-  int first_stack[32];
-  int last_stack[32];
-  int cur_i,temp_i;
+  long int first_stack[64];
+  long int last_stack[64];
+  long int cur_i,temp_i;
 
   for (;;)
   {
@@ -54,9 +56,9 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
     {
       /* for small sort, use insertion sort */
       uint32 indx;
-      int prev_val = *(This+first);
-      int prev_i   = *(iax+first);
-      int cur_val,hilf;
+      long int prev_val = *(This+first);
+      long int prev_i   = *(iax+first);
+      long int cur_val,hilf;
 
       for (indx = first + 1; indx <= last; ++indx)
       {
@@ -72,7 +74,7 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
           /* find the insertion point for the smaller item */
           for (indx2 = indx - 1; indx2 > first; )
           {
-            int temp_val = *(This+indx2 - 1);
+            long int temp_val = *(This+indx2 - 1);
             temp_i = *(iax+indx2-1);
             if ((*fun_ptr)(temp_val, cur_val) > 0)
             {
@@ -96,11 +98,11 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
     }
     else
     {
-      int pivot;
+      long int pivot;
 
       /* try quick sort */
       {
-        int temp;
+        long int temp;
         uint32 med = (first + last) >> 1;
         /* Choose pivot from first, last, and median position. */
         /* Sort the three elements. */
@@ -149,7 +151,7 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 
 	    if (up > down)
 	    {
-	      int temp;
+	      long int temp;
 	      /* interchange L[down] and L[up] */
 	      temp = *(This+down);
 		  *(This+down)= *(This+up);
@@ -204,19 +206,7 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 
 
 
-void IndexSort(int *This, int *iax, CMPFUN fun_ptr, uint32 the_len)
+void IndexSort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 the_len)
 {
 	Qsort(This, iax, fun_ptr, 0, the_len - 1);
 }
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODIndexSort.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
-
-
