@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/07/22 15:05:22  dkrajzew
+// warnings removed; formatted the code
+//
 // Revision 1.5  2003/07/16 15:31:14  dkrajzew
 // junctions are now able to build gui-wrappers (throws an exception within the gui-version, but the interface is needed)
 //
@@ -50,7 +53,6 @@ namespace
 // Revision 1.8  2001/12/13 15:56:46  croessel
 // Initial commit.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -186,7 +188,7 @@ MSJunction::id() const
 
 
 GUIJunctionWrapper *
-MSJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage)
+MSJunction::buildJunctionWrapper(GUIGlObjectStorage &)
 {
     throw "Only within the gui-version";
 }

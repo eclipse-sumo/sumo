@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/07/22 15:05:22  dkrajzew
+// warnings removed; formatted the code
+//
 // Revision 1.5  2003/07/16 15:31:14  dkrajzew
 // junctions are now able to build gui-wrappers (throws an exception within the gui-version, but the interface is needed)
 //
@@ -125,7 +128,8 @@ public:
     std::string id() const;
 
     // valid for gui-version only
-    virtual GUIJunctionWrapper *buildJunctionWrapper(GUIGlObjectStorage &idStorage);
+    virtual GUIJunctionWrapper *buildJunctionWrapper(
+        GUIGlObjectStorage &idStorage);
 
     friend class GUIGrid;
 
