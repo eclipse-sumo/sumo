@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/12/05 14:59:33  dkrajzew
+// removed some unused lines
+//
 // Revision 1.8  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -33,16 +36,21 @@ namespace
 // false usage of rand() patched
 //
 // Revision 1.5  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout;
+//  this shall ease the search for further couts which must be redirected to
+//  the messaaging subsystem
 //
 // Revision 1.4  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok);
+//  detector output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+// complete deletion within destructors implemented; clear-operator added
+//  for container; global file include; junction extended by position
+//  information (should be revalidated later)
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -58,7 +66,8 @@ namespace
 // new project name
 //
 // Revision 2.3  2002/03/06 10:56:36  croessel
-// Bugfix: myRespond will have always the correct size before being passed to myLogic.
+// Bugfix: myRespond will have always the correct size before being passed
+//  to myLogic.
 //
 // Revision 2.2  2002/02/27 13:47:57  croessel
 // Additional assert's because of parameter-passing-problems.
@@ -118,14 +127,6 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-/*
-MSRightOfWayJunction::InLane::InLane(MSLane* lane) :
-    myLane( lane )
-{
-}
-
-//-------------------------------------------------------------------------//
-*/
 MSRightOfWayJunction::MSRightOfWayJunction( string id,
                                             double x, double y,
                                             LaneCont incoming,
