@@ -29,10 +29,18 @@ bool StructureParser::startDocument()
 
 ContType::iterator StructureParser::getColumn (ContType::iterator start, std::string tofound)
 {
-    for (  ContType::iterator i = start; i !=tmpcont.end(); i++)    {
-        if (i->first == tofound)    {
-            break;
-        };
+//     for (  ContType::iterator i = start; i !=tmpcont.end(); i++)    {
+//         if (i->first == tofound)    {
+//             break;
+//         };
+//     }
+//     return i;
+
+    // TODO: Julia, does it make sense to return start, if tofound is not
+    // in the container tmpcont?
+    ContType::iterator i = start;
+    while ( i->first != tofound  && i != tmpcont.end() ) {
+        ++i;
     }
     return i;
 }
@@ -45,7 +53,7 @@ bool StructureParser::startElement( const QString&, const QString&,
 {
     QXmlAttributes a = myattr;
     
-    std::string tmp = qName;  
+    std::string tmp = static_cast<std::string>( qName );  
     ContType::iterator it = tmpcont.end();
     ContType::iterator itS = tmpcont.begin();
     
@@ -63,18 +71,18 @@ bool StructureParser::startElement( const QString&, const QString&,
         itS = tmpcont.begin();
         ContType::iterator st = getColumn (itS, tmp );
         
-        std::string s = a.localName(i);    
+        std::string s = static_cast<std::string>( a.localName(i) );    
         ContType::iterator itF = getColumn(st, s);
                 
         if (it == itF ) {
-            std::string v = a.value(i);         
+            std::string v = static_cast<std::string>( a.value(i) );         
             PairType pt1 (s,v);
             tmpcont.push_back(pt1);
             cout << s << t;
             outfile << s << t ;
         }
         else    {   
-            std::string v = a.value(i);         
+            std::string v = static_cast<std::string>( a.value(i) );         
             itF->second = v;         
         }
     }
