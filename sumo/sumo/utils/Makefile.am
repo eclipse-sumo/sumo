@@ -12,7 +12,7 @@ XMLBuildingExceptions.h \
 StringTokenizer.cpp StringTokenizer.h HelpPrinter.h \
 TplConvert.h TplConvertSec.h \
 XMLSubSys.cpp XMLSubSys.h \
-XMLCh2Local.cpp  XMLCh2Local.h  XMLCh2Local.icc HelpPrinter.h
+HelpPrinter.h
 
 AM_CPPFLAGS = -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
