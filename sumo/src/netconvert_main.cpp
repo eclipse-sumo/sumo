@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/12/11 06:13:32  dkrajzew
+// NBOptionsIO moved to netimport NIOptionsIO where they belong to
+//
 // Revision 1.19  2003/09/05 15:29:48  dkrajzew
 // a bug on comparing the return value patched
 //
@@ -135,7 +138,7 @@ namespace
 #include <string>
 #include <fstream>
 #include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBOptionsIO.h>
+#include <netimport/NIOptionsIO.h>
 #include <netimport/NILoader.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -203,7 +206,7 @@ main(int argc, char **argv)
     int ret = 0;
     try {
         if(!SystemFrame::init(false, argc, argv,
-            NBOptionsIO::fillOptions, 0, help)) {
+            NIOptionsIO::fillOptions, 0, help)) {
             throw ProcessError();
         }
         // retrieve the options

@@ -10,7 +10,7 @@ NBJunctionTypesMatrix.cpp NBJunctionTypesMatrix.h \
 NBLinkCliqueContainer.cpp NBLinkCliqueContainer.h \
 NBLinkPossibilityMatrix.h \
 NBLogicKeyBuilder.cpp NBLogicKeyBuilder.h NBNode.cpp NBNode.h \
-NBNodeCont.cpp NBNodeCont.h NBOptionsIO.cpp NBOptionsIO.h \
+NBNodeCont.cpp NBNodeCont.h \
 NBRequest.cpp NBRequest.h \
 NBRequestEdgeLinkIterator.cpp NBRequestEdgeLinkIterator.h \
 NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \

@@ -218,10 +218,6 @@ SOURCE=..\..\src\netbuild\NBNodeCont.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBOptionsIO.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\netbuild\NBOwnTLDef.cpp
 # End Source File
 # Begin Source File
@@ -275,6 +271,10 @@ SOURCE=..\..\src\netgen\NGNetElements.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netgen\NGRandomNet.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\NIOptionsIO.cpp
 # End Source File
 # Begin Source File
 
@@ -466,10 +466,6 @@ SOURCE=..\..\src\netbuild\NBNodeCont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBOptionsIO.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\netbuild\NBOwnTLDef.h
 # End Source File
 # Begin Source File
@@ -523,6 +519,10 @@ SOURCE=..\..\src\netgen\NGNetElements.h
 # Begin Source File
 
 SOURCE=..\..\src\netgen\NGRandomNet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\NIOptionsIO.h
 # End Source File
 # Begin Source File
 
