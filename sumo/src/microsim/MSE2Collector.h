@@ -11,7 +11,7 @@
 ///
 ///
 
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
+/* Copyright (C) 2003, 2004 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -40,8 +40,16 @@
 #include <limits>
 #include "MSApproachingVehiclesStates.h"
 
+///
+/// Introduces some enums and consts for use in MSE2Collector. 
+///
 namespace E2
 {
+    ///
+    /// Collection of all possible E2-detectors. Names should be
+    /// self-explanatory. Keep the detectors sorted in the order TD
+    /// (timestep-data), ED (event-data), LD (leave-data).
+    ///
     enum DetType { DENSITY = 0, // TD
                    MAX_JAM_LENGTH_IN_VEHICLES,
                    MAX_JAM_LENGTH_IN_METERS,
@@ -57,26 +65,56 @@ namespace E2
                    HALTING_DURATION_SUM, // ED
                    HALTING_DURATION_MEAN, // LD
                    APPROACHING_VEHICLES_STATES, // special treatment
-                   ALL };
+                   ALL          ///< Use this to generate all possible
+                                ///detectors in
+                                ///MSE2Collector::addDetector().
+    };
 
+    /// @name Markers, where the typ of detection (TD, ED, LD) changes.
+    /// @{
     const DetType lastTD = CURRENT_HALTING_DURATION_SUM_PER_VEHICLE;
     const DetType lastED = HALTING_DURATION_SUM;
     const DetType lastLD = HALTING_DURATION_MEAN;
+    /// @}
 
+    /// Increment operator that allows us to iterate over the
+    /// E2::DetType detectors.
+    ///
+    /// @param det A detector out of E2::DetType (an integral type).
+    ///
+    /// @return The detector that follows det.
+    ///
     DetType& operator++( DetType& det );
 
+    ///
+    /// Collection of different "vehicle" containers used by MSE2Collector. 
+    ///
     enum Containers { COUNTER = 0,
                       VEHICLES,
                       HALTINGS };
 
+    /// Increment operator that allows us to iterate over the
+    /// E2::Containers detectors.
+    ///
+    /// @param cont A container out of E2::Containers (an integral type).
+    ///
+    /// @return The container that follows cont.
+    ///    
     Containers& operator++( Containers& cont );
 }
 
-//using namespace E2;
-
+/// Collection of headover-detectors. This class defines the place and
+/// size of the detection-area. You can add detectors via
+/// addDetector() out of E2::DetType to work on the detection
+/// area. The detectors are updated every timestep. You can retrieve
+/// their current detection-value via getCurrent() and a sampled value
+/// via getAggregate(). As MSE2Collector inherits from
+/// MSDetectorFileOutput there is the possibility to get file output
+/// by calling MSDetector2File::addDetectorAndInterval().
+/// 
 class
 MSE2Collector : public MSMoveReminder,
-                     public MSDetectorFileOutput
+                public MSDetectorFileOutput
 {
 public:
 
@@ -91,15 +129,37 @@ public:
     typedef LD::MSDetectorInterface LDDetector;
     typedef std::vector< LDDetector* > DetLDCont;
     typedef DetLDCont::iterator DetLDContIter;
+    
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
     typedef SingletonDictionary< std::string,
                                  MSE2Collector* > E2Dictionary;
 
-    MSE2Collector( std::string id, DetectorUsage usage,
+    /// Ctor. Checks position-params and inserts itself to an E2Dictionary for
+    /// global access to all MSE2Collector objects.
+    ///
+    /// @param id The detector's unique id.
+    /// @param usage ???
+    /// @param lane The lane on which the detetcor works.
+    /// @param startPos Start-position on that lane. Assure that it is within
+    /// the lane.
+    /// @param detLength Length of the detector. Assure that startPos +
+    /// detLength is within the lane.
+    /// @param haltingTimeThreshold A vehicle must at least drive that time
+    /// at a speed lesser than haltingSpeedThreshold to be a "halting" vehicle.
+    /// @param haltingSpeedThreshold A vehicle must not drive a greater speed
+    /// for at more than haltingTimeThreshold  to be a "halting" vehicle.
+    /// @param jamDistThreshold Two or more vehicles are "in jam" if they are
+    /// halting and their distance is lesser than jamDistThreshold.
+    /// @param deleteDataAfterSeconds Delete the data that is collected every
+    /// timestep so that data is always present for at least
+    /// deleteDataAfterSeconds.
+    MSE2Collector(
+        std::string id,
+        DetectorUsage usage,
         MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
         MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0/3.6,
         MSUnit::Meters jamDistThreshold = 10,
         MSUnit::Seconds deleteDataAfterSeconds = 1800 )
         : MSMoveReminder( lane, id ),
@@ -134,6 +194,7 @@ public:
             }
         }
 
+    /// Dtor. Deletes the created detectors.
     virtual ~MSE2Collector( void )
         {
             deleteContainer( detectorsTDM );
@@ -145,11 +206,18 @@ public:
             }
         }
 
+    /// ???
     virtual DetectorUsage getUsageType() const {
         return myUsage;
     }
 
-
+    /// Get the current state of the E2::APPROACHING_VEHICLES_STATES detector. 
+    ///
+    /// @param nApproachingVeh Number of vehicles/states you are interested in.
+    ///
+    /// @return A MSApproachingVehiclesStates::DetectorAggregate container
+    /// of size nApproachingVeh.
+    ///
     const MSApproachingVehiclesStates::DetectorAggregate
     getCurrentApproachingStates( unsigned nApproachingVeh )
         {
@@ -160,7 +228,15 @@ public:
                 nApproachingVeh );
         }
 
-
+    /// Get the current value of a TDDetector. If the detector doesn't
+    /// exist, create it and return -1 for this first call.
+    ///
+    /// @param type The detector <= E2::lastTD out of E2::DetType you
+    /// are interested in.
+    ///
+    /// @return If the detector exists, return it's current value,
+    /// else return -1.
+    ///
     double getCurrent( E2::DetType type )
         {
             assert( type <= E2::lastTD );
@@ -172,11 +248,21 @@ public:
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
-            return -1;//!!!std::numeric_limits< double >::max();
+            return -1;
         }
-
-
-
+    
+    /// Get the aggregated value of a TDDetector, EDDetector or
+    /// LDDetector. If the detector doesn't exist, create it and
+    /// return -1 for this first call.
+    ///
+    /// @param type The detector <= E2::lastLD out of E2::DetType you
+    /// are interested in.
+    /// @param lastNSeconds Length of the aggregation intervall
+    /// (now-lastNSeconds, now].
+    ///
+    /// @return If the detector exists, return it's aggregated value,
+    /// else return -1.
+    ///
     double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type <= E2::lastLD );
@@ -189,15 +275,28 @@ public:
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
-            return -1;//!!!std::numeric_limits< double >::max();
+            return -1;
         }
 
-    bool hasDetector( E2::DetType type )
+    /// Checks if the requested detector is present.
+    ///
+    /// @param type The detector out of E2::DetType you are interested in.
+    ///
+    /// @return True if the detector exists, false otherwise.
+    ///
+    bool hasDetector( E2::DetType type ) const
         {
             assert( type < E2::ALL );
             return getDetector( type ) != 0;
         }
 
+    /// Add, i.e. create the requested detector or all detectors out
+    /// of E2::DetType.
+    ///
+    /// @param type One detetcor out of E2::DetType. ALL will create
+    /// all detectors.
+    /// @param detId Optional id of the newly created detector(s).
+    ///
     void addDetector( E2::DetType type, std::string detId = "" )
         {
             if ( detId == "" ) {
@@ -213,7 +312,11 @@ public:
             }
         }
 
-
+    /// The detectors E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_* 
+    /// have monoton growing current-values for use with
+    /// traffic-light-controls. These current-values have to be resetted
+    /// from time to time. This is done here.
+    ///
     void resetQueueLengthAheadOfTrafficLights( void )
         {
             using namespace Detector;
@@ -233,14 +336,22 @@ public:
             }
         }
 
-    /**
-     * @name Inherited MSMoveReminder methods.
-     *
-     * Methods in this group are inherited from MSMoveReminder. They are
-     * called by the moving, entering and leaving vehicles.
-     *
-     */
-    //@{
+    ///
+    /// @name Methods, inherited from MSMoveReminder.
+    /// They are called by the moving, entering and leaving vehicles.
+    /// @{
+
+    /// Indicator, if a vehicle has passed the detector entirely. In
+    /// this case, the vehicle removes this MSMoveReminder from it's
+    /// MSMoveReminder-container.
+    ///
+    /// @param veh The vehicle in question.
+    /// @param oldPos Position before the move-micro-timestep.
+    /// @param newPos Position after the move-micro-timestep.
+    /// @param double Unused here.
+    ///
+    /// @return False, if vehicle passed the detector entierly, else true.
+    ///
     bool isStillActive( MSVehicle& veh,
                         double oldPos,
                         double newPos,
@@ -289,6 +400,12 @@ public:
             return true;
         }
 
+    /// If the vehicle leaves the detection-area by lane-change, it
+    /// may need to be removed from some internal containers. This is
+    /// done here.
+    ///
+    /// @param veh The leaving vehicle. 
+    ///
     void dismissByLaneChange( MSVehicle& veh )
         {
             if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
@@ -313,6 +430,16 @@ public:
             }
         }
 
+    /// If the vehicle enters the detection-area by emit or
+    /// lane-change, it may need to be introduced into some internal
+    /// containers. This is done here. Dependent on the position this
+    /// MSMoveReminder is intoduced to the vehicles
+    /// MSMoveReminder-container.
+    ///
+    /// @param veh The entering vehicle.
+    ///
+    /// @return False if vehicle is entirely beyond the detector, else true.
+    ///
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
             if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
@@ -343,47 +470,51 @@ public:
             // vehicle is in front of detector
             return true;
         }
+    /// @}
 
-  //  }
+    ///
+    /// @name Methods, inherited from MSDetectorFileOutput.
+    ///
+    /// @{
 
-    //@}
-
-
-    /**
-     * @name Inherited MSDetectorFileOutput methods.
-     *
-     */
-    //@{
-    /**
-     * Returns a string indentifying an object of this class. Used for
-     * distinct filenames.
-     */
-    std::string  getNamePrefix( void ) const
+    /// Returns a string indentifying this class. Used to create
+    /// distinct filenames.
+    ///
+    /// @return Always "MSE2Collector".
+    ///
+    std::string getNamePrefix( void ) const
         {
             return std::string("MSE2Collector");
         }
 
-    /**
-     * Get a header for file output which shall contain some
-     * explanation of the output generated by getXMLOutput.
-     */
+    /// Get a header for file output which shall contain some
+    /// explanation of the output generated by getXMLOutput.
+    ///
+    /// @return The member xmlHeaderM.
+    ///
     std::string& getXMLHeader( void ) const
         {
             return xmlHeaderM;
         }
 
-    /**
-     * Get the XML-formatted output of the concrete detector.
-     *
-     * @param lastNTimesteps Generate data out of the interval
-     * (now-lastNTimesteps, now].
-     */
+    /// Get the XML-formatted output of the concrete detector.  Calls
+    /// resetQueueLengthAheadOfTrafficLights() if the detector
+    /// E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES exists.
+    ///
+    /// @param lastNTimesteps Generate data out of the interval
+    /// (now-lastNTimesteps, now].
+    ///
+    /// @return XML-output of all existing concrete detectors. Except
+    /// APPROACHING_VEHICLES_STATES.
+    ///
     std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps )
         {
             std::string result;
-            if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
-                result += std::string("queueLengthAheadOfTrafficLightsInVehiclesMax=\"") +
-                    toString( getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES) ) +
+            if ( hasDetector(
+                     E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
+                result += std::string(
+                    "queueLengthAheadOfTrafficLightsInVehiclesMax=\"" ) +
+                    toString( getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ) ) +
                     std::string("\" ");
                 resetQueueLengthAheadOfTrafficLights();
             }
@@ -393,9 +524,10 @@ public:
             return result;
         }
 
-    /**
-     * Get an opening XML-element containing information about the detector.
-     */
+    /// Get an opening XML-tag containing information about the detector.
+    ///
+    /// @return String describing the detetctor-collection.
+    ///
     std::string getXMLDetectorInfoStart( void ) const
         {
             std::string
@@ -408,32 +540,55 @@ public:
             return detectorInfo;
         }
 
+    /// Get an closing XML-tag corresponding to the opening tag from
+    /// getXMLDetectorInfoStart().
+    ///
+    /// @return The member infoEndM.
+    ///
     const std::string& getXMLDetectorInfoEnd( void ) const
     {
         return infoEndM;
     }
 
-    /**
-     * Get the data-clean up interval in timesteps.
-     */
+    /// Get the clean-up interval length.
+    ///
+    /// @return Interval-length in steps.
+    ///
     MSUnit::IntSteps getDataCleanUpSteps( void ) const
         {
             return MSUnit::getInstance()->getIntegerSteps(
                 deleteDataAfterSecondsM );
         }
-    //@}
 
-    double getStartPos() const
+    /// @}
+
+    /// Get the start-position of the detector-collection on it's lane.
+    ///
+    /// @return The menber startPosM [meter].
+    ///
+    MSUnit::Meters getStartPos() const
         {
             return startPosM;
         }
 
-    double getEndPos() const
+    /// Get the end-position of the detector-collection on it's lane.
+    ///
+    /// @return The menber endPosM [meter].
+    ///
+    MSUnit::Meters getEndPos() const
         {
             return endPosM;
         }
 
 protected:
+
+    /// Get a pointer to the requested detector out of E2::DetType.
+    ///
+    /// @param type The detector you are interested in.
+    ///
+    /// @return If the detector exists, a pointer to the valid object,
+    /// 0 otherwise.
+    ///
     MSDetectorInterfaceCommon* getDetector( E2::DetType type ) const
         {
             assert( type <= E2::lastLD );
@@ -449,6 +604,13 @@ protected:
             }
         }
 
+    /// Get the index of the requested detector regarding the adequate
+    /// detector-container detectorsTDM, detectorsEDM or detectorsLDM.
+    ///
+    /// @param type The detector you are interested in.
+    ///
+    /// @return The index of the detector.
+    ///
     E2::DetType getIndex( E2::DetType type ) const
         {
             assert( type <= E2::lastLD );
@@ -465,28 +627,46 @@ protected:
         }
 
 private:
-    MSUnit::Meters startPosM;
-    MSUnit::Meters endPosM;
+    MSUnit::Meters startPosM;   ///< Start position.
+    MSUnit::Meters endPosM;     ///< End position.
 
-    MSUnit::Seconds deleteDataAfterSecondsM;
-    MSUnit::Steps haltingTimeThresholdM;
-    MSUnit::CellsPerStep haltingSpeedThresholdM;
-    MSUnit::Cells jamDistThresholdM;
+    MSUnit::Seconds deleteDataAfterSecondsM; ///< Data removal interval.
+    MSUnit::Steps haltingTimeThresholdM; ///< Time-theshold to
+                                         ///determine if a vehicle is
+                                         ///halting.
+    MSUnit::CellsPerStep haltingSpeedThresholdM; ///< Speed-theshold
+                                                 ///to determine if a
+                                                 ///vehicle is
+                                                 ///halting.
+    MSUnit::Cells jamDistThresholdM; ///< Distance-theshold to
+                                     ///determine if two halting
+                                     ///vehicles are "in jam".
 
-    DetTDCont detectorsTDM;
-    DetEDCont detectorsEDM;
-    DetLDCont detectorsLDM;
+    DetTDCont detectorsTDM;     ///< Container of TDDetectors.
+    DetEDCont detectorsEDM;     ///< Container of EDDetectors.
+    DetLDCont detectorsLDM;     ///< Container of LDDetectors.
 
-    ContainerCont containersM;
+    ContainerCont containersM;  ///< Container of helper-ccontainers.
 
+    /// Object that corrects the detector values if vehicles are only
+    /// partially on the detector.
     MSDetectorOccupancyCorrection occupancyCorrectionM;
 
+    /// MSApproachingVehiclesStates detector. This one can't be
+    /// handled in the way the TD, ED and LD detectors can.
     MSApproachingVehiclesStates* approachingVehStatesDetectorM;
 
-    static std::string xmlHeaderM;
+    static std::string xmlHeaderM; ///< Header for the XML-output.
+    static std::string infoEndM; ///< Closing detector tag.
+    DetectorUsage myUsage;      ///< ???
 
-    DetectorUsage myUsage;
-
+    /// Create a "vehicle"-container out of E2::Containers. They may
+    /// be shared among several detectors. The created container is
+    /// put into the member containersM. A container holds pointers to
+    /// all "vehicles" currently on the detector.
+    ///
+    /// @param type The container you are interested in.
+    ///
     void createContainer( E2::Containers type )
         {
             if ( containersM[ type ] != 0 ) {
@@ -524,6 +704,15 @@ private:
             }
         }
 
+    /// Create a detector out of E2::DetType. The created detector
+    /// (except E2::APPROACHING_VEHICLES_STATES) is put into one of
+    /// the containers detectorsTDM, detectorsEDM or detectorsLDM. On
+    /// creation, the detector gets one of the "vehicle"-containers
+    /// out of E2::Containers.
+    ///
+    /// @param type The detector you are interested in.
+    /// @param detId Detector-id, need not be unique.
+    ///
     void createDetector( E2::DetType type, std::string detId )
         {
             if ( type == E2::APPROACHING_VEHICLES_STATES ) {
@@ -724,6 +913,13 @@ private:
             }
         }
 
+    /// Get aggregated XML-output for all detectors in a container.
+    ///
+    /// @param container A container holding detectors. 
+    /// @param lastNTimesteps The length of the aggregation interval.
+    ///
+    /// @return A XML-formatted string.
+    ///
     template< class Cont >
     std::string getXMLOutput( Cont& container, MSUnit::IntSteps lastNTimesteps)
         {
@@ -745,6 +941,10 @@ private:
             return result;
         }
 
+    /// Deletes the elements of a container.
+    ///
+    /// @param cont The container whose elements shall be deleted.
+    ///
     template< class Cont >
     void deleteContainer( Cont& cont )
         {
@@ -755,8 +955,6 @@ private:
                 }
             }
         }
-private:
-    static std::string infoEndM;
 };
 
 
