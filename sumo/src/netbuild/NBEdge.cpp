@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2003/12/05 14:58:03  dkrajzew
+// loaded connections are now saved on edge joining
+//
 // Revision 1.36  2003/12/04 13:06:45  dkrajzew
 // work on internal lanes
 //
@@ -1952,6 +1955,19 @@ NBEdge::append(NBEdge *e)
     }
     // recompute length
     _length += e->_length;
+    // copy the connections and the building step if given
+    _step = e->_step;
+    _connectedEdges = e->_connectedEdges;
+    delete _reachable;
+    _reachable =
+        new ReachableFromLaneVector(*(e->_reachable));
+    delete _succeedinglanes;
+    _succeedinglanes =
+        new LanesThatSucceedEdgeCont(*(e->_succeedinglanes));
+    delete _ToEdges;
+    _ToEdges =
+        new std::map<NBEdge*, std::vector<size_t> >(*(e->_ToEdges));
+    _turnDestination = e->_turnDestination;
     // set the node
     _to = e->_to;
 }
