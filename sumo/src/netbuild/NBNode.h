@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.22  2003/10/02 15:00:32  dkrajzew
-// further work on Vissim-import
+// Revision 1.23  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.21  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
@@ -330,10 +330,11 @@ public:
     bool isLeftMover(NBEdge *from, NBEdge *to) const;
 
 
-	bool mustBrake(NBEdge *from, NBEdge *to) const;
+	bool mustBrake(NBEdge *from, NBEdge *to, int toLane) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
+		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+        bool regardNonSignalisedLowerPriority) const;
 
     bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
@@ -341,7 +342,7 @@ public:
 
     NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
 
-    char stateCode(NBEdge *incoming, NBEdge *outgoing);
+    char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane);
 
     void computeNodeShape();
 

@@ -180,6 +180,14 @@ NBNetBuilder::appendTurnarounds(int step, OptionsCont &oc)
 
 
 bool
+NBNetBuilder::setTLControllingInformation(int step)
+{
+    inform(step, "Computing node logics");
+    return NBTrafficLightLogicCont::setTLControllingInformation();
+}
+
+
+bool
 NBNetBuilder::computeLogic(int step, OptionsCont &oc)
 {
     inform(step, "Computing node logics");
@@ -237,6 +245,7 @@ NBNetBuilder::compute(OptionsCont &oc)
     if(ok) ok = computeNodeShapes(step++);
     if(ok) ok = computeEdgeShapes(step++);
 //    if(ok) ok = computeLinkPriorities(step++);
+    if(ok) ok = setTLControllingInformation(step++);
     if(ok) ok = computeLogic(step++, oc);
     if(ok) ok = computeTLLogic(step++, oc);
 

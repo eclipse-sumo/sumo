@@ -62,6 +62,7 @@ protected:
     bool computeNodeShapes(int step);
     bool computeEdgeShapes(int step);
 
+    bool setTLControllingInformation(int step);
 
     /** appends the turnarounds */
     bool appendTurnarounds(int step, OptionsCont &oc);

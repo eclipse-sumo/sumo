@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.13  2003/10/02 15:00:34  dkrajzew
-// further work on Vissim-import
+// Revision 1.14  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.12  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
@@ -149,7 +149,8 @@ public:
         NBEdge *from2, NBEdge *to2) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
+		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+        bool regardNonSignalisedLowerPriority) const;
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
@@ -175,7 +176,8 @@ private:
         int pos);
 
     /** writes the response of a certain link */
-    void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane);
+    void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
+        int fromLane, int toLane);
 
     /** returns the index to the internal combination container */
     int getIndex(NBEdge *from, NBEdge *to) const;
@@ -192,6 +194,8 @@ private:
         link */
     void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
 
+
+    void resetSignalised();
 
 private:
     /// the node the request is assigned to

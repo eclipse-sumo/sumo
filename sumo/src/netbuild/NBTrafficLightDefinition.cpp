@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.9  2003/10/02 15:00:36  dkrajzew
-// further work on Vissim-import
+// Revision 1.10  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.8  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
@@ -271,24 +271,27 @@ NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const
     if(!node->hasOutgoing(to)) {
         return true; // !!!
     }
-    return node->mustBrake(from, to);
+    return node->mustBrake(from, to, -1);
 }
 
 
 bool
 NBTrafficLightDefinition::mustBrake(NBEdge *from1, NBEdge *to1,
-                                    NBEdge *from2, NBEdge *to2) const
+                                    NBEdge *from2, NBEdge *to2,
+                                    bool regardNonSignalisedLowerPriority) const
 {
-    return forbids(from1, to1, from2, to2);
+    return forbids(from1, to1, from2, to2, regardNonSignalisedLowerPriority);
 }
 
 
 bool
 NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
-                                    const NBConnection &possProhibitor) const
+                                    const NBConnection &possProhibitor,
+                                    bool regardNonSignalisedLowerPriority) const
 {
     return forbids(possProhibitor.getFrom(), possProhibitor.getTo(),
-		possProhibited.getFrom(), possProhibited.getTo());
+		possProhibited.getFrom(), possProhibited.getTo(),
+        regardNonSignalisedLowerPriority);
 }
 
 
@@ -296,7 +299,8 @@ bool
 NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
 								  NBEdge *possProhibitorTo,
 								  NBEdge *possProhibitedFrom,
-								  NBEdge *possProhibitedTo) const
+								  NBEdge *possProhibitedTo,
+                                  bool regardNonSignalisedLowerPriority) const
 {
     // retrieve both nodes (it is possible that a connection
     NodeCont::const_iterator incoming =
@@ -312,7 +316,8 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
         return false;
     }
     return incnode->forbids(possProhibitorFrom, possProhibitorTo,
-		possProhibitedFrom, possProhibitedTo);
+		possProhibitedFrom, possProhibitedTo,
+        regardNonSignalisedLowerPriority);
 }
 
 

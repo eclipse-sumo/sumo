@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.27  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
 //
@@ -805,7 +808,12 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << " linkno=\"" << (*_reachable)[fromlane][destidx].tlLinkNo << "\"";
     }
 	// write information whether the connection yields
-    if(!_to->mustBrake(this, (*_reachable)[fromlane][destidx].edge)) {
+    if(_to->getID()=="1175"&&_id=="10001326"&&(*_reachable)[fromlane][destidx].edge->getID()=="13000028") {
+        int bla = 0;
+    }
+    if(!_to->mustBrake(this,
+            (*_reachable)[fromlane][destidx].edge,
+            (*_reachable)[fromlane][destidx].lane)) {
         into << " yield=\"0\"";
     } else {
         into << " yield=\"1\"";
@@ -842,7 +850,9 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << "state=\"t";
     } else {
         into << "state=\""
-            << _to->stateCode(this, (*_reachable)[fromlane][destidx].edge);
+            << _to->stateCode(this,
+                (*_reachable)[fromlane][destidx].edge,
+                (*_reachable)[fromlane][destidx].lane);
     }
     // close
     into << "\"/>" << endl;
@@ -1913,6 +1923,23 @@ NBEdge::computeEdgeShape()
 }
 
 
+bool
+NBEdge::hasSignalisedConnectionTo(NBEdge *e) const
+{
+    for(size_t i=0; i<_nolanes; i++) {
+        // get the connections outgoing from this lane
+        const EdgeLaneVector &connections = (*_reachable)[i];
+        // find the specified connection
+        for(EdgeLaneVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
+            // get the connection
+            const EdgeLane &connection = *j;
+            if(connection.edge==e&&connection.tlID!="") {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

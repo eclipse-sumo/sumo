@@ -51,6 +51,9 @@ protected:
     void replaceRemoved(NBEdge *removed, size_t removedLane,
         NBEdge *by, size_t byLane);
 
+    void setTLControllingInformation() const;
+
+
 private:
     /** compute the traffic light logics for the current node and the
         given settings */

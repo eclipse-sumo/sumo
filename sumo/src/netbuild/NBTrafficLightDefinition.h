@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.5  2003/10/02 15:00:36  dkrajzew
-// further work on Vissim-import
+// Revision 1.6  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
@@ -111,15 +111,20 @@ public:
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
     bool mustBrake(const NBConnection &possProhibited,
-        const NBConnection &possProhibitor) const;
+        const NBConnection &possProhibitor,
+        bool regardNonSignalisedLowerPriority) const;
 
-    bool mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+    bool mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2,
+        bool regardNonSignalisedLowerPriority) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-        NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const;
+        NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+        bool regardNonSignalisedLowerPriority) const;
 
     bool foes(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
+
+    virtual void setTLControllingInformation() const = 0;
 
 //    virtual bool includes(NBEdge *from, NBEdge *to) const; // !!! collectLinks must have been called in prior
 

@@ -372,7 +372,6 @@ NBLoadedTLDef::myCompute(size_t breakingTime, bool buildAll)
     for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         noSignals += (*i).second->getLinkNo();
     }
-
     // build the phases
     NBTrafficLightLogic *logic =
         new NBTrafficLightLogic(getID(), noSignals);
@@ -391,28 +390,6 @@ NBLoadedTLDef::myCompute(size_t breakingTime, bool buildAll)
         logic->addStep(duration,
             masks.driveMask, masks.brakeMask, masks.yellowMask);
     }
-    // assign the links to the connections
-    size_t pos = 0;
-    for(SignalGroupCont::const_iterator m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
-        SignalGroup *group = (*m).second;
-        size_t linkNo = group->getLinkNo();
-        for(size_t j=0; j<linkNo; j++) {
-            const NBConnection &conn = group->getConnection(j);
-            assert(conn.getFromLane()<0||conn.getFrom()->getNoLanes()>conn.getFromLane());
-            NBConnection tst(conn);
-            if(tst.check()) {
-                NBEdge *edge = conn.getFrom();
-                edge->setControllingTLInformation(
-                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos++);
-            } else {
-                MsgHandler::getWarningInstance()->inform(
-                    string("Could not set signal on connection (signal: ")
-                    + getID() + string(", group: ") + group->getID()
-                    + string(")"));
-            }
-        }
-    }
     // check whether any warnings were printed
     if(MsgHandler::getWarningInstance()->wasInformed()) {
         MsgHandler::getWarningInstance()->finalizeInform(
@@ -427,6 +404,36 @@ NBLoadedTLDef::myCompute(size_t breakingTime, bool buildAll)
     return ret;
 }
 
+
+void
+NBLoadedTLDef::setTLControllingInformation() const
+{
+    // assign the links to the connections
+    size_t pos = 0;
+    for(SignalGroupCont::const_iterator m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
+        SignalGroup *group = (*m).second;
+        size_t linkNo = group->getLinkNo();
+        for(size_t j=0; j<linkNo; j++) {
+            const NBConnection &conn = group->getConnection(j);
+            assert(conn.getFromLane()<0||conn.getFrom()->getNoLanes()>conn.getFromLane());
+            NBConnection tst(conn);
+            if(tst.check()) {
+                NBEdge *edge = conn.getFrom();
+                if(edge->getID()=="1000045+1000043[1]") {
+                    int bla = 0;
+                }
+                edge->setControllingTLInformation(
+                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
+                    getID(), pos++);
+            } else {
+                MsgHandler::getWarningInstance()->inform(
+                    string("Could not set signal on connection (signal: ")
+                    + getID() + string(", group: ") + group->getID()
+                    + string(")"));
+            }
+        }
+    }
+}
 
 NBLoadedTLDef::Masks
 NBLoadedTLDef::buildPhaseMasks(size_t time) const
@@ -492,15 +499,19 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
         for(size_t j=0; j<linkNo; j++) {
             const NBConnection &other = group->getConnection(j);
             NBConnection possProhibitor(other);
-	if( (possProhibitor.getFrom()->getID()=="476+434[1]"&&possProhibited.getFrom()->getID()=="4[1]+477")
-		&&
-		(possProhibitor.getTo()->getID()=="610"&&possProhibited.getTo()->getID()=="610") ) {
-
-		int bla = 0;
-	}
             if(possProhibitor.check()) {
-                if((green.test(pos)||yellow.test(pos))&&possProhibited.getFrom()!=possProhibitor.getFrom()) {
-                    if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor)) {
+/*                assert(possProhibited.getToLane()>=0);
+                assert(possProhibitor.getToLane()>=0);
+                // does not have to break du to this connection as
+                //  different destination lanes are used
+                if(possProhibited.getToLane()!=possProhibitor.getToLane()) {
+                    continue;
+                }*/
+                if(possProhibited.getFrom()->getID()=="4[1]+477"&&possProhibited.getTo()->getID()=="610"&&possProhibitor.getFrom()->getID()=="476+434[1]"&&possProhibitor.getTo()->getID()=="610") {
+                    int bla = 0;
+                }
+                if( (green.test(pos)||yellow.test(pos))&&possProhibited.getFrom()!=possProhibitor.getFrom()) {
+                    if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor, true)) {
                         return true;
                     }
                 }
@@ -658,7 +669,4 @@ NBLoadedTLDef::replaceRemoved(NBEdge *removed, size_t removedLane,
         }
     }
 }
-
-
-
 

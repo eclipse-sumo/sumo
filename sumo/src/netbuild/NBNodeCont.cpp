@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.21  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
 //
@@ -599,6 +602,8 @@ NBNodeCont::removeUnwishedNodes()
         string("   ") + toString<int>(no) + string(" nodes removed."));
     return true;
 }
+
+
 
 
 

@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.19  2003/10/02 15:00:33  dkrajzew
-// further work on Vissim-import
+// Revision 1.20  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.18  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
@@ -447,6 +447,8 @@ string
 NBRequest::bitsetToXML(string key)
 {
     ostringstream os;
+    // reset signalised/non-signalised dependencies
+    resetSignalised();
     // init
     pair<size_t, size_t> sizes = getSizes();
     size_t absNoLinks = sizes.second;
@@ -472,6 +474,68 @@ NBRequest::bitsetToXML(string key)
 }
 
 
+void
+NBRequest::resetSignalised()
+{
+    // go through possible prohibitions
+    for( EdgeVector::const_iterator i11=_incoming->begin(); i11!=_incoming->end(); i11++) {
+        size_t noLanesEdge1 = (*i11)->getNoLanes();
+        for(size_t j1=0; j1<noLanesEdge1; j1++) {
+            const EdgeLaneVector *el1 = (*i11)->getEdgeLanesFromLane(j1);
+            for(EdgeLaneVector::const_iterator i12=el1->begin(); i12!=el1->end(); i12++) {
+                int idx1 = getIndex((*i11), (*i12).edge);
+                if(idx1<0) {
+                    continue;
+                }
+                // go through possibly prohibited
+                for( EdgeVector::const_iterator i21=_incoming->begin(); i21!=_incoming->end(); i21++) {
+                    int noLanesEdge2 = (*i21)->getNoLanes();
+                    for(size_t j2=0; j2<noLanesEdge2; j2++) {
+                        const EdgeLaneVector *el2 = (*i21)->getEdgeLanesFromLane(j2);
+                        for(EdgeLaneVector::const_iterator i22=el2->begin(); i22!=el2->end(); i22++) {
+                            int idx2 = getIndex((*i21), (*i22).edge);
+if((*i11)->getID()=="219"&&(*i12).edge->getID()=="10000764"&&(*i21)->getID()=="791"&&(*i22).edge->getID()=="10000764") {
+    const EdgeLane &el1 = (*i12);
+    const EdgeLane &el2 = (*i22);
+    int bla = 0;
+}
+                            if(idx2<0) {
+                                continue;
+                            }
+                            // check
+                            // same incoming connections do not prohibit each other
+                            if((*i11)==(*i21)) {
+//                                assert(!_forbids[idx1][idx2]&&!_forbids[idx2][idx1]);
+                                _forbids[idx1][idx2] = false;
+                                _forbids[idx2][idx1] = false;
+                                continue;
+                            }
+                            // check other
+                                // if both are non-signalised or both are signalised
+                            if( ((*i12).tlID==""&&(*i22).tlID=="")
+                                ||
+                                ((*i12).tlID!=""&&(*i22).tlID!="") ) {
+                                // do nothing
+                                continue;
+                            }
+                            // otherwise:
+                            //  the non-signalised must break
+                            if((*i12).tlID!="") {
+                                _forbids[idx1][idx2] = true;
+                                _forbids[idx2][idx1] = false;
+                            } else {
+                                _forbids[idx1][idx2] = false;
+                                _forbids[idx2][idx1] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 pair<size_t, size_t>
 NBRequest::getSizes() const
 {
@@ -492,7 +556,7 @@ NBRequest::getSizes() const
 
 bool
 NBRequest::foes(NBEdge *from1, NBEdge *to1,
-                     NBEdge *from2, NBEdge *to2) const
+                NBEdge *from2, NBEdge *to2) const
 {
     // unconnected edges do not forbid other edges
     if(to1==0 || to2==0) {
@@ -512,7 +576,8 @@ NBRequest::foes(NBEdge *from1, NBEdge *to1,
 
 bool
 NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-				   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const
+				   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+                   bool regardNonSignalisedLowerPriority) const
 {
     // unconnected edges do not forbid other edges
     if(possProhibitorTo==0 || possProhibitedTo==0) {
@@ -526,21 +591,33 @@ NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
     }
     assert(possProhibitorIdx<_incoming->size()*_outgoing->size());
     assert(possProhibitedIdx<_incoming->size()*_outgoing->size());
-    return _forbids[possProhibitorIdx][possProhibitedIdx];
+    // check simple right-of-way-rules
+    if(!regardNonSignalisedLowerPriority) {
+        return _forbids[possProhibitorIdx][possProhibitedIdx];
+    }
+    // if its not forbidden, report
+    if(!_forbids[possProhibitorIdx][possProhibitedIdx]) {
+        return false;
+    }
+    // do not forbid a signalised stream by a non-signalised
+    if(!possProhibitorFrom->hasSignalisedConnectionTo(possProhibitorTo)) {
+        return false;
+    }
+    return true;
 }
 
 
 int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
-                             int lane, int pos)
+                             int fromLane, int pos)
 {
     const EdgeLaneVector * const connected =
-        from->getEdgeLanesFromLane(lane);
+        from->getEdgeLanesFromLane(fromLane);
     for( EdgeLaneVector::const_iterator j=connected->begin();
                 j!=connected->end(); j++) {
         os << "         <logicitem request=\"" << pos++
             << "\" response=\"";
-        writeResponse(os, from, (*j).edge, lane);
+        writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
         os << "\"/>" << endl;
     }
     return pos;
@@ -548,9 +625,10 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
 
 
 void
-NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
+NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
+                         int fromLane, int toLane)
 {
-    if(from!=0&&from->getID()=="219"&&to!=0&&to->getID()=="10000764") {
+    if(from!=0&&from->getID()=="10001326"&&to!=0&&to->getID()=="13000028") {
         int bla = 0;
     }
     // remember the case when the lane is a "dead end" in the meaning that
@@ -570,7 +648,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '1';
-                } else if((*i)==from&&lane==j) {
+                } else if((*i)==from&&fromLane==j) {
                     // do not prohibit a connection by others from same lane
                     os << '0';
                 } else {
@@ -579,22 +657,33 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
                     assert((*connected)[k].edge==0 || getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
 					// check whether the connection is prohibited by another one
                     if( (*connected)[k].edge!=0 &&
-                        _forbids[getIndex(*i, (*connected)[k].edge)][idx]) {
+                        _forbids[getIndex(*i, (*connected)[k].edge)][idx] &&
+                        toLane == (*connected)[k].lane ) {
                         os << '1';
 						continue;
                     }
-	                // if this node is controlled by a traffic light
+                    os << '0';
+/*	                // if this node is controlled by a traffic light
                     // but this connection is not, this connection may not drive
                     // if the other is a foe
                     const EdgeLane &el = (*connected)[k];
-                    if( _junction->isTLControlled() ) { // !!! (the best way to check this?)
+                    if(_junction->getID()=="858") {
+                        string fromID = (*i)->getID();
+                        string toID = (*connected)[k].edge->getID();
+                        if(from->getID()=="1000045+1000043[1]"&&to->getID()=="1000046") {
+                            if((*i)->getID()=="1000041+1000040"&&(*connected)[k].edge->getID()=="1000046") {
+                                    int bla = 0;
+                            }
+                        }
+                    }
+                    if( _junction->isTLControlled() && (*i)!=from) { // !!! (the best way to check this?)
                         if(from->getToNode()->foes(from, to, *i, (*connected)[k].edge)) {
                             os << '1';
                             continue;
                         }
                     }
                     // ok, seems to be priorised
-                    os << '0';
+                    os << '0';*/
                 }
             }
         }

@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.29  2003/10/02 15:00:31  dkrajzew
-// further work on Vissim-import
+// Revision 1.30  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.28  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
@@ -1768,7 +1768,7 @@ NBNode::invalidateOutgoingConnections()
 
 
 bool
-NBNode::mustBrake(NBEdge *from, NBEdge *to) const
+NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
 {
 	assert(_request!=0);
     // check whether it is participant to a traffic light
@@ -1779,7 +1779,25 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to) const
         return true; // What happens when the lights go out?
             // All would have to break... No problem!
     }
-	return _request->mustBrake(from, to);
+    bool try1 = _request->mustBrake(from, to);
+    if(!try1||toLane==-1) {
+        return try1;
+    }
+    for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        if((*i)==from) {
+            continue;
+        }
+        size_t noLanesEdge1 = (*i)->getNoLanes();
+        for(size_t j1=0; j1<noLanesEdge1; j1++) {
+            const EdgeLaneVector *el1 = (*i)->getEdgeLanesFromLane(j1);
+            for(EdgeLaneVector::const_iterator i2=el1->begin(); i2!=el1->end(); i2++) {
+                if((*i2).edge==to&&((*i2).lane==-1||(*i2).lane==toLane)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -1818,10 +1836,12 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
 
 bool
 NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-				NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo) const
+				NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+                bool regardNonSignalisedLowerPriority) const
 {
     return _request->forbids(possProhibitorFrom, possProhibitorTo,
-		possProhibitedFrom, possProhibitedTo);
+		possProhibitedFrom, possProhibitedTo,
+        regardNonSignalisedLowerPriority);
 }
 
 
@@ -1969,12 +1989,12 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
 
 
 char
-NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing)
+NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
 {
     if(outgoing==0) {
         return 'O'; // always off
     }
-    if(mustBrake(incoming, outgoing)) {
+    if(mustBrake(incoming, outgoing, fromlane)) {
         return 'm'; // minor road
     }
     if(_type==NODETYPE_RIGHT_BEFORE_LEFT) {
@@ -2122,7 +2142,6 @@ NBNode::connectionIsTLControlled(NBEdge *from, NBEdge *to) const
     return false;
 }
 */
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

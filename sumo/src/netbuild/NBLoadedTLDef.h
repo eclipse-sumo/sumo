@@ -119,6 +119,8 @@ public:
     void setSignalYellowTimes(const std::string &groupid,
         double tRedYellowe, double tYellow);
 
+    void setTLControllingInformation() const;
+
 public:
     void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing);

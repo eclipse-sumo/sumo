@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.10  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -437,7 +440,7 @@ NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
                 continue;
             }
             NBEdge *to2 = _toEdges[run];
-            if(_request->mustBrake(from1, to1, from2, to2)) {
+            if(_request->mustBrake(from1, to1, from2, to2, false)) {
                 return true;
             }
         }

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.20  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
 //
@@ -390,6 +393,8 @@ public:
     void computeEdgeShape();
 
     const Position2DVector &getLaneShape(size_t i) const;
+
+    bool hasSignalisedConnectionTo(NBEdge *e) const;
 
 //    NBEdge *getTurningDirection() const;
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.7  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -166,6 +169,9 @@ NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, size_t removedLane,
 {
     for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
         // get the definition
+        if((*i).first=="667") {
+            int bla = 0;
+        }
         NBTrafficLightDefinition *def = (*i).second;
         def->replaceRemoved(removed, removedLane, by, byLane);
     }
@@ -182,6 +188,17 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id)
     return 0;
 }
 
+
+
+
+bool
+NBTrafficLightLogicCont::setTLControllingInformation()
+{
+    for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+        (*i).second->setTLControllingInformation();
+    }
+    return true;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

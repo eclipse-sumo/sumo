@@ -173,10 +173,16 @@ NBOwnTLDef::collectLinks()
             }
         }
     }
+}
+
+
+void
+NBOwnTLDef::setTLControllingInformation() const
+{
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     size_t pos = 0;
-    for(NBConnectionVector::iterator j=_links.begin(); j!=_links.end(); j++) {
+    for(NBConnectionVector::const_iterator j=_links.begin(); j!=_links.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
         edge->setControllingTLInformation(

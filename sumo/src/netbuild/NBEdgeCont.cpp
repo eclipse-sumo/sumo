@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/10/06 07:46:12  dkrajzew
+// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+//
 // Revision 1.19  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
 //
@@ -600,6 +603,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);
     to->replaceIncoming(edges, newEdge);
+    if(newEdge->getID()=="1000045+1000043[1]") {
+        int bla = 0;
+    }
     // patch connections
     size_t currLane = 0;
     for(i=edges.begin(); i!=edges.end(); i++) {
