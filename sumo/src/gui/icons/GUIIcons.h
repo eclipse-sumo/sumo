@@ -31,6 +31,10 @@ enum GUIIcon {
     ICON_YES,
     ICON_NO,
 
+    ICON_FLAG,
+    ICON_FLAG_PLUS,
+    ICON_FLAG_MINUS,
+
     ICON_MAX
 
 };

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 10:59:47  dkrajzew
+// selection visualisation flags added
+//
 // Revision 1.1  2004/03/19 12:38:57  dkrajzew
 // porting to FOX
 //
@@ -55,6 +58,9 @@ namespace
 #include "show_geometry.xpm"
 #include "yes.xpm"
 #include "no.xpm"
+#include "flag.xpm"
+#include "flag_plus.xpm"
+#include "flag_minus.xpm"
 
 
 /* =========================================================================
@@ -91,6 +97,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_SHOWFULLGEOM] = new FXXPMIcon(a, show_geometry_xpm);
     myIcons[ICON_YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[ICON_NO] = new FXXPMIcon(a, no_xpm);
+    myIcons[ICON_FLAG] = new FXXPMIcon(a, flag_xpm);
+    myIcons[ICON_FLAG_PLUS] = new FXXPMIcon(a, flag_plus_xpm);
+    myIcons[ICON_FLAG_MINUS] = new FXXPMIcon(a, flag_minus_xpm);
     // ... and create them
     for(int i=0; i<ICON_MAX; i++) {
         if(myIcons[i]!=0) {
