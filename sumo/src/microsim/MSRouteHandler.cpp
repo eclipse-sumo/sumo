@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/08/02 12:15:43  dkrajzew
+// now one does not have to wait until all routes are read if something has failed
+//
 // Revision 1.12  2004/07/02 09:26:24  dkrajzew
 // classes prepared to be derived
 //
@@ -334,7 +337,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
                 + m_ActiveId + string("' is not known."));
             MsgHandler::getErrorInstance()->inform(
                 " The route can not be build.");
-            return;
+            throw ProcessError();
         }
         m_pActiveRoute->push_back(edge);
     }
