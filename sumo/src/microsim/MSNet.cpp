@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2003/03/04 08:44:33  dkrajzew
+// tyni profiler-macros removed
+//
 // Revision 1.7  2003/03/03 14:56:23  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -192,10 +195,6 @@ namespace
 #include <ctime>
 #endif
 
-#ifdef PROFILE
-#include <utils/dev/profile.h>
-#endif
-
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -231,11 +230,6 @@ using namespace std;
 MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
-
-#ifdef PROFILE
-#include <io.h>
-FILE* profile_stream;
-#endif
 
 #ifdef _DEBUG
 MSNet::Time MSNet::globaltime;
@@ -278,9 +272,6 @@ MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
     myInstance = new MSNet();
     myInstance->myStep = startTimeStep;
     initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles, withGUI );
-#ifdef PROFILE
-    profile_stream = fopen("log.txt", "wa");
-#endif
 }
 
 
@@ -370,10 +361,6 @@ MSNet::~MSNet()
     delete myEvents;
     delete myDetectors;
     delete myRouteLoaders;
-
-#ifdef PROFILE
-    fclose (profile_stream) ;
-#endif
 }
 
 
@@ -396,9 +383,6 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         (*craw) << "</sumo-results>" << endl;
     }
     // exit simulation loop
-#ifdef PROFILE
-    PROFILE_PRINT () ;
-#endif
     return true;
 }
 
@@ -430,104 +414,35 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     cout << myStep << endl;
 
     // load routes
-#ifdef PROFILE
-    PROFILE_START ("LoadingRoutes") ;
-#endif
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
-#ifdef PROFILE
-    PROFILE_STOP ("LoadingRoutes") ;
-#endif
 
     // emit Vehicles
-#ifdef PROFILE
-    PROFILE_START ("EmittingVehicles") ;
-#endif
     myEmitter->emitVehicles(myStep);
-#ifdef PROFILE
-    PROFILE_STOP ("EmittingVehicles") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("DetectingCollisions") ;
-#endif
     myEdges->detectCollisions( myStep );
-#ifdef PROFILE
-    PROFILE_STOP ("DetectingCollisions") ;
-#endif
 
     // execute Events
-#ifdef PROFILE
-    PROFILE_START ("ExecutingEvents") ;
-#endif
     myEvents->execute(myStep);
-#ifdef PROFILE
-    PROFILE_STOP ("ExecutingEvents") ;
-#endif
 
     // move Vehicles
-#ifdef PROFILE
-    PROFILE_START ("ResettingRequests") ;
-#endif
     myJunctions->resetRequests();
-#ifdef PROFILE
-    PROFILE_STOP ("ResettingRequests") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("Moving#1") ;
-#endif
     myEdges->moveNonCritical();
-#ifdef PROFILE
-    PROFILE_STOP ("Moving#1") ;
-#endif
-#ifdef PROFILE
-    PROFILE_START ("Moving#2") ;
-#endif
     myEdges->moveCritical();
-#ifdef PROFILE
-    PROFILE_STOP ("Moving#2") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("SettingAllowed") ;
-#endif
     myJunctions->setAllowed();
-#ifdef PROFILE
-    PROFILE_STOP ("SettingAllowed") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("Moving#3") ;
-#endif
     myEdges->moveFirst();
-#ifdef PROFILE
-    PROFILE_STOP ("Moving#3") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("DetectingCollisions") ;
-#endif
     myEdges->detectCollisions( myStep );
-#ifdef PROFILE
-    PROFILE_STOP ("DetectingCollisions") ;
-#endif
 
     // Let's detect.
-#ifdef PROFILE
-    PROFILE_START ("DetectorStep") ;
-#endif
     for( DetectorCont::iterator detec = myDetectors->begin();
         detec != myDetectors->end(); ++detec ) {
         ( *detec )->sample( simSeconds() );
     }
-#ifdef PROFILE
-    PROFILE_STOP ("DetectorStep") ;
-#endif
 
     // Check if mean-lane-data is due
-#ifdef PROFILE
-    PROFILE_START ("ComputingMeanData") ;
-#endif
     unsigned passedSteps = myStep - start + 1;
     for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
 
@@ -543,38 +458,17 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
                 << "</interval>\n";
         }
     }
-#ifdef PROFILE
-    PROFILE_STOP ("ComputingMeanData") ;
-#endif
 
     // Vehicles change Lanes (maybe)
-#ifdef PROFILE
-    PROFILE_START ("ChangingLanes") ;
-#endif
     myEdges->changeLanes();
-#ifdef PROFILE
-    PROFILE_STOP ("ChangingLanes") ;
-#endif
 
-#ifdef PROFILE
-    PROFILE_START ("DetectingCollisions") ;
-#endif
     myEdges->detectCollisions( myStep );
-#ifdef PROFILE
-    PROFILE_STOP ("DetectingCollisions") ;
-#endif
     // raw output.
-#ifdef PROFILE
-    PROFILE_START ("RawOutput") ;
-#endif
     if ( craw ) {
         (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
         (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
         (*craw) << "    </timestep>" << endl;
     }
-#ifdef PROFILE
-    PROFILE_STOP ("RawOutput") ;
-#endif
 }
 
 
