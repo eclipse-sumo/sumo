@@ -148,6 +148,10 @@ SOURCE=..\..\src\utils\common\IntVector.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\Line2D.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\importio\LineReader.cpp
 # End Source File
 # Begin Source File
@@ -840,6 +844,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\chull.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\distribution\Distribution.h
 # End Source File
 # Begin Source File
@@ -885,6 +893,10 @@ SOURCE=..\..\src\utils\common\HelpPrinter.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\IntVector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\geom\Line2D.h
 # End Source File
 # Begin Source File
 

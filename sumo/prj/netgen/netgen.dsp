@@ -133,6 +133,10 @@ SOURCE=..\..\src\utils\common\IntVector.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\geom\Line2D.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\LogFile.cpp
 # End Source File
 # Begin Source File

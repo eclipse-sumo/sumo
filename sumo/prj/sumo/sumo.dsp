@@ -117,6 +117,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetector2File.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
@@ -170,10 +174,6 @@ SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLaneState.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSLaneStateReminder.cpp
 # End Source File
 # Begin Source File
 
@@ -490,10 +490,6 @@ SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLaneState.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSLaneStateReminder.h
 # End Source File
 # Begin Source File
 

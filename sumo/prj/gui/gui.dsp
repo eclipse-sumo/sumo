@@ -171,6 +171,10 @@ SOURCE=..\..\src\gui\GUIApplicationWindow.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\GUIBarROWRulesDrawer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIChooser.cpp
 # End Source File
 # Begin Source File
@@ -391,6 +395,10 @@ SOURCE=..\..\src\gui\partable\moc_QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetector2File.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
@@ -444,10 +452,6 @@ SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLaneState.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSLaneStateReminder.cpp
 # End Source File
 # Begin Source File
 
@@ -795,6 +799,10 @@ InputPath=..\..\src\gui\GUIApplicationWindow.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUIBarROWRulesDrawer.h
 # End Source File
 # Begin Source File
 
