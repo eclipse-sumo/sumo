@@ -1,1 +1,1 @@
-SUBDIRS = dua output_tests simple_nets
+SUBDIRS = dua extended output_tests simple_nets traffic_lights
