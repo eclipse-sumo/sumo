@@ -1,4 +1,10 @@
-SUBDIRS = src docs data prj sumo tools
+SUBDIRS = admin \
+data \
+docs \
+prj \
+src \
+tools
+
 
 AUTOMAKE_OPTIONS = gnu dist-zip
 
