@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/03/19 13:00:20  dkrajzew
+// some style adaptions only
+//
 // Revision 1.8  2004/01/26 07:27:40  dkrajzew
 // allowed the derived classes to use some methods
 //
@@ -109,16 +112,11 @@ private:
 
 };
 
-#ifndef MSVC
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
 #include "NamedObjectCont.cpp"
 #endif
-#endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NamedObjectCont.icc"
-//#endif
 
 #endif
 

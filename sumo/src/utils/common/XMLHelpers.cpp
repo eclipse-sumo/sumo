@@ -23,6 +23,9 @@ namespace
 		 "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 13:00:20  dkrajzew
+// some style adaptions only
+//
 // Revision 1.2  2004/02/06 08:48:11  dkrajzew
 // memory leaks removed
 //
@@ -67,15 +70,15 @@ XMLHelpers::getSAXReader(DefaultHandler &handler)
         MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
         return 0;
     }
-    setFeature(*reader, 
+    setFeature(*reader,
         "http://xml.org/sax/features/namespaces", false);
-    setFeature(*reader, 
+    setFeature(*reader,
         "http://apache.org/xml/features/validation/schema", false );
-    setFeature(*reader, 
+    setFeature(*reader,
         "http://apache.org/xml/features/validation/schema-full-checking", false );
-    setFeature(*reader, 
+    setFeature(*reader,
         "http://xml.org/sax/features/validation", false );
-    setFeature(*reader, 
+    setFeature(*reader,
         "http://apache.org/xml/features/validation/dynamic" , false );
     reader->setContentHandler(&handler);
     reader->setErrorHandler(&handler);
@@ -93,7 +96,7 @@ XMLHelpers::runParser(XERCES_CPP_NAMESPACE_QUALIFIER DefaultHandler &handler,
 }
 
 
-void 
+void
 XMLHelpers::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
                        const std::string &feature, bool value)
 {
