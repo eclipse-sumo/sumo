@@ -29,7 +29,7 @@ public:
         double zuschlag1, double zuschlag2, double seglength,
         const IntVector &assignedVehicles,
         const NIVissimClosedLanesVector &clv);
-    ~NIVissimConnection();
+    virtual ~NIVissimConnection();
     void computeBounding();
     int getFromEdgeID() const;
     int getToEdgeID() const;

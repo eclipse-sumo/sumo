@@ -181,7 +181,8 @@ NIVissimNodeCluster::buildNBNode()
     }
     cout << "- - - - - - - - - - " << endl;*/
     // !!!
-    NBNode *node = new NBNode(toString<int>(myID), pos.x(), pos.y());
+    NBNode *node = new NBNode(toString<int>(myID),
+        pos.x(), pos.y(), "priority");
     NBNodeCont::insert(node);
     myNBNode = node;
 }
@@ -419,7 +420,7 @@ NIVissimNodeCluster::getNBNode() const
 }
 
 
-Position2D 
+Position2D
 NIVissimNodeCluster::getPos() const
 {
     return myPosition;
@@ -440,7 +441,7 @@ NIVissimNodeCluster::dict_addDisturbances()
 }
 
 
-void 
+void
 NIVissimNodeCluster::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

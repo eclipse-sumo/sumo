@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/18 13:11:53  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/03/06 17:12:48  dkrajzew
 // further data parsing
 //
@@ -64,11 +67,11 @@ NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream &from)
     if(tmp=="BEHALT_ALTE_PARA" || tmp=="ANZ_VM") {
         return true;
     }
-    // 
+    //
     from >> tmp;
     if(tmp=="NAME") {
         readUntil(from, "gelbverhalten");
-    } 
+    }
     return true;
 }
 

@@ -58,7 +58,7 @@ NIVissimTrafficDescription::dictionary(const std::string &id)
 }
 
 
-void 
+void
 NIVissimTrafficDescription::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

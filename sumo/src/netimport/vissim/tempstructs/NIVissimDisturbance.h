@@ -19,7 +19,7 @@ public:
         const NIVissimExtendedEdgePoint &edge,
         const NIVissimExtendedEdgePoint &by,
         double timegap, double waygap, double vmax);
-    ~NIVissimDisturbance();
+    virtual ~NIVissimDisturbance();
     void computeBounding();
     void addToNode(NBNode *node);
 /*    bool tryAssignToNodeSingle(int nodeid,

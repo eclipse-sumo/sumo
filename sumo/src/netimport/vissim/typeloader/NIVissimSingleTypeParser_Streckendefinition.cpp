@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/18 13:11:53  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/03/06 16:26:58  dkrajzew
 // debugging
 //
@@ -109,6 +112,11 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     while(tag!="nach") {
         geom.push_back(getPosition2D(from));
         tag = myRead(from);
+        try {
+            double tmp = TplConvert<char>::_2float(tag.c_str());
+            tag = myRead(from);
+        } catch (NumberFormatException &e) {
+        }
     }
     geom.push_back(getPosition2D(from));
     // Read definitions of closed lanes

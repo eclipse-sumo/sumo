@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/18 13:11:53  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -35,7 +38,7 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
-#include <utils/distribution/DistributionCont.h>
+#include <netbuild/NBDistribution.h>
 #include <utils/distribution/Distribution_Points.h>
 #include "../NIVissimLoader.h"
 #include "NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
@@ -79,7 +82,7 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
             points.push_back(Position2D(p1, p2));
         }
     } while(tag!="DATAEND");
-    DistributionCont::dictionary("speed",
+    NBDistribution::dictionary("speed",
        id, new Distribution_Points(id, points));
     return true;
 }

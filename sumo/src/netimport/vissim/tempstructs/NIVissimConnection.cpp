@@ -225,6 +225,7 @@ NIVissimConnection::computeBounding()
     Boundery *bound = new Boundery();
     bound->add(myFromDef.getGeomPosition());
     bound->add(myToDef.getGeomPosition());
+    assert(myBoundery==0);
     myBoundery = bound;
 }
 
@@ -330,16 +331,16 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             toString<int>(c->getFromEdgeID()),
             false);
         // check whether it is near to an already build node
-        if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0 
+        if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0
             ||
             NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()))==0 ) {
             NBEdge *tmpToEdge = toEdge;
-            NBEdge *tmpFromEdge = 
-                fromEdge != 0 
+            NBEdge *tmpFromEdge =
+                fromEdge != 0
                 ? fromEdge->checkCorrectNode(toEdge)
                 : 0;
             if(tmpFromEdge==fromEdge) {
-                tmpToEdge = 
+                tmpToEdge =
                     toEdge!=0
                     ? toEdge->checkCorrectNode(fromEdge)
                     : 0;

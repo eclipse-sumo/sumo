@@ -85,7 +85,7 @@ NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id)
 }
 
 
-void 
+void
 NIVissimTL::NIVissimTLSignal::clearDict()
 {
     for(SignalDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -97,14 +97,14 @@ NIVissimTL::NIVissimTLSignal::clearDict()
 }
 
 
-void 
+void
 NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
 {
     NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
     ConnectionVector assignedConnections;
     if(c==0) {
         // What to do if on an edge? -> close all outgoing connections
-        NBEdge *edge = 
+        NBEdge *edge =
             NBEdgeCont::retrieve(toString<int>(myEdgeID));
         // Check whether it is already known, which edges are approached
         //  by which lanes
@@ -228,7 +228,7 @@ NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id)
     return (*j).second;
 }
 
-void 
+void
 NIVissimTL::NIVissimTLSignalGroup::clearDict()
 {
     for(GroupDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -240,11 +240,11 @@ NIVissimTL::NIVissimTLSignalGroup::clearDict()
 }
 
 
-void 
+void
 NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
 {
     // get the color at the begin
-    NBNode::TLColor color = myFirstIsRed 
+    NBNode::TLColor color = myFirstIsRed
         ? NBNode::TLCOLOR_RED : NBNode::TLCOLOR_GREEN;
     string id = toString<int>(myID);
     node->addSignalGroup(id);
@@ -461,7 +461,7 @@ NIVissimTL::buildNodeCluster()
 }
 
 
-void 
+void
 NIVissimTL::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -493,7 +493,12 @@ NIVissimTL::dict_SetSignals()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimTL *tl = (*i).second;
+        if(tl->myNodeID<0) {
+            int bla = 0;
+            continue;
+        }
         NBNode *node = NBNodeCont::retrieve(toString<int>(tl->myNodeID));
+        node->setType(NBNode::TYPE_TRAFFIC_LIGHT);
         // add each group to the node's container
         const GroupMap &sgs = tl->myGroups;
         for(GroupMap::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {

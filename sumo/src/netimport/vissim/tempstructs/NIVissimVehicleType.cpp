@@ -54,7 +54,7 @@ NIVissimVehicleType::dictionary(int id)
     return (*i).second;
 }
 
-void 
+void
 NIVissimVehicleType::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

@@ -191,6 +191,7 @@ NIVissimDisturbance::getWithin(const AbstractPoly &poly)
 void
 NIVissimDisturbance::computeBounding()
 {
+    assert(myBoundery==0);
     Boundery *bound = new Boundery();
     bound->add(myEdge.getGeomPosition());
     bound->add(myDisturbance.getGeomPosition());
@@ -199,20 +200,18 @@ NIVissimDisturbance::computeBounding()
 
 
 
-void 
+void
 NIVissimDisturbance::addToNode(NBNode *node)
 {
     myNode = 0;
-    NIVissimConnection *pc = 
+    NIVissimConnection *pc =
         NIVissimConnection::dictionary(myEdge.getEdgeID());
-    NIVissimConnection *bc = 
+    NIVissimConnection *bc =
         NIVissimConnection::dictionary(myDisturbance.getEdgeID());
     std::pair<NBEdge*, NBEdge*> prohibitedConn;
     std::pair<NBEdge*, NBEdge*> byConn;
     if(pc==0 && bc==0) {
         // This has not been tested completely, yet
-//        cout << "Warning!!!" << endl;
-//        cout << " Unverified usage of edges as prohibition points." << endl;
         // Both competing abstract edges are normal edges
         // We have to find a crossing point, build a node here,
         //  split both edges and add the connections
@@ -221,38 +220,38 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NIVissimEdge *e2 = NIVissimEdge::dictionary(
             myDisturbance.getEdgeID());
         Position2D pos = e1->crossesEdgeAtPoint(e2);
-        string id1 = 
+        string id1 =
             toString<int>(e1->getID()) + string("x") + toString<int>(e2->getID());
-        string id2 = 
+        string id2 =
             toString<int>(e2->getID()) + string("x") + toString<int>(e1->getID());
         NBNode *node1 = NBNodeCont::retrieve(id1);
         NBNode *node2 = NBNodeCont::retrieve(id2);
         NBNode *node = 0;
         assert(node1==0||node2==0);
         if(node1==0&&node2==0) {
-            node = new NBNode(id1, pos.x(), pos.y());
+            node = new NBNode(id1, pos.x(), pos.y(), "priority");
             NBNodeCont::insert(node);
         } else {
             node = node1==0 ? node2 : node1;
         }
         NBEdgeCont::splitAt(
             NBEdgeCont::retrievePossiblySplitted(
-                toString<int>(e1->getID()), myEdge.getPosition()), 
+                toString<int>(e1->getID()), myEdge.getPosition()),
                 node);
         NBEdgeCont::splitAt(
             NBEdgeCont::retrievePossiblySplitted(
-                toString<int>(e2->getID()), myDisturbance.getPosition()), 
+                toString<int>(e2->getID()), myDisturbance.getPosition()),
                 node);
         node->addSortedLinkFoes(
                 std::pair<NBEdge*, NBEdge*>(
                     NBEdgeCont::retrieve(
-                        toString<int>(e1->getID()) + string("[0]")), 
+                        toString<int>(e1->getID()) + string("[0]")),
                     NBEdgeCont::retrieve(
                         toString<int>(e1->getID()) + string("[1]"))
                 ),
                 std::pair<NBEdge*, NBEdge*>(
                     NBEdgeCont::retrieve(
-                        toString<int>(e2->getID()) + string("[0]")), 
+                        toString<int>(e2->getID()) + string("[0]")),
                     NBEdgeCont::retrieve(
                         toString<int>(e2->getID()) + string("[1]"))
                 )
@@ -262,7 +261,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
 //        cout << "Warning!!!" << endl;
 //        cout << " Unverified usage of edges as prohibitors." << endl;
         // The prohibited abstract edge is a connection, the other
-        //  is not; 
+        //  is not;
         // We have to split the other one and add the prohibition
         //  description
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
@@ -272,7 +271,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NBEdgeCont::splitAt(e, node);
         node->addSortedLinkFoes(
                 std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(nid1), 
+                    NBEdgeCont::retrieve(nid1),
                     NBEdgeCont::retrieve(nid2)
                 ),
                 getConnection(node, myEdge.getEdgeID())
@@ -282,7 +281,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
 //        cout << "Warning!!!" << endl;
 //        cout << " Unverified usage of edges as prohibited." << endl;
         // The prohibiteing abstract edge is a connection, the other
-        //  is not; 
+        //  is not;
         // We have to split the other one and add the prohibition
         //  description
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
@@ -293,7 +292,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         node->addSortedLinkFoes(
                 getConnection(node, myDisturbance.getEdgeID()),
                 std::pair<NBEdge*, NBEdge*>(
-                    NBEdgeCont::retrieve(nid1), 
+                    NBEdgeCont::retrieve(nid1),
                     NBEdgeCont::retrieve(nid2)
                 )
             );
@@ -309,13 +308,13 @@ NIVissimDisturbance::addToNode(NBNode *node)
 }
 
 
-std::pair<NBEdge*, NBEdge*> 
+std::pair<NBEdge*, NBEdge*>
 NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
 {
     if(NIVissimEdge::dictionary(myEdge.getEdgeID())==0) {
         NIVissimConnection *c = NIVissimConnection::dictionary(aedgeid);
         // source is a connection
-        return 
+        return
             std::pair<NBEdge*, NBEdge*>(
                 node->getPossiblySplittedIncoming(toString<int>(c->getFromEdgeID())),
                 node->getPossiblySplittedOutgoing(toString<int>(c->getToEdgeID()))
@@ -328,7 +327,7 @@ NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
 
 }
 
-void 
+void
 NIVissimDisturbance::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -338,7 +337,7 @@ NIVissimDisturbance::clearDict()
 }
 
 
-void 
+void
 NIVissimDisturbance::dict_SetDisturbances()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

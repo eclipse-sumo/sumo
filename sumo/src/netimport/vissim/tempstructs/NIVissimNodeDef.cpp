@@ -25,7 +25,7 @@ NIVissimNodeDef::dictionary(int id, NIVissimNodeDef *o)
     DictType::iterator i=myDict.find(id);
     if(i==myDict.end()) {
         myDict[id] = o;
-        o->computeBounding();
+//        o->computeBounding();
         return true;
     }
     return false;
@@ -177,7 +177,7 @@ NIVissimNodeDef::dictSize()
 
 
 
-void 
+void
 NIVissimNodeDef::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

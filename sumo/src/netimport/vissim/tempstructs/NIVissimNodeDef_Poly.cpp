@@ -65,7 +65,7 @@ NIVissimNodeDef_Poly::computeBounding()
 }
 
 
-double 
+double
 NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 {
     return -1;

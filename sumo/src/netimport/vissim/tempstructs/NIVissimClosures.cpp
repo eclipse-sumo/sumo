@@ -58,7 +58,7 @@ NIVissimClosures::dictionary(const std::string &name)
 
 
 
-void 
+void
 NIVissimClosures::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

@@ -90,21 +90,21 @@ NIVissimDistrictConnection::dictionary(int id)
 void
 NIVissimDistrictConnection::dict_BuildDistricts()
 {
-    // Build the districts first
+//    // Build the districts first
     //  pre-assign connections to districts, by the way
-    IntVector buildDistricts;
+//    IntVector buildDistricts;
     std::map<int, IntVector> districtsConnections;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimDistrictConnection *c = (*i).second;
         const IntVector &districts = c->myDistricts;
         for(IntVector::const_iterator j=districts.begin(); j!=districts.end(); j++) {
             // build a district only if it was not build before
-            if(find(buildDistricts.begin(), buildDistricts.end(), *j)==buildDistricts.end()) {
+/*            if(find(buildDistricts.begin(), buildDistricts.end(), *j)==buildDistricts.end()) {
                 NBDistrict *build = new NBDistrict(
                     toString<int>(*j), toString<int>(*j), true, true);
                 NBDistrictCont::insert(build);
                 buildDistricts.push_back(*j);
-            }
+            }*/
             // assign connection to district
             districtsConnections[*j].push_back((*i).first);
         }
@@ -149,26 +149,26 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 + toString<int>(c->myID);
             Position2D nodePos =
                 GeomHelper::interpolate(edgepos, distCenter, 100);
-            NBNode *districtSourceNode =
-                new NBNode(id, nodePos.x(), -nodePos.y()); // !!!
-            NBNodeCont::insert(districtSourceNode); // !!! sollte bei der Allokation geschehen
+            NBNode *districtNode =
+                new NBNode(id, nodePos.x(), nodePos.y(), "no_junction"); // !!!
+            NBNodeCont::insert(districtNode); // !!! sollte bei der Allokation geschehen
 
-            // build the destination-district-node
+/*            // build the destination-district-node
             id = "VissimParkingplaceDestination"
                 + toString<int>((*k).first) + "-"
                 + toString<int>(c->myID);
             nodePos =
                 GeomHelper::interpolate(edgepos, distCenter, 10);
             NBNode *districtDestinationNode =
-                new NBNode(id, nodePos.x(), -nodePos.y()); // !!!
+                new NBNode(id, nodePos.x(), nodePos.y(), "no_junction"); // !!!
             NBNodeCont::insert(districtDestinationNode); // !!! sollte bei der Allokation geschehen
-
+*/
             // build the connection to the source
             id = string("VissimFromParkingplace")
                 + toString<int>((*k).first) + "-"
                 + toString<int>(c->myID);
             NBEdge *source =
-                new NBEdge(id, id, districtSourceNode, edgeend,
+                new NBEdge(id, id, districtNode, edgeend,
                 "Connection", 100/3.6, 2, 100, 0,
                 NBEdge::EDGEFUNCTION_SOURCE);
             NBEdgeCont::insert(source); // !!! (in den Konstruktor)
@@ -178,7 +178,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 + toString<int>((*k).first) + "-"
                 + toString<int>(c->myID);
             NBEdge *destination =
-                new NBEdge(id, id, edgeend, districtSourceNode,
+                new NBEdge(id, id, edgeend, districtNode,
                 "Connection", 100/3.6, 2, 100, 0,
                 NBEdge::EDGEFUNCTION_SINK);
             NBEdgeCont::insert(destination); // !!! (in den Konstruktor)
@@ -214,7 +214,7 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid)
 }
 
 
-void 
+void
 NIVissimDistrictConnection::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

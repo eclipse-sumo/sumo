@@ -137,7 +137,7 @@ NIVissimAbstractEdge::getID() const
     return myID;
 }
 
-void 
+void
 NIVissimAbstractEdge::clearDict()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

@@ -62,7 +62,7 @@ NIVissimConnectionCluster::NodeSubCluster::setConnectionsFree()
 }
 
 
-IntVector 
+IntVector
 NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const
 {
     IntVector ret;
@@ -122,7 +122,7 @@ NIVissimConnectionCluster::~NIVissimConnectionCluster()
 
 
 
-int 
+int
 NIVissimConnectionCluster::getNextFreeNodeID()
 {
     return myFirstFreeID++;
@@ -310,13 +310,22 @@ NIVissimConnectionCluster::dictSize()
 void
 NIVissimConnectionCluster::dict_recheckNodes()
 {
-    for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
+    // This method clusters connections into clusters which belong to
+    //  a single node
+    // The main assumption for doing this is, that connections are within nodes
+    //  only and that if some connections are near beside each other, they
+    //  should belong to the same node
+    size_t pos = 0;
+    for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i=myClusters.begin()+pos) {
+        NIVissimConnectionCluster *current = *i;
         // get the connections from the cluster
-        const IntVector &connections = (*i)->myConnections;
+        const IntVector &connections = current->myConnections;
         // recluster
         std::vector<NodeSubCluster> nodeClusters;
         std::vector<NodeSubCluster>::iterator k;
+        // go through the connections of the current cluster
         for(IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
+            // check whether the current connection may be added to a node
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*j);
             bool found = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!found; k++) {
@@ -325,11 +334,14 @@ NIVissimConnectionCluster::dict_recheckNodes()
                     found = true;
                 }
             }
+            // build a new "node cluster" if not
             if(!found) {
                 nodeClusters.push_back(NodeSubCluster(c1));
             }
         }
         // recluster cluster
+        //  Go throught the list of build node clusters and check whether
+        //  some of them may be joined
         bool changed = true;
         while(changed) {
             changed = false;
@@ -344,11 +356,12 @@ NIVissimConnectionCluster::dict_recheckNodes()
             }
         }
 
-        // do nothing, when the connections are near together
+        // do nothing, when all connections are near together
         if(nodeClusters.size()<=1) {
+            pos++;
             continue;
         }
-        // Retrieve the largest cluster
+        // Compute which cluster is the largest
         size_t maxSize = 0;
         int idx = -1;
         int akt = 0;
@@ -361,18 +374,19 @@ NIVissimConnectionCluster::dict_recheckNodes()
         }
         // Remove the largest cluster
         nodeClusters.erase(nodeClusters.begin()+idx);
-        // Set all othe connections free
+        // Set all other connections free
         for(k=nodeClusters.begin(); k!=nodeClusters.end(); k++) {
             (*k).setConnectionsFree();
-            (*i)->removeConnections(*k);
+            current->removeConnections(*k);
             IntVector connections = (*k).getConnectionIDs();
-            NIVissimConnectionCluster *newCluster = 
-                new NIVissimConnectionCluster(connections, 
+            NIVissimConnectionCluster *newCluster =
+                new NIVissimConnectionCluster(connections,
                     -1, -1);
             newCluster->recheckEdges();
         }
-        (*i)->recomputeBoundery();
-        (*i)->recheckEdges();
+        current->recomputeBoundery();
+        current->recheckEdges();
+        pos++;
     }
 }
 
@@ -493,11 +507,11 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
             return try1;
         }
         // try to use simple distance
-        double dist1 = 
+        double dist1 =
             GeomHelper::distance(node->getPos(), edge->getBegin2D());
-        double dist2 = 
+        double dist2 =
             GeomHelper::distance(node->getPos(), edge->getEnd2D());
-        return dist1<dist2 
+        return dist1<dist2
             ? 0 : edge->getLength();
             */
     }
@@ -508,7 +522,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
 
 
 
-void 
+void
 NIVissimConnectionCluster::clearDict()
 {
     for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/18 13:11:53  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -37,7 +40,7 @@ namespace
 #include "../NIVissimLoader.h"
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/Distribution_MeanDev.h>
-#include <utils/distribution/DistributionCont.h>
+#include <netbuild/NBDistribution.h>
 #include "NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"
 
 
@@ -77,7 +80,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
             from >> mean;
             from >> tag;
             from >> deviation;
-            return DistributionCont::dictionary("times", id,
+            return NBDistribution::dictionary("times", id,
                 new Distribution_MeanDev(id, mean, deviation));
         }
         if(tag!="DATAEND") {
@@ -87,7 +90,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
             points.push_back(Position2D(p1, p2));
         }
     } while(tag!="DATAEND");
-    return DistributionCont::dictionary("times",
+    return NBDistribution::dictionary("times",
         id, new Distribution_Points(id, points));
 }
 

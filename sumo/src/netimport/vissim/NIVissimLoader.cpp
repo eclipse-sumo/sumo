@@ -526,5 +526,5 @@ NIVissimLoader::buildParsers()
     myParsers[VE_Kennungszeile] =
         new NIVissimSingleTypeParser_Kennungszeile(*this);
 
-    
+
 }

@@ -67,14 +67,14 @@ NIVissimNodeParticipatingEdge::getTo2DPosition() const
 */
 
 
-double 
+double
 NIVissimNodeParticipatingEdge::getFromPos() const
 {
     return myFromPos;
 }
 
 
-double 
+double
 NIVissimNodeParticipatingEdge::getToPos() const
 {
     return myToPos;

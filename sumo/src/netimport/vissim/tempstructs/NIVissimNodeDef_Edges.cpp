@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <cassert>
 #include <utils/geom/Boundery.h>
 #include "NIVissimNodeParticipatingEdgeVector.h"
 #include "NIVissimNodeDef.h"
@@ -75,6 +76,7 @@ NIVissimNodeDef_Edges::assignDisturbancesToNode()
 void
 NIVissimNodeDef_Edges::computeBounding()
 {
+    assert(myBoundery==0);
     Boundery *boundery = new Boundery();
     for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge *edge = *i;
@@ -123,7 +125,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
 
 
 
-double 
+double
 NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
 {
     for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
