@@ -113,6 +113,10 @@ SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\gfx\GfxConvHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\LogFile.cpp
 # End Source File
 # Begin Source File
@@ -390,6 +394,10 @@ SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
 # Begin Source File
 
 SOURCE=..\..\src\helpers\PreStartInitialised.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
 
