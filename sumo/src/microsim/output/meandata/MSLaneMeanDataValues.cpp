@@ -35,27 +35,27 @@ namespace
 void
 MSLaneMeanDataValues::addVehicleData(double contTimesteps,
                                      unsigned discreteTimesteps,
-                                     double speedSum,
-                                     double speedSquareSum,
+                                     double speed,
+                                     double speedSquare,
                                      bool hasFinishedEntireLane,
                                      bool hasLeftLane,
                                      bool hasEnteredLane,
                                      double travelTimesteps)
 {
     if ( hasFinishedEntireLane ) {
-        nVehEntireLane       += hasFinishedEntireLane;
+        nVehEntireLane       += 1;
         traveltimeStepSum    += travelTimesteps;
         assert( hasLeftLane );
     }
 
     assert(contTimesteps>=0);
     nVehContributed      += 1;
-    nVehLeftLane         += hasLeftLane;
-    nVehEnteredLane      += hasEnteredLane;
+    nVehLeftLane         += hasLeftLane ? 1 : 0;
+    nVehEnteredLane      += hasEnteredLane ? 1 : 0;
     contTimestepSum      += contTimesteps;
     discreteTimestepSum  += discreteTimesteps;
-    speedSum             += speedSum;
-    speedSquareSum       += speedSquareSum;
+    speedSum             += speed;
+    speedSquareSum       += speedSquare;
 }
 
 

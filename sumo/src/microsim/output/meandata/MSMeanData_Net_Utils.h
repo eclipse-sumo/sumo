@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:14:27  dkrajzew
+// all detectors moved to microscim/output; new detectors usage applied
+//
 // Revision 1.1  2004/08/02 12:05:34  dkrajzew
 // moved meandata to an own folder
 //
 // Revision 1.1  2004/07/02 09:01:44  dkrajzew
 // microsim output refactoring (moved to a subfolder)
-//
 //
 /* =========================================================================
  * included modules
@@ -50,7 +52,7 @@ class MSEdgeControl;
 class MSMeanData_Net_Utils {
 public:
     /// Builds the list of mean data outputs (files) as described by the parameter
-    static MSMeanData_Net_Cont buildList(
+    static MSMeanData_Net_Cont buildList(MSEdgeControl &ec,
         std::vector<size_t> dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
 

@@ -36,6 +36,8 @@ namespace
 #include <microsim/MSEdgeControl.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/SharedOutputDevices.h>
+#include <microsim/output/MSDetector2File.h>
+
 //#include "MSMeanData_EdgeControl.h"
 
 
@@ -49,7 +51,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSMeanData_Net_Cont
-MSMeanData_Net_Utils::buildList(std::vector<size_t> dumpMeanDataIntervalls,
+MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
+                                std::vector<size_t> dumpMeanDataIntervalls,
                                 std::string baseNameDumpFiles)
 {
     MSMeanData_Net_Cont ret;
@@ -65,16 +68,16 @@ MSMeanData_Net_Utils::buildList(std::vector<size_t> dumpMeanDataIntervalls,
 
             string fileName   = baseNameDumpFiles + "_" + toString( *it ) +
                 string(".xml");
-            OutputDevice* filePtr =
-                SharedOutputDevices::getInstance()->getOutputFile( fileName );
-            if( filePtr==0 ) {
+            OutputDevice* dev =
+                SharedOutputDevices::getInstance()->getOutputDevice( fileName );
+            if( dev==0 ) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The following file containing aggregated values could not been build:\n")
                     + fileName);
                 throw ProcessError();
             }
             // Write xml-comment
-            filePtr->getOStream() << "<!--\n"
+            dev->getOStream() << "<!--\n"
                 "- noVehContrib is the number of vehicles have been on the lane for\n"
                 "  at least one timestep during the current intervall.\n"
                 "  They contribute to speed, speedsquare and density.\n"
@@ -103,7 +106,10 @@ MSMeanData_Net_Utils::buildList(std::vector<size_t> dumpMeanDataIntervalls,
                 "  If noVehContrib==0 then density is set to 0.\n"
                 "-->\n" ;
 
-            ret.push_back( new MSMeanData_Net( *it, filePtr ) );
+            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, dev );
+            ret.push_back( det );
+            MSDetector2File::getInstance()->addDetectorAndInterval(
+                det, dev, *it, *it);
         }
     }
     return ret;
@@ -117,6 +123,7 @@ MSMeanData_Net_Utils::checkOutput(MSMeanData_Net_Cont &cont,
                                   size_t step,
                                   MSEdgeControl &edges)
 {
+    /*
     for ( unsigned i = 0; i < cont.size(); ++i ) {
 
         assert(cont.size()>i);
@@ -126,6 +133,7 @@ MSMeanData_Net_Utils::checkOutput(MSMeanData_Net_Cont &cont,
 
         }
     }
+    */
 }
 
 
@@ -138,8 +146,7 @@ MSMeanData_Net_Utils::buildUniqueList(
     copy(dumpMeanDataIntervalls.begin(), dumpMeanDataIntervalls.end(),
         inserter(u, u.begin()));
     if(dumpMeanDataIntervalls.size()!=u.size()) {
-        MsgHandler::getWarningInstance()->inform(
-            "Removed duplicate dump-intervalls");
+        WRITE_WARNING("Removed duplicate dump-intervalls");
     }
     copy(u.begin(), u.end(), back_inserter(ret));
     return ret;

@@ -20,13 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:14:27  dkrajzew
+// all detectors moved to microscim/output; new detectors usage applied
+//
 // Revision 1.1  2004/08/02 12:05:34  dkrajzew
 // moved meandata to an own folder
 //
 // Revision 1.1  2004/07/02 09:01:44  dkrajzew
 // microsim output refactoring (moved to a subfolder)
 //
-//
+/* =========================================================================
+ * imported modules
+ * ======================================================================= */
+#include <microsim/output/MSDetectorFileOutput.h>
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -41,40 +49,50 @@ class MSLane;
  * ======================================================================= */
 /**
  * @class MSMeanData_Net
- * The Net's meanData is a pair of an interval-length and a filehandle.
  */
-class MSMeanData_Net
+class MSMeanData_Net : public MSDetectorFileOutput
 {
 public:
     /// constructor
-    MSMeanData_Net( unsigned int t, OutputDevice* of,
-       bool addHeaderTail = true );
+    MSMeanData_Net( unsigned int t, unsigned int index,
+        MSEdgeControl &edges,bool addHeaderTail = true );
 
     /// destructor
     virtual ~MSMeanData_Net();
 
-    virtual void write(unsigned int passedSteps, unsigned int start,
-        unsigned int step,
-        MSEdgeControl &edges, unsigned int idx);
+    virtual void write(XMLDevice &dev,
+        MSNet::Time startTime, MSNet::Time stopTime);
 
-    virtual void writeEdge(const MSEdge &edge, unsigned int idx,
-        unsigned int start, unsigned int passedSteps);
+    virtual void writeEdge(XMLDevice &dev,
+        const MSEdge &edge,
+        MSNet::Time startTime, MSNet::Time stopTime);
 
-    virtual void writeLane(const MSLane &lane, unsigned int idx,
-        unsigned int start, unsigned int passedSteps);
+    virtual void writeLane(XMLDevice &dev,
+        const MSLane &lane,
+        MSNet::Time startTime, MSNet::Time stopTime);
 
     friend class MSMeanData_Net_Utils;
+
+    std::string  getNamePrefix( void ) const;
+    void writeXMLHeader( XMLDevice &dev ) const;
+    virtual void writeXMLOutput( XMLDevice &dev,
+        MSNet::Time startTime, MSNet::Time stopTime );
+    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
+    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
+    MSUnit::IntSteps getDataCleanUpSteps( void ) const;
 
 protected:
     /// the time interval the data shall be aggregated over (in s)
     unsigned int myInterval;
 
-    /** @brief The file to write aggregated data into.
-        For each aggregation time, a single file should be used */
-    OutputDevice* myOutputDevice;
-
     /// Information whether the header information shall be printed
     bool myUseHeader;
+
+    /// The mean data index of this output
+    unsigned int myIndex;
+
+    /// The edgecontrol to use
+    MSEdgeControl &myEdges;
 
 };
 

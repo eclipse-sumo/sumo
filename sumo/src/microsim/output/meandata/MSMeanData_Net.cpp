@@ -29,9 +29,9 @@ namespace
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <utils/convert/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
-//#include "MSMeanData_EdgeControl.h"
 
 
 /* =========================================================================
@@ -43,75 +43,69 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSMeanData_Net::MSMeanData_Net(unsigned int  t, OutputDevice* of,
+MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
+                               MSEdgeControl &edges,
                                bool addHeaderTail )
-    : myInterval( t ), myOutputDevice( of ), myUseHeader(addHeaderTail)
+    : myInterval( t ), myUseHeader(addHeaderTail), myIndex(index),
+    myEdges(edges)
 {
-    if(myUseHeader) {
-        myOutputDevice->getOStream() << "<netstats>\n";
-    }
 }
 
 
 MSMeanData_Net::~MSMeanData_Net()
 {
-    if(myUseHeader) {
-        myOutputDevice->getOStream() << "</netstats>\n";
-    }
-    myOutputDevice->close();
 }
 
 
 void
-MSMeanData_Net::write(unsigned int passedSteps,
-                      unsigned int start, unsigned int step,
-                      MSEdgeControl &edges, unsigned int idx)
+MSMeanData_Net::write(XMLDevice &dev,
+                      MSNet::Time startTime, MSNet::Time stopTime)
 {
+    // the folowing may happen on closure
+    if(stopTime==startTime) {
+        return;
+    }
     // interval begin
-    myOutputDevice->getOStream()
-        << "<interval begin=\""
-        << (passedSteps - myInterval + start)
-        << "\" end=\"" << step << "\">" << endl;
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
         // single lane edges
-    const MSEdgeControl::EdgeCont &ec1 = edges.getSingleLaneEdges();
+    const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
     for ( edg = ec1.begin(); edg != ec1.end(); ++edg ) {
-        writeEdge(*(*edg), idx, start, passedSteps);
+        writeEdge(dev, *(*edg), startTime, stopTime);
     }
         // multi lane edges
-    const MSEdgeControl::EdgeCont &ec2 = edges.getMultiLaneEdges();
+    const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
     for ( edg = ec2.begin(); edg != ec2.end(); ++edg ) {
-        writeEdge(*(*edg), idx, start, passedSteps);
+        writeEdge(dev, *(*edg), startTime, stopTime);
     }
     // interval end
-    myOutputDevice->getOStream() << "</interval>" << endl;
 }
 
 
 void
-MSMeanData_Net::writeEdge(const MSEdge &edge, unsigned int idx,
-                          unsigned int start, unsigned int passedSteps)
+MSMeanData_Net::writeEdge(XMLDevice &dev,
+                          const MSEdge &edge,
+                          MSNet::Time startTime, MSNet::Time stopTime)
 {
-    myOutputDevice->getOStream()
-        << "   <edge id=\"" << edge.id() << "\">" << endl;
+    dev.writeString("   <edge id=\"").writeString(edge.id()).writeString("\">\n");
     MSEdge::LaneCont *lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
-        writeLane(*(*lane), idx, start, passedSteps);
+        writeLane(dev, *(*lane), startTime, stopTime);
     }
-    myOutputDevice->getOStream() << "   </edge>\n";
+    dev.writeString("   </edge>\n");
 }
 
 
 void
-MSMeanData_Net::writeLane(const MSLane &lane, unsigned int idx,
-                          unsigned int start, unsigned int passedSteps)
+MSMeanData_Net::writeLane(XMLDevice &dev,
+                          const MSLane &lane,
+                          MSNet::Time startTime, MSNet::Time stopTime)
 {
-    assert(lane.myMeanData.size()>idx);
-    const MSLaneMeanDataValues& meanData = lane.myMeanData[ idx ];
+    assert(lane.myMeanData.size()>myIndex);
+    const MSLaneMeanDataValues& meanData = lane.myMeanData[ myIndex ];
 
-    const_cast< MSLane& >( lane ).collectVehicleData( idx );
+    const_cast< MSLane& >( lane ).collectVehicleData( myIndex );
 
     // calculate mean data
     double traveltime = -42;
@@ -164,20 +158,65 @@ MSMeanData_Net::writeLane(const MSLane &lane, unsigned int idx,
         meanDensity = 0;
 
     }
-    myOutputDevice->getOStream()
-        << "      <lane id=\""      << lane.id()
-        << "\" traveltime=\""  << traveltime
-        << "\" speed=\""       << meanSpeed
-        << "\" speedsquare=\"" << meanSpeedSquare
-        << "\" density=\""     << meanDensity
-        << "\" noVehContrib=\""  << meanData.nVehContributed
-        << "\" noVehEntire=\""  << meanData.nVehEntireLane
-        << "\" noVehEntered=\"" << meanData.nVehEnteredLane
-        << "\" noVehLeft=\"" << meanData.nVehLeftLane
-        << "\"/>\n";
-
-    const_cast< MSLane& >( lane ).resetMeanData( idx );
+    dev.writeString("      <lane id=\"").writeString(lane.id()).writeString(
+        "\" traveltime=\"").writeString(toString(traveltime)).writeString(
+        "\" speed=\"").writeString(toString(meanSpeed)).writeString(
+        "\" speedsquare=\"").writeString(toString(meanSpeedSquare)).writeString(
+        "\" density=\"").writeString(toString(meanDensity)).writeString(
+        "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
+        "\" noVehEntire=\"").writeString(toString(meanData.nVehEntireLane)).writeString(
+        "\" noVehEntered=\"").writeString(toString(meanData.nVehEnteredLane)).writeString(
+        "\" noVehLeft=\"").writeString(toString(meanData.nVehLeftLane)).writeString(
+        "\"/>\n");
+    const_cast< MSLane& >( lane ).resetMeanData( myIndex );
 }
+
+
+std::string
+MSMeanData_Net::getNamePrefix( void ) const
+{
+    return string("WeightsDump");
+}
+
+
+void
+MSMeanData_Net::writeXMLHeader( XMLDevice &dev ) const
+{
+}
+
+
+void
+MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
+                               MSNet::Time startTime, MSNet::Time stopTime)
+{
+    dev.writeString("<interval start=\"").writeString(
+        toString(startTime)).writeString("\" stop=\"").writeString(
+        toString(stopTime)).writeString("\">\n");
+    write(dev, startTime, stopTime);
+    dev.writeString("</interval>");
+}
+
+
+void
+MSMeanData_Net::writeXMLDetectorInfoStart( XMLDevice &dev ) const
+{
+    dev.writeString("<netstats>");
+}
+
+
+void
+MSMeanData_Net::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
+{
+    dev.writeString("</netstats>");
+}
+
+
+MSUnit::IntSteps
+MSMeanData_Net::getDataCleanUpSteps( void ) const
+{
+    return myInterval;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

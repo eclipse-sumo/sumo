@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:14:26  dkrajzew
+// all detectors moved to microscim/output; new detectors usage applied
+//
 // Revision 1.1  2004/08/02 12:05:54  dkrajzew
 // raw-output added
 //
@@ -82,7 +85,7 @@ MSXMLRawOut::writeEdge(OutputDevice* of, const MSEdge &edge,
                        unsigned int intend)
 {
     //en
-    bool dump = !MSGlobals::myOmitEmptyEdgesOnDump;
+    bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if ( !dump ) {
         for ( MSEdge::LaneCont::const_iterator lane=edge.getLanes()->begin(); lane!=edge.getLanes()->end(); ++lane) {
             if( ((**lane).getVehicleNumber()!=0) ) {
