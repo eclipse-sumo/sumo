@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/09/22 12:38:51  dkrajzew
+// detectors need const Lanes
+//
 // Revision 1.16  2003/09/05 15:01:24  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -164,7 +167,7 @@ GUINet::initDetectors()
     for(MSDetectorSubSys::LoopDict::ValueVector::iterator
         i=loopVec.begin(); i!=loopVec.end(); i++) {
 
-        MSLane *lane = (*i)->getLane();
+        const MSLane *lane = (*i)->getLane();
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
 

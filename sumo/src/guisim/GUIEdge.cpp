@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/09/22 12:38:51  dkrajzew
+// detectors need const Lanes
+//
 // Revision 1.11  2003/09/05 14:58:50  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -157,7 +160,7 @@ GUIEdge::getLaneGeometry(size_t laneNo)
 
 
 GUILaneWrapper &
-GUIEdge::getLaneGeometry(MSLane *lane)
+GUIEdge::getLaneGeometry(const MSLane *lane)
 {
     LaneWrapperVector::iterator i=
         find_if(_laneGeoms.begin(), _laneGeoms.end(),

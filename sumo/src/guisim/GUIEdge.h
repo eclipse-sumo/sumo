@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/09/22 12:38:51  dkrajzew
+// detectors need const Lanes
+//
 // Revision 1.7  2003/09/05 14:58:50  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -110,7 +113,7 @@ public:
     /// returns the enumerated lane's geometry (!!! why not private with a friend?)
     GUILaneWrapper &getLaneGeometry(size_t laneNo);
 
-    GUILaneWrapper &getLaneGeometry(MSLane *lane);
+    GUILaneWrapper &getLaneGeometry(const MSLane *lane);
 
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
