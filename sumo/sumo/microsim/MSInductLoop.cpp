@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/04/11 10:07:22  croessel
+// #include <cassert> added.
+//
 // Revision 1.3  2002/04/11 10:04:12  croessel
 // Changed myFile-type from reference to pointer.
 //
@@ -52,6 +55,7 @@ namespace
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
