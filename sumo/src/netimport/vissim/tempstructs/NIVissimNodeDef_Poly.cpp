@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimNodeDef_Poly.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2003/06/05 11:46:57  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <string>
 #include <map>
 #include <cassert>
@@ -38,26 +76,6 @@ NIVissimNodeDef_Poly::dictionary(int id, const std::string &name,
     return true;
 }
 
-/*
-bool
-NIVissimNodeDef_Poly::matches(const IntVector &edges)
-{
-    for(IntVector::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-        NIVissimAbstractEdge *edge = NIVissimAbstractEdge::dictionary(*i);
-        if(!edge->crosses(myPoly)) {
-            return false;
-        }
-        int edgeid = edge->getID();
-        std::pair<double, double> positions = edge->getCrossingRange(myPoly);
-        NIVissimNodeParticipatingEdge *desc = new NIVissimNodeParticipatingEdge(edgeid, positions.first, positions.second);
-        myEdges.push_back(desc);
-    }
-    return true;
-}
-
-
-*/
-
 
 
 void
@@ -81,9 +99,9 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 
 
 void
-NIVissimNodeDef_Poly::searchAndSetConnections()
+NIVissimNodeDef_Poly::searchAndSetConnections(double offset)
 {
-    IntVector within = NIVissimAbstractEdge::getWithin(myPoly, 5.0);
+    IntVector within = NIVissimAbstractEdge::getWithin(myPoly, offset);
     IntVector connections;
     IntVector edges;
     Boundery boundery(myPoly.getBoxBoundery());
@@ -107,4 +125,16 @@ NIVissimNodeDef_Poly::searchAndSetConnections()
         edge->myConnectionClusters.push_back(c);
     }
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimNodeDef_Poly.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

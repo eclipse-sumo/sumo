@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/06/05 11:43:34  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.14  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -329,9 +332,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::~NBEdge()
 {
-	if(_id=="76") {
-		int bla = 0;
-	}
     delete _reachable;
 //    delete _linkIsPriorised;
     delete _succeedinglanes;
@@ -643,6 +643,11 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     into << "      <succlane lane=\""
         << (*_reachable)[fromlane][destidx].edge->getID() << '_'
         << (*_reachable)[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
+    // set information about the controlling tl if any
+    into << " tl=\"" << (*_reachable)[fromlane][destidx].tlID << "\"";
+    if((*_reachable)[fromlane][destidx].tlID!="") {
+        into << " linkno=\"" << (*_reachable)[fromlane][destidx].tlLinkNo << "\"";
+    }
 	// write information whether the connection yields
     if(!_to->mustBrake(this, (*_reachable)[fromlane][destidx].edge)) {
         into << " yield=\"0\"/>" << endl;
@@ -703,6 +708,9 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 bool
 NBEdge::computeEdge2Edges()
 {
+    if(_id=="13010064") {
+        int bla = 0;
+    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>EDGE2EDGES) {
@@ -719,6 +727,9 @@ NBEdge::computeEdge2Edges()
 bool
 NBEdge::computeLanes2Edges()
 {
+    if(_id=="13010064") {
+        int bla = 0;
+    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>LANES2EDGES) {
@@ -1355,6 +1366,50 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, double width)
             -3.5 * _nolanes);
     }
     return pos;
+}
+
+
+void
+NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
+                                    const std::string &tlID, size_t tlPos)
+{
+    // try to use information about the connections if given
+    if(fromLane>=0&&toLane>=0) {
+        // get the connections outgoing from this lane
+        EdgeLaneVector &connections = (*_reachable)[fromLane];
+        // find the specified connection
+        EdgeLaneVector::iterator i =
+            find_if(connections.begin(), connections.end(),
+                NBContHelper::edgelane_finder(toEdge, toLane));
+        // ok, we have to test this as on the removal of dummy edges some connections
+        //  will be reassigned
+        if(i!=connections.end()) {
+            // get the connection
+            EdgeLane &connection = *i;
+            // set the information about the tl
+            connection.tlID = tlID;
+            connection.tlLinkNo = tlPos;
+            return;
+        }
+    }
+    // if the original connection was not found, set the information for all
+    //  connections
+    for(size_t j=0; j<_nolanes; j++) {
+        EdgeLaneVector &connections = (*_reachable)[j];
+        EdgeLaneVector::iterator i =
+            find_if(connections.begin(), connections.end(),
+                NBContHelper::edgelane_finder(toEdge, toLane));
+        if(i!=connections.end()) {
+            // get the connection
+            EdgeLane &connection = *i;
+            // set the information about the tl
+            //  but check first, if it was not set before
+            if(connection.tlID=="") {
+                connection.tlID = tlID;
+                connection.tlLinkNo = tlPos;
+            }
+        }
+    }
 }
 
 

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/05 11:43:34  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.5  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -66,6 +69,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBEdge.h"
@@ -273,6 +277,40 @@ public:
             double d = e->getAngle();
             return fabs(d - _angle);
         }
+    };
+
+
+    /**
+     * @class node_with_incoming_finder
+     */
+    class node_with_incoming_finder {
+    public:
+        /// constructor
+        node_with_incoming_finder(NBEdge *e);
+
+        bool operator() (const NBNode * const n) const;
+
+    private:
+        NBEdge *_edge;
+
+    };
+
+
+    /**
+     * @class edgelane_finder
+     */
+    class edgelane_finder {
+    public:
+        /// constructor
+        edgelane_finder(NBEdge *toEdge, size_t toLane);
+
+        bool operator() (const EdgeLane &el) const;
+
+    private:
+        NBEdge *myDestinationEdge;
+
+        size_t myDestinationLane;
+
     };
 
 

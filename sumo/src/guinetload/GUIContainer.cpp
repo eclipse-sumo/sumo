@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/05 11:39:31  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.8  2003/05/28 07:54:54  dkrajzew
 // new usage of MSEventControl adapted
 //
@@ -56,6 +59,7 @@ namespace
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSJunctionLogic.h>
+#include <microsim/MSTLLogicControl.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <guisim/GUINet.h>
@@ -103,7 +107,8 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
         MSEdgeControl *edges = m_pECB->build();
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-        GUINet::initGUINet( m_Id, edges, junctions, m_pDetectors, routeLoaders );
+        MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
+        GUINet::initGUINet( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;

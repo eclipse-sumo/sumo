@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.12  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -102,6 +105,7 @@
 #include <utils/geom/Position2DVector.h>
 
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -123,6 +127,13 @@ public:
     /** edge -> list of this edge reaching lanes */
     typedef std::map<NBEdge*, LaneVector> LanesThatSucceedEdgeCont;
 
+    /*
+    typedef std::pair<std::string, size_t> TLControlDef;
+
+    typedef std::vector<TLControlDef> TLControlVector;
+
+    typedef std::vector<TLControlVector> TLControlVectorVector;
+*/
     /**
      * EdgeBasicFunction
      * Edges may have certain functions listed here
@@ -300,6 +311,10 @@ public:
 
     bool lanesWereAssigned() const;
 
+
+    void setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
+        const std::string &tlID, size_t tlPos);
+
     /** friend class used for the computation of connections to
         following edges */
     friend class NBEdgeSuccessorBuilder;
@@ -456,6 +471,7 @@ private:
 
     /// An optional geometry for the edge
     Position2DVector myGeom;
+
 
 private:
 

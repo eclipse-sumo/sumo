@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -41,7 +44,7 @@
 
 #include <vector>
 #include <iostream>
-#include "NBCont.h"
+#include "NBConnectionDefs.h"
 
 /* =========================================================================
  * class declarations
@@ -52,22 +55,43 @@ class NBTrafficLightLogic;
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class NBTrafficLightLogicVector
+ * This class holds all computed traffic light phases (with changing cliques)
+ * valid for the given set of connections
  */
 class NBTrafficLightLogicVector {
-private:
-    typedef std::vector<NBTrafficLightLogic*> LogicVector;
-    LogicVector _cont;
 public:
-    NBTrafficLightLogicVector(const EdgeVector &inLanes);
+    /// Constructor
+    NBTrafficLightLogicVector(const NBConnectionVector &inLanes);
+
+    /// Destructor
     ~NBTrafficLightLogicVector();
+
+    /// Adds a further traffic light phaselists to the list
     void add(NBTrafficLightLogic *logic);
+
+    /// Adds all phaselists stored within the given list to the list of logics of this type
     void add(const NBTrafficLightLogicVector &cont);
+
+    /// Writes the logics for this junction
     void writeXML(std::ostream &os) const;
+
+    /// returns the information whether the given phaselists is already within this container
     bool contains(NBTrafficLightLogic *logic) const;
+
+    /// Returns the number of phaselists within this container
     int size() const;
+
 private:
-    EdgeVector myInLanes;
+    /// The links participating in this junction
+    NBConnectionVector myInLinks;
+
+    /// Definition of the container type for theknown phaselist
+    typedef std::vector<NBTrafficLightLogic*> LogicVector;
+
+    /// Container type for the phaselist
+    LogicVector _cont;
+
 };
 
 

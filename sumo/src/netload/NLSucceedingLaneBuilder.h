@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/05 11:52:27  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -81,7 +84,8 @@ public:
     void openSuccLane(const std::string &laneId);
 
     /// add a succeeding lane
-    void addSuccLane(bool yield, const std::string &laneId);
+    void addSuccLane(bool yield, const std::string &laneId,
+        const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building
     void closeSuccLane();

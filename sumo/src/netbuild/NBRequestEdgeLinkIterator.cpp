@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.8  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -68,8 +71,8 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 NBRequestEdgeLinkIterator::NBRequestEdgeLinkIterator(
-    const NBRequest * const request, bool joinLaneLinks,
-    bool removeTurnArounds, NBRequest::LinkRemovalType removalType)
+    const NBTrafficLightDefinition * const request, bool joinLaneLinks,
+    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
     :
     _request(request), _linkNumber(0), _validLinks(0), _position(0),
     _joinLaneLinks(joinLaneLinks), _outerValidLinks(0)
@@ -88,17 +91,17 @@ NBRequestEdgeLinkIterator::~NBRequestEdgeLinkIterator()
 
 void
 NBRequestEdgeLinkIterator::init(
-    const NBRequest * const request, bool joinLaneLinks,
-    bool removeTurnArounds, NBRequest::LinkRemovalType removalType)
+    const NBTrafficLightDefinition * const request, bool joinLaneLinks,
+    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
 {
     // build complete lists first
-    const EdgeVector * const incoming = request->_incoming;
+    const EdgeVector &incoming = request->_incoming;
     size_t i1;
-    for(i1=0; i1<incoming->size(); i1++) {
-        assert(incoming!=0&&i1<incoming->size());
-        size_t noLanes = (*incoming)[i1]->getNoLanes();
+    for(i1=0; i1<incoming.size(); i1++) {
+        assert(i1<incoming.size());
+        size_t noLanes = incoming[i1]->getNoLanes();
         for(size_t i2=0; i2<noLanes; i2++) {
-            NBEdge *fromEdge = (*incoming)[i1];
+            NBEdge *fromEdge = incoming[i1];
             const EdgeLaneVector * const approached =
                 fromEdge->getEdgeLanesFromLane(i2);
             for(size_t i3=0; i3<approached->size(); i3++) {
@@ -108,7 +111,7 @@ NBRequestEdgeLinkIterator::init(
                 _fromLanes.push_back(i2);
                 _toEdges.push_back(toEdge);
                 _isLeftMover.push_back(
-                    isLeftMover(request, fromEdge, toEdge)
+                    request->isLeftMover(fromEdge, toEdge)
                     ||
                     fromEdge->isTurningDirection(toEdge) );
                 _isTurnaround.push_back(fromEdge->isTurningDirection(toEdge));
@@ -120,7 +123,7 @@ NBRequestEdgeLinkIterator::init(
 
 void
 NBRequestEdgeLinkIterator::setValidNonLeft(
-    bool removeTurnArounds, NBRequest::LinkRemovalType removalType)
+    bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType)
 {
     // reparse lists and remove unwanted items
     NBEdge *currentEdge = 0;
@@ -144,7 +147,7 @@ NBRequestEdgeLinkIterator::setValidNonLeft(
 
 void
 NBRequestEdgeLinkIterator::joinLaneLinksFunc(
-    const EdgeVector * const incoming, bool joinLaneLinks)
+    const EdgeVector &incoming, bool joinLaneLinks)
 {
     // the set of links to view from the outside stays the same
     //  when the links of a lane shall not be merged
@@ -157,11 +160,11 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
     // the set of links to view from the outside will be the
     //  number of lanes
     size_t pos = 0;
-    for(size_t i1=0; i1<(*incoming).size(); i1++) {
-        assert(incoming!=0&&i1<incoming->size());
-        size_t noLanes = (*incoming)[i1]->getNoLanes();
+    for(size_t i1=0; i1<incoming.size(); i1++) {
+        assert(i1<incoming.size());
+        size_t noLanes = incoming[i1]->getNoLanes();
         for(size_t i2=0; i2<noLanes; i2++) {
-            NBEdge *fromEdge = (*incoming)[i1];
+            NBEdge *fromEdge = incoming[i1];
             const EdgeLaneVector * const approached =
                 fromEdge->getEdgeLanesFromLane(i2);
             _valid.set(pos++, 1);
@@ -187,7 +190,7 @@ NBRequestEdgeLinkIterator::computeValidLinks() {
 bool
 NBRequestEdgeLinkIterator::valid(size_t pos,
                                  bool removeTurnArounds,
-                                 NBRequest::LinkRemovalType removalType)
+                                 NBTrafficLightDefinition::LinkRemovalType removalType)
 {
     // if only turnaround are not wished
     if(removeTurnArounds && _isTurnaround[pos] ) {
@@ -195,7 +198,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     }
 
     // leftmovers shall be kept -> keep
-    if( removalType==NBRequest::LRT_NO_REMOVAL ) {
+    if( removalType==NBTrafficLightDefinition::LRT_NO_REMOVAL ) {
         return true;
     }
 
@@ -207,7 +210,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     // when only left-moving edges shall be removed that do not have
     //  an own lane, check whether the current left-mover has a
     //  non-left mover on the same lane -> refuse if not
-    if( removalType==NBRequest::LRT_REMOVE_WHEN_NOT_OWN ) {
+    if( removalType==NBTrafficLightDefinition::LRT_REMOVE_WHEN_NOT_OWN ) {
         int tmpPos = int(pos) - 1;
         assert(pos<_fromEdges.size());
         assert(pos<_fromLanes.size());
@@ -327,48 +330,6 @@ NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int dummy) const
     }
     return count;
 }
-
-bool
-NBRequestEdgeLinkIterator::isLeftMover(const NBRequest * const request,
-                                       NBEdge *from, NBEdge *to) const
-{
-    // the destination edge may be unused
-    if(to==0) {
-        return false;
-    }
-    // when the junction has only one incoming edge, there are no
-    //  problems caused by left blockings
-    if(request->_incoming->size()==1) {
-        return false;
-    }
-    // now again some heuristics...
-    //  how to compute whether an edge is goin to the left in the meaning,
-    //  that it crosses the opposite straight direction?!
-    vector<NBEdge*> incoming(*(request->_incoming));
-    sort(incoming.begin(), incoming.end(),
-        NBContHelper::edge_opposite_direction_sorter(from));
-    NBEdge *opposite = *(incoming.begin());
-/*    if(opposite==from) {
-        for(vector<NBEdge*>::iterator a=incoming.begin(); a!=incoming.end(); a++) {
-            NBEdge *e = *a;
-        }
-    }*/
-    assert(opposite!=from);
-    EdgeVector::const_iterator i =
-        find(request->_all->begin(), request->_all->end(), from);
-    i = NBContHelper::nextCW(request->_all, i);
-    while(true) {
-        if((*i)==opposite) {
-            return false;
-        }
-        if((*i)==to) {
-            return true;
-        }
-        i = NBContHelper::nextCW(request->_all, i);
-    }
-    return false;
-}
-
 
 void
 NBRequestEdgeLinkIterator::resetNonLeftMovers(

@@ -23,6 +23,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -57,4 +60,16 @@ int ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars)
 	fsSrc.close ();
 	return (ferror);
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODwrite.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

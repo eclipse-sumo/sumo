@@ -1,12 +1,48 @@
 #ifndef GUILaneChanger_h
 #define GUILaneChanger_h
+//---------------------------------------------------------------------------//
+//                        GUILaneChanger.h -
+//  The gui-version of the lane changer
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2003/06/05 11:40:28  dkrajzew
+// class templates applied; documentation added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <microsim/MSEdge.h>
 #include <microsim/MSLaneChanger.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class GUILaneChanger : public MSLaneChanger {
 public:
-    public:
     /// Destructor.
     ~GUILaneChanger();
 
@@ -18,6 +54,19 @@ protected:
         This methods makes the same as the methods from MSLaneChanger but locks
         the lanes first */
     void updateLanes();
+
 };
 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "GUILaneChanger.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

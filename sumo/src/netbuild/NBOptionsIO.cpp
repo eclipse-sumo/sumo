@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.10  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -221,6 +224,7 @@ NBOptionsIO::init()
     oc->doRegister("priority", 'P', new Option_Integer(1));
     oc->doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
     oc->doRegister("min-decel", 'D', new Option_Float(3.0));
+	oc->doRegister("vissim-offset", new Option_Float(5.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
     oc->doRegister("warn", 'w', new Option_Bool(false));

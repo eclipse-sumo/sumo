@@ -492,9 +492,17 @@ NLNetHandler::openSucc(const Attributes &attrs) {
 void
 NLNetHandler::addSuccLane(const Attributes &attrs) {
     try {
-        myContainer.addSuccLane(
-            getBool(attrs, SUMO_ATTR_YIELD),
-            getString(attrs, SUMO_ATTR_LANE));
+        string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
+        if(tlID!="") {
+            myContainer.addSuccLane(
+                getBool(attrs, SUMO_ATTR_YIELD),
+                getString(attrs, SUMO_ATTR_LANE),
+                tlID, getInt(attrs, SUMO_ATTR_TLLINKNO));
+        } else {
+            myContainer.addSuccLane(
+                getBool(attrs, SUMO_ATTR_YIELD),
+                getString(attrs, SUMO_ATTR_LANE));
+        }
     } catch (EmptyData) {
         SErrorHandler::add(
             "Error in description: missing attribute in a succlane-object.");
@@ -751,20 +759,22 @@ NLNetHandler::closeTrafficLightLogic() {
     if(m_Type!="actuated") {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic<64>(
-                m_Key, m_ActiveSimplePhases, 0);
+                m_Key, m_ActiveSimplePhases, 0, myContainer.getEventControl(), 0);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActiveSimplePhases.clear();
+        myContainer.addTLLogic(tlLogic);
     } else {
         MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState > (
                     m_Key, m_ActiveActuatedPhases, 0,
-                    myContainer.getInLanes());
+                    myContainer.getInLanes(), myContainer.getEventControl(), 0);
         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActiveActuatedPhases.clear();
+        myContainer.addTLLogic(tlLogic);
     }
 }
 

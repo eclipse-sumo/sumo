@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.9  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -92,6 +95,7 @@ class NBJunctionTypeIO;
 class NBTrafficLightLogic;
 class NBTrafficLightPhases;
 class OptionsCont;
+class NBTrafficLightDefinition;
 
 
 /* =========================================================================
@@ -104,19 +108,6 @@ class OptionsCont;
  * their priorities. The junction's logic is saved when it does not yet exist.
  */
 class NBRequest {
-public:
-    /** possible types of removeing a link from regardation during the
-        building of the traffic light logic */
-    enum LinkRemovalType {
-        /// all links will be regarded
-        LRT_NO_REMOVAL,
-        /** all left-movers which are together with other direction on the same
-            lane will be removed */
-        LRT_REMOVE_WHEN_NOT_OWN,
-        /// remove all left-movers
-        LRT_REMOVE_ALL_LEFT
-    };
-
 public:
     /** constructor
         The parameter are the logic's lists of edges (all, incoming only and
@@ -138,28 +129,20 @@ public:
         of the junction's links in respect */
     std::pair<size_t, size_t> getSizes() const;
 
-    /// builds the traffic light logics
-    int buildTrafficLight(const std::string &key,
-        const NBNode::SignalGroupCont &defs, size_t cycleTime,
-        size_t breakingTime, bool buildAll) const;
-
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
-    /// prints the request
-    friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
-
-    /// the iterator may access the request
-    friend class NBRequestEdgeLinkIterator;
-
-    /// reports warnings if any occured
-    static void reportWarnings();
-
-private:
     /** returns the information whether the connections from1->to1 and
         from2->to2 are foes */
     bool forbidden(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
 
+    /// prints the request
+    friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
+
+    /// reports warnings if any occured
+    static void reportWarnings();
+
+private:
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */
     void setBlocking(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
@@ -190,40 +173,6 @@ private:
     /** computes the relationships between links outgoing left of the given
         link */
     void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
-
-
-    NBTrafficLightLogicVector *buildLoadedTrafficLights(const std::string &key,
-        const NBNode::SignalGroupCont &defs, size_t cycleTime) const;
-
-    NBTrafficLightLogicVector *buildOwnTrafficLights(
-        const std::string &key, size_t breakingTime, bool buildAll) const;
-
-
-    /** compute the traffic light logics for the current node and the
-        given settings */
-    NBTrafficLightLogicVector *computeTrafficLightLogics(
-        const std::string &key,
-        bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal,
-        bool appendSmallestOnly, bool skipLarger,
-        size_t breakingTime) const;
-
-    /** compute the pases for the current node and the given settings */
-    NBTrafficLightPhases * computePhases(bool joinLaneLinks,
-        bool removeTurnArounds, LinkRemovalType removal,
-        bool appendSmallestOnly, bool skipLarger) const;
-
-    /** build the matrix of links that may be used simultaneously */
-    NBLinkPossibilityMatrix *getPossibilityMatrix(bool joinLanes,
-        bool removeTurnArounds, LinkRemovalType removalType) const;
-
-/*    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
-        size_t noLinks, const PhaseIndexVector &phaseList,
-        NBLinkCliqueContainer &cliquen,
-        const NBRequestEdgeLinkIterator &cei1) const;*/
-
-        std::pair<std::bitset<64>, std::bitset<64> >
-            buildPhaseMasks(const NBNode::SignalGroupCont &defs,
-                size_t time) const;
 
 
 private:

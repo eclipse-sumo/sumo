@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimConnectionCluster.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.11  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <algorithm>
 #include <iostream>
 #include <cassert>
@@ -186,7 +224,7 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
 
 
 void
-NIVissimConnectionCluster::join()
+NIVissimConnectionCluster::joinBySameEdges(double offset)
 {
 	// !!! ...
 	// Further, we try to omit joining of overlaping nodes. This is done by holding
@@ -204,20 +242,8 @@ NIVissimConnectionCluster::join()
 
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
-
-if(find((*i)->myConnections.begin(), (*i)->myConnections.end(), 10094)!=(*i)->myConnections.end()
-   &&
-   find((*j)->myConnections.begin(), (*j)->myConnections.end(), 10094)!=(*j)->myConnections.end()
-   )
-{
-	int bla = 0;
-}
-
-
-
-
 			// check whether the current clusters overlap
-			if((*i)->joinable(*j)) {
+			if((*i)->joinable(*j, offset)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -251,7 +277,7 @@ if(find((*i)->myConnections.begin(), (*i)->myConnections.end(), 10094)!=(*i)->my
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
             // check whether the current clusters overlap
-			if((*i)->joinable(*j)) {
+			if((*i)->joinable(*j, offset)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -279,28 +305,59 @@ if(find((*i)->myConnections.begin(), (*i)->myConnections.end(), 10094)!=(*i)->my
     }
 }
 
-
-
 bool
-NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2)
+NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset)
 {
+    // join clusters which have at least one connection in common
 	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
 		return true;
 	}
 
-	if( (IntVectorHelper::subSetExists(myOutgoingEdges, c2->myOutgoingEdges)
+    // connections shall overlap otherwise
+    if(!overlapsWith(c2, offset)) {
+        return false;
+    }
+
+    // at least one of the clusters shall not be assigned to a node in previous (!!!??)
+    if(hasNodeCluster() && c2->hasNodeCluster() ) {
+        return false;
+    }
+
+    // join clusters which where connections do disturb each other
+    IntVector foes = getDisturbanceParticipators();
+	if(IntVectorHelper::subSetExists(foes, myConnections)) {
+		return true;
+	}
+
+
+    // join clusters which do share the same incoming or outgoing edges (not mutually)
+    if( IntVectorHelper::subSetExists(myOutgoingEdges, c2->myOutgoingEdges)
 			||
 	     IntVectorHelper::subSetExists(myIncomingEdges, c2->myIncomingEdges)
-			)
-		&&
-		overlapsWith(c2, 5)
-		&&
-		(!hasNodeCluster() || !c2->hasNodeCluster() ) ) {
-
+         ) {
 		return true;
 	}
 	return false;
 }
+
+
+
+IntVector
+NIVissimConnectionCluster::getDisturbanceParticipators()
+{
+    IntVector ret;
+    for(IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        const IntVector &disturbances = c->getDisturbances();
+        for(IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
+            NIVissimDisturbance *d = NIVissimDisturbance::dictionary(*j);
+            ret.push_back(d->getEdgeID());
+            ret.push_back(d->getDisturbanceID());
+        }
+    }
+    return ret;
+}
+
 
 void
 NIVissimConnectionCluster::buildNodeClusters()
@@ -319,15 +376,6 @@ NIVissimConnectionCluster::buildNodeClusters()
             //
 //    cout << "Cluster " << ":" << (*i)->myBoundery << endl;
         }
-        tls = (*i)->myTLs;//NIVissimTL::getWithin((*i)->myBoundery, 5.0);
-        if(tls.size()>1) {
-            cout << "Warning: NIVissimConnectionCluster:More than a single signal" << endl;
-//            throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
-        }
-        if(tls.size()>0) {
-            tlsid = tls[0];
-        }
-        //
         nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundery, 5.0);
         if(nodes.size()>1) {
             cout << "NIVissimConnectionCluster:More than a single node" << endl;
@@ -343,14 +391,6 @@ NIVissimConnectionCluster::buildNodeClusters()
             disturbances, (*i)->myIncomingEdges.size()<2);
         assert((*i)->myNodeCluster==id||(*i)->myNodeCluster<0);
         (*i)->myNodeCluster = id;
-        if(tlsid>=0) {
-            NIVissimTL *tl = NIVissimTL::dictionary(tlsid);
-            tl->setNodeID(id);
-        }
-        if(tlsid>=0) {
-            NIVissimTL *tl = NIVissimTL::dictionary(tlsid);
-            tl->setNodeID(id);
-        }
 /*        for(IntVector::iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
             NIVissimDisturbance::dictionary(*j)->
         }*/
@@ -407,7 +447,7 @@ NIVissimConnectionCluster::dictSize()
 
 
 void
-NIVissimConnectionCluster::dict_recheckNodes()
+NIVissimConnectionCluster::dict_recheckNodes(double offset)
 {
     // This method clusters connections into clusters which belong to
     //  a single node
@@ -429,7 +469,7 @@ NIVissimConnectionCluster::dict_recheckNodes()
             bool found = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!found; k++) {
                 assert((*k).myBoundery.xmax()>=(*k).myBoundery.xmin());
-                if(c1->getBoundingBox().overlapsWith((*k).myBoundery, 5.0)) {
+                if(c1->getBoundingBox().overlapsWith((*k).myBoundery, offset)) {
                     (*k).add(c1);
                     found = true;
                 }
@@ -447,7 +487,7 @@ NIVissimConnectionCluster::dict_recheckNodes()
             changed = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!changed; k++) {
                 for(std::vector<NodeSubCluster>::iterator l=k+1; l!=nodeClusters.end()&&!changed; l++) {
-                    if((*k).overlapsWith(*l, 5.0)) {
+                    if((*k).overlapsWith(*l, offset)) {
                         changed = true;
                         (*k).add(*l);
                         nodeClusters.erase(l);
@@ -648,53 +688,13 @@ NIVissimConnectionCluster::clearDict()
 }
 
 
-void
-NIVissimConnectionCluster::addNodes()
-{
-    bool changed = false;
-    for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
-        NIVissimConnectionCluster *c = (*i);
-        IntVector nodes = NIVissimNodeDef::getWithin(c->myBoundery, 5.0);
-        if(nodes.size()>1) {
-            cout << "More than a single node is clustered!" << endl;
-        }
-        if(nodes.size()>0) {
-            for(IntVector::iterator i=nodes.begin(); i!=nodes.end(); i++) {
-                NIVissimNodeDef *d = NIVissimNodeDef::dictionary(*i);
-                c->myBoundery.add(
-                    d->getBoundery());
-            }
-            changed = true;
-        }
-        c->myNodes = nodes;
-    }
-    if(changed) {
-        join();
-    }
-}
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimConnectionCluster.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 
-void
-NIVissimConnectionCluster::addTLs()
-{
-    bool changed = false;
-    for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
-        NIVissimConnectionCluster *c = (*i);
-        IntVector tls = NIVissimTL::getWithin(c->myBoundery, 5.0);
-        if(tls.size()>1) {
-            cout << "More than a single node is clustered!" << endl;
-        }
-        if(tls.size()>0) {
-            for(IntVector::iterator i=tls.begin(); i!=tls.end(); i++) {
-                NIVissimTL *d = NIVissimTL::dictionary(*i);
-                c->myBoundery.add(
-                    d->getBoundery());
-            }
-            changed = true;
-        }
-        c->myTLs = tls;
-    }
-    if(changed) {
-        join();
-    }
-}

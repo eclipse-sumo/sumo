@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimDisturbance.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.9  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <map>
 #include <string>
 #include <iostream>
@@ -20,6 +58,8 @@ using namespace std;
 NIVissimDisturbance::DictType NIVissimDisturbance::myDict;
 int NIVissimDisturbance::myRunningID = 0;
 
+int NIVissimDisturbance::refusedProhibits = 0;
+
 
 NIVissimDisturbance::NIVissimDisturbance(int id,
                                          const std::string &name,
@@ -36,37 +76,6 @@ NIVissimDisturbance::NIVissimDisturbance(int id,
 NIVissimDisturbance::~NIVissimDisturbance()
 {
 }
-/*
-
-bool
-NIVissimDisturbance::tryAssignToNodeSingle(int nodeid,
-        const NIVissimNodeParticipatingEdgeVector &edges)
-{
-    for(NIVissimNodeParticipatingEdgeVector::const_iterator i=edges.begin();
-            i!=edges.end(); i++) {
-        NIVissimNodeParticipatingEdge *edge = *i;
-        if( edge->getID()==myEdge.getEdgeID() &&
-            edge->positionLiesWithin(myEdge.getPosition()) &&
-            edge->getID()==myDisturbance.getEdgeID() &&
-            edge->positionLiesWithin(myDisturbance.getPosition())) {
-            myNodeID = nodeid;
-            return true;
-        }
-        if( edge->getID()==myEdge.getEdgeID() &&
-            edge->positionLiesWithin(myEdge.getPosition())) {
-            cout << "Only the edge lies within the node!!!" << endl;
-            cout << "  Querverkehrsstörung-ID: " << myID << endl;
-            return true;
-        }
-        if( edge->getID()==myDisturbance.getEdgeID() &&
-            edge->positionLiesWithin(myDisturbance.getPosition())) {
-            cout << "Only the disturbing edge lies within the node!!!" << endl;
-            cout << "  Querverkehrsstörung-ID: " << myID << endl;
-            return true;
-        }
-    }
-    return false;
-}*/
 
 
 
@@ -117,63 +126,6 @@ NIVissimDisturbance::dictionary(int id)
     }
     return (*i).second;
 }
-
-/*
-void
-NIVissimDisturbance::buildNodeClusters()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimDisturbance *e = (*i).second;
-        if(!e->clustered()) {
-            IntVector disturbances = NIVissimDisturbance::getWithin(*(e->myBoundery));
-            IntVector connections = NIVissimConnection::getWithin(*(e->myBoundery));
-            int id = NIVissimNodeCluster::dictionary(-1, -1, connections,
-                disturbances);
-        }
-    }
-}
-*/
-
-
-/*
-IntVector
-NIVissimDisturbance::tryAssignToNode(int nodeid,
-        const NIVissimNodeParticipatingEdgeVector &edges)
-{
-    IntVector assigned;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->tryAssignToNodeSingle(nodeid, edges)) {
-            assigned.push_back((*i).second->myID);
-        }
-    }
-    return assigned;
-}
-
-
-IntVector
-NIVissimDisturbance::getDisturbatorsForEdge(int edgeid)
-{
-    IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->myEdge.getEdgeID() == edgeid) {
-            ret.push_back((*i).second->myID);
-        }
-    }
-    return ret;
-}
-
-IntVector
-NIVissimDisturbance::getDisturbtionsForEdge(int edgeid)
-{
-    IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->myDisturbance.getEdgeID() == edgeid) {
-            ret.push_back((*i).second->myID);
-        }
-    }
-    return ret;
-}
-*/
 
 IntVector
 NIVissimDisturbance::getWithin(const AbstractPoly &poly)
@@ -266,12 +218,15 @@ NIVissimDisturbance::addToNode(NBNode *node)
 //        }
     } else if(pc!=0 && bc==0) {
         // This has not been tested completely, yet
-//        cout << "Warning!!!" << endl;
-//        cout << " Unverified usage of edges as prohibitors." << endl;
+        cout << " Warning: Could not prohibit '"
+            << myEdge.getEdgeID() << "' by '"
+            << myDisturbance.getEdgeID() << "'." << endl;
+        refusedProhibits++;
         // The prohibited abstract edge is a connection, the other
         //  is not;
         // We have to split the other one and add the prohibition
         //  description
+/*
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
@@ -289,14 +244,18 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     );
             }
         }
+        */
     } else if(bc!=0 && pc==0) {
         // This has not been tested completely, yet
-//        cout << "Warning!!!" << endl;
-//        cout << " Unverified usage of edges as prohibited." << endl;
+        cout << " Warning: Could not prohibit '"
+            << myEdge.getEdgeID() << "' by '"
+            << myDisturbance.getEdgeID() << "'." << endl;
+        refusedProhibits++;
         // The prohibiteing abstract edge is a connection, the other
         //  is not;
         // We have to split the other one and add the prohibition
         //  description
+/*
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         string nid1 = e->getID() + "[0]";
@@ -315,6 +274,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     );
             }
         }
+        */
     } else {
         // both the prohibiting and the prohibited abstract edges
         //  are connections
@@ -365,11 +325,38 @@ void
 NIVissimDisturbance::dict_SetDisturbances()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimDisturbance *d = (*i).second;
+        NIVissimAbstractEdge::dictionary(d->myEdge.getEdgeID())->addDisturbance((*i).first);
+        NIVissimAbstractEdge::dictionary(d->myDisturbance.getEdgeID())->addDisturbance((*i).first);
+    }
+/*    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete (*i).second;
+    }
+    */
+}
+
+
+
+void
+NIVissimDisturbance::reportRefused()
+{
+    if(refusedProhibits>0) {
+        cout << "Warning: Could not build " << refusedProhibits
+            << " of " << myDict.size() << " disturbances."
+            << endl;
     }
 }
 
 
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimDisturbance.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

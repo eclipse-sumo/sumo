@@ -1,5 +1,37 @@
 #ifndef NIVissimDisturbance_h
 #define NIVissimDisturbance_h
+//---------------------------------------------------------------------------//
+//                        NIVissimDisturbance.h -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.5  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 
 #include <map>
 #include <string>
@@ -10,6 +42,9 @@
 #include "NIVissimBoundedClusterObject.h"
 #include "NIVissimNodeParticipatingEdgeVector.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class NBNode;
 class NBEdge;
 
@@ -23,8 +58,8 @@ public:
     virtual ~NIVissimDisturbance();
     void computeBounding();
     bool addToNode(NBNode *node);
-/*    bool tryAssignToNodeSingle(int nodeid,
-        const NIVissimNodeParticipatingEdgeVector &edges);*/
+    int getEdgeID() const { return myEdge.getEdgeID(); }
+    int getDisturbanceID() const { return myDisturbance.getEdgeID(); }
     NBConnection getConnection(NBNode *node, int aedgeid);
 
 public:
@@ -37,12 +72,7 @@ public:
     static IntVector getWithin(const AbstractPoly &poly);
     static void clearDict();
     static void dict_SetDisturbances();
-//    static void buildNodeClusters();
-
-/*    static IntVector tryAssignToNode(int nodeid,
-        const NIVissimNodeParticipatingEdgeVector &edges);
-    static IntVector getDisturbatorsForEdge(int edgeid);
-    static IntVector getDisturbtionsForEdge(int edgeid);*/
+    static void reportRefused();
 
 private:
     int myID;
@@ -55,8 +85,20 @@ private:
     typedef std::map<int, NIVissimDisturbance*> DictType;
     static DictType myDict;
     static int myRunningID;
+    static int refusedProhibits;
 };
 
 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "NIVissimDisturbance.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
 

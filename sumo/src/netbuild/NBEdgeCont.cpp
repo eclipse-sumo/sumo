@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.12  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -369,7 +372,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
     for(size_t i=0; i<noLanes; i++) {
-        one->addLane2LaneConnection(i, two, i);
+        one->addLane2LaneConnection(i, two, i); // !!! Bresenham, here!!!
     }
     insert(one);
     insert(two);
@@ -432,16 +435,10 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id)
 {
-	if(id=="76") {
-		int bla = 0;
-	}
     size_t len = id.length();
     EdgeVector ret;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         string curr = (*i).first;
-		if(curr.find("76")!=string::npos) {
-			int bla = 0;
-		}
         // the next check makes it possibly faster - we don not have
         //  to compare the names
         if(curr.length()<=len) {

@@ -1,3 +1,39 @@
+//---------------------------------------------------------------------------//
+//                        NIArcView_ShapeReader.cpp -
+//  The reader of shape-files
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/06/05 11:44:14  dkrajzew
+// class templates applied; documentation added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <cassert>
 #include <sstream>
@@ -10,9 +46,16 @@
 #include <utils/geom/Position2DVector.h>
 #include "NIArcView_ShapeReader.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NIArcView_ShapeReader::NIArcView_ShapeReader(const std::string &file)
     : FileErrorReporter("Navtech shape", file), myLineReader(file)
 {
@@ -198,5 +241,15 @@ NIArcView_ShapeReader::getToNodePosition() const
 {
     return myPoints.at(myPoints.size()-1);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIArcView_ShapeReader.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

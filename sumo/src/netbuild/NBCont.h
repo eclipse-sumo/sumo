@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/05 11:43:34  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.5  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -72,8 +75,13 @@ class EdgeLane {
 public:
     /// The according edge (semantics may change)
     NBEdge *edge;
+
     /// The according lane (semantics may change)
     size_t lane;
+
+    std::string tlID;
+
+    size_t tlLinkNo;
 
 	friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs) {
 		return lhs.edge==rhs.edge && lhs.lane==rhs.lane;

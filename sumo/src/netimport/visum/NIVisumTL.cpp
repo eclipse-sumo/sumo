@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/06/05 11:51:09  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.1  2003/05/20 09:55:56  dkrajzew
 // visum-traffic light import added (by Markus Hartinger)
 //
@@ -31,6 +34,8 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
+#include <netbuild/NBTrafficLightDefinition.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
 #include "NIVisumTL.h"
 
 /* =========================================================================
@@ -223,27 +228,29 @@ void NIVisumTL::build()
 	for(NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++)
 	{
 		NBNode *Node = (*ni);
-		Node->setCycleDuration(myCycleTime);
+        NBTrafficLightDefinition *def = new NBTrafficLightDefinition(Node->getID(), Node);
+        NBTrafficLightLogicCont::insert(Node->getID(), def);
+		def->setCycleDuration(myCycleTime);
 		Node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
 		// signalgroups
 		for(SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++ )
 		{
 			std::string GroupName = (*gi).first;
 			NIVisumTL::SignalGroup &SG = *(*gi).second;
-			Node->addSignalGroup(GroupName);
-			Node->addToSignalGroup(GroupName, *SG.GetConnections());
-			Node->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
+			def->addSignalGroup(GroupName);
+			def->addToSignalGroup(GroupName, *SG.GetConnections());
+			def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
 			// phases
 			if (myPhaseDefined) {
 				for(PhaseMap::iterator pi = SG.GetPhases()->begin(); pi!= SG.GetPhases()->end(); pi++)
 				{
 					NIVisumTL::Phase &PH = *(*pi).second;
-					Node->addSignalGroupPhaseBegin(GroupName, PH.GetStartTime(), NBNode::TLCOLOR_GREEN);
-					Node->addSignalGroupPhaseBegin(GroupName, PH.GetEndTime(), NBNode::TLCOLOR_RED);
+					def->addSignalGroupPhaseBegin(GroupName, PH.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
+					def->addSignalGroupPhaseBegin(GroupName, PH.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
 				};
 			} else {
-				Node->addSignalGroupPhaseBegin(GroupName, SG.GetStartTime(), NBNode::TLCOLOR_GREEN);
-				Node->addSignalGroupPhaseBegin(GroupName, SG.GetEndTime(), NBNode::TLCOLOR_RED);
+				def->addSignalGroupPhaseBegin(GroupName, SG.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
+				def->addSignalGroupPhaseBegin(GroupName, SG.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
 			}
 		}
 	}

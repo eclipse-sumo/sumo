@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimNodeDef_Edges.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2003/06/05 11:46:57  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 
 #include <string>
 #include <map>
@@ -41,36 +79,6 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
     return true;
 }
 
-/*
-bool
-NIVissimNodeDef_Edges::trafficLightMatches(
-        const NIVissimExtendedEdgePointVector &edges)
-{
-    for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        if(find_if(edges.begin(), edges.end(), lying_within_match((*i)))==edges.end()) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-bool
-NIVissimNodeDef_Edges::connectionMatches(int fromID, int toID)
-{
-    return find_if(myEdges.begin(), myEdges.end(), id_matches(fromID))
-        !=
-        myEdges.end();
-}
-
-
-bool
-NIVissimNodeDef_Edges::assignDisturbancesToNode()
-{
-    myDisturbances = NIVissimDisturbance::tryAssignToNode(myID, myEdges);
-    return myDisturbances.size()!=0;
-}
-*/
 
 
 void
@@ -148,4 +156,16 @@ NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
     }
     return -1;
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimNodeDef_Edges.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.6  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -88,7 +91,7 @@ public:
     /// Computes the list of traffic lights logics from the stored phase lists
     NBTrafficLightLogicVector *computeLogics(const std::string &key,
         size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
-        const EdgeVector &inLanes, size_t breakingTime) const;
+        const NBConnectionVector &inLinks, size_t breakingTime) const;
 
     /// Output operator
     friend std::ostream &operator<<(std::ostream &os,

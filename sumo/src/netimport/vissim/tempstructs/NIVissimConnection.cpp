@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimConnection.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.8  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -112,99 +150,6 @@ NIVissimConnection::buildNodeClusters()
 
 
 
-
-
-/*
-void
-NIVissimConnection::assignNodes()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->myNodeID = NIVissimNodeDef::searchAndSetMatchingConnectionParent(
-            (*i).second->myID,
-            (*i).second->myFromDef.getEdgeID(),
-            (*i).second->myToDef.getEdgeID());
-        if((*i).second->myNodeID<0) {
-            cout
-                << "No matching node could be found for the connection '"
-                << (*i).second->myID << "'.";
-        }
-    }
-}
-
-
-
-void
-NIVissimConnection::buildFurtherNodes()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->myNodeID<0) {
-            (*i).second->buildFurtherNode(i);
-        }
-    }
-}
-
-
-void
-NIVissimConnection::buildFurtherNode(NIVissimConnection::DictType::iterator mypos)
-{
-    // collect participating connectors
-    IntVector furtherConnectors;
-    Position2D pos =
-        NIVissimAbstractEdge::dictionary(myFromDef.getEdgeID())->getPositionAtLength(
-            myFromDef.getPosition());
-    addConnectorsAt(furtherConnectors, pos, mypos+1);
-    pos =
-        NIVissimAbstractEdge::dictionary(myFromDef.getEdgeID())->getPositionAtLength(
-            myFromDef.getPosition());
-    addConnectorsAt(furtherConnectors, pos, mypos+1);
-    addCrossingConnectors(furtherConnectors, geom, mypos+1);
-    // split edges
-    NIVissimNodeParticipatingEdge
-    for(IntVector::iterator i=furtherConnectors.begin(); i!=furtherConnectors.end(); i++) {
-        NIVissimConnection *c = *i;
-        NIVissimNodeParticipatingEdge edge = new NIVissimNodeParticipatingEdge(
-            c->myFromDef.getEdgeID(),
-            c->myFromDef.getPosition(),
-            c->myFromDef.getPosition());
-
-    }
-    // build the node
-    NIVissimNodeDef::
-
-    NIVissimDisturbance *from = NIVissimDisturbance::getMatching(myFromDef);
-    NIVissimDisturbance *to = NIVissimDisturbance::getMatching(myToDef);
-    if(from==0&&to==0) {
-        return;
-    }
-    if(from!=0) {
-    }
-}
-
-IntVector
-NIVissimConnection::getOutgoingForEdge(int edgeid)
-{
-    IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->myFromDef.getEdgeID() == edgeid) {
-            ret.push_back((*i).second->myID);
-        }
-    }
-    return ret;
-}
-
-
-IntVector
-NIVissimConnection::getIncomingForEdge(int edgeid)
-{
-    IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->myToDef.getEdgeID() == edgeid) {
-            ret.push_back((*i).second->myID);
-        }
-    }
-    return ret;
-}
-*/
 
 
 IntVector
@@ -353,20 +298,31 @@ NIVissimConnection::dict_buildNBEdgeConnections()
         }
 */
         if(fromEdge==0||toEdge==0) {
-			cout << " Warning: Could not build connection between '"
+/*			cout << " Warning: Could not build connection between '"
 				<< c->getFromEdgeID() << "' and '"
 				<< c->getToEdgeID() << "'." << endl;
-			ref++;
-        fromEdge = NBEdgeCont::retrievePossiblySplitted(
-            toString<int>(c->getFromEdgeID()),
-            toString<int>(c->getToEdgeID()),
-            true);
-        toEdge = NBEdgeCont::retrievePossiblySplitted(
-            toString<int>(c->getToEdgeID()),
-            toString<int>(c->getFromEdgeID()),
-            false);
-            continue; // !!!
+			ref++;*/
+            fromEdge = NBEdgeCont::retrievePossiblySplitted(
+                toString<int>(c->getFromEdgeID()),
+                toString<int>(c->getToEdgeID()),
+                true);
+            toEdge = NBEdgeCont::retrievePossiblySplitted(
+                toString<int>(c->getToEdgeID()),
+                toString<int>(c->getFromEdgeID()),
+                false);
+            if(fromEdge==0||toEdge==0) {
+            fromEdge = NBEdgeCont::retrievePossiblySplitted(
+                toString<int>(c->getFromEdgeID()),
+                toString<int>(c->getToEdgeID()),
+                true);
+	    		cout << " Warning: Could not build connection between '"
+		    		<< c->getFromEdgeID() << "' and '"
+			    	<< c->getToEdgeID() << "'." << endl;
+			    ref++;
+                continue;
+            }
         }
+/*
         if(fromEdge==0) {
             // This may occure when some connections were joined
             //  into a node and the connected is outgoing at the very
@@ -390,11 +346,12 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             }
             continue;
         }
+        */
         const IntVector &fromLanes = c->getFromLanes();
         const IntVector &toLanes = c->getToLanes();
         for(IntVector::const_iterator j=fromLanes.begin(); j!=fromLanes.end(); j++) {
             for(IntVector::const_iterator k=toLanes.begin(); k!=toLanes.end(); k++) {
-                fromEdge->addLane2LaneConnection((*j)-1, toEdge, (*k)-1);
+                fromEdge->addLane2LaneConnection((*j), toEdge, (*k));
             }
         }
     }
@@ -437,5 +394,17 @@ NIVissimConnection::dict_assignToEdges()
         NIVissimEdge::dictionary(c->getToEdgeID())->addIncomingConnection((*i).first);
     }
 }
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimConnection.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

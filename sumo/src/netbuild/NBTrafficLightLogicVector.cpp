@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -46,8 +49,8 @@ namespace
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 
-NBTrafficLightLogicVector::NBTrafficLightLogicVector(const EdgeVector &inLanes)
-    : myInLanes(inLanes)
+NBTrafficLightLogicVector::NBTrafficLightLogicVector(const NBConnectionVector &inLanes)
+    : myInLinks(inLanes)
 {
 }
 
@@ -87,7 +90,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 {
     size_t pos = 0;
     for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++, myInLanes);
+        (*i)->writeXML(os, pos++, myInLinks);
     }
 }
 

@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimNodeCluster.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.9  2003/06/05 11:46:57  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <map>
 #include <algorithm>
 #include <cassert>
@@ -86,61 +124,6 @@ NIVissimNodeCluster::contSize()
 
 
 
-void
-NIVissimNodeCluster::assignToEdges()
-{ // !!!!
-/*    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimNodeCluster *c = (*i).second;
-        NIVissimEdgePosMap edges = c->getParticipatingEdgePositions();
-        for(NIVissimEdgePosMap::iterator j=edges.begin(); j!=edges.end(); j++) {
-            NIVissimAbstractEdge *e =
-                NIVissimAbstractEdge::dictionary((*j).first);
-            e->addNodeClusterInformation(c->getID(), (*j).second);
-        }
-    }
-*/
-}
-
-
- // !!!!
-/*
-NIVissimEdgePosMap
-NIVissimNodeCluster::getParticipatingEdgePositions()
-{
-    NIVissimEdgePosMap ret;
-    // add positions from node
-    if(myNodeID>0) {
-        ret.join(NIVissimNodeDef::getParticipatingEdgePositions(myNodeID));
-    }
-    // add positions from the traffic light
-    if(myTLID>0) {
-        ret.join(NIVissimTL::getParticipatingEdgePositions(myTLID));
-    }
-    // add positions from the connectors
-    IntVector::iterator i;
-    for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        ret.join(NIVissimConnection::getParticipatingEdgePositions(*i));
-    }
-    // add positions from the disturbances
-    IntVector::iterator i;
-    for(i=myDisturbances.begin(); i!=myDisturbances.end(); i++) {
-        ret.join(NIVissimDisturbance::getParticipatingEdgePositions(*i));
-    }
-    return ret;
-}
-
-*/
-
-/*
-void
-NIVissimNodeCluster::container_computePositions()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimNodeCluster *c = (*i).second;
-    }
-}
-*/
-
 std::string
 NIVissimNodeCluster::getNodeName() const
 {
@@ -220,30 +203,6 @@ NIVissimNodeCluster::buildNBNode()
     myNBNode = node;
 }
 
-/*
-void
-NIVissimNodeCluster::addNodesEdges()
-{
-    NBNode *node = NBNodeCont::retrieve(toString<int>(myID));
-    // add edges
-    IntVector tmpEdges;
-    for(IntVector::iterator i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
-        int from = c1->getFromEdgeID();
-        NBEdge *fromEdge = NBEdgeCont::retrieve(toString<int>(from));
-        if(find(tmpEdges.begin(), tmpEdges.end(), from)==tmpEdges.end()) {
-            node->addIncomingEdge(fromEdge);
-            tmpEdges.push_back(from);
-        }
-        int to = c1->getToEdgeID();
-        NBEdge *toEdge = NBEdgeCont::retrieve(toString<int>(to));
-        if(find(tmpEdges.begin(), tmpEdges.end(), to)==tmpEdges.end()) {
-            node->addIncomingEdge(toEdge);
-            tmpEdges.push_back(to);
-        }
-    }
-}
-*/
 
 void
 NIVissimNodeCluster::buildNBNodes()
@@ -255,131 +214,12 @@ NIVissimNodeCluster::buildNBNodes()
 
 
 
-bool
-NIVissimNodeCluster::recheckEdgeChanges()
-{
-	/*
-    // do nothing when there is only one way - it is a junction
-    if(myConnectors.size()<=1) {
-        return false;
-    }
-    // We will now try to remove all connections which are not a part of the
-    //  junction's logic. We hope, these are those edges, which do lay within
-    //  the junction (due to overlapping), but have only one connected, following
-    //  edge which has no other predecessors. Further, none of both edges
-    //  must be blocked by any of the other within the junction
-    IntVector::iterator i, j;
-    IntVector connections2Keep;
-    NIVissimConnection *c1, *c2;
-    int from1, from2, to1, to2;
-    // try to find all connections which shall be kept
-    for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        c1 = NIVissimConnection::dictionary(*i);
-        from1 = c1->getFromEdgeID();
-        to1 = c1->getToEdgeID();
-        bool found = false;
-        for(j=i+1; j!=myConnectors.end(); j++) {
-            c2 = NIVissimConnection::dictionary(*j);
-            from2 = c2->getFromEdgeID();
-            to2 = c2->getToEdgeID();
-            if(from1==from2 && to1!=to2) {
-                if(find(connections2Keep.begin(), connections2Keep.end(), *j)==connections2Keep.end()) {
-                    connections2Keep.push_back(*j);
-                    found = true;
-                }
-            }
-        }
-        if(found) {
-            if(find(connections2Keep.begin(), connections2Keep.end(), *i)==connections2Keep.end()) {
-                connections2Keep.push_back(*i);
-            }
-        }
-    }
-    // return when all connections have distinct outgoing and incoming edges
-    if(connections2Keep.size()==myConnectors.size()) {
-        return false;
-    }
-    // it is also possible, that a street is connected with another
-    //  using multiple connectors. In this case, we assume it
-    //  to be a single junction, too
-    c1 = NIVissimConnection::dictionary(*(myConnectors.begin()));
-    from1 = c1->getFromEdgeID();
-    to1 = c1->getToEdgeID();
-    bool allEdgesSame = true;
-    for(i=myConnectors.begin()+1; i!=myConnectors.end()&&allEdgesSame; i++) {
-        c2 = NIVissimConnection::dictionary(*i);
-        if(c2->getFromEdgeID()!=from1 || c2->getToEdgeID()!=to1) {
-            allEdgesSame = false;
-        }
-    }
-    if(allEdgesSame) {
-        return false;
-    }
-    // remove the others, building new node clusters around them
-    for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        j = find(connections2Keep.begin(), connections2Keep.end(), *i);
-        if(j!=connections2Keep.end()) {
-            // go to the next connection if the current shall be kept
-            continue;
-        }
-        // check whether othe connections do connect the same edges
-        c1 = NIVissimConnection::dictionary(*i);
-/!!!*
-        if(c1->interactsWith(myDisturbances)) {
-            // keep the connection if it interacts with any of the node's
-            //  disturbances
-            continue;
-        }
-        *!!!/
-        IntVector allFromThisEdge;
-        allFromThisEdge.push_back(*i);
-        for(j=i+1; j!=myConnectors.end(); j++) {
-            c2 = NIVissimConnection::dictionary(*j);
-            if( c1->getFromEdgeID()==c2->getFromEdgeID()
-                &&
-                c1->getToEdgeID()==c2->getToEdgeID() )
-            {
-                allFromThisEdge.push_back(*j);
-            }
-        }
-        // by now, we assume such connections are not
-        //  disturbed by anything
-        NIVissimNodeCluster::dictionary(-1, -1,
-            allFromThisEdge, IntVector());
-    }
-    myConnectors = connections2Keep;
-	*/
-    return true;
-}
-
-
 void
 NIVissimNodeCluster::dict_recheckEdgeChanges()
 {
     return;
-    /*
-    DictType::iterator i;
-    do {
-        i=myDict.begin();
-        size_t bla = myDict.size();
-        size_t posbla = 0;
-        while(i!=myDict.end()&&!(*i).second->recheckEdgeChanges()) {
-            posbla++;
-            i++;
-        }
-    } while(i!=myDict.end());
-    */
 }
 
-/*
-void
-NIVissimNodeCluster::dict_addNodesEdges()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->addNodesEdges();
-    }
-}
-*/
 
 int
 NIVissimNodeCluster::getFromNode(int edgeid)
@@ -473,6 +313,7 @@ NIVissimNodeCluster::dict_addDisturbances()
             disturbance->addToNode(node);
         }
     }
+    NIVissimDisturbance::reportRefused();
 }
 
 
@@ -491,4 +332,16 @@ NIVissimNodeCluster::setCurrentVirtID(int id)
 {
     myCurrentID = id;
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimNodeCluster.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

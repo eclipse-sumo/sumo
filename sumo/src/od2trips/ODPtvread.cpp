@@ -22,6 +22,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -61,8 +64,8 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
     float start_ini, finish_ini;
 	// read begin and end and convert to seconds
 	fsSrc >> start_ini >> finish_ini;
-	*start = long int(start_ini);
-	*finish = long int(finish_ini);
+	*start = long(start_ini);
+	*finish = long(finish_ini);
 	float rest = 6000 * (start_ini - *start);
 	*start = 3600 * *start + rest;
 	rest = 6000 * (finish_ini - *finish);
@@ -100,3 +103,15 @@ int ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
 	fsSrc.close ();
 	return (ferror);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODPtvread.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

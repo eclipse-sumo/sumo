@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.6  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -49,7 +52,7 @@
 #include <bitset>
 #include <vector>
 #include "NBNode.h"
-#include "NBRequest.h"
+#include "NBTrafficLightDefinition.h"
 #include "NBContHelper.h"
 
 
@@ -66,9 +69,9 @@
 class NBRequestEdgeLinkIterator {
 public:
     /// constructor
-    NBRequestEdgeLinkIterator(const NBRequest * const request,
+    NBRequestEdgeLinkIterator(const NBTrafficLightDefinition * const request,
         bool joinLanes, bool removeTurnArounds,
-        NBRequest::LinkRemovalType removalType);
+        NBTrafficLightDefinition::LinkRemovalType removalType);
 
     /// destructor
     ~NBRequestEdgeLinkIterator();
@@ -114,28 +117,24 @@ public:
     friend std::ostream &operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o);
 
 private:
-    /// returns the information whether the given link is a left-mover
-    bool isLeftMover(const NBRequest * const request,
-        NBEdge *from, NBEdge *to) const;
-
     /// initialises the iterator
-    void init(const NBRequest * const request, bool joinLanes,
-        bool removeTurnArounds, NBRequest::LinkRemovalType removalType);
+    void init(const NBTrafficLightDefinition * const request, bool joinLanes,
+        bool removeTurnArounds, NBTrafficLightDefinition::LinkRemovalType removalType);
 
     /// joins the links of the lane
-    void joinLaneLinksFunc(const EdgeVector * const incoming,
+    void joinLaneLinksFunc(const EdgeVector &incoming,
         bool joinLaneLinks);
 
     /// sets the information whether the link is a valid non-left mover
     void setValidNonLeft(bool removeTurnArounds,
-        NBRequest::LinkRemovalType removalType);
+        NBTrafficLightDefinition::LinkRemovalType removalType);
 
     /// computes the information about validity of all links
     void computeValidLinks();
 
     /// returns the information whether the given link is valid
     bool valid(size_t pos, bool removeTurnArounds,
-        NBRequest::LinkRemovalType removalType);
+        NBTrafficLightDefinition::LinkRemovalType removalType);
 
     /// !!!
     bool internJoinLaneForbids(NBEdge *fromEdge, NBEdge *toEdge) const;
@@ -143,7 +142,7 @@ private:
 
 private:
     /// the request to use
-    const NBRequest * const _request;
+    const NBTrafficLightDefinition * const _request;
 
     /// the list of edges incoming into the regarded junction
     EdgeVector _fromEdges;

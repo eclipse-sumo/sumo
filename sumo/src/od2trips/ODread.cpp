@@ -22,6 +22,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -91,3 +94,15 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, long *maxele,
 	fsSrc.close ();
 	return (ferror);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODread.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

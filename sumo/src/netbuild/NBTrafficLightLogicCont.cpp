@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.3  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -55,8 +58,9 @@ using namespace std;
 /* =========================================================================
  * static member variables
  * ======================================================================= */
-NBTrafficLightLogicCont::ContType NBTrafficLightLogicCont::_cont;
+NBTrafficLightLogicCont::ComputedContType NBTrafficLightLogicCont::_computed;
 
+NBTrafficLightLogicCont::DefinitionContType NBTrafficLightLogicCont::_definitions;
 
 /* =========================================================================
  * method definitions
@@ -65,11 +69,24 @@ bool
 NBTrafficLightLogicCont::insert(const std::string &id,
                                 NBTrafficLightLogicVector *logics)
 {
-    ContType::iterator i=_cont.find(id);
-    if(i!=_cont.end()) {
-        _cont[id]->add(*logics);
+    ComputedContType::iterator i=_computed.find(id);
+    if(i!=_computed.end()) {
+        _computed[id]->add(*logics);
     }
-    _cont[id] = logics;
+    _computed[id] = logics;
+    return true;
+}
+
+
+bool
+NBTrafficLightLogicCont::insert(const std::string &id,
+                                NBTrafficLightDefinition *logics)
+{
+    DefinitionContType::iterator i=_definitions.find(id);
+    if(i!=_definitions.end()) {
+        return false;
+    }
+    _definitions[id] = logics;
     return true;
 }
 
@@ -77,7 +94,7 @@ NBTrafficLightLogicCont::insert(const std::string &id,
 void
 NBTrafficLightLogicCont::writeXML(std::ostream &into)
 {
-    for(ContType::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); i++) {
         (*i).second->writeXML(into);
     }
     into << endl;
@@ -87,10 +104,38 @@ NBTrafficLightLogicCont::writeXML(std::ostream &into)
 void
 NBTrafficLightLogicCont::clear()
 {
-    for(ContType::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); i++) {
         delete (*i).second;
     }
-    _cont.clear();
+    _computed.clear();
+}
+
+
+bool
+NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
+{
+    for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+        // get the definition
+        NBTrafficLightDefinition *def = (*i).second;
+        // and insert the result after coputation
+        if(!insert((*i).first, def->compute(oc))) {
+            // should not happen
+            throw 1;
+        }
+    }
+    return true;
+}
+
+
+void
+NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
+                                      const EdgeVector &outgoing)
+{
+    for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+        // get the definition
+        NBTrafficLightDefinition *def = (*i).second;
+        def->remapRemoved(removed, incoming, outgoing);
+    }
 }
 
 

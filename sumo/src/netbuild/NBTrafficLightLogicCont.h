@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -36,24 +39,63 @@
 #include <map>
 #include <string>
 #include "NBTrafficLightLogicVector.h"
+#include "NBTrafficLightDefinition.h"
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class OptionsCont;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class NBTrafficLightLogicCont
+ * This container class holds definitions of traffic light logics during
+ * the loading of the network. After all information has been loaded, these
+ * definitions are used to build the traffic light logics.
+ * The build traffic light logics are saved within this container during their
+ * building and written to the network file at the end.
  */
 class NBTrafficLightLogicCont {
-private:
-    typedef std::map<std::string, NBTrafficLightLogicVector*> ContType;
-    static ContType _cont;
 public:
+    /// inserts a named logic definition into the container
     static bool insert(const std::string &id,
-        NBTrafficLightLogicVector *logics);
+        NBTrafficLightDefinition *logics);
+
+    /// computes the traffic light logics using the definitions and stores the results
+    static bool computeLogics(OptionsCont &oc);
+
     /// saves all known logics
     static void writeXML(std::ostream &into);
+
     /// destroys all stored logics
     static void clear();
+
+    static void remapRemoved(NBEdge *removed,
+        const EdgeVector &incoming, const EdgeVector &outgoing);
+
+private:
+    /// inserts a named logic into the container
+    static bool insert(const std::string &id,
+        NBTrafficLightLogicVector *logics);
+
+
+private:
+    /// Definition of the container type for tl-ids to previously computed logics
+    typedef std::map<std::string, NBTrafficLightLogicVector*> ComputedContType;
+
+    /// The container for previously computed tl-logics
+    static ComputedContType _computed;
+
+    /// Definition of the container type for tl-ids to their definitions
+    typedef std::map<std::string, NBTrafficLightDefinition*> DefinitionContType;
+
+    /// The container for tl-ids to their definitions
+    static DefinitionContType _definitions;
+
 };
 
 

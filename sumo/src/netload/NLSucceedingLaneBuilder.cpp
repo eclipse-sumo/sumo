@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/05 11:52:27  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.2  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -62,6 +65,7 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
+#include <microsim/MSTrafficLightLogic.h>
 #include "NLNetBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -95,17 +99,36 @@ NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 }
 
 void
-NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId)
+NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
+                                     const std::string &tlid, size_t linkNo)
 {
+    // check whether the link is a dead link
     if(laneId=="SUMO_NO_DESTINATION") {
+        // build the dead link and add it to the container
         m_SuccLanes->push_back(new MSLink(0, 0));
-    } else {
-        MSLane *lane = MSLane::dictionary(laneId);
-        if(lane==0) {
-            throw XMLIdNotKnownException("lane", laneId);
-        }
-        m_SuccLanes->push_back(new MSLink(lane, yield));
+        return;
     }
+    // get the lane the link belongs to
+    MSLane *lane = MSLane::dictionary(laneId);
+    if(lane==0) {
+        throw XMLIdNotKnownException("lane", laneId);
+    }
+    // check whether this link is controlled by a trafiic light
+    MSTrafficLightLogic *logic = 0;
+    if(tlid!="") {
+        logic = MSTrafficLightLogic::dictionary(tlid);
+        if(logic==0) {
+            throw XMLIdNotKnownException("tl-logic", tlid);
+        }
+    }
+    // build the link
+    MSLink *link = new MSLink(lane, yield);
+    // if a traffic light is responsible for it, inform the traffic light
+    if(logic!=0) {
+        logic->addLink(link, linkNo);
+    }
+    // add the link to the container
+    m_SuccLanes->push_back(link);
 }
 
 void

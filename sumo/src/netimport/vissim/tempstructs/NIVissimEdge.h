@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.6  2003/05/20 09:43:12  dkrajzew
 // further work on vissim-import
 //
@@ -117,21 +120,21 @@ public:
     static void buildConnectionClusters();
 
     /// Builds NBEdges from the VissimEdges within the dictionary
-    static void dict_buildNBEdges();
+    static void dict_buildNBEdges(double offset);
 
 
 private:
     /// Builds the NBEdge from this VissimEdge
-    void buildNBEdge();
+    void buildNBEdge(double offset);
 
     /// Returns the origin node
-    NBNode *getFromNode();
+    std::pair<bool, NBNode*> getFromNode();
 
     /// Returns the destination node
-    NBNode *getToNode();
+    std::pair<bool, NBNode*> getToNode();
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
-    std::pair<NBNode*, NBNode*> resolveSameNode();
+    std::pair<NBNode*, NBNode*> resolveSameNode(double offset);
 
 private:
     static NBNode *getNodeSecure(int nodeid, const Position2D &pos,

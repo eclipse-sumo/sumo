@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.13  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -119,6 +122,7 @@
 class NBRequest;
 class NBDistrict;
 class OptionsCont;
+class NBTrafficLightDefinition;
 
 
 /* =========================================================================
@@ -165,85 +169,6 @@ public:
 
     };
 
-    enum TLColor {
-        TLCOLOR_UNKNOWN,
-        TLCOLOR_RED,
-        TLCOLOR_YELLOW,
-        TLCOLOR_REDYELLOW,
-        TLCOLOR_GREEN,
-        TLCOLOR_BLINK,
-        TLCOLOR_BLUE // :-)
-    };
-
-
-    class SignalGroup
-        : public Named {
-    public:
-        SignalGroup(const std::string &id);
-        ~SignalGroup();
-        void addConnection(const NBConnection &c);
-        void addPhaseBegin(double time, TLColor color);
-        void setYellowTimes(double tRedYellowe, double tYellow);
-        DoubleVector getTimes() const;
-        void sortPhases();
-        size_t getLinkNo() const;
-        bool mayDrive(double time) const;
-        bool mustBrake(double time) const;
-        bool containsConnection(NBEdge *from, NBEdge *to) const;
-
-        friend class phase_by_time_sorter;
-
-    private:
-        class PhaseDef {
-        public:
-            PhaseDef(double time, TLColor color)
-                : myTime(time), myColor(color) { }
-            PhaseDef(const PhaseDef &p)
-                : myTime(p.myTime), myColor(p.myColor) { }
-            double myTime;
-            TLColor myColor;
-        };
-
-        class phase_by_time_sorter {
-        public:
-            /// constructor
-            explicit phase_by_time_sorter() { }
-
-            int operator() (const PhaseDef &p1, const PhaseDef &p2) {
-                return p1.myTime<p2.myTime;
-            }
-        };
-
-        NBConnectionVector myConnections;
-        typedef std::vector<PhaseDef> GroupsPhases;
-        GroupsPhases myPhases;
-        double myTRedYellow, myTYellow;
-        size_t myNoLinks;
-    };
-
-    class Phase
-        : public Named {
-    public:
-        Phase(const std::string &id, size_t begin, size_t end);
-        ~Phase();
-/*        void addSignalGroupColor(const std::string &signalgroup,
-            TLColor color);*/
-    private:
-        std::string mySignalGroup;
-        int myBegin, myEnd;
-        typedef std::map<std::string, TLColor> SignalGroupColorMap;
-        SignalGroupColorMap _groupColors;
-    };
-
-    /// Definition of the container for signal groups
-    typedef std::map<std::string, SignalGroup*> SignalGroupCont;
-
-    class NodesPhases {
-    public:
-        NodesPhases();
-        ~NodesPhases();
-
-    };
 
     /** internal type for no-junction */
     static const int TYPE_NOJUNCTION;
@@ -364,26 +289,20 @@ public:
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
 
-    void setCycleDuration(size_t cycleDur);
-    void addSignalGroup(const std::string &id);
-    void addToSignalGroup(const std::string &groupid,
-        const NBConnection &connection);
-    void addToSignalGroup(const std::string &groupid,
-        const NBConnectionVector &connections);
-    void addSignalGroupPhaseBegin(const std::string &groupid,
-        double time, TLColor color);
-    void setSignalYellowTimes(const std::string &groupid,
-        double tRedYellowe, double tYellow);
-
     /** sets the type of the junction */
     void setType(int type);
 
 
+    bool isLeftMover(NBEdge *from, NBEdge *to) const;
 
 
 	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
-    SignalGroup *findGroup(NBEdge *from, NBEdge *to);
+    /** returns the information whether the connections from1->to1 and
+        from2->to2 are foes */
+    bool forbidden(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+
+    void addTrafficLight(NBTrafficLightDefinition *tld);
 
     friend class NBNodeCont;
 
@@ -467,6 +386,7 @@ private:
     void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by);
 
 
+    void remapRemoved(NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
 private:
     /** the name of the node */
@@ -502,11 +422,9 @@ private:
     /// the (outer) shape of the junction
     Position2DVector myPoly;
 
-    SignalGroupCont mySignalGroups;
-
-    size_t myCycleDuration;
-
 	NBRequest *_request;
+
+    std::vector<NBTrafficLightDefinition*> myTrafficLights;
 
 private:
     /** invalid copy constructor */
@@ -514,6 +432,7 @@ private:
 
     /** invalid assignment operator */
     NBNode &operator=(const NBNode &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

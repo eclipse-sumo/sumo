@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.13  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -109,7 +112,6 @@ namespace
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBNode.h"
-#include "NBRequestEdgeLinkIterator.h"
 #include "NBRequest.h"
 
 
@@ -207,18 +209,9 @@ NBRequest::buildBitfieldLogic(const std::string &key)
 {
     EdgeVector::const_iterator i, j;
     for(i=_incoming->begin(); i!=_incoming->end(); i++) {
-//        const EdgeVector &connected = (*i)->getConnected();
         for(j=_outgoing->begin(); j!=_outgoing->end(); j++) {
             computeRightOutgoingLinkCrossings(*i, *j);
             computeLeftOutgoingLinkCrossings(*i, *j);
-/*	EdgeVector::const_iterator i2, j2;
-    for(i2=_incoming->begin(); i2!=_incoming->end(); i2++) {
-        for(j2=_outgoing->begin(); j2!=_outgoing->end(); j2++) {
-			if(*i!=*i2||*j!=*j2) {
-				setBlocking(*i, *j, *i2, *j2);
-			}
-        }
-    }*/
         }
     }
     NBJunctionLogicCont::add(key, bitsetToXML(key));
@@ -354,11 +347,13 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         return;
     }
     // connection2 forbids proceeding on connection1
-    if(dg<du)
+    if(dg<du) {
         _forbids[idx2][idx1] = true;
+    }
     // connection1 forbids proceeding on connection2
-    if(dg>du)
+    if(dg>du) {
         _forbids[idx1][idx2] = true;
+    }
 }
 
 
@@ -369,11 +364,13 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to)
     size_t ret = 0;
     while(true) {
         ret++;
-        if(p==_all->begin())
+        if(p==_all->begin()) {
             p = _all->end();
+        }
         p--;
-        if((*p)==to)
+        if((*p)==to) {
             return ret;
+        }
     }
 }
 
@@ -423,240 +420,6 @@ NBRequest::getSizes() const
     }
     return pair<size_t, size_t>(noLanes, noLinks);
 }
-
-
-int
-NBRequest::buildTrafficLight(const std::string &key,
-                             const NBNode::SignalGroupCont &defs,
-                             size_t cycleTime, size_t breakingTime,
-                             bool buildAll) const
-{
-    NBTrafficLightLogicVector *logics = defs.size()!=0
-        ? buildLoadedTrafficLights(key, defs, cycleTime)
-        : buildOwnTrafficLights(key, breakingTime, buildAll);
-    NBTrafficLightLogicCont::insert(key, logics);
-    return logics->size();
-}
-
-
-
-NBTrafficLightLogicVector *
-NBRequest::buildLoadedTrafficLights(const std::string &key,
-                                    const NBNode::SignalGroupCont &defs,
-                                    size_t cycleTime) const
-{
-	if(_junction->getID()=="334LSA 178") {
-		int bla = 0;
-	}
-    // sort the phases
-    NBNode::SignalGroupCont::const_iterator i;
-/*    for(i=defs.begin(); i!=defs.end(); i++) {
-        (*i).second->sortPhases();
-    }
-*/
-    // compute the switching times
-    std::set<double> tmpSwitchTimes;
-    for(i=defs.begin(); i!=defs.end(); i++) {
-        NBNode::SignalGroup *group = (*i).second;
-        DoubleVector gtimes = group->getTimes();
-        for(DoubleVector::const_iterator k=gtimes.begin(); k!=gtimes.end(); k++) {
-            tmpSwitchTimes.insert(*k);
-        }
-    }
-    std::vector<double> switchTimes;
-    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
-        back_inserter(switchTimes));
-    sort(switchTimes.begin(), switchTimes.end());
-
-	if(_junction->getID()=="334LSA 178") {
-		int bla = 0;
-	/// !!! debug-out
-	cout << "SwitchTimes:";
-	for(std::vector<double>::iterator p=switchTimes.begin(); p!=switchTimes.end(); p++) {
-		if(p!=switchTimes.begin()) {
-			cout << ", ";
-		}
-		cout << *p;
-	}
-	cout << endl;
-	/// !!! debug-out
-	}
-
-    // count the links (!!!)
-    size_t noLinks = 0;
-    for(i=defs.begin(); i!=defs.end(); i++) {
-        noLinks += (*i).second->getLinkNo();
-    }
-
-    // build the phases
-    NBTrafficLightLogic *logic =
-        new NBTrafficLightLogic(key, noLinks);
-    for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
-        // compute the duration of the current phase
-        size_t duration;
-        if(l!=switchTimes.end()-1) {
-            // get from the difference to the next switching time
-            duration = (size_t) ((*(l+1)) - (*l));
-        } else {
-            // get from the differenc to the first switching time
-            duration = (size_t) (cycleTime - (*l) + *(switchTimes.begin())) ;
-        }
-        std::pair<std::bitset<64>, std::bitset<64> > masks =
-            buildPhaseMasks(defs, *l);
-        logic->addStep(duration, masks.first, masks.second, std::bitset<64>()); // !!! yellow ligh is not considered!!!
-    }
-    // returns the build logic
-    NBTrafficLightLogicVector *ret =
-        new NBTrafficLightLogicVector(*_incoming);
-    ret->add(logic);
-    return ret;
-}
-
-
-std::pair<std::bitset<64>, std::bitset<64> >
-NBRequest::buildPhaseMasks(const NBNode::SignalGroupCont &defs,
-                           size_t time) const
-{
-    NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
-    // set the masks
-    std::bitset<64> driveMask;
-    std::bitset<64> brakeMask;
-    size_t pos = 0;
-    do {
-        NBEdge *fromEdge = cei1.getFromEdge();
-        NBEdge *toEdge = cei1.getToEdge();
-        NBNode::SignalGroup *group =
-            _junction->findGroup(fromEdge, toEdge);
-        if(group==0) {
-            driveMask[pos] = false;
-            brakeMask[pos] = true;
-        } else {
-            driveMask[pos] = group->mayDrive(time);
-            brakeMask[pos] = true; // !!! cei1.getBrakeNeeded(defs, *l);
-        }
-        pos++;
-    } while(cei1.pp());
-    return std::pair<std::bitset<64>, std::bitset<64> >(driveMask, brakeMask);
-}
-
-
-NBTrafficLightLogicVector *
-NBRequest::buildOwnTrafficLights(const std::string &key,
-                                 size_t breakingTime,
-                                 bool buildAll) const
-{
-    bool appendSmallestOnly = true;
-    bool skipLarger = true;
-
-    bool joinLaneLinks = false;
-    bool removeTurnArounds = true;
-    LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
-    NBTrafficLightLogicVector *logics1 =
-        computeTrafficLightLogics(key,
-            joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger, breakingTime);
-
-    if(buildAll) {
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_NO_REMOVAL;
-        NBTrafficLightLogicVector *logics2 =
-            computeTrafficLightLogics(key,
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
-
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_REMOVE_ALL_LEFT;
-        NBTrafficLightLogicVector *logics3 =
-            computeTrafficLightLogics(key,
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
-
-        // join build logics
-        logics1->add(*logics2);
-        logics1->add(*logics3);
-        delete logics2;
-        delete logics3;
-    }
-    return logics1;
-}
-
-
-NBTrafficLightLogicVector *
-NBRequest::computeTrafficLightLogics(const std::string &key,
-                                     bool joinLaneLinks,
-                                     bool removeTurnArounds,
-                                     LinkRemovalType removal,
-                                     bool appendSmallestOnly,
-                                     bool skipLarger,
-                                     size_t breakingTime) const
-{
-    // compute the matrix of possible links x links
-    //  (links allowing each other the parallel execution)
-    NBLinkPossibilityMatrix *v = getPossibilityMatrix(joinLaneLinks,
-        removeTurnArounds, removal);
-    // get the number of regarded links
-    NBRequestEdgeLinkIterator cei1(this,
-        joinLaneLinks, removeTurnArounds, removal);
-    size_t maxStromAnz = cei1.getNoValidLinks();
-
-#ifdef TL_DEBUG
-    if(maxStromAnz>=10) {
-        cout << _junction->getID() << ":" << maxStromAnz << endl;
-    }
-#endif
-
-    // compute the link cliquen
-    NBLinkCliqueContainer cliquen(v, maxStromAnz);
-    // compute the phases
-    NBTrafficLightPhases *phases = cliquen.computePhases(v,
-        maxStromAnz, appendSmallestOnly, skipLarger);
-    // compute the possible logics
-    NBTrafficLightLogicVector *logics =
-        phases->computeLogics(key, getSizes().second, cei1,
-        *_incoming, breakingTime);
-    // clean everything
-    delete v;
-    delete phases;
-    return logics;
-}
-
-
-std::vector<std::bitset<64> > *
-NBRequest::getPossibilityMatrix(bool joinLaneLinks,
-                                bool removeTurnArounds,
-                                LinkRemovalType removalType) const
-{
-    size_t noEdges = _incoming->size();
-    // go through all links
-    NBRequestEdgeLinkIterator cei1(this, joinLaneLinks, removeTurnArounds,
-        removalType);
-    std::vector<std::bitset<64> > *ret =
-        new std::vector<std::bitset<64> >(cei1.getNoValidLinks(),
-        std::bitset<64>());
-    do {
-        assert(ret!=0 && cei1.getLinkNumber()<ret->size());
-        (*ret)[cei1.getLinkNumber()].set(cei1.getLinkNumber(), 1);
-        NBRequestEdgeLinkIterator cei2(cei1);
-        if(cei2.pp()) {
-            do {
-                if(cei1.forbids(cei2)) {
-                    assert(ret!=0 && cei1.getLinkNumber()<ret->size());
-                    assert(ret!=0 && cei2.getLinkNumber()<ret->size());
-                    (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 0);
-                    (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 0);
-                } else {
-                    (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 1);
-                    (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 1);
-                }
-            } while(cei2.pp());
-        }
-    } while(cei1.pp());
-    return ret;
-}
-
-
 
 
 bool
@@ -795,6 +558,46 @@ NBRequest::reportWarnings()
             << endl;
     }
 }
+
+/*
+bool
+NBRequest::isLeftMover(const NBTrafficLightDefinition * const request,
+                       NBEdge *from, NBEdge *to) const
+{
+    // the destination edge may be unused
+    if(to==0) {
+        return false;
+    }
+    // when the junction has only one incoming edge, there are no
+    //  problems caused by left blockings
+    if(request->_incoming.size()==1) {
+        return false;
+    }
+    // now again some heuristics...
+    //  how to compute whether an edge is going to the left in the meaning,
+    //  that it crosses the opposite straight direction?!
+    vector<NBEdge*> incoming(request->_incoming);
+    sort(incoming.begin(), incoming.end(),
+        NBContHelper::edge_opposite_direction_sorter(from));
+    NBEdge *opposite = *(incoming.begin());
+    assert(opposite!=from);
+    EdgeVector::const_iterator i =
+        find(request->_all->begin(), request->_all->end(), from);
+    i = NBContHelper::nextCW(request->_all, i);
+    while(true) {
+        if((*i)==opposite) {
+            return false;
+        }
+        if((*i)==to) {
+            return true;
+        }
+        i = NBContHelper::nextCW(request->_all, i);
+    }
+    return false;
+}
+
+
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

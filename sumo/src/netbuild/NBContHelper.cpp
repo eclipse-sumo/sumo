@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/05 11:43:34  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.5  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -95,7 +98,8 @@ using namespace std;
  * utility methods
  * ----------------------------------------------------------------------- */
 EdgeVector::const_iterator
-NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from) {
+NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from)
+{
     from++;
     if(from==edges->end()) {
         return edges->begin();
@@ -105,7 +109,8 @@ NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from) 
 
 
 EdgeVector::const_iterator
-NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator from) {
+NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator from)
+{
   if(from==edges->begin())
     return edges->end() - 1;
   return --from;
@@ -113,7 +118,8 @@ NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator from)
 
 
 int
-NBContHelper::countPriorities(const EdgeVector &s) {
+NBContHelper::countPriorities(const EdgeVector &s)
+{
     if(s.size()==0)
         return 0;
     map<int, int> knownPrios;
@@ -186,6 +192,41 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
         }
     }
     return angle;
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * methods from node_with_incoming_finder
+ * ----------------------------------------------------------------------- */
+NBContHelper::node_with_incoming_finder::node_with_incoming_finder(NBEdge *e)
+    : _edge(e)
+{
+}
+
+
+bool
+NBContHelper::node_with_incoming_finder::operator() (const NBNode * const n) const
+{
+    const EdgeVector &incoming = n->getIncomingEdges();
+    return std::find(incoming.begin(), incoming.end(), _edge)!=incoming.end();
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * methods from node_with_incoming_finder
+ * ----------------------------------------------------------------------- */
+NBContHelper::edgelane_finder::edgelane_finder(NBEdge *toEdge, size_t toLane)
+    : myDestinationEdge(toEdge), myDestinationLane(toLane)
+{
+}
+
+
+bool
+NBContHelper::edgelane_finder::operator() (const EdgeLane &el) const
+{
+    return el.edge==myDestinationEdge && el.lane ==  myDestinationLane;
 }
 
 

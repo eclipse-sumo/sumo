@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimNodeDef.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.8  2003/06/05 11:46:57  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <iostream> // !!! debug
 #include <cassert>
 #include "NIVissimNodeDef.h"
@@ -48,61 +86,6 @@ NIVissimNodeDef::dictionary(int id)
 }
 
 /*
-int
-NIVissimNodeDef::searchAndSetMatchingTLParent(int tlID,
-        const NIVissimExtendedEdgePointVector &edges)
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->trafficLightMatches(edges)) {
-            (*i).second->setTL(tlID);
-            return (*i).second->myID;
-        }
-    }
-    return -1;
-}
-
-
-void
-NIVissimNodeDef::setTL(int tlID)
-{
-    myTLID = tlID;
-}
-
-
-
-int
-NIVissimNodeDef::searchAndSetMatchingConnectionParent(int connID,
-                                                      int fromEdge,
-                                                      int toEdge)
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->connectionMatches(fromEdge, toEdge)) {
-            (*i).second->addConnection(connID);
-            return (*i).second->myID;
-        }
-    }
-    return -1;
-}
-
-
-void
-NIVissimNodeDef::addConnection(int connID)
-{
-    myConnections.push_back(connID);
-}
-
-
-void
-NIVissimNodeDef::assignDisturbances()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->assignDisturbancesToNode();
-    }
-}
-
-*/
-
-
 void
 NIVissimNodeDef::buildNodeClusters()
 {
@@ -110,40 +93,7 @@ NIVissimNodeDef::buildNodeClusters()
         int cluster = (*i).second->buildNodeCluster();
     }
 }
-
-
-int
-NIVissimNodeDef::buildNodeCluster()
-{
-    bool changed = true;
-    int id = -1;
-	/*
-    while(changed) {
-        assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
-        IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
-        IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
-        IntVector tls = NIVissimTL::getWithin(*myBoundery, 5.0);
-        if(tls.size()>1) {
-            cout << "NIVissimNodeDef: more than a single signal" << endl;
-            throw 1;
-        }
-        int tlid = -1;
-        if(tls.size()!=0) {
-            tlid = tls[0];
-        }
-        id = NIVissimNodeCluster::dictionary(myID, tlid, connectors,
-            disturbances);
-        IntVector::iterator i;
-        for(i=connectors.begin(); i!=connectors.end(); i++) {
-            NIVissimConnection::dictionary(*i)->inCluster(id);
-        }
-        for(i=disturbances.begin(); i!=disturbances.end(); i++) {
-            NIVissimDisturbance::dictionary(*i)->inCluster(id);
-        }
-    }
-	*/
-    return id;
-}
+*/
 
 
 
@@ -201,3 +151,15 @@ NIVissimNodeDef::getMaxID()
 {
     return myMaxID;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimNodeDef.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

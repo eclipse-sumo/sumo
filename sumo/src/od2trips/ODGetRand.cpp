@@ -28,6 +28,9 @@
  *                                                                         *
  ***************************************************************************/
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <cstdlib>
 # include <ctime>
 # include <cmath>
@@ -92,4 +95,16 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	}
 	return (number);
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODGetRand.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

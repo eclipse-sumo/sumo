@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        NBTrafficLightLogic.cpp -  ccc
+//                        NBTrafficLightLogic.cpp -
+//  A single traffic light logic (a possible variant)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -22,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.7  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -41,8 +45,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -99,26 +101,25 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 void
 NBTrafficLightLogic::writeXML(ostream &into, size_t no,
-                              const EdgeVector &inLanes) const
+                              const NBConnectionVector &inLinks) const
 {
     into << "   <tl-logic type=\"static\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
+/*
     // write the inlanes
-    into << "      <inlanes>";
+    into << "      <inlinks>";
     bool first = true;
-    for(EdgeVector::const_iterator j=inLanes.begin(); j!=inLanes.end(); j++) {
-        size_t noLanes = (*j)->getNoLanes();
-        for(size_t k=0; k<noLanes; k++) {
-            if(!first) {
-                into << " ";
-            }
-            first = false;
-            into << (*j)->getID() << "_" << k;
+    for(NBConnectionVector::const_iterator j=inLinks.begin(); j!=inLinks.end(); j++) {
+        if(!first) {
+            into << " ";
         }
+        first = false;
+        into << (*j).getID();
     }
-    into << "</inlanes>" << endl;
+    into << "</inlinks>" << endl;
+    */
     // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {

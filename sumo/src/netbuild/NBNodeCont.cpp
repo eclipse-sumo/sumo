@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.14  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -267,9 +270,6 @@ NBNodeCont::normaliseNodePositions(bool verbose)
     Boundery boundery;
     NodeCont::iterator i;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
-        if((*i).second->getXCoordinate()<0||(*i).second->getYCoordinate()<0) {
-            int bla = 0;
-        }
         boundery.add((*i).second->getXCoordinate(),
             (*i).second->getYCoordinate());
     }

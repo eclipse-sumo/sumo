@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/06/05 11:52:26  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.6  2003/03/19 08:07:33  dkrajzew
 // bugs and syntactical faults arised during compilation on Linux removed
 //
@@ -98,6 +101,7 @@ class MSJunctionLogic;
 class MSEventControl;
 class MSRouteLoaderControl;
 class OptionsCont;
+class MSTrafficLightLogic;
 
 /* =========================================================================
  * class definitions
@@ -199,7 +203,8 @@ public:
     //void setSuccJunction(const std::string &junctionId);
 
     /// add a succeeding lane
-    void addSuccLane(bool yield, const std::string &laneId);
+    void addSuccLane(bool yield, const std::string &laneId,
+        const std::string &tlid="", size_t linkNo=0);
 
     /// closes the building
     void closeSuccLane();
@@ -222,6 +227,9 @@ public:
     /// Returns the list of the current incoming lanes
     const std::vector<MSLane*> &getInLanes() const;
 
+
+    /// Adds a build traffic light logic
+    void addTLLogic(MSTrafficLightLogic *logic);
 
     // ----- interfaces for the generation of detectors
     /// adds a new detector to the simulation
@@ -286,6 +294,9 @@ protected:
 
     /// the later-used event controller
     MSEventControl          *m_EventControl;
+
+    /// The list of traffic light logics build
+    std::vector<MSTrafficLightLogic*> myLogics;
 
     /// the number of edges inside the net
     int noEdges;

@@ -23,8 +23,8 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.9  2003/06/05 10:21:56  roessel
-// In ctor: set m_EventControl = 0. First guess because of modified MSEventControl. Needs additional discussion.
+// Revision 1.10  2003/06/05 11:52:26  dkrajzew
+// class templates applied; documentation added
 //
 // Revision 1.8  2003/05/27 18:27:59  roessel
 // Access EventControl via singleton-mechanism in ctor.
@@ -120,6 +120,7 @@ namespace
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSRouteLoaderControl.h>
+#include <microsim/MSTLLogicControl.h>
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLNetBuilder.h"
@@ -357,9 +358,10 @@ NLContainer::openSuccLane(const string &laneId)
 
 
 void
-NLContainer::addSuccLane(bool yield, const string &laneId)
+NLContainer::addSuccLane(bool yield, const string &laneId,
+                         const std::string &tlid, size_t linkNo)
 {
-    m_pSLB->addSuccLane(yield, laneId);
+    m_pSLB->addSuccLane(yield, laneId, tlid, linkNo);
 }
 
 
@@ -443,9 +445,8 @@ NLContainer::buildMSNet(const OptionsCont &options)
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-    MSNet::init( m_Id, edges, junctions,
-                 m_pDetectors,
-                 routeLoaders);
+    MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
+    MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
     return MSNet::getInstance();
 }
 
@@ -504,6 +505,14 @@ NLContainer::getInLanes() const
     return m_pJCB->getInLanes();
 }
 
+
+void
+NLContainer::addTLLogic(MSTrafficLightLogic *logic)
+{
+    myLogics.push_back(logic);
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NLContainer.icc"
@@ -511,6 +520,5 @@ NLContainer::getInLanes() const
 
 // Local Variables:
 // mode:C++
-// End:
-
+//
 

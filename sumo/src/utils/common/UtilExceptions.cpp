@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/05 11:54:48  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.3  2003/04/04 15:42:42  roessel
 // Added throw() to several declarations/definitons.
 //
@@ -84,7 +87,7 @@ using namespace std;
  * InvalidArgument - methods
  * ----------------------------------------------------------------------- */
 InvalidArgument::InvalidArgument(const string &msg)
-    : exception(), _msg(msg)
+    : _msg(msg)
 {
 }
 
@@ -105,7 +108,6 @@ const string &InvalidArgument::msg()
  * ProcessError - methods
  * ----------------------------------------------------------------------- */
 ProcessError::ProcessError()
-    : exception()
 {
 }
 
@@ -120,7 +122,7 @@ ProcessError::~ProcessError() throw()
  * UnsupportedFeature - methods
  * ----------------------------------------------------------------------- */
 UnsupportedFeature::UnsupportedFeature(const string &message)
-    : exception(), _message(message)
+    : _message(message)
 {
 }
 

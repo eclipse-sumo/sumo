@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/06/05 11:54:49  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.3  2003/04/04 15:42:41  roessel
 // Added throw() to several declarations/definitons.
 //
@@ -64,12 +67,16 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+class UtilException : public std::exception {
+};
+
+
 /**
  * InvalidArgument
  * Thrown when an argument was not proper in the current context
  * A message will be supplied
  */
-class InvalidArgument : public std::exception {
+class InvalidArgument : public UtilException {
 public:
     /** constructor */
     InvalidArgument(const std::string &msg);
@@ -95,7 +102,7 @@ private:
  * longer able to proceed due to any reason. The reason itself is mostly
  * reported before throwing the exception
  */
-class ProcessError : public std::exception {
+class ProcessError : public UtilException {
 public:
     /** constructor */
     ProcessError();
@@ -114,7 +121,7 @@ public:
  * An exception that is thrown when an (yet) unsupported class or
  * feature shall be instantiated
  */
-class UnsupportedFeature : public std::exception {
+class UnsupportedFeature : public UtilException {
 public:
     /** constructor */
     UnsupportedFeature(const std::string &message);
@@ -139,7 +146,7 @@ private:
  * EmptyData
  * Thrown when data required by a method is missing
  */
-class EmptyData : public std::exception {
+class EmptyData : public UtilException {
 public:
     /** constructor */
     EmptyData() { }
@@ -159,7 +166,7 @@ public:
  * numerical representation has any other chracters then
  * digits and a dot
  */
-class NumberFormatException : public std::exception {
+class NumberFormatException : UtilException {
 public:
     /** constructor */
     NumberFormatException() { }
@@ -179,7 +186,7 @@ public:
  * Thrown when an array element out of the array's
  * bounderies is accessed
  */
-class OutOfBoundsException : public std::exception {
+class OutOfBoundsException : UtilException {
 public:
     /** constructor */
     OutOfBoundsException() { }
@@ -198,7 +205,7 @@ public:
  * Thrown when a named element is tried to be accesed
  * which is not known to the container
  */
-class UnknownElement : public std::exception {
+class UnknownElement : UtilException {
 public:
     /** constructor */
     UnknownElement() { }

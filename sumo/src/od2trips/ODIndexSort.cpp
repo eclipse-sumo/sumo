@@ -210,3 +210,15 @@ void IndexSort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 the_len)
 {
 	Qsort(This, iax, fun_ptr, 0, the_len - 1);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODIndexSort.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

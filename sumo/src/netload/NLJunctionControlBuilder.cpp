@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/05 11:52:27  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.5  2003/04/01 15:17:45  dkrajzew
 // district-typed junctions added
 //
@@ -78,7 +81,7 @@ namespace
 #include <microsim/MSNoLogicJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSTrafficLightJunction.h>
+//#include <microsim/MSTrafficLightJunction.h>
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
@@ -178,6 +181,7 @@ NLJunctionControlBuilder::closeJunction()
         break;
     case TYPE_TRAFFIC_LIGHT:
         junction = buildTrafficLightJunction();
+        throw 1;
         break;
     case TYPE_RIGHT_BEFORE_LEFT:
     case TYPE_PRIORITY_JUNCTION:
@@ -232,6 +236,8 @@ NLJunctionControlBuilder::buildLogicJunction()
 MSJunction *
 NLJunctionControlBuilder::buildTrafficLightJunction()
 {
+    throw 1;
+    /*
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     MSRightOfWayJunction::InLaneCont cont = getInLaneContSecure();
     // get the traffic light logic
@@ -242,6 +248,7 @@ NLJunctionControlBuilder::buildTrafficLightJunction()
     // build the junction
     return new MSTrafficLightJunction(m_CurrentId, m_X, m_Y, cont, jtype,
         tlLogic, m_Delay, m_InitStep, m_Container->getEventControl());
+        */
 }
 
 

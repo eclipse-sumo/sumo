@@ -1,7 +1,8 @@
 #ifndef NBTrafficLightLogic_h
 #define NBTrafficLightLogic_h
 //---------------------------------------------------------------------------//
-//                        NBTrafficLightLogic.h -  ccc
+//                        NBTrafficLightLogic.h -
+//  A single traffic light logic (a possible variant)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -19,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.7  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -52,7 +56,7 @@
 #include <bitset>
 #include <utility>
 #include <iostream>
-#include "NBCont.h"
+#include "NBConnectionDefs.h"
 
 
 /* =========================================================================
@@ -82,7 +86,7 @@ public:
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
     void writeXML(std::ostream &into, size_t no,
-        const EdgeVector &inLanes) const;
+        const NBConnectionVector &inLinks) const;
 
     /// Debug method showing the phases
     void _debugWritePhases() const;

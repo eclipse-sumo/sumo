@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/05 11:43:36  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.9  2003/05/21 15:18:19  dkrajzew
 // yellow traffic lights implemented
 //
@@ -66,6 +69,7 @@ namespace
 #include "NBTrafficLightLogicVector.h"
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBTrafficLightPhases.h"
+#include "NBLinkCliqueContainer.h"
 
 using namespace std;
 
@@ -173,10 +177,10 @@ NBTrafficLightLogicVector *
 NBTrafficLightPhases::computeLogics(const std::string &key,
                                     size_t noLinks,
                                     const NBRequestEdgeLinkIterator &cei1,
-                                    const EdgeVector &inLanes,
+                                    const NBConnectionVector &inLinks,
                                     size_t breakingTime) const
 {
-    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(inLanes);
+    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(inLinks);
     for(size_t i=0; i<_phasesVectorsByLength.size(); i++) {
         for(size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
             ret->add(

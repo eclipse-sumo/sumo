@@ -1,5 +1,37 @@
 #ifndef NIVissimConnectionCluster_h
 #define NIVissimConnectionCluster_h
+//---------------------------------------------------------------------------//
+//                        NIVissimConnectionCluster.h -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.7  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 
 #include <iostream>
 #include <vector>
@@ -7,6 +39,9 @@
 #include <utils/geom/Boundery.h>
 #include <utils/common/IntVector.h>
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class NBNode;
 class NIVissimConnection;
 
@@ -17,6 +52,12 @@ class NIVissimConnection;
  * This shall be the connections which belong to a single node.
  * It still are not all of the node's connections, as other edges
  * may participate to this node, too.
+ */
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
  */
 class NIVissimConnectionCluster {
 public:
@@ -51,7 +92,9 @@ public:
 public:
     /** @brief Tries to joind clusters participating within a node
         This is done by joining clusters which overlap */
-    static void join();
+    static void joinBySameEdges(double offset);
+
+    static void joinByDisturbances(double offset);
 
     static void buildNodeClusters();
 
@@ -61,18 +104,18 @@ public:
 
     static size_t dictSize();
 
-    static void dict_recheckNodes();
+    static void dict_recheckNodes(double offset);
 
     static int getNextFreeNodeID();
 
     static void clearDict();
-
-    static void addNodes();
+/*
+    static void addNodes(double offset);
 
     //static void dict_checkDoubleNodes();
 
-    static void addTLs();
-
+    static void addTLs(double offset);
+*/
 private:
     class NodeSubCluster {
     public:
@@ -101,7 +144,10 @@ private:
 
     void recheckEdges();
 
-    bool joinable(NIVissimConnectionCluster *c2);
+    bool joinable(NIVissimConnectionCluster *c2, double offset);
+
+
+    IntVector getDisturbanceParticipators();
 
 
 private:
@@ -129,5 +175,16 @@ private:
     static int myFirstFreeID;
 };
 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "NIVissimConnectionCluster.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
 

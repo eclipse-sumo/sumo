@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/05 11:40:28  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.6  2003/06/05 06:29:50  dkrajzew
 // first tries to build under linux: warnings removed; moc-files included Makefiles added
 //
@@ -50,6 +53,9 @@
 #include <microsim/MSVehicle.h>
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class GUISUMOAbstractView;
 
 

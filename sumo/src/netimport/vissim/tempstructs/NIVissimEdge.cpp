@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimEdge.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.12  2003/06/05 11:46:56  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <string>
 #include <algorithm>
 #include <map>
@@ -143,76 +181,6 @@ NIVissimEdge::dictionary(int id)
     return (*i).second;
 }
 
-/*
-bool
-NIVissimEdge::crosses(const Position2DVector &poly) const
-{
-    return GeomHelper::intersects(poly, myGeom);
-}
-
-
-std::pair<double, double>
-NIVissimEdge::getCrossingRange(const Position2DVector &poly) const
-{
-    std::pair<double, double> positions(-1, -1);
-    double length = 0;
-    for(Position2DVector::const_iterator i=myGeom.begin(); i!=myGeom.end()-1; i++) {
-        checkPosition1(*i, *(i+1), length, poly, positions);
-        length += GeomHelper::distance(*i, *(i+1));
-    }
-    checkPosition1(*(myGeom.end()-1), *(myGeom.begin()),
-        length, poly, positions);
-    return positions;
-}
-
-
-void
-NIVissimEdge::checkPosition1(const Position2D &p1, const Position2D &p2,
-                             double length, const Position2DVector &poly,
-                             std::pair<double, double> &positions) const
-{
-    Position2DVector::const_iterator i = poly.begin();
-    while(i!=poly.end()) {
-        i = GeomHelper::find_intersecting_line(p1, p2, poly, i);
-        if(i!=poly.end()) {
-            Position2D pos = GeomHelper::intersection_position(p1, p2,
-                poly, i);
-            double at = GeomHelper::distance(p1, p2)
-                / GeomHelper::distance(p1, pos);
-            if(positions.first==-1||at<positions.second) {
-                positions.first = at;
-            }
-            if(positions.second==-1||at>positions.second) {
-                positions.second = at;
-            }
-        }
-    }
-}
-
-
-int
-NIVissimEdge::getID() const
-{
-    return myID;
-}
-
-
-void
-NIVissimEdge::assignConnectorsAndDisturbances()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->myOutgingConnectors =
-            NIVissimConnection::getOutgoingForEdge((*i).second->myID);
-        (*i).second->myIncomingConnectors =
-            NIVissimConnection::getIncomingForEdge((*i).second->myID);
-        (*i).second->myDisturbers =
-            NIVissimDisturbance::getDisturbatorsForEdge((*i).second->myID);
-        (*i).second->myDisturbings =
-            NIVissimDisturbance::getDisturbtionsForEdge((*i).second->myID);
-    }
-}
-*/
-
 
 void
 NIVissimEdge::buildConnectionClusters()
@@ -285,39 +253,22 @@ NIVissimEdge::buildConnectionClusters()
 
 
 void
-NIVissimEdge::dict_buildNBEdges()
+NIVissimEdge::dict_buildNBEdges(double offset)
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-		if((*i).first==76) {
-			int bla = 0;
-		}
         NIVissimEdge *edge = (*i).second;
-        edge->buildNBEdge();
+        edge->buildNBEdge(offset);
     }
 }
 
 
 void
-NIVissimEdge::buildNBEdge()
+NIVissimEdge::buildNBEdge(double offset)
 {
+    std::pair<bool, NBNode *> fromInf, toInf;
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
-	if(myID==1000052) {
-		int bla = 0;
-		for(ConnectionClusters::iterator i=myConnectionClusters.begin(); i!=myConnectionClusters.end(); i++) {
-			NIVissimConnectionCluster *cc = *i;
-			const IntVector &conns = cc->getConnections();
-			for(IntVector::const_iterator j=conns.begin(); j!=conns.end(); j++) {
-				if(j!=conns.begin()) {
-					cout << ", " ;
-				}
-				cout << *j;
-			}
-			cout << endl;
-		}
-
-	}
-    if(myConnectionClusters.size()!=0) {
+   if(myConnectionClusters.size()!=0) {
 /*        NBNode *from = new NBNode(
             toString<int>(myID) + "-Begin",
             myGeom.getBegin().x(), myGeom.getBegin().y());
@@ -332,9 +283,11 @@ NIVissimEdge::buildNBEdge()
         // get or build the from-node
         //  A node may have to be build when the edge starts or ends at
         //  a parking place or something like this
-        fromNode = getFromNode();
+        fromInf = getFromNode();
+        fromNode = fromInf.second;
         // get or build the to-node
-        toNode = getToNode();
+        toInf = getToNode();
+        toNode = toInf.second;
         // check whether one of the nodes should be a district node
 /*        NIVissimDistrictConnection *d =
             NIVissimDistrictConnection::dict_findForEdge(myID);
@@ -346,7 +299,7 @@ NIVissimEdge::buildNBEdge()
 
         // if both nodes are the same, resolve the problem otherwise
         if(fromNode==toNode) {
-            std::pair<NBNode*, NBNode*> tmp = resolveSameNode();
+            std::pair<NBNode*, NBNode*> tmp = resolveSameNode(offset);
             fromNode = tmp.first;
             toNode = tmp.second;
         }
@@ -380,7 +333,18 @@ NIVissimEdge::buildNBEdge()
     // check whether the edge contains any other clusters
     if(myConnectionClusters.size()>2) {
 		bool cont = true;
-        for(ConnectionClusters::iterator j=myConnectionClusters.begin()+1; cont&&j!=myConnectionClusters.end()-1; j++) {
+        ConnectionClusters::iterator j = myConnectionClusters.begin();
+        // check whether the first node was already build
+        if(!fromInf.first) {
+            j++;
+        }
+        ConnectionClusters::iterator end = myConnectionClusters.end();
+        // check whether the last node was already build
+        if(!toInf.first) {
+            end--;
+        }
+
+        for(; cont && j!=end; j++) {
             // split the edge at the previously build node
             string nextID = buildEdge->getID() + "[1]";
             cont = NBEdgeCont::splitAt(buildEdge, (*j)->getNBNode());
@@ -391,19 +355,43 @@ NIVissimEdge::buildNBEdge()
 }
 
 
-NBNode *
+std::pair<bool, NBNode *>
 NIVissimEdge::getFromNode()
 {
     assert(myConnectionClusters.size()!=0);
-    return (*(myConnectionClusters.begin()))->getNBNode();
+    const Position2D &beg = myGeom.getBegin();
+    NIVissimConnectionCluster *c = *(myConnectionClusters.begin());
+    // check whether the edge starts within a already build node
+    if(c->around(beg, 5.0)) {
+        return std::pair<bool, NBNode *>(false, c->getNBNode());
+    }
+    // build a new node for the edge's begin otherwise
+    NBNode *node = new NBNode(toString<int>(myID) + "-begin",
+        beg.x(), beg.y(), "no_junction");
+    if(!NBNodeCont::insert(node)) {
+        throw 1;
+    }
+    return std::pair<bool, NBNode *>(true, node);
 }
 
 
-NBNode *
+std::pair<bool, NBNode *>
 NIVissimEdge::getToNode()
 {
     assert(myConnectionClusters.size()!=0);
-    return (*(myConnectionClusters.end()-1))->getNBNode();
+    const Position2D &end = myGeom.getEnd();
+    NIVissimConnectionCluster *c = *(myConnectionClusters.end()-1);
+    // check whether the edge ends within a already build node
+    if(c->around(end, 5.0)) {
+        return std::pair<bool, NBNode *>(false, c->getNBNode());
+    }
+    // build a new node for the edge's end otherwise
+    NBNode *node = new NBNode(toString<int>(myID) + "-end",
+        end.x(), end.y(), "no_junction");
+    if(!NBNodeCont::insert(node)) {
+        throw 1;
+    }
+    return std::pair<bool, NBNode *>(true, node);
 }
 
 
@@ -435,7 +423,7 @@ NIVissimEdge::remapOneOfNodes(NIVissimDistrictConnection *d,
 
 
 std::pair<NBNode*, NBNode*>
-NIVissimEdge::resolveSameNode()
+NIVissimEdge::resolveSameNode(double offset)
 {
     // check whether the edge is connected to a district
     //  use it if so
@@ -456,7 +444,7 @@ NIVissimEdge::resolveSameNode()
                     throw 1;
                 }
             }
-            return std::pair<NBNode*, NBNode*>(node, getToNode());
+            return std::pair<NBNode*, NBNode*>(node, getToNode().second);
         }
         // the district is at the end of the edge
         else {
@@ -471,18 +459,18 @@ NIVissimEdge::resolveSameNode()
                 }
             }
             assert(node!=0);
-            return std::pair<NBNode*, NBNode*>(getFromNode(), node);
+            return std::pair<NBNode*, NBNode*>(getFromNode().second, node);
         }
     }
     // otherwise, check whether the edge is some kind of
     //  a dead end...
     // check which end is nearer to the node centre
     if(myConnectionClusters.size()==1) {
-        NBNode *node = getFromNode(); // it is the same as getToNode()
+        NBNode *node = getFromNode().second; // it is the same as getToNode()
 
         NIVissimConnectionCluster *c = *(myConnectionClusters.begin());
         // no end node given
-        if(c->around(myGeom.getBegin(), 5.0) && !c->around(myGeom.getEnd(), 5.0)) {
+        if(c->around(myGeom.getBegin(), offset) && !c->around(myGeom.getEnd(), offset)) {
             NBNode *end = new NBNode(
                 toString<int>(myID) + "-End",
                 myGeom.getEnd().x(), myGeom.getEnd().y(), "no_junction");
@@ -494,7 +482,7 @@ NIVissimEdge::resolveSameNode()
         }
 
         // no begin node given
-        if(!c->around(myGeom.getBegin(), 5.0) && c->around(myGeom.getEnd(), 5.0)) {
+        if(!c->around(myGeom.getBegin(), offset) && c->around(myGeom.getEnd(), offset)) {
             NBNode *beg = new NBNode(
                 toString<int>(myID) + "-Begin",
                 myGeom.getBegin().x(), myGeom.getBegin().y(), "no_junction");
@@ -512,7 +500,7 @@ NIVissimEdge::resolveSameNode()
     }
     // what to do in other cases?
     //  It simply is a dummy edge....
-    return std::pair<NBNode*, NBNode*>(getFromNode(), getFromNode());
+    return std::pair<NBNode*, NBNode*>(getFromNode().second, getFromNode().second);
 }
 
 
@@ -603,5 +591,17 @@ NIVissimEdge::getLength() const
 {
     return myGeom.length();
 }
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimEdge.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

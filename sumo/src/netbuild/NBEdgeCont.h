@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/06/05 11:43:35  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.9  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -90,6 +93,7 @@
 #include <string>
 #include <vector>
 #include "NBCont.h"
+#include "NBNode.h"
 
 
 /* =========================================================================
@@ -97,7 +101,6 @@
  * ======================================================================= */
 class NBSection;
 class NBNodeCont;
-class NBNode;
 class NBEdge;
 
 

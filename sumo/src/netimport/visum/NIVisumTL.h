@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/06/05 11:51:09  dkrajzew
+// class templates applied; documentation added
+//
 // Revision 1.1  2003/05/20 09:55:56  dkrajzew
 // visum-traffic light import added (by Markus Hartinger)
 //
@@ -32,14 +35,19 @@
 #include <string>
 #include <netbuild/NBConnectionDefs.h>
 #include <netbuild/NBNodeCont.h>
+
+
 /* =========================================================================
  * class declaration
  * ======================================================================= */
-/* NIViusumTL is an intermediate class for importing visum traffic lights */
+/**
+ * @class NIVisumTL
+ * NIViusumTL is an intermediate class for importing visum traffic lights
+ */
 class NIVisumTL
 {
 public:
-	// Timeperiod with starttime and endtime
+	/// Timeperiod with starttime and endtime
 	class TimePeriod
 	{
 	private:

@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NIVissimLoader.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.12  2003/06/05 11:46:54  dkrajzew
+// class templates applied; documentation added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include <string>
 #include <fstream>
 #include <utils/common/StringUtils.h>
@@ -184,7 +222,8 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
     while(tag!="bei") {
         tag = readEndSecure(from);
         if(tag!="bei") {
-            lanes.push_back(TplConvert<char>::_2int(tag.c_str()));
+            int lane = TplConvert<char>::_2int(tag.c_str());
+            lanes.push_back(lane-1);
         }
     }
     double position;
@@ -283,7 +322,7 @@ NIVissimLoader::load(OptionsCont &options)
     if(!readContents(strm)) {
         return;
     }
-    postLoadBuild();
+    postLoadBuild(options.getFloat("vissim-offset"));
     buildNBStructures();
 }
 
@@ -330,11 +369,12 @@ NIVissimLoader::readContents(istream &strm)
 
 
 void
-NIVissimLoader::postLoadBuild()
+NIVissimLoader::postLoadBuild(double offset)
 {
     // close the loading process
     NIVissimBoundedClusterObject::closeLoading();
     NIVissimConnection::dict_assignToEdges();
+    NIVissimDisturbance::dict_SetDisturbances();
     // build clusters around nodes
 //    NIVissimNodeDef::buildNodeClusters();
     // build node clusters around traffic lights
@@ -356,20 +396,21 @@ NIVissimLoader::postLoadBuild()
 	NIVissimConnectionCluster::searchForConnection(10094);
 
     // join clusters when overlapping (different streets are possible)
-    NIVissimConnectionCluster::join();
+    NIVissimConnectionCluster::joinBySameEdges(offset);
+//    NIVissimConnectionCluster::joinByDisturbances(offset);
 	NIVissimConnectionCluster::searchForConnection(10094);
 
-    NIVissimConnectionCluster::addTLs();
+//    NIVissimConnectionCluster::addTLs(offset);
 
     // build nodes from clusters
     NIVissimNodeCluster::setCurrentVirtID(NIVissimNodeDef::getMaxID());
-    NIVissimConnectionCluster::buildNodeClusters();
+//    NIVissimConnectionCluster::buildNodeClusters();
 
 //    NIVissimNodeCluster::dict_recheckEdgeChanges();
 
     NIVissimNodeCluster::buildNBNodes();
     NIVissimDistrictConnection::dict_BuildDistrictNodes();
-    NIVissimEdge::dict_buildNBEdges();
+    NIVissimEdge::dict_buildNBEdges(offset);
     NIVissimDistrictConnection::dict_BuildDistricts();
     NIVissimConnection::dict_buildNBEdgeConnections();
     NIVissimNodeCluster::dict_addDisturbances();
@@ -601,3 +642,15 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser__XKurvedefinition(*this);
 
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NIVissimLoader.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+
