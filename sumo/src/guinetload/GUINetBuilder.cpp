@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:53:41  dkrajzew
+// first extensions for geometry handling
+//
 // Revision 1.3  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -92,8 +95,9 @@ GUINetBuilder::buildGUINet()
             m_pOptions);
     }
     delete parser;
-    if(ok)
+    if(ok) {
         report(*container);
+    }
     delete handler;
     delete container;
     return net;

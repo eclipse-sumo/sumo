@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:53:40  dkrajzew
+// first extensions for geometry handling
+//
 // Revision 1.3  2003/02/07 10:38:17  dkrajzew
 // updated
 //
@@ -39,6 +42,8 @@ namespace
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/MSJunctionLogic.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <guisim/GUINet.h>
@@ -49,6 +54,7 @@ namespace
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/UtilExceptions.h>
 #include "GUIContainer.h"
 
 
@@ -77,13 +83,37 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
                           std::string baseNameDumpFiles,
                           const OptionsCont &options)
 {
-    MSEdgeControl *edges = m_pECB->build();
-    MSJunctionControl *junctions = m_pJCB->build();
-    MSEmitControl *emitters = new MSEmitControl("");
-    MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-    GUINet::initGUINet( m_Id, edges, junctions, emitters,
-        m_EventControl, m_pDetectors, routeLoaders);
-    return static_cast<GUINet*>(GUINet::getInstance());
+    MSEdgeControl *edges = 0;
+    MSJunctionControl *junctions = 0;
+    MSEmitControl *emitters = 0;
+    MSRouteLoaderControl *routeLoaders = 0;
+    try {
+        MSEdgeControl *edges = m_pECB->build();
+        MSJunctionControl *junctions = m_pJCB->build();
+        MSEmitControl *emitters = new MSEmitControl("");
+        MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
+        GUINet::initGUINet( m_Id, edges, junctions, emitters,
+            m_EventControl, m_pDetectors, routeLoaders );
+        return static_cast<GUINet*>(GUINet::getInstance());
+    } catch (ProcessError &e) {
+        delete edges;
+        delete junctions;
+        delete emitters;
+        delete routeLoaders;
+        MSEdge::clear();
+        MSEdgeControl::clear();
+        MSEmitControl::clear();
+        MSEventControl::clear();
+        MSJunction::clear();
+        MSJunctionControl::clear();
+        MSJunctionLogic::clear();
+        MSLane::clear();
+        MSNet::clear();
+        MSVehicle::clear();
+        MSVehicleType::clear();
+        MSRoute::clear();
+        return 0;
+    }
 }
 
 
