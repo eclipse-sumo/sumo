@@ -22,6 +22,9 @@
 
 
 // $Log$
+// Revision 1.6  2003/07/21 15:39:48  roessel
+// Removed superfluous cast.
+//
 // Revision 1.5  2003/07/03 11:03:10  roessel
 // In addSampleInterval(): added assert and file extension.
 //
@@ -191,8 +194,7 @@ public:
             IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalLength );
             assert( ifIt != intervalsAndFilesM.end() );
             std::ofstream& ofs = *( ifIt->second );
-            MSNet::Time step   = MSNet::getInstance()->timestep();
-            double time      = static_cast< double >( step ) * MSNet::deltaT();
+            double time = MSNet::getInstance()->simSeconds();
             ofs << "<interval begin=\""
                 << time - intervalLength * MSNet::deltaT() + 1
                 << "\" end=\"" << time << ">\n";     
@@ -257,7 +259,7 @@ protected:
 private:
     IntervalFileMap intervalsAndFilesM; /**< Map of interval-file pairs. */
 
-    EdgeLaneCostCont edgeLaneCostsM; /**< Container of MSEWdge-laneCostCont
+    EdgeLaneCostCont edgeLaneCostsM; /**< Container of MSEdge-laneCostCont
                                       * pairs. */
  
     static MSTravelcostDetector* instanceM; /**< The sole instance of this
