@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 08:28:50  dkrajzew
+// some changes needed to derive the threading classes more easily added
+//
 // Revision 1.7  2004/04/02 11:10:20  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -59,6 +62,12 @@
 class GUIApplicationWindow;
 class MsgRetriever;
 class MFXEventQue;
+class GUIEdgeControlBuilder;
+class NLEdgeControlBuilder;
+class NLJunctionControlBuilder;
+class GUINetBuilder;
+class OptionsCont;
+class GUIVehicleControl;
 
 
 /* =========================================================================
@@ -66,8 +75,6 @@ class MFXEventQue;
  * ======================================================================= */
 class GUILoadThread : public FXSingleEventThread
 {
-    // FOX-declarations
-//    FXDECLARE(GUILoadThread)
 public:
 
     /// constructor
@@ -75,13 +82,13 @@ public:
         FXEX::FXThreadEvent &ev);
 
     /// destructor
-    ~GUILoadThread();
+    virtual ~GUILoadThread();
 
     /// begins the loading of the given file
     void load(const std::string &file);
 
     /** starts the thread
-    	the thread ends after the net has been loaded */
+        the thread ends after the net has been loaded */
     FXint run();
 
     /// Retrieves messages from the loading module
@@ -93,7 +100,16 @@ public:
     /// Retrieves error from the loading module
     void retrieveError(const std::string &msg);
 
-private:
+    const std::string &getFileName() const;
+
+protected:
+    virtual GUIEdgeControlBuilder *buildEdgeBuilder();
+    virtual GUINetBuilder *buildNetBuilder(const OptionsCont &oc,
+        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
+        bool allowAggregatedViews);
+    virtual GUIVehicleControl *buildVehicleControl();
+    virtual bool initOptions();
+
     /** @brief Closes the loading process
         This method is called both on success and failure.
         All message callbacks to this instance are removed and the parent
@@ -101,7 +117,7 @@ private:
     void submitEndAndCleanup(GUINet *net,
         int simStartTime, int simEndTime);
 
-private:
+protected:
     /// the parent window to inform about the loading
     GUIApplicationWindow *myParent;
 

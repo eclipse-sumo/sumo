@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/07/02 08:28:50  dkrajzew
+// some changes needed to derive the threading classes more easily added
+//
 // Revision 1.25  2004/04/02 11:10:20  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -107,6 +110,9 @@ namespace
 #include <iostream>
 #include <guisim/GUINet.h>
 #include <guinetload/GUINetBuilder.h>
+#include <guinetload/GUIEdgeControlBuilder.h>
+#include <guinetload/GUIJunctionControlBuilder.h>
+#include <guisim/GUIVehicleControl.h>
 #include <microsim/MSDetectorSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -178,7 +184,7 @@ GUILoadThread::run()
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
 
     // try to load the given configuration
-    if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
+    if(!initOptions()) {
         // ok, the options could not be set
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
@@ -191,13 +197,14 @@ GUILoadThread::run()
         return 0;
     }
     // try to load
+    GUIEdgeControlBuilder *eb = buildEdgeBuilder();
+    GUIJunctionControlBuilder jb;
+    GUINetBuilder *builder = buildNetBuilder(oc, *eb, jb, gAllowAggregated);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-        GUINetBuilder builder(oc, gAllowAggregated);
-        net =
-            static_cast<GUINet*>(builder.buildNet());
+        net = static_cast<GUINet*>(builder->buildNet(buildVehicleControl()));
         if(net!=0) {
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
@@ -220,8 +227,35 @@ GUILoadThread::run()
     if(net==0) {
         MSNet::clearAll();
     }
+    delete eb;
+    delete builder;
     submitEndAndCleanup(net, simStartTime, simEndTime);
     return 0;
+}
+
+
+
+GUIEdgeControlBuilder *
+GUILoadThread::buildEdgeBuilder()
+{
+    return new GUIEdgeControlBuilder(gIDStorage);
+}
+
+
+GUINetBuilder *
+GUILoadThread::buildNetBuilder(const OptionsCont &oc,
+                               NLEdgeControlBuilder &eb,
+                               NLJunctionControlBuilder &jb,
+                               bool allowAggregatedViews)
+{
+    return new GUINetBuilder(oc, eb, jb, gAllowAggregated);
+}
+
+
+GUIVehicleControl*
+GUILoadThread::buildVehicleControl()
+{
+    return new GUIVehicleControl();
 }
 
 
@@ -274,6 +308,20 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
         string(_file));
     myEventQue.add(e);
     myEventThrow.signal();
+}
+
+
+const std::string &
+GUILoadThread::getFileName() const
+{
+    return _file;
+}
+
+
+bool
+GUILoadThread::initOptions()
+{
+    return OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file);
 }
 
 

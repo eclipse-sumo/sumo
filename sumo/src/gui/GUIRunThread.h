@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/07/02 08:28:50  dkrajzew
+// some changes needed to derive the threading classes more easily added
+//
 // Revision 1.5  2004/04/02 11:10:20  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -48,6 +51,7 @@
 #include <microsim/MSNet.h>
 #include <utils/foxtools/FXMutex.h>
 #include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXEventQue.h>
 
 
 /* =========================================================================
@@ -76,24 +80,24 @@ public:
         FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
     /// destructor
-    ~GUIRunThread();
+    virtual ~GUIRunThread();
 
     /// initialises the thread with the new simulation
-    void init(GUINet *net, long start, long end);
+    virtual void init(GUINet *net, long start, long end);
 
     /// starts the execution
-    FXint run();
+    virtual FXint run();
 
     /** called when the user presses the "resume"-button,
         this method resumes the execution after a break */
     void resume();
 
     /** called when the user presses the "single step"-button,
-	this method allows the thread to perform a single simulation step */
+    this method allows the thread to perform a single simulation step */
     void singleStep();
 
     /** starts the simulation (execution of one step after another) */
-    void begin();
+    virtual void begin();
 
     /** halts the simulation execution */
     void stop();
@@ -101,12 +105,12 @@ public:
     /** returns the information whether a simulation has been loaded */
     bool simulationAvailable() const;
 
-    bool simulationIsStartable() const;
-    bool simulationIsStopable() const;
-    bool simulationIsStepable() const;
+    virtual bool simulationIsStartable() const;
+    virtual bool simulationIsStopable() const;
+    virtual bool simulationIsStepable() const;
 
     /** deletes the existing simulation */
-    void deleteSim();
+    virtual void deleteSim();
 
     /** returns the simulation's current time step */
     MSNet::Time getCurrentTimeStep() const;
@@ -126,7 +130,10 @@ public:
     /// Retrieves error from the loading module
     void retrieveError(const std::string &msg);
 
-private:
+protected:
+    void makeStep();
+
+protected:
     /// the parent application window
     GUIApplicationWindow    *_parent;
 
@@ -143,13 +150,15 @@ private:
     MSNet::Time             _step;
 
     /** information whether the thread shall be stopped
-	(if not, the thread stays in an endless loop) */
+    (if not, the thread stays in an endless loop) */
     bool                    _quit;
 
     /** information whether a simulation step is being performed
-	(otherwise the thread may be waiting or the simulation is maybe not
-	performed at all) */
+    (otherwise the thread may be waiting or the simulation is maybe not
+    performed at all) */
     bool                    _simulationInProgress;
+
+    bool _ok;
 
     /** information whether the thread is running in single step mode */
     bool                    _single;
