@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/08/21 13:01:39  dkrajzew
+// some bugs patched
+//
 // Revision 1.23  2003/07/22 15:17:15  dkrajzew
 // documentation
 //
@@ -172,6 +175,8 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("trip-defs", 't', new Option_FileName());
     oc.doRegister("alternatives", 'a', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.doRegister("save-cell-rindex", new Option_Bool(false));
+    oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.addSynonyme("net-files", "net");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
@@ -194,14 +199,12 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
-    oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.doRegister("unsorted", new Option_Bool(false));
-    oc.doRegister("save-cell-rindex", new Option_Bool(false));
     oc.doRegister("intel-cell", new Option_Bool(false));
     oc.doRegister("no-last-cell", new Option_Bool(false));
-    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
+//    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
-    oc.doRegister("no-sort", 'S', new Option_Bool(false));
+//    oc.doRegister("no-sort", 'S', new Option_Bool(false));
 }
 
 

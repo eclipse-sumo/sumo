@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/08/21 12:59:35  dkrajzew
+// some bugs patched
+//
 // Revision 1.8  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -88,18 +91,25 @@ RORouteDef::computeAndSave(OptionsCont &options,
     RORoute *current =
         buildCurrentRoute(router, begin,
             options.getBool("continue-on-unbuild"));
+    // check whether the route is valid and does not end on the starting edge
     if(current->size()<2) {
-        cout << endl;
-        MsgHandler::getWarningInstance()->inform(
-            string("The route '") + _id
-            + string("' is too short, propably ending at the starting edge."));
-        MsgHandler::getErrorInstance()->inform("Skipping...");
+        // check whether the route ends at the starting edge
+        //  unbuild routes due to missing connections are reported within the
+        //  router
+        if(current->size()!=0) {
+            cout << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("The route '") + _id
+                + string("' is too short, propably ending at the starting edge."));
+            MsgHandler::getWarningInstance()->inform("Skipping...");
+        }
         delete current;
         return false;
     }
+    // add build route
     addAlternative(current, begin);
+    // save route
     xmlOutCurrent(res, isPeriodical);
-//    current->xmlOut(res);
     xmlOutAlternatives(altres);
     return true;
 }

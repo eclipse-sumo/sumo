@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/08/21 13:01:39  dkrajzew
+// some bugs patched
+//
 // Revision 1.10  2003/07/07 08:40:09  dkrajzew
 // included new options into the help-screens
 //
@@ -93,6 +96,7 @@ char *help[] = {
     "   --intel-cell                   Set, when reading cell-routes computed",
     "                                   on an Intel-machine",
     "   --no-last-cell                 Use best, not the last cell-route",
+    "   --continue-on-unbuild          Continue if a route could not be build",
     " ",
     " Report options:",
     "   -v, --verbose                   SUMO-ROUTER will report what it does",
