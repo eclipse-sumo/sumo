@@ -21,8 +21,13 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.13  2003/05/28 15:36:32  roessel
+// Added argument MSNet::Time deleteDataAfterSeconds with default value 900
+// timesteps to constructor.
+//
 // Revision 1.12  2003/05/28 07:51:25  dkrajzew
-// had to add a return value due to the usage of the mem_func-function in combination with for_each (MSVC++-reasons?)
+// had to add a return value due to the usage of the mem_func-function in
+// combination with for_each (MSVC++-reasons?)
 //
 // Revision 1.11  2003/05/27 19:01:26  roessel
 // Removed OutputStyle in ctor (output will be xml).
@@ -98,7 +103,8 @@ public:
                  double         begin,
                  double         length,
                  MSNet::Time    sampleIntervall,
-                 std::ofstream* file );
+                 std::ofstream* file,
+                 MSNet::Time deleteDataAfterSeconds = 900 );
 
     /// Destructor.
     ~MSLaneState();
