@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.3  2003/04/14 08:33:00  dkrajzew
 // some further bugs removed
 //
@@ -65,7 +68,7 @@ public:
     void setApproaching(MSVehicle *approaching);
 
     /// Some Junctions need to switch the Priority
-    void setPriority( bool prio );
+    void setPriority( bool prio, bool yellow );
 
     /** @brief Returns the information whether the link may be passed
         A valid after the junctions have set their reponds */
@@ -91,6 +94,9 @@ public:
 
     /// the position within this respond
     size_t myRespondIdx;
+
+	/// Information whether the tl (if this link belongs to one) shows yellow
+	bool myAmYellow;
 
 private:
     /// default constructor

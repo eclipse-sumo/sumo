@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.4  2003/05/20 09:31:45  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -68,6 +71,9 @@ public:
     /// the mask which vehicles must not drive within this phase (red light)
     std::bitset<64>  breakMask;
 
+	/// the mask which links have to decelerate(yellow light)
+	std::bitset<64>  yellowMask;
+
     /// The minimum duration of the pahse
     size_t          minDuration;
 
@@ -81,13 +87,14 @@ public:
     /// constructor
     ActuatedPhaseDefinition(size_t durationArg,
         const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
+		const std::bitset<64> &yellowMaskArg,
         size_t minDurationArg, size_t maxDurationArg)
     : duration(durationArg), driveMask(driveMaskArg),
-    breakMask(breakMaskArg), minDuration(minDurationArg),
-    maxDuration(maxDurationArg), _lastSwitch(0)
+    breakMask(breakMaskArg), yellowMask(yellowMaskArg),
+	minDuration(minDurationArg), maxDuration(maxDurationArg), _lastSwitch(0)
     {
-    minDuration = 5;
-    maxDuration = 30;
+    minDuration = 5; //!!!
+    maxDuration = 30; //!!!
     }
 
     /// destructor
@@ -145,6 +152,9 @@ public:
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const;
+
+    /// Returns a bitset where all links having yellow are set
+    virtual const std::bitset<64> &yellowMask() const;
 
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent

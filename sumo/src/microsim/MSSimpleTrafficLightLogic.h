@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.5  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -72,15 +75,19 @@ public:
         /// the mask which links are allowed to drive within this phase (green light)
         std::bitset<N>  driveMask;
 
-        /// the mask which vehicles must not drive within this phase (red light)
+        /// the mask which links must not drive within this phase (red light)
         std::bitset<N>  breakMask;
+
+        /// the mask which links have to decelerate(yellow light)
+        std::bitset<N>  yellowMask;
 
         /// constructor
         PhaseDefinition(size_t durationArg,
             const std::bitset<N> &driveMaskArg,
-            const std::bitset<N> &breakMaskArg)
+            const std::bitset<N> &breakMaskArg,
+			const std::bitset<N> &yellowMaskArg)
             : duration(durationArg), driveMask(driveMaskArg),
-            breakMask(breakMaskArg) { }
+            breakMask(breakMaskArg), yellowMask(yellowMask) { }
 
         /// destructor
         ~PhaseDefinition() { }
@@ -114,6 +121,9 @@ public:
 
     /// Returns the priorities for all lanes for the current phase
     virtual const std::bitset<64> &linkPriorities() const;
+
+    /// Returns a bitset where all links having yellow are set
+    virtual const std::bitset<64> &yellowMask() const;
 
     /** @brief Switches to the next step
         Returns the number of the next step what is needed as

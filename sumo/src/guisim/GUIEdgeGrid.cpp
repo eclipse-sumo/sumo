@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/21 15:15:40  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.6  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -120,8 +123,10 @@ GUIEdgeGrid::init() {
 	_grid = new GUIEdgeCont[size];
 	// get the boundery
 	_boundery = computeBoundery();
+	// assert that the boundery is not zero in neither dimension
     if(_boundery.getHeight()==0) {
-        _boundery.add(_boundery.xmin(), _boundery.ymax()+1);
+        _boundery.add(_boundery.xmin()+1, _boundery.ymax()+1);
+		_boundery.add(_boundery.xmin()-1, _boundery.ymax()-1);
     }
 	// compute the cell size
 	_xcellsize =

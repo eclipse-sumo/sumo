@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/05/21 15:15:43  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.7  2003/05/20 09:52:39  dkrajzew
 // MSTrafficLane-transformations were no longer needed
 //
@@ -189,6 +192,7 @@ enum AttrEnum
     SUMO_ATTR_NO,
     SUMO_ATTR_PHASE,
     SUMO_ATTR_BRAKE,
+	SUMO_ATTR_YELLOW,
     SUMO_ATTR_DURATION,
     /** trigger: definition of an object type to be triggered */
     SUMO_ATTR_OBJECTTYPE,
@@ -220,7 +224,7 @@ extern GenericSAX2Handler::Tag sumotags[36];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[54];
+extern AttributesHandler::Attr sumoattrs[55];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -10,6 +10,10 @@
 class Position2DVector
         : public AbstractPoly {
 public:
+	/// Definition of the list of points
+    typedef std::deque<Position2D> ContType;
+
+public:
     /// Constructor
     Position2DVector();
 
@@ -89,9 +93,11 @@ public:
     bool crosses(const Position2D &p1,
         const Position2D &p2) const;
 
+	const ContType &getCont() const {
+		return myCont;
+	}
+
 private:
-    /// Definition of the list of points
-    typedef std::deque<Position2D> ContType;
 
     /// The list of points
     ContType myCont;

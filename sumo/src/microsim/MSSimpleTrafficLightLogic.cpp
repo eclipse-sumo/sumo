@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.3  2003/04/04 07:13:20  dkrajzew
 // Yellow phases must be now explicetely given
 //
@@ -76,6 +79,14 @@ MSSimpleTrafficLightLogic<N>::linkPriorities() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].breakMask;
+}
+
+
+template< size_t N > const std::bitset<64> &
+MSSimpleTrafficLightLogic<N>::yellowMask() const
+{
+    assert(_phases.size()>_step);
+    return _phases[_step].yellowMask;
 }
 
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.11  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -229,7 +232,6 @@ public:
     static void init( std::string id,
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,
-                      MSEmitControl* emc,
                       MSEventControl* evc,
                       DetectorCont* detectors,
                       MSRouteLoaderControl *rlc);

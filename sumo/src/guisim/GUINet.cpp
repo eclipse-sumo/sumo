@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.8  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -55,6 +58,7 @@ namespace
 #include <microsim/MSJunction.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEmitControl.h>
 #include <gui/GUIGlObjectStorage.h>
 #include <guisim/GUIEdge.h>
 #include "GUIEdgeGrid.h"
@@ -92,16 +96,17 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
     myInstance = new GUINet();
     myInstance->myStep = startTimeStep;
     initMeanData(dumpMeanDataIntervalls, baseNameDumpFiles/*, true*/);
+	myInstance->myEmitter = new MSEmitControl("");
 }
 
 
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   MSEmitControl* emc, MSEventControl* evc,
+                   MSEventControl* evc,
                    DetectorCont* detectors,
                    MSRouteLoaderControl *rlc)
 {
-    MSNet::init(id, ec, jc, emc, evc, detectors, rlc);
+    MSNet::init(id, ec, jc, evc, detectors, rlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     net->_edgeGrid.init();
     net->_boundery = net->_edgeGrid.getBoundery();

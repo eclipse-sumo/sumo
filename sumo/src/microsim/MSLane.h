@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.9  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -393,7 +396,8 @@ public:
 	static size_t dictSize() { return myDict.size(); }
 
     /// resets the lane's link priorities
-    void setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos);
+    void setLinkPriorities(const std::bitset<64> &prios,
+		const std::bitset<64> &yellowMask, size_t &beginPos);
 
     /// simple output operator
     friend std::ostream& operator<<( std::ostream& os, const MSLane& lane );

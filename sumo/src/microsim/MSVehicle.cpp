@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.18  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -732,14 +735,10 @@ MSVehicle::move( MSLane* lane,
 		vNext = gap / MSNet::deltaT();
 	}
 	double predDec = max(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
-	if(brakeGap(vNext)+vNext*MSNet::deltaT() > brakeGap(predDec) - gap) {
+	if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
 
 		vNext = min(vNext, gap / MSNet::deltaT());
 	}
-
-	if(vNext<myState.mySpeed-myType->decelSpeed()) { // @!!!
-        vNext = myState.mySpeed-myType->decelSpeed();
-    }
 
     vNext = max(0, vNext);
 
@@ -750,15 +749,12 @@ MSVehicle::move( MSLane* lane,
     }
 
 
-    double assertCheck = myState.mySpeed;
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
-    assert(assertCheck-myType->decel() <= myState.mySpeed);
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        cout << (assertCheck-myType->decel() - myState.mySpeed) << endl;
         cout << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
@@ -844,8 +840,13 @@ MSVehicle::moveFirstChecked()
 		} else {
 			if((*link)->opened()) {
 				v_safe = myVLinkPass;
+			} else {
+				if(v_safe<myState.mySpeed-myType->decelSpeed()&&(*link)->myAmYellow) {
+				    v_safe = myState.mySpeed-myType->decelSpeed();
+				}
 			}
 		}
+
 	}
 	// compute vNext in considering dawdling
     double vNext;
@@ -856,10 +857,6 @@ MSVehicle::moveFirstChecked()
         vNext = max(double(0), dawdle( min(v_safe, vaccel(myLane)) ));
     }
 
-	// check that a vehicle does not decelerate more than his deceleration ability
-    if(vNext<myState.mySpeed-myType->decelSpeed()) {
-        vNext = myState.mySpeed-myType->decelSpeed();
-    }
 	// visit waiting time
     if(vNext<=0.1) {
         myWaitingTime++;
@@ -872,8 +869,6 @@ MSVehicle::moveFirstChecked()
     //  approach on the following lanes when a lane changing is performed
     bool approachAllowed = false;
     bool approachInformationReached = false;
-    // dummy for assertion
-    double assertbla = myState.mySpeed;
     // update position
     myState.myPos += vNext * MSNet::deltaT();
     myTarget = myLane;
@@ -890,7 +885,6 @@ MSVehicle::moveFirstChecked()
 
     // update speed
     myState.mySpeed = vNext;
-    assert(assertbla-this->myType->decel() <= myState.mySpeed);
 
     // when we did not reach the approached lane yet, we have to
     //  search it, as the vehicle must register itself as the approaching one
@@ -954,7 +948,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 		vsafePredNextLane =
 			vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
 		double predDec = max(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
-		if(brakeGap(vsafePredNextLane)+vsafePredNextLane*MSNet::deltaT() > brakeGap(predDec) - dist2Pred) {
+		if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
 
 			vsafePredNextLane =
 				min(vsafePredNextLane, dist2Pred / MSNet::deltaT());

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.8  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -92,7 +95,7 @@ public:
 
     /// initialises the network (after the loading)
     static void initGUINet( std::string id,
-        MSEdgeControl* ec, MSJunctionControl* jc, MSEmitControl* emc,
+        MSEdgeControl* ec, MSJunctionControl* jc,
         MSEventControl* evc, DetectorCont* detectors,
         MSRouteLoaderControl *rlc);
 

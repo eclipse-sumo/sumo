@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -60,8 +63,9 @@ MSTrafficLightLogic::setLinkPriorities(MSLogicJunction::InLaneCont &inLanes)
 {
     size_t pos = 0;
     const std::bitset<64> &linkPrios = linkPriorities();
+    const std::bitset<64> &yMask = yellowMask();
     for(MSLogicJunction::InLaneCont::iterator i=inLanes.begin(); i!=inLanes.end(); i++) {
-        (*i).myLane->setLinkPriorities(linkPrios, pos);
+        (*i).myLane->setLinkPriorities(linkPrios, yMask, pos);
     }
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/05/21 15:15:40  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.9  2003/05/20 13:05:33  dkrajzew
 // temporary font patch
 //

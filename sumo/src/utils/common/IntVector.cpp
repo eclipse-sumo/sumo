@@ -1,5 +1,8 @@
 #include <vector>
+#include <algorithm>
 #include "IntVector.h"
+
+using namespace std;
 
 void
 IntVectorHelper::removeDouble(IntVector &v)
@@ -31,12 +34,9 @@ IntVectorHelper::subSetExists(const IntVector &v1, const IntVector &v2)
 {
     for(IntVector::const_iterator i=v1.begin(); i!=v1.end(); i++) {
         int val1 = (*i);
-        for(IntVector::const_iterator j=v2.begin(); j!=v2.end(); j++) {
-            int val2 = (*j);
-            if(val1==val2) {
-                return true;
-            }
-        }
+		if(find(v2.begin(), v2.end(), val1)!=v2.end()) {
+			return true;
+		}
     }
     return false;
 }

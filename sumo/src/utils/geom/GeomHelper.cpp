@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/21 15:15:43  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.7  2003/05/20 09:50:21  dkrajzew
 // further work and debugging
 //
@@ -300,11 +303,26 @@ GeomHelper::interpolate(const Position2D &p1,
 
 
 double
-GeomHelper::nearest_position_on_line_to_point(const Position2D &l1,
-                                              const Position2D &l2,
-                                              const Position2D &p)
+GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
+                                              const Position2D &LineEnd,
+                                              const Position2D &Point)
 {
-    return DistancePointLine(p, l1, l2);
+    float LineMag;
+    float U;
+
+    LineMag = Magnitude( LineEnd, LineStart );
+
+    U = ( ( ( Point.x() - LineStart.x() ) * ( LineEnd.x() - LineStart.x() ) ) +
+        ( ( Point.y() - LineStart.y() ) * ( LineEnd.y() - LineStart.y() ) ) /*+
+        ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+         )
+        /
+        ( LineMag * LineMag );
+
+    if( U < 0.0f || U > 1.0f )
+        return -1;   // closest point does not fall within the line segment
+
+	return U * distance(LineStart, LineEnd);
 }
 
 

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2003/05/21 15:15:42  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.13  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -249,7 +252,7 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 2;
+MSNet::Time MSNet::searchedtime = 20000000;
 std::string MSNet::searched1 = "Rand174";
 std::string MSNet::searched2 = "Rand10801";
 std::string MSNet::searchedJunction = "37";
@@ -289,6 +292,7 @@ MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
 
     myInstance->myStep = startTimeStep;
     initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles/*, withGUI*/ );
+	myInstance->myEmitter = new MSEmitControl("");
 }
 
 
@@ -364,7 +368,6 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
 void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
-             MSEmitControl* emc,
              MSEventControl* evc,
              DetectorCont* detectors,
              MSRouteLoaderControl *rlc )
@@ -372,7 +375,6 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
-    myInstance->myEmitter      = emc;
     myInstance->myEvents       = evc;
     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;

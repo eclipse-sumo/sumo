@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.15  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -1304,10 +1307,13 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos)
+MSLane::setLinkPriorities(const std::bitset<64> &prios,
+						  const std::bitset<64> &yellowMask,
+						  size_t &beginPos)
 {
     for(MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end()&&beginPos<64; i++) {// !!! hell happens when i>=64
-        (*i)->setPriority(prios.test(beginPos++));
+        (*i)->setPriority(prios.test(beginPos), yellowMask.test(beginPos));
+		beginPos++;
     }
 }
 

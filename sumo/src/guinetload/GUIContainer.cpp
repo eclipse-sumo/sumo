@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/21 15:15:40  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.6  2003/04/04 15:17:15  roessel
 // Added #include "microsim/MSRouteLoaderControl.h"
 //
@@ -96,10 +99,9 @@ GUIContainer::buildGUINet(MSNet::TimeVector dumpMeanDataIntervalls,
     try {
         MSEdgeControl *edges = m_pECB->build();
         MSJunctionControl *junctions = m_pJCB->build();
-        MSEmitControl *emitters = new MSEmitControl("");
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-        GUINet::initGUINet( m_Id, edges, junctions, emitters,
-            m_EventControl, m_pDetectors, routeLoaders );
+        GUINet::initGUINet( m_Id, edges, junctions, m_EventControl,
+			m_pDetectors, routeLoaders );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;

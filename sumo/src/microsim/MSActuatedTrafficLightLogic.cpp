@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.5  2003/04/04 15:26:55  roessel
 // Added the keyword "typename" for derived types in for-loops
 //
@@ -203,6 +206,22 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
         return _phases[_step].breakMask;
     }
 }
+
+
+template< class _TInductLoop, class _TLaneState >
+const std::bitset<64> &
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::yellowMask() const
+{
+    if(_allRed) {
+        return _allClear;
+    } else {
+        assert(_phases.size()>_step);
+        return _phases[_step].yellowMask;
+    }
+}
+
+
+
 
 
 template< class _TInductLoop, class _TLaneState >

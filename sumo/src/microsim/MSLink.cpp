@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/21 15:15:41  dkrajzew
+// yellow lights implemented (vehicle movements debugged
+//
 // Revision 1.3  2003/04/14 08:33:00  dkrajzew
 // some further bugs removed
 //
@@ -47,7 +50,8 @@ namespace
 MSLink::MSLink(MSLane* succLane, bool yield)
     : myLane(succLane),
     myPrio(!yield), myApproaching(0),
-    myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0)
+    myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
+	myAmYellow(false)
 {
 }
 
@@ -75,9 +79,10 @@ MSLink::setApproaching(MSVehicle *approaching)
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLink::setPriority( bool prio )
+MSLink::setPriority( bool prio, bool yellow )
 {
     myPrio = prio;
+	myAmYellow = yellow;
 }
 
 
