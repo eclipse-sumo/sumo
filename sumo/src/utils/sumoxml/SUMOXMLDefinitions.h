@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2003/09/05 15:28:07  dkrajzew
+// tags for internal link handling added
+//
 // Revision 1.15  2003/08/18 12:49:30  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -161,7 +164,9 @@ enum TagEnum
     /** an aggreagated-output interval */
     SUMO_TAG_INTERVAL,
     /// The tag enclosing an object's shape
-    SUMO_TAG_SHAPE
+    SUMO_TAG_SHAPE,
+    /// The definition of a periodic event
+    SUMO_TAG_TIMEDEVENT
 };
 
 
@@ -256,7 +261,12 @@ enum AttrEnum
     /// The abstract direction of a link
     SUMO_ATTR_DIR,
     /// The state of a link
-    SUMO_ATTR_STATE
+    SUMO_ATTR_STATE,
+    // The
+    SUMO_ATTR_DEST,
+    SUMO_ATTR_SOURCE,
+    SUMO_ATTR_VIA,
+    SUMO_ATTR_INTERNALEND
 };
 
 
@@ -266,12 +276,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[38];
+extern GenericSAX2Handler::Tag sumotags[39];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[62];
+extern AttributesHandler::Attr sumoattrs[66];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

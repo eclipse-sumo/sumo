@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/09/05 15:28:07  dkrajzew
+// tags for internal link handling added
+//
 // Revision 1.13  2003/07/30 09:28:40  dkrajzew
 // link direction and priority attribute names added
 //
@@ -70,9 +73,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 38;
+size_t noSumoTags = 39;
 
-GenericSAX2Handler::Tag sumotags[38] =
+GenericSAX2Handler::Tag sumotags[39] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -111,12 +114,13 @@ GenericSAX2Handler::Tag sumotags[38] =
       { "trigger",          SUMO_TAG_TRIGGER },
       { "step",             SUMO_TAG_STEP },
       { "interval",         SUMO_TAG_INTERVAL },
-      { "shape",            SUMO_TAG_SHAPE }
+      { "shape",            SUMO_TAG_SHAPE },
+      { "timed_event",      SUMO_TAG_TIMEDEVENT }
 };
 
-size_t noSumoAttrs = 62;
+size_t noSumoAttrs = 66;
 
-AttributesHandler::Attr sumoattrs[62] =
+AttributesHandler::Attr sumoattrs[66] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -179,7 +183,11 @@ AttributesHandler::Attr sumoattrs[62] =
     { "spread_type",    SUMO_ATTR_SPREADFUNC },
     { "color",          SUMO_ATTR_COLOR },
     { "dir",            SUMO_ATTR_DIR },
-    { "state",          SUMO_ATTR_STATE }
+    { "state",          SUMO_ATTR_STATE },
+    { "dest",           SUMO_ATTR_DEST },
+    { "source",         SUMO_ATTR_SOURCE },
+    { "via",            SUMO_ATTR_VIA },
+    { "int_end",        SUMO_ATTR_INTERNALEND }
 };
 
 
