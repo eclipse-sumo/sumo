@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2004/08/02 11:58:00  dkrajzew
+// using OutputDevices instead of ostreams
+//
 // Revision 1.25  2004/07/02 08:57:29  dkrajzew
 // using global object selection; detector handling (handling of additional elements) revisited
 //
@@ -125,6 +128,7 @@ class GUITriggerWrapper;
 class GUINetWrapper;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
+class OutputDevice;
 
 
 /* =========================================================================
@@ -160,7 +164,7 @@ public:
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
         MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
-        const std::vector<std::ostream*> &streams);
+        const std::vector<OutputDevice*> &streams);
 
     /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;

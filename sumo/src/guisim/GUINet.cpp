@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2004/08/02 11:58:00  dkrajzew
+// using OutputDevices instead of ostreams
+//
 // Revision 1.34  2004/07/02 08:57:29  dkrajzew
 // using global object selection; detector handling (handling of additional elements) revisited
 //
@@ -234,7 +237,7 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
                    MSJunctionControl* jc,
                    MSRouteLoaderControl *rlc,
                    MSTLLogicControl *tlc,
-                   const std::vector<std::ostream*> &streams)
+                   const std::vector<OutputDevice*> &streams)
 {
     MSNet::init(id, ec, jc, rlc, tlc, streams);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/08/02 11:57:12  dkrajzew
+// using OutputDevices instead of ostreams
+//
 // Revision 1.15  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -131,7 +134,7 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
         MSJunctionControl *junctions = myJunctionControlBuilder.build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
-        std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
+        std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(options);
         GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc,
             streams);
         return static_cast<GUINet*>(GUINet::getInstance());
