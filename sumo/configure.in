@@ -18,14 +18,14 @@ dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
 
+dnl enable libtool-support
+AC_PROG_LIBTOOL
+
 dnl don't create shared libtool-libraries
 dnl AC_DISABLE_SHARED
 
 dnl create static libtool-libraries instead
 dnl AC_ENABLE_STATIC(yes)
-
-dnl enable libtool-support
-AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
@@ -74,27 +74,27 @@ AC_ARG_WITH(xerces-libraries,
 
 AC_MSG_CHECKING([for xerces-lib])
 if test x"$ac_xerces_libraries" = x; then
-   if test -e /usr/lib/libxerces.so; then
+   if test -f /usr/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/lib
       ac_xerceslib=xerces
-   elif test -e /usr/lib/libxerces-c.so; then
+   elif test -f /usr/lib/libxerces-c.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/lib
       ac_xerceslib=xerces-c
-   elif test -e /usr/local/lib/libxerces.so; then
+   elif test -f /usr/local/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/local/lib
       ac_xerceslib=xerces
-   elif test -e /usr/local/lib/libxerces-c.so; then
+   elif test -f /usr/local/lib/libxerces-c.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/local/lib
       ac_xerceslib=xerces-c
-   elif test -e /usr/local/xerces/lib/libxerces.so; then
+   elif test -f /usr/local/xerces/lib/libxerces.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/local/xerces/lib/
       ac_xerceslib=xerces
-   elif test -e /usr/local/xerces/lib/libxerces-c.so; then
+   elif test -f /usr/local/xerces/lib/libxerces-c.so; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path=/usr/local/xerces/lib/
       ac_xerceslib=xerces-c
@@ -103,11 +103,11 @@ if test x"$ac_xerces_libraries" = x; then
       AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
    fi
 else
-   if test -e "$ac_xerces_libraries/libxerces.so"; then
+   if test -f "$ac_xerces_libraries/libxerces.so"; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces
-   elif test -e "$ac_xerces_libraries/libxerces-c.so"; then
+   elif test -f "$ac_xerces_libraries/libxerces-c.so"; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces-c
@@ -132,10 +132,10 @@ AC_ARG_WITH(xerces-includes,
 
 AC_MSG_CHECKING([for xerces-includes])
 if test x"$ac_xerces_includes" = x; then
-   if test -e /usr/include/xercesc; then
+   if test -d /usr/include/xercesc; then
       AC_MSG_RESULT([yes])
       ac_xerces_includes=/usr/include
-   elif test -e /usr/local/include/xercesc; then
+   elif test -d /usr/local/include/xercesc; then
       AC_MSG_RESULT([yes])
       ac_xerces_includes=/usr/local/include
    else
@@ -143,7 +143,7 @@ if test x"$ac_xerces_includes" = x; then
       AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
    fi
 else
-   if test -e "$ac_xerces_includes/xercesc/sax2/SAX2XMLReader.hpp"; then
+   if test -f "$ac_xerces_includes/xercesc/sax2/SAX2XMLReader.hpp"; then
       AC_MSG_RESULT([yes])
    else
       AC_MSG_RESULT([no])
