@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NBXMLEdgesHandler.cpp
+                          NIXMLEdgesHandler.cpp
 			  Realises the loading of the edges given in a
 			  XML-format
                              -------------------
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
 //
@@ -81,7 +84,7 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NBXMLEdgesHandler.h"
+#include "NIXMLEdgesHandler.h"
 #include <cmath>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <netbuild/NBNodeCont.h>
@@ -106,19 +109,19 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBXMLEdgesHandler::NBXMLEdgesHandler(bool warn, bool verbose)
-    : SUMOSAXHandler(warn, verbose)
+NIXMLEdgesHandler::NIXMLEdgesHandler(bool warn, bool verbose)
+    : SUMOSAXHandler("xml-edges - file", warn, verbose)
 {
 }
 
 
-NBXMLEdgesHandler::~NBXMLEdgesHandler()
+NIXMLEdgesHandler::~NIXMLEdgesHandler()
 {
 }
 
 
 void
-NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
+NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                                   const Attributes &attrs)
 {
     string id;
@@ -152,21 +155,21 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, speed);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for Speed (at tag ID='")
                     + id + string("')."));
             }
             try {
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY, priority);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for Priority (at tag ID='")
                     + id + string("')."));
             }
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, noLanes);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for NoLanes (at tag ID='")
                     + id + string("')."));
             }
@@ -179,28 +182,28 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             try {
                 xb = getFloatSecure(attrs, SUMO_ATTR_XFROM, -1);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for XFrom (at tag ID='")
                     + id + string("')."));
             }
             try {
                 yb = getFloatSecure(attrs, SUMO_ATTR_YFROM, -1);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for YFrom (at tag ID='")
                     + id + string("')."));
             }
             try {
                 xe = getFloatSecure(attrs, SUMO_ATTR_XTO, -1);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for XTo (at tag ID='")
                     + id + string("')."));
             }
             try {
                 ye = getFloatSecure(attrs, SUMO_ATTR_YTO, -1);
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for YTo (at tag ID='")
                     + id + string("')."));
             }
@@ -235,7 +238,7 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             }
             // check if the data were coherent
             if(!coherent) {
-                addError("xml-edges - file",
+                addError(
                     string("The data are not coherent or the nodes are not given..."));
             }
             // get the length or compute it
@@ -255,7 +258,7 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     }
                 }
             } catch (NumberFormatException) {
-                addError("xml-edges - file",
+                addError(
                     string("Not numeric value for length (at tag ID='")
                     + id + string("')."));
             }
@@ -264,13 +267,13 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                 try {
                     NBEdge *edge = new NBEdge(id, name, fromNode, toNode, type, speed, noLanes, length, priority);
                     if(!NBEdgeCont::insert(edge)) {
-                        addError("xml-edges - file",
+                        addError(
                             string("Duplicate edge occured. ID='") + id
                             + string("'"));
                         delete edge;
                     }
                 } catch (...) {
-                    addError("xml-edges - file",
+                    addError(
                         string("Error: Important information (propably the source or the destination node) missing in edge '")
                         + id + string("'."));
                 }
@@ -282,19 +285,19 @@ NBXMLEdgesHandler::myStartElement(int element, const std::string &tag,
 }
 
 void
-NBXMLEdgesHandler::myCharacters(int element, const std::string &name,
+NIXMLEdgesHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
 }
 
 void
-NBXMLEdgesHandler::myEndElement(int element, const std::string &name)
+NIXMLEdgesHandler::myEndElement(int element, const std::string &name)
 {
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBXMLEdgesHandler.icc"
+//#include "NIXMLEdgesHandler.icc"
 //#endif
 
 // Local Variables:

@@ -1,7 +1,7 @@
-#ifndef NBXMLTypesHandler_h
-#define NBXMLTypesHandler_h
+#ifndef NIXMLTypesHandler_h
+#define NIXMLTypesHandler_h
 /***************************************************************************
-                          NBXMLTypesHandler.h
+                          NIXMLTypesHandler.h
 			  Used to parse the XML-descriptions of types given in a XML-format
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
 //
@@ -54,12 +57,12 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class NBXMLTypesHandler : public SUMOSAXHandler {
+class NIXMLTypesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NBXMLTypesHandler(bool warn, bool verbose);
+    NIXMLTypesHandler(bool warn, bool verbose);
     /// destructor
-    ~NBXMLTypesHandler();
+    ~NIXMLTypesHandler();
 protected:
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
@@ -68,14 +71,14 @@ protected:
     void myEndElement(int element, const std::string &name);
 private:
     /** invalid copy constructor */
-    NBXMLTypesHandler(const NBXMLTypesHandler &s);
+    NIXMLTypesHandler(const NIXMLTypesHandler &s);
     /** invalid assignment operator */
-    NBXMLTypesHandler &operator=(const NBXMLTypesHandler &s);
+    NIXMLTypesHandler &operator=(const NIXMLTypesHandler &s);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NBXMLTypesHandler.icc"
+//#include "NIXMLTypesHandler.icc"
 //#endif
 
 #endif
@@ -83,4 +86,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

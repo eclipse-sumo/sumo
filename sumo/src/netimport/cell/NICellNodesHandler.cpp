@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NBCellNodesHandler.cpp
+                          NICellNodesHandler.cpp
              A LineHandler-derivate to load nodes form a cell-nodes-file
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/02/07 11:10:56  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/16 15:40:04  dkrajzew
 // initial commit for cell importing classes
 //
@@ -41,7 +44,7 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
-#include "NBCellNodesHandler.h"
+#include "NICellNodesHandler.h"
 
 /* =========================================================================
  * used namespaces
@@ -51,26 +54,25 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBCellNodesHandler::NBCellNodesHandler(const std::string &file,
+NICellNodesHandler::NICellNodesHandler(const std::string &file,
                                        bool warn, bool verbose)
-    : _file(file)
+    : FileErrorReporter("cell-nodes", file)
 {
 }
 
-NBCellNodesHandler::~NBCellNodesHandler()
+NICellNodesHandler::~NICellNodesHandler()
 {
 }
 
 bool
-NBCellNodesHandler::report(const std::string &result)
+NICellNodesHandler::report(const std::string &result)
 {
     if(result.length()>0) {
         StringTokenizer st(result);
         if(st.size()!=3) {
-            SErrorHandler::add(string("Within file '") + _file + string("':"));
-            SErrorHandler::add("The following cell-nodes - entry contains an error:", true);
-            SErrorHandler::add(result.c_str(), true);
-            SErrorHandler::add("The net may be corrupt.", true);
+            addError(
+                string("The following cell-nodes - entry contains an error:")
+                + '\n' + result.c_str());
         } else {
             string id = NBHelpers::normalIDRepresentation(st.next());
             double x, y;
@@ -79,11 +81,9 @@ NBCellNodesHandler::report(const std::string &result)
                 y = TplConvert<char>::_2float(st.next().c_str());
                 NBNodeCont::insert(id, x, y);
             } catch (NumberFormatException) {
-                SErrorHandler::add(string("Within file '") + _file + string("':"));
-                SErrorHandler::add(
-                    "The following cell-nodes - entry contains a non-digit position information:",
-                    true);
-                SErrorHandler::add(result.c_str(), true);
+                addError(
+                    string("The following cell-nodes - entry contains a non-digit position information:")
+                    + '\n' + result.c_str());
                 throw ProcessError();
             }
         }
@@ -93,7 +93,7 @@ NBCellNodesHandler::report(const std::string &result)
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBCellNodesHandler.icc"
+//#include "NICellNodesHandler.icc"
 //#endif
 
 // Local Variables:

@@ -1,7 +1,6 @@
 /***************************************************************************
-                          NBXMLNodesHandler.h
-			  Used to load the XML-description of the nodes given in a
-           XML-format
+                          NIXMLTypesHandler.cpp
+			  Used to parse the XML-descriptions of types given in a XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -25,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2002/10/17 13:30:01  dkrajzew
-// possibility to specify the type of the junction added
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
 //
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
@@ -77,9 +76,9 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NBXMLNodesHandler.h"
+#include "NIXMLTypesHandler.h"
+#include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
-#include <netbuild/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -100,98 +99,91 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBXMLNodesHandler::NBXMLNodesHandler(bool warn, bool verbose)
-    : SUMOSAXHandler(warn, verbose)
+NIXMLTypesHandler::NIXMLTypesHandler(bool warn, bool verbose)
+    : SUMOSAXHandler("xml-types - file",warn, verbose)
 {
 }
 
 
-NBXMLNodesHandler::~NBXMLNodesHandler()
+NIXMLTypesHandler::~NIXMLTypesHandler()
 {
 }
-
 
 
 void
-NBXMLNodesHandler::myStartElement(int element, const std::string &tag,
+NIXMLTypesHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
     string id;
-    if(tag=="node") {
+    if(name=="type") {
         try {
-            // retrieve the id of the node
+            // parse the id
             id = getString(attrs, SUMO_ATTR_ID);
-            string name = id;
-            // retrieve the name of the node
+            int priority, noLanes;
+            double speed;
+            // get the priority
             try {
-                name = getString(attrs, SUMO_ATTR_NAME);
-            } catch (EmptyData) {
-            }
-
-            // retrieve the position of the node
-            double x, y;
-            x = y = -1.0;
-                // retrieve the x-position
-            try {
-                x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
+                priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
+                    NBTypeCont::getDefaultPriority());
             } catch (NumberFormatException) {
-                addError("xml-nodes - file",
-                    string("Not numeric value for X (at tag ID='") + id
-                    + string("')."));
+                addError(
+                    string("Not numeric value for Priority (at tag ID='")
+                    + id + string("')."));
             }
-                // retrieve the y-position
+            // get the number of lanes
             try {
-                y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
+                noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
+                    NBTypeCont::getDefaultNoLanes());
             } catch (NumberFormatException) {
-                addError("xml-nodes - file",
-                    string("Not numeric value for Y (at tag ID='") + id
-                    + string("')."));
+                addError(
+                    string("Not numeric value for NoLanes (at tag ID='")
+                    + id + string("')."));
             }
-            // check whether the positions are valid
-            if(x==-1||y==-1) {
-                _errorOccured = true;
-                return;
+            // get the speed
+            try {
+                speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
+                    NBTypeCont::getDefaultSpeed());
+            } catch (NumberFormatException) {
+                addError(
+                    string("Not numeric value for Speed (at tag ID='")
+                    + id + string("')."));
             }
-            // insert the node
-            string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-            if(type.length()==0&&!NBNodeCont::insert(id, x, y)) {
-                addError("xml-nodes - file",
-                    string("Duplicate node occured. ID='") + id
-                    + string("'"));
-            }
-            if(type.length()>0&&!NBNodeCont::insert(id, x, y, type)) {
-                if(NBNodeCont::retrieve(x, y)!=0) {
-                    addError("xml-nodes - file",
-                        string("Duplicate node occured. ID='") + id
-                        + string("'"));
-                } 
+            // build the type
+            if(!_errorOccured) {
+                NBType *type = new NBType(id, noLanes, speed, priority);
+                if(!NBTypeCont::insert(type)) {
+                    addError(
+                        string("Duplicate type occured. ID='")
+                        + id + string("'"));
+                    _errorOccured = true;
+                    delete type;
+                }
             }
         } catch (EmptyData) {
-            if(_verbose) {
-	            cout << "No id given... Skipping." << endl;
+            if(_warn) {
+	            cout << "No id given... Skipping." << endl; // !!! SErrorHandler::warning needed
             }
         }
     }
 }
 
+
 void
-NBXMLNodesHandler::myCharacters(int element, const std::string &name,
+NIXMLTypesHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
-    myCharactersDump(element, name, chars);
 }
 
 
 void
-NBXMLNodesHandler::myEndElement(int element, const std::string &name)
+NIXMLTypesHandler::myEndElement(int element, const std::string &name)
 {
-    myEndElementDump(element, name);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBXMLNodesHandler.icc"
+//#include "NIXMLTypesHandler.icc"
 //#endif
 
 // Local Variables:

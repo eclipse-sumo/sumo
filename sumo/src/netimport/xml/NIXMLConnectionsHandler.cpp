@@ -1,6 +1,6 @@
 /***************************************************************************
-                          NBXMLConnectionsHandler.cpp
-			  Used to parse the XML-descriptions of connections between 
+                          NIXMLConnectionsHandler.cpp
+			  Used to parse the XML-descriptions of connections between
               edges or lanes given in a XML-format
                              -------------------
     project              : SUMO
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/17 13:28:11  dkrajzew
 // initial commit of classes to import connection definitions
 //
@@ -38,10 +41,9 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NBXMLConnectionsHandler.h"
+#include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <utils/common/SErrorHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
@@ -65,26 +67,26 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBXMLConnectionsHandler::NBXMLConnectionsHandler(bool warn, bool verbose)
-    : SUMOSAXHandler(warn, verbose)
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(bool warn, bool verbose)
+    : SUMOSAXHandler("xml-connection-description", warn, verbose)
 {
 }
 
 
-NBXMLConnectionsHandler::~NBXMLConnectionsHandler()
+NIXMLConnectionsHandler::~NIXMLConnectionsHandler()
 {
 }
 
 
 void
-NBXMLConnectionsHandler::myStartElement(int element, const std::string &name,
+NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
     if(name=="connection") {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
         if(from.length()==0||to.length()==0) {
-            SErrorHandler::add(
+            addError(
                 "Either a from-edge or a to-edge is not specified within one of the connections");
             return;
         }
@@ -93,14 +95,14 @@ NBXMLConnectionsHandler::myStartElement(int element, const std::string &name,
         NBEdge *toEdge = NBEdgeCont::retrieve(to);
         // check whether they are valid
         if(fromEdge==0) {
-            SErrorHandler::add(
-                string("The connection-source edge '") 
+            addError(
+                string("The connection-source edge '")
                 + from + string("' is not known."));
             return;
         }
         if(toEdge==0) {
-            SErrorHandler::add(
-                string("The connection-destination edge '") 
+            addError(
+                string("The connection-destination edge '")
                 + to + string("' is not known."));
             return;
         }
@@ -111,21 +113,21 @@ NBXMLConnectionsHandler::myStartElement(int element, const std::string &name,
         } else if(type=="lanebound") {
             parseLaneBound(attrs, fromEdge, toEdge);
         } else {
-            SErrorHandler::add("Unknown type of connection");
+            addError("Unknown type of connection");
         }
     }
 }
 
 void
-NBXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
+NIXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
                                         NBEdge *from,
-                                        NBEdge *to) 
+                                        NBEdge *to)
 {
     int noLanes;
     try {
         noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, -1);
     } catch (NumberFormatException e) {
-        SErrorHandler::add(
+        addError(
             string("Not numeric lane in connection"));
         return;
     }
@@ -141,19 +143,19 @@ NBXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
 
 
 void
-NBXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
+NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                                         NBEdge *from,
-                                        NBEdge *to) 
+                                        NBEdge *to)
 {
     string laneConn = getStringSecure(attrs, SUMO_ATTR_LANE, "");
     if(laneConn.length()==0) {
-        SErrorHandler::add("Not specified lane to lane connection");
+        addError("Not specified lane to lane connection");
         return;
     } else {
         // split the information
         StringTokenizer st(laneConn, ':');
         if(st.size()!=2) {
-            SErrorHandler::add("False lane to lane connection occured.");
+            addError("False lane to lane connection occured.");
             return;
         }
         // get the begin and the end lane
@@ -164,7 +166,7 @@ NBXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             from->addLane2LaneConnection(fromLane, to, toLane);
         } catch (NumberFormatException) {
-            SErrorHandler::add(
+            addError(
                 string("At least one of the defined lanes was not numeric"));
         }
     }
@@ -172,21 +174,21 @@ NBXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
 
 
 void
-NBXMLConnectionsHandler::myCharacters(int element, const std::string &name,
+NIXMLConnectionsHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
 }
 
 
 void
-NBXMLConnectionsHandler::myEndElement(int element, const std::string &name)
+NIXMLConnectionsHandler::myEndElement(int element, const std::string &name)
 {
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBXMLConnectionsHandler.icc"
+//#include "NIXMLConnectionsHandler.icc"
 //#endif
 
 // Local Variables:

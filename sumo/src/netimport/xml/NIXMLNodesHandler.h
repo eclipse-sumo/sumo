@@ -1,8 +1,9 @@
-#ifndef NBXMLEdgesHandler_h
-#define NBXMLEdgesHandler_h
+#ifndef NIXMLNodesHandler_h
+#define NIXMLNodesHandler_h
 /***************************************************************************
-                          NBXMLEdgesHandler.h
-			  Realises the loading of the edges given in a XML-format
+                          NIXMLNodesHandler.h
+			  Used to load the XML-description of the nodes given in a
+           XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,19 +22,19 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
 //
-// Revision 1.5  2002/06/11 16:00:40  dkrajzew
+// Revision 1.4  2002/06/11 16:00:41  dkrajzew
 // windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
-//
-// Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:57  dkrajzew
 // new computation flow
 //
-// Revision 1.2  2002/04/26 10:07:12  dkrajzew
+// Revision 1.2  2002/04/26 10:07:13  dkrajzew
 // Windows eol removed; minor double to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
@@ -57,16 +58,12 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/**
- * NBXMLEdgesHandler
- * A class that loads the edges stored in xml
- */
-class NBXMLEdgesHandler : public SUMOSAXHandler {
+class NIXMLNodesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NBXMLEdgesHandler(bool warn, bool verbose);
+    NIXMLNodesHandler(bool warn, bool verbose);
     /// standard destructor
-    ~NBXMLEdgesHandler();
+    ~NIXMLNodesHandler();
 protected:
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
@@ -75,14 +72,14 @@ protected:
     void myEndElement(int element, const std::string &name);
 private:
     /** invalid copy constructor */
-    NBXMLEdgesHandler(const NBXMLEdgesHandler &s);
+    NIXMLNodesHandler(const NIXMLNodesHandler &s);
     /** invalid assignment operator */
-    NBXMLEdgesHandler &operator=(const NBXMLEdgesHandler &s);
+    NIXMLNodesHandler &operator=(const NIXMLNodesHandler &s);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NBXMLEdgesHandler.icc"
+//#include "NIXMLNodesHandler.icc"
 //#endif
 
 #endif
@@ -90,4 +87,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

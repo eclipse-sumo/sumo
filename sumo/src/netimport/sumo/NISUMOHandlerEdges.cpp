@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        NISUMOHandlerEdges.cpp -
+//  A handler for SUMO edges
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.1  2003/02/07 11:13:27  dkrajzew
+// names changed
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -7,24 +44,24 @@
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
-#include "NBSUMOHandlerEdges.h"
+#include "NISUMOHandlerEdges.h"
 
 using namespace std;
 
-NBSUMOHandlerEdges::NBSUMOHandlerEdges(LoadFilter what, bool warn, bool verbose)
-    : SUMOSAXHandler(warn, verbose),
+NISUMOHandlerEdges::NISUMOHandlerEdges(LoadFilter what, bool warn, bool verbose)
+    : SUMOSAXHandler("sumo-network", warn, verbose),
     _loading(what)
 {
 }
 
 
-NBSUMOHandlerEdges::~NBSUMOHandlerEdges()
+NISUMOHandlerEdges::~NISUMOHandlerEdges()
 {
 }
 
 
 void
-NBSUMOHandlerEdges::myStartElement(int element, const std::string &name,
+NISUMOHandlerEdges::myStartElement(int element, const std::string &name,
                                    const Attributes &attrs)
 {
     if(element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
@@ -34,7 +71,7 @@ NBSUMOHandlerEdges::myStartElement(int element, const std::string &name,
 
 
 void
-NBSUMOHandlerEdges::addEdge(const Attributes &attrs)
+NISUMOHandlerEdges::addEdge(const Attributes &attrs)
 {
     string id;
     try {
@@ -71,25 +108,25 @@ NBSUMOHandlerEdges::addEdge(const Attributes &attrs)
                 nolanes, length, priority));
         }
     } catch (EmptyData) {
-        addError("sumo-file", "An edge with an unknown id occured.");
+        addError("An edge with an unknown id occured.");
     }
 }
 
 NBNode *
-NBSUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
+NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
                             const std::string &dir, const std::string &name)
 {
     try {
         string nodename = getString(attrs, id);
         NBNode *node = NBNodeCont::retrieve(nodename);
         if(node==0) {
-            addError("sumo-file",
+            addError(
                 string("The ") + dir + string("-node '") + nodename +
                 string("' used within edge '") + name + string("' is not known."));
         }
         return node;
     } catch (EmptyData) {
-        addError("sumo-file",
+        addError(
             string("Missing ") + dir + string("-node name for edge with id '")
             + name + string("'"));
     }
@@ -97,18 +134,18 @@ NBSUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
 }
 
 float
-NBSUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
+NISUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
                                       AttrEnum id, const std::string &name,
                                       const std::string &objid)
 {
     try {
         return getFloat(attrs, id);
     } catch (EmptyData) {
-        addError("sumo-file",
+        addError(
             string("The ") + name + string(" is not given within the object '")
             + objid + string("'."));
     } catch (NumberFormatException) {
-        addError("sumo-file",
+        addError(
             string("The ") + name + string(" is not numeric within the object '")
             + objid + string("'."));
     }
@@ -117,35 +154,44 @@ NBSUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
 
 
 int
-NBSUMOHandlerEdges::getIntReporting(const Attributes &attrs,
+NISUMOHandlerEdges::getIntReporting(const Attributes &attrs,
                                     AttrEnum id, const std::string &name,
                                     const std::string &objid)
 {
     try {
         return getInt(attrs, id);
     } catch (EmptyData) {
-        addError("sumo-file",
+        addError(
             string("The ") + name + string(" is not given within the object '")
             + objid + string("'."));
     } catch (NumberFormatException) {
-        addError("sumo-file",
+        addError(
             string("The ") + name + string(" is not numeric within the object '")
             + objid + string("'."));
     }
     return -1;
 }
 
-void NBSUMOHandlerEdges::myCharacters(int element, const std::string &name,
+void NISUMOHandlerEdges::myCharacters(int element, const std::string &name,
                                       const std::string &chars)
 {
     myCharactersDump(element, name, chars);
 }
 
 
-void NBSUMOHandlerEdges::myEndElement(int element, const std::string &name)
+void NISUMOHandlerEdges::myEndElement(int element, const std::string &name)
 {
     myEndElementDump(element, name);
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NISUMOHandlerEdges.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

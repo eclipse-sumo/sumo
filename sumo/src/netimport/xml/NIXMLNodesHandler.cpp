@@ -1,6 +1,7 @@
 /***************************************************************************
-                          NBXMLTypesHandler.cpp
-			  Used to parse the XML-descriptions of types given in a XML-format
+                          NIXMLNodesHandler.h
+			  Used to load the XML-description of the nodes given in a
+           XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
+//
+// Revision 1.2  2002/10/17 13:30:01  dkrajzew
+// possibility to specify the type of the junction added
+//
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
 //
@@ -73,9 +80,9 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NBXMLTypesHandler.h"
-#include <netbuild/NBTypeCont.h>
+#include "NIXMLNodesHandler.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -96,86 +103,98 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBXMLTypesHandler::NBXMLTypesHandler(bool warn, bool verbose)
-    : SUMOSAXHandler(warn, verbose)
+NIXMLNodesHandler::NIXMLNodesHandler(bool warn, bool verbose)
+    : SUMOSAXHandler("xml-nodes - file", warn, verbose)
 {
 }
 
 
-NBXMLTypesHandler::~NBXMLTypesHandler()
+NIXMLNodesHandler::~NIXMLNodesHandler()
 {
 }
+
 
 
 void
-NBXMLTypesHandler::myStartElement(int element, const std::string &name,
+NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
                                   const Attributes &attrs)
 {
     string id;
-    if(name=="type") {
+    if(tag=="node") {
         try {
-            // parse the id
+            // retrieve the id of the node
             id = getString(attrs, SUMO_ATTR_ID);
-            int priority, noLanes;
-            double speed;
-            // get the priority
+            string name = id;
+            // retrieve the name of the node
             try {
-                priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
-                    NBTypeCont::getDefaultPriority());
-            } catch (NumberFormatException) {
-                cout << "Error: Not numeric value for Priority (at tag ID='" << id << "')." << endl;
-                _errorOccured = true;
+                name = getString(attrs, SUMO_ATTR_NAME);
+            } catch (EmptyData) {
             }
-            // get the number of lanes
+
+            // retrieve the position of the node
+            double x, y;
+            x = y = -1.0;
+                // retrieve the x-position
             try {
-                noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
-                    NBTypeCont::getDefaultNoLanes());
+                x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
             } catch (NumberFormatException) {
-                cout << "Error: Not numeric value for NoLanes (at tag ID='" << id << "')." << endl;
-                _errorOccured = true;
+                addError(
+                    string("Not numeric value for X (at tag ID='") + id
+                    + string("')."));
             }
-            // get the speed
+                // retrieve the y-position
             try {
-                speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
-                    NBTypeCont::getDefaultSpeed());
+                y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
             } catch (NumberFormatException) {
-                cout << "Error: Not numeric value for Speed (at tag ID='" << id << "')." << endl;
-                _errorOccured = true;
+                addError(
+                    string("Not numeric value for Y (at tag ID='") + id
+                    + string("')."));
             }
-            // build the type
-            if(!_errorOccured) {
-                NBType *type = new NBType(id, noLanes, speed, priority);
-                if(!NBTypeCont::insert(type)) {
-                    cout << "Error: Duplicate type occured. ID='" << id << "'" << endl;
-                    _errorOccured = true;
-                    delete type;
+            // check whether the positions are valid
+            if(x==-1||y==-1) {
+                _errorOccured = true;
+                return;
+            }
+            // insert the node
+            string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+            if(type.length()==0&&!NBNodeCont::insert(id, x, y)) {
+                addError(
+                    string("Duplicate node occured. ID='") + id
+                    + string("'"));
+            }
+            if(type.length()>0&&!NBNodeCont::insert(id, x, y, type)) {
+                if(NBNodeCont::retrieve(x, y)!=0) {
+                    addError(
+                        string("Duplicate node occured. ID='") + id
+                        + string("'"));
                 }
             }
         } catch (EmptyData) {
-            if(_warn) {
+            if(_verbose) {
 	            cout << "No id given... Skipping." << endl;
             }
         }
     }
 }
 
-
 void
-NBXMLTypesHandler::myCharacters(int element, const std::string &name,
+NIXMLNodesHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
+    myCharactersDump(element, name, chars);
 }
 
 
 void
-NBXMLTypesHandler::myEndElement(int element, const std::string &name)
+NIXMLNodesHandler::myEndElement(int element, const std::string &name)
 {
+    myEndElementDump(element, name);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBXMLTypesHandler.icc"
+//#include "NIXMLNodesHandler.icc"
 //#endif
 
 // Local Variables:

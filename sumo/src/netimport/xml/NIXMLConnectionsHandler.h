@@ -1,9 +1,8 @@
-#ifndef NBXMLNodesHandler_h
-#define NBXMLNodesHandler_h
+#ifndef NIXMLConnectionsHandler_h
+#define NIXMLConnectionsHandler_h
 /***************************************************************************
-                          NBXMLNodesHandler.h
-			  Used to load the XML-description of the nodes given in a
-           XML-format
+                          NIXMLConnectionsHandler.h
+			  Used to parse the XML-descriptions of types given in a XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -22,29 +21,14 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/10/16 15:45:36  dkrajzew
-// initial commit for xml-importing classes
+// Revision 1.1  2003/02/07 11:16:30  dkrajzew
+// names changed
 //
-// Revision 1.4  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// Revision 1.2  2002/10/29 10:34:04  dkrajzew
+// log patched
 //
-// Revision 1.3  2002/05/14 04:42:57  dkrajzew
-// new computation flow
-//
-// Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
-// new version-free project name
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-// Revision 1.1  2001/12/06 13:37:59  traffic
-// files for the netbuilder
+// Revision 1.1  2002/10/17 13:28:11  dkrajzew
+// initial commit of classes to import connection definitions
 //
 //
 /* =========================================================================
@@ -53,14 +37,19 @@
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBEdge;
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
-class NBXMLNodesHandler : public SUMOSAXHandler {
+class NIXMLConnectionsHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NBXMLNodesHandler(bool warn, bool verbose);
-    /// standard destructor
-    ~NBXMLNodesHandler();
+    NIXMLConnectionsHandler(bool warn, bool verbose);
+    /// destructor
+    ~NIXMLConnectionsHandler();
 protected:
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
@@ -68,15 +57,21 @@ protected:
         const std::string &chars);
     void myEndElement(int element, const std::string &name);
 private:
+    void parseEdgeBound(const Attributes &attrs, NBEdge *from,
+        NBEdge *to);
+    void parseLaneBound(const Attributes &attrs,NBEdge *from,
+        NBEdge *to);
+
+private:
     /** invalid copy constructor */
-    NBXMLNodesHandler(const NBXMLNodesHandler &s);
+    NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);
     /** invalid assignment operator */
-    NBXMLNodesHandler &operator=(const NBXMLNodesHandler &s);
+    NIXMLConnectionsHandler &operator=(const NIXMLConnectionsHandler &s);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NBXMLNodesHandler.icc"
+//#include "NIXMLConnectionsHandler.icc"
 //#endif
 
 #endif
@@ -84,4 +79,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NBCellEdgesHandler.cpp
+                          NICellEdgesHandler.cpp
              A LineHandler-derivate to load edges form a cell-edges-file
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2003/02/07 11:10:56  dkrajzew
+// names changed
+//
 // Revision 1.1  2002/10/16 15:40:04  dkrajzew
 // initial commit for cell importing classes
 //
@@ -45,7 +48,7 @@ namespace
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
-#include "NBCellEdgesHandler.h"
+#include "NICellEdgesHandler.h"
 
 /* =========================================================================
  * used namespaces
@@ -55,19 +58,19 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBCellEdgesHandler::NBCellEdgesHandler(const std::string &file,
+NICellEdgesHandler::NICellEdgesHandler(const std::string &file,
                                        bool warn, bool verbose,
                                        NBCapacity2Lanes capacity2Lanes)
-    : _file(file), _capacity2Lanes(capacity2Lanes)
+    : FileErrorReporter("cell-edges", file), _capacity2Lanes(capacity2Lanes)
 {
 }
 
-NBCellEdgesHandler::~NBCellEdgesHandler()
+NICellEdgesHandler::~NICellEdgesHandler()
 {
 }
 
 bool
-NBCellEdgesHandler::report(const std::string &result)
+NICellEdgesHandler::report(const std::string &result)
 {
     // skip white lines (?)
     if(result.length()==0) {
@@ -81,11 +84,9 @@ NBCellEdgesHandler::report(const std::string &result)
     }
     // check mandatory parameter
     if(st.size()<4) {
-        SErrorHandler::add(string("Within file '") + _file + string("':"), true);
-        SErrorHandler::add(
-            "The following cell-edges - entry does not match the format:",
-            true);
-        SErrorHandler::add(result.c_str(), true);
+        addError(
+            string("The following cell-edges - entry does not match the format:")
+            + '\n' + result.c_str());
         throw ProcessError();
     }
     string id = NBHelpers::normalIDRepresentation(st.next());
@@ -95,13 +96,15 @@ NBCellEdgesHandler::report(const std::string &result)
         NBNodeCont::retrieve(NBHelpers::normalIDRepresentation(st.next()));
     // check whether the nodes are known
     if(from==0||to==0) {
-        SErrorHandler::add(string("Within file '") + _file + string("':"), true);
         if(from==0) {
-            SErrorHandler::add("The from-node is not known within the following entry:", true);
+            addError(
+                string("The from-node is not known within the following entry:")
+                + '\n' + result.c_str());
         } else {
-            SErrorHandler::add("The to-node is not known within the following entry:", true);
+            addError(
+                string("The to-node is not known within the following entry:")
+                + '\n' + result.c_str());
         }
-        SErrorHandler::add(result.c_str(), true);
         throw ProcessError();
     }
     // other values
@@ -113,17 +116,17 @@ NBCellEdgesHandler::report(const std::string &result)
     try {
         length = TplConvert<char>::_2float(st.next().c_str());
     } catch (NumberFormatException) {
-        SErrorHandler::add(string("Within file '") + _file + string("':"), true);
-        SErrorHandler::add("Non-numeric length entry in the following line:", true);
-        SErrorHandler::add(result.c_str(), true);
+        addError(
+            string("Non-numeric length entry in the following line:")
+            + '\n' + result.c_str());
     }
     // get the other parameter
     while(st.hasNext()) {
         string name = st.next();
         if(!st.hasNext()) {
-            SErrorHandler::add(string("Within file '") + _file + string("':"), true);
-            SErrorHandler::add("Something seems to be wrong with the following line:", true);
-            SErrorHandler::add(result.c_str(), true);
+            addError(
+                string("Something seems to be wrong with the following line:")
+                + '\n' + result.c_str());
         } else {
             string value = st.next();
             // do nothing on maximal vehicle number
@@ -139,9 +142,9 @@ NBCellEdgesHandler::report(const std::string &result)
                 try {
                     speed = TplConvert<char>::_2float(value.c_str());
                 } catch (NumberFormatException) {
-                    SErrorHandler::add(string("Within file '") + _file + string("':"), true);
-                    SErrorHandler::add("Non-numeric speed value:", true);
-                    SErrorHandler::add(result.c_str(), true);
+                    addError(
+                        string("Non-numeric speed value:")
+                        + '\n' + result.c_str());
                 }
             }
         }
@@ -153,7 +156,7 @@ NBCellEdgesHandler::report(const std::string &result)
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "NBCellEdgesHandler.icc"
+//#include "NICellEdgesHandler.icc"
 //#endif
 
 // Local Variables:
