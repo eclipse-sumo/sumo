@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.5  2002/04/18 15:05:18  croessel
+// In nextStateCompete(): Returns now correct position instead of 0.
+//
 // Revision 1.4  2002/04/18 14:30:24  croessel
 // Bug in Revision 1.3 changes. Return State( pos, speed = 0 ) instead of
 // myState.
@@ -572,8 +575,9 @@ MSVehicle::nextStateCompete( MSLane* lane,
     double vSafe    = vsafe( myState.mySpeed, myType->decel(), 
                             gap2pred, predState.mySpeed );
     
-    double vNext    = vMin( vAccel, vMax, vLaneMax, vSafe );    
-    return State( 0, dawdle( vNext ) ); 
+    double vNext    = dawdle( vMin( vAccel, vMax, vLaneMax, vSafe ) );    
+    double nextPos  = myState.myPos + vSafe * MSNet::deltaT();
+    return State( nextPos, vNext ); 
 }
 
 /////////////////////////////////////////////////////////////////////////////
