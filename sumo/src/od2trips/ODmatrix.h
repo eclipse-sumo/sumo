@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/08/21 12:57:59  dkrajzew
+// buffer overflow bug#1 removed
+//
 // Revision 1.6  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
@@ -93,7 +96,7 @@ typedef struct content {
 	int max;
 	int	cartype[MAX_CARTYPES];
 	float fraction[MAX_CARTYPES];
-	};
+} ODContent;
 
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/08/21 12:57:59  dkrajzew
+// buffer overflow bug#1 removed
+//
 // Revision 1.6  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
@@ -37,6 +40,9 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+
+#include <string>
+#include <vector>
 
 
 /* =========================================================================
@@ -62,8 +68,8 @@ extern int Get_rand (int, int, int, int*, int*, bool);
 
 extern void IndexSort (long int*, long int*, CMPFUN, long int);
 
-extern void ODInpread (string , string infiles[MAX_INFILES],
-                       struct content content[MAX_CONTENT],int*);
+extern void ODInpread (string , std::vector<std::string> &infiles/*string infiles[MAX_INFILES]*/,
+                       std::vector<ODContent> &content/*[MAX_CONTENT]*//*, int**/);
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

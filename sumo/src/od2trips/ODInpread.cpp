@@ -39,8 +39,8 @@
 
 using namespace std;
 
-void ODInpread (string OD_filename,string infiles[MAX_INFILES],
-				struct content content[MAX_CONTENT],int *max_infiles)
+void ODInpread (string OD_filename, std::vector<std::string> &infiles,
+                std::vector<ODContent> &content/*struct content content[MAX_CONTENT]*//*,int *max_infiles*/)
 	{
 	std::string cLine;
 	char bez1[]="ZUSAMMENSETZUNG";
@@ -53,7 +53,7 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	char delim3[]="V";
 	int ferror = 0;
 	char datin[MAX_LINELENGTH];
-	struct content content_tmp[MAX_CONTENT];
+    std::vector<ODContent> content_tmp;
 
 	std::ifstream fsSrc (OD_filename.c_str ());
 
@@ -71,15 +71,16 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	int index=-1;
 	int count2=0;
 	int count3=-1;
-	*max_infiles=0;
+//	*max_infiles=0;
 	while (fsSrc.getline (datin,MAX_LINELENGTH)) {
 		if (((a=strstr(datin, bez1)) != NULL) && (strstr(datin, bez2)) != NULL)  {
 			pos1=a-datin+16;
-			content[*max_infiles].id=atoi(datin+pos1); // read district ids
+            content.push_back(ODContent());
+			content[content.size()-1].id=atoi(datin+pos1); // read district ids
 			b=strtok(datin,delim1);
 			b=strtok(NULL,delim1);
-			infiles[*max_infiles]=b;
-			(*max_infiles)++;
+			infiles.push_back(b);
+//			(*max_infiles)++;
 		}
 		if (((a=strstr(datin, bez1)) != NULL) && (strstr(datin, bez4)) != NULL) {
 			count2=0;
@@ -95,6 +96,9 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 			b=strtok(NULL,delim3);
 			float anteil;
 			anteil=atof(b);
+            while(content_tmp.size()<=count3) {
+                content_tmp.push_back(ODContent());
+            }
 			content_tmp[count3].id=index;
 			content_tmp[count3].cartype[count2]=typ;
 			content_tmp[count3].fraction[count2]=anteil;
@@ -103,7 +107,7 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 		}
 	}
 	 // rearrange ZUSAMMENSETZUNG
-	for (i=0;i<(*max_infiles);i++) {
+	for (i=0;i<infiles.size();i++) {
 		for (j=0;j<count3+1;j++) {
 			if (content[i].id==content_tmp[j].id) {
 				content[i]=content_tmp[j];
