@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libgui.a
 
 
-EXTRA_DIST =
 
 libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
 GUIChooser.cpp GUIChooser.h \
@@ -17,7 +16,6 @@ GUIViewTraffic.cpp GUIViewTraffic.h \
 QGLObjectToolTip.cpp QGLObjectToolTip.h QMessageEvent.h \
 QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
 QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
-TableTypes.h \
 QSimulationEndedEvent.h QSimulationEndedEvent.cpp \
 GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h \
 GUIMessageWindow.cpp GUIMessageWindow.h
