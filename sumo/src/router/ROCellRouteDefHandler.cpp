@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 15:08:20  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -139,7 +142,7 @@ ROCellRouteDefHandler::readNextRoute(long start)
     string id = _vehicleIdSupplier.getNext();
     _net.addVehicle(id,
         new ROVehicle(id, altDef, _driverParser.getRouteStart(),
-        _net.getDefaultVehicleType()));
+        _net.getDefaultVehicleType(), -1));
     _nextRouteRead = true;
     return true;
 }
@@ -216,7 +219,7 @@ ROCellRouteDefHandler::startReadingSteps()
 
 
 bool
-ROCellRouteDefHandler::init(OptionsCont &options)
+ROCellRouteDefHandler::myInit(OptionsCont &options)
 {
     // check whether non-intel-format shall be used
     _isIntel = options.getBool("intel-cell");

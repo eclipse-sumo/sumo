@@ -39,6 +39,10 @@ NIVissimConnection::NIVissimConnection(int id,
 
 NIVissimConnection::~NIVissimConnection()
 {
+    for(NIVissimClosedLanesVector::iterator i=myClosedLanes.begin(); i!=myClosedLanes.end(); i++) {
+        delete (*i);
+    }
+    myClosedLanes.clear();
 }
 
 
@@ -286,17 +290,17 @@ NIVissimConnection::getToGeomPosition() const
 
 
 void
-NIVissimConnection::setNodeCluster()
+NIVissimConnection::setNodeCluster(int nodeid)
 {
-    assert(!myHaveNode);
-    myHaveNode = true;
+    assert(myNode==-1);
+    myNode = nodeid;
 }
 
 
 void
 NIVissimConnection::unsetCluster()
 {
-    myHaveNode = false;
+    myNode = -1;
 }
 
 
@@ -316,6 +320,9 @@ NIVissimConnection::dict_buildNBEdgeConnections()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
+        if(c->getID()==10015) {
+            int bla = 0;
+        }
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
@@ -324,6 +331,22 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             toString<int>(c->getToEdgeID()),
             toString<int>(c->getFromEdgeID()),
             false);
+        // check whether it is near to an already build node
+        //  remind that this node has to made of a splitted
+        //  edge, so that the edge's connections are no longer
+        //  valid
+        if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0 
+            ||
+            NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()))==0 ) {
+            NBEdge *tmpToEdge = toEdge;
+            NBEdge *tmpFromEdge = fromEdge->checkCorrectNode(toEdge);
+            if(tmpFromEdge==fromEdge) {
+                tmpToEdge = toEdge->checkCorrectNode(fromEdge);
+            }
+            fromEdge = tmpFromEdge;
+            toEdge = tmpToEdge;
+            // build connections
+        }
         const IntVector &fromLanes = c->getFromLanes();
         const IntVector &toLanes = c->getToLanes();
         for(IntVector::const_iterator j=fromLanes.begin(); j!=fromLanes.end(); j++) {

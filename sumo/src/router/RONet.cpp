@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 15:08:21  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -67,6 +70,12 @@ RONet::RONet(bool multireferencedRoutes)
 
 RONet::~RONet()
 {
+    _nodes.clear();
+    _edges.clear();
+    _vehicleTypes.clear();
+    _routes.clear();
+    _vehicles.clear();
+//    _snipplets.clear();
 }
 
 
@@ -224,7 +233,7 @@ RONet::saveType(std::ostream &os, ROVehicleType *type,
 
 
 bool
-RONet::saveRoute(RORouter &router,
+RONet::saveRoute(OptionsCont &options, RORouter &router,
                  std::ostream &res,
                  std::ostream &altres,
                  ROVehicle *veh)
@@ -241,12 +250,14 @@ RONet::saveRoute(RORouter &router,
         return true;
     }
     // build and save the route
-    return routeDef->computeAndSave(router, veh->getDepartureTime(),
-        res, altres);
+    return routeDef->computeAndSave(options,
+        router, veh->getDepartureTime(), res, altres);
 }
 
 void
-RONet::saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres)
+RONet::saveAndRemoveRoutesUntil(OptionsCont &options, 
+                                std::ofstream &res, std::ofstream &altres,
+                                long time)
 {
     // build the router
     RORouter router(*this, &_edges);
@@ -259,9 +270,12 @@ RONet::saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres)
     while(!sortedVehicles.empty()) {
         // get the next vehicle
         ROVehicle *veh = sortedVehicles.top();
+        if(veh->getDepartureTime()>time) {
+            break;
+        }
         sortedVehicles.pop();
         // write the route
-        if(saveRoute(router, res, altres, veh)) {
+        if(saveRoute(options, router, res, altres, veh)) {
             // write the type if it's new
             if(!veh->getType()->isSaved()) {
                 saveType(res, veh->getType(), veh->getID());
@@ -272,11 +286,13 @@ RONet::saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres)
             veh->xmlOut(res);
             altres << "   ";
             veh->xmlOut(altres);
-            // remove the route if it is not longer used
+        }
+        // remove the route if it is not longer used
+        if(!veh->reassertPeriodical()) {
             removeRouteSecure(veh->getRoute());
+            _vehicles.eraseVehicle(veh);
         }
     }
-    _vehicles.clear();
 }
 
 
@@ -307,6 +323,14 @@ RONet::knowsRouteSnipplet(ROEdge *from, ROEdge *to) const
 {
     return _snipplets.knows(from, to);
 }
+
+
+bool 
+RONet::furtherStored()
+{
+    return _vehicles.size()>0;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -57,3 +57,14 @@ NIVissimVehTypeClass::dictionary(int name)
     return (*i).second;
 }
 
+
+void 
+NIVissimVehTypeClass::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+

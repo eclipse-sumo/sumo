@@ -10,6 +10,8 @@
 #include <utils/common/DoubleVector.h>
 #include "NIVissimBoundedClusterObject.h"
 
+class NBNode;
+
 class NIVissimTL
         : public NIVissimBoundedClusterObject {
 public:
@@ -41,6 +43,8 @@ public:
 //    static void assignNodes();
     static IntVector getWithin(const AbstractPoly &poly);
     static void buildNodeClusters();
+    static void clearDict();
+    static bool dict_SetSignals();
 
 public:
     class NIVissimTLSignal;
@@ -58,10 +62,12 @@ public:
         ~NIVissimTLSignal();
         bool isWithin(const Position2DVector &poly) const;
         Position2D getPosition() const;
+        void addTo(NBNode *node) const;
 
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignal *o);
         static NIVissimTLSignal *dictionary(int lsaid, int id);
+        static void clearDict();
 
     protected:
         int myLSA;
@@ -81,9 +87,11 @@ public:
             bool isGreenBegin, const DoubleVector &times,
             double tredyellow, double tyellow);
         ~NIVissimTLSignalGroup();
+        void addTo(NBNode *node) const;
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignalGroup *o);
         static NIVissimTLSignalGroup *dictionary(int lsaid, int id);
+        static void clearDict();
 
     public:
 /*        void setStaticGreen();

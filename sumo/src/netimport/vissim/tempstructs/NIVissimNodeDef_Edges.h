@@ -17,6 +17,7 @@ public:
         const NIVissimNodeParticipatingEdgeVector &edges);
     virtual void computeBounding();
     virtual void searchAndSetConnections();
+    virtual double getEdgePosition(int edgeid) const;
 /*    virtual bool trafficLightMatches(
         const NIVissimExtendedEdgePointVector &edges);
     virtual bool connectionMatches(int fromID, int toID);

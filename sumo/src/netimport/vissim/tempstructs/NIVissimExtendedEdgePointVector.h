@@ -4,7 +4,7 @@
 #include <vector>
 #include "NIVissimExtendedEdgePoint.h"
 
-typedef std::vector<NIVissimExtendedEdgePoint*> NIVissimExtendedEdgePointVector;
+typedef std::vector<NIVissimExtendedEdgePoint*> NIVissimtendedEdgePointVector;
 
 #endif
 

@@ -18,6 +18,7 @@ public:
     virtual void computeBounding() = 0;
     bool partialWithin(const AbstractPoly &p) const;
     virtual void searchAndSetConnections() = 0;
+    virtual double getEdgePosition(int edgeid) const = 0;
 
 //    virtual bool trafficLightMatches(
 //        const NIVissimExtendedEdgePointVector &edges) = 0;
@@ -32,6 +33,7 @@ public:
     static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();
     static size_t dictSize();
+    static void clearDict();
 /*
     static int searchAndSetMatchingTLParent(int tlID, const
         NIVissimExtendedEdgePointVector &edges);

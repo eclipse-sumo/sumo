@@ -9,6 +9,9 @@
 #include "NIVissimBoundedClusterObject.h"
 #include "NIVissimNodeParticipatingEdgeVector.h"
 
+class NBNode;
+class NBEdge;
+
 class NIVissimDisturbance
         : public NIVissimBoundedClusterObject {
 public:
@@ -18,8 +21,10 @@ public:
         double timegap, double waygap, double vmax);
     ~NIVissimDisturbance();
     void computeBounding();
+    void addToNode(NBNode *node);
 /*    bool tryAssignToNodeSingle(int nodeid,
         const NIVissimNodeParticipatingEdgeVector &edges);*/
+    std::pair<NBEdge*, NBEdge*> getConnection(NBNode *node, int aedgeid);
 
 public:
     static bool dictionary(int id, const std::string &name,
@@ -29,6 +34,8 @@ public:
     static bool dictionary(int id, NIVissimDisturbance *o);
     static NIVissimDisturbance *dictionary(int id);
     static IntVector getWithin(const AbstractPoly &poly);
+    static void clearDict();
+    static void dict_SetDisturbances();
 //    static void buildNodeClusters();
 
 /*    static IntVector tryAssignToNode(int nodeid,
@@ -38,6 +45,7 @@ public:
 
 private:
     int myID;
+    int myNode;
     std::string myName;
     NIVissimExtendedEdgePoint myEdge;
     NIVissimExtendedEdgePoint myDisturbance;

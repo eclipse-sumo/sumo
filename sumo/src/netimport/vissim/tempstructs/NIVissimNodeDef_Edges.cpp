@@ -21,6 +21,10 @@ NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
 
 NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges()
 {
+    for(NIVissimNodeParticipatingEdgeVector::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        delete (*i);
+    }
+    myEdges.clear();
 }
 
 
@@ -93,9 +97,6 @@ NIVissimNodeDef_Edges::computeBounding()
 void
 NIVissimNodeDef_Edges::searchAndSetConnections()
 {
-    if(myID==1189||myID==1190) {
-        int bla = 0;
-    }
     IntVector connections;
     IntVector edges;
     Boundery boundery;
@@ -107,7 +108,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
             connections.push_back(edge->getID());
             boundery.add(c->getFromGeomPosition());
             boundery.add(c->getToGeomPosition());
-            c->setNodeCluster();
+            c->setNodeCluster(myID);
         } else {
             edges.push_back(edge->getID());
         }
@@ -122,4 +123,15 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
 
 
 
+double 
+NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
+{
+    for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        NIVissimNodeParticipatingEdge *edge = *i;
+        if(edge->getID()==edgeid) {
+            return (edge->getFromPos() + edge->getToPos()) / 2.0;
+        }
+    }
+    return -1;
+}
 

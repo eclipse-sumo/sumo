@@ -7,7 +7,7 @@ NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
                                            const Position2DVector &geom)
-    : myID(id), myGeom(geom), myHaveNode(false)
+    : myID(id), myGeom(geom), myNode(-1)
 {
     dictionary(id, this);
 }
@@ -127,7 +127,7 @@ NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p) const
 bool
 NIVissimAbstractEdge::hasNodeCluster() const
 {
-    return myHaveNode;
+    return myNode!=-1;
 }
 
 
@@ -135,6 +135,15 @@ int
 NIVissimAbstractEdge::getID() const
 {
     return myID;
+}
+
+void 
+NIVissimAbstractEdge::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
 }
 
 

@@ -15,6 +15,10 @@ NIVissimTrafficDescription::NIVissimTrafficDescription(
 
 NIVissimTrafficDescription::~NIVissimTrafficDescription()
 {
+    for(NIVissimVehicleClassVector::iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
+        delete *i;
+    }
+    myVehicleTypes.clear();
 }
 
 
@@ -53,5 +57,14 @@ NIVissimTrafficDescription::dictionary(const std::string &id)
     return (*i).second;
 }
 
+
+void 
+NIVissimTrafficDescription::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
 
 

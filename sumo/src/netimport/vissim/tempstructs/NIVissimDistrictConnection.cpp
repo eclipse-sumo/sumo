@@ -178,7 +178,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 + toString<int>((*k).first) + "-"
                 + toString<int>(c->myID);
             NBEdge *destination =
-                new NBEdge(id, id, districtSourceNode, edgeend,
+                new NBEdge(id, id, edgeend, districtSourceNode,
                 "Connection", 100/3.6, 2, 100, 0,
                 NBEdge::EDGEFUNCTION_SINK);
             NBEdgeCont::insert(destination); // !!! (in den Konstruktor)
@@ -212,3 +212,17 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid)
     }
     return 0;
 }
+
+
+void 
+NIVissimDistrictConnection::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
+
+

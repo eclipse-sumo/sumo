@@ -65,3 +65,18 @@ NIVissimNodeParticipatingEdge::getTo2DPosition() const
     return c->getFromGeomPosition();
 }
 */
+
+
+double 
+NIVissimNodeParticipatingEdge::getFromPos() const
+{
+    return myFromPos;
+}
+
+
+double 
+NIVissimNodeParticipatingEdge::getToPos() const
+{
+    return myToPos;
+}
+

@@ -8,7 +8,7 @@
 class NIVissimAbstractEdge {
 public:
     NIVissimAbstractEdge(int id, const Position2DVector &geom);
-    ~NIVissimAbstractEdge();
+    virtual ~NIVissimAbstractEdge();
     Position2D getGeomPosition(double pos) const;
     Position2D getBeginPosition() const;
     Position2D getEndPosition() const;
@@ -16,7 +16,7 @@ public:
     bool crossesEdge(NIVissimAbstractEdge *c) const;
     Position2D crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
     bool overlapsWith(const AbstractPoly &p) const;
-    virtual void setNodeCluster() = 0;
+    virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
     bool hasGeom() const;
     virtual void buildGeom() = 0;
@@ -27,12 +27,13 @@ public:
     static NIVissimAbstractEdge *dictionary(int id);
     static void splitAndAssignToNodes();
     static IntVector getWithin(const AbstractPoly &p);
+    static void clearDict();
 
 
 protected:
     int myID;
     Position2DVector myGeom;
-    bool myHaveNode;
+    int myNode;
 
 private:
     typedef std::map<int, NIVissimAbstractEdge*> DictType;

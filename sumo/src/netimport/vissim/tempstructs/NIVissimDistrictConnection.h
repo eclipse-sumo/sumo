@@ -27,6 +27,7 @@ public:
     static NIVissimDistrictConnection *dictionary(int id);
     static void dict_BuildDistricts();
     static NIVissimDistrictConnection *dict_findForEdge(int edgeid);
+    static void clearDict();
 
 
 private:

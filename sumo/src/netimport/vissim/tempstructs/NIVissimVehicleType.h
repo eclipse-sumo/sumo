@@ -16,6 +16,8 @@ public:
         double amax, double dmax);
     static bool dictionary(int id, NIVissimVehicleType *o);
     static NIVissimVehicleType *dictionary(int id);
+    static void clearDict();
+
 private:
     int myID;
     std::string myName;

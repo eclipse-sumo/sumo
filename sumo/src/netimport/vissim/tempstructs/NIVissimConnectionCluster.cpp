@@ -62,10 +62,25 @@ NIVissimConnectionCluster::NodeSubCluster::setConnectionsFree()
 }
 
 
-bool
-NIVissimConnectionCluster::NodeSubCluster::overlapsWith(const NIVissimConnectionCluster::NodeSubCluster &c)
+IntVector 
+NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const
 {
-    return myBoundery.overlapsWith(c.myBoundery);
+    IntVector ret;
+    int id = NIVissimConnectionCluster::getNextFreeNodeID();
+    for(ConnectionCont::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        ret.push_back((*i)->getID());
+        (*i)->setNodeCluster(id);
+    }
+    return ret;
+}
+
+
+bool
+NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
+        const NIVissimConnectionCluster::NodeSubCluster &c,
+        double offset)
+{
+    return myBoundery.overlapsWith(c.myBoundery, offset);
 }
 
 
@@ -76,15 +91,16 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(const NIVissimConnection
 
 NIVissimConnectionCluster::ContType NIVissimConnectionCluster::myClusters;
 
+int NIVissimConnectionCluster::myFirstFreeID = 100000;
+
 NIVissimConnectionCluster::NIVissimConnectionCluster(
         const IntVector &connections, int nodeCluster, int edgeid)
     : myConnections(connections), myNodeCluster(nodeCluster)
 {
     recomputeBoundery();
     myClusters.push_back(this);
-    myEdges.push_back(edgeid);
-    if(myNodeCluster==1189||myNodeCluster==1190) {
-        int bla = 0;
+    if(edgeid>0) {
+        myEdges.push_back(edgeid);
     }
 }
 
@@ -97,14 +113,19 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
 {
 //    myBoundery.add(c->getFromGeomPosition());
     myClusters.push_back(this);
-    if(myNodeCluster==1189||myNodeCluster==1190) {
-        int bla = 0;
-    }
 }
 
 
 NIVissimConnectionCluster::~NIVissimConnectionCluster()
 {
+}
+
+
+
+int 
+NIVissimConnectionCluster::getNextFreeNodeID()
+{
+    return myFirstFreeID++;
 }
 
 
@@ -145,9 +166,6 @@ NIVissimConnectionCluster::join()
     ContType::iterator i = myClusters.begin() + pos;
     // step1 - faster but no complete
     while(i!=myClusters.end()) {
-        if((*i)->myNodeCluster==1189||(*i)->myNodeCluster==1190) {
-            int bla = 0;
-        }
         cout << pos << "/" << myClusters.size() << endl;
         joinAble.clear();
         bool restart = false;
@@ -292,9 +310,6 @@ void
 NIVissimConnectionCluster::dict_recheckNodes()
 {
     for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
-        if((*i)->myNodeCluster==1189||(*i)->myNodeCluster==1190) {
-            int bla = 0;
-        }
         // get the connections from the cluster
         const IntVector &connections = (*i)->myConnections;
         // recluster
@@ -304,7 +319,7 @@ NIVissimConnectionCluster::dict_recheckNodes()
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*j);
             bool found = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!found; k++) {
-                if(c1->getBoundingBox().overlapsWith((*k).myBoundery, 2.0)) {
+                if(c1->getBoundingBox().overlapsWith((*k).myBoundery, 5.0)) {
                     (*k).add(c1);
                     found = true;
                 }
@@ -319,7 +334,7 @@ NIVissimConnectionCluster::dict_recheckNodes()
             changed = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!changed; k++) {
                 for(std::vector<NodeSubCluster>::iterator l=k+1; l!=nodeClusters.end()&&!changed; l++) {
-                    if((*k).overlapsWith(*l)) {
+                    if((*k).overlapsWith(*l, 5.0)) {
                         changed = true;
                         (*k).add(*l);
                         nodeClusters.erase(l);
@@ -349,6 +364,11 @@ NIVissimConnectionCluster::dict_recheckNodes()
         for(k=nodeClusters.begin(); k!=nodeClusters.end(); k++) {
             (*k).setConnectionsFree();
             (*i)->removeConnections(*k);
+            IntVector connections = (*k).getConnectionIDs();
+            NIVissimConnectionCluster *newCluster = 
+                new NIVissimConnectionCluster(connections, 
+                    -1, -1);
+            newCluster->recheckEdges();
         }
         (*i)->recomputeBoundery();
         (*i)->recheckEdges();
@@ -374,9 +394,6 @@ void
 NIVissimConnectionCluster::recomputeBoundery()
 {
     myBoundery = Boundery();
-    if(myNodeCluster==1189||myNodeCluster==1190) {
-        int bla = 0;
-    }
     for(IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         NIVissimConnection *c = NIVissimConnection::dictionary(*i);
         if(c!=0) {
@@ -406,9 +423,6 @@ void
 NIVissimConnectionCluster::recheckEdges()
 {
     assert(myConnections.size()!=0);
-    if(myNodeCluster==1189||myNodeCluster==1190) {
-        int bla = 0;
-    }
     // remove the cluster from all edges at first
     IntVector::iterator i;
     for(i=myEdges.begin(); i!=myEdges.end(); i++) {
@@ -454,26 +468,51 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
                 sum += c->getToPosition();
             }
         }
-        return sum / (double) part;
+        if(part>0) {
+            return sum / (double) part;
+        }
     }
     // use the position of the node if possible
-/*
-tralala
     if(myNodeCluster>=0) {
         // try to find the nearest point on the edge
         //  !!! only the main geometry is regarded
         NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
-        NIVissimNodeCluster *node =
-            NIVissimNodeCluster::dictionary(myNodeCluster);
+        NIVissimNodeDef *node =
+            NIVissimNodeDef::dictionary(myNodeCluster);
+        if(node!=0) {
+            double pos = node->getEdgePosition(edgeid);
+            if(pos>=0) {
+                return pos;
+            }
+        }
+/*
         double try1 = GeomHelper::nearest_position_on_line_to_point(
-            edge->getBegin2D(), edge->getEnd2D, node->getPos());
+            edge->getBegin2D(), edge->getEnd2D(), node->getPos());
         if(try1>=0) {
             return try1;
         }
-        double distance
+        // try to use simple distance
+        double dist1 = 
+            GeomHelper::distance(node->getPos(), edge->getBegin2D());
+        double dist2 = 
+            GeomHelper::distance(node->getPos(), edge->getEnd2D());
+        return dist1<dist2 
+            ? 0 : edge->getLength();
+            */
     }
     // what else?
-*/
+    throw 1;
 }
 
+
+
+void 
+NIVissimConnectionCluster::clearDict()
+{
+    for(ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
+        delete (*i);
+    }
+    myClusters.clear();
+    myFirstFreeID = 100000;
+}
 

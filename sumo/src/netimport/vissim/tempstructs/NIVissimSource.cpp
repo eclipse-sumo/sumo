@@ -57,3 +57,15 @@ NIVissimSource::dictionary(const std::string &id)
     return (*i).second;
 }
 
+
+void 
+NIVissimSource::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
+

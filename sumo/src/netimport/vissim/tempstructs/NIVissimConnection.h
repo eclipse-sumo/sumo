@@ -37,7 +37,7 @@ public:
     double getToPosition() const;
     Position2D getFromGeomPosition() const;
     Position2D getToGeomPosition() const;
-    void setNodeCluster();
+    void setNodeCluster(int nodeid);
     void unsetCluster();
     const Boundery &getBoundingBox() const;
 

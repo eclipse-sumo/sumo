@@ -15,6 +15,7 @@ public:
         int from_node, int to_node, IntVector &overEdges);
     static bool dictionary(const std::string &name, NIVissimClosures *o);
     static NIVissimClosures *dictionary(const std::string &name);
+    static void clearDict();
 private:
     typedef std::map<std::string, NIVissimClosures*> DictType;
     static DictType myDict;

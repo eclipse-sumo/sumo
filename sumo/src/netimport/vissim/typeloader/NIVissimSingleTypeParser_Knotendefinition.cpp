@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/03 15:01:30  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -69,9 +72,6 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
 	//
     int id;
     from >> id;
-    if(id==2) {
-        int bla = 0;
-    }
     //
     string tag;
     from >> tag;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/03 15:08:21  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -132,7 +135,11 @@ public:
     bool knowsRouteSnipplet(ROEdge *from, ROEdge *to) const;
 
     /** @brief Computes routes described by their definitions and saves them */
-    void saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres);
+    void saveAndRemoveRoutesUntil(OptionsCont &options, 
+        std::ofstream &res, std::ofstream &altres, long time);
+
+    /// Returns the information whether further vehicles are stored 
+    bool furtherStored();
 
 private:
     /** @brief Saves the given vehicle type
@@ -142,8 +149,9 @@ private:
         const std::string &vehID);
 
     /** Saves the given route together with her alternatives */
-    bool saveRoute(RORouter &router,
+    bool saveRoute(OptionsCont &options, RORouter &router,
         std::ostream &res, std::ostream &altres, ROVehicle *veh);
+
     /** @brief Removes the route from the net when no further usage is needed */
     void removeRouteSecure(RORouteDef *route);
 

@@ -15,7 +15,8 @@ public:
     static bool dictionary(int id, const std::string &name,
         const Position2DVector &poly);
     virtual void computeBounding();
-//    virtual void searchAndSetConnections();
+    double getEdgePosition(int edgeid) const;
+    //    virtual void searchAndSetConnections();
 //    bool matches(const IntVector &edges);
 private:
     Position2DVector myPoly;

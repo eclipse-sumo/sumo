@@ -8,9 +8,6 @@ NIVissimNodeDef::DictType NIVissimNodeDef::myDict;
 NIVissimNodeDef::NIVissimNodeDef(int id, const std::string &name)
     : myID(id), myName(name)
 {
-    if(id==1) {
-        int bla = 0;
-    }
 }
 
 
@@ -174,3 +171,13 @@ NIVissimNodeDef::dictSize()
     return myDict.size();
 }
 
+
+
+void 
+NIVissimNodeDef::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}

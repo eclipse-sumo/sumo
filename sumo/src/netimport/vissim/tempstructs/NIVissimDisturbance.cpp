@@ -4,6 +4,11 @@
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundery.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNodeCont.h>
+#include "NIVissimEdge.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimDisturbance.h"
@@ -21,7 +26,7 @@ NIVissimDisturbance::NIVissimDisturbance(int id,
                                          const NIVissimExtendedEdgePoint &by,
                                          double timegap, double waygap,
                                          double vmax)
-    : myID(id), myName(name), myEdge(edge), myDisturbance(by),
+    : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
     myTimeGap(timegap), myWayGap(waygap), myVMax(vmax)
 {
 }
@@ -192,6 +197,141 @@ NIVissimDisturbance::computeBounding()
 }
 
 
+
+void 
+NIVissimDisturbance::addToNode(NBNode *node)
+{
+    myNode = 0;
+    NIVissimConnection *pc = 
+        NIVissimConnection::dictionary(myEdge.getEdgeID());
+    NIVissimConnection *bc = 
+        NIVissimConnection::dictionary(myDisturbance.getEdgeID());
+    std::pair<NBEdge*, NBEdge*> prohibitedConn;
+    std::pair<NBEdge*, NBEdge*> byConn;
+    if(pc==0 && bc==0) {
+        // This has not been tested completely, yet
+        cout << "Warning!!!" << endl;
+        cout << " Unverified usage of edges as prohibition points." << endl;
+        // Both competing abstract edges are normal edges
+        // We have to find a crossing point, build a node here,
+        //  split both edges and add the connections
+        NIVissimEdge *e1 = NIVissimEdge::dictionary(
+            myEdge.getEdgeID());
+        NIVissimEdge *e2 = NIVissimEdge::dictionary(
+            myDisturbance.getEdgeID());
+        Position2D pos = e1->crossesEdgeAtPoint(e2);
+        NBNode *node = new NBNode(
+            toString<int>(e1->getID()) + string("x") + toString<int>(e2->getID()),
+            pos.x(), pos.y());
+        NBNodeCont::insert(node);
+        NBEdgeCont::splitAt(
+            NBEdgeCont::retrievePossiblySplitted(
+                toString<int>(e1->getID()), myEdge.getPosition()), 
+                node);
+        NBEdgeCont::splitAt(
+            NBEdgeCont::retrievePossiblySplitted(
+                toString<int>(e2->getID()), myDisturbance.getPosition()), 
+                node);
+        node->addSortedLinkFoes(
+                std::pair<NBEdge*, NBEdge*>(
+                    NBEdgeCont::retrieve(
+                        toString<int>(e1->getID()) + string("[0]")), 
+                    NBEdgeCont::retrieve(
+                        toString<int>(e1->getID()) + string("[1]"))
+                ),
+                std::pair<NBEdge*, NBEdge*>(
+                    NBEdgeCont::retrieve(
+                        toString<int>(e2->getID()) + string("[0]")), 
+                    NBEdgeCont::retrieve(
+                        toString<int>(e2->getID()) + string("[1]"))
+                )
+            );
+    } else if(pc!=0 && bc==0) {
+        // This has not been tested completely, yet
+        cout << "Warning!!!" << endl;
+        cout << " Unverified usage of edges as prohibition points." << endl;
+        // The prohibited abstract edge is a connection, the other
+        //  is not; 
+        // We have to split the other one and add the prohibition
+        //  description
+        NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
+        string nid1 = e->getID() + "[0]";
+        string nid2 = e->getID() + "[1]";
+        NBEdgeCont::splitAt(e, node);
+        node->addSortedLinkFoes(
+                getConnection(node, myDisturbance.getEdgeID()),
+                std::pair<NBEdge*, NBEdge*>(
+                    NBEdgeCont::retrieve(nid1), 
+                    NBEdgeCont::retrieve(nid2)
+                )
+            );
+    } else if(bc!=0 && pc==0) {
+        // This has not been tested completely, yet
+        cout << "Warning!!!" << endl;
+        cout << " Unverified usage of edges as prohibition points." << endl;
+        // The prohibiteing abstract edge is a connection, the other
+        //  is not; 
+        // We have to split the other one and add the prohibition
+        //  description
+        NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(myEdge.getEdgeID()), myDisturbance.getPosition());
+        string nid1 = e->getID() + "[0]";
+        string nid2 = e->getID() + "[1]";
+        NBEdgeCont::splitAt(e, node);
+        node->addSortedLinkFoes(
+                std::pair<NBEdge*, NBEdge*>(
+                    NBEdgeCont::retrieve(nid1), 
+                    NBEdgeCont::retrieve(nid2)
+                ),
+                getConnection(node, myDisturbance.getEdgeID())
+            );
+    } else {
+        // both the prohibiting and the prohibited abstract edges
+        //  are connections
+        // We can retrieve the conected edges and add the desription
+        node->addSortedLinkFoes(
+                getConnection(node, myDisturbance.getEdgeID()),
+                getConnection(node, myEdge.getEdgeID())
+            );
+    }
+}
+
+
+std::pair<NBEdge*, NBEdge*> 
+NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
+{
+    if(NIVissimEdge::dictionary(myEdge.getEdgeID())==0) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(aedgeid);
+        // source is a connection
+        return 
+            std::pair<NBEdge*, NBEdge*>(
+                node->getPossiblySplittedIncoming(toString<int>(c->getFromEdgeID())),
+                node->getPossiblySplittedOutgoing(toString<int>(c->getToEdgeID()))
+            );
+    } else {
+        throw 1; // !!! what to do?
+    }
+
+}
+
+void 
+NIVissimDisturbance::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
+void 
+NIVissimDisturbance::dict_SetDisturbances()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+}
 
 
 

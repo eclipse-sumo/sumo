@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:10:20  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -51,6 +54,7 @@ namespace
 #include <qevent.h>
 #include <qpainter.h>
 #include <qtoolbar.h>
+#include <qtooltip.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
 #include <utils/gfx/RGBColor.h>
@@ -344,7 +348,7 @@ GUIViewTraffic::paintGL()
     double scale = double(_widthInPixels)/double(SENSITIVITY);
     applyChanges(scale, _toolTipX+_mouseHotspotX, _toolTipY+_mouseHotspotY);
     // paint in select mode
-    doPaintGL(GL_SELECT, scale);
+    doPaintGL(GL_SELECT, scale);//GL_SELECT, scale);
 //    doPaintGL(GL_RENDER, scale);
     _laneColScheme = tmp;
     glFlush();
@@ -406,11 +410,15 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     	    }
         }
         if(idMax!=0) {
+            GUINet::lockAlloc();
             GUIGlObject *object = _net._idStorage.getObjectBlocking(idMax);
             if(object!=0) {
                 _toolTip->setObjectTip(object, _toolTipX, _toolTipY);
                 _net._idStorage.unblockObject();
+            } else {
+                _toolTip->myClear();//_toolTip->clear();
             }
+            GUINet::unlockAlloc();
         }
     }
     glPopMatrix();

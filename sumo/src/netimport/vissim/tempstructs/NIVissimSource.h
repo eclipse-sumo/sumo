@@ -15,6 +15,7 @@ public:
         int vehicle_combination, double beg, double end);
     static bool dictionary(const std::string &id, NIVissimSource *o);
     static NIVissimSource *dictionary(const std::string &id);
+    static void clearDict();
 private:
     std::string myID;
     std::string myName;

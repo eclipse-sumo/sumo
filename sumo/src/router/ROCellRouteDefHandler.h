@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:08:20  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -94,9 +97,6 @@ public:
     /// Returns the data name, here "cell routes"
     std::string getDataName() const;
 
-    /// Initialises the handler for reading
-    bool init(OptionsCont &_options);
-
     /// Checks whether both the driver and the route files exists
     bool checkFile(const std::string &file) const;
 
@@ -110,6 +110,8 @@ protected:
         route file */
     bool readNextRoute(long start);
 
+    /// Initialises the handler for reading
+    bool myInit(OptionsCont &_options);
 private:
     /// Initialises the driver file for reading
     bool initDriverFile();

@@ -42,6 +42,8 @@ public:
 
     double getPositionForEdge(int edgeid) const;
 
+    friend class NIVissimEdge; // !!! debug
+
 public:
     /** @brief Tries to joind clusters participating within a node
         This is done by joining clusters which overlap */
@@ -57,6 +59,9 @@ public:
 
     static void dict_recheckNodes();
 
+    static int getNextFreeNodeID();
+
+    static void clearDict();
 
 
     //static void dict_checkDoubleNodes();
@@ -71,7 +76,8 @@ private:
         void add(const NodeSubCluster &c);
         size_t size() const;
         void setConnectionsFree();
-        bool overlapsWith(const NodeSubCluster &c);
+        bool overlapsWith(const NodeSubCluster &c, double offset=0);
+        IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
         Boundery myBoundery;
@@ -107,6 +113,7 @@ private:
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;
     static ContType myClusters;
+    static int myFirstFreeID;
 };
 
 #endif

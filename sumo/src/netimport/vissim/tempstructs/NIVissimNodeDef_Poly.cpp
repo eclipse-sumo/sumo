@@ -64,3 +64,9 @@ NIVissimNodeDef_Poly::computeBounding()
     myBoundery = new Boundery(myPoly.getBoxBoundery());
 }
 
+
+double 
+NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
+{
+    return -1;
+}

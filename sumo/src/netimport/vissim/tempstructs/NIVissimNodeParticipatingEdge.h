@@ -11,6 +11,8 @@ public:
     ~NIVissimNodeParticipatingEdge();
     int getID() const;
     bool positionLiesWithin(double pos) const;
+    double getFromPos() const;
+    double getToPos() const;
     /*
     Position2D getFrom2DPosition() const;
     Position2D getTo2DPosition() const;

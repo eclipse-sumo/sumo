@@ -20,11 +20,14 @@ public:
         const Position2DVector &geom,
         const NIVissimClosedLanesVector &clv);
     ~NIVissimEdge();
-    void setNodeCluster();
+    void setNodeCluster(int nodeid);
     void buildGeom();
     void addIncomingConnection(int id);
     void addOutgoingConnection(int id);
     NBNode *getNodeAt(const Position2D &p, NBNode *other=0);
+    Position2D getBegin2D() const;
+    Position2D getEnd2D() const;
+    double getLength() const;
 
     void mergedInto(NIVissimConnectionCluster *old,
         NIVissimConnectionCluster *act);

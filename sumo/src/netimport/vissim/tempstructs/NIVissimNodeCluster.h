@@ -17,6 +17,7 @@ public:
     void buildNBNode();
     bool recheckEdgeChanges();
     NBNode *getNBNode() const;
+    Position2D getPos() const;
 //    void addNodesEdges();
 
 
@@ -34,6 +35,9 @@ public:
     static int getFromNode(int edgeid);
     static int getToNode(int edgeid);
     static void _debugOut(std::ostream &into);
+    static void dict_addDisturbances();
+    static void clearDict();
+
 
 
 //    static NIVissimEdgePosMap getParticipatingEdgePositions();

@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.7  2003/03/03 15:08:20  dkrajzew
+// debugging
+//
 // Revision 1.6  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
@@ -131,6 +134,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("gA", new Option_Float(1.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
+    oc->doRegister("suppress-short-trip-warnings", new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
     // register the data processing options
@@ -253,8 +257,8 @@ int main(int argc, char **argv)
         // load data
         ROLoader loader(*oc);
         net = loadNet(loader, oc);
-        net->postloadInit();
         if(net!=0) {
+            net->postloadInit();
             try {
                 startComputation(*net, loader, *oc);
             } catch (SAXParseException e) {
@@ -268,12 +272,13 @@ int main(int argc, char **argv)
         verbose = oc->getBool("v");
         delete oc;
     } catch (ProcessError) {
-        cout << "Quitting (conversion failed)." << endl;
+        cout << "Quitting (building failed)." << endl;
         ret = 1;
     }
     delete net;
     XMLSubSys::close();
-    if(verbose&&ret==0)
+    if(verbose&&ret==0) {
         cout << "Success." << endl;
+    }
     return ret;
 }

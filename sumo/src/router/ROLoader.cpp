@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/03 15:08:21  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -148,8 +151,10 @@ ROLoader::processRoutesStepWise(long start, long end,
     skipPreviousRoutes(start);
     // loop till the end
     bool endReached = false;
-    for(long time=getMinTimeStep(); !endReached&&time<end; time++) {
-        cout << "Reading time step: " << time << endl;
+    for(long time=getMinTimeStep(); (!endReached||net.furtherStored())&&time<end; time++) {
+        if(_options.getBool("v")) {
+            cout << "Reading time step: " << time << endl;
+        }
         endReached = true;
         RouteLoaderCont::iterator i;
         // go through all handlers
@@ -159,7 +164,7 @@ ROLoader::processRoutesStepWise(long start, long end,
                 return;
             }
             // save the routes
-            net.saveAndRemoveRoutes(res, altres);
+            net.saveAndRemoveRoutesUntil(_options, res, altres, time);
         }
         // check whether further data exist
         endReached = true;
@@ -196,7 +201,7 @@ ROLoader::processAllRoutes(long start, long end,
         }
     }
     // save the routes
-    net.saveAndRemoveRoutes(res, altres);
+    net.saveAndRemoveRoutesUntil(_options, res, altres, end);
 }
 
 

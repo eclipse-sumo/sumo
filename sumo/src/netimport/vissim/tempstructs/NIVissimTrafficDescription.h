@@ -14,6 +14,7 @@ public:
         const NIVissimVehicleClassVector &vehicleTypes);
     static bool dictionary(const std::string &id, NIVissimTrafficDescription *o);
     static NIVissimTrafficDescription *dictionary(const std::string &id);
+    static void clearDict();
 private:
     std::string myID;
     std::string myName;

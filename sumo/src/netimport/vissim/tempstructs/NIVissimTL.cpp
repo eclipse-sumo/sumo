@@ -5,6 +5,11 @@
 #include <utils/common/SErrorHandler.h>
 #include <utils/convert/ToString.h>
 #include "NIVissimConnection.h"
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimEdge.h"
@@ -79,6 +84,52 @@ NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id)
     return (*j).second;
 }
 
+
+void 
+NIVissimTL::NIVissimTLSignal::clearDict()
+{
+    for(SignalDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        for(SSignalDictType::iterator j=(*i).second.begin(); j!=(*i).second.end(); j++) {
+            delete (*j).second;
+        }
+    }
+    myDict.clear();
+}
+
+
+void 
+NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
+{
+    NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
+    ConnectionVector assignedConnections;
+    if(c==0) {
+        // What to do if on an edge? -> close all outgoing connections
+        NBEdge *edge = 
+            NBEdgeCont::retrieve(toString<int>(myEdgeID));
+        // Check whether it is already known, which edges are approached
+        //  by which lanes
+        EdgeVector conn;
+        if(edge->lanesWereAssigned()) {
+            conn = edge->getEdgesFromLane(myLane);
+        } else {
+            conn = edge->getConnected();
+        }
+        //
+        for(EdgeVector::const_iterator i=conn.begin(); i!=conn.end(); i++) {
+            assignedConnections.push_back(
+                Connection(edge, *i)
+                );
+        }
+    } else {
+        assignedConnections.push_back(
+            Connection(
+                NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()) ),
+                NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()) ) )
+                );
+    }
+    // add to the group
+    node->addToSignalGroup(toString<int>(myGroupID), assignedConnections);
+}
 
 
 
@@ -176,6 +227,35 @@ NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id)
     }
     return (*j).second;
 }
+
+void 
+NIVissimTL::NIVissimTLSignalGroup::clearDict()
+{
+    for(GroupDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        for(SGroupDictType::iterator j=(*i).second.begin(); j!=(*i).second.end(); j++) {
+            delete (*j).second;
+        }
+    }
+    myDict.clear();
+}
+
+
+void 
+NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
+{
+    // get the color at the begin
+    NBNode::TLColor color = myFirstIsRed 
+        ? NBNode::TLCOLOR_RED : NBNode::TLCOLOR_GREEN;
+    string id = toString<int>(myID);
+    node->addSignalGroup(id);
+    for(DoubleVector::const_iterator i=myTimes.begin(); i!=myTimes.end(); i++) {
+        node->addSignalGroupPhaseBegin(id, *i, color);
+        color = color==NBNode::TLCOLOR_RED
+            ? NBNode::TLCOLOR_GREEN : NBNode::TLCOLOR_RED;
+    }
+    node->setSignalYellowTimes(id, myTRedYellow, myTYellow);
+}
+
 
 
 
@@ -381,6 +461,16 @@ NIVissimTL::buildNodeCluster()
 }
 
 
+void 
+NIVissimTL::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+
 
 /*
 bool
@@ -396,3 +486,26 @@ NIVissimTL::crosses(const AbstractPoly &poly) const
 }
 
 */
+
+
+bool
+NIVissimTL::dict_SetSignals()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimTL *tl = (*i).second;
+        NBNode *node = NBNodeCont::retrieve(toString<int>(tl->myNodeID));
+        // add each group to the node's container
+        const GroupMap &sgs = tl->myGroups;
+        for(GroupMap::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
+            (*j).second->addTo(node);
+        }
+        // add the signal group signals to the node
+        const SignalVector &ss = tl->mySignals;
+        for(SignalVector::const_iterator k=ss.begin(); k!=ss.end(); k++) {
+            (*k)->addTo(node);
+        }
+    }
+    return true;
+}
+
+

@@ -15,6 +15,7 @@ public:
         const RGBColor &color, IntVector &types);
     static bool dictionary(int id, NIVissimVehTypeClass *o);
     static NIVissimVehTypeClass *dictionary(int name);
+    static void clearDict();
 private:
     int myID;
     std::string myName;

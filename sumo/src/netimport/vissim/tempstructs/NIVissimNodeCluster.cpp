@@ -5,6 +5,7 @@
 #include <utils/geom/Position2DVector.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
+#include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeCluster.h"
 
@@ -53,12 +54,6 @@ NIVissimNodeCluster::dictionary(int nodeid, int tlid,
     if(nodeid>0) {
         id = nodeid;
         myCurrentID = nodeid + 1;
-    } else {
-        int bla = 0;
-        for(IntVector::const_iterator i=connectors.begin(); i!=connectors.end(); i++) {
-            bla = *i;
-            bla = 0;
-        }
     }
     NIVissimNodeCluster *o = new NIVissimNodeCluster(id,
         nodeid, tlid, connectors, disturbances);
@@ -145,11 +140,6 @@ NIVissimNodeCluster::container_computePositions()
 void
 NIVissimNodeCluster::buildNBNode()
 {
-    if(myID==10) {
-        int bla = 0;
-    }
-
-
     if(myConnectors.size()==0) {
         return; // !!! Check, when this is the case
     }
@@ -425,4 +415,35 @@ NBNode *
 NIVissimNodeCluster::getNBNode() const
 {
     return myNBNode;
+}
+
+
+Position2D 
+NIVissimNodeCluster::getPos() const
+{
+    return myPosition;
+}
+
+
+void
+NIVissimNodeCluster::dict_addDisturbances()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        const IntVector &disturbances = (*i).second->myDisturbances;
+        NBNode *node = NBNodeCont::retrieve(toString<int>((*i).first));
+        for(IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
+            NIVissimDisturbance *disturbance = NIVissimDisturbance::dictionary(*j);
+            disturbance->addToNode(node);
+        }
+    }
+}
+
+
+void 
+NIVissimNodeCluster::clearDict()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
 }
