@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2003/06/24 14:49:27  dkrajzew
+// error made during debugging (accessing an ungiven function) removed
+//
 // Revision 1.7  2003/06/24 14:31:01  dkrajzew
 // accessing an empty priority queue-bug removed
 //
@@ -196,7 +199,6 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
     }
     Event newEvent = Event( operation, execTime );
     myEvents.push( newEvent );
-    operation->check();
     return true;
 }
 
