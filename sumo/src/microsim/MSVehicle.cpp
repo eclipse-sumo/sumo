@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/03/12 16:50:56  dkrajzew
+// lane retrival added for centering a vehicle on the display
+//
 // Revision 1.9  2003/03/03 14:56:26  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -1565,6 +1568,13 @@ MSVehicle::getTargetLane() const
     return myTarget;
 }
 
+
+
+const MSLane &
+MSVehicle::getLane() const
+{
+    return *myLane;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

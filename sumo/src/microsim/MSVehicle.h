@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/03/12 16:50:57  dkrajzew
+// lane retrival added for centering a vehicle on the display
+//
 // Revision 1.5  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -585,6 +588,8 @@ public:
     /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
     int _lcAction;
 
+    /// Returns the lane the vehicle is on
+    const MSLane &getLane() const;
 
     friend class MSLane; // !!!
 protected:
