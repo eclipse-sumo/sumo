@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/09/30 14:48:52  dkrajzew
+// debug work on vissim-junctions
+//
 // Revision 1.7  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -280,8 +283,7 @@ bool
 NBTrafficLightDefinition::mustBrake(const NBConnection &conn,
                                     const NBConnection &source) const
 {
-    return forbids(conn.getFrom(), conn.getTo(),
-        source.getFrom(), source.getTo());
+    return forbids(source.getFrom(), source.getTo(), conn.getFrom(), conn.getTo());
 }
 
 

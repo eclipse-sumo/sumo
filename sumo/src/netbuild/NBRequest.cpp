@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/09/30 14:48:52  dkrajzew
+// debug work on vissim-junctions
+//
 // Revision 1.17  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -152,8 +155,8 @@ size_t NBRequest::myNotBuild = 0;
 NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                      const EdgeVector * const incoming,
                      const EdgeVector * const outgoing,
-                     const NBConnectionProhibits &loadedProhibits) :
-    _junction(junction),
+                     const NBConnectionProhibits &loadedProhibits)
+	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
     size_t variations = _incoming->size() * _outgoing->size();

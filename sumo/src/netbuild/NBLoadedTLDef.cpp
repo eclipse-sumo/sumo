@@ -445,6 +445,7 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
             masks.yellowMask[pos] = hasYellow;
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
+			// assert that the connection really exists
             if(assConn.check()) {
 /*                masks.brakeMask[pos] =
                     mustBrake(conn.getFrom(), conn.getTo()) | !mayDrive;*/
