@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Mon Sep 29 09:42:08 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -60,7 +60,7 @@ protected:
             return "jamLengthSumInVehicles";
         }
 private:
-    const Container& containerM;    
+    const Container& containerM;
 };
 
 
@@ -74,7 +74,8 @@ protected:
 
     MSJamLengthSumInMeters( double lengthInMeters,
                             const Container& container )
-        : containerM( container.containerM )
+        : containerM( container.containerM ),
+        laneLengthM(lengthInMeters)
         {}
 
     virtual ~MSJamLengthSumInMeters( void )
