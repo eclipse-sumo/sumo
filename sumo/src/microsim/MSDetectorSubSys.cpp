@@ -27,7 +27,7 @@
 #include "MSDetectorHaltingContainerWrapper.h"
 #include "MSE2DetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
-
+#include "MS_E2_ZS_CollectorOverLanes.h"
 
 void
 MSDetectorSubSys::createDictionaries( void )
