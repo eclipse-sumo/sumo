@@ -20,6 +20,10 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2003/05/27 18:34:41  roessel
+// Removed parameter MSEventControl* evc from MSNet::init.
+// MSEventControl now accessible via the singleton-mechanism.
+//
 // Revision 1.13  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -242,7 +246,6 @@ public:
     static void init( std::string id,
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,
-                      MSEventControl* evc,
                       DetectorCont* detectors,
                       MSRouteLoaderControl *rlc);
 

@@ -25,6 +25,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.18  2003/05/27 18:36:06  roessel
+// Removed parameter MSEventControl* evc from MSNet::init.
+// MSEventControl now accessible via the singleton-mechanism.
+//
 // Revision 1.17  2003/05/25 17:54:10  roessel
 // Added a for_each call to MSLaneState::actionBeforeMove and
 // MSLaneState::actionAfterMove to MSNet::simulationStep.
@@ -382,14 +386,13 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
 void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
-             MSEventControl* evc,
              DetectorCont* detectors,
              MSRouteLoaderControl *rlc )
 {
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
-    myInstance->myEvents       = evc;
+    myInstance->myEvents       = MSEventControl::getInstance();
     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
 
