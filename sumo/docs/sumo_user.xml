@@ -1661,7 +1661,7 @@
             type=&#34;[induct_loop|E1]&#34; lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag> </para>
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag></para>
 
             <para>or :</para>
 
@@ -1669,7 +1669,7 @@
             lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag> </para>
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag></para>
 
             <para>The id is any string that let&#39;s you know which detector
             is meant. The type indicates that a induct loop shall be build,
@@ -1746,7 +1746,7 @@
             [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
             [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
             [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
-            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag> </para>
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag></para>
 
             <para>or:</para>
 
@@ -1760,7 +1760,7 @@
             [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
             [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
             [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
-            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag> </para>
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag></para>
 
             <para>Most of the attributes have the same meaning as for induct
             loops. As an areal detector has a certain length, this length must
@@ -1779,6 +1779,48 @@
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />The folder the
             output file shall be generated in must exist.</para></caution></para>
+
+            <para><caution><para><inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" />For detectors
+            that span over more than a single edge, only the attribute
+            QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES is defined all
+            other may return strange values.</para></caution></para>
+
+            <para>But there is also a further possibility to use E2-detectors.
+            If you place them in front of a traffic light, you cane use the
+            traffic light to describe the intervals (aggregation) time instead
+            of giving a fixed aggregation time. In this case, output will be
+            generated every time the traffic light switches. To use this
+            feature, simply replace the freq-attribute within the description
+            of your detector by the id of the traffic light that should steer
+            it (use the attribute &#34;tl&#34; to specifiy the id) :</para>
+
+            <para>a) <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
+            type=&#34;[areal|lane_based|E2]&#34;
+            lane=&#34;&#60;LANE_ID&#62;&#34;
+            pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
+            length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
+            tl=&#34;&#60;TL-ID&#62;&#34; [style=&#34;xml&#34;]
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+            [measures=&#34;&#60;MEASURES&#62;&#34;]
+            [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag></para>
+
+            <para>or:</para>
+
+            <para>b) <sgmltag>&#60;e2-detector id=&#34;&#60;ID&#62;&#34;
+            lane=&#34;&#60;LANE_ID&#62;&#34;
+            pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
+            length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
+            tl=&#34;&#60;TL-ID&#62;&#34; [style=&#34;xml&#34;]
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+            [measures=&#34;&#60;MEASURES&#62;&#34;]
+            [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag></para>
 
             <para>E2-detectors may compute many different measures and the
             user has the possibility to describe which measures he actually
@@ -1965,7 +2007,7 @@
             <para>The descriptions of e3-detectors have to include the set of
             entry and the set of exit points. Due to this, it is not possible
             to use a single tag to specify a detector. Instead, the
-            description consists of the following parts: </para>
+            description consists of the following parts:</para>
 
             <orderedlist>
               <listitem>
@@ -1979,7 +2021,7 @@
                 [measures=&#34;&#60;MEASURES&#62;&#34;]
                 [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
                 [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
-                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag> </para>
+                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag></para>
 
                 <para>or:</para>
 
@@ -1988,7 +2030,7 @@
                 [measures=&#34;&#60;MEASURES&#62;&#34;]
                 [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
                 [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
-                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag> </para>
+                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag></para>
 
                 <para>As one can see, no information about the detector&#39;s
                 position are stored herein. They are stored in embedded tags
@@ -1999,8 +2041,7 @@
                 <para>A set of tags that describe the detector&#39;s entry
                 points in the form:</para>
 
-                <para> <sgmltag>&#60;det_entry
-                lane=&#34;&#60;LANE_ID&#62;&#34;
+                <para><sgmltag>&#60;det_entry lane=&#34;&#60;LANE_ID&#62;&#34;
                 pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;/&#62;</sgmltag></para>
               </listitem>
 
