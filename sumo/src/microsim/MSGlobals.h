@@ -4,6 +4,7 @@
 namespace MSGlobals
 {
     extern bool myOmitEmptyEdgesOnDump;
+    extern size_t myTimeToGridlock;
 };
 
 

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.31  2003/10/20 07:59:43  dkrajzew
+// grid lock dissolving by vehicle teleportation added
+//
 // Revision 1.30  2003/10/15 12:11:56  dkrajzew
 // removed the prohibition of overtaking on the right side; false deletion patched
 //
@@ -305,6 +308,8 @@ namespace
 #include "MSInductLoop.h"
 #include "MSLink.h"
 #include "MSLane.h"
+#include "MSVehicleTransfer.h"
+#include "MSGlobals.h"
 #include <cmath>
 #include <bitset>
 #include <iostream>
@@ -806,6 +811,12 @@ MSLane::setCritical()
         myLastState = MSVehicle::State(10000, 10000);
         myFirstUnsafe = 0;//myVehicles.size();
     }
+    if(myVehicles.size()>0) {
+        if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::myTimeToGridlock) {
+            MSVehicleTransfer::getInstance()->addVeh(*this);
+        }
+    }
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1467,6 +1478,17 @@ size_t
 MSLane::getVehicleNumber() const
 {
     return myUseDefinition->noVehicles;
+}
+
+
+MSVehicle *
+MSLane::removeFirstVehicle(const MSVehicleTransfer &rightsCheck)
+{
+    MSVehicle *veh = *(myVehicles.end()-1);
+    veh->leaveLaneAtMove();
+    myVehicles.erase(myVehicles.end()-1);
+    myUseDefinition->noVehicles--;
+    return veh;
 }
 
 

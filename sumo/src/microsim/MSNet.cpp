@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.40  2003/10/20 07:59:43  dkrajzew
+// grid lock dissolving by vehicle teleportation added
+//
 // Revision 1.39  2003/10/06 07:42:36  dkrajzew
 // simulate-bug (ending on first step) patched - was due to yet unloaded vehicles
 //
@@ -320,6 +323,7 @@ namespace
 #include "MSJunction.h"
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
+#include "MSVehicleTransfer.h"
 //#include "MSDetector.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
@@ -351,9 +355,9 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 5450000;
-std::string MSNet::searched1 = "4471";
-std::string MSNet::searched2 = "7150";
+MSNet::Time MSNet::searchedtime = 54125000;
+std::string MSNet::searched1 = "231";
+std::string MSNet::searched2 = "715a0";
 std::string MSNet::searchedJunction = "536";
 #endif
 
@@ -565,6 +569,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     size_t emittedVehNo = myEmitter->emitVehicles(myStep);
 	myEmittedVehNo += emittedVehNo;
 	myRunningVehNo += emittedVehNo;
+    myEdges->detectCollisions( myStep );
+    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
 
     myEdges->detectCollisions( myStep );
     myJunctions->resetRequests();
@@ -674,6 +680,7 @@ MSNet::clearAll()
     MSRoute::clear();
     MSTrafficLightLogic::clear();
     clear();
+    delete MSVehicleTransfer::getInstance();
 }
 
 

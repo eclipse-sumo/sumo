@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.17  2003/10/20 07:59:43  dkrajzew
+// grid lock dissolving by vehicle teleportation added
+//
 // Revision 1.16  2003/09/05 15:10:30  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -214,7 +217,7 @@ class MSLink;
 class MSMoveReminder;
 class GUILaneWrapper;
 class GUIGlObjectStorage;
-
+class MSVehicleTransfer;
 
 
 /* =========================================================================
@@ -480,6 +483,10 @@ public:
     virtual GUILaneWrapper *buildLaneWrapper(
             GUIGlObjectStorage &idStorage, bool allowAggregation);
 
+    MSVehicle *
+        removeFirstVehicle(const MSVehicleTransfer &rightsCheck);
+
+
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
         Returns the information whether the position of the first vehicle
@@ -540,6 +547,7 @@ protected:
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
+
 
 
 

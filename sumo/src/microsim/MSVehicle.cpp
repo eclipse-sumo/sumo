@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2003/10/20 07:59:43  dkrajzew
+// grid lock dissolving by vehicle teleportation added
+//
 // Revision 1.33  2003/10/17 06:52:01  dkrajzew
 // acceleration is now time-dependent
 //
@@ -1979,6 +1982,27 @@ MSVehicle::getLaneChangeDirection() const
     return myLaneChangeState.getDirection();
 }
 
+
+size_t
+MSVehicle::getWaitingTime() const
+{
+    return myWaitingTime;
+}
+
+
+bool
+MSVehicle::proceedVirtualReturnIfEnded(MSVehicleTransfer &securityCheck,
+                                       MSEdge *newEdge)
+{
+    if(destReached(newEdge)) {
+        // Dismiss reminders by passing them completely.
+        return true;
+    }
+    cout << ">>myCurrEdge " << (*myCurrEdge)->id() << endl;
+    myAllowedLanes =
+        ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
+    return false;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

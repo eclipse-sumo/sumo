@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.23  2003/10/20 07:59:43  dkrajzew
+// grid lock dissolving by vehicle teleportation added
+//
 // Revision 1.22  2003/10/15 11:43:50  dkrajzew
 // false lane-changing rules removed; an (far too large information interface between vehicle and lane-changer implemented
 //
@@ -232,6 +235,7 @@ class MSLane;
 class MSVehicleType;
 class MSMoveReminder;
 class MSLaneChanger;
+class MSVehicleTransfer;
 
 
 /* =========================================================================
@@ -665,6 +669,11 @@ public:
         We have to duplicate the vehicle if a further has to be emitted with
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
+
+    bool proceedVirtualReturnIfEnded(MSVehicleTransfer &securityCheck,
+        MSEdge *to);
+
+    size_t getWaitingTime() const;
 
     friend class MSLane; // !!!
 
