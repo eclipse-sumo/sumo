@@ -61,11 +61,11 @@
 class StringTokenizer {
 public:
     /** identifier for splitting the given string at all newline characters */
-    const static int NEWLINE;
+    static const int NEWLINE;
 
     /** identifier for splitting the given string at all whitespace
         characters */
-    const static int WHITECHARS;
+    static const int WHITECHARS;
 
 public:
     /** default constructor */
