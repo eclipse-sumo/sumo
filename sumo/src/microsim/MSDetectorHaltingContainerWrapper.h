@@ -99,6 +99,9 @@ struct MSDetectorHaltingContainerWrapper
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
 
+    MSDetectorHaltingContainerWrapper( void )
+        {}
+    
     MSDetectorHaltingContainerWrapper(
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
@@ -205,39 +208,40 @@ struct MSDetectorHaltingContainerWrapper
     MSUnit::Cells jamDistThresholdM;
 };
 
-// specialization for WrappedContainer == map< MSVehicle*, T >
+
 template< class T >
-struct MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > :
-    public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+struct MSDetectorHaltingMapWrapper
+    :
+    public MSDetectorMapWrapper< T >
     , public MSUpdateEachTimestep<
-          MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > >
+          MSDetectorHaltingMapWrapper< T > >
 {
     typedef std::map< MSVehicle*, T > WrappedContainer;
     typedef typename WrappedContainer::iterator HaltingsIt;
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
 
-    MSDetectorHaltingContainerWrapper(
+    MSDetectorHaltingMapWrapper(
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
         )
         :
-        MSDetectorContainerWrapper< WrappedContainer >(),
+        MSDetectorMapWrapper< WrappedContainer >(),
         MSUpdateEachTimestep<
-        MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+        MSDetectorHaltingMapWrapper< WrappedContainer > >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
     
-    MSDetectorHaltingContainerWrapper(
+    MSDetectorHaltingMapWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
         )
         :
-        MSDetectorContainerWrapper< WrappedContainer >( occupancyCorrection),
+        MSDetectorMapWrapper< WrappedContainer >( occupancyCorrection),
         MSUpdateEachTimestep<
-        MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+        MSDetectorHaltingMapWrapper< WrappedContainer > >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
@@ -290,7 +294,7 @@ namespace DetectorContainer
 
     typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 
-    typedef MSDetectorHaltingContainerWrapper<
+    typedef MSDetectorHaltingMapWrapper<
         std::map< MSVehicle*, E3Halting > > HaltingsMap;
 
     typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   

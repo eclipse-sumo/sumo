@@ -93,15 +93,16 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
 
 
-// specialization for WrappedContainer == std::map< Vehicle*, T >
+
 class MSVehicle;
 
 template< class T >
-struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+struct MSDetectorMapWrapper
     : public MSDetectorContainerWrapperBase
 {
     typedef std::map< MSVehicle*, T > WrappedContainer;
     typedef WrappedContainer InnerContainer;
+    typedef typename WrappedContainer::iterator ContainerIt;
 
     bool hasVehicle( MSVehicle* veh ) const
         {
@@ -132,18 +133,18 @@ struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
             leaveDetectorByMove( veh );
         }
 
-    MSDetectorContainerWrapper()
+    MSDetectorMapWrapper()
         : MSDetectorContainerWrapperBase(),
           containerM()
         {}
 
-    MSDetectorContainerWrapper(
+    MSDetectorMapWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),
           containerM()
         {}
 
-    virtual ~MSDetectorContainerWrapper( void )
+    virtual ~MSDetectorMapWrapper( void )
         {
             containerM.clear();
         }
@@ -157,10 +158,10 @@ namespace DetectorContainer
 {
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
-    typedef MSDetectorContainerWrapper<
+    typedef MSDetectorMapWrapper<
         std::map< MSVehicle*, MSUnit::Seconds > > TimeMap;
     class EmptyType{};
-    typedef MSDetectorContainerWrapper<
+    typedef MSDetectorMapWrapper<
         std::map< MSVehicle*, EmptyType > > VehicleMap;
 
 }
