@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/10/06 07:39:44  dkrajzew
+// MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
+//
 // Revision 1.1  2003/09/05 15:02:47  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -175,7 +178,15 @@ GUIInternalLane::push( MSVehicle* veh )
 #endif
 
     // Insert vehicle only if it's destination isn't reached.
-    assert( myVehBuffer == 0 );
+    if( myVehBuffer != 0 ) {
+        if(myVehBuffer->pos()<veh->pos()) {
+            MSVehicle::remove(myVehBuffer->id());
+            cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+        } else {
+            cout << "vehicle '" << veh->id() << "' removed!";
+            return true;
+        }
+    }
     myVehBuffer = veh;
     veh->enterLaneAtMove( this );
     veh->_assertPos();

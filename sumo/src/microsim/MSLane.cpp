@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.29  2003/10/06 07:41:35  dkrajzew
+// MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
+//
 // Revision 1.28  2003/09/05 15:10:29  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -857,7 +860,16 @@ MSLane::push(MSVehicle* veh)
 #endif
 
     // Insert vehicle only if it's destination isn't reached.
-    assert( myVehBuffer == 0 );
+    if( myVehBuffer != 0 ) {
+        if(myVehBuffer->pos()<veh->pos()) {
+            MSVehicle::remove(myVehBuffer->id());
+            cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+        } else {
+            MSVehicle::remove(veh->id());
+            cout << "vehicle '" << veh->id() << "' removed!";
+            return true;
+        }
+    }
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );

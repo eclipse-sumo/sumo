@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/10/06 07:39:44  dkrajzew
+// MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
+//
 // Revision 1.11  2003/09/22 12:38:24  dkrajzew
 // more verbose output to non-empty-vehBuffer - exception added
 //
@@ -202,7 +205,21 @@ GUILane::push( MSVehicle* veh )
 #endif
 
     // Insert vehicle only if it's destination isn't reached.
-    assert( myVehBuffer == 0 );
+    if( myVehBuffer != 0 ) {
+        if(myVehBuffer->pos()<veh->pos()) {
+            MSVehicle::remove(myVehBuffer->id());
+            cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+        } else {
+            MSVehicle::remove(veh->id());
+            cout << "vehicle '" << veh->id() << "' removed!";
+    		static_cast<GUIVehicle*>(veh)->setRemoved();
+            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+                static_cast<GUIVehicle*>(veh)->getGlID());
+    		// maybe the vehicle is being tracked; mark as not within the simulation any longer
+            _lock.unlock();//Display();
+            return true;
+        }
+    }
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
