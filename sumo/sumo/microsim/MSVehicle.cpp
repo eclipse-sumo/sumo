@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSVehicle.C  -  Base for all
-                          micro-simulation Vehicles. 
+                          micro-simulation Vehicles.
                              -------------------
     begin                : Mon, 05 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -17,13 +17,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
+// Revision 1.15  2002/06/20 08:00:59  dkrajzew
+// template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
+//
 // Revision 1.14  2002/06/19 15:09:12  croessel
 // Changed *Gap methods to check for timeheadway < deltaT states.
 //
@@ -153,14 +156,14 @@ namespace
 // parser bugs removed
 //
 // Revision 1.4  2001/09/06 15:35:50  croessel
-// Added operator<< to class MSVehicle for simple text output and minor 
+// Added operator<< to class MSVehicle for simple text output and minor
 // changes.
 //
 // Revision 1.3  2001/07/25 12:17:59  traffic
 // CC problems with make_pair repaired
-//                
+//
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -182,6 +185,9 @@ namespace
 #include <cstdlib>
 #include <algorithm>
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
+#include "../helpers/Counter.cpp"
+#endif
 
 using namespace std;
 
@@ -193,26 +199,26 @@ double MSVehicle::myTau = 1;
 // It is possible to get collisions because of arithmetic-inaccuracy
 // at small gaps. Therefore we introduce "dontMoveGap"; if gap2pred is
 // smaller, than vehicle will keep it's state.
-const double dontMoveGap = 0.01; 
+const double dontMoveGap = 0.01;
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State::State() : myPos( 0 ), mySpeed( 0 ) 
-{ 
+MSVehicle::State::State() : myPos( 0 ), mySpeed( 0 )
+{
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State::State( const State& state ) 
-{ 
-    myPos = state.myPos; 
+MSVehicle::State::State( const State& state )
+{
+    myPos = state.myPos;
     mySpeed = state.mySpeed;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State& 
-MSVehicle::State::operator=( const State& state ) 
+MSVehicle::State&
+MSVehicle::State::operator=( const State& state )
 {
     myPos   = state.myPos;
     mySpeed = state.mySpeed;
@@ -221,8 +227,8 @@ MSVehicle::State::operator=( const State& state )
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
-MSVehicle::State::operator!=( const State& state ) 
+bool
+MSVehicle::State::operator!=( const State& state )
 {
     return ( myPos   != state.myPos ||
              mySpeed != state.mySpeed );
@@ -230,25 +236,25 @@ MSVehicle::State::operator!=( const State& state )
 
 /////////////////////////////////////////////////////////////////////////////
 
-double 
-MSVehicle::State::pos() const 
-{ 
-    return myPos; 
+double
+MSVehicle::State::pos() const
+{
+    return myPos;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void 
-MSVehicle::State::setPos( double pos ) 
-{ 
-    assert( pos >= 0 ); 
-    myPos = pos; 
+void
+MSVehicle::State::setPos( double pos )
+{
+    assert( pos >= 0 );
+    myPos = pos;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
-MSVehicle::State::advantage( const State& preferState, 
+bool
+MSVehicle::State::advantage( const State& preferState,
                              const State& compareState )
 {
     return preferState.mySpeed >= compareState.mySpeed;
@@ -256,8 +262,8 @@ MSVehicle::State::advantage( const State& preferState,
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State::State( double pos, double speed ) : 
-    myPos( pos ), mySpeed( speed ) 
+MSVehicle::State::State( double pos, double speed ) :
+    myPos( pos ), mySpeed( speed )
 {
 }
 
@@ -307,15 +313,15 @@ MSVehicle::state() const
 /////////////////////////////////////////////////////////////////////////////
 
 MSLane&
-MSVehicle::departLane() 
+MSVehicle::departLane()
 {
     myCurrEdge = myRoute->begin();
-    myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );  
+    myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
     return (*myCurrEdge)->departLane();
 }
 
 /////////////////////////////////////////////////////////////////////////////
- 
+
 MSNet::Time
 MSVehicle::desiredDepart() const
 {
@@ -358,34 +364,34 @@ MSVehicle::destReached( const MSEdge* targetEdge )
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
     MSNet::Route::const_iterator edgeIt = myCurrEdge;
-    
+
     while ( *edgeIt != targetEdge ) {
-        
+
         ++edgeIt;
         assert( edgeIt != myRoute->end() );
     }
-    
+
     myCurrEdge = edgeIt;
-         
-    // Check if destination-edge is reached. Update allowedLanes makes 
+
+    // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSNet::Route::const_iterator destination = myRoute->end() - 1;
-    
+
     if ( myCurrEdge == destination ) {
-        
+
         return true;
     }
     else {
-        
-        myAllowedLanes = 
-            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );         
+
+        myAllowedLanes =
+            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
         return false;
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-double 
+double
 MSVehicle::brakeGap( const MSLane* lane ) const
 {
     // Resolve the vsafe equation to gap. Assume predecessor has
@@ -398,8 +404,8 @@ MSVehicle::brakeGap( const MSLane* lane ) const
     // If we are very slow, the distance driven with an accelerated speed
     // might be longer.
     double accelDist = ( myState.mySpeed + myType->accel() ) * MSNet::deltaT();
-    
-    // Don't allow timeHeadWay < deltaT situations.   
+
+    // Don't allow timeHeadWay < deltaT situations.
     return max( max( gap, timeHeadWayGap( vNext ) ), accelDist );
 }
 
@@ -413,19 +419,19 @@ MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
     // i.e that with this gap there will be no interaction.
     double vF = myState.mySpeed;
     double vL = pred.myState.mySpeed;
-    double dF = myType->decel();    
+    double dF = myType->decel();
     double vAccel = myState.mySpeed + myType->accel();
     double vNext = min( vAccel, min( myType->maxSpeed(), lane->maxSpeed() ) );
     double gap = ( vNext - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return max( gap, timeHeadWayGap( vNext ) );            
+    return max( gap, timeHeadWayGap( vNext ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-double 
+double
 MSVehicle::safeGap( const MSVehicle& pred ) const
 {
     // Resolve the vsafe equation to gap. Assume that this vehicle will brake,
@@ -433,7 +439,7 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
     double vF = myState.mySpeed;
     double vL = pred.myState.mySpeed;
     double dF = myType->decel();
-    double vDecel = max( static_cast<double>( 0 ), 
+    double vDecel = max( static_cast<double>( 0 ),
                          vF - dF * MSNet::deltaT() );
     double gap = ( vDecel - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
@@ -443,16 +449,16 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
 }
 
 /////////////////////////////////////////////////////////////////////////////
-    
-double 
+
+double
 MSVehicle::driveDist( State state ) const
 {
     return state.mySpeed * MSNet::deltaT();
 }
-    
+
 /////////////////////////////////////////////////////////////////////////////
 
-double 
+double
 MSVehicle::decelDist() const
 {
     return myType->decel() * pow( MSNet::deltaT() , 2 );
@@ -460,11 +466,11 @@ MSVehicle::decelDist() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State 
+MSVehicle::State
 MSVehicle::accelState( const MSLane* lane ) const
 {
-    return State( 0, vaccel( lane ) ); 
-} 
+    return State( 0, vaccel( lane ) );
+}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -481,19 +487,19 @@ MSVehicle::move( MSLane* lane,
     double vAccel   = vaccel( lane );
     double vMax     = myType->maxSpeed();
     double vLaneMax = lane->maxSpeed();
-    
+
     double gap2pred = pred->myState.myPos - pred->myType->myLength -
                      myState.myPos;
 
     assert( gap2pred >= 0 );
-    double vSafe   = vsafe( myState.mySpeed, myType->decel(), 
+    double vSafe   = vsafe( myState.mySpeed, myType->decel(),
                             gap2pred, pred->myState.mySpeed );
-     
-    // min{ v+a, vmax, lanevmax, vsafe }   
+
+    // min{ v+a, vmax, lanevmax, vsafe }
     double vNext = vMin( vAccel, vMax, vLaneMax, vSafe );
-    
-    vNext = dawdle( vNext );    
-    
+
+    vNext = dawdle( vNext );
+
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
@@ -512,14 +518,14 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
     double gap = lane->length() - myState.myPos;
     assert( gap <= brakeGap( lane ) );
 
-    // Slow down and dawdle.   
-    double vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );  
-    double vNext  = dawdle( vSafe );        
-    
+    // Slow down and dawdle.
+    double vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
+    double vNext  = dawdle( vSafe );
+
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
-    myState.mySpeed = vNext;    
+    myState.mySpeed = vNext;
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -533,7 +539,7 @@ MSVehicle::moveUpdateState( const State newState )
 
     myState.myPos  += newState.mySpeed * MSNet::deltaT();
     assert( myState.myPos >= 0 );
-    
+
     myState.mySpeed = newState.mySpeed;
     assert( myState.mySpeed >= 0 );
 }
@@ -549,7 +555,7 @@ MSVehicle::moveSetState( const State newState )
 
     myState = newState;
     assert( myState.myPos >= 0 );
-    assert( myState.mySpeed >= 0 );        
+    assert( myState.mySpeed >= 0 );
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -569,30 +575,30 @@ MSVehicle::nextState( MSLane* lane,
     double vAccel   = vaccel( lane );
     double vMax     = myType->maxSpeed();
     double vLaneMax = lane->maxSpeed();
-    
+
     double vSafe = 0;
     if ( predState != State() ) {
-    
+
         assert( gap2pred >= 0 );
-        vSafe = vsafe( myState.mySpeed, myType->decel(), 
+        vSafe = vsafe( myState.mySpeed, myType->decel(),
                        gap2pred, predState.mySpeed );
     }
     else {
-        
+
         vSafe = vLaneMax; // Don't confuse vMin() with a not set vSafe.
     }
-    
-    // min{ v+a, vmax, lanevmax, vsafe }   
+
+    // min{ v+a, vmax, lanevmax, vsafe }
     double vNext   = dawdle( vMin( vAccel, vMax, vLaneMax, vSafe ) );
-    double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be 
-    // overridden if veh leaves lane.     
-    
-    return State( nextPos, vNext );   
+    double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be
+    // overridden if veh leaves lane.
+
+    return State( nextPos, vNext );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State 
+MSVehicle::State
 MSVehicle::nextState( MSLane* lane, double gap ) const
 {
     // Don't move if gap < dontMoveGap to handle arithmetic inaccuracy.
@@ -607,40 +613,40 @@ MSVehicle::nextState( MSLane* lane, double gap ) const
     double vAccel  = vaccel( lane );
     double vSafe   = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
     vSafe          = dawdle( min( vSafe, vAccel ) );
-    double nextPos = myState.myPos + vSafe * MSNet::deltaT(); // Will be 
-    // overridden if veh leaves lane. 
+    double nextPos = myState.myPos + vSafe * MSNet::deltaT(); // Will be
+    // overridden if veh leaves lane.
 
-    return State( nextPos, vSafe );  
-}   
+    return State( nextPos, vSafe );
+}
 
 /////////////////////////////////////////////////////////////////////////////
-    
+
 MSVehicle::State
-MSVehicle::nextStateCompete( MSLane* lane, 
-                             State predState, 
+MSVehicle::nextStateCompete( MSLane* lane,
+                             State predState,
                              double gap2pred ) const
 {
     double vAccel   = vaccel( lane );
     double vSafe    = vsafe( myState.mySpeed, myType->decel(),
                              gap2pred, predState.mySpeed );
-    
+
     double vNext    = dawdle( min( vAccel, vSafe ) );
     double nextPos  = myState.myPos + vNext * MSNet::deltaT();
-    return State( nextPos, vNext ); 
+    return State( nextPos, vNext );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void 
-MSVehicle::addPerson( MSPerson* person, MSEdge* destinationEdge ) 
+void
+MSVehicle::addPerson( MSPerson* person, MSEdge* destinationEdge )
 {
     DestinationCont::iterator i = myPersons.find( destinationEdge );
     if( i == myPersons.end() ) {
         MSNet::PersonCont* cont = new MSNet::PersonCont();
         cont->push_back(person);
-        myPersons.insert( DestinationCont::value_type( destinationEdge, 
-                                                       cont ) );   
-    } 
+        myPersons.insert( DestinationCont::value_type( destinationEdge,
+                                                       cont ) );
+    }
     else {
         ( *i ).second->push_back( person );
     }
@@ -649,7 +655,7 @@ MSVehicle::addPerson( MSPerson* person, MSEdge* destinationEdge )
 /////////////////////////////////////////////////////////////////////////////
 
 MSNet::PersonCont*
-MSVehicle::leavingAt( MSEdge* edge ) 
+MSVehicle::leavingAt( MSEdge* edge )
 {
     DestinationCont::iterator i = myPersons.find( edge );
     if( i == myPersons.end() ) {
@@ -660,7 +666,7 @@ MSVehicle::leavingAt( MSEdge* edge )
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSNet::PersonCont* 
+MSNet::PersonCont*
 MSVehicle::unloadPersons( MSEdge *edge ) {
     DestinationCont::iterator i = myPersons.find( edge );
     if ( i == myPersons.end() ) {
@@ -700,7 +706,7 @@ MSVehicle::dictionary(string id)
 
 /////////////////////////////////////////////////////////////////////////////
 
-double 
+double
 MSVehicle::speed() const
 {
     return myState.mySpeed;
@@ -708,12 +714,12 @@ MSVehicle::speed() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
+bool
 MSVehicle::laneChangeBrake2much( const State brakeState )
 {
     // SK-vnext can reduce speed about decel, dawdle about accel.
-    double minAllowedNextSpeed = 
-        max( myState.mySpeed - 
+    double minAllowedNextSpeed =
+        max( myState.mySpeed -
 	     ( myType->decel() + myType->accel() ) * MSNet::deltaT(),
 	     static_cast< double >( 0 ) );
 
@@ -726,7 +732,7 @@ MSVehicle::laneChangeBrake2much( const State brakeState )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-    
+
 string
 MSVehicle::id()
 {
@@ -747,7 +753,7 @@ operator<<( ostream& os, const MSVehicle& veh )
 MSVehicle::XMLOut::XMLOut( const MSVehicle& obj,
                            unsigned indentWidth,
                            bool withChildElemes ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndentWidth( indentWidth ),
     myWithChildElemes( withChildElemes )
 {
@@ -760,16 +766,16 @@ operator<<( ostream& os, const MSVehicle::XMLOut& obj )
 {
     string indent( obj.myIndentWidth , ' ' );
 
-    os << indent << "<vehicle id=\"" << obj.myObj.myID << "\" pos=\"" 
-       << obj.myObj.pos() << "\" speed=\"" << obj.myObj.speed() 
-       << "\"/>" << endl; 
+    os << indent << "<vehicle id=\"" << obj.myObj.myID << "\" pos=\""
+       << obj.myObj.pos() << "\" speed=\"" << obj.myObj.speed()
+       << "\"/>" << endl;
 
-// Currently there are no child elements. Maybe persons will be in future.                      
-//    if ( obj.myWithChildElemes ) {        
-// 
-//    }                      
-        
-    return os;   
+// Currently there are no child elements. Maybe persons will be in future.
+//    if ( obj.myWithChildElemes ) {
+//
+//    }
+
+    return os;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -780,9 +786,9 @@ MSVehicle::vaccel( const MSLane* lane ) const
     // Accelerate until vehicle's max speed reached.
     double vVehicle = min( myState.mySpeed + myType->accel() * MSNet::deltaT(),
                           myType->myMaxSpeed );
-    
+
     // But don't drive faster than max lane speed.
-    return min( vVehicle, lane->maxSpeed() ); 
+    return min( vVehicle, lane->maxSpeed() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -790,7 +796,7 @@ MSVehicle::vaccel( const MSLane* lane ) const
 bool
 MSVehicle::onAllowed( const MSLane* lane ) const
 {
-     MSEdge::LaneCont::const_iterator compare = 
+     MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes->begin(), myAllowedLanes->end(), lane );
      return ( compare != myAllowedLanes->end() );
 }

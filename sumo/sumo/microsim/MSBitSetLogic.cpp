@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2002/06/20 08:00:59  dkrajzew
+// template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
+//
 // Revision 1.6  2002/06/18 18:29:07  croessel
 // Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
 //
@@ -59,11 +62,11 @@
 //
 
 #ifdef EXTERNAL_TEMPLATE_DEFINITION
-namespace
+/*namespace !!!
 {
     const char rcsid[] =
     "$Id$";
-}
+}*/
 #include "MSBitSetLogic.h"
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
@@ -94,42 +97,42 @@ MSBitSetLogic< N >::~MSBitSetLogic< N >()
     ( *myLogic ).clear();
     ( *myTransform ).clear();
 }
-               
+
 //-------------------------------------------------------------------------//
-    
-template< size_t N > void 
+
+template< size_t N > void
 MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
                              MSLogicJunction::Respond& respond ) const
 {
-    
+
     // convert request to bitset
     std::bitset< N > requestBS;
-     unsigned int i = 0;   
+     unsigned int i = 0;
     for ( ; i < myNLinks; ++i ) {
-    
+
         requestBS.set( i, request[ i ] );
-    } 
-    
+    }
+
     // calculate respond
-    std::bitset< N > respondBS;    
-    
+    std::bitset< N > respondBS;
+
     for ( i = 0; i < myNLinks; ++i ) {
 
         bool linkPermit = requestBS.test( i ) &&
-            ( requestBS & ( *myLogic )[ i ]).none();   
-        respondBS.set( i, linkPermit ); 
+            ( requestBS & ( *myLogic )[ i ]).none();
+        respondBS.set( i, linkPermit );
     }
-    
-    // perform the link to lane transformation  
+
+    // perform the link to lane transformation
     assert( respond.size() == myNInLanes );
     for ( i = 0; i < myNInLanes; ++i ) {
-    
+
         bool lanePermit = ( ( *myTransform)[ i ] & respondBS ).any();
-        respond[ i ] = lanePermit;   
+        respond[ i ] = lanePermit;
     }
-    
+
     return;
-}   
+}
 
 //-------------------------------------------------------------------------//
 
