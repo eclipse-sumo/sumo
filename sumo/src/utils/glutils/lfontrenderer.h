@@ -123,7 +123,7 @@ public:
     // call thos method to output a string
     void StringOut(float x, float y, const std::string &string);
     // this method draws all the strings
-    void Draw();
+    void Draw(bool flip=false);
     // this method draws all the strings rescaling the viewport to the given size
     void Draw(int x, int y);
     // this methods sets the width scale of the active font
@@ -146,7 +146,7 @@ public:
     void add(const LFont &sfont);
     void directDraw(const std::string &what);
 protected:
-    void myDraw(int x, int y, int w, int h);
+    void myDraw(int x, int y, int w, int h,bool flip=false);
 
 protected:
     // used internally

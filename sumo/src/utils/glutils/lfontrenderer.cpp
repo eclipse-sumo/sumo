@@ -294,7 +294,7 @@ void LFontRenderer::StringOut(float x, float y, const std::string &string)
 
 //--------------------------------------------------
 void
-LFontRenderer::Draw()
+LFontRenderer::Draw(bool flip)
 {
     if (m_strCount == 0)
         return;
@@ -320,7 +320,7 @@ LFontRenderer::Draw()
         m_viewWidth = view[2];
         m_viewHeight = view[3];
     }
-    myDraw(m_viewLeft, m_viewTop, m_viewWidth, m_viewHeight);
+    myDraw(m_viewLeft, m_viewTop, m_viewWidth, m_viewHeight, flip);
 }
 
 
@@ -356,7 +356,7 @@ LFontRenderer::Draw(int w, int h)
 
 
 void
-LFontRenderer::myDraw(int x, int y, int w, int h)
+LFontRenderer::myDraw(int x, int y, int w, int h, bool flip)
 {
     glEnable(GL_TEXTURE_2D);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
