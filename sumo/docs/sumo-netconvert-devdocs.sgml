@@ -1,0 +1,494 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1//EN"[
+<!entity sumo "<emphasis>SUMO</emphasis>">
+<!entity sumo-netconvert "<emphasis>sumo-netconvert</emphasis>">
+<!ENTITY index SYSTEM "sumo-netconvert-devdocs-0.7.sgml">
+
+<!ENTITY document-name "SUMO Netconvert Developer Documentation">
+<!ENTITY document-version "0.7">
+<!ENTITY referred-program-version "0.7">
+
+<!entity % ISOgrk1 PUBLIC "ISO 8879:1986//ENTITIES Greek Letters//EN">
+%ISOgrk1;
+]>
+
+<book>
+  <bookinfo>
+	<title>&document-name;</title>
+	<authorgroup>
+	  <author>
+		<firstname>Georg</firstname>
+		<surname>Hertkorn</surname>
+	  </author>
+	  <author>
+		<firstname>Daniel</firstname>
+		<surname>Krajzewicz</surname>
+	  </author>
+	  <author>
+		<firstname>Christian</firstname>
+		<surname>R&ouml;ssel</surname>
+	  </author>
+	</authorgroup>
+	<edition>&document-version;</edition>
+
+   <pubdate role="cvs">$Date$</pubdate>
+
+    <copyright>
+      <year>2002</year>
+      <holder>German Aerospace Center</holder>
+      <holder>Center for Applied Computer Science, University of
+      Cologne</holder>
+    </copyright>
+
+    <legalnotice>
+      <title>Copyright</title>
+      <para>Permission is granted to copy,
+      distribute and/or modify this document under the terms of the
+      Open Publication License, version 2.0.</para>
+    </legalnotice>
+
+    <!--
+    $Log$
+    Revision 1.1  2003/02/07 10:25:28  dkrajzew
+    v0.7-documentation added
+
+    Revision 1.12  2002/07/08 11:57:23  dkrajzew
+    intra-document references added
+
+    Revision 1.11  2002/07/08 10:44:10  dkrajzew
+    Some spelling mistakes removed; Cross-links added
+
+    Revision 1.10  2002/07/08 09:14:32  dkrajzew
+    every document has its own image folder
+
+    Revision 1.9  2002/07/08 08:35:37  dkrajzew
+    strange usage of the single-graphic tag patched
+
+    Revision 1.8  2002/06/20 10:57:39  dkrajzew
+    windows-eols removed
+
+    Revision 1.7  2002/06/06 05:23:08  dkrajzew
+    some spelling mistakes corrected
+
+    Revision 1.6  2002/04/29 14:58:50  dkrajzew
+    some spelling mistakes removed
+
+    Revision 1.5  2002/04/29 13:44:27  dkrajzew
+    description of the assignment of priorities to a junctions edges added
+
+    Revision 1.4  2002/04/25 15:22:48  croessel
+    Syntax errors fixed. Some bookinfo added.
+
+    -->
+    <revhistory>
+      <revision>
+        <revnumber></revnumber>
+        <date></date>
+      </revision>
+    </revhistory>
+
+  </bookinfo>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter id="DocumentDescription">
+	<title>Document Description</title>
+	<sect1 id="DocumentDomain">
+	  <title>Document Domain</title>
+	  <para>This document is a part of the documentation of &sumo; - a microscopic, multimodal and continuous traffic simulation.</para>
+	</sect1>
+	<sect1 id="DocumentPurpose">
+	  <title>Document Purpose</title>
+	  <para>This document describes the algorithms used the &sumo; - net conversion module, &sumo-netconvert;. This shall allow extern developers to modify the program. Accompanying, a class documentation shall be available [7].</para>
+	</sect1>
+	<sect1 id="DocumentStatus">
+	  <title>Document Status</title>
+	  <sect2 id="DocumentVersion">
+		<title>Document Version</title>
+		<para>This is the version &document-version; of the document.</para>
+		<para>It is assigned to the &sumo-netconvert; - version &referred-program-version;.</para>
+	  </sect2>
+	  <sect2 id="ToDo">
+		<title>To Do</title>
+		<para>
+          <orderedlist>
+			<listitem>
+			  <para>Describe the classes</para>
+			</listitem>
+			<listitem>
+			  <para>Recheck the use of the warn-option</para>
+			</listitem>
+		  </orderedlist>
+        </para>
+	  </sect2>
+	</sect1>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Introduction</title>
+	<para>As &sumo; is designed as an open source project and we hope to involve other developer which are not working neither for the DLR nor the ZAIK, a reference where all methods used are described is needed to allow these developer to participate without much learning. Also, as some methods are quite heuristic, the errors in the assumptions that yielded into these methods, may be seen easier when being described in prose rather than through the study of the program's source code.</para>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Overview</title>
+	<sect1 id="Overview">
+	  <title>General</title>
+	  <para>The &sumo-netconvert; - program is a simple data manipulation tool. The very complicated and specialized input format of the &sumo; simulation tool ([1-4]) requires a computerized building of the input files as no human being will try to generate them by his own. This assumption is made due to the complexity of the &sumo; network description as well as due to the large number of elements a network is made of.</para>
+	</sect1>
+
+	<sect1 id="ImplementationInformation">
+	  <title>Implementation Information</title>
+	  <sect2 id="PortabilityLegality">
+		<title>Portability and Legality</title>
+		<para>The whole program has been implemented using C++ and has been tested under Windows (MSVC++ 6.0), Solaris and Linux. All of the source code is compilable over these platforms without any modifications.</para>
+		<para>Also, we use only libraries that may bee freely distributed to allow to use this program without any fees to everyone.</para>
+		<para>We expect that other developer will also try to use common C++ - methods and classes and avoid non-free libraries. Any other changes, unless not really needed, will not be accepted and will be removed from the basic development branch.</para>
+	  </sect2>
+
+	  <sect2 id="ModuleHierarchy">
+		<title>Module Hierarchy</title>
+		<para>This program's source codes are divided into three logical parts. The purpose of the main.cpp - file should be familiar to everyone. It contains the main procedure and some basic data process methods that are too simple to be encapsulated into special classes. This file is one level higher in the file hierarchy than the other source code files. These are divided into netbuilder- and utility- classes. The netbuilder classes are used within &sumo-netconvert; only and have the "NB"-prefix. The utility classes used are common to &sumo-netconvert; and &sumo;. </para>
+	  </sect2>
+	</sect1>
+
+	<sect1 id="ProgramFlow">
+	  <title>Program Flow</title>
+	  <para>The program is very straightforward. The data are read, some computation is done and the results are written in the &sumo;-input XML - format.</para>
+	  <para>It is possible that either no error occurs and the program continues as shown in the following diagram or the program terminates due to an error. </para>
+        <figure>
+          <title>Main Program Flow</title>
+          <graphic fileref="./img-netc-dev/MainFlow.gif" width="300" format="GIF">
+        </figure>
+
+	</sect1>
+
+	<sect1 id="ClassesOverview">
+	  <title>Classes Overview</title>
+	  <sect2 id="GeneralTasks">
+		<title>General Tasks</title>
+		<itemizedlist>
+		  <listitem>
+			<para>Parsing and loading of options:</para>
+			<itemizedlist>
+			  <listitem><para>NBOptionIO (netconvert - specific option handling)</para></listitem>
+			  <listitem><para>All Option* - classes from utils (option library (storage, parsing, loading, retrieving of options))</para></listitem>
+			</itemizedlist>
+		  </listitem>
+
+		  <listitem>
+			<para>Data loading:</para>
+			<itemizedlist>
+			  <listitem><para>NBLoader (process of loading)</para></listitem>
+			  <listitem><para>All NBXML* - classes (XML-Handlers for loading the xml-files)</para></listitem>
+			</itemizedlist>
+		  </listitem>
+
+		  <listitem>
+			<para>Data processing:</para>
+			<para>Building of lane relationships (see <xref linkend="computationedgeconnections">):</para>
+			<itemizedlist>
+			  <listitem><para>NBEdgeSuccessorBuilder (builder of lane relationships)</para></listitem>
+			  <listitem><para>NBHelper (helper class for angle-computation)</para></listitem>
+			  <listitem><para>NBContHelper (helper for use of vectors)</para></listitem>
+			  <listitem><para>All Data types (nodes, edges) except NBType (see <xref linkend="LoadingData">)</para></listitem>
+			</itemizedlist>
+			<para>Building of junction logics (see <xref linkend="computationjunctionlogic">):</para>
+			<itemizedlist>
+			  <listitem><para>NBRequest (description of requests)</para></listitem>
+			  <listitem><para>NBJunctionIO (input/output for junction logics)</para></listitem>
+			  <listitem><para>All Data types (nodes, edges) except NBType (see <xref linkend="LoadingData">)</para></listitem>
+			</itemizedlist>
+		  </listitem>
+
+		  <listitem>
+			<para>Data saving</para>
+			<itemizedlist>
+			  <listitem><para>All Data types (nodes, edges) except NBType (see <xref linkend="LoadingData">)</para></listitem>
+			</itemizedlist>
+		  </listitem>
+
+		</itemizedlist>
+	  </sect2>
+
+	  <sect2 id="AboutDataStorageClasses">
+		<title>About the Data Storage Classes</title>
+		<para>Most of the used classes are very simple data holding classes. Their only purpose is to store descriptions of data of a certain type and to allow to retrieve these. The netconverter is using mainly three types of data, and for every one of these, the netconverter possesses a class that describes a single instance of this type, a class used as container for instances of this data type and a loader that allows to read in the XML-description of the instances. While reading, each instance is build for its own and then added to the container.</para>
+		<para>The following data types are being used:</para>
+		<itemizedlist>
+		  <listitem><para>EdgeTypes (class NBType)</para></listitem>
+		  <listitem><para>Nodes (class NBNode)</para></listitem>
+		  <listitem><para>Edges (class NBEdge)</para></listitem>
+		</itemizedlist>
+		<para>The container classes are named by appending the postfix "Cont" to the word used for the data type instance classes, namely NBTypeCont, NBNodeCont and NBEdgeCont while the data loading classes should be named using the type of input as prefix and a possible postfix; while loading only XML-descriptions by now, the loader classes are named NBXMLEdgesHandler, NBXMLNodesHandler and NBXMLTypesHandler.</para>
+
+		<sect3 id="DataInstanceClasses">
+		  <title>Data Instance Classes</title>
+		  <para>While most of the values are known when building the instances from their description (the loaded file), they may be set on the instance's initialisation using the only constructor given which of course diverges for different data types. Due to this, most of the data type instance classes' functions are simple getter-methods which allow to retrieve certain information about the instance of the class. Still, the purpose of the program is the computation of some values - like the approached edges, the sections an edge consists of or the junction logics. These are stored inside the data types, too. This may be a not very lucky or at least not very secure way to store them, but you have to live with.</para>
+		</sect3>
+
+		<sect3 id="ContainerClasses">
+		  <title>Container Classes</title>
+		  <para>The container classes that store the instances of the build data type supply methods which add or retrieve the named instances into/from the container. Independent of the data type, these methods are called "insert" and "retrieve" for the addition and the retrieval of data type instances into the container, respectively. Both methods are static in the according data container. In fact, all of the container classes' methods are static. The instances are stored in a map (std::map) where the id of the object is used as the key.</para>
+		  <para>In addition to the data storing and retrieving methods, most of the data manipulations of the data type instances may be invoked by calling the appropriate container method which then invokes the according method on all data type instances it contains.</para>
+		  <para>Container must not be copied, at least no implementation of a copy constructor or assignment operator does exist and the generation and using of default methods for them is restricted by declarating them as private. Also, all methods are declared as static, so no copying would be useful.</para>
+		</sect3>
+
+	  </sect2>
+
+	</sect1>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Parsing Options (NBOptionsIO)</title>
+	<para>Options do have an own manual [13] where the process of options parsing and loading is described. The program still has some values to check to determine what to do and whether the given options are valid. The basic flow while computing the options is the following.</para>
+	<para>The only thing to mention is the adding of options at the end of this sub-process where the added options' values depend on other options. This is done for internal purposes. The only option that is set this way is "used-file-format" which holds the name of the format used. The following values are possible by now:</para>
+	<variablelist>
+	  <varlistentry>
+		<term>xml</term>
+		<listitem>
+		  <para>Meaning: The description will be read from xml-files</para>
+		</listitem>
+	  </varlistentry>
+	</variablelist>
+	<para>All of these actions except the loading and parsing that is realized by the option library[13] itself is done inside the "NBOptionIO" - class.</para>
+	<para>The next figure shows how the options are validated:</para>
+      <figure>
+        <title>The Validation of Options</title>
+        <graphic fileref="./img-netc-dev/Options_Checking.gif" width="300" format="GIF">
+      </figure>
+	<para>This flow is rather upward-compatible. This means, that by now, only a single input format is supported which holds the data divided over several files. Due to this, the check for a complete format is not needed and does always return "false". This is why both methods are shaded - they either return a static value that does not depend on the settings or are not implemented yet.
+Remark: during this process, the correctness of the values is not validated, it is just checked, whether the values were given by the user. It is still possible, that the given filenames have no assigned files or the files - when existing - are invalid.</para>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter id="LoadingData">
+	
+	<title>Loading of Data</title>
+	<sect1 id="LoadingFlow">
+	  <title>Program Flow</title>
+	  <para>The next figure shows the order of data loading. </para>
+        <figure>
+          <title>The Loading of Data</title>
+          <graphic fileref="./img-netc-dev/Loading.gif" width="300" format="GIF">
+        </figure>
+	  <para>Similar to the process described above, the program stops when an error occurs by throwing a ProcessError - exception. The error is reported before. <xref linkend="ErrorMessages"> gives a list of possible errors.</para>
+
+	  <sect2 id="LoadingTypes">
+		<title>Loading of Types</title>
+		<para>When no types are given, the defaults are used. This is not an error. Defaults for types may be given as parameter on the command line, may be read from a file but are also given in the source code, so no error should occur at this place at all as long as the read file (when given) is not malicious.</para>
+	  </sect2>
+
+	  <sect2 id="LoadingNodes">
+		<title>Loading of Nodes</title>
+		<para>Again, an error should only occur on a broken file.</para>
+	  </sect2>
+
+	  <sect2 id="LoadingEdges">
+		<title>Loading of Edges</title>
+		<para>Edges are read in the same way as nodes. An error may occur on a broken file or when the node-information of a node is invalid. Invalid in this case means, that the information about the node's position is missing and can not be retrieved from the node descriptions loaded before, too.</para>
+	  </sect2>
+	</sect1>
+
+	<sect1 id="LoaderClasses">
+	  <title>Loader Classes</title>
+	  <sect2>
+		<title>XML Input</title>
+		<para>The loader classes are named by the instance classes' plural name with the appendix "Handler": NBXMLTypesHandler, NBXMLNodesHandler, NBXMLEdgesHandler. The "XML" indicates the type of data being loaded by the class.</para>
+		<para>By now, as only the reading of XML-files is implemented, the handler classes are derivations of the NBXMLHandlerPrototype what itself is a derivation of a SAX-parser HandlerBase which is a Xerces([11])-implementation of both the DocumentHandler and the ErrorHandler. NBXMLHandlerPrototype extends the HandlerBase by an error report mechanism and internal variables that indicate the verbose an the warn mode.</para>
+		<para>The three handlers retrieve information from the parsed XML-file instance by instance, build the instances where default values may be supplied when not inside the file and add the build instances into the appropriate container.
+Missing attributes, where default values are used, are reported to stdout when the "warn"-flag is set. Other errors are reported, too and lead to a forced ending of the conversion process.</para>
+	  </sect2>
+	</sect1>
+
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Processing of Data</title>
+	<sect1 id="ProgramFlowAlgorithms">
+	  <title>Program Flow and Algorithms</title>
+	  <para>Before the loaded data may be processed, their container must be informed about the end of the loading. By now, this is only true for the nodes as the edges do not need any preprocessing. The method <methodname>NBNodeCont::close()</methodname> is called from <methodname>NBLoader::load()</methodname> to precompute the nodes. A further description will be given in the next subchapter.</para>
+	  <para>The computation of data itself is consists of two steps. In the first step (<methodname>computeEdges()</methodname>) the connections between edges are computed. The second step (<methodname>computeNodes()</methodname>) is generating the junction logics for the connecting nodes (junctions). During this part of the process, the program will terminate when errors are encountered. This is done by propagating a thrown ProcessError instance. ProcessError is indirectly derived from exception and may be found in <filename>utils/UtilExceptions.h</filename>.</para>
+	</sect1>
+
+	<sect1 id="NBNodeContClose">
+	  <title><methodname>NBNodeCont::close()</methodname></title>
+	  <para>Like most of the container methods, this method only invokes a method with the same name (here: <methodname>close()</methodname>) on all of the classes stored inside itself.</para>
+	  <para>The so invoked method NBNode::close() computes the node's lists of edges. Each node has three lists which are shown in the next picture.</para>
+	  <itemizedlist>
+		<listitem>
+		  <para><type>std::vector&lt;NBEdge*&gt;</type> <varname>_allEdges</varname> which holds both the incoming and the outgoing edges sorted clockwise beginning with the edge(s) at the node's north side (0 degree). Please remark, that this of course may be more than one edge as for instance both the incoming and the outgoing edge may be found here. Additionally, the edges are sorted in the continental way - that means the traffic is assumed to be on the right side. The next figure shows a very simple junction and the used sort order.</para>
+		</listitem>
+		<listitem>
+		  <para><type>std::vector&lt;NBEdge*&gt;*</type> <varname>_incomingEdges</varname> which holds the edges that yield into the junction sorted as described above.</para>
+		</listitem>
+		<listitem>
+		  <para><type>std::vector&lt;NBEdge*&gt;*</type> <varname>_outgoingEdges</varname> which holds the edges that originate at the current junction.</para>
+		</listitem>
+	  </itemizedlist>
+        <figure>
+          <title>The lists of edges participating within a node.</title>
+          <graphic fileref="./img-netc-dev/NodeCloseExample_incoming.gif" format="GIF">
+          <graphic fileref="./img-netc-dev/NodeCloseExample_outgoing.gif" format="GIF">
+          <graphic fileref="./img-netc-dev/NodeCloseExample_all.gif" format="GIF">
+        </figure>
+	  <para>Additionally, this method also computes the type of the junction as all needed nodes are already known. As this also involves the setting of the junction priorities the participating edges have and we will discuss these computations more briefly now.</para>
+
+	  <sect2 id="ComputationJunctionType">
+		<title>Computation of a Junction's Type</title>
+		<para>By now, we divide between four types of junctions:</para>
+		<variablelist>
+		  <varlistentry>
+			<term>No Junction</term>
+			<listitem>
+			  <para>Junctions of this type have no function at all. There are no relationships between approaching vehicles modeled. You may find such junction on places where two lanes of a road merge or a road splits. Crossings with different elevation levels may also be counted to this type of junctions. We have not seen junction of this type in our nets, yet.</para>
+			</listitem>
+		  </varlistentry>
+		  <varlistentry>
+			<term>Traffic Light Junction</term>
+			<listitem>
+			  <para>At junctions of this type the right-of-way rules are steered by a traffic light. This type will be implemented in the version 1.0 of the program. By now, junctions of this type are converted into "Priority Junctions".</para>
+			</listitem>
+		  </varlistentry>
+		  <varlistentry>
+			<term>Priority Junction</term>
+			<listitem>
+			  <para>Here, we have at least two streets with a high priority while the rest (when given) have a lower priority. The computation of the priorities which are junction-local will be described in the next subchapter.</para>
+			  <para></para>
+			</listitem>
+		  </varlistentry>
+		  <varlistentry>
+			<term>Right-Before-Left Junction</term>
+			<listitem>
+			  <para>Such junctions may occur when more than two streets with a low priority merge at a junction. In this case, a vehicle must wait until vehicles incoming from a street right of it have passed the junction.</para>
+			</listitem>
+		  </varlistentry>
+		</variablelist>
+		<para>The list above does also already describe the order of junction types. Except of the case where the junction has only one incoming and only one outgoing edge yielding in a "high priority" of all edges and the junction becomes a Priority Junction, the type of the junction is determined by combinating all of the junction's edges' priorities, determining the type of junction for every pair and choosing the least valued type (following the upper order where No Junction has the smallest and Right-Before-Left Junction the highest value). The types of connections between single edges, resulting from those edges' priorities (or types) are stored in the type container and retrieved using <type>NBTypeCont</type>::<methodname>getJunctionType()</methodname>.</para>
+		<para><methodname>getJunctionType()</methodname> uses an internal table to look up the junction type resulting from the combination of the given edge priorities (types). This table is embedded into the code and can not be changed when the developer wants to stay portable over the program versions. We will implement a method for loading own tables in the future. <!--!!! Referenz zu Extensions(1)--></para>
+		<para>Beside the Right-Before-Left Junction where all incoming edges have the same priority, the junction-internal priorities of the incoming edges must be computed.</para>
+	  </sect2>
+
+	  <sect2 id="ComputationPriorisedJunctionEdgePriority">
+		<title>Computation of a Priorised Junction's Edge Priority</title>
+		<para>For the later computation of the priorities of connections between edges, we have to pinpoint which of a junction's edges are the priorised ones when the junction is a Priorised Junction. In the case that a junction connects more than two streets, which should be the usual case, we assume two of those streets to have a higher "junction priority" than the other. Still, an - at the beginning unknown - subset of those edges may have different edge priorities or the same priority, and their priorities may differ for the incoming and outgoing direction. The next figure shows this problem. That's why we compute the junction-internal priorities of edges.</para>
+            <figure>
+              <title>An Example teh Change of an Edges' Priority over more than one Junction</title>
+              <graphic fileref="./img-netc-dev/EdgesPrioChangeExample.gif" width="213" format="GIF">
+            </figure>
+		<para>We must admit, that the method we are using is a set of heuristics and has not yet been validated by traffic scientists.</para>
+		<para>To compute the priority of an edges within a single junction, we count the distinct priorities of the incoming edges of a junction at first. When the number is equal to one, being the case when all incoming edges have the same priority, we extract a random edge at the beginning and mark it as the first edge with a right-of-way. The incoming edge with the next higher priority - when further edges exist -  is the edge that has the most opposite direction to the first edge found. When the number of distinct priorities of the incoming edges is greater than one, we sort the edges first and take the first edge then. If the number of yet unused higher priorised edges is still greater than one, we take the opposite edge to the edge found at first from the list of edges left that have the highest priorities. Otherwise, we simply try to get the opposite edge without taking the priorities into account - they are the same anyway.</para>
+		<para>Both found incoming edges are marked as higher priorised in the junction.</para>
+		<para>After the most priorised incoming edges are known, we use them to find the corresponding outgoing edges and mark the as higher priorised, too.</para>
+		<figure>
+		  <title>Program flow to while computing a junction's edges' priorities</title>
+		  <graphic fileref="./img-netc-dev/convertPriorityJunctionPriorities.gif" width="300" format="GIF">
+		</figure>
+		<para>Remarks/Extensions:</para>
+	  </sect2>
+	</sect1>
+
+	<sect1 id="ComputationEdgeConnections">
+	  <title><methodname>computeEdges()</methodname> : Computation of Edge Connections</title>
+	  <para>In SUMO each edge may be connected to some following edges. The simulation does not need the names of the connected edges only, but also two other information: a) for each of an edge's lanes, the "succeeding" (reachable) lanes must be given b) the edge must know, which of her lanes may be used to reach a special following edge</para>
+	  <para>In fact, the data are quite similar, only the key/value - relationship paradigm changes. Still, there is another problem that is more interesting. It is the computation of a lane's following lanes.</para>
+	  <para>As input, we have a net made up from junctions and edges where each edge consists of at least one lane. Let's take a look at a single junction where the edge we want to compute is marked by shading:</para>
+	  <para>The easiest way in this case would be to let vehicles on the left lane drive to the left, the vehicles on the right lane drive to the right and the vehicles on the middle lane drive ahead. Still, some junctions may occur where the number of lanes does not match the number of possible directions.</para>
+	  <para>By now, we are using the simple approach to distribute the incoming lanes uniformly on the outgoing lanes. Additionally, before this computation, we remove the opposite direction from the list of approachable lanes and add this connection afterwards:</para>
+	  <para>This makes the job quite good, but still has a problem. As one can see in the next picture, the situation in real life is, that vehicles driving on the right lane may turn right or drive ahead. Still, our approach allows the turning only:</para>
+	</sect1>
+
+	<sect1 id="ComputationJunctionLogic">
+	  <title>computeNodes() : Computation of a Junction Logic</title>
+	  <para>A junction should always consists of more than two streets where a street is a directed connection between two points. Streets may have different priorities and vehicles driving on roads that have a lower priority should wait for those driving on roads with a higher priority. Even when the streets that build up a junction have the same priority, the further movement of the cars is determined by the right-of-way - rule "left before right" - at least in countries where driving on the right side of the road is used. All these circumstances make a logic for a junction necessary that decides which vehicles may move and which not. Within SUMO, such a logic gets an input vector of bools which represents all possible movements (connections between an incoming lane and an outgoing lane) where a set value represents a vehicle that wishes to use this connection. The connections themselves were previously computed by the "computeEdges()" - method. The output of a logic is a vector of bools, too, but the bools do not longer represent possible connections but the lanes that are allowed to drive.</para>
+	  <para>The netconvert is responsible for the building of these logics and the computeNodes() - method performs this action.</para>
+	  <para>Inside SUMO you will find two ways of representation for junction logics. The first idea was to use a map and store all possible combinations together with responses into it. This yielded in MSMapLogic. Still, some junctions are too big for this representation, so we invented the MSBitfieldLogic. You will find better documentation about these classes in [3, 4].</para>
+	  <para>Both representations are supported by the "Netconvert". As the following diagram shows, during the computation of a single logic, a key is computed at first. This key is a unique identifier for the junction logic that is currently build. A closer description of the key will be given later.</para>
+	</sect1>
+
+	<sect1 id="ComputationLogics">
+	  <title>Computation of Logics</title>
+	  <para>After the key's computation, the program looks into the "junction-path" (-j) - folder to determine whether the logic according the key was already computed. As the logic's functionality stays the same, even when the key is rotated as long as the incoming/outgoing edges are rotated in the same way, this method (NBJunctionIO::try2convert) returns the number of rotations to be done to fit the junctions incoming/outgoing edges information to an existing logic. Then, this fitting is done by rotating the key and the incoming/outgoing edges and the computation is finished for this junction as the logic was already computed.
+Still, when try2convert returns a value below 0, no logic for a junction of this type exists yet and must be computed. To avoid the computation of too complex MSMapLogics, we determine the number of possible variations of the driving wishes that may occur first and compare it to the value "map-maxsize" (-m) that may be changed by the user. The map logic is computed only when this value is larger than the computed number of the logics permutations. Otherwise, the key is converted into a key that already indicates the usage of a bitfield logic. This is simply done by replacing the key type (the first char of the key) from "a" to "b" as no other logic representations are known yet. </para>
+	  <para>Independent to whether a MSMapLogic was computed or not, the MSBitfieldLogic is then computed, so it may be loaded when the other logic could not be found or the user wishes the usage of MSBitfieldLogics only. Each logic is saved directly after it's computation using the NBJunctionIO - class. The resulting key (which may be changed from a MapLogic- to a BitfieldLogic-key) is the assigned to the junction.</para>
+	</sect1>
+  </chapter>
+
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Saving of Data</title>
+	<sect1 id="General">
+	  <title>General</title>
+	  <para>As the data is all computed by now, it may be saved straightforward into a file. As mentioned before, the junction logics are already saved, only the net containing the edge/lane-definitions and the junction definitions is saved.</para>
+	</sect1>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <chapter>
+	<title>Further Notes</title>
+	<sect1 id="ErrorHandling">
+	  <title>Error Handling</title>
+	  <para>All errors we know about that may happen during the programs execution are reported to the user when they occur - despite a memory overflow. When an error occurs, the program does not try to solve it as we did not encounter errors yet that have any other character than false data supplied by the user. Instead, the error is reported and the program terminates.</para>
+	  <para>A developer should respect this procedure and try to catch every false input or situation and report the error to the user providing him as many information as available. The further processing may be aborted using a "ProcessError" - exception which is caught by the main method.</para>
+	  <para>Warnings may be reported to the user and we in fact have prepared an option that should help you determine whether such reports are wished or not. Unfortunately, this option is not yet implemented.</para>
+	</sect1>
+  </chapter>
+
+  <!-- ---------------------------------------------------- -->
+
+  <appendix id="FAQ">
+	<title>FAQ : Frequently Asked Questions</title>
+	<para>No one wanted to know anything yet</para>
+  </appendix>
+
+  <!-- ---------------------------------------------------- -->
+
+  <appendix id="Extensions">
+	<title>Extensions</title>
+      <itemizedlist>
+        <listitem>
+          <para>Implement the loading of own connection definitions.</para>
+        </listitem>
+        <listitem>
+          <para>When all incoming edges have the same priority, one could check the outgoing edges first and count their priorities to make sure, that all edges are really equal in respect to their priority for the junction</para>
+        </listitem>
+     </itemizedlist>
+  </appendix>
+
+  <!-- ---------------------------------------------------- -->
+
+  <appendix id="Comments">
+	<title>Comments</title>
+	<para></para>
+  </appendix>
+
+  <!-- ---------------------------------------------------- -->
+
+  <appendix id="Bugs">
+	<title>Bugs</title>
+	<para></para>
+  </appendix>
+
+  <!-- ---------------------------------------------------- -->
+
+  <appendix id="ErrorMessages">
+	<title>Error Messages</title>
+	<para></para>
+  </appendix>
+
+  <!-- ---------------------------------------------------- -->
+
+</book>
+
+
+

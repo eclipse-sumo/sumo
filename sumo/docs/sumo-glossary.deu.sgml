@@ -1,0 +1,211 @@
+<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook V4.1//EN"[
+<!entity sumo "<emphasis>SUMO</emphasis>">
+<!entity sumo-netconvert "<emphasis>sumo-netconvert</emphasis>">
+
+<!ENTITY document-name "SUMO User Documentation">
+<!ENTITY document-version "0.7">
+<!ENTITY referred-program-version "0.7">
+
+<!entity % ISOgrk1 PUBLIC "ISO 8879:1986//ENTITIES Greek Letters//EN">
+%ISOgrk1;
+]>
+
+<glossary>
+
+  <glossaryinfo>
+   <pubdate role="cvs">$Date$</pubdate>
+
+    <copyright>
+      <year>2002</year>
+      <holder>German Aerospace Center</holder>
+      <holder>Center for Applied Computer Science, University of
+      Cologne</holder>
+    </copyright>
+
+    <legalnotice>
+      <title>Copyright</title>
+      <para>Permission is granted to copy,
+      distribute and/or modify this document under the terms of the
+      Open Publication License, version 2.0.</para>
+    </legalnotice>
+
+    <!--
+    $Log$
+    Revision 1.1  2003/02/07 10:25:28  dkrajzew
+    v0.7-documentation added
+
+
+    -->
+
+  </glossaryinfo>
+
+  <glossdiv>
+	<title>D</title>
+	<glossentry>
+	  <glossterm >Anbindungsstraße</glossterm>
+	  <glossdef>
+		<para>Eine Straße ohne Pendant in der wirklichen Welt, über die die logische Verknüpfung zwischen der auf Distrikten basierten OD-Matrix und dem tatsächlichen Straßennetz realisiert.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>D</title>
+	<glossentry>
+	  <glossterm >Detektor</glossterm>
+	  <glossdef>
+		<para>Siehe Induktionsschleife</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm >Detektormessungen</glossterm>
+	  <glossdef>
+		<para>Datei: Diese Dateien sind die Ausgabe von virtuellen Induktionsschleifen.</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm >Distrikt</glossterm>
+	  <glossdef>
+		<para>Ein logisches, mehrere Straßen gruppierendes bzw. eine Fläche beschreibendes Konstrukt.</para>
+		<para>Ein optionaler Bestandteil eines SUMO-Netzes. Wird innerhalb des od2trips-Programmes benötigt, um die auf Distrikten beruhenden Daten aus od-Matritzen auf Straßen umzulegen.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>E</title>
+	<glossentry>
+	  <glossterm >Emitter</glossterm>
+	  <glossdef>
+		<para>Siehe Source</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>I</title>
+	<glossentry>
+	  <glossterm >Induktionsschleife</glossterm>
+	  <glossdef>
+		<para>Eine virtuelle Induktionsschleife.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>K</title>
+	<glossentry>
+	  <glossterm >Kantendatei</glossterm>
+	  <glossdef>
+		<para>Eine Datei, die die Kanten eines Straßennetzes enthält (die Straßen); Eine Formatbeschreibung findet sich in der SUMO-Dokumentation oder Dokumentation des jeweiligen Programms</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm >Knotendatei</glossterm>
+	  <glossdef>
+		<para>Eine Datei, die die Knoten eines Straßennetzes enthält (die Kreuzungen); Eine Formatbeschreibung findet sich in der SUMO-Dokumentation oder Dokumentation des jeweiligen Programms</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>N</title>
+	<glossentry>
+	  <glossterm >Netzauslastung</glossterm>
+	  <glossdef>
+		<para>Hier: Analog zu den Netzzuständen, kann eine Datei erzeugt werden, die die Auslastungen des Netzes enthält. Diese sind über eine angebbare Anzahl von Schritten aggregierten Belastungswerte von Spuren, die logisch zu ihren Straßen gruppiert sind. Das Format ist XML und somit weitläufig selbsterklärend.</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm >Netzbeschreibung</glossterm>
+	  <glossdef>
+		<para>Hier: Eine Menge von Dateien, deren Inhalt ein Straßennetz beschreibt. Zu einer vollständigen Beschreibung gehören mindestens Knoten und Kanten. </para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm >Netzzust&auml;nde</glossterm>
+	  <glossdef>
+		<para>Hier: Eine Datei, die für jeden Simulationsschritt (Dauer = 1s) die Liste aller Straßen mit jeweils allen ihren Spuren. Für jede Spur wird jedes sich auf dieser befindende Fahrzeug ausgegeben.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>O</title>
+	<glossentry>
+	  <glossterm>OD-Matrix</glossterm>
+	  <glossdef>
+		<para>Origin-Destination-Matrix: Eine Darstellung von Fahrten in Matrixform, kodiert als die Anzahl von Fahrzeugen von einem Ort (Origin) zu einem Ort (Destination).</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>R</title>
+	<glossentry>
+	  <glossterm>Route</glossterm>
+	  <glossdef>
+		<para>Eine Beschreibung einer Fahrt, die neben dem Abfahrt- und Zielort alle anderen auf dem Weg passierten Straßen enthält.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>S</title>
+	<glossentry>
+	  <glossterm>Spurgeschwindigkeitssteuerung</glossterm>
+	  <glossdef>
+		<para>Steuert die maximal erlaubte Geschwindigkeit einer Spur anhand eingelesener Werte.</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm>Source</glossterm>
+	  <glossdef>
+		<para>Eine virtuelle Source kann Fahrzeuge aussenden, die dann eine festgelegt Route benutzen.</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm>SUMO-Netz</glossterm>
+	  <glossdef>
+		<para>Ein von der SUMO-Applikation und anderen Programmodulen einlesbares Netz. (Achtung! Das Programm sumo-od2trips arbeitet nur mit Netzen, die Distriktbeschreibungen enthalten)</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>T</title>
+	<glossentry>
+	  <glossterm>Trip Table / Trip List</glossterm>
+	  <glossdef>
+		<para>Eine Liste von Fahrten, wobei jede Fahrt explizit samt dem Ursprungs- und dem Zielort und der Abfahrtszeit geführt wird.</para>
+	  </glossdef>
+	</glossentry>
+	<glossentry>
+	  <glossterm>Typen</glossterm>
+	  <glossdef>
+		<para>Hier: Straßentypen; Straßen in der Kantenbeschreibungsdatei müssen nicht jeden sie Parameter selbst führen, sondern können auf Typen verweisen. Eine Formatbeschreibung findet sich in der SUMO-Dokumentation oder Dokumentation des jeweiligen Programms</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>V</title>
+	<glossentry>
+	  <glossterm>Verbindungsdatei</glossterm>
+	  <glossdef>
+		<para>Eine Datei, in der die Verbindungen zwischen Straßen beschrieben sind, so dass sie nicht mehr von dem Netzkonverter generiert werden müssen.</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+  <glossdiv>
+	<title>X</title>
+	<glossentry>
+	  <glossterm>XML</glossterm>
+	  <glossdef>
+		<para>Extensible Markup Language; siehe (http://www.w3.org/XML/)</para>
+	  </glossdef>
+	</glossentry>
+  </glossdiv>
+
+</glossary>
