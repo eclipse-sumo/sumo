@@ -16,11 +16,15 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2002/06/25 10:44:42  croessel
+// rcsid removed because of multiple-definition problems with MSVC++
+//
 // Revision 1.8  2002/06/21 10:59:09  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
 // Revision 1.7  2002/06/20 08:00:59  dkrajzew
-// template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
+// template and .cpp inclusion inserted due to problems with MSVC++; should
+// be revalidated and removed as soon as possible 
 //
 // Revision 1.6  2002/06/18 18:29:07  croessel
 // Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
@@ -63,15 +67,6 @@
 // Revision 1.1  2001/12/19 15:47:36  croessel
 // Initial commit.
 //
-
-//#ifdef EXTERNAL_TEMPLATE_DEFINITION
-/*namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}*/
-
-//#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #include <bitset>
 #include <vector>
