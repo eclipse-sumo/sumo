@@ -53,7 +53,6 @@ public:
 
     void updateAll( void )
         {
-            using namespace std;
             std::for_each( containerM.begin(), containerM.end(),
                 std::mem_fun( &UpdateEachTimestep::updateEachTimestep ) );
         }
