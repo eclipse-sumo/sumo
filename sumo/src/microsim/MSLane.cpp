@@ -24,6 +24,13 @@ namespace
 }
 
 // $Log$
+// Revision 1.36  2003/11/19 16:39:11  roessel
+// If vehicle reaches it'sdestination edge, modify it's speed as if it
+// entered the new lane completely. Rationale: If the vehicle leaves the
+// simulation and entered the destination lane only partially, it will
+// never get removed from a previous lane's detector that may contain
+// this vehicle partially.
+//
 // Revision 1.35  2003/11/12 13:50:30  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -908,7 +915,7 @@ MSLane::push(MSVehicle* veh)
         // Dismiss reminders by passing them completely.
         double speed = veh->speed();
         if ( veh->pos() + speed * MSNet::deltaT() - veh->length() < 0 ){
-            speed = veh->pos() / MSNet::deltaT() + speed + 0,01;
+            speed = ( veh->length() - veh->pos() ) / MSNet::deltaT() + 0.01;
         }
         double oldLaneLength = veh->myLane->length();
         veh->workOnMoveReminders( veh->pos() + oldLaneLength,
