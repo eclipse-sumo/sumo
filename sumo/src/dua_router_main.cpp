@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/27 08:46:15  dkrajzew
+// shared input possibilities between both routers
+//
 // Revision 1.1  2004/01/26 07:12:12  dkrajzew
 // now two routers are available - the dua- and the jp-router
 //
@@ -193,6 +196,7 @@ fillOptions(OptionsCont &oc)
     // register the file i/o options
     oc.doRegister("cell-input", new Option_FileName());
     oc.doRegister("artemis-input", new Option_FileName());
+    oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.doRegister("output", 'o', new Option_FileName());
     oc.doRegister("net-files", 'n', new Option_FileName());
     oc.doRegister("weights", 'w', new Option_FileName());
@@ -202,6 +206,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.doRegister("save-cell-rindex", new Option_Bool(false));
     oc.doRegister("random-per-second", 'R', new Option_Float());
+    oc.addSynonyme("flow-definition", "flows");
     oc.addSynonyme("net-files", "net");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");

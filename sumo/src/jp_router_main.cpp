@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/27 08:46:15  dkrajzew
+// shared input possibilities between both routers
+//
 // Revision 1.2  2004/01/26 09:58:46  dkrajzew
 // sinks are now simply marked as these instead of the usage of a further container
 //
@@ -132,6 +135,16 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("turn-definition", "turns");
     oc.doRegister("turn-defaults", 'T', new Option_String("30;50;20"));
     oc.doRegister("sinks", 's', new Option_String());
+    oc.doRegister("cell-input", new Option_FileName());
+    oc.doRegister("artemis-input", new Option_FileName());
+    oc.doRegister("sumo-input", 's', new Option_FileName());
+    oc.doRegister("trip-defs", 't', new Option_FileName());
+    oc.doRegister("alternatives", 'a', new Option_FileName());
+    oc.doRegister("save-cell-rindex", new Option_Bool(false));
+    oc.addSynonyme("artemis", "artemis-input");
+    oc.addSynonyme("cell", "cell-input");
+    oc.addSynonyme("sumo", "sumo-input");
+    oc.addSynonyme("trips", "trip-defs");
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(864000));
