@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/03/03 15:27:01  dkrajzew
+// period attribute for router added
+//
 // Revision 1.4  2003/02/07 10:53:23  dkrajzew
 // updated
 //
@@ -171,6 +174,7 @@ enum AttrEnum
     SUMO_ATTR_LANE,
     SUMO_ATTR_FROM,
     SUMO_ATTR_TO,
+    SUMO_ATTR_PERIOD,
     /* source definitions */
     SUMO_ATTR_FUNC,
     SUMO_ATTR_POSITION,
@@ -213,7 +217,7 @@ extern GenericSAX2Handler::Tag sumotags[38];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[52];
+extern AttributesHandler::Attr sumoattrs[53];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

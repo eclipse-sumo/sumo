@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/03 15:27:00  dkrajzew
+// period attribute for router added
+//
 // Revision 1.4  2003/02/07 10:53:23  dkrajzew
 // updated
 //
@@ -87,9 +90,9 @@ GenericSAX2Handler::Tag sumotags[38] =
     /* 38 */  { "step",             SUMO_TAG_STEP }
 };
 
-size_t noSumoAttrs = 52;
+size_t noSumoAttrs = 53;
 
-AttributesHandler::Attr sumoattrs[52] =
+AttributesHandler::Attr sumoattrs[53] =
 {
     /* 00 */ { "id",            SUMO_ATTR_ID },
     /* 01 */ { "name",          SUMO_ATTR_NAME },
@@ -142,7 +145,8 @@ AttributesHandler::Attr sumoattrs[52] =
     /* 48 */ { "multi_ref",     SUMO_ATTR_MULTIR },
     /* 49 */ { "traveltime",    SUMO_ATTR_VALUE },
     /* 50 */ { "begin",         SUMO_ATTR_BEGIN },
-    /* 51 */ { "end",           SUMO_ATTR_END }
+    /* 51 */ { "end",           SUMO_ATTR_END },
+    /* 51 */ { "period",        SUMO_ATTR_PERIOD }
 };
 
 
