@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/02/13 15:51:01  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.3  2003/02/07 10:43:43  dkrajzew
 // updated
 //
@@ -154,7 +157,7 @@ void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 /* -------------------------------------------------------------------------
  * NBEdge::MainDirections-methods
  * ----------------------------------------------------------------------- */
-NBEdge::MainDirections::MainDirections(std::vector<NBEdge*> &outgoing,
+NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
                                        NBEdge *parent, NBNode *to)
 {
     if(outgoing.size()==0)
@@ -353,10 +356,14 @@ NBEdge::getEdgeLanesFromLane(size_t lane) {
 void
 NBEdge::computeTurningDirections()
 {
+    if(_id=="1000004[0]") {
+        int bla = 0;
+    }
     EdgeVector *outgoing = _connectedEdges;
     if(outgoing==0) {
         outgoing = _to->getOutgoingEdges();
     }
+    cout << "os: " << outgoing->size() << endl;
     for(EdgeVector::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
         NBEdge *outedge = *i;
         double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
@@ -583,7 +590,7 @@ NBEdge::computeEdge2Edges()
     }
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
-    vector<NBEdge*> *edges = getConnectedSorted();
+    const vector<NBEdge*> *edges = getConnectedSorted();
     // divide the lanes on reachable edges
     divideOnEdges(edges);
     delete edges;
@@ -658,7 +665,8 @@ NBEdge::getConnectionRemoving(size_t srcLane, size_t pos) {
 }
 
 
-vector<size_t> NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
+vector<size_t>
+NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
     if(currentOutgoing==_turnDestination) {
         return vector<size_t>();
     }
@@ -671,7 +679,7 @@ vector<size_t> NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
 }
 
 
-std::vector<NBEdge*> *
+const std::vector<NBEdge*> *
 NBEdge::getConnectedSorted()
 {
     // check whether connections exist and if not, use edges from the node
@@ -696,9 +704,12 @@ NBEdge::getConnectedSorted()
 
 
 void
-NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
+NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing) {
     if(outgoing->size()==0) {
         return;
+    }
+    if(_id=="93822") {
+        int bla = 0;
     }
     // precompute priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
@@ -770,14 +781,15 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
 
 
 vector<size_t> *
-NBEdge::preparePriorities(vector<NBEdge*> *outgoing) {
+NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
+{
     // copy the priorities first
     vector<size_t> *priorities = new vector<size_t>();
     if(outgoing->size()==0) {
         return priorities;
     }
     priorities->reserve(outgoing->size());
-    vector<NBEdge*>::iterator i;
+    vector<NBEdge*>::const_iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
 	    assert(((*i)->getJunctionPriority(_to)+1)*2>0);
         int prio = (*i)->getJunctionPriority(_to);
@@ -975,6 +987,82 @@ NBEdge::tryGetNodeAtPosition(double pos) const
 }
 
 
+NBEdge *
+NBEdge::checkCorrectNode(NBEdge *opposite)
+{
+    if(_from->hasOutgoing(opposite)) {
+        return _from->getOppositeIncoming(this);
+    }
+    if(_to->hasIncoming(opposite)) {
+        return _to->getOppositeOutgoing(this);
+    }
+    return this;
+}
+
+
+NBEdge::EdgeBasicFunction
+NBEdge::getBasicType() const
+{
+    return _basicType;
+}
+
+
+double
+NBEdge::getSpeed() const
+{
+    return _speed;
+}
+
+
+void
+NBEdge::replaceInConnections(NBEdge *which, NBEdge *by)
+{
+    // replace in "_connectedEdges"
+    if(_connectedEdges!=0) {
+        for(size_t i=0; i<_connectedEdges->size(); i++) {
+            if((*_connectedEdges)[i]==which) {
+                (*_connectedEdges)[i] = by;
+            }
+        }
+    }
+    // check whether it was the turn destination
+    if(_turnDestination==which) {
+        _turnDestination = by;
+    }
+    // replace in _ToEdges
+    if(_ToEdges!=0) {
+        bool found = true;
+        bool have = _ToEdges->find(by)!=_ToEdges->end();
+        std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges->find(which);
+        if(j!=_ToEdges->end()) {
+            if(have) {
+                copy((*_ToEdges)[which].begin(), (*_ToEdges)[which].end(),
+                    back_inserter((*j).second));
+            } else {
+                have = true;
+                (*_ToEdges)[by] = (*j).second;
+            }
+        }
+    }
+    // replace in _reachable
+    if(_reachable!=0) {
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
+                if((*l).edge==which) {
+                    (*l).edge = by;
+                }
+            }
+        }
+    }
+    // replace in _succeedinglanes
+    if(_succeedinglanes!=0) {
+        LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->find(which);
+        if(l!=_succeedinglanes->end()) {
+            (*_succeedinglanes)[by] = (*l).second;
+            _succeedinglanes->erase(l);
+        }
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

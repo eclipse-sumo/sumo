@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/02/13 15:51:54  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -278,8 +281,9 @@ NBNodeCont::getNo()
 void
 NBNodeCont::clear()
 {
-    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++)
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         delete((*i).second);
+    }
     _nodes.clear();
 }
 
@@ -290,6 +294,44 @@ NBNodeCont::report(bool verbose)
     if(verbose) {
         cout << "   " << getNo() << " nodes loaded." << endl;
     }
+}
+
+
+bool
+NBNodeCont::recheckEdges(bool verbose)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        // count the edges to other nodes outgoing from the current
+        //  node
+        std::map<NBNode*, EdgeVector> connectionCount;
+        NBNode *bla2 = (*i).second;
+        const EdgeVector *outgoing = (*i).second->getOutgoingEdges();
+        for(EdgeVector::const_iterator j=outgoing->begin(); j!=outgoing->end(); j++) {
+            NBEdge *e = (*j);
+            NBNode *connected = e->getToNode();
+            if(connected->getID()=="1483") {
+                int bla = 0;
+            }
+            if(connectionCount.find(connected)==connectionCount.end()) {
+                connectionCount[connected] = EdgeVector();
+                connectionCount[connected].push_back(e);
+            } else {
+                connectionCount[connected].push_back(e);
+            }
+        }
+        // check whether more than a single edge connect another node
+        //  and join them
+        for(std::map<NBNode*, EdgeVector>::iterator k=connectionCount.begin(); k!=connectionCount.end(); k++) {
+            if((*i).first=="1456-SourceNode") {
+                int bla = 0;
+            }
+            // join edges
+            if((*k).second.size()>1) {
+                NBEdgeCont::joinSameNodeConnectingEdges((*k).second);
+            }
+        }
+    }
+    return true;
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/02/13 15:51:55  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -136,6 +139,9 @@ public:
 
     /// reports how many nodes were loaded
     static void report(bool verbose);
+
+    /// Joins edges connecting the same nodes
+    static bool recheckEdges(bool verbose);
 
 private:
     /** the running internal id */

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/02/13 15:50:59  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -103,6 +106,8 @@ public:
      * Edges may have certain functions listed here
      */
     enum EdgeBasicFunction {
+        /// the edge is normal street within the network
+        EDGEFUNCTION_UNKNOWN,
         /// the edge is normal street within the network
         EDGEFUNCTION_NORMAL,
         /// the edge is a source
@@ -224,6 +229,17 @@ public:
         The epsilon is a static member of NBEdge, should be setable via program options */
     NBNode *tryGetNodeAtPosition(double pos) const;
 
+    NBEdge *checkCorrectNode(NBEdge *opposite);
+
+    EdgeBasicFunction getBasicType() const;
+
+    double getSpeed() const;
+
+    void replaceInConnections(NBEdge *which, NBEdge *by);
+
+    /** returns the list of outgoing edges without the turnaround
+        sorted in clockwise direction */
+    const std::vector<NBEdge*> *getConnectedSorted();
 
     /** friend class used for the computation of connections to
         following edges */
@@ -277,8 +293,8 @@ private:
 
     public:
         /// constructor
-        MainDirections(std::vector<NBEdge*> &outgoing, NBEdge *parent,
-            NBNode *to);
+        MainDirections(const std::vector<NBEdge*> &outgoing,
+            NBEdge *parent, NBNode *to);
 
         /// destructor
         ~MainDirections();
@@ -377,16 +393,14 @@ private:
     EdgeBasicFunction _basicType;
 
 private:
-    /** returns the list of outgoing edges without the turnaround
-        sorted in clockwise direction */
-    std::vector<NBEdge*> *getConnectedSorted();
 
     /** divides the lanes on the outgoing edges */
-    void divideOnEdges(std::vector<NBEdge*> *outgoing);
+    void divideOnEdges(const std::vector<NBEdge*> *outgoing);
 
     /** recomputes the priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
-    std::vector<size_t> *preparePriorities(std::vector<NBEdge*> *outgoing);
+    std::vector<size_t> *preparePriorities(
+        const std::vector<NBEdge*> *outgoing);
 
     /** computes teh sum of the given list's entries (sic!) */
     size_t computePrioritySum(std::vector<size_t> *priorities);

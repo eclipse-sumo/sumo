@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/02/13 15:51:54  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.5  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -308,20 +311,30 @@ double NBNode::getYCoordinate() {
 void
 NBNode::addIncomingEdge(NBEdge *edge)
 {
-    if(_id=="1004") {
+    if(_id=="1483"||edge->getID()=="100004[0]") {
         int bla = 0;
     }
-    _incomingEdges->push_back(edge);
+    assert(edge!=0);
+    if( find(_incomingEdges->begin(), _incomingEdges->end(), edge)
+        ==_incomingEdges->end()) {
+
+        _incomingEdges->push_back(edge);
+    }
 }
 
 
 void
 NBNode::addOutgoingEdge(NBEdge *edge)
 {
-    if(_id=="1004") {
+    if(_id=="1483") {
         int bla = 0;
     }
-    _outgoingEdges->push_back(edge);
+    assert(edge!=0);
+    if( find(_outgoingEdges->begin(), _outgoingEdges->end(), edge)
+        ==_outgoingEdges->end()) {
+
+        _outgoingEdges->push_back(edge);
+    }
 }
 
 
@@ -493,10 +506,45 @@ NBNode::setPriorityJunctionPriorities() {
     }
     NBEdge *best1, *best2;
     best1 = best2 = 0;
+    best1 = 0;
     vector<NBEdge*> incoming(*_incomingEdges);
     int noIncomingPrios = NBContHelper::countPriorities(incoming);
     // !!! Attention!
     // there is no case that fits into junctions with no incoming edges
+        // extract the edge with the highest priority
+    if(incoming.size()>0) {
+        sort(incoming.begin(), incoming.end(),
+            NBContHelper::edge_by_priority_sorter());
+        best1 = extractAndMarkFirst(incoming);
+    }
+        // check whether a second main road exists
+    if(incoming.size()>0) {
+        noIncomingPrios = NBContHelper::countPriorities(incoming);
+        if(noIncomingPrios>1) {
+            sort(incoming.begin(), incoming.end(),
+                NBContHelper::edge_by_priority_sorter());
+            best2 = extractAndMarkFirst(incoming);
+        }
+    }
+    // get the best continuations (outgoing edges)
+    NBEdge *bestBack1, *bestBack2;
+    bestBack1 = bestBack2 = 0;
+    vector<NBEdge*> outgoing(*_outgoingEdges);
+    // for best1
+    if(outgoing.size()>0) {
+        sort(outgoing.begin(), outgoing.end(),
+            NBContHelper::edge_similar_direction_sorter(best1));
+        bestBack1 = extractAndMarkFirst(outgoing);
+    }
+    // for best2
+    if(best2!=0&&outgoing.size()>0) {
+        sort(outgoing.begin(), outgoing.end(),
+            NBContHelper::edge_similar_direction_sorter(best1));
+        bestBack1 = extractAndMarkFirst(outgoing);
+    }
+
+
+    /*
     if(noIncomingPrios==1) {
         // in this case, all incoming edges are equal in their priority
         // --> choose any as the main
@@ -551,6 +599,7 @@ NBNode::setPriorityJunctionPriorities() {
             NBContHelper::edge_opposite_direction_sorter(best2));
         bestBack2 = extractAndMarkFirst(outgoing);
     }
+    */
 }
 
 
@@ -773,8 +822,22 @@ NBNode::sortNodesEdges()
 void
 NBNode::computeLogic(NBRequest *request, long maxSize)
 {
-    if(_id=="558630405") {
-        int bla = 0;
+    if(_id=="318") {
+        EdgeVector::iterator i;
+        for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+            if(i!=_incomingEdges->begin()) {
+                cout << ", ";
+            }
+            cout << (*i)->getID();
+        }
+        cout << endl;
+        for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+            if(i!=_outgoingEdges->begin()) {
+                cout << ", ";
+            }
+            cout << (*i)->getID();
+        }
+        cout << endl;
     }
 
 /*    string key = NBLogicKeyBuilder::buildKey(this, &_allEdges);
@@ -883,23 +946,185 @@ NBNode::resetby(double xoffset, double yoffset)
 void
 NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
 {
-    for(size_t i=0; i<_outgoingEdges->size(); i++) {
+//    if(_id=="1483") {
+        cout << "Which: " << which->getID() << ", By: " << by->getID() << endl;
+        for(size_t j=0; j<_outgoingEdges->size(); j++) {
+            if(j!=0) {
+                cout << ", ";
+            }
+            cout << (*_outgoingEdges)[j]->getID();
+        }
+        cout << endl;
+//    }
+    size_t i;
+    // replace the edge in the list of outgoing nodes
+    for(i=0; i<_outgoingEdges->size(); i++) {
         if((*_outgoingEdges)[i]==which) {
-            (*_outgoingEdges)[i]==by;
+            (*_outgoingEdges)[i] = by;
         }
     }
+    // replace the edge in connections of incoming edges
+    for(i=0; i<_incomingEdges->size(); i++) {
+        (*_incomingEdges)[i]->replaceInConnections(which, by);
+    }
+//    if(_id=="1483") {
+        for(j=0; j<_outgoingEdges->size(); j++) {
+            if(j!=0) {
+                cout << ", ";
+            }
+            cout << (*_outgoingEdges)[j]->getID();
+        }
+        cout << endl;
+    //}
 }
 
 
 void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
 {
+//    if(_id=="1483") {
+        for(size_t l=0; l<_outgoingEdges->size(); l++) {
+            if(l!=0) {
+                cout << ", ";
+            }
+            cout << (*_outgoingEdges)[l]->getID();
+        }
+        cout << endl;
+//    }
+    // replace the edge in the list of incoming nodes
     for(size_t i=0; i<_incomingEdges->size(); i++) {
         if((*_incomingEdges)[i]==which) {
-            (*_incomingEdges)[i]==by;
+            (*_incomingEdges)[i] = by;
         }
     }
+    // add connections of the old edge to the new one
+    const EdgeVector *connected = which->getConnectedSorted();
+    for(EdgeVector::const_iterator j=connected->begin(); j!=connected->end(); j++) {
+        by->addEdge2EdgeConnection(*j);
+    }
 }
+
+
+void
+NBNode::removeDoubleEdges()
+{
+  //  if(_id=="1483") {
+        cout << "Remove Double:" << endl;
+        for(size_t j=0; j<_outgoingEdges->size(); j++) {
+            if(j!=0) {
+                cout << ", ";
+            }
+            cout << (*_outgoingEdges)[j]->getID();
+        }
+        cout << endl;
+//    }
+    EdgeVector::iterator i;
+    // check incoming
+    size_t pos = 0;
+    for(i=_incomingEdges->begin(); _incomingEdges->size()!=0&&i!=_incomingEdges->end()-1;) {
+        EdgeVector::iterator j = find(i+1, _incomingEdges->end(), *i);
+        if(j!=_incomingEdges->end()) {
+            _incomingEdges->erase(j);
+            i = _incomingEdges->begin() + pos;
+        } else {
+            pos++;
+            i++;
+        }
+    }
+    // check outgoing
+    pos = 0;
+    for(i=_outgoingEdges->begin(); _outgoingEdges->size()!=0&&i!=_outgoingEdges->end()-1; ) {
+        EdgeVector::iterator j = find(i+1, _outgoingEdges->end(), *i);
+        if(j!=_outgoingEdges->end()) {
+            _outgoingEdges->erase(j);
+            i = _outgoingEdges->begin() + pos;
+        } else {
+            pos++;
+            i++;
+        }
+    }
+//    if(_id=="1483") {
+        for(j=0; j<_outgoingEdges->size(); j++) {
+            if(j!=0) {
+                cout << ", ";
+            }
+            cout << (*_outgoingEdges)[j]->getID();
+        }
+        cout << endl;
+//    }
+}
+
+
+bool
+NBNode::hasOutgoing(NBEdge *e) const
+{
+    return find(_outgoingEdges->begin(), _outgoingEdges->end(), e)
+        !=
+        _outgoingEdges->end();
+}
+
+
+bool
+NBNode::hasIncoming(NBEdge *e) const
+{
+    return find(_incomingEdges->begin(), _incomingEdges->end(), e)
+        !=
+        _incomingEdges->end();
+}
+
+/*
+bool
+NBNode::hasSingleIncoming() const
+{
+    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        NBEdge *e = *i;
+    }
+    return _incomingEdges->size()==1;
+}
+
+
+bool
+NBNode::hasSingleOutgoing() const
+{
+    return _outgoingEdges->size()==1;
+}
+
+
+NBEdge *
+NBNode::getSingleIncoming() const
+{
+    return (*_incomingEdges)[0];
+}
+
+
+NBEdge *
+NBNode::getSingleOutgoing() const
+{
+    return (*_outgoingEdges)[0];
+}
+
+*/
+
+
+NBEdge *
+NBNode::getOppositeIncoming(NBEdge *e) const
+{
+    EdgeVector edges(*_incomingEdges);
+    sort(edges.begin(), edges.end(),
+        NBContHelper::edge_similar_direction_sorter(e));
+    return edges[0];
+}
+
+
+NBEdge *
+NBNode::getOppositeOutgoing(NBEdge *e) const
+{
+    EdgeVector edges(*_outgoingEdges);
+    sort(edges.begin(), edges.end(),
+        NBContHelper::edge_similar_direction_sorter(e));
+    return edges[0];
+}
+
 
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/02/13 15:51:54  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -203,6 +206,21 @@ public:
 
     /// sets the connection between two nodes via this node
     std::string setTurningDefinition(NBNode *from, NBNode *to);
+
+
+    bool hasOutgoing(NBEdge *e) const;
+    bool hasIncoming(NBEdge *e) const;
+    NBEdge *getOppositeIncoming(NBEdge *e) const;
+    NBEdge *getOppositeOutgoing(NBEdge *e) const;
+    /*
+    bool hasSingleIncoming() const;
+    bool hasSingleOutgoing() const;
+    NBEdge *getSingleIncoming() const;
+    NBEdge *getSingleOutgoing() const;
+*/
+
+    void removeDoubleEdges();
+
 
     friend class NBNodeCont;
 

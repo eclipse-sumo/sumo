@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/02/13 15:51:05  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -68,6 +71,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "NBCont.h"
 
 
 /* =========================================================================
@@ -151,6 +155,9 @@ public:
 
     /// reports how many edges were loaded
     static void report(bool verbose);
+
+    /// joins the given edges as they connect the same nodes
+    static void joinSameNodeConnectingEdges(const EdgeVector &edges);
 
 private:
     static std::vector<std::string> buildPossibilities(

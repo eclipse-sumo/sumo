@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/13 15:51:04  dkrajzew
+// functions for merging edges with the same origin and destination added
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -75,6 +78,7 @@ namespace
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 #include "NBHelpers.h"
+#include "NBCont.h"
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
@@ -277,6 +281,10 @@ NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
     // replace information about this edge within the nodes
     edge->_from->replaceOutgoing(edge, one);
     edge->_to->replaceIncoming(edge, two);
+    // the edge is now occuring twice in both nodes...
+    //  clean up
+    edge->_from->removeDoubleEdges();
+    edge->_to->removeDoubleEdges();
     // erase the splitted edge
     erase(edge);
 }
@@ -360,6 +368,69 @@ NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
 
 
 
+void
+NBEdgeCont::joinSameNodeConnectingEdges(const EdgeVector &edges)
+{
+    // !!! Attention!
+    //  No merging of the geometry to come is being done
+    //  The connections are moved from one edge to another within
+    //   the replacement where the edge is a node's incoming edge.
+
+    // count the number of lanes, the speed and the id
+    size_t nolanes = 0;
+    double speed = 0;
+    int priority = 0;
+    string id;
+    NBEdge::EdgeBasicFunction function =
+        NBEdge::EDGEFUNCTION_UNKNOWN;
+    EdgeVector::const_iterator i;
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        // ad the number of lanes the current edge has
+        nolanes += (*i)->getNoLanes();
+        // build the id
+        if(i!=edges.begin()) {
+            id += "+";
+        }
+        id += (*i)->getID();
+        // build the edge type
+        if(function==NBEdge::EDGEFUNCTION_UNKNOWN) {
+            function = (*i)->getBasicType();
+        } else {
+            if(function==NBEdge::EDGEFUNCTION_NORMAL) {
+                continue;
+            } else {
+                if(function!=(*i)->getBasicType()) {
+                    function = NBEdge::EDGEFUNCTION_NORMAL;
+                }
+            }
+        }
+        // compute the speed
+        speed += (*i)->getSpeed();
+        // build the priority
+        if(priority<(*i)->getPriority()) {
+            priority = (*i)->getPriority();
+        }
+    }
+    speed /= edges.size();
+    // retrieve the connected nodes
+    NBEdge *tpledge = *(edges.begin());
+    NBNode *from = tpledge->getFromNode();
+    NBNode *to = tpledge->getToNode();
+    // build the new edge
+    NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
+        nolanes, -1, priority, function);
+    insert(newEdge);
+    // replace old edge by current within the nodes
+    //  and delete the old
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        from->replaceOutgoing(*i, newEdge);
+        to->replaceIncoming(*i, newEdge);
+        _edges.erase((*i)->getID());
+        delete *i;
+    }
+    from->removeDoubleEdges();
+    to->removeDoubleEdges();
+}
 
 
 
@@ -372,6 +443,8 @@ NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
 // Local Variables:
 // mode:C++
 // End:
+
+
 
 
 
