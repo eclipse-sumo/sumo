@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSNet.h  -  We will simulate on this object. 
+                          MSNet.h  -  We will simulate on this object.
                           Holds all necessary objects for micro-simulation.
                              -------------------
     begin                : Mon, 12 Mar 2001
@@ -21,13 +21,16 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2002/05/14 07:53:09  dkrajzew
+// Windows eol removed
+//
 // Revision 1.7  2002/05/14 07:45:21  dkrajzew
 // new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
 //
 // Revision 1.6  2002/04/17 10:44:13  croessel
 // (Windows) Carriage returns removed.
 //
-// Revision 1.5 2002/04/15 07:38:52 dkrajzew 
+// Revision 1.5 2002/04/15 07:38:52 dkrajzew
 // Addition of routes and detectors removed; a static information
 // about the current time step (globaltime) implemented; output
 // computation is now only invoked when needed
@@ -68,7 +71,7 @@
 // using namespace std replaced by std::
 //
 // Revision 1.10  2001/12/19 16:36:25  croessel
-// Moved methods (assignment, copy-ctor) to private and removed outcommented 
+// Moved methods (assignment, copy-ctor) to private and removed outcommented
 // code.
 //
 // Revision 1.9  2001/11/15 17:12:14  croessel
@@ -93,7 +96,7 @@
 // methods to access it (same as id-handling).
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -132,7 +135,7 @@ public:
 
     /// Const-iterator to Route-elements, i.e. edges.
     typedef Route::const_iterator RouteIterator;
-     
+
     /// Container for persons
     typedef std::vector< MSPerson* > PersonCont;
 
@@ -160,7 +163,7 @@ public:
         simulation could be finished without errors, otherwise
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
-   
+
     /** Inserts a MSNet into the static dictionary and returns true if
         the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -210,13 +213,13 @@ private:
     friend void MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
     friend void MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
     friend void MSPerson::MSPersonStage_Waiting::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-  
+
     /// Copy constructor.
     MSNet( const MSNet& );
 
     /// Assignment operator.
     MSNet& operator=( const MSNet& );
-  
+
     /// Unique ID.
     std::string myID;
 
@@ -231,7 +234,7 @@ private:
 
     /** Time-dependant events like traffic-light-changes, output
         generation etc. */
-    MSEventControl* myEvents; 
+    MSEventControl* myEvents;
 
     /// schedules alking persons
     MSPersonControl *myPersons;

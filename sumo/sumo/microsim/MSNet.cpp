@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2002/05/14 07:53:09  dkrajzew
+// Windows eol removed
+//
 // Revision 1.10  2002/05/14 07:45:21  dkrajzew
 // new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
 //
