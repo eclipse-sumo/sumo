@@ -6,6 +6,7 @@ EXTRA_DIST = MSBitSetLogic.cpp
 libmicrosim_a_SOURCES = \
 MSActuatedTrafficLightLogic.cpp \
 MSAgentbasedTrafficLightLogic.cpp \
+MSAbstractLaneChangeModel.h \
 MSCORN.cpp MSCORN.h \
 MSCrossSection.cpp \
 MSCurrentHaltingDurationSumPerVehicle.cpp \
