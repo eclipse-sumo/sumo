@@ -29,6 +29,8 @@
 #include <string>
 #include "MSUnit.h"
 
+class MSE2DetectorInterface;
+
 template < class DetectorType >
 class MSSumDetector : public DetectorType
 {
@@ -61,7 +63,20 @@ protected:
                         container )
         {}
 
+    // Another E2 ctor
+    MSSumDetector( std::string id,
+                   double lengthInMeters,
+                   MSUnit::Seconds deleteDataAfterSeconds,
+//                    const DetectorContainer& container,
+                   const MSE2DetectorInterface& helperDetector )
+        : DetectorType( id, lengthInMeters,
+                        deleteDataAfterSeconds,
+//                         container,
+                        helperDetector )
+        {}
+    
     // E* ctors follow here
+    
 
     virtual ~MSSumDetector( void )
         {}

@@ -65,6 +65,18 @@ protected:
                                          container )
         {}
 
+    // Another E2 ctor
+    MSMeanDetector( std::string id,
+                    double lengthInMeters,
+                    MSUnit::Seconds deleteDataAfterSeconds,
+//                     const DetectorContainer& container,
+                    const MSE2DetectorInterface& helperDetector ) 
+        : MSSumDetector< DetectorType >( id, lengthInMeters,
+                                         deleteDataAfterSeconds,
+//                                          container,
+                                         helperDetector )
+        {}    
+    
     // E* ctors follow here
 
     ~MSMeanDetector( void )

@@ -78,8 +78,25 @@ protected:
         : ConcreteDetector( lengthInMeters, container ),
           idM( id ),
           deleteDataAfterStepsM( MSUnit::getInstance()->getIntegerSteps(
-                                     deleteDataAfterSeconds ) )// ,
-//           vehOnDetectorM()
+                                     deleteDataAfterSeconds ) )
+        {
+            startOldDataRemoval();
+        }
+
+    MSE2Detector( std::string id,
+                  double lengthInMeters,
+                  MSUnit::Seconds deleteDataAfterSeconds,
+//                   const DetectorContainer& container,
+                  const MSE2DetectorInterface& helperDetector )
+        : ConcreteDetector( lengthInMeters, /*container,*/ helperDetector ),
+          idM( id ),
+          deleteDataAfterStepsM( MSUnit::getInstance()->getIntegerSteps(
+                                     deleteDataAfterSeconds ) )
+        {
+            startOldDataRemoval();
+        }
+    
+    void startOldDataRemoval( void )
         {
             // start old-data removal through MSEventControl
             Command* deleteData = new SimpleCommand< MSE2Detector >(
