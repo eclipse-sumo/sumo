@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/24 08:17:54  dkrajzew
+// some strange things happening during the computation of alternatives patched
+//
 // Revision 1.7  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -45,6 +48,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <iomanip>
 #include <string>
 #include <vector>
 #include <cmath>
@@ -111,7 +115,6 @@ RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin,
                                           bool continueOnUnbuild)
 {
     // recompute duration of the last route used
-    _alternatives[_lastUsed]->recomputeCosts(begin);
     // build a new route to test whether it is better
     //  !!! after some iterations, no further routes should be build
     RORoute *opt =
@@ -126,7 +129,7 @@ RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin,
         // this is not completely correct as the value does not
         //  come from the simulation itself but from the computing
         //  using the network !!!
-        _alternatives[_lastUsed]->setCosts(opt->getCosts());
+//        _alternatives[_lastUsed]->setCosts(opt->getCosts());
         delete opt;
         _newRoute = false;
         return _alternatives[_lastUsed];
@@ -161,6 +164,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
     for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
         // apply changes for old routes only
+        //  (the costs for the current were computed already)
         if((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
             double oldCosts = alt->getCosts();
@@ -181,7 +185,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
     // compute the propabilities
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
-        for(AlternativesVector::iterator j=i; j!=_alternatives.end(); j++) {
+        for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
             double delta =
@@ -195,7 +199,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         }
     }
     // find the route to use
-    double chosen = ( (double)rand() / (double)(RAND_MAX) * _alternatives.size());
+    double chosen = ( (double)rand() / (double)(RAND_MAX));
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getPropability();
@@ -204,6 +208,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
             return;
         }
     }
+    _lastUsed = pos;
 }
 
 
@@ -235,14 +240,12 @@ RORouteAlternativesDef::xmlOutAlternatives(std::ostream &os) const
     os << "   <routealt id=\"" << _id << "\" last=\""
         << _lastUsed << "\">" << endl;
     for(size_t i=0; i!=_alternatives.size(); i++) {
-//        if(i!=_current) {
-            RORoute *alt = _alternatives[i];
-            os << "      <route cost=\"" << alt->getCosts()
-                << "\" propability=\"" << alt->getPropability()
-                << "\">";
-            alt->xmlOutEdges(os);
-            os << "</route>" << endl;
-//        }
+        RORoute *alt = _alternatives[i];
+        os << "      <route cost=\"" << alt->getCosts()
+            << "\" propability=\"" << alt->getPropability()
+            << "\">";
+        alt->xmlOutEdges(os);
+        os << "</route>" << endl;
     }
     os << "   </routealt>" << endl;
 }
