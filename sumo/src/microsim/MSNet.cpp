@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2003/05/22 11:20:21  roessel
+// Refined the mean-data xml-comment.
+//
 // Revision 1.15  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -346,7 +349,9 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                 "  may have started their journey on this lane in a previous intervall.\n"
                 "  Only those vehicles contribute to traveltime. \n"
                 "- noVehEntered is the number of vehicles that entered this lane\n"
-                "  during the current intervall either by move or lanechange.\n"
+                "  during the current intervall either by move, emit or lanechange.\n"
+                "  Note that noVehEntered might be high if vehicles are emitted on\n"
+                "  this lane."
                 "- noVehLeft is the number of vehicles that left this lane during\n"
                 "  the current intervall by move.\n"
                 "- traveltime [s]\n"
@@ -431,7 +436,9 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<sumo-results>" << endl;
     }
-
+    
+    SingletonDictionary<
+        std::string, MSLaneState* >::getInstance()->setFindMode();
     laneStateDetectorsM = SingletonDictionary<
         std::string, MSLaneState* >::getInstance()->getStdVector();
 
