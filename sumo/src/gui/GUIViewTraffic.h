@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/08/14 13:44:14  dkrajzew
+// tls/row - drawer added
+//
 // Revision 1.11  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -146,6 +149,8 @@ protected:
     GUIJunctionDrawer *_junctionDrawer;
 
     GUIDetectorDrawer *_detectorDrawer;
+
+    GUIROWRulesDrawer *_rowDrawer;
 
     /// the coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;

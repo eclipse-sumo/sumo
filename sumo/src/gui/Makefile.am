@@ -4,6 +4,7 @@ noinst_LIBRARIES = libgui.a
 EXTRA_DIST =
 
 libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
+GUIBarROWRulesDrawer.cpp GUIBarROWRulesDrawer.h \
 GUIChooser.cpp GUIChooser.h \
 GUIDanielPerspectiveChanger.cpp GUIDanielPerspectiveChanger.h \
 GUIEvents.h GUIGlObject.cpp GUIGlObject.h \

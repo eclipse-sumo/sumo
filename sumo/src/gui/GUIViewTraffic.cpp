@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/08/14 13:44:14  dkrajzew
+// tls/row - drawer added
+//
 // Revision 1.18  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -113,6 +116,7 @@ namespace
 #include "GUISUMOViewParent.h"
 #include "GUITriangleVehicleDrawer.h"
 #include "GUISimpleLaneDrawer.h"
+#include "GUIBarROWRulesDrawer.h"
 #include "GUISimpleJunctionDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
@@ -145,6 +149,7 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     _laneDrawer(new GUISimpleLaneDrawer(_net.myEdgeWrapper)),
     _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
     _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
+    _rowDrawer(new GUIBarROWRulesDrawer(_net.myEdgeWrapper)),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
     myTrackedID(-1), myFontsLoaded(false)
 {
@@ -304,6 +309,8 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         _useToolTips, _junctionColScheme);
     _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
         _useToolTips, width, _laneColScheme);
+    _rowDrawer->drawGLROWs(_edges2Show, _edges2ShowSize,
+        _useToolTips, width);
     _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
         _useToolTips, scale/*, width, _laneColScheme*/);
 
