@@ -219,6 +219,10 @@ AC_OUTPUT(
 ./data/examples/cross1ltl/Makefile
 ./data/examples/cross3l/Makefile
 ./data/examples/cross3ltl/Makefile
+./data/examples/cross3ltl_inductloop/Makefile
+./data/examples/cross3ltl_inductloop/output/Makefile
+./data/examples/cross3ltl_meandata/Makefile
+./data/examples/cross3ltl_meandata/output/Makefile
 ./data/examples/eight1l/Makefile
 ./data/examples/eight1ltl/Makefile
 ./data/examples/eight3l/Makefile
