@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:37:16  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/03/03 15:25:25  dkrajzew
 // debugging
 //
@@ -336,6 +339,9 @@ GeomHelper::DistancePointLine(const Position2D &Point,
 
     return Distance;
 }
+
+
+
 
 
 
