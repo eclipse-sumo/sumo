@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:12:54  dkrajzew
+// The exceptions are now public derivations of the base xml-exception
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:29  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -79,7 +82,7 @@ public:
  * XMLIdNotGivenException
  * thrown when the id is not supplied
  */
-class XMLIdNotGivenException : XMLBuildingException  {
+class XMLIdNotGivenException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLIdNotGivenException();
@@ -94,7 +97,7 @@ public:
  * thrown when an object of the named class and id is not known 
  * (was not loaded/parsed) but its parent is known 
  */
-class XMLIdNotKnownException : XMLBuildingException  {
+class XMLIdNotKnownException : public XMLBuildingException  {
 private:
     /** the object type with the unknown id */
     std::string   m_Object;
@@ -113,7 +116,7 @@ public:
  * XMLIdAlreadyUsedException
  * thrown when a duplicate key for the same object type is given 
  */
-class XMLIdAlreadyUsedException : XMLBuildingException  {
+class XMLIdAlreadyUsedException : public XMLBuildingException  {
 private:
     /** the object type with the duplicate id */    
     std::string   m_Object;
@@ -132,7 +135,7 @@ public:
  * XMLDepartLaneDuplicationException
  * thrown when an edge has two or more defined depart lanes 
  */
-class XMLDepartLaneDuplicationException : XMLBuildingException  {
+class XMLDepartLaneDuplicationException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLDepartLaneDuplicationException();
@@ -147,7 +150,7 @@ public:
  * thrown when a child to add to a larger structure is invalid 
  * (f.i. was not formerly known) 
  */
-class XMLInvalidChildException : XMLBuildingException  {
+class XMLInvalidChildException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidChildException();
@@ -162,7 +165,7 @@ public:
  * thrown when a parent to add a child to is not known 
  * (f.i. when the child is not inside of valid tags) 
  */
-class XMLInvalidParentException : XMLBuildingException  {
+class XMLInvalidParentException : public XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidParentException();
@@ -177,7 +180,7 @@ public:
  * XMLKeyDuplicateException
  * thrown when a key-value pair with the same key as given was already set 
  */
-class XMLKeyDuplicateException  : XMLBuildingException {
+class XMLKeyDuplicateException  : public XMLBuildingException {
 public:
     /** constructor */
     XMLKeyDuplicateException();
@@ -192,7 +195,7 @@ public:
  * XMLListEmptyException
  * thrown when an empty list which should have values is used 
  */
-class XMLListEmptyException  : XMLBuildingException {
+class XMLListEmptyException  : public XMLBuildingException {
 public:
     /** constructor */
     XMLListEmptyException();
@@ -207,7 +210,7 @@ public:
  * Thrown when a numeric value has not the proper format (is alphanumeric,
  * contains two dots or something like that)
  */
-class XMLNumericFormatException  : XMLBuildingException {
+class XMLNumericFormatException  : public XMLBuildingException {
 public:
     /** constructor */
     XMLNumericFormatException();
