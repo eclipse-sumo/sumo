@@ -423,6 +423,10 @@ SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUIVehicleTransfer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIViewAggregatedLanes.cpp
 # End Source File
 # Begin Source File
@@ -1405,6 +1409,10 @@ SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUIVehicleTransfer.h
 # End Source File
 # Begin Source File
 
