@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.33  2003/09/22 12:32:23  dkrajzew
+// MSTriggeredSource-compilation error patched
+//
 // Revision 1.32  2003/09/22 11:53:51  roessel
 // Reverted to previous version.
 //
@@ -351,17 +354,17 @@ public:
     /// Returns the timestep-length in seconds.
     static double deltaT();
 
-    /** 
+    /**
      * Get the models cellLength in meter
-     * 
-     * 
+     *
+     *
      * @return The model's cellLength in meter
      */
     static double getCellLength( void )
         {
             return myCellLength;
         }
-    
+
 
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
@@ -423,46 +426,48 @@ public:
 
     Time getCurrentTimeStep() const;
 
-    static double getSeconds( double steps ) 
+    static double getSeconds( double steps )
         {
             return steps * myDeltaT;
         }
 
-    static Time getSteps( double seconds ) 
+    static Time getSteps( double seconds )
         {
             return static_cast< Time >(
                 floor( seconds / myDeltaT ) );
         }
 
-    static double getMeterPerSecond( double cellsPerTimestep ) 
+    static double getMeterPerSecond( double cellsPerTimestep )
         {
             return cellsPerTimestep * myCellLength / myDeltaT;
         }
 
-    static double getMeters( double cells ) 
+    static double getMeters( double cells )
         {
             return cells * myCellLength;
         }
 
-    static double getCells( double meter ) 
+    static double getCells( double meter )
         {
             return meter / myCellLength;
         }
 
-    static double getVehPerKm( double vehPerCell ) 
+    static double getVehPerKm( double vehPerCell )
         {
             return vehPerCell * 1000.0 / myCellLength;
         }
-    
+
     static double getVehPerHour( double vehPerStep )
         {
             return vehPerStep / myDeltaT * 3600;
         }
-    
+
 
     void newUnbuildVehicleLoaded();
 
     void newUnbuildVehicleBuild();
+
+    friend class MSTriggeredSource;
 
 protected:
     /** initialises the MeanData-container */
