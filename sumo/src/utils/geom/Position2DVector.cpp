@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/16 15:38:04  dkrajzew
+// some work on computation and handling of geometry information
+//
 // Revision 1.8  2003/07/07 08:48:35  dkrajzew
 // remved an unneeded debug-output
 //
@@ -336,6 +339,38 @@ operator<<(std::ostream &os, const Position2DVector &geom)
     }
     return os;
 }
+
+
+Position2DVector
+Position2DVector::resettedBy(double x, double y) const
+{
+    Position2DVector ret;
+    for(size_t i=0; i<size(); i++) {
+        Position2D pos = at(i);
+        pos.add(x, y);
+        ret.push_back(pos);
+    }
+    return ret;
+}
+
+
+void
+Position2DVector::resetBy(double x, double y)
+{
+    for(size_t i=0; i<size(); i++) {
+        myCont[i].add(x, y);
+    }
+}
+
+
+void
+Position2DVector::resetBy(const Position2D &by)
+{
+    for(size_t i=0; i<size(); i++) {
+        myCont[i].add(by.x(), by.y());
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

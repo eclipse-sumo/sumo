@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/16 15:38:04  dkrajzew
+// some work on computation and handling of geometry information
+//
 // Revision 1.5  2003/07/07 08:47:42  dkrajzew
 // added the possibility to compute the normal of a vector at 90deg to the vector
 //
@@ -99,7 +102,7 @@ public:
     static double DistancePointLine(const Position2D &Point,
         const Position2D &LineStart, const Position2D &LineEnd);
 
-    static void transfer_to_side(Position2D &p,
+    static Position2D transfer_to_side(Position2D &p,
         const Position2D &lineBeg, const Position2D &lineEnd,
         double amount);
 
@@ -109,6 +112,9 @@ public:
 
     static std::pair<double, double> getNormal90D_CW(double x1, double y1,
         double x2, double y2, double length, double wanted_offset);
+
+    static std::pair<double, double> getNormal90D_CW(const Position2D &beg,
+        const Position2D &end, double length, double wanted_offset);
 
 
 };

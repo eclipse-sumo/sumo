@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/07/16 15:38:04  dkrajzew
+// some work on computation and handling of geometry information
+//
 // Revision 1.6  2003/06/05 14:33:45  dkrajzew
 // class templates applied; documentation added
 //
@@ -130,6 +133,11 @@ public:
 	const ContType &getCont() const {
 		return myCont;
 	}
+
+    Position2DVector resettedBy(double x, double y) const;
+
+    void resetBy(double x, double y);
+    void resetBy(const Position2D &by);
 
 private:
 
