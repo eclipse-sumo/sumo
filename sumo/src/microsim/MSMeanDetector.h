@@ -68,7 +68,6 @@ public:
                            Loki::Int2Type< hasTimeValueCont >()) / seconds;
         }
 
-protected:
     // E2 ctor
     MSMeanDetector( std::string id,
                     double lengthInMeters,
