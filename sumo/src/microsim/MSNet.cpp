@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.24  2003/06/19 10:56:55  dkrajzew
+// the simulation now also ends when the last vehicle vanishes
+//
 // Revision 1.23  2003/06/18 11:33:06  dkrajzew
 // messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
 //
@@ -445,7 +448,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     initialiseSimulation(craw, start, stop);
     // the simulation loop
-    for ( myStep = start; myStep <= stop; ++myStep ) {
+    for ( myStep = start; myStep <= stop&&myLoadedVehNo>myEndedVehNo; ++myStep ) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
@@ -700,6 +703,22 @@ MSNet::vehicleHasLeft(const std::string &id)
 	myRunningVehNo++;
 	myEndedVehNo++;
 }
+
+
+size_t
+MSNet::getLoadedVehicleNo() const
+{
+    return myLoadedVehNo;
+}
+
+
+size_t
+MSNet::getEndedVehicleNo() const
+{
+    return myEndedVehNo;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

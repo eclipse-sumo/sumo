@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.19  2003/06/19 10:56:55  dkrajzew
+// the simulation now also ends when the last vehicle vanishes
+//
 // Revision 1.18  2003/06/18 11:33:06  dkrajzew
 // messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
 //
@@ -350,14 +353,10 @@ public:
 #endif
 
     /// ----------------- speedcheck variables -------------
-#ifdef _SPEEDCHECK
-    /** the number of vehicles moved */
-    static long noVehicles;
-    /** the begin of the speed measurement in s */
-    static time_t begin;
-    /** the end of the speed measurement in s */
-    static time_t end;
-#endif
+
+    size_t getLoadedVehicleNo() const;
+
+    size_t getEndedVehicleNo() const;
 
 protected:
     /** initialises the MeanData-container */
