@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/07/02 08:30:59  dkrajzew
+// detector drawer now also draw other additional items; removed some memory leaks
+//
 // Revision 1.11  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
 //
@@ -152,6 +155,7 @@ namespace
 #include "GUIViewAggregatedLanes.h"
 #include "GUIApplicationWindow.h"
 #include "GUIGlobals.h"
+#include "GUIGlObject_AbstractAdd.h"
 #include "icons/GUIIconSubSys.h"
 #include "GUIAppEnum.h"
 #include <utils/foxtools/MFXCheckableButton.h>
@@ -192,7 +196,7 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
     : GUISUMOAbstractView(p, app, parent, net, glVis),
-    _laneColScheme(LCS_BY_DENSITY)
+    _laneColScheme(LCS_BY_DENSITY), myUseFullGeom(true)
 {
     init(net);
 }
@@ -204,7 +208,7 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
     : GUISUMOAbstractView(p, app, parent, net, glVis, share),
-    _laneColScheme(LCS_BY_DENSITY)
+    _laneColScheme(LCS_BY_DENSITY), myUseFullGeom(true)
 {
     init(net);
 }
@@ -219,9 +223,9 @@ GUIViewAggregatedLanes::init(GUINet &net)
     _junctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
     _junctions2Show = new size_t[_junctions2ShowSize];
     clearUsetable(_junctions2Show, _junctions2ShowSize);
-    _detectors2ShowSize = (net.getDetectorWrapperNo()>>5) + 1;
-    _detectors2Show = new size_t[_detectors2ShowSize];
-    clearUsetable(_detectors2Show, _detectors2ShowSize);
+    _additional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
+    _additional2Show = new size_t[_additional2ShowSize];
+    clearUsetable(_additional2Show, _additional2ShowSize);
     myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
     myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
     myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
@@ -250,6 +254,21 @@ GUIViewAggregatedLanes::init(GUINet &net)
 
 GUIViewAggregatedLanes::~GUIViewAggregatedLanes()
 {
+    for(size_t i=0; i<8; i++) {
+        delete myLaneDrawer[i];
+        delete myJunctionDrawer[i];
+        delete myROWDrawer[i];
+    }
+    delete _edges2Show;
+    delete _junctions2Show;
+    delete _additional2Show;
+}
+
+
+void
+GUIViewAggregatedLanes::create()
+{
+    FXGLCanvas::create();
 }
 
 
@@ -412,7 +431,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
 
-	const Boundery &nb = _net->getBoundery();
+    const Boundery &nb = _net->getBoundery();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
@@ -423,7 +442,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
         _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
-            _edges2Show, _junctions2Show, _detectors2Show, 0);
+            _edges2Show, _junctions2Show, _additional2Show);
         myViewSettings.set(x, y, xoff, yoff);
     }
     double width = m2p(3.0) * scale;
@@ -442,7 +461,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         width, _laneColScheme);
 
     // draw the Polygons
-    std::map<std::string, Polygon2D*>::iterator ppoly = 
+    std::map<std::string, Polygon2D*>::iterator ppoly =
         MSNet::getInstance()->poly_dic.begin();
     for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
          drawPolygon2D(*(ppoly->second));

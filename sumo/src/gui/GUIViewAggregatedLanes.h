@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 08:30:59  dkrajzew
+// detector drawer now also draw other additional items; removed some memory leaks
+//
 // Revision 1.2  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -114,6 +117,8 @@ public:
     /// destructor
     virtual ~GUIViewAggregatedLanes();
 
+    void create();
+
     /// builds the view toolbars
     void buildViewToolBars(GUISUMOViewParent &);
 
@@ -150,7 +155,7 @@ protected:
     /** @brief Instances of the detectors drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseDetectorDrawer *myDetectorDrawer[8];
+//    GUIBaseDetectorDrawer *myDetectorDrawer[8];
 
     /** @brief Instances of the right of way drawers
         A drawer is chosen in dependence to whether the full or the simple
@@ -163,8 +168,8 @@ protected:
 
     JunctionColoringScheme _junctionColScheme;
 
-    size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
-    size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
+    size_t *_edges2Show, *_junctions2Show, *_additional2Show;
+    size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
     FXComboBox *myLaneColoring;
     FXComboBox *myAggregationLength;
