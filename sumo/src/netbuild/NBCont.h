@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/07/22 15:09:11  dkrajzew
+// removed warnings
+//
 // Revision 1.7  2003/06/16 14:43:34  dkrajzew
 // documentation added
 //
@@ -106,7 +109,7 @@ typedef std::vector<NBEdge*> EdgeVector;
 
 /** container for (sorted) lanes.
     The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) */
-typedef std::vector<int> LaneVector;
+typedef std::vector<size_t> LaneVector;
 
 
 

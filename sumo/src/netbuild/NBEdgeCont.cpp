@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/22 15:09:11  dkrajzew
+// removed warnings
+//
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -628,6 +631,7 @@ NBEdgeCont::search(NBEdge *e)
         DEBUG_OUT << (*i).second << ", " << (*i).second->getID() << endl;
         if((*i).second==e) {
             int checkdummy = 0;
+            checkdummy += 2;
         }
     }
     DEBUG_OUT << "--------------------------------" << endl;

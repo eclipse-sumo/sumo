@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/22 15:09:11  dkrajzew
+// removed warnings
+//
 // Revision 1.3  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -84,7 +87,7 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *v,
     assert(_cliques.size()!=0);
     NBTrafficLightPhases *ret = new NBTrafficLightPhases(*this, noLinks);
     size_t clAnzahl = _cliques.size();
-    std::bitset<64> aktStrNr;
+//    std::bitset<64> aktStrNr;
     std::bitset<64> vorhanden;
     std::bitset<64> needed;
     std::vector<size_t> usedCliques;
@@ -139,7 +142,6 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *v,
             {
                 vorhanden.reset();
                 for(std::vector<size_t>::iterator l=usedCliques.begin(); l!=usedCliques.end(); l++) {
-                    size_t a = _cliques.size();
                     assert(*l<_cliques.size());
                     vorhanden |= _cliques[*l];
                 }

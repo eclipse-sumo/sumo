@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 15:11:25  dkrajzew
+// removed warnings
+//
 // Revision 1.5  2003/06/05 11:46:55  dkrajzew
 // class templates applied; documentation added
 //
@@ -43,8 +46,7 @@ namespace
 NIVissimBoundedClusterObject::ContType NIVissimBoundedClusterObject::myDict;
 
 NIVissimBoundedClusterObject::NIVissimBoundedClusterObject()
-    : myClusterID(-1),
-    myBoundery(0)
+    : myBoundery(0), myClusterID(-1)
 {
     myDict.insert(this);
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 15:11:25  dkrajzew
+// removed warnings
+//
 // Revision 1.5  2003/05/20 09:42:38  dkrajzew
 // all data types implemented
 //
@@ -119,7 +122,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         geom.push_back(getPosition2D(from));
         tag = myRead(from);
         try {
-            double tmp = TplConvert<char>::_2float(tag.c_str());
+//            double tmp = TplConvert<char>::_2float(tag.c_str());
             tag = myRead(from);
         } catch (NumberFormatException &e) {
         }

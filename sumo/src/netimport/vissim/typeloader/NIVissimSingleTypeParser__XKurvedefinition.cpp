@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/22 15:11:25  dkrajzew
+// removed warnings
+//
 // Revision 1.1  2003/05/20 09:42:38  dkrajzew
 // all data types implemented
 //
@@ -58,7 +61,7 @@ NIVissimSingleTypeParser__XKurvedefinition::~NIVissimSingleTypeParser__XKurvedef
 
 
 bool
-NIVissimSingleTypeParser__XKurvedefinition::parse(std::istream &from)
+NIVissimSingleTypeParser__XKurvedefinition::parse(std::istream &)
 {
     return true;
 }

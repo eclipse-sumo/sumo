@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/22 15:11:24  dkrajzew
+// removed warnings
+//
 // Revision 1.3  2003/06/18 11:34:25  dkrajzew
 // the arcview-import should be more stable nw when dealing with false tables
 //
@@ -82,7 +85,7 @@ private:
     size_t getLaneNo(const std::string &edgeid);
 
     /// parses the length of the edge currently processed
-    double getLength(const std::string &edgeid,
+    double getLength(/*const std::string &edgeid,*/
         const Position2D &from_pos, const Position2D &to_pos);
 
     /// parses the priority of the edge currently processed

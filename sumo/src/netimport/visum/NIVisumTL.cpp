@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 15:11:25  dkrajzew
+// removed warnings
+//
 // Revision 1.5  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -119,7 +122,7 @@ NIVisumTL::Phase::~Phase()
  * ----------------------------------------------------------------------- */
 NIVisumTL::SignalGroup::SignalGroup(const std::string &Name,
 	double StartTime, double EndTime)
-	: myName(Name), NIVisumTL::TimePeriod(StartTime, EndTime)
+	: NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name)
 {
 }
 

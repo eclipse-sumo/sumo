@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/22 15:11:25  dkrajzew
+// removed warnings
+//
 // Revision 1.4  2003/06/18 11:15:58  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -105,7 +108,7 @@ NIVisumLoader::PositionSetter::report(const std::string &result)
 NIVisumLoader::NIVisumSingleDataTypeParser::NIVisumSingleDataTypeParser(
         NIVisumLoader &parent, const std::string &dataName)
     : FileErrorReporter::Child(parent),
-    myPosition(-1), myDataName(dataName)
+    myDataName(dataName), myPosition(-1)
 {
 }
 
@@ -302,7 +305,7 @@ NIVisumLoader::~NIVisumLoader()
 
 void NIVisumLoader::load(OptionsCont &options)
 {
-    bool verbose = options.getBool("v");
+//    bool verbose = options.getBool("v");
     // open the file
     if(!myLineReader.setFileName(options.getString("visum"))) {
         MsgHandler::getErrorInstance()->inform(

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 15:11:24  dkrajzew
+// removed warnings
+//
 // Revision 1.5  2003/07/07 08:26:33  dkrajzew
 // adapted the importer to the new node type description
 //
@@ -87,7 +90,7 @@ NIArtemisParser_Nodes::myDependentReport()
     if(MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
-    NBNode::BasicNodeType myType;
+    NBNode::BasicNodeType myType = NBNode::NODETYPE_NOJUNCTION;
     // radius omitted
     switch(type) {
     case 0: // no function (virtual one-way)

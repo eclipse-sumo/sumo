@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/22 15:11:24  dkrajzew
+// removed warnings
+//
 // Revision 1.6  2003/07/07 08:24:17  dkrajzew
 // adapted the importer to the lane geometry description
 //
@@ -83,7 +86,7 @@ NIArcView_Loader::~NIArcView_Loader()
 
 
 void
-NIArcView_Loader::load(OptionsCont &options)
+NIArcView_Loader::load(OptionsCont &)
 {
     // read names from first line
     myIsFirstLine = true;
@@ -123,7 +126,7 @@ NIArcView_Loader::parseLine(const std::string &line)
     string to_node = getStringSecure("NREF_IN_ID");
     string type = getStringSecure("ST_TYP_AFT");
     double speed = 0;
-    double nolanes = 0;
+    size_t nolanes = 0;
     int priority = 0;
     try {
         speed = getSpeed(id);
@@ -164,7 +167,7 @@ NIArcView_Loader::parseLine(const std::string &line)
         to = NBNodeCont::retrieve(to_pos.x(), to_pos.y());
     }
         // retrieve length
-    double length = getLength(id, from_pos, to_pos);
+    double length = getLength(/*id, */from_pos, to_pos);
 
     // retrieve the information whether the street is bi-directional
     string dir = myColumnsParser.get("DIR_TRAVEL", true);
@@ -285,7 +288,7 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
 
 
 double
-NIArcView_Loader::getLength(const std::string &edgeid,
+NIArcView_Loader::getLength(//const std::string &,
                            const Position2D &from_pos, const Position2D &to_pos)
 {
     return GeomHelper::distance(from_pos, to_pos);
