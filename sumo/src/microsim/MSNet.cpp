@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.32  2003/08/04 11:45:54  dkrajzew
+// missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
+//
 // Revision 1.31  2003/07/30 09:11:22  dkrajzew
 // a better (correct?) processing of yellow lights added; output corrigued; debugging
 //
@@ -302,6 +305,7 @@ namespace
 #include "MSLaneState.h"
 #include "MSTravelcostDetector.h"
 #include <microsim/MSDetectorSubSys.h>
+#include "MSTrafficLightLogic.h"
 
 
 /* =========================================================================
@@ -320,9 +324,9 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 254;
-std::string MSNet::searched1 = "E1";
-std::string MSNet::searched2 = "Rand10801";
+MSNet::Time MSNet::searchedtime = 23670000;
+std::string MSNet::searched1 = "867";
+std::string MSNet::searched2 = "859";
 std::string MSNet::searchedJunction = "37";
 #endif
 
@@ -468,6 +472,7 @@ MSNet::~MSNet()
     delete myEdges;
     delete myJunctions;
     delete myEmitter;
+    delete myLogics;
 //     delete myDetectors;
     delete myRouteLoaders;
     MSDetectorSubSys::deleteDictionariesAndContents();
@@ -669,6 +674,7 @@ MSNet::clearAll()
     MSVehicle::clear();
     MSVehicleType::clear();
     MSRoute::clear();
+    MSTrafficLightLogic::clear();
     clear();
 }
 
@@ -716,18 +722,24 @@ MSNet::preStartInit()
 
 
 MSVehicle *
-MSNet::buildNewVehicle( std::string id, MSRoute* route,
-                        MSNet::Time departTime,
-                        const MSVehicleType* type,
-                        int repNo, int repOffset, float *defColor)
+MSNet::buildNewMSVehicle( std::string id, MSRoute* route,
+                         MSNet::Time departTime, const MSVehicleType* type,
+                         int repNo, int repOffset)
 {
     size_t noIntervals = getNDumpIntervalls();
-/*    if(withGUI()) {
-        noIntervals++;
-    }*/
 	myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type, noIntervals,
         repNo, repOffset);
+}
+
+
+
+MSVehicle *
+MSNet::buildNewVehicle( std::string id, MSRoute* route,
+                         MSNet::Time departTime, const MSVehicleType* type,
+                         int repNo, int repOffset)
+{
+    return buildNewMSVehicle(id, route, departTime, type, repNo, repOffset);
 }
 
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.28  2003/08/04 11:45:54  dkrajzew
+// missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
+//
 // Revision 1.27  2003/07/30 17:27:21  roessel
 // Removed superflous casts in getSeconds and getSteps.
 //
@@ -359,9 +362,13 @@ public:
     void preStartInit();
 
     /// builds a new vehicle
+    virtual MSVehicle *buildNewMSVehicle( std::string id, MSRoute* route,
+        MSNet::Time departTime, const MSVehicleType* type,
+        int repNo, int repOffset);
+
     virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset, float *defColor);
+        int repNo, int repOffset);
 
 	/// informs the simulation about the destruction of a vehicle
 	void vehicleHasLeft(const std::string &id);
