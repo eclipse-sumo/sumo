@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/12/11 06:21:15  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.19  2003/12/09 11:22:13  dkrajzew
 // errors during simulation are now caught properly
 //
@@ -86,9 +89,8 @@ namespace
 #include <utils/common/MsgRetrievingFunction.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-
 #include <guisim/GUINet.h>
-
+#include <microsim/MSVehicleControl.h>
 #include <helpers/SingletonDictionary.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
 #include <qthread.h>
@@ -185,7 +187,7 @@ GUIRunThread::run()
 	            // simulation step is over
                 _simulationInProgress = false;
                 // check whether all vehicles loaded have left the simulation
-                if(_net->getLoadedVehicleNo()==_net->getEndedVehicleNo()) {
+                if(_net->getVehicleControl().haveAllVehiclesQuit()) {
                     _halting = true;
                     QThread::postEvent( _parent,
                         new QSimulationEndedEvent(

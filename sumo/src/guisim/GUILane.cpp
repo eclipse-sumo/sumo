@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/12/11 06:24:55  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.22  2003/12/04 13:35:02  dkrajzew
 // correct usage of detectors when moving over more than a single edge applied
 //
@@ -98,9 +101,10 @@ namespace
 #include <iostream> // !!!
 #include <utility>
 #include <utils/qutils/NewQMutex.h>
-#include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSNet.h>
 #include "GUILane.h"
 #include "GUIVehicle.h"
@@ -206,9 +210,7 @@ GUILane::push( MSVehicle* veh )
             + string("."));
         veh->onTripEnd(*this);
         veh->removeApproachingInformationOnKill(this);
-        static_cast<GUIVehicle*>(veh)->setRemoved();
-        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
-            static_cast<GUIVehicle*>(veh)->getGlID());
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         // maybe the vehicle is being tracked; mark as not within the simulation any longer
         _lock.unlock();//Display();
         return true;
@@ -226,9 +228,7 @@ GUILane::push( MSVehicle* veh )
         return false;
     } else {
         veh->onTripEnd(*this);
-		static_cast<GUIVehicle*>(veh)->setRemoved();
-        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
-            static_cast<GUIVehicle*>(veh)->getGlID());
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         resetApproacherDistance();
         _lock.unlock();//Display();
         return true;

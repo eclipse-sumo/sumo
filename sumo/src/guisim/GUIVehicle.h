@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/12/11 06:24:55  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.11  2003/11/20 13:06:30  dkrajzew
 // loading and using of predefined vehicle colors added
 //
@@ -141,16 +144,8 @@ public:
 
 //    virtual size_t getTableParameterNo() const;
 
-    /// GUINet is allowed to build vehicles
-    friend class GUINet;
-/*
-    double getTableParameter(size_t pos) const;
-
-
-
-    const char * const getTableItem(size_t pos) const;
-*/
-//    void fillTableParameter(double *parameter) const;
+// GUINet is allowed to build vehicles
+    friend class GUIVehicleControl;
 	bool active() const;
 
 	void setRemoved();

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/12/11 06:24:55  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.4  2003/11/12 13:59:04  dkrajzew
 // redesigned some classes by changing them to templates
 //
@@ -48,8 +51,6 @@ namespace
 #include <iostream> // !!!
 #include <utility>
 #include <utils/qutils/NewQMutex.h>
-//#include <microsim/MSLane.h>
-//#include <utils/geom/Position2D.h>
 #include <guisim/GUINet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUINetWrapper.h"
@@ -58,6 +59,7 @@ namespace
 #include <qwidget.h>
 #include <qpopupmenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
@@ -113,17 +115,21 @@ GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
         new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("vehicles running [#]", true,
-        new CastingFunctionBinding<GUINet, double, size_t>(
-            &(getNet()), &GUINet::getRunningVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+            &(getNet().getVehicleControl()),
+            &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-        new CastingFunctionBinding<GUINet, double, size_t>(
-            &(getNet()), &GUINet::getEndedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+            &(getNet().getVehicleControl()),
+            &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-        new CastingFunctionBinding<GUINet, double, size_t>(
-            &(getNet()), &GUINet::getEmittedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+            &(getNet().getVehicleControl()),
+            &MSVehicleControl::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-        new CastingFunctionBinding<GUINet, double, size_t>(
-            &(getNet()), &GUINet::getLoadedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+            &(getNet().getVehicleControl()),
+            &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("end time [s]", false,
         OptionsSubSys::getOptions().getInt("e"));
     ret->mkItem("begin time [s]", false,

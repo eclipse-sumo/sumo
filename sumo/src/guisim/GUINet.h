@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2003/12/11 06:24:55  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.21  2003/11/20 13:05:32  dkrajzew
 // loading and using of predefined vehicle colors added
 //
@@ -170,15 +173,6 @@ public:
     /// Some further steps needed for gui processing
     void guiSimulationStep();
 
-    /// builds a new GUIVehicle
-    MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset, const RGBColor &col);
-
-/*    MSVehicle *buildNewGUIVehicle( std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset, const RGBColor &color);
-*/
     size_t getDetectorWrapperNo() const;
 
     GUINetWrapper *getWrapper() const;

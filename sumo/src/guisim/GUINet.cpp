@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2003/12/11 06:24:55  dkrajzew
+// implemented MSVehicleControl as the instance responsible for vehicles
+//
 // Revision 1.27  2003/12/09 11:28:23  dkrajzew
 // removed some memory leaks
 //
@@ -69,10 +72,12 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.12  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner than
+//  GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.11  2003/06/05 06:29:50  dkrajzew
-// first tries to build under linux: warnings removed; moc-files included Makefiles added
+// first tries to build under linux: warnings removed; moc-files included
+//  Makefiles added
 //
 // Revision 1.10  2003/05/28 07:52:31  dkrajzew
 // new usage of MSEventControl adapted
@@ -84,7 +89,8 @@ namespace
 // data retrieval for new views added
 //
 // Revision 1.7  2003/04/16 09:50:06  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.6  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
@@ -123,13 +129,13 @@ namespace
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIEmitterWrapper.h>
-#include <guisim/GUIVehicleTransfer.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUILaneStateReporter.h>
 #include <guisim/GUIJunctionWrapper.h>
+#include <guisim/GUIVehicleControl.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include "GUIVehicle.h"
@@ -187,9 +193,13 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
                       std::string baseNameDumpFiles )
 {
     myInstance = new GUINet();
+    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
+    myInstance->myVehicleControl = new GUIVehicleControl(*myInstance);
+
     myInstance->myStep = startTimeStep;
-    initMeanData(dumpMeanDataIntervalls, baseNameDumpFiles/*, true*/);
+    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles);
 	myInstance->myEmitter = new MSEmitControl("");
+    MSDetectorSubSys::createDictionaries();
 }
 
 
@@ -373,39 +383,6 @@ GUINet::getEdgeBoundery(const std::string &name) const
     return edge->getBoundery();
 }
 
-
-MSVehicle *
-GUINet::buildNewVehicle( std::string id, MSRoute* route,
-                       MSNet::Time departTime,
-                       const MSVehicleType* type,
-                       int repNo, int repOffset, const RGBColor &col)
-{
-    size_t noIntervals = getNDumpIntervalls();
-	myLoadedVehNo++;
-    GUIVehicle * veh = new GUIVehicle(_idStorage,
-        id, route, departTime,
-        type, noIntervals, repNo, repOffset, col);
-    return veh;
-/*    return buildNewGUIVehicle(id, route, departTime, type, repNo,
-        repOffset, RGBColor(-1, -1, -1));*/
-}
-
-/*
-MSVehicle *
-GUINet::buildNewGUIVehicle( std::string id, MSRoute* route,
-                       MSNet::Time departTime,
-                       const MSVehicleType* type,
-                       int repNo, int repOffset,
-                       const RGBColor &color)
-{
-    size_t noIntervals = getNDumpIntervalls();
-	myLoadedVehNo++;
-    GUIVehicle * veh = new GUIVehicle(_idStorage,
-        id, route, departTime,
-        type, noIntervals, repNo, repOffset, color);
-    return veh;
-}
-*/
 
 size_t
 GUINet::getDetectorWrapperNo() const
