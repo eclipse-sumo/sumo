@@ -35,11 +35,16 @@
 # include <cmath>
 # include <string>
 # include <utils/common/UtilExceptions.h>
+# include <utils/options/OptionsSubSys.h>
+# include <utils/options/OptionsCont.h>
+#include <od2trips/ODDistrictCont.h>
 # include "ODmatrix.h"
 
 using namespace std;
 
-int ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars)
+int
+ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars,
+         ODDistrictCont &districts)
 
 	{
 	int ferror = 0;
@@ -52,9 +57,16 @@ int ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars)
 	for(long int i=0;i<total_cars;i++)
 	{
 		fsSrc << "   <tripdef id=\"" << i << "\"" << " " << "depart=\"" << od_out[i].time << "\"" <<" ";
-		fsSrc << "from=\"" << od_out[i].from << "\"" << " ";
-		fsSrc << "to=\"" << od_out[i].to << "\"" << " " << "type=\"";
-		fsSrc << od_out[i].type << "\"" << "/>"<< endl;
+		fsSrc << "from=\"" << districts.getRandomSourceFromDistrict(od_out[i].from) << "\"" << " ";
+		fsSrc << "to=\"" << districts.getRandomSinkFromDistrict(od_out[i].to) << "\"" << " " << "type=\"";
+		fsSrc << od_out[i].type << "\"";
+        if(!OptionsSubSys::getOptions().getBool("no-color")) {
+            double red = districts.getDistrictColor(od_out[i].from);
+            double blue = districts.getDistrictColor(od_out[i].to);
+            double green = (red + blue) / 2.0;
+            fsSrc << " color=\"" << red << "," << green << "," << blue << "\"";
+        }
+        fsSrc << "/>"<< endl;
 	}
     fsSrc << "</tripdefs>" << endl;
 	fsSrc.close ();

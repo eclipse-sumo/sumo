@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/08/04 11:37:37  dkrajzew
+// added the generation of colors from districts
+//
 // Revision 1.5  2003/05/20 09:46:53  dkrajzew
 // usage of split and non-split od-matrices from visum and vissim rechecked
 //
@@ -34,15 +37,34 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-	extern int ODread (string, vector<OD_IN>&, long*, long*,
-					   long*, long*, float* );
-	extern int ODPtvread (string, vector<OD_IN>&, long*, long*, long*,
-						  long*, float* );
-	extern int ODWrite (string , vector<OD_OUT>& , long int);
-    extern int Get_rand (int, int, int, int*, int*, bool);
-	extern void IndexSort (long int*, long int*, CMPFUN, long int);
-	extern void ODInpread (string , string infiles[MAX_INFILES],
-						   struct content content[MAX_CONTENT],int*);
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class ODDistrictCont;
+
+
+
+/* =========================================================================
+ * method declarations
+ * ======================================================================= */
+extern int ODread (string, vector<OD_IN>&, long*, long*,
+                   long*, long*, float* );
+
+extern int ODPtvread (string, vector<OD_IN>&, long*, long*, long*,
+                      long*, float* );
+
+extern int ODWrite (string , vector<OD_OUT>& , long int,
+                    ODDistrictCont &districts);
+
+extern int Get_rand (int, int, int, int*, int*, bool);
+
+extern void IndexSort (long int*, long int*, CMPFUN, long int);
+
+extern void ODInpread (string , string infiles[MAX_INFILES],
+                       struct content content[MAX_CONTENT],int*);
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE

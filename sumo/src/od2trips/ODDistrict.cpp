@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/08/04 11:37:37  dkrajzew
+// added the generation of colors from districts
+//
 // Revision 1.4  2003/06/18 11:20:24  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -120,6 +123,21 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
     //  !!! maybe a warning should be printed
     return (*(cont.end()-1)).first;
 }
+
+
+void
+ODDistrict::setColor(double val)
+{
+    myColor = val;
+}
+
+
+double
+ODDistrict::getColor()  const
+{
+    return myColor;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

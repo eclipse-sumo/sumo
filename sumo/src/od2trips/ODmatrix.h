@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/08/04 11:37:37  dkrajzew
+// added the generation of colors from districts
+//
 // Revision 1.5  2003/05/20 09:46:53  dkrajzew
 // usage of split and non-split od-matrices from visum and vissim rechecked
 //
@@ -60,18 +63,23 @@ using namespace std;
 /// OD attributes input
 class OD_IN {
 public:
-  string from;
-  string to;
-  unsigned short int how_many;
+    // source district name
+    string from;
+    /// destination district name
+    string to;
+
+    unsigned short int how_many;
 };
 
 /// OD attributes output
 class OD_OUT {
 public:
-  string from;
-  string to;
-  unsigned int type;
-  unsigned int time;
+    // source district name
+    string from;
+    /// destination district name
+    string to;
+    unsigned int type;
+    unsigned int time;
 };
 
 /// Meta data input

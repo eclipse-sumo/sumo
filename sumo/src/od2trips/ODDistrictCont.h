@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/08/04 11:37:37  dkrajzew
+// added the generation of colors from districts
+//
 // Revision 1.3  2003/02/07 10:44:19  dkrajzew
 // updated
 //
@@ -56,6 +59,16 @@ public:
 
     /// Returns a sink from the named district by random
     std::string getRandomSinkFromDistrict(const std::string &name) const;
+
+    // Computes abstract colors for all districts
+    void colorize();
+
+    /// Returns an abstract (computed) color of the district
+    double getDistrictColor(const std::string &name) const;
+
+private:
+    /// Holds the information whether the districts were colored
+    bool myHadColorized;
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/08/04 11:37:37  dkrajzew
+// added the generation of colors from districts
+//
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
@@ -70,6 +73,12 @@ public:
     /// Returns the name of a sink to use
     std::string getRandomSink() const;
 
+    /// Sets the abstract color
+    void setColor(double val);
+
+    /// returns the color of the district
+    double getColor() const;
+
 private:
     /// A name together with a weight (possibility to be chosen)
     typedef std::pair<std::string, double> WeightedName;
@@ -86,6 +95,9 @@ private:
 private:
     /// Returns a member of the given container by random
     std::string getRandom(const WeightedEdgeIDCont &cont) const;
+
+    /// The abstract color of the district
+    double myColor;
 
 };
 
