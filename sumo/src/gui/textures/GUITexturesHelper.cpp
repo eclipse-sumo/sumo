@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/04/23 12:34:01  dkrajzew
+// some debugging of the texture-disabling option (still in work)
+//
 // Revision 1.2  2004/04/02 11:00:34  dkrajzew
 // first try to implement an option for diabling textures
 //
@@ -32,6 +35,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <cassert>
+#include <iostream>
 #include <fx.h>
 #include <fx3d.h>
 #include "GUITexturesHelper.h"
@@ -60,6 +64,8 @@ namespace
 #include <GL/gl.h>
 
 
+using namespace std;
+
 /* =========================================================================
  * static member variable definitions
  * ======================================================================= */
@@ -85,7 +91,7 @@ GUITexturesHelper::init(GUIApplicationWindow *a)
 void
 GUITexturesHelper::assignTextures()
 {
-    if(myWasInitialised||!gAllowTextures) {
+    if(myWasInitialised) {
         return;
     }
     // initialise font drawing
@@ -103,6 +109,10 @@ GUITexturesHelper::assignTextures()
     myFontRenderer.add(myFonts.get("std7"));
     myFontRenderer.add(myFonts.get("std6"));
     myFontRenderer.add(myFonts.get("std5"));
+    // check whether other textures shall be used
+    if(!gAllowTextures) {
+        return;
+    }
     // build texture images
     glGenTextures(6, myTextureIDs);
     myTextures[MSLink::LINKDIR_STRAIGHT] =
