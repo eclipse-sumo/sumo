@@ -9,6 +9,8 @@
 #include "GUIEdgeCont.h"
 #include "GUIEdgeGrid.h"
 
+using namespace std;
+
 /*
 GUIEdgeGrid::EdgeAssigner::EdgeAssigner(double xcellsize,
                                         double ycellsize,

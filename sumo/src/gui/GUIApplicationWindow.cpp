@@ -39,6 +39,8 @@
 #include "icons/new_window.xpm"
 
 
+using namespace std;
+
 const char * fileOpenText = "Click this button to open a <em>new file</em>. <br><br>"
 "You can also select the <b>Open command</b> from the File menu.";
 

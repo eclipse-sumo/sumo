@@ -11,6 +11,8 @@
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 
+using namespace std;
+
 GUILoadThread::GUILoadThread(GUIApplicationWindow *mw)
     : _parent(mw)
 {
