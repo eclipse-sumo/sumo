@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.2  2002/10/18 11:35:53  dkrajzew
+// postinitialisation of edges for computation of lane-independent value added
+//
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
 //
@@ -239,6 +242,7 @@ int main(int argc, char **argv)
         // load data
         ROLoader loader(oc);
         net = loadNet(loader, oc);
+        net->postloadInit();
         if(net!=0) {
             try {
                 startComputation(*net, loader, *oc);
