@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:22:35  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -51,7 +54,8 @@ public:
     /// Constructor
     RORunningVehicle(const std::string &id, RORouteDef *route, long time,
         ROVehicleType *type,
-        const std::string &lane, float pos, float speed);
+        const std::string &lane, float pos, float speed,
+        long period);
 
     /// Destructor
     ~RORunningVehicle();

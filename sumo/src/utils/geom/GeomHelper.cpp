@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:25:25  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -298,7 +301,7 @@ GeomHelper::Magnitude(const Position2D &Point1,
                       const Position2D &Point2 )
 {
     double x = Point2.x() - Point1.x();
-    double y = Point2.y() - Point1.x();
+    double y = Point2.y() - Point1.y();
     return sqrt(x*x + y*y);
 }
 

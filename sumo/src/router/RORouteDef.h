@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:22:35  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -44,6 +47,7 @@
 class ROEdge;
 class RORouter;
 class RORoute;
+class OptionsCont;
 
 /* =========================================================================
  * class definitions
@@ -72,8 +76,12 @@ public:
     /** @brief builds the route and saves it into the given files
         The route herself will be written into the first, the alternatives
         (also including the current route) will be written to the second file */
-    bool computeAndSave(RORouter &router, long begin,
+    bool computeAndSave(OptionsCont &options, RORouter &router, long begin,
         std::ostream &res, std::ostream &altres);
+
+    /** @brief Changes the id to a next, hopefully valid
+        This is done if the vehicle(s) using this route are emitted periodically */
+    void patchID();
 
 protected:
     /** @brief Builds the complete route

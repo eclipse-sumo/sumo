@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:22:35  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -47,8 +50,8 @@ using namespace std;
 RORunningVehicle::RORunningVehicle(const std::string &id, RORouteDef *route,
                                    long time, ROVehicleType *type,
                                    const std::string &lane, float pos,
-                                   float speed)
-    : ROVehicle(id, route, time, type),
+                                   float speed, long period)
+    : ROVehicle(id, route, time, type, period),
     _lane(lane), _pos(pos), _speed(speed)
 {
 }

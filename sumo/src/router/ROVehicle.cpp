@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:22:38  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -35,6 +38,9 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include <utils/convert/TplConvert.h>
+#include <utils/convert/ToString.h>
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
@@ -44,8 +50,9 @@ namespace
 using namespace std;
 
 ROVehicle::ROVehicle(const std::string &id, RORouteDef *route, long depart,
-                     ROVehicleType *type)
-	: _id(id), _type(type), _route(route), _depart(depart)
+                     ROVehicleType *type, long period)
+	: _id(id), _type(type), _route(route), _depart(depart),
+    _period(period)
 {
 }
 
@@ -88,6 +95,40 @@ ROVehicle::getDepartureTime() const
 {
     return _depart;
 }
+
+bool 
+ROVehicle::reassertPeriodical()
+{
+    if(_period==-1) {
+        return false;
+    }
+    // patch the name
+    size_t idx = _id.rfind('_');
+    if(idx!=string::npos) {
+        try {
+            int no = TplConvert<char>::_2int(_id.substr(idx+1).c_str());
+            _id = _id.substr(0, idx+1) + toString<int>(no+1);
+        } catch (NumberFormatException) {
+            _id = _id + "_0";
+        }
+    } else {
+        _id = _id + "_0";
+    }
+    // patch departure time
+    _depart += _period;
+    // patch the name of the route
+    _route->patchID();
+    // assign reemission
+    return true;
+}
+
+
+bool 
+ROVehicle::periodical() const
+{
+    return _period!=-1;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

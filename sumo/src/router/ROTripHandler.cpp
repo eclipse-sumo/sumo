@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/03 15:22:36  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -84,6 +87,7 @@ void ROTripHandler::myStartElement(int element, const std::string &name,
         float pos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, id);
         float speed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, id);
         long time = getDepartureTime(attrs, id);
+        long period = getPeriod(attrs, id);
         string lane = getLane(attrs);
         // recheck attributes
         if(from==0||to==0||time<0) {
@@ -102,9 +106,9 @@ void ROTripHandler::myStartElement(int element, const std::string &name,
         RORouteDef *route = new ROOrigDestRouteDef(id, from, to);
         ROVehicleType *type = _net.getVehicleTypeSecure(typeID);
         if(pos>0||speed>0) {
-            _net.addVehicle(id, new RORunningVehicle(id, route, time, type, lane, pos, speed));
+            _net.addVehicle(id, new RORunningVehicle(id, route, time, type, lane, pos, speed, period));
         } else {
-            _net.addVehicle(id, new ROVehicle(id, route, time, type));
+            _net.addVehicle(id, new ROVehicle(id, route, time, type, period));
         }
         _net.addRouteDef(route);
         _nextRouteRead = true;
@@ -178,6 +182,7 @@ ROTripHandler::getOptionalFloat(const Attributes &attrs,
     return -1;
 }
 
+
 long
 ROTripHandler::getDepartureTime(const Attributes &attrs,
                                     const std::string &id)
@@ -191,6 +196,24 @@ ROTripHandler::getDepartureTime(const Attributes &attrs,
             SErrorHandler::add(string(" Vehicle id='") + id + string("'."));
     } catch (NumberFormatException) {
         SErrorHandler::add("The value of the departure time should be numeric but is not.");
+        if(id.length()!=0)
+            SErrorHandler::add(string(" Route id='") + id + string("'"));
+    }
+    return -1;
+}
+
+
+long
+ROTripHandler::getPeriod(const Attributes &attrs,
+                         const std::string &id)
+{
+    // get the departure time
+    try {
+        return getLong(attrs, SUMO_ATTR_PERIOD);
+    } catch(EmptyData) {
+        return -1;
+    } catch (NumberFormatException) {
+        SErrorHandler::add("The value of the period should be numeric but is not.");
         if(id.length()!=0)
             SErrorHandler::add(string(" Route id='") + id + string("'"));
     }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:22:38  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -56,12 +59,27 @@ ROVehicleCont::~ROVehicleCont()
 
 priority_queue<ROVehicle*,
     std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &
-ROVehicleCont::sort() {
+ROVehicleCont::sort() 
+{
 //    _sorted.reserve(_cont.size());
+    _sorted = 
+        priority_queue<ROVehicle*,
+            std::vector<ROVehicle*>, 
+            ROHelper::VehicleByDepartureComperator>();
     for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
         _sorted.push((*i).second);
     }
     return _sorted;
+}
+
+
+void
+ROVehicleCont::eraseVehicle(ROVehicle *v)
+{
+    std::string id = v->getID();
+    myCont::iterator i = _cont.find(id);
+    delete (*i).second;
+    _cont.erase(i);
 }
 
 

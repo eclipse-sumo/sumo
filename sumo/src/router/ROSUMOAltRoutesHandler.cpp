@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:22:35  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -178,7 +181,7 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
         }
     }
     // build the vehicle
-    _net.addVehicle(id, new ROVehicle(id, route, time, type));
+    _net.addVehicle(id, new ROVehicle(id, route, time, type, -1));
     _currentTimeStep = time;
     _nextRouteRead = true;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 15:22:37  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -80,7 +83,11 @@ ROTypedXMLRoutesLoader::readNextRoute(long start)
 {
     _nextRouteRead = false;
     while(!_nextRouteRead&&!_ended) {
-        _parser->parseNext(_token);
+        try {
+            _parser->parseNext(_token);
+        } catch (...) {
+            return false;
+        }
     }
     return true;
 }
@@ -101,7 +108,7 @@ ROTypedXMLRoutesLoader::startReadingSteps()
 }
 
 bool
-ROTypedXMLRoutesLoader::init(OptionsCont &options)
+ROTypedXMLRoutesLoader::myInit(OptionsCont &options)
 {
 /*    _parser->setContentHandler(this);
     _parser->setErrorHandler(this);*/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/03 15:22:36  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -103,6 +106,10 @@ private:
 
     /// Parses and returns the time the vehicle should start at
     long getDepartureTime(const Attributes &attrs, const std::string &id);
+
+    /// Parses and returns the period the trip shall be repeated with
+    long getPeriod(const Attributes &attrs,
+        const std::string &id);
 
     /** @brief Parses and returns the name of the lane the vehicle starts at
         This value is optional */

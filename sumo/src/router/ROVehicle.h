@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:22:38  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -56,7 +59,7 @@ class ROVehicle {
 public:
     /// Constructor
 	ROVehicle(const std::string &id, RORouteDef *route, long depart,
-        ROVehicleType *type);
+        ROVehicleType *type, long period);
 
     /// Destructor
 	virtual ~ROVehicle();
@@ -76,6 +79,14 @@ public:
     /// Returns the time the vehicle starts his route
     long getDepartureTime() const;
 
+    /** @brief Checks whether a next trip shall be generated
+        Changes (adapts) the departure time and the vehicle id, too */
+    bool reassertPeriodical();
+
+    /** Returns the information whether more than a single vehicle with these 
+        settings shall be emitted. */
+    bool periodical() const;
+
 protected:
     /// The name of the vehicle
 	std::string _id;
@@ -88,6 +99,9 @@ protected:
 
     /// The time the vehicle shall be emitted at
 	long _depart;
+
+    /// The repetition period (-1 if only one vehicle shall be emitted)
+    long _period;
 
 };
 

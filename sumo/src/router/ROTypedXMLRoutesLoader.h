@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:22:38  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -71,9 +74,6 @@ public:
     /// Reads all routes from the file
     virtual bool addAllRoutes();
 
-    /// initialises the reading
-    bool init(OptionsCont &options);
-
     /// called when the document has ended
     void endDocument();
 
@@ -83,6 +83,9 @@ protected:
 
     /// Reads the next route
     bool readNextRoute(long start);
+
+    /// initialises the reading
+    bool myInit(OptionsCont &options);
 
 protected:
     /// The parser used
