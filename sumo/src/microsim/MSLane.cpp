@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.28  2003/09/05 15:10:29  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.27  2003/08/20 11:44:11  dkrajzew
 // min and max-functions moved to an own definition file
 //
@@ -379,10 +382,8 @@ MSLane::MSLane( MSNet &net,
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::initialize( /*MSJunction* backJunction,*/
-                    MSLinkCont* links )
+MSLane::initialize( MSLinkCont* links )
 {
-//    myNextJunction = backJunction;
     myLinks = *links;
     delete links;
 }
@@ -785,7 +786,10 @@ MSLane::setCritical()
     // move critical vehicles
     for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
 	    (*i)->moveFirstChecked();
-        MSLane *target = (*i)->getTargetLane();
+        MSLane *target = (*i)->getTargetViaLane();
+        if(target==0) {
+            target = (*i)->getTargetLane();
+        }
         if(target!=this) {
             target->push(pop());
             return;
@@ -1437,7 +1441,7 @@ MSLane::getMoveReminders( void )
 }
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper(GUIGlObjectStorage &)
+MSLane::buildLaneWrapper(GUIGlObjectStorage &, bool)
 {
     throw "Only within the gui-version";
 }

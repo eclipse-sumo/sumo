@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.16  2003/09/05 15:10:30  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.15  2003/08/20 11:44:11  dkrajzew
 // min and max-functions moved to an own definition file
 //
@@ -205,7 +208,6 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class MSModel;
 class MSLaneChanger;
 class MSEmitter;
 class MSLink;
@@ -356,7 +358,7 @@ public:
     //--------------- Methods used by Vehicles  ---------------------
     /** Returns the information whether this lane may be used to continue
         the current route */
-    bool appropriate(const MSVehicle *veh);
+    virtual bool appropriate(const MSVehicle *veh);
 
     //--------------- Methods used by Junctions  ---------------------
 
@@ -392,7 +394,7 @@ public:
 	static size_t dictSize() { return myDict.size(); }
 
     /// resets the lane's link priorities
-    void setLinkPriorities(const std::bitset<64> &prios,
+    virtual void setLinkPriorities(const std::bitset<64> &prios,
 		const std::bitset<64> &yellowMask, size_t &beginPos);
 
     /// simple output operator
@@ -407,16 +409,10 @@ public:
     /** Adds Data for MeanValue calculation. Use this if vehicle
         leaves a lane during move ( hasFinishedLane=true) or during
         lanechange (false) or if interval is over (false). */
-    void addVehicleData( double contTimesteps,
-                         unsigned discreteTimesteps,
-//                          double travelDistance,
-                         double speedSum,
-                         double speedSquareSum,
-                         unsigned index,
-                         bool hasFinishedEntireLane,
-                         bool hasLeftLane,
-                         bool hasEnteredLane,
-                         double travelTimesteps = 0 );
+    virtual void addVehicleData( double contTimesteps,
+        unsigned discreteTimesteps, double speedSum, double speedSquareSum,
+        unsigned index, bool hasFinishedEntireLane, bool hasLeftLane,
+        bool hasEnteredLane, double travelTimesteps = 0 );
 
 
     /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
@@ -441,7 +437,7 @@ public:
     bool isLinkEnd(MSLinkCont::iterator &i);
 
     /// returns the information whether the given edge is the parent edge
-    bool inEdge(const MSEdge *edge) const;
+    virtual bool inEdge(const MSEdge *edge) const;
 
     /// returns the last vehicle
     const MSVehicle * const getLastVehicle() const;
@@ -477,12 +473,12 @@ public:
 
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     /// Add a move-reminder to move-reminder container
-    void addMoveReminder( MSMoveReminder* rem );
+    virtual void addMoveReminder( MSMoveReminder* rem );
     MoveReminderCont getMoveReminders( void );
 
     // valid for gui-version only
     virtual GUILaneWrapper *buildLaneWrapper(
-            GUIGlObjectStorage &idStorage);
+            GUIGlObjectStorage &idStorage, bool allowAggregation);
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -537,10 +533,10 @@ protected:
     virtual bool emitTry( MSVehicle& veh, VehCont::iterator leaderIt );
 
     /** Resets the MeanData container at the beginning of a new interval.*/
-    void resetMeanData( unsigned index );
+    virtual void resetMeanData( unsigned index );
 
     /** Retrieves Data from all vehicles on the lane at the end of an interval. */
-    void collectVehicleData( unsigned index );
+    virtual void collectVehicleData( unsigned index );
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
