@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/10/22 11:25:04  dkrajzew
+// removeing from lane corrected
+//
 // Revision 1.3  2003/10/22 07:07:06  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -186,15 +189,15 @@ GUIInternalLane::push( MSVehicle* veh )
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
-            myVehBuffer->patchState();
-            myVehBuffer->leaveLaneAtMove();
+//            myVehBuffer->patchState();
+            myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
                 static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
-            veh->patchState();
-            veh->leaveLaneAtMove();
+//            veh->patchState();
+            veh->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());

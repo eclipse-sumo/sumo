@@ -71,11 +71,11 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->id());
                 // let the vehicle move to the next edge
                 if(desc.myVeh->proceedVirtualReturnIfEnded(*this, nextEdge)) {
-                    MSVehicle::remove(desc.myVeh->id());
                     MsgHandler::getWarningInstance()->inform(
                         string("Vehicle '") + desc.myVeh->id()
                         + string("' ends teleporting on end edge '") + e->id()
                         + string("'."));
+                    MSVehicle::remove(desc.myVeh->id());
                     i = myVehicles.erase(i);
                     continue;
                 }

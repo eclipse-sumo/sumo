@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.33  2003/10/22 11:26:07  dkrajzew
+// removeing from lane corrected
+//
 // Revision 1.32  2003/10/22 07:02:13  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -877,13 +880,13 @@ MSLane::push(MSVehicle* veh)
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
-            myVehBuffer->patchState();
-            myVehBuffer->leaveLaneAtMove();
+//            myVehBuffer->patchState();
+            myVehBuffer->leaveLaneAtLaneChange();
             MSVehicle::remove(myVehBuffer->id());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
-            veh->patchState();
-            veh->leaveLaneAtMove();
+//            veh->patchState();
+            veh->leaveLaneAtLaneChange();
             MSVehicle::remove(veh->id());
             return true;
         }
@@ -1492,8 +1495,8 @@ MSVehicle *
 MSLane::removeFirstVehicle(const MSVehicleTransfer &rightsCheck)
 {
     MSVehicle *veh = *(myVehicles.end()-1);
-    veh->patchState();
-    veh->leaveLaneAtMove();
+//    veh->patchState();
+    veh->leaveLaneAtLaneChange();
     myVehicles.erase(myVehicles.end()-1);
     myUseDefinition->noVehicles--;
     return veh;
