@@ -29,8 +29,7 @@
 #include <string>
 #include "MSUnit.h"
 #include "helpers/TypeManip.h"
-
-class MSE2DetectorInterface;
+#include "MSTDDetectorInterface.h"
 
 template < class DetectorType
            , bool hasTimeValueCont = false
@@ -77,7 +76,7 @@ protected:
     MSSumDetector( std::string id,
                    double lengthInMeters,
                    MSUnit::Seconds deleteDataAfterSeconds,
-                   const MSE2DetectorInterface& helperDetector )
+                   const TD::MSDetectorInterface& helperDetector )
         : DetectorType( id, lengthInMeters,
                         deleteDataAfterSeconds,
                         helperDetector )

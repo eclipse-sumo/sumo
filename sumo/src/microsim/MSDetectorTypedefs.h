@@ -24,12 +24,12 @@
 
 #include "MSMeanDetector.h"
 #include "MSSumDetector.h"
-#include "MSE2Detector.h"
-#include "MSE3Detector.h"
-#include "MSE2EDDetector.h"
+#include "MSTDDetector.h"
+#include "MSLDDetector.h"
+#include "MSEDDetector.h"
 
 // concrete E2 detectors
-// E2 ZS
+// E2 TD
 #include "MSDensity.h"
 #include "MSMaxJamLength.h"
 #include "MSJamLengthSum.h"
@@ -41,70 +41,71 @@
 // E2 ED
 #include "MSNStartedHalts.h"
 #include "MSHaltingDurationSum.h"
-// E2 EFZ
+// E2 LD
 #include "MSHaltDuration.h"
 
 
-// concrete E3 detectors, all EFZ
+// concrete E3 detectors, all LD
 #include "MSE3Traveltime.h"
 #include "MSE3NVehicles.h"
 #include "MSE3MeanNHaltings.h"
 
 namespace Detector 
 {
-    // E2_ZS
-    typedef MSMeanDetector< MSE2Detector< MSDensity > > E2Density;
+    // E2_TD
+    typedef MSMeanDetector< TD::MSDetector< MSDensity > > E2Density;
 
-    typedef MSMeanDetector< MSE2Detector< MSMaxJamLengthInVehicles > >
+    typedef MSMeanDetector< TD::MSDetector< MSMaxJamLengthInVehicles > >
     E2MaxJamLengthInVehicles;
     
-    typedef MSMeanDetector< MSE2Detector< MSMaxJamLengthInMeters > >
+    typedef MSMeanDetector< TD::MSDetector< MSMaxJamLengthInMeters > >
     E2MaxJamLengthInMeters;
     
-    typedef MSMeanDetector< MSE2Detector< MSJamLengthSumInVehicles > >
+    typedef MSMeanDetector< TD::MSDetector< MSJamLengthSumInVehicles > >
     E2JamLengthSumInVehicles;
     
-    typedef MSMeanDetector< MSE2Detector< MSJamLengthSumInMeters > >
+    typedef MSMeanDetector< TD::MSDetector< MSJamLengthSumInMeters > >
     E2JamLengthSumInMeters;
     
-    typedef MSMeanDetector< MSE2Detector<
+    typedef MSMeanDetector< TD::MSDetector<
         MSQueueLengthAheadOfTrafficLightsInVehicles > >
     E2QueueLengthAheadOfTrafficLightsInVehicles;
 
-    typedef MSMeanDetector< MSE2Detector<
+    typedef MSMeanDetector< TD::MSDetector<
         MSQueueLengthAheadOfTrafficLightsInMeters > >
     E2QueueLengthAheadOfTrafficLightsInMeters;
 
-    typedef MSMeanDetector< MSE2Detector< MSNVehicles > > E2NVehicles;
+    typedef MSMeanDetector< TD::MSDetector< MSNVehicles > > E2NVehicles;
 
-    typedef MSMeanDetector< MSE2Detector<
+    typedef MSMeanDetector< TD::MSDetector<
         MSOccupancyDegree > > E2OccupancyDegree;
 
-    typedef MSMeanDetector< MSE2Detector<
+    typedef MSMeanDetector< TD::MSDetector<
         MSSpaceMeanSpeed > > E2SpaceMeanSpeed;
 
-    typedef MSMeanDetector< MSE2Detector<
+    typedef MSMeanDetector< TD::MSDetector<
         MSCurrentHaltingDurationSumPerVehicle > >
     E2CurrentHaltingDurationSumPerVehicle;
 
     // E2 ED
-    typedef MSSumDetector< MSE2EDDetector<
+    typedef MSSumDetector< ED::MSDetector<
         MSNStartedHalts >, true > E2NStartedHalts;
 
-    typedef MSSumDetector< MSE2EDDetector<
+    typedef MSSumDetector< ED::MSDetector<
         MSHaltingDurationSum >, true > E2HaltingDurationSum;
 
-    // E2 EFZ
-    typedef MSMeanDetector< MSE3Detector<
+    // E2 LD
+    typedef MSMeanDetector< LD::MSDetector<
         MSHaltDuration>, true > E2HaltingDurationMean;
     
     
     // E3
-    typedef MSSumDetector< MSE3Detector< MSE3NVehicles >, true > E3NVehicles;
+    typedef MSSumDetector< LD::MSDetector< MSE3NVehicles >, true > E3NVehicles;
 
-    typedef MSMeanDetector< MSE3Detector< MSE3Traveltime >, true> E3Traveltime;
+    typedef MSMeanDetector< LD::MSDetector<
+        MSE3Traveltime >, true> E3Traveltime;
 
-    typedef MSMeanDetector< MSE3Detector< MSE3MeanNHaltings >, true >
+    typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true >
     E3MeanNHaltings;
 }
 

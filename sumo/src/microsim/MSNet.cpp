@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.46  2003/12/02 21:11:50  roessel
+// Changes due to renaming of detector files and classes.
+//
 // Revision 1.45  2003/11/28 14:08:50  roessel
 // Changes due to new E3 detectors.
 //
@@ -352,7 +355,7 @@ namespace
 #include <microsim/MSVehicleTransfer.h>
 #include "MSTrafficLightLogic.h"
 #include "MSDetectorHaltingContainerWrapper.h"
-#include "MSE2DetectorInterface.h"
+#include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
 
 

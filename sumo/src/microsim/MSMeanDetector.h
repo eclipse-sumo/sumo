@@ -75,7 +75,7 @@ protected:
     MSMeanDetector( std::string id,
                     double lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
-                    const MSE2DetectorInterface& helperDetector ) 
+                    const TD::MSDetectorInterface& helperDetector ) 
         : MSSumDetector< DetectorType, hasTimeValueCont >(
             id, lengthInMeters,
             deleteDataAfterSeconds,

@@ -36,7 +36,7 @@
 #include "MSDetectorOccupancyCorrection.h"
 #include "MSCrossSection.h"
 #include "MSE3MoveReminder.h"
-#include "MSE3DetectorInterface.h"
+#include "MSLDDetectorInterface.h"
 #include "MSDetectorTypedefs.h"
 #include "utils/convert/ToString.h"
 
@@ -64,8 +64,8 @@ class MS_E3_Collector : public MSDetectorFileOutput
 {
 public:
 
-    typedef MSE3DetectorInterface E3Detector;
-    typedef std::vector< E3Detector* > DetectorCont;
+    typedef LD::MSDetectorInterface LDDetector;
+    typedef std::vector< LDDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
@@ -116,31 +116,15 @@ public:
     
     virtual ~MS_E3_Collector( void )
         {
-            for( EntryReminders::iterator it3 = entryRemindersM.begin();
-                 it3 != entryRemindersM.end(); ++it3 ) {
-                delete *it3;
-            }
-            for( LeaveReminders::iterator it4 = leaveRemindersM.begin();
-                 it4 != leaveRemindersM.end(); ++it4 ) {
-                delete *it4;
-            }
-            for ( DetContIter it1 = detectorsM.begin();
-                  it1 != detectorsM.end(); ++it1 ) {
-                if ( *it1 != 0 ) {
-                    delete *it1;
-                }
-            }
-            for ( ContainerContIter it2 = containersM.begin();
-                  it2 != containersM.end(); ++it2 ) {
-                if ( *it2 != 0 ) {
-                    delete *it2;
-                }
-            }            
+            deleteContainer( entryRemindersM );
+            deleteContainer( leaveRemindersM );
+            deleteContainer( detectorsM );
+            deleteContainer( containersM );
         }
     
     
 
-    // is called from MSE3MoveReminder if vehicle touches entry-crossSection
+    // is called from LD::MSMoveReminder if vehicle touches entry-crossSection
     void enter( MSVehicle& veh )
         {
             for ( ContainerContIter it = containersM.begin();
@@ -151,7 +135,7 @@ public:
             }
         }
     
-    // is called from MSE3MoveReminder if vehicle passes entry-crossSection
+    // is called from LD::MSMoveReminder if vehicle passes entry-crossSection
     void leave( MSVehicle& veh )
         {
             for ( DetContIter det = detectorsM.begin();
@@ -192,7 +176,7 @@ public:
     double getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type != E3::ALL );
-            E3Detector* det = getDetector( type );
+            LDDetector* det = getDetector( type );
             if ( det != 0 ){
                 return det->getAggregate( lastNSeconds );
             }
@@ -234,25 +218,7 @@ public:
     std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps )
         {
             std::string result;
-            MSUnit::Seconds lastNSeconds =
-                MSUnit::getInstance()->getSeconds( lastNTimesteps );
-            for ( DetContIter it = detectorsM.begin();
-                  it != detectorsM.end(); ++it ) {
-
-                if ( *it == 0 ) {
-                    continue;
-                }
-
-                std::string name = getDetectorName( *it );
-                std::string aggregate =
-                    toString( (*it)->getAggregate( lastNSeconds ) );
-                
-                result += std::string("<") +
-                    name +
-                    std::string(" value=\"") +
-                    aggregate +
-                    std::string("\"/>\n");
-            }
+            result += getXMLOutput( detectorsM, lastNTimesteps );
             return result;
         }
 
@@ -296,7 +262,7 @@ public:
     
 protected:
 
-    E3Detector* getDetector( E3::DetType type ) const
+    LDDetector* getDetector( E3::DetType type ) const
         {
             assert( type != E3::ALL );
             return detectorsM[ type ];
@@ -404,7 +370,7 @@ private:
             }
         }
 
-    std::string getDetectorName( E3Detector* det )
+    std::string getDetectorName( LDDetector* det )
         {
             // get detector name. Unfortunately we have to cast
             // because the name is not known to
@@ -424,7 +390,38 @@ private:
                 assert( 0 );
             }
         }
-    
+
+    template< class Cont >
+    std::string getXMLOutput( Cont& container, MSUnit::IntSteps lastNTimesteps)
+        {
+            MSUnit::Seconds lastNSeconds =
+                MSUnit::getInstance()->getSeconds( lastNTimesteps );
+            std::string result;
+            for ( typename Cont::iterator it = container.begin();
+                  it != container.end(); ++it ) {
+
+                if ( *it == 0 ) {
+                    continue;
+                }
+                result += std::string("<") +
+                    (*it)->getName() +
+                    std::string(" value=\"") +
+                    toString( (*it)->getAggregate( lastNSeconds ) ) +
+                    std::string("\"/>\n");
+            }
+            return result;
+        }
+
+    template< class Cont >
+    void deleteContainer( Cont& cont )
+        {
+            for ( typename Cont::iterator it = cont.begin();
+                  it != cont.end(); ++it ) {
+                if ( *it != 0 ) {
+                    delete *it;
+                }
+            }
+        }
 };
 
 

@@ -24,7 +24,7 @@
 
 #include "MSDetectorHaltingContainerWrapper.h"
 #include "MSUnit.h"
-#include "MSE2DetectorInterface.h"
+#include "MSTDDetectorInterface.h"
 #include <string>
 
 class MSQueueLengthAheadOfTrafficLightsInVehicles
@@ -36,7 +36,7 @@ protected:
     
     MSQueueLengthAheadOfTrafficLightsInVehicles(
         double,
-        const MSE2DetectorInterface& helperDetector )
+        const TD::MSDetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxNVehM( 0 )
         {}
@@ -47,7 +47,7 @@ protected:
     DetectorAggregate getDetectorAggregate( void )
         {
             // helperDet.getDetectorAggregate must be called
-            // earlier. E2_ZS_Collector is responsible for this.
+            // earlier. E2_Collector is responsible for this.
             DetectorAggregate helperAggr =
                 helperDetectorM.getCurrent();
             if ( helperAggr > maxNVehM ) {
@@ -66,7 +66,7 @@ protected:
             return "queueLengthAheadOfTrafficLightsInVehicles";
         }
 private:
-    const MSE2DetectorInterface& helperDetectorM;
+    const TD::MSDetectorInterface& helperDetectorM;
     double maxNVehM;
 };
 
@@ -80,7 +80,7 @@ protected:
     
     MSQueueLengthAheadOfTrafficLightsInMeters(
         double,
-        const MSE2DetectorInterface& helperDetector )
+        const TD::MSDetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxJamLengthM( 0 )
         {}
@@ -91,7 +91,7 @@ protected:
     DetectorAggregate getDetectorAggregate( void )
         {
             // helperDet.getDetectorAggregate must be called
-            // earlier. E2_ZS_Collector is responsible for this.
+            // earlier. E2_Collector is responsible for this.
             DetectorAggregate helperAggr =
                 helperDetectorM.getCurrent();
             if ( helperAggr > maxJamLengthM ) {
@@ -111,7 +111,7 @@ protected:
         }
     
 private:
-    const MSE2DetectorInterface& helperDetectorM;
+    const TD::MSDetectorInterface& helperDetectorM;
     MSUnit::Cells maxJamLengthM;
 };
 
