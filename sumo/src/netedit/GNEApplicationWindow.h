@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/21 16:56:24  agaubatz
+// debug
+//
 // Revision 1.4  2004/12/20 23:07:23  der_maik81
 // all algorithms get the configdialog as parameter
 //
@@ -375,6 +378,9 @@ protected:
 
 	//Popupbutton for painttool
 	FXPopup* rubberpop;
+
+	//flag for Streetextraction..Algorithm may only be used once
+	bool extrFlag;
 
 private:
   int                mdflag;                  // Mouse button down?

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/12/21 16:56:24  agaubatz
+// debug
+//
 // Revision 1.9  2004/12/20 23:07:08  der_maik81
 // all algorithms get the configdialog as parameter
 //
@@ -59,7 +62,6 @@ namespace
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,7 +76,6 @@ namespace
 #include <algorithm>
 
 #include <guisim/GUINet.h>
-
 
 #include <gui/GUILoadThread.h>
 #include <gui/GUIRunThread.h>
@@ -222,6 +223,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
 {
     // No image loaded, yet.
     m_img=NULL;
+	extrFlag=false;
 	dialog=new ConfigDialog(this);
 	dialog2 = new InfoDialog(this);
 
@@ -789,7 +791,8 @@ long GNEApplicationWindow::onCmdClear(FXObject*,FXSelector,void*){
   return 1;
   }
 
-long GNEApplicationWindow::onUpdClear(FXObject* sender,FXSelector,void*){
+long GNEApplicationWindow::onUpdClear(FXObject* sender,FXSelector,void*)
+{
 
   if(dirty)
     sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_ENABLE),NULL);
@@ -797,28 +800,20 @@ long GNEApplicationWindow::onUpdClear(FXObject* sender,FXSelector,void*){
     sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_DISABLE),NULL);
 
   return 1;
-  }
+}
 
-//new
-
-/////////////////////////new Andeas (Anfang)
-
-bool extrFlag=false;
 long
 GNEApplicationWindow::onCmdExtractStreets(FXObject*,FXSelector,void*)
 {
-    
-	
-
-	if(extrFlag==false){
+	if(extrFlag==false)
+	{
 		extrFlag=true;
 		FXDCWindow dc(myCanvas);
 		if(m_img)
 		{
 			m_img->ExtractStreets();
 			m_img->GetFXImage()->render();
-			dc.drawImage(m_img->GetFXImage(),0,0);
-			
+			dc.drawImage(m_img->GetFXImage(),0,0);	
 		}
 	}
 	else 
@@ -851,6 +846,7 @@ GNEApplicationWindow::onCmdDilate(FXObject*,FXSelector,void*)
     }
     return 1;
 }
+
 
 long
 GNEApplicationWindow::onCmdOpening(FXObject*,FXSelector,void*)
@@ -1208,7 +1204,7 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 					(col!=FXRGB(0,0,0))
 					
 				)
-					extrFlag=true;
+					extrFlag=false;
 			}
 		}
 

@@ -430,22 +430,25 @@ Graph::Export_Vertexes_XML()
     const char* app=append.c_str();
     const char* app2=append2.c_str();
     char buffer [100];
+
     int Vertices= vArray.size();
     Vertex* temp;
 
-    FILE* vfile= fopen("export.nod.xml","w");
+    FILE* vfile= fopen("c:/export.nod.xml","w");
 
     fputs(app,vfile);
+
     for(long i=0 ; i<Vertices; i++)
     {
         temp=vArray[i];
-        int x=temp->GetX();
-        int y=temp->GetY();
-        sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
-        fputs(buffer, vfile);
-    }
-    fputs(app2,vfile);
-    fclose(vfile);
+
+		int x=temp->GetX();
+        int y=(temp->GetY())*(-1);
+		sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
+		fputs(buffer, vfile);
+	}
+   	fputs(app2,vfile);
+	fclose(vfile);
 }
 
 void
@@ -464,7 +467,11 @@ Graph::Export_Edges_XML()
     int index_end=0;
     char buffer [100];
 
-    FILE* efile= fopen("export.edg.xml","w");
+ 
+
+	FILE* efile= fopen("c:/export.edg.xml","w");
+    
+
 
     fputs(app,efile);
 
