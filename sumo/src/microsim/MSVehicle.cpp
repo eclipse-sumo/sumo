@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2003/10/16 08:33:49  dkrajzew
+// new lane changing rules implemented
+//
 // Revision 1.31  2003/10/15 11:43:50  dkrajzew
 // false lane-changing rules removed; an (far too large information interface between vehicle and lane-changer implemented
 //
@@ -1165,10 +1168,6 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
         vLinkWait = vLinkPass; // the link was passed
 	    assert(!myLane->isLinkEnd(link));
 	    // if the vehicle drives over the end of the lane, inform the link
-	    if(dist-seen>0/*||(*link)->myPrio*/) { // die zweite Abfrage wird nicht gebraucht, es muss nur dann gesetzt werden, wenn es tatsächlich überfahren werden kann
-		    (*link)->setApproaching(this);
-	    }
-
 
         // get the following lane
     	nextLane = (*link)->myLane;
@@ -1232,6 +1231,15 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    }
         myLFLinkLanes.push_back(
             DriveProcessItem(link, vLinkPass, vLinkWait));
+        if(
+            /*myState.pos()+vLinkPass*MSNet::deltaT()-nextLane->length()>0*/
+            vsafePredNextLane>0&&dist-seen>0/*||(*link)->myPrio*/) { // die zweite Abfrage wird nicht gebraucht, es muss nur dann gesetzt werden, wenn es tatsächlich überfahren werden kann
+
+		    (*link)->setApproaching(this);
+        } else {
+            return;
+        }
+
 
     	// set the information about which lane is being approached
 //	    myApproachedLane = nextLane;

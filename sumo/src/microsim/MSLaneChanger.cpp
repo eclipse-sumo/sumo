@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2003/10/16 08:33:49  dkrajzew
+// new lane changing rules implemented
+//
 // Revision 1.11  2003/10/15 11:40:59  dkrajzew
 // false rules removed; initial state for further tests
 //
@@ -298,7 +301,7 @@ MSLaneChanger::change()
 
 //    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(MSNet::globaltime>=MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
         DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
@@ -855,17 +858,21 @@ MSLaneChanger::predInteraction()
     MSVehicle* pred    = myCandi->lead;
     MSLane*    lane    = myCandi->lane;
 
+
+
     // Is there interaction with a predecessor?
-    double gap = 0;
     if ( pred != 0 ) {
 
-        gap = pred->pos() - pred->length() - vehicle->pos();
+        if(pred->speed()<(80.0*3.6)) {
+            return false;
+        }
+        double gap = pred->pos() - pred->length() - vehicle->pos();
         return gap < vehicle->interactionGap( lane, *pred );
     }
     // No predecessor. Does vehicle need to slow down because it "interacts"
     // with the lane end? (unfortunately it isn't able to look beyond the
     // lane yet.)
-    gap = lane->length() - vehicle->pos();
+    double gap = lane->length() - vehicle->pos();
     // There may be a vehicle on the succeeding lane, touching this lane
     // partely
     gap -= MSVehicleType::maxLength();
@@ -884,11 +891,33 @@ MSLaneChanger::advan2right()
     // or equal advantageous, candidate will change.
     MSVehicle*           vehicle = veh( myCandi );
     MSVehicle*         neighLead = veh( myCandi - 1 );
+    MSVehicle*         thisLead  = ( myCandi )->lead;
     MSLane*            neighLane = ( myCandi - 1 )->lane;
+    MSLane*            thisLane  = ( myCandi )->lane;
     MSVehicle::State   stayState = vehicle->accelState( myCandi->lane );
     MSVehicle::State changeState = MSVehicle::State();
 
 
+    double neighLaneVSafe, thisLaneVSafe;
+    if ( neighLead == 0 ) {
+        neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            neighLane->length() - vehicle->pos(), 0);
+    } else {
+        neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            neighLead->pos() - neighLead->length() - vehicle->pos(),
+            neighLead->speed());
+    }
+    if(thisLead==0) {
+        thisLaneVSafe = vehicle->vsafe(vehicle->speed(),
+            vehicle->decelAbility(),  thisLane->length() - vehicle->pos(),
+            0);
+    } else {
+        thisLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            thisLead->pos() - thisLead->length() - vehicle->pos(),
+            thisLead->speed());
+    }
+    return thisLaneVSafe<neighLaneVSafe;
+/*
     // Calculate the compareState.
     if ( neighLead == 0 ) {
 
@@ -908,6 +937,7 @@ MSLaneChanger::advan2right()
     }
 
     return MSVehicle::State::advantage( changeState, stayState );
+    */
 }
 
 //-------------------------------------------------------------------------//
@@ -918,14 +948,42 @@ MSLaneChanger::advan2left()
     // Vehicle will change to the left if this change is advantageous.
     // Calculate the staying-state and the changing-state and compare
     // them.
-    MSVehicle*           vehicle = veh( myCandi );
+/*    MSVehicle*           vehicle = veh( myCandi );
     MSVehicle*              pred = myCandi->lead;
     MSVehicle*         neighLead = veh( myCandi + 1 );
     MSLane*             stayLane = myCandi->lane;
     MSLane*           changeLane = ( myCandi + 1 )->lane;
     MSVehicle::State   stayState = MSVehicle::State();
     MSVehicle::State changeState = MSVehicle::State();
+*/
+    MSVehicle*           vehicle = veh( myCandi );
+    MSVehicle*         neighLead = veh( myCandi + 1 );
+    MSVehicle*         thisLead  = ( myCandi )->lead;
+    MSLane*            neighLane = ( myCandi + 1 )->lane;
+    MSLane*            thisLane  = ( myCandi )->lane;
+    MSVehicle::State   stayState = vehicle->accelState( myCandi->lane );
+    MSVehicle::State changeState = MSVehicle::State();
 
+    double neighLaneVSafe, thisLaneVSafe;
+    if ( neighLead == 0 ) {
+        neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            neighLane->length() - vehicle->pos(), 0);
+    } else {
+        neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            neighLead->pos() - neighLead->length() - vehicle->pos(),
+            neighLead->speed());
+    }
+    if(thisLead==0) {
+        thisLaneVSafe = vehicle->vsafe(vehicle->speed(),
+            vehicle->decelAbility(),  thisLane->length() - vehicle->pos(),
+            0);
+    } else {
+        thisLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
+            thisLead->pos() - thisLead->length() - vehicle->pos(),
+            thisLead->speed());
+    }
+    return thisLaneVSafe<neighLaneVSafe;
+/*
     // A first car using a prioritized link shouldn't change because
     // of the LaneChangers disability to look beyond the lane, i.e.
     // all vehicles are considered to brake towards the lane end. This
@@ -978,7 +1036,7 @@ MSLaneChanger::advan2left()
                                                  gap2lead );
     }
 
-    return MSVehicle::State::advantage( changeState, stayState );
+    return MSVehicle::State::advantage( changeState, stayState );*/
 }
 
 
