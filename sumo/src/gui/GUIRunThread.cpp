@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/04/02 11:10:20  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.22  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -120,7 +123,7 @@ GUIRunThread::GUIRunThread(GUIApplicationWindow *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
     : FXSingleEventThread(parent->getApp(), parent), _parent(parent),
-    _net(0), _craw(0), _quit(false), _simulationInProgress(false),
+    _net(0), _quit(false), _simulationInProgress(false),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
@@ -153,17 +156,16 @@ GUIRunThread::~GUIRunThread()
 
 
 void
-GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
+GUIRunThread::init(GUINet *net, long start, long end)
 {
     // delete a maybe existing simulation
     deleteSim();
     // assign new values
     _net = net;
-    _craw = craw;
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
-    _net->initialiseSimulation(_craw);
+    _net->initialiseSimulation();
 }
 
 
@@ -184,7 +186,7 @@ GUIRunThread::run()
 	        // execute a single step
             try {
                 mySimulationLock.lock();
-                _net->simulationStep(_craw, _simStartTime, _step);
+                _net->simulationStep(_simStartTime, _step);
                 _net->guiSimulationStep();
                 mySimulationLock.unlock();
 
@@ -284,13 +286,11 @@ GUIRunThread::deleteSim()
     _halting = true;
     mySimulationLock.lock();
     if(_net!=0) {
-        _net->closeSimulation(_craw);
+        _net->closeSimulation();
     }
     while(_simulationInProgress);
     delete _net;
     _net = 0;
-    delete _craw;
-    _craw = 0;
     mySimulationLock.unlock();
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/04/02 11:10:20  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.1  2004/03/19 12:56:11  dkrajzew
 // porting to FOX
 //
@@ -56,11 +59,11 @@ class GUINet;
 class GUIEvent_SimulationLoaded : public GUIEvent {
 public:
     /// constructor
-    GUIEvent_SimulationLoaded(GUINet *net, std::ostream *craw,
+    GUIEvent_SimulationLoaded(GUINet *net,
         MSNet::Time startTime, MSNet::Time endTime,
         const std::string &file)
         : GUIEvent(EVENT_SIMULATION_LOADED),
-        _net(net), _craw(craw), _begin(startTime), _end(endTime),
+        _net(net), _begin(startTime), _end(endTime),
         _file(file) { }
 
     /// destructor
@@ -69,9 +72,6 @@ public:
 public:
     /// the loaded net
     GUINet          *_net;
-
-    /// the build raw-output stream
-    std::ostream    *_craw;
 
     /// the time the simulation shall start with
     MSNet::Time     _begin;

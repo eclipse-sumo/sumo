@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/04/02 11:10:20  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.24  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -163,7 +166,6 @@ FXint
 GUILoadThread::run()
 {
     GUINet *net = 0;
-    std::ostream *craw = 0;
     int simStartTime = 0;
     int simEndTime = 0;
 
@@ -178,14 +180,14 @@ GUILoadThread::run()
     // try to load the given configuration
     if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
         // ok, the options could not be set
-        submitEndAndCleanup(net, craw, simStartTime, simEndTime);
+        submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
     // retrieve the options
     OptionsCont &oc = OptionsSubSys::getOptions();
     if(!SUMOFrame::checkOptions(oc)) {
         // the options are not valid
-        submitEndAndCleanup(net, craw, simStartTime, simEndTime);
+        submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
     // try to load
@@ -200,31 +202,25 @@ GUILoadThread::run()
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
             simEndTime = oc.getInt("e");
-            craw = SUMOFrame::buildNetDumpStream(oc);
         }
         srand(oc.getInt("srand"));
     } catch (UtilException &e) {
         string error = e.msg();
         MsgHandler::getErrorInstance()->inform(error);
         delete net;
-        delete craw;
         MSNet::clearAll();
         net = 0;
-        craw = 0;
     } catch (XMLBuildingException &e) {
         string error = e.getMessage("", "");
         MsgHandler::getErrorInstance()->inform(error);
         delete net;
-        delete craw;
         MSNet::clearAll();
         net = 0;
-        craw = 0;
     }
     if(net==0) {
         MSNet::clearAll();
-        craw = 0;
     }
-    submitEndAndCleanup(net, craw, simStartTime, simEndTime);
+    submitEndAndCleanup(net, simStartTime, simEndTime);
     return 0;
 }
 
@@ -265,15 +261,16 @@ GUILoadThread::retrieveError(const std::string &msg)
 
 
 void
-GUILoadThread::submitEndAndCleanup(GUINet *net, std::ostream *craw,
-                                   int simStartTime, int simEndTime)
+GUILoadThread::submitEndAndCleanup(GUINet *net,
+                                   int simStartTime,
+                                   int simEndTime)
 {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent *e = new GUIEvent_SimulationLoaded( net, craw, simStartTime, simEndTime,
+    GUIEvent *e = new GUIEvent_SimulationLoaded( net, simStartTime, simEndTime,
         string(_file));
     myEventQue.add(e);
     myEventThrow.signal();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/04/02 11:10:20  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.6  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -95,7 +98,7 @@ private:
         This method is called both on success and failure.
         All message callbacks to this instance are removed and the parent
         application is informed about the loading */
-    void submitEndAndCleanup(GUINet *net, std::ostream *craw,
+    void submitEndAndCleanup(GUINet *net,
         int simStartTime, int simEndTime);
 
 private:

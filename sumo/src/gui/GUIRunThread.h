@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/04/02 11:10:20  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.4  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -76,7 +79,7 @@ public:
     ~GUIRunThread();
 
     /// initialises the thread with the new simulation
-    void init(GUINet *net, long start, long end, std::ostream *craw);
+    void init(GUINet *net, long start, long end);
 
     /// starts the execution
     FXint run();
@@ -132,9 +135,6 @@ private:
 
     /// the times the simulation starts and ends with
     MSNet::Time             _simStartTime, _simEndTime;
-
-    /// the raw-output stream
-    std::ostream            *_craw;
 
     /// information whether the simulation is halting (is not being executed)
     bool                    _halting;
