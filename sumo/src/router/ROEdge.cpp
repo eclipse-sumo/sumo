@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        ROEdge.cpp -
+//  An edge the router may route through
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:45:04  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #ifdef MSVC
 #include <limits>
 #else
@@ -59,7 +96,7 @@ void ROEdge::addLane(ROLane *lane)
 }
 
 
-void ROEdge::setLane(long timeBegin, long timeEnd, 
+void ROEdge::setLane(long timeBegin, long timeEnd,
                      const std::string &id, float value)
 {
     LaneUsageCont::iterator i = _laneCont.begin();
@@ -109,14 +146,14 @@ ROEdge::isConnectedTo(ROEdge *e) {
 
 
 
-double 
+double
 ROEdge::getCost(long time) const
 {
     return getMyEffort(time);
 }
 
 
-long 
+long
 ROEdge::getDuration(long time) const
 {
     return long(getMyEffort(time) / 20.9); // !!!
@@ -170,3 +207,15 @@ void ROEdge::setPrevKnot(ROEdge *prev) {
 std::string ROEdge::getID() const {
     return _id;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ROEdge.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

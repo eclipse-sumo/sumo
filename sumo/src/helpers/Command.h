@@ -1,3 +1,5 @@
+#ifndef Command_H
+#define Command_H
 /***************************************************************************
                           Command.h  -  Command-pattern-class.
                              -------------------
@@ -16,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:40:13  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:53:12  dkrajzew
 // global inclusion
 //
@@ -49,9 +54,9 @@
 // Initial commit.
 //
 
-#ifndef Command_H
-#define Command_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSNet.h>
 
 /**
@@ -66,25 +71,17 @@ public:
     /** Execute the command and return an offset for recurring commands
         or 0 for single-execution commands. */
     virtual MSNet::Time execute() = 0;
-
-protected:
-
-private:
-
 };
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "Command.icc"
+//#endif
 
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
 

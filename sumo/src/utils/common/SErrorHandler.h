@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -76,38 +79,64 @@
  * error-generating methods.
  */
 class SErrorHandler {
-private:
-    /// definition for the container of saved errors
-    typedef std::vector<std::string> Errors;
-    /// the list of errors which shall be presented to the user
-    static Errors    m_Errors;
-    /// information if an error was fatal
-    static bool      m_WasFatal;
 public:
     /// standard constructor
     SErrorHandler();
+
     /// destructor
     ~SErrorHandler();
+
     /// adds a new error to the list
     static void add(const std::string &error, bool report=true);
+
+    /// adds a new error to the list
     static void add(char *error, bool report=true);
+
     /// lists all errors
     static void print();
+
     /// sets the fatal-information to true
     static void setFatal();
+
     /// returns the information if a fatal error occured
     static bool wasFatal();
+
     /// returns the information if any error occured
     static bool errorOccured();
+
+    /// Clear information whether previous error exist
+    static void clearErrorInformation();
+
+private:
+    /// definition for the container of saved errors
+    typedef std::vector<std::string> Errors;
+
+    /// the list of errors which shall be presented to the user
+    static Errors    m_Errors;
+
+    /// information if an error was fatal
+    static bool      m_WasFatal;
+
+    /// information wehther an error occured at all
+    static bool      m_ErrorOccured;
+
 private:
     /** invalid copy constructor */
     SErrorHandler(const SErrorHandler &s);
+
     /** invalid assignment operator */
     SErrorHandler &operator=(const SErrorHandler &s);
 };
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "SErrorHandler.icc"
+//#endif
 
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
+

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:26  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:59:13  dkrajzew
 // initial commit for classes that handle import functions
 //
@@ -42,44 +45,66 @@ class LineHandler;
  * class definitions
  * ======================================================================= */
 /**
- * LineReader
+ * @class LineReader
  * This class reads the contents from a file line by line and report them to
  * a LineHandler-derivate.
  */
 class LineReader {
-private:
-    /// the name of the file to read the contents from
-    std::string     _fileName;
-    /// the stream used
-    std::ifstream    _strm;
 public:
     /// constructor
     LineReader();
+
     /// constructor; initialises the reading
     LineReader(const std::string &file);
+
     /// destructor
     ~LineReader();
+
     /// returns the information whether another line may be read
     bool hasMore() const;
+
     /** reads the whole file linewise, reporting every line to the
         given LineHandler;
         When the LineHandler returns false, the reading will be aborted */
     void readAll(LineHandler &lh);
+
     /** reads a single (the next) line from the file */
     bool readLine(LineHandler &lh);
+
     /// closes the reading
     void close();
+
     /// returns the name of the used file
     std::string getFileName() const;
+
     /** reinitialises the reader for reading from the given file
         return false when the file is not readable */
     bool setFileName(const std::string &file);
+
     /// returns the current position within the file
     unsigned long getPosition();
+
     /// reinitialises the reading (of the previous file)
     void reinit();
+
     /// sets the current position within the file to the given value
     void setPos(unsigned long pos);
+
+private:
+    /// the name of the file to read the contents from
+    std::string     _fileName;
+
+    /// the stream used
+    std::ifstream    _strm;
+
+    /// ha ha, to override MSVC++-bugs, we use an own getline which uses this buffer
+    char _buffer[1024];
+
+    /// a string-buffer
+    std::string _strBuffer;
+
+    size_t _read, _available, _rread;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

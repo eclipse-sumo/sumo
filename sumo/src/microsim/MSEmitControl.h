@@ -1,3 +1,5 @@
+#ifndef MSEmitControl_H
+#define MSEmitControl_H
 /***************************************************************************
                           MSEmitControl.h  -  Controls emission of
                           vehicles into the net.
@@ -16,11 +18,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSEmitControl_H
-#define MSEmitControl_H
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -66,45 +67,58 @@
 // new start
 //
 
-//#include <list>
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include "MSVehicleContainer.h"
 #include <vector>
 #include <map>
 #include <string>
 #include "MSNet.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSEmitControl
+ * A vehicle emitter; Holds a list of vehicles which may be extended by new
+ * vehicles read by MSRouteLoaders. Tries to emit vehicles departing at a time
+ * into the network when this time is reached and restores them when the emission
+ * fails.
+ * Otherwise, the control is given to the lanes.
  */
 class MSEmitControl
 {
 public:
-    /** Container for Vehicles. Vehicles contain the trip-data. */
-    typedef std::vector< MSVehicle* > VehCont; // Don't change container type
-    // without checking MSEmitControl::emitVehicles. Iterators may
-    // become invalid.
-
     /** Use this constructor only. It will sort the vehicles by their
         departure time. */
-    MSEmitControl( std::string id, VehCont* allVeh );
+    MSEmitControl( std::string id);
 
     /// Destructor.
     ~MSEmitControl();
 
-    /** adds new vehicles to the list */
-    void add( MSEmitControl* cont );
-
-    /** Emits vehicles at time, if there are vehicles that want to
-        depart at time. If emission is not possible, the vehicles
-        remain in the list. */
+    /** @brief Emits vehicles at time, if which want to depart at this.
+        If emission is not possible, the vehicles remain in the list. */
     void emitVehicles( MSNet::Time time );
 
-    void addStarting( MSVehicle* veh );
+    /** @brief Adds a single vehicle for departure */
+    void add( MSVehicle *veh );
 
-    /** Inserts emitcontrol into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /// adds a list of vehicles to the container
+    void moveFrom( MSVehicleContainer &cont );
+
+    /** @brief Inserts emitcontrol into the static dictionary
+        Returns true if the key id isn't already in the dictionary (the control
+        is not added then). Otherwise returns false. */
     static bool dictionary( std::string id, MSEmitControl* emitControl );
+
     /** Returns the MSEdgeControl associated to the key id if exists,
         otherwise returns 0. */
     static MSEmitControl* dictionary( std::string id );
@@ -112,23 +126,33 @@ public:
     /** Clears the dictionary */
     static void clear();
 
-protected:
+private:
+    /** @brief Tries to emit the vehicle
+        If the emission fails, the vehicle is inserted into the given
+        container */
+    void tryEmit(MSVehicle *veh,
+        MSVehicleContainer::VehicleVector &refusedEmits);
 
 private:
     /// Unique ID.
     std::string myID;
 
-    /** The entirety of vehicles that will drive through the net. The
-        vehicles know their departure-time and route. The container
+    /** @brief The entirety of loaded vehicles that will drive through the net.
+        The vehicles know their departure-time and route. The container
         is sorted by the vehicles departure time. */
-    VehCont* myAllVeh;
+    MSVehicleContainer myAllVeh;
 
-//      /** The car-following model. Controls emission permission. */
-//      MSModel* myModel;
+    /// Definition of a static dictionary to associate string-ids with objects.
+    typedef std::map< std::string, MSEmitControl* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
-    typedef std::map< std::string, MSEmitControl* > DictType;
     static DictType myDict;
+
+    /** Buffer#1 for vehicles that were not allowed to enter their lane. */
+    MSVehicleContainer::VehicleVector myRefusedEmits1;
+
+    /** Buffer#1 for vehicles that were not allowed to enter their lane. */
+    MSVehicleContainer::VehicleVector myRefusedEmits2;
 
     /// Default constructor.
     MSEmitControl();

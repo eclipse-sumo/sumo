@@ -1,3 +1,5 @@
+#ifndef MSNet_H
+#define MSNet_H
 /***************************************************************************
                           MSNet.h  -  We will simulate on this object.
                           Holds all necessary objects for micro-simulation.
@@ -7,9 +9,6 @@
     author               : Christian Roessel
     email                : roessel@zpr.uni-koeln.de
  ***************************************************************************/
-
-#ifndef MSNet_H
-#define MSNet_H
 
 /***************************************************************************
  *                                                                         *
@@ -21,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.5  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
@@ -136,31 +138,49 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef _SPEEDCHECK
+#include <ctime>
+#endif
+
 #include <typeinfo>
 #include <vector>
 #include <map>
 #include <string>
 #include <fstream>
 #include <iostream>
-//#include "MSPerson.h"
-#ifdef _SPEEDCHECK
-#include <ctime>
-#endif
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSEdge;
 class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
 class MSEventControl;
+class MSRouteLoaderControl;
 class Event;
 class MSDetector;
 class PreStartInitialised;
+class MSVehicle;
+class MSRoute;
+class MSVehicleType;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * MSNet
+ * The main simulation class. Holds the network and indirectly vehicles which
+ * are stored within a MSEmitControl - emitter which itself is a part of MSNet.
  */
 class MSNet
 {
+    /// for some reasons, we won't be able to use static protected variables otherwise
     friend class GUINet;
 
 public:
@@ -178,16 +198,17 @@ public:
     /// List of times (intervals or similar)
     typedef std::vector< Time > TimeVector;
 
-    /** Create unique instance of MSNet and initialize with the
-     * beginning timestep. To finish the initialization call &ref
-     * init.
-     * @param startTimestep Timestep the simulation will start
-     * with.
+    /**
+     * @brief Create unique instance of MSNet and initialize with the beginning timestep.
+     * To finish the initialization call &ref init.
+     * @param startTimestep Timestep the simulation will start with.
      */
-    static void preInit( Time startTimestep );
+    static void preInit( Time startTimestep,
+        TimeVector dumpMeanDataIntervalls,
+        std::string baseNameDumpFiles,
+        bool withGUI );
 
-    /** Initialize the unique MSNet-instance after creation in @ref
-     * preInit.
+    /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
     static void init( std::string id,
                       MSEdgeControl* ec,
@@ -195,28 +216,28 @@ public:
                       MSEmitControl* emc,
                       MSEventControl* evc,
                       DetectorCont* detectors,
-                      TimeVector dumpMeanDataIntervalls,
-                      std::string baseNameDumpFiles,
-                      bool withGUI );
-    
-    /// Destructor.
-    ~MSNet();
+                      MSRouteLoaderControl *rlc);
 
-    /** Simulates from timestep start to stop. start and stop in
-        timesteps.  In each timestep we emit Vehicles, move Vehicles,
+    /// Destructor.
+    virtual ~MSNet();
+
+    /** @brief Simulates from timestep start to stop.
+        start and stop in timesteps.
+        In each timestep we emit Vehicles, move Vehicles,
         the Vehicles change Lanes.  The method returns true when the
         simulation could be finished without errors, otherwise
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
 
+    /// performs a single simulation step
     void simulationStep( std::ostream *craw, Time start, Time step);
 
-    /** Inserts a MSNet into the static dictionary and returns true if
-        the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts a MSNet into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false. */
     static bool dictionary( std::string id, MSNet* net );
 
-    /** Returns the MSNet associated to the key id if exists,
+    /** @brief Returns the MSNet associated to the key id if exists,
         otherwise returns 0. */
     static MSNet* dictionary( std::string id );
 
@@ -226,33 +247,51 @@ public:
     /// Returns the timestep-length in seconds.
     static double deltaT();
 
-    /** Returns the current simulation time in seconds. Current means
-        start-time plus runtime. */
+    /** @brief Returns the current simulation time in seconds.
+        Current means start-time plus runtime. */
     double simSeconds();
 
     /** Returns the current timestep. */
     Time timestep( void );
 
-    /** Returns the number of unique mean-data-dump-intervalls. In
-        vehicles and lanes you will need one element more for the
+    /** @brief Returns the number of unique mean-data-dump-intervalls.
+        In vehicles and lanes you will need one element more for the
         GUI-dump. */
     unsigned getNDumpIntervalls( void );
 
-    /** Returns wether we are using a GUI or not. The use of a GUI
-        increases the elements of a meanData container. */
+    /** @brief Returns wether we are using a GUI or not.
+        The use of a GUI increases the elements of a meanData container. */
     bool withGUI( void );
-    
+
+    /// adds an item that must be initialised every time the simulation starts
     void addPreStartInitialisedItem(PreStartInitialised *preinit);
 
+    /// initialises items that require it befor simulation start
     void preStartInit();
 
+    /// builds a new vehicle
+    virtual MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
+        MSNet::Time departTime, const MSVehicleType* type, float *defColor);
 
+    /// route handler may add routes and vehicles
+    friend class MSRouteHandler;
+
+    /// ----------------- debug variables -------------
 #ifdef _DEBUG
-    /** a visible variables for the current time step - for debugging
-        purposes only */
     static Time globaltime;
 #endif
 
+#ifdef ABS_DEBUG
+    /** a visible variable for the current time step - for debugging
+        purposes only */
+#ifndef _DEBUG
+    static Time globaltime;
+#endif
+    static Time searchedtime;
+    static std::string searched1, searched2, searchedJunction;
+#endif
+
+    /// ----------------- speedcheck variables -------------
 #ifdef _SPEEDCHECK
     /** the number of vehicles moved */
     static long noVehicles;
@@ -263,24 +302,9 @@ public:
 #endif
 
 protected:
-
-//      /// Use this constructor only.
-//      MSNet( std::string id,
-//             MSEdgeControl* ec,
-//             MSJunctionControl* jc,
-//             MSEmitControl* emc,
-//             MSEventControl* evc,
-//             DetectorCont* detectors,
-//             std::vector< Time > dumpMeanDataIntervalls,
-//             std::string baseNameDumpFiles,
-//             bool withGUI );
-
-private:
-    /// Copy constructor.
-    MSNet( const MSNet& );
-
-    /// Assignment operator.
-    MSNet& operator=( const MSNet& );
+    /** initialises the MeanData-container */
+    static void initMeanData( TimeVector dumpMeanDataIntervalls,
+        std::string baseNameDumpFiles, bool withGUI);
 
     /// Unique instance of MSNet
     static MSNet* myInstance;
@@ -301,12 +325,19 @@ private:
         generation etc. */
     MSEventControl* myEvents;
 
-    /// Static dictionary to associate string-ids with objects.
+    /** route loader for dynamic loading of routes */
+    MSRouteLoaderControl *myRouteLoaders;
+
+    /// Definition of the static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSNet* > DictType;
+
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-    /// Container for items to initialise before starting
+    /// Definition of the container for items to initialise before starting
     typedef std::vector<PreStartInitialised*> PreStartVector;
+
+    /// Container for items to initialise before starting
     PreStartVector myPreStartInitialiseItems;
 
     /// Timestep [sec]
@@ -319,42 +350,55 @@ private:
     DetectorCont* myDetectors;
 
     /// The Net's meanData is a pair of an interval-length and a filehandle.
-    class MeanData 
+    class MeanData
     {
     public:
-        MeanData( Time t, std::ofstream* of ) 
+	    /// constructor
+        MeanData( Time t, std::ofstream* of )
             : interval( t ),
               file( of )
-        { 
+        {
             (*file) << "<netstats>" << std::endl;
         }
 
+	    /// destructor
         ~MeanData()
         {
             (*file) << "</netstats>" << std::endl;
             file->close();
         }
 
+    	/// the time interval the data shall be aggregated over
         Time interval;
+
+	    /** @brief The file to write aggregated data into.
+            For each aggregation time, a single file should be used */
         std::ofstream* file;
     };
-    
-    /** List of intervals and filehandles. At the end of each intervall
-        the mean data (flow, density, speed ...) of each lane is calculated
-        and written to file. */
+
+    /** @briefList of intervals and filehandles.
+        At the end of each intervall the mean data (flow, density, speed ...)
+        of each lane is calculated and written to file. */
     std::vector< MeanData* > myMeanData;
 
     /// Indicates if we are using a GUI.
     bool myWithGUI;
-    
+
     /** Last timestep when mean-data was send to GUI. We need it to
      * calculate the intervall which may be not const for the GUI. */
     Time myLastGUIdumpTimestep;
-    
+
+private:
+    /// Copy constructor.
+    MSNet( const MSNet& );
+
+    /// Assignment operator.
+    MSNet& operator=( const MSNet& );
 
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
     MSNet(){};
+
 };
 
 
@@ -368,4 +412,3 @@ private:
 
 // Local Variables:
 // mode:C++
-

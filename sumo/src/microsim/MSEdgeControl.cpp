@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSEdgeControl.C  -  Coordinates Edge
+                          MSEdgeControl.cpp  -  Coordinates Edge
                           operations.
                              -------------------
     begin                : Mon, 09 Apr 2001
@@ -17,13 +17,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
 }
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:40:35  dkrajzew
 // usage of MSPerson removed; will be reimplemented later
 //
@@ -94,6 +97,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -104,12 +110,22 @@ namespace
 #include <iostream>
 #include <vector>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-// Init static member.
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSEdgeControl::DictType MSEdgeControl::myDict;
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSEdgeControl::MSEdgeControl()
 {
 }
@@ -131,21 +147,61 @@ MSEdgeControl::~MSEdgeControl()
 
 
 void
-MSEdgeControl::moveExceptFirst()
+MSEdgeControl::moveNonCritical()
 {
     EdgeCont::iterator edge;
     // Move vehicles on lanes but hand command
     // over to the real lanes.
     for (edge = mySingleLaneEdges->begin();
          edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->moveExceptFirstSingle();
+        (*edge)->moveNonCriticalSingle();
     }
     for (edge = myMultiLaneEdges->begin();
          edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->moveExceptFirstMulti();
+        (*edge)->moveNonCriticalMulti();
     }
 }
 
+void
+MSEdgeControl::moveCritical()
+{
+    EdgeCont::iterator edge;
+    // Move vehicles on lanes but hand command
+    // over to the real lanes.
+    for (edge = mySingleLaneEdges->begin();
+         edge != mySingleLaneEdges->end(); ++edge) {
+        (*edge)->moveCriticalSingle();
+    }
+    for (edge = myMultiLaneEdges->begin();
+         edge != myMultiLaneEdges->end(); ++edge) {
+        (*edge)->moveCriticalMulti();
+    }
+}
+
+void
+MSEdgeControl::moveFirst()
+{
+    EdgeCont::iterator edge;
+    // Move vehicles on lanes but hand command
+    // over to the real lanes.
+    for (edge = mySingleLaneEdges->begin();
+         edge != mySingleLaneEdges->end(); ++edge) {
+        (*edge)->setCritical();
+    }
+    for (edge = myMultiLaneEdges->begin();
+         edge != myMultiLaneEdges->end(); ++edge) {
+        (*edge)->setCritical();
+    }
+    // copy the vehicles to their new lanes if necessary
+    for (edge = mySingleLaneEdges->begin();
+         edge != mySingleLaneEdges->end(); ++edge) {
+        (*edge)->vehicle2target();
+    }
+    for (edge = myMultiLaneEdges->begin();
+         edge != myMultiLaneEdges->end(); ++edge) {
+        (*edge)->vehicle2target();
+    }
+}
 
 void
 MSEdgeControl::changeLanes()
@@ -240,13 +296,13 @@ operator<<( ostream& os, const MSEdgeControl::XMLOut& obj )
 
         os << MSEdge::XMLOut( **edg2, obj.myIndentWidth, true );
     }
-    return os;       
+    return os;
 }
 
 
 MSEdgeControl::MeanData::MeanData( const MSEdgeControl& obj,
                                    unsigned index, MSNet::Time interval ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndex( index ),
     myInterval( interval )
 {
@@ -256,17 +312,16 @@ MSEdgeControl::MeanData::MeanData( const MSEdgeControl& obj,
 ostream&
 operator<<( ostream& os, const MSEdgeControl::MeanData& obj )
 {
-    for ( MSEdgeControl::EdgeCont::iterator edg1 =
-          obj.myObj.mySingleLaneEdges->begin();
-          edg1 != obj.myObj.mySingleLaneEdges->end(); ++edg1 ) {
-         
-        os << MSEdge::MeanData( **edg1, obj.myIndex, obj.myInterval );
-    } 
-    for ( MSEdgeControl::EdgeCont::iterator edg2 =
-          obj.myObj.myMultiLaneEdges->begin();
-          edg2 != obj.myObj.myMultiLaneEdges->end(); ++edg2 ) {
-          
-        os << MSEdge::MeanData( **edg2, obj.myIndex, obj.myInterval );
+    MSEdgeControl::EdgeCont::iterator edg;
+    for ( edg = obj.myObj.mySingleLaneEdges->begin();
+          edg != obj.myObj.mySingleLaneEdges->end(); ++edg ) {
+
+        os << MSEdge::MeanData( **edg, obj.myIndex, obj.myInterval );
+    }
+    for ( edg = obj.myObj.myMultiLaneEdges->begin();
+          edg != obj.myObj.myMultiLaneEdges->end(); ++edg ) {
+
+        os << MSEdge::MeanData( **edg, obj.myIndex, obj.myInterval );
     }
     return os;
 }
@@ -280,4 +335,3 @@ operator<<( ostream& os, const MSEdgeControl::MeanData& obj )
 // Local Variables:
 // mode:C++
 // End:
-

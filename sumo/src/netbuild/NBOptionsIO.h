@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -52,6 +55,7 @@
  * ======================================================================= */
 class OptionsCont;
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -62,32 +66,43 @@ class OptionsCont;
  * line and the configuration file. The options are also veryfied inside
  * this class
  */
-class NBOptionsIO {
+class NBOptionsIO
+{
 public:
-  /** builds the options and parses the user input
-      (from the configuration file and the command line) and return a
-      valid container when the parsing is ok, otherwise 0 */
-  static OptionsCont *getOptions(int argc, char **argv);
+    /** builds the options and parses the user input
+        (from the configuration file and the command line) and return a
+        valid container when the parsing is ok, otherwise 0 */
+    static OptionsCont *getOptions(int argc, char **argv);
+
 private:
-  /** builds the container of possible options
-      (together with the defaults) */
-  static OptionsCont *init();
-  /** checks whether the given option settings are ok */
-  static bool check(OptionsCont *oc);
-  /** checks whether all needed informations are given */
-  static bool checkCompleteDescription(OptionsCont *oc);
-  /** checks whether the node file definition is given */
-  static bool checkNodes(OptionsCont *oc);
-  /** checks whether the edge file definition is given */
-  static bool checkEdges(OptionsCont *oc);
-  /** checks whether the output can be build */
-  static bool checkOutput(OptionsCont *oc);
-  /** precomputes some values */
-  static void precomputeValues(OptionsCont *oc);
+    /** builds the container of possible options
+        (together with the defaults) */
+    static OptionsCont *init();
+
+    /** checks whether the given option settings are ok */
+    static bool check(OptionsCont *oc);
+
+    /** checks whether all needed informations are given */
+    static bool checkCompleteDescription(OptionsCont *oc);
+
+    /** checks whether the node file definition is given */
+    static bool checkNodes(OptionsCont *oc);
+
+    /** checks whether the edge file definition is given */
+    static bool checkEdges(OptionsCont *oc);
+
+    /** checks whether the output can be build */
+    static bool checkOutput(OptionsCont *oc);
+
+    /** precomputes some values */
+    static void precomputeValues(OptionsCont *oc);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "NBOptionsIO.icc"
 //#endif
 
@@ -96,4 +111,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

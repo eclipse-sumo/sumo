@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:01  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -74,14 +77,22 @@
 // Initial commit.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <bitset>
 #include <vector>
 #include <cassert>
+#include <iostream>
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
 
 #include "MSBitSetLogic.h"
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 template< size_t N >
 MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
                                         unsigned int nInLanes,
@@ -91,6 +102,12 @@ MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
     myLogic( logic ),
     myTransform( transform )
 {
+    for(size_t i=0; i<nLinks; i++) {
+        size_t j=0;
+        for(; j<nInLanes&&!(*myTransform)[j].test(i); j++);
+        myLinkOnLane.push_back(j);
+    }
+    assert(myLinkOnLane.size()==nLinks);
 }
 
 //-------------------------------------------------------------------------//
@@ -110,27 +127,18 @@ template< size_t N > void
 MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
                              MSLogicJunction::Respond& respond ) const
 {
-
-    // convert request to bitset
-    std::bitset< N > requestBS;
-     unsigned int i = 0;
-    for ( ; i < myNLinks; ++i ) {
-
-        requestBS.set( i, request[ i ] );
-    }
-
+    size_t i;
     // calculate respond
     std::bitset< N > respondBS;
 
     for ( i = 0; i < myNLinks; ++i ) {
 
-        bool linkPermit = requestBS.test( i ) &&
-            ( requestBS & ( *myLogic )[ i ]).none();
+        bool linkPermit = request.test( i ) &&
+            ( request & ( *myLogic )[ i ]).none();
         respondBS.set( i, linkPermit );
     }
 
     // perform the link to lane transformation
-    assert( respond.size() == myNInLanes );
     for ( i = 0; i < myNInLanes; ++i ) {
 
         bool lanePermit = ( ( *myTransform)[ i ] & respondBS ).any();
@@ -139,6 +147,7 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
 
     return;
 }
+
 
 //-------------------------------------------------------------------------//
 
@@ -151,10 +160,3 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-

@@ -1,3 +1,5 @@
+#ifndef MSEdgeControl_H
+#define MSEdgeControl_H
 /***************************************************************************
                           MSEdgeControl.h  -  Coordinates Edge
                           operations.
@@ -16,11 +18,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSEdgeControl_H
-#define MSEdgeControl_H
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:40:35  dkrajzew
 // usage of MSPerson removed; will be reimplemented later
 //
@@ -84,40 +85,65 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <map>
 #include <string>
 #include <iostream>
 #include "MSNet.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSEdge;
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  */
 class MSEdgeControl
 {
 public:
+    /// allow the xml-raw - output direct access to members
     friend class XMLOut;
+
     /** Class to generate XML-output for all edges hold by an edgecontroller.
         Usage, e.g.: cout << XMLOut( myEC, 4) << endl; where myEC is an
         edgecontroller object. */
     class XMLOut
     {
     public:
+	    /// constructor
         XMLOut( const MSEdgeControl& obj,
                 unsigned indentWidth );
+
+	    /** @brief writes xml-formatted information about all edges known
+            The XMLOut-object holds information whether embedded lanes shall be
+            displayed, too */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
+
     private:
+	    /// the edge control to use
         const MSEdgeControl& myObj;
+
+	    /// the number of indent spaces
         unsigned myIndentWidth;
     };
 
+    /** writes xml-raw information about all edges known to the MSEdgeCOntrol
+        instance */
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
 
+
+    /// allow direct access by MeanData
     friend class MeanData;
+
     /** Class to generate mean-data-output for all edges hold by an
      * edgecontroller. Usage, e.g.: cout << MeanData( myEC, index,
      * interval) << endl; where myEC is an edgecontroller object,
@@ -126,20 +152,29 @@ public:
     class MeanData
     {
     public:
+	    /// constructor
         MeanData( const MSEdgeControl& obj,
                   unsigned index,
                   MSNet::Time interval );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const MeanData& obj ); 
-    private:
-        const MSEdgeControl& myObj;
-        unsigned myIndex;
-        MSNet::Time myInterval;
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const MeanData& obj ); 
 
+	    /// output operator
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const MeanData& obj );
+
+    private:
+	    /// the edge control to use
+        const MSEdgeControl& myObj;
+
+    	/// the index of the information within the lanes' MeanData fields
+        unsigned myIndex;
+
+	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
+        MSNet::Time myInterval;
+    };
+
+    /// output operator for XML-mean-data output
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const MeanData& obj );
 
 
     /// Container for edges.
@@ -155,7 +190,9 @@ public:
     /** Moves (i.e. makes v- and x-updates) all vehicles currently on
         the net, except the first ones on each lane. They will by
         moved by the junctions. */
-    void moveExceptFirst();
+    void moveNonCritical();
+    void moveCritical();
+    void moveFirst();
 
     /// Try to change lanes in multilane edges.
     void changeLanes();
@@ -163,12 +200,6 @@ public:
     /** Detect collisions. Shouldn't be necessary if
         model-implementation is correct. */
     void detectCollisions( MSNet::Time timestep );
-
-    /// loads persons waiting for a vehicle into this if it is on the same
-    /// edge as the persons
-    void loadPersons();
-    void unloadPersons( MSNet* net, unsigned int time );
-
 
     /** Inserts edgecontrol into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
@@ -182,9 +213,9 @@ public:
     /** Clears the dictionary */
     static void clear();
 
+    /// simple output operator
     friend std::ostream& operator<<( std::ostream& os,
                                      const MSEdgeControl& ec );
-protected:
 
 private:
     /// Unique ID.
@@ -196,11 +227,9 @@ private:
     /// Multi lane edges.
     EdgeCont* myMultiLaneEdges;
 
-//      /// The edgeController's car-following-model.
-//      MSModel* myModel;
-
-    /// Static dictionary to associate string-ids with objects.
+    /// definitions of the static dictionary type
     typedef std::map< std::string, MSEdgeControl* > DictType;
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
     /// Default constructor.

@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        ROTypedXMLRoutesLoader.cpp -
+//  The basic class for loading routes from XML-files
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:45:06  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
@@ -14,16 +51,11 @@
 
 using namespace std;
 
-ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net)
-    : ROTypedRoutesLoader(net), SUMOSAXHandler(true, true), 
-    _parser(0), _token()
-{
-}
-
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
                                                const std::string &file)
-    : ROTypedRoutesLoader(net, file), SUMOSAXHandler(true, true), 
-    _parser(XMLReaderFactory::createXMLReader()), _token(), _file(file)
+    : ROTypedRoutesLoader(net),
+    SUMOSAXHandler("xml-route definitions", true, true, file),
+    _parser(XMLReaderFactory::createXMLReader()), _token()
 {
     _parser->setFeature(
         XMLString::transcode("http://xml.org/sax/features/validation"),
@@ -46,8 +78,8 @@ ROTypedXMLRoutesLoader::closeReading()
 bool
 ROTypedXMLRoutesLoader::readNextRoute(long start)
 {
-    _netRouteRead = false;
-    while(!_netRouteRead&&!_ended) {
+    _nextRouteRead = false;
+    while(!_nextRouteRead&&!_ended) {
         _parser->parseNext(_token);
     }
     return true;
@@ -69,17 +101,27 @@ ROTypedXMLRoutesLoader::startReadingSteps()
 }
 
 bool
-ROTypedXMLRoutesLoader::init(OptionsCont *options)
+ROTypedXMLRoutesLoader::init(OptionsCont &options)
 {
 /*    _parser->setContentHandler(this);
     _parser->setErrorHandler(this);*/
     return _parser->parseFirst(_file.c_str(), _token);
 }
 
-void 
+void
 ROTypedXMLRoutesLoader::endDocument()
 {
     _ended = true;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ROTypedXMLRoutesLoader.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -61,6 +64,7 @@
 #include "NBTrafficLightLogicVector.h"
 #include "NBContHelper.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -68,6 +72,7 @@ class NBEdge;
 class NBJunctionTypeIO;
 class NBTrafficLightLogic;
 class NBTrafficLightPhases;
+
 
 /* =========================================================================
  * class definitions
@@ -79,88 +84,129 @@ class NBTrafficLightPhases;
  * their priorities. The junction's logic is saved when it does not yet exist.
  */
 class NBRequest {
-private:
-    /// the node the request is assigned to
-    NBNode *_junction;
-    /** all (icoming and outgoing) of the junctions edges */
-    const EdgeCont * const _all;
-    /** edges incoming to the junction */
-    const EdgeCont * const _incoming;
-    /** edges outgoing from the junction */
-    const EdgeCont * const _outgoing;
-    /** definition of a container to store boolean informations about a link into */
-    typedef std::vector<bool> LinkInfoCont;
-    /** definition of a container for link(edge->edge) X link(edge->edge)
-        combinations (size = |_incoming|*|_outgoing|) */
-    typedef std::vector<LinkInfoCont> CombinationsCont;
-    /** a container for approached lanes of a certain edge */
-    typedef std::map<NBEdge*, LaneCont> OccupiedLanes;
-    /** the link X link blockings */
-    CombinationsCont  _forbids;
-    /** the link X link is done-checks */
-    CombinationsCont  _done;
-
+public:
+    /** possible types of removeing a link from regardation during the
+        building of the traffic light logic */
     enum LinkRemovalType {
-        LRT_NO_REMOVAL, LRT_REMOVE_WHEN_NOT_OWN,
+        /// all links will be regarded
+        LRT_NO_REMOVAL,
+        /** all left-movers which are together with other direction on the same
+            lane will be removed */
+        LRT_REMOVE_WHEN_NOT_OWN,
+        /// remove all left-movers
         LRT_REMOVE_ALL_LEFT
     };
 
 public:
     /** constructor
-        The parameter are the logic's lists of edges (all, incoming only and out-
-        going only edges). By now no further informations are needed to describe
-        the junctions. These parameter must not be changed during the logic's
-        building */
-    NBRequest(NBNode *junction, const EdgeCont * const all,
-        const EdgeCont * const incoming, const EdgeCont * const outgoing);
+        The parameter are the logic's lists of edges (all, incoming only and
+        outgoing only edges). By now no further informations are needed to
+        describe the junctions. These parameter must not be changed during the
+        logic's building */
+    NBRequest(NBNode *junction, const EdgeVector * const all,
+        const EdgeVector * const incoming, const EdgeVector * const outgoing);
+
     /** destructor */
     ~NBRequest();
+
     /** builds the bitset-representation of the logic */
     void buildBitfieldLogic(const std::string &key);
+
     /** returns the number of the junction's lanes and the number
         of the junction's links in respect */
     std::pair<size_t, size_t> getSizes() const;
 
-    void buildTrafficLight(const std::string &key) const;
+    /// builds the traffic light logics
+    int buildTrafficLight(const std::string &key) const;
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
+
     /// the iterator may access the request
     friend class NBRequestEdgeLinkIterator;
+
 private:
+    /** returns the information whether the connections from1->to1 and
+        from2->to2 are foes */
     bool forbidden(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
 
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */
     void setBlocking(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
+
     /** returns the XML-representation of the logic as a bitset-logic
         XML representation */
     std::string bitsetToXML(std::string key);
+
     /** writes the response of a certain link */
     void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to);
+
     /** returns the index to the internal combination container */
     size_t getIndex(NBEdge *from, NBEdge *to) const;
-    /** returns the distance between the incoming (from) and the outgoing (to) edge clockwise in edges */
+
+    /** returns the distance between the incoming (from) and the outgoing (to)
+        edge clockwise in edges */
     size_t distanceCounterClockwise(NBEdge *from, NBEdge *to);
-    /** computes the relationships between links outgoing right of the given link */
+
+    /** computes the relationships between links outgoing right of the given
+        link */
     void computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
-    /** computes the relationships between links outgoing left of the given link */
+
+    /** computes the relationships between links outgoing left of the given
+        link */
     void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
 
+    /** compute the traffic light logics for the current node and the
+        given settings */
     NBTrafficLightLogicVector *computeTrafficLightLogics(
         const std::string &key,
-        bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal, 
+        bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal,
         bool appendSmallestOnly, bool skipLarger) const;
-    NBTrafficLightPhases * computePhases(bool joinLaneLinks, 
+
+    /** compute the pases for the current node and the given settings */
+    NBTrafficLightPhases * computePhases(bool joinLaneLinks,
         bool removeTurnArounds, LinkRemovalType removal,
         bool appendSmallestOnly, bool skipLarger) const;
+
+    /** build the matrix of links that may be used simultaneously */
     NBLinkPossibilityMatrix *getPossibilityMatrix(bool joinLanes,
         bool removeTurnArounds, LinkRemovalType removalType) const;
+
 /*    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
         size_t noLinks, const PhaseIndexVector &phaseList,
         NBLinkCliqueContainer &cliquen,
         const NBRequestEdgeLinkIterator &cei1) const;*/
+
+private:
+    /// the node the request is assigned to
+    NBNode *_junction;
+
+    /** all (icoming and outgoing) of the junctions edges */
+    const EdgeVector * const _all;
+
+    /** edges incoming to the junction */
+    const EdgeVector * const _incoming;
+
+    /** edges outgoing from the junction */
+    const EdgeVector * const _outgoing;
+
+    /** definition of a container to store boolean informations about a link
+        into */
+    typedef std::vector<bool> LinkInfoCont;
+
+    /** definition of a container for link(edge->edge) X link(edge->edge)
+        combinations (size = |_incoming|*|_outgoing|) */
+    typedef std::vector<LinkInfoCont> CombinationsCont;
+
+    /** a container for approached lanes of a certain edge */
+    typedef std::map<NBEdge*, LaneVector> OccupiedLanes;
+
+    /** the link X link blockings */
+    CombinationsCont  _forbids;
+
+    /** the link X link is done-checks */
+    CombinationsCont  _done;
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

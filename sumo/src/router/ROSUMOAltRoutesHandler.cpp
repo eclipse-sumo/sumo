@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        ROSUMOAltRoutesHandler.cpp -
+//  A SAX-handler for SUMO-route-alternatives
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:45:06  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SErrorHandler.h>
@@ -18,8 +55,8 @@
 using namespace std;
 
 
-ROSUMOAltRoutesHandler::ROSUMOAltRoutesHandler(RONet &net, 
-                                               double gawronBeta, 
+ROSUMOAltRoutesHandler::ROSUMOAltRoutesHandler(RONet &net,
+                                               double gawronBeta,
                                                double gawronA,
                                                const std::string &file)
     : ROTypedXMLRoutesLoader(net, file), _currentAlternatives(0),
@@ -33,7 +70,7 @@ ROSUMOAltRoutesHandler::~ROSUMOAltRoutesHandler()
 }
 
 
-void ROSUMOAltRoutesHandler::myStartElement(int element, 
+void ROSUMOAltRoutesHandler::myStartElement(int element,
                                             const std::string &name,
                                             const Attributes &attrs)
 {
@@ -143,7 +180,7 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
     // build the vehicle
     _net.addVehicle(id, new ROVehicle(id, route, time, type));
     _currentTimeStep = time;
-    _netRouteRead = true;
+    _nextRouteRead = true;
 }
 
 
@@ -159,28 +196,28 @@ ROSUMOAltRoutesHandler::startVehType(const Attributes &attrs)
         return;
     }
     // get the other values
-    float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED, id, 
+    float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED, id,
         "maxspeed");
-    float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, id, 
+    float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, id,
         "length");
-    float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL, id, 
+    float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL, id,
         "accel");
-    float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL, id, 
+    float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL, id,
         "decel");
-    float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA, id, 
+    float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA, id,
         "sigma");
     // build the vehicle type after checking
     //  by now, only vehicles using the krauss model are supported
     if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
         _net.addVehicleType(
-            new ROVehicleType_Krauss(id, accel, decel, 
+            new ROVehicleType_Krauss(id, accel, decel,
             sigma, length, maxspeed));
     }
 }
 
 
 float
-ROSUMOAltRoutesHandler::getFloatReporting(const Attributes &attrs, 
+ROSUMOAltRoutesHandler::getFloatReporting(const Attributes &attrs,
                                           AttrEnum attr,
                                           const std::string &id,
                                           const std::string &name)
@@ -199,11 +236,11 @@ ROSUMOAltRoutesHandler::getFloatReporting(const Attributes &attrs,
 
 
 
-void ROSUMOAltRoutesHandler::myCharacters(int element, 
+void ROSUMOAltRoutesHandler::myCharacters(int element,
                                           const std::string &name,
                                           const std::string &chars)
 {
-    // process routes only, all other elements do 
+    // process routes only, all other elements do
     //  not have embedded characters
     if(element!=SUMO_TAG_ROUTE) {
         return;
@@ -259,7 +296,7 @@ ROSUMOAltRoutesHandler::getDataName() const {
 }
 
 
-void 
+void
 ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
 {
     // try to get the id
@@ -278,7 +315,7 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
             + id + string("'."));
         return;
     }
-    // try to get the start time 
+    // try to get the start time
 /*    int time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
     if(time<0) {
         SErrorHandler::add(
@@ -288,12 +325,12 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
     }*/
     // !!!
     // build the alternative cont
-    _currentAlternatives = new RORouteAlternativesDef(id, index, 
+    _currentAlternatives = new RORouteAlternativesDef(id, index,
         _gawronBeta, _gawronA);
 }
 
 
-void 
+void
 ROSUMOAltRoutesHandler::endAlternative()
 {
     _net.addRouteDef(_currentAlternatives);
@@ -301,5 +338,16 @@ ROSUMOAltRoutesHandler::endAlternative()
 }
 
 
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ROSUMOAltRoutesHandler.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

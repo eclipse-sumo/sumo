@@ -3,7 +3,7 @@
 
 //---------------------------------------------------------------------------//
 //                        MSSource.h  -  Abstract Base Class for all
-//                        types of source-like emitters. 
+//                        types of source-like emitters.
 //                           -------------------
 //  begin                : Wed, 12 Jun 2002
 //  copyright            : (C) 2002 by Christian Roessel
@@ -12,24 +12,33 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSNet;
 class MSLane;
 
 
+/* =========================================================================
+ * class definition
+ * ======================================================================= */
 /**
    @class MSSource
    @brief Abstract Base Class for all types of source-like emitters.
-   
-   
 */
 class MSSource
 {
@@ -45,10 +54,9 @@ public:    // public methods
 
 
     /** @brief Emit vehicle that is due.
-
 	Virtual method. Some concrete ones will try to emit vehicles
 	according to the current time. Others will use the
-	MSEventControl-mechanism. 
+	MSEventControl-mechanism.
 	@param aNet Reference to the net to get the current time.
     */
     virtual void emit( const MSNet& aNet ) {};
@@ -63,16 +71,21 @@ protected: // protected methods
     */
     MSSource( std::string aId, MSLane* aLane );
 
+    /// Sets the id of the source
     void setId( std::string aID );
+
+    /// sets the lane of the source
     void setLane( MSLane* aLane );
+
+    /// sets the position of the source
     void setPos( double aPos );
-    
+
 private:   // private methods
     /// Copy constructor.
     MSSource( const MSSource& );
-    
+
     /// Assignment operator.
-    MSSource& operator=( const MSSource& );     
+    MSSource& operator=( const MSSource& );
 
 protected: // protected members
     /// Id of the source
@@ -83,12 +96,8 @@ protected: // protected members
 
     /// Position of source on lane.
     double myPos;
-     
-private:   // private members
 
-
-
-};  // end MSSource 
+};  // end MSSource
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
@@ -98,6 +107,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -132,11 +144,3 @@ private:   // private members
 // End:
 
 #endif // MSSource_H
-
-
-
-
-
-
-
-

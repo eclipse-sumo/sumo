@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -57,10 +60,13 @@
  * ======================================================================= */
 #include <string>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBNode;
+class Position2D;
+
 
 /* =========================================================================
  * class definitions
@@ -77,15 +83,18 @@ public:
 
     /** computes the angle between the first angle and the straigth which
         is described by her coordinates (parameter 2-5) */
-    static double relAngle(double angle, double x1, double y1, double x2, double y2);
+    static double relAngle(double angle,
+        double x1, double y1,
+        double x2, double y2);
 
     /** computes the relative angle between the two angles */
     static double relAngle(double angle1, double angle2);
 
-    /** normalises angle <-170 and >170 to 180 after the computation with "relAngle" */
+    /** normalises angle <-170 and >170 to 180 after the computation with
+        "relAngle" */
     static double normRelAngle(double angle1, double angle2);
 
-    /** computes the number of a logic's setting possibilities for the given key
+    /** computes number of a logic's setting possibilities for the given key
         In other words: how many permutation of vehicle wishes are possible on
         this junction */
     static long computeLogicSize(std::string key);
@@ -95,6 +104,7 @@ public:
 
     /** returns the distance between both nodes */
     static double distance(NBNode *node1, NBNode *node2);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -79,6 +82,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -87,10 +91,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -98,24 +104,24 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * Option - methods
  * ----------------------------------------------------------------------- */
-Option::Option(bool set) 
+Option::Option(bool set)
     : _set(set), _default(true)
 {
 }
 
 
-Option::Option(const Option &s) 
-    : _set(s._set) 
+Option::Option(const Option &s)
+    : _set(s._set)
 {
 }
 
 
-Option::~Option() 
+Option::~Option()
 {
 }
 
 
-Option &Option::operator=(const Option &s) 
+Option &Option::operator=(const Option &s)
 {
     if(this==&s) {
         return *this;
@@ -125,43 +131,43 @@ Option &Option::operator=(const Option &s)
 }
 
 
-bool 
-Option::isSet() const 
+bool
+Option::isSet() const
 {
     return _set;
 }
 
 
-float 
-Option::getFloat() const 
+float
+Option::getFloat() const
 {
     throw InvalidArgument("This is not a float-option");
 }
 
 
-long 
-Option::getLong() const 
+long
+Option::getLong() const
 {
     throw InvalidArgument("This is not a long-option");
 }
 
 
-int 
-Option::getInt() const 
+int
+Option::getInt() const
 {
     throw InvalidArgument("This is not an int-option");
 }
 
 
-string 
-Option::getString() const 
+string
+Option::getString() const
 {
     throw InvalidArgument("This is not a string-option");
 }
 
 
-bool 
-Option::getBool() const 
+bool
+Option::getBool() const
 {
     throw InvalidArgument("This is not a bool-option");
 }
@@ -174,8 +180,8 @@ Option::getUIntVector() const
 }
 
 
-bool 
-Option::set(string v, bool isDefault) 
+bool
+Option::set(string v, bool isDefault)
 {
     v = v;
     isDefault = isDefault;
@@ -183,8 +189,8 @@ Option::set(string v, bool isDefault)
 }
 
 
-bool 
-Option::set(bool v, bool isDefault) 
+bool
+Option::set(bool v, bool isDefault)
 {
     v = v;
     isDefault = isDefault;
@@ -192,8 +198,8 @@ Option::set(bool v, bool isDefault)
 }
 
 
-bool 
-Option::markSet(bool isDefault) 
+bool
+Option::markSet(bool isDefault)
 {
     bool ret = _default;
     _default = isDefault;
@@ -202,29 +208,29 @@ Option::markSet(bool isDefault)
 }
 
 
-string 
-Option::getValue() const 
+string
+Option::getValue() const
 {
     throw InvalidArgument("This is an abstract class.");
 }
 
 
-bool 
-Option::isBool() const 
+bool
+Option::isBool() const
 {
     return false;
 }
 
 
-bool 
-Option::isDefault() const 
+bool
+Option::isDefault() const
 {
     return _default;
 }
 
 
 bool
-Option::isFileName() const 
+Option::isFileName() const
 {
     return false;
 }
@@ -234,32 +240,32 @@ Option::isFileName() const
 /* -------------------------------------------------------------------------
  * Option_Integer - methods
  * ----------------------------------------------------------------------- */
-Option_Integer::Option_Integer() 
-    : Option() 
+Option_Integer::Option_Integer()
+    : Option()
 {
 }
 
 
-Option_Integer::Option_Integer(int value) 
-    : Option(true), _value(value) 
+Option_Integer::Option_Integer(int value)
+    : Option(true), _value(value)
 {
 }
 
 
-Option_Integer::~Option_Integer() 
+Option_Integer::~Option_Integer()
 {
 }
 
 
-Option_Integer::Option_Integer(const Option_Integer &s) 
-    : Option(s) 
+Option_Integer::Option_Integer(const Option_Integer &s)
+    : Option(s)
 {
     _value = s._value;
 }
 
 
 Option_Integer &
-Option_Integer::operator=(const Option_Integer &s) 
+Option_Integer::operator=(const Option_Integer &s)
 {
     if(this==&s) return *this;
     Option::operator=(s);
@@ -268,15 +274,15 @@ Option_Integer::operator=(const Option_Integer &s)
 }
 
 
-int 
-Option_Integer::getInt() const 
+int
+Option_Integer::getInt() const
 {
     return _value;
 }
 
 
-bool 
-Option_Integer::set(string v, bool isDefault) 
+bool
+Option_Integer::set(string v, bool isDefault)
 {
     try {
         _value = TplConvert<char>::_2int(v.c_str());
@@ -288,8 +294,8 @@ Option_Integer::set(string v, bool isDefault)
 }
 
 
-string 
-Option_Integer::getValue() const 
+string
+Option_Integer::getValue() const
 {
     ostringstream s;
     s << _value;
@@ -301,32 +307,32 @@ Option_Integer::getValue() const
 /* -------------------------------------------------------------------------
  * Option_Long - methods
  * ----------------------------------------------------------------------- */
-Option_Long::Option_Long() 
-    : Option() 
+Option_Long::Option_Long()
+    : Option()
 {
 }
 
 
-Option_Long::Option_Long(long value) 
-    : Option(true), _value(value) 
+Option_Long::Option_Long(long value)
+    : Option(true), _value(value)
 {
 }
 
 
-Option_Long::~Option_Long() 
+Option_Long::~Option_Long()
 {
 }
 
 
-Option_Long::Option_Long(const Option_Long &s) 
-    : Option(s) 
+Option_Long::Option_Long(const Option_Long &s)
+    : Option(s)
 {
     _value = s._value;
 }
 
 
 Option_Long &
-Option_Long::operator=(const Option_Long &s) 
+Option_Long::operator=(const Option_Long &s)
 {
     if(this==&s) {
         return *this;
@@ -337,15 +343,15 @@ Option_Long::operator=(const Option_Long &s)
 }
 
 
-long 
-Option_Long::getLong() const 
+long
+Option_Long::getLong() const
 {
     return _value;
 }
 
 
-bool 
-Option_Long::set(string v, bool isDefault) 
+bool
+Option_Long::set(string v, bool isDefault)
 {
     try {
 	    _value = TplConvert<char>::_2long(v.c_str());
@@ -357,8 +363,8 @@ Option_Long::set(string v, bool isDefault)
 }
 
 
-string 
-Option_Long::getValue() const 
+string
+Option_Long::getValue() const
 {
     ostringstream s;
     s << _value;
@@ -369,32 +375,32 @@ Option_Long::getValue() const
 /* -------------------------------------------------------------------------
  * Option_String - methods
  * ----------------------------------------------------------------------- */
-Option_String::Option_String() 
-    : Option() 
+Option_String::Option_String()
+    : Option()
 {
 }
 
 
-Option_String::Option_String(string value) 
-    : Option(true), _value(value) 
+Option_String::Option_String(string value)
+    : Option(true), _value(value)
 {
 }
 
 
-Option_String::~Option_String() 
+Option_String::~Option_String()
 {
 }
 
 
-Option_String::Option_String(const Option_String &s) 
-    : Option(s) 
+Option_String::Option_String(const Option_String &s)
+    : Option(s)
 {
     _value = s._value;
 }
 
 
 Option_String &
-Option_String::operator=(const Option_String &s) 
+Option_String::operator=(const Option_String &s)
 {
     if(this==&s) {
         return *this;
@@ -405,23 +411,23 @@ Option_String::operator=(const Option_String &s)
 }
 
 
-string 
-Option_String::getString() const 
+string
+Option_String::getString() const
 {
     return _value;
 }
 
 
-bool 
-Option_String::set(string v, bool isDefault) 
+bool
+Option_String::set(string v, bool isDefault)
 {
     _value = v;
     return markSet(isDefault);
 }
 
 
-string 
-Option_String::getValue() const 
+string
+Option_String::getValue() const
 {
     return _value;
 }
@@ -431,32 +437,32 @@ Option_String::getValue() const
 /* -------------------------------------------------------------------------
  * Option_Float - methods
  * ----------------------------------------------------------------------- */
-Option_Float::Option_Float() 
-    : Option() 
+Option_Float::Option_Float()
+    : Option()
 {
 }
 
 
-Option_Float::Option_Float(float value) 
-    : Option(true), _value(value) 
+Option_Float::Option_Float(float value)
+    : Option(true), _value(value)
 {
 }
 
 
-Option_Float::~Option_Float() 
+Option_Float::~Option_Float()
 {
 }
 
 
-Option_Float::Option_Float(const Option_Float &s) 
-    : Option(s) 
+Option_Float::Option_Float(const Option_Float &s)
+    : Option(s)
 {
     _value = s._value;
 }
 
 
 Option_Float &
-Option_Float::operator=(const Option_Float &s) 
+Option_Float::operator=(const Option_Float &s)
 {
     if(this==&s) {
         return *this;
@@ -467,15 +473,15 @@ Option_Float::operator=(const Option_Float &s)
 }
 
 
-float 
-Option_Float::getFloat() const 
+float
+Option_Float::getFloat() const
 {
     return _value;
 }
 
 
-bool 
-Option_Float::set(string v, bool isDefault) 
+bool
+Option_Float::set(string v, bool isDefault)
 {
     try {
 	    _value = TplConvert<char>::_2float(v.c_str());
@@ -487,8 +493,8 @@ Option_Float::set(string v, bool isDefault)
 }
 
 
-string 
-Option_Float::getValue() const 
+string
+Option_Float::getValue() const
 {
     ostringstream s;
     s << _value;
@@ -500,32 +506,32 @@ Option_Float::getValue() const
 /* -------------------------------------------------------------------------
  * Option_Bool - methods
  * ----------------------------------------------------------------------- */
-Option_Bool::Option_Bool() 
-    : Option() 
+Option_Bool::Option_Bool()
+    : Option()
 {
 }
 
 
-Option_Bool::Option_Bool(bool value) 
-    : Option(true), _value(value) 
+Option_Bool::Option_Bool(bool value)
+    : Option(true), _value(value)
 {
 }
 
 
-Option_Bool::~Option_Bool() 
+Option_Bool::~Option_Bool()
 {
 }
 
 
-Option_Bool::Option_Bool(const Option_Bool &s) 
-    : Option(s) 
+Option_Bool::Option_Bool(const Option_Bool &s)
+    : Option(s)
 {
     _value = s._value;
 }
 
 
 Option_Bool &
-Option_Bool::operator=(const Option_Bool &s) 
+Option_Bool::operator=(const Option_Bool &s)
 {
     if(this==&s) {
         return *this;
@@ -536,23 +542,23 @@ Option_Bool::operator=(const Option_Bool &s)
 }
 
 
-bool 
-Option_Bool::getBool() const 
+bool
+Option_Bool::getBool() const
 {
     return _value;
 }
 
 
-bool 
-Option_Bool::set(bool v, bool isDefault) 
+bool
+Option_Bool::set(bool v, bool isDefault)
 {
     _value = v;
     return markSet(isDefault);
 }
 
 
-string 
-Option_Bool::getValue() const 
+string
+Option_Bool::getValue() const
 {
     if(_value) {
 	    return string("true");
@@ -561,8 +567,8 @@ Option_Bool::getValue() const
 }
 
 
-bool 
-Option_Bool::isBool() const 
+bool
+Option_Bool::isBool() const
 {
     return true;
 }
@@ -656,7 +662,7 @@ Option_UIntVector::getUIntVector() const
 }
 
 
-bool 
+bool
 Option_UIntVector::set(std::string v, bool isDefault)
 {
     _value.clear();
@@ -673,7 +679,7 @@ Option_UIntVector::set(std::string v, bool isDefault)
 }
 
 
-std::string 
+std::string
 Option_UIntVector::getValue() const
 {
     ostringstream s;

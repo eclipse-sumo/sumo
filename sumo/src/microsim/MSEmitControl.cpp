@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSEmitControl.C  -  Controls emission of
+                          MSEmitControl.cpp  -  Controls emission of
                           vehicles into the net.
                              -------------------
     begin                : Mon, 12 Mar 2001
@@ -17,13 +17,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:01  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -80,6 +83,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -91,67 +97,96 @@ namespace
 #include "MSVehicle.h"
 #include "MSLane.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-// Init static member.
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSEmitControl::DictType MSEmitControl::myDict;
 
 
-MSEmitControl::MSEmitControl(string id, VehCont* allVeh) :
-    myID(id),
-    myAllVeh(allVeh)
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+MSEmitControl::MSEmitControl(string id) :
+    myID(id)
 {
-    sort(myAllVeh->begin(), myAllVeh->end(), departTimeSortCrit );
-//      myTrips->sort(departTimeSortCrit); // sort for lists, doesn't
-//      // work with Sun SC5.0
 }
 
 
 MSEmitControl::~MSEmitControl()
 {
-    delete myAllVeh;
+    // !!!
+//    delete myAllVeh;
 }
 
+
 void
-MSEmitControl::add(MSEmitControl *cont) {
-    myAllVeh->reserve(myAllVeh->size() + cont->myAllVeh->size());
-    for(VehCont::iterator i=cont->myAllVeh->begin();
-        i!=cont->myAllVeh->end(); i++)
-        myAllVeh->push_back(*i);
-    sort(myAllVeh->begin(), myAllVeh->end(), departTimeSortCrit);
+MSEmitControl::add( MSVehicle *veh )
+{
+    myAllVeh.add(veh);
+}
+
+int countaaa = 0;
+
+void
+MSEmitControl::moveFrom( MSVehicleContainer &cont )
+{
+    myAllVeh.moveFrom(cont);
 }
 
 
 void
 MSEmitControl::emitVehicles(MSNet::Time time)
 {
+    // check whether any vehicles shall be emitted within this time step
+    if(!myAllVeh.anyWaitingFor(time)) {
+        return;
+    }
+    // we use double-buffering for the refused emits to save time
+    MSVehicleContainer::VehicleVector &refusedEmits =
+        myRefusedEmits1.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+    MSVehicleContainer::VehicleVector &previousRefused =
+        myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+    // go through the list of previously refused first
+    MSVehicleContainer::VehicleVector::const_iterator veh;
+    for( veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
+        tryEmit(*veh, refusedEmits);
+    }
+    // clear previously refused vehicle container
+    previousRefused.clear();
+
     // Insert vehicles from myTrips into the net until the vehicles
     // departure time is greater than time.
-    VehCont refusedEmits; // Tmp-container for vehicles that were
-    // not allowed to enter their lane.
-    VehCont::iterator veh = myAllVeh->begin();
-    while (veh != myAllVeh->end() && (*veh)->desiredDepart() <= time ) {
-        if ((*veh)->departLane().emit(**veh) == true) {
-            // Successful emission.
-        }
-        else {
-            // Emission not successful. Store for next-timestep
-            // retry.
-            refusedEmits.push_back(*veh);
-        }
-        ++veh;
+    // retrieve the list of vehicles to emit within this time step
+    const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
+    // go through the list and try to emit
+    for( veh=next.begin(); veh!=next.end(); veh++) {
+        tryEmit(*veh, refusedEmits);
     }
-    // Remove range from container, then add refusedEmits.
-    myAllVeh->erase(myAllVeh->begin(), veh);
-    myAllVeh->insert(myAllVeh->begin(), refusedEmits.begin(),
-                     refusedEmits.end());
+    // let the MSVehicleContainer clear the vehicles
+    myAllVeh.pop();
 }
 
+
 void
-MSEmitControl::addStarting(MSVehicle *veh) {
-    myAllVeh->insert(myAllVeh->begin(), veh);
+MSEmitControl::tryEmit(MSVehicle *veh,
+                       MSVehicleContainer::VehicleVector &refusedEmits)
+{
+    if (veh->departEdge().emit(*veh)) {
+        // Successful emission.
+    } else {
+        // Emission not successful. Store for next-timestep
+        // retry in the next step
+        refusedEmits.push_back(veh);
+    }
 }
+
 
 bool
 MSEmitControl::dictionary(string id, MSEmitControl* ptr)
@@ -181,10 +216,9 @@ MSEmitControl::dictionary(string id)
 void
 MSEmitControl::clear()
 {
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
+    for(DictType::iterator it = myDict.begin(); it!=myDict.end(); it++) {
+        delete (*it).second;
     }
-    myDict.clear();
 }
 
 
@@ -197,3 +231,9 @@ MSEmitControl::clear()
 // Local Variables:
 // mode:C++
 // End:
+
+
+
+
+
+

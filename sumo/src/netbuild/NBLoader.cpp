@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:32:55  dkrajzew
 // handling of connection specification files added
 //
@@ -72,9 +75,10 @@ namespace
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * included modules
@@ -87,6 +91,7 @@ namespace
 #include <sax2/XMLReaderFactory.hpp>
 #include <sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/SErrorHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
@@ -95,29 +100,34 @@ namespace
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
-#include <netimport/xml/NBXMLEdgesHandler.h>
-#include <netimport/xml/NBXMLNodesHandler.h>
-#include <netimport/xml/NBXMLTypesHandler.h>
-#include <netimport/xml/NBXMLConnectionsHandler.h>
-#include <netimport/cell/NBCellNodesHandler.h>
-#include <netimport/cell/NBCellEdgesHandler.h>
-#include <netimport/visum/NBVisumLoader.h>
-#include <netimport/sumo/NBSUMOHandlerNodes.h>
-#include <netimport/sumo/NBSUMOHandlerEdges.h>
-#include <netimport/sumo/NBSUMOHandlerDepth.h>
+#include <netimport/xml/NIXMLEdgesHandler.h>
+#include <netimport/xml/NIXMLNodesHandler.h>
+#include <netimport/xml/NIXMLTypesHandler.h>
+#include <netimport/xml/NIXMLConnectionsHandler.h>
+#include <netimport/cell/NICellNodesHandler.h>
+#include <netimport/cell/NICellEdgesHandler.h>
+#include <netimport/visum/NIVisumLoader.h>
+#include <netimport/vissim/NIVissimLoader.h>
+#include <netimport/arcview/NIArcView_Loader.h>
+#include <netimport/sumo/NISUMOHandlerNodes.h>
+#include <netimport/sumo/NISUMOHandlerEdges.h>
+#include <netimport/sumo/NISUMOHandlerDepth.h>
 #include "NBLoader.h"
 #include "NLLoadFilter.h"
 #include <utils/convert/TplConvert.h>
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static members
  * ======================================================================= */
 bool NBLoader::_verbose;
+
 
 /* =========================================================================
  * method defintions
@@ -133,6 +143,8 @@ void NBLoader::load(OptionsCont &oc) {
     loadXML(oc, warn);
     loadCell(oc, warn);
     loadVisum(oc, warn);
+    loadArcView(oc, warn);
+    loadVissim(oc, warn);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
         cout << "Error: No nodes loaded." << endl;
@@ -161,7 +173,9 @@ NBLoader::loadSUMO(OptionsCont &oc, bool warn)
             "sumo-net");
     }
     // load the junction logics only when they shall not be recomputed
-    if(oc.isUsableFileList("sumo-logics") && !oc.getBool("recompute-junction-logics") ) {
+    if( oc.isUsableFileList("sumo-logics")
+        &&
+        !oc.getBool("recompute-junction-logics") ) {
         loadSUMOFiles(oc, LOADFILTER_LOGICS, oc.getString("sumo-logics"),
             "sumo-logics");
     }
@@ -176,11 +190,11 @@ NBLoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
     bool verbose = oc.getBool("v");
     std::vector<SUMOSAXHandler*> handlers;
     if(what==LOADFILTER_ALL) {
-        handlers.push_back(new NBSUMOHandlerNodes(what, true, verbose));
-        handlers.push_back(new NBSUMOHandlerEdges(what, true, verbose));
-        handlers.push_back(new NBSUMOHandlerDepth(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerNodes(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerEdges(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerDepth(what, true, verbose));
     } else {
-        handlers.push_back(new NBSUMOHandlerDepth(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerDepth(what, true, verbose));
     }
     //
 }
@@ -190,7 +204,7 @@ void
 NBLoader::loadXML(OptionsCont &oc, bool warn) {
     // load types
     if(oc.isUsableFileList("t")) {
-        NBXMLTypesHandler *handler = new NBXMLTypesHandler(warn, _verbose);
+        NIXMLTypesHandler *handler = new NIXMLTypesHandler(warn, _verbose);
         loadXMLType(handler, oc.getString("t"), "types");
         NBTypeCont::report(_verbose);
     } else if(_verbose||warn) {
@@ -201,24 +215,26 @@ NBLoader::loadXML(OptionsCont &oc, bool warn) {
 
     // load nodes
     if(oc.isUsableFileList("n")) {
-        NBXMLNodesHandler *handler = new NBXMLNodesHandler(warn, _verbose);
+        NIXMLNodesHandler *handler = new NIXMLNodesHandler(warn, _verbose);
         loadXMLType(handler, oc.getString("n"), "nodes");
         NBNodeCont::report(_verbose);
     }
 
     // load the edges
     if(oc.isUsableFileList("e")) {
-        NBXMLEdgesHandler *handler = new NBXMLEdgesHandler(warn, _verbose);
+        NIXMLEdgesHandler *handler = new NIXMLEdgesHandler(warn, _verbose);
         loadXMLType(handler, oc.getString("e"), "edges");
         NBEdgeCont::report(_verbose);
     }
 
     // load the connections
     if(oc.isUsableFileList("x")) {
-        NBXMLConnectionsHandler *handler = new NBXMLConnectionsHandler(warn, _verbose);
+        NIXMLConnectionsHandler *handler =
+            new NIXMLConnectionsHandler(warn, _verbose);
         loadXMLType(handler, oc.getString("x"), "connections");
     }
 }
+
 
 /** loads a single user-specified file */
 void
@@ -239,7 +255,8 @@ NBLoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
             loadXMLFile(*parser, file, type);
         }
     } catch (const XMLException& toCatch) {
-        cout << "Error: " << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
+        cout << "Error: " << TplConvert<XMLCh>::_2str(toCatch.getMessage())
+            << endl;
         cout << "  The " << type << " could not be loaded from '" <<
             handler->getFileName() << "'." << endl;
         delete handler;
@@ -261,6 +278,7 @@ NBLoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
     parser.parse(file.c_str());
 }
 
+
 void
 NBLoader::loadCell(OptionsCont &oc, bool warn) {
     LineReader lr;
@@ -268,7 +286,7 @@ NBLoader::loadCell(OptionsCont &oc, bool warn) {
     if(oc.isSet("cell-node-file")) {
         reportBegin("Loading nodes... ");
         string file = oc.getString("cell-node-file");
-        NBCellNodesHandler handler(file, warn, _verbose);
+        NICellNodesHandler handler(file, warn, _verbose);
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
@@ -280,7 +298,7 @@ NBLoader::loadCell(OptionsCont &oc, bool warn) {
         reportBegin("Loading edges... ");
         string file = oc.getString("cell-edge-file");
         // parse the file
-        NBCellEdgesHandler handler(file, warn, _verbose,
+        NICellEdgesHandler handler(file, warn, _verbose,
             NBCapacity2Lanes(oc.getFloat("N")));
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
@@ -290,8 +308,10 @@ NBLoader::loadCell(OptionsCont &oc, bool warn) {
     }
 }
 
+
 bool
-NBLoader::useLineReader(LineReader &lr, const std::string &file, LineHandler &lh) {
+NBLoader::useLineReader(LineReader &lr, const std::string &file,
+                        LineHandler &lh) {
     // check opening
     if(!lr.setFileName(file)) {
         cout << "The file '" << file << "' could not be opened." << endl;
@@ -301,15 +321,83 @@ NBLoader::useLineReader(LineReader &lr, const std::string &file, LineHandler &lh
     return true;
 }
 
+
 void
 NBLoader::loadVisum(OptionsCont &oc, bool warn) {
-    // load the visum types
-    if(oc.isSet("visum")) {
-        NBVisumLoader loader(oc.getString("visum"),
-            NBCapacity2Lanes(oc.getFloat("N")));
-        loader.load(oc);
+    if(!oc.isSet("visum")) {
+        return;
     }
+    // load the visum network
+    NIVisumLoader loader(oc.getString("visum"),
+        NBCapacity2Lanes(oc.getFloat("N")));
+    loader.load(oc);
 }
+
+
+void
+NBLoader::loadArcView(OptionsCont &oc, bool warn) {
+    if(!oc.isSet("arcview")&&!oc.isSet("arcview-dbf")&&!oc.isSet("arcview-shp")) {
+        return;
+    }
+    // check whether the correct set of entries is given
+    //  and compute both file names
+    string dbf_file;
+    string shp_file;
+        // check whether both the combines and explicite name giving were used
+    if(oc.isSet("arcview")) {
+        if(oc.isSet("arcview-dbf")||oc.isSet("arcview-shp")) {
+            SErrorHandler::add(
+                string("It is not possible to load multiple files."));
+            SErrorHandler::add(
+                string(" Use EITHER \"--arcview\" OR \"--arcview-dbf\"/\"--arcview-shp\""));
+            return;
+        }
+        dbf_file = oc.getString("arcview") + string("_dbf.txt");
+        shp_file = oc.getString("arcview") + string("_shp.txt");
+    }
+        // check whether only one of the files was given (when explicite
+        //  file names for bith structures are given)
+    if(!oc.isSet("arcview")) {
+        if(!oc.isSet("arcview-dbf")||!oc.isSet("arcview-shp")) {
+            SErrorHandler::add(
+                string("You must give two files to parse ArcView-data."));
+            SErrorHandler::add(
+                string(" (\"--arcview-dbf\"/\"--arcview-shp\")"));
+            return;
+        }
+        dbf_file = oc.getString("arcview-dbf");
+        shp_file = oc.getString("arcview-shp");
+    }
+    // check whether both files do exist
+    if(!FileHelpers::exists(dbf_file)) {
+        SErrorHandler::add(
+            string("File not found: ") + dbf_file);
+    }
+    if(!FileHelpers::exists(shp_file)) {
+        SErrorHandler::add(
+            string("File not found: ") + shp_file);
+    }
+    if(SErrorHandler::errorOccured()) {
+        return;
+    }
+    // load the arcview files
+    NIArcView_Loader loader(dbf_file, shp_file);
+    loader.load(oc);
+}
+
+
+void
+NBLoader::loadVissim(OptionsCont &oc, bool warn) {
+    if(!oc.isSet("vissim")) {
+        return;
+    }
+    // load the visum network
+    NIVissimLoader loader(oc.getString("vissim"));
+    loader.load(oc);
+}
+
+
+
 
 void
 NBLoader::reportBegin(const std::string &msg)
@@ -318,6 +406,7 @@ NBLoader::reportBegin(const std::string &msg)
         cout << msg;
     }
 }
+
 
 void
 NBLoader::reportEnd()
@@ -328,8 +417,6 @@ NBLoader::reportEnd()
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NBLoader.icc"
@@ -338,5 +425,6 @@ NBLoader::reportEnd()
 // Local Variables:
 // mode:C++
 // End:
+
 
 

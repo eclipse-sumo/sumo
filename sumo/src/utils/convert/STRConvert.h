@@ -27,11 +27,17 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * @class STRConvert
+ * Class to convert other values stored within strings, such as ints or floats,
+ * into other representations
+ */
 class STRConvert {
- public:
+public:
     /** converts the given std::string into an int;
         throws EmptyData when the string is empty */
      static int _2int(const std::string &str);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -44,5 +50,3 @@ class STRConvert {
 // Local Variables:
 // mode:C++
 // End:
-
-

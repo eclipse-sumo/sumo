@@ -1,11 +1,63 @@
+//---------------------------------------------------------------------------//
+//                        GUIEdge.cpp -
+//  An MSEdge extended by values needed for the gui
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:39:17  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <cmath>
 #include <string>
+#include <algorithm>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
+#include <gui/GUIGlObjectStorage.h>
+#include "GUILaneChanger.h"
 #include "GUILane.h"
 #include "GUIEdge.h"
+#include "GUINet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 GUIEdge::GUIEdge(std::string id)
     : MSEdge(id)
 {
@@ -14,80 +66,95 @@ GUIEdge::GUIEdge(std::string id)
 
 GUIEdge::~GUIEdge()
 {
+    for(LaneWrapperVector::iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); i++) {
+        delete (*i);
+    }
 }
+
 
 void
 GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
-                       EdgeBasicFunction function)
+                       GUIGlObjectStorage &idStorage)
 {
     // set the information about the nodes
     //  !!! not longer needed
     _from = from;
     _to = to;
-    // set the function information
-    _function = function;
     // set the geomertical information for every lane
     double x1 = fromXPos();
-    double y1 = -fromYPos();
+    double y1 = fromYPos();
     double x2 = toXPos();
-    double y2 = -toYPos();
+    double y2 = toYPos();
     double length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
-    std::pair<double, double> offsets = 
+    std::pair<double, double> offsets =
         getLaneOffsets(x1, y1, x2, y2, length, 3.5);
     double xoff = offsets.first;
     double yoff = offsets.second;
+    LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
-        static_cast<GUILane*>(*i)->setPosition(x1+xoff, y1+yoff, x2+xoff, y2+yoff);
+        GUILaneWrapper *wrapper =
+            new GUILaneWrapper(*(*i), x1+xoff, y1+yoff, x2+xoff, y2+yoff);
+        idStorage.registerObject(wrapper);
+        tmp.push_back(wrapper);
         xoff += offsets.first;
         yoff += offsets.second;
     }
+    // copy reverse
+    _laneGeoms.reserve(tmp.size());
+    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));
 }
 
+
 std::pair<double, double>
-GUIEdge::getLaneOffsets(double x1, double y1, 
-                        double x2, double y2, 
-                        double prev, double wanted) const // !!! not really a part of the edge
+GUIEdge::getLaneOffsets(double x1, double y1,
+                        double x2, double y2,
+                        double prev, double wanted)  // !!! not really a part of the edge
 {
     double dx = x1 - x2;
     double dy = y1 - y2;
-    if(dx<0) {
-        if(dy<0) {
-            return std::pair<double, double>(-dy*wanted/prev, -dx*wanted/prev);
-        } else {
-            return std::pair<double, double>(-dy*wanted/prev, dx*wanted/prev);
+    if(dx<0) { // fromX<toX -> to right
+        if(dy>0) { // to up right -> lanes to down right (+, +)
+            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
+        } else if (dy<0) { // to down right -> lanes to down left (-, +)
+            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
+        } else { // to right -> lanes to down (0, +)
+            return std::pair<double, double>(0, -dx*wanted/prev);
         }
-    } else {
-        if(dy<0) {
-            return std::pair<double, double>(-dy*wanted/prev, -dx*wanted/prev);
-        } else {
-            return std::pair<double, double>(-dy*wanted/prev, dx*wanted/prev);
+    } else if(dx>0) { // fromX>toX -> to left
+        if(dy>0) { // to up left -> lanes to up right (+, -)
+            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
+        } else if (dy<0) { // to down left -> lanes to up left (-, -)
+            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
+        } else { // to left -> lanes to up (0, -)
+            return std::pair<double, double>(0, -dx*wanted/prev);
+        }
+    } else { // fromX==toX
+        if(dy>0) { // to up -> lanes to right (+, 0)
+            return std::pair<double, double>(dy*wanted/prev, 0);
+        } else if (dy<0) { // to down -> lanes to left (-, 0)
+            return std::pair<double, double>(dy*wanted/prev, 0);
+        } else { // zero !
+            throw 1;
         }
     }
 }
 
 
-/*
-std::pair<Position2D, Position2D>
-GUIEdge::getLanePos(size_t laneNo) const
-{
-    return static_cast<GUILane*>((*myLanes)[laneNo])->pos();
-}
 
-
-const MSLane::VehCont &
-GUIEdge::getLaneVehicles(size_t laneNo) const
-{
-    return static_cast<GUILane*>((*myLanes)[laneNo])->getVehicles();
-}*/
-
-
-GUILane &
+MSLane &
 GUIEdge::getLane(size_t laneNo)
 {
-    return *(static_cast<GUILane*>((*myLanes)[laneNo]));
+    assert(laneNo<myLanes->size());
+    return *((*myLanes)[laneNo]);
 }
 
 
+GUILaneWrapper &
+GUIEdge::getLaneGeometry(size_t laneNo)
+{
+    assert(laneNo<myLanes->size());
+    return *(_laneGeoms[laneNo]);
+}
 
 std::vector<std::string>
 GUIEdge::getNames()
@@ -130,24 +197,35 @@ GUIEdge::fromYPos() const
 }
 
 
-std::string 
+std::string
 GUIEdge::getID() const
 {
     return myID;
 }
 
 
-GUIEdge::EdgeBasicFunction 
-GUIEdge::getPurpose() const
+void
+GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
+                   LaneCont* lanes, EdgeBasicFunction function)
 {
-    return _function;
+    myAllowed = allowed;
+    myDepartLane = departLane;
+    myLanes = lanes;
+    _function = function;
+
+    if ( myLanes->size() > 1 ) {
+        myLaneChanger = new GUILaneChanger( myLanes );
+    }
 }
 
-/*
-void
-GUIEdge::moveExceptFirstSingle()
-{
-    GUILane *lane = (static_cast<GUILane*>(*(myLanes->begin())));
-    (static_cast<GUILane*>(*(myLanes->begin())))->moveExceptFirst();
-}
-*/
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIEdge.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

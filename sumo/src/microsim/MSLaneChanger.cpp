@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.3  2002/10/29 10:42:50  dkrajzew
 // problems accured due to the deletion of a vehicle that reached his destination debugged
 //
@@ -108,6 +111,9 @@ namespace
 // Initial commit.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -120,10 +126,16 @@ namespace
 #include <cstdlib>
 #include <cmath>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSLaneChanger::~MSLaneChanger()
 {
 
@@ -210,35 +222,71 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
-
+    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+    }
+#endif
     if ( candiOnAllowed( myCandi ) ) {
         if ( change2right() ) {
+            vehicle->_lcAction = MSVehicle::LCA_RIGHT | MSVehicle::LCA_CHANGED;
             ( myCandi - 1 )->hoppedVeh = veh( myCandi );
             ( myCandi - 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
             vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
+            vehicle->myLastLaneChangeOffset = 0;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "changed2right" << endl;
+    }
+#endif
             return;
         }
         if ( change2left() ) {
+            vehicle->_lcAction = MSVehicle::LCA_LEFT | MSVehicle::LCA_CHANGED;
             ( myCandi + 1 )->hoppedVeh = veh( myCandi );
             ( myCandi + 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
             vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
+            vehicle->myLastLaneChangeOffset = 0;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "changed2left" << endl;
+    }
+#endif
             return;
         }
     }
     else { // not on allowed
+            if(vehicle->id()=="1") {
+                int bla = 0;
+            }
+        vehicle->_lcAction = MSVehicle::LCA_URGENT;
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
+            vehicle->_lcAction |= MSVehicle::LCA_CHANGED;
             target->hoppedVeh = veh( myCandi );
             target->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
-            vehicle->enterLaneAtLaneChange( target->lane );           
+            vehicle->enterLaneAtLaneChange( target->lane );
+            vehicle->myLastLaneChangeOffset = 0;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "changed:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+    }
+#endif
             return;
         }
     }
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_back( veh ( myCandi ) );
+    vehicle->myLastLaneChangeOffset++;
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "kept" << endl;
+    }
+#endif
     return;
 }
 
@@ -422,10 +470,12 @@ MSLaneChanger::findTarget()
     assert( nearestTarget != myChanger.end() );
 
     if ( distance( myCandi, nearestTarget ) > 0 ) {
+        veh(myCandi)->_lcAction |= MSVehicle::LCA_LEFT;
 
         assert( myCandi + 1 != myChanger.end() );
         return myCandi + 1;
     }
+    veh(myCandi)->_lcAction |= MSVehicle::LCA_RIGHT;
     assert( myCandi != myChanger.begin() );
     return myCandi - 1;
 }
@@ -465,23 +515,27 @@ MSLaneChanger::overlap( ChangerIt target )
     if ( neighFollow != 0 ) {
 
         if ( MSVehicle::overlap( vehicle, neighFollow ) ) {
-
+            // this vehicle is not able to change lanes, but the vehicle
+            //  responsible for this, possibly too.
+            // If so, don't let this vehicle stop - both would
+            //  do it and cause a jam
+            if(!neighFollow->onAllowed()) {
+                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
+            }
             return true;
         }
     }
     if ( neighLead != 0 ) {
 
         if ( MSVehicle::overlap( vehicle, neighLead ) ) {
-
             return true;
         }
     }
 
-    // Check for a neighLead on the succeeding lane.
+    //
     if ( target->lane->length() - vehicle->pos() >
          MSVehicleType::maxLength() ) {
-
-         return false;
+        return false;
     }
     return true;
 }
@@ -526,18 +580,64 @@ MSLaneChanger::safeChange( ChangerIt target )
     MSVehicle* neighFollow = target->follow;
     MSLane* targetLane     = target->lane;
 
+    // the hopped vehicle possibly becomes the leader / follower
+    if(target->hoppedVeh!=0) {
+        double hoppedPos = target->hoppedVeh->pos();
+        // the hopped vehicle possibly becomes the leader
+        if(hoppedPos>vehicle->pos()) {
+            if( neighLead==0 || neighLead->pos()>hoppedPos) {
+                neighLead = target->hoppedVeh;
+            }
+        }
+        // the hopped vehicle possibly becomes the follower
+        else {
+            if( neighFollow==0 || neighFollow->pos()<hoppedPos) {
+                neighFollow = target->hoppedVeh;
+            }
+        }
+    }
+
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime&&(vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        if(neighFollow!=0) {
+            cout << "NeighFollow:" << neighFollow->id() << endl;
+        } else {
+            cout << "No NeighFollow" << endl;
+        }
+    }
+#endif
+
     // Check back gap
     if ( neighFollow == 0 ) {
-        // Check back gap (no following vehicle)
-        double safeBackGap = pow( targetLane->maxSpeed(), 2 ) /
-                            ( 2 * MSVehicleType::minDecel() ) +
-                            MSVehicle::tau() + vehicle->length();
-        if ( vehicle->pos() < safeBackGap ) {
-            return false;
+        if(targetLane->myApproaching!=0) {
+            // Check back gap (no following vehicle)
+/*            double safeBackGap = pow( targetLane->maxSpeed(), 2 ) /
+                                ( 2 * MSVehicleType::minDecel() ) +
+                                MSVehicle::tau() + vehicle->length();
+            if ( vehicle->pos() < safeBackGap ) {
+                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
+                return false;
+            }*/
+            // use the approaching vehicle
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime&&(vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+        cout << "TargetLane:" << targetLane->myFirstDistance << ", " << targetLane->myApproaching->id() << endl;
+    }
+#endif
+            if(vehicle->pos()<vehicle->length()||!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myFirstDistance, *vehicle, targetLane)) {
+                return false;
+            }
         }
     } else {
         // Check gap to following vehicle
         if ( !neighFollow->isSafeChange( *vehicle, targetLane ) ) {
+            // this vehicle is not able to change lanes, but the vehicle
+            //  responsible for this, possibly too.
+            // If so, don't let this vehicle stop - both would
+            //  do it and cause a jam
+            if(!neighFollow->onAllowed()) {
+                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
+            }
             return false;
         }
     }
@@ -641,7 +741,7 @@ MSLaneChanger::advan2left()
     // all vehicles are considered to brake towards the lane end. This
     // will cause some dangerous lanec-changes.
     bool linkPrio =
-        (*(stayLane->succLink( *vehicle, 1, *stayLane )))->myPrio;
+        (*(stayLane->succLinkSec( *vehicle, 1, *stayLane )))->myPrio;
     if ( pred == 0 && linkPrio == true ) {
 
         return false;
@@ -703,15 +803,3 @@ MSLaneChanger::advan2left()
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-
-
-

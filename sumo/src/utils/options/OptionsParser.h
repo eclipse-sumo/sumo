@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -56,11 +59,12 @@
  * ======================================================================= */
 class OptionsCont;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * OptionsParser
+ * @class OptionsParser
  * Used for the parsing of the command line arguments.
  * Usage:
  * The only accessable method returns false when something failed. This may
@@ -69,30 +73,41 @@ class OptionsCont;
  * The class assumes all options are unset or using default values only.
  */
 class OptionsParser {
- public:
+public:
     /** parses the command line arguments */
     static bool parse(OptionsCont *oc, int argc, char **argv);
- private:
+
+private:
     /** parses the last argument */
     static int check(OptionsCont *oc, char *arg1);
+
     /** parses the previous arguments */
     static int check(OptionsCont *oc, char *arg1, char *arg2);
+
     /** returns the information whether the given argument is an option
         (begins with '-') */
     static bool checkParameter(char *arg1);
+
     /** returns the information whether the given argument consists of
         abbreviations (single leading '-') */
     static bool isAbbreviation(char *arg1);
+
     /** converts char* to string */
     static std::string convert(char *arg);
+
     /** converts char to string */
     static std::string convert(char abbr);
+
     /** extracts the parameter directly attached to an option */
     static int processNonBooleanSingleSwitch(OptionsCont *oc, char *arg);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "OptionsParser.h.icc"
 //#endif
 
@@ -101,5 +116,3 @@ class OptionsParser {
 // Local Variables:
 // mode:C++
 // End:
-
-

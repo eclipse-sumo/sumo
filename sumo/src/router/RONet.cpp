@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        RONet.cpp -
+//  The router's network representation
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:45:04  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -23,8 +60,7 @@
 using namespace std;
 
 RONet::RONet(bool multireferencedRoutes)
-    : _vehicleTypes(new ROVehicleType_Krauss()),
-    _multireferencedRoutes(multireferencedRoutes)
+    : _vehicleTypes(new ROVehicleType_Krauss())
 {
 }
 
@@ -34,7 +70,7 @@ RONet::~RONet()
 }
 
 
-void 
+void
 RONet::postloadInit()
 {
     _edges.postloadInit();
@@ -111,7 +147,8 @@ RONet::addRouteDef(RORouteDef *def) {
 }
 
 ROVehicleType *
-RONet::addVehicleType(const std::string &id) {
+RONet::getVehicleTypeSecure(const std::string &id)
+{
     // check whether the type was already known
     ROVehicleType *type = _vehicleTypes.get(id);
     if(type!=0) {
@@ -187,15 +224,15 @@ RONet::saveType(std::ostream &os, ROVehicleType *type,
 
 
 bool
-RONet::saveRoute(RORouter &router, 
-                 std::ostream &res, 
-                 std::ostream &altres, 
-                 ROVehicle *veh) 
+RONet::saveRoute(RORouter &router,
+                 std::ostream &res,
+                 std::ostream &altres,
+                 ROVehicle *veh)
 {
     RORouteDef *routeDef = veh->getRoute();
     // check if the route definition is valid
     if(routeDef==0) {
-        SErrorHandler::add(string("The vehicle '") + veh->getID() 
+        SErrorHandler::add(string("The vehicle '") + veh->getID()
             + string("' has no valid route."));
         return false;
     }
@@ -204,7 +241,7 @@ RONet::saveRoute(RORouter &router,
         return true;
     }
     // build and save the route
-    return routeDef->computeAndSave(router, veh->getDepartureTime(), 
+    return routeDef->computeAndSave(router, veh->getDepartureTime(),
         res, altres);
 }
 
@@ -214,9 +251,9 @@ RONet::saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres)
     // build the router
     RORouter router(*this, &_edges);
     // sort the list of route definitions
-    priority_queue<ROVehicle*, 
+    priority_queue<ROVehicle*,
         std::vector<ROVehicle*>,
-        ROHelper::VehicleByDepartureComperator> 
+        ROHelper::VehicleByDepartureComperator>
         &sortedVehicles = _vehicles.sort();
     // write all vehicles (and additional structures)
     while(!sortedVehicles.empty()) {
@@ -243,7 +280,7 @@ RONet::saveAndRemoveRoutes(std::ofstream &res, std::ofstream &altres)
 }
 
 
-void 
+void
 RONet::removeRouteSecure(RORouteDef *route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
@@ -270,4 +307,15 @@ RONet::knowsRouteSnipplet(ROEdge *from, ROEdge *to) const
 {
     return _snipplets.knows(from, to);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "RONet.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

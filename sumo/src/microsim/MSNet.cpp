@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSNet.C  -  We will simulate on this
+                          MSNet.cpp  -  We will simulate on this
                           object. Holds all necessary objects for
                           micro-simulation.
                              -------------------
@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.5  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
@@ -175,6 +178,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -183,11 +189,17 @@ namespace
 #include <ctime>
 #endif
 
+#ifdef PROFILE
+#include <utils/dev/profile.h>
+#endif
+
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
 #include <algorithm>
 #include <cassert>
+#include <utils/common/SErrorHandler.h>
+#include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
@@ -199,19 +211,41 @@ namespace
 #include "MSLane.h"
 #include "MSDetector.h"
 #include "MSRoute.h"
-#include "PreStartInitialised.h"
-#include <helpers/ToString.h>
+#include "MSRouteLoaderControl.h"
+#include <helpers/PreStartInitialised.h>
+#include <utils/convert/ToString.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-// Init static member.
+/* =========================================================================
+ * static member defintions
+ * ======================================================================= */
 MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
 
+#ifdef PROFILE
+#include <io.h>
+FILE* profile_stream;
+#endif
+
 #ifdef _DEBUG
 MSNet::Time MSNet::globaltime;
+#endif
+
+#ifdef ABS_DEBUG
+#ifndef _DEBUG
+MSNet::Time MSNet::globaltime;
+#endif
+MSNet::Time MSNet::searchedtime = 59078945;
+std::string MSNet::searched1 = "72456450";
+std::string MSNet::searched2 = "3475668";
+std::string MSNet::searchedJunction = "245466";
 #endif
 
 #ifdef _SPEEDCHECK
@@ -220,6 +254,10 @@ time_t MSNet::begin;
 time_t MSNet::end;
 #endif
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSNet*
 MSNet::getInstance( void )
 {
@@ -231,39 +269,33 @@ MSNet::getInstance( void )
 }
 
 void
-MSNet::preInit( MSNet::Time startTimeStep )
+MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
+                std::string baseNameDumpFiles, bool withGUI )
 {
     myInstance = new MSNet();
     myInstance->myStep = startTimeStep;
-
+    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles, withGUI );
+#ifdef PROFILE
+    profile_stream = fopen("log.txt", "wa");
+#endif
 }
 
+
 void
-MSNet::init( string id, MSEdgeControl* ec,
-             MSJunctionControl* jc,
-             MSEmitControl* emc,
-             MSEventControl* evc,
-             DetectorCont* detectors,
-             vector< Time > dumpMeanDataIntervalls,
-             string baseNameDumpFiles,
-             bool withGUI )
+MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
+                    std::string baseNameDumpFiles, bool withGUI)
 {
-    myInstance->myID        = id;
-    myInstance->myEdges     = ec;
-    myInstance->myJunctions =  jc;
-    myInstance->myEmitter   =  emc;
-    myInstance->myEvents    =  evc;
-    myInstance->myDetectors =  detectors;
+    myInstance->myWithGUI = withGUI;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
-        
+
         sort( dumpMeanDataIntervalls.begin(),
               dumpMeanDataIntervalls.end() );
         vector< Time >::iterator newEnd =
             unique( dumpMeanDataIntervalls.begin(),
                     dumpMeanDataIntervalls.end() );
-        
+
         if ( newEnd != dumpMeanDataIntervalls.end() ) {
-            
+
             cerr << "MSNet::MSNet(): Removed duplicate dump-intervalls"
                  << endl;
             dumpMeanDataIntervalls.erase(
@@ -277,40 +309,34 @@ MSNet::init( string id, MSEdgeControl* ec,
 
             string fileName   = baseNameDumpFiles + "_" + toString( *it ) + string(".xml");
             ofstream* filePtr = new ofstream( fileName.c_str() );
-            assert( *filePtr );
+            if( *filePtr==0 ) {
+                SErrorHandler::add(
+                    string("The following file containing aggregated values could not been build:\n")
+                    + fileName);
+                throw ProcessError();
+            }
             MSNet::myInstance->myMeanData.push_back(
                 new MeanData( *it, filePtr ) );
         }
-    }    
+    }
 }
 
-
-//  MSNet::MSNet(string id, MSEdgeControl* ec,
-//               MSJunctionControl* jc,
-//               MSEmitControl* emc,
-//               MSEventControl* evc,
-//               MSPersonControl* wpc,
-//               DetectorCont* detectors,
-//               std::vector< Time > dumpMeanDataIntervalls,
-//               std::string baseNameDumpFiles,
-//               bool withGUI
-//               ) :
-//      myID(id),
-//      myEdges(ec),
-//      myJunctions(jc),
-//      myEmitter(emc),
-//      myEvents(evc),
-//      myPersons(wpc),
-//      myStep(0),
-//      myDetectors( detectors ),
-//      myMeanData( ),
-//      myWithGUI( withGUI ),
-//      myLastGUIdumpTimestep( 0 )
-   
-//  {
-
-//  }
-
+void
+MSNet::init( string id, MSEdgeControl* ec,
+             MSJunctionControl* jc,
+             MSEmitControl* emc,
+             MSEventControl* evc,
+             DetectorCont* detectors,
+             MSRouteLoaderControl *rlc )
+{
+    myInstance->myID           = id;
+    myInstance->myEdges        = ec;
+    myInstance->myJunctions    = jc;
+    myInstance->myEmitter      = emc;
+    myInstance->myEvents       = evc;
+    myInstance->myDetectors    = detectors;
+    myInstance->myRouteLoaders = rlc;
+}
 
 
 MSNet::~MSNet()
@@ -329,7 +355,8 @@ MSNet::~MSNet()
     MSVehicleType::clear();
     MSRoute::clear();
     // close the net statistics
-    for(std::vector< MeanData* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
+    for( std::vector< MeanData* >::iterator i1=myMeanData.begin();
+         i1!=myMeanData.end(); i1++) {
         delete (*i1);
     }
     myMeanData.clear();
@@ -339,6 +366,11 @@ MSNet::~MSNet()
     delete myEmitter;
     delete myEvents;
     delete myDetectors;
+    delete myRouteLoaders;
+
+#ifdef PROFILE
+    fclose (profile_stream) ;
+#endif
 }
 
 
@@ -361,6 +393,9 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         (*craw) << "</sumo-results>" << endl;
     }
     // exit simulation loop
+#ifdef PROFILE
+    PROFILE_PRINT () ;
+#endif
     return true;
 }
 
@@ -370,6 +405,9 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 {
     myStep = step;
 #ifdef _DEBUG
+    globaltime = myStep;
+#endif
+#ifdef ABS_DEBUG
     globaltime = myStep;
 #endif
 #ifdef _SPEEDCHECK
@@ -385,28 +423,112 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         cout << ups << "UPS; " << mups << "MUPS" << endl;
     }
 #endif
+
+    cout << myStep << endl;
+
+    // load routes
+#ifdef PROFILE
+    PROFILE_START ("LoadingRoutes") ;
+#endif
+    myEmitter->moveFrom(myRouteLoaders->loadNext(step));
+#ifdef PROFILE
+    PROFILE_STOP ("LoadingRoutes") ;
+#endif
+
     // emit Vehicles
+#ifdef PROFILE
+    PROFILE_START ("EmittingVehicles") ;
+#endif
     myEmitter->emitVehicles(myStep);
+#ifdef PROFILE
+    PROFILE_STOP ("EmittingVehicles") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("DetectingCollisions") ;
+#endif
     myEdges->detectCollisions( myStep );
+#ifdef PROFILE
+    PROFILE_STOP ("DetectingCollisions") ;
+#endif
 
     // execute Events
+#ifdef PROFILE
+    PROFILE_START ("ExecutingEvents") ;
+#endif
     myEvents->execute(myStep);
+#ifdef PROFILE
+    PROFILE_STOP ("ExecutingEvents") ;
+#endif
 
     // move Vehicles
-    myEdges->moveExceptFirst();
-    myJunctions->moveFirstVehicles();
+#ifdef PROFILE
+    PROFILE_START ("ResettingRequests") ;
+#endif
+    myJunctions->resetRequests();
+#ifdef PROFILE
+    PROFILE_STOP ("ResettingRequests") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("Moving#1") ;
+#endif
+    myEdges->moveNonCritical();
+#ifdef PROFILE
+    PROFILE_STOP ("Moving#1") ;
+#endif
+#ifdef PROFILE
+    PROFILE_START ("Moving#2") ;
+#endif
+    myEdges->moveCritical();
+#ifdef PROFILE
+    PROFILE_STOP ("Moving#2") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("SettingAllowed") ;
+#endif
+    myJunctions->setAllowed();
+#ifdef PROFILE
+    PROFILE_STOP ("SettingAllowed") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("Moving#3") ;
+#endif
+    myEdges->moveFirst();
+#ifdef PROFILE
+    PROFILE_STOP ("Moving#3") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("DetectingCollisions") ;
+#endif
     myEdges->detectCollisions( myStep );
+#ifdef PROFILE
+    PROFILE_STOP ("DetectingCollisions") ;
+#endif
 
     // Let's detect.
+#ifdef PROFILE
+    PROFILE_START ("DetectorStep") ;
+#endif
     for( DetectorCont::iterator detec = myDetectors->begin();
         detec != myDetectors->end(); ++detec ) {
         ( *detec )->sample( simSeconds() );
     }
+#ifdef PROFILE
+    PROFILE_STOP ("DetectorStep") ;
+#endif
 
     // Check if mean-lane-data is due
+#ifdef PROFILE
+    PROFILE_START ("ComputingMeanData") ;
+#endif
     unsigned passedSteps = myStep - start + 1;
     for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
 
+        assert(myMeanData.size()>i);
         Time interval = myMeanData[ i ]->interval;
         if ( passedSteps % interval == 0 ) {
 
@@ -418,17 +540,38 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
                 << "</interval>\n";
         }
     }
-        
-    // Vehicles change Lanes (maybe)
-    myEdges->changeLanes();
-    myEdges->detectCollisions( myStep );
+#ifdef PROFILE
+    PROFILE_STOP ("ComputingMeanData") ;
+#endif
 
+    // Vehicles change Lanes (maybe)
+#ifdef PROFILE
+    PROFILE_START ("ChangingLanes") ;
+#endif
+    myEdges->changeLanes();
+#ifdef PROFILE
+    PROFILE_STOP ("ChangingLanes") ;
+#endif
+
+#ifdef PROFILE
+    PROFILE_START ("DetectingCollisions") ;
+#endif
+    myEdges->detectCollisions( myStep );
+#ifdef PROFILE
+    PROFILE_STOP ("DetectingCollisions") ;
+#endif
     // raw output.
+#ifdef PROFILE
+    PROFILE_START ("RawOutput") ;
+#endif
     if ( craw ) {
         (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
         (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
         (*craw) << "    </timestep>" << endl;
     }
+#ifdef PROFILE
+    PROFILE_STOP ("RawOutput") ;
+#endif
 }
 
 
@@ -481,20 +624,35 @@ MSNet::withGUI( void )
 }
 
 
-void 
+void
 MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 {
     myPreStartInitialiseItems.push_back(preinit);
 }
 
 
-void 
+void
 MSNet::preStartInit()
 {
     for(PreStartVector::iterator i=myPreStartInitialiseItems.begin(); i!=myPreStartInitialiseItems.end(); i++) {
         (*i)->init(*this);
     }
+    srand(1040208551);
 }
+
+
+MSVehicle *
+MSNet::buildNewVehicle( std::string id, MSRoute* route,
+                        MSNet::Time departTime,
+                        const MSVehicleType* type, float *defColor)
+{
+    size_t noIntervals = getNDumpIntervalls();
+    if(withGUI()) {
+        noIntervals++;
+    }
+    return new MSVehicle(id, route, departTime, type, noIntervals);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
@@ -505,8 +663,3 @@ MSNet::preStartInit()
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-

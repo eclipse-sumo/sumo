@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -63,6 +66,9 @@ enum LoadFilter {
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "LoadFilter.icc"
 //#endif
 
@@ -71,4 +77,3 @@ enum LoadFilter {
 // Local Variables:
 // mode:C++
 //
-

@@ -1,3 +1,5 @@
+#ifndef SimpleCommand_H
+#define SimpleCommand_H
 /***************************************************************************
                           SimpleCommand.h  -  Command-pattern-class for
                           simple commands, that need no parameters and no
@@ -18,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:40:13  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:53:12  dkrajzew
 // global inclusion
 //
@@ -60,9 +65,9 @@
 // Initial commit.
 //
 
-#ifndef SimpleCommand_H
-#define SimpleCommand_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -70,6 +75,9 @@
 #include "Command.h"
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
    See Design-Patterns, Gamma et al.
 
@@ -86,12 +94,13 @@ template< class T  >
 class SimpleCommand : public Command
 {
 public:
-
+    /// definition of the execution function
     typedef MSNet::Time ( T::* Operation )();
 
+    /// constructor
     SimpleCommand( T* receiver, Operation op );
 
-
+    /// destructor
     ~SimpleCommand();
 
     /** Execute the command and return an offset for recurring commands
@@ -101,8 +110,10 @@ public:
 protected:
 
 private:
-
+    /// the object the action is directed to
     T* myReceiver;
+
+    /// the object's performing operation
     Operation myOperation;
 };
 
@@ -121,14 +132,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-
-

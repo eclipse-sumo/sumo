@@ -26,16 +26,22 @@
     @author Christian R&ouml;ssel, roessel@zpr.uni-koeln.de
     @version Revision $Revision$ from $Date$
     by $Author$
-    @date Started at Wed, 03 Jul 2002 
+    @date Started at Wed, 03 Jul 2002
 */
 
 // $Revision$
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <map>
 #include <string>
 #include "MSNet.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class Attributes;
 class MSTriggeredSource;
 class MSVehicleType;
@@ -140,6 +146,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //

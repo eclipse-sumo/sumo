@@ -28,6 +28,9 @@ namespace
 }
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -283,11 +286,11 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             emit, aEmitTime,
             MSEventControl::ADAPT_AFTER_EXECUTION ) ) {
 
-        myVehicle = new MSVehicle(
+        myVehicle = MSNet::getInstance()->buildNewVehicle(
             aVehicleId,
             myRouteDist.getRndRoute(),
             aEmitTime,
-            aVehType );
+            aVehType, 0 );
 
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
@@ -333,6 +336,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.5  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.4  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
@@ -415,10 +421,3 @@ MSTriggeredSource::readNextEmitElement( void )
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-

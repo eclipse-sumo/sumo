@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -114,6 +117,7 @@ int NBTypeCont::getNoLanes(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
+        cout << "Warning: default number of lanes had to be used" << endl;
         return NBTypeCont::_defaultNoLanes;
     }
     int nolanes = (*i).second->_noLanes;
@@ -124,6 +128,7 @@ double NBTypeCont::getSpeed(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
+        cout << "Warning: default speed had to be used" << endl;
         return NBTypeCont::_defaultSpeed;
     }
     double speed = (*i).second->_speed;
@@ -134,6 +139,7 @@ int NBTypeCont::getPriority(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
+        cout << "Warning: default priority had to be used" << endl;
         return NBTypeCont::_defaultPriority;
     }
     int priority = (*i).second->_priority;

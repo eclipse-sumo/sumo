@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:26  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:59:13  dkrajzew
 // initial commit for classes that handle import functions
 //
@@ -37,6 +40,7 @@ namespace
 #include <map>
 #include <string>
 #include <utils/common/UtilExceptions.h>
+#include <utils/importio/StringUtils.h>
 #include "NamedColumnsParser.h"
 
 /* =========================================================================
@@ -53,7 +57,8 @@ NamedColumnsParser::NamedColumnsParser()
 
 NamedColumnsParser::NamedColumnsParser(const std::string &def,
                                        const std::string &defDelim,
-                                       const std::string &lineDelim)
+                                       const std::string &lineDelim,
+                                       bool prune)
 {
     reinitMap(def, defDelim);
     _lineDelim = lineDelim;
@@ -66,9 +71,10 @@ NamedColumnsParser::~NamedColumnsParser()
 void
 NamedColumnsParser::reinit(const std::string &def,
                                 const std::string &defDelim,
-                                const std::string &lineDelim)
+                                const std::string &lineDelim,
+                                bool prune)
 {
-    reinitMap(def, defDelim);
+    reinitMap(def, defDelim, prune);
     _lineDelim = lineDelim;
 }
 
@@ -79,7 +85,7 @@ NamedColumnsParser::parseLine(const std::string &line)
 }
 
 std::string
-NamedColumnsParser::get(const std::string &name)
+NamedColumnsParser::get(const std::string &name, bool prune)
 {
     PosMap::iterator i=_defMap.find(name);
     if(i==_defMap.end()) {
@@ -89,18 +95,26 @@ NamedColumnsParser::get(const std::string &name)
     if(_line.size()<=pos) {
         throw OutOfBoundsException();
     }
-    return _line.get(pos);
+    string ret = _line.get(pos);
+    if(prune) {
+        ret = StringUtils::prune(ret);
+    }
+    return ret;
 }
 
 
 void
-NamedColumnsParser::reinitMap(const std::string &s, const std::string &delim)
+NamedColumnsParser::reinitMap(const std::string &s, const std::string &delim, bool prune)
 {
     _defMap.clear();
     int pos = 0;
     StringTokenizer st(s, delim);
     while(st.hasNext()) {
-        _defMap.insert(map<string, int>::value_type(st.next(), pos++));
+        string next = st.next();
+        if(prune) {
+            next = StringUtils::prune(next);
+        }
+        _defMap.insert(map<string, int>::value_type(next, pos++));
     }
 }
 

@@ -2,7 +2,7 @@
 #define MSInductLoop_H
 
 //---------------------------------------------------------------------------//
-//                        MSInductLoop.h  -  Simple detector that emulates 
+//                        MSInductLoop.h  -  Simple detector that emulates
 //                        induction loops.
 //                           -------------------
 //  begin                : Thu, 14 Mar 2002
@@ -12,15 +12,18 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -57,7 +60,9 @@
 // Initial commit.
 //
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
@@ -65,51 +70,59 @@
 #include <string>
 #include <functional>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 /**
+ * @class MSInductLoop
+ * This detector is something like a virtual double - induct loop. It notifies
+ * vehicles running over it and saves their values. This detector has no
+ * size.
  */
 class MSInductLoop : public MSDetector
 {
 public:
 
-    /** We support two output-styles, gnuplot and "Comma Separated Variable" 
+    /** We support two output-styles, gnuplot and "Comma Separated Variable"
         (CSV). */
     enum OutputStyle { GNUPLOT, CSV };
 
     /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
-     */ 
+     */
     MSInductLoop( std::string    id,
                   MSLane*        lane,
                   double         position,
                   MSNet::Time    sampleIntervall,
                   MSDetector::OutputStyle style,
                   std::ofstream* file );
-    
+
     /// Destructor.
     ~MSInductLoop();
 
     /// Call sample every timestep to update the detector.
     void sample( double currSimSeconds );
 
-    // Function-object in order to find the vehicle, that has just
-    // passed the detector.
+    /** Function-object in order to find the vehicle, that has just
+        passed the detector. */
     struct VehPosition : public std::binary_function< const MSVehicle*,
-                         double, bool > 
+                         double, bool >
     {
+        /// compares vehicle position to the detector position
         bool operator() ( const MSVehicle* cmp, double pos ) const {
             return cmp->pos() > pos;
         }
     };
-    
+
 protected:
-    // Add up the local density.
+    /// Increments the local density.
     double localDensity( const MSVehicle& veh, double currSimSeconds );
 
-    // Write the data according to OutputStyle when the
-    // sampleIntervall is over.
+    /// Write the data according to OutputStyle when the sampleIntervall is over.
     void writeData();
 
-    // Write in gnuplot-style to myFile.
+    /// Write in gnuplot-style to myFile.
     void writeGnuPlot( MSNet::Time endOfInterv,
                        double avgDensity,
                        double avgFlow,
@@ -117,7 +130,7 @@ protected:
                        double Occup,
                        double avgLength );
 
-    // Write in CSV-style to myFile.
+    /// Write in CSV-style to myFile.
     void writeCSV( MSNet::Time endOfInterv,
                    double avgDensity,
                    double avgFlow,
@@ -126,7 +139,6 @@ protected:
                    double avgLength );
 
 private:
-
     /// Lane where detector works on.
     MSLane* myLane;
 
@@ -138,10 +150,10 @@ private:
 
     /// Last vehicle that passed the detector.
     MSVehicle* myPassedVeh;
-    
+
     /// Speed of the last vehicle, that has passed the detector.
     double myPassingSpeed;
-    
+
     /// Time when last vehicle has passed the detector.
     double myPassingTime;
 
@@ -149,12 +161,12 @@ private:
     unsigned myNSamples;
 
     /** Number of vehicles which have already passed the detector in
-        this sample intervall. */    
+        this sample intervall. */
     unsigned myNPassedVeh;
 
     /// Sum of local-densities sampled during the current sample-intervall.
     double myLocalDensitySum;
-    
+
     /// Sum of speeds sampled during the current sample-intervall.
     double mySpeedSum;
 
@@ -169,12 +181,12 @@ private:
 
     /// Default constructor.
     MSInductLoop();
-    
+
     /// Copy constructor.
     MSInductLoop( const MSInductLoop& );
-    
+
     /// Assignment operator.
-    MSInductLoop& operator=( const MSInductLoop& );     
+    MSInductLoop& operator=( const MSInductLoop& );
 };
 
 
@@ -189,13 +201,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

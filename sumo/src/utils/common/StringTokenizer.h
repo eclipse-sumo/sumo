@@ -52,35 +52,35 @@
  * multiple occurences of operators as a list of single divider and the
  * string between them will have a length of zero.
  */
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class StringTokenizer {
 public:
     /** identifier for splitting the given string at all newline characters */
     const static int NEWLINE;
+
     /** identifier for splitting the given string at all whitespace
         characters */
     const static int WHITECHARS;
-private:
-    /** a list of positions/lengths */
-    typedef std::vector<size_t> SizeVector;
-    /** the string to split */
-    std::string   _tosplit;
-    /** the current position in the list of substrings */
-    size_t        _pos;
-    /** the list of substring starts */
-    SizeVector    _starts;
-    /** the list of substring lengths */
-    SizeVector    _lengths;
+
 public:
     /** default constructor */
     StringTokenizer() { }
-    /** constructor
+
+    /** @brief constructor
         same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
         tosplit is the string to split into substrings */
     StringTokenizer(std::string tosplit);
-    /** constructor
+
+    /** @brief constructor
         the first string will be split at the second string's occurences */
     StringTokenizer(std::string tosplit, std::string token);
-    /** constructor
+
+    /** @brief constructor
         The second parameter may be a character - the strig will then be
         split at all occurences of this character.
         When StringTokenizer.NEWLINE is used as second parameter, the string
@@ -89,34 +89,73 @@ public:
         string will be split at all characters below 0x20
         The behaviour is undefined for other parameter */
     StringTokenizer(std::string tosplit, int special);
+
     /** destructor */
     ~StringTokenizer();
+
     /** reinitialises the internal iterator */
     void reinit();
+
     /** returns the information whether further substrings exist */
     bool hasNext();
+
     /** returns the next substring when it exists. Otherwise the behaviour is
         undefined */
     std::string next();
+
     /** returns the number of existing substrings */
     size_t size();
+
     /** returns the first substring without moving the iterator */
     std::string front();
+
     /** returns the item at the given position */
     std::string get(size_t pos) const;
+
 private:
     /** splits the first string at all occurences of the second */
     void prepare(const std::string &tosplit, const std::string &token);
+
     /** splits the first string at all occurences of the given char */
     void prepare(const std::string &tosplit, char token);
+
     /** unsused */
     void prepare(const std::string &tosplit, const std::string &token,
         int dummy);
+
     /** splits the first string at all occurences of whitechars */
     void prepareWhitechar(const std::string &tosplit);
+
     /** splits the first string at all occurences of newlines */
     void prepareNewline(const std::string &tosplit);
+
+private:
+    /** a list of positions/lengths */
+    typedef std::vector<size_t> SizeVector;
+
+    /** the string to split */
+    std::string   _tosplit;
+
+    /** the current position in the list of substrings */
+    size_t        _pos;
+
+    /** the list of substring starts */
+    SizeVector    _starts;
+
+    /** the list of substring lengths */
+    SizeVector    _lengths;
+
 };
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "StringTokenizer.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
 

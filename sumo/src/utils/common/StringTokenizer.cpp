@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -39,16 +42,19 @@ namespace
 #include "UtilExceptions.h"
 #include "StringTokenizer.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * variable definitions
  * ======================================================================= */
 const int StringTokenizer::NEWLINE = -256;
 const int StringTokenizer::WHITECHARS = -257;
+
 
 /* =========================================================================
  * method definitions
@@ -59,6 +65,7 @@ StringTokenizer::StringTokenizer(std::string tosplit)
     prepareWhitechar(tosplit);
 }
 
+
 StringTokenizer::StringTokenizer(std::string tosplit, std::string token)
     : _tosplit(tosplit), _pos(0)
 {
@@ -68,6 +75,7 @@ StringTokenizer::StringTokenizer(std::string tosplit, std::string token)
         prepare(tosplit, token);
     }
 }
+
 
 StringTokenizer::StringTokenizer(std::string tosplit, int special)
     : _tosplit(tosplit), _pos(0)
@@ -84,6 +92,7 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
         break;
     }
 }
+
 
 StringTokenizer::~StringTokenizer()
 {

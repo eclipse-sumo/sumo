@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:28  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -42,23 +45,37 @@ namespace
 // Initial commit.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
 #include "MSJunction.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLink;
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
-// Init static member.
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSJunction::DictType MSJunction::myDict;
 
-//-------------------------------------------------------------------------//
 
+/* =========================================================================
+ * member method definition
+ * ======================================================================= */
 MSJunction::MSJunction( std::string id, double x, double y ) :
     myID( id ), myX(x), myY(y)
 {
@@ -138,19 +155,16 @@ MSJunction::getYCoordinate() const
     return myY;
 }
 
-bool 
-MSJunction::linkClosed(const MSLink * link) const
-{
-    return false;
-}
+//-------------------------------------------------------------------------//
 
-void 
+void
 MSJunction::postloadInit()
 {
 }
 
+//-------------------------------------------------------------------------//
 
-void 
+void
 MSJunction::postloadInitContainer()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -166,11 +180,3 @@ MSJunction::postloadInitContainer()
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-

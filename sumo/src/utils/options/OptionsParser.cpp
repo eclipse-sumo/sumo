@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -80,10 +83,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions

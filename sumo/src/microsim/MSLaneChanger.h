@@ -1,5 +1,7 @@
+#ifndef MSLaneChanger_H
+#define MSLaneChanger_H
 /***************************************************************************
-                          MSLaneChanger.h  -  Handles lane-changes within 
+                          MSLaneChanger.h  -  Handles lane-changes within
                           the edge's lanes.
                              -------------------
     begin                : Fri, 01 Feb 2002
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -43,22 +48,32 @@
 // Initial commit.
 //
 
-#ifndef MSLaneChanger_H
-#define MSLaneChanger_H
-
-class MSVehicle;
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSLane.h"
 #include "MSEdge.h"
 #include <vector>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class MSVehicle;
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSLaneChanger
+ * Class which performs the lane changing on a single, associated lane.
  */
 class MSLaneChanger
 {
 public:
     /// Destructor.
-    ~MSLaneChanger();
+    virtual ~MSLaneChanger();
 
     /// Constructor
     MSLaneChanger( MSEdge::LaneCont* lanes );
@@ -68,28 +83,42 @@ public:
 
 protected:
     /** Structure used for lane-change. For every lane you have to
-        know three vehicles, the change-candidate veh and it's follower
-        and leader. */
-    struct ChangeElem 
+        know four vehicles, the change-candidate veh and it's follower
+        and leader. Further, information about the last vehicle that changed
+        into this lane is needed */
+    struct ChangeElem
     {
+	    /// the vehicle following the current vehicle
         MSVehicle*                follow;
+
+	    /// the vehicle in front of the current vehicle
         MSVehicle*                lead;
+
+	    /// the lane the vehicle is on
         MSLane*                   lane;
+
+	    /// the regarded vehicle
         MSLane::VehCont::iterator veh;
+
+	    /// last vehicle that changed into this lane
         MSVehicle*                hoppedVeh;
     };
 
+    /** @brief The list of changers;
+        For each lane, a ChangeElem is being build */
     typedef std::vector< ChangeElem > Changer;
+
+    /// the iterator moving over the ChangeElems
     typedef Changer::iterator         ChangerIt;
 
     /// Initialize the changer before looping over all vehicles.
     void initChanger();
 
-    /** Check if there is a single change-candidate in the changer. 
+    /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */
     bool vehInChanger();
 
-    /** Returns a pointer to the changer-element-iterator vehicle, or 0 if 
+    /** Returns a pointer to the changer-element-iterator vehicle, or 0 if
         there is none. */
     MSVehicle* veh( ChangerIt ce );
 
@@ -102,21 +131,21 @@ protected:
     /** During lane-change a temporary vehicle container is filled within
         the lanes (bad pratice to modify foreign members, I know). Swap
         this container with the real one. */
-    void updateLanes();
-        
-    /** Find current candidate. If there is none, myChanger.end() is 
-        returned. */
+    virtual void updateLanes();
+
+    /** @brief Find current candidate.
+        If there is none, myChanger.end() is returned. */
     ChangerIt findCandidate();
 
     /** Returns true if the target's lane is an allowed lane
         for the candidate's vehicle . */
-    bool candiOnAllowed( ChangerIt target );  
-    
-    /** Returns true if change to the right (left for people driving on 
+    bool candiOnAllowed( ChangerIt target );
+
+    /** Returns true if change to the right (left for people driving on
         the "wrong" side ;-) ) is possible & diserable. */
     bool change2right();
 
-    /** Returns true if change to the left (right for people driving on 
+    /** Returns true if change to the left (right for people driving on
         the "wrong" side ;-) ) is possible & diserable. */
     bool change2left();
 
@@ -130,7 +159,7 @@ protected:
     /** Returns true if the two changer-element's vehicles overlap. */
     bool overlap( ChangerIt target );
 
-    /** Returns true if there is a congested traffic situation on a 
+    /** Returns true if there is a congested traffic situation on a
         highway (i.e. speed > 70/3.6 m/s). In a congested state overtaking
         on the right is allowed (in Germay). Congested means, that both
         vehicles have a speed less than 60/3.6 m/s. */
@@ -143,11 +172,11 @@ protected:
     /** Returns true if candidate will be influenced by it's leader. */
     bool predInteraction();
 
-    /** Returns true, if candidate has an advantage by changing to the 
+    /** Returns true, if candidate has an advantage by changing to the
         right. */
     bool advan2right();
 
-    /** Returns true, if candidate has an advantage by changing to the 
+    /** Returns true, if candidate has an advantage by changing to the
         left. */
     bool advan2left();
 
@@ -155,7 +184,7 @@ protected:
         already changed the lane.*/
     bool overlapWithHopped( ChangerIt target );
 
-private:
+protected:
     /// Container for ChangeElemements, one for every lane in the edge.
     Changer   myChanger;
 
@@ -164,14 +193,15 @@ private:
         once in the change-process. */
     ChangerIt myCandi;
 
+private:
     /// Default constructor.
     MSLaneChanger();
-    
+
     /// Copy constructor.
     MSLaneChanger( const MSLaneChanger& );
-    
+
     /// Assignment operator.
-    MSLaneChanger& operator=( const MSLaneChanger& );     
+    MSLaneChanger& operator=( const MSLaneChanger& );
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -184,13 +214,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,37 @@
 #ifndef MSSimpleTrafficLightLogic_h
 #define MSSimpleTrafficLightLogic_h
+//---------------------------------------------------------------------------//
+//                        MSSimpleTrafficLightLogic.h -
+//  The basic traffic light logic
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2003/02/07 10:41:51  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <utility>
 #include <vector>
@@ -8,37 +40,96 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class MSSimpleTrafficLightLogic
+ * The implementation of a simple traffic light which only switches between
+ * it's phases and sets the lights to red in between.
+ * Some functions are called with an information about the current step. This
+ * is needed as a single logic may be used by many junctions and so the current
+ * step is stored within them, not within the logic.
+ */
 template< size_t N >
 class MSSimpleTrafficLightLogic : public MSTrafficLightLogic
 {
 public:
+    /**
+     * The definition of a single phase */
     class PhaseDefinition {
     public:
+        /// the duration of the phase
         size_t          duration;
+
+        /// the mask which links are allowed to drive within this phase (green light)
         std::bitset<N>  driveMask;
+
+        /// the mask which vehicles must not drive within this phase (red light)
         std::bitset<N>  breakMask;
-        PhaseDefinition(size_t durationArg, 
-            const std::bitset<N> &driveMaskArg, 
+
+        /// constructor
+        PhaseDefinition(size_t durationArg,
+            const std::bitset<N> &driveMaskArg,
             const std::bitset<N> &breakMaskArg)
-            : duration(durationArg), driveMask(driveMaskArg), 
+            : duration(durationArg), driveMask(driveMaskArg),
             breakMask(breakMaskArg) { }
+
+        /// destructor
         ~PhaseDefinition() { }
+
+    private:
+        /// invalidated standard constructor
+        PhaseDefinition();
+
     };
+
+    /// definition of a list of phases, being the junction logic
     typedef std::vector<PhaseDefinition> Phases;
-private:
-    Phases _phases;
-    bool _allRed;
-    static std::bitset<64> _allClear;
+
 public:
-    MSSimpleTrafficLightLogic(const std::string &id, const Phases &phases);
+    /// constructor
+    MSSimpleTrafficLightLogic(const std::string &id, const Phases &phases,
+        size_t step);
+
+    /// destructor
     ~MSSimpleTrafficLightLogic();
-    virtual void applyPhase(MSLogicJunction::Request &request,
-        size_t currentStep) const;
-    virtual const std::bitset<64> &linkPriorities(size_t currentStep) const;
-    //virtual MSNet::Time nextPhase();
-    virtual size_t nextStep(size_t currentStep);
-    virtual MSNet::Time duration(size_t currentStep) const;
-    virtual bool linkClosed(size_t currentStep, size_t pos) const;
+
+    /** @brief Switches to the next phase
+        Returns the time of the next switch */
+    virtual MSNet::Time nextPhase(MSLogicJunction::InLaneCont &inLanes);
+
+    /** @brief masks the request with the current phase
+        the request is simply masked using the "and" combination,
+        so only vehicles which do not have red are known and so the others
+        are not regarded further */
+    virtual void applyPhase(MSLogicJunction::Request &request) const;
+
+    /// Returns the priorities for all lanes for the current phase
+    virtual const std::bitset<64> &linkPriorities() const;
+
+    /** @brief Switches to the next step
+        Returns the number of the next step what is needed as
+        the number of following steps is not known */
+    virtual size_t nextStep();
+
+    /// Returns the duration of the given step
+    virtual MSNet::Time duration() const;
+
+private:
+    /// the list of phases this logic uses
+    Phases _phases;
+
+    /// information whether all light are red at the moment
+    bool _allRed;
+
+    /// static container for all lights being set to red
+    static std::bitset<64> _allClear;
+
+    /// The current step
+    size_t _step;
+
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
@@ -47,4 +138,15 @@ public:
 #endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "MSSimpleTrafficLightLogic.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

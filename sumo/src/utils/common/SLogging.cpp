@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -61,10 +64,12 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static member variables definitions
  * ======================================================================= */
 SLogging::Messages SLogging::m_Messages;
+
 
 /* =========================================================================
  * method definitions
@@ -94,3 +99,15 @@ SLogging::add(char *msg, bool report, bool newLine)
   string str = msg;
   add(str, report, newLine);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "SLogging.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

@@ -23,28 +23,40 @@
 
 // $Revision$
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSSource.h"
 #include "MSNet.h"
 #include <string>
 #include <vector>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSEventControl;
 class MSVehicleType;
 class SAX2XMLReader;
 class MSVehicle;
 class MSRoute;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
    @class MSTriggeredSource
    Concrete Source that reads emit-times and -speeds from a
    file and chooses the routes according to a distribution.
+   Attention!!! This class is not yet derved from MSTriggeredSource
    @see MSSource
 
 */
 class MSTriggeredSource : public MSSource
 {
 public:
+    /// The loader has direct access
     friend class MSTriggeredSourceXMLHandler;
 
     /** Customized construtor.
@@ -75,13 +87,16 @@ public:
 
 
 protected: // protected methods
+    /// Builds the parser
     void initParser( void );
 
+    /// Adds the read vehicle to the emit control
     void scheduleEmit( std::string aVehicleId,
                        MSNet::Time aEmitTime,
                        double      aEmitSpeed,
                        const MSVehicleType* aVehType );
 
+    /// Uses the parser to read the next emit element
     void readNextEmitElement( void );
 
 private:   // private methods
@@ -93,10 +108,6 @@ private:   // private methods
 
     /// Assignment operator.
     MSTriggeredSource& operator=( MSTriggeredSource& );
-
-protected: // protected members
-
-
 
 private:   // private members
     /**
@@ -176,6 +187,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.4  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.3  2002/10/21 09:55:40  dkrajzew
 // begin of the implementation of multireferenced, dynamically loadable routes
 //

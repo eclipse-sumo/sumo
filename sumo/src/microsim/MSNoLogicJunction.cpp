@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -41,6 +44,9 @@ namespace
 //
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -52,10 +58,23 @@ namespace
 #include <cassert>
 #include <cmath>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
+std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
+
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSNoLogicJunction::MSNoLogicJunction( string id, double x, double y,
 				      InLaneCont* in) :
     MSJunction( id, x, y ),
@@ -78,53 +97,18 @@ MSNoLogicJunction::~MSNoLogicJunction()
 
 //-------------------------------------------------------------------------//
 
-bool
-MSNoLogicJunction::setFirstVehiclesRequests()
-{
-    for ( InLaneCont::iterator it = myInLanes->begin();
-          it != myInLanes->end(); ++it ) {
-        ( *it )->setRequest();
-    }
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSNoLogicJunction::moveFirstVehicles()
-{
-    moveVehicles();
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSNoLogicJunction::vehicles2targetLane()
-{
-    for ( InLaneCont::iterator it = myInLanes->begin();
-          it != myInLanes->end(); ++it ) {
-        ( *it )->integrateNewVehicle();
-    }
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
 void
-MSNoLogicJunction::moveVehicles()
+MSNoLogicJunction::postloadInit()
 {
-    for ( InLaneCont::iterator inLaneIt = myInLanes->begin();
-          inLaneIt != myInLanes->end(); ++inLaneIt ) {
-
-        if( ! ( *inLaneIt )->empty() ) {
-
-            ( *inLaneIt )->moveFirst( true );
+    for(InLaneCont::iterator i=myInLanes->begin(); i!=myInLanes->end(); i++) {
+        const MSLinkCont &links = (*i)->getLinkCont();
+        for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            (*j)->setRequestInformation(&myDump, 0,
+                &myDump, 0, myDump);
         }
     }
 }
 
-//-------------------------------------------------------------------------//
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
@@ -134,7 +118,3 @@ MSNoLogicJunction::moveVehicles()
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-

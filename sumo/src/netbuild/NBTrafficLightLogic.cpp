@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        NBTrafficLightLogic.cpp -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <bitset>
 #include <utility>
@@ -6,8 +43,16 @@
 #include <sstream>
 #include "NBTrafficLightLogic.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &key,
                                          size_t noLinks)
     : _key(key), _noLinks(noLinks)
@@ -27,7 +72,7 @@ NBTrafficLightLogic::~NBTrafficLightLogic()
 
 
 void
-NBTrafficLightLogic::addStep(size_t duration, 
+NBTrafficLightLogic::addStep(size_t duration,
                              std::bitset<64> driveMask,
                              std::bitset<64> brakeMask)
 {
@@ -42,7 +87,8 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no) const
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
-    for(PhaseDefinitionVector::const_iterator i=_phases.begin(); i!=_phases.end(); i++) {
+    for( PhaseDefinitionVector::const_iterator i=_phases.begin();
+         i!=_phases.end(); i++) {
         std::bitset<64> mask = (*i).driveMask;
     	stringstream tmp1;
 	    tmp1 << mask;
@@ -53,34 +99,49 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no) const
         stringstream tmp2;
         mask = (*i).brakeMask;
         tmp2 << mask;
-        into << " brake=\"" << tmp2.str().substr(64-_noLinks) << "\"/>" << endl;
+        into << " brake=\"" << tmp2.str().substr(64-_noLinks) << "\"/>"
+            << endl;
     }
     into << "   </tl-logic>" << endl << endl;
 }
 
 
-void 
+void
 NBTrafficLightLogic::_debugWritePhases() const
 {
-    for(PhaseDefinitionVector::const_iterator i=_phases.begin(); i!=_phases.end(); i++) {
+    for( PhaseDefinitionVector::const_iterator i=_phases.begin();
+         i!=_phases.end(); i++) {
         cout << (*i).duration << "s : " << (*i).driveMask << endl;
     }
 }
 
 
-bool 
+bool
 NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 {
     if(_phases.size()!=logic._phases.size()) {
         return false;
     }
     PhaseDefinitionVector::const_iterator i, j;
-    for(i=_phases.begin(), j=logic._phases.begin(); i!=_phases.end(); i++, j++) {
+    for( i=_phases.begin(), j=logic._phases.begin();
+         i!=_phases.end(); i++, j++) {
         if((*i)!=(*j)) {
             return false;
         }
     }
     return true;
 }
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NBTrafficLightLogic.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

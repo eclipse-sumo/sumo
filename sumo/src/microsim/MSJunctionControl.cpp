@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSJunctionControl.C  -  Coordinates
+                          MSJunctionControl.cpp  -  Coordinates
                           Junction-operations.
                              -------------------
     begin                : Tue, 06 Mar 2001
@@ -17,13 +17,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -84,6 +87,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -92,13 +98,22 @@ namespace
 #include "MSJunction.h"
 #include <algorithm>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-// Init static member.
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSJunctionControl::DictType MSJunctionControl::myDict;
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSJunctionControl::MSJunctionControl(string id, JunctionCont* j) :
     myID(id), myJunctions(j)
 {
@@ -109,29 +124,6 @@ MSJunctionControl::~MSJunctionControl()
 {
     delete myJunctions;
 }
-
-// Why do we separate setting and collecting requests? Because
-// main road vehicles may set requests at more than on
-// junction. Before we collect, all requests must be set.
-
-void
-MSJunctionControl::moveFirstVehicles()
-{
-    // Why do we need four loops? The problem is that first vehicles can
-    // set requests at more than one junction. Therefore before setting
-    // requests, all requests need to be cleared. And before moving all
-    // requests must be set. And then, the vehicles have to be integrated
-    // into their new lanes.
-    for_each ( myJunctions->begin(), myJunctions->end(),
-               mem_fun (& MSJunction::clearRequests ) );
-    for_each ( myJunctions->begin(), myJunctions->end(),
-               mem_fun (& MSJunction::setFirstVehiclesRequests ) );
-    for_each ( myJunctions->begin(), myJunctions->end(),
-               mem_fun (& MSJunction::moveFirstVehicles ) );
-    for_each ( myJunctions->begin(), myJunctions->end(),
-               mem_fun (& MSJunction::vehicles2targetLane ) );
-}
-
 
 bool
 MSJunctionControl::dictionary(string id, MSJunctionControl* ptr)
@@ -167,6 +159,24 @@ MSJunctionControl::clear()
     myDict.clear();
 }
 
+
+void
+MSJunctionControl::resetRequests()
+{
+    for_each ( myJunctions->begin(), myJunctions->end(),
+               mem_fun (& MSJunction::clearRequests ) );
+}
+
+
+void
+MSJunctionControl::setAllowed()
+{
+    for_each ( myJunctions->begin(), myJunctions->end(),
+               mem_fun (& MSJunction::setAllowed ) );
+}
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 //#ifdef DISABLE_INLINE
@@ -176,3 +186,6 @@ MSJunctionControl::clear()
 // Local Variables:
 // mode:C++
 // End:
+
+
+

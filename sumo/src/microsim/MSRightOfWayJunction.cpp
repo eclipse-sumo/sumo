@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -70,6 +73,9 @@ namespace
 // Initial commit. Has been MSJunction.cpp before.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -86,77 +92,27 @@ using namespace std;
 //-------------------------------------------------------------------------//
 
 MSRightOfWayJunction::InLane::InLane(MSLane* lane) :
-    myLane( lane ),
-    myDriveRequest( false ),
-    myBrakeRequest( false )
+    myLane( lane )
 {
-}
-
-//-------------------------------------------------------------------------//
-
-findCompetitor::result_type
-findCompetitor::operator()
-    ( first_argument_type  competeLane,
-      second_argument_type inOut ) const
-{
-    // if competitor's lane is empty or if first vehicle didn't set a
-    // request, ignore this competitor.
-    MSLogicJunction::DriveBrakeRequest competeRequest =
-        competeLane->myLane->request();
-    if ( competeRequest.driveRequest() == false ) {
-
-        return false;
-    }
-
-    // ignore the prioritised vehicle's lane.
-    if ( inOut.first == competeLane->myLane ) {
-
-        return false;
-    }
-
-    // Possible competitors are vehicles that have the same targetLane as
-    // the prioritised vehicle (driving in inOut direction) will have in the
-    // following timestep.
-    if ( competeLane->myLane->firstVehSuccLane() == inOut.second ) {
-
-        return true;
-    }
-
-    return false;
 }
 
 //-------------------------------------------------------------------------//
 
 MSRightOfWayJunction::MSRightOfWayJunction( string id,
                                             double x, double y,
-                                            InLaneCont* in,
-                                            MSJunctionLogic* logic) :
-    MSLogicJunction( id, x, y ),
-    myInLanes( in ),
+                                            InLaneCont in,
+                                            MSJunctionLogic* logic)
+    : MSLogicJunction( id, x, y, in ),
     myLogic( logic )
 {
-    myRequest.resize( myLogic->nLinks(), false );
-    myRespond.resize( myLogic->nInLanes(), false );
-    // If sizes are different, something went wrong during
-    // logic-calculation.
-    assert( myLogic->nInLanes() == myInLanes->size() );
 }
 
 
 bool
 MSRightOfWayJunction::clearRequests()
 {
-    myRequest.clear();
-    myRespond.clear();
-    // Resize respond because it will be passed by reference to myLogic.
-    // Instead of resizing myLogic could push_back into myRespond, but I
-    // want the size be controlled the owner-class of myRespond.
-    myRespond.resize( myInLanes->size(), false );
-
-    for ( InLaneCont::iterator it = myInLanes->begin();
-          it != myInLanes->end(); ++it ) {
-        ( *it )->myLane->clearRequest();
-    }
+    myRequest.reset();
+//    myRespond.reset();
     return true;
 }
 
@@ -164,199 +120,22 @@ MSRightOfWayJunction::clearRequests()
 
 MSRightOfWayJunction::~MSRightOfWayJunction()
 {
-    for(InLaneCont::iterator i1=myInLanes->begin(); i1!=myInLanes->end(); i1++) {
+/*    for(InLaneCont::iterator i1=myInLanes->begin(); i1!=myInLanes->end(); i1++) {
         delete (*i1);
     }
-    delete myInLanes;
+    delete myInLanes;*/
     // Remark: All logics are deleted using MSJunctionLogic::clear()
 }
 
 //-------------------------------------------------------------------------//
 
 bool
-MSRightOfWayJunction::setFirstVehiclesRequests()
+MSRightOfWayJunction::setAllowed()
 {
-    for ( InLaneCont::iterator it = myInLanes->begin();
-          it != myInLanes->end(); ++it ) {
-        ( *it )->myLane->setRequest();
-    }
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSRightOfWayJunction::moveFirstVehicles()
-{
-    collectRequests(); // Sets myRequest.
-
     // Get myRespond from logic and check for deadlocks.
-    assert( myRespond.size() == myInLanes->size() );
     myLogic->respond( myRequest, myRespond );
-    assert( myRespond.size() == myInLanes->size() );
     deadlockKiller();
-
-    moveVehicles();
     return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSRightOfWayJunction::vehicles2targetLane()
-{
-    for ( InLaneCont::iterator it = myInLanes->begin();
-          it != myInLanes->end(); ++it ) {
-        ( *it )->myLane->integrateNewVehicle();
-    }
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
-void
-MSRightOfWayJunction::collectRequests()
-{
-    for ( InLaneCont::iterator in = myInLanes->begin();
-          in != myInLanes->end(); ++in) {
-
-        // Get req from lane.
-        DriveBrakeRequest dbr = ( *in )->myLane->request();
-
-        // Copy link-dependant part to myRequest.
-        myRequest.insert( myRequest.end(),
-                          dbr.myRequest.begin(),
-                          dbr.myRequest.end() );
-
-        // Store lane-dependant part to myInLanes.
-        ( *in )->myDriveRequest = dbr.myDriveRequest;
-        ( *in )->myBrakeRequest = dbr.myBrakeRequest;
-    }
-}
-
-//-------------------------------------------------------------------------//
-
-void
-MSRightOfWayJunction::moveVehicles()
-{
-    // Look for Brake-Request-Conflicts
-    //brakeReqConfl();
-
-    for ( InLaneCont::iterator in = myInLanes->begin();
-          in != myInLanes->end(); ++in) {
-
-        // If driveRequest was set, move dependent upon respond, else
-        // if brakeRequest was set, move because vehicle has right of way.
-        // Vehicles without requests moved already.
-        if ( ( *in )->myDriveRequest == true ) {
-
-            unsigned int index = distance( myInLanes->begin(), in );
-            bool respond = myRespond[ index ];
-            ( *in )->myLane->moveFirst( respond );
-        }
-        else if ( ( *in )->myBrakeRequest == true ) {
-
-            ( *in )->myLane->moveFirst( true );
-        } 
-    }
-}
-
-//-------------------------------------------------------------------------//
-
-void
-MSRightOfWayJunction::brakeReqConfl()
-{
-    // Search for brake-request-conflicts and modify respond, if neccessary.
-
-    for ( InLaneCont::iterator in = myInLanes->begin();
-          in != myInLanes->end(); ++in) {
-
-        // Check for a possible brake-request-conflict.
-        if ( ( *in )->myDriveRequest == false &&
-             ( *in )->myBrakeRequest == true) {
-
-            // in's that satisfy the above condition are prioritised lanes.
-            // Because they didn't set a drive-request, their respond is
-            // false. But of course they are allowed to drive. So, change
-            // the respond.
-            InLaneCont::iterator& prioLane = in;
-            ( *prioLane )->myDriveRequest = true; // Must be true, otherwise
-                                                  // no move.
-            unsigned int prioIndex = distance( myInLanes->begin(), prioLane );
-            myRespond[ prioIndex ]   = true;
-
-            // Search conflicting vehicle, i.e. a vehicle on a yield lane that
-            // is allowed to drive onto the lane, the prioritised vehicle will
-            // reach in the following timestep.
-            const MSLane* outLane =
-                ( *prioLane )->myLane->requestLane().firstVehSuccLane(
-                    ( *prioLane )->myLane );
-
-            pair< const MSLane*, const MSLane* > inOut(
-                (*prioLane )->myLane, outLane );
-
-            // Search as long in myInLanes until competitor is found or
-            // myInLanes is exhausted.
-            InLaneCont::iterator start = myInLanes->begin();
-            InLaneCont::iterator competeIt;
-            unsigned int competeIndex;
-            for (;;) {
-
-                competeIt = find_if( start, myInLanes->end(),
-                                     bind2nd( findCompetitor(), inOut ) );
-
-                // Return if there is no conflicting vehicle.
-                if ( competeIt ==  myInLanes->end() ) {
-
-                    return;
-                }
-
-                // Exit loop if competing vehicle is allowed to drive.
-                competeIndex = distance( myInLanes->begin(), competeIt );
-                if ( myRespond[ competeIndex ] == true ) {
-
-                    break;
-                }
-
-                // Continue loop
-                start = competeIt + 1;
-            }
-
-            // Check if prioritised vehicle doesn't allow competitor to enter
-            // it's desired lane.
-            if ( ! drivePermit( ( *prioLane )->myLane, outLane,
-                                ( *competeIt )->myLane ) ) {
-
-                // Prioritised vehicle gave no permission, so competitor has
-                // to slow down.
-                myRespond[ competeIndex ] = false;
-            }
-            else {
-
-                // Prioritised vehicle gave permission, it's desired speed
-                // was adapted in MSLane::decel2much, called from drivePermit.
-            }
-        }
-    } // for all inLanes
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSRightOfWayJunction::drivePermit( const MSLane* prio, const MSLane* out,
-                                   const MSLane* compete )
-{
-    // TODO
-    // Allow the conflicting vehicle to drive under some condition:
-    // Main vehicle is allowed to decelerate maxSpeedReduce*decFactor,
-
-    // 0 <= decFactor <= 1
-    // Adjust this to your purposes. Maybe random?
-    double decFactor( 0 ); // No deceleration allowed, first try value.
-
-
-    // ask the prio's lane request lane about allowed deceleration.
-    return ! prio->requestLane().decel2much( compete, out, decFactor );
 }
 
 //-------------------------------------------------------------------------//
@@ -365,43 +144,39 @@ MSRightOfWayJunction::drivePermit( const MSLane* prio, const MSLane* out,
 void
 MSRightOfWayJunction::deadlockKiller()
 {
-    // Check for a deadlock condition ( Request != 0 but respond == 0 )
-    vector< bool > nullRequest = vector< bool >( myRequest.size(), false );
-    if ( myRequest == nullRequest ) {
-
+    if ( myRequest.none() ) {
         return;
     }
 
-    vector< bool > nullRespond = vector< bool >( myRespond.size(), false );
-    if ( myRespond == nullRespond ) {
+    if ( myRespond.none() ) {
 
         // Handle deadlock: Create randomly a deadlock-free request out of
         // myRequest, i.e. a "single bit" request. Then again, send it
         // through myLogic (this is neccessary because we don't have a
-        // mapping between requests and lanes.)
+        // mapping between requests and lanes.) !!! (we do now!!)
         vector< unsigned > trueRequests;
         trueRequests.reserve( myRespond.size() );
         for ( unsigned i = 0; i < myRequest.size(); ++i ) {
 
-            if ( myRequest[i] == true ) {
+            if ( myRequest.test(i) ) {
 
                 trueRequests.push_back( i );
                 assert( trueRequests.size() <= myRespond.size() );
             }
         }
-        // Choose randamly an index out of [0,trueRequests.size()];
+        // Choose randomly an index out of [0,trueRequests.size()];
+        // !!! random choosing may choose one of less priorised lanes
         unsigned noLockIndex = static_cast< unsigned > (
             floor( static_cast< double >( rand() ) /
-                   static_cast< double >( RAND_MAX ) *
-                   trueRequests.size()
+                    static_cast< double >( RAND_MAX ) *
+                    trueRequests.size()
                 )
             );
 
         // Create deadlock-free request.
-        vector< bool > noLockRequest =
-            vector< bool >( myRequest.size(), false );
-        noLockRequest[ trueRequests[ noLockIndex ] ] = true;
-
+        std::bitset<64> noLockRequest(false);
+        assert(trueRequests.size()>noLockIndex);
+        noLockRequest.set( trueRequests[ noLockIndex ] );
         // Calculate respond with deadlock-free request.
         myLogic->respond( noLockRequest, myRespond );
     }
@@ -409,6 +184,10 @@ MSRightOfWayJunction::deadlockKiller()
 }
 
 //-------------------------------------------------------------------------//
+
+
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
@@ -418,7 +197,3 @@ MSRightOfWayJunction::deadlockKiller()
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-

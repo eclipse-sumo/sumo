@@ -1,7 +1,7 @@
 noinst_LIBRARIES = librouter.a
 
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
 librouter_a_SOURCES = CellDriverInfoParser.cpp CellDriverInfoParser.h \
 ROCellRouteDefHandler.cpp ROCellRouteDefHandler.h ROEdge.cpp ROEdge.h \
@@ -10,7 +10,7 @@ ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.h RONode.cpp RONodeCont.h \
 ROOrigDestRouteDef.cpp ROOrigDestRouteDef.h RORoute.cpp RORoute.h \
 RORouteDef.cpp RORouteDef.h RORouteDefCont.cpp RORouteDefCont.h \
-RORouteDefHandler.cpp RORouteDefHandler.h RORouteDefList.h \
+ROTripHandler.cpp ROTripHandler.h RORouteDefList.h \
 RORouteSnippletCont.cpp RORouteSnippletCont.h RORouter.cpp RORouter.h \
 RORunningVehicle.cpp RORunningVehicle.h \
 ROSUMORoutesHandler.cpp ROSUMORoutesHandler.h \

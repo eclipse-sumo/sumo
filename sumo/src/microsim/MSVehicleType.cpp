@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSVehicleType.C  -  Base Class for Vehicle
+                          MSVehicleType.cpp  -  Base Class for Vehicle
                           parameters.
                              -------------------
     begin                : Tue, 06 Mar 2001
@@ -17,13 +17,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -102,6 +105,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -111,14 +117,23 @@ namespace
 #include <cassert>
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-// Init static member.
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSVehicleType::DictType MSVehicleType::myDict;
 double MSVehicleType::myMinDecel  = 0;
 double MSVehicleType::myMaxLength = 0;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSVehicleType::~MSVehicleType()
 {
 }

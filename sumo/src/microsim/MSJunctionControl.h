@@ -1,3 +1,5 @@
+#ifndef MSJunctionControl_H
+#define MSJunctionControl_H
 /***************************************************************************
                           MSJunctionControl.h  -  Coordinates
                           Junction-operations.
@@ -16,11 +18,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSJunctionControl_H
-#define MSJunctionControl_H
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -66,12 +67,23 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <map>
 #include <string>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSJunction;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  */
 class MSJunctionControl
@@ -86,17 +98,21 @@ public:
     /// Destructor.
     ~MSJunctionControl();
 
-    /** Move the lane's first vehicles according the right-of-way
-        rules and requests set in setFirstVehiclesRequests(). */
-    void moveFirstVehicles();
+    /** resets the requests for all lanes */
+    void resetRequests();
 
-    /** Inserts MSJunctionControl into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /// Sets the responds
+    void setAllowed();
+
+    /** @brief Inserts MSJunctionControl into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false (the control is not inserted then). */
     static bool dictionary( std::string id, MSJunctionControl* junControl );
-    /** Returns the MSEdgeControl associated to the key id if exists,
+
+    /** @brief Returns the MSEdgeControl associated to the key id if exists
         otherwise returns 0. */
     static MSJunctionControl* dictionary( std::string id );
+
     /** Clears the dictionary */
     static void clear();
 

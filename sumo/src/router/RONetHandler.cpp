@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        RONetHandler.cpp -
+//  The handler for SUMO-Networks
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:45:04  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SErrorHandler.h>
@@ -16,7 +53,7 @@ using namespace std;
 
 
 RONetHandler::RONetHandler(OptionsCont &oc, RONet &net)
-    : SUMOSAXHandler(true, true),
+    : SUMOSAXHandler("sumo-network", true, true),
     _options(oc), _net(net), _currentName(),
     _currentEdge(0)
 {
@@ -29,7 +66,7 @@ RONetHandler::~RONetHandler()
 
 
 void
-RONetHandler::myStartElement(int element, const std::string &name, 
+RONetHandler::myStartElement(int element, const std::string &name,
                              const Attributes &attrs)
 {
     switch(element) {
@@ -61,13 +98,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
         _currentEdge = _net.getEdge(_currentName);
         if(_currentEdge==0) {
             SErrorHandler::add(
-                string("An unknown edge occured within '") 
+                string("An unknown edge occured within '")
                 + _file + string("."));
             SErrorHandler::add("Contact your net supplier!");
         }
     } catch (EmptyData) {
         SErrorHandler::add(
-            string("An edge without an id occured within '") 
+            string("An edge without an id occured within '")
             + _file + string("."));
         SErrorHandler::add("Contact your net supplier!");
     }
@@ -84,7 +121,7 @@ RONetHandler::parseLane(const Attributes &attrs)
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
     } catch (EmptyData) {
         SErrorHandler::add(
-            string("A lane without a maxspeed definition occured within '") 
+            string("A lane without a maxspeed definition occured within '")
             + _file + string("'."));
         return;
     } // !!! NumberFormatException
@@ -93,7 +130,7 @@ RONetHandler::parseLane(const Attributes &attrs)
         length = getFloat(attrs, SUMO_ATTR_LENGTH);
     } catch (EmptyData) {
         SErrorHandler::add(
-            string("A lane without a length definition occured within '") 
+            string("A lane without a length definition occured within '")
             + _file + string("'."));
         return;
     } // !!! NumberFormatException
@@ -116,7 +153,7 @@ RONetHandler::parseJunction(const Attributes &attrs)
         _currentName = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         SErrorHandler::add(
-            string("A junction without an id occured within '") 
+            string("A junction without an id occured within '")
             + _file + string("'."));
         SErrorHandler::add("Contact your net supplier!");
     }
@@ -137,7 +174,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs) {
             _currentEdge->addSucceeder(succ);
         } else {
             SErrorHandler::add(
-                string("The succeding edge '") + succID 
+                string("The succeding edge '") + succID
                 + string("' does not exist."));
             error = true;
         }
@@ -156,30 +193,10 @@ RONetHandler::parseConnEdge(const Attributes &attrs) {
 }
 
 
-void
-RONetHandler::parseoutedges(const std::string &outedges)
-{
-    StringTokenizer st(outedges);
-    ROEdgeVector edges;
-    while(st.hasNext()) {
-        ROEdge *edge = _net.getEdge(st.next());
-        if(edge==0) {
-            SErrorHandler::add(
-                "A junction has an outgoing edge that is not described!.");
-            SErrorHandler::add("Contact your net supplier");
-        } else {
-            edges.add(edge);
-        }
-    }
-    if(_currentName!="") {
-        _net.addNode(_currentName, new RONode(_currentName, edges));
-    }
-    _currentName = "";
-}
 
 
 void
-RONetHandler::myCharacters(int element, const std::string &name, 
+RONetHandler::myCharacters(int element, const std::string &name,
                            const std::string &chars)
 {
     if(element==SUMO_TAG_EDGES) {
@@ -214,5 +231,15 @@ RONetHandler::myEndElement(int element, const std::string &name)
         break;
     }*/
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "RONetHandler.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -47,13 +50,14 @@
  * class definitions
  * ======================================================================= */
 /**
- * HelpPrinter
+ * @class HelpPrinter
  * A class that prints a list of strings unless a null-string occures
  * This class was made due to the wish to interrupt the output after a
  * certain number of lines - a feature that is not yet implemented
  */
 class HelpPrinter {
 public:
+    /** prints the given lines into cout */
     static void print(char *help[]) {
         for(size_t i=0; help[i]!=0; i++)
             std::cout << help[i] << std::endl;

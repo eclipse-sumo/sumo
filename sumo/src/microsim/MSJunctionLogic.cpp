@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -45,21 +48,31 @@ namespace
 // Initial commit.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
 #include "MSJunctionLogic.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
-// Init static member.
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSJunctionLogic::DictType MSJunctionLogic::myDict;
 
-//-------------------------------------------------------------------------//
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 unsigned int
 MSJunctionLogic::nLinks()
 {

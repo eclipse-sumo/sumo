@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        MSLaneSpeedTrigger.cpp -
+//  Class that realises the setting of a lane's maximum speed triggered by
+//      values read from a file
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <helpers/Command.h>
 #include <microsim/MSNet.h>
@@ -9,7 +47,7 @@
 using namespace std;
 
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
-                                       MSNet &net, MSLane &destLane, 
+                                       MSNet &net, MSLane &destLane,
                                        const std::string &aXMLFilename)
     : MSTrigger(id),
     MSTriggeredXMLReader(net, aXMLFilename), _destLane(destLane)
@@ -21,7 +59,7 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
 }
 
 
-void 
+void
 MSLaneSpeedTrigger::init(MSNet &net)
 {
     MSTriggeredXMLReader::init(net);
@@ -29,14 +67,14 @@ MSLaneSpeedTrigger::init(MSNet &net)
 }
 
 
-void  
+void
 MSLaneSpeedTrigger::processNext()
 {
     _destLane.myMaxSpeed = _currentSpeed;
 }
 
 
-void 
+void
 MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
                                    const Attributes &attrs)
 {
@@ -51,14 +89,14 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
     if(next<0) {
         SErrorHandler::add(
             string("Wrong time in MSLaneSpeedTrigger in file '")
-            + _filename 
+            + _file
             + string("'."));
         return;
     }
     if(speed<0) {
         SErrorHandler::add(
             string("Wrong speed in MSLaneSpeedTrigger in file '")
-            + _filename 
+            + _file
             + string("'."));
         return;
     }
@@ -68,7 +106,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
 }
 
 
-void 
+void
 MSLaneSpeedTrigger::myCharacters(int element, const std::string &name,
                                  const std::string &chars)
 {
@@ -79,5 +117,17 @@ void
 MSLaneSpeedTrigger::myEndElement(int element, const std::string &name)
 {
 }
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "MSLaneSpeedTrigger.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

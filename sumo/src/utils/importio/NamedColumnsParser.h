@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:26  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:59:13  dkrajzew
 // initial commit for classes that handle import functions
 //
@@ -39,7 +42,7 @@
  * class definitions
  * ======================================================================= */
 /**
- * NamedColumnsParser
+ * @class NamedColumnsParser
  * When initialised, this parser stores the given information about the
  * order of the named elements and allows the retrieval of lines using the
  * names of these elements.
@@ -51,40 +54,52 @@
  * - get values using operations like: string posX = get("PositionX");
  */
 class NamedColumnsParser {
-private:
-    /** the map's definition of column item names to their positions
-        within the table */
-    typedef std::map<std::string, int> PosMap;
-    /// the map of column item names to their positions within the table
-    PosMap _defMap;
-    /// the delimiter to split the column items on
-    std::string _lineDelim;
-    /// the contents of the current line
-    StringTokenizer _line;
 public:
     /// constructor
     NamedColumnsParser();
-    /// initialising constructor
+
+    /// constructor
     NamedColumnsParser(const std::string &def, const std::string &defDelim=";",
-        const std::string &lineDelim=";");
+        const std::string &lineDelim=";", bool chomp=false);
+
     /// destructor
     ~NamedColumnsParser();
-    /** reinitialises the parser
+
+    /** @brief reinitialises the parser
         (does the same like the constructor without the reallocation
         of the object) */
     void reinit(const std::string &def, const std::string &defDelim=";",
-        const std::string &lineDelim=";");
+        const std::string &lineDelim=";", bool chomp=false);
+
     /// parses the contents of the line
     void parseLine(const std::string &line);
-    /** returns the named information
+
+    /** @brief returns the named information
         throws an UnknownElement when the element was not named during the
             initialisation
         throws an OutOfBoundsException when the line was too
             short and did not contain the item */
-    std::string get(const std::string &name);
+    std::string get(const std::string &name, bool prune=false);
+
 private:
     /** returns the map of attribute names to their positions in a table */
-    void reinitMap(const std::string &s, const std::string &delim=";");
+    void reinitMap(const std::string &s, const std::string &delim=";",
+        bool chomp=false);
+
+private:
+    /** the map's definition of column item names to their positions
+        within the table */
+    typedef std::map<std::string, int> PosMap;
+
+    /// the map of column item names to their positions within the table
+    PosMap _defMap;
+
+    /// the delimiter to split the column items on
+    std::string _lineDelim;
+
+    /// the contents of the current line
+    StringTokenizer _line;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

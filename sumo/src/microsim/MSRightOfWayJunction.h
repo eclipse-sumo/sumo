@@ -1,3 +1,5 @@
+#ifndef MSRightOfWayJunction_H
+#define MSRightOfWayJunction_H
 /***************************************************************************
                           MSRightOfWayJunction.h  -  Usual right-of-way
                           junction.
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -53,114 +58,60 @@
 // Revision 1.1  2001/12/12 17:46:02  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
-
-#ifndef MSRightOfWayJunction_H
-#define MSRightOfWayJunction_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSLogicJunction.h"
+#include <bitset>
 #include <vector>
 #include <string>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 class MSJunctionLogic;
 class findCompetitor;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSRightOfWayJunction
+ * A class which realises junctions that do regard any kind of a right-of-way.
+ * The rules for the right-of-way themselves are stored within the associated
+ * "MSJunctionLogic" - structure.
  */
 class MSRightOfWayJunction : public MSLogicJunction
 {
 public:
-    /** Holds the information the incoming lanes. Drive- and
-        Brakerequest will be used to distinguish between main- and
-        sideroad-links if necessary (e.g. if a prioritized vehicle
-        has no drive request but it's brake distance is past the
-        junction it may block sideroad vehicles. */
-    class InLane
-    {
-    public:
-        friend class MSRightOfWayJunction;
-        friend class MSTrafficLightJunction;
-        friend class findCompetitor;
-
-        InLane( MSLane* inLane );
-
-    private:
-        MSLane* myLane;
-
-        // Used for brake-request-conflicts
-        bool myDriveRequest;
-        bool myBrakeRequest;
-
-        InLane();
-    };
 
     /// Destructor.
     virtual ~MSRightOfWayJunction();
 
-    /** Container for incoming lanes. */
-    typedef std::vector< InLane* > InLaneCont;
-
     /** Use this constructor only. */
     MSRightOfWayJunction( std::string id,
                           double x, double y,
-                          InLaneCont* in,
+                          InLaneCont in,
                           MSJunctionLogic* logic );
 
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
     bool clearRequests();
 
-    /** Call all lanes in myLanes and let them set their first vehicle's
-        requests. Before, empty old requests/responds. */
-    bool setFirstVehiclesRequests();
-
-    /** Collect the first car's requests, calculate the respond
-        according to the right of way rules and move the vehicles on
-        their lane resp. set them in the succeeding lane's buffer. */
-    virtual bool moveFirstVehicles();
-
-    /** Integrate the moved vehicles into their target-lane. This is
-        neccessary if you use not thread-safe containers. */
-    bool vehicles2targetLane();
+    /** Sets the information which vehicles may drive */
+    virtual bool setAllowed();
 
 protected:
-    /** Collects the previously set requests and stores
-        them in myCurrRequest and in myInLanes. */
-    virtual void collectRequests();
-
-    /** Junction's in-lanes. */
-    InLaneCont* myInLanes;
-
-    /** Current request. */
-    Request myRequest;
-
-     /** Current respond. */
-    Respond myRespond;
+    /// Search for deadlock-situations and eleminate them.
+    virtual void deadlockKiller();
 
     /** the type of the junction (its logic) */
     MSJunctionLogic* myLogic;
 
-    /// Search for deadlock-situations and eleminate them.
-    virtual void deadlockKiller();
-
-    /** Tells myInLanes to move the first vehicles
-        according to the calculated myCurrRespond. */
-    void moveVehicles();
-
 private:
-
-    /** Main road vehicles may have brake requests without drive
-        requests. This can affect the right of way of side road
-        vehicles. This method will modify myRespond if necessary. */
-    void brakeReqConfl();
-
-    /** Checks, if a conflicting side road vehicle is allowed to
-        drive even if a main road vehicle has a brake request (but no
-        drive request. */
-
-    bool drivePermit( const MSLane* prio, const MSLane* out, const
-                      MSLane* compete );
-
     /// Default constructor.
     MSRightOfWayJunction();
 
@@ -169,24 +120,6 @@ private:
 
     /// Assignment operator.
     MSRightOfWayJunction& operator=( const MSRightOfWayJunction& );
-};
-
-
-/** Function Object for use with Function Adater on vehicle
-    containers. */
-class findCompetitor
-{
-public:
-    typedef const MSRightOfWayJunction::InLane* first_argument_type;
-    typedef const
-    std::pair< const MSLane*, const MSLane* > second_argument_type;
-    typedef bool result_type;
-
-    /** Returns true if there is a yield road's first vehicle
-        that has the same succ-lane. There may be more than
-        one. Check their drive-permission outside. */
-    result_type operator() ( first_argument_type competeLane,
-                             second_argument_type inOut ) const;
 };
 
 
@@ -200,13 +133,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

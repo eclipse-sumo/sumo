@@ -3,10 +3,10 @@
 
 	 reads OD input data from file
 
-			 usage		 : Odread(filename, data, size, totalcars) 
+			 usage		 : Odread(filename, data, size, totalcars)
 
                              -------------------
-    project              : SUMO		 : 
+    project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Tue, 10 September 2002
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
@@ -22,8 +22,11 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <iostream>
- 
+
 # include <sstream>
 # include <fstream>
 # include <vector>
@@ -43,7 +46,8 @@ std::ostream& operator<< (std::ostream& os, const OD_IN& od) {
 
 using namespace std;
 
-int ODread (string OD_filename,vector<OD_IN>& od_in, int *maxele, int *total_cars) 
+int ODread (string OD_filename,vector<OD_IN>& od_in, int *maxele,
+			int *total_cars, int *start, int *finish, float *factor)
 	{
 	std::string cLine;
 	int ferror = 0;
@@ -55,7 +59,22 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, int *maxele, int *total_car
 		throw ProcessError();
 	}
 	n = 0;
-	for(int i=0;i<11;i++) (getline (fsSrc, cLine)); // read 11 dummy lines
+	int i;
+	for(i=0; i<2; i++) {
+	    getline (fsSrc, cLine); // read dummy lines
+	}
+	float start_ini, finish_ini;
+	// read begin and end and convert to seconds
+	fsSrc >> start_ini >> finish_ini;
+	*start = int(start_ini);
+	*finish = int(finish_ini);
+	float rest = 6000 * (start_ini - *start);
+	*start = (int) (3600 * *start + rest);
+	rest = 6000 * (finish_ini - *finish);
+	*finish = (int) (3600 * *finish + rest);
+	for(i=0;i<2;i++) (getline (fsSrc, cLine));
+	fsSrc >> *factor;
+	for(i=0;i<7;i++) (getline (fsSrc, cLine)); // read dummy lines
 	while (getline (fsSrc, cLine)) {
 		std::istringstream isFLine (cLine);
 		if(n > *maxele-1) {
@@ -65,8 +84,8 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, int *maxele, int *total_car
 //		maxele=2*maxele;
 		}
         OD_IN tmp;
-		if (!(isFLine >> tmp.from 
-		>> tmp.to 
+		if (!(isFLine >> tmp.from
+		>> tmp.to
 		>> tmp.how_many))
 		{
 			std::cerr << "Invalid data set encountered: " << cLine << std::endl;
@@ -81,3 +100,15 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, int *maxele, int *total_car
 	fsSrc.close ();
 	return (ferror);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODread.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -45,11 +48,12 @@
 // extracted the definitions of basic container types
 //
 //
-//
+
 /* =========================================================================
- * class definitions
+ * class declarations
  * ======================================================================= */
 class NBEdge;
+
 
 /* =========================================================================
  * container definitions
@@ -62,16 +66,28 @@ struct EdgeLane {
 
 
 /** container for (sorted) lanes of edges */
-typedef std::vector<EdgeLane> EdgeLaneCont;
+typedef std::vector<EdgeLane> EdgeLaneVector;
+
 
 /** container for (sorted) edges */
-typedef std::vector<NBEdge*> EdgeCont;
+typedef std::vector<NBEdge*> EdgeVector;
+
 
 /** container for (sorted) lanes.
-      The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) */
-typedef std::vector<int> LaneCont;
+    The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) */
+typedef std::vector<int> LaneVector;
 
-/** a container for ints */
-typedef std::vector<int> IntCont;
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "NBCont.icc"
+//#endif
 
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

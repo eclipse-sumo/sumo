@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -56,10 +59,12 @@ namespace
 #include <utils/convert/TplConvertSec.h>
 #include "AttributesHandler.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -160,7 +165,7 @@ AttributesHandler::getFloatSecure(const Attributes &attrs, int id,
 
 
 
-const XMLCh *const 
+const XMLCh *const
 AttributesHandler::getAttributeNameSecure(int id) const
 {
    AttrMap::const_iterator i=_tags.find(id);
@@ -171,7 +176,7 @@ AttributesHandler::getAttributeNameSecure(int id) const
 }
 
 const XMLCh *
-AttributesHandler::getAttributeValueSecure(const Attributes &attrs, 
+AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
                                            int id) const
 {
     return attrs.getValue(getAttributeNameSecure(id));

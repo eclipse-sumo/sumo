@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:43  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -59,6 +62,7 @@ namespace
 #include <map>
 #include "NBContHelper.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -67,16 +71,18 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-EdgeCont::const_iterator
-NBContHelper::nextCW(const EdgeCont * edges, EdgeCont::const_iterator from) {
+EdgeVector::const_iterator
+NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from) {
     from++;
     if(from==edges->end()) {
         return edges->begin();
@@ -84,19 +90,21 @@ NBContHelper::nextCW(const EdgeCont * edges, EdgeCont::const_iterator from) {
     return from;
 }
 
-EdgeCont::const_iterator
-NBContHelper::nextCCW(const EdgeCont * edges, EdgeCont::const_iterator from) {
+
+EdgeVector::const_iterator
+NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator from) {
   if(from==edges->begin())
     return edges->end() - 1;
   return --from;
 }
 
+
 int
-NBContHelper::countPriorities(const EdgeCont &s) {
+NBContHelper::countPriorities(const EdgeVector &s) {
     if(s.size()==0)
         return 0;
     map<int, int> knownPrios;
-    for(EdgeCont::const_iterator i=s.begin(); i!=s.end(); i++) {
+    for(EdgeVector::const_iterator i=s.begin(); i!=s.end(); i++) {
         knownPrios.insert(map<int, int>::value_type((*i)->getPriority(), 0));
     }
     return knownPrios.size();
@@ -111,7 +119,6 @@ NBContHelper::out(std::ostream &os, const std::vector<bool> &v)
     }
     return os;
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

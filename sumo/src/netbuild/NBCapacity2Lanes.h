@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -28,6 +31,8 @@
 // Visum7.5 and Cell import added
 //
 //
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -37,14 +42,13 @@
  * in dependence to this edge's capacity
  */
 class NBCapacity2Lanes {
-private:
-    /// the norming factor
-    float _divider;
 public:
     /// constructor
     NBCapacity2Lanes(float divider) : _divider(divider) { }
+
     /// destructor
     ~NBCapacity2Lanes() { }
+
     /// returns the number of lanes computed from the given capacity
     int get(float capacity) {
         capacity /= _divider;
@@ -57,7 +61,12 @@ public:
         }
         return (int) capacity;
     }
+
+private:
+    /// the norming factor
+    float _divider;
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE

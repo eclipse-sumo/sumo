@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -73,6 +76,7 @@ namespace
 #include <exception>
 #include "XMLBuildingExceptions.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -81,10 +85,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions

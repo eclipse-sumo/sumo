@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -64,17 +67,24 @@
  * A message will be supplied
  */
 class InvalidArgument : public std::exception {
- private:
-    /** the meaning of the argument within the context */
-    std::string   _msg;
- public:
+public:
     /** constructor */
-   InvalidArgument(std::string msg);
+    InvalidArgument(const std::string &msg);
+
     /** destructor */
     ~InvalidArgument();
+
     /** returns the error description */
-    std::string msg();
+    const std::string &msg();
+
+private:
+    /** the meaning of the argument within the context */
+    std::string   _msg;
+
 };
+
+
+
 
 /**
  * ProcessError
@@ -84,11 +94,17 @@ class InvalidArgument : public std::exception {
  */
 class ProcessError : public std::exception {
 public:
-  /** constructor */
-   ProcessError();
-  /** destructor */
-  ~ProcessError();
+    /** constructor */
+    ProcessError();
+
+    /** destructor */
+    ~ProcessError();
+
 };
+
+
+
+
 
 /**
  * UnsupportedFeature
@@ -96,17 +112,25 @@ public:
  * feature shall be instantiated
  */
 class UnsupportedFeature : public std::exception {
-private:
-  /** the message of the exception */
-  std::string _message;
 public:
-  /** constructor */
-  UnsupportedFeature(std::string message);
-  /** destructor */
-  ~UnsupportedFeature();
-  /** returns the message */
-  std::string message();
+    /** constructor */
+    UnsupportedFeature(const std::string &message);
+
+    /** destructor */
+    ~UnsupportedFeature();
+
+    /** returns the message */
+    const std::string &message();
+
+private:
+    /** the message of the exception */
+    std::string _message;
+
 };
+
+
+
+
 
 /**
  * EmptyData
@@ -116,9 +140,15 @@ class EmptyData : public std::exception {
 public:
     /** constructor */
     EmptyData() { }
+
     /** destructor */
     ~EmptyData() { }
+
 };
+
+
+
+
 
 /**
  * NumberFormatException
@@ -130,9 +160,15 @@ class NumberFormatException : public std::exception {
 public:
     /** constructor */
     NumberFormatException() { }
+
     /** destructor */
     ~NumberFormatException() { }
+
 };
+
+
+
+
 
 
 /**
@@ -144,9 +180,15 @@ class OutOfBoundsException : public std::exception {
 public:
     /** constructor */
     OutOfBoundsException() { }
+
     /** destructor */
     ~OutOfBoundsException() { }
+
 };
+
+
+
+
 
 /**
  * UnknownElement
@@ -157,9 +199,13 @@ class UnknownElement : public std::exception {
 public:
     /** constructor */
     UnknownElement() { }
+
     /** destructor */
     ~UnknownElement() { }
+
 };
+
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
@@ -171,4 +217,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-

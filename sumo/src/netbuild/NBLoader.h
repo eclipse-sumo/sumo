@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -53,6 +56,7 @@
 #include <string>
 #include "NLLoadFilter.h"
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -61,6 +65,7 @@ class SUMOSAXHandler;
 class LineReader;
 class LineHandler;
 class SAX2XMLReader;
+
 
 /* =========================================================================
  * class declarations
@@ -74,32 +79,50 @@ class SAX2XMLReader;
  */
 class NBLoader {
 public:
-    /** loads the data from the files specified in the given option container */
+    /** loads data from the files specified in the given option container */
     static void load(OptionsCont &oc);
+
     /// the information whether the loading shall be done in the verbose mode
     static bool _verbose;
+
 private:
     /** loads data from sumo-files */
     static void loadSUMO(OptionsCont &oc, bool warn);
+
     /** loads net or logics */
     static void loadSUMOFiles(OptionsCont &oc, LoadFilter what,
         const std::string &files, const std::string &type);
+
     /** loads data from XML-files */
     static void loadXML(OptionsCont &oc, bool warn);
+
     /** loads data from the list of xml-files of certain type */
     static void loadXMLType(SUMOSAXHandler *handler,
         const std::string &files, const std::string &type);
+
     /** loads data from a single xml-file */
     static void loadXMLFile(SAX2XMLReader &parser, const std::string &file,
         const std::string &type);
+
     /** loads data from cell-input-files */
     static void loadCell(OptionsCont &oc, bool warn);
+
     /** reads using a file reader */
-    static bool useLineReader(LineReader &lr, const std::string &file, LineHandler &lh);
+    static bool useLineReader(LineReader &lr, const std::string &file,
+        LineHandler &lh);
+
     /** loads data from visum-input-file */
     static void loadVisum(OptionsCont &oc, bool warn);
+
+    /** loads data from arcview-files */
+    static void loadArcView(OptionsCont &oc, bool warn);
+
+    /** loads data from vissim-input-file */
+    static void loadVissim(OptionsCont &oc, bool warn);
+
     /// prints the given message when running in verbose mode
     static void reportBegin(const std::string &msg);
+
     /// prints the message "done." when running in verbose mode
     static void reportEnd();
 };
@@ -114,4 +137,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

@@ -1,7 +1,48 @@
+//---------------------------------------------------------------------------//
+//                        SUMOXMLDefinitions.cpp -
+//  Definitions of SUMO-tags
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2003/02/07 10:53:23  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 #include "SUMOXMLDefinitions.h"
 
+/* =========================================================================
+ * definitions
+ * ======================================================================= */
 size_t noSumoTags = 38;
 
 GenericSAX2Handler::Tag sumotags[38] =
@@ -46,9 +87,9 @@ GenericSAX2Handler::Tag sumotags[38] =
     /* 38 */  { "step",             SUMO_TAG_STEP }
 };
 
-size_t noSumoAttrs = 49;
+size_t noSumoAttrs = 52;
 
-AttributesHandler::Attr sumoattrs[49] =
+AttributesHandler::Attr sumoattrs[52] =
 {
     /* 00 */ { "id",            SUMO_ATTR_ID },
     /* 01 */ { "name",          SUMO_ATTR_NAME },
@@ -98,5 +139,20 @@ AttributesHandler::Attr sumoattrs[49] =
     /* 45 */ { "attr",          SUMO_ATTR_ATTR },
     /* 46 */ { "objectid",      SUMO_ATTR_OBJECTID },
     /* 47 */ { "time",          SUMO_ATTR_TIME },
-    /* 48 */ { "multi_ref",     SUMO_ATTR_MULTIR }
+    /* 48 */ { "multi_ref",     SUMO_ATTR_MULTIR },
+    /* 49 */ { "traveltime",    SUMO_ATTR_VALUE },
+    /* 50 */ { "begin",         SUMO_ATTR_BEGIN },
+    /* 51 */ { "end",           SUMO_ATTR_END }
 };
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "SUMOXMLDefinitions.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

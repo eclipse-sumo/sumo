@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -140,7 +143,7 @@ class OptionsCont {
     /** returns the boolean-value of the named option
         (only for Option_Bool) */
     bool getBool(const std::string &name) const;
-    /** returns the list of longs-value of the name option 
+    /** returns the list of longs-value of the name option
         (only for Option_LongList) */
     const UIntVector &getUIntVector(const std::string &name) const;
     /** returns the information whether the option is a boolean option */
@@ -195,6 +198,3 @@ class OptionsCont {
 // Local Variables:
 // mode:C++
 // End:
-
-
-

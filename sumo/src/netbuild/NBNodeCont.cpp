@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:33:52  dkrajzew
 // adding of typed nodes added
 //
@@ -73,24 +76,28 @@ namespace
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static members
  * ======================================================================= */
 NBNodeCont::NodeCont    NBNodeCont::_nodes;
 int                     NBNodeCont::_internalID = 1;
+
 
 /* =========================================================================
  * method definitions
@@ -175,7 +182,8 @@ NBNodeCont::retrieve(const string &id)
 
 
 NBNode *
-NBNodeCont::retrieve(double x, double y) {
+NBNodeCont::retrieve(double x, double y)
+{
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         NBNode *node = (*i).second;
         if(node->getXCoordinate()==x && node->getYCoordinate()==y)
@@ -215,7 +223,6 @@ NBNodeCont::computeEdges2Lanes(bool verbose)
 }
 
 
-
 // computes the "wheel" of incoming and outgoing edges for every node
 bool
 NBNodeCont::computeLogics(bool verbose, long maxSize)
@@ -253,22 +260,29 @@ NBNodeCont::writeXML(ostream &into)
     into << endl;
 }
 
+
 int
-NBNodeCont::size() {
+NBNodeCont::size()
+{
     return(_nodes.size());
 }
 
+
 int
-NBNodeCont::getNo() {
+NBNodeCont::getNo()
+{
     return _nodes.size();
 }
 
+
 void
-NBNodeCont::clear() {
+NBNodeCont::clear()
+{
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++)
         delete((*i).second);
     _nodes.clear();
 }
+
 
 void
 NBNodeCont::report(bool verbose)
@@ -277,7 +291,6 @@ NBNodeCont::report(bool verbose)
         cout << "   " << getNo() << " nodes loaded." << endl;
     }
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

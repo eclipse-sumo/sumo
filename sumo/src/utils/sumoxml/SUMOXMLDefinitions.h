@@ -1,9 +1,46 @@
 #ifndef SUMOXMLDefinitions_h
 #define SUMOXMLDefinitions_h
+//---------------------------------------------------------------------------//
+//                        SUMOXMLDefinitions.h -
+//  Definitions of SUMO-tags
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.4  2003/02/07 10:53:23  dkrajzew
+// updated
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 
+
+/* =========================================================================
+ * definitions
+ * ======================================================================= */
+/**
+ * Numbers representing SUMO-XML - tags (element names)
+ */
 enum TagEnum
 {
     /** invalid tag */
@@ -86,6 +123,10 @@ enum TagEnum
     SUMO_TAG_STEP
 };
 
+
+/**
+ * Numbers representing SUMO-XML - attributes
+ */
 enum AttrEnum
 {
     /* common attributes */
@@ -151,13 +192,38 @@ enum AttrEnum
     /** trigger: the time of the step */
     SUMO_ATTR_TIME,
     /** routes: information whether not only one vehicle uses the route */
-    SUMO_ATTR_MULTIR
+    SUMO_ATTR_MULTIR,
+    /** weights: one possible value */
+    SUMO_ATTR_VALUE,
+    /** weights: time range begin */
+    SUMO_ATTR_BEGIN,
+    /** weights: time range end */
+    SUMO_ATTR_END
 };
 
+
+/* =========================================================================
+ * declarations
+ * ======================================================================= */
+/// The number of SUMO-XML element names
 extern size_t noSumoTags;
+/// The names of SUMO-XML elements
 extern GenericSAX2Handler::Tag sumotags[38];
 
+/// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
-extern AttributesHandler::Attr sumoattrs[49];
+/// The names of SUMO-XML attributes
+extern AttributesHandler::Attr sumoattrs[52];
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "SUMOXMLDefinitions.icc"
+//#endif
 
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

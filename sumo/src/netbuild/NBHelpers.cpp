@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -70,20 +73,24 @@ namespace
 #include "NBNode.h"
 #include "NBHelpers.h"
 #include <utils/common/StringTokenizer.h>
+#include <utils/geom/Position2D.h>
 #include <iostream>
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -142,6 +149,7 @@ NBHelpers::relAngle(double angle1, double angle2)
     return angle2;
 }
 
+
 double
 NBHelpers::normRelAngle(double angle1, double angle2) {
     double rel = relAngle(angle1, angle2);
@@ -170,6 +178,7 @@ NBHelpers::computeLogicSize(string key) {
     return size;
 }
 
+
 std::string
 NBHelpers::normalIDRepresentation(const std::string &id)
 {
@@ -191,7 +200,6 @@ NBHelpers::distance(NBNode *node1, NBNode *node2)
     double ye = node2->getYCoordinate();
     return sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

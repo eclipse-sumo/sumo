@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSEdge.C  -  Provides routing. Superior to Lanes.
+                          MSEdge.cpp  -  Provides routing. Superior to Lanes.
                              -------------------
     begin                : Tue, 06 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -16,13 +16,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
 }
 
 // $Log$
+// Revision 1.5  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.4  2002/10/28 12:58:01  dkrajzew
 // some minor output changes (intending and backslash-n replaced by endl)
 //
@@ -105,6 +108,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -117,12 +123,22 @@ namespace
 #include <iostream>
 #include <cassert>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-// Init static member.
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSEdge::DictType MSEdge::myDict;
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSEdge::MSEdge(string id) : myID(id), myLaneChanger(0)
 {
 }
@@ -142,7 +158,7 @@ MSEdge::~MSEdge()
 
 void
 MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
-                   LaneCont* lanes)
+                   LaneCont* lanes, EdgeBasicFunction function)
 {
     assert(allowed!=0);
     assert(departLane!=0);
@@ -151,35 +167,75 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     myAllowed = allowed;
     myDepartLane = departLane;
     myLanes = lanes;
+    _function = function;
 
     if ( myLanes->size() > 1 ) {
-
         myLaneChanger = new MSLaneChanger( myLanes );
     }
 }
 
 
 void
-MSEdge::moveExceptFirstSingle()
+MSEdge::moveNonCriticalSingle()
 {
-    (*(myLanes->begin()))->moveExceptFirst();
+    (*(myLanes->begin()))->moveNonCriticalSingle();
 }
 
 
 void
-MSEdge::moveExceptFirstMulti()
+MSEdge::moveCriticalSingle()
+{
+    (*(myLanes->begin()))->moveCriticalSingle();
+}
+
+
+void
+MSEdge::moveCriticalMulti()
 {
     // The ordering of the lanes is essential, because
     // (right-hand-traffic) vehicles are not allowed to overtake on
     // the right. So update from the right to the left.
     for (LaneCont::iterator lane = myLanes->begin();
          lane != myLanes->end() - 1; ++lane) {
-        (*lane)->moveExceptFirst(lane+1, myLanes->end());
-    }
+        (*lane)->moveCriticalMulti(lane+1, myLanes->end());
+     }
     // The last one has no neighbour.
-    (*(myLanes->end() - 1))->moveExceptFirst();
+    (*(myLanes->end() - 1))->moveCriticalMulti();
 }
 
+
+void
+MSEdge::moveNonCriticalMulti()
+{
+    // The ordering of the lanes is essential, because
+    // (right-hand-traffic) vehicles are not allowed to overtake on
+    // the right. So update from the right to the left.
+    for (LaneCont::iterator lane = myLanes->begin();
+         lane != myLanes->end() - 1; ++lane) {
+        (*lane)->moveNonCriticalMulti(lane+1, myLanes->end());
+     }
+    // The last one has no neighbour.
+    (*(myLanes->end() - 1))->moveNonCriticalMulti();
+}
+
+
+void
+MSEdge::setCritical()
+{
+    for (LaneCont::iterator lane = myLanes->begin();
+         lane != myLanes->end(); ++lane) {
+        (*lane)->setCritical();
+     }
+}
+
+void
+MSEdge::vehicle2target()
+{
+    for (LaneCont::iterator lane = myLanes->begin();
+         lane != myLanes->end(); ++lane) {
+        (*lane)->integrateNewVehicle();
+     }
+}
 
 void
 MSEdge::detectCollisions( MSNet::Time timestep )
@@ -203,13 +259,6 @@ MSEdge::allowedLanes(const MSEdge& destination) const
     else {
         return 0; // Destination-edge not found.
     }
-}
-
-
-MSLane&
-MSEdge::departLane() const
-{
-    return *myDepartLane;
 }
 
 
@@ -302,14 +351,14 @@ operator<<( ostream& os, const MSEdge::XMLOut& obj )
         }
     }
     os << indent << "</edge>" << endl;
-    return os;   
+    return os;
 }
 
 
 MSEdge::MeanData::MeanData( const MSEdge& obj,
                             unsigned index,
                             MSNet::Time interval ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndex( index ),
     myInterval( interval )
 {
@@ -320,10 +369,10 @@ ostream&
 operator<<( ostream& os, const MSEdge::MeanData& obj )
 {
     os << "   <edge id=\"" << obj.myObj.myID << "\">" << endl;
-    for ( MSEdge::LaneCont::const_iterator lane = 
+    for ( MSEdge::LaneCont::const_iterator lane =
               obj.myObj.myLanes->begin();
           lane != obj.myObj.myLanes->end(); ++lane) {
-        
+
         os << MSLane::MeanData( **lane, obj.myIndex, obj.myInterval );
     }
 
@@ -331,11 +380,104 @@ operator<<( ostream& os, const MSEdge::MeanData& obj )
     return os;
 }
 
+
 const std::string &
 MSEdge::id() const
 {
     return myID;
 }
+
+/*
+MSLinkCont::const_iterator
+MSEdge::succLink(const MSEdge* nRouteEdge,
+        const MSLane& succLinkSource) const
+{
+    LaneCont::const_iterator i = find(myLanes->begin(), myLanes->end(), &succLinkSource);
+    assert(i!=myLanes->end());
+    int offset = 1;
+    int pos = distance(static_cast<LaneCont::const_iterator>(myLanes->begin()), i);
+    while(true) {
+        // look to the right
+        if(pos-offset>=0) {
+            MSLinkCont::const_iterator ret = (*(i-offset))->succLinkOneLane(nRouteEdge, *(*(i-offset)));
+            if(!((*(i-offset))->isLinkEnd(ret))) {
+                return ret;
+            }
+        }
+        // look to the left
+        if(pos+offset<myLanes->size()) {
+            MSLinkCont::const_iterator ret = (*(i+offset))->succLinkOneLane(nRouteEdge, *(*(i+offset)));
+            if(!((*(i+offset))->isLinkEnd(ret))) {
+                return ret;
+            }
+        }
+        assert(pos+offset<myLanes->size() || pos-offset>0);
+        offset++;
+    }
+}
+
+
+MSLinkCont::const_iterator
+MSEdge::succLinkSec(const MSEdge* nRouteEdge,
+        const MSLane& succLinkSource) const
+{
+    LaneCont::const_iterator i = find(myLanes->begin(), myLanes->end(), &succLinkSource);
+    assert(i!=myLanes->end());
+    int offset = 1;
+    int pos = distance(static_cast<LaneCont::const_iterator>(myLanes->begin()), i);
+    while(true) {
+        // look to the right
+        if(pos-offset>=0) {
+            MSLinkCont::const_iterator ret = (*(i-offset))->succLinkOneLane(nRouteEdge, *(*(i-offset)));
+            if(!((*(i-offset))->isLinkEnd(ret))) {
+                return ret;
+            }
+        }
+        // look to the left
+        if(pos+offset<myLanes->size()) {
+            MSLinkCont::const_iterator ret = (*(i+offset))->succLinkOneLane(nRouteEdge, *(*(i+offset)));
+            if(!((*(i+offset))->isLinkEnd(ret))) {
+                return ret;
+            }
+        }
+        if(!(pos+offset<myLanes->size() || pos-offset>0)) {
+            return succLinkSource.getLinkCont().begin();
+        }
+        offset++;
+    }
+}
+*/
+
+MSEdge::EdgeBasicFunction
+MSEdge::getPurpose() const
+{
+    return _function;
+}
+
+
+bool
+MSEdge::isSource() const
+{
+    return _function==EDGEFUNCTION_SOURCE;
+}
+
+
+bool
+MSEdge::emit(MSVehicle &v)
+{
+    if(_function!=EDGEFUNCTION_SOURCE) {
+        return myDepartLane->emit(v);
+    } else {
+        const LaneCont &lanes =  v.departLanes();
+        for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++) {
+            if(myDepartLane->emit(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
@@ -347,15 +489,3 @@ MSEdge::id() const
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,37 @@
 #ifndef GUILane_h
 #define GUILane_h
+//---------------------------------------------------------------------------//
+//                        GUILane.h -
+//  A MSLane extended by some values needed by the gui
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2003/02/07 10:39:17  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utility>
@@ -8,46 +40,100 @@
 #include <utils/geom/Position2D.h>
 #include <utils/qutils/NewQMutex.h>
 
-class MSVehicle;
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class MSVehicle;
+class MSNet;
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * An extended MSLane. A mechanism to avoid concurrent
+ * visualisation and simulation what may cause problems when vehicles
+ * disappear is implemented using a mutex.
+ */
 class GUILane : public MSLane {
-private:
-//    std::pair<Position2D, Position2D> _position;
-    Position2D _begin;
-    Position2D _end;
-    Position2D _direction;
-    double _rotation;
-    NewQMutex _lock;
 public:
-    GUILane( std::string id, double maxSpeed, double length, MSEdge* egde );
+    /// constructor
+    GUILane( MSNet &net, std::string id, double maxSpeed,
+        double length, MSEdge* egde );
+
+    /// destructor
     ~GUILane();
-    void setPosition(double x1, double y1, double x2, double y2);
-//    const std::pair<Position2D, Position2D> &getPos() const;
+
+    /** returns the vector of vehicles locking the lane for simulation first */
     const MSLane::VehCont &getVehiclesLocked();
-    void unlockVehicles();
-    double getLength() const;
-    const Position2D &getBegin() const;
-    const Position2D &getEnd() const;
-    const Position2D &getDirection() const;
-    double getRotation() const;
-    void moveExceptFirst();
-    void moveExceptFirst( 
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    void moveNonCriticalSingle();
+    void moveCriticalSingle();
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    void moveNonCriticalMulti();
+    void moveCriticalMulti();
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    void moveNonCriticalMulti(
         MSEdge::LaneCont::const_iterator firstNeighLane,
         MSEdge::LaneCont::const_iterator lastNeighLane );
-    /// Emit vehicle with speed 0 into lane if possible.
+    void moveCriticalMulti(
+        MSEdge::LaneCont::const_iterator firstNeighLane,
+        MSEdge::LaneCont::const_iterator lastNeighLane );
+
+
+    void setCritical();
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     bool emit( MSVehicle& newVeh );
 
-    /// Try to emit a vehicle with speed > 0, i.e. from a source with
-    /// initial speed values.
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     bool isEmissionSuccess( MSVehicle* aVehicle );
 
-    /** Move first vehicle according to the previously calculated
-        next speed if respond is true. This may imply that the first vehicle
-        leaves this lane. If repond is false, decelerate towards the lane's
-        end. Should only be called, if request was set. */
-    void moveFirst( bool respond );
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    void integrateNewVehicle();
+
+    /// allows the processing of vehicles for threads
+    void releaseVehicles();
+
+    /// returns the vehicles closing their processing for other threads
+    const VehCont &getVehiclesSecure();
+
+    friend class GUILaneChanger;
+
+    friend class GUILaneWrapper;
+
+protected:
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    bool push( MSVehicle* veh );
+
+    /// moves myTmpVehicles int myVehicles after a lane change procedure
+    void swapAfterLaneChange();
+
+private:
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    NewQMutex _lock;
 
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "GUILane.icc"
+//#endif
 
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

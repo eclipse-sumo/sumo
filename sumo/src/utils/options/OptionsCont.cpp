@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -96,6 +99,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -104,20 +108,22 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-OptionsCont::OptionsCont() 
+OptionsCont::OptionsCont()
     : _addresses(0), _values(), _path("")
 {
 }
 
-OptionsCont::OptionsCont(const string &path) 
+OptionsCont::OptionsCont(const string &path)
     : _addresses(0), _values(), _path(path)
 {
    char *tmp = getenv(_path.c_str());
@@ -129,7 +135,7 @@ OptionsCont::OptionsCont(const string &path)
 }
 
 
-OptionsCont::~OptionsCont() 
+OptionsCont::~OptionsCont()
 {
     for(ItemAddressContType::iterator i=_addresses.begin();
             i!=_addresses.end(); i++) {
@@ -138,8 +144,8 @@ OptionsCont::~OptionsCont()
 }
 
 
-void 
-OptionsCont::doRegister(const string &name1, Option *v) 
+void
+OptionsCont::doRegister(const string &name1, Option *v)
 {
     assert(v!=0);
     ItemAddressContType::iterator i = find(_addresses.begin(), _addresses.end(), v);
@@ -150,26 +156,26 @@ OptionsCont::doRegister(const string &name1, Option *v)
 }
 
 
-void 
-OptionsCont::doRegister(const string &name1, char abbr, Option *v) 
+void
+OptionsCont::doRegister(const string &name1, char abbr, Option *v)
 {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
 }
 
 
-void 
+void
 OptionsCont::doRegisterSystemPath(const std::string &name1,
-                                  const std::string &value) 
+                                  const std::string &value)
 {
     Option *o = new Option_String(getSystemPath(value));
     doRegister(name1, o);
 }
 
 
-void 
+void
 OptionsCont::doRegisterSystemPath(const std::string &name1,
-                                  char abbr, const std::string &value) 
+                                  char abbr, const std::string &value)
 {
     Option *o = new Option_String(getSystemPath(value));
     doRegister(name1, o);
@@ -177,8 +183,8 @@ OptionsCont::doRegisterSystemPath(const std::string &name1,
 }
 
 
-void 
-OptionsCont::addSynonyme(const string &name1, const string &name2) 
+void
+OptionsCont::addSynonyme(const string &name1, const string &name2)
 {
     KnownContType::iterator i1 = _values.find(name1);
     KnownContType::iterator i2 = _values.find(name2);
@@ -204,16 +210,16 @@ OptionsCont::addSynonyme(const string &name1, const string &name2)
 }
 
 
-bool 
-OptionsCont::exists(const string &name) const 
+bool
+OptionsCont::exists(const string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     return i!=_values.end();
 }
 
 
-bool 
-OptionsCont::isSet(const string &name) const 
+bool
+OptionsCont::isSet(const string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     if(i==_values.end()) {
@@ -223,8 +229,8 @@ OptionsCont::isSet(const string &name) const
 }
 
 
-bool 
-OptionsCont::isDefault(const std::string &name) const 
+bool
+OptionsCont::isDefault(const std::string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     if(i==_values.end()) {
@@ -235,7 +241,7 @@ OptionsCont::isDefault(const std::string &name) const
 
 
 Option *
-OptionsCont::getSecure(const string &name) const 
+OptionsCont::getSecure(const string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     if(i==_values.end()) {
@@ -247,40 +253,40 @@ OptionsCont::getSecure(const string &name) const
 }
 
 
-string 
-OptionsCont::getString(const string &name) const 
+string
+OptionsCont::getString(const string &name) const
 {
     Option *o = getSecure(name);
     return o->getString();
 }
 
 
-float 
-OptionsCont::getFloat(const string &name) const 
+float
+OptionsCont::getFloat(const string &name) const
 {
     Option *o = getSecure(name);
     return o->getFloat();
 }
 
 
-int 
-OptionsCont::getInt(const string &name) const 
+int
+OptionsCont::getInt(const string &name) const
 {
     Option *o = getSecure(name);
     return o->getInt();
 }
 
 
-long 
-OptionsCont::getLong(const string &name) const 
+long
+OptionsCont::getLong(const string &name) const
 {
     Option *o = getSecure(name);
     return o->getLong();
 }
 
 
-bool 
-OptionsCont::getBool(const string &name) const 
+bool
+OptionsCont::getBool(const string &name) const
 {
     Option *o = getSecure(name);
     return o->getBool();
@@ -294,7 +300,7 @@ OptionsCont::getUIntVector(const std::string &name) const
 }
 
 
-bool 
+bool
 OptionsCont::set(const string &name, const string &value, bool isDefault) {
     Option *o = getSecure(name);
     if(!o->set(value, isDefault)) {
@@ -305,12 +311,12 @@ OptionsCont::set(const string &name, const string &value, bool isDefault) {
 }
 
 bool
-OptionsCont::set(const string &name, bool value, bool isDefault) 
+OptionsCont::set(const string &name, bool value, bool isDefault)
 {
     Option *o = getSecure(name);
     if(!o->isBool()) {
         cout << "The option '" << name
-            << "' is not a boolean attribute and requires an argument." 
+            << "' is not a boolean attribute and requires an argument."
             << endl;
         throw InvalidArgument("The option '" + name
             + "' is not a boolean attribute and requires an argument.");
@@ -323,8 +329,8 @@ OptionsCont::set(const string &name, bool value, bool isDefault)
 }
 
 
-vector<string> 
-OptionsCont::getSynonymes(const string &name) const 
+vector<string>
+OptionsCont::getSynonymes(const string &name) const
 {
     Option *o = getSecure(name);
     vector<string> v(0);
@@ -337,8 +343,8 @@ OptionsCont::getSynonymes(const string &name) const
 }
 
 
-ostream& 
-operator<<( ostream& os, const OptionsCont& oc) 
+ostream&
+operator<<( ostream& os, const OptionsCont& oc)
 {
     vector<string> done;
     os << "Options set:" << endl;
@@ -369,7 +375,7 @@ operator<<( ostream& os, const OptionsCont& oc)
 
 
 bool
-OptionsCont::isFileName(const std::string &name) const 
+OptionsCont::isFileName(const std::string &name) const
 {
     Option *o = getSecure(name);
     return o->isFileName();
@@ -396,7 +402,7 @@ OptionsCont::isUsableFileList(const std::string &name) const
 
 
 void
-OptionsCont::reportDoubleSetting(const string &arg) const 
+OptionsCont::reportDoubleSetting(const string &arg) const
 {
     vector<string> synonymes = getSynonymes(arg);
     cout << "A value for the option '" << arg << "' was already set." << endl;
@@ -412,8 +418,8 @@ OptionsCont::reportDoubleSetting(const string &arg) const
 }
 
 
-string 
-OptionsCont::convertChar(char abbr) const 
+string
+OptionsCont::convertChar(char abbr) const
 {
     char buf[2];
     buf[0] = abbr;
@@ -423,16 +429,16 @@ OptionsCont::convertChar(char abbr) const
 }
 
 
-bool 
-OptionsCont::isBool(const string &name) const 
+bool
+OptionsCont::isBool(const string &name) const
 {
     Option *o = getSecure(name);
     return o->isBool();
 }
 
 
-string 
-OptionsCont::getPath() const 
+string
+OptionsCont::getPath() const
 {
     if(_path.length()==0) {
         throw InvalidArgument("No enviroment variable given.");
@@ -443,8 +449,8 @@ OptionsCont::getPath() const
 }
 
 
-void 
-OptionsCont::resetDefaults() 
+void
+OptionsCont::resetDefaults()
 {
     for(ItemAddressContType::iterator i=_addresses.begin(); i!=_addresses.end(); i++) {
         (*i)->_default = true;
@@ -452,8 +458,8 @@ OptionsCont::resetDefaults()
 }
 
 
-string 
-OptionsCont::getSystemPath(const string &ext) const 
+string
+OptionsCont::getSystemPath(const string &ext) const
 {
     return string(getPath() + string("/") + ext);
 }

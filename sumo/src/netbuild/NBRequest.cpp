@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -75,25 +78,28 @@ namespace
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBRequest.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBRequest::NBRequest(NBNode *junction, const EdgeCont * const all,
-                     const EdgeCont * const incoming,
-                     const EdgeCont * const outgoing) :
+NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
+                     const EdgeVector * const incoming,
+                     const EdgeVector * const outgoing) :
     _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
@@ -106,14 +112,16 @@ NBRequest::NBRequest(NBNode *junction, const EdgeCont * const all,
     }
 }
 
+
 NBRequest::~NBRequest()
 {
 }
 
 
 void
-NBRequest::buildBitfieldLogic(const std::string &key) {
-    EdgeCont::const_iterator i, j;
+NBRequest::buildBitfieldLogic(const std::string &key)
+{
+    EdgeVector::const_iterator i, j;
     for(i=_incoming->begin(); i!=_incoming->end(); i++) {
         for(j=_outgoing->begin(); j!=_outgoing->end(); j++) {
             computeRightOutgoingLinkCrossings(*i, *j);
@@ -123,13 +131,16 @@ NBRequest::buildBitfieldLogic(const std::string &key) {
     NBJunctionLogicCont::add(key, bitsetToXML(key));
 }
 
+
 void
-NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
-    EdgeCont::const_iterator pfrom = find(_all->begin(), _all->end(), from);
+NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
+{
+    EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
         pfrom = NBContHelper::nextCCW(_all, pfrom);
         if((*pfrom)->getToNode()==_junction) {
-            EdgeCont::const_iterator pto = find(_all->begin(), _all->end(), to);
+            EdgeVector::const_iterator pto =
+                find(_all->begin(), _all->end(), to);
             while(*pto!=from) {
                 if(!((*pto)->getToNode()==_junction)) {
                     setBlocking(from, to, *pfrom, *pto);
@@ -140,13 +151,16 @@ NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
     }
 }
 
+
 void
-NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
-    EdgeCont::const_iterator pfrom = find(_all->begin(), _all->end(), from);
+NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
+{
+    EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
         pfrom = NBContHelper::nextCW(_all, pfrom);
         if((*pfrom)->getToNode()==_junction) {
-            EdgeCont::const_iterator pto = find(_all->begin(), _all->end(), to);
+            EdgeVector::const_iterator pto =
+                find(_all->begin(), _all->end(), to);
             while(*pto!=from) {
                 if(!((*pto)->getToNode()==_junction)) {
                     setBlocking(from, to, *pfrom, *pto);
@@ -157,9 +171,11 @@ NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
     }
 }
 
+
 void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
-                       NBEdge *from2, NBEdge *to2) {
+                       NBEdge *from2, NBEdge *to2)
+{
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -168,8 +184,10 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     size_t idx1 = getIndex(from1, to1);
     size_t idx2 = getIndex(from2, to2);
     // check whether the link crossing has already been checked
-    if(_done[idx1][idx2])
+    assert(idx1<_incoming->size()*_outgoing->size());
+    if(_done[idx1][idx2]) {
         return;
+    }
     // mark the crossings as done
     _done[idx1][idx2] = true;
     _done[idx2][idx1] = true;
@@ -213,15 +231,15 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         }
     }
     // compute the yielding due to the right-before-left rule
-    EdgeCont::const_iterator inIncoming1 = 
+    EdgeVector::const_iterator inIncoming1 =
         find(_incoming->begin(), _incoming->end(), from1);
-    EdgeCont::const_iterator inIncoming2 = 
+    EdgeVector::const_iterator inIncoming2 =
         find(_incoming->begin(), _incoming->end(), from2);
         // get the position of the incoming lanes in the junction-wheel
     size_t d1 = distance(_incoming->begin(), inIncoming1);
     size_t d2 = distance(_incoming->begin(), inIncoming2);
-        // compute the information whether one of the lanes is right of the other
-        // (this will then be priorised)
+        // compute the information whether one of the lanes is right of
+        // the other (this will then be priorised)
     size_t du, dg;
     if(d1>d2) {
         du = (_incoming->size() - d1) + d2;
@@ -250,9 +268,11 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         _forbids[idx1][idx2] = true;
 }
 
+
 size_t
-NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
-    EdgeCont::const_iterator p = find(_all->begin(), _all->end(), from);
+NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to)
+{
+    EdgeVector::const_iterator p = find(_all->begin(), _all->end(), from);
     size_t ret = 0;
     while(true) {
         ret++;
@@ -263,6 +283,7 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
             return ret;
     }
 }
+
 
 string
 NBRequest::bitsetToXML(string key)
@@ -281,13 +302,16 @@ NBRequest::bitsetToXML(string key)
     int pos = 0;
     // save the logic
     os << "      <logic>" << endl;
-    EdgeCont::const_iterator i1;
+    EdgeVector::const_iterator i1;
     for(i1=_incoming->begin(); i1!=_incoming->end(); i1++) {
         size_t noLanes = (*i1)->getNoLanes();
         for(size_t k=0; k<noLanes; k++) {
-            const EdgeLaneCont * const connected = (*i1)->getEdgeLanesFromLane(k);
-            for(EdgeLaneCont::const_iterator j=connected->begin(); j!=connected->end(); j++) {
-                os << "         <logicitem request=\"" << pos++ << "\" response=\"";
+            const EdgeLaneVector * const connected =
+                (*i1)->getEdgeLanesFromLane(k);
+            for( EdgeLaneVector::const_iterator j=connected->begin();
+                 j!=connected->end(); j++) {
+                os << "         <logicitem request=\"" << pos++
+                    << "\" response=\"";
                 writeResponse(os, *i1, (*j).edge);
                 os << "\"/>" << endl;
             }
@@ -299,15 +323,17 @@ NBRequest::bitsetToXML(string key)
     string from(absNoLinks, '0');
     pos = absNoLinks - 1;
     size_t lane = 0;
-    for(EdgeCont::const_iterator i2=_incoming->begin(); i2!=_incoming->end(); i2++) {
+    for( EdgeVector::const_iterator i2=_incoming->begin();
+         i2!=_incoming->end(); i2++) {
         unsigned int noLanes = (*i2)->getNoLanes();
         for(unsigned int j=0; j<noLanes; j++) {
-            const EdgeLaneCont *connected = (*i2)->getEdgeLanesFromLane(j);
+            const EdgeLaneVector *connected = (*i2)->getEdgeLanesFromLane(j);
             unsigned int size = connected->size();
             unsigned int k;
             for(k=0; k<size;k++)
                 from[pos-k] = '1';
-            os << "         <trafoitem from=\"" << from << "\" to=\"" << lane << "\"/>" << endl;
+            os << "         <trafoitem from=\"" << from << "\" to=\""
+                << lane << "\"/>" << endl;
             for(k=0; k<size;k++)
                 from[pos-k] = '0';
             pos -= size;
@@ -325,7 +351,8 @@ NBRequest::getSizes() const
 {
     size_t noLanes = 0;
     size_t noLinks = 0;
-    for(EdgeCont::const_iterator i=_incoming->begin(); i!=_incoming->end(); i++) {
+    for( EdgeVector::const_iterator i=_incoming->begin();
+         i!=_incoming->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
@@ -336,7 +363,7 @@ NBRequest::getSizes() const
 }
 
 
-void
+int
 NBRequest::buildTrafficLight(const std::string &key) const
 {
     bool appendSmallestOnly = true;
@@ -345,24 +372,24 @@ NBRequest::buildTrafficLight(const std::string &key) const
     bool joinLaneLinks = false;
     bool removeTurnArounds = true;
     LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
-    NBTrafficLightLogicVector *logics1 = 
-        computeTrafficLightLogics(key, 
+    NBTrafficLightLogicVector *logics1 =
+        computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
             appendSmallestOnly, skipLarger);
 
     joinLaneLinks = false;
     removeTurnArounds = true;
     removal = LRT_NO_REMOVAL;
-    NBTrafficLightLogicVector *logics2 = 
-        computeTrafficLightLogics(key, 
+    NBTrafficLightLogicVector *logics2 =
+        computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
             appendSmallestOnly, skipLarger);
 
     joinLaneLinks = false;
     removeTurnArounds = true;
     removal = LRT_REMOVE_ALL_LEFT;
-    NBTrafficLightLogicVector *logics3 = 
-        computeTrafficLightLogics(key, 
+    NBTrafficLightLogicVector *logics3 =
+        computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
             appendSmallestOnly, skipLarger);
 
@@ -372,36 +399,46 @@ NBRequest::buildTrafficLight(const std::string &key) const
     delete logics2;
     delete logics3;
     NBTrafficLightLogicCont::insert(key, logics1);
+    return logics1->size();
 }
 
 
 NBTrafficLightLogicVector *
 NBRequest::computeTrafficLightLogics(const std::string &key,
-                                     bool joinLaneLinks, bool removeTurnArounds, 
+                                     bool joinLaneLinks,
+                                     bool removeTurnArounds,
                                      LinkRemovalType removal,
-                                     bool appendSmallestOnly, 
+                                     bool appendSmallestOnly,
                                      bool skipLarger) const
 {
     // compute the matrix of possible links x links
     //  (links allowing each other the parallel execution)
     NBLinkPossibilityMatrix *v = getPossibilityMatrix(joinLaneLinks,
         removeTurnArounds, removal);
+    if(NBNode::debug==1) {
+        for(NBLinkPossibilityMatrix::iterator i=v->begin(); i!=v->end(); i++) {
+            cout << *i << endl;
+        }
+        cout << endl;
+    }
     // get the number of regarded links
-    NBRequestEdgeLinkIterator cei1(this,  
+    NBRequestEdgeLinkIterator cei1(this,
         joinLaneLinks, removeTurnArounds, removal);
     size_t maxStromAnz = cei1.getNoValidLinks();
+
 #ifdef TL_DEBUG
     if(maxStromAnz>=10) {
         cout << _junction->getID() << ":" << maxStromAnz << endl;
     }
 #endif
+
     // compute the link cliquen
     NBLinkCliqueContainer cliquen(v, maxStromAnz);
     // compute the phases
-    NBTrafficLightPhases *phases = cliquen.computePhases(v, 
+    NBTrafficLightPhases *phases = cliquen.computePhases(v,
         maxStromAnz, appendSmallestOnly, skipLarger);
     // compute the possible logics
-    NBTrafficLightLogicVector *logics = 
+    NBTrafficLightLogicVector *logics =
         phases->computeLogics(key, getSizes().second, cei1);
     // clean everything
     delete v;
@@ -423,11 +460,14 @@ NBRequest::getPossibilityMatrix(bool joinLaneLinks,
         new std::vector<std::bitset<64> >(cei1.getNoValidLinks(),
         std::bitset<64>());
     do {
+        assert(ret!=0 && cei1.getLinkNumber()<ret->size());
         (*ret)[cei1.getLinkNumber()].set(cei1.getLinkNumber(), 1);
         NBRequestEdgeLinkIterator cei2(cei1);
         if(cei2.pp()) {
             do {
                 if(cei1.forbids(cei2)) {
+                    assert(ret!=0 && cei1.getLinkNumber()<ret->size());
+                    assert(ret!=0 && cei2.getLinkNumber()<ret->size());
                     (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 0);
                     (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 0);
                 } else {
@@ -454,12 +494,15 @@ NBRequest::forbidden(NBEdge *from1, NBEdge *to1,
     // get the indices
     size_t idx1 = getIndex(from1, to1);
     size_t idx2 = getIndex(from2, to2);
+    assert(idx1<_incoming->size()*_outgoing->size());
+    assert(idx2<_incoming->size()*_outgoing->size());
     return _forbids[idx1][idx2] || _forbids[idx2][idx1];
 }
 
 
 void
-NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to) {
+NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to)
+{
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -468,15 +511,19 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to) {
         idx = getIndex(from, to);
     }
     // !!! move to forbidden
-    for(EdgeCont::const_reverse_iterator i=_incoming->rbegin(); i!=_incoming->rend(); i++) {
+    for( EdgeVector::const_reverse_iterator i=_incoming->rbegin();
+         i!=_incoming->rend(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
         for(unsigned int j=noLanes; j-->0; ) {
-            const EdgeLaneCont *connected = (*i)->getEdgeLanesFromLane(j);
+            const EdgeLaneVector *connected = (*i)->getEdgeLanesFromLane(j);
             size_t size = connected->size();
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '1';
                 } else {
+                    assert(connected!=0&&k<connected->size());
+                    assert(idx<_incoming->size()*_outgoing->size());
+                    assert((*connected)[k].edge==0 || getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
                     if((*connected)[k].edge!=0 &&
                         _forbids[getIndex(*i, (*connected)[k].edge)][idx])
                         os << '1';
@@ -488,12 +535,13 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to) {
     }
 }
 
+
 size_t
 NBRequest::getIndex(NBEdge *from, NBEdge *to) const
 {
-    EdgeCont::const_iterator fp = find(_incoming->begin(),
+    EdgeVector::const_iterator fp = find(_incoming->begin(),
         _incoming->end(), from);
-    EdgeCont::const_iterator tp = find(_outgoing->begin(),
+    EdgeVector::const_iterator tp = find(_outgoing->begin(),
         _outgoing->end(), to);
     // the next two assertions should always fail
     assert(fp!=_incoming->end());
@@ -503,6 +551,7 @@ NBRequest::getIndex(NBEdge *from, NBEdge *to) const
         _incoming->begin(), fp) * _outgoing->size()
         + distance(_outgoing->begin(), tp);
 }
+
 
 std::ostream &operator<<(std::ostream &os, const NBRequest &r) {
     size_t variations = r._incoming->size() * r._outgoing->size();
@@ -519,6 +568,7 @@ std::ostream &operator<<(std::ostream &os, const NBRequest &r) {
     cout << endl;
     return os;
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

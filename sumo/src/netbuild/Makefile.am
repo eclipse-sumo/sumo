@@ -17,7 +17,8 @@ NBRequestEdgeLinkIterator.cpp NBRequestEdgeLinkIterator.h \
 NBLinkCliqueContainer.cpp NBLinkCliqueContainer.h \
 NBTrafficLightPhases.cpp NBTrafficLightPhases.h
 
-CFRONT_FILES = 
+
+CFRONT_FILES =
 
 EXTRA_DIST = $(CFRONT_FILES)
 

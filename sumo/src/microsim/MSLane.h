@@ -1,3 +1,5 @@
+#ifndef MSLane_H
+#define MSLane_H
 /***************************************************************************
                           MSLane.h  -  The place where Vehicles
                           operate.
@@ -7,9 +9,6 @@
     author               : Christian Roessel
     email                : roessel@zpr.uni-koeln.de
  ***************************************************************************/
-
-#ifndef MSLane_H
-#define MSLane_H
 
 /***************************************************************************
  *                                                                         *
@@ -21,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.3  2002/10/17 10:43:59  dkrajzew
 // MSLaneSpeedTrigger is now friend of MSLane
 //
@@ -150,7 +152,10 @@
 // new start
 //
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <helpers/PreStartInitialised.h>
 #include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
@@ -163,23 +168,39 @@
 #include <iostream>
 #include "MSNet.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSModel;
 class MSLaneChanger;
 class MSEmitter;
 class MSLink;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSLane
+ * Class which represents a single lane. Somekind of the main class of the
+ * simulation. Allows moving vehicles.
  */
-class MSLane
+class MSLane : public PreStartInitialised
 {
 public:
-    friend class MSNet;
+    /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
-    friend class XMLOut;
-    friend class MeanData;
-    friend class MSDetector;
+
+    /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
+    friend class GUILaneChanger;
+
+    /// needs direct access to the vehicle container
     friend class MSInductLoop;
+
+    /// needs direct access to maxSpeed
     friend class MSLaneSpeedTrigger;
+
+    friend class GUILaneWrapper;
 
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
@@ -187,17 +208,28 @@ public:
     class XMLOut
     {
     public:
+    	/// constructor
         XMLOut( const MSLane& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
+
+	    /** writes xml-formatted information about the edge
+            and optionally her lanes */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
+
     private:
+	    /// the lane to format information from
         const MSLane& myObj;
+
+    	/// the number of indent spaces
         unsigned myIndentWidth;
+
+	    /// information, whether lane information shall also be written
         bool myWithChildElemes;
     };
 
+    /// output operator for XML-raw-output
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
 
@@ -209,47 +241,70 @@ public:
     class MeanData
     {
     public:
+	    /// constructor
         MeanData( const MSLane& obj,
                   unsigned index ,
                   MSNet::Time interval );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const MeanData& obj ); 
+
+	    /// output operator
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const MeanData& obj );
+
     private:
+	    /// the lane write information from
         const MSLane& myObj;
+
+	    /// the index of the information within the lanes' MeanData fields
         unsigned myIndex;
+
+	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
         MSNet::Time myInterval;
-    };    
-    
+    };
+
+    /// output operator for XML-mean-data output
     friend std::ostream& operator<<( std::ostream& os,
                                      const MeanData& obj );
-    /// Container for the lane's links.
-    typedef std::vector< MSLink* > LinkCont;
 
     /// Destructor.
     virtual ~MSLane();
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSLane( std::string id,
+    MSLane( MSNet &net,
+            std::string id,
             double maxSpeed,
             double length,
             MSEdge* egde
-            ); 
+            );
+
     /** Not all lane-members are known at the time the lane is born,
         above all the pointers to other lanes, so we have to
         initialize later. */
-    void initialize( MSJunction* backJunction,
-                     LinkCont* succs);
+    void initialize( /*MSJunction* backJunction,*/
+                     MSLinkCont* succs);
 
-    /** Move (i.e. make v- and x-update) all the lane's vehicles
-        except the first one. The first is update by a junction. If
-        there are prioritized neighbour lanes, i.e. it's not allowed
-        to overtake vehicles on this lane under some speed
-        conditions, choose the second form. */
-    virtual void moveExceptFirst();
-    virtual void moveExceptFirst( 
+    /** @brief Move all the lane's vehicles
+        The list vehicle is gone through from the last to the first vehicle.
+        When a vehicle may get over the lane's size within the near future,
+        it's position is saved and a the list of possible next speed is build.
+        The next speed to use is retrieved later, when the junction have had
+        set their reposnds.
+        Use this version for lanes of edge's with just one lane */
+    virtual void moveNonCriticalSingle();
+    virtual void moveCriticalSingle();
+
+    /** Use this version for the last lane ofedge's with more than one lane  */
+    virtual void moveNonCriticalMulti();
+    virtual void moveCriticalMulti();
+
+    /** Use this version for lanes of edge's with more than one lane */
+    virtual void moveNonCriticalMulti(
         MSEdge::LaneCont::const_iterator firstNeighLane,
         MSEdge::LaneCont::const_iterator lastNeighLane );
+    virtual void moveCriticalMulti(
+        MSEdge::LaneCont::const_iterator firstNeighLane,
+        MSEdge::LaneCont::const_iterator lastNeighLane );
+
 
     /// Check if vehicles are too close.
     void detectCollisions( MSNet::Time timestep ) const;
@@ -257,61 +312,28 @@ public:
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );
 
-    /// Try to emit a vehicle with speed > 0, i.e. from a source with
-    /// initial speed values.
+    /** @brief Try to emit a vehicle with speed > 0
+        i.e. from a source with initial speed values. */
     virtual bool isEmissionSuccess( MSVehicle* aVehicle );
 
-//--------------- Methods used by Vehicles  ---------------------
-    bool appropriate(const MSVehicle *veh) const;
-
-//--------------- Methods used by Junctions  ---------------------
-
-    /** Clear all request-related data members to be ready for a new
-        run. */
-    void clearRequest();
-
-    /** Sets myFirst, the vehicle in front of the junction if there is one
-        and lets the first vehicle look forward and tell all visited lanes
-        about it's intention. */
-    void setRequest();
-
-    /** Returns the all request data previously calculated in
-        setRequest. */
-    MSLogicJunction::DriveBrakeRequest request() const;
-
-    /** Move first vehicle according to the previously calculated
-        next speed if respond is true. This may imply that the first vehicle
-        leaves this lane. If repond is false, decelerate towards the lane's
-        end. Should only be called, if request was set. */
-    virtual void moveFirst( bool respond );
+    /** Moves the critical vehicles
+        This step is done after the responds have been set */
+    virtual void setCritical( );
 
     /// Insert buffered vehicle into the real lane.
-    void integrateNewVehicle();
+    virtual void integrateNewVehicle();
 
-    /** Returns the lane that set this lane's request. It is possible
-        that a first vehicle looks over more than one junction. These
-        junctions need to know which lane's first vehicle requested
-        the drive through. */
-    MSLane& requestLane() const;
+    //--------------- Methods used by Vehicles  ---------------------
+    /** Returns the information whether this lane may be used to continue
+        the current route */
+    bool appropriate(const MSVehicle *veh);
 
-    /** Returns true if first vehicle will have to decelerate more
-        than decelFactor*vehicle.decelmax() when a side road vehicle
-        is set in front of it. Otherwise decel2much will modify the
-        previously calculated next speed of the first vehicle
-        according to it's new predecessor. */
-    bool decel2much( const MSLane* compete, const MSLane* target,
-                     double decelFactor );
+    //--------------- Methods used by Junctions  ---------------------
 
-    /** Returns the first vehicle's succeeding lane. */
-    MSLane* firstVehSuccLane();
+    /// returns the container with all links !!!
+    const MSLinkCont &getLinkCont() const;
 
-    /** Returns the first vehicle's lane that follows srcLane on it's
-        route. We demand that srcLane is part of the route. */
-    MSLane* firstVehSuccLane( const MSLane* srcLane );
-
-    const LinkCont &getLinkCont() const;
-//-------------- End of junction-used methods --------------------------------
-
+    //-------------- End of junction-used methods --------------------------------
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const;
@@ -325,27 +347,29 @@ public:
     /// Returns the lane's Edge.
     const MSEdge& edge() const;
 
-    /** Inserts a MSLane into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts a MSLane into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false. */
     static bool dictionary( std::string id, MSLane* lane );
 
-    /** Returns the MSEdgeControl associated to the key id if exists,
-        otherwise returns 0. */
+    /** @brief Returns the MSEdgeControl associated to the key id if exists
+       Otherwise returns 0. */
     static MSLane* dictionary( std::string id );
 
     /** Clears the dictionary */
     static void clear();
 
+    /// resets the lane's link priorities
     void setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos);
 
+    /// simple output operator
     friend std::ostream& operator<<( std::ostream& os, const MSLane& lane );
 
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
 
     /// Returns the objects id.
-    std::string id() { return myID; }
+    const std::string &id() const;
 
     /** Adds Data for MeanValue calculation. Use this if vehicle
         leaves a lane during move ( hasFinishedLane=true) or during
@@ -357,43 +381,63 @@ public:
                          double speedSquareSum,
                          unsigned index,
                          bool hasFinishedLane );
-    
-    /** Return the link that veh will use when it will change from
-        the link-source-lane to a lane that is contained in the edge
-        which is nRouteSuccs edges away from this lane's edge. */
-    MSLane::LinkCont::const_iterator succLink( const MSVehicle& veh,
-                                         unsigned int nRouteSuccs,
-                                         const MSLane& succLinkSource ) const;
+
+
+    /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
+    MSLinkCont::const_iterator succLinkOneLane(const MSEdge* nRouteEdge,
+        const MSLane& succLinkSource) const;
 
     /** Same as succLink, but does not throw any assertions when
-        the succeeding link could not be found; returns the
-        myLinks.end() instead */
-    MSLane::LinkCont::const_iterator succLinkSec( const MSVehicle& veh,
+        the succeeding link could not be found;
+        Returns the myLinks.end() instead; Further, the number of edges to
+        look forward may be given */
+    MSLinkCont::iterator succLinkSec( const MSVehicle& veh,
                                             unsigned int nRouteSuccs,
-                                            const MSLane& succLinkSource ) const;
+                                            MSLane& succLinkSource );
 
 
-    // Is the vehicle alowed to accellerate after slowing down at a yield
-    // junction
-    bool willLeaveLane( const MSVehicle& first ) const;
+    /** Returns the information whether the given link shows at the end
+	    of the list of links (is not valid) */
+    bool isLinkEnd(MSLinkCont::const_iterator &i) const;
 
-    bool linkClosed(const MSLink *link) const;
-    
+    /** Returns the information whether the given link shows at the end
+	    of the list of links (is not valid) */
+    bool isLinkEnd(MSLinkCont::iterator &i);
+
+    /// returns the information whether the given edge is the parent edge
     bool inEdge(const MSEdge *edge) const;
 
+    /// returns the last vehicle
     const MSVehicle * const getLastVehicle() const;
 
-    MSVehicle::State myOldState; // !!! (private)
+    MSVehicle::State myLastState;
 
-    bool firstPriorised; // !!! (private)
+    /** @brief initialises the lane before simulation begin;
+        Implementation of PreStartInitialised;
+        Needed to clear the MeanData-array before restarting a simulation */
+    virtual void init(MSNet &net);
+
+    /** does nothing; needed for GUI-versions where vehicles are locked
+        when being displayed */
+    virtual void releaseVehicles();
+
+    /// returns the vehicles
+    virtual const VehCont &getVehiclesSecure();
+
+    void setApproaching(double dist, MSVehicle *veh);
+
 protected:
-    /** Function Object for use with Function Adater on vehicle
-        containers. */
+    /** @brief Function Object for use with Function Adapter on vehicle containers.
+        Returns the information whether the position of the first vehicle
+        is greater than the one of the second vehicle */
     class PosGreater
     {
     public:
+	    /// the first vehicle
         typedef const MSVehicle* first_argument_type;
+	    /// the second vehicle
         typedef const MSVehicle* second_argument_type;
+	    /// returns bool
         typedef bool result_type;
 
         /** Returns true if position of first vehicle is greater
@@ -403,45 +447,36 @@ protected:
     };
 
 
-    /** Find nearest vehicle on neighboured lanes (there may be more
-        than one) which isn't allowed to be overtaken. Position and
-        speed are conditional parameters. Returns veh if there is no
+    /** @brief Find nearest vehicle on neighboured lanes (there may be more than one) which isn't allowed to be overtaken.
+        Position and speed are conditional parameters. Returns veh if there is no
         neigh to regard. */
     const MSVehicle* findNeigh( MSVehicle* veh,
                                 MSEdge::LaneCont::const_iterator first,
                                 MSEdge::LaneCont::const_iterator last );
 
-    // Set states and fill the LFLaneContainer.
-    void setLookForwardState();
+    /** @brief Insert a vehicle into the lane's vehicle buffer.
+        After processing done from moveCritical, when a vehicle exits it's lane.
+        Returned is the information whether the vehicle was removed. */
+    virtual bool push( MSVehicle* veh );
 
-    // Moves vehicles that don't interact with the junction (no break- and no
-    // drive-request). Calculates a desired vnext for the interaction ones
-    // and sets the corresponding Link-requests and calculates the desired
-    // destination lane and position.
-    void setDriveRequests();
-
-    /** Insert a vehicle into the lane's vehicle buffer. After
-        processing of all MSJunction::moveFirstVehicle, this buffer
-        should be appended to myVehicles by buffer2lane(). The
-        necessity of this two-stage process depends on the
-        data-structure of myVehicles (Avoid simultaneous push and
-        pop). */
-    void push( MSVehicle* veh );
-
-    /** Returns the first/front vehicle of the lane and removes it
-        from the lane. */
+    /** Returns the first/front vehicle of the lane and removing it from the lane. */
     MSVehicle* pop();
 
-    /** Tries to emit veh into lane. there are four kind of possible
-        emits that have to be handled differently: The line is empty,
-        emission as last veh (in driving direction) (front insert),
-        as first veh (back insert) and between a follower and a leader.
-        True is returned for successful emission. */
-    bool emitTry( MSVehicle& veh ); // empty lane insert
-    bool emitTry( MSVehicle& veh, VehCont::iterator leaderIt ); // front ins.
-    bool emitTry( VehCont::iterator followIt, MSVehicle& veh ); // back ins.
-    bool emitTry( VehCont::iterator followIt, MSVehicle& veh,
-                  VehCont::iterator leaderIt ); // in between ins.
+    /** @brief Tries to emit veh into lane.
+        There are four kind of possible emits that have to be handled differently:
+        - The line is empty,
+        - emission as last veh (in driving direction) (front insert),
+        - as first veh (back insert)
+        - between a follower and a leader.
+        Regard that some of these methods are private, as the source lanes must
+        not insert vehicles in front of other vehicles.
+        True is returned for successful emission.
+        Use this when the lane is empty */
+    virtual bool emitTry( MSVehicle& veh );
+
+    /** Use this, when there is only a vehicle in front of the vehicle
+        to insert */
+    virtual bool emitTry( MSVehicle& veh, VehCont::iterator leaderIt );
 
     /** Checks if there is enough space for emission and sets vehicle-state
         if there is. Common code used by emitTry-methods. Returns true if
@@ -452,52 +487,57 @@ protected:
     /** Resets the MeanData container at the beginning of a new interval.*/
     void resetMeanData( unsigned index );
 
-    /** Retrieves Data from all vehicles on th lane at the end of
-        an interval. */
+    /** Retrieves Data from all vehicles on the lane at the end of an interval. */
     void collectVehicleData( unsigned index );
 
+    /// moves myTmpVehicles int myVehicles after a lane change procedure
+    virtual void swapAfterLaneChange();
 
 protected:
     /// Unique ID.
     std::string myID;
 
-    /// The lane's vehicles. The entering vehicles are inserted at the front
-    /// of  this container and the leaving ones leave from the back, e.g. the
-    /// vehicle in front of the junction (often called first) is
-    /// myVehicles.back() (if it exists). And if it is an iterator at a
-    /// vehicle, ++it points to the vehicle in front. This is the interaction
-    /// vehicle.
+    /** @brief The lane's vehicles.
+        The entering vehicles are inserted at the front
+        of  this container and the leaving ones leave from the back, e.g. the
+        vehicle in front of the junction (often called first) is
+        myVehicles.back() (if it exists). And if it is an iterator at a
+        vehicle, ++it points to the vehicle in front. This is the interaction
+        vehicle. */
     VehCont myVehicles;
 
     /// Lane length [m]
     double myLength;
 
-private:
-    /// Container for lane-changing vehicles. After completion of lane-change-
-    /// process, the two containers will be swapped.
-    VehCont myTmpVehicles;
-
-    // Last vehicle's state. When the first vehicles look forward, the other
-    // ones are already moved. But we need it's old state.
-    MSVehicle::State myLastVehState;
-
-    // Last vehicle. When the first vehicles look forward, the other
-    // ones are already moved. But we need it's length.
-    MSVehicle* myLastVeh;
+    /// The lane's edge, for routing only.
+    MSEdge* myEdge;
 
     /// Lane-wide speedlimit [m/s]
     double myMaxSpeed;
 
-    /// The lane's edge, for routing only.
-    MSEdge* myEdge;
+    /** Container for lane-changing vehicles. After completion of lane-change-
+        process, the two containers will be swapped. */
+    VehCont myTmpVehicles;
 
-    /** The lane's preceding Junction, for "look back" while lane
-        changing. */
-    MSJunction* myNextJunction;
+
+    double myFirstDistance;
+    MSVehicle *myApproaching;
+
+private:
+
+    /** Use this, when there is only a vehicle behind the vehicle to insert */
+    bool emitTry( VehCont::iterator followIt, MSVehicle& veh ); // back ins.
+
+    /** Use this, when the new vehicle shall be inserted between two other vehicles */
+    bool emitTry( VehCont::iterator followIt, MSVehicle& veh,
+                  VehCont::iterator leaderIt ); // in between ins.
+
+    /// index of the first vehicle that may drive over the lane's end
+    size_t myFirstUnsafe;
 
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
-    LinkCont myLinks;
+    MSLinkCont myLinks;
 
     /** Vehicle-buffer for vehicle that was put onto this lane by a
         junction. The  buffer is neccessary, because of competing
@@ -505,77 +545,16 @@ private:
         Junction::moveFirst() */
     MSVehicle* myVehBuffer;
 
-
-    /** Lane that set this lane's request. An other lane's vehicle
-        might be responsible for this lane's (brake and drive)
-        request (this lane has to be empty, of course). */
-    MSLane* myRequestLane;
-
-    /** Indicator if a vehicle's look-forward distance (aka
-        brake-distance) is beyond this lane. Set brake-request
-        for prioritised vehicles only. */
-    bool myBrakeRequest;
-
-//-------- LOOK-FORWARD members-----------------------------
-
-    // vehicle in front of the junction ( in driving direction )
-    // 0 if there is none.
-    MSVehicle* myFirst;
-
-    enum LookForwardState { UNDEFINED, FREE_ON_CURR, YIELD_ON_CURR,
-                            FREE_ON_SUCC, YIELD_ON_SUCC,
-                            PRED_ON_SUCC, BEYOND_DEST,
-                            URGENT_LANECHANGE_WISH };
-
-    // This state set in setLookForwardState and used in setDriveRequests
-    // to determine the first vehicles desired vnext.
-    LookForwardState myLFState;
-
-    // Indictor for special handling of vehicles that can look into their
-    // destination edge or beyond. Use it (maybe) in setDriveRequest.
-    // False for YIELD-states.
-    bool myLFDestReached;
-
-    // Gap to lane-end or predecessor of first vehicle. 0 for free driving
-    // states.
-    double myGap;
-
-    // First vehicle's predecessor's state. Default, i.e. State(), if there
-    // is none.
-    MSVehicle::State myPredState;
-
-
-    // During setLookForwardState, the used Links and visited Lanes are stored
-    // in this LFLinkLane struct for later use in setDriveRequests.
-    struct LFLinkLane
-    {
-
-        LFLinkLane( MSLink* link, MSLane* lane ) :
-            myLink( link ), myLane( lane ) { };
-
-        // Link that leads to myLane.
-        MSLink*   myLink;
-        // Lane, a first car has looked into.
-        MSLane* myLane;
-
-    };
-
-    typedef std::vector< LFLinkLane > LFLinkLanes;
-
-    // Container for used Links/visited Lanes during lookForward.
-    LFLinkLanes myLFLinkLanes;
-
-    // Desired parameters for first vehicles. Set in setDriveRequests.
-    MSLane*          myTargetLane;
-    MSVehicle::State myTargetState;
-    double            myTargetPos;
-//----------------------------------------------------------
-
 //----------- Declarations for mean-data calculation
 
-    struct MeanDataValues 
+    /**
+     * MeanDataValues
+     * Structure holding values that describe the flow and other physical
+     * properties aggregated over some seconds and normalised by the
+     * aggregation period */
+    struct MeanDataValues
     {
-        MeanDataValues() 
+        MeanDataValues()
             : nVehFinishedLane( 0 ),
               nVehContributed( 0 ),
               contTimestepSum( 0 ),
@@ -584,26 +563,42 @@ private:
               speedSum( 0 ),
               speedSquareSum( 0 )
             {}
-        
+
+        /// the number of vehicles that have left the lane
         unsigned nVehFinishedLane;
+
+        /// the number of vehicles that made up the aggregated data
         unsigned nVehContributed;
+
+        /// the number of time steps
         double contTimestepSum;
+
+        /// as contTimestepSum but as an integer
         unsigned discreteTimestepSum;
+
+        /** the sum of the way the participating vehicles drove on the lane
+            during the aggregated time */
         double distanceSum;
+
+        /// the sum of the speeds the vehicles had ont the ...
         double speedSum;
+
+        /// the sum of squared speeds the vehicles had ont the ...
         double speedSquareSum;
     };
 
     /** Container of MeanDataValues, one element for each intervall. */
     std::vector< MeanDataValues > myMeanData;
-    
-//----------- End of declarations for mean-data calculation    
 
-    
-    /// Static dictionary to associate string-ids with objects.
+    //----------- End of declarations for mean-data calculation
+
+    /// definition of the tatic dictionary type
     typedef std::map< std::string, MSLane* > DictType;
+
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
+private:
     /// Default constructor.
     MSLane();
 
@@ -612,23 +607,6 @@ private:
 
     /// Assignment operator.
     MSLane& operator=( const MSLane& );
-
-    /**
-     * The class that performs the checking whether the current item in
-     * a search is smaller or equal to a time
-     */
-    class my_equal : public std::unary_function<MSVehicle*, bool>
-    {
-    public:
-        my_equal( std::string value ) : m_value( value ) {}
-        bool operator() ( MSVehicle *arg ) const
-        {
-            return arg->id()==m_value;
-        }
-    private:
-        std::string m_value;
-    };
-
 
 };
 
@@ -644,12 +622,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:26  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:59:13  dkrajzew
 // initial commit for classes that handle import functions
 //
@@ -59,9 +62,11 @@ LineReader::LineReader()
 
 
 LineReader::LineReader(const std::string &file)
-    : _fileName(file), _strm(file.c_str(), ios::binary)
+    : _fileName(file),
+    _read(0)
 {
     _strm.unsetf (ios::skipws);
+    setFileName(file);
 }
 
 LineReader::~LineReader()
@@ -77,26 +82,61 @@ LineReader::hasMore() const
 
 void LineReader::readAll(LineHandler &lh)
 {
-    while(_strm.good()) {
+    while(_strm.good()&&_read<_available) {
         if(!readLine(lh)) {
             return;
         }
     }
 }
 
-bool LineReader::readLine(LineHandler &lh)
+
+bool
+LineReader::readLine(LineHandler &lh)
 {
-    string tmp;
-    if(getline(_strm, tmp)) {
-        size_t idx = tmp.length()-1;
-        while(tmp.at(idx)<32) {
-            idx--;
+    string toReport;
+    bool moreAvailable = true;
+    while(toReport.length()==0) {
+        size_t idx = _strBuffer.find('\n');
+        if(idx==0) {
+            _strBuffer = _strBuffer.substr(1);
+            _rread++;
+            return lh.report("");
         }
-        if(!lh.report(tmp.substr(0, idx+1))) {
-            return false;
+        if(idx!=string::npos) {
+            toReport = _strBuffer.substr(0, idx);
+            _strBuffer = _strBuffer.substr(idx+1);
+            _rread += idx+1;
+        } else {
+            if(_read<_available) {
+                _strm.read(_buffer, 1024);
+                size_t noBytes = _available - _read;
+                noBytes = noBytes > 1024 ? 1024 : noBytes;
+                _strBuffer += string(_buffer, noBytes);
+                _read += 1024;
+            } else {
+                toReport = _strBuffer;
+                moreAvailable = false;
+                if(toReport=="") {
+                    return lh.report(toReport);
+                }
+            }
         }
     }
-    return true;
+    // remove trailing blanks
+    int idx = toReport.length()-1;
+    while(idx>=0&&toReport.at(idx)<32) {
+        idx--;
+    }
+    if(idx>0) {
+        toReport = toReport.substr(0, idx+1);
+    } else {
+        toReport = "";
+    }
+    // give it to the handler
+    if(!lh.report(toReport)) {
+        return false;
+    }
+    return moreAvailable;
 }
 
 std::string
@@ -115,14 +155,19 @@ LineReader::setFileName(const std::string &file)
     _fileName = file;
     _strm.open(file.c_str(), ios::binary);
     _strm.unsetf (ios::skipws);
+    _strm.seekg(0, ios::end);
+    _available = _strm.tellg();
     _strm.seekg(0, ios::beg);
+    _read = 0;
+    _rread = 0;
+    _strBuffer = "";
     return _strm.good();
 }
 
 unsigned long
 LineReader::getPosition()
 {
-    return _strm.tellg();
+    return _rread;
 }
 
 void
@@ -133,12 +178,20 @@ LineReader::reinit()
     }
     _strm.open(_fileName.c_str(), ios::binary);
     _strm.unsetf (ios::skipws);
+    _strm.seekg(0, ios::end);
+    _available = _strm.tellg();
+    _strm.seekg(0, ios::beg);
+    _read = 0;
+    _rread = 0;
+    _strBuffer = "";
 }
 
 void
 LineReader::setPos(unsigned long pos)
 {
     _strm.seekg(pos, ios::beg);
+    _read = pos;
+    _rread = pos;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

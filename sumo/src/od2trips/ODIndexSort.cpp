@@ -10,7 +10,7 @@
 			  func_point : pointer to function
 			  size		 : number of data to sort
                              -------------------
-    project              : SUMO		 : 
+    project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Thu, 10 September 2002
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
@@ -28,10 +28,10 @@
  ***************************************************************************/
 
 #define INSERTION_SORT_BOUND 16 /* boundary point to use insertion sort */
- 
+
 #define uint32 unsigned int
- 
-typedef int (*CMPFUN)(int, int); 
+
+typedef int (*CMPFUN)(int, int);
 
 
 
@@ -61,29 +61,29 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
       for (indx = first + 1; indx <= last; ++indx)
       {
         cur_val = *(This+indx);
-        cur_i=*(iax+indx); 
+        cur_i=*(iax+indx);
        if ((*fun_ptr)(prev_val, cur_val) > 0)
         {
           /* out of order: array[indx-1] > array[indx] */
           uint32 indx2;
-          *(This+indx) = prev_val; 
-          *(iax+indx) = prev_i; 
+          *(This+indx) = prev_val;
+          *(iax+indx) = prev_i;
           /* move up the larger item first */
           /* find the insertion point for the smaller item */
           for (indx2 = indx - 1; indx2 > first; )
           {
             int temp_val = *(This+indx2 - 1);
-            temp_i = *(iax+indx2-1); 
+            temp_i = *(iax+indx2-1);
             if ((*fun_ptr)(temp_val, cur_val) > 0)
             {
              hilf = indx2;
-             *(This+indx2--) = temp_val;            
-             *(iax+hilf--) = temp_i; 
+             *(This+indx2--) = temp_val;
+             *(iax+hilf--) = temp_i;
             }
             else
               break;
           }
-          *(This+indx2) = cur_val; /* insert the smaller item right here */       
+          *(This+indx2) = cur_val; /* insert the smaller item right here */
           *(iax+indx2) = cur_i;
         }
         else
@@ -97,7 +97,7 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
     else
     {
       int pivot;
- 
+
       /* try quick sort */
       {
         int temp;
@@ -141,18 +141,18 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 	    {
 	      ++down;
 	    } while ((*fun_ptr)(pivot, *(This+down)) > 0);
- 
+
 	    do
 	    {
 	      --up;
 	    } while ((*fun_ptr)(*(This+up), pivot) > 0);
- 
+
 	    if (up > down)
 	    {
 	      int temp;
 	      /* interchange L[down] and L[up] */
-	      temp = *(This+down); 
-		  *(This+down)= *(This+up); 
+	      temp = *(This+down);
+		  *(This+down)= *(This+up);
 		  *(This+up) = temp;
               temp_i=*(iax+down); *(iax+down)=*(iax+up);*(iax+up)=temp_i;
 	    }
@@ -170,7 +170,7 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 	  {
 	    first_stack[stack_pointer] = first;
 	    last_stack[stack_pointer++] = up;
- 
+
 	    first = up + 1;
 	    /*  tail recursion elimination of
 	     *  Qsort(This,fun_ptr,up + 1,last)
@@ -202,9 +202,21 @@ void Qsort(int *This, int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
   } /* end for */
 }
 
- 
+
 
 void IndexSort(int *This, int *iax, CMPFUN fun_ptr, uint32 the_len)
 {
 	Qsort(This, iax, fun_ptr, 0, the_len - 1);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODIndexSort.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:26  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:59:12  dkrajzew
 // initial commit for classes that handle import functions
 //
@@ -38,7 +41,7 @@
  * class definitions
  * ======================================================================= */
 /**
- * LineHandler
+ * @class LineHandler
  * The LineHandler is an interface for a class which retrieves information
  * from a file linewise. The lines are suppoted to this class using the
  * "report"-method. The LineHandler is used together with the LineReader
@@ -48,11 +51,14 @@ class LineHandler {
 public:
     /// constructor
     LineHandler() { }
+
     /// virtual destructor
     virtual ~LineHandler() { }
+
     /** real virtual interface method (to LineReader)
         retrieves lines from a file */
     virtual bool report(const std::string &result) = 0;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

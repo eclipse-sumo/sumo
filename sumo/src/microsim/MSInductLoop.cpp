@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        MSInductLoop.cpp  -  Simple detector that emulates 
+//                        MSInductLoop.cpp  -  Simple detector that emulates
 //                        induction loops.
 //                           -------------------
 //  begin                : Thu, 14 Mar 2002
@@ -9,11 +9,11 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -76,7 +79,9 @@ namespace
 // Initial commit.
 //
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -91,10 +96,16 @@ namespace
 #include <iostream>
 #include <cassert>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * member definitions
+ * ======================================================================= */
 MSInductLoop::~MSInductLoop()
 {
     delete myFile;
@@ -129,13 +140,13 @@ MSInductLoop::MSInductLoop( string         id,
 
     // Write header.
     switch ( myStyle ) {
-        case GNUPLOT: 
+        case GNUPLOT:
         {
             ostringstream header;
             header << "# Induction-loop-detector ID = " << myID << endl;
             header << "#   on Lane     " << myLane->id() << endl;
             header << "#   at position " << myPos << endl;
-            header << "#   sampleIntervall = " 
+            header << "#   sampleIntervall = "
                    << mySampleIntervall << " seconds" << endl << endl;
             header << "# n   endOfInterv nVehicles avgDensity avgFlow "
                    << "avgSpeed avgOccup avgLength" << endl;
@@ -158,10 +169,10 @@ MSInductLoop::MSInductLoop( string         id,
 void
 MSInductLoop::sample( double simSec )
 {
-    // If sampleIntervall is over, write the data to file and reset the 
+    // If sampleIntervall is over, write the data to file and reset the
     // detector.
     ++myNSamples;
-    if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >= 
+    if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
          mySampleIntervall ) {
 
         writeData();
@@ -176,7 +187,7 @@ MSInductLoop::sample( double simSec )
         mySpeedSum        = 0;
         myOccupSum        = 0;
         myVehLengthSum    = 0;
-        
+
         ++myNIntervalls;
     }
 
@@ -191,7 +202,7 @@ MSInductLoop::sample( double simSec )
         find_if( myLane->myVehicles.begin(),
                  myLane->myVehicles.end(),
                  bind2nd( VehPosition(), myPos ) );
- 
+
     if ( currVeh == myLane->myVehicles.end() ||
          *currVeh == myPassedVeh ) {
 
@@ -202,12 +213,12 @@ MSInductLoop::sample( double simSec )
     // had passed the detector and should be sampled, otherwise it
     // might be just emitted and should not be sampled.
     if ( ( *currVeh )->speed() > 0 ) {
-	
+
 	myLocalDensitySum += localDensity( **currVeh, simSec );
 	mySpeedSum        += ( *currVeh )->speed();
 	myOccupSum        += ( *currVeh )->length() / ( *currVeh )->speed();
 	myVehLengthSum    += ( *currVeh )->length();
-    
+
 	// Remember the vehicle.
 	myPassedVeh = *currVeh;
 	++myNPassedVeh;
@@ -216,11 +227,11 @@ MSInductLoop::sample( double simSec )
 
 //---------------------------------------------------------------------------//
 
-double 
+double
 MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 {
     assert( myPassingTime <= simSec );
-     
+
     // Local Density is calculated via the timeheadway and the speed
     // of the leading vehicle. After the first detection there will
     // always be a myPassedVeh.
@@ -230,7 +241,7 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
     if ( myPassedVeh != 0 ) {
 
 	assert( veh.speed() > 0 );
-	 
+
         currPassTime = simSec - ( veh.pos() - myPos ) / veh.speed();
 	double timeHeadWay = currPassTime - myPassingTime;
 	localDens = 1 / ( myPassingSpeed * timeHeadWay );
@@ -239,23 +250,22 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
     }
 
     // update members
-    myPassingSpeed = veh.speed(); 
+    myPassingSpeed = veh.speed();
     if ( myPassedVeh != 0 ) {
-	
+
 	myPassingTime  = currPassTime;
     }
     else {
-	
+
 	myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
     }
-    
+
     return localDens;
 }
 
 //---------------------------------------------------------------------------//
 
-
-void   
+void
 MSInductLoop::writeData()
 {
     double avgDensity = 0;
@@ -267,27 +277,27 @@ MSInductLoop::writeData()
 
         if ( myNPassedVeh > 1 ) {
 
-            avgDensity = myLocalDensitySum / 
-                static_cast< double >( myNPassedVeh - 1 ) * 1000.0; 
+            avgDensity = myLocalDensitySum /
+                static_cast< double >( myNPassedVeh - 1 ) * 1000.0;
 	    // [veh/km], first detected vehicle doesn't
 	    // contribute.
 	    assert( avgDensity > 0 );
         }
 
-        avgFlow   = static_cast< double >( myNPassedVeh ) / 
+        avgFlow   = static_cast< double >( myNPassedVeh ) /
 	     static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
-        avgSpeed  = mySpeedSum / 
+        avgSpeed  = mySpeedSum /
 	     static_cast< double >( myNPassedVeh ); // [m/s]
-        avgLength = myVehLengthSum / 
+        avgLength = myVehLengthSum /
 	     static_cast< double >( myNPassedVeh ); // [m]
-        
+
     }
 
     MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
 
 
     switch ( myStyle ) {
-        case GNUPLOT: 
+        case GNUPLOT:
             writeGnuPlot( endOfInterv,
                           avgDensity,
                           avgFlow,
@@ -339,7 +349,7 @@ MSInductLoop::writeCSV( MSNet::Time endOfInterv,
                         double occup,
                         double avgLength )
 {
-    ( *myFile ).setf( ios::fixed, ios::floatfield );     
+    ( *myFile ).setf( ios::fixed, ios::floatfield );
     *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
             << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
             << setw( 5 ) << setprecision( 0 ) << myNPassedVeh << ";"
@@ -361,10 +371,3 @@ MSInductLoop::writeCSV( MSNet::Time endOfInterv,
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-

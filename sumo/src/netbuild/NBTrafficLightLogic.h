@@ -1,5 +1,36 @@
 #ifndef NBTrafficLightLogic_h
 #define NBTrafficLightLogic_h
+//---------------------------------------------------------------------------//
+//                        NBTrafficLightLogic.h -  ccc
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -7,6 +38,13 @@
 #include <utility>
 #include <iostream>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * NBTrafficLightLogic
+ */
 class NBTrafficLightLogic {
 private:
     std::string _key;
@@ -17,12 +55,12 @@ private:
         std::bitset<64>     driveMask;
         std::bitset<64>     brakeMask;
         PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
-            std::bitset<64> brakeMaskArg) 
-            : duration(durationArg), driveMask(driveMaskArg), 
+            std::bitset<64> brakeMaskArg)
+            : duration(durationArg), driveMask(driveMaskArg),
             brakeMask(brakeMaskArg) { }
         ~PhaseDefinition() { }
         bool operator!=(const PhaseDefinition &pd) const {
-            return pd.duration != duration || 
+            return pd.duration != duration ||
                 pd.driveMask != driveMask ||
                 pd.brakeMask != brakeMask;
         }
@@ -33,7 +71,7 @@ public:
     NBTrafficLightLogic(const std::string &key, size_t noLinks);
     NBTrafficLightLogic(const NBTrafficLightLogic &s);
     ~NBTrafficLightLogic();
-    void addStep(size_t duration, std::bitset<64> driveMask, 
+    void addStep(size_t duration, std::bitset<64> driveMask,
         std::bitset<64> brakeMask);
     void writeXML(std::ostream &into, size_t no) const;
     void _debugWritePhases() const;
@@ -41,4 +79,14 @@ public:
 };
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "NBTrafficLightLogic.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:48:00  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:03:56  dkrajzew
 // initial commit for classes that perform string conversions
 //
@@ -36,12 +39,16 @@
  * ======================================================================= */
 #include <string>
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
  * TplConvertSec
- * The same as TplConvert, but every method
+ * The same as TplConvert, but more secure, meaning throwing less exceptions
+ * as methods do retrieve a value that is used when nothing to convert is
+ * supplied. Still, some methods do throw exceptions when f.e. something
+ * that should be a number is not.
  */
 template<class E>
 class TplConvertSec {
@@ -110,6 +117,7 @@ public:
             c-char-string considering the given length
         returns the default value if the data is empty */
     static char *_2charpSec(const E * const data, int length, char *def);
+
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
@@ -126,4 +134,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-

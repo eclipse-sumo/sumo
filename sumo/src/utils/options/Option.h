@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -61,13 +64,15 @@
 #include <exception>
 
 
-
-typedef std::vector<unsigned int> UIntVector;
-
-
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * Definition of a vector of unsigned ints for later parsing of values
+ * such as frequency lists
+ */
+typedef std::vector<unsigned int> UIntVector;
+
 /**
  * Option
  * The base class for a single program option. All options which hold values
@@ -287,7 +292,7 @@ public:
     Option_UIntVector();
     /** constructor; the default value is given */
     Option_UIntVector(const UIntVector &value);
-    /** constructor; 
+    /** constructor;
         the default value will be parsed from the string
         use ';' as delimiters */
     Option_UIntVector(const std::string &value);
@@ -315,8 +320,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-

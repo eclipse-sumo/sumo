@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -59,6 +62,7 @@
 #include "NBEdge.h"
 #include "NBNode.h"
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -75,22 +79,23 @@ public:
         pointing at, in the clockwise direction.
         A pointer to the first edge of the list is returned when the given
         iterator is pointing at the last edge. */
-    static EdgeCont::const_iterator nextCW(const EdgeCont * edges, 
-        EdgeCont::const_iterator from);
+    static EdgeVector::const_iterator nextCW(const EdgeVector * edges,
+        EdgeVector::const_iterator from);
+
     /** Returns the previous edge from a clockwise sorted cotainer
         When the edges are sorted clockwise in the given container, the
         method returns the next edge from the edge the given iterator
         is pointing at, in the counter-clockwise direction.
         A pointer to the last edge of the list is returned when the given
         iterator is pointing at the first edge */
-    static EdgeCont::const_iterator nextCCW(const EdgeCont * edges, 
-        EdgeCont::const_iterator from);
+    static EdgeVector::const_iterator nextCCW(const EdgeVector * edges,
+        EdgeVector::const_iterator from);
 
-
-
+    /** writes the vector of bools to the given stream */
     static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
 
-    static int countPriorities(const EdgeCont &s);
+    /** counts the prioirities of the edges within the given container */
+    static int countPriorities(const EdgeVector &s);
 
     /**
      * edge_by_angle_sorter
@@ -100,8 +105,11 @@ public:
     private:
         /// the edge to compute the relative angle of
         NBNode *_node;
+
     public:
+        /// constructor
         explicit edge_by_junction_angle_sorter(NBNode *n) : _node(n) {}
+
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
@@ -117,11 +125,15 @@ public:
     private:
         /// the edge to compute the relative angle of
         NBEdge *_edge;
+
         /// the node to use
         NBNode *_node;
+
     public:
+        /// constructor
         explicit relative_edge_sorter(NBEdge *e, NBNode *n)
             : _edge(e), _node(n) {}
+
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
@@ -141,11 +153,15 @@ public:
     private:
         /// the edge to compute the relative angle of
         NBEdge *_edge;
+
         /// the node to use
         NBNode *_node;
+
     public:
+        /// constructor
         explicit relative_edgelane_sorter(NBEdge *e, NBNode *n)
             : _edge(e), _node(n) {}
+
     public:
         /// comparing operation
         int operator() (EdgeLane e1, EdgeLane e2) const {
@@ -163,6 +179,7 @@ public:
      */
     class edge_by_priority_sorter {
     public:
+        /// comparing operator
         int operator() (NBEdge *e1, NBEdge *e2) const {
             return e1->getPriority() > e2->getPriority();
         }
@@ -178,11 +195,15 @@ public:
     private:
         /// the angle to find the edge with the opposite direction
         double _angle;
+
         /// the edge - to avoid comparison of an edge with itself
         NBEdge *_edge;
+
     public:
+        /// constructor
         explicit edge_opposite_direction_sorter(NBEdge *e)
             : _angle(e->getAngle()), _edge(e) {}
+
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
@@ -197,7 +218,9 @@ public:
             return d1 < d2;
         }
 
-        /// helping method for the computation of the absolut difference between the edges' angles
+        /** helping method for the computation of the absolut difference
+         * between the edges' angles
+         */
         double getDiff(NBEdge *e) const {
             double d = e->getAngle()+180;
             if(d>=360) {
@@ -217,9 +240,12 @@ public:
     private:
         /// the angle to find the edge with the opposite direction
         double _angle;
+
     public:
+        /// constructor
         explicit edge_similar_direction_sorter(NBEdge *e)
             : _angle(e->getAngle()) {}
+
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
@@ -228,7 +254,9 @@ public:
             return d1 < d2;
         }
 
-        /// helping method for the computation of the absolut difference between the edges' angles
+        /** helping method for the computation of the absolut difference
+         * between the edges' angles
+         */
         double getDiff(NBEdge *e) const {
             double d = e->getAngle();
             return fabs(d - _angle);

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -46,12 +49,17 @@ class XMLSubSys {
 public:
     /// initialises the xml-subsystem
     static bool init();
+
     /// cloases the xml-subsystem
     static void close();
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "XMLSubSys.icc"
 //#endif
 
@@ -60,4 +68,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-

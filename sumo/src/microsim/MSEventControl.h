@@ -1,3 +1,5 @@
+#ifndef MSEventControl_H
+#define MSEventControl_H
 /***************************************************************************
                           MSEventControl.h  -  Coordinates
                           time-dependant events
@@ -16,11 +18,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSEventControl_H
-#define MSEventControl_H
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -73,6 +74,9 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <utility>
 #include <queue>
 #include <vector>
@@ -80,9 +84,20 @@
 #include <string>
 #include "MSNet.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class Command;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSEventControl
+ * Class which holds incoming events and executes them at the time they shall
+ * be executed at.
  */
 class MSEventControl
 {
@@ -97,6 +112,7 @@ public:
     class EventSortCrit
     {
     public:
+        /// compares two events
         bool operator() ( const Event& e1, const Event& e2 ) const;
     };
 
@@ -106,33 +122,26 @@ public:
     /// Destructor.
     ~MSEventControl();
 
-    // Add an Event.
+    /// Adds an Event.
     bool addEvent( Command* operation, MSNet::Time execTime, AdaptType type );
 
-    /** Executes time-dependant commands, like switching
-        traffic-lights, writing output, etc. */
+    /** @brief Executes time-dependant commands
+        Events are things such as switching traffic-lights, writing output, etc. */
     void execute( MSNet::Time time );
 
-    /** Inserts eventcontrol into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts eventcontrol into the static dictionary.
+        Returns if the key id isn't already in the dictionary. Otherwise returns
+        false (the control is not inserted then). */
     static bool dictionary( std::string id, MSEventControl* event );
-    /** Returns the MSEdgeControl associated to the key id if exists,
-        otherwise returns 0. */
+
+    /** @brief Returns the MSEdgeControl associated to the key id if exists,
+        Otherwise returns 0. */
     static MSEventControl* dictionary( std::string id );
 
     /** Clears the dictionary */
     static void clear();
 
-//      friend class MSNet;
-protected:
-
 private:
-//      void setTime( MSNet::Time time );
-
-private:
-//      MSNet::Time myTime;
-
     /// Unique ID.
     std::string myID;
 
@@ -143,10 +152,13 @@ private:
     /// Event-container, holds executable events.
     EventCont myEvents;
 
-    /// Static dictionary to associate string-ids with objects.
+    /// definitions of the static dictionary type
     typedef std::map< std::string, MSEventControl* > DictType;
+
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
+private:
     /// Default constructor.
     MSEventControl();
 
@@ -155,6 +167,7 @@ private:
 
     /// Assignment operator.
     MSEventControl& operator=(const MSEventControl&);
+
 };
 
 

@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSVehicle.icc  -  Base for all
-                          micro-simulation Vehicles. 
+                          micro-simulation Vehicles.
                              -------------------
     begin                : Mon, 05 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:45:42  dkrajzew
 // debugged
 //
@@ -67,22 +70,22 @@ MSVehicle::dawdle( double speed ) const
 {
     // generate random number out of [0,1]
     double random = double( rand() ) / double( RAND_MAX );
-                   
-    // Dawdle. 
+
+    // Dawdle.
     // TODO:
     // We already have a safe speed, if we dawdle max, is it possible
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accelSpeed() * random;
-    
+
     return max( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double 
+double
 MSVehicle::tau()
-{ 
+{
     return myTau;
 }
 
@@ -111,46 +114,58 @@ bool
 MSVehicle::overlap( const MSVehicle* veh1, const MSVehicle* veh2 )
 {
     if ( veh1->myState.myPos < veh2->myState.myPos ) {
-        
-        return veh2->myState.myPos - veh2->myType->myLength < 
+
+        return veh2->myState.myPos - veh2->myType->myLength <
                veh1->myState.myPos;
     }
-    return veh1->myState.myPos - veh1->myType->myLength < 
+    return veh1->myState.myPos - veh1->myType->myLength <
            veh2->myState.myPos;
 }
- 
+
 /////////////////////////////////////////////////////////////////////////////
 
 inline
 double
-MSVehicle::vsafe( double speed, 
-                  double decel, 
-                  double gap2pred, 
-                  double predSpeed ) const 
+MSVehicle::vsafe( double speed,
+                  double decel,
+                  double gap2pred,
+                  double predSpeed ) const
 {
     // Calculate the Stefan Krauss (SK) vsafe.
 
+	if(predSpeed==0&&gap2pred<0.01) { // !!!
+		return 0;
+	}
     assert( speed     >= double(0) );
     assert( gap2pred  >= double(0) );
     assert( predSpeed >= double(0) );
-    double vsafe = predSpeed + 
-        ( ( gap2pred - predSpeed * myTau ) / 
+//if(gap2pred<double(0.01)) {
+    double vsafe = predSpeed +
+        ( ( gap2pred - predSpeed * myTau ) /
           ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
-
-// This assertion has not the intended meaning because of doubleing inaccuracy.
-//    assert( vsafe <= gap2pred ); // Collision-free condition.
-// This is not the solution, because vsafe allows this vehicle to overlap at 
-// time t+1 with pred at time t.
-//    assert( vsafe <= gap2pred + 0.01 ); 
     assert( vsafe >= 0 );
 
     return vsafe;
+/*} else {
+    double vsafe = predSpeed +
+        ( ( gap2pred - 0.01 - predSpeed * myTau ) /
+          ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
+    assert( vsafe >= 0 );
+
+    return vsafe;
+}*/
+
+// This assertion has not the intended meaning because of doubleing inaccuracy.
+//    assert( vsafe <= gap2pred ); // Collision-free condition.
+// This is not the solution, because vsafe allows this vehicle to overlap at
+// time t+1 with pred at time t.
+//    assert( vsafe <= gap2pred + 0.01 );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double 
+double
 MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
 {
     return min( min( v1, v2 ), min ( v3, v4 ) );
@@ -159,7 +174,7 @@ MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-bool 
+bool
 MSVehicle::congested()
 {
     return myState.mySpeed < double(60) / double(3.6);

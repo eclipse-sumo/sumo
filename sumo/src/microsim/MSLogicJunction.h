@@ -1,3 +1,5 @@
+#ifndef MSLogicJunction_H
+#define MSLogicJunction_H
 /***************************************************************************
                           MSLogicJunction.h  -  Base class for junctions
                           with one ore more logics.
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -46,63 +51,85 @@
 // Initial commit. Part of a new junction hierarchy.
 //
 
-#ifndef MSLogicJunction_H
-#define MSLogicJunction_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSJunction.h"
+#include <bitset>
 #include <vector>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSLogicJunction
+ * A junction which may not let all vehicles through, but must perform any
+ * kind of an operation to determine which cars are allowed to drive in this
+ * step.
  */
 class MSLogicJunction : public MSJunction
 {
 public:
+    /** @brief Holds the information the incoming lanes.
+        Drive- and
+        Brakerequest will be used to distinguish between main- and
+        sideroad-links if necessary (e.g. if a prioritized vehicle
+        has no drive request but it's brake distance is past the
+        junction it may block sideroad vehicles. */
+    class InLane
+    {
+    public:
+        // needed to initialise (!!! should be wrapped)
+	    friend class MSLogicJunction;
+
+        // needed to initialise (!!! should be wrapped)
+        friend class MSTrafficLightLogic;
+
+        friend class MSLane;
+
+        /// constructor
+        InLane( MSLane* inLane );
+
+    private:
+        /// the wrapped lane
+        MSLane* myLane;
+
+        /// invalidated default constructor
+        InLane();
+    };
+
+    /** Container for incoming lanes. */
+    typedef std::vector< InLane > InLaneCont;
+
     /// Destructor.
     virtual ~MSLogicJunction();
 
-    /** Container for first-vehicle's request. Each element of this
-        container represents one particular link from one lane to
-        another. */
-    typedef std::vector< bool > Request;
+    /** @brief Container for first-vehicle's request.
+        Each element of this container represents one particular
+        link from one lane to another. */
+    typedef std::bitset<64> Request;
 
-    /** Container for the request responds. The respond is
-        lane-bound, not link-bound, so the size maybe smaller than
-        the RequestCont's one. */
-    typedef std::vector< bool > Respond;
+    /** @brief Container for the request responds.
+        The respond is lane-bound, not link-bound, so the size maybe
+        smaller than the RequestCont's one. */
+    typedef std::bitset<64> Respond;
 
-    /** Return type for lane's drive request. There are drive
-        requests (a lane will send a drive request if the first
-        vehicle would leave the lane with it's vNext) and brake
-        requests (will be send by vehicles using a prioritised link
-        if their interaction distance reaches into the succeeding
-        lane).
-        What is returned? The begin and end iterator of a Request
-        representing the lane's suceeding lanes. The order
-        corresponds to myLogic and myInLanes. */
-    class DriveBrakeRequest
-    {
-    public:
-        friend class MSLogicJunction;
-        friend class MSRightOfWayJunction;
-
-        DriveBrakeRequest( Request request,
-                           bool driveRequest,
-                           bool brakeRequest);
-
-        /// Returns wheter the driveRequest-bit is set or not.
-        bool driveRequest() const;
-
-    private:
-        Request myRequest;
-        bool myDriveRequest;
-        bool myBrakeRequest;
-
-        DriveBrakeRequest();
-    };
+    /// initialises the junction after the whole net has been loaded
+    virtual void postloadInit();
 
 protected:
+    /// list of incoming lanes
+    InLaneCont myInLanes;
 
-    MSLogicJunction( std::string id, double x, double y );
+    /// constructor; this class is virtual
+    MSLogicJunction( std::string id, double x, double y, InLaneCont in );
+
+    /** Current request. */
+    Request myRequest;
+
+    /** Current respond. */
+    Respond  myRespond;
 
 private:
     /// Default constructor.
@@ -125,13 +152,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

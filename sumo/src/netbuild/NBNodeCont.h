@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:33:53  dkrajzew
 // adding of typed nodes added
 //
@@ -68,62 +71,87 @@
 #include "NBJunctionLogicCont.h"
 #include "NBNode.h"
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class NBNodeCont {
-private:
+class NBNodeCont
+{
+public:
     /** definition of the map of names to nodes */
     typedef std::map<std::string, NBNode*> NodeCont;
-    /** the running internal id */
-    static int     _internalID;
-    /** the map of names to nodes */
-    static NodeCont   _nodes;
+
 public:
     /** inserts a node into the map */
     static bool insert(const std::string &id, double x, double y);
+
     /** inserts a node into the map */
     static bool insert(const std::string &id, double x, double y,
         const std::string &type);
+
     /** inserts a node into the map */
     static std::pair<double, double> insert(const std::string &id);
+
     /** inserts a node into the map */
     static bool insert(NBNode *node);
+
     /** returns the node with the given name */
     static NBNode *retrieve(const std::string &id);
+
     /** returns the node with the given coordinates */
     static NBNode *retrieve(double x, double y);
+
     /// returns the begin of the dictionary
     static NodeCont::iterator begin();
+
     /// returns the end of the dictionary
     static NodeCont::iterator end();
 
+    /// resets the node positions in a way that they begin from (0, 0)
     static bool normaliseNodePositions(bool verbose);
+
     /// divides the incoming lanes on outgoing lanes
     static bool computeEdges2Lanes(bool verbose);
 
     /// build the list of outgoing edges and lanes
     static bool computeLogics(bool verbose, long maxSize);
+
     /// sorts the nodes' edges
     static bool sortNodesEdges(bool verbose);
+
     /// writes the number nodes into the given ostream
     static void writeXMLNumber(std::ostream &into);
+
     /// writes the nodes into the given ostream
     static void writeXML(std::ostream &into);
+
     /// returns the number of known nodes
     static int size();
+
     /** returns the number of known nodes */
     static int getNo();
+
     /** deletes all nodes */
     static void clear();
+
     /// reports how many nodes were loaded
     static void report(bool verbose);
+
+private:
+    /** the running internal id */
+    static int     _internalID;
+
+    /** the map of names to nodes */
+    static NodeCont   _nodes;
+
 private:
     /** invalid copy constructor */
     NBNodeCont(const NBNodeCont &s);
+
     /** invalid assignment operator */
     NBNodeCont &operator=(const NBNodeCont &s);
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
@@ -135,4 +163,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:48:00  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:03:56  dkrajzew
 // initial commit for classes that perform string conversions
 //
@@ -35,6 +38,7 @@
  * included modules
  * ======================================================================= */
 #include <string>
+
 
 /* =========================================================================
  * class definitions
@@ -131,6 +135,7 @@ public:
 
     /** returns the length of the string (the position of the 0-character) */
     static size_t getLength(const E * const data);
+
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
@@ -147,4 +152,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-

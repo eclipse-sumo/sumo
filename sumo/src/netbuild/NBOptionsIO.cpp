@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:32:55  dkrajzew
 // handling of connection specification files added
 //
@@ -96,18 +99,21 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -122,21 +128,26 @@ using namespace std;
 OptionsCont *
 NBOptionsIO::getOptions(int argc, char **argv)
 {
-    // initialise options; return (exception) when the enviroment-variable is not set
+    // initialise options;
     OptionsCont *oc = init();
-    if(oc==0)
+    if(oc==0) {
         throw ProcessError();
+    }
     // parse options from configuration and command line
     bool ok = OptionsIO::getOptions(oc, argc, argv);
+
     // do nothing more when only help shall be printed
-    if(oc->getBool("help"))
+    if(oc->getBool("help")) {
         return oc;
+    }
     // print options when wished
-    if(ok && oc->getBool("p"))
+    if(ok && oc->getBool("p")) {
         cout << *oc;
+    }
     // check options
-    if(ok)
+    if(ok) {
         ok = check(oc);
+    }
     // throw an exception when something went wrong
     if(!ok) {
         delete oc;
@@ -162,15 +173,21 @@ NBOptionsIO::init()
     oc->doRegister("cell-node-file", new Option_FileName());
     oc->doRegister("cell-edge-file", new Option_FileName());
     oc->doRegister("visum-file", new Option_FileName());
+    oc->doRegister("vissim-file", new Option_FileName());
+    oc->doRegister("arcview", new Option_FileName());
+    oc->doRegister("arcview-shp", new Option_FileName());
+    oc->doRegister("arcview-dbf", new Option_FileName());
     oc->doRegister("type-file", 't', new Option_FileName(/*"types.xml"*/));
     oc->doRegister("output-file", 'o', new Option_FileName("default.net.xml"));
-    oc->doRegister("configuration-file", 'c', new Option_FileName("sumo-netconvert.cfg"));
+    oc->doRegister("configuration-file", 'c',
+        new Option_FileName("sumo-netconvert.cfg"));
     oc->addSynonyme("xml-node-files", "xml-nodes");
     oc->addSynonyme("xml-edge-files", "xml-edges");
     oc->addSynonyme("xml-connection-files", "xml-connections");
     oc->addSynonyme("cell-node-file", "cell-nodes");
     oc->addSynonyme("cell-edge-file", "cell-edges");
     oc->addSynonyme("visum-file", "visum");
+    oc->addSynonyme("vissim-file", "vissim");
     oc->addSynonyme("type-file", "types");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
@@ -192,6 +209,7 @@ NBOptionsIO::init()
     return oc;
 }
 
+
 /**
  * checkSettings
  * Checks the build settings. The following constraints must be valid:
@@ -205,7 +223,8 @@ NBOptionsIO::init()
  * Returns true when all constraints are valid
  */
 bool
-NBOptionsIO::check(OptionsCont *oc) {
+NBOptionsIO::check(OptionsCont *oc)
+{
    bool ok = true;
    try {
       if(!checkCompleteDescription(oc)) {
@@ -220,11 +239,13 @@ NBOptionsIO::check(OptionsCont *oc) {
     return ok;
 }
 
+
 bool
 NBOptionsIO::checkCompleteDescription(OptionsCont *oc)
 {
    return false;
 }
+
 
 bool
 NBOptionsIO::checkNodes(OptionsCont *oc)
@@ -233,12 +254,17 @@ NBOptionsIO::checkNodes(OptionsCont *oc)
     if( oc->isSet("n") ||
         oc->isSet("cell-nodes") ||
         oc->isSet("visum") ||
+        oc->isSet("vissim") ||
+        oc->isSet("arcview") ||
+        oc->isSet("arcview-shp") ||
+        oc->isSet("arcview-dbf") ||
         oc->isSet("sumo-net") ) {
         return true;
     }
     cout << "Error: The nodes must be supplied." << endl;
     return false;
 }
+
 
 bool
 NBOptionsIO::checkEdges(OptionsCont *oc)
@@ -247,6 +273,10 @@ NBOptionsIO::checkEdges(OptionsCont *oc)
     if( oc->isSet("e") ||
         oc->isSet("cell-edges") ||
         oc->isSet("visum") ||
+        oc->isSet("vissim") ||
+        oc->isSet("arcview") ||
+        oc->isSet("arcview-shp") ||
+        oc->isSet("arcview-dbf") ||
         oc->isSet("sumo-net") ) {
         return true;
     }
@@ -254,10 +284,11 @@ NBOptionsIO::checkEdges(OptionsCont *oc)
     return false;
 }
 
+
 bool
 NBOptionsIO::checkOutput(OptionsCont *oc)
 {
-    ofstream strm(oc->getString("o").c_str());
+    ofstream strm(oc->getString("o").c_str()); // !!! should be made when input are ok
     if(!strm.good()) {
         cout << "Error: The output file \"" << oc->getString("o")
             << "\" can not be build." << endl;
@@ -266,10 +297,13 @@ NBOptionsIO::checkOutput(OptionsCont *oc)
     return true;
 }
 
+
 void
-NBOptionsIO::precomputeValues(OptionsCont *oc) {
+NBOptionsIO::precomputeValues(OptionsCont *oc)
+{
 //   oc->doRegister("used-file-format", new Option_String("xml"));
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

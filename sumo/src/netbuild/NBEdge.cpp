@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/02/07 10:43:43  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:32:01  dkrajzew
 // possibility to add connections between lanes added; adding of connectionsbetween edges revalidated
 //
@@ -99,18 +102,21 @@ namespace
 #include <iostream>
 #include "NBEdge.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * static variables
@@ -118,6 +124,7 @@ using namespace std;
 const int NBEdge::LINKTYPE_INVALID = 0;
 const int NBEdge::LINKTYPE_UNPRIORISED = 1;
 const int NBEdge::LINKTYPE_PRIORISED = 2;
+
 
 /* =========================================================================
  * method definitions
@@ -127,16 +134,18 @@ const int NBEdge::LINKTYPE_PRIORISED = 2;
  * ----------------------------------------------------------------------- */
 void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 {
-    assert(_transitions.size()>virtEdge);
+    assert(_transitions.size()>(int) virtEdge);
     assert(lane>=0&&lane<10);
     NBEdge *succEdge = _transitions[(int) virtEdge];
     vector<size_t> lanes;
     map<NBEdge*, vector<size_t> >::iterator i=_connections->find(succEdge);
-    if(i!=_connections->end())
+    if(i!=_connections->end()) {
         lanes = (*i).second;
+    }
     vector<size_t>::iterator j=find(lanes.begin(), lanes.end(), (size_t) lane);
-    if(j==lanes.end())
+    if(j==lanes.end()) {
         lanes.push_back((size_t) lane);
+    }
     (*_connections)[succEdge] = lanes;
 }
 
@@ -145,36 +154,46 @@ void NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 /* -------------------------------------------------------------------------
  * NBEdge::MainDirections-methods
  * ----------------------------------------------------------------------- */
-NBEdge::MainDirections::MainDirections(std::vector<NBEdge*> &outgoing, NBEdge *parent, NBNode *to)
+NBEdge::MainDirections::MainDirections(std::vector<NBEdge*> &outgoing,
+                                       NBEdge *parent, NBNode *to)
 {
     if(outgoing.size()==0)
         return;
     // check whether the right turn has a higher priority
-    if(outgoing[0]->getJunctionPriority(to)==1)
+    assert(outgoing.size()>0);
+    if(outgoing[0]->getJunctionPriority(to)==1) {
         _dirs.push_back(MainDirections::DIR_RIGHTMOST);
+    }
     // check whether the left turn has a higher priority
-    if(outgoing[outgoing.size()-1]->getJunctionPriority(to)==1)
+    if(outgoing[outgoing.size()-1]->getJunctionPriority(to)==1) {
         _dirs.push_back(MainDirections::DIR_LEFTMOST);
+    }
     // check whether the forward direction has a higher priority
     //  get the forward direction
     vector<NBEdge*> tmp(outgoing);
-    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
+    sort(tmp.begin(), tmp.end(),
+        NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
     // check whether it has a higher priority
-    if(edge->getJunctionPriority(to)==1)
+    if(edge->getJunctionPriority(to)==1) {
         _dirs.push_back(MainDirections::DIR_FORWARD);
+    }
 }
+
 
 NBEdge::MainDirections::~MainDirections()
 {
 }
 
-bool NBEdge::MainDirections::empty() const
+
+bool
+NBEdge::MainDirections::empty() const
 {
     return _dirs.empty();
 }
 
-bool NBEdge::MainDirections::includes(Direction d) const {
+bool
+NBEdge::MainDirections::includes(Direction d) const {
     return find(_dirs.begin(), _dirs.end(), d)!=_dirs.end();
 }
 
@@ -196,17 +215,23 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
     _basicType(basic)
 {
-    if(_from==0||_to==0) throw std::exception();
-    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(), _to->getXCoordinate(), _to->getYCoordinate());
+    if(_from==0||_to==0) {
+        throw std::exception();
+    }
+    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(),
+        _to->getXCoordinate(), _to->getYCoordinate());
     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
     // prepare container
-    _reachable = new NBEdge::ReachableFromLaneCont();
-    _reachable->resize(_nolanes, EdgeLaneCont());
-    _reachablePriorities = new NBEdge::ReachablePrioritiesFromLaneCont();
-    _reachablePriorities->resize(_nolanes, IntCont());
+    _reachable = new NBEdge::ReachableFromLaneVector();
+    _reachable->resize(_nolanes, EdgeLaneVector());
+    _reachablePriorities = new NBEdge::ReachablePrioritiesFromLaneVector();
+    _reachablePriorities->resize(_nolanes, IntVector());
     _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
     _ToEdges = new map<NBEdge*, vector<size_t> >();
+    if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
+        _length = 200;
+    }
 }
 
 
@@ -217,6 +242,7 @@ NBEdge::~NBEdge()
     delete _succeedinglanes;
     delete _ToEdges;
 }
+
 
 double
 NBEdge::getAngle()
@@ -247,6 +273,7 @@ NBEdge::getJunctionPriority(NBNode *node) {
         return _toJunctionPriority;
 }
 
+
 void
 NBEdge::setJunctionPriority(NBNode *node, int prio)
 {
@@ -255,6 +282,7 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
     else
         _toJunctionPriority = prio;
 }
+
 
 void
 NBEdge::setJunctionAngle(NBNode *node, double angle)
@@ -265,6 +293,7 @@ NBEdge::setJunctionAngle(NBNode *node, double angle)
         _toJunctionAngle = angle;
 }
 
+
 double
 NBEdge::getJunctionAngle(NBNode *node)
 {
@@ -274,16 +303,19 @@ NBEdge::getJunctionAngle(NBNode *node)
         return _toJunctionAngle;
 }
 
+
 string
 NBEdge::getID()
 {
     return _id;
 }
 
+
 string
 NBEdge::getName() {
     return _name;
 }
+
 
 NBNode *
 NBEdge::getFromNode()
@@ -311,20 +343,21 @@ NBEdge::getLength() {
 }
 
 
-const EdgeLaneCont *
+const EdgeLaneVector *
 NBEdge::getEdgeLanesFromLane(size_t lane) {
+    assert(_reachable!=0&&lane<_reachable->size());
     return &(*_reachable)[lane];
 }
 
 
-void 
+void
 NBEdge::computeTurningDirections()
 {
-    EdgeCont *outgoing = _connectedEdges;
+    EdgeVector *outgoing = _connectedEdges;
     if(outgoing==0) {
         outgoing = _to->getOutgoingEdges();
     }
-    for(EdgeCont::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
+    for(EdgeVector::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
         NBEdge *outedge = *i;
         double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
         // do not append the turnaround
@@ -341,7 +374,6 @@ NBEdge::computeTurningDirections()
         }
     }
 }
-
 
 
 void
@@ -361,8 +393,8 @@ NBEdge::writeXMLStep1(std::ostream &into)
         "\" To=\"" << _to->getID() <<
         "\" Priority=\"" << _priority <<
         "\" Angle=\"" << _angle <<
-        "\" Type=\"" << _type << 
-        "\" Purpose=\"";
+        "\" Type=\"" << _type <<
+        "\" function=\"";
     switch(_basicType) {
     case EDGEFUNCTION_NORMAL:
         into << "normal";
@@ -384,7 +416,8 @@ NBEdge::writeXMLStep1(std::ostream &into)
     }
     into << "      </lanes>" << endl;
     // write the list of connected edges
-    for(LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->begin(); l!=_succeedinglanes->end(); l++) {
+    for( LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->begin();
+         l!=_succeedinglanes->end(); l++) {
         writeConnected(into, (*l).first, (*l).second);
     }
     // close the edge
@@ -445,7 +478,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
 
 
 void
-NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneCont &lanes)
+NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
 {
     if(edge==0) {
         return;
@@ -453,6 +486,7 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneCont &lanes)
     into << "      <cedge id=\"" << edge->getID() << "\">";
     size_t noApproachers = lanes.size();
     for(size_t i=0; i<noApproachers; i++) {
+        assert(i<lanes.size());
         into << _id << '_' << lanes[i];
         if(i<noApproachers-1) {
             into << ' ';
@@ -468,9 +502,11 @@ NBEdge::writeSucceeding(std::ostream &into, size_t lane)
     into << "   <succ edge=\"" << _id << "\" lane=\"" << _id << "_"
         << lane << "\" junction=\"" << _to->getID() << "\">" << endl;
     // the lane may be unconnented; output information about being invalid
+    assert(_reachable!=0&&lane<_reachable->size());
     size_t noApproached = (*_reachable)[lane].size();
     if(noApproached==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>" << endl;
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>"
+            << endl;
     }
     // output list of connected lanes
     for(size_t j=0; j<noApproached; j++) {
@@ -485,8 +521,10 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t from, size_t dest)
 {
     // check whether the connected lane is invalid
     //  (should not happen; this is an artefact left from previous versions)
+    assert(_reachable!=0 && from<_reachable->size() && dest<(*_reachable)[from].size());
     if((*_reachable)[from][dest].edge==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>" << endl;
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>"
+            << endl;
         return;
     }
     // output the id
@@ -509,9 +547,11 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
     if(_connectedEdges==0) {
         _connectedEdges = new std::vector<NBEdge*>();
     }
-    if(find(_connectedEdges->begin(), _connectedEdges->end(), dest)==_connectedEdges->end()) {
+    if( find(_connectedEdges->begin(), _connectedEdges->end(), dest)
+          ==_connectedEdges->end()) {
         _connectedEdges->push_back(dest);
         _step = EDGE2EDGES;
+        assert(_ToEdges!=0);
         (*_ToEdges)[dest] = vector<size_t>();
         return true;
     }
@@ -536,16 +576,19 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 bool
 NBEdge::computeEdge2Edges()
 {
-    if(_step<EDGE2EDGES) {
-        // get the list of possible outgoing edges sorted by direction clockwise
-        //  the edge in the backward direction (turnaround) is not in the list
-        vector<NBEdge*> *edges = getConnectedSorted();
-        // divide the lanes on reachable edges
-        divideOnEdges(edges);
-        delete edges;
-        delete _connectedEdges;
-        _step = EDGE2EDGES;
+    // return if this relationship has been build in previous steps or
+    //  during the import
+    if(_step>EDGE2EDGES) {
+        return true;
     }
+    // get list of possible outgoing edges sorted by direction clockwise
+    //  the edge in the backward direction (turnaround) is not in the list
+    vector<NBEdge*> *edges = getConnectedSorted();
+    // divide the lanes on reachable edges
+    divideOnEdges(edges);
+    delete edges;
+    delete _connectedEdges;
+    _step = EDGE2EDGES;
     return true;
 }
 
@@ -557,6 +600,7 @@ NBEdge::recheckLanes(bool verbose) {
     //  if there is a lane with no connections and any neighbour lane has
     //  more than one connections, try to move one of them
     for(i=0; i<_nolanes; i++) {
+        assert(_reachable!=0 && i<_reachable->size());
         if((*_reachable)[i].size()==0) {
             if(i>0&&(*_reachable)[i-1].size()>1) {
                 moveConnectionToLeft(i-1);
@@ -569,6 +613,7 @@ NBEdge::recheckLanes(bool verbose) {
     //  go through all lanes and add an empty connection if no connection
     //  is yet set
     for(i=0; i<_nolanes; i++) {
+        assert(_reachable!=0 && i<_reachable->size());
         if((*_reachable)[i].size()==0) {
             setConnection(i, 0, 0);
         }
@@ -576,11 +621,15 @@ NBEdge::recheckLanes(bool verbose) {
     return true;
 }
 
+
 void
 NBEdge::moveConnectionToLeft(size_t lane) {
-    pair<NBEdge*, size_t> dest = getConnectionRemoving(lane, (*_reachable)[lane].size()-1);
+    assert(_reachable!=0 && lane<_reachable->size() && (*_reachable)[lane].size()>0);
+    pair<NBEdge*, size_t> dest =
+        getConnectionRemoving(lane, (*_reachable)[lane].size()-1);
     setConnection(lane+1, dest.first, dest.second);
 }
+
 
 void
 NBEdge::moveConnectionToRight(size_t lane) {
@@ -588,17 +637,20 @@ NBEdge::moveConnectionToRight(size_t lane) {
     setConnection(lane-1, dest.first, dest.second);
 }
 
+
 pair<NBEdge*, size_t>
 NBEdge::getConnectionRemoving(size_t srcLane, size_t pos) {
+    assert(_reachable!=0);
     assert(_reachable->size()>srcLane);
     assert((*_reachable)[srcLane].size()>pos);
     // get the destination edge and remove from the container
     EdgeLane edgelane = (*_reachable)[srcLane][pos];
     (*_reachable)[srcLane].erase((*_reachable)[srcLane].end()-1);
     // remove the information from the map of how to reach edges
-    NBEdge::LanesThatSucceedEdgeCont::iterator i = _succeedinglanes->find(edgelane.edge);
-    LaneCont lanes = (*i).second;
-    LaneCont::iterator j = find(lanes.begin(), lanes.end(), srcLane);
+    NBEdge::LanesThatSucceedEdgeCont::iterator i =
+        _succeedinglanes->find(edgelane.edge);
+    LaneVector lanes = (*i).second;
+    LaneVector::iterator j = find(lanes.begin(), lanes.end(), srcLane);
     lanes.erase(j);
     (*_succeedinglanes)[edgelane.edge] = lanes;
     // return the information
@@ -611,8 +663,10 @@ vector<size_t> NBEdge::getConnectionLanes(NBEdge *currentOutgoing) {
         return vector<size_t>();
     }
     map<NBEdge*, vector<size_t> >::iterator i=_ToEdges->find(currentOutgoing);
-    assert(i!=_ToEdges->end());
-    assert((*i).second.size()<=_nolanes);
+    assert(i==_ToEdges->end()||(*i).second.size()<=_nolanes);
+    if(i==_ToEdges->end()) {
+        return vector<size_t>();
+    }
     return (*i).second;
 }
 
@@ -621,7 +675,7 @@ std::vector<NBEdge*> *
 NBEdge::getConnectedSorted()
 {
     // check whether connections exist and if not, use edges from the node
-    EdgeCont *outgoing = _connectedEdges;
+    EdgeVector *outgoing = _connectedEdges;
     if(outgoing==0) {
         outgoing = _to->getOutgoingEdges();
     }
@@ -629,7 +683,7 @@ NBEdge::getConnectedSorted()
     size_t size = outgoing->size();
     vector<NBEdge*> *edges = new vector<NBEdge*>();
     edges->reserve(size);
-    for(EdgeCont::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
+    for(EdgeVector::iterator i=outgoing->begin(); i!=outgoing->end(); i++) {
         NBEdge *outedge = *i;
         if(outedge!=_turnDestination) {
             edges->push_back(outedge);
@@ -663,8 +717,8 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
     for(i=0; i<size; i++) {
         // res will be the number of lanes which are meant to reach the
         //  current outgoing edge
-        double res = 
-            (double) (*priorities)[i] * 
+        double res =
+            (double) (*priorities)[i] *
             (double) _nolanes / (double) prioSum;
         // do not let this number be greater than the number of available lanes
         if(res>_nolanes)
@@ -698,6 +752,7 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
     for(i=0; i<size; i++) {
         // tmpNo will be the number of connections from this edge
         //  to the next edge
+        assert(i<resultingLanes.size());
         double tmpNo = (double) resultingLanes[i] / (double) minResulting;
         for(double j=0; j<tmpNo; j++) {
     	    assert(outgoing->size()>i);
@@ -706,7 +761,7 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
     }
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
-    ToEdgeConnectionsAdder *adder 
+    ToEdgeConnectionsAdder *adder
         = new ToEdgeConnectionsAdder(_ToEdges, transition);
     Bresenham::compute(adder, _nolanes, noVirtual);
     delete adder;
@@ -734,6 +789,7 @@ NBEdge::preparePriorities(vector<NBEdge*> *outgoing) {
     //  faster from this lane
     MainDirections mainDirections(*outgoing, this, _to);
     if(!mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
+        assert(priorities->size()>0);
         (*priorities)[0] = (*priorities)[0] / 2;
     }
     // HEURISTIC:
@@ -747,6 +803,7 @@ NBEdge::preparePriorities(vector<NBEdge*> *outgoing) {
             outgoing->end(),
             *(tmp.begin()));
         size_t dist = distance(outgoing->begin(), i);
+        assert(dist<priorities->size());
         (*priorities)[dist] = (*priorities)[dist] * 2;
     }
     // return
@@ -771,20 +828,23 @@ NBEdge::computeLinkPriorities()
     // reset all links to unprioritised
     size_t i;
     for(i=0; i<_nolanes; i++) {
+        assert(_reachable!=0&&i<_reachable->size());
         size_t size = (*_reachable)[i].size();
         (*_reachablePriorities)[i].resize(size, LINKTYPE_UNPRIORISED);
     }
     // the link stays unpriorised when the edge is not a prioritised edge
     // (the vehicles must then always look out for incoming vehicles)
-    if(getJunctionPriority(_to)==0)
+    if(getJunctionPriority(_to)==0) {
         return;
+    }
     // check whether which links of this priorised edge are always priorised
     // (don't have to look out for other vehicles)
-    const EdgeCont *nodeEdges = _to->getEdges();
+    const EdgeVector *nodeEdges = _to->getEdges();
     for(i=0; i<_nolanes; i++) {
         size_t size = (*_reachable)[i].size();
         size_t j;
         for(j=0; j<size; j++) {
+            assert(_reachable!=0&&i<_reachable->size()&&j<(*_reachable)[i].size());
             if((*_reachable)[i][j].edge!=0) {
                 // when the destination is priorised, the link is priorised
                 // but only when not turning
@@ -796,7 +856,7 @@ NBEdge::computeLinkPriorities()
                 // of the other side of the priorised connection
                 else {
                     bool found = false;
-                    EdgeCont::const_iterator me = find(nodeEdges->begin(), nodeEdges->end(), this);
+                    EdgeVector::const_iterator me = find(nodeEdges->begin(), nodeEdges->end(), this);
                     me = NBContHelper::nextCCW(nodeEdges, me);
                     while(!found&&(*me)->getJunctionPriority(_to)!=1) {
                         if(*me==(*_reachable)[i][j].edge) {
@@ -833,7 +893,7 @@ void
 NBEdge::appendTurnaround()
 {
     if(_turnDestination!=0) {
-        setConnection(_nolanes-1, _turnDestination, 
+        setConnection(_nolanes-1, _turnDestination,
             _turnDestination->getNoLanes()-1);
     }
 }
@@ -863,15 +923,15 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
     // if there is no such connection yet,
     //  build it
     if(i==_succeedinglanes->end()) {
-        LaneCont lanes;
+        LaneVector lanes;
         lanes.push_back(src_lane);
         (*_succeedinglanes)[dest_edge] = lanes;
     // else
     } else {
         // check whether one of the known connections to the current destination
         //  comes from the same lane as the current to add
-        LaneCont lanes = (*i).second;
-        LaneCont::iterator i = find(lanes.begin(), lanes.end(), src_lane);
+        LaneVector lanes = (*i).second;
+        LaneVector::iterator i = find(lanes.begin(), lanes.end(), src_lane);
         // if not, append
         if(i==lanes.end())
             lanes.push_back(src_lane);
@@ -886,6 +946,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
         EdgeLane el;
         el.edge = dest_edge;
         el.lane = dest_lane; // !!! EdgeLane as class
+        assert(_reachable!=0&&src_lane<_reachable->size());
         (*_reachable)[src_lane].push_back(el);
     }
 }
@@ -896,6 +957,23 @@ NBEdge::isTurningDirection(NBEdge *edge) const
 {
     return edge == _turnDestination;
 }
+
+
+
+NBNode *
+NBEdge::tryGetNodeAtPosition(double pos) const
+{
+    // return the from-node when the position is at the begin of the edge
+    if(pos<5.0) {
+        return _from;
+    }
+    // return the to-node when the position is at the end of the edge
+    if(pos>_length-5.0) {
+        return _to;
+    }
+    return 0;
+}
+
 
 
 

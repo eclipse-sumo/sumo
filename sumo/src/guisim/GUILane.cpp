@@ -1,13 +1,61 @@
+//---------------------------------------------------------------------------//
+//                        GUILane.cpp -
+//  A grid of edges for faster drawing
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:39:17  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <string>
+#include <iostream> // !!!
 #include <utility>
 #include <utils/qutils/NewQMutex.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
+#include <microsim/MSNet.h>
+#include <gui/GUIGlObjectStorage.h>
+#include "GUIVehicle.h"
 #include "GUILane.h"
+#include "GUINet.h"
 
-GUILane::GUILane( std::string id, double maxSpeed, double length, 
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+GUILane::GUILane( MSNet &net, std::string id, double maxSpeed, double length,
                  MSEdge* edge )
-    : MSLane(id, maxSpeed, length, edge)
+    : MSLane(net, id, maxSpeed, length, edge)
 {
 }
 
@@ -17,120 +65,149 @@ GUILane::~GUILane()
 }
 
 
-void 
-GUILane::setPosition(double x1, double y1, double x2, double y2)
+void
+GUILane::moveNonCriticalSingle()
 {
-    _begin = Position2D(x1, y1);
-    _end = Position2D(x2, y2);
-    _direction = Position2D((x1-x2)/myLength, (y1-y2)/myLength);
-    _rotation = acos((x1-x2)/myLength)*180/3.14159265;
-    int tmpRot = _rotation;
-    if(tmpRot==90||tmpRot==89) {
-        if(y1<y2) {
-            _rotation = -90;
-        }
-    }
+    _lock.lock();//Display();
+    MSLane::moveNonCriticalSingle();
+    _lock.unlock();//Display();
 }
 
-/*
-const std::pair<Position2D, Position2D> &
-GUILane::getPos() const
+
+void
+GUILane::moveCriticalSingle()
 {
-    return _position;
-}*/
+    _lock.lock();//Display();
+    MSLane::moveCriticalSingle();
+    _lock.unlock();//Display();
+}
+
+
+void
+GUILane::moveNonCriticalMulti()
+{
+    _lock.lock();//Display();
+    MSLane::moveNonCriticalMulti();
+    _lock.unlock();//Display();
+}
+
+
+void
+GUILane::moveCriticalMulti()
+{
+    _lock.lock();//Display();
+    MSLane::moveCriticalMulti();
+    _lock.unlock();//Display();
+}
+
+
+void
+GUILane::moveNonCriticalMulti(MSEdge::LaneCont::const_iterator firstNeighLane,
+                               MSEdge::LaneCont::const_iterator lastNeighLane )
+{
+    _lock.lock();//Display();
+    MSLane::moveNonCriticalMulti(firstNeighLane, lastNeighLane);
+    _lock.unlock();//Display();
+}
+
+
+void
+GUILane::moveCriticalMulti(MSEdge::LaneCont::const_iterator firstNeighLane,
+                               MSEdge::LaneCont::const_iterator lastNeighLane )
+{
+    _lock.lock();//Display();
+    MSLane::moveCriticalMulti(firstNeighLane, lastNeighLane);
+    _lock.unlock();//Display();
+}
+
+
+void
+GUILane::setCritical()
+{
+    _lock.lock();//Display();
+    MSLane::setCritical();
+    _lock.unlock();//Display();
+}
+
+
+
+bool
+GUILane::emit( MSVehicle& newVeh )
+{
+    _lock.lock();//Display();
+    bool ret = MSLane::emit(newVeh);
+    _lock.unlock();//Display();
+    return ret;
+}
+
+
+bool
+GUILane::isEmissionSuccess( MSVehicle* aVehicle )
+{
+    _lock.lock();//Display();
+    bool ret = MSLane::isEmissionSuccess(aVehicle);
+    _lock.unlock();//Display();
+    return ret;
+}
+
+
+bool
+GUILane::push( MSVehicle* veh )
+{
+    _lock.lock();//Display();
+    if(veh->destReached( myEdge )) {
+        static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+            static_cast<GUIVehicle*>(veh)->getGlID());
+    }
+    bool ret = MSLane::push(veh);
+    _lock.unlock();//Display();
+    return ret;
+}
+
+
+void
+GUILane::releaseVehicles()
+{
+    _lock.unlock();
+}
+
+
 
 const MSLane::VehCont &
-GUILane::getVehiclesLocked() 
+GUILane::getVehiclesSecure()
 {
     _lock.lock();
     return myVehicles;
 }
 
-double
-GUILane::getLength() const
-{
-    return myLength;
-}
 
-const Position2D &
-GUILane::getBegin() const
-{
-    return _begin;
-}
-
-
-const Position2D &
-GUILane::getEnd() const
-{
-    return _end;
-}
-
-
-const Position2D &
-GUILane::getDirection() const
-{
-    return _direction;
-}
-
-
-double
-GUILane::getRotation() const
-{
-    return _rotation;
-}
-
-
-void 
-GUILane::unlockVehicles()
-{
-    _lock.unlock();
-}
-
-
-void 
-GUILane::moveExceptFirst()
+void
+GUILane::swapAfterLaneChange()
 {
     _lock.lock();
-    MSLane::moveExceptFirst();
+    myVehicles = myTmpVehicles;
+    myTmpVehicles.clear();
     _lock.unlock();
 }
 
 
-void 
-GUILane::moveExceptFirst(MSEdge::LaneCont::const_iterator firstNeighLane,
-                         MSEdge::LaneCont::const_iterator lastNeighLane )
+void
+GUILane::integrateNewVehicle()
 {
     _lock.lock();
-    MSLane::moveExceptFirst(firstNeighLane, lastNeighLane);
+    MSLane::integrateNewVehicle();
     _lock.unlock();
 }
 
 
-bool 
-GUILane::emit( MSVehicle& newVeh )
-{
-    _lock.lock();
-    bool ret = MSLane::emit(newVeh);
-    _lock.unlock();
-    return ret;
-}
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUILane.icc"
+//#endif
 
-bool 
-GUILane::isEmissionSuccess( MSVehicle* aVehicle )
-{
-    _lock.lock();
-    bool ret = MSLane::isEmissionSuccess(aVehicle);
-    _lock.unlock();
-    return ret;
-}
+// Local Variables:
+// mode:C++
+// End:
 
-
-void 
-GUILane::moveFirst( bool respond )
-{
-    _lock.lock();
-    MSLane::moveFirst(respond);
-    _lock.unlock();
-}
 

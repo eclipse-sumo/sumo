@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -40,10 +43,12 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include "XMLSubSys.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions

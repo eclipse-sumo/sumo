@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libgui.a
 
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
 libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
 GUIChooser.cpp GUIChooser.h GUILoadThread.cpp GUILoadThread.h \

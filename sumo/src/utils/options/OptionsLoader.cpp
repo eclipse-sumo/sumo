@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -85,10 +88,12 @@ namespace
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
 #include <utils/convert/TplConvert.h>
+#include <utils/common/StringTokenizer.h>
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -98,10 +103,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -132,31 +139,45 @@ void OptionsLoader::startElement(const XMLCh* const name,
 void OptionsLoader::characters(const XMLCh* const chars,
                                const unsigned int length)
 {
-    if(_item.length()==0) return;
+    if(_item.length()==0) {
+        return;
+    }
     string value = TplConvert<XMLCh>::_2str(chars, length);
     size_t index = value.find_first_not_of("\n\t \a");
-    if(index==string::npos) return;
-        if(value.length()>0) {
+    if(index==string::npos) {
+        return;
+    }
+    if(value.length()>0) {
         try {
             bool wasDefault;
             if(_options->isBool(_item)) {
-                if(value=="0"||value=="false"||value=="FALSE")
-                    wasDefault = _options->set(_item, false);
-                else
-                    wasDefault = _options->set(_item, true);
+                if(value=="0"||value=="false"||value=="FALSE") {
+                    wasDefault = setSecure(_item, false);
+                } else {
+                    wasDefault = setSecure(_item, true);
+                }
             } else {
                 if(_options->isFileName(_item)) {
-                    if(!FileHelpers::isAbsolute(value)) {
-                        value =
-                            FileHelpers::getConfigurationRelative(
-                                string(_file), value);
+                    StringTokenizer st(value, ';');
+                    string conv;
+                    while(st.hasNext()) {
+                        if(conv.length()!=0) {
+                            conv += ';';
+                        }
+                        string tmp = st.next();
+                        if(!FileHelpers::isAbsolute(value)) {
+                            tmp =
+                                FileHelpers::getConfigurationRelative(
+                                    _file, tmp);
+                        }
+                        conv += tmp;
                     }
-                    wasDefault = _options->set(_item, value);
+                    wasDefault = setSecure(_item, conv);
                 } else {
-                    wasDefault = _options->set(_item, value);
+                    wasDefault = setSecure(_item, value);
                 }
             }
-            if(!wasDefault) {
+            if(wasDefault) {
                 _error = true;
             }
         } catch (InvalidArgument e) {
@@ -166,7 +187,31 @@ void OptionsLoader::characters(const XMLCh* const chars,
     }
 }
 
-void OptionsLoader::endElement(const XMLCh* const name)
+
+bool
+OptionsLoader::setSecure(const std::string &name, bool value)
+{
+    if(!_options->isDefault(name)) {
+        return true;
+    }
+    _options->set(name, value);
+    return false;
+}
+
+
+bool
+OptionsLoader::setSecure(const std::string &name, const std::string &value)
+{
+    if(!_options->isDefault(name)) {
+        return true;
+    }
+    _options->set(name, value);
+    return false;
+}
+
+
+void
+OptionsLoader::endElement(const XMLCh* const name)
 {
     _item = "";
 }

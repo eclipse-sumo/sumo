@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        RORouteAlternativesDef.cpp -
+//  A route with alternative routes
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2003/02/07 10:45:06  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <vector>
 #include <cmath>
@@ -12,7 +49,7 @@
 
 using namespace std;
 
-RORouteAlternativesDef::RORouteAlternativesDef(const std::string &id, 
+RORouteAlternativesDef::RORouteAlternativesDef(const std::string &id,
                                                size_t lastUsed,
                                                double gawronBeta, double gawronA)
     : RORouteDef(id)/*, _current(-1)*/, _lastUsed(lastUsed),
@@ -29,7 +66,7 @@ RORouteAlternativesDef::~RORouteAlternativesDef()
 }
 
 
-void 
+void
 RORouteAlternativesDef::addLoadedAlternative(RORoute *alt)
 {
     _alternatives.push_back(alt);
@@ -38,7 +75,7 @@ RORouteAlternativesDef::addLoadedAlternative(RORoute *alt)
 
 
 ROEdge *
-RORouteAlternativesDef::getFrom() const 
+RORouteAlternativesDef::getFrom() const
 {
     // check whether the item was correctly initialised
     if(_alternatives.size()==0) {
@@ -60,13 +97,13 @@ RORouteAlternativesDef::getTo() const
 
 
 RORoute *
-RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin) 
+RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin)
 {
     // recompute duration of the last route used
     _alternatives[_lastUsed]->recomputeCosts(begin);
-    // build a new route to test whether it is better 
+    // build a new route to test whether it is better
     //  !!! after some iterations, no further routes should be build
-    RORoute *opt = 
+    RORoute *opt =
         new RORoute(_id, 0, 1, router.compute(getFrom(), getTo(), begin));
     opt->setCosts(opt->recomputeCosts(begin));
     // check whether the same route was already used
@@ -75,7 +112,7 @@ RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin)
     // delete the route when it already existed
     if(_lastUsed>=0) {
         // this is not completely correct as the value does not
-        //  come from the simulation itself but from the computing 
+        //  come from the simulation itself but from the computing
         //  using the network !!!
         _alternatives[_lastUsed]->setCosts(opt->getCosts());
         delete opt;
@@ -99,7 +136,7 @@ RORouteAlternativesDef::findRoute(RORoute *opt) const
 }
 
 
-void 
+void
 RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
 {
     // add the route when it's new
@@ -121,8 +158,8 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         if(_newRoute) {
             if((*i)!=current) {
                 alt->setPropability(
-                    alt->getPropability() 
-                    * double(_alternatives.size()-1) 
+                    alt->getPropability()
+                    * double(_alternatives.size()-1)
                     / double(_alternatives.size()));
             } else {
                 alt->setPropability(1.0 / double(_alternatives.size()));
@@ -135,8 +172,8 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         for(AlternativesVector::iterator j=i; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
-            double delta = 
-                (pS->getCosts() - pR->getCosts()) / 
+            double delta =
+                (pS->getCosts() - pR->getCosts()) /
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
             double newPR = gawronF(pR->getPropability(), pS->getPropability(), delta);
@@ -146,7 +183,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         }
     }
     // find the route to use
-    double chosen = ( (double)rand() / (double)(RAND_MAX+1) * _alternatives.size()); 
+    double chosen = ( (double)rand() / (double)(RAND_MAX+1) * _alternatives.size());
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getPropability();
@@ -158,29 +195,29 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
 }
 
 
-double 
-RORouteAlternativesDef::gawronF(double pdr, double pds, double x) 
+double
+RORouteAlternativesDef::gawronF(double pdr, double pds, double x)
 {
-    return (pdr*(pdr+pds)*gawronG(_gawronA, x)) / 
+    return (pdr*(pdr+pds)*gawronG(_gawronA, x)) /
         (pdr*gawronG(_gawronA, x)+pds);
 }
 
 
-double 
-RORouteAlternativesDef::gawronG(double a, double x) 
+double
+RORouteAlternativesDef::gawronG(double a, double x)
 {
     return exp((a*x)/(1.0-(x*x))); // !!! ??
 }
 
 
-void 
+void
 RORouteAlternativesDef::xmlOutCurrent(std::ostream &res) const
 {
     _alternatives[_lastUsed]->xmlOut(res);
 }
 
 
-void 
+void
 RORouteAlternativesDef::xmlOutAlternatives(std::ostream &os) const
 {
     os << "   <routealt id=\"" << _id << "\" last=\""
@@ -197,5 +234,17 @@ RORouteAlternativesDef::xmlOutAlternatives(std::ostream &os) const
     }
     os << "   </routealt>" << endl;
 }
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "RORouteAlternativesDef.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

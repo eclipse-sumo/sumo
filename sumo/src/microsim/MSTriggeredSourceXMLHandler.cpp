@@ -29,6 +29,9 @@
 
 // $Revision$
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -576,6 +579,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.6  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.5  2002/10/28 12:58:58  dkrajzew
 // errors on parsing the Source-XML-description cause throwing of ProcessErrors now
 //
@@ -642,5 +648,3 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 // Local Variables:
 // mode:C++
 // End:
-
-

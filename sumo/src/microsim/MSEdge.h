@@ -1,3 +1,5 @@
+#ifndef MSEdge_H
+#define MSEdge_H
 /***************************************************************************
                           MSEdge.h  -  Provides routing. Superior to Lanes.
                              -------------------
@@ -15,11 +17,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSEdge_H
-#define MSEdge_H
-
 // $Log$
+// Revision 1.4  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.3  2002/10/17 10:41:12  dkrajzew
 // retrival of the id added
 //
@@ -95,45 +96,92 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <map>
 #include <string>
 #include <iostream>
 #include "MSNet.h"
+#include "MSLinkCont.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 class MSLaneChanger;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSEdge
+ * A single connection between two junctions. As there is no certain relationship
+ * over junctions, the word "street" or "road" may be ambigous.
+ * Holds lanes which are reponsible for vehicle movements.
  */
 class MSEdge
 {
 public:
+    /**
+     * For different purposes, it is necessary to know whether the edge
+     * is a normal street or just a sink or a source
+     * This information is represented by values from this enumeration
+     */
+    enum EdgeBasicFunction {
+    	/// the purpose of the edge is not known
+        EDGEFUNCTION_UNKNOWN = -1,
+	    /// the edge is a normal street
+        EDGEFUNCTION_NORMAL = 0,
+	    /// the edge is only used for vehicle emission (begin of trips)
+        EDGEFUNCTION_SOURCE = 1,
+	    /// the edge is only used for vehicle deletion (end of trips)
+        EDGEFUNCTION_SINK = 2
+    };
+
+public:
+    /// for output purposes
     friend class XMLOut;
+    /// for access to the dictionary
     friend class GUIEdgeGrid;
-    friend class GUIViewTraffic;
+
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
         Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
     class XMLOut
     {
     public:
+	    /// constructor
         XMLOut( const MSEdge& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
+
+	    /** writes xml-formatted information about the edge
+            and optionally her lanes */
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
+
     private:
+	    /// the edge to format information from
         const MSEdge& myObj;
+
+	    /// the number of indent spaces
         unsigned myIndentWidth;
+
+	    /// information, whether lane information shall also be written
         bool myWithChildElemes;
     };
 
+    /// output operator for XML-raw-output
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
 
-    
+    /// for data collection
     friend class MeanData;
+
     /** Class to generate mean-data-output for all lanes hold by an
      * edge. Usage, e.g.: cout << MeanData( myEdge, index, interval)
      * << endl; where myEdge is an edge object, index correspond to
@@ -142,21 +190,32 @@ public:
     class MeanData
     {
     public:
+	    /// constructor
         MeanData( const MSEdge& obj,
                   unsigned index ,
                   MSNet::Time interval );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const MeanData& obj ); 
-    private:
-        const MSEdge& myObj;
-        unsigned myIndex;
-        MSNet::Time myInterval;
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
-                                     const MeanData& obj );    
 
-    
+	    /// output operator
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const MeanData& obj );
+
+    private:
+	    /// the edge write information from
+        const MSEdge& myObj;
+
+	    /// the index of the information within the lanes' MeanData fields
+        unsigned myIndex;
+
+	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
+        MSNet::Time myInterval;
+    };
+
+
+    /// output operator for XML-mean-data output
+    friend std::ostream& operator<<( std::ostream& os,
+                                     const MeanData& obj );
+
+
     /// Constructor.
     MSEdge( std::string id );
 
@@ -171,37 +230,46 @@ public:
     virtual ~MSEdge();
 
     /// Initialize the edge.
-    void initialize( AllowedLanesCont* allowed, MSLane* departLane,
-                     LaneCont* lanes );
+    virtual void initialize(
+        AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
+        EdgeBasicFunction function);
 
-    /** Moves (i.e. makes v- and x-updates) all vehicles currently on
-        the edge's lanes (single- or multi-lane-edge), except the
-        first ones on each lane. They will be moved by the
-        junctions. */
-    virtual void moveExceptFirstSingle();
-    virtual void moveExceptFirstMulti();
+    /** @brief Moves all vehicles the edge, regarding whether the movement shall be rechecked
+        See the according lane-function for further information
+        Use this for edges with only one lane */
+    virtual void moveNonCriticalSingle();
+    virtual void moveCriticalSingle();
 
-    /** Ask edge's lanes about collisions. Shouldn't be neccessary if
-        model is implemented correctly. */
+    /** @brief Moves all vehicles the edge, regarding whether the movement shall be rechecked
+        See the according lane-function for further information
+        Use this for edges with more than one lane */
+    virtual void moveNonCriticalMulti();
+    virtual void moveCriticalMulti();
+
+    /** @brief moves vehicles which has to be recheked (may leave the lane in the near future)
+        See the according lane-function for further information */
+    virtual void setCritical();
+
+    /** @brief Moves vehicles to their destination lane
+        Copies the lane's buffer for incoming vehicles into the lane's vehicle vector */
+    void vehicle2target();
+
+    /** @brief Ask edge's lanes about collisions.
+        Shouldn't be neccessary if model is implemented correctly. */
     void detectCollisions( MSNet::Time timestep );
 
-    /** Get the allowed lanes to reach the destination-edge. If there
-        is no such edge, get 0. Then you are on the wrong edge. */
+    /** @brief Get the allowed lanes to reach the destination-edge.
+        If there is no such edge, get 0. Then you are on the wrong edge. */
     const LaneCont* allowedLanes( const MSEdge& destination ) const;
-
-    /** Return the lane from which vehicles which this edge as
-        starting point, will depart. Usually the rightmost. */
-    MSLane& departLane() const;
 
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
     MSLane* leftLane( const MSLane* lane ) const;
 
-    /** Inserts edge into the static dictionary and returns true if the key
-        id isn't already in the dictionary. Otherwise returns false. */
+    /** @brief Inserts edge into the static dictionary
+        Returns true if the key id isn't already in the dictionary. Otherwise returns false. */
     static bool dictionary( std::string id, MSEdge* edge );
 
-    /** Returns the MSEdge associated to the key id if exists, otherwise
-        returns 0. */
+    /** Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
     static MSEdge* dictionary( std::string id );
 
     /** Clears the dictionary */
@@ -210,29 +278,43 @@ public:
     /** Returns the edge's number of lanes. */
     unsigned int nLanes() const;
 
+    /// outputs the id of the edge
     friend std::ostream& operator<<( std::ostream& os, const MSEdge& edge );
 
     /** Let the edge's vehicles try to change their lanes. */
-    void changeLanes();
+    virtual void changeLanes();
 
+    /** returns the id of the edge */
     const std::string &id() const;
+
+    /** @brief Returns the edge type
+        Returns information whether the edge is a sink, a source or a
+        normal street; see EdgeBasicFunction */
+    EdgeBasicFunction getPurpose() const;
+
+    /// returns the information whether the edge is a source
+    virtual bool isSource() const;
+
+    /// emits a vehicle on an appropriate lane
+    virtual bool emit(MSVehicle &v);
 
 protected:
     /// Unique ID.
     std::string myID;
 
-    /** Container for the edge's lane. Should be sorted:
-        (right-hand-traffic) the more left the lane, the higher the
+    /** @brief Container for the edge's lane.
+        Should be sorted: (right-hand-traffic) the more left the lane, the higher the
         container-index. */
     LaneCont* myLanes;
 
-private:
+protected:
 
     /** Associative container for destination-edge/allowed-lanes
         matching. */
     AllowedLanesCont* myAllowed;
 
-    /** Lane from which vehicles will depart. Usually the rightmost,
+    /** @brief Lane from which vehicles will depart.
+        Usually the rightmost,
         except for those countries which drive on the _wrong_
         side. */
     MSLane* myDepartLane;
@@ -240,10 +322,16 @@ private:
     /** This member will do the lane-change. */
     MSLaneChanger* myLaneChanger;
 
-    /// Static dictionary to associate string-ids with objects.
+    /// the purpose of the edge
+    EdgeBasicFunction _function;
+
+    /// definition of the static dictionary type
     typedef std::map< std::string, MSEdge* > DictType;
+
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
+private:
     /// Default constructor.
     MSEdge();
 
@@ -268,13 +356,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

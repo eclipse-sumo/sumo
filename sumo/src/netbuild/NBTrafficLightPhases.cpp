@@ -1,3 +1,42 @@
+//---------------------------------------------------------------------------//
+//                        NBTrafficLightPhases.cpp -
+//  A container for traffic light phases
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+#include <cassert>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -22,7 +61,7 @@ NBTrafficLightPhases::~NBTrafficLightPhases()
 }
 
 
-void 
+void
 NBTrafficLightPhases::add(const PhaseIndexVector &phase)
 {
     // check whether the given phasevector contains one of the already
@@ -31,22 +70,24 @@ NBTrafficLightPhases::add(const PhaseIndexVector &phase)
     size_t size = phase.size();
     size_t i;
     for(i=0; i<size&&i<_phasesVectorsByLength.size(); i++) {
+        assert(i<_phasesVectorsByLength.size());
         PhasesVector::iterator j = find_if(
-            _phasesVectorsByLength[i].begin(), 
-            _phasesVectorsByLength[i].end(), 
+            _phasesVectorsByLength[i].begin(),
+            _phasesVectorsByLength[i].end(),
             shorter_included_finder(phase));
-        // shorter fully included by current was found; 
+        // shorter fully included by current was found;
         //  return without adding
         if(j!=_phasesVectorsByLength[i].end()) {
             return;
         }
     }
-    // check whether the given phasevector is inside one of the larger 
+    // check whether the given phasevector is inside one of the larger
     //  already added phases
     for(i=size+1; i<_phasesVectorsByLength.size(); i++) {
+        assert(i<_phasesVectorsByLength.size());
         PhasesVector::iterator j = find_if(
-            _phasesVectorsByLength[i].begin(), 
-            _phasesVectorsByLength[i].end(), 
+            _phasesVectorsByLength[i].begin(),
+            _phasesVectorsByLength[i].end(),
             larger_included_finder(phase));
         if(j!=_phasesVectorsByLength[i].end()) {
             _phasesVectorsByLength[i].erase(j);
@@ -57,13 +98,14 @@ NBTrafficLightPhases::add(const PhaseIndexVector &phase)
         _phasesVectorsByLength.push_back(PhasesVector());
     }
     // add the current phase to the list
+    assert(phase.size()<_phasesVectorsByLength.size());
     _phasesVectorsByLength[phase.size()].push_back(phase);
     _noPhaseVectors += 1;
 }
 
 
-void 
-NBTrafficLightPhases::add(const NBTrafficLightPhases &phases, 
+void
+NBTrafficLightPhases::add(const NBTrafficLightPhases &phases,
                           bool skipLarger)
 {
     size_t size = _phasesVectorsByLength.size();
@@ -87,16 +129,16 @@ NBTrafficLightPhases::add(const NBTrafficLightPhases &phases,
 std::ostream &operator<<(std::ostream &os, const NBTrafficLightPhases &p)
 {
 	os << "Folgen:" << endl;
-    for(NBTrafficLightPhases::PhasesVectorVector::const_iterator 
-            bla=p._phasesVectorsByLength.begin(); 
-            bla!=p._phasesVectorsByLength.end(); bla++) {
-        for(NBTrafficLightPhases::PhasesVector::const_iterator 
-                bla2=(*bla).begin();
-                bla2!=(*bla).end();
-                bla2++) {
-		    PhaseIndexVector tmp = (*bla2);
-		    for(PhaseIndexVector::const_iterator mutti=tmp.begin(); mutti!=tmp.end(); mutti++) {
-			    os << (*mutti) << ", ";
+    for(NBTrafficLightPhases::PhasesVectorVector::const_iterator
+            i=p._phasesVectorsByLength.begin();
+            i!=p._phasesVectorsByLength.end(); i++) {
+        for(NBTrafficLightPhases::PhasesVector::const_iterator
+                j=(*i).begin();
+                j!=(*i).end();
+                j++) {
+		    PhaseIndexVector tmp = (*j);
+		    for(PhaseIndexVector::const_iterator k=tmp.begin(); k!=tmp.end(); k++) {
+			    os << (*k) << ", ";
 		    }
 		    os << endl;
         }
@@ -113,6 +155,7 @@ NBTrafficLightPhases::computeLogics(const std::string &key,
 {
     NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector();
     for(size_t i=0; i<_phasesVectorsByLength.size(); i++) {
+        cout << i << endl;
         for(size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
             ret->add(
                 buildTrafficLightsLogic(
@@ -131,6 +174,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               const PhaseIndexVector &phaseList,
                                               const NBRequestEdgeLinkIterator &cei1) const
 {
+    cout << "IN" << noLinks << endl;
     NBTrafficLightLogic *ret = new NBTrafficLightLogic(key, noLinks);
     for(size_t i=0; i<phaseList.size(); i++) {
         // add the complete phase
@@ -140,8 +184,9 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         for(size_t j=0; j<cei1.getNoValidLinks(); j++) {
             size_t noEdges = cei1.getNumberOfAssignedLinks(j);
             for(size_t k=0; k<noEdges; k++) {
+                assert(i<phaseList.size());
                 driveMask.set(pos, _cliques.test(phaseList[i], j));
-                brakeMask.set(pos, 
+                brakeMask.set(pos,
                     cei1.testBrakeMask(_cliques.test(phaseList[i], j), pos));
                 pos++;
             }
@@ -160,8 +205,21 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
     ret->_debugWritePhases();
     cout << "----------------------------------" << endl;
 #endif
+    cout << "OUT" << endl;
     return ret;
 }
 
+
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NBTrafficLightPhases.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

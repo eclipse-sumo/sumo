@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -77,13 +80,19 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * InvalidArgument - methods
  * ----------------------------------------------------------------------- */
-InvalidArgument::InvalidArgument(string msg) : exception(), _msg(msg) {
+InvalidArgument::InvalidArgument(const string &msg)
+    : exception(), _msg(msg)
+{
 }
 
-InvalidArgument::~InvalidArgument() {
+
+InvalidArgument::~InvalidArgument()
+{
 }
 
-string InvalidArgument::msg() {
+
+const string &InvalidArgument::msg()
+{
     return _msg;
 }
 
@@ -92,9 +101,11 @@ string InvalidArgument::msg() {
 /* -------------------------------------------------------------------------
  * ProcessError - methods
  * ----------------------------------------------------------------------- */
-ProcessError::ProcessError() : exception()
+ProcessError::ProcessError()
+    : exception()
 {
 }
+
 
 ProcessError::~ProcessError()
 {
@@ -105,18 +116,22 @@ ProcessError::~ProcessError()
 /* -------------------------------------------------------------------------
  * UnsupportedFeature - methods
  * ----------------------------------------------------------------------- */
-UnsupportedFeature::UnsupportedFeature(string message) :
-  exception(), _message(message)
+UnsupportedFeature::UnsupportedFeature(const string &message)
+    : exception(), _message(message)
 {
 }
+
 
 UnsupportedFeature::~UnsupportedFeature()
 {
 }
 
-string UnsupportedFeature::message() {
-  return _message;
+
+const string &UnsupportedFeature::message()
+{
+    return _message;
 }
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

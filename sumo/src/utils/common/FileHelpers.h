@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -64,30 +67,39 @@
  * class definitions
  * ======================================================================= */
 /**
- * FileHelpers
+ * @class FileHelpers
  * A class holding some static functions for the easier usage of files.
  */
 class FileHelpers {
  public:
     /** checks whether the given file exists */
     static bool exists(std::string path);
+
     /** removes the directory information from the path */
     static std::string removeDir(const std::string &path);
+
     /** checks whether the list of files is not empty */
     static bool checkFileList(const std::string &files);
+
     /** removes the file information from the given path */
     static std::string removeFile(const std::string &path);
+
     /** returns the second path as a relative path to the first file */
     static std::string getConfigurationRelative(const std::string &configPath,
         const std::string &path);
+
     /** returns the information whether the given path is absolute */
     static bool isAbsolute(const std::string &path);
+
     /** reads an integer from the given stream regarding the byte order */
     static int readInt(std::ifstream &strm, bool intelFile);
+
     /** reads an integer from the given stream regarding the byte order */
     static unsigned int readUInt(std::ifstream &strm, bool intelFile);
+
     /** reads a float */
     static float readFloat(std::ifstream &strm, bool intelFile);
+
     /** reads a byte */
     static unsigned char readByte(std::ifstream &strm);
 };

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MSEventControl.C  -  Coordinates
+                          MSEventControl.cpp  -  Coordinates
                           time-dependant events
                              -------------------
     begin                : Mon, 12 Mar 2001
@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.3  2002/10/17 10:42:13  dkrajzew
 // usage of adaption type for mismatched times reimplemented
 //
@@ -99,6 +102,9 @@ namespace
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -108,12 +114,25 @@ namespace
 #include <helpers/Command.h>
 #include "MSNet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-// Init static member.
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 MSEventControl::DictType MSEventControl::myDict;
 
+
+/* =========================================================================
+ * member definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * methods from MSEventControl::EventSortCrit
+ * ----------------------------------------------------------------------- */
 bool
 MSEventControl::EventSortCrit::operator()
     ( const Event& e1, const Event& e2 ) const
@@ -122,8 +141,11 @@ MSEventControl::EventSortCrit::operator()
 }
 
 
+
+/* -------------------------------------------------------------------------
+ * methods from MSEventControl
+ * ----------------------------------------------------------------------- */
 MSEventControl::MSEventControl( string id ) :
-//      myTime(0),
     myID( id )
 {
 }
@@ -153,12 +175,6 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
     return true;
 }
 
-
-//  void
-//  MSEventControl::setTime( MSNet::Time time )
-//  {
-//      myTime = time;
-//  }
 
 void
 MSEventControl::execute(MSNet::Time execTime)
@@ -196,6 +212,7 @@ MSEventControl::execute(MSNet::Time execTime)
         }
     }
 }
+
 
 bool
 MSEventControl::dictionary(string id, MSEventControl* ptr)

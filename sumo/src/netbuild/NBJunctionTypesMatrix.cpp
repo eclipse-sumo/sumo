@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -67,18 +70,21 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "NBNode.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -105,10 +111,15 @@ NBJunctionTypesMatrix::NBJunctionTypesMatrix()
     _values.push_back("      p");
 }
 
-NBJunctionTypesMatrix::~NBJunctionTypesMatrix() {
+
+NBJunctionTypesMatrix::~NBJunctionTypesMatrix()
+{
 }
 
-int NBJunctionTypesMatrix::getType(int prio1, int prio2) {
+
+int
+NBJunctionTypesMatrix::getType(int prio1, int prio2)
+{
     RangeCont::iterator p1 = find_if(_ranges.begin(), _ranges.end(),
         priority_finder(prio1));
     RangeCont::iterator p2 = find_if(_ranges.begin(), _ranges.end(),
@@ -120,7 +131,10 @@ int NBJunctionTypesMatrix::getType(int prio1, int prio2) {
         distance(_ranges.begin(), p2))];
 }
 
-char NBJunctionTypesMatrix::getNameAt(int pos1, int pos2) {
+
+char
+NBJunctionTypesMatrix::getNameAt(int pos1, int pos2)
+{
     string str = _values[pos1];
     if(str[pos2]==' ') {
         return getNameAt(pos2, pos1);
@@ -136,3 +150,4 @@ char NBJunctionTypesMatrix::getNameAt(int pos1, int pos2) {
 // Local Variables:
 // mode:C++
 // End:
+

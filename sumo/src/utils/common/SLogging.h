@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -68,29 +71,44 @@
  * message-delivarating methods.
  */
 class SLogging {
-private:
-    /// definition of the container for saved messages
-    typedef std::vector<std::string> Messages;
-    /// the list of messages got
-    static Messages    m_Messages;
 public:
     /// standard constructor
     SLogging();
+
     /// destructor
     ~SLogging();
+
     /// adds a message to the list of messages to present to the user
     static void add(const std::string &msg, bool report=true,
         bool newLine=true);
+
+    /// adds a message to the list of messages to present to the user
     static void add(char *msg, bool report=true, bool newLine=true);
+private:
+    /// definition of the container for saved messages
+    typedef std::vector<std::string> Messages;
+
+    /// the list of messages got
+    static Messages    m_Messages;
+
 private:
     /** invalid copy constructor */
     SLogging(const SLogging &s);
+
     /** invalid assignment operator */
     SLogging &operator=(const SLogging &s);
+
 };
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "SLogging.icc"
+//#endif
 
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
+

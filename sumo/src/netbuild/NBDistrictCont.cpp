@@ -23,8 +23,13 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-
+// $Log$
+// Revision 1.2  2003/02/07 10:43:43  dkrajzew
+// updated
 //
+//
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -33,23 +38,27 @@ namespace
 #include "NBDistrict.h"
 #include "NBDistrictCont.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static members
  * ======================================================================= */
 NBDistrictCont::DistrictCont NBDistrictCont::_districts;
+
 
 /* =========================================================================
  * method definitions
@@ -72,6 +81,7 @@ NBDistrictCont::retrieve(const string &id)
     return (*i).second;
 }
 
+
 void
 NBDistrictCont::writeXML(ostream &into)
 {
@@ -81,9 +91,11 @@ NBDistrictCont::writeXML(ostream &into)
     into << endl;
 }
 
+
 int NBDistrictCont::size() {
     return _districts.size();
 }
+
 
 void
 NBDistrictCont::clear() {
@@ -91,6 +103,7 @@ NBDistrictCont::clear() {
         delete((*i).second);
     _districts.clear();
 }
+
 
 void
 NBDistrictCont::report(bool verbose)

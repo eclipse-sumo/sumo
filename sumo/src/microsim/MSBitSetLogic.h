@@ -1,3 +1,5 @@
+#ifndef MSBitSetLogic_H
+#define MSBitSetLogic_H
 /***************************************************************************
                           MSBitSetLogic.h  -  Logic based on std::bitset.
                              -------------------
@@ -16,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -47,15 +52,18 @@
 // modifications.
 //
 // Revision 1.2  2001/12/19 16:25:16  croessel
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 // Replaced using namespace std with std:: and style changes.
 //
 // Revision 1.1  2001/12/13 15:43:13  croessel
 // Initial commit.
 //
 
-#ifndef MSBitSetLogic_H
-#define MSBitSetLogic_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -66,6 +74,10 @@
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /** N is sum of the number of links of the junction's inLanes.
  */
 template< size_t N >
@@ -75,17 +87,24 @@ public:
     /// Destructor.
     ~MSBitSetLogic();
 
-    /** Container that holds the right of way bitsets. Each link has it's own
+    /** @brief Container that holds the right of way bitsets.
+        Each link has it's own
         bitset. The bits in the bitsets correspond to the links. To create
         a bitset for a particular link, set the bits to true that correspond
         to links that have the right of way. All others set to false,
         including the link's "own" link-bit. */
     typedef std::vector< std::bitset< N > > Logic;
 
-    /** Container that matches links to lanes. Each inLane has a bitset with
+    /** @brief Container that matches links to lanes.
+        Each inLane has a bitset with
         bits set to true for all links that belong to this lane. All other
         bits set to false. */
     typedef std::vector< std::bitset< N > > Link2LaneTrafo;
+
+    /** @brief Container which holds the information on which lane a link is.
+        The lanes are enumerated from right to left, the index is the bit
+        according to the link */
+    typedef std::vector<size_t> LinkOnLane;
 
     /// Use this constructor only.
     MSBitSetLogic( unsigned int nLinks,
@@ -97,14 +116,15 @@ public:
     void respond( const MSLogicJunction::Request& request,
                   MSLogicJunction::Respond& respond ) const;
 
-protected:
-
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
 
-    /// tranformation from link to lane
+    /// transformation from link to lane
     Link2LaneTrafo* myTransform;
+
+    /// information from which lane a link starts
+    LinkOnLane myLinkOnLane;
 
     /// Default constructor.
     MSBitSetLogic();
@@ -128,8 +148,14 @@ private:
 typedef MSBitSetLogic< 64 > MSBitsetLogic;
 
 
-#endif // MSBitSetLogic_H
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "MSBitSetLogic.icc"
+//#endif
+
+#endif
 
 // Local Variables:
 // mode:C++
 // End:
+

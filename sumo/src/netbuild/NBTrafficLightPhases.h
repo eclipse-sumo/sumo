@@ -1,17 +1,58 @@
 #ifndef NBTrafficLightPhases_h
 #define NBTrafficLightPhases_h
+//---------------------------------------------------------------------------//
+//                        NBTrafficLightPhases.h -
+//  A container for traffic light phases
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <algorithm>
 #include <iostream>
 #include "NBTrafficLightLogicVector.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class NBLinkCliqueContainer;
 class NBRequestEdgeLinkIterator;
 class NBTrafficLightLogic;
 
 typedef std::vector<size_t> PhaseIndexVector;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class NBTrafficLightPhases {
 private:
     typedef std::vector<PhaseIndexVector> PhasesVector;
@@ -25,7 +66,7 @@ private:
         size_t _size;
     public:
         /** constructor */
-        explicit phase_length_finder(size_t size) 
+        explicit phase_length_finder(size_t size)
             : _size(size) { }
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
@@ -39,7 +80,7 @@ private:
         const PhaseIndexVector &_vector;
     public:
         /** constructor */
-        included_finder(const PhaseIndexVector &v) 
+        included_finder(const PhaseIndexVector &v)
             : _vector(v) { }
     protected:
         bool isIn(const PhaseIndexVector &v1, const PhaseIndexVector &v2) {
@@ -57,7 +98,7 @@ private:
     class shorter_included_finder : public included_finder {
     public:
         /** constructor */
-        shorter_included_finder(const PhaseIndexVector &v) 
+        shorter_included_finder(const PhaseIndexVector &v)
             : included_finder(v) { }
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
@@ -68,7 +109,7 @@ private:
     class larger_included_finder : public included_finder {
     public:
         /** constructor */
-        larger_included_finder(const PhaseIndexVector &v) 
+        larger_included_finder(const PhaseIndexVector &v)
             : included_finder(v) { }
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
@@ -77,23 +118,35 @@ private:
     };
 
 
-    
+
 public:
-    NBTrafficLightPhases(const NBLinkCliqueContainer &cliques, 
+    NBTrafficLightPhases(const NBLinkCliqueContainer &cliques,
         size_t noCliques);
     ~NBTrafficLightPhases();
     void add(const PhaseIndexVector &phase);
     void add(const NBTrafficLightPhases &phases, bool skipLarger);
 //    PhaseIndexVector getBest() const;
     NBTrafficLightLogicVector *computeLogics(const std::string &key,
-        size_t noLinks, 
+        size_t noLinks,
         const NBRequestEdgeLinkIterator &cei1) const;
     NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
         size_t noLinks, const PhaseIndexVector &phaseList,
         const NBRequestEdgeLinkIterator &cei1) const;
-    friend std::ostream &operator<<(std::ostream &os, 
+    friend std::ostream &operator<<(std::ostream &os,
         const NBTrafficLightPhases &p);
 };
 
 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "NBTrafficLightPhases.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

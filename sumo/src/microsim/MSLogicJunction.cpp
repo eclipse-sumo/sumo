@@ -15,14 +15,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -56,37 +57,34 @@ namespace
 // Initial commit.
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include "MSLinkCont.h"
 #include "MSLogicJunction.h"
+#include "MSLane.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
-MSLogicJunction::DriveBrakeRequest::DriveBrakeRequest( Request request,
-                                                       bool driveReq,
-                                                       bool brakeReq) :
-    myRequest( request ),
-    myDriveRequest( driveReq ),
-    myBrakeRequest( brakeReq )
-{
-}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSLogicJunction::DriveBrakeRequest::driveRequest() const
-{
-    return myDriveRequest;
-}
-
-//-------------------------------------------------------------------------//
-
-MSLogicJunction::MSLogicJunction( string id, double x, double y )
-    : MSJunction( id, x, y )
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * methods from MSLogicJunction
+ * ----------------------------------------------------------------------- */
+MSLogicJunction::MSLogicJunction( string id, double x, double y,
+				  InLaneCont in )
+    : MSJunction( id, x, y ), myInLanes(in),
+    myRequest(false),
+    myRespond(false)
 {
 }
 
@@ -97,6 +95,30 @@ MSLogicJunction::~MSLogicJunction()
 }
 
 //-------------------------------------------------------------------------//
+
+
+void
+MSLogicJunction::postloadInit()
+{
+    size_t requestPos = 0;
+    size_t respondPos = 0;
+    for(InLaneCont::iterator i=myInLanes.begin(); i!=myInLanes.end(); i++) {
+        const MSLinkCont &links = (*i).myLane->getLinkCont();
+        std::bitset<64> clearInfo((unsigned long) (0xffffffff));
+        // set lanes to clear
+        for(size_t k=0; k<links.size(); k++) {
+            clearInfo.set(k+requestPos, false);
+        }
+        // set information for every link
+        for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            (*j)->setRequestInformation(&myRequest, requestPos,
+                &myRespond, respondPos, clearInfo);
+            requestPos++;
+        }
+        respondPos++;
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/17 13:40:11  dkrajzew
 // typing of nodes during loading allwoed
 //
@@ -73,10 +76,12 @@
 #include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBRequest;
+
 
 /* =========================================================================
  * class definitions
@@ -87,6 +92,7 @@ class NBRequest;
  */
 class NBNode {
 public:
+    static int debug;
     /**
      * ApproachingDivider
      * Being a bresenham-callback, this class computes which lanes
@@ -112,7 +118,8 @@ public:
         void execute(double src, double dest);
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
-        std::deque<size_t> *spread(const std::vector<size_t> &approachingLanes, double dest) const;
+        std::deque<size_t> *spread(const std::vector<size_t> &approachingLanes,
+            double dest) const;
     };
 
     /** internal type for no-junction */
@@ -128,86 +135,100 @@ public:
 
     /** a counter for the no-junctions build */
     static int _noNoJunctions;
+
     /** a counter for priority-junctions build */
     static int _noPriorityJunctions;
+
     /** a counter for traffic-light-junctions build */
     static int _noTrafficLightJunctions;
+
     /** a counter for right-before-left-junctions build */
     static int _noRightBeforeLeftJunctions;
-private:
-    /** the name of the node */
-    std::string  _id;
-    /** the x-coordinate of the node */
-    double  _x;
-    /** the y-coordinate of the node */
-    double  _y;
-    /** the logic-key */
-    std::string _key;
-    /// vector of incoming edges
-    std::vector<NBEdge*> *_incomingEdges;
-    /// vector of outgoing edges
-    std::vector<NBEdge*> *_outgoingEdges;
-    /// a vector of incoming and outgoing edges
-    std::vector<NBEdge*> _allEdges;
-    /// the type of the junction
-    int   _type;
+
+    friend class NBEdgeCont;
+
 public:
     /** constructor */
     NBNode(const std::string &id, double x, double y);
+
     /** constructor */
     NBNode(const std::string &id, double x, double y,
         const std::string &type);
+
     /** sumo-node constructor */
     NBNode(const std::string &id, double x, double y,
         int type, const std::string &key);
+
     /** destructor */
     ~NBNode();
+
     /** return the x-coordinate of the node */
     double getXCoordinate();
+
     /** return the y-coordinate of the node */
     double getYCoordinate();
+
     /** returns the id of the node */
     std::string getID();
+
     /// adds an incoming edge
     void addIncomingEdge(NBEdge *edge);
+
     /// adds an outgoing edge
     void addOutgoingEdge(NBEdge *edge);
+
     /// returns the list of the ids of the incoming edges
-    EdgeCont *getIncomingEdges();
+    EdgeVector *getIncomingEdges();
+
     /// returns the list of the ids of the outgoing edges
-    EdgeCont *getOutgoingEdges();
+    EdgeVector *getOutgoingEdges();
+
     /// returns the list of all edgs
-    const EdgeCont *getEdges();
+    const EdgeVector *getEdges();
+
     /// prints the junction
     void writeXML(std::ostream &into);
+
     /// computes the connections of lanes to edges
     void computeEdges2Lanes();
 
     /// computes the node's type, logic and traffic light
     void computeLogic(long maxSize);
+
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges();
+
     /** reports about the build junctions */
     static void reportBuild();
+
     /// sets the connection between two nodes via this node
     std::string setTurningDefinition(NBNode *from, NBNode *to);
 
     friend class NBNodeCont;
+
 private:
     /// rotates the junction so that the key fits
     void rotateIncomingEdges(int norot);
+
     /// sets the computed non - permutating key
     void setKey(std::string key);
+
     /// build the logic using the NBRequest
     void buildMapLogic();
+
     /// build the logic using the NBRequest
     void buildBitfieldLogic();
+
     /// builds the list of incoming and outgoing lanes/edges
     void buildList();
-    /** sorts edges with same direction (other direction lanes) in a way that the outgoing lanes are "earlier" in the list */
+
+    /** sorts edges with same direction (other direction lanes) in a way that
+        the outgoing lanes are "earlier" in the list */
     void sortSmall();
+
     // computes the junction type
     int computeType() const;
+
     /** returns the information whether this node is the center of a district
         for this, all incoming edges must be sinks while all outgoing
         edges must be sources */
@@ -215,32 +236,74 @@ private:
 
     /// computes the priorities of participating edges within this junction
     void setPriorities();
+
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
+
     /// computes the logic
     void computeLogic(NBRequest *request, long maxSize);
+
     /** sets the type of the junction
         some version-dependend conversions are done */
     void setType(int type);
+
     /** used while fine sorting the incoming and outgoing edges, this method
-        performs the swapping of two edges in the _allEdges-list when the outgoing
-        is in clockwise direction to the incoming */
+        performs the swapping of two edges in the _allEdges-list when the
+        outgoing is in clockwise direction to the incoming */
     void swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
         const std::vector<NBEdge*>::iterator &i2);
+
     /// returns the highest priority of the edges in the list
     int getHighestPriority(const std::vector<NBEdge*> &s);
-    /// removes the first edge from the list, marks it as higher priorised and returns it
+
+    /** removes the first edge from the list, marks it as higher priorised and
+        returns it */
     NBEdge* extractAndMarkFirst(std::vector<NBEdge*> &s);
-    /// returns a list that contains only edges of the most highest priority encountered in the given list
+
+    /** returns a list that contains only edges of the most highest priority
+        encountered in the given list */
     std::vector<NBEdge*> NBNode::getMostPriorised(std::vector<NBEdge*> &s);
+
     /** returns a list of edges which are connected to the given
         outgoing edge */
     std::vector<NBEdge*> *getApproaching(NBEdge *currentOutgoing);
 
+    /// resets the position by the given amount
     void resetby(double xoffset, double yoffset);
+
+    void replaceOutgoing(NBEdge *which, NBEdge *by);
+
+    void replaceIncoming(NBEdge *which, NBEdge *by);
+
+private:
+    /** the name of the node */
+    std::string  _id;
+
+    /** the x-coordinate of the node */
+    double  _x;
+
+    /** the y-coordinate of the node */
+    double  _y;
+
+    /** the logic-key */
+    std::string _key;
+
+    /// vector of incoming edges
+    std::vector<NBEdge*> *_incomingEdges;
+
+    /// vector of outgoing edges
+    std::vector<NBEdge*> *_outgoingEdges;
+
+    /// a vector of incoming and outgoing edges
+    std::vector<NBEdge*> _allEdges;
+
+    /// the type of the junction
+    int   _type;
+
 private:
     /** invalid copy constructor */
     NBNode(const NBNode &s);
+
     /** invalid assignment operator */
     NBNode &operator=(const NBNode &s);
 };
@@ -255,4 +318,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-

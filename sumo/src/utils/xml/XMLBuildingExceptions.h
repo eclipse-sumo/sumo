@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -70,18 +73,24 @@
  * ======================================================================= */
 /**
  * XMLBuildingException
- * basic class for all following exception classes
+ * Basic class for all following exception classes which are exceptions
+ * which may be thrown during the parsing of XML-files.
  */
 class XMLBuildingException {
 public:
     /** constructor */
     XMLBuildingException();
+
     /** destructor */
     virtual ~XMLBuildingException();
+
     /** returns the error message */
     virtual std::string getMessage(const std::string &obj,
         const std::string &id);
+
 };
+
+
 
 /**
  * XMLIdNotGivenException
@@ -91,11 +100,16 @@ class XMLIdNotGivenException : XMLBuildingException  {
 public:
     /** constructor */
     XMLIdNotGivenException();
+
     /** destructor */
     ~XMLIdNotGivenException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
+
+
 
 /**
  * XMLIdNotKnownException
@@ -103,39 +117,53 @@ public:
  * (was not loaded/parsed) but its parent is known
  */
 class XMLIdNotKnownException : XMLBuildingException  {
-private:
-    /** the object type with the unknown id */
-    std::string   m_Object;
-    /** the id of the parent */
-    std::string   m_Id;
 public:
     /** constructor */
     XMLIdNotKnownException(std::string object, std::string id);
+
     /** destructor */
     ~XMLIdNotKnownException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
+private:
+    /** the object type with the unknown id */
+    std::string   m_Object;
+
+    /** the id of the parent */
+    std::string   m_Id;
+
 };
+
+
 
 /**
  * XMLIdAlreadyUsedException
  * thrown when a duplicate key for the same object type is given
  */
 class XMLIdAlreadyUsedException : XMLBuildingException  {
-private:
-    /** the object type with the duplicate id */
-    std::string   m_Object;
-    /** previous id of the object */
-    std::string   m_Id;
 public:
     /** constructor */
     XMLIdAlreadyUsedException(const std::string object,
         const std::string id);
+
     /** destructor */
     ~XMLIdAlreadyUsedException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
+private:
+    /** the object type with the duplicate id */
+    std::string   m_Object;
+
+    /** previous id of the object */
+    std::string   m_Id;
+
 };
+
+
 
 /**
  * XMLDepartLaneDuplicationException
@@ -145,11 +173,16 @@ class XMLDepartLaneDuplicationException : XMLBuildingException  {
 public:
     /** constructor */
     XMLDepartLaneDuplicationException();
+
     /** destructor */
     ~XMLDepartLaneDuplicationException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
+
+
 
 /**
  * XMLInvalidChildException
@@ -160,11 +193,16 @@ class XMLInvalidChildException : XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidChildException();
+
     /** destructor */
     ~XMLInvalidChildException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
+
+
 
 /**
  * XMLInvalidParentException
@@ -175,11 +213,15 @@ class XMLInvalidParentException : XMLBuildingException  {
 public:
     /** constructor */
     XMLInvalidParentException();
+
     /** destructor */
     ~XMLInvalidParentException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
+
 
 
 /**
@@ -190,11 +232,15 @@ class XMLKeyDuplicateException  : XMLBuildingException {
 public:
     /** constructor */
     XMLKeyDuplicateException();
+
     /** destructor */
     ~XMLKeyDuplicateException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
+
 
 
 /**
@@ -205,10 +251,13 @@ class XMLListEmptyException  : XMLBuildingException {
 public:
     /** constructor */
     XMLListEmptyException();
+
     /** destructor */
     ~XMLListEmptyException();
+
     /** returns the error message */
     std::string getMessage(const std::string &obj, const std::string &id);
+
 };
 
 
@@ -222,5 +271,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-
-

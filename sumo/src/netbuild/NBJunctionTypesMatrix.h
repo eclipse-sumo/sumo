@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -51,60 +54,75 @@
 #include <string>
 #include <map>
 
+
 /* =========================================================================
- * class declarations
+ * class definitions
  * ======================================================================= */
 /**
  * NBJunctionTypesMatrix
  * A class that stores the relationship between incoming edges and the
  * junction type resulting from their types.
  */
-class NBJunctionTypesMatrix {
-private:
-  /** a container type for edge priority ranges */
-  typedef std::vector<std::pair<int, int> > RangeCont;
-  /** A container type for the resulting junction types (cross matrix) */
-  typedef std::vector<std::string> StringCont;
-  /** a map of chars to ints */
-  typedef std::map<char, int> CharToVal;
-  /** a container for edge priority ranges */
-  RangeCont   _ranges;
-  /** A container for the resulting junction types (cross matrix)
-      The informations are stored as chars:
-      't': Traffic Light Junction
-      'r': Right-before-Left Junction
-      'p': Priority Junction
-      'x': no Junction */
-  StringCont  _values;
-  /** a map of chars to their NBNode-representation */
-  CharToVal   _map;
+class NBJunctionTypesMatrix
+{
 public:
-  /** constructor */
-  NBJunctionTypesMatrix();
-  /** destructor */
-  ~NBJunctionTypesMatrix();
-  /** returns the type of the junction on the crossing of edges of the given types */
-  int getType(int prio1, int prio2);
-private:
-  /** returns the one-char name of the junction type between the two given ranges */
-  char getNameAt(int pos1, int pos2);
-  /**
-   * priority_finder
-   * Searches for the named priority in the range container
-   */
-  class priority_finder {
-  private:
-    int _prio;
-  public:
     /** constructor */
-    explicit priority_finder(int prio) : _prio(prio) { }
-    /** the comparing function */
-    bool operator() (std::pair<int, int> range) {
-      return range.first > range.second ?
-        (_prio<=range.first && _prio>=range.second) :
-        (_prio>=range.first && _prio<=range.second);
-    }
-  };
+    NBJunctionTypesMatrix();
+
+    /** destructor */
+    ~NBJunctionTypesMatrix();
+
+    /** returns the type of the junction on the crossing of edges of the
+        given types */
+    int getType(int prio1, int prio2);
+private:
+    /** returns the one-char name of the junction type between the two
+        given ranges */
+    char getNameAt(int pos1, int pos2);
+
+    /**
+     * priority_finder
+     * Searches for the named priority in the range container
+     */
+    class priority_finder {
+    private:
+        int _prio;
+    public:
+        /** constructor */
+        explicit priority_finder(int prio) : _prio(prio) { }
+
+        /** the comparing function */
+        bool operator() (std::pair<int, int> range)
+        {
+            return range.first > range.second ?
+                (_prio<=range.first && _prio>=range.second) :
+                (_prio>=range.first && _prio<=range.second);
+        }
+    };
+
+private:
+    /** a container type for edge priority ranges */
+    typedef std::vector<std::pair<int, int> > RangeCont;
+
+    /** A container type for the resulting junction types (cross matrix) */
+    typedef std::vector<std::string> StringCont;
+
+    /** a map of chars to ints */
+    typedef std::map<char, int> CharToVal;
+
+    /** a container for edge priority ranges */
+    RangeCont   _ranges;
+
+    /** A container for the resulting junction types (cross matrix)
+	The informations are stored as chars:
+	't': Traffic Light Junction
+	'r': Right-before-Left Junction
+	'p': Priority Junction
+	'x': no Junction */
+    StringCont  _values;
+
+    /** a map of chars to their NBNode-representation */
+    CharToVal   _map;
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

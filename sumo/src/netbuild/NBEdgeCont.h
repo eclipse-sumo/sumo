@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -64,6 +67,8 @@
 #include <map>
 #include <iostream>
 #include <string>
+#include <vector>
+
 
 /* =========================================================================
  * class declarations
@@ -73,56 +78,95 @@ class NBNodeCont;
 class NBNode;
 class NBEdge;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
+ * NBEdgeCont
+ *
  */
 class NBEdgeCont {
-private:
-    /// the type of the dictionary where a node may be found by her id
-    typedef std::map<std::string, NBEdge*> EdgeCont;
-    /// the instance of the dictionary
-    static EdgeCont _edges;
 public:
-    /// adds an edge to the dictionary; returns false if the edge already was in the dictionary
+    /** adds an edge to the dictionary;
+        returns false if the edge already was in the dictionary */
     static bool insert(NBEdge *edge);
+
     /// returns the edge that has the given id
     static NBEdge *retrieve(const std::string &id);
+
+    /** @brief Tries to retrieve an edge, even if it is splitted
+        To describe which part of the edge shall be returned, the
+        id of a second edge, participating at the node and the information
+        whether to return the outgoing or the incoming is needed */
+    static NBEdge *retrievePossiblySplitted(
+        const std::string &id, const std::string &hint, bool incoming);
+
     /** computes edges step1: computation of approached edges */
     static bool computeEdge2Edges();
 
+    /** sorts all lanes of all edges within the container by their direction */
     static bool sortOutgoingLanesConnections(bool verbose);
+
+    /** computes the turn-around directions of all edges within the
+        container */
     static bool computeTurningDirections(bool verbose);
-    
 
     /** rechecks whether all lanes have a successor */
     static bool recheckLanes(bool verbose);
+
     /** computes the node-internal priorities of links */
     static bool computeLinkPriorities(bool verbose);
+
     /** appends turnarounds */
     static bool appendTurnarounds(bool verbose);
+
+    /** @brief Splits the edge at the position nearest to the given node */
+    static void splitAt(NBEdge *edge, NBNode *node);
+
+    /** Removes the given edge from the container (deleting it) */
+    static void erase(NBEdge *edge);
+
     /** writes the list of edge names into the given stream */
     static void writeXMLEdgeList(std::ostream &into);
+
     /** writes the edge definitions with lanes and connected edges
         into the given stream */
     static void writeXMLStep1(std::ostream &into);
+
     /** writes the successor definitions of edges */
     static void writeXMLStep2(std::ostream &into);
+
     /** writes the positions of edges */
     static void writeXMLStep3(std::ostream &into);
+
     /** returns the size of the edges */
     static int size();
+
     /** returns the number of known edges */
     static int getNo();
+
     /** deletes all edges */
     static void clear();
+
     /// reports how many edges were loaded
     static void report(bool verbose);
 
 private:
+    static std::vector<std::string> buildPossibilities(
+        const std::vector<std::string> &s);
+
+private:
+    /// the type of the dictionary where a node may be found by her id
+    typedef std::map<std::string, NBEdge*> EdgeCont;
+
+    /// the instance of the dictionary
+    static EdgeCont _edges;
+
+private:
     /** invalid copy constructor */
     NBEdgeCont(const NBEdgeCont &s);
+
     /** invalid assignment operator */
     NBEdgeCont &operator=(const NBEdgeCont &s);
 };

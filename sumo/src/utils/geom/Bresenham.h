@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:50:20  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:01:08  dkrajzew
 // initial commit for utility classes for geometry handling
 //
@@ -35,7 +38,6 @@
  * class definitions
  * ======================================================================= */
 /**
- * Bresenham
  * The class' only static method "execute" obtains a callback object and
  * performs the computation of the n:m - relationship
  */
@@ -52,11 +54,15 @@ public:
     public:
         /** constuctor */
         BresenhamCallBack() { }
+
         /** destructor */
         virtual ~BresenhamCallBack() { }
+
         /** called when a bresenham step has been computed */
         virtual void execute(double val1, double val2) = 0;
     };
+
+public:
     /** compute the bresenham - interpolation between both values
         the higher number is increased by one for each step while the smaller
         is increased by smaller/higher.
@@ -66,6 +72,9 @@ public:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 //#include "Bresenham.icc"
 //#endif
 
@@ -74,4 +83,3 @@ public:
 // Local Variables:
 // mode:C++
 // End:
-

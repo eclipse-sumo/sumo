@@ -1,3 +1,5 @@
+#ifndef MSJunctionLogic_H
+#define MSJunctionLogic_H
 /***************************************************************************
                           MSJunctionLogic.h  -  Base class for different
                           kinds of logic-implementations.
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -36,12 +41,16 @@
 // Initial commit.
 //
 
-#ifndef MSJunctionLogic_H
-#define MSJunctionLogic_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSLogicJunction.h"
 #include <string>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  */
 class MSJunctionLogic
@@ -60,9 +69,9 @@ public:
     /// Returns the logic's number of inLanes.
     unsigned int nInLanes();
 
-    /** Inserts MSJunctionLogic into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts MSJunctionLogic into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false. */
     static bool dictionary( std::string id, MSJunctionLogic* junction );
 
     /** Returns the MSJunctionLogic associated to the key id if exists,
@@ -71,6 +80,7 @@ public:
 
     /** Clears the dictionary */
     static void clear();
+
 protected:
     /// Constructor.
     MSJunctionLogic( unsigned int nLinks, unsigned int nInLanes );
@@ -82,8 +92,10 @@ protected:
     unsigned int myNInLanes;
 
 private:
-    /** Static dictionary to associate string-ids with objects. */
+    /** definition of the static dictionary type. */
     typedef std::map< std::string, MSJunctionLogic* > DictType;
+
+    /** Static dictionary to associate string-ids with objects. */
     static DictType myDict;
 
     /// Default constructor.
@@ -106,13 +118,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

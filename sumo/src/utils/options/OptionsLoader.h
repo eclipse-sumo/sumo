@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -59,16 +62,18 @@
 #include <sax/SAXException.hpp>
 #include <string>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class OptionsCont;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * OptionsLoader
+ * @class OptionsLoader
  * A SAX - HandlerBase - derivation for the parsing of an XML-configuration
  * file.
  * Usage:
@@ -77,22 +82,13 @@ class OptionsCont;
  * The class assumes all options are unset or using default values only.
  */
 class OptionsLoader : public HandlerBase {
- private:
-    /** the information whether an error occured */
-    bool  _error;
-    /** the parsed file */
-    const char  *_file;
-    /** the information whether the builder shall be run in verbose mode */
-    bool  _verbose;
-    /** the container to store the informations into */
-    OptionsCont *_options;
-    /** the name of the currently parsed option */
-    std::string _item;
- public:
+public:
     /** standard constructor */
     OptionsLoader(OptionsCont *oc, const char *file, bool verbose);
+
     /** destructor */
     ~OptionsLoader();
+
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
@@ -100,30 +96,63 @@ class OptionsLoader : public HandlerBase {
         the last item and the last item string */
     virtual void startElement(const XMLCh* const name,
         AttributeList& attributes);
+
     /// called on the occurence of character data; nothing is done
     void characters(const XMLCh* const chars, const unsigned int length);
+
     /// called on the end of an element; nothing is done
     void endElement(const XMLCh* const name);
+
     // -----------------------------------------------------------------------
     //  Handlers for the SAX ErrorHandler interface
     // -----------------------------------------------------------------------
     /// called on a XML-warning; the error is reported to the SErrorHandler
     void warning(const SAXParseException& exception);
+
     /// called on a XML-error; the error is reported to the SErrorHandler
     void error(const SAXParseException& exception);
+
     /** called on a XML-fatal error; the error is reported to the
         SErrorHandler */
     void fatalError(const SAXParseException& exception);
+
     // ------------------------------------------------------------------------
     //  The io to the application
     // ------------------------------------------------------------------------
     /** returns the information whether an error occured */
     bool errorOccured();
- private:
+
+private:
+    /** checks the item whether it was default before setting it
+        returns the information whether the item was set before (was not a default value) */
+    bool setSecure(const std::string &name, bool value);
+
+    /** checks the item whether it was default before setting it
+        returns the information whether the item was set before (was not a default value) */
+    bool setSecure(const std::string &name, const std::string &value);
+
+private:
     /** invalid copy constructor */
     OptionsLoader(const OptionsLoader &s);
+
     /** invalid assignment operator */
     OptionsLoader &operator=(const OptionsLoader &s);
+
+private:
+    /** the information whether an error occured */
+    bool  _error;
+
+    /** the parsed file */
+    const char  *_file;
+
+    /** the information whether the builder shall be run in verbose mode */
+    bool  _verbose;
+
+    /** the container to store the informations into */
+    OptionsCont *_options;
+
+    /** the name of the currently parsed option */
+    std::string _item;
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -136,4 +165,3 @@ class OptionsLoader : public HandlerBase {
 // Local Variables:
 // mode:C++
 // End:
-

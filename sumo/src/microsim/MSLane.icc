@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSLane.icc  -  The place where Vehicles
-                          operate. 
+                          operate.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -51,15 +54,6 @@ MSLane::empty() const
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-MSLane&
-MSLane::requestLane() const
-{
-    return *myRequestLane;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-inline
 double
 MSLane::maxSpeed() const
 {
@@ -79,7 +73,7 @@ MSLane::length() const
 
 inline
 const MSEdge&
-MSLane::edge() const                   
+MSLane::edge() const
 {
     return *myEdge;
 }

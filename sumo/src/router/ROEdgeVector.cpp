@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        ROEdgeVector.cpp -
+//  A vector of edges (a route)
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:45:04  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <vector>
 #include <string>
 #include <deque>
@@ -17,7 +54,7 @@ ROEdgeVector::~ROEdgeVector()
 }
 
 
-void 
+void
 ROEdgeVector::add(ROEdge *edge)
 {
     _edges.push_back(edge);
@@ -57,7 +94,7 @@ ROEdgeVector::getLast() const
 
 
 
-std::deque<std::string> 
+std::deque<std::string>
 ROEdgeVector::getIDs() const
 {
     std::deque<std::string> ret;
@@ -68,7 +105,7 @@ ROEdgeVector::getIDs() const
 }
 
 
-double 
+double
 ROEdgeVector::recomputeCosts(long time) const
 {
     double costs = 0;
@@ -95,7 +132,7 @@ ROEdgeVector::equals(const ROEdgeVector &vc) const
 }
 
 
-size_t 
+size_t
 ROEdgeVector::size() const
 {
     return _edges.size();
@@ -103,7 +140,7 @@ ROEdgeVector::size() const
 
 
 ROEdgeVector
-ROEdgeVector::getReverse() const 
+ROEdgeVector::getReverse() const
 {
     ROEdgeVector ret;
     for(EdgeVector::const_reverse_iterator i=_edges.rbegin(); i!=_edges.rend(); i++) {
@@ -111,3 +148,15 @@ ROEdgeVector::getReverse() const
     }
     return ret;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ROEdgeVector.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

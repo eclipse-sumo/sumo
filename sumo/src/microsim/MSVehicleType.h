@@ -1,3 +1,5 @@
+#ifndef MSVehicleType_H
+#define MSVehicleType_H
 /***************************************************************************
                           MSVehicleType.h  -  Base Class for Vehicle
                           parameters.
@@ -16,11 +18,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#ifndef MSVehicleType_H
-#define MSVehicleType_H
-
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -80,12 +81,22 @@
 // new start
 //
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <map>
 #include <string>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  */
 class MSVehicleType

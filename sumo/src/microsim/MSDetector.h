@@ -11,15 +11,18 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -32,27 +35,36 @@
 //
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <fstream>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSDetector
+ * Virtual class for detectors.
  */
 class MSDetector
 {
 public:
-    /** We support two output-styles, gnuplot and "Comma Separated Variable" 
+    /** We support two output-styles, gnuplot and "Comma Separated Variable"
         (CSV). */
     enum OutputStyle { GNUPLOT, CSV };
 
     /** Constructor: Detector detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
-     */ 
+     */
     MSDetector( std::string id,
                 OutputStyle style,
                 std::ofstream* file ) : myID( id ),
                                         myStyle( style ),
                                         myFile( file ) {}
-    
+
     /// Destructor.
     virtual ~MSDetector() {};
 
@@ -65,7 +77,7 @@ protected:
     std::string myID;
 
     /// Ouput-style.
-    OutputStyle myStyle;    
+    OutputStyle myStyle;
 
     /// File where output goes to.
     std::ofstream* myFile;
@@ -85,13 +97,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

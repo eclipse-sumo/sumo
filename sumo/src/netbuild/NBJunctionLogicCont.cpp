@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -70,24 +73,31 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
- * method definitions
+ * static member definitions
  * ======================================================================= */
 NBJunctionLogicCont::LogicMap NBJunctionLogicCont::_map;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 bool
 NBJunctionLogicCont::exists(const string &key)
 {
@@ -112,7 +122,8 @@ NBJunctionLogicCont::try2convert(const string &key)
 
 
 void
-NBJunctionLogicCont::add(const std::string &key, const std::string &xmlDescription)
+NBJunctionLogicCont::add(const std::string &key,
+                         const std::string &xmlDescription)
 {
     string nkey = string("b.")+key;
 //
@@ -132,6 +143,7 @@ NBJunctionLogicCont::add(const std::string &key, const std::string &xmlDescripti
     _map.insert(LogicMap::value_type(nkey, xmlDescription));
 }
 
+
 void
 NBJunctionLogicCont::writeXML(ostream &into)
 {
@@ -140,6 +152,7 @@ NBJunctionLogicCont::writeXML(ostream &into)
     }
     into << endl;
 }
+
 
 void
 NBJunctionLogicCont::clear() {
@@ -155,3 +168,4 @@ NBJunctionLogicCont::clear() {
 // Local Variables:
 // mode:C++
 // End:
+

@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        ROCellRouteDefHandler.cpp -
+//  A handler for reading FastLane-files
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:45:04  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <iostream> // !!! debug only
 #include <fstream>
@@ -20,12 +57,11 @@
 
 using namespace std;
 
-ROCellRouteDefHandler::ROCellRouteDefHandler(RONet &net, double gawronBeta, 
+ROCellRouteDefHandler::ROCellRouteDefHandler(RONet &net, double gawronBeta,
                                              double gawronA, string file)
     : ROTypedRoutesLoader(net),
     _routeIdSupplier(string("Cell_")+file, 0),
     _vehicleIdSupplier(string("Cell_")+file, 0),
-    _lastRoute(-1),
     _driverParser(true, true),
     _gawronBeta(gawronBeta), _gawronA(gawronA)
 {
@@ -59,7 +95,7 @@ ROCellRouteDefHandler::closeReading()
 
 
 std::string
-ROCellRouteDefHandler::getDataName() const 
+ROCellRouteDefHandler::getDataName() const
 {
     return "cell routes";
 }
@@ -89,8 +125,8 @@ ROCellRouteDefHandler::readNextRoute(long start)
         return true; // !!!!
     }
     // add the route when it is not yet known
-    RORouteAlternativesDef *altDef = 
-        new RORouteAlternativesDef(_routeIdSupplier.getNext(), 
+    RORouteAlternativesDef *altDef =
+        new RORouteAlternativesDef(_routeIdSupplier.getNext(),
         _driverParser.getLast(), _gawronBeta, _gawronA);
     for(size_t i=0; i<3; i++) {
         RORoute *alt = getAlternative(i);
@@ -104,13 +140,13 @@ ROCellRouteDefHandler::readNextRoute(long start)
     _net.addVehicle(id,
         new ROVehicle(id, altDef, _driverParser.getRouteStart(),
         _net.getDefaultVehicleType()));
-    _netRouteRead = true;
+    _nextRouteRead = true;
     return true;
 }
 
 
 RORoute *
-ROCellRouteDefHandler::getAlternative(size_t pos) 
+ROCellRouteDefHandler::getAlternative(size_t pos)
 {
     double cost = _driverParser.getAlternativeCost(pos);
     double prop = _driverParser.getAlternativePropability(pos);
@@ -132,7 +168,7 @@ ROCellRouteDefHandler::getAlternative(size_t pos)
         SErrorHandler::add(buf.str().c_str(), true);
         return 0;
     }
-    RORoute *ret = new RORoute(_routeIdSupplier.getNext(), cost, 
+    RORoute *ret = new RORoute(_routeIdSupplier.getNext(), cost,
         prop, *route);
     delete route;
     return ret;
@@ -180,12 +216,12 @@ ROCellRouteDefHandler::startReadingSteps()
 
 
 bool
-ROCellRouteDefHandler::init(OptionsCont *options)
+ROCellRouteDefHandler::init(OptionsCont &options)
 {
     // check whether non-intel-format shall be used
-    _isIntel = options->getBool("intel-cell");
-    _driverParser.isIntel(options->getBool("intel-cell"));
-    _driverParser.useLast(!options->getBool("no-last-cell"));
+    _isIntel = options.getBool("intel-cell");
+    _driverParser.isIntel(options.getBool("intel-cell"));
+    _driverParser.useLast(!options.getBool("no-last-cell"));
     // read int the positions of routes within the rinfo-file
     if(FileHelpers::exists(_routeIdxFile)) {
         _hasIndexFile = true;
@@ -197,15 +233,15 @@ ROCellRouteDefHandler::init(OptionsCont *options)
     }
     _lineReader.readAll(*this);
     // save the index file when wished
-    if(!_hasIndexFile&&options->getBool("save-cell-rindex")) {
-        if(options->getBool("v")) {
+    if(!_hasIndexFile&&options.getBool("save-cell-rindex")) {
+        if(options.getBool("v")) {
             cout << "Saving the cell-rindex file '" << _routeIdxFile << "'... ";
         }
         std::ofstream out(_routeIdxFile.c_str());
         for(std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
             out << (*i) << endl;
         }
-        if(options->getBool("v")) {
+        if(options.getBool("v")) {
             cout << "done." << endl;
         }
     }
@@ -234,7 +270,7 @@ bool ROCellRouteDefHandler::report(const std::string &result)
 
 
 bool
-ROCellRouteDefHandler::initDriverFile() 
+ROCellRouteDefHandler::initDriverFile()
 {
     if(!_driverStrm.good()) {
         SErrorHandler::add(
@@ -262,5 +298,15 @@ ROCellRouteDefHandler::checkFile(const std::string &file) const
         &&
         FileHelpers::exists(file+string(".rinfo"));
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ROCellRouteDefHandler.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

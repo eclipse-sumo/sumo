@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:47:17  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
 // initial commit for some utility classes common to most propgrams of the sumo-package
 //
@@ -62,23 +65,25 @@ namespace
 #include <iostream>
 #include "SErrorHandler.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static member variables definitions
  * ======================================================================= */
 SErrorHandler::Errors SErrorHandler::m_Errors;
-bool SErrorHandler::m_WasFatal;
+bool SErrorHandler::m_WasFatal = false;
+bool SErrorHandler::m_ErrorOccured = false;
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 SErrorHandler::SErrorHandler()
 {
-    m_WasFatal = false;
 }
 
 SErrorHandler::~SErrorHandler()
@@ -90,8 +95,9 @@ SErrorHandler::add(const string &error, bool report)
 {
     m_Errors.push_back(error);
     if(report) {
-	cerr << error << endl;
+    	cerr << error << endl;
     }
+    m_ErrorOccured = true;
 }
 
 void
@@ -125,6 +131,24 @@ SErrorHandler::wasFatal()
 bool
 SErrorHandler::errorOccured()
 {
-    return !(m_Errors.size()==0);
+    return m_ErrorOccured;
 }
+
+
+void
+SErrorHandler::clearErrorInformation()
+{
+    m_ErrorOccured = false;
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "SErrorHandler.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.4  2002/10/22 10:08:28  dkrajzew
 // unsupported return value patched
 //
@@ -83,9 +86,10 @@ namespace
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * included modules
@@ -109,11 +113,14 @@ namespace
 #include "NBLogicKeyBuilder.h"
 #include "NBRequest.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
+int NBNode::debug = 0;
 
 /* =========================================================================
  * static variable definitions
@@ -133,40 +140,46 @@ int NBNode::_noRightBeforeLeftJunctions = 0;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-/* =========================================================================
+/* -------------------------------------------------------------------------
  * NBNode::ApproachingDivider-methods
- * ======================================================================= */
-NBNode::ApproachingDivider::ApproachingDivider(std::vector<NBEdge*> *approaching,
-                                               NBEdge *currentOutgoing)
+ * ----------------------------------------------------------------------- */
+NBNode::ApproachingDivider::ApproachingDivider(
+    std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing)
     : _approaching(approaching), _currentOutgoing(currentOutgoing)
 {
 }
+
 
 NBNode::ApproachingDivider::~ApproachingDivider()
 {
 }
 
+
 void
 NBNode::ApproachingDivider::execute(double src, double dest)
 {
-    assert(_approaching->size()>src);
+    assert(_approaching!=0&&_approaching->size()>src);
     NBEdge *incomingEdge = (*_approaching)[src];
-    vector<size_t> approachingLanes = incomingEdge->getConnectionLanes(_currentOutgoing);
+    vector<size_t> approachingLanes =
+        incomingEdge->getConnectionLanes(_currentOutgoing);
     assert(approachingLanes.size()!=0);
     deque<size_t> *approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size()<=_currentOutgoing->getNoLanes());
     // set lanes
     for(size_t i=0; i<approachedLanes->size(); i++) {
         size_t approached = (*approachedLanes)[i];
-	assert(approachedLanes->size()>i);
-	assert(approachingLanes.size()>i);
-        incomingEdge->setConnection(approachingLanes[i], _currentOutgoing, approached);
+	    assert(approachedLanes->size()>i);
+	    assert(approachingLanes.size()>i);
+        incomingEdge->setConnection(approachingLanes[i], _currentOutgoing,
+            approached);
     }
     delete approachedLanes;
 }
 
+
 deque<size_t> *
-NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes, double dest) const
+NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
+                                   double dest) const
 {
     deque<size_t> *ret = new deque<size_t>();
     size_t noLanes = approachingLanes.size();
@@ -239,22 +252,23 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes, doubl
 
 
 
-/* =========================================================================
+/* -------------------------------------------------------------------------
  * NBNode-methods
- * ======================================================================= */
+ * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, double x, double y)
     : _id(id), _x(x), _y(y), _type(-1)
 {
-    _incomingEdges = new EdgeCont();
-    _outgoingEdges = new EdgeCont();
+    _incomingEdges = new EdgeVector();
+    _outgoingEdges = new EdgeVector();
 }
 
-NBNode::NBNode(const string &id, double x, double y, 
+
+NBNode::NBNode(const string &id, double x, double y,
                const std::string &type)
     : _id(id), _x(x), _y(y), _type(-1)
 {
-    _incomingEdges = new EdgeCont();
-    _outgoingEdges = new EdgeCont();
+    _incomingEdges = new EdgeVector();
+    _outgoingEdges = new EdgeVector();
     if(type=="traffic_light") {
         _type = TYPE_TRAFFIC_LIGHT;
     } else if(type=="priority") {
@@ -264,12 +278,13 @@ NBNode::NBNode(const string &id, double x, double y,
     }
 }
 
+
 NBNode::NBNode(const std::string &id, double x, double y, int type,
                const std::string &key)
     : _id(id), _x(x), _y(y), _key(key), _type(type)
 {
-    _incomingEdges = new EdgeCont();
-    _outgoingEdges = new EdgeCont();
+    _incomingEdges = new EdgeVector();
+    _outgoingEdges = new EdgeVector();
 }
 
 
@@ -293,6 +308,9 @@ double NBNode::getYCoordinate() {
 void
 NBNode::addIncomingEdge(NBEdge *edge)
 {
+    if(_id=="1004") {
+        int bla = 0;
+    }
     _incomingEdges->push_back(edge);
 }
 
@@ -300,8 +318,12 @@ NBNode::addIncomingEdge(NBEdge *edge)
 void
 NBNode::addOutgoingEdge(NBEdge *edge)
 {
+    if(_id=="1004") {
+        int bla = 0;
+    }
     _outgoingEdges->push_back(edge);
 }
+
 
 string
 NBNode::getID()
@@ -310,29 +332,33 @@ NBNode::getID()
 }
 
 
-EdgeCont *
+EdgeVector *
 NBNode::getIncomingEdges()
 {
     return _incomingEdges;// !!!
 }
 
 
-EdgeCont *
+EdgeVector *
 NBNode::getOutgoingEdges()
 {
     return _outgoingEdges;// !!!
 }
 
-const EdgeCont *
+
+const EdgeVector *
 NBNode::getEdges()
 {
     return &_allEdges;
 }
 
+
 void
 NBNode::buildList()
 {
-    EdgeCont::iterator i;
+    // compute angles of participating edges in relation to this junction
+    EdgeVector::iterator i;
+    // flip angles of incoming junctions by 180°
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         NBEdge *edge = *i;
         double junctionAngle = edge->getAngle();
@@ -345,6 +371,7 @@ NBNode::buildList()
         edge->setJunctionAngle(this, junctionAngle);
         _allEdges.push_back(edge);
     }
+    // keep anges for outgoing angles
     for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
         NBEdge *edge = *i;
         edge->setJunctionAngle(this,edge->getAngle());
@@ -359,7 +386,8 @@ NBNode::sortSmall()
     if(_allEdges.size()==0) {
         return;
     }
-    for(vector<NBEdge*>::iterator i=_allEdges.begin(); i!=_allEdges.end()-1; i++) {
+    for( vector<NBEdge*>::iterator i=_allEdges.begin();
+         i!=_allEdges.end()-1; i++) {
         swapWhenReversed(i, i+1);
     }
     if(_allEdges.size()>1) {
@@ -368,7 +396,7 @@ NBNode::sortSmall()
 }
 
 void
-NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1, 
+NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
                          const vector<NBEdge*>::iterator &i2) {
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
@@ -398,18 +426,25 @@ NBNode::setPriorities()
     }
 }
 
+
 int
 NBNode::computeType() const
 {
+// !!!
+    if(_incomingEdges->size()==1&&_outgoingEdges->size()>0) {
+        cout << "HIer" << endl;
+    }
+// !!!
+
     // the type may already be set from the data
     if(_type>0) {
         return _type;
     }
     // check whether the junction is not a real junction
-    if(_incomingEdges->size()==1&&_outgoingEdges->size()==1) {
+    if(_incomingEdges->size()==1/*&&_outgoingEdges->size()==1*/) {
         return TYPE_PRIORITY_JUNCTION; // !!! no junction?
     }
-    // check whether the junction is a district and has no 
+    // check whether the junction is a district and has no
     //  special meaning
     if(isDistrictCenter()) {
         return TYPE_NOJUNCTION;
@@ -417,7 +452,8 @@ NBNode::computeType() const
     // choose the uppermost type as default
     int type = TYPE_RIGHT_BEFORE_LEFT;
     // determine the type
-    for(vector<NBEdge*>::const_iterator i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+    for( vector<NBEdge*>::const_iterator i=_allEdges.begin();
+         i!=_allEdges.end(); i++) {
         for(vector<NBEdge*>::const_iterator j=i+1; j!=_allEdges.end(); j++) {
             // !!!
             // This usage of defaults is not very well, still we do not have any
@@ -448,8 +484,13 @@ NBNode::isDistrictCenter() const
     return _id.substr(0, 14)=="DistrictCenter";
 }
 
+
 void
 NBNode::setPriorityJunctionPriorities() {
+    if(_incomingEdges->size()==0) {
+        return; // !!! what happens with outgoing edges
+                //  (which priority should be assigned here)?
+    }
     NBEdge *best1, *best2;
     best1 = best2 = 0;
     vector<NBEdge*> incoming(*_incomingEdges);
@@ -469,23 +510,24 @@ NBNode::setPriorityJunctionPriorities() {
     } else {
         // in this case, there is at least one higher priorised edge
         // --> choose this as main
-        sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
+        sort(incoming.begin(), incoming.end(),
+            NBContHelper::edge_by_priority_sorter());
         best1 = extractAndMarkFirst(incoming);
-        // now check whether to use another high priorised edge or choose one of
-        // the lower priorised edges; it is also possible that there are more than one
-        // higher priorised edges
+        // now check whether to use another high priorised edge or choose one
+        // of the lower priorised edges; it is also possible that there are
+        // more than one higher priorised edges
         noIncomingPrios = NBContHelper::countPriorities(incoming);
         if(noIncomingPrios==1) {
-            // all other incoming edges have the same priority; choose the one in the
-            // opposite direction
+            // all other incoming edges have the same priority; choose the one
+            // in the opposite direction
             if(incoming.size()>0) {
                 sort(incoming.begin(), incoming.end(),
                     NBContHelper::edge_opposite_direction_sorter(best1));
                 best2 = extractAndMarkFirst(incoming);
             }
         } else {
-            // choose one of the highest priorised edges that is in the most opposite
-            // direction to the first chosen
+            // choose one of the highest priorised edges that is in the most
+            // opposite direction to the first chosen
             if(incoming.size()>0) {
                 vector<NBEdge*> best = getMostPriorised(incoming);
                 sort(best.begin(), best.end(),
@@ -514,8 +556,9 @@ NBNode::setPriorityJunctionPriorities() {
 
 int
 NBNode::getHighestPriority(const vector<NBEdge*> &s) {
-    if(s.size()==0)
+    if(s.size()==0) {
         return 0;
+    }
     vector<int> knownPrios;
     for(vector<NBEdge*>::const_iterator i=s.begin(); i!=s.end(); i++) {
         knownPrios.push_back((*i)->getPriority());
@@ -524,20 +567,25 @@ NBNode::getHighestPriority(const vector<NBEdge*> &s) {
     return knownPrios[0];
 }
 
+
 NBEdge*
 NBNode::extractAndMarkFirst(vector<NBEdge*> &s) {
-    if(s.size()==0)
+    if(s.size()==0) {
         return 0;
+    }
     NBEdge *ret = s.front();
     s.erase(s.begin());
     ret->setJunctionPriority(this, 1);
     return ret;
 }
 
+
 vector<NBEdge*>
-NBNode::getMostPriorised(vector<NBEdge*> &s) {
-    if(s.size()==0)
+NBNode::getMostPriorised(vector<NBEdge*> &s)
+{
+    if(s.size()==0) {
         return vector<NBEdge*>();
+    }
     sort(s.begin(), s.end(), NBContHelper::edge_by_priority_sorter());
     vector<NBEdge*> ret;
     int highestP = (*(s.begin()))->getPriority();
@@ -548,16 +596,21 @@ NBNode::getMostPriorised(vector<NBEdge*> &s) {
     return ret;
 }
 
+
 void
 NBNode::rotateIncomingEdges(int norot)
 {
-    if(_incomingEdges->size()==0) return;
+    if(_incomingEdges->size()==0) {
+        return;
+    }
     while(norot>0) {
         NBEdge *e = (*_incomingEdges)[0];
         unsigned int i;
         for(i=0; i<_incomingEdges->size()-1; i++) {
+            assert(_incomingEdges!=0&&_incomingEdges->size()>i+1);
             (*_incomingEdges)[i] = (*_incomingEdges)[i+1];
         }
+        assert(_incomingEdges!=0&&i<_incomingEdges->size());
         (*_incomingEdges)[i] = e;
         norot--;
     }
@@ -601,7 +654,7 @@ NBNode::writeXML(ostream &into)
         into << "      <initstep>" << 0 << "</initstep>" << endl;
     }
     // write the inlanes
-    EdgeCont::iterator i;
+    EdgeVector::iterator i;
     into << "      <inlanes>";
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanes = (*i)->getNoLanes();
@@ -618,22 +671,29 @@ NBNode::writeXML(ostream &into)
 }
 
 
-
 void
 NBNode::setKey(string key)
 {
     _key = key;
 }
 
+
 void
-NBNode::computeLogic(long maxSize) {
-    if(_incomingEdges->size()==0||_outgoingEdges->size()==0)
+NBNode::computeLogic(long maxSize)
+{
+    if(_id=="558630405") {
+        int bla = 0;
+    }
+    cout << "----" << _id << ":" << _incomingEdges->size() << ", "
+        << _outgoingEdges->size() << endl;
+    if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
+    }
     // build the request
     NBRequest *request = new NBRequest(this,
-        static_cast<const EdgeCont * const>(&_allEdges),
-        static_cast<const EdgeCont * const>(_incomingEdges),
-        static_cast<const EdgeCont * const>(_outgoingEdges));
+        static_cast<const EdgeVector * const>(&_allEdges),
+        static_cast<const EdgeVector * const>(_incomingEdges),
+        static_cast<const EdgeVector * const>(_outgoingEdges));
     // compute the logic if necessary or split the junction
     if(_type!=TYPE_NOJUNCTION) {
         computeLogic(request, maxSize);
@@ -642,14 +702,19 @@ NBNode::computeLogic(long maxSize) {
     }
     // build the lights when needed
     if(_type==TYPE_TRAFFIC_LIGHT) {
-        request->buildTrafficLight(_id); // _key
+        int build = request->buildTrafficLight(_id); // _key
+        if(build==0) {
+            _type==TYPE_PRIORITY_JUNCTION;
+        }
     }
     // close node computation
     delete request;
 }
 
+
 void
-NBNode::setType(int type) {
+NBNode::setType(int type)
+{
     // !!! TRAFFIC_LIGHT and NO_JUNCTION are not supprted by now
     switch(type) {
     case TYPE_NOJUNCTION:
@@ -675,8 +740,10 @@ NBNode::setType(int type) {
     _type = type;
 }
 
+
 void
-NBNode::reportBuild() {
+NBNode::reportBuild()
+{
     cout << "No Junctions (converted)    : " << _noNoJunctions << endl;
     cout << "Traffic Light Junctions     : " << _noTrafficLightJunctions
         << endl;
@@ -685,8 +752,13 @@ NBNode::reportBuild() {
         << endl;
 }
 
+
 void
-NBNode::sortNodesEdges() {
+NBNode::sortNodesEdges()
+{
+    if(_id=="558630405") {
+        int bla = 0;
+    }
     buildList();
     //prepareForBuilding();
     sort(_allEdges.begin(), _allEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -697,8 +769,14 @@ NBNode::sortNodesEdges() {
     setPriorities();
 }
 
+
 void
-NBNode::computeLogic(NBRequest *request, long maxSize) {
+NBNode::computeLogic(NBRequest *request, long maxSize)
+{
+    if(_id=="558630405") {
+        int bla = 0;
+    }
+
 /*    string key = NBLogicKeyBuilder::buildKey(this, &_allEdges);
     int norot = NBJunctionLogicCont::try2convert(key);
     if(norot>=0) {
@@ -711,32 +789,36 @@ NBNode::computeLogic(NBRequest *request, long maxSize) {
     //setKey(key);
 }
 
+
 void
-NBNode::computeEdges2Lanes() {
-    if(_id=="I880_2") {
-        int bla = 0;
-    }
+NBNode::computeEdges2Lanes()
+{
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
-    for(vector<NBEdge*>::reverse_iterator i=_outgoingEdges->rbegin(); i!=_outgoingEdges->rend(); i++) {
+    for( vector<NBEdge*>::reverse_iterator i=_outgoingEdges->rbegin();
+         i!=_outgoingEdges->rend(); i++) {
         NBEdge *currentOutgoing = *i;
         // get the information about edges that do approach this edge
         vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
         if(approaching->size()!=0) {
-            ApproachingDivider *divider = new ApproachingDivider(approaching, currentOutgoing);
-            Bresenham::compute(divider, approaching->size(), currentOutgoing->getNoLanes());
+            ApproachingDivider *divider =
+                new ApproachingDivider(approaching, currentOutgoing);
+            Bresenham::compute(divider, approaching->size(),
+                currentOutgoing->getNoLanes());
             delete divider;
         }
         delete approaching;
     }
 }
 
+
 vector<NBEdge*> *
 NBNode::getApproaching(NBEdge *currentOutgoing)
 {
     // get the position of the node to get the approaching nodes of
-    vector<NBEdge*>::const_iterator i = find(_allEdges.begin(), _allEdges.end(), currentOutgoing);
+    vector<NBEdge*>::const_iterator i = find(_allEdges.begin(),
+        _allEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     i = NBContHelper::nextCW(&_allEdges, i);
     // go through the list of edges clockwise and add the edges
@@ -744,7 +826,8 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
     for(; *i!=currentOutgoing; ) {
         // check only incoming edges
         if((*i)->getToNode()==this) {
-            vector<size_t> connLanes = (*i)->getConnectionLanes(currentOutgoing);
+            vector<size_t> connLanes =
+                (*i)->getConnectionLanes(currentOutgoing);
             if(connLanes.size()!=0) {
                 approaching->push_back(*i);
             }
@@ -754,10 +837,11 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
     return approaching;
 }
 
+
 std::string
 NBNode::setTurningDefinition(NBNode *from, NBNode *to)
 {
-    EdgeCont::iterator i;
+    EdgeVector::iterator i;
     // get the source edge
     NBEdge *src = 0;
     for(i=_incomingEdges->begin(); src==0 && i!=_incomingEdges->end(); i++) {
@@ -794,6 +878,30 @@ NBNode::resetby(double xoffset, double yoffset)
     _x += xoffset;
     _y += yoffset;
 }
+
+
+void
+NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
+{
+    for(size_t i=0; i<_outgoingEdges->size(); i++) {
+        if((*_outgoingEdges)[i]==which) {
+            (*_outgoingEdges)[i]==by;
+        }
+    }
+}
+
+
+void
+NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
+{
+    for(size_t i=0; i<_incomingEdges->size(); i++) {
+        if((*_incomingEdges)[i]==which) {
+            (*_incomingEdges)[i]==by;
+        }
+    }
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        MSSource.cpp  -  Abstract Base Class for all
-//                        types of source-like emitters. 
+//                        types of source-like emitters.
 //                           -------------------
 //  begin                : Wed, 12 Jun 2002
 //  copyright            : (C) 2002 by Christian Roessel
@@ -9,11 +9,11 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 
@@ -24,6 +24,9 @@ namespace
 }
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -36,7 +39,7 @@ using namespace std;
 //---------------------------------------------------------------------------//
 
 
-MSSource::MSSource( void ) 
+MSSource::MSSource( void )
     : myID( "uninitialized" ),
       myLane( 0 )
 {}
@@ -98,6 +101,9 @@ MSSource::setPos( double aPos )
 
 
 // $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -130,10 +136,3 @@ MSSource::setPos( double aPos )
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-

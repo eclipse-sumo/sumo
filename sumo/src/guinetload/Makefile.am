@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libguinetload.a
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
 libguinetload_a_SOURCES = GUIContainer.cpp GUIContainer.h \
 GUIEdgeControlBuilder.cpp GUIEdgeControlBuilder.h GUIHandlerBuilder.cpp \

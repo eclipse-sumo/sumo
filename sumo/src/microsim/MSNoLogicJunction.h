@@ -1,3 +1,5 @@
+#ifndef MSNoLogicJunction_H
+#define MSNoLogicJunction_H
 /***************************************************************************
                           MSNoLogicJunction.h  -  Junction that needs no
                           logic, e.g. for exits.
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -46,17 +51,28 @@
 // Revision 1.1  2001/12/12 17:46:02  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
-
-#ifndef MSNoLogicJunction_H
-#define MSNoLogicJunction_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <vector>
+#include <bitset>
 #include "MSJunction.h"
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSNoLogicJunction
+ * This junctions let all vehicles past through so they only should be used on
+ * junctions where incoming vehicles are no foes to each other (may drive
+ * simultaneously).
  */
 class MSNoLogicJunction  : public MSJunction
 {
@@ -73,19 +89,12 @@ public:
     /** Here, do nothing. */
     bool clearRequests();
 
-    /** Here, do nothing. */
-    bool setFirstVehiclesRequests();
+    /** @brief does nothing
+        Implementation of MSJunction */
+    bool setAllowed() { return true; };
 
-    /** Look forward and move the vehicles to their target lane resp.
-        set them in the succeeding lane's buffer. */
-    bool moveFirstVehicles();
-
-    /** Integrate the moved vehicles into their target-lane. This is
-        neccessary if you use not thread-safe containers. */
-    bool vehicles2targetLane();
-
-protected:
-    void moveVehicles();
+    /** Initialises the junction after the net was completely loaded */
+    void postloadInit();
 
 private:
     /** Junction's in-lanes. */
@@ -99,6 +108,13 @@ private:
 
     /// Assignment operator.
     MSNoLogicJunction& operator=( const MSNoLogicJunction& );
+
+    /** @brief a dump container
+        Request-setting vehicles may write into this container and responds
+        are read from it. As responds are always true, this container is
+        set to true for all links.
+        This dump is also used as the mask for incoming non-first vehicles */
+    static std::bitset<64> myDump;
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -111,13 +127,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,5 @@
+#ifndef MSVehicle_H
+#define MSVehicle_H
 /***************************************************************************
                           MSVehicle.h  -  Base for all
                           micro-simulation Vehicles.
@@ -18,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.4  2002/10/28 12:59:38  dkrajzew
 // vehicles are now deleted whe the tour is over
 //
@@ -157,108 +162,158 @@
 // new start
 //
 
-#ifndef MSVehicle_H
-#define MSVehicle_H
-
 #ifdef _SPEEDCHECK
 extern long myvehicles;
 #endif
 
-#include "MSNet.h"
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSEdge.h"
+#include "MSNet.h"
 #include "MSRoute.h"
 #include <helpers/Counter.h>
 #include <map>
 #include <string>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 class MSVehicleType;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
+ * @class MSVehicle
+ * A single vehicle. Holds model-methods, io-methods and methods which compute
+ * standard physical values such as the gap needed to stop.
  */
 class MSVehicle : private Counter< MSVehicle >
 {
 public:
-//#ifdef _DEBUG
-    friend class MSLaneChanger;
-//#endif
+    enum LaneChangeAction {
+        LCA_STRAIGHT = 0,
+        LCA_URGENT = 1,
+        LCA_CHANGED = 2,
+        LCA_LANEBEGIN = 4,
+        LCA_LEFT = 16,
+        LCA_RIGHT = 32
+    };
 
+    /// the lane changer sets myLastLaneChangeOffset
+    friend class MSLaneChanger;
+
+    /// Vehicles are counted (!!! this is not very useful, as vehicles may be allocated but not driving)
     using Counter< MSVehicle >::howMany;
 
+    /// xml output may access the vehicle's data
     friend class XMLOut;
+
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
         Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
     class XMLOut
     {
     public:
+        /// Constructor
         XMLOut( const MSVehicle& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
+
+        /// Output operator
         friend std::ostream& operator<<( std::ostream& os,
                                          const XMLOut& obj );
+
     private:
+        /// The vehicle to output the data of
         const MSVehicle& myObj;
+
+        /// The intend size
         unsigned myIndentWidth;
+
+        /// Information whether children shall be printed, too (!!! vehicles do not have children)
         bool myWithChildElemes;
     };
 
+    /// outputs a XML-description to the stream
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
 
-    /// container that holds the vehicles driving state. May vary from
-    /// model to model. here: SK, holds position and speed.
+
+
+    /** container that holds the vehicles driving state. May vary from
+        model to model. here: SK, holds position and speed. */
     class State
     {
+        /// vehicle sets states directly
         friend class MSVehicle;
-        friend class MSTriggeredSource;
 
 #ifdef _DEBUG
-        friend class MSLaneChanger;
+//        friend class MSLaneChanger;
 #endif
 
     public:
         /// Default constructor. Members are initialized to 0.
         State();
+
         /// Copy constructor.
         State( const State& state );
+
         /// Assignment operator.
         State& operator=( const State& state );
+
         /// Operator !=
         bool operator!=( const State& state );
+
         /// Position of this state.
         double pos() const;
+
         /// Set position of this state.
         void setPos( double pos );
+
         /// Return true if vehicle would prefer preferState.
         static bool advantage( const State& preferState,
                                const State& compareState );
+
         /// Speed of this state
         double speed() const { return mySpeed; };
 
 //!!!    private:
         /// Constructor.
         State( double pos, double speed );
+
     private:
+        /// the stored position
         double myPos;
+
+        /// the stored speed
         double mySpeed;
+
     };
+
+
 
     /// Sort criterion for vehiles is the departure time.
     friend bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y );
 
     /// Destructor.
-    ~MSVehicle();
-
-    /// Use this constructor only.
-    MSVehicle( std::string id, MSRoute* route, MSNet::Time
-               departTime, const MSVehicleType* type);
+    virtual ~MSVehicle();
 
     /// Returns the vehicles current state.
     State state() const;
 
-    /// Returns the lane from where vehicle will depart.
-    MSLane& departLane();
+    /// Returns the lanes the vehicle may be emitted onto
+    const MSEdge::LaneCont& departLanes();
+
+    /// returns the edge the vehicle starts from
+    MSEdge &departEdge();
+
+    /// moves the vehicles after their responds (right-of-way rules) are known
+    void moveFirstChecked();
 
     /// Returns the desired departure time.
     MSNet::Time desiredDepart() const;
@@ -281,8 +336,12 @@ public:
         vehicle has no predecessor, it has to search within brakeGap
         for collision-free driving. */
     double brakeGap( const MSLane* lane ) const;
-    double rigorousBrakeGap(const State &state) const;
 
+    /// minimum brake gap
+    double rigorousBrakeGap(const double &state) const;
+
+    /** @brief An position assertion
+        (needed as state and lane are not accessable) */
     void _assertPos() const;
 
     /** In "gap2predecessor < interactionGap" region interaction between
@@ -293,6 +352,11 @@ public:
     /** Checks if this vehicle and pred will be in a safe state if one
      * changes to the others lane. */
     bool isSafeChange( const MSVehicle& pred, const MSLane* lane ) const;
+
+
+    bool isSafeChange_WithDistance( double dist,
+        const MSVehicle& pred, const MSLane* lane ) const;
+
 
     /** Checks if the gap between this vehicle and pred is sufficient
      * for safe driving. */
@@ -323,52 +387,39 @@ public:
         speed and maximum braking in one timestep. */
     double decelDist() const;
 
-    // Return the vehicles state after maximum acceleration.
+    /// Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const;
 
+    /// The amount the vehicle can decelerate with
     double decelAbility() const;
 
+    /// The amount the vehicle can accelerate with
     double accelDist() const;
 
 
-///////////////////////////////////////////////////////////////////////////
-// vnext for vehicles except the first in a lane
 
-    // If there is no neigh, pass 0 to neigh.
-    // If neigh is on curr lane, pass 0 to gap2neigh,
-    // otherwise gap.
-    // Updates drive parameters.
+    /** moves a vehicle if it is not meant to be running out of the lane
+        If there is no neigh, pass 0 to neigh.
+        If neigh is on curr lane, pass 0 to gap2neigh,
+        otherwise gap.
+        Updates drive parameters. */
     void move( MSLane* lane,
                const MSVehicle* pred,
                const MSVehicle* neigh );
 
-
+    /** Moves vehicles which may run out of the lane
+        Same semantics as move */
     void moveRegardingCritical( MSLane* lane,
         const MSVehicle* pred, const MSVehicle* neigh );
 
-
-    // Slow down towards lane end. Updates state. For first vehicles only.
+    /// Slow down towards lane end. Updates state. For first vehicles only.
     void moveDecel2laneEnd( MSLane* lane );
 
-    // Use this move for first vehicles that won't leave it's lane.
+    /// Use this move for first vehicles that won't leave it's lane.
     void moveUpdateState( const State newState );
 
-    // Use this move for first vehicles that will leave it's lane.
+    /// Use this move for first vehicles that will leave it's lane.
     void moveSetState( const State newState );
-
-////////////////////////////////////////////////////////////////////////////
-// vnext for first vehicles
-
-    // Returns the next State of a (first) vehicle. Use this if moving is
-    // delayed, e.g. by junctions, and you need to store the state.
-    // Here: in the SKModell, only the speed is of interest, the position
-    // is fundamental to all modells in this design.
-    // If there is no pred/neigh, pass 0 to pred/neigh.
-    // If pred/neigh is on curr lane pass 0 to gap2pred/gap2neigh,
-    // otherwise the gap.
-    State nextState( MSLane* lane,
-                     State predState,  double gap2pred,
-                     State neighState, double gap2neigh ) const;
 
     // Slow down to one's lane end, don't respect neighbours. Lane-end
     // need not to be the lane-end of the current lane.
@@ -383,9 +434,11 @@ public:
 
 
 ///////////////////////////////////////////////////////////////////////////
+    /// Returns the information whether the route ends on the given lane
     bool endsOn(const MSLane &lane) const;
 
-    static double tau(); // returns timeconstant
+    /// timeconstant (driver reaction time)
+    static double tau();
 
     /// Get the vehicle's position.
     double pos() const;
@@ -393,26 +446,32 @@ public:
     /// Get the vehicle's length.
     double length() const;
 
-    /** Inserts a MSVehicle into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts a MSVehicle into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false. */
     static bool dictionary( std::string id, MSVehicle* veh );
 
-    /** Returns the MSVehicle associated to the key id if exists,
-        otherwise returns 0. */
+    /** @brief Returns the MSVehicle associated to the key id if exists
+        Otherwise returns 0. */
     static MSVehicle* dictionary( std::string id );
 
+    /// Removes the named vehicle from the dictionary and deletes it
     static void remove(const std::string &id);
 
     /** Clears the dictionary */
     static void clear();
 
+    /// Returns the name of the vehicle
     std::string id() const;
 
+    /// Prints the vehicle's name
     friend std::ostream& operator<<(std::ostream& os, const MSVehicle& veh);
 
-    /** Return true if vehicle is on an allowed lane. */
+    /** Return true if the lane is allowed */
     bool onAllowed( const MSLane* lane ) const;
+
+    /** Return true if vehicle is on an allowed lane. */
+    bool onAllowed( ) const;
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 );
@@ -506,13 +565,14 @@ public:
 
     bool reachingCritical(double laneLength) const;
 
-protected:
+    /// MSNet is allowed to build vehicles
+    friend class MSNet;
 
     /** Returns the SK-vsafe. */
     double vsafe( double currentSpeed, double decelAbility,
                   double gap2pred, double predSpeed ) const;
 
-    double vsafeCritical( const MSVehicle *pred) const;
+    void vsafeCriticalCont( double minVSafe );
 
     /** Return the vehicle's maximum possible speed after acceleration. */
     double vaccel( const MSLane* lane ) const;
@@ -520,13 +580,26 @@ protected:
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
     double dawdle( double speed ) const;
 
+    MSLane *getTargetLane() const;
+
+    /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
+    int _lcAction;
+
+
+    friend class MSLane; // !!!
+protected:
+    /// Use this constructor only.
+    MSVehicle( std::string id, MSRoute* route, MSNet::Time
+               departTime, const MSVehicleType* type, size_t noMeanData );
+
+
     /** Returns the minimum of four doubles. */
     double vMin( double v1, double v2, double v3, double v4 ) const;
 
     /** Reset meanData of indexed intervall after a dump.
         @param The index of the intervall to clear. */
     void resetMeanData( unsigned index );
-    
+
     /** Helper for enterLaneAt* methods.
         @param Timestep when vehicle entered the lane.
         @param Position where vehicle entered the lane.
@@ -534,9 +607,19 @@ protected:
     void updateMeanData( double entryTimestep,
                          double pos,
                          double speed );
-    
-    
+
+    /// information how long ago the vehicle has performed a lane-change
+    MSNet::Time myLastLaneChangeOffset;
+
+    /// the lane, the vehicle will be within the next time step
+    MSLane *myTarget;
+
+    /** @brief The time the vehicle waits
+        This is the number of simulation steps the vehicle was not faster than 0.1m/s */
+    long myWaitingTime;
+
 private:
+
     /// Reaction time [sec]
     static double myTau;
 
@@ -580,7 +663,11 @@ private:
     std::vector< MeanDataValues > myMeanData;
 
     MSLane* myLane;
-    
+
+    MSLane *myApproachedLane;
+
+    double myVWish;
+
     /// Default constructor.
     MSVehicle();
 
@@ -589,6 +676,22 @@ private:
 
     /// Assignment operator.
     MSVehicle& operator=(const MSVehicle&);
+
+    struct DriveProcessItem
+    {
+        DriveProcessItem( MSLink* link, double v  ) :
+            myLink( link ), mySpeed(v) { };
+
+        // Link that leads to myLane.
+        MSLink*   myLink;
+        // the speed this item allows
+    	double mySpeed;
+    };
+
+    typedef std::vector< DriveProcessItem > DriveItemVector;
+
+    /// Container for used Links/visited Lanes during lookForward.
+    DriveItemVector myLFLinkLanes;
 
     /// We need our own min/max methods because MSVC++ can't use the STL-ones.
     inline double min(double v1, double v2) const
@@ -611,11 +714,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-

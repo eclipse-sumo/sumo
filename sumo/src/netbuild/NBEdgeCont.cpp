@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:43:44  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -68,6 +71,7 @@ namespace
 #include <string>
 #include <cassert>
 #include <algorithm>
+#include <utils/geom/GeomHelper.h>
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 #include "NBHelpers.h"
@@ -76,23 +80,27 @@ namespace
 #include <iostream>
 #include <strstream>
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * static members
  * ======================================================================= */
 NBEdgeCont::EdgeCont NBEdgeCont::_edges;
+
 
 /* =========================================================================
  * method definitions
@@ -116,8 +124,7 @@ NBEdgeCont::retrieve(const string &id)
 }
 
 
-
-bool 
+bool
 NBEdgeCont::computeTurningDirections(bool verbose)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
@@ -135,6 +142,7 @@ NBEdgeCont::sortOutgoingLanesConnections(bool verbose)
     }
     return true;
 }
+
 
 bool
 NBEdgeCont::computeEdge2Edges()
@@ -154,6 +162,7 @@ NBEdgeCont::recheckLanes(bool verbose) {
     return true;
 }
 
+
 bool
 NBEdgeCont::computeLinkPriorities(bool verbose)
 {
@@ -162,6 +171,7 @@ NBEdgeCont::computeLinkPriorities(bool verbose)
     }
     return true;
 }
+
 
 bool
 NBEdgeCont::appendTurnarounds(bool verbose)
@@ -221,10 +231,12 @@ int NBEdgeCont::size() {
     return _edges.size();
 }
 
+
 int
 NBEdgeCont::getNo() {
     return _edges.size();
 }
+
 
 void
 NBEdgeCont::clear() {
@@ -232,6 +244,7 @@ NBEdgeCont::clear() {
         delete((*i).second);
     _edges.clear();
 }
+
 
 void
 NBEdgeCont::report(bool verbose)
@@ -242,6 +255,115 @@ NBEdgeCont::report(bool verbose)
 }
 
 
+void
+NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
+{
+    // compute the position to split the edge at
+    double pos = GeomHelper::nearest_position_on_line_to_point(
+        Position2D(edge->_from->getXCoordinate(), edge->_from->getYCoordinate()),
+        Position2D(edge->_to->getXCoordinate(), edge->_to->getYCoordinate()),
+        Position2D(node->getXCoordinate(), node->getYCoordinate()));
+    // build and insert the edges
+    NBEdge *one = new NBEdge(
+        edge->getID() + string("[0]"), edge->getName(),
+        edge->_from, node, edge->_type, edge->_speed, edge->_nolanes,
+        pos, edge->_basicType);
+    NBEdge *two = new NBEdge(
+        edge->getID() + string("[1]"), edge->getName(),
+        node, edge->_to, edge->_type, edge->_speed, edge->_nolanes,
+        edge->_length-pos, edge->_basicType);
+    insert(one);
+    insert(two);
+    // replace information about this edge within the nodes
+    edge->_from->replaceOutgoing(edge, one);
+    edge->_to->replaceIncoming(edge, two);
+    // erase the splitted edge
+    erase(edge);
+}
+
+
+void
+NBEdgeCont::erase(NBEdge *edge)
+{
+    _edges.erase(edge->getID());
+    delete edge;
+}
+
+
+NBEdge *
+NBEdgeCont::retrievePossiblySplitted(const std::string &id,
+                                     const std::string &hint,
+                                     bool incoming)
+{
+    // try to retrieve using the given name (iterative)
+    NBEdge *edge = retrieve(id);
+    if(edge!=0) {
+        return edge;
+    }
+    // now, we did not find it; we have to look over all possibilities
+    //  iteratively (lloping over two edges)
+
+    std::vector<string> hints;
+    size_t hintmods = 0;
+    hints.push_back(hint);
+    while(hintmods<10) {
+        std::vector<string> ids;
+        ids.push_back(id);
+        for(std::vector<string>::iterator i=hints.begin(); i!=hints.end(); i++) {
+            string act_hintID = *i;
+            NBEdge *hintedge = retrieve(act_hintID);
+            if(hintedge==0) {
+                continue;
+            }
+            size_t idmods = 0;
+            while(idmods<10) {
+                for(std::vector<string>::iterator j=ids.begin(); j!=ids.end(); j++) {
+                    string act_ID = *j;
+                    NBEdge *poss_searched = retrieve(act_ID);
+                    if(poss_searched==0) {
+                        continue;
+                    }
+                    NBNode *node = incoming
+                        ? poss_searched->_to : poss_searched->_from;
+                    const EdgeVector *cont = incoming
+                        ? node->getOutgoingEdges() : node->getIncomingEdges();
+                    if(find(cont->begin(), cont->end(), hintedge)!=cont->end()) {
+                        return poss_searched;
+                    }
+                    else {
+                        for(EdgeVector::const_iterator q=cont->begin(); q!=cont->end(); q++) {
+                            NBEdge *bla = *q;
+                        }
+                    }
+                }
+                idmods++;
+                ids = buildPossibilities(ids);
+            }
+        }
+        hintmods++;
+        hints = buildPossibilities(hints);
+    }
+    return 0;
+}
+
+
+std::vector<std::string>
+NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
+{
+    std::vector<std::string> ret;
+    for(std::vector<std::string>::const_iterator i=s.begin(); i!=s.end(); i++) {
+        ret.push_back((*i) + string("[0]"));
+        ret.push_back((*i) + string("[1]"));
+    }
+    return ret;
+}
+
+
+
+
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NBEdgeCont.icc"
@@ -250,4 +372,8 @@ NBEdgeCont::report(bool verbose)
 // Local Variables:
 // mode:C++
 // End:
+
+
+
+
 

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:51:59  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:58:18  dkrajzew
 // initial release for utilities that handle program options
 //
@@ -79,11 +82,14 @@ class OptionsIO {
 public:
     /** loads the configuration and parses the command line arguments */
     static bool getOptions(OptionsCont *oc, int argv, char **argc);
+
     /** loads and parses the configuration */
     static bool loadConfiguration(OptionsCont *oc);
+
 private:
     /** tries to find the configuration */
     static std::string getConfigurationPath(OptionsCont *oc, bool &ok);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -96,5 +102,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-

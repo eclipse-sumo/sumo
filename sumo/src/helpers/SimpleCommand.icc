@@ -1,6 +1,6 @@
 /***************************************************************************
-                          SimpleCommand.cpp  -  Command-pattern-class for 
-                          simple commands, that need no parameters and no 
+                          SimpleCommand.cpp  -  Command-pattern-class for
+                          simple commands, that need no parameters and no
                           undo.
                              -------------------
     begin                : Tue, 28 Jun 2002
@@ -40,7 +40,7 @@ inline SimpleCommand< T >::SimpleCommand< T >( T* receiver, Operation op ) :
 //---------------------------------------------------------------------------//
 
 template< class T >
-inline SimpleCommand< T >::~SimpleCommand< T >( void ) 
+inline SimpleCommand< T >::~SimpleCommand< T >( void )
 {}
 
 //---------------------------------------------------------------------------//
@@ -60,6 +60,9 @@ inline SimpleCommand< T >::execute()
 
 
 // $Log$
+// Revision 1.2  2003/02/07 10:40:13  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 16:02:01  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:53:52  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 14:54:04  dkrajzew
 // initial commit for xml-related utility functions
 //
@@ -56,10 +59,12 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include "GenericSAX2Handler.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -79,7 +84,8 @@ GenericSAX2Handler::GenericSAX2Handler(const Tag *tags, int tagNo)
 }
 
 
-GenericSAX2Handler::~GenericSAX2Handler() {
+GenericSAX2Handler::~GenericSAX2Handler()
+{
 }
 
 
@@ -207,7 +213,7 @@ GenericSAX2Handler::buildErrorMessage(const std::string &file,
     buf << type << endl;
     buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
     buf << " In file: " << file << endl;
-    buf << " At line/column " << exception.getLineNumber()+1 
+    buf << " At line/column " << exception.getLineNumber()+1
         << '/' << exception.getColumnNumber() << ")." << endl;
     return buf.str();
 }

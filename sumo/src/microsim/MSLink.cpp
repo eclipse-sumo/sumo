@@ -1,11 +1,75 @@
+//---------------------------------------------------------------------------//
+//                        MSLink.cpp -
+//  The link between two lanes
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include "MSLink.h"
 
-/////////////////////////////////////////////////////////////////////////////
 
-MSLink::MSLink(MSLane* succLane, bool yield) :
-    myLane(succLane), myPrio(!yield), myDriveRequest(false)
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+MSLink::MSLink(MSLane* succLane, bool yield)
+    : myLane(succLane),
+    myPrio(!yield), myApproaching(0),
+    myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0)
 {
 }
+
+
+void
+MSLink::setRequestInformation(MSLogicJunction::Request *request,
+        size_t requestIdx, MSLogicJunction::Respond *respond,
+        size_t respondIdx, const std::bitset<64> &previousClear)
+{
+    myRequest = request;
+    myRequestIdx = requestIdx;
+    myRespond = respond;
+    myRespondIdx = respondIdx;
+    myPreviousClear = previousClear;
+}
+
+
+void
+MSLink::setApproaching(MSVehicle *approaching)
+{
+    myApproaching = approaching;
+    (*myRequest) = (*myRequest) & myPreviousClear;
+    myRequest->set(myRequestIdx);
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -15,11 +79,20 @@ MSLink::setPriority( bool prio )
     myPrio = prio;
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
-MSLink::LinkRequest::result_type
-MSLink::LinkRequest::operator() (first_argument_type MSLink) const
+bool
+MSLink::opened() const
 {
-    return MSLink->myDriveRequest;
+    return myRespond->test(myRespondIdx);
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "MSLink.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

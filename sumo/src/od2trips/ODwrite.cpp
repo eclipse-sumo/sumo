@@ -3,10 +3,10 @@
 
 	 writes final OD data to output file
 
-			 usage		 : Odwrite(filename, data, size) 
+			 usage		 : Odwrite(filename, data, size)
 
                              -------------------
-    project              : SUMO		 : 
+    project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Thu, 12 September 2002
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
@@ -22,6 +22,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -35,7 +38,7 @@
 
 using namespace std;
 
-int ODwrite (string OD_outfile, vector<OD_OUT>& od_out, int total_cars) 
+int ODwrite (string OD_outfile, vector<OD_OUT>& od_out, int total_cars)
 
 	{
 	int ferror = 0;
@@ -45,14 +48,26 @@ int ODwrite (string OD_outfile, vector<OD_OUT>& od_out, int total_cars)
 		throw ProcessError();
 	}
     fsSrc << "<tripdefs>" << endl;
-	for(int i=0;i<total_cars;i++) 
+	for(int i=0;i<total_cars;i++)
 	{
 		fsSrc << "   <tripdef id=\"" << i << "\"" << " " << "depart=\"" << od_out[i].time << "\"" <<" ";
-		fsSrc << "from=\"" << od_out[i].from << "\"" << " "; 
+		fsSrc << "from=\"" << od_out[i].from << "\"" << " ";
 		fsSrc << "to=\"" << od_out[i].to << "\"" << " " << "type=\"0\"/>" << endl;
 	}
     fsSrc << "</tripdefs>" << endl;
 	fsSrc.close ();
 	return (ferror);
 }
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "ODwrite.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

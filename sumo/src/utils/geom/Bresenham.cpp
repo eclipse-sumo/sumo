@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/07 10:50:20  dkrajzew
+// updated
+//
 // Revision 1.1  2002/10/16 15:01:11  dkrajzew
 // initial commit for utility classes for geometry handling
 //
@@ -46,12 +49,18 @@ namespace
 #include <iostream>
 #include "Bresenham.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-void Bresenham::compute(BresenhamCallBack *callBack, double val1, double val2)
+void
+Bresenham::compute(BresenhamCallBack *callBack, double val1, double val2)
 {
     // case1: both numbers are equal
     if(val1==val2) {

@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libod2trips.a
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
 libod2trips_a_SOURCES = ODDistrict.cpp ODDistrict.h \
 ODDistrictCont.cpp ODDistrictCont.h \

@@ -1,3 +1,5 @@
+#ifndef MSJunction_H
+#define MSJunction_H
 /***************************************************************************
                           MSJunction.h  -  Base class for all kinds of
                                            junctions.
@@ -17,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/02/07 10:41:51  dkrajzew
+// updated
+//
 // Revision 1.2  2002/10/16 16:42:28  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
 //
@@ -40,19 +45,23 @@
 // Initial commit. Part of a new junction hierarchy.
 //
 
-#ifndef MSJunction_H
-#define MSJunction_H
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <vector>
 #include <map>
-#include "MSLink.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  */
 class MSJunction
 {
 public:
+    /// needed for the access to the dictionary
     friend class GUIEdgeGrid;
 
     /// Destructor.
@@ -61,55 +70,50 @@ public:
     /** Use this constructor only. */
     MSJunction( std::string id, double x, double y );
 
+    /** performs some initialisation after the loading
+        (e.g., link map computation) */
     virtual void postloadInit();
 
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
     virtual bool clearRequests() = 0;
 
-    /** Call all lanes in myLanes and let them set their first vehicle's
-        requests. Before, empty old requests/responds. */
-    virtual bool setFirstVehiclesRequests() = 0;
+    /// Sets the responds
+    virtual bool setAllowed() = 0;
 
-    /** Collect the first car's requests, calculate the respond
-        according to the right of way rules and move the vehicles on
-        their lane resp. set them in the succeeding lane's buffer. */
-    virtual bool moveFirstVehicles() = 0;
-
-    /** Integrate the moved vehicles into their target-lane. This is
-        neccessary if you use not thread-safe containers. */
-    virtual bool vehicles2targetLane() = 0;
-
-    /** Inserts MSJunction into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
+    /** @brief Inserts MSJunction into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false (the junction is not inserted then). */
     static bool dictionary( std::string id, MSJunction* junction);
 
-    /** Returns the MSEdgeControl associated to the key id if exists,
-        otherwise returns 0. */
+    /** @brief Returns the MSEdgeControl associated to the key id if exists,
+        Otherwise returns 0. */
     static MSJunction* dictionary( std::string id);
 
-    /** returns the list of all known ids */
+    /** Returns the list of all known ids */
     static std::vector<std::string> getNames();
 
     /** Clears the dictionary */
     static void clear();
 
+    /** @brief Performs some initialisation after the net was completely loaded
+        This is done for all junctions within the dictionary */
     static void postloadInitContainer();
 
-    /** returns the x-position */
+    /** returns the junction's x-position */
     double getXCoordinate() const;
-    /** returns the y-position */
+
+    /** returns the junction's y-position */
     double getYCoordinate() const;
 
-    virtual bool linkClosed(const MSLink * link) const;
-
 protected:
-    // unique ID
+    /// unique ID
     std::string myID;
 
-    /** Static dictionary to associate string-ids with objects. */
+    /// definition of the static dictionary type
     typedef std::map< std::string, MSJunction* > DictType;
+
+    /** Static dictionary to associate string-ids with objects. */
     static DictType myDict;
 
     /** the position */
@@ -124,6 +128,7 @@ private:
 
     /// Assignment operator.
     MSJunction& operator=( const MSJunction& );
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
@@ -136,13 +141,3 @@ private:
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
-
-
-
-
