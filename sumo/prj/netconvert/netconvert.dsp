@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /w /W0 /GX /O2 /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "TL_DEBUG" /YX /FD /c
+# ADD CPP /nologo /w /W0 /GX /O2 /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "TL_DEBUG" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "d:\libs\xerces\include" /I "d:\libs\xerces\include\xercesc" /I "..\..\src" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -109,6 +109,10 @@ SOURCE=..\..\src\utils\distribution\DistributionCont.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\DoubleVector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -142,6 +146,10 @@ SOURCE=..\..\src\utils\importio\NamedColumnsParser.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBContHelper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBDistribution.cpp
 # End Source File
 # Begin Source File
 
@@ -238,6 +246,34 @@ SOURCE=..\..\src\netimport\arcview\NIArcView_Loader.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netimport\arcview\NIArcView_ShapeReader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisLoader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Links.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Nodes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalGroups.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalPhases.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Signals.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempSignal.cpp
 # End Source File
 # Begin Source File
 
@@ -649,6 +685,10 @@ SOURCE=..\..\src\utils\distribution\DistributionDefinition_Points.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\DoubleVector.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.h
 # End Source File
 # Begin Source File
@@ -697,11 +737,19 @@ SOURCE=..\..\src\netbuild\NBCapacity2Lanes.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netbuild\NBConnectionDefs.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netbuild\NBCont.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\netbuild\NBContHelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\NBDistribution.h
 # End Source File
 # Begin Source File
 
@@ -802,6 +850,34 @@ SOURCE=..\..\src\netimport\arcview\NIArcView_Loader.h
 # Begin Source File
 
 SOURCE=..\..\src\netimport\arcview\NIArcView_ShapeReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisLoader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Links.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Nodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalGroups.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalPhases.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempSignal.h
 # End Source File
 # Begin Source File
 
@@ -1206,7 +1282,7 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\..\libs\xerces\lib\xerces.lib
+SOURCE="..\..\..\..\..\libs\xerces\lib\xerces-c_2.lib"
 # End Source File
 # End Target
 # End Project

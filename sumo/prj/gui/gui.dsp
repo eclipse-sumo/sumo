@@ -241,6 +241,10 @@ SOURCE=..\..\src\gui\moc_QGUIToggleButton.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSEdge.cpp
 # End Source File
 # Begin Source File
@@ -254,10 +258,6 @@ SOURCE=..\..\src\microsim\MSEmitControl.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSEventControl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\microsim\MSInductLoop.cpp
 # End Source File
 # Begin Source File
 
@@ -713,7 +713,27 @@ SOURCE=..\..\src\utils\common\HelpPrinter.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\LoggedValue.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_Single.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_TimeFixed.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_TimeFloating.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\dev\MemDiff.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSActuatedTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
@@ -766,6 +786,10 @@ SOURCE=..\..\src\microsim\MSLaneChanger.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSLaneState.h
 # End Source File
 # Begin Source File
 
