@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/04/23 12:46:41  dkrajzew
+// forgetting to set information about periodical emission of vehicles patched
+//
 // Revision 1.17  2004/04/02 11:26:26  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
 //
@@ -322,8 +325,8 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
     // add build route
     routeDef->addAlternative(current, veh->getDepartureTime());
     // save route
-    routeDef->xmlOutCurrent(*myRoutesOutput,
-        options.getBool("continue-on-unbuild"));
+    routeDef->xmlOutCurrent(*myRoutesOutput, veh->periodical());
+//        options.getBool("continue-on-unbuild"));
     if(myRouteAlternativesOutput!=0) {
         routeDef->xmlOutAlternatives(*myRouteAlternativesOutput);
     }
