@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2003/04/07 10:29:02  dkrajzew
+// usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
+//
 // Revision 1.9  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -234,14 +237,9 @@ MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
 
-#ifdef _DEBUG
 MSNet::Time MSNet::globaltime;
-#endif
 
 #ifdef ABS_DEBUG
-#ifndef _DEBUG
-MSNet::Time MSNet::globaltime;
-#endif
 MSNet::Time MSNet::searchedtime = 1549450;
 std::string MSNet::searched1 = "5";
 std::string MSNet::searched2 = "3475668";

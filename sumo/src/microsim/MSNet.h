@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2003/04/07 10:29:02  dkrajzew
+// usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
+//
 // Revision 1.9  2003/04/04 15:31:48  roessel
 // Commented out the #ifdef _DEBUG because some files claimed that globaltime is unknown. There are several files accessing the "debug" variables globaltime and searchedtime.
 //
@@ -286,17 +289,10 @@ public:
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
-    /// ----------------- debug variables -------------
-//#ifdef _DEBUG
     static Time globaltime;
-//#endif
 
+    /// ----------------- debug variables -------------
 #ifdef ABS_DEBUG
-    /** a visible variable for the current time step - for debugging
-        purposes only */
-#ifndef _DEBUG
-    static Time globaltime;
-#endif
     static Time searchedtime;
     static std::string searched1, searched2, searchedJunction;
 #endif
