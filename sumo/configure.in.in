@@ -1,3 +1,21 @@
+dnl    This file is part of the KDE libraries/packages
+dnl    Copyright (C) 2001 Stephan Kulow (coolo@kde.org)
+ 
+dnl    This file is free software; you can redistribute it and/or
+dnl    modify it under the terms of the GNU Library General Public
+dnl    License as published by the Free Software Foundation; either
+dnl    version 2 of the License, or (at your option) any later version.
+ 
+dnl    This library is distributed in the hope that it will be useful,
+dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+dnl    Library General Public License for more details.
+ 
+dnl    You should have received a copy of the GNU Library General Public 
+dnl    License along with this library; see the file COPYING.LIB.  If not, 
+dnl    write to the Free Software Foundation, 
+dnl    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
 # Original Author was Kalle@kde.org
 # I lifted it in some mater. (Stephan Kulow)
 # I used much code from Janos Farkas
@@ -9,33 +27,48 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(acinclude.m4) dnl a source file from your sub dir
 
-
-
-dnl `AC_CONFIG_AUX_DIR'
-dnl     Automake will look for various helper scripts, such as
-dnl     `mkinstalldirs', in the directory named in this macro invocation.
-dnl     If not seen, the scripts are looked for in their `standard'
-dnl     locations (either the top source directory, or in the source
-dnl     directory corresponding to the current `Makefile.am', whichever is
-dnl     appropriate).
 dnl This is so we can use kde-common
 AC_CONFIG_AUX_DIR(admin)
 
+dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
+unset CDPATH
+
+dnl Checking host/target/build systems, for make, install etc.
 AC_CANONICAL_SYSTEM 
+dnl Perform program name transformation
+AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(sumo,0.7.2)
 
-dnl KDE_SET_PREFIX
-
 AC_PREFIX_DEFAULT(/usr/local)
-if test "x$prefix" = "xNONE"; then
-  prefix=$ac_default_prefix
-  ac_configure_args="$ac_configure_args --prefix $prefix"
-fi
+dnl if test "x$prefix" = "xNONE"; then
+dnl   prefix=$ac_default_prefix
+dnl   ac_configure_args="$ac_configure_args --prefix $prefix"
+dnl fi
 
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+dnl Checks for programs.
+AC_CHECK_COMPILERS
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+AC_PROG_LIBTOOL
+
+dnl Use c++ exceptions
+CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS"
+
+dnl KDE_USE_QT
+AC_PATH_QT
+
+dnl KDE_USE_QT(3)
+dnl AC_PATH_QT
+
+dnl all_libraries="$all_libraries $USER_LDFLAGS"
+dnl all_includes="$all_includes $USER_INCLUDES"
+dnl AC_SUBST(all_includes)
+dnl AC_SUBST(all_libraries)
 
 dnl start of sumo-specific configure options
 dnl Check for enable-features that shall go into config.h
@@ -73,40 +106,6 @@ if test x$cfront_model = xtrue; then
 fi
 dnl end of sumo-specific configure-options
 
-dnl Checks for programs.
-dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch 
-dnl -fno-exceptions gesetzt
-AC_CHECK_COMPILERS
-
-dnl CXXFLAGS="$NOOPT_CXXFLAGS" dnl __kdevelop[noopt]__
-dnl CFLAGS="$NOOPT_CFLAGS" dnl __kdevelop[noopt]__
-
-dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach 
-dnl hinter das standardmaessige -fno-exception geschrieben.
-CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS" dnl __kdevelop[exc]__
-
-AC_ENABLE_SHARED(yes)
-AC_ENABLE_STATIC(no)
-KDE_PROG_LIBTOOL
-
-all_libraries="$all_libraries $USER_LDFLAGS"
-all_includes="$all_includes $USER_INCLUDES"
-AC_SUBST(all_includes)
-AC_SUBST(all_libraries)
-
-
-dnl for NLS support. Call them in this order!
-dnl WITH_NLS is for the po files
-AM_KDE_WITH_NLS
-
-KDE_USE_QT(3)
-AC_PATH_QT
-
-dnl KDE_NEED_FLEX dnl __kdevelop__
-dnl AC_PROG_YACC dnl __kdevelop__
-
-dnl Perform program name transformation
-dnl AC_ARG_PROGRAM
 
 dnl start sumo-specific header and library search
 dnl Checks for libraries.
@@ -160,10 +159,10 @@ else
       AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
    fi
 fi
-XERCESLIBPATH="$ac_xerces_lib_path"
-AC_SUBST(XERCESLIBPATH)
-XERCESLIB="$ac_xerceslib"
-AC_SUBST(XERCESLIB)
+XERCES_LDFLAGS="$ac_xerces_lib_path"
+AC_SUBST(XERCES_LDFLAGS)
+LIB_XERCES="$ac_xerceslib"
+AC_SUBST(LIB_XERCES)
 
 
 dnl Checks for header files.
@@ -204,99 +203,5 @@ AC_SUBST(XERCESINCLUDE_PRIOR_1_7)
 dnl end sumo-specific header and library search
 
 
-dnl PACKAGE set before
 
-KDE_CREATE_SUBDIRSLIST
-
-dnl add here all your Makefiles. This are created by configure
-AC_OUTPUT(
-./Makefile
-./data/Makefile
-./data/cfg_templates/Makefile
-./data/examples/Makefile
-./data/examples/box1l/Makefile
-./data/examples/box2l/Makefile
-./data/examples/box3l/Makefile
-./data/examples/box4l/Makefile
-./data/examples/cross1l/Makefile
-./data/examples/cross1ltl/Makefile
-./data/examples/cross3l/Makefile
-./data/examples/cross3ltl/Makefile
-./data/examples/eight1l/Makefile
-./data/examples/eight1ltl/Makefile
-./data/examples/eight3l/Makefile
-./data/examples/eight3ltl/Makefile
-./data/examples/cross3ltl_inductloops/Makefile
-./data/examples/cross3ltl_inductloops/output/Makefile
-./data/examples/cross3ltl_meandata/Makefile
-./data/examples/cross3ltl_meandata/output/Makefile
-./data/examples/due2s_automatic/Makefile
-./data/examples/due2s_automatic/aggregated/Makefile
-./data/examples/due2s_singlestep/Makefile
-./data/examples/due2s_singlestep/aggregated/Makefile
-./data/examples/due3s_automatic/Makefile
-./data/examples/due3s_automatic/aggregated/Makefile
-./data/examples/due3s_singlestep/Makefile
-./data/examples/due3s_singlestep/aggregated/Makefile
-./data/ressources/Makefile
-./data/types/Makefile
-./docs/Makefile
-./docs/gfx/Makefile
-./docs/gfx_netcdev/Makefile
-./docs/images/Makefile
-./prj/Makefile
-./prj/gui/Makefile
-./prj/netconvert/Makefile
-./prj/od2trips/Makefile
-./prj/router/Makefile
-./prj/sumo/Makefile
-./prj/tagreader/Makefile
-./src/Makefile
-./src/gui/Makefile
-./src/gui/icons/Makefile
-./src/gui/icons/view_traffic/Makefile
-./src/gui/partable/Makefile
-./src/gui/vartracker/Makefile
-./src/gui/popup/Makefile
-./src/guinetload/Makefile
-./src/guisim/Makefile
-./src/helpers/Makefile
-./src/microsim/Makefile
-./src/netbuild/Makefile
-./src/netimport/Makefile
-./src/netimport/arcview/Makefile
-./src/netimport/artemis/Makefile
-./src/netimport/cell/Makefile
-./src/netimport/sumo/Makefile
-./src/netimport/vissim/Makefile
-./src/netimport/vissim/tempstructs/Makefile
-./src/netimport/vissim/typeloader/Makefile
-./src/netimport/visum/Makefile
-./src/netimport/xml/Makefile
-./src/netload/Makefile
-./src/od2trips/Makefile
-./src/router/Makefile
-./src/sumo_only/Makefile
-./src/utils/Makefile
-./src/utils/common/Makefile
-./src/utils/convert/Makefile
-./src/utils/dev/Makefile
-./src/utils/distribution/Makefile
-./src/utils/geom/Makefile
-./src/utils/gfx/Makefile
-./src/utils/glutils/Makefile
-./src/utils/importio/Makefile
-./src/utils/options/Makefile
-./src/utils/qutils/Makefile
-./src/utils/router/Makefile
-./src/utils/sumoxml/Makefile
-./src/utils/xml/Makefile
-./src/utils/logging/Makefile
-./src/utils/fonts/Makefile
-./src/div/Makefile
-./tests/Makefile
-./tests/dos/Makefile
-./tests/unix/Makefile
-./tools/Makefile
-)
 
