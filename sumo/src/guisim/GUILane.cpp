@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/11/20 14:40:26  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.19  2003/11/20 13:23:43  dkrajzew
 // detector-related debugging
 //
@@ -197,6 +200,7 @@ GUILane::push( MSVehicle* veh )
         _lock.unlock();//Display();
         return true;
     }
+    // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
@@ -207,8 +211,7 @@ GUILane::push( MSVehicle* veh )
         _lock.unlock();//Display();
         setApproaching(veh->pos(), veh);
         return false;
-    }
-    else {
+    } else {
         veh->onTripEnd(*this);
 		static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
@@ -216,10 +219,6 @@ GUILane::push( MSVehicle* veh )
         resetApproacherDistance();
         _lock.unlock();//Display();
         return true;
-        // TODO
-        // This part has to be discussed, quick an dirty solution:
-        // Destination reached. Vehicle vanishes.
-        // maybe introduce a vehicle state ...
     }
 }
 

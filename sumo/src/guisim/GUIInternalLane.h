@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/11/20 14:40:26  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.1  2003/09/05 15:02:47  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -68,32 +71,11 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-//    void moveNonCriticalSingle();
+    void moveNonCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-//    void moveCriticalSingle();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveNonCriticalMulti();
-
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveCriticalMulti();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-    void moveNonCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-    void moveCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+    void moveCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

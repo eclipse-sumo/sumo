@@ -24,8 +24,11 @@ namespace
 }
 
 // $Log$
+// Revision 1.37  2003/11/20 14:43:45  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.36  2003/11/19 16:39:11  roessel
-// If vehicle reaches it'sdestination edge, modify it's speed as if it
+// If vehicle reaches it's destination edge, modify it's speed as if it
 // entered the new lane completely. Rationale: If the vehicle leaves the
 // simulation and entered the destination lane only partially, it will
 // never get removed from a previous lane's detector that may contain
@@ -47,10 +50,12 @@ namespace
 // grid lock dissolving by vehicle teleportation added
 //
 // Revision 1.30  2003/10/15 12:11:56  dkrajzew
-// removed the prohibition of overtaking on the right side; false deletion patched
+// removed the prohibition of overtaking on the right side; false deletion
+//  patched
 //
 // Revision 1.29  2003/10/06 07:41:35  dkrajzew
-// MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
+// MSLane::push changed due to some inproper Vissim-behaviour; now removes
+//  a vehicle and reports an error if push fails
 //
 // Revision 1.28  2003/09/05 15:10:29  dkrajzew
 // first tries for an implementation of aggregated views
@@ -68,10 +73,13 @@ namespace
 // missing reset of vehicle nuzmber after lane change added
 //
 // Revision 1.23  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles; the edges
+//  do not go through the lanes, the EdgeControl does
 //
 // Revision 1.22  2003/07/07 08:18:43  dkrajzew
-// due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
+// due to an ugly inheritance between lanes, sourcelanes and their
+//  gui-versions, a method for the retrival of a GUILaneWrapper had to be
+//  added;we should redesign it in the future
 //
 // Revision 1.21  2003/06/24 08:09:28  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
@@ -80,10 +88,14 @@ namespace
 // division by zero in meandata computation patched
 //
 // Revision 1.19  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease
+//  the search for further couts which must be redirected to the messaaging
+//  subsystem
 //
 // Revision 1.18  2003/06/04 16:29:42  roessel
-// Vehicles are emtted completely on current lane in emitTry() (needed for detectors). Vehicles that will be destroyed because they reached their destination will dismiss their active reminders in push().
+// Vehicles are emtted completely on current lane in emitTry()
+//  (needed for detectors). Vehicles that will be destroyed because they
+//  reached their destination will dismiss their active reminders in push().
 //
 // Revision 1.17  2003/05/21 16:20:44  dkrajzew
 // further work detectors
@@ -121,10 +133,9 @@ namespace
 // vehicles are now deleted whe the tour is over
 //
 // Revision 1.5  2002/10/18 11:51:03  dkrajzew
-// breakRequest or driveRequest may be set, althoug no first vehicle exists due
-// to regarding a longer break gap...; assertion in moveFirst replaced by a
-// check
-// with a normal exit
+// breakRequest or driveRequest may be set, althoug no first vehicle exists
+//  due to regarding a longer break gap...; assertion in moveFirst replaced
+//  by a check with a normal exit
 //
 // Revision 1.4  2002/10/17 13:35:23  dkrajzew
 // insecure usage of potentially null-link-lanes patched
@@ -446,19 +457,7 @@ MSLane::moveNonCritical()
             ++veh,++myFirstUnsafe ) {
 
         VehCont::const_iterator pred( veh + 1 );
-/*        const MSVehicle* neigh = findNeigh( *veh,
-            myUseDefinition->firstNeigh,
-            myUseDefinition->lastNeigh );
-        // veh has neighbour to regard.
-        if ( neigh != *veh ) {
-            ( *veh )->move( this, *pred, neigh );
-        }
-
-        // veh has no neighbour to regard.
-        else {*/
-            ( *veh )->move( this, *pred, 0);
-//        }
-
+        ( *veh )->move( this, *pred, 0);
         ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
         MSVehicle *vehicle = (*veh);
@@ -480,20 +479,7 @@ MSLane::moveCritical()
     // Move all next vehicles beside the first
     for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd; ++veh ) {
         VehCont::const_iterator pred( veh + 1 );
-/*        const MSVehicle* neigh = findNeigh( *veh,
-            myUseDefinition->firstNeigh,
-            myUseDefinition->lastNeigh);
-
-        // veh has neighbour to regard.
-        if ( neigh != *veh ) {
-            ( *veh )->moveRegardingCritical( this, *pred, neigh );
-        }
-
-        // veh has no neighbour to regard.
-        else {*/
-            ( *veh )->moveRegardingCritical( this, *pred, 0);
-//        }
-
+        ( *veh )->moveRegardingCritical( this, *pred, 0);
         ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
         assert( ( *veh )->pos() < ( *pred )->pos() );
@@ -547,16 +533,6 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
 bool
 MSLane::emit( MSVehicle& veh )
 {
-    // If this lane is empty, set newVeh on position beyond safePos =
-    // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
-    // the precening lane hasn't a much higher MaxSpeed)
-    // This safePos is ugly, but we will live with it in this revision.
-/*    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
-                    MSVehicle::tau() + MSVehicleType::maxLength();
-*/
-//    assert( safePos < myLength ); // Lane has to be longer than safePos,
-    // otherwise emission (this kind of emission) makes no sense.
-
     // Here the emission starts
     if ( empty() ) {
 
@@ -643,10 +619,8 @@ MSLane::emitTry( MSVehicle& veh )
 {
     double safeSpace =
         myApproaching==0
-        ? 0 /*2 * pow( myMaxSpeed, 2 ) /
-            ( 2 * MSVehicleType::minDecel() ) +
-            MSVehicle::tau() + veh.length()*/
-        : myApproaching->getSecureGap(*this, veh);
+            ? 0
+            : myApproaching->getSecureGap(*this, veh);
     safeSpace = MAX( safeSpace, veh.length() );
     if ( safeSpace<length() ) {
         MSVehicle::State state;
@@ -891,45 +865,26 @@ MSLane::push(MSVehicle* veh)
 
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
-        if(myVehBuffer->pos()<veh->pos()) {
-            cout << "vehicle '" << myVehBuffer->id() << "' removed!";
-//            myVehBuffer->patchState();
-            myVehBuffer->leaveLaneAtLaneChange();
-            MSVehicle::remove(myVehBuffer->id());
-        } else {
-            cout << "vehicle '" << veh->id() << "' removed!";
-//            veh->patchState();
-            veh->leaveLaneAtLaneChange();
-            MSVehicle::remove(veh->id());
-            return true;
-        }
+        veh->onTripEnd(*this);
+        cout << "vehicle '" << veh->id() << "' removed!";
+        MSVehicle::remove(veh->id());
+        return true;
     }
+    // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
         veh->enterLaneAtMove( this );
+        double pspeed = veh->speed();
+        double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
+        veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
         veh->_assertPos();
         setApproaching(veh->pos(), veh);
         return false;
-    }
-    else {
-        // Dismiss reminders by passing them completely.
-        double speed = veh->speed();
-        if ( veh->pos() + speed * MSNet::deltaT() - veh->length() < 0 ){
-            speed = ( veh->length() - veh->pos() ) / MSNet::deltaT() + 0.01;
-        }
-        double oldLaneLength = veh->myLane->length();
-        veh->workOnMoveReminders( veh->pos() + oldLaneLength,
-                                  veh->pos() + oldLaneLength + speed *
-                                  MSNet::deltaT(),
-                                  speed );
-
+    } else {
+        veh->onTripEnd(*this);
         MSVehicle::remove(veh->id());
         resetApproacherDistance();
         return true;
-        // TODO
-        // This part has to be discussed, quick an dirty solution:
-        // Destination reached. Vehicle vanishes.
-        // maybe introduce a vehicle state ...
     }
 }
 
@@ -973,23 +928,6 @@ MSLane::integrateNewVehicle()
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-/*
-MSLinkCont::const_iterator
-MSLane::succLink(const MSVehicle& veh, unsigned int nRouteSuccs,
-                 const MSLane& succLinkSource) const
-{
-    const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
-    assert( nRouteEdge != 0 );
-
-    MSLinkCont::const_iterator ret = succLinkOneLane(nRouteEdge, succLinkSource);
-    if(ret!=succLinkSource.myLinks.end()) {
-        return ret;
-    }
-    // Check which link's lane belongs to the nRouteEdge.
-    return succLinkSource.myEdge->succLink(nRouteEdge, succLinkSource);
-}
-*/
 /////////////////////////////////////////////////////////////////////////////
 
 MSLinkCont::const_iterator
@@ -1112,7 +1050,6 @@ MSLane::resetMeanData( unsigned index )
     md.nVehEnteredLane = 0;
     md.contTimestepSum = 0;
     md.discreteTimestepSum = 0;
-//     md.distanceSum = 0;
     md.speedSum = 0;
     md.speedSquareSum = 0;
     md.traveltimeStepSum = 0;
@@ -1124,7 +1061,6 @@ MSLane::resetMeanData( unsigned index )
 void
 MSLane::addVehicleData( double contTimesteps,
                         unsigned discreteTimesteps,
-//                         double travelDistance,
                         double speedSum,
                         double speedSquareSum,
                         unsigned index,
@@ -1257,7 +1193,6 @@ MSLane::MeanData::MeanData( const MSLane& obj,
 ostream&
 operator<<( ostream& os, const MSLane::MeanData& obj )
 {
-//    const double meanVehLength = 7.5;
     const MSLane& lane = obj.myObj;
     assert(lane.myMeanData.size()>obj.myIndex);
     const MSLane::MeanDataValues& meanData = lane.myMeanData[ obj.myIndex ];
@@ -1269,7 +1204,6 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
     double meanSpeed = -43;
     double meanSpeedSquare = -44;
     double meanDensity = -45;
-//     double meanFlow = -46;
 
     assert( meanData.nVehEntireLane <= meanData.nVehContributed );
 
@@ -1321,7 +1255,6 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
        << "\" speed=\""       << meanSpeed
        << "\" speedsquare=\"" << meanSpeedSquare
        << "\" density=\""     << meanDensity
-//        << "\" flow=\""        << meanFlow
        << "\" noVehContrib=\""  << meanData.nVehContributed
        << "\" noVehEntire=\""  << meanData.nVehEntireLane
        << "\" noVehEntered=\"" << meanData.nVehEnteredLane
@@ -1378,12 +1311,10 @@ MSLane::id() const
 }
 
 
-
 void
 MSLane::releaseVehicles()
 {
 }
-
 
 
 const MSLane::VehCont &
@@ -1479,11 +1410,13 @@ MSLane::addMoveReminder( MSMoveReminder* rem )
     moveRemindersM.push_back( rem );
 }
 
+
 MSLane::MoveReminderCont
 MSLane::getMoveReminders( void )
 {
     return moveRemindersM;
 }
+
 
 GUILaneWrapper *
 MSLane::buildLaneWrapper(GUIGlObjectStorage &, bool)
@@ -1510,7 +1443,6 @@ MSVehicle *
 MSLane::removeFirstVehicle(const MSVehicleTransfer &rightsCheck)
 {
     MSVehicle *veh = *(myVehicles.end()-1);
-//    veh->patchState();
     veh->leaveLaneAtLaneChange();
     myVehicles.erase(myVehicles.end()-1);
     myUseDefinition->noVehicles--;

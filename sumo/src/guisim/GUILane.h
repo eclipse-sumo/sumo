@@ -20,14 +20,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/20 14:40:26  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.6  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
 // Revision 1.5  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner than
+//  GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.4  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 // Revision 1.3  2003/04/15 09:09:13  dkrajzew
 // documentation added
@@ -36,8 +41,6 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -85,31 +88,11 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-//    void moveNonCriticalSingle();
+    void moveNonCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-//    void moveCriticalSingle();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveNonCriticalMulti();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveCriticalMulti();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-    void moveNonCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-    void moveCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+    void moveCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

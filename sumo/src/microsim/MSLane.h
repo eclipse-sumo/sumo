@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.18  2003/11/20 14:43:45  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.17  2003/10/20 07:59:43  dkrajzew
 // grid lock dissolving by vehicle teleportation added
 //
@@ -30,10 +33,13 @@
 // min and max-functions moved to an own definition file
 //
 // Revision 1.14  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles;
+//  the edges do not go through the lanes, the EdgeControl does
 //
 // Revision 1.13  2003/07/07 08:18:43  dkrajzew
-// due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
+// due to an ugly inheritance between lanes, sourcelanes and their
+//  gui-versions, a method for the retrival of a GUILaneWrapper had to be
+//  added; we should redesign it in the future
 //
 // Revision 1.12  2003/06/05 16:02:55  dkrajzew
 // min and max-methods added (MSVC++ does not know them
@@ -45,7 +51,8 @@
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.9  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok);
+//  detector output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.8  2003/04/16 10:05:05  dkrajzew
 // uah, debugging
@@ -190,7 +197,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -207,6 +213,7 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
+
 
 /* =========================================================================
  * class declarations
@@ -548,9 +555,6 @@ protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
 
-
-
-
 protected:
     /// Unique ID.
     std::string myID;
@@ -621,7 +625,6 @@ private:
               nVehEnteredLane( 0 ),
               contTimestepSum( 0 ),
               discreteTimestepSum( 0 ),
-//               distanceSum( 0 ),
               speedSum( 0 ),
               speedSquareSum( 0 ),
               traveltimeStepSum( 0 )
@@ -647,10 +650,6 @@ private:
         /// as contTimestepSum but as an integer
         unsigned discreteTimestepSum;
 
-//         /** the sum of the way the participating vehicles drove on the lane
-//             during the aggregated time */
-//         double distanceSum;
-
         /// the sum of the speeds the vehicles had ont the ...
         double speedSum;
 
@@ -673,13 +672,6 @@ private:
     static DictType myDict;
 
 private:
-/*    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
-    inline double min(double v1, double v2) const
-        { return ((v1 < v2) ? v1 : v2); };
-    inline double max(double v1, double v2) const
-        { return ((v1 > v2) ? v1 : v2); };*/
-
-
     /// Default constructor.
     MSLane();
 

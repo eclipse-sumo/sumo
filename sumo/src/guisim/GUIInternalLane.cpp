@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/20 14:40:26  dkrajzew
+// push() debugged; dead code removed
+//
 // Revision 1.8  2003/11/20 13:23:43  dkrajzew
 // detector-related debugging
 //
@@ -96,59 +99,21 @@ GUIInternalLane::~GUIInternalLane()
 {
 }
 
-/*
+
 void
-GUIInternalLane::moveNonCriticalSingle()
+GUIInternalLane::moveNonCritical()
 {
     _lock.lock();//Display();
-    MSInternalLane::moveNonCriticalSingle();
+    MSInternalLane::moveNonCritical();
     _lock.unlock();//Display();
 }
 
 
 void
-GUIInternalLane::moveCriticalSingle()
+GUIInternalLane::moveCritical()
 {
     _lock.lock();//Display();
-    MSInternalLane::moveCriticalSingle();
-    _lock.unlock();//Display();
-}
-
-
-void
-GUIInternalLane::moveNonCriticalMulti()
-{
-    _lock.lock();//Display();
-    MSInternalLane::moveNonCriticalMulti();
-    _lock.unlock();//Display();
-}
-
-
-void
-GUIInternalLane::moveCriticalMulti()
-{
-    _lock.lock();//Display();
-    MSInternalLane::moveCriticalMulti();
-    _lock.unlock();//Display();
-}
-
-*/
-void
-GUIInternalLane::moveNonCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                               const MSEdge::LaneCont::const_iterator &lastNeighLane */)
-{
-    _lock.lock();//Display();
-    MSInternalLane::moveNonCritical(/*firstNeighLane, lastNeighLane*/);
-    _lock.unlock();//Display();
-}
-
-
-void
-GUIInternalLane::moveCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                            const MSEdge::LaneCont::const_iterator &lastNeighLane */)
-{
-    _lock.lock();//Display();
-    MSInternalLane::moveCritical(/*firstNeighLane, lastNeighLane*/);
+    MSInternalLane::moveCritical();
     _lock.unlock();//Display();
 }
 
@@ -196,30 +161,25 @@ GUIInternalLane::push( MSVehicle* veh )
 	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
-
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
-        if(myVehBuffer->pos()<veh->pos()) {
-            cout << "vehicle '" << myVehBuffer->id() << "' removed!";
-            myVehBuffer->leaveLaneAtLaneChange();
-    		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
-                static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
-        } else {
-            cout << "vehicle '" << veh->id() << "' removed!";
-    		static_cast<GUIVehicle*>(veh)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
-                static_cast<GUIVehicle*>(veh)->getGlID());
-    		// maybe the vehicle is being tracked; mark as not within the simulation any longer
-            _lock.unlock();//Display();
-            return true;
-        }
+        cout << "vehicle '" << veh->id() << "' removed (new)! " << veh << endl;
+        cout << " with '" << myVehBuffer->id() << "' " << myVehBuffer << endl;
+        veh->onTripEnd(*this);
+        static_cast<GUIVehicle*>(veh)->setRemoved();
+        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
+            static_cast<GUIVehicle*>(veh)->getGlID());
+        // maybe the vehicle is being tracked; mark as not within the simulation any longer
+        _lock.unlock();//Display();
+        return true;
     }
-    veh->destReached(myEdge);
-    myVehBuffer = veh;
-    veh->enterLaneAtMove( this );
+    // the vehicle must not quit on junction-internal lanes
+    double pspeed = veh->speed();
+    double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
+    veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
     veh->_assertPos();
     _lock.unlock();//Display();
+    setApproaching(veh->pos(), veh);
     return false;
 }
 
