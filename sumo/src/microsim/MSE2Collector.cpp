@@ -8,7 +8,7 @@
 ///
 ///
 
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
+// Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) 
 
 //---------------------------------------------------------------------------//
 //
