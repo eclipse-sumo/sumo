@@ -346,6 +346,7 @@ NIVissimLoader::postLoadBuild()
     NIVissimNodeCluster::dict_recheckEdgeChanges();
 
     NIVissimNodeCluster::buildNBNodes();
+    NIVissimDistrictConnection::dict_BuildDistrictNodes();
     NIVissimEdge::dict_buildNBEdges();
     NIVissimDistrictConnection::dict_BuildDistricts();
     NIVissimConnection::dict_buildNBEdgeConnections();

@@ -295,7 +295,7 @@ NIVissimEdge::buildNBEdge()
 {
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
-            if(myID==529) {
+            if(myID==603) {
                 int bla = 0;
             }
     if(myConnectionClusters.size()!=0) {
@@ -381,31 +381,32 @@ NIVissimEdge::resolveSameNode()
     NIVissimDistrictConnection *d =
         NIVissimDistrictConnection::dict_findForEdge(myID);
     if(d!=0) {
-        double pos = d->getPosition();
+        Position2D pos = d->geomPosition();
+        double position = d->getPosition();
         // the district is at the begin of the edge
-        if(myGeom.length()-pos>pos) {
-            Position2D pos = myGeom.at(0);
-            NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
+        NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
+        if(myGeom.length()-position>position) {
             if(node==0) {
                 assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
                 node = new NBNode(
-                    toString<int>(myID) + string("DistrictSource"),
+                    "DistrictSource" + d->getID(),
                     pos.x(), pos.y(), "no_junction");
+                assert(NBNodeCont::insert(node));
             }
-            NBNodeCont::insert(node);
             return std::pair<NBNode*, NBNode*>(node, getToNode());
         }
         // the district is at the end of the edge
         else {
-            Position2D pos = myGeom.at(myGeom.size()-1);
-            NBNode *node = NBNodeCont::retrieve(pos.x(), pos.y());
+            NBNode *node =
+                NBNodeCont::retrieve(
+                    "VissimParkingplace" + d->getID());
             if(node==0) {
                 assert(NBNodeCont::retrieve(pos.x(), pos.y())==0);
                 node = new NBNode(
                     toString<int>(myID) + string("DistrictSink"),
                     pos.x(), pos.y(), "no_junction");
             }
-            NBNodeCont::insert(node);
+            assert(NBNodeCont::insert(node));
             return std::pair<NBNode*, NBNode*>(getFromNode(), node);
         }
     }

@@ -2,11 +2,13 @@ noinst_LIBRARIES = libvissimtypeload.a
 
 EXTRA_DIST =
 
-libvissimtypeload_a_SOURCES = NIVissimSingleTypeParser_Detektordefinition.cpp \
+libvissimtypeload_a_SOURCES = NIVissimSingleTypeParser_Auswertungsdefinition.cpp \
+NIVissimSingleTypeParser_Detektordefinition.cpp \
 NIVissimSingleTypeParser_DynUml.cpp \
 NIVissimSingleTypeParser_Fahrverhaltendefinition.cpp \
 NIVissimSingleTypeParser_Fahrzeugklassendefinition.cpp \
 NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp \
+NIVissimSingleTypeParser_Fensterdefinition.cpp \
 NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.cpp \
 NIVissimSingleTypeParser_Haltestellendefinition.cpp \
 NIVissimSingleTypeParser_Kantensperrung.cpp \
@@ -38,11 +40,13 @@ NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.cpp \
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition.cpp \
 NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp \
 NIVissimSingleTypeParser_Zuflussdefinition.cpp \
+NIVissimSingleTypeParser_Auswertungsdefinition.h \
 NIVissimSingleTypeParser_Detektordefinition.h \
 NIVissimSingleTypeParser_DynUml.h \
 NIVissimSingleTypeParser_Fahrverhaltendefinition.h \
 NIVissimSingleTypeParser_Fahrzeugklassendefinition.h \
 NIVissimSingleTypeParser_Fahrzeugtypdefinition.h \
+NIVissimSingleTypeParser_Fensterdefinition.h \
 NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h \
 NIVissimSingleTypeParser_Haltestellendefinition.h \
 NIVissimSingleTypeParser_Kantensperrung.h \
