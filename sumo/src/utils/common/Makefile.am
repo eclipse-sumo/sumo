@@ -4,7 +4,7 @@ EXTRA_DIST = NamedObjectCont.cpp DoubleVector.h
 
 libcommon_a_SOURCES = BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
-HelpPrinter.h IntVector.cpp IntVector.h InstancePool.cpp InstancePool.h \
+HelpPrinter.h IntVector.cpp IntVector.h InstancePool.h \
 Named.h NamedObjectCont.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.cpp UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
