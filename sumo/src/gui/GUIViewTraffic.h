@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/09/05 14:55:11  dkrajzew
+// lighter drawer implementations
+//
 // Revision 1.12  2003/08/14 13:44:14  dkrajzew
 // tls/row - drawer added
 //
@@ -124,6 +127,8 @@ public slots:
         index */
     void changeLaneColoringScheme(int index);
 
+    void toggleFullGeometry();
+
 protected:
 
 void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
@@ -139,18 +144,15 @@ protected:
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
 protected:
-    /// the vehicle drawer to use
-    GUIVehicleDrawer *_vehicleDrawer;
+    GUIVehicleDrawer* myVehicleDrawer[8];
 
-    /// the lane drawer to use
-    GUILaneDrawer *_laneDrawer;
+    GUILaneDrawer *myLaneDrawer[8];
 
-    /// The junction drwaer to use
-    GUIJunctionDrawer *_junctionDrawer;
+    GUIJunctionDrawer *myJunctionDrawer[8];
 
-    GUIDetectorDrawer *_detectorDrawer;
+    GUIDetectorDrawer *myDetectorDrawer[8]; // !!!
 
-    GUIROWRulesDrawer *_rowDrawer;
+    GUIROWRulesDrawer *myROWDrawer[8];
 
     /// the coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;
@@ -168,6 +170,9 @@ protected:
 
     size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
     size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
+
+    bool myUseFullGeom;
+
 };
 
 

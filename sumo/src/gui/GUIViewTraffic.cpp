@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/09/05 14:55:11  dkrajzew
+// lighter drawer implementations
+//
 // Revision 1.19  2003/08/14 13:44:14  dkrajzew
 // tls/row - drawer added
 //
@@ -114,18 +117,30 @@ namespace
 #include "QGLObjectToolTip.h"
 #include "GUIChooser.h"
 #include "GUISUMOViewParent.h"
-#include "GUITriangleVehicleDrawer.h"
-#include "GUISimpleLaneDrawer.h"
-#include "GUIBarROWRulesDrawer.h"
-#include "GUISimpleJunctionDrawer.h"
-#include "GUIDanielPerspectiveChanger.h"
+#include "drawerimpl/GUIVehicleDrawer_FGwTasTriangle.h"
+#include "drawerimpl/GUIVehicleDrawer_FGnTasTriangle.h"
+#include "drawerimpl/GUIVehicleDrawer_SGwTasTriangle.h"
+#include "drawerimpl/GUIVehicleDrawer_SGnTasTriangle.h"
+#include "drawerimpl/GUIJunctionDrawer_nT.h"
+#include "drawerimpl/GUIJunctionDrawer_wT.h"
+#include "drawerimpl/GUIDetectorDrawer_nT.h"
+#include "drawerimpl/GUIDetectorDrawer_wT.h"
+#include "drawerimpl/GUIROWDrawer_SG.h"
+#include "drawerimpl/GUIROWDrawer_FG.h"
+#include "drawerimpl/GUILaneDrawer_SGwT.h"
+#include "drawerimpl/GUILaneDrawer_SGnT.h"
+#include "drawerimpl/GUILaneDrawer_FGwT.h"
+#include "drawerimpl/GUILaneDrawer_FGnT.h"
+#include "GUIPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
+
 
 #include "icons/view_traffic/colour_lane.xpm"
 #include "icons/view_traffic/colour_vehicle.xpm"
 #include "icons/view_traffic/show_grid.xpm"
 #include "icons/view_traffic/show_tooltips.xpm"
+#include "icons/view_traffic/show_geometry.xpm"
 
 
 #ifndef WIN32
@@ -145,14 +160,10 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
                                GUISUMOViewParent &parent,
                                GUINet &net)
     : GUISUMOAbstractView(app, parent, net),
-    _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
-    _laneDrawer(new GUISimpleLaneDrawer(_net.myEdgeWrapper)),
-    _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
-    _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
-    _rowDrawer(new GUIBarROWRulesDrawer(_net.myEdgeWrapper)),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
-    myTrackedID(-1), myFontsLoaded(false)
+    myTrackedID(-1), myFontsLoaded(false), myUseFullGeom(true)
 {
+    // build the artifact-instances-to-draw - tables
     _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
     _edges2Show = new size_t[_edges2ShowSize];
     clearUsetable(_edges2Show, _edges2ShowSize);
@@ -162,6 +173,54 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     _detectors2ShowSize = (net.getDetectorWrapperNo()>>5) + 1;
     _detectors2Show = new size_t[_detectors2ShowSize];
     clearUsetable(_detectors2Show, _detectors2ShowSize);
+    // build the drawers
+    myVehicleDrawer[0] = new GUIVehicleDrawer_SGnTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[1] = new GUIVehicleDrawer_SGwTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[2] = new GUIVehicleDrawer_FGnTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[3] = new GUIVehicleDrawer_FGwTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[4] = new GUIVehicleDrawer_SGnTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[5] = new GUIVehicleDrawer_SGwTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[6] = new GUIVehicleDrawer_FGnTasTriangle(_net.myEdgeWrapper);
+    myVehicleDrawer[7] = new GUIVehicleDrawer_FGwTasTriangle(_net.myEdgeWrapper);
+    myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net.myEdgeWrapper);
+    myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net.myEdgeWrapper);
+    myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net.myEdgeWrapper);
+    myLaneDrawer[3] = new GUILaneDrawer_FGwT(_net.myEdgeWrapper);
+    myLaneDrawer[4] = new GUILaneDrawer_SGnT(_net.myEdgeWrapper);
+    myLaneDrawer[5] = new GUILaneDrawer_SGwT(_net.myEdgeWrapper);
+    myLaneDrawer[6] = new GUILaneDrawer_FGnT(_net.myEdgeWrapper);
+    myLaneDrawer[7] = new GUILaneDrawer_FGwT(_net.myEdgeWrapper);
+    myJunctionDrawer[0] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
+    myJunctionDrawer[1] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
+    myJunctionDrawer[2] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
+    myJunctionDrawer[3] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
+    myJunctionDrawer[4] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
+    myJunctionDrawer[5] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
+    myJunctionDrawer[6] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
+    myJunctionDrawer[7] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
+    myDetectorDrawer[0] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
+    myDetectorDrawer[1] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
+    myDetectorDrawer[2] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
+    myDetectorDrawer[3] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
+    myDetectorDrawer[4] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
+    myDetectorDrawer[5] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
+    myDetectorDrawer[6] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
+    myDetectorDrawer[7] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
+    myROWDrawer[0] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
+    myROWDrawer[1] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
+    myROWDrawer[2] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
+    myROWDrawer[3] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
+    myROWDrawer[4] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
+    myROWDrawer[5] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
+    myROWDrawer[6] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
+    myROWDrawer[7] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
+/*
+    _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
+    _laneDrawer(new GUIFullGeometryLaneDrawer(_net.myEdgeWrapper)),
+    _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
+    _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
+    _rowDrawer(new GUIFGBarROWRulesDrawer(_net.myEdgeWrapper)),
+*/
 }
 
 
@@ -213,6 +272,11 @@ GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
     toggle = new QGUIToggleButton( icon, "Show Tool Tips",
         QString::null, this, SLOT(toggleToolTips()), _coloringTools,
         "show tool tips", _useToolTips );
+    // add toggle button for full geometry-tips on/off
+    icon = QPixmap( show_geometry_xpm );
+    toggle = new QGUIToggleButton( icon, "Show Tool Tips",
+        QString::null, this, SLOT(toggleFullGeometry()), _coloringTools,
+        "show tool tips", myUseFullGeom );
 }
 
 
@@ -305,14 +369,22 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         myViewSettings.set(x, y, xoff, yoff);
     }
     double width = m2p(3.0) * scale;
-    _junctionDrawer->drawGLJunctions(_junctions2Show, _junctions2ShowSize,
-        _useToolTips, _junctionColScheme);
-    _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
-        _useToolTips, width, _laneColScheme);
-    _rowDrawer->drawGLROWs(_edges2Show, _edges2ShowSize,
-        _useToolTips, width);
-    _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
-        _useToolTips, scale/*, width, _laneColScheme*/);
+
+    size_t drawerToUse = 0;
+    if(myUseFullGeom) {
+        drawerToUse = 2;
+    }
+    if(_useToolTips) {
+        drawerToUse += 1;
+    }
+
+    myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show, 
+        _junctions2ShowSize, _junctionColScheme);
+    myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
+        width, _laneColScheme);
+    myROWDrawer[drawerToUse]->drawGLROWs(_edges2Show, _edges2ShowSize, width);
+    myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show, 
+        _detectors2ShowSize, scale);
 
 /*
 	Position2DVector tmp;
@@ -328,8 +400,8 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
 */
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
-        _vehicleDrawer->drawGLVehicles(_edges2Show, _edges2ShowSize,
-            _useToolTips, _vehicleColScheme);
+        myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show, 
+            _edges2ShowSize, _vehicleColScheme);
         //paintGLVehicles(_edges);
     }
     glPopMatrix();
@@ -402,6 +474,8 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
         return RGBColor(0, 0.2, 0);
     case GUIEdge::EDGEFUNCTION_SINK:
         return RGBColor(0.2, 0, 0);
+    case GUIEdge::EDGEFUNCTION_INTERNAL:
+        return RGBColor(0, 0, 0.2);
     default:
         break;
     }
@@ -426,6 +500,15 @@ GUIViewTraffic::doInit()
         myFontsLoaded = true;
     }
 }
+
+
+void
+GUIViewTraffic::toggleFullGeometry()
+{
+    myUseFullGeom = !myUseFullGeom;
+    repaint();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
