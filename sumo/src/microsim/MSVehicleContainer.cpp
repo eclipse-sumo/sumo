@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.7  2003/08/04 11:40:21  dkrajzew
 // false inclusion hierarchy patched; missing inclusions added
 //
@@ -43,7 +46,6 @@ namespace
 //
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -78,7 +80,7 @@ MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
 /* -------------------------------------------------------------------------
  * methods from MSVehicleContainer::DepartFinder
  * ----------------------------------------------------------------------- */
-MSVehicleContainer::DepartFinder::DepartFinder(MSNet::Time time)
+MSVehicleContainer::DepartFinder::DepartFinder(SUMOTime time)
     : myTime(time)
 {
 }
@@ -147,7 +149,7 @@ MSVehicleContainer::moveFrom( MSVehicleContainer &cont )
 
 
 void
-MSVehicleContainer::add( MSNet::Time time, const VehicleVector &cont )
+MSVehicleContainer::add( SUMOTime time, const VehicleVector &cont )
 {
     VehicleHeap::iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
@@ -189,7 +191,7 @@ MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
 
 
 bool
-MSVehicleContainer::anyWaitingFor(MSNet::Time time) const
+MSVehicleContainer::anyWaitingFor(SUMOTime time) const
 {
     VehicleHeap::const_iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
@@ -208,7 +210,7 @@ MSVehicleContainer::top()
 }
 
 
-MSNet::Time
+SUMOTime
 MSVehicleContainer::topTime() const
 {
     if( isEmpty( ) )

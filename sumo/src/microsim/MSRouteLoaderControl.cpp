@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -34,8 +37,6 @@ namespace
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -70,7 +71,7 @@ MSRouteLoaderControl::~MSRouteLoaderControl()
 
 
 MSVehicleContainer &
-MSRouteLoaderControl::loadNext(MSNet::Time step)
+MSRouteLoaderControl::loadNext(SUMOTime step)
 {
     // check whether new vehicles shall be loaded
     //  return if not
@@ -119,10 +120,6 @@ MSRouteLoaderControl::init(MSNet &net)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "MSRouteLoaderControl.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

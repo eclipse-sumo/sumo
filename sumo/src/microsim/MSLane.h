@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.26  2005/02/01 10:10:41  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.25  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -241,6 +244,7 @@
 #include <iostream>
 #include "MSNet.h"
 #include "output/meandata/MSLaneMeanDataValues.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -323,7 +327,7 @@ public:
     virtual void moveCritical();
 
     /// Check if vehicles are too close.
-    void detectCollisions( MSNet::Time timestep );
+    void detectCollisions( SUMOTime timestep );
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );

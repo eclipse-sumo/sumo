@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.20  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.19  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -235,7 +238,7 @@ MSTriggeredSource::initParser( void )
 
 //---------------------------------------------------------------------------//
 
-MSNet::Time
+SUMOTime
 MSTriggeredSource::emit( void )
 {
 //      // check whether another vehicle was already emitted within this step
@@ -261,7 +264,7 @@ MSTriggeredSource::emit( void )
 
 void
 MSTriggeredSource::scheduleEmit( std::string aVehicleId,
-                                 MSNet::Time aEmitTime,
+                                 SUMOTime aEmitTime,
                                  double      aEmitSpeed,
                                  const MSVehicleType* aVehType )
 {
@@ -326,8 +329,14 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
-// Revision 1.19  2004/11/23 10:20:10  dkrajzew
-// new detectors and tls usage applied; debugging
+// Revision 1.20  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
+// Revision 1.2  2004/10/29 05:52:34  dksumo
+// fastened up the output of warnings and messages
+//
+// Revision 1.1  2004/10/22 12:49:26  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.18  2004/01/26 07:50:16  dkrajzew
 // using the xmlhelpers instead of building the parser by the object itself

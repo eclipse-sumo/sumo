@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.40  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.39  2004/12/16 12:24:45  dkrajzew
 // debugging
 //
@@ -379,7 +382,7 @@ public:
     void moveFirstChecked();
 
     /// Returns the desired departure time.
-    MSNet::Time desiredDepart() const;
+    SUMOTime desiredDepart() const;
 
     /** Returns the nSuccs'th successor of the vehicles current
         route-edge or 0 if there is no nSucc'th edge. */
@@ -460,12 +463,12 @@ public:
         speed and maximum braking in one timestep. */
     double decelDist() const;
 
-	// -----------------------------
+    // -----------------------------
 
 
 
-	void interactWith(const std::vector<MSVehicle*> &vehicles);
-	// -----------------------------
+    void interactWith(const std::vector<MSVehicle*> &vehicles);
+    // -----------------------------
 
     /// Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const;
@@ -737,9 +740,9 @@ public:
     void writeXMLRoute(std::ostream &os, int index=-1) const;
 protected:
     /// Use this constructor only.
-    MSVehicle( std::string id, MSRoute* route, MSNet::Time
-               departTime, const MSVehicleType* type, size_t noMeanData,
-               int repNo, int repOffset);
+    MSVehicle( std::string id, MSRoute* route, SUMOTime departTime,
+        const MSVehicleType* type, size_t noMeanData,
+        int repNo, int repOffset);
 
 
     /** Returns the minimum of four doubles. */
@@ -759,7 +762,7 @@ protected:
 
 
     /// information how long ago the vehicle has performed a lane-change
-    MSNet::Time myLastLaneChangeOffset;
+    SUMOTime myLastLaneChangeOffset;
 
     /// the lane, the vehicle will be within the next time step
     MSLane *myTarget;
@@ -784,7 +787,7 @@ protected:
     MSRoute* myRoute;
 
     /// Desired departure time (seconds).
-    MSNet::Time myDesiredDepart;
+    SUMOTime myDesiredDepart;
 
     /// Vehicle-type.
     const MSVehicleType* myType;

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2004/08/02 12:08:39  dkrajzew
 // raw-output extracted; output device handling rechecked
 //
@@ -100,14 +103,13 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "MSNet.h"
 #include "MSEdge.h"
+#include <microsim/output/meandata/MSMeanData_Net.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-//class MSEdge;
 class OutputDevice;
 
 
@@ -140,7 +142,7 @@ public:
 
     /** Detect collisions. Shouldn't be necessary if
         model-implementation is correct. */
-    void detectCollisions( MSNet::Time timestep );
+    void detectCollisions( SUMOTime timestep );
 
     /** Inserts edgecontrol into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns

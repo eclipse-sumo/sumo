@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/04/02 11:19:16  dkrajzew
 // debugging
 //
@@ -54,12 +57,12 @@ public:
         Actually, this polymorph throws an exception  as each vehicle within
         the gui-version should have a color */
     MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
+        SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset);
 
     /// Builds a vehicle in the case his color is given
     MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
+        SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset, const RGBColor &col);
 
     /// Removes the vehicle
@@ -69,8 +72,6 @@ public:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#endif
 
 #endif
 

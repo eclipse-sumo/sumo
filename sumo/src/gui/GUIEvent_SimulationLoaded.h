@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/02/01 10:10:38  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -41,8 +44,8 @@
 
 #include <string>
 #include <iostream>
-#include <microsim/MSNet.h>
 #include <utils/gui/events/GUIEvent.h>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -63,7 +66,7 @@ class GUIEvent_SimulationLoaded : public GUIEvent {
 public:
     /// constructor
     GUIEvent_SimulationLoaded(GUINet *net,
-        MSNet::Time startTime, MSNet::Time endTime,
+        SUMOTime startTime, SUMOTime endTime,
         const std::string &file)
         : GUIEvent(EVENT_SIMULATION_LOADED),
         _net(net), _begin(startTime), _end(endTime),
@@ -77,10 +80,10 @@ public:
     GUINet          *_net;
 
     /// the time the simulation shall start with
-    MSNet::Time     _begin;
+    SUMOTime     _begin;
 
     /// the time the simulation shall end with
-    MSNet::Time     _end;
+    SUMOTime     _end;
 
     /// the name of the loaded file
     std::string     _file;

@@ -74,7 +74,7 @@ public:
                  MSLane*        lane,
                  double         beginInMeters,
                  double         lengthInMeters,
-                 MSNet::Time    deleteDataAfterSeconds);
+                 SUMOTime    deleteDataAfterSeconds);
 
     /**
      * Destructor. Clears containers.
@@ -146,7 +146,7 @@ public:
      *
      * @return mean waiting-queue length
      */
-    double getNumberOfWaiting( MSNet::Time lastNTimesteps );
+    double getNumberOfWaiting( SUMOTime lastNTimesteps );
 
     /**
      * Get the waitingQueueLength.
@@ -169,7 +169,7 @@ public:
      *
      * @return Mean speed averaged over the lastNTimesteps
      */
-    double getMeanSpeed( MSNet::Time lastNTimesteps );
+    double getMeanSpeed( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the mean speed of the current timestep.
@@ -187,7 +187,7 @@ public:
      *
      * @return Mean speed square averaged over the lastNTimesteps
      */
-    double getMeanSpeedSquare( MSNet::Time lastNTimesteps );
+    double getMeanSpeedSquare( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the mean speed square of the current timestep.
@@ -205,7 +205,7 @@ public:
      *
      * @return Mean density averaged over the lastNTimesteps.
      */
-    double getMeanDensity( MSNet::Time lastNTimesteps );
+    double getMeanDensity( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the density of the current timestep.
@@ -225,7 +225,7 @@ public:
      *
      * @return Mean traveltime averaged over the lastNTimesteps.
      */
-    double getMeanTraveltime( MSNet::Time lastNTimesteps );
+    double getMeanTraveltime( SUMOTime lastNTimesteps );
 
     /**
      * Counts the vehicles that added data through addMoveData() over
@@ -238,7 +238,7 @@ public:
      *
      * @return Number of vehicles that added data over the lastNTimesteps.
      */
-    int getNVehContributed( MSNet::Time lastNTimesteps );
+    int getNVehContributed( SUMOTime lastNTimesteps );
 
     /**
      * Counts the vehicles that entered the detector by move, emit or
@@ -250,7 +250,7 @@ public:
      * @return Number of vehicles that antered the detector over the
      * lastNTimesteps.
      */
-    int getNVehEnteredDetector( MSNet::Time lastNTimesteps );
+    int getNVehEnteredDetector( SUMOTime lastNTimesteps );
 
     /**
      * Counts the vehicles that left the detector by move over the
@@ -263,7 +263,7 @@ public:
      * @return Number of vehilces that left the detector by move over the
      * lastNTimesteps.
      */
-    int getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps );
+    int getNVehLeftDetectorByMove( SUMOTime lastNTimesteps );
 
     /**
      * Counts the vehicles that left the detector over the lastNTimesteps
@@ -277,7 +277,7 @@ public:
      * @return Numner of vehicles that left the detector over the
      * lastNTimesteps and passed the entire detector.
      */
-    int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
+    int getNVehPassedEntireDetector( SUMOTime lastNTimesteps );
 
     /**
      * @name Inherited MSDetectorFileOutput methods.
@@ -316,7 +316,7 @@ public:
      * @return XML-output of calculated data for the intervall
      * (now-lastNTimesteps, now]
      */
-    void writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime );
+    void writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime );
 
 
     /**
@@ -344,7 +344,7 @@ public:
      * Get the data-clean up interval in timesteps.
      *
      */
-    MSNet::Time getDataCleanUpSteps( void ) const;
+    SUMOTime getDataCleanUpSteps( void ) const;
     //@}
 
 
@@ -468,7 +468,7 @@ public:
     struct TimestepData
     {
         /// Sole ctor.
-        TimestepData( MSNet::Time timestep ) :
+        TimestepData( SUMOTime timestep ) :
             timestepM( timestep ),
             speedSumM(0),
             speedSquareSumM(0),
@@ -478,7 +478,7 @@ public:
             nVehEnteredDetectorM(0)
             {}
 
-        MSNet::Time timestepM;  /**< The timestep the data belongs to. */
+        SUMOTime timestepM;  /**< The timestep the data belongs to. */
         double speedSumM;       /**< Sum of the speeds the vehicles on the
                                  * detector added via addMoveData() during
                                  * timestep. [cells/timestep] */
@@ -642,7 +642,7 @@ protected:
      *
      * @return deleteDataAfterStepsM to recur the event.
      */
-    MSNet::Time deleteOldData( void );
+    SUMOTime deleteOldData( void );
 
     /**
      * Calculates the waiting-queue-length every timestep from
@@ -659,7 +659,7 @@ protected:
      * @see getStartIterator()
      * @return max( now - lastNTimesteps, 0 )
      */
-    double getStartTimestep( MSNet::Time lastNTimesteps );
+    double getStartTimestep( SUMOTime lastNTimesteps );
 
     /**
      * Indicator if stored value nVehContributedM is still valid.
@@ -671,7 +671,7 @@ protected:
      * @see Reminder methods
      * @return True if new calculation is neccessary, false otherwise.
      */
-    bool needsNewCalculation( MSNet::Time lastNTimesteps );
+    bool needsNewCalculation( SUMOTime lastNTimesteps );
 
     /**
      * Calculates a valid interator to container from where accumulation
@@ -683,7 +683,7 @@ protected:
      * @return An interator out of [container.begin(), container.end() ).
      */
     template< class T >
-    typename T::iterator getStartIterator( MSNet::Time lastNTimesteps,
+    typename T::iterator getStartIterator( SUMOTime lastNTimesteps,
                                            T& container )
         {
             typename T::iterator start = container.begin();
@@ -721,7 +721,7 @@ private:
 
     double endPosM;             /**< End-position of the detector [cells]. */
 
-    const MSNet::Time deleteDataAfterStepsM; /**< Keep at least data from
+    const SUMOTime deleteDataAfterStepsM; /**< Keep at least data from
                                               * the last
                                               * deleteDataAfterStepsM steps. */
 
@@ -729,7 +729,7 @@ private:
                                     * modified since last
                                     * getNVehContributed() call. */
 
-    MSNet::Time lookedUpLastNTimestepsM; /**< Interval of last
+    SUMOTime lookedUpLastNTimestepsM; /**< Interval of last
                                           * getNVehContributed() call. */
 
     int nVehContributedM;       /**< Returned value of last

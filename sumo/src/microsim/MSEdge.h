@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.13  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -135,8 +138,8 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "MSNet.h"
 #include "MSLinkCont.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -145,7 +148,6 @@
 class MSLane;
 class MSLaneChanger;
 class OutputDevice;
-//class MSMeanData_Edge;
 
 
 /* =========================================================================
@@ -210,7 +212,7 @@ public:
 
     /** @brief Ask edge's lanes about collisions.
         Shouldn't be neccessary if model is implemented correctly. */
-    void detectCollisions( MSNet::Time timestep );
+    void detectCollisions( SUMOTime timestep );
 
     /** @brief Get the allowed lanes to reach the destination-edge.
         If there is no such edge, get 0. Then you are on the wrong edge. */
@@ -307,12 +309,7 @@ private:
 };
 
 
-
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-//#ifndef DISABLE_INLINE
-//#include "MSEdge.icc"
-//#endif
 
 #endif
 

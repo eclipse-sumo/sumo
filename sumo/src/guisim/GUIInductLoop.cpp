@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/02/01 10:10:39  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.12  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -43,8 +46,6 @@ namespace
 //
 // Revision 1.7  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -85,7 +86,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
                              double position,
-                             MSNet::Time deleteDataAfterSeconds)
+                             SUMOTime deleteDataAfterSeconds)
     : MSInductLoop(id, lane, position, deleteDataAfterSeconds)
 {
 }

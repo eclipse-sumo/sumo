@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -74,7 +77,6 @@
 #include <string>
 #include <bitset>
 #include <helpers/Command.h>
-#include <microsim/MSNet.h>
 #include <microsim/MSLogicJunction.h>
 
 
@@ -127,7 +129,7 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase() = 0;
+    virtual SUMOTime nextPhase() = 0;
 
     /** @brief Returns the MSEdgeControl associated to the key id if exists,
         Otherwise returns 0. */
@@ -153,7 +155,7 @@ public:
     virtual size_t nextStep() = 0;
 
     /// Returns the duration of the numbered phase
-    virtual MSNet::Time duration() const = 0;
+    virtual SUMOTime duration() const = 0;
 
     /** @brief Sets the priorities of incoming lanes
         This must be done as they change when the light changes */
@@ -233,9 +235,9 @@ private:
 
         /** @brief Executes this event
             Executes the regarded junction's "nextPhase"- method */
-        MSNet::Time execute() {
+        SUMOTime execute() {
             size_t step1 = _tlLogic->step();
-            MSNet::Time next = _tlLogic->nextPhase();
+            SUMOTime next = _tlLogic->nextPhase();
             size_t step2 = _tlLogic->step();
             if(step1!=step2) {
                 _tlLogic->onSwitch();

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/11/23 10:20:11  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -31,12 +34,12 @@
 // Revision 1.1  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
-#include "MSNet.h"
+#include <utils/common/SUMOTime.h>
+#include <utils/gfx/RGBColor.h>
 
 
 /* =========================================================================
@@ -67,12 +70,12 @@ public:
 
     /// Builds a vehicle
     virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
+        SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset);
 
     /// Builds a vehicle in the case his color is given
     virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        MSNet::Time departTime, const MSVehicleType* type,
+        SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset, const RGBColor &col);
 
     /// Removes the vehicle
@@ -141,8 +144,6 @@ protected:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -110,7 +113,7 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase();
+    virtual SUMOTime nextPhase();
 
     /// Returns the priorities for all lanes for the current phase
     virtual const std::bitset<64> &linkPriorities() const;
@@ -126,7 +129,7 @@ public:
     virtual size_t nextStep();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() const;
+    virtual SUMOTime duration() const;
 
     /// returns the current step
     size_t step() const;

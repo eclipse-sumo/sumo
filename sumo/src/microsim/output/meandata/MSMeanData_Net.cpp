@@ -59,7 +59,7 @@ MSMeanData_Net::~MSMeanData_Net()
 
 void
 MSMeanData_Net::write(XMLDevice &dev,
-                      MSNet::Time startTime, MSNet::Time stopTime)
+                      SUMOTime startTime, SUMOTime stopTime)
 {
     // the folowing may happen on closure
     if(stopTime==startTime) {
@@ -85,7 +85,7 @@ MSMeanData_Net::write(XMLDevice &dev,
 void
 MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
-                          MSNet::Time startTime, MSNet::Time stopTime)
+                          SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("   <edge id=\"").writeString(edge.id()).writeString("\">\n");
     MSEdge::LaneCont *lanes = edge.getLanes();
@@ -100,7 +100,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
 void
 MSMeanData_Net::writeLane(XMLDevice &dev,
                           const MSLane &lane,
-                          MSNet::Time startTime, MSNet::Time stopTime)
+                          SUMOTime startTime, SUMOTime stopTime)
 {
     assert(lane.myMeanData.size()>myIndex);
     const MSLaneMeanDataValues& meanData = lane.myMeanData[ myIndex ];
@@ -187,7 +187,7 @@ MSMeanData_Net::writeXMLHeader( XMLDevice &dev ) const
 
 void
 MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
-                               MSNet::Time startTime, MSNet::Time stopTime)
+                               SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(

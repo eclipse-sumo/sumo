@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.51  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.50  2005/01/27 14:23:34  dkrajzew
 // patched undefined state of teleporter if a negative number was given
 //
@@ -554,7 +557,7 @@ MSLane::moveCritical()
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::detectCollisions( MSNet::Time timestep )
+MSLane::detectCollisions( SUMOTime timestep )
 {
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     if ( myVehicles.size() < 2 ) {
@@ -976,7 +979,7 @@ MSLane::push(MSVehicle* veh)
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
         veh->onTripEnd(/* *this*/);
         resetApproacherDistance();
         veh->removeApproachingInformationOnKill(/*this*/);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:44  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -103,6 +106,7 @@ MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
 "-->\n\n");
 
 std::string MS_E2_ZS_CollectorOverLanes::infoEndM = std::string("</detector>");
+
 
 /* =========================================================================
  * method definitions
@@ -392,7 +396,7 @@ MS_E2_ZS_CollectorOverLanes::addDetector( E2::DetType type,
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
-                                            MSNet::Time startTime, MSNet::Time stopTime )
+                                            SUMOTime startTime, SUMOTime stopTime )
 {
     MSUnit::Seconds lastNSeconds =
         MSUnit::getInstance()->getSeconds( stopTime-startTime )+1;

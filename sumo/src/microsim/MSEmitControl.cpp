@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.9  2004/04/02 11:36:27  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -156,14 +159,14 @@ MSEmitControl::moveFrom( MSVehicleContainer &cont )
 
 
 size_t
-MSEmitControl::emitVehicles(MSNet::Time time)
+MSEmitControl::emitVehicles(SUMOTime time)
 {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
     if(!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
         return 0;
     }
-	size_t noEmitted = 0;
+    size_t noEmitted = 0;
     // we use double-buffering for the refused emits to save time
     assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
@@ -195,7 +198,7 @@ MSEmitControl::emitVehicles(MSNet::Time time)
         add(*i);
     }
     myNewPeriodicalAdds.clear();
-	return noEmitted;
+    return noEmitted;
 }
 
 
@@ -203,10 +206,10 @@ size_t
 MSEmitControl::tryEmit(MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits)
 {
-	size_t noEmitted = 0;
+    size_t noEmitted = 0;
     if (veh->departEdge().emit(*veh)) {
         // Successful emission.
-		noEmitted++;
+        noEmitted++;
         veh->onDepart();
             // Check whether another vehicle shall be
             //  emitted with the same parameter
@@ -224,7 +227,7 @@ MSEmitControl::tryEmit(MSVehicle *veh,
         // retry in the next step
         refusedEmits.push_back(veh);
     }
-	return noEmitted;
+    return noEmitted;
 }
 
 
@@ -263,7 +266,7 @@ MSEmitControl::clear()
 
 
 void
-MSEmitControl::checkPrevious(MSNet::Time time)
+MSEmitControl::checkPrevious(SUMOTime time)
 {
     // check to which list append to
     MSVehicleContainer::VehicleVector &previousRefused =
@@ -281,8 +284,6 @@ MSEmitControl::getWaitingVehicleNo() const
 {
     return myRefusedEmits1.size() + myRefusedEmits2.size();
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

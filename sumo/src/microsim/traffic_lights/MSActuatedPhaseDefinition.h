@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:22:44  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -53,7 +56,7 @@ public:
     size_t maxDuration;
 
     /// stores the timestep of the last on-switched of the phase
-    MSNet::Time _lastSwitch;
+    SUMOTime _lastSwitch;
 
     /// constructor
     MSActuatedPhaseDefinition(size_t durationArg,

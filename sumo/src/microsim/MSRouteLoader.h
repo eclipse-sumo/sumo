@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.5  2004/07/02 09:26:24  dkrajzew
 // classes prepared to be derived
 //
@@ -64,7 +67,7 @@ public:
 
     /** loads vehicles until a vehicle is read that starts after
         the specified time */
-    void loadUntil(MSNet::Time time, MSVehicleContainer &into);
+    void loadUntil(SUMOTime time, MSVehicleContainer &into);
 
     /// resets the reader
     void init();

@@ -23,19 +23,20 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2004/11/23 10:18:24  dkrajzew
 // new detectors usage applied
 //
 // Revision 1.2  2004/02/16 14:02:57  dkrajzew
 // e2-link-dependent detectors added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "Action.h"
 #include "Command_SaveTLSState.h"
-#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <utils/common/UtilExceptions.h>
@@ -74,7 +75,7 @@ Command_SaveTLSState::~Command_SaveTLSState()
 }
 
 
-MSNet::Time
+SUMOTime
 Command_SaveTLSState::execute()
 {
     myFile << "   <tlsstate time=\"" << myExecTime++

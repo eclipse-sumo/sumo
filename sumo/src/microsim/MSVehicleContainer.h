@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.5  2003/12/12 12:38:42  dkrajzew
 // made the code more pretty
 //
@@ -37,8 +40,6 @@
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -69,7 +70,7 @@ public:
 
     /** definition of a structure storing the departure time and a list
         of vehicles leaving at this time */
-    typedef std::pair<MSNet::Time, VehicleVector> VehicleDepartureVector;
+    typedef std::pair<SUMOTime, VehicleVector> VehicleDepartureVector;
 
 public:
     /// Constructor
@@ -82,20 +83,20 @@ public:
     void add( MSVehicle *veh );
 
     /// Adds a container with vehicles departing at the given time
-    void add( MSNet::Time time, const VehicleVector &cont );
+    void add( SUMOTime time, const VehicleVector &cont );
 
     /** @briefMoves vehicles from the given container
         (The given container is empty afterwards) */
     void moveFrom( MSVehicleContainer &cont );
 
     /// Returns the information whether any vehicles want to depart at the given time
-    bool anyWaitingFor(MSNet::Time time) const;
+    bool anyWaitingFor(SUMOTime time) const;
 
     /// Returns the uppermost vehicle vector
     const VehicleVector &top();
 
     /// Returns the time the uppermost vehicle vector is assigned to
-    MSNet::Time topTime() const;
+    SUMOTime topTime() const;
 
     /// Removes the uppermost vehicle vector
     void pop();
@@ -135,14 +136,14 @@ private:
     {
     public:
         /// constructor
-        explicit DepartFinder(MSNet::Time time);
+        explicit DepartFinder(SUMOTime time);
 
         /// comparison operator
         bool operator() ( const VehicleDepartureVector& e ) const;
 
     private:
         /// the searched departure time
-        MSNet::Time myTime;
+        SUMOTime myTime;
     };
 
     /// Number of elements in heap
@@ -161,8 +162,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#endif
 
 #endif
 

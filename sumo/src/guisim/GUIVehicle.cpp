@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/02/01 10:10:39  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.28  2005/01/27 14:20:56  dkrajzew
 // code beautifying
 //
@@ -233,10 +236,9 @@ ofstream networking_knownOut("known.txt");
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-
 GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
-                       MSNet::Time departTime,
+                       SUMOTime departTime,
                        const MSVehicleType* type,
                        size_t noMeanData,
                        int repNo, int repOffset,

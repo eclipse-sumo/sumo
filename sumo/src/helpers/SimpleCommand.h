@@ -29,6 +29,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2003/08/06 16:52:04  roessel
 // Better distinction between steps and seconds added.
 //
@@ -103,7 +106,7 @@ class SimpleCommand : public Command
 {
 public:
     /// Type of the function to execute.
-    typedef MSNet::Time ( T::* Operation )();
+    typedef SUMOTime ( T::* Operation )();
 
     /**
      * Constructor.
@@ -132,7 +135,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    MSNet::Time execute()
+    SUMOTime execute()
         {
             return ( myReceiver->*myOperation )();
         }

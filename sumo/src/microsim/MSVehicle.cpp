@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.58  2004/12/16 12:24:45  dkrajzew
 // debugging
 //
@@ -566,7 +569,7 @@ MSVehicle::~MSVehicle()
 
 MSVehicle::MSVehicle( string id,
                       MSRoute* route,
-                      MSNet::Time departTime,
+                      SUMOTime departTime,
                       const MSVehicleType* type,
                       size_t noMeanData,
                       int repNo, int repOffset) :
@@ -622,7 +625,7 @@ MSVehicle::departLanes()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSNet::Time
+SUMOTime
 MSVehicle::desiredDepart() const
 {
     return myDesiredDepart;
@@ -1595,7 +1598,7 @@ MSVehicle::resetMeanData( unsigned index )
 {
     assert(myMeanData.size()>index);
     MeanDataValues& md = myMeanData[ index ];
-    MSNet::Time timestep = MSNet::getInstance()->timestep();
+    SUMOTime timestep = MSNet::getInstance()->timestep();
     md.entryContTimestep     = static_cast< double >( timestep );
     md.entryDiscreteTimestep = timestep;
     md.speedSum              = 0;

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.8  2003/09/05 15:09:16  dkrajzew
 // changed the return value of the event adding method for a better handling of the events by the setters
 //
@@ -90,7 +93,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -99,7 +101,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "MSNet.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -124,7 +126,7 @@ public:
     static MSEventControl* getEndOfTimestepEvents( void );
 
     /// Events that should be executed at time.
-    typedef std::pair< Command*, MSNet::Time > Event;
+    typedef std::pair< Command*, SUMOTime > Event;
 
     /// what to do on false time
     enum AdaptType { ADAPT_AFTER_EXECUTION };
@@ -145,13 +147,13 @@ public:
 
     /** @brief Adds an Event.
         Returns the time the event will be executed, really */
-    MSNet::Time addEvent( Command* operation, MSNet::Time execTimeStep,
+    SUMOTime addEvent( Command* operation, SUMOTime execTimeStep,
         AdaptType type );
 
     /** @brief Executes time-dependant commands
         Events are things such as switching traffic-lights, writing output,
         etc. */
-    void execute( MSNet::Time time );
+    void execute( SUMOTime time );
 
     /** @brief Inserts eventcontrol into the static dictionary.
         Returns if the key id isn't already in the dictionary. Otherwise
@@ -195,10 +197,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-//#ifndef DISABLE_INLINE
-//#include "MSEventControl.icc"
-//#endif
 
 #endif
 

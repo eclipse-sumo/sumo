@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.5  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -253,7 +256,7 @@ public:
     ///
     /// @return XML-output of all existing concrete detectors.
     ///
-    void writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
+    void writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime )
         {
             dev.writeString("<interval begin=\"").writeString(
                 toString(startTime)).writeString("\" end=\"").writeString(
@@ -419,7 +422,7 @@ protected:
     ///
     template< class Cont >
     void writeXMLOutput( XMLDevice &dev, Cont& container,
-                MSNet::Time startTime, MSNet::Time stopTime)
+                SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
                 MSUnit::getInstance()->getSeconds( stopTime-startTime ) + 1;

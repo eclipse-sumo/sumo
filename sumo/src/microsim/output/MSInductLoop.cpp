@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -81,7 +84,7 @@ string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
 MSInductLoop::MSInductLoop( const string& id,
                             MSLane* lane,
                             double positionInMeters,
-                            MSNet::Time deleteDataAfterSeconds )
+                            SUMOTime deleteDataAfterSeconds )
     : MSMoveReminder( lane, id ),
       posM( MSNet::getCells( positionInMeters ) ),
       deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
@@ -181,7 +184,7 @@ MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 
 
 double
-MSInductLoop::getFlow( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getFlow( SUMOTime lastNTimesteps ) const
 {
     // return unit is [veh/h]
     assert( lastNTimesteps > 0 );
@@ -194,7 +197,7 @@ MSInductLoop::getFlow( MSNet::Time lastNTimesteps ) const
 
 
 double
-MSInductLoop::getMeanSpeed( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getMeanSpeed( SUMOTime lastNTimesteps ) const
 {
     // return unit is [m/s]
     assert( lastNTimesteps > 0 );
@@ -211,7 +214,7 @@ MSInductLoop::getMeanSpeed( MSNet::Time lastNTimesteps ) const
 
 /*
 double
-MSInductLoop::getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getMeanSpeedSquare( SUMOTime lastNTimesteps ) const
 {
     // unit is [(m/s)^2]
     assert( lastNTimesteps > 0 );
@@ -229,7 +232,7 @@ MSInductLoop::getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const
 */
 
 double
-MSInductLoop::getOccupancy( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getOccupancy( SUMOTime lastNTimesteps ) const
 {
     // unit is [%]
     assert( lastNTimesteps > 0 );
@@ -246,7 +249,7 @@ MSInductLoop::getOccupancy( MSNet::Time lastNTimesteps ) const
 
 
 double
-MSInductLoop::getMeanVehicleLength( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getMeanVehicleLength( SUMOTime lastNTimesteps ) const
 {
     assert( lastNTimesteps > 0 );
     double nVeh = getNVehContributed( lastNTimesteps );
@@ -274,7 +277,7 @@ MSInductLoop::getTimestepsSinceLastDetection() const
 
 
 double
-MSInductLoop::getNVehContributed( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getNVehContributed( SUMOTime lastNTimesteps ) const
 {
     return (double) distance( getStartIterator( lastNTimesteps ),
                      vehicleDataContM.end() );
@@ -313,9 +316,9 @@ MSInductLoop::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
 
 void
 MSInductLoop::writeXMLOutput(XMLDevice &dev,
-                             MSNet::Time startTime, MSNet::Time stopTime )
+                             SUMOTime startTime, SUMOTime stopTime )
 {
-    MSNet::Time t( stopTime-startTime+1 );
+    SUMOTime t( stopTime-startTime+1 );
     MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
         + distance(
@@ -336,7 +339,7 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
 }
 
 
-MSNet::Time
+SUMOTime
 MSInductLoop::getDataCleanUpSteps( void ) const
 {
     return deleteDataAfterStepsM;
@@ -385,7 +388,7 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 }
 
 
-MSNet::Time
+SUMOTime
 MSInductLoop::deleteOldData( void )
 {
     double deleteBeforeTimestep =
@@ -408,7 +411,7 @@ MSInductLoop::deleteOldData( void )
 
 
 MSInductLoop::VehicleDataCont::const_iterator
-MSInductLoop::getStartIterator( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
 {
     double startTime = 0;
     if ( lastNTimesteps < MSNet::getInstance()->timestep() ) {
@@ -423,7 +426,7 @@ MSInductLoop::getStartIterator( MSNet::Time lastNTimesteps ) const
 }
 
 MSInductLoop::DismissedCont::const_iterator
-MSInductLoop::getDismissedStartIterator( MSNet::Time lastNTimesteps ) const
+MSInductLoop::getDismissedStartIterator( SUMOTime lastNTimesteps ) const
 {
     double startTime = 0;
     if ( lastNTimesteps < MSNet::getInstance()->timestep() ) {

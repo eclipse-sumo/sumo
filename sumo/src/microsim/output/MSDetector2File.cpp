@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -42,6 +45,7 @@ namespace
 
 #include "MSDetector2File.h"
 #include <microsim/MSEventControl.h>
+#include <microsim/MSNet.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include <utils/iodevices/OutputDevice.h>

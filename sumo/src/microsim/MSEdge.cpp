@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.15  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -137,7 +140,6 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -147,7 +149,6 @@ namespace
 
 #include "MSEdge.h"
 #include "MSLane.h"
-#include "MSNet.h"
 #include "MSLaneChanger.h"
 #include "MSSlowLaneChanger.h"
 #include "MSGlobals.h"
@@ -205,13 +206,17 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     _function = function;
 
     if ( myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL ) {
-        myLaneChanger = new MSLaneChanger( myLanes );
+//      if((*(getLanes()))[0]->maxSpeed()>70/3.6) {
+            myLaneChanger = new MSLaneChanger( myLanes );
+/*      } else {
+            myLaneChanger = new MSSlowLaneChanger( myLanes );
+        }*/
     }
 }
 
 
 void
-MSEdge::detectCollisions( MSNet::Time timestep )
+MSEdge::detectCollisions( SUMOTime timestep )
 {
     // Ask lanes about collisions.
     for (LaneCont::iterator lane = myLanes->begin();
@@ -449,10 +454,6 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "MSEdge.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

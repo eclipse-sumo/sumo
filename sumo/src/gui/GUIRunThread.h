@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/02/01 10:10:38  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.7  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -51,10 +54,10 @@
 #include <fx.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXRealSpinDial.h>
-#include <microsim/MSNet.h>
 #include <utils/foxtools/FXMutex.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -116,7 +119,7 @@ public:
     virtual void deleteSim();
 
     /** returns the simulation's current time step */
-    MSNet::Time getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
     /** returns the loaded network */
     GUINet &getNet() const;
@@ -144,13 +147,13 @@ protected:
     GUINet                  *_net;
 
     /// the times the simulation starts and ends with
-    MSNet::Time             _simStartTime, _simEndTime;
+    SUMOTime             _simStartTime, _simEndTime;
 
     /// information whether the simulation is halting (is not being executed)
     bool                    _halting;
 
     /// the curent simulation step
-    MSNet::Time             _step;
+    SUMOTime             _step;
 
     /** information whether the thread shall be stopped
     (if not, the thread stays in an endless loop) */

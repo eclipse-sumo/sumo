@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.13  2004/08/02 12:15:43  dkrajzew
 // now one does not have to wait until all routes are read if something has failed
 //
@@ -61,7 +64,6 @@ namespace
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -86,6 +88,7 @@ namespace
 #include <utils/gfx/GfxConvHelper.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include "MSNet.h"
 
 
 /* =========================================================================
@@ -122,7 +125,7 @@ MSRouteHandler::init()
 }
 
 
-MSNet::Time
+SUMOTime
 MSRouteHandler::getLastDepart() const
 {
     return myLastDepart;

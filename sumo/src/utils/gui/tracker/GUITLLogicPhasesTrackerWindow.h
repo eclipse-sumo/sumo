@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:47  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:34:20  dkrajzew
 // added the possibility to display a complete phase
 //
@@ -49,12 +52,12 @@
 #include <utility>
 #include <fx.h>
 #include <fx3d.h>
-#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <helpers/ValueRetriever.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/foxtools/FXMutex.h>
+#include <utils/common/SUMOTime.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -79,7 +82,7 @@ class GUITrafficLightLogicWrapper;
 typedef std::pair<std::bitset<64>, std::bitset<64> > SimplePhaseDef;
 
 /// Definition of a complete phase information, including the time
-typedef std::pair<MSNet::Time, SimplePhaseDef> CompletePhaseDef;
+typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
 
 
 /* =========================================================================
@@ -118,7 +121,7 @@ public:
     void addValue(CompletePhaseDef def);
 
     /// Sets the time the display shall be shown as beginning at
-    void setBeginTime(MSNet::Time time);
+    void setBeginTime(SUMOTime time);
 
     //{
     /// called on size change
@@ -232,13 +235,13 @@ private:
     size_t myFirstPhaseOffset;
 
     /// The time the diagram begins at
-    MSNet::Time myFirstTime2Show;
+    SUMOTime myFirstTime2Show;
 
     /// The first time a phase was added at
-    MSNet::Time myBeginTime;
+    SUMOTime myBeginTime;
 
     /// The last time a phase was added at
-    MSNet::Time myLastTime;
+    SUMOTime myLastTime;
 
     /// The connector for retrival of further phases
     GLObjectValuePassConnector<CompletePhaseDef> *myConnector;

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -67,7 +70,6 @@
 #include <vector>
 #include <bitset>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 
@@ -135,7 +137,7 @@ MSSimpleTrafficLightLogic::nextStep()
 }
 
 
-MSNet::Time
+SUMOTime
 MSSimpleTrafficLightLogic::duration() const
 {
     assert(myPhases.size()>myStep);
@@ -143,7 +145,7 @@ MSSimpleTrafficLightLogic::duration() const
 }
 
 
-MSNet::Time
+SUMOTime
 MSSimpleTrafficLightLogic::nextPhase()
 {
     // increment the index to the current phase

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2004/04/02 11:36:27  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -75,7 +78,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -83,7 +85,6 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "MSNet.h"
 
 
 /* =========================================================================
@@ -115,8 +116,8 @@ public:
 
     /** @brief Emits vehicles at time, if which want to depart at this.
         If emission is not possible, the vehicles remain in the list.
-		Returns the number of emitted vehicles */
-    size_t emitVehicles( MSNet::Time time );
+        Returns the number of emitted vehicles */
+    size_t emitVehicles( SUMOTime time );
 
     /** @brief Adds a single vehicle for departure */
     void add( MSVehicle *veh );
@@ -143,13 +144,13 @@ private:
     /** @brief Tries to emit the vehicle
         If the emission fails, the vehicle is inserted into the given
         container.
-		Returns the number of emitted vehicles */
+        Returns the number of emitted vehicles */
     size_t tryEmit(MSVehicle *veh,
         MSVehicleContainer::VehicleVector &refusedEmits);
 
     /** Moves all vehicles which should have been emitted previously to the given time
         into the container of previously refused vehicles */
-    void checkPrevious(MSNet::Time time);
+    void checkPrevious(SUMOTime time);
 
 private:
     /// Unique ID.
@@ -186,10 +187,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-//#ifndef DISABLE_INLINE
-//#include "MSEmitControl.icc"
-//#endif
 
 #endif
 

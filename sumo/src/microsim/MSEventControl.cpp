@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.11  2003/09/05 15:09:16  dkrajzew
 // changed the return value of the event adding method for a better handling of the events by the setters
 //
@@ -195,12 +198,12 @@ MSEventControl::~MSEventControl()
 }
 
 
-MSNet::Time
+SUMOTime
 MSEventControl::addEvent( Command* operation,
-                          MSNet::Time execTimeStep,
+                          SUMOTime execTimeStep,
                           AdaptType type )
 {
-    MSNet::Time currTimeStep = MSNet::getInstance()->timestep();
+    SUMOTime currTimeStep = MSNet::getInstance()->timestep();
     if ( type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep ) {
         execTimeStep = currTimeStep + 1;
     }
@@ -211,7 +214,7 @@ MSEventControl::addEvent( Command* operation,
 
 
 void
-MSEventControl::execute(MSNet::Time execTime)
+MSEventControl::execute(SUMOTime execTime)
 {
     // Execute all events that are scheduled for execTime.
     for (;!myEvents.empty();) {
@@ -222,7 +225,7 @@ MSEventControl::execute(MSNet::Time execTime)
 
             Command *command = currEvent.first;
             myEvents.pop();
-            MSNet::Time time = command->execute( );
+            SUMOTime time = command->execute( );
 
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.
@@ -284,10 +287,6 @@ MSEventControl::clear()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "MSEventControl.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

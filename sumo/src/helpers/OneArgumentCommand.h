@@ -23,6 +23,9 @@
 
 
 // $Log$
+// Revision 1.8  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.7  2003/10/14 11:33:37  roessel
 // Switched from MSNet::Time to MSUnit::IntSteps.
 //
@@ -96,7 +99,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    MSNet::Time execute()
+    SUMOTime execute()
         {
             return ( myReceiver->*myOperation )( myArgument );
         }

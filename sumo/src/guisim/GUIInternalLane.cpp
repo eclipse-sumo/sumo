@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/02/01 10:10:39  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.17  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -201,7 +204,7 @@ GUIInternalLane::push( MSVehicle* veh )
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
         veh->onTripEnd(/* *this*/);
         veh->removeApproachingInformationOnKill(/*this*/);
         MSVehicleTransfer::getInstance()->addVeh(veh);

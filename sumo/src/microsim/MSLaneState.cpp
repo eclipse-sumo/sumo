@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2005/02/01 10:10:41  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.38  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -119,7 +122,7 @@ MSLaneState::MSLaneState( string id,
                           MSLane* lane,
                           double beginInMeters,
                           double lengthInMeters,
-                          MSNet::Time deleteDataAfterSeconds ) :
+                          SUMOTime deleteDataAfterSeconds ) :
     MSMoveReminder( lane, id ),
     timestepDataM     ( ),
     vehOnDetectorM    ( ),
@@ -224,7 +227,7 @@ MSLaneState::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 
 
 double
-MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
+MSLaneState::getNumberOfWaiting( SUMOTime lastNTimesteps )
 {
     assert( lastNTimesteps > 0 );
     if ( timestepDataM.empty() ) {
@@ -272,7 +275,7 @@ MSLaneState::getCurrentNumberOfWaiting( void )
 
 
 double
-MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
+MSLaneState::getMeanSpeed( SUMOTime lastNTimesteps )
 {
     // return unit is [m/s]
     assert( lastNTimesteps > 0 );
@@ -307,7 +310,7 @@ MSLaneState::getCurrentMeanSpeed( void )
 
 
 double
-MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
+MSLaneState::getMeanSpeedSquare( SUMOTime lastNTimesteps )
 {
     // return unit is [(m/s)^2]
     assert( lastNTimesteps > 0 );
@@ -344,7 +347,7 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
 
 
 double
-MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
+MSLaneState::getMeanDensity( SUMOTime lastNTimesteps )
 {
     // return unit is veh/km
     assert( lastNTimesteps > 0 );
@@ -372,7 +375,7 @@ MSLaneState::getCurrentDensity( void )
 
 
 double
-MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
+MSLaneState::getMeanTraveltime( SUMOTime lastNTimesteps )
 {
     // return unit is [s]
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
@@ -397,7 +400,7 @@ MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
 
 
 int
-MSLaneState::getNVehContributed( MSNet::Time lastNTimesteps )
+MSLaneState::getNVehContributed( SUMOTime lastNTimesteps )
 {
     if ( ! needsNewCalculation( lastNTimesteps ) ) {
         return nVehContributedM;
@@ -417,7 +420,7 @@ MSLaneState::getNVehContributed( MSNet::Time lastNTimesteps )
 
 
 int
-MSLaneState::getNVehEnteredDetector( MSNet::Time lastNTimesteps )
+MSLaneState::getNVehEnteredDetector( SUMOTime lastNTimesteps )
 {
     assert( lastNTimesteps > 0 );
     if ( timestepDataM.empty() ) {
@@ -429,7 +432,7 @@ MSLaneState::getNVehEnteredDetector( MSNet::Time lastNTimesteps )
 
 
 int
-MSLaneState::getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps )
+MSLaneState::getNVehLeftDetectorByMove( SUMOTime lastNTimesteps )
 {
     return accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
@@ -440,7 +443,7 @@ MSLaneState::getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps )
 
 
 int
-MSLaneState::getNVehPassedEntireDetector( MSNet::Time lastNTimesteps )
+MSLaneState::getNVehPassedEntireDetector( SUMOTime lastNTimesteps )
 {
     return accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
@@ -465,9 +468,9 @@ MSLaneState::writeXMLHeader( XMLDevice &dev ) const
 
 
 void
-MSLaneState::writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
+MSLaneState::writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime )
 {
-    MSNet::Time lastNTimesteps = stopTime-startTime+1;
+    SUMOTime lastNTimesteps = stopTime-startTime+1;
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
@@ -511,7 +514,7 @@ MSLaneState::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
 }
 
 
-MSNet::Time
+SUMOTime
 MSLaneState::getDataCleanUpSteps( void ) const
 {
     return deleteDataAfterStepsM;
@@ -649,7 +652,7 @@ MSLaneState::actionAfterMoveAndEmit( void )
 }
 
 
-MSNet::Time
+SUMOTime
 MSLaneState::deleteOldData( void )
 {
     // delete timestepDataM partly
@@ -659,7 +662,7 @@ MSLaneState::deleteOldData( void )
         timestepDataM.erase( timestepDataM.begin(), end );
     }
     // delete vehLeftDetectorM partly
-    MSNet::Time deleteBeforeStep =
+    SUMOTime deleteBeforeStep =
         MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
     if ( deleteBeforeStep > 0 ) {
         vehLeftDetectorM.erase(
@@ -706,7 +709,7 @@ MSLaneState::calcWaitingQueueLength( void )
 
 
 double
-MSLaneState::getStartTimestep( MSNet::Time lastNTimesteps )
+MSLaneState::getStartTimestep( SUMOTime lastNTimesteps )
 {
     double timestep =
         static_cast< double >( MSNet::getInstance()->timestep() ) -
@@ -719,7 +722,7 @@ MSLaneState::getStartTimestep( MSNet::Time lastNTimesteps )
 
 
 bool
-MSLaneState::needsNewCalculation( MSNet::Time lastNTimesteps )
+MSLaneState::needsNewCalculation( SUMOTime lastNTimesteps )
 {
     if ( modifiedSinceLastLookupM ||
          lookedUpLastNTimestepsM != lastNTimesteps ) {

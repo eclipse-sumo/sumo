@@ -28,6 +28,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2003/08/06 16:51:02  roessel
 // Better distinction between steps and seconds added.
 //
@@ -72,12 +75,15 @@
 // Revision 1.1  2002/01/09 15:05:30  croessel
 // Initial commit.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MSNet.h>
+#include <utils/common/SUMOTime.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * Base class for all Command classes. A concrete command will hold a
  * receiver and an operation on the receiver. This operation will be performed
@@ -100,7 +106,8 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    virtual MSNet::Time execute() = 0;
+    virtual SUMOTime execute() = 0;
+
 };
 
 #endif

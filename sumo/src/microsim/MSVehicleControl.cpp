@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/11/23 10:20:11  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -60,7 +63,7 @@ MSVehicleControl::~MSVehicleControl()
 
 MSVehicle *
 MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               MSNet::Time departTime,
+                               SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
 {
@@ -72,7 +75,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
 
 MSVehicle *
 MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               MSNet::Time departTime,
+                               SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset, const RGBColor &col)
 {

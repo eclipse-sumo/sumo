@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.3  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -105,7 +108,7 @@ public:
     MSInductLoop( const std::string& id,
                   MSLane* lane,
                   double positionInMeters,
-                  MSNet::Time deleteDataAfterSeconds);
+                  SUMOTime deleteDataAfterSeconds);
 
 
     /// Destructor. Clears containers.
@@ -180,7 +183,7 @@ public:
      *
      * @return Flow in [veh/h].
      */
-    double getFlow( MSNet::Time lastNTimesteps ) const;
+    double getFlow( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculates the mean-speed in [m/s] over the given interval.
@@ -191,7 +194,7 @@ public:
      * @return Mean-speed in [m/s] averaged over the vehicles that
      * passed during the lastNTimesteps.
      */
-    double getMeanSpeed( MSNet::Time lastNTimesteps ) const;
+    double getMeanSpeed( SUMOTime lastNTimesteps ) const;
 
     /*
      * Calculates the mean-speed-square in [m/(s^2)] over the given interval.
@@ -202,7 +205,7 @@ public:
      * @return Mean-speed-square in [m/(s^2)] averaged over the
      * vehicles that passed during the lastNTimesteps.
      */
-//    double getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const;
+//    double getMeanSpeedSquare( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculates the occupancy in [%], where 100% means lastNTimesteps.
@@ -212,7 +215,7 @@ public:
      *
      * @return Occupancy in [%].
      */
-    double getOccupancy( MSNet::Time lastNTimesteps ) const;
+    double getOccupancy( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculate the mean-vehicle-length in [m] averaged over the
@@ -224,7 +227,7 @@ public:
      * @return Mean vehicle-length in [m] averaged over the vehicles
      * that passed during the lastNTimesteps.
      */
-    double getMeanVehicleLength( MSNet::Time lastNTimesteps ) const;
+    double getMeanVehicleLength( SUMOTime lastNTimesteps ) const;
 
     /**
      * Counts the timesteps from the last leaving of the detector to
@@ -245,7 +248,7 @@ public:
      * @return Number of vehicles that passed the detector completely
      * over the lastNTimesteps.
      */
-    double getNVehContributed( MSNet::Time lastNTimesteps ) const;
+    double getNVehContributed( SUMOTime lastNTimesteps ) const;
     //@}
 
     /**
@@ -288,7 +291,7 @@ public:
      * @see MSDetector2File
      */
     void writeXMLOutput( XMLDevice &dev,
-        MSNet::Time startTime, MSNet::Time stopTime );
+        SUMOTime startTime, SUMOTime stopTime );
 
     /**
      * Get an opening XML-element containing information about the detector.
@@ -316,7 +319,7 @@ public:
      * Get the data-clean up interval in timesteps.
      *
      */
-    MSNet::Time getDataCleanUpSteps( void ) const;
+    SUMOTime getDataCleanUpSteps( void ) const;
     //@}
 
     /**
@@ -425,7 +428,7 @@ protected:
      *
      * @see MSEventControl
      */
-    MSNet::Time deleteOldData( void );
+    SUMOTime deleteOldData( void );
 
     typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
                                                         * vehicleDataContM. */
@@ -440,15 +443,15 @@ protected:
      * @return Iterator to vehicleDataContM.
      */
     VehicleDataCont::const_iterator getStartIterator(
-        MSNet::Time lastNTimesteps ) const;
+        SUMOTime lastNTimesteps ) const;
 
     DismissedCont::const_iterator getDismissedStartIterator(
-        MSNet::Time lastNTimesteps ) const;
+        SUMOTime lastNTimesteps ) const;
 
 
     const double posM;          /**< Detector's position on lane [cells]. */
 
-    MSNet::Time deleteDataAfterStepsM; /**< Deletion interval. */
+    SUMOTime deleteDataAfterStepsM; /**< Deletion interval. */
 
     double lastLeaveTimestepM;  /**< Leave-timestep of the last
                                  * vehicle detected. */

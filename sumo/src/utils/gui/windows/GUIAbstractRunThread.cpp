@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/02/01 10:10:48  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -214,7 +217,7 @@ GUIAbstractRunThread::deleteSim()
 
 
 
-MSNet::Time
+SUMOTime
 GUIAbstractRunThread::getCurrentTimeStep() const
 {
     return _step;

@@ -135,7 +135,7 @@ private:   // private members
 
     std::string myEmitId;
 
-    MSNet::Time myEmitTime;
+    SUMOTime myEmitTime;
 
     double myEmitSpeed;
 
@@ -155,6 +155,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.5  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2003/08/18 12:37:04  dkrajzew
 // xerces 2.2 and later compatibility patched
 //

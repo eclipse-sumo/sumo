@@ -268,7 +268,7 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
         throw ProcessError();
     }
 
-    MSNet::Time roundedTime = static_cast< MSNet::Time > (
+    SUMOTime roundedTime = static_cast< SUMOTime > (
             roundToNearestInt( time / double( MSNet::deltaT() ) ) );
 /*    if ( roundedTime <= myEmitTime ) {
         cerr << "MSTriggeredSource " << mySource.getId()
@@ -575,11 +575,11 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
-// Revision 1.13  2005/01/27 14:24:29  dkrajzew
-// patched several problems
+// Revision 1.14  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
 //
-// Revision 1.12  2004/11/23 10:20:10  dkrajzew
-// new detectors and tls usage applied; debugging
+// Revision 1.3  2005/01/06 10:48:07  dksumo
+// 0.8.2.1 patches
 //
 // Revision 1.2  2004/10/29 05:52:34  dksumo
 // fastened up the output of warnings and messages

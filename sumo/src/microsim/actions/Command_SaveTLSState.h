@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/02/16 14:02:57  dkrajzew
 // e2-link-dependent detectors added
-//
 //
 /* =========================================================================
  * included modules
@@ -30,14 +32,12 @@
 #include <string>
 #include <fstream>
 #include "Action.h"
-#include <microsim/MSNet.h>
 #include <helpers/Command.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class MSNet;
 class FileWriter;
 class MSTrafficLightLogic;
 
@@ -59,7 +59,7 @@ public:
     ~Command_SaveTLSState();
 
     /// Executes the action
-    MSNet::Time execute();
+    SUMOTime execute();
 
 private:
     /// The file to write to
@@ -69,7 +69,7 @@ private:
     MSTrafficLightLogic *myLogic;
 
     /// The time this action is executed
-    MSNet::Time myExecTime;
+    SUMOTime myExecTime;
 
 };
 

@@ -88,7 +88,7 @@ public:
         @return Returns 0 if emission was successful, otherwise 1 to be
         rescheduled at the next timestep.
     */
-    MSNet::Time emit( void );
+    SUMOTime emit( void );
 
 
 
@@ -98,7 +98,7 @@ protected: // protected methods
 
     /// Adds the read vehicle to the emit control
     void scheduleEmit( std::string aVehicleId,
-                       MSNet::Time aEmitTime,
+                       SUMOTime aEmitTime,
                        double      aEmitSpeed,
                        const MSVehicleType* aVehType );
 
@@ -129,7 +129,7 @@ private:   // private members
         ~RouteDistribution( void );
         void addElement( MSRoute* aRoute,
                          double aFrequency );
-		MSRoute* getRndRoute( void );
+        MSRoute* getRndRoute( void );
         unsigned getSize( void ) const;
     protected:
     private:
@@ -177,7 +177,7 @@ private:   // private members
     bool myIsRouteDistParsed;
     bool myIsNewEmitFound;
     MSVehicle* myVehicle;
-//    MSNet::Time myLastEmit;
+//    SUMOTime myLastEmit;
 
     SAX2XMLReader* myParser;
     XMLPScanToken  myToken;
@@ -192,6 +192,12 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.8  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
+// Revision 1.1  2004/10/22 12:49:31  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.7  2003/08/18 12:37:04  dkrajzew
 // xerces 2.2 and later compatibility patched
 //

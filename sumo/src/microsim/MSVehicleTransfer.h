@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -73,7 +76,7 @@ public:
 
     /** @brief Checks whether one of the stored vehicles may be inserted back into the network
         Otherwise, the vehicle may ove virtually to the next lane of it's route */
-    void checkEmissions(MSNet::Time time);
+    void checkEmissions(SUMOTime time);
 
     /// Returns the instance of this object
     static MSVehicleTransfer *getInstance();
@@ -94,16 +97,16 @@ private:
         MSVehicle *myVeh;
 
         /// The time the vehicle was inserted at
-        MSNet::Time myInsertTime;
+        SUMOTime myInsertTime;
 
         /// The time the vehicle should be moved virtually one lane further
-        MSNet::Time myProceedTime;
+        SUMOTime myProceedTime;
 /*
         /// The next edge within the vehicle's route
         MSEdge *myNextPossibleEdge;
 */
         /// Constructor
-        VehicleInformation(MSVehicle *veh, MSNet::Time insertTime, MSEdge *e)
+        VehicleInformation(MSVehicle *veh, SUMOTime insertTime, MSEdge *e)
             : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)/*,
             myNextPossibleEdge(e)*/
         { }
@@ -125,8 +128,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#endif
 
 #endif
 

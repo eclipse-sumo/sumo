@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:44  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/12/16 12:15:00  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -38,6 +41,9 @@
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 // $Log$
+// Revision 1.3  2005/02/01 10:10:44  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/12/16 12:15:00  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -52,7 +58,6 @@
 //
 // Revision 1.6  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
-//
 //
 /* =========================================================================
  * included modules
@@ -159,7 +164,7 @@ public:
      * (now-lastNTimesteps, now].
      */
     void writeXMLOutput( XMLDevice &dev,
-        MSNet::Time startTime, MSNet::Time stopTime );
+        SUMOTime startTime, SUMOTime stopTime );
 
     /**
      * Get an opening XML-element containing information about the detector.

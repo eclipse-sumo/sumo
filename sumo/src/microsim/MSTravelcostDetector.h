@@ -36,6 +36,7 @@
 #include <utils/convert/ToString.h>
 #include <helpers/OneArgumentCommand.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/SUMOTime.h>
 
 
 /**
@@ -46,7 +47,7 @@
  * The template parameter class Cost must offer following methods:
  * A constructor
  * Cost( std::string id, MSLane* lane, double startPos, double length,
- * MSNet::Time deleteDataAfterSeconds)
+ * SUMOTime deleteDataAfterSeconds)
  * and it must be a
  * MSDetectorFileOutput
  *
@@ -60,7 +61,7 @@ class MSTravelcostDetector
 {
 public:
     /// Type of the internal intervalInSteps-file map.
-    typedef std::map< MSNet::Time, std::ofstream* > IntervalFileMap;
+    typedef std::map< SUMOTime, std::ofstream* > IntervalFileMap;
     /// Type of an iterator to the interval-file map.
     typedef typename IntervalFileMap::iterator IntervalFileMapIt;
     /// Type of the internal lane-cost container.
@@ -82,7 +83,7 @@ public:
      *
      * @see MSLaneState
      */
-    static void create( MSNet::Time maxIntervalInSeconds )
+    static void create( SUMOTime maxIntervalInSeconds )
         {
             assert( instanceM == 0 );
             instanceM = new MSTravelcostDetector( maxIntervalInSeconds );
@@ -132,16 +133,16 @@ public:
      *
      * @param intervalLength Length of the sample interval.
      */
-    void addSampleInterval( MSNet::Time intervalInSeconds )
+    void addSampleInterval( SUMOTime intervalInSeconds )
         {
-            MSNet::Time intervalInSteps = MSNet::getSteps( intervalInSeconds );
+            SUMOTime intervalInSteps = MSNet::getSteps( intervalInSeconds );
             assert( maxIntervalInStepsM >= intervalInSteps );
             assert( intervalInSteps >= 1 );
             if ( intervalsAndFilesM.find( intervalInSteps ) !=
                  intervalsAndFilesM.end() ) {
 
                 WRITE_WARNING("MSTravelcostDetector::addSampleInterval ");
-                WRITE_WARNING(string("intervalLength ")+ toString<MSNet::Time>(intervalInSeconds)+ string(" s already added. Ignoring."));
+                WRITE_WARNING(string("intervalLength ")+ toString<SUMOTime>(intervalInSeconds)+ string(" s already added. Ignoring."));
                 return;
             }
             // open file
@@ -173,7 +174,7 @@ public:
      * @return Length of the sample interval. This adds a new Event to
      * MSEventControl that is due in intervalLength timesteps.
      */
-    MSNet::Time write2file( int intervalInSteps )
+    SUMOTime write2file( int intervalInSteps )
         {
             IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalInSteps);
             assert( ifIt != intervalsAndFilesM.end() );
@@ -210,7 +211,7 @@ protected:
      * @param maxIntervalLength Maximum length of a sample interval added by
      * addSampleInterval().
      */
-    MSTravelcostDetector( MSNet::Time maxIntervalInSeconds ) :
+    MSTravelcostDetector( SUMOTime maxIntervalInSeconds ) :
         intervalsAndFilesM(),
         edgeLaneCostsM(),
         maxIntervalInStepsM( MSNet::getSteps( maxIntervalInSeconds ) )
@@ -249,7 +250,7 @@ private:
     static MSTravelcostDetector* instanceM; /**< The sole instance of this
                                              * class. */
 
-    MSNet::Time maxIntervalInStepsM; /**< Maximum interval length to be added
+    SUMOTime maxIntervalInStepsM; /**< Maximum interval length to be added
                                       * by addSampleInterval().*/
 };
 

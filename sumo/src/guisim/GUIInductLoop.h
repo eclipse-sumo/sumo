@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/02/01 10:10:39  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.12  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -46,7 +49,6 @@
  * included modules
  * ======================================================================= */
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include "GUIDetectorWrapper.h"
 
@@ -72,7 +74,7 @@ class GUIInductLoop : public MSInductLoop
 public:
     /// Construtor
     GUIInductLoop(const std::string &id, MSLane* lane, double position,
-        MSNet::Time deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Destructor
     ~GUIInductLoop();
@@ -152,10 +154,6 @@ public:
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "GUIInductLoop.icc"
-//#endif
 
 #endif
 

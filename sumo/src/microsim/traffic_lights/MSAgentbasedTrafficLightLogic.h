@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -74,7 +77,6 @@
 #include <bitset>
 #include <map>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
@@ -135,14 +137,14 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase();
+    virtual SUMOTime nextPhase();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() ;
+    virtual SUMOTime duration() ;
 
-    /** Returns the index of the phase next to the given phase
-        and stores the duration of the phase, which was just sent
-        or stores the activation-time in _lastphase of the phase next */
+    /// Returns the index of the phase next to the given phase
+    /// and stores the duration of the phase, which was just sent
+    /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
 
     /// Collects the trafficdata
@@ -164,8 +166,8 @@ protected:
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
-    /** initializes the duration of the phases (except the intergeentimes)
-        so that the time cycletime tCyle is kept */
+    /// initializes the duration of the phases (except the intergeentimes)
+    /// so that the time cycletime tCyle is kept
     virtual void initializeDuration();
 
     /// lenghtend the actual cycle by an given value

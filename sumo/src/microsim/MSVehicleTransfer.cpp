@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.12  2004/11/23 10:20:11  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -100,7 +103,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 
 
 void
-MSVehicleTransfer::checkEmissions(MSNet::Time time)
+MSVehicleTransfer::checkEmissions(SUMOTime time)
 {
     // go through vehicles
     for(VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
@@ -129,7 +132,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                 }
 //                desc.myNextPossibleEdge = nextEdge;
                 // get the time the vehicle needs to pass the current edge
-                desc.myProceedTime = time + (MSNet::Time) (tmp->length() / tmp->maxSpeed()
+                desc.myProceedTime = time + (SUMOTime) (tmp->length() / tmp->maxSpeed()
                     * 2.0); // !!! maybe, the time should be compued in other ways
             }
             i++;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.7  2004/08/02 12:08:39  dkrajzew
 // raw-output extracted; output device handling rechecked
 //
@@ -115,7 +118,6 @@ namespace
 
 #include "MSEdgeControl.h"
 #include "MSEdge.h"
-#include "MSNet.h"
 #include "MSLane.h"
 #include <iostream>
 #include <vector>
@@ -239,7 +241,7 @@ MSEdgeControl::changeLanes()
 
 
 void
-MSEdgeControl::detectCollisions( MSNet::Time timestep )
+MSEdgeControl::detectCollisions( SUMOTime timestep )
 {
     EdgeCont::iterator edge;
     // Detections is made by the edge's lanes, therefore hand over.

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -98,7 +101,6 @@
 #include <bitset>
 #include <map>
 #include <microsim/MSEventControl.h>
-#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSActuatedPhaseDefinition.h"
 #include "MSExtendedTrafficLightLogic.h"
@@ -151,14 +153,14 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase();
+    virtual SUMOTime nextPhase();
 
     /// Returns the duration of the given step
-    virtual MSNet::Time duration() const;
+    virtual SUMOTime duration() const;
 
-    /** Returns the index of the phase next to the given phase
-        and stores the duration of the phase, which was just sent
-        or stores the activation-time in _lastphase of the phase next */
+    /// Returns the index of the phase next to the given phase
+    /// and stores the duration of the phase, which was just sent
+    /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
 
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green

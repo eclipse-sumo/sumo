@@ -22,12 +22,23 @@
 //---------------------------------------------------------------------------//
 
 // $Id$
-
+// $Log$
+// Revision 1.2  2005/02/01 10:10:43  dkrajzew
+// got rid of MSNet::Time
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <microsim/MSUnit.h>
-#include <microsim/MSNet.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/SUMOTime.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * Pure virtual base class for classes (e.g. MSLaneState and
  * MSInductLoop) that should produce XML-output via the
@@ -58,7 +69,7 @@ public:
      * (now-lastNTimesteps, now].
      */
     virtual void writeXMLOutput( XMLDevice &dev,
-        MSNet::Time startTime, MSNet::Time stopTime ) = 0;
+        SUMOTime startTime, SUMOTime stopTime ) = 0;
     /**
      * Get an opening XML-element containing information about the detector.
      */
@@ -75,8 +86,11 @@ public:
 
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
+

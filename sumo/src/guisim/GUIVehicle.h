@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2005/02/01 10:10:39  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.18  2004/12/16 12:20:09  dkrajzew
 // debugging
 //
@@ -125,9 +128,9 @@ public:
         size_t time;
         float val;
     };
-	void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
+    void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
 
-	void networking_KnowsAbout(GUIVehicle *v2, MSNet::Time t);
+    void networking_KnowsAbout(GUIVehicle *v2, SUMOTime t);
     void networking_Begin();
     void networking_End();
     const std::vector<networking_EdgeTimeInformation> &
@@ -186,17 +189,17 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
+    //{
+    Boundary getCenteringBoundary() const;
+    //}
 
 //    virtual size_t getTableParameterNo() const;
 
 // GUINet is allowed to build vehicles
     friend class GUIVehicleControl;
-	bool active() const;
+    bool active() const;
 
-	void setRemoved();
+    void setRemoved();
 
     int getRepetitionNo() const;
     int getPeriod() const;
@@ -240,7 +243,7 @@ public:
 protected:
     /// Use this constructor only.
     GUIVehicle( GUIGlObjectStorage &idStorage,
-        std::string id, MSRoute* route, MSNet::Time departTime,
+        std::string id, MSRoute* route, SUMOTime departTime,
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset, const RGBColor &color);
 /*

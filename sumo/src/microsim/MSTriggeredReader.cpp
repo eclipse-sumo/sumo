@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -32,22 +35,25 @@ namespace
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <microsim/MSNet.h>
 #include <helpers/PreStartInitialised.h>
 #include "MSTriggeredReader.h"
 
 
-
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * MSTriggeredReader::MSTriggerCommand-methods
+ * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent)
     : _parent(parent)
 {
@@ -59,7 +65,7 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand( void )
 }
 
 
-MSNet::Time
+SUMOTime
 MSTriggeredReader::MSTriggerCommand::execute()
 {
     _parent.processNext();
@@ -68,22 +74,21 @@ MSTriggeredReader::MSTriggerCommand::execute()
 }
 
 
+/* -------------------------------------------------------------------------
+ * MSTriggeredReader-methods
+ * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggeredReader(MSNet &net)
     : PreStartInitialised(net), _offset(0)
 {
 }
+
 
 MSTriggeredReader::~MSTriggeredReader()
 {
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSTriggeredReader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

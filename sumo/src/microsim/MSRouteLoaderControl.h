@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -63,7 +66,7 @@ public:
     ~MSRouteLoaderControl();
 
     /// loads the next routes
-    MSVehicleContainer &loadNext(MSNet::Time step);
+    MSVehicleContainer &loadNext(SUMOTime step);
 
     /** reinitialises the loader for reading
         (implemented from PreStartInitialised:
@@ -90,10 +93,6 @@ public:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-//#ifndef DISABLE_INLINE
-//#include "MSRouteLoaderControl.icc"
-//#endif
 
 #endif
 

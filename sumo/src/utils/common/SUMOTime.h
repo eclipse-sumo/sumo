@@ -3,5 +3,7 @@
 
 typedef size_t SUMOTime;
 
+//!!!
+typedef unsigned long ExtSUMOTime;
 
 #endif

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2004/11/23 10:14:27  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
@@ -61,22 +64,22 @@ public:
     virtual ~MSMeanData_Net();
 
     virtual void write(XMLDevice &dev,
-        MSNet::Time startTime, MSNet::Time stopTime);
+        SUMOTime startTime, SUMOTime stopTime);
 
     virtual void writeEdge(XMLDevice &dev,
         const MSEdge &edge,
-        MSNet::Time startTime, MSNet::Time stopTime);
+        SUMOTime startTime, SUMOTime stopTime);
 
     virtual void writeLane(XMLDevice &dev,
         const MSLane &lane,
-        MSNet::Time startTime, MSNet::Time stopTime);
+        SUMOTime startTime, SUMOTime stopTime);
 
     friend class MSMeanData_Net_Utils;
 
     std::string  getNamePrefix( void ) const;
     void writeXMLHeader( XMLDevice &dev ) const;
     virtual void writeXMLOutput( XMLDevice &dev,
-        MSNet::Time startTime, MSNet::Time stopTime );
+        SUMOTime startTime, SUMOTime stopTime );
     void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
     void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
     MSUnit::IntSteps getDataCleanUpSteps( void ) const;

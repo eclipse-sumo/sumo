@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/02/01 10:10:41  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.9  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -43,7 +46,10 @@ namespace
 // removed some warnings
 //
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
@@ -58,7 +64,6 @@ namespace
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <helpers/Command.h>
-#include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
@@ -136,7 +141,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
         }
         // set the values for the next step as they are valid
         myCurrentSpeed = speed;
-        _offset = MSNet::Time(next);
+        _offset = SUMOTime(next);
         myHaveNext = true;
         myLoadedSpeed = myCurrentSpeed;
         if(myAmOverriding) {

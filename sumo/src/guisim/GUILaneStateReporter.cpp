@@ -8,7 +8,7 @@ GUILaneStateReporter::GUILaneStateReporter(
         LoggedValue_TimeFloating<double> *speedRetriever,
         LoggedValue_TimeFloating<double> *haltingDurRetriever,
         float &floatingDensity, float &floatingSpeed, float &floatingHaltings,
-        const std::string &id, MSLane *lane, MSNet::Time interval)
+        const std::string &id, MSLane *lane, SUMOTime interval)
     : MSE2Collector(id, DU_SUMO_INTERNAL, lane, 0.1, lane->length()-0.2, //interval,
         /*haltingTimeThreshold*/ 1, /*haltingSpeedThreshold*/5.0/3.6,
         /*jamDistThreshold*/ 10, /*deleteDataAfterSeconds*/ interval), // !!!

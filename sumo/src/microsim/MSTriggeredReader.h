@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2003/10/01 11:30:41  dkrajzew
 // hierarchy problems patched
 //
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -41,6 +41,7 @@
 #include <helpers/Command.h>
 #include <utils/common/FileErrorReporter.h>
 #include <helpers/PreStartInitialised.h>
+
 
 /* =========================================================================
  * class definitions
@@ -83,7 +84,7 @@ protected:
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual MSNet::Time execute();
+        virtual SUMOTime execute();
 
     private:
         /// The parent reader
@@ -98,7 +99,7 @@ public:
 
 protected:
     /// The offset to the next event
-    MSNet::Time _offset;
+    SUMOTime _offset;
 
 private:
     /// invalidated default constructor
@@ -113,11 +114,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSTriggeredReader.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/02/01 10:10:42  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.6  2004/07/02 09:26:24  dkrajzew
 // classes prepared to be derived
 //
@@ -43,9 +46,9 @@
  * ======================================================================= */
 #include <string>
 #include "MSRoute.h"
-#include "MSNet.h"
 #include "MSEmitControl.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -89,7 +92,7 @@ public:
         b) another route with the same id already exists */
     virtual void closeRoute();
 
-    MSNet::Time getLastDepart() const;
+    SUMOTime getLastDepart() const;
 
     MSVehicle *retrieveLastReadVehicle();
 
@@ -133,7 +136,7 @@ protected:
 
 protected:
     /// the emission time of the vehicle read last
-    MSNet::Time myLastDepart;
+    SUMOTime myLastDepart;
 
     /// the last vehicle read
     MSVehicle *myLastReadVehicle;
@@ -163,9 +166,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSRouteHandler.icc"
-//#endif
 
 #endif
 

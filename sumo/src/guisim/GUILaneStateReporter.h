@@ -3,7 +3,6 @@
 
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
-#include <microsim/MSNet.h>
 #include <microsim/MSUpdateEachTimestep.h>
 
 
@@ -15,7 +14,7 @@ public:
         LoggedValue_TimeFloating<double> *speedRetriever,
         LoggedValue_TimeFloating<double> *haltingDurRetriever,
         float &floatingDensity, float &floatingSpeed, float &floatingHaltings,
-        const std::string &id, MSLane *lane, MSNet::Time interval);
+        const std::string &id, MSLane *lane, SUMOTime interval);
     ~GUILaneStateReporter();
     bool updateEachTimestep( void );
 protected:

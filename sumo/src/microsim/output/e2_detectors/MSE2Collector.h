@@ -513,7 +513,7 @@ public:
     /// @return XML-output of all existing concrete detectors. Except
     /// APPROACHING_VEHICLES_STATES.
     ///
-    void writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
+    void writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime )
         {
             dev.writeString("<interval begin=\"").writeString(
                 toString(startTime)).writeString("\" end=\"").writeString(
@@ -930,7 +930,7 @@ private:
     ///
     template< class Cont >
     void writeXMLOutput( XMLDevice &dev, Cont& container,
-            MSNet::Time startTime, MSNet::Time stopTime)
+            SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
                 stopTime-startTime+1;

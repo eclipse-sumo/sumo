@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/02/01 10:10:47  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.2  2005/01/27 14:34:19  dkrajzew
 // added the possibility to display a complete phase
 //
@@ -315,12 +318,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         h = myTLLogic->getLinks().size() * 20 + 12;
         float glh = (float) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
             // current begin time
-        string timeStr = toString<MSNet::Time>(myFirstTime2Show);
+        string timeStr = toString<SUMOTime>(myFirstTime2Show);
         GUITexturesHelper::getFontRenderer().StringOut(
             (float) (31-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
             (float) h, timeStr);
             // time ticks
-        MSNet::Time currTime = myFirstTime2Show;
+        SUMOTime currTime = myFirstTime2Show;
         size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
         float glpos = (float) (pos / width);
         glColor3d(1, 1, 1);
@@ -336,7 +339,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             }
             pos += a2;
             currTime += tickDist;
-            timeStr = toString<MSNet::Time>(currTime);
+            timeStr = toString<SUMOTime>(currTime);
             GUITexturesHelper::getFontRenderer().StringOut(
                 (float) (pos-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
                 (float) h, timeStr);
@@ -443,7 +446,7 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*sender,
 
 
 void
-GUITLLogicPhasesTrackerWindow::setBeginTime(MSNet::Time time)
+GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time)
 {
     myBeginTime = time;
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -278,7 +281,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 }
 
 
-MSNet::Time
+SUMOTime
 MSAgentbasedTrafficLightLogic::nextPhase()
 {
     assert (currentPhaseDef()->minDuration >=0);
@@ -467,7 +470,7 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 }
 
 
-MSNet::Time
+SUMOTime
 MSAgentbasedTrafficLightLogic::duration()
 {
     while (currentPhaseDef()->duration==0) {

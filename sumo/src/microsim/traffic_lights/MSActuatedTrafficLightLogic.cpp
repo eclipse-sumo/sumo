@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/02/01 10:10:46  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.3  2005/01/27 14:22:44  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -158,7 +161,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
 }
 
 
-MSNet::Time
+SUMOTime
 MSActuatedTrafficLightLogic::duration() const
 {
     if(_continue) {
@@ -195,7 +198,7 @@ MSActuatedTrafficLightLogic::duration() const
 }
 
 
-MSNet::Time
+SUMOTime
 MSActuatedTrafficLightLogic::nextPhase()
 {
     // checks if the actual phase should be continued
@@ -220,10 +223,10 @@ MSActuatedTrafficLightLogic::sproutDetectors(
         double det_offset)
 {
     // change values for setting the loops and lanestate-detectors, here
-    MSNet::Time inductLoopInterval = 1; //
+    SUMOTime inductLoopInterval = 1; //
     // as the laneStateDetector shall end at the end of the lane, the position
     // is calculated, not given
-    MSNet::Time laneStateDetectorInterval = 1; //
+    SUMOTime laneStateDetectorInterval = 1; //
 
     std::vector<MSLane*>::const_iterator i;
     // build the induct loops
@@ -277,7 +280,7 @@ MSActuatedTrafficLightLogic::nextStep()
     }
     //stores the time the phase started
     static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
-        MSNet::globaltime;
+        MSNet::getInstance()->getCurrentTimeStep();
     return myStep;
 }
 
@@ -305,8 +308,8 @@ MSActuatedTrafficLightLogic::gapControl()
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
-    MSNet::Time actDuration =
-        MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
+    SUMOTime actDuration =
+        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
         return _continue = false;
     }

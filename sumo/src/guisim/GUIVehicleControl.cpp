@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/02/01 10:10:40  dkrajzew
+// got rid of MSNet::Time
+//
 // Revision 1.4  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -61,7 +64,7 @@ GUIVehicleControl::~GUIVehicleControl()
 
 MSVehicle *
 GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               MSNet::Time departTime,
+                               SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
 {
@@ -71,7 +74,7 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
 
 MSVehicle *
 GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               MSNet::Time departTime,
+                               SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset, const RGBColor &col)
 {
@@ -96,9 +99,9 @@ GUIVehicleControl::scheduleVehicleRemoval(MSVehicle *veh)
     myRunningVehNo--;
     myEndedVehNo++;
     static_cast<GUIVehicle*>(veh)->setRemoved();
-	if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
-		MSVehicle::remove(veh->id());
-	}
+    if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
+        MSVehicle::remove(veh->id());
+    }
 }
 
 
