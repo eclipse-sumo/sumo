@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.8  2003/09/22 12:34:03  dkrajzew
+// both method must return a value
+//
 // Revision 1.7  2003/09/21 17:18:48  roessel
 // Switched pure virtual methods to virtual ones.
 //
@@ -72,7 +75,7 @@ public:
     MSMoveReminder( MSLane* lane, std::string id ) :
         laneM( lane ),
         idM( id ) {}
-    
+
     /**
      * Destructor.
      *
@@ -98,12 +101,14 @@ public:
                                 double newSpeed )
         {
             assert (false);
+            return false;
         }
     virtual bool isStillActive( MSVehicle& veh,
                                 double oldPos,
                                 double newPos )
         {
             assert (false);
+            return false;
         }
 
     /**
@@ -124,18 +129,18 @@ public:
      */
     virtual bool isActivatedByEmitOrLaneChange( MSVehicle& veh ) = 0;
 
-    /** 
+    /**
      * Get the reminders id. The default value is "". If the MSMoveReminder
      * objects are stored in a SingleDictionary, the ids are distinct.
-     * 
+     *
      * @return The reminders id.
      */
     const std::string getId( void ) const
         {
             return idM;
         }
-    
-    /** 
+
+    /**
      * The lane the reminder works on.
      *
      * @return The lane the reminder works on.
