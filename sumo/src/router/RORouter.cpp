@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/01 15:19:51  dkrajzew
+// behaviour on broken nets patched
+//
 // Revision 1.3  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -69,7 +72,13 @@ RORouter::compute(ROEdge *from, ROEdge *to, long time)
 
 ROEdgeVector
 RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
-    // retrieve the nodes
+    int debugbla = 0;
+    if(from->getID()=="VissimFromParkingplace3000044-697"
+        &&
+        to->getID()=="VissimToParkingplace3000010-97") {
+        int bla = 0;
+        debugbla = 1;
+    }
     // check the nodes
     if(from==0||to==0) {
         throw exception();
@@ -128,6 +137,8 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
             return buildPathFrom(to);
 		}
 	}
+    cout << "Nope!" << endl;
+    throw 1;
     return buildPathFrom(to);
 }
 

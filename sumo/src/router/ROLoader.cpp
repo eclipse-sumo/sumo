@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/01 15:19:51  dkrajzew
+// behaviour on broken nets patched
+//
 // Revision 1.6  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -93,8 +96,9 @@ ROLoader::loadNet()
     RONet *net = new RONet(_options.isSet("sumo-input"));
     std::string files = _options.getString("n");
     if(!FileHelpers::checkFileList(files)) {
-        SErrorHandler::add("No net given found!");
-        return false;
+        SErrorHandler::add("Net not found!");
+        delete net;
+        return 0;
     }
     RONetHandler handler(_options, *net);
     // build and prepare the parser
@@ -289,17 +293,19 @@ ROLoader::loadWeights(RONet &net) {
     // build and prepare the parser
     SAX2XMLReader *reader = getSAXReader(handler);
     // report whe wished
-    if(_options.getBool("v"))
+    if(_options.getBool("v")) {
         cout << "Loading precomputed net weights." << endl;
+    }
     // read the file
     reader->parse(weightsFileName.c_str());
     bool ok = !SErrorHandler::errorOccured();
     // report whe wished
     if(_options.getBool("v")) {
-        if(ok)
+        if(ok) {
             cout << "done." << endl;
-        else
+        } else {
             cout << "failed." << endl;
+        }
     }
     delete reader;
     return ok;
@@ -314,8 +320,21 @@ ROLoader::getSAXReader(GenericSAX2Handler &handler)
         return 0;
     }
     reader->setFeature(
-        XMLString::transcode("http://xml.org/sax/features/validation"),
-        false);
+        XMLString::transcode(
+            "http://xml.org/sax/features/namespaces" ), false );
+    reader->setFeature(
+        XMLString::transcode(
+            "http://apache.org/xml/features/validation/schema" ), false );
+    reader->setFeature(
+        XMLString::transcode(
+            "http://apache.org/xml/features/validation/schema-full-checking"),
+        false );
+    reader->setFeature(
+        XMLString::transcode(
+            "http://xml.org/sax/features/validation"), false );
+    reader->setFeature(
+        XMLString::transcode(
+            "http://apache.org/xml/features/validation/dynamic" ), false );
     reader->setContentHandler(&handler);
     reader->setErrorHandler(&handler);
     return reader;
@@ -437,20 +456,25 @@ ROLoader::loadNet(SAX2XMLReader *reader, RONetHandler &handler,
     }
     bool ok = true;
     while(ok&&st.hasNext()) {
+        ok = false;
         string tmp = st.next();
 	    if(FileHelpers::exists(tmp)) {
 	        handler.setFileName(tmp);
 	        reader->parse(tmp.c_str());
 	        ok = !(SErrorHandler::errorOccured());
 	    } else {
-            if(_options.getBool("v"))
+            if(_options.getBool("v")) {
                 cout << "failed." << endl;
+            }
     	    SErrorHandler::add(string("The given file '") + tmp + string("' does not exist!"), true);
             ok = false;
 	    }
     }
-    if(_options.getBool("v"))
-        cout << "done." << endl;
+    if(_options.getBool("v")) {
+        if(ok) {
+            cout << "done." << endl;
+        }
+    }
     return ok;
 }
 
