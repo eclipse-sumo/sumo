@@ -4,7 +4,13 @@ EXTRA_DIST =
 
 AM_CPPFLAGS =
 
-SUBDIRS = arcview cell sumo vissim visum xml
+SUBDIRS = arcview \
+cell \
+sumo \
+vissim \
+visum \
+xml 
+
 
 
 
