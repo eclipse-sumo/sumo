@@ -167,6 +167,9 @@ struct MSDetectorHaltingContainerWrapper
             if ( containerM.size() >= 1 ) {
                 containerM.begin()->isInJamM = false;
             }
+            if ( containerM.size() == 1 ) {
+                containerM.begin()->isInJamM = containerM.begin()->isHaltingM;
+            }
             if ( containerM.size() > 1 ) {
                 for ( HaltingsIt jamIt = containerM.begin();
                       jamIt != --containerM.end(); /* empty */ ){
