@@ -20,6 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 
+// $Log$
+// Revision 1.9  2004/12/20 14:05:16  dkrajzew
+// version patched
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 /* =========================================================================
  * definitions
  * ======================================================================= */
@@ -27,7 +39,7 @@
  * The list of help strings for the sumo-od2trips module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - od2trips application",
+    "Simulation of Urban MObility v0.8.2.1 - od2trips application",
     "  Merges OD matrix and net to trip tables.",
     "  http://sumo.sourceforge.net",
     "Usage: od2trips [OPTION]*",

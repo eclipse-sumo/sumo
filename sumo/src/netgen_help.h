@@ -20,11 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/20 14:05:16  dkrajzew
+// version patched
+//
 // Revision 1.4  2004/12/20 13:15:58  dkrajzew
 // options output corrected
 //
 // Revision 1.3  2003/12/04 12:51:26  dkrajzew
-// documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
+// documentation added; possibility to use actuated and agentbased junctions
+//  added; usage of street types patched
 //
 // Revision 1.2  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
@@ -45,7 +49,7 @@
  * ======================================================================= */
 char *help[] =
 {
-    "Simulation of Urban MObility v0.8.2 - netgen application",
+    "Simulation of Urban MObility v0.8.2.1 - netgen application",
     "  Generates abstract networks.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-netgen [OPTION]*",

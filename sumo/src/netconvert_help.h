@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2004/12/20 14:05:15  dkrajzew
+// version patched
+//
 // Revision 1.9  2004/12/20 13:15:58  dkrajzew
 // options output corrected
 //
@@ -30,7 +33,10 @@
 // included new options into the help-screens
 //
 // Revision 1.6  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.5  2003/06/05 14:41:53  dkrajzew
 // further parameter contraining the area of connectors to join (VIssim) added
@@ -42,7 +48,8 @@
 // files updated
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
-// Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
+// Moved from ROOT/sumo to ROOT/src; added further help and main files for
+//  netconvert, router, od2trips and gui version
 //
 // Revision 1.6  2002/07/25 08:24:09  dkrajzew
 // Visum and Cell import added
@@ -68,7 +75,7 @@
  * The help text
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - netconvert application",
+    "Simulation of Urban MObility v0.8.2.1 - netconvert application",
     "  Imports networks.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-netconvert [OPTION]*",

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/20 14:05:15  dkrajzew
+// version patched
+//
 // Revision 1.2  2004/12/20 13:15:58  dkrajzew
 // options output corrected
 //
@@ -27,7 +30,8 @@
 // applied better names
 //
 // Revision 1.7  2003/10/27 10:47:49  dkrajzew
-// added to possibility to close the application after a simulations end without user interaction
+// added to possibility to close the application after a simulations end
+//  without user interaction
 //
 // Revision 1.6  2003/07/07 08:40:09  dkrajzew
 // included new options into the help-screens
@@ -52,7 +56,7 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - guisim application",
+    "Simulation of Urban MObility v0.8.2.1 - guisim application",
     "  The graphical version of the simulation.",
     "  http://sumo.sourceforge.net",
     "Usage: guisim [OPTION]*",

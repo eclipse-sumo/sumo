@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/20 14:05:15  dkrajzew
+// version patched
+//
 // Revision 1.4  2004/12/20 13:15:58  dkrajzew
 // options output corrected
 //
@@ -48,7 +51,10 @@
 // included new options into the help-screens
 //
 // Revision 1.9  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.8  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
@@ -69,6 +75,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+
 /* =========================================================================
  * definitions
  * ======================================================================= */
@@ -76,7 +83,7 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - duarouter application",
+    "Simulation of Urban MObility v0.8.2.1 - duarouter application",
     "  Routes vehicles by shortest path using dua.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-duarouter [OPTION]*",
