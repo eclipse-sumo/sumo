@@ -23,6 +23,9 @@ namespace
 		 "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/06 08:48:11  dkrajzew
+// memory leaks removed
+//
 // Revision 1.1  2004/01/26 07:27:04  dkrajzew
 // added some xml-helping functions
 //
@@ -64,22 +67,16 @@ XMLHelpers::getSAXReader(DefaultHandler &handler)
         MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
         return 0;
     }
-    reader->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/namespaces" ), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema" ), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema-full-checking"),
-        false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/validation"), false );
-    reader->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/dynamic" ), false );
+    setFeature(*reader, 
+        "http://xml.org/sax/features/namespaces", false);
+    setFeature(*reader, 
+        "http://apache.org/xml/features/validation/schema", false );
+    setFeature(*reader, 
+        "http://apache.org/xml/features/validation/schema-full-checking", false );
+    setFeature(*reader, 
+        "http://xml.org/sax/features/validation", false );
+    setFeature(*reader, 
+        "http://apache.org/xml/features/validation/dynamic" , false );
     reader->setContentHandler(&handler);
     reader->setErrorHandler(&handler);
     return reader;
@@ -93,6 +90,16 @@ XMLHelpers::runParser(XERCES_CPP_NAMESPACE_QUALIFIER DefaultHandler &handler,
     SAX2XMLReader *reader = getSAXReader(handler);
 	reader->parse(file.c_str());
 	delete reader;
+}
+
+
+void 
+XMLHelpers::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
+                       const std::string &feature, bool value)
+{
+    XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
+    reader.setFeature(xmlFeature, false );
+    XMLString::release(&xmlFeature);
 }
 
 

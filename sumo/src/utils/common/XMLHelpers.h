@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/02/06 08:48:11  dkrajzew
+// memory leaks removed
+//
 // Revision 1.1  2004/01/26 07:27:04  dkrajzew
 // added some xml-helping functions
 //
@@ -52,6 +55,10 @@ public:
     /// Builds a reader and assigns the handler to it
     static void runParser(XERCES_CPP_NAMESPACE_QUALIFIER DefaultHandler &handler,
 		const std::string &file);
+
+    /// Sets a feature of the given parser
+    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &,
+        const std::string &feature, bool value);
 
 };
 
