@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/15 11:31:24  dkrajzew
+// display of needed lanechanging patched
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -162,19 +165,13 @@ GUIBaseVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
 {
     // the vehicle will be completely blue if no lane change action is needed
     //  and nothing was performed
-    if(vehicle._lcAction==MSVehicle::LCA_STRAIGHT) {
+    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
         glColor3f(0, 0, 1);
         return;
     }
     // vehicles on false lanes will be red (others green)
-    if((vehicle._lcAction&MSVehicle::LCA_URGENT)!=0) {
-        if((vehicle._lcAction&MSVehicle::LCA_LANEBEGIN)==0) {
-            glColor3f(1, 0, 0);
-        } else {
-            glColor3f(0, 0, 1);
-        }
-    } else {
-        glColor3f(0, 1, 0);
+    if((vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE)) {
+        glColor3f(1, 0, 0);
     }
 }
 
@@ -184,7 +181,7 @@ GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 {
     // the vehicle will be completely blue if no lane change action is needed
     //  and nothing was performed
-    if(vehicle._lcAction==MSVehicle::LCA_STRAIGHT) {
+    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
         glColor3f(0, 0, 1);
         return;
     }
@@ -192,13 +189,11 @@ GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
     //  vehicle side will be yellow, otherwise green/red in dependence
     // whether a lanechange is needed
     // vehicles on false lanes will be red (others green)
-    if((vehicle._lcAction&MSVehicle::LCA_RIGHT)!=0) {
-        glColor3f(1, 1, 0);
-    } else {
-        if((vehicle._lcAction&MSVehicle::LCA_URGENT)!=0) {
-            glColor3f(1, 0, 0);
+    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE) {
+        if(vehicle.getLaneChangeDirection()==MSVehicle::LaneChangeState::LCDIR_RIGHT) {
+            glColor3f(1, 1, 0);
         } else {
-            glColor3f(0, 1, 0);
+            glColor3f(1, 0, 0);
         }
     }
 }
@@ -209,7 +204,7 @@ GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
 {
     // the vehicle will be completely blue if no lane change action is needed
     //  and nothing was performed
-    if(vehicle._lcAction==MSVehicle::LCA_STRAIGHT) {
+    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
         glColor3f(0, 0, 1);
         return;
     }
@@ -217,13 +212,11 @@ GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
     //  vehicle side will be yellow, otherwise green/red in dependence
     // whether a lanechange is needed
     // vehicles on false lanes will be red (others green)
-    if((vehicle._lcAction&MSVehicle::LCA_LEFT)!=0) {
-        glColor3f(1, 1, 0);
-    } else {
-        if((vehicle._lcAction&MSVehicle::LCA_URGENT)!=0) {
-            glColor3f(1, 0, 0);
+    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE) {
+        if(vehicle.getLaneChangeDirection()==MSVehicle::LaneChangeState::LCDIR_LEFT) {
+            glColor3f(1, 1, 0);
         } else {
-            glColor3f(0, 1, 0);
+            glColor3f(1, 0, 0);
         }
     }
 }
