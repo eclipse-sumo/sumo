@@ -57,10 +57,9 @@ GUITriangleVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle)
     double maxSpeed = 30; // !!!
     double fact = speed / maxSpeed / 2.0;
     glColor3f(1.0-fact, 0.5, 0.5+fact);
-    if(vehicle.id()=="794") {
+/*    if(vehicle.id()=="794") {
         glColor3f(1.0, 1.0, 0);
     } else if(vehicle.id()=="720") {
         glColor3f(1.0, 0, 1.0);
-    } 
-
+    } */
 }
