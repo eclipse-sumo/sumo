@@ -24,6 +24,7 @@
 // $Id$
 
 #include "MSNet.h"
+#include "MSEventControl.h"
 #include <helpers/SingletonDictionary.h>
 #include <string>
 #include <cassert>
@@ -68,7 +69,7 @@ public:
             intervalsM.clear();
             // Detector* should be deleted via the SingletonDictionary
         }
-
+    
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
                                  MSNet::Time intervalInSeconds )
