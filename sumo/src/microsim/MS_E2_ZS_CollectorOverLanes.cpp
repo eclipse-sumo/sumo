@@ -141,20 +141,20 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
 
 
 double
-MS_E2_ZS_CollectorOverLanes::getCurrent( MS_E2_ZS_Collector::DetType type )
+MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
 {
     switch(type) {
-    case MS_E2_ZS_Collector::DENSITY:
-    case MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES:
-    case MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS:
-    case MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES:
-    case MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS:
-    case MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
-    case MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
-    case MS_E2_ZS_Collector::N_VEHICLES:
-    case MS_E2_ZS_Collector::OCCUPANCY_DEGREE:
-    case MS_E2_ZS_Collector::SPACE_MEAN_SPEED:
-    case MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
+    case E2::DENSITY:
+    case E2::MAX_JAM_LENGTH_IN_VEHICLES:
+    case E2::MAX_JAM_LENGTH_IN_METERS:
+    case E2::JAM_LENGTH_SUM_IN_VEHICLES:
+    case E2::JAM_LENGTH_SUM_IN_METERS:
+    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
+    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
+    case E2::N_VEHICLES:
+    case E2::OCCUPANCY_DEGREE:
+    case E2::SPACE_MEAN_SPEED:
+    case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
         double myMax = 0;
         for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
@@ -173,21 +173,21 @@ MS_E2_ZS_CollectorOverLanes::getCurrent( MS_E2_ZS_Collector::DetType type )
 
 
 double
-MS_E2_ZS_CollectorOverLanes::getAggregate( MS_E2_ZS_Collector::DetType type,
+MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
                                           MSUnit::Seconds lastNSeconds )
 {
     switch(type) {
-    case MS_E2_ZS_Collector::DENSITY:
-    case MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES:
-    case MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS:
-    case MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES:
-    case MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS:
-    case MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
-    case MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
-    case MS_E2_ZS_Collector::N_VEHICLES:
-    case MS_E2_ZS_Collector::OCCUPANCY_DEGREE:
-    case MS_E2_ZS_Collector::SPACE_MEAN_SPEED:
-    case MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
+    case E2::DENSITY:
+    case E2::MAX_JAM_LENGTH_IN_VEHICLES:
+    case E2::MAX_JAM_LENGTH_IN_METERS:
+    case E2::JAM_LENGTH_SUM_IN_VEHICLES:
+    case E2::JAM_LENGTH_SUM_IN_METERS:
+    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
+    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
+    case E2::N_VEHICLES:
+    case E2::OCCUPANCY_DEGREE:
+    case E2::SPACE_MEAN_SPEED:
+    case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
         double myMax = 0;
         for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
@@ -206,14 +206,14 @@ MS_E2_ZS_CollectorOverLanes::getAggregate( MS_E2_ZS_Collector::DetType type,
 
 
 bool
-MS_E2_ZS_CollectorOverLanes::hasDetector( MS_E2_ZS_Collector::DetType type )
+MS_E2_ZS_CollectorOverLanes::hasDetector( E2::DetType type )
 {
     return myDetectorCombinations[0][0]->hasDetector(type);
 }
 
 
 void
-MS_E2_ZS_CollectorOverLanes::addDetector( MS_E2_ZS_Collector::DetType type,
+MS_E2_ZS_CollectorOverLanes::addDetector( E2::DetType type,
                                          std::string detId)
 {
     size_t c = 0;

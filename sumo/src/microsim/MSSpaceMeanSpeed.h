@@ -37,7 +37,7 @@ protected:
     typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
     
-    MSSpaceMeanSpeed( double lengthInMeters, const Container& vehicleCont ) 
+    MSSpaceMeanSpeed( double, const Container& vehicleCont ) 
         : containerM( vehicleCont.containerM )
         {}
 

@@ -76,9 +76,9 @@ MSOccupancyDegree::getDetectorAggregate( void )
         return 0;
     }
     double entryCorr(
-        containerWrapperM.occupancyCorrectionM.getOccupancyEntryCorrection() );
+        containerWrapperM.occupancyCorrectionM->getOccupancyEntryCorrection());
     double leaveCorr(
-        containerWrapperM.occupancyCorrectionM.getOccupancyLeaveCorrection() );
+        containerWrapperM.occupancyCorrectionM->getOccupancyLeaveCorrection());
     if ( entryCorr > 0 ){
         entryCorr = 1 - entryCorr;
     }

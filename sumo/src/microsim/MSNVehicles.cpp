@@ -27,13 +27,17 @@
 
 using namespace std;
 
-MSNVehicles::MSNVehicles( double lengthInMeters,
+MSNVehicles::MSNVehicles( const DetectorContainer::Count& counter ) :
+    counterM( counter )
+{}
+
+MSNVehicles::MSNVehicles( double,
                           const DetectorContainer::Count& counter ) :
     counterM( counter )
 {}
 
 MSNVehicles::DetectorAggregate
-MSNVehicles::getDetectorAggregate( void ) // [veh/km]
+MSNVehicles::getDetectorAggregate( void ) // [veh]
 {
     double nVehOnDet = counterM.vehicleCountM;
     return nVehOnDet;

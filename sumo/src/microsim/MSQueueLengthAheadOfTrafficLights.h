@@ -35,7 +35,7 @@ protected:
     typedef DetectorContainer::HaltingsList Container;
     
     MSQueueLengthAheadOfTrafficLightsInVehicles(
-        double lengthInMeters,
+        double,
         const MSE2DetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxNVehM( 0 )
@@ -79,7 +79,7 @@ protected:
     typedef DetectorContainer::HaltingsList Container;
     
     MSQueueLengthAheadOfTrafficLightsInMeters(
-        double lengthInMeters,
+        double,
         const MSE2DetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxJamLengthM( 0 )

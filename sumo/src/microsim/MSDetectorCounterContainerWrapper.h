@@ -32,26 +32,32 @@ struct MSDetectorCounterContainerWrapper
 {
     typedef double Container;
 
-    void enterDetectorByMove( MSVehicle* veh )
+    void enterDetectorByMove( MSVehicle* )
         {
             ++vehicleCountM;
         }
 
-    void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
+    void enterDetectorByEmitOrLaneChange( MSVehicle* )
         {
             ++vehicleCountM;
         }
 
-    void leaveDetectorByMove( MSVehicle* veh )
+    void leaveDetectorByMove( MSVehicle* )
         {
             --vehicleCountM;
         }
 
-    void leaveDetectorByLaneChange( MSVehicle* veh )
+    void leaveDetectorByLaneChange( MSVehicle* )
         {
             --vehicleCountM;
         }
 
+    MSDetectorCounterContainerWrapper()
+        : MSDetectorContainerWrapperBase(),
+          vehicleCountM( 0 )
+        {}
+
+    
     MSDetectorCounterContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),

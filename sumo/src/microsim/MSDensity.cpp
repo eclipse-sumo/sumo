@@ -43,8 +43,8 @@ MSDensity::DetectorAggregate
 MSDensity::getDetectorAggregate( void ) // [veh/km]
 {
     double nVehOnDet = counterM.vehicleCountM -
-        counterM.occupancyCorrectionM.getOccupancyEntryCorrection() -
-        counterM.occupancyCorrectionM.getOccupancyLeaveCorrection();
+        counterM.occupancyCorrectionM->getOccupancyEntryCorrection() -
+        counterM.occupancyCorrectionM->getOccupancyLeaveCorrection();
     return nVehOnDet / detectorLengthM;
 }
 

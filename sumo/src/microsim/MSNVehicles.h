@@ -32,7 +32,8 @@ protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Count Container;
 
-    MSNVehicles( double lengthInMeters, const Container& counter );
+    MSNVehicles( const Container& counter );
+    MSNVehicles( double, const Container& counter );
 
     virtual ~MSNVehicles( void )
         {}

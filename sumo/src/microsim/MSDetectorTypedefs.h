@@ -25,8 +25,9 @@
 #include "MSMeanDetector.h"
 #include "MSSumDetector.h"
 #include "MSE2Detector.h"
+#include "MSE3Detector.h"
 
-// concrete detectors
+// concrete E2 detectors
 #include "MSDensity.h"
 #include "MSMaxJamLength.h"
 #include "MSJamLengthSum.h"
@@ -35,6 +36,11 @@
 #include "MSOccupancyDegree.h"
 #include "MSSpaceMeanSpeed.h"
 #include "MSCurrentHaltingDurationSumPerVehicle.h"
+
+// concrete E3 detectors
+#include "MSE3Traveltime.h"
+#include "MSE3NVehicles.h"
+#include "MSE3MeanNHaltings.h"
 
 namespace Detector 
 {
@@ -70,10 +76,18 @@ namespace Detector
 
     typedef MSMeanDetector< MSE2Detector<
         MSCurrentHaltingDurationSumPerVehicle > >
-    E2CurrentHaltingDurationSumPerVehicle;    
+    E2CurrentHaltingDurationSumPerVehicle;
+
+    // E3
+    typedef MSSumDetector< MSE3Detector< MSE3NVehicles >, true > E3NVehicles;
+
+    typedef MSMeanDetector< MSE3Detector< MSE3Traveltime >, true> E3Traveltime;
+
+    typedef MSMeanDetector< MSE3Detector< MSE3MeanNHaltings >, true >
+    E3MeanNHaltings;
 }
 
-#endif // MSE2DETECTORTYPEDEFS_H
+#endif // MSDETECTORTYPEDEFS_H
 
 // Local Variables:
 // mode:C++

@@ -72,7 +72,11 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
             leaveDetectorByMove( veh );
         }
 
-
+    MSDetectorContainerWrapper()
+        : MSDetectorContainerWrapperBase(),
+          containerM()
+        {}
+    
     MSDetectorContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),
@@ -93,14 +97,20 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 class MSVehicle;
 
 template< class T >
-struct MSDetectorMapContainerWrapper
-    : public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+    : public MSDetectorContainerWrapperBase
 {
     typedef std::map< MSVehicle*, T > WrappedContainer;
+    typedef WrappedContainer InnerContainer;
 
+    bool hasVehicle( MSVehicle* veh ) const
+        {
+            return containerM.find( veh ) != containerM.end();
+        }
+    
     void enterDetectorByMove( MSVehicle* veh )
         {
-            assert( containerM.find( veh ) == containerM.end() );
+            assert( ! hasVehicle( veh ) );
             containerM.insert( std::make_pair( veh, T() ) );
         }
 
@@ -111,7 +121,9 @@ struct MSDetectorMapContainerWrapper
 
     void leaveDetectorByMove( MSVehicle* veh )
         {
-            assert( containerM.find( veh ) != containerM.end() );
+            // There may be Vehicles that pass the detector-end but
+            // had not passed the beginning (emit or lanechange).
+            //assert( hasVehicle( veh ) );
             containerM.erase( veh );
         }
 
@@ -120,14 +132,18 @@ struct MSDetectorMapContainerWrapper
             leaveDetectorByMove( veh );
         }
 
-
-    MSDetectorMapContainerWrapper(
-        const MSDetectorOccupancyCorrection& occupancyCorrection )
-        : MSDetectorContainerWrapper( occupancyCorrection ),
+    MSDetectorContainerWrapper()
+        : MSDetectorContainerWrapperBase(),
           containerM()
         {}
 
-    virtual ~MSDetectorMapContainerWrapper( void )
+    MSDetectorContainerWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorContainerWrapperBase( occupancyCorrection ),
+          containerM()
+        {}
+
+    virtual ~MSDetectorContainerWrapper( void )
         {
             containerM.clear();
         }
@@ -141,8 +157,12 @@ namespace DetectorContainer
 {
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
-//     typedef MSDetectorContainerWrapper<
-//         std::map< MSVehicle*, T > > Vehicles...
+    typedef MSDetectorContainerWrapper<
+        std::map< MSVehicle*, MSUnit::Seconds > > TraveltimeMap;
+    class EmptyType{};
+    typedef MSDetectorContainerWrapper<
+        std::map< MSVehicle*, EmptyType > > VehicleMap;
+
 }
 
 #endif // MSDETECTORCONTAINERWRAPPER_H

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/28 14:08:49  roessel
+// Changes due to new E3 detectors.
+//
 // Revision 1.8  2003/11/28 10:20:38  jringel
 // phases with duration == 0 considered
 //
@@ -151,7 +154,7 @@ protected:
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 
     /// Returns the value of the detector defined by the given lane and type
-	double currentForLane(MS_E2_ZS_Collector::DetType what,
+	double currentForLane(E2::DetType what,
 		MSLane *lane) const;
 
 protected:

@@ -29,12 +29,14 @@
 #include <string>
 #include "MSUnit.h"
 #include "MSSumDetector.h"
+#include "helpers/TypeManip.h"
 
-template < class DetectorType >
-class MSMeanDetector : public MSSumDetector< DetectorType >
+template < class DetectorType
+           , bool hasTimeValueCont = false >
+class MSMeanDetector : public MSSumDetector< DetectorType, hasTimeValueCont >
 {
-    friend class MS_E2_ZS_Collector; // only MS_E2_ZS_Collector has
-                                     // access to ctor
+    friend class MS_E2_ZS_Collector; // only MS_E2/3_ZS_Collector has
+    friend class MS_E3_Collector; // access to ctor
     
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
@@ -51,7 +53,8 @@ public:
             MSUnit::Seconds seconds = 
                 MSUnit::getInstance()->getSeconds(
                     std::distance( startIt, aggregatesM.end() ) );
-            return getSum( lastNSeconds, startIt ) / seconds;
+            return getSum( lastNSeconds, startIt,
+                           Loki::Int2Type< hasTimeValueCont >()) / seconds;
         }
 
 protected:
@@ -60,21 +63,31 @@ protected:
                     double lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
                     const DetectorContainer& container ) 
-        : MSSumDetector< DetectorType >( id, lengthInMeters,
-                                         deleteDataAfterSeconds,
-                                         container )
+        : MSSumDetector< DetectorType, hasTimeValueCont >(
+            id, lengthInMeters,
+            deleteDataAfterSeconds,
+            container )
         {}
 
     // Another E2 ctor
     MSMeanDetector( std::string id,
                     double lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
-//                     const DetectorContainer& container,
                     const MSE2DetectorInterface& helperDetector ) 
-        : MSSumDetector< DetectorType >( id, lengthInMeters,
-                                         deleteDataAfterSeconds,
-//                                          container,
-                                         helperDetector )
+        : MSSumDetector< DetectorType, hasTimeValueCont >(
+            id, lengthInMeters,
+            deleteDataAfterSeconds,
+            helperDetector )
+        {}    
+
+    // E3 ctors
+    MSMeanDetector( std::string id,
+                    MSUnit::Seconds deleteDataAfterSeconds,
+                    const DetectorContainer& container ) 
+        : MSSumDetector< DetectorType, hasTimeValueCont >(
+            id,
+            deleteDataAfterSeconds,
+            container )
         {}    
     
     // E* ctors follow here

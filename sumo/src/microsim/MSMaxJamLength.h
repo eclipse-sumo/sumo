@@ -34,7 +34,7 @@ protected:
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
     
-    MSMaxJamLengthInVehicles( double lengthInMeters,
+    MSMaxJamLengthInVehicles( double,
                               const Container& container )
         : containerM( container )
         {}
@@ -78,7 +78,7 @@ protected:
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
     
-    MSMaxJamLengthInMeters( double lengthInMeters,
+    MSMaxJamLengthInMeters( double,
                             const Container& container )
         : containerM( container )
         {}

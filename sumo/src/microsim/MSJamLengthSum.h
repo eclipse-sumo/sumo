@@ -35,7 +35,7 @@ protected:
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
 
-    MSJamLengthSumInVehicles( double lengthInMeters,
+    MSJamLengthSumInVehicles( double,
                               const Container& container )
         : containerM( container )
         {}
@@ -72,7 +72,7 @@ protected:
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
 
-    MSJamLengthSumInMeters( double lengthInMeters,
+    MSJamLengthSumInMeters( double,
                             const Container& container )
         : containerM( container.containerM )
         {}

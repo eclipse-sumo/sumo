@@ -5,7 +5,9 @@ EXTRA_DIST = MSBitSetLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
 MSAgentbasedTrafficLightLogic.cpp
 
-libmicrosim_a_SOURCES = MSCurrentHaltingDurationSumPerVehicle.cpp \
+libmicrosim_a_SOURCES = \
+MSCrossSection.cpp \
+MSCurrentHaltingDurationSumPerVehicle.cpp \
 MSDensity.cpp \
 MSDetector2File.cpp \
 MSDetectorCounterContainerWrapper.cpp \
@@ -13,6 +15,9 @@ MSDetectorFileOutput.cpp \
 MSDetectorOccupancyCorrection.cpp \
 MSDetectorSubSys.cpp \
 MSE2DetectorInterface.cpp \
+MSE3DetectorInterface.cpp \
+MSE3MeanNHaltings.cpp \
+MSE3NVehicles.cpp \
 MSEdge.cpp \
 MSEdgeControl.cpp \
 MSEmitControl.cpp \
@@ -48,6 +53,7 @@ MSSourceLane.cpp \
 MSSpaceMeanSpeed.cpp \
 MSTLLogicControl.cpp \
 MSTrafficLightLogic.cpp \
+MSE3Traveltime.cpp \
 MSTriggeredReader.cpp \
 MSTriggeredSource.cpp \
 MSTriggeredSourceXMLHandler.cpp \
@@ -59,9 +65,12 @@ MSVehicleTransfer.cpp \
 MSVehicleType.cpp \
 MS_E2_ZS_Collector.cpp \
 MS_E2_ZS_CollectorOverLanes.cpp \
+MS_E3_Collector.cpp \
+MSActuatedPhaseDefinition.h \
 MSActuatedTrafficLightLogic.h \
 MSAgentbasedTrafficLightLogic.h \
 MSBitSetLogic.h \
+MSCrossSection.h \
 MSCurrentHaltingDurationSumPerVehicle.h \
 MSDensity.h \
 MSDetector2File.h \
@@ -74,6 +83,10 @@ MSDetectorOccupancyCorrection.h \
 MSDetectorSubSys.h \
 MSE2Detector.h \
 MSE2DetectorInterface.h \
+MSE3DetectorInterface.h \
+MSE3MeanNHaltings.h \
+MSE3MoveReminder.h \
+MSE3NVehicles.h \
 MSEdge.h \
 MSEdgeControl.h \
 MSEmitControl.h \
@@ -115,6 +128,7 @@ MSSumDetector.h \
 MSTLLogicControl.h \
 MSTrafficLightLogic.h \
 MSTravelcostDetector.h \
+MSE3Traveltime.h \
 MSTrigger.h \
 MSTriggeredReader.h \
 MSTriggeredSource.h \
@@ -128,7 +142,8 @@ MSVehicleContainer.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
 MS_E2_ZS_Collector.h \
-MS_E2_ZS_CollectorOverLanes.h
+MS_E2_ZS_CollectorOverLanes.h \
+MS_E3_Collector.h
 
 SUBDIRS = actions logging
 

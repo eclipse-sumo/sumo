@@ -28,6 +28,7 @@
 #include "MSUnit.h"
 #include "MSUpdateEachTimestep.h"
 #include <list>
+#include <map>
 
 class MSVehicle;
 
@@ -41,7 +42,18 @@ struct MSDetectorHaltingContainerWrapper :
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
 
-
+    MSDetectorHaltingContainerWrapper(
+        MSUnit::Steps timeThreshold,
+        MSUnit::CellsPerStep speedThreshold,
+        MSUnit::Cells jamDistThreshold )
+        : MSDetectorContainerWrapper< WrappedContainer >(),
+          MSUpdateEachTimestep<
+          MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+          timeThresholdM( timeThreshold ),
+          speedThresholdM( speedThreshold ),
+          jamDistThresholdM( jamDistThreshold )
+        {}
+    
     MSDetectorHaltingContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
@@ -57,9 +69,8 @@ struct MSDetectorHaltingContainerWrapper :
 
     bool updateEachTimestep( void )
         {
-            // set posM isHaltingM and haltingDurationM
-            typedef typename WrappedContainer::iterator ContainerIt;
-            for ( ContainerIt haltIt = containerM.begin();
+            // set posM, isHaltingM and haltingDurationM
+            for ( HaltingsIt haltIt = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
                 haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
@@ -89,10 +100,10 @@ struct MSDetectorHaltingContainerWrapper :
                 containerM.begin()->isInJamM = false;
             }
             if ( containerM.size() > 1 ) {
-                for ( ContainerIt jamIt = containerM.begin();
+                for ( HaltingsIt jamIt = containerM.begin();
                       jamIt != --containerM.end(); /* empty */ ){
-                    ContainerIt rearIt = jamIt;
-                    ContainerIt frontIt = ++jamIt;
+                    HaltingsIt rearIt = jamIt;
+                    HaltingsIt frontIt = ++jamIt;
                     if ( ! rearIt->isHaltingM || ! frontIt->isHaltingM ) {
                         continue;
                     }
@@ -116,6 +127,84 @@ struct MSDetectorHaltingContainerWrapper :
     MSUnit::Cells jamDistThresholdM;
 };
 
+// specialization for WrappedContainer == map< MSVehicle*, T >
+template< class T >
+struct MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > :
+    public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >,
+    public MSUpdateEachTimestep<
+    MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > >
+{
+    typedef std::map< MSVehicle*, T > WrappedContainer;
+    typedef typename WrappedContainer::iterator HaltingsIt;
+    typedef typename WrappedContainer::const_iterator HaltingsConstIt;
+    typedef WrappedContainer InnerContainer;
+
+    MSDetectorHaltingContainerWrapper(
+        MSUnit::Steps timeThreshold,
+        MSUnit::CellsPerStep speedThreshold
+        )
+        :
+        MSDetectorContainerWrapper< WrappedContainer >(),
+        MSUpdateEachTimestep<
+        MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+        timeThresholdM( timeThreshold ),
+        speedThresholdM( speedThreshold )
+        {}
+    
+    MSDetectorHaltingContainerWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection,
+        MSUnit::Steps timeThreshold,
+        MSUnit::CellsPerStep speedThreshold
+        )
+        :
+        MSDetectorContainerWrapper< WrappedContainer >( occupancyCorrection),
+        MSUpdateEachTimestep<
+        MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
+        timeThresholdM( timeThreshold ),
+        speedThresholdM( speedThreshold )
+        {}
+
+    bool updateEachTimestep( void )
+        {
+            for ( HaltingsIt pair = containerM.begin();
+                  haltIt != containerM.end(); ++haltIt ) {
+                MSVehicle* veh = pair->first;
+                E3Halting& halt = pair->second;
+                halt.posM += veh->getMovedDistance();
+                if ( veh->speed() >= speedThresholdM ) {
+                    halt.timeBelowSpeedThresholdM = 0;
+                    halt.isHaltingM = false;
+                    halt.haltingDurationM = 0.0;
+                }
+                else {
+                    halt.timeBelowSpeedThresholdM++;
+                    if ( halt.timeBelowSpeedThresholdM > timeThresholdM ) {
+                        if ( ! halt.isHaltingM ) {
+                            // beginning of new halt detected
+                            halt.isHaltingM = true;
+                            // time to detect halting contributes to
+                            // halting-duration
+                            halt.haltingDurationM =
+                                halt.timeBelowSpeedThresholdM++;
+                            halt.nHalts++;
+                        }
+                        else {
+                            halt.haltingDurationM++;
+                        }
+                    }
+                }
+            }
+            return false; // to please MSVC++
+        }
+
+    MSUnit::Steps timeThresholdM;
+    MSUnit::CellsPerStep speedThresholdM;
+    MSUnit::Cells jamDistThresholdM;
+};
+
+
+
+
 namespace DetectorContainer
 {
     struct Halting
@@ -136,11 +225,34 @@ namespace DetectorContainer
         MSUnit::Steps haltingDurationM;
     };
 
+    struct E3Halting
+    {
+        E3Halting( MSVehicle* veh )
+            :
+            posM( veh->pos() )
+            , timeBelowSpeedThresholdM( 0 )
+            , isHaltingM( false )
+            , haltingDurationM( 0 )
+            , nHalts( 0 )
+            {}
+        MSUnit::Cells posM; 
+        MSUnit::Steps timeBelowSpeedThresholdM;
+        bool isHaltingM;
+        MSUnit::Steps haltingDurationM;
+        unsigned nHalts;
+    };    
+
     typedef MSDetectorHaltingContainerWrapper<
         std::list< Halting > > HaltingsList;
 
     typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
+
+    typedef MSDetectorHaltingContainerWrapper<
+        std::map< MSVehicle*, E3Halting > > HaltingsMap;
+
+    typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   
 }
+
 
 namespace Predicate
 {

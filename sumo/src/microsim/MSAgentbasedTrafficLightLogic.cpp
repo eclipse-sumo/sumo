@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/11/28 14:08:49  roessel
+// Changes due to new E3 detectors.
+//
 // Revision 1.10  2003/11/28 10:20:37  jringel
 // phases with duration == 0 considered
 //
@@ -100,7 +103,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
             _TE2_ZS_CollectorOverLanes* det =
                 new _TE2_ZS_CollectorOverLanes( id, lane, 0 );
             det->init(lane, laneStateDetectorLength, laneContinuations);
-		    det->addDetector( MS_E2_ZS_Collector::ALL, "detectors" );
+		    det->addDetector( E2::ALL, "detectors" );
             myE2Detectors[lane] = det;
         }
     }
@@ -311,7 +314,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::collectData()
                 if((*j)->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
-                double tmp = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
+                double tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
                 if (maxPerBit < tmp)  {
                     maxPerBit = tmp;
                 }
@@ -466,7 +469,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::isGreenPhase(const si
 template< class _TE2_ZS_CollectorOverLanes >
 double
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::currentForLane(
-		MS_E2_ZS_Collector::DetType what, MSLane *lane) const
+		E2::DetType what, MSLane *lane) const
 {
 
 	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);

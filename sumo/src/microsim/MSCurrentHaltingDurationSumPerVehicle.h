@@ -35,7 +35,7 @@ protected:
     typedef DetectorContainer::HaltingsList Container;
     typedef Container::InnerContainer HaltingCont;    
 
-    MSCurrentHaltingDurationSumPerVehicle( double lengthInMeters,
+    MSCurrentHaltingDurationSumPerVehicle( double,
                                            const Container& vehicleCont ) 
         : containerM( vehicleCont.containerM )
         {}

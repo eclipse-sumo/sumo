@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.45  2003/11/28 14:08:50  roessel
+// Changes due to new E3 detectors.
+//
 // Revision 1.44  2003/11/20 14:45:08  dkrajzew
 // dead code removed
 //
@@ -612,6 +615,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     MSUpdateEachTimestepContainer<
         DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<
+        DetectorContainer::UpdateE3Haltings >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<
         Detector::UpdateE2Detectors >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<

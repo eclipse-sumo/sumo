@@ -33,14 +33,18 @@ struct MSDetectorContainerWrapperBase
     virtual void leaveDetectorByMove( MSVehicle* veh ) = 0;
     virtual void leaveDetectorByLaneChange( MSVehicle* veh ) = 0;
 
+    MSDetectorContainerWrapperBase()
+        : occupancyCorrectionM( 0 ) 
+        {}    
+    
     MSDetectorContainerWrapperBase(
         const MSDetectorOccupancyCorrection& occupancyCorrection ) 
-        : occupancyCorrectionM( occupancyCorrection ) 
+        : occupancyCorrectionM( &occupancyCorrection ) 
         {}
     
     virtual ~MSDetectorContainerWrapperBase( void ) {}
 
-    const MSDetectorOccupancyCorrection& occupancyCorrectionM;
+    const MSDetectorOccupancyCorrection* occupancyCorrectionM;
 };
 
 #endif // MSDETECTORCONTAINERWRAPPERBASE_H

@@ -4,6 +4,7 @@
 #include "MS_E2_ZS_Collector.h"
 
 
+
 class
 MS_E2_ZS_CollectorOverLanes
 {
@@ -26,13 +27,13 @@ public:
 
     virtual ~MS_E2_ZS_CollectorOverLanes( void );
 
-    double getCurrent( MS_E2_ZS_Collector::DetType type );
+    double getCurrent( E2::DetType type );
 
-    double getAggregate( MS_E2_ZS_Collector::DetType type, MSUnit::Seconds lastNSeconds );
+    double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds );
 
-    bool hasDetector( MS_E2_ZS_Collector::DetType type );
+    bool hasDetector( E2::DetType type );
 
-    void addDetector( MS_E2_ZS_Collector::DetType type, std::string detId = "" );
+    void addDetector( E2::DetType type, std::string detId = "" );
 
     const std::string &getId() const;
 
