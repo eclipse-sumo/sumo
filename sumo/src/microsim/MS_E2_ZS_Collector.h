@@ -30,6 +30,9 @@ public:
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
                    N_VEHICLES,
+                   OCCUPANCY_DEGREE,
+                   SPACE_MEAN_SPEED,
+                   CURRENT_HALTING_DURATION_SUM_PER_VEHICLE,
                    ALL };
 
     enum Containers { COUNTER = 0,
@@ -62,8 +65,9 @@ public:
                                       haltingSpeedThreshold ) ),
           jamDistThresholdM( MSUnit::getInstance()->getCells(
                                  jamDistThreshold ) ),
-          detectorsM(8),
-          containersM(3)
+          detectorsM(11),
+          containersM(3),
+          approachingVehiclesStatesDetM(0)
         {
             assert( laneM != 0 );
             MSUnit::Meters laneLength =
@@ -87,6 +91,9 @@ public:
                     delete *it1;
                 }
             }
+            if ( approachingVehiclesStatesDetM != 0 ) {
+                delete approachingVehiclesStatesDetM;
+            }
             for ( ContainerContIter it2 = containersM.begin();
                   it2 != containersM.end(); ++it2 ) {
                 if ( *it2 != 0 ) {
@@ -95,126 +102,105 @@ public:
             }
         }
 
-    double getGurrent( DetType type ) const
+    double getGurrent( DetType type )
         {
-            assert(type != ALL );
+            assert(type < ALL );
             E2ZSDetector* det = getDetector( type );
             if ( det != 0 ){
                 return det->getCurrent();
             }
-            // error, requested type not present
+            // requested type not present
+            // create it and return nonsens value for the first access
+            addDetector( type, std::string("") );
             return std::numeric_limits< double >::max();
         }
 
-    double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds ) const
+    const Detector::E2ApproachingVehiclesStates::DetectorAggregate&
+    getApproachingVehiclesStates( unsigned nApproachingVehicles )
+        {
+            if ( approachingVehiclesStatesDetM == 0 ) {
+                // requested type not present
+                // create it
+                addApproachingVehiclesStatesDetector("");
+            }
+            return approachingVehiclesStatesDetM->getDetectorAggregate(
+                nApproachingVehicles );
+        }
+    
+    double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds )
         {
             assert(type != ALL );
             E2ZSDetector* det = getDetector( type );
             if ( det != 0 ){
                 return det->getAggregate( lanstNSeconds );
             }
-            // error, requested type not present
+            // requested type not present
+            // create it and return nonsens value for the first access
+            addDetector( type, std::string("") );
             return std::numeric_limits< double >::max();
         }
 
-    void addDetector( DetType type, std::string detId )
+    void addDetector( DetType type, std::string detId = "" )
         {
-            using namespace Detector;
-            switch( type ) {
-                case DENSITY:
-                {
-                    createDetector( DENSITY, detId );
-                    break;
-                }
-                case MAX_JAM_LENGTH_IN_VEHICLES:
-                {
-                    createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
-                    break;
-                }
-                case MAX_JAM_LENGTH_IN_METERS:
-                {
-                    createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
-                    break;
-                }
-                case JAM_LENGTH_SUM_IN_VEHICLES:
-                {
-                    createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
-                    break;
-                }
-                case JAM_LENGTH_SUM_IN_METERS:
-                {
-                    createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
-                    break;
-                }
-                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
-                {
-                    createDetector(
-                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
-                        detId );
-                    break;
-                }
-                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
-                {
-                    createDetector(
-                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
-                        detId );
-                    break;
-                }
-                case N_VEHICLES:
-                {
-                    createDetector( N_VEHICLES, detId );
-                    break;
-                }
-                case ALL:
-                {
-                    createDetector( DENSITY, detId );
-                    createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
-                    createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
-                    createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
-                    createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
-                    createDetector(
-                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
-                        detId );
-                    createDetector(
-                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
-                        detId );
-                    createDetector( N_VEHICLES, detId );
-                    break;
-                }
-                default:
-                {
-                    assert( 0 );
-                }
+            if ( detId == "" ) {
+                detId = idM;
+            }
+            if ( type != ALL ) {
+                createDetector( type, detId );
+            }
+            else {
+                createDetector( DENSITY, detId );
+                createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
+                createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
+                createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
+                createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
+                createDetector(
+                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, detId );
+                createDetector(
+                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS, detId );
+                createDetector( N_VEHICLES, detId );
+                createDetector( OCCUPANCY_DEGREE, detId );
+                createDetector( SPACE_MEAN_SPEED, detId );
+                createDetector(
+                    CURRENT_HALTING_DURATION_SUM_PER_VEHICLE, detId );
+                addApproachingVehiclesStatesDetector( detId );
             }
         }
 
+    void addApproachingVehiclesStatesDetector( std::string detId = "" )
+        {
+            if ( approachingVehiclesStatesDetM != 0 ) {
+                return;
+            }
+            if ( detId == "" ) {
+                detId = idM;
+            }
+            createContainer( VEHICLES );
+            approachingVehiclesStatesDetM = new
+                Detector::E2ApproachingVehiclesStates(
+                    endPosM, *static_cast< DetectorContainer::Vehicles* >(
+                        containersM[ VEHICLES ] ) );
+        }
+    
     bool update( void )
         {
-//             std::cout << MSNet::getInstance()->getCurrentTimeStep() << "\t"
-//                       << idM << "\t";
             for ( ContainerContIter it1 = containersM.begin();
                   it1 != containersM.end(); ++it1 ) {
                     if ( *it1 != 0 ) {
                         (*it1)->update();
                     }
                 }
-//             int i = 0;
             for ( DetContIter it2 = detectorsM.begin();
                   it2 != detectorsM.end(); ++it2 ) {
                 if ( *it2 != 0 ) {
                     (*it2)->update();
-//                     std::cout << i << ": " << (*it2)->getCurrent() << "\t";
                 }
-//                 ++i;
             }
-//             std::cout << std::endl;
             return true;
         }
 
     void resetQueueLengthAheadOfTrafficLights( void )
         {
-//             std::cout << MSNet::getInstance()->getCurrentTimeStep() << "\t"
-//                       << idM << "\treset" << std::endl;
             MSQueueLengthAheadOfTrafficLightsInVehicles* det1 = 0;
             if ((det1 = dynamic_cast<
                  MSQueueLengthAheadOfTrafficLightsInVehicles* >(
@@ -426,13 +412,6 @@ public:
             return detectorInfo;
         }
 
-//     /**
-//      * Get a closing XML-element to getXMLDetectorInfoStart.
-//      */
-//     std::string& getXMLDetectorInfoEnd( void ) const
-//         {
-//             return
-//         }
     /**
      * Get the data-clean up interval in timesteps.
      */
@@ -443,23 +422,22 @@ public:
         }
     //@}
 
-	double getStartPos() const {
-		return startPosM;
-	}
+	double getStartPos() const
+        {
+            return startPosM;
+        }
 
-	double getEndPos() const {
-		return endPosM;
-	}
+	double getEndPos() const
+        {
+            return endPosM;
+        }
 
 protected:
-
     E2ZSDetector* getDetector( DetType type ) const
         {
             assert(type != ALL );
             return detectorsM[ type ];
         }
-
-
 
 private:
     MSUnit::Meters startPosM;
@@ -474,6 +452,8 @@ private:
 
     ContainerCont containersM;
 
+    Detector::E2ApproachingVehiclesStates* approachingVehiclesStatesDetM;
+    
     static std::string xmlHeaderM;
 
     void createContainer( Containers type )
@@ -551,7 +531,6 @@ private:
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Haltings* >(
                                 containersM[ HALTINGS ] ) );
-
                     break;
                 }
                 case JAM_LENGTH_SUM_IN_VEHICLES:
@@ -587,7 +566,7 @@ private:
                     detectorsM[
                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ] =
                         new E2QueueLengthAheadOfTrafficLightsInVehicles(
-                            E2JamLengthSumInMeters::getDetectorName() + detId,
+                            E2QueueLengthAheadOfTrafficLightsInVehicles::getDetectorName() + detId,
                             endPosM - startPosM,
                             deleteDataAfterSecondsM,
                             *detectorsM[ MAX_JAM_LENGTH_IN_VEHICLES ] );
@@ -601,7 +580,7 @@ private:
                     detectorsM[
                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ] =
                         new E2QueueLengthAheadOfTrafficLightsInMeters(
-                            E2JamLengthSumInMeters::getDetectorName() + detId,
+                            E2QueueLengthAheadOfTrafficLightsInMeters::getDetectorName() + detId,
                             endPosM - startPosM,
                             deleteDataAfterSecondsM,
                             *detectorsM[ MAX_JAM_LENGTH_IN_METERS ] );
@@ -617,6 +596,42 @@ private:
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Count* >(
                                 containersM[ COUNTER ] ) );
+                    break;
+                }
+                case OCCUPANCY_DEGREE:
+                {
+                    createContainer( VEHICLES );
+                    detectorsM[ OCCUPANCY_DEGREE ] =
+                        new E2OccupancyDegree(
+                            E2OccupancyDegree::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Vehicles* >(
+                                containersM[ VEHICLES ] ) );
+                    break;
+                }
+                case SPACE_MEAN_SPEED:
+                {
+                    createContainer( VEHICLES );
+                    detectorsM[ SPACE_MEAN_SPEED ] =
+                        new E2SpaceMeanSpeed(
+                            E2SpaceMeanSpeed::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Vehicles* >(
+                                containersM[ VEHICLES ] ) );
+                    break;
+                }
+                case CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
+                {
+                    createContainer( HALTINGS );
+                    detectorsM[ CURRENT_HALTING_DURATION_SUM_PER_VEHICLE ] =
+                        new E2CurrentHaltingDurationSumPerVehicle(
+                            E2CurrentHaltingDurationSumPerVehicle::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Haltings* >(
+                                containersM[ HALTINGS ] ) );
                     break;
                 }
                 default:
