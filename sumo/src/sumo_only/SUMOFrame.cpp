@@ -16,17 +16,15 @@ SUMOFrame::getOptions()
     oc->doRegister("net-files", 'n', new Option_FileName());
     oc->doRegister("route-files", 'r', new Option_FileName());
     oc->doRegister("junction-files", 'j', new Option_FileName());
-    oc->doRegister("detector-files", 'd', new Option_FileName());
+    oc->doRegister("additional-files", 'a', new Option_FileName());
     oc->doRegister("output-file", 'o', new Option_FileName(""));
     oc->doRegister("configuration-file", 'c', new Option_FileName("sumo.cfg"));
-    oc->doRegister("source-files", 's', new Option_FileName());
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
     oc->addSynonyme("junction-files", "junctions");
-    oc->addSynonyme("detector-files", "detectors");
+    oc->addSynonyme("additional-files", "additional");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
-    oc->addSynonyme("source-files", "sources");
     // register the simulation settings
     oc->doRegister("begin", 'b', new Option_Long());
     oc->doRegister("end", 'e', new Option_Long());

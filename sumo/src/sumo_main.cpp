@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 10:36:30  dkrajzew
+// sources and detectors joined with triggers to additional-files
+//
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
 //
@@ -236,6 +239,7 @@ main(int argc, char **argv)
         if(oc->getBool("v"))
             cout << "Simulation started with time: " << oc->getLong("b") << endl;
         // simulate
+        net->preStartInit();
         net->simulate(craw, oc->getLong("b"), oc->getLong("e"));
         // report the end when wished
         if(oc->getBool("v"))
