@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/17 14:03:24  dkrajzew
+// Dialog about simulation restart debugged
+//
 // Revision 1.3  2003/03/12 16:55:16  dkrajzew
 // centering of objects debugged
 //
@@ -167,7 +170,7 @@ private:
     /// The current view number
     size_t myViewNumber;
 
-    /// The id of the "load" menu entry 
+    /// The id of the "load" menu entry
     int _loadID;
     /// the pointer to the tool bar "load" entry
     QToolButton *_fileOpen;

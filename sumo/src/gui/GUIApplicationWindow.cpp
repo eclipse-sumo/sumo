@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/17 14:03:23  dkrajzew
+// Dialog about simulation restart debugged
+//
 // Revision 1.4  2003/03/12 16:55:14  dkrajzew
 // centering of objects debugged
 //
@@ -181,7 +184,7 @@ GUIApplicationWindow::buildFileTools()
     addToolBar( fileTools, tr( "File Operations" ), Top, TRUE );
 
     openIcon = QPixmap( fileopen );
-    _fileOpen = new QToolButton( openIcon, "Open File", 
+    _fileOpen = new QToolButton( openIcon, "Open File",
         QString::null, this, SLOT(load()), fileTools, "open file" );
     QWhatsThis::add( _fileOpen, fileOpenText );
     (void)QWhatsThis::whatsThisButton( fileTools );
@@ -329,12 +332,17 @@ GUIApplicationWindow::start()
     // check whether it was started before and pasued;
     //  when yes, prompt the user for acknowledge
     if(_wasStarted) {
-        if( QMessageBox::information( this, "sumo v0.8",
-            "Do you really want to restart the simulation\n",
-            QMessageBox::Information,
-            QMessageBox::Yes | QMessageBox::Default,
-            QMessageBox::No) == 1) {
+        switch( QMessageBox::warning( this, version,
+                    "Do you really want to restart the simulation\n"
+                    "All structures will start from the beginning step!\n\n",
+                    "Yes", "No", 0,
+                    0, 1 ) ) {
+        case 0:
+            break;
+        case 1:
             return;
+        default:
+            break;
         }
     }
     _wasStarted = true;
