@@ -323,6 +323,13 @@
       vehicle movements. After this, you can perform your first simulation
       steps. This process is also visualised wothin the next figure.</para>
 
+      <para>Please remark, that most of the tools are command-line tools by
+      now. They do nothing if you just perfor a double-click at them. DO also
+      notice, that we describe the call parameter in the following chapters
+      which may be also stored in so-called &#34;configuration files&#34; to
+      allow their reuse. This possibility is described on a later place in the
+      document.</para>
+
       <figure>
         <title>Process of simulation with SUMO; (grey and rounded: data used;
         white: program calls)</title>
@@ -363,7 +370,7 @@
         the VISUM simulation package, simply write the following:</para>
 
         <example>
-          <title>SUMO-NETCONVERT --visum=MyVisumNet.inp
+          <title>netconvert(.exe) --visum=MyVisumNet.inp
           --output-file=MySUMOFile.net.xml</title>
         </example>
 
@@ -785,7 +792,7 @@
             SUMO-NETCONVERT with the following parameter:</para>
 
             <example>
-              <title>SUMO-NETCONVERT --artemis=&#60;PATH&#62;
+              <title>netconvert(.exe) --artemis=&#60;PATH&#62;
               --output-file=MySUMOFile.net.xml</title>
             </example>
 
@@ -841,8 +848,8 @@
 
             <itemizedlist>
               <listitem>
-                <para>The connections between lanes may not the same as in the
-                input</para>
+                <para>The connections between lanes may be not the same as in
+                the input</para>
               </listitem>
 
               <listitem>
@@ -856,6 +863,10 @@
 
               <listitem>
                 <para>Additional source and sink links must be build</para>
+              </listitem>
+
+              <listitem>
+                <para>Possible speed changes at segments are not supported</para>
               </listitem>
             </itemizedlist>
 
@@ -874,7 +885,7 @@
             supply two values as input parameter and the call looks like this:</para>
 
             <example>
-              <title>SUMO-NETCONVERT --cell-nodes=&#60;CELL_NODE_FILE&#62;
+              <title>netconvert(.exe) --cell-nodes=&#60;CELL_NODE_FILE&#62;
               --cell-edges=&#60;CELL_EDGE_FILE&#62;
               --output-file=MySUMOFile.net.xml</title>
             </example>
@@ -913,11 +924,6 @@
               </listitem>
 
               <listitem>
-                <para>The times the traffic lights switch at may not be the
-                same as within the input</para>
-              </listitem>
-
-              <listitem>
                 <para>All actuated trafic lights are mapped onto the same type
                 of traffic light (MSActuatedTrafficLight)</para>
               </listitem>
@@ -930,9 +936,14 @@
             <para>An usage example could be this one:</para>
 
             <example>
-              <title>SUMO-NETCONVERT --vissim=&#60;VISSIM_FILE&#62;
+              <title>netconvert(.exe) --vissim=&#60;VISSIM_FILE&#62;
               --output-file=MySUMOFile.net.xml</title>
             </example>
+
+            <para>During import, different actions must be done which may
+            yield in some loss of data and may be watched in part by setting
+            the verbose option. The additional warnings are described in a
+            further document (!!!).</para>
           </sect4>
 
           <sect4>
@@ -949,7 +960,7 @@
             <para>An usage example could be this one:</para>
 
             <example>
-              <title>SUMO-NETCONVERT --vissim=&#60;VISSIM_FILE&#62;
+              <title>netconvert(.exe) --vissim=&#60;VISSIM_FILE&#62;
               --output-file=MySUMOFile.net.xml</title>
             </example>
 
@@ -1033,8 +1044,8 @@
         could take a look at it using the gui-version of the simulation (see
         !!!), but no cars would be driving around. You still need some kind of
         description about the vehicles. A vehicle consists of three parts: the
-        vehicle itself, its type and the route itself. We will describe this
-        in detail later (!!!) as most of the things to generate these
+        vehicle itself, its type and the route. We will describe this in
+        detail later (!!!) as most of the things to generate these
         descriptions may be done without knowing this.</para>
 
         <para>If you are importing data from other simulation packages, they
@@ -1044,15 +1055,15 @@
         how to import vehicle movements from other simulations and how to
         build own movement descriptions.</para>
 
-        <para>Before doing this, we want to why you possibly need two programs
-        to do it: Within the real life single vehicles are using a route the
-        driver knows which may be any list of streets the vehicle passes. This
-        is quite simple but the amount of data needed to describe this is very
-        large. Due to this, vehicle movements are often given as the amount of
-        vehicles moving from one point to another point within the network. A
-        point in this sense may be a position on the street, but mostly it is
-        something like a district or a complex of buildings. Given such an
-        information, you have to generate single trips from this so called
+        <para>Before doing this, we want to explain why you possibly need two
+        programs to do it: Within the real life single vehicles are using a
+        route the driver knows which may be any list of streets the vehicle
+        passes. This is quite simple but the amount of data needed to describe
+        this is very large. Due to this, vehicle movements are often given as
+        the amount of vehicles moving from one point to another point within
+        the network. A point in this sense may be a position on the street,
+        but mostly it is something like a district or another area. Given such
+        an information, you have to generate single trips from this so called
         OD-matrix (Origin/Destination-matrix) using the SUMO-OD2TRIP-tool.</para>
 
         <figure>
@@ -1080,10 +1091,75 @@
           </mediaobject>
         </figure>
 
-        <para>As the process of route building is not as similar given
-        different input as the building of networks is, we also present it
-        explicitely for each supported simulation package, now. Information of
-        how to build routes from scratch is also given.</para>
+        <para>If you are preparing a simulation by your own and not import an
+        existing one, you can directly use routes. As supplying information
+        about roads and junctions is insufficient to generate districts, this
+        is even the only possible way in most cases. Information about how to
+        import routes from existing simulations are listed later.</para>
+
+        <sect3>
+          <title>Building own routes from scratch</title>
+
+          <para>You have either the possibility to generate completely random
+          routes or to exactly describe what you want and pass this
+          information to SUMO-ROUTER which then completes this description by
+          necessary information. The results may be then used within the
+          simulation.</para>
+
+          <sect4>
+            <title>Generating random routes</title>
+
+            <para>Random routes are the most easiest, but also the most
+            inaccurate way to feed your network with vehicle movements. Using
+            the following call:</para>
+
+            <example>
+              <title>router(.exe) --net=&#60;SUMO_NET&#62; -R &#60;FLOAT&#62;
+              --output-file=MySUMORoutes.rou.xml -b &#60;UINT&#62; -e
+              &#60;UINT&#62;</title>
+            </example>
+
+            <para>Generates random routes for the time interval given by
+            -b(egin) and -e(nd). In each timestep as many vehicles will be
+            emitted into the network as given by the value of -R
+            (--random-per-second). You can also supply values which are less
+            then one. In this case, a single vehicle will be emitted each 1/-R
+            step. Example: -R 0.25 generates a route description which forces
+            the simulation to emit a single vehicle each four timesteps.</para>
+
+            <para>It is also possible to use this parameter in combination of
+            other route definitions, for example supplying some fix routes and
+            additionally generate random routes.</para>
+
+            <para><inlinegraphic fileref="./gfx/attention_small.gif"
+            format="GIF" /> Random routes are not the best way to generate
+            routes. Take a look at the network displayed below. This network
+            has two rural and many minor roads. Random routes are by now
+            spread all over the network and each road is chosen to be the
+            starting or the ending without respecting his function. Due to
+            this, the network is filled over with cars, coming from and
+            approaching directions, the normal traffic is not taking - the
+            normal traffic would concentrate on rural roads. This can be
+            solved using definitions of routes. We will discuss this in the
+            second subchapter.</para>
+
+            <para><inlinegraphic fileref="./gfx/attention_small.gif"
+            format="GIF" /> There is also another problem with random routes:
+            By definition, in 50% of the cases, the route starts in the
+            opposite direction of the destination - on the wrong side of the
+            road. This yields in a large amount of vehicles which want to turn
+            back using the first possibility. This is of course also not
+            common in the real world, especially not in areas as the one shown
+            before. To avoid this, we remove the first and the last edge from
+            the route per default.</para>
+          </sect4>
+
+          <sect4>
+            <title>Generating routes by description</title>
+
+            <para></para>
+          </sect4>
+        </sect3>
 
         <sect3>
           <title>Importing Artemis-routes</title>
@@ -1095,7 +1171,7 @@
           <para>This is basically done this way:</para>
 
           <example>
-            <title>SUMO-ROUTER --artemis=&#60;ARTEMIS_FOLDER&#62;
+            <title>router(.exe) --artemis=&#60;ARTEMIS_FOLDER&#62;
             --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
             &#60;UINT&#62; -e &#60;UINT&#62;</title>
           </example>
@@ -1105,6 +1181,18 @@
           end of the simulation. This is quite inconsequent as our mechanisms
           would allow import of repeateable routes, too. This is just not yet
           implemented.</para>
+
+          <para>Known problems:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Only the a0-Flow is being imported</para>
+            </listitem>
+
+            <listitem>
+              <para>Only one time-period is imported</para>
+            </listitem>
+          </itemizedlist>
         </sect3>
 
         <sect3>
@@ -1117,7 +1205,7 @@
           into the SUMO-representation. Do this using the following command:</para>
 
           <example>
-            <title>SUMO-ROUTER --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
+            <title>router(.exe) --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
             --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
             &#60;UINT&#62; -e &#60;UINT&#62;</title>
           </example>
@@ -1158,27 +1246,6 @@
           <title>Importing VISUM-routes</title>
 
           <para>Visum-routes are stored in one or more OD-matrices. !!!</para>
-        </sect3>
-
-        <sect3>
-          <title>Building own routes from scratch</title>
-
-          <para>You have either the possibility to generate completely random
-          routes or to exactl describe what you want and pass this information
-          to SUMO-ROUTER to complete this description by necessary information
-          and allow to load routes build this way into the simulation.</para>
-
-          <sect4>
-            <title>Generating random routes</title>
-
-            <para>!!!!</para>
-          </sect4>
-
-          <sect4>
-            <title>Generating described routes</title>
-
-            <para></para>
-          </sect4>
         </sect3>
       </sect2>
 
@@ -1426,7 +1493,7 @@
           Assignment</para></listitem><listitem><para>OPTIONAL: [
           --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
           whether a configuration file shall be loaded</para></listitem><listitem><para>OPTIONAL:
-          [ --random_per_second | -R ] &#60;FLOAT&#62;</para><para>Builds
+          [ --random-per-second | -R ] &#60;FLOAT&#62;</para><para>Builds
           additional random routes. The float to give is the number of routes
           to build for a simulation second (may be lower than 1)</para></listitem></itemizedlist></para>
         </sect3>

@@ -16,12 +16,12 @@
       <title>Why netconversion?</title>
 
       <para>There are to reasons why we decided to build networks by
-      converting exiting ones. The first is that or interest mainly lies on
+      converting exiting ones. The first is that our interest mainly lies on
       simulation of large urban areas and the networks size speaks against
       inserting and editing them by hand. The second is the high complexity of
       the SUMO-network format which allows minimum effort on post-processing
-      the read data after loading it. Due to this, the amount of memroy used
-      within the simulation is reduced.</para>
+      the data after loading it within the simulation. Using this approach,
+      the amount of memory used within the simulation is reduced.</para>
     </sect1>
 
     <sect1>
@@ -40,8 +40,8 @@
       within out repository at sourceforge (<link
       linkend="sumo.sourceforge.net">http://sumo.sourceforge.net</link>). In
       this version, it describes the SUMO-NETCVONERT within the SUMO-release
-      0.8. The information about the document state can be found at the end of
-      the document.</para>
+      0.8 to come. The information about the document state can be found at
+      the end of the document.</para>
 
       <para>This document is meant for developers only. It describes how the
       process of network importing and converting into the SUMO-format is
@@ -99,7 +99,7 @@
         </listitem>
 
         <listitem>
-          <para>sumo/src/netimport/*</para>
+          <para>sumo/src/netimport/* (including all subfolders)</para>
         </listitem>
 
         <listitem>
@@ -149,44 +149,17 @@
   <chapter>
     <title>Process description</title>
 
-    <sect1><title>Data Loading</title> <para>The next figure shows the order
-    of data loading.</para> <figure> <title>The Loading of Data</title>
-    <mediaobject> <imageobject> <imagedata fileref="" format="GIF"></imagedata>
-    </imageobject> </mediaobject> </figure> <para>Similar to the process
-    described above, the program stops when an error occurs by throwing a
-    ProcessError - exception. The error is reported before.
-    &#34;ErrorMessages&#34; gives a list of possible errors.</para> <sect2
-    id="LoadingTypes"> <title>Loading of Types</title> <para>When no types are
-    given, the defaults are used. This is not an error. Defaults for types may
-    be given as parameter on the command line, may be read from a file but are
-    also given in the source code, so no error should occur at this place at
-    all as long as the read file (when given) is not malicious.</para>
-    </sect2> <sect2 id="LoadingNodes"> <title>Loading of Nodes</title>
-    <para>Again, an error should only occur on a broken file.</para> </sect2>
-    <sect2 id="LoadingEdges"> <title>Loading of Edges</title> <para>Edges are
-    read in the same way as nodes. An error may occur on a broken file or when
-    the node-information of a node is invalid. Invalid in this case means,
-    that the information about the node&#39;s position is missing and can not
-    be retrieved from the node descriptions loaded before, too.</para>
-    </sect2></sect1>
+    <para>The process of building networks from loaded data max be splitted
+    into steps as shown within the next picture. We will not describe how
+    options are parsed within this document, a further one should be available
+    about this topic as this process is common to all modules. The further
+    steps are described within the next subchapters.</para>
 
-    <sect1 id="LoaderClasses"><title>Loader Classes</title> <sect2>
-    <title>XML Input</title> <para>The loader classes are named by the
-    instance classes&#39; plural name with the appendix &#34;Handler&#34;:
-    NBXMLTypesHandler, NBXMLNodesHandler, NBXMLEdgesHandler. The &#34;XML&#34;
-    indicates the type of data being loaded by the class.</para> <para>By now,
-    as only the reading of XML-files is implemented, the handler classes are
-    derivations of the NBXMLHandlerPrototype what itself is a derivation of a
-    SAX-parser HandlerBase which is a Xerces([11])-implementation of both the
-    DocumentHandler and the ErrorHandler. NBXMLHandlerPrototype extends the
-    HandlerBase by an error report mechanism and internal variables that
-    indicate the verbose an the warn mode.</para> <para>The three handlers
-    retrieve information from the parsed XML-file instance by instance, build
-    the instances where default values may be supplied when not inside the
-    file and add the build instances into the appropriate container. Missing
-    attributes, where default values are used, are reported to stdout when the
-    &#34;warn&#34;-flag is set. Other errors are reported, too and lead to a
-    forced ending of the conversion process.</para> </sect2></sect1>
+    <figure><title></title>Process of network building
+    <mediaobject> <imageobject><imagedata fileref="./gfx_netcdev/mainflow.gif"
+    format="GIF"></imagedata></imageobject> </mediaobject></figure>
+
+    <sect1><title>Data Loading</title> <para>T</para></sect1>
 
     <sect1><title>Data Processing</title><para>After each loader has finished,
     the data should be stored within the container classes &#34;NB*Cont&#34;
@@ -206,17 +179,28 @@
     current edge goes into, is computed. They are left unseen for the next
     steps and later assigned as the turning direction. An edge is regarded as
     being the turning direction if it yields in the same node the current edge
-    offsprings.</para><para>This approach is not the best one. What happens
-    when one of the edges has a brake like in the cross3ltl-example? We
-    don&#39;t have an answer, yet...</para></callout><callout arearefs="???"><para>Sorting
-    nodes&#39; edges</para><para>For each node known by NBNodeCont, the 3
-    lists, being unsorted so far are sorted: _incoming, _outgoing and
-    _allEdges. By doing this, we later know the abstract geometrical
-    relationships betwen edges (which edge is right to which etc.).</para><para>We
-    describe this process more detailed in one of the next subchapters.</para></callout></calloutlist><para>Before
-    the loaded data may be processed, their container must be informed about
-    the end of the loading. By now, this is only true for the nodes as the
-    edges do not need any preprocessing. The method <methodname>NBNodeCont::close()</methodname>
+    offsprings.</para><para><caution><para><inlinegraphic
+    fileref="./gfx/attention_small.gif" format="GIF"></inlinegraphic>This
+    approach is not the best one. What happens when one of the edges has a
+    brake like in the cross3ltl-example? We don&#39;t have an answer, yet...</para></caution></para></callout><callout
+    arearefs="???"><para>Sorting nodes&#39; edges</para><para>For each node
+    known by NBNodeCont, the 3 lists, being unsorted so far are sorted:
+    _incoming, _outgoing and _allEdges. By doing this, we later know the
+    abstract geometrical relationships betwen edges (which edge is right to
+    which etc.). The lists are sorted clockwise beginning at the edge coming
+    from the most northern direction. </para><para>We describe this process
+    more detailed in one of the next subchapters.</para></callout><callout
+    arearefs="???"><para>Node position normalisation</para><para><caution><para><inlinegraphic
+    fileref="./gfx/attention_small.gif" format="GIF"></inlinegraphic>DEPRECATED!!!</para></caution></para></callout><callout
+    arearefs="???"><para>Edge to Edge - relationship computation</para><para>For
+    each edge, the list of edges which may be approached from it is being
+    computed and which of this edge&#39;s lanes are used to do this. It is not
+    yet computed, which lanes will be approached by which of this edge&#39;s
+    lanes.</para><para>We describe this process more detailed in one of the
+    next subchapters.</para></callout></calloutlist><para>Before the loaded
+    data may be processed, their container must be informed about the end of
+    the loading. By now, this is only true for the nodes as the edges do not
+    need any preprocessing. The method <methodname>NBNodeCont::close()</methodname>
     is called from <methodname>NBLoader::load()</methodname> to precompute the
     nodes. A further description will be given in the next subchapter.</para>
     <para>The computation of data itself is consists of two steps. In the
@@ -237,9 +221,19 @@
     and converts the angles of incoming edges by turning them around 180°.</para><para>Keep
     in mind, that our coordinates are as described within the
     user-documentation, the higher a point shall be, the greater his y-value,
-    the mor to left, the higher his x-value.</para><figure><title>Coordinate
+    the more to left, the higher his x-value.</para><figure><title>Coordinate
     system used in SUMO</title><mediaobject><imageobject><imagedata
-    fileref="./gfx/basic_coordinates.gif" format="GIF"></imagedata></imageobject></mediaobject></figure></sect2></sect1>
+    fileref="./gfx/basic_coordinates.gif" format="GIF"></imagedata></imageobject></mediaobject></figure><para>It
+    is not assured, that the incoming and outgoing directions of a street
+    which is to the north of the junctions are lying beside each other within
+    the list of sorted edges. It may rather be, that the outgoing is lying at
+    the begin and the incoming at the end.</para></sect2><sect2><title>Computation
+    of edge to edge - relationships</title><para>For each edge, the following
+    is being done: At first, the list of edges which outgo from the junction
+    this edge yields in is retrieved. Then, the importance of each connected
+    edge is being computed using the priority of the approached edge. This
+    means that higher priorised edges are being approached by a higher number
+    of lanes.</para></sect2></sect1>
 
     <sect1><title>NBNodeCont::close()</title> <para>Like most of the container
     methods, this method only invokes a method with the same name (here:
