@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.15  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
 //
@@ -102,6 +105,7 @@ namespace
 #include <microsim/MSE2Collector.h>
 #include <microsim/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSDetector2File.h>
+#include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
@@ -118,6 +122,34 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * NLDetectorBuilder::E3DetectorDefinition-methods
+ * ----------------------------------------------------------------------- */
+NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
+        const std::string &id,
+        const std::string &filename,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds,
+        const E3MeasuresVector &measures,
+        int splInterval) :
+    myID(id), myFileName(filename),
+    myHaltingTimeThreshold(haltingTimeThreshold),
+    myHaltingSpeedThreshold(haltingSpeedThreshold),
+    myDeleteDataAfterSeconds(deleteDataAfterSeconds),
+    myMeasures(measures), mySampleInterval(splInterval)
+{
+}
+
+
+NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition()
+{
+}
+
+
+/* -------------------------------------------------------------------------
+ * NLDetectorBuilder-methods
+ * ----------------------------------------------------------------------- */
 NLDetectorBuilder::NLDetectorBuilder()
 {
 }
@@ -131,23 +163,13 @@ NLDetectorBuilder::~NLDetectorBuilder()
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
-        const std::string &/*style*/, std::string filename,
-        const std::string &basePath)
+        const std::string &/*style*/, std::string filename)
 {
      // get the output style
 //   MSDetector::OutputStyle cstyle = convertStyle(id, style);
      // check whether the file must be converted into a relative path
-     if(!FileHelpers::isAbsolute(filename)) {
-         filename = FileHelpers::getConfigurationRelative(basePath, filename);
-     }
     // get and check the lane
-    MSLane *clane = MSLane::dictionary(lane);
-    if(clane==0) {
-        throw InvalidArgument(
-            string("On detector building:\n")
-            + string("The lane with the id '") + lane
-            + string("' is not known."));
-    }
+    MSLane *clane = getLaneChecking(lane);
     // compute position
     if(pos<0) {
         pos = clane->length() + pos;
@@ -165,27 +187,14 @@ void
 NLDetectorBuilder::buildE2Detector(const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, int splInterval,
-        const std::string &/*style*/, std::string filename,
-        const std::string &basePath, const std::string &measures,
+        const std::string &style, std::string filename,
+        const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
         MSUnit::Seconds deleteDataAfterSeconds )
 {
-     // get the output style
-//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
-     // check whether the file must be converted into a relative path
-     if(!FileHelpers::isAbsolute(filename)) {
-         filename = FileHelpers::getConfigurationRelative(basePath, filename);
-     }
-    // get and check the lane
-    MSLane *clane = MSLane::dictionary(lane);
-    if(clane==0) {
-        throw InvalidArgument(
-            string("On detector building:\n")
-            + string("The lane with the id '") + lane
-            + string("' is not known."));
-    }
+    MSLane *clane = getLaneChecking(lane);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     cont = false; //!!!
@@ -209,12 +218,14 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
         if(length<=0) {
             throw InvalidArgument("The length of detector " + id + " is not positive.");
         }
-        det = buildSingleLaneE2Det(id, clane, pos, length, splInterval,
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
-        det = buildMultiLaneE2Det(id, clane, pos, length, splInterval,
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, splInterval,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
@@ -227,8 +238,129 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 }
 
 
+void
+NLDetectorBuilder::buildE2Detector(const std::string &id,
+        const std::string &lane, float pos, float length,
+        bool cont, MSTrafficLightLogic *tll,
+        const std::string &style, std::string filename,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds )
+{
+    MSLane *clane = getLaneChecking(lane);
+    // check whether the detector may lie over more than one lane
+    MSDetectorFileOutput *det = 0;
+    cont = false; //!!!
+    if(!cont) {
+        if(length<0) {
+            pos = pos + length;
+            length *= -1;
+        }
+        // compute position
+        if(pos<0) {
+            pos = clane->length() + pos;
+        }
+        // patch position
+        if(pos<0.1) {
+            pos = 0.1;
+        }
+        // patch length
+        if(pos+length>clane->length()-0.1) {
+            length = clane->length() - 0.1 - pos;
+        }
+        if(length<=0) {
+            throw InvalidArgument("The length of detector " + id + " is not positive.");
+        }
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, 100000,// !!!
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    } else {
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
+            clane, pos, length, 100000, // !!!
+            haltingTimeThreshold, haltingSpeedThreshold,
+            jamDistThreshold, deleteDataAfterSeconds,
+            measures);
+    }
+    // add the file output
+    new Command_SaveTLCoupledDet(tll, det,
+        MSNet::getInstance()->getCurrentTimeStep(), filename);
+}
+
+
+void
+NLDetectorBuilder::beginE3Detector(const std::string &id,
+        std::string filename, int splInterval,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
+{
+    E3MeasuresVector toAdd = parseE3Measures(measures);
+    myE3Definition = new E3DetectorDefinition(id, filename,
+        haltingSpeedThreshold, haltingSpeedThreshold, deleteDataAfterSeconds,
+        toAdd, splInterval);
+}
+
+
+void
+NLDetectorBuilder::addE3Entry(const std::string &lane, float pos)
+{
+    MSLane *clane = getLaneChecking(lane);
+    if(myE3Definition==0) {
+        throw InvalidArgument("Something is wrong with a detector description.");
+    }
+    myE3Definition->myEntries.push_back(MSCrossSection(clane, pos));
+}
+
+
+void
+NLDetectorBuilder::addE3Exit(const std::string &lane, float pos)
+{
+    MSLane *clane = getLaneChecking(lane);
+    if(myE3Definition==0) {
+        throw InvalidArgument("Something is wrong with a detector description.");
+    }
+    myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
+}
+
+
+
+void
+NLDetectorBuilder::endE3Detector()
+{
+    if(myE3Definition==0) {
+        throw InvalidArgument("Something is wrong with a detector description.");
+    }
+    MSE3Collector *det = createE3Detector(
+        myE3Definition->myID,
+        myE3Definition->myEntries,
+        myE3Definition->myExits,
+        myE3Definition->myHaltingTimeThreshold,
+        myE3Definition->myHaltingSpeedThreshold,
+        myE3Definition->myDeleteDataAfterSeconds);
+    E3MeasuresVector &toAdd = myE3Definition->myMeasures;
+    for(E3MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
+        det->addDetector(*i);
+    }
+    // add the file output
+    MSDetector2File* det2file = MSDetector2File::getInstance();
+    det2file->addDetectorAndInterval(det,
+        myE3Definition->myFileName,
+        myE3Definition->mySampleInterval,
+        myE3Definition->mySampleInterval);
+    // clean up
+    delete myE3Definition;
+    myE3Definition = 0;
+}
+
+
 MSDetectorFileOutput *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
+                                        DetectorUsage usage,
                                         MSLane *lane, float pos, float length,
                                         int splInterval,
                                         MSUnit::Seconds haltingTimeThreshold,
@@ -237,8 +369,8 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         MSUnit::Seconds deleteDataAfterSeconds,
                                         const std::string &measures)
 {
-    MSE2Collector *ret = createSingleLaneE2Detector(id, lane, pos, length,
-        haltingTimeThreshold, haltingSpeedThreshold,
+    MSE2Collector *ret = createSingleLaneE2Detector(id, usage, lane, pos,
+        length, haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
     E2MeasuresVector toAdd = parseE2Measures(measures);
     for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
@@ -250,6 +382,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 
 MSDetectorFileOutput *
 NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
+                                       DetectorUsage usage,
                                        MSLane *lane, float pos, float length,
                                        int splInterval,
                                        MSUnit::Seconds haltingTimeThreshold,
@@ -258,8 +391,8 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id,
                                        MSUnit::Seconds deleteDataAfterSeconds,
                                        const std::string &measures)
 {
-    MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, lane, pos,
-        haltingTimeThreshold, haltingSpeedThreshold,
+    MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
+        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
     ret->init(lane, length, MS_E2_ZS_CollectorOverLanes::LaneContinuations());
     E2MeasuresVector toAdd = parseE2Measures(measures);
@@ -278,53 +411,76 @@ NLDetectorBuilder::parseE2Measures(const std::string &measures)
     string my = measures;
     StringUtils::upper(my);
     E2MeasuresVector ret;
-    if(measures.find("DENSITY")!=string::npos) {
+    if(my.find("DENSITY")!=string::npos) {
         ret.push_back(E2::DENSITY);
     }
-    if(measures.find("MAX_JAM_LENGTH_IN_VEHICLES")!=string::npos) {
+    if(my.find("MAX_JAM_LENGTH_IN_VEHICLES")!=string::npos) {
         ret.push_back(E2::MAX_JAM_LENGTH_IN_VEHICLES);
     }
-    if(measures.find("MAX_JAM_LENGTH_IN_METERS")!=string::npos) {
+    if(my.find("MAX_JAM_LENGTH_IN_METERS")!=string::npos) {
         ret.push_back(E2::MAX_JAM_LENGTH_IN_METERS);
     }
-    if(measures.find("JAM_LENGTH_SUM_IN_VEHICLES")!=string::npos) {
+    if(my.find("JAM_LENGTH_SUM_IN_VEHICLES")!=string::npos) {
         ret.push_back(E2::JAM_LENGTH_SUM_IN_VEHICLES);
     }
-    if(measures.find("JAM_LENGTH_SUM_IN_METERS")!=string::npos) {
+    if(my.find("JAM_LENGTH_SUM_IN_METERS")!=string::npos) {
         ret.push_back(E2::JAM_LENGTH_SUM_IN_METERS);
     }
-    if(measures.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES")!=string::npos) {
+    if(my.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES")!=string::npos) {
         ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
     }
-    if(measures.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS")!=string::npos) {
+    if(my.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS")!=string::npos) {
         ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
     }
-    if(measures.find("N_VEHICLES")!=string::npos) {
+    if(my.find("N_VEHICLES")!=string::npos) {
         ret.push_back(E2::N_VEHICLES);
     }
-    if(measures.find("OCCUPANCY_DEGREE")!=string::npos) {
+    if(my.find("OCCUPANCY_DEGREE")!=string::npos) {
         ret.push_back(E2::OCCUPANCY_DEGREE);
     }
-    if(measures.find("SPACE_MEAN_SPEED")!=string::npos) {
+    if(my.find("SPACE_MEAN_SPEED")!=string::npos) {
         ret.push_back(E2::SPACE_MEAN_SPEED);
     }
-    if(measures.find("CURRENT_HALTING_DURATION_SUM_PER_VEHICLE")!=string::npos) {
+    if(my.find("CURRENT_HALTING_DURATION_SUM_PER_VEHICLE")!=string::npos) {
         ret.push_back(E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
     }
-    if(measures.find("N_STARTED_HALTS")!=string::npos) {
+    if(my.find("N_STARTED_HALTS")!=string::npos) {
         ret.push_back(E2::N_STARTED_HALTS);
     }
-    if(measures.find("HALTING_DURATION_SUM")!=string::npos) {
+    if(my.find("HALTING_DURATION_SUM")!=string::npos) {
         ret.push_back(E2::HALTING_DURATION_SUM);
     }
-    if(measures.find("HALTING_DURATION_MEAN")!=string::npos) {
+    if(my.find("HALTING_DURATION_MEAN")!=string::npos) {
         ret.push_back(E2::HALTING_DURATION_MEAN);
     }
-    if(measures.find("APPROACHING_VEHICLES_STATES")!=string::npos) {
+    if(my.find("APPROACHING_VEHICLES_STATES")!=string::npos) {
         ret.push_back(E2::APPROACHING_VEHICLES_STATES);
     }
-    if(measures.find("ALL")!=string::npos) {
+    if(my.find("ALL")!=string::npos) {
         ret.push_back(E2::ALL);
+    }
+    return ret;
+}
+
+
+
+NLDetectorBuilder::E3MeasuresVector
+NLDetectorBuilder::parseE3Measures(const std::string &measures)
+{
+    string my = measures;
+    StringUtils::upper(my);
+    E3MeasuresVector ret;
+    if(my.find("MEAN_TRAVELTIME")!=string::npos) {
+        ret.push_back(E3::MEAN_TRAVELTIME);
+    }
+    if(my.find("MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE")!=string::npos) {
+        ret.push_back(E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
+    }
+    if(my.find("NUMBER_OF_VEHICLES")!=string::npos) {
+        ret.push_back(E3::NUMBER_OF_VEHICLES);
+    }
+    if(my.find("ALL")!=string::npos) {
+        ret.push_back(E3::ALL);
     }
     return ret;
 }
@@ -340,14 +496,13 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-                                              MSLane *lane, float pos,
-                                              float length,
-                                              MSUnit::Seconds haltingTimeThreshold,
-                                              MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                              MSUnit::Meters jamDistThreshold,
-                                              MSUnit::Seconds deleteDataAfterSeconds)
+        DetectorUsage usage, MSLane *lane, float pos, float length,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
 {
-    return new MSE2Collector(id, lane, pos, length,
+    return new MSE2Collector(id, usage, lane, pos, length,
         haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
 
@@ -356,16 +511,30 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-                                              MSLane *lane, float pos,
-                                              MSUnit::Seconds haltingTimeThreshold,
-                                              MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                              MSUnit::Meters jamDistThreshold,
-                                              MSUnit::Seconds deleteDataAfterSeconds)
+        DetectorUsage usage, MSLane *lane, float pos,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
 {
-    return new MS_E2_ZS_CollectorOverLanes( id, lane, pos,
+    return new MS_E2_ZS_CollectorOverLanes( id, usage, lane, pos,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds);
 }
+
+
+MSE3Collector *
+NLDetectorBuilder::createE3Detector(const std::string &id,
+        const Detector::CrossSections &entries,
+        const Detector::CrossSections &exits,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds)
+{
+    return new MSE3Collector( id, entries, exits,
+        haltingTimeThreshold, haltingSpeedThreshold, deleteDataAfterSeconds);
+}
+
 
 
             /*
@@ -379,6 +548,22 @@ MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
      throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
 }
 */
+
+
+MSLane *
+NLDetectorBuilder::getLaneChecking(const std::string &id)
+{
+    // get and check the lane
+    MSLane *clane = MSLane::dictionary(id);
+    if(clane==0) {
+        throw InvalidArgument(
+            string("On detector building:\n")
+            + string("The lane with the id '") + id
+            + string("' is not known."));
+    }
+    return clane;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

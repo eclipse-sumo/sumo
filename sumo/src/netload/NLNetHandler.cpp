@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.40  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.39  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
 //
@@ -74,6 +77,7 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/TplConvertSec.h>
 #include <utils/convert/STRConvert.h>
@@ -105,10 +109,14 @@ using namespace std;
  * ======================================================================= */
 NLNetHandler::NLNetHandler(const std::string &file,
                            NLContainer &container,
-                           NLDetectorBuilder *detBuilder)
+                           NLDetectorBuilder *detBuilder,
+                           double stdDetectorPositions,
+                           double stdDetectorLengths)
     : MSRouteHandler(file, true),
     myContainer(container), _tlLogicNo(-1), m_Offset(0),
-    myCurrentIsInternalToSkip(false), myDetectorBuilder(detBuilder)
+    myCurrentIsInternalToSkip(false), myDetectorBuilder(detBuilder),
+    myStdDetectorPositions(stdDetectorPositions),
+    myStdDetectorLengths(stdDetectorLengths)
 {
 }
 
@@ -182,6 +190,15 @@ NLNetHandler::myStartElement(int element, const std::string &name,
             break;
         case SUMO_TAG_E2DETECTOR:
             addE2Detector(attrs);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+            beginE3Detector(attrs);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+            addE3Entry(attrs);
+            break;
+        case SUMO_TAG_DET_EXIT:
+            addE3Exit(attrs);
             break;
         case SUMO_TAG_SOURCE:
             addSource(attrs);
@@ -380,6 +397,18 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     myContainer.initIncomingLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
+        m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+        // recheck the offset in dependence to the type if not given
+        if(m_DetectorOffset==-1) {
+            // agentbased
+            if(m_Type=="agentbased") {
+                m_DetectorOffset = myStdDetectorLengths;
+            }
+            // actuated
+            if(m_Type=="actuated") {
+                m_DetectorOffset = myStdDetectorPositions;
+            }
+        }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
@@ -512,11 +541,19 @@ NLNetHandler::addDetector(const Attributes &attrs)
         // induct loops (E1-detectors)
     if(type=="induct_loop"||type=="E1"||type=="e1") {
         addE1Detector(attrs);
+        myDetectorType = "e1";
         return;
     }
         // lane-based areal detectors (E2-detectors)
     if(type=="lane_based"||type=="E2"||type=="e2") {
         addE2Detector(attrs);
+        myDetectorType = "e2";
+        return;
+    }
+        // multi-origin/multi-destination detectors (E3-detectors)
+    if(type=="multi_od"||type=="E3"||type=="e3") {
+        beginE3Detector(attrs);
+        myDetectorType = "e3";
         return;
     }
 }
@@ -540,8 +577,8 @@ NLNetHandler::addE1Detector(const Attributes &attrs)
             getFloat(attrs, SUMO_ATTR_POSITION),
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
             getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-            getString(attrs, SUMO_ATTR_FILE),
-            _file);
+            FileHelpers::checkForRelativity(
+                getString(attrs, SUMO_ATTR_FILE), _file));
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {
@@ -566,20 +603,92 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
             "Error in description: missing id of a detector-object.");
         return;
     }
+    // check whether this is a lsa-based detector or one that uses a sample
+    //  interval
+    MSTrafficLightLogic *tll = 0;
     try {
-        myDetectorBuilder->buildE2Detector(id,
-            getString(attrs, SUMO_ATTR_LANE),
-            getFloat(attrs, SUMO_ATTR_POSITION),
-            getFloat(attrs, SUMO_ATTR_LENGTH),
-            getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+        string lsaid = getString(attrs, SUMO_ATTR_TLID);
+        tll = myContainer.getTLLogic(lsaid);
+        if(tll==0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("The detector '") + id
+                + string("' refers to the unknown lsa '") + lsaid
+                + string("'."));
+            return;
+        }
+    } catch (EmptyData) {
+    }
+    //
+    try {
+        if(tll!=0) {
+            myDetectorBuilder->buildE2Detector(id,
+                getString(attrs, SUMO_ATTR_LANE),
+                getFloat(attrs, SUMO_ATTR_POSITION),
+                getFloat(attrs, SUMO_ATTR_LENGTH),
+                getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                tll,
+                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                FileHelpers::checkForRelativity(
+                    getString(attrs, SUMO_ATTR_FILE),
+                    _file),
+                getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
+                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
+                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                );
+        } else {
+            myDetectorBuilder->buildE2Detector(id,
+                getString(attrs, SUMO_ATTR_LANE),
+                getFloat(attrs, SUMO_ATTR_POSITION),
+                getFloat(attrs, SUMO_ATTR_LENGTH),
+                getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                FileHelpers::checkForRelativity(
+                    getString(attrs, SUMO_ATTR_FILE),
+                    _file),
+                getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
+                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
+                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
+                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                );
+        }
+    } catch (XMLBuildingException &e) {
+        MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The description of the detector '")
+            + id + string("' does not contain a needed value."));
+    }
+}
+
+
+void
+NLNetHandler::beginE3Detector(const Attributes &attrs)
+{
+    // try to get the id first
+    string id;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+        m_Key = id;
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing id of a detector-object.");
+        return;
+    }
+    try {
+        myDetectorBuilder->beginE3Detector(id,
+            FileHelpers::checkForRelativity(
+                getString(attrs, SUMO_ATTR_FILE),
+                _file),
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-            getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-            getString(attrs, SUMO_ATTR_FILE),
-            _file,
             getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHHOLD, 1.0),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHHOLD, 5.0/3.6),
-            getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHHOLD, 10.0),
             getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
             );
     } catch (XMLBuildingException &e) {
@@ -592,6 +701,43 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
             + id + string("' does not contain a needed value."));
     }
 }
+
+
+void
+NLNetHandler::addE3Entry(const Attributes &attrs)
+{
+    try {
+        myDetectorBuilder->addE3Entry(
+            getString(attrs, SUMO_ATTR_LANE),
+            getFloat(attrs, SUMO_ATTR_POSITION));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The description of the detector '")
+            + m_Key + string("' does not contain a needed value."));
+    }
+}
+
+
+void
+NLNetHandler::addE3Exit(const Attributes &attrs)
+{
+    try {
+        myDetectorBuilder->addE3Exit(
+            getString(attrs, SUMO_ATTR_LANE),
+            getFloat(attrs, SUMO_ATTR_POSITION));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The description of the detector '")
+            + m_Key + string("' does not contain a needed value."));
+    }
+}
+
+
+
 
 
 void
@@ -1021,6 +1167,18 @@ NLNetHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
+    if(wanted(LOADFILTER_NETADD)) {
+        switch(element) {
+        case SUMO_TAG_E3DETECTOR:
+            endE3Detector();
+            break;
+        case SUMO_TAG_DETECTOR:
+            endDetector();
+            break;
+        default:
+            break;
+        }
+    }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myEndElement(element, name);
 	}
@@ -1076,7 +1234,8 @@ NLNetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
+		myContainer.addJunctionInitInfo(tlLogic,
+            myContainer.getIncomingLanes(), m_DetectorOffset);
     } else if(m_Type=="agentbased") {
         // build an agentbased logic
         MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
@@ -1087,7 +1246,8 @@ NLNetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
+		myContainer.addJunctionInitInfo(tlLogic,
+            myContainer.getIncomingLanes(), m_DetectorOffset);
 	} else {
         // build an uncontrolled (fix) tls-logic
         MSTrafficLightLogic *tlLogic =
@@ -1144,6 +1304,25 @@ NLNetHandler::closeSuccLane()
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
     }
 }
+
+
+void
+NLNetHandler::endDetector()
+{
+    if(myDetectorType=="e3") {
+        endE3Detector();
+    }
+    myDetectorType = "";
+}
+
+
+void
+NLNetHandler::endE3Detector()
+{
+    myDetectorBuilder->endE3Detector();
+}
+
+
 
 
 

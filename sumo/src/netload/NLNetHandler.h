@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.20  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
 //
@@ -128,7 +131,8 @@ class NLNetHandler : public MSRouteHandler {
 public:
     /// standard constructor
     NLNetHandler(const std::string &file, NLContainer &container,
-        NLDetectorBuilder *detBuilder);
+        NLDetectorBuilder *detBuilder,
+        double stdDetectorPositions, double stdDetectorlength);
 
     /// Destructor
     virtual ~NLNetHandler();
@@ -163,6 +167,17 @@ protected:
 
     /// Builds an e2-detector using the given specification
     virtual void addE2Detector(const Attributes &attrs);
+
+    /// Starts building of an e3-detector using the given specification
+    void beginE3Detector(const Attributes &attrs);
+
+    void addE3Entry(const Attributes &attrs);
+    void addE3Exit(const Attributes &attrs);
+
+    /// Builds of an e3-detector using collected values
+    virtual void endE3Detector();
+
+    void endDetector();
 
 
 protected:
@@ -214,6 +229,10 @@ protected:
 
     /// The offset within the junction
     size_t          m_Offset;
+
+    double m_DetectorOffset;
+    double myStdDetectorPositions;
+    double myStdDetectorLengths;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
@@ -337,6 +356,9 @@ private:
 
     /// The detector builder to use
     NLDetectorBuilder *myDetectorBuilder;
+
+    /// The type of the last detector
+    std::string myDetectorType;
 
 private:
     /** invalid copy constructor */

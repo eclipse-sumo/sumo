@@ -20,9 +20,13 @@
  ***************************************************************************/
 namespace
 {
-     const char rcsid[] = "$Id$";
+     const char rcsid[] =
+         "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.20  2004/01/12 15:12:05  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -45,10 +49,14 @@ namespace
 // Adaptions due to new MSInductLoop.
 //
 // Revision 1.13  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+// changes due to loading of geometry applied from the gui-version
+//  (no major drawbacks in loading speed)
 //
 // Revision 1.12  2003/06/18 11:18:04  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+// this handler puts it further to output instances.
+// changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.11  2003/06/06 10:40:18  dkrajzew
 // new usage of MSEventControl applied
@@ -77,10 +85,12 @@ namespace
 // support for route multireferencing added
 //
 // Revision 1.2  2002/10/17 10:34:48  dkrajzew
-// possibility of retrival of the preinitialised net during loading implemented for trigger handling
+// possibility of retrival of the preinitialised net during loading
+//  implemented for trigger handling
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+//  parseable in one step
 //
 // Revision 1.9  2002/07/31 17:34:50  roessel
 // Changes since sourceforge cvs request.
@@ -127,14 +137,9 @@ namespace
 // Revision 1.1  2001/12/06 13:36:04  traffic
 // moved from netbuild
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <util/PlatformUtils.hpp>
-#include <util/TransService.hpp>
-#include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
 #include <sstream>
 #include "NLContainer.h"
 #include <microsim/MSLane.h>
@@ -179,7 +184,6 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
     m_pECB(edgeBuilder),
     m_pJCB(junctionBuilder),
     m_pSLB(new NLSucceedingLaneBuilder()),
-//     m_pDetectors(0),
     noEdges(0),
     noLanes(0),
     noJunctions(0),
@@ -188,9 +192,6 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
     noRoutes(0),
     noDetectors(0)
 {
-//     // ... the storage for the detectors
-//     m_pDetectors = new MSNet::DetectorCont();
-//    m_pJCB = new NLJunctionControlBuilder(this);
 }
 
 
@@ -476,7 +477,7 @@ NLContainer::buildMSNet(const OptionsCont &options)
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-    MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
+    MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
 //     MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
     MSNet::init( "", edges, junctions, routeLoaders, tlc);
     return MSNet::getInstance();
@@ -487,19 +488,20 @@ void
 NLContainer::closeJunctions()
 {
 	for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-		(*i).first->init((*i).second, myContinuations);
+		(*i).first->init((*i).second.first, myContinuations, (*i).second.second);
 	}
 }
 
 
+
 void
 NLContainer::addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-								 const LaneVector &lv)
+								 const LaneVector &lv, double det_offset)
 {
 	if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
 		throw 1; // !!!
 	}
-	myJunctions2PostLoadInit[key] = lv;
+	myJunctions2PostLoadInit[key] = TLInitInfo(lv, det_offset);
 }
 
 
@@ -561,7 +563,32 @@ NLContainer::initIncomingLanes()
 void
 NLContainer::addTLLogic(MSTrafficLightLogic *logic)
 {
-    myLogics.push_back(logic);
+    myLogics[logic->id()] = logic;
+}
+
+
+MSTrafficLightLogic*
+NLContainer::getTLLogic(const std::string &id) const
+{
+    std::map<std::string, MSTrafficLightLogic*>::const_iterator i =
+        myLogics.find(id);
+    if(i==myLogics.end()) {
+        return 0;
+    }
+    return (*i).second;
+}
+
+
+std::vector<MSTrafficLightLogic*>
+NLContainer::getTLLogicVector() const
+{
+    std::vector<MSTrafficLightLogic*> ret;
+    ret.reserve(myLogics.size());
+    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
+    for(i=myLogics.begin(); i!=myLogics.end(); i++) {
+        ret.push_back((*i).second);
+    }
+    return ret;
 }
 
 
@@ -572,9 +599,6 @@ NLContainer::closeLane()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLContainer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.7  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -66,6 +69,7 @@
 #include <string>
 #include <microsim/MSNet.h>
 #include <microsim/MSE2Collector.h>
+#include <microsim/MSE3Collector.h>
 
 
 /* =========================================================================
@@ -73,6 +77,7 @@
  * ======================================================================= */
 class MSInductionLoop;
 class MS_E2_ZS_CollectorOverLanes;
+class MSTrafficLightLogic;
 
 
 /* =========================================================================
@@ -93,24 +98,59 @@ public:
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
-        const std::string &style, std::string filename,
-        const std::string &basePath);
+        const std::string &style, std::string filename);
 
-    /// builds a lane-based areal (E2-) detector
+    /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const std::string &id,
         const std::string &lane, float pos, float length,
         bool cont, int splInterval,
         const std::string &/*style*/, std::string filename,
-        const std::string &basePath, const std::string &measures,
+        const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold = 1,
         MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
         MSUnit::Meters jamDistThreshold = 10,
         MSUnit::Seconds deleteDataAfterSeconds = 1800);
 
+    /// builds a lane-based areal (E2-) detector connected to a lsa
+    void buildE2Detector(const std::string &id,
+        const std::string &lane, float pos, float length,
+        bool cont, MSTrafficLightLogic *tll,
+        const std::string &/*style*/, std::string filename,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::Meters jamDistThreshold = 10,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800);
+
+    /// builds a multi-od (E3-) detector
+    void beginE3Detector(const std::string &id,
+        std::string filename, int splInterval,
+        const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800);
+
+    void addE3Entry(const std::string &lane, float pos);
+    void addE3Exit(const std::string &lane, float pos);
+
+    /// Builds of an e3-detector using collected values
+    void endE3Detector();
+
 protected:
+    /// Makes some data conversion and calls the propriate building function
+    MSDetectorFileOutput* buildE2(const std::string &id,
+        const std::string &lane, float pos, float length, bool cont,
+        const std::string &/*style*/, std::string filename,
+        const std::string &basePath, const std::string &measures,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Meters jamDistThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds );
+
+
     /// Builds an e2-detector that lies on only one lane
     MSDetectorFileOutput *buildSingleLaneE2Det(const std::string &id,
-        MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, float pos, float length,
         int splInterval,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -120,7 +160,7 @@ protected:
 
     /// Builds an e2-detector that continues on preceeding lanes
     MSDetectorFileOutput *buildMultiLaneE2Det(const std::string &id,
-        MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, float pos, float length,
         int splInterval,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -134,13 +174,19 @@ protected:
     /// Parses the measures an E2-detector shall compute
     E2MeasuresVector parseE2Measures(const std::string &measures);
 
+    /// Definition of an E2-measures vector
+    typedef std::vector<E3::DetType> E3MeasuresVector;
+
+    /// Parses the measures an E3-detector shall compute
+    E3MeasuresVector parseE3Measures(const std::string &measures);
+
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
         MSLane *lane, double pos);
 
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
-        MSLane *lane, float pos, float length,
+        DetectorUsage usage, MSLane *lane, float pos, float length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -148,15 +194,53 @@ protected:
 
     /// Creates the instance of a multi-lane-e2-detector (overwritten by gui version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
-        const std::string &id, MSLane *lane, float pos,
+        const std::string &id, DetectorUsage usage, MSLane *lane, float pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
         MSUnit::Seconds deleteDataAfterSeconds);
 
+    /// Creates the instance of an e3-detector (overwritten by gui version)
+    virtual MSE3Collector *createE3Detector(const std::string &id,
+        const Detector::CrossSections &entries,
+        const Detector::CrossSections &exits,
+        MSUnit::Seconds haltingTimeThreshold,
+        MSUnit::MetersPerSecond haltingSpeedThreshold,
+        MSUnit::Seconds deleteDataAfterSeconds);
+
     // converts the name of an output style into it's enumeration value
 /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
          const std::string &style);*/
+
+    class E3DetectorDefinition {
+    public:
+        E3DetectorDefinition(const std::string &id,
+            const std::string &filename,
+            MSUnit::Seconds haltingTimeThreshold,
+            MSUnit::MetersPerSecond haltingSpeedThreshold,
+            MSUnit::Seconds deleteDataAfterSeconds,
+            const E3MeasuresVector &measures,
+            int splInterval);
+
+        ~E3DetectorDefinition();
+
+        std::string myID;
+        std::string myFileName;
+        MSUnit::Seconds myHaltingTimeThreshold;
+        MSUnit::MetersPerSecond myHaltingSpeedThreshold;
+        MSUnit::Seconds myDeleteDataAfterSeconds;
+        E3MeasuresVector myMeasures;
+        Detector::CrossSections myEntries;
+        Detector::CrossSections myExits;
+        int mySampleInterval;
+
+    };
+
+protected:
+    MSLane *getLaneChecking(const std::string &id);
+
+private:
+    E3DetectorDefinition *myE3Definition;
 
 };
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.20  2004/01/12 15:12:05  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -282,8 +285,12 @@ public:
     /// Adds a build traffic light logic
     void addTLLogic(MSTrafficLightLogic *logic);
 
+    /// Retrieves a traffic light logic
+    MSTrafficLightLogic *getTLLogic(const std::string &id) const;
+
+
 	void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-		const std::vector<MSLane*> &lv);
+		const std::vector<MSLane*> &lv, double det_offset);
 
     /// end of operations; builds the net
     MSNet *buildMSNet(const OptionsCont &options);
@@ -296,6 +303,8 @@ protected:
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
 
 	void closeJunctions();
+
+    std::vector<MSTrafficLightLogic*> getTLLogicVector() const;
 
 private:
     /** invalid copy constructor */
@@ -333,7 +342,7 @@ protected:
     LogicKeyCont            m_LogicKeys;
 
     /// The list of traffic light logics build
-    std::vector<MSTrafficLightLogic*> myLogics;
+    std::map<std::string, MSTrafficLightLogic*> myLogics;
 
     /// Definitions of a string vector
     typedef std::vector<std::string> StringVector;
@@ -364,8 +373,10 @@ protected:
 
 	std::string myCurrentID;
 
+
 	typedef std::vector<MSLane*> LaneVector;
-	typedef std::map<MSExtendedTrafficLightLogic*, LaneVector> TLLogicInitInfoMap;
+    typedef std::pair<LaneVector, double> TLInitInfo;
+	typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
 	TLLogicInitInfoMap myJunctions2PostLoadInit;
 
 private:

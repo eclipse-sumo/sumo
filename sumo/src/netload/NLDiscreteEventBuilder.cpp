@@ -17,6 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/01/26 07:07:36  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.2  2004/01/12 14:36:21  dkrajzew
 // removed some dead code; documentation added
 //
@@ -111,6 +114,15 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
     return new Command_SaveTLSState(source, dest);
 }
 
+/*
+Command *
+NLDiscreteEventBuilder::buildSaveTLCoupledDet(MSTrafficLightLogic *tll,
+                                              MSDetectorFileOutput *dtf,
+                                              const std::string &file)
+{
+    return new Command_SaveTLCoupledDet(tll, dtf, file);
+}
+  */
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
