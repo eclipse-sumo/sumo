@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Thu Oct 23 16:38:35 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -23,11 +23,12 @@
 //---------------------------------------------------------------------------//
 
 #include <vector>
+#include <algorithm>
 
 template< class UpdateEachTimestep >
 class MSUpdateEachTimestepContainer
 {
-public:    
+public:
     static MSUpdateEachTimestepContainer* getInstance( void )
         {
             if ( instanceM == 0 ){
@@ -43,6 +44,7 @@ public:
 
     void updateAll( void )
         {
+            using namespace std;
             for_each( containerM.begin(), containerM.end(),
                       mem_fun( &UpdateEachTimestep::updateEachTimestep ) );
         }
@@ -52,14 +54,14 @@ public:
             containerM.clear();
             instanceM = 0;
         }
-    
+
 private:
     MSUpdateEachTimestepContainer( void )
         : containerM()
         {}
 
     std::vector< UpdateEachTimestep* > containerM;
-    
+
     static MSUpdateEachTimestepContainer* instanceM;
 };
 
