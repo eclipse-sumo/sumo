@@ -23,6 +23,9 @@
 
 
 // $Log$
+// Revision 1.3  2003/06/06 15:36:15  roessel
+// Refined documentation.
+//
 // Revision 1.2  2003/06/06 14:09:21  roessel
 // Documentation added.
 //
@@ -36,6 +39,8 @@
  * A command that takes one constant argument. To be used with MSEventControl.
  * E.g. pass a detector-interval as argument.
  * @see Design Patterns, Gamma et al.
+ * @see Commad
+ * @see MSEventControl
  * @see MSTravelcostDetector
  * 
  */
@@ -55,7 +60,7 @@ public:
      * is called.
      * @param argument The argument that will be passed to operation. 
      * 
-     * @return 
+     * @return Pointer to the created OneArgumentCommand.
      */
     OneArgumentCommand( T* receiver, Operation operation, Arg argument ) :
         myReceiver( receiver ),
@@ -64,7 +69,7 @@ public:
         {
         }
 
-    /// destructor
+    /// Destructor.
     ~OneArgumentCommand()
         {
         }

@@ -21,6 +21,9 @@
 
 
 // $Log$
+// Revision 1.6  2003/06/06 15:36:15  roessel
+// Refined documentation.
+//
 // Revision 1.5  2003/06/06 13:26:40  roessel
 // GPL notice added.
 //
@@ -47,6 +50,8 @@
  * Runtime-Exception class. An instance of SingletonNotCreated is thrown, if
  * SingletonDictionary::getInstance() is called without a previous call to
  * SingletonDictionary::create()
+ *
+ * @todo Move into a separate file
  */
 class SingletonNotCreated : public std::runtime_error
 {
@@ -83,7 +88,8 @@ public:
 
     /**
      * Get the sole instance of this class. Instead of creating this instance
-     * in the first call, here the sole instance is created by calling create.
+     * in the first call, here the sole instance is created by calling
+     * create().
      *
      * @see create()
      * @return A pointer to the sole instance of this class.
@@ -97,7 +103,7 @@ public:
             return instanceM;
         }
 
-    /// Destructor.
+    /// Destructor. Resets member instanceM.
     ~SingletonDictionary( void )
         {
             instanceM = 0;
