@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.27  2003/12/04 13:06:45  dkrajzew
+// work on internal lanes
+//
 // Revision 1.26  2003/11/18 14:25:24  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -264,7 +267,7 @@ public:
     size_t getNoLanes();
 
     /// returns the edges approached by the given lane
-    const EdgeLaneVector *getEdgeLanesFromLane(size_t lane);
+    const EdgeLaneVector * const getEdgeLanesFromLane(size_t lane) const;
 
     /// returns the id of the edge
     std::string getID();
@@ -404,9 +407,9 @@ public:
 //    Line2D getNECWBounderyLine(NBNode *n, double offset);
 //    Line2D getNECCWBounderyLine(NBNode *n, double offset);
 
-    bool sameType(NBEdge *e) const;
-    void append(NBEdge *e);
-    bool isJoinable() const;
+    bool expandableBy(NBEdge *possContinuation) const;
+    void append(NBEdge *continuation);
+//    bool isJoinable() const;
 
     void computeEdgeShape();
 

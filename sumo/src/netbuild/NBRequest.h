@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2003/12/04 13:06:45  dkrajzew
+// work on internal lanes
+//
 // Revision 1.14  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -158,8 +161,6 @@ public:
     /// reports warnings if any occured
     static void reportWarnings();
 
-//    NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
-
 
 private:
     /** sets the information that the edge from1->to1 blocks the edge
@@ -178,6 +179,9 @@ private:
     /** writes the response of a certain link */
     void writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
         int fromLane, int toLane);
+
+    /** writes which participating links are foes to the given */
+    void writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to);
 
     /** returns the index to the internal combination container */
     int getIndex(NBEdge *from, NBEdge *to) const;

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/12/04 13:06:45  dkrajzew
+// work on internal lanes
+//
 // Revision 1.22  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -153,10 +156,12 @@ using namespace std;
 #endif
 
 
-
-
+/* =========================================================================
+ * static member variables
+ * ======================================================================= */
 size_t NBRequest::myGoodBuilds = 0;
 size_t NBRequest::myNotBuild = 0;
+
 
 /* =========================================================================
  * method definitions
@@ -483,7 +488,6 @@ NBRequest::resetSignalised()
                             // check
                             // same incoming connections do not prohibit each other
                             if((*i11)==(*i21)) {
-//                                assert(!_forbids[idx1][idx2]&&!_forbids[idx2][idx1]);
                                 _forbids[idx1][idx2] = false;
                                 _forbids[idx2][idx1] = false;
                                 continue;
@@ -596,6 +600,8 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         os << "         <logicitem request=\"" << pos++
             << "\" response=\"";
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
+        os << "\" foes=\"";
+        writeAreFoes(os, from, (*j).edge);
         os << "\"/>" << endl;
     }
     return pos;
@@ -616,6 +622,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
     // !!! move to forbidden
     for( EdgeVector::const_reverse_iterator i=_incoming->rbegin();
          i!=_incoming->rend(); i++) {
+
         unsigned int noLanes = (*i)->getNoLanes();
         for(unsigned int j=noLanes; j-->0; ) {
             const EdgeLaneVector *connected = (*i)->getEdgeLanesFromLane(j);
@@ -645,6 +652,39 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
 }
 
 
+void
+NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to)
+{
+    // remember the case when the lane is a "dead end" in the meaning that
+    // vehicles must choose another lane to move over the following
+    // junction
+    int idx = 0;
+    if(to!=0) {
+        idx = getIndex(from, to);
+    }
+    // !!! move to forbidden
+    for( EdgeVector::const_reverse_iterator i=_incoming->rbegin();
+         i!=_incoming->rend(); i++) {
+
+        unsigned int noLanes = (*i)->getNoLanes();
+        for(unsigned int j=noLanes; j-->0; ) {
+            const EdgeLaneVector *connected = (*i)->getEdgeLanesFromLane(j);
+            size_t size = connected->size();
+            for(int k=size; k-->0; ) {
+                if(to==0) {
+                    os << '0';
+                } else {
+                    os <<
+                        foes(from, to, (*i), (*connected)[k].edge)
+                        ? '1'
+                        : '0';
+                }
+            }
+        }
+    }
+}
+
+
 int
 NBRequest::getIndex(NBEdge *from, NBEdge *to) const
 {
@@ -662,7 +702,9 @@ NBRequest::getIndex(NBEdge *from, NBEdge *to) const
 }
 
 
-std::ostream &operator<<(std::ostream &os, const NBRequest &r) {
+std::ostream &
+operator<<(std::ostream &os, const NBRequest &r)
+{
     size_t variations = r._incoming->size() * r._outgoing->size();
     for(size_t i=0; i<variations; i++) {
         os << i << ' ';
@@ -723,152 +765,8 @@ NBRequest::reportWarnings()
     }
 }
 
-/*
-bool
-NBRequest::isLeftMover(const NBTrafficLightDefinition * const request,
-                       NBEdge *from, NBEdge *to) const
-{
-    // the destination edge may be unused
-    if(to==0) {
-        return false;
-    }
-    // when the junction has only one incoming edge, there are no
-    //  problems caused by left blockings
-    if(request->_incoming.size()==1) {
-        return false;
-    }
-    // now again some heuristics...
-    //  how to compute whether an edge is going to the left in the meaning,
-    //  that it crosses the opposite straight direction?!
-    vector<NBEdge*> incoming(request->_incoming);
-    sort(incoming.begin(), incoming.end(),
-        NBContHelper::edge_opposite_direction_sorter(from));
-    NBEdge *opposite = *(incoming.begin());
-    assert(opposite!=from);
-    EdgeVector::const_iterator i =
-        find(request->_all->begin(), request->_all->end(), from);
-    i = NBContHelper::nextCW(request->_all, i);
-    while(true) {
-        if((*i)==opposite) {
-            return false;
-        }
-        if((*i)==to) {
-            return true;
-        }
-        i = NBContHelper::nextCW(request->_all, i);
-    }
-    return false;
-}
-
-
-*/
-/*
-
-NBMMLDirection
-NBRequest::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
-{
-    // get the indices of both links
-    int idx1 = getIndex(incoming, outgoing);
-    int idx2 = getIndex(from2, to2);
-    if(idx1<0||idx2<0) {
-        return; // !!! error output? did not happend, yet
-    }
-    // check whether the link crossing has already been checked
-    assert(idx1<_incoming->size()*_outgoing->size());
-    if(_done[idx1][idx2]) {
-        return;
-    }
-    // mark the crossings as done
-    _done[idx1][idx2] = true;
-    _done[idx2][idx1] = true;
-    // check if one of the links is a turn; this link is always not priorised
-    if(from1->isTurningDirection(to1)) {
-        _forbids[idx2][idx1] = true;
-        return;
-    }
-    if(from2->isTurningDirection(to2)) {
-        _forbids[idx1][idx2] = true;
-        return;
-    }
-
-    // check the priorities
-    int from1p = from1->getJunctionPriority(_junction);
-    int from2p = from2->getJunctionPriority(_junction);
-    // check if one of the connections is higher priorised when incoming into
-    // the junction
-    // the connection road will yield
-    if(from1p>from2p) {
-        _forbids[idx1][idx2] = true;
-        return;
-    }
-    if(from2p>from1p) {
-        _forbids[idx2][idx1] = true;
-        return;
-    }
-    // check whether one of the connections is higher priorised on
-    // the outgoing edge when both roads are high priorised
-    // the connection with the lower priorised outgoing edge will lead
-    if(from1p>0&&from2p>0) {
-        int to1p = to1->getJunctionPriority(_junction);
-        int to2p = to2->getJunctionPriority(_junction);
-        if(to1p>to2p) {
-            _forbids[idx1][idx2] = true;
-            return;
-        }
-        if(to2p>to1p) {
-            _forbids[idx2][idx1] = true;
-            return;
-        }
-    }
-    // compute the yielding due to the right-before-left rule
-    EdgeVector::const_iterator inIncoming1 =
-        find(_incoming->begin(), _incoming->end(), from1);
-    EdgeVector::const_iterator inIncoming2 =
-        find(_incoming->begin(), _incoming->end(), from2);
-        // get the position of the incoming lanes in the junction-wheel
-    size_t d1 = distance(_incoming->begin(), inIncoming1);
-    size_t d2 = distance(_incoming->begin(), inIncoming2);
-        // compute the information whether one of the lanes is right of
-        // the other (this will then be priorised)
-    size_t du, dg;
-    if(d1>d2) {
-        du = (_incoming->size() - d1) + d2;
-        dg = d1 - d2;
-    } else {
-        du = d2 - d1;
-        dg = d1 + (_incoming->size() - d2);
-    }
-        // the incoming lanes are opposite
-        // check which of them will cross the other due to moving to the left
-        // this will be the yielding lane
-    if(du==dg) {
-        size_t dist1 = distanceCounterClockwise(from1, to1);
-        size_t dist2 = distanceCounterClockwise(from2, to2);
-        if(dist1<dist2)
-            _forbids[idx1][idx2] = true;
-        if(dist2<dist1)
-            _forbids[idx2][idx1] = true;
-        return;
-    }
-    // connection2 forbids proceeding on connection1
-    if(dg<du) {
-        _forbids[idx2][idx1] = true;
-    }
-    // connection1 forbids proceeding on connection2
-    if(dg>du) {
-        _forbids[idx1][idx2] = true;
-    }
-
-
-}
-*/
-
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBRequest.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

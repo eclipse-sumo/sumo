@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2003/12/04 13:06:45  dkrajzew
+// work on internal lanes
+//
 // Revision 1.35  2003/11/20 13:13:43  dkrajzew
 // obsolete saving of a lanes geometry twice removed
 //
@@ -319,6 +322,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _basicType(basic), myLaneSpreadFunction(spread),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
+    assert(_nolanes!=0);
     if(_from==0||_to==0) {
         throw std::exception();
     }
@@ -372,6 +376,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
+    assert(_nolanes!=0);
     if(_from==0||_to==0) {
         throw std::exception();
     }
@@ -522,8 +527,8 @@ NBEdge::getLength()
 }
 
 
-const EdgeLaneVector *
-NBEdge::getEdgeLanesFromLane(size_t lane)
+const EdgeLaneVector * const
+NBEdge::getEdgeLanesFromLane(size_t lane) const
 {
     assert(_reachable!=0&&lane<_reachable->size());
     return &(*_reachable)[lane];
@@ -582,6 +587,7 @@ NBEdge::acceptBeingTurning(NBEdge *e)
     if(myAmTurningWithAngle>angle) {
         return false;
     }
+    assert(myAmTurningWithAngle!=angle);
     NBEdge *previous = myAmTurningOf;
     myAmTurningWithAngle = angle;
     myAmTurningOf = e;
@@ -849,7 +855,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         << (*_reachable)[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
     into << " via=\""
         << _to->getInternalLaneID(this, fromlane, (*_reachable)[fromlane][destidx].edge)
-        << "\"";
+        << "_0\"";
     // set information about the controlling tl if any
     if((*_reachable)[fromlane][destidx].tlID!="") {
         into << " tl=\"" << (*_reachable)[fromlane][destidx].tlID << "\"";
@@ -977,7 +983,6 @@ NBEdge::computeLanes2Edges()
         return true;
     }
     assert(_step==EDGE2EDGES);
-
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
     const vector<NBEdge*> *edges = getConnectedSorted();
@@ -1124,8 +1129,9 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
             (double) (*priorities)[i] *
             (double) _nolanes / (double) prioSum;
         // do not let this number be greater than the number of available lanes
-        if(res>_nolanes)
+        if(res>_nolanes) {
             res = _nolanes;
+        }
         // add it to the list
         resultingLanes.push_back(res);
         sumResulting += res;
@@ -1857,14 +1863,82 @@ NBEdge::width() const
 
 
 bool
-NBEdge::sameType(NBEdge *e) const
+NBEdge::expandableBy(NBEdge *possContinuation) const
 {
-    return _nolanes==e->_nolanes
-        && _priority==e->_priority
-        && _speed==e->_speed
+    // ok, the number of lanes must match
+    if(_nolanes!=possContinuation->_nolanes) {
+        return false;
+    }
+    // the priority, too (?)
+    if(_priority!=possContinuation->_priority) {
+        return false;
+    }
+    // the speed allowed
+    if(_speed!=possContinuation->_speed) {
+        return false;
+    }
+    // the next is quite too conservative here, but seems to work
+    if( _basicType!=EDGEFUNCTION_NORMAL
         &&
-        // !!! The type useage is too conservative here
-        (_basicType==EDGEFUNCTION_NORMAL||e->_basicType==EDGEFUNCTION_NORMAL);
+        possContinuation->_basicType!=EDGEFUNCTION_NORMAL) {
+
+        return false;
+    }
+    // also, check whether the connections - if any exit do allow to join
+    //  both edges
+    // This edge must have a one-to-one connection to the following lanes
+    switch(_step) {
+    case INIT_REJECT_CONNECTIONS:
+        break;
+    case INIT:
+        break;
+    case EDGE2EDGES:
+        {
+            // the following edge must be connected
+            const EdgeVector &conn = getConnected();
+            if( find(conn.begin(), conn.end(), possContinuation)
+                ==conn.end()) {
+
+                return false;
+            }
+        }
+        break;
+    case LANES2EDGES:
+        {
+            assert(_ToEdges!=0);
+            // the possible continuation must be connected
+            if(_ToEdges->find(possContinuation)==_ToEdges->end()) {
+                return false;
+            }
+            // all lanes must go to the possible continuation
+            const std::vector<size_t> &lanes =
+                (*(_ToEdges->find(possContinuation))).second;
+            if(lanes.size()!=_nolanes) {
+                return false;
+            }
+        }
+        break;
+    case LANES2LANES:
+        {
+            for(size_t i=0; i<_nolanes; i++) {
+                const EdgeLaneVector *elv = getEdgeLanesFromLane(i);
+                bool found = false;
+                for(EdgeLaneVector::const_iterator j=elv->begin(); j!=elv->end(); j++) {
+                    if((*j).edge==possContinuation&&(*j).lane==i) {
+                        found = true;
+                        j = elv->end()-1;
+                    }
+                }
+                if(!found) {
+                    return false;
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return true;
 }
 
 
@@ -1889,13 +1963,13 @@ NBEdge::getTurningDirection() const
     return _turnDestination;
 }
 */
-
+/*
 bool
 NBEdge::isJoinable() const
 {
     return _step==INIT||_step==INIT_REJECT_CONNECTIONS;
 }
-
+*/
 
 void
 NBEdge::computeEdgeShape()
