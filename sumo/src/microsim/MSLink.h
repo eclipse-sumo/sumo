@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/08/21 12:52:15  dkrajzew
+// lane2lane connection display added
+//
 // Revision 1.7  2003/08/04 11:42:35  dkrajzew
 // missing deletion of traffic light logics on closing a network added
 //
@@ -78,7 +81,7 @@ public:
     };
 
     enum LinkDirection {
-        LINKDIR_STRAIGHT,
+        LINKDIR_STRAIGHT = 0,
         LINKDIR_TURN,
         LINKDIR_LEFT,
         LINKDIR_RIGHT,

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/08/21 12:49:02  dkrajzew
+// lane2lane connection display added
+//
 // Revision 1.1  2003/08/14 13:44:14  dkrajzew
 // tls/row - drawer added
 //
@@ -37,6 +40,7 @@
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSLink.h>
 #include "GUISUMOAbstractView.h"
+#include <qimage.h>
 
 
 /* =========================================================================
@@ -69,6 +73,10 @@ private:
 
     void drawLinkRules(const GUILaneWrapper &lane);
 
+    void initTexture(size_t no);
+
+    void drawArrows(const GUILaneWrapper &lane);
+
 
 private:
     /// Definition of a storage for link colors
@@ -76,6 +84,12 @@ private:
 
     /// The colors to use for certain link types
     LinkColorMap myLinkColors;
+
+    bool myAmInitialised;
+
+    size_t myTextureIDs[6];
+
+    QImage myTextures[6];
 
 };
 

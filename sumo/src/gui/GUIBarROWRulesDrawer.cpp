@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/08/21 12:49:02  dkrajzew
+// lane2lane connection display added
+//
 // Revision 1.2  2003/08/20 11:58:04  dkrajzew
 // cleaned up a bit
 //
@@ -51,6 +54,15 @@ namespace
 
 #include <qgl.h>
 
+#include "icons/arrows/p.xpm"
+#include "icons/arrows/pl_1.xpm"
+#include "icons/arrows/pl_2.xpm"
+#include "icons/arrows/pl_3.xpm"
+#include "icons/arrows/pr_1.xpm"
+#include "icons/arrows/pr_2.xpm"
+#include "icons/arrows/pr_3.xpm"
+
+
 
 
 /* =========================================================================
@@ -63,7 +75,7 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUIBarROWRulesDrawer::GUIBarROWRulesDrawer(std::vector<GUIEdge*> &edges)
-    : GUIROWRulesDrawer(edges)
+    : GUIROWRulesDrawer(edges), myAmInitialised(false)
 {
     myLinkColors[MSLink::LINKSTATE_ABSTRACT_TL] = RGBColor(0, 0, 1);
     myLinkColors[MSLink::LINKSTATE_TL_GREEN] = RGBColor(0, 1, 0);
@@ -107,6 +119,7 @@ GUIBarROWRulesDrawer::drawGLROWs(size_t *which, size_t maxEdges,
                     for(size_t k=0; k<noLanes; k++) {
                         const GUILaneWrapper &lane = edge->getLaneGeometry(k);
                         drawLinkRules(lane);
+                        drawArrows(lane);
                     }
                 }
             }
@@ -126,6 +139,7 @@ GUIBarROWRulesDrawer::drawGLROWs(size_t *which, size_t maxEdges,
                     for(size_t k=0; k<noLanes; k++) {
                         const GUILaneWrapper &lane = edge->getLaneGeometry(k);
                         drawLinkRules(lane);
+                        drawArrows(lane);
                     }
                 }
             }
@@ -133,13 +147,45 @@ GUIBarROWRulesDrawer::drawGLROWs(size_t *which, size_t maxEdges,
     }
 }
 
+
 void
 GUIBarROWRulesDrawer::initStep(/*const double & width*/)
 {
+    if(!myAmInitialised) {
+//        myBla[0] = 10;
+        glGenTextures(6, myTextureIDs);
+        myTextures[MSLink::LINKDIR_STRAIGHT] = QImage(p_xpm);
+        myTextures[MSLink::LINKDIR_TURN] = QImage(pl_3_xpm);
+        myTextures[MSLink::LINKDIR_LEFT] = QImage(pl_2_xpm);
+        myTextures[MSLink::LINKDIR_RIGHT] = QImage(pr_2_xpm);
+        myTextures[MSLink::LINKDIR_PARTLEFT] = QImage(pl_1_xpm);
+        myTextures[MSLink::LINKDIR_PARTRIGHT] = QImage(pr_1_xpm);
+        for(size_t i=0; i<6; i++) {
+            initTexture(i);
+        }
+        myAmInitialised = true;
+    }
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
+
+void
+GUIBarROWRulesDrawer::initTexture(size_t no)
+{
+    QImage use = QGLWidget::convertToGLFormat(myTextures[no]);
+    glBindTexture(GL_TEXTURE_2D, myTextureIDs[no]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+        use.width(), use.height(), 0,
+        GL_RGBA, GL_UNSIGNED_BYTE, use.bits() );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+double oisOffset = 4.0;// !!!
 
 void
 GUIBarROWRulesDrawer::drawLinkRules(const GUILaneWrapper &lane)
@@ -175,10 +221,10 @@ GUIBarROWRulesDrawer::drawLinkRules(const GUILaneWrapper &lane)
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3f(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
-        glVertex2f(x1-1.5, visLength+0.0);
-        glVertex2f(x1-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.5);
-        glVertex2f(x2-1.5, visLength+0.0);
+        glVertex2f(x1-1.5, visLength+0.0+oisOffset);
+        glVertex2f(x1-1.5, visLength+0.5+oisOffset);
+        glVertex2f(x2-1.5, visLength+0.5+oisOffset);
+        glVertex2f(x2-1.5, visLength+0.0+oisOffset);
         glEnd();
         x1 = x2;
         x2 += w;
@@ -187,6 +233,61 @@ GUIBarROWRulesDrawer::drawLinkRules(const GUILaneWrapper &lane)
 }
 
 
+void
+GUIBarROWRulesDrawer::drawArrows(const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    if(noLinks==0) {
+        return;
+    }
+    // draw all links
+    double visLength = -lane.visLength();
+    glPushMatrix();
+    glColor3f(1, 1, 1);
+    glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT, GL_FILL);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    glDisable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    const Position2D &beg = lane.getBegin();
+    glTranslated(beg.x(), beg.y(), 0);
+    glRotated( lane.getRotation(), 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        MSLink::LinkDirection state = lane.getLinkDirection(i);
+        glBindTexture(GL_TEXTURE_2D, myTextureIDs[state]);
+        glBegin(GL_TRIANGLE_STRIP);
+        glTexCoord2f(0, 0);
+        glVertex2f(1.5, visLength+4.0+oisOffset);
+        glTexCoord2f(0, 1);
+        glVertex2f(1.5, visLength+1+oisOffset);
+        glTexCoord2f(1, 0);
+        glVertex2f(-1.5, visLength+4+oisOffset);
+        glTexCoord2f(1, 1);
+        glVertex2f(-1.5, visLength+1+oisOffset);
+        glEnd();
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPopMatrix();
+/*
+
+
+
+    glVertex2f(0, 0);
+
+    glVertex2f(0, 500);
+
+    glVertex2f(500, 0);
+
+    glVertex2f(500, 500);
+    glEnd();*/
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
