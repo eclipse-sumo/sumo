@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/01 15:28:56  dkrajzew
+// minor changes
+//
 // Revision 1.5  2003/03/26 12:06:39  dkrajzew
 // errors on reading small files in readline debugged
 //
@@ -118,7 +121,7 @@ LineReader::readLine(LineHandler &lh)
             _rread += idx+1;
         } else {
             if(_read<_available) {
-                _strm.read(_buffer, 
+                _strm.read(_buffer,
                     _available - _read<1024
                     ? _available - _read
                     : 1024);
