@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.35  2003/09/22 08:50:34  roessel
+// Added detection of E2_ZS_Collector objects to simulationStep.
+//
 // Revision 1.34  2003/08/21 12:54:01  dkrajzew
 // cleaned up
 //
@@ -35,10 +38,12 @@ namespace
 // but not for space-discrete models.
 //
 // Revision 1.32  2003/08/04 11:45:54  dkrajzew
-// missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
+// missing deletion of traffic light logics on closing a network added;
+// vehicle coloring scheme applied
 //
 // Revision 1.31  2003/07/30 09:11:22  dkrajzew
-// a better (correct?) processing of yellow lights added; output corrigued; debugging
+// a better (correct?) processing of yellow lights added; output corrigued;
+// debugging
 //
 // Revision 1.30  2003/07/22 15:08:28  dkrajzew
 // new detector usage applied
@@ -315,7 +320,7 @@ namespace
 #include "MSTravelcostDetector.h"
 #include <microsim/MSDetectorSubSys.h>
 #include "MSTrafficLightLogic.h"
-
+#include "MS_E2_ZS_Collector.h"
 
 /* =========================================================================
  * used namespaces
@@ -571,10 +576,15 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     // move vehicles which do interact with theri lane's end
     //  (it is now known whether they may drive
     myEdges->moveFirst();
-
-    MSLaneState::actionsAfterMoveAndEmit();
-
     myEdges->detectCollisions( myStep );
+
+
+    // detect
+    MSLaneState::actionsAfterMoveAndEmit();
+    MS_E2_ZS_Collector::Dictionary::ValueVector& E2ZSColl =
+        MS_E2_ZS_Collector::Dictionary::getInstance()->getStdVector();
+    for_each( E2ZSColl.begin(), E2ZSColl.end(),
+              mem_fun( &MS_E2_ZS_Collector::update ) );
 
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
