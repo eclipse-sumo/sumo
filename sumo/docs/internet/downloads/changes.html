@@ -1,9 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
-	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Downloads - Changes</title>
-<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" /> 
+    <link rel="stylesheet" type="text/css" href="../css/sumo.css">
+    <head>
+        <title>SUMO - Simulation of Urban MObility  -  Downloads - Changes</title>
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Changes">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
@@ -19,54 +19,139 @@
 <META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
-	</head>
-	<body>
+    </head>
+    <body>
 
-		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
-		<hr>
+        <img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <hr>
 
 
 <!-- Navigation bar begin -->
-		<table border="0">
-		<tr><td valign="top" width="120">
-		<div class="navbar">
-			<a href="../index.html" class="SUMOMainLink">Home</a><br>
-			<a href="../overview.html" class="SUMOMainLink">Overview</a><br>
-			<a href="../documentation.html" class="SUMOMainLink">Documentation</a><br>
-			<a href="../screenshots.html" class="SUMOMainLink">Screenshots</a><br>
-			<a href="../downloads.html" class="SUMOMainLink">Downloads</a><br>
-		
-			<a href="changes.html" class="SUMOSubLink">Changes</a><br>
-			<a href="rel_policy.html" class="SUMOSubLink">Release Policy</a><br>
-			<a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
-			
-			<a href="../participants.html" class="SUMOMainLink">Participants</a><br>
-			<a href="../projects.html" class="SUMOMainLink">Projects</a><br>
-			<a href="../links.html" class="SUMOMainLink">Links</a><br>
-			<a href="../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="../contact.html" class="SUMOMainLink">Contact</a><br>
-			<a href="../../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
+        <table border="0">
+        <tr><td valign="top" width="120">
+        <div class="navbar">
+            <a href="../index.html" class="SUMOMainLink">Home</a><br>
+            <a href="../overview.html" class="SUMOMainLink">Overview</a><br>
+            <a href="../documentation.html" class="SUMOMainLink">Documentation</a><br>
+            <a href="../screenshots.html" class="SUMOMainLink">Screenshots</a><br>
+            <a href="../downloads.html" class="SUMOMainLink">Downloads</a><br>
 
-			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+            <a href="changes.html" class="SUMOSubLink">Changes</a><br>
+            <a href="rel_policy.html" class="SUMOSubLink">Release Policy</a><br>
+            <a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
+
+            <a href="../participants.html" class="SUMOMainLink">Participants</a><br>
+            <a href="../projects.html" class="SUMOMainLink">Projects</a><br>
+            <a href="../links.html" class="SUMOMainLink">Links</a><br>
+            <a href="../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br>
+            <a href="../contact.html" class="SUMOMainLink">Contact</a><br>
+            <a href="../../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
+
+            <center><br>
+            <a href="http://ivf.dlr.de" class="SUMOMainLink">
             <img src="../images/logo_dlr.gif" width="40" height="42"></a>
-			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
+            <a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="../images/logo_zaik.gif" width="40" height="42"></a><br>
 
-			<a href="http://sourceforge.net/projects/sumo/"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
-			</center>
-		</div>
-		</td><td width="20"></td>
+            <a href="http://sourceforge.net/projects/sumo/"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
+            </center>
+        </div>
+        </td><td width="20"></td>
 <!-- Navigation bar end -->
 
 
-		<td valign="top">
-		<div class="SUMOMainText">
+        <td valign="top">
+        <div class="SUMOMainText">
 <!-- Text area here -->
 
 <center>
-	<h2>Recent Changes</h2>
+    <h2>Recent Changes</h2>
 </center>
+
+<b>Changes from 0.8.0.1 to 0.8.0.2</b>
+<p>
+</p>
+<p>
+User-relevant changes:
+<ul>
+    <li>GUI
+    <ul>
+        <li>Selections
+        <ul>
+            <li>Flag icons added to Popup-Menues
+            <li>Shift adds (de)selects the whole street, not only a lane
+            <li>Selection-Editor now saves to *.txt-files
+        </ul>
+        <li>Centering of objects has been revalidated
+        <li>Variable Speed Signs
+        <ul>
+            <li>Visualisation of vss added
+            <li>Added the possibility to interact with vss'
+        </ul>
+        <li>"Reload Simulation" option added
+        <li>Status-Bar message patched
+        <li>Rotation removed (was buggy)
+        <li>Error on closing the gui if parameter tracker are opened patched
+        <li>Value tracker may now be aggregated and are able to save the tracked values
+        <li>POlygon visualisation added
+        <li>Breakpoints added
+        <li>Setting and Saving of additional net weights added (preliminary, subject to improve)
+        <li>Coloring by type and by route added
+    </ul>
+    <li>Simulation
+    <ul>
+        <li>Reports why the simulation ended if in verbose mode
+        <li>emissions-output error due to a division by zero patched
+        <li>VSS may now control several lanes
+    </ul>
+    <li>general
+    <ul>
+        <li>Options
+        <ul>
+            <li>Errors on default value usage patched
+        </ul>
+    </ul>
+    <li>Documentation
+    <ul>
+        <li>trying to separate XML-code (green) from command line options (red)
+    </ul>
+    <li>Netconvert
+    <ul>
+        <li>--map-output &lt;FILE&gt; builds a mapping that shows which edges have been removed while joining
+        <li>guess-tls - options added
+        <li>extended the FastLane-import by the -l parameter for the number of lanes
+        <li>--explicite-junctions &lt;JUNCTION_NAME_LIST&gt; allows to say which junctions shall be explicitely tls-controlled
+        <li>--explicite-no-junctions &lt;JUNCTION_NAME_LIST&gt; allows to say which junctions shall be explicitely non-tls-controlled
+        <li>--edges-min-speed &lt;SPEED_MS&gt; allows to remove all edges from the input on which a lower speed than &lt;SPEED_MS&gt; is allowed
+        <li>--elmar allows to import NavTech-GDF-files parsed using Elmar Brockfelds parser
+        <li>--tiger allows to import tiger files (preliminary, does not look THAAAAT good for an unknown reason, yet)
+    </ul>
+    <li>Router
+    <ul>
+        <li>Generation of random route after the first depart fixed
+        <li>Warnings about missing weights are printed only once per edge
+        <li>Supplementary Weights
+    </ul>
+    <li>Examples have now a new folder structure
+</ul>
+
+Developer-relevant changes:
+<ul>
+    <li>GUI
+    <ul>
+        <li>Selected structures are now in a separate class
+        <li>Additional structures are now displayed using the same "API"
+    </ul>
+    <li>Simulation
+    <ul>
+        <li>removed the MSNet::dictionary
+        <li>refactored the MSMeanData-output
+    </ul>
+</ul>
+</p>
+
+<hr/>
+
 
 <b>Changes from 0.8.0 to 0.8.0.1</b>
 <p>
@@ -75,43 +160,43 @@ Mostly functioning and stable. The main changes are:
 <p><ul>
     <li>GUI
     <ul>
-    	<li>The gui now remembers the last used folder
-    	<li>The gui now remembers his 
-    	<li>The instance chooser was reworked and shows now which items are selected
-    	<li>An selected-items dialog with the ability to save the names of the selected items was implemented
-    	<li>New colours for aggregated view (aggregated views are still a prototype)
-    	<li>Fixed a bug at optional texture disabling
-    	<li>Update of trackers and tables on simulation steps added
-    	<li>About-dialog debugged
-    	<li>Message window scrolls if new text is appended
+        <li>The gui now remembers the last used folder
+        <li>The gui now remembers his
+        <li>The instance chooser was reworked and shows now which items are selected
+        <li>An selected-items dialog with the ability to save the names of the selected items was implemented
+        <li>New colours for aggregated view (aggregated views are still a prototype)
+        <li>Fixed a bug at optional texture disabling
+        <li>Update of trackers and tables on simulation steps added
+        <li>About-dialog debugged
+        <li>Message window scrolls if new text is appended
     </ul>
     <li>Router
     <ul>
-    	<li>Output holding the number of loaded, build, and discarded routes added
-    	<li>--move-on-short function implemented
-    	<li>Bug on repeatedly emitted vehicles patched
+        <li>Output holding the number of loaded, build, and discarded routes added
+        <li>--move-on-short function implemented
+        <li>Bug on repeatedly emitted vehicles patched
     </ul>
     <li>Simulation
     <ul>
-    	<li>Bug on repeatedly emitted vehicles patched
+        <li>Bug on repeatedly emitted vehicles patched
     </ul>
     <li>Netconvert
     <ul>
-    	<li>Made the geometry of junctions pretty again
-    	<li>Too conservative right-of-way rules on importing vissim-networks was reworked
+        <li>Made the geometry of junctions pretty again
+        <li>Too conservative right-of-way rules on importing vissim-networks was reworked
     </ul>
     <li>general implementation issues
     <ul>
-    	<li>Replaced most output to cerr by MsgHandler-calls
+        <li>Replaced most output to cerr by MsgHandler-calls
     </ul>
     <li>Documentation
     <ul>
-    	<li>extended the detector-documentation (user)
-    	<li>extended the gui-documentation
-    	<li>extended the description of the build process 
-    	<li>added missing pictures
-    	<li>resized some pictures
-    	<li>improved the visibility of XML-format descriptions
+        <li>extended the detector-documentation (user)
+        <li>extended the gui-documentation
+        <li>extended the description of the build process
+        <li>added missing pictures
+        <li>resized some pictures
+        <li>improved the visibility of XML-format descriptions
     </ul>
 </ul>
 ... and some other things ...
@@ -164,9 +249,9 @@ As the network generator is not working yet, but still is included within the pa
 </ul></p>
 
 <!-- End of Text area -->
-		</div>
-		</td></tr></table>
-		<p></p><hr>
+        </div>
+        </td></tr></table>
+        <p></p><hr>
 
-	</body>
+    </body>
 </html>
