@@ -20,25 +20,53 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/26 06:39:18  dkrajzew
+// visualisation of e3-detectors added; documentation added
+//
 // Revision 1.2  2003/09/25 08:59:28  dkrajzew
 // documentation patched
 //
 // Revision 1.1  2003/09/23 14:28:16  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include "GUIBaseDetectorDrawer.h"
 
-#include <gui/GUISUMOAbstractView.h>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GUIDetectorDrawer_SGwT
+ * Derived from GUIBaseDetectorDrawer, this class implements the method that
+ *  draws the detectors. For each detector two steps are performed:
+ *  The tooltip information is set first. Then, the method to draw the detector
+ *  in simple geometry mode is called.
+ */
 class GUIDetectorDrawer_SGwT
-        : public GUISUMOAbstractView::GUIDetectorDrawer
+        : public GUIBaseDetectorDrawer
 {
 public:
+    /// Constructor
     GUIDetectorDrawer_SGwT(std::vector<GUIDetectorWrapper*> &detectors)
-        : GUISUMOAbstractView::GUIDetectorDrawer(detectors) { }
+        : GUIBaseDetectorDrawer(detectors) { }
+
+    /// Destructor
     ~GUIDetectorDrawer_SGwT() { }
-    void drawGLDetectors(size_t *which, size_t maxDetectors,
+
+protected:
+    /// Draws the detectors
+    void myDrawGLDetectors(size_t *which, size_t maxDetectors,
         double scale);
 
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
