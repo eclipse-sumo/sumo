@@ -9,20 +9,36 @@
  ***************************************************************************/
 
 /***************************************************************************
+    Attention!!!                                                             
+    As one of few, this module is under the 
+        Lesser GNU General Public Licence
+    *********************************************************************
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <vector>
 #include "StringTokenizer.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+/* =========================================================================
+ * variable definitions
+ * ======================================================================= */
 const int StringTokenizer::NEWLINE = -256;
 const int StringTokenizer::WHITECHARS = -257;
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 StringTokenizer::StringTokenizer(std::string tosplit) :
    _tosplit(tosplit), _pos(0)
 {
@@ -178,3 +194,13 @@ void StringTokenizer::prepareNewline(const string &tosplit) {
       }
    }
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "StringTokenizer.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// 
+

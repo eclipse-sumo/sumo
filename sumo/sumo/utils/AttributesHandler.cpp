@@ -1,11 +1,46 @@
+/***************************************************************************
+                          AttributesHandler.cpp
+                          This class realises the access to the 
+                            SAX2-Attributes
+                             -------------------
+    begin                : Mon, 15 Apr 2002
+    copyright            : (C) 2002 by Daniel Krajzewicz
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+    Attention!!!                                                             
+    As one of few, this module is under the 
+        Lesser GNU General Public Licence
+    *********************************************************************
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+ ***************************************************************************/
+// $Log$
+// Revision 1.2  2002/04/16 06:52:01  dkrajzew
+// documentation added; coding standard attachements added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
 #include "XMLConvert.h"
 #include "AttributesHandler.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 AttributesHandler::AttributesHandler() {
 }
 
@@ -66,3 +101,14 @@ unsigned short *AttributesHandler::convert(const std::string &name) const {
    ret[i] = 0;
    return ret;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "AttributesHandler.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+

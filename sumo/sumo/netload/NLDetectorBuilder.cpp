@@ -1,3 +1,29 @@
+/***************************************************************************
+                          NLDetectorBuilder.cpp
+                          A building helper for the detectors
+                             -------------------
+    begin                : Mon, 15 Apr 2002
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.3  2002/04/16 06:50:20  dkrajzew
+// documentation added; coding standard attachements added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <iostream>
 #include "../microsim/MSNet.h"
@@ -6,8 +32,14 @@
 #include "../utils/UtilExceptions.h"
 #include "NLDetectorBuilder.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id, 
         const std::string &lane, float pos, long splInterval,
         const std::string &style, const std::string &filename) {
@@ -31,4 +63,14 @@ MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id, c
         return MSDetector::CSV;
     throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
 }
- 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NLDetectorBuilder.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+

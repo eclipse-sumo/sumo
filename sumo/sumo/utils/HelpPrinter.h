@@ -1,8 +1,40 @@
 #ifndef HelpPrinter_h
 #define HelpPrinter_h
+/***************************************************************************
+                          HelpPrinter.h
+                          A class to print the help
+                             -------------------
+    begin                : Mon, 15 Apr 2002
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.2  2002/04/16 06:52:01  dkrajzew
+// documentation added; coding standard attachements added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <iostream>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * HelpPrinter
+ * A class that prints a list of strings unless a null-string occures
+ */
 class HelpPrinter {
 public:
     static void print(char *help[]) {
@@ -11,4 +43,13 @@ public:
     }
 };
 
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+//#ifndef DISABLE_INLINE
+//#include "HelpPrinter.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// 

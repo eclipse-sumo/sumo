@@ -1,5 +1,15 @@
 #ifndef STRConvert_h
-#define STRConvert_H
+#define STRConvert_h
+/***************************************************************************
+                          STRConvert.h
+			  Some static string conversion methods
+                             -------------------
+    project              : SUMO
+    begin                : Mon, 9 Jul 2001
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -19,14 +29,14 @@
  * ======================================================================= */
 class STRConvert {
  public:
-    /** converts the given 0-terminated xml-string into an int; 
-        throws XMLUngivenParameterException when the xml-string is 0 */
+    /** converts the given std::string into an int; 
+        throws XMLUngivenParameterException when the string is empty */
      static int _2int(const std::string &str);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "XMLConvert.icc"
+//#include "STRConvert.icc"
 //#endif
 
 #endif

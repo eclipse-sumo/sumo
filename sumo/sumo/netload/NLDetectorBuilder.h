@@ -1,10 +1,42 @@
 #ifndef NLDetectorBuilder_h
 #define NLDetectorBuilder_h
+/***************************************************************************
+                          NLDetectorBuilder.h
+                          A building helper for the detectors
+                             -------------------
+    begin                : Mon, 15 Apr 2002
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.2  2002/04/16 06:50:20  dkrajzew
+// documentation added; coding standard attachements added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include "../microsim/MSNet.h"
 #include "../microsim/MSDetector.h"
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * NLDetectorBuilder
+ * This class builds the detectors from their descriptions
+ */
 class NLDetectorBuilder {
 public:
     /// builds an induct loop
@@ -17,4 +49,13 @@ private:
         const std::string &style);
 };
 
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+//#ifndef DISABLE_INLINE
+//#include "NLDetectorBuilder.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// 

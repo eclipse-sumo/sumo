@@ -1,4 +1,15 @@
 /***************************************************************************
+                          STRConvert.cpp
+			  Some string conversion methods
+                             -------------------
+    project              : SUMO
+    begin                : Mon, 15 Apr 2002
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -57,4 +68,5 @@ STRConvert::_2int(const string &inp)
 
 // Local Variables:
 // mode:C++
-// End:
+// 
+
