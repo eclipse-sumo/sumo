@@ -7,6 +7,7 @@ MSActuatedTrafficLightLogic.cpp
 
 libmicrosim_a_SOURCES = MSDensity.cpp \
 MSDetector2File.cpp \
+MSDetectorFileOutput.cpp \
 MSDetectorSubSys.cpp \
 MSE2DetectorInterface.cpp \
 MS_E2_ZS_Collector.cpp \

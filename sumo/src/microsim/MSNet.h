@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.31  2003/09/22 11:48:20  roessel
+// Initial commt.
+//
 // Revision 1.30  2003/08/07 12:49:50  roessel
 // Added conversion method getVehPerHour.
 //
@@ -566,8 +569,11 @@ private:
 
 	size_t myEmittedVehNo;
 
-	size_t myRunningVehNo;
-
+public:
+    
+    size_t myRunningVehNo;
+private:
+    
 	size_t myEndedVehNo;
 
 //     std::vector< MSLaneState* > laneStateDetectorsM;
