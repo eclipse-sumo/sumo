@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/10/01 13:58:26  dkrajzew
+// unneded methods outcommented; new phase mask usage applied
+//
 // Revision 1.11  2003/09/22 12:33:12  dkrajzew
 // actuated traffic lights are now derived from simple traffic lights
 //
@@ -90,7 +93,7 @@ public:
         size_t step, size_t delay);
 
     /// destructor
-    ~MSSimpleTrafficLightLogic();
+    virtual ~MSSimpleTrafficLightLogic();
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
@@ -117,7 +120,7 @@ public:
 
 protected:
     /// Returns the described phase
-    virtual const MSPhaseDefinition &getPhase(size_t pos) const;
+//    virtual const MSPhaseDefinition &getPhase(size_t pos) const;
 
 protected:
     /// the list of phases this logic uses

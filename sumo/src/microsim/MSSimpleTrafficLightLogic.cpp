@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/10/01 13:58:26  dkrajzew
+// unneded methods outcommented; new phase mask usage applied
+//
 // Revision 1.9  2003/09/22 12:33:12  dkrajzew
 // actuated traffic lights are now derived from simple traffic lights
 //
@@ -88,7 +91,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 MSSimpleTrafficLightLogic::linkPriorities() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step]->breakMask;
+    return _phases[_step]->getBreakMask();
 }
 
 
@@ -96,7 +99,7 @@ MSSimpleTrafficLightLogic::linkPriorities() const
 MSSimpleTrafficLightLogic::yellowMask() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step]->yellowMask;
+    return _phases[_step]->getYellowMask();
 }
 
 
@@ -104,7 +107,7 @@ MSSimpleTrafficLightLogic::yellowMask() const
 MSSimpleTrafficLightLogic::allowed() const
 {
     assert(_phases.size()>_step);
-    return _phases[_step]->driveMask;
+    return _phases[_step]->getDriveMask();
 }
 
 
@@ -141,13 +144,13 @@ MSSimpleTrafficLightLogic::nextPhase()
     return duration();
 }
 
-
+/*
 const MSPhaseDefinition &
 MSSimpleTrafficLightLogic::getPhase(size_t pos) const
 {
     return *(_phases[_step]);
 }
-
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
