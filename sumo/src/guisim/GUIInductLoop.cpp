@@ -174,7 +174,57 @@ GUIInductLoop::MyWrapper::getTableBeginValue(size_t pos) const
 */
 
 void
-GUIInductLoop::MyWrapper::drawGL(double scale) const
+GUIInductLoop::MyWrapper::drawGL_SG(double scale) const
+{
+    double width = 2.0 * scale;
+    glLineWidth(1.0);
+    // shape
+    glColor3f(1, 1, 0);
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
+    glTranslated(myPosition.x(), myPosition.y(), 0);
+    glRotated( myRotation, 0, 0, 1 );
+    glBegin( GL_QUADS );
+    glVertex2f(0-1.0, 2);
+    glVertex2f(-1.0, -2);
+    glVertex2f(1.0, -2);
+    glVertex2f(1.0, 2);
+    glEnd();
+    glBegin( GL_LINES);
+    // without the substracted offsets, lines are partially longer
+    //  than the boxes
+    glVertex2f(0, 2-.1);
+    glVertex2f(0, -2+.1);
+    glEnd();
+
+
+    // outline
+    if(width>1) {
+        glColor3f(1, 1, 1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // !!!
+        glBegin( GL_QUADS );
+        glVertex2f(0-1.0, 2);
+        glVertex2f(-1.0, -2);
+        glVertex2f(1.0, -2);
+        glVertex2f(1.0, 2);
+        glEnd();
+    }
+
+    // position indicator
+    if(width>1) {
+        glRotated( 90, 0, 0, -1 );
+        glColor3f(1, 1, 1);
+        glBegin( GL_LINES);
+        glVertex2f(0, 1.7);
+        glVertex2f(0, -1.7);
+        glEnd();
+    }
+    glPopMatrix();
+}
+
+
+void
+GUIInductLoop::MyWrapper::drawGL_FG(double scale) const
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);

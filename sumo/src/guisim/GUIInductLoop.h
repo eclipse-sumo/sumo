@@ -29,7 +29,8 @@ public:
             double pos);
         ~MyWrapper();
         Boundery getBoundery() const;
-        void drawGL(double scale) const;
+        void drawGL_FG(double scale) const;
+        void drawGL_SG(double scale) const;
 
         GUIParameterTableWindow *getParameterWindow(
             GUIApplicationWindow &app, GUISUMOAbstractView &parent);
