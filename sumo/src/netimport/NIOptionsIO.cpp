@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIOptionsIO.cpp
-			  A class for the initialisation, input and veryfying of the
+              A class for the initialisation, input and veryfying of the
         programs options
                              -------------------
     project              : SUMO
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:34:37  dkrajzew
+// elmar and tiger import added
+//
 // Revision 1.2  2004/01/28 12:37:41  dkrajzew
 // added the possibility to define vissims speed factor and a default speed for vissim-networks
 //
@@ -142,7 +145,6 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -165,7 +167,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -185,6 +187,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("xml-node-files", 'n', new Option_FileName());
     oc.doRegister("xml-edge-files", 'e', new Option_FileName());
     oc.doRegister("xml-connection-files", 'x', new Option_FileName());
+    oc.doRegister("elmar", new Option_FileName());
+    oc.doRegister("tiger", new Option_FileName());
     oc.doRegister("cell-node-file", new Option_FileName());
     oc.doRegister("cell-edge-file", new Option_FileName());
     oc.doRegister("visum-file", new Option_FileName());
@@ -211,7 +215,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
     // register further vissim-options
-	oc.doRegister("vissim-offset", new Option_Float(5.0));
+    oc.doRegister("vissim-offset", new Option_Float(5.0));
     oc.doRegister("vissim-default-speed", new Option_Float(50.0/3.6));
     oc.doRegister("vissim-speed-norm", new Option_Float(1.0));
     // register the data processing options

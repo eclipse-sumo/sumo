@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/07/02 09:34:37  dkrajzew
+// elmar and tiger import added
+//
 // Revision 1.2  2003/08/18 12:40:17  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -145,6 +148,11 @@ private:
 
     /** loads data from vissim-input-file */
     static void loadVissim(OptionsCont &oc);
+
+    /// loads Elmar's data parsed from GDF
+    static void loadElmar(OptionsCont &oc);
+
+    static void loadTiger(OptionsCont &oc);
 
 };
 

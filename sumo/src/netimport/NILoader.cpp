@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:34:37  dkrajzew
+// elmar and tiger import added
+//
 // Revision 1.3  2004/01/26 07:06:32  dkrajzew
 // removed some dead code; usage of xmlhelpers added
 //
@@ -97,13 +100,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -131,6 +133,8 @@ namespace
 #include <netimport/xml/NIXMLConnectionsHandler.h>
 #include <netimport/cell/NICellNodesHandler.h>
 #include <netimport/cell/NICellEdgesHandler.h>
+#include <netimport/elmar/NIElmarNodesHandler.h>
+#include <netimport/elmar/NIElmarEdgesHandler.h>
 #include <netimport/visum/NIVisumLoader.h>
 #include <netimport/vissim/NIVissimLoader.h>
 #include <netimport/arcview/NIArcView_Loader.h>
@@ -138,6 +142,7 @@ namespace
 #include <netimport/sumo/NISUMOHandlerNodes.h>
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
+#include <netimport/tiger/NITigerLoader.h>
 #include <utils/common/XMLHelpers.h>
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
@@ -165,6 +170,8 @@ void NILoader::load(OptionsCont &oc) {
     loadArcView(oc);
     loadArtemis(oc);
     loadVissim(oc);
+    loadElmar(oc);
+    loadTiger(oc);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -414,6 +421,70 @@ NILoader::loadArtemis(OptionsCont &oc) {
     // load the visum network
     NIArtemisLoader loader(oc.getString("artemis"));
     loader.load(oc);
+}
+
+
+void
+NILoader::loadElmar(OptionsCont &oc)
+{
+    LineReader lr;
+    if(oc.isSet("elmar")) {
+        // load min/max
+        lr.setFileName(oc.getString("elmar") + string("_knotlist_unsplitted.txt"));
+        if(!lr.good()) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Could not open '") +
+                oc.getString("elmar") + string("_knotlist_unsplitted.txt")
+                + string("'."));
+            throw ProcessError();
+        }
+        double xmin, xmax, ymin, ymax;
+        try {
+            string line = lr.readLine();
+            line = lr.readLine();
+            xmin = TplConvert<char>::_2float(lr.readLine().c_str());
+            xmax = TplConvert<char>::_2float(lr.readLine().c_str());
+            ymin = TplConvert<char>::_2float(lr.readLine().c_str());
+            ymax = TplConvert<char>::_2float(lr.readLine().c_str());
+        } catch (NumberFormatException &e) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Error on reading min/max definitions from '")
+                + oc.getString("elmar") + string("_knotlist_unsplitted.txt")
+                + string("'."));
+            throw ProcessError();
+        }
+        // load nodes
+        MsgHandler::getMessageInstance()->inform("Loading nodes... ");
+        string file = oc.getString("elmar") + string("_knotlist.txt");
+        NIElmarNodesHandler handler1(file,
+            (xmin+xmax)/2.0, (ymin+ymax)/2.0);
+        if(!useLineReader(lr, file, handler1)) {
+            throw ProcessError();
+        }
+        MsgHandler::getMessageInstance()->inform("done.");
+        NBNodeCont::report();
+        // load edges
+        MsgHandler::getMessageInstance()->inform("Loading edges... ");
+        file = oc.getString("elmar") + string("_streetlengths.txt");
+        // parse the file
+        NIElmarEdgesHandler handler2(file);
+        if(!useLineReader(lr, file, handler2)) {
+            throw ProcessError();
+        }
+        MsgHandler::getMessageInstance()->inform("done.");
+        NBEdgeCont::report();
+    }
+}
+
+
+void
+NILoader::loadTiger(OptionsCont &oc)
+{
+    if(!oc.isSet("tiger")) {
+        return;
+    }
+    NITigerLoader l(oc.getString("tiger"));
+    l.load(oc);
 }
 
 
