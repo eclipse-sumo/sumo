@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/08/02 13:11:40  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.2  2004/07/02 09:27:38  dkrajzew
 // tls guessing added
 //
@@ -111,7 +114,6 @@
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -141,12 +143,13 @@ public:
     typedef std::map<std::string, NBNode*> NodeCont;
 
 public:
+
     /** inserts a node into the map */
-    static bool insert(const std::string &id, double x, double y,
+    static bool insert(const std::string &id, const Position2D &position,
         NBDistrict *district);
 
     /** inserts a node into the map */
-    static bool insert(const std::string &id, double x, double y);
+    static bool insert(const std::string &id, const Position2D &position);
 
     /** inserts a node into the map */
 /*    static bool insert(const std::string &id, double x, double y,
@@ -165,7 +168,7 @@ public:
     static NBNode *retrieve(const std::string &id);
 
     /** returns the node with the given coordinates */
-    static NBNode *retrieve(double x, double y);
+    static NBNode *retrieve(const Position2D &position);
 
     /// returns the begin of the dictionary
     static NodeCont::iterator begin();
@@ -233,6 +236,7 @@ public:
 
     static void setAsTLControlled(const std::string &name);
 
+    static bool savePlain(const std::string &file);
 private:
     /** the running internal id */
     static int     _internalID;

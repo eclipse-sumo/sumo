@@ -42,6 +42,10 @@ NBNetBuilder::buildLoaded()
     compute(oc);
     // save network when wished
     save(oc.getString("o"), oc);
+    // save plain nodes/edges/connections
+    if(oc.isSet("plain-output")) {
+        savePlain(oc.getString("plain-output"));
+    }
     // save the mapping information when wished
     if(oc.isSet("map-output")) {
         saveMap(oc.getString("map-output"));
@@ -343,6 +347,16 @@ NBNetBuilder::save(string path, OptionsCont &oc)
 }
 
 
+void
+NBNetBuilder::savePlain(const std::string &filename)
+{
+    // try to build the output file
+    NBNodeCont::savePlain(filename + string(".nod.xml"));
+    NBEdgeCont::savePlain(filename + string(".edg.xml"));
+//    NBConnectionCont::svaePlain(filename);
+}
+
+
 bool
 NBNetBuilder::saveMap(string path)
 {
@@ -406,6 +420,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("explicite-junctions", new Option_String());
     oc.doRegister("explicite-no-junctions", new Option_String());
     oc.doRegister("edges-min-speed", new Option_Float());
+
+    oc.doRegister("plain-output", new Option_FileName());
 
 }
 

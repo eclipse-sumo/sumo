@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2004/08/02 13:11:39  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.17  2004/07/02 09:30:55  dkrajzew
 // removal of edges with a too low speed added
 //
@@ -112,7 +115,6 @@
 // Revision 1.1  2001/12/06 13:38:00  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -141,6 +143,7 @@ class NBNode;
  */
 class NBEdgeCont {
 public:
+
     /** adds an edge to the dictionary;
         returns false if the edge already was in the dictionary */
     static bool insert(NBEdge *edge);
@@ -236,6 +239,7 @@ public:
 
     static std::vector<std::string> getAllNames();
 
+    static bool savePlain(const std::string &file);
 private:
     static std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);

@@ -80,6 +80,7 @@ protected:
 
     bool saveMap(std::string path);
 
+    void savePlain(const std::string &filename);
 
 };
 

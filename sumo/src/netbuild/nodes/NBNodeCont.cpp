@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 13:11:40  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.6  2004/07/02 09:27:38  dkrajzew
 // tls guessing added
 //
@@ -147,13 +150,13 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
 #include <map>
 #include <algorithm>
+#include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundery.h>
 #include <utils/common/MsgHandler.h>
@@ -197,35 +200,38 @@ Position2D              NBNodeCont::myNetworkOffset;
  * method definitions
  * ======================================================================= */
 bool
-NBNodeCont::insert(const std::string &id, double x, double y,
+NBNodeCont::insert(const std::string &id, const Position2D &position,
                    NBDistrict *district)
 {
     NodeCont::iterator i = _nodes.find(id);
     if(i!=_nodes.end()) {
-        if( (*i).second->getPosition().x()==x &&
-            (*i).second->getPosition().y()==y) {
+        if( (*i).second->getPosition().x()==position.x() &&
+            (*i).second->getPosition().y()==position.y()) {
             return true;
         }
         return false;
     }
-    NBNode *node = new NBNode(id, x, y, district);
+    NBNode *node = new NBNode(id, position, district);
     _nodes[id] = node;
     return true;
 }
 
 
 bool
-NBNodeCont::insert(const string &id, double x, double y)
+NBNodeCont::insert(const string &id, const Position2D &position)
 {
+    if(id=="25711782") {
+        int bla = 0;
+    }
     NodeCont::iterator i = _nodes.find(id);
     if(i!=_nodes.end()) {
-        if( (*i).second->getPosition().x()==x &&
-            (*i).second->getPosition().y()==y) {
+        if( fabs((*i).second->getPosition().x()-position.x())<0.1 &&
+            fabs((*i).second->getPosition().y()-position.y())<0.1) {
             return true;
         }
         return false;
     }
-    NBNode *node = new NBNode(id, x, y);
+    NBNode *node = new NBNode(id, position);
     _nodes[id] = node;
     return true;
 }
@@ -257,7 +263,7 @@ NBNodeCont::insert(const string &id) // !!! really needed
     if(i!=_nodes.end()) {
         return (*i).second->getPosition();
     } else {
-        NBNode *node = new NBNode(id, -1.0, -1.0);
+        NBNode *node = new NBNode(id, Position2D(-1.0, -1.0));
         _nodes[id] = node;
     }
     return Position2D(-1, -1);
@@ -293,12 +299,16 @@ NBNodeCont::retrieve(const string &id)
 
 
 NBNode *
-NBNodeCont::retrieve(double x, double y)
+NBNodeCont::retrieve(const Position2D &position)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         NBNode *node = (*i).second;
-        if(node->getPosition().x()==x && node->getPosition().y()==y)
-        return node;
+        if( fabs(node->getPosition().x()-position.x())<0.1
+            &&
+            fabs(node->getPosition().y()-position.y())<0.1) {
+
+            return node;
+        }
     }
     return 0;
 }
@@ -373,6 +383,9 @@ bool
 NBNodeCont::sortNodesEdges()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+    if((*i).second->getID()=="25496632___6") {
+        int bla = 0;
+    }
         (*i).second->sortNodesEdges();
     }
     return true;
@@ -800,6 +813,25 @@ NBNodeCont::setAsTLControlled(const std::string &name)
     }
 }
 
+
+bool
+NBNodeCont::savePlain(const std::string &file)
+{
+    // try to build the output file
+    ofstream res(file.c_str());
+    if(!res.good()) {
+        return false;
+    }
+    res << "<nodes>" << endl;
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        NBNode *n = (*i).second;
+        res << "   <node id=\"" << n->getID() << "\" x=\""
+            << n->getPosition().x() << "\" y=\"" << n->getPosition().y()
+            << "\"/>" << endl;
+    }
+    res << "</nodes>" << endl;
+    return res.good();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

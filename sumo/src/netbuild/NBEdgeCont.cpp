@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2004/08/02 13:11:39  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.27  2004/07/02 09:30:55  dkrajzew
 // removal of edges with a too low speed added
 //
@@ -138,7 +141,6 @@ namespace
 // Revision 1.1  2001/12/06 13:38:00  traffic
 // files for the netbuilder
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -147,6 +149,7 @@ namespace
 #include <cassert>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
@@ -753,6 +756,27 @@ NBEdgeCont::getAllNames()
         ret.push_back((*i).first);
     }
     return ret;
+}
+
+
+bool
+NBEdgeCont::savePlain(const std::string &file)
+{
+    // try to build the output file
+    ofstream res(file.c_str());
+    if(!res.good()) {
+        return false;
+    }
+    res << "<edges>" << endl;
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        NBEdge *e = (*i).second;
+        res << "   <edge id=\"" << e->getID() << "\" from=\"" <<
+            e->getFromNode()->getID() << "\" to=\"" << e->getToNode()->getID()
+            << "\" nolanes=\"" << e->getNoLanes() << "\" speed=\""
+            << e->getSpeed() << "\"/>" << endl;
+    }
+    res << "</edges>" << endl;
+    return res.good();
 }
 
 

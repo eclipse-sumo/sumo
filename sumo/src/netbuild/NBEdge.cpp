@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2004/08/02 13:11:39  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.45  2004/07/02 09:30:10  dkrajzew
 // some work on geometry
 //
@@ -583,13 +586,17 @@ NBEdge::getEdgeLanesFromLane(size_t lane) const
 void
 NBEdge::computeTurningDirections()
 {
+    if(_id=="1728") {
+        int bla = 0;
+    }
     _turnDestination = 0;
     EdgeVector outgoing = _to->getOutgoingEdges();
     for(EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
-        double relAngle = NBHelpers::normRelAngle(_angle, outedge->getAngle());
+        double relAngle =
+            NBHelpers::relAngle(getAngle(*_to), outedge->getAngle(*_to));
         // do not append the turnaround
-        if(outgoing.size()>1 && fabs(relAngle)>160) {
+        if(fabs(relAngle)>160) {
             setTurningDestination(outedge);
         }
     }
@@ -605,14 +612,26 @@ NBEdge::computeTurningDirections()
 }
 
 
+double
+NBEdge::getAngle(NBNode &atNode) const
+{
+    if(&atNode==_from) {
+        return myGeom.getBegLine().atan2DegreeAngle();
+    } else {
+        assert(&atNode==_to);
+        return myGeom.getEndLine().atan2DegreeAngle();
+    }
+}
+
+
 void
 NBEdge::setTurningDestination(NBEdge *e)
 {
-    double cur = fabs(NBHelpers::relAngle(_angle, e->getAngle()));
+    double cur = fabs(NBHelpers::relAngle(getAngle(), e->getAngle()));
     double old =
         _turnDestination==0
         ? 0
-        : fabs(NBHelpers::relAngle(_angle, _turnDestination->getAngle()));
+        : fabs(NBHelpers::relAngle(getAngle(), _turnDestination->getAngle()));
     if( cur>old
         &&
         e->acceptBeingTurning(this)) {
@@ -628,7 +647,7 @@ NBEdge::acceptBeingTurning(NBEdge *e)
     if(e==myAmTurningOf) {
         return true;
     }
-    double angle = fabs(NBHelpers::relAngle(_angle, e->getAngle()));
+    double angle = fabs(NBHelpers::relAngle(getAngle(), e->getAngle()));
     if(myAmTurningWithAngle>angle) {
         return false;
     }
@@ -662,7 +681,7 @@ NBEdge::writeXMLStep1(std::ostream &into)
         "\" From=\"" << _from->getID() <<
         "\" To=\"" << _to->getID() <<
         "\" Priority=\"" << _priority <<
-        "\" Angle=\"" << _angle <<
+        "\" Angle=\"" << getAngle() <<
         "\" Type=\"" << _type <<
         "\" function=\"";
     switch(_basicType) {
@@ -941,6 +960,9 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << " yield=\"1\"";
     }
     // write the direction information
+    if(_id=="1335") {
+        int bla = 0;
+    }
     NBMMLDirection dir =
         _to->getMMLDirection(this, (*_reachable)[fromlane][destidx].edge);
     into << " dir=\"";
@@ -1454,21 +1476,27 @@ NBEdge::isTurningDirection(NBEdge *edge) const
     // maybe it was already set as the turning direction
     if(edge == _turnDestination) {
         return true;
-    }
-    // it's not the turning direction if the nodes differ
-    if(_from!=edge->_to || _to!=edge->_from) {
-        if( fabs(getNormedFromNodeAngle()-edge->getNormedToNodeAngle()) < 10
-            ||
-            fabs(getNormedToNodeAngle()-edge->getNormedFromNodeAngle()) < 10 ) {
-            return true;
-        }
+    } else if(_turnDestination!=0) {
+        // otherwise - it's not if a turning direction exists
         return false;
+    }
+    // if the same nodes are connected
+    if(_from==edge->_to && _to==edge->_from) {
+        return true;
     }
     // we have to checke whether the connection between the nodes is
     //  geometrically similar
-    if( fabs(getNormedFromNodeAngle()-edge->getNormedToNodeAngle()) > 10
+    if(_id=="1335") {
+        int bla = 0;
+    }
+    double thisFromAngle = getNormedAngle(*_from);
+    double thisToAngle = getNormedAngle(*_to);
+    double otherToAngle = edge->getNormedAngle(*edge->getToNode());
+    double otherFromAngle = edge->getNormedAngle(*edge->getFromNode());
+    if( fabs(thisFromAngle-otherToAngle) < 170 ) {
+        /*
         ||
-        fabs(getNormedToNodeAngle()-edge->getNormedFromNodeAngle()) > 10 ) {
+        fabs(thisToAngle-otherFromAngle) < 170) {*/
         return false;
     }
     return true;
@@ -2205,27 +2233,9 @@ NBEdge::isNearEnough2BeJoined2(NBEdge *e)
 
 
 double
-NBEdge::getNormedFromNodeAngle() const
+NBEdge::getNormedAngle(NBNode &atNode) const
 {
-    const Position2DVector &p = getGeometry();
-    double angle = atan2(
-        (p.at(1).x()-p.at(0).x()),
-        (p.at(1).y()-p.at(0).y()))*180.0/3.14159265;
-    if(angle<0) {
-        angle = 360 + angle;
-    }
-    assert(angle>=0&&angle<360);
-    return angle;
-}
-
-
-double
-NBEdge::getNormedToNodeAngle() const
-{
-    const Position2DVector &p = getGeometry();
-    double angle = atan2(
-        (p.at(p.size()-2).x()-p.at(p.size()-1).x()),
-        (p.at(p.size()-2).y()-p.at(p.size()-1).y()))*180.0/3.14159265;
+    double angle = getAngle(atNode);
     if(angle<0) {
         angle = 360 + angle;
     }
@@ -2235,9 +2245,6 @@ NBEdge::getNormedToNodeAngle() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBEdge.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

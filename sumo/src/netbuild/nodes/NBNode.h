@@ -2,7 +2,7 @@
 #define NBNode_h
 /***************************************************************************
                           NBNode.h
-			  The representation of a single node
+              The representation of a single node
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/08/02 13:11:40  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.1  2004/01/12 15:26:11  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -251,13 +254,13 @@ public:
 
 public:
     /** constructor */
-    NBNode(const std::string &id, double x, double y);
+    NBNode(const std::string &id, const Position2D &position);
 
     /** constructor */
-    NBNode(const std::string &id, double x, double y, BasicNodeType type);
+    NBNode(const std::string &id, const Position2D &position, BasicNodeType type);
 
     /** constructor */
-    NBNode(const std::string &id, double x, double y, NBDistrict *district);
+    NBNode(const std::string &id, const Position2D &position, NBDistrict *district);
 
     /** destructor */
     ~NBNode();
@@ -340,10 +343,10 @@ public:
     bool isLeftMover(NBEdge *from, NBEdge *to) const;
 
 
-	bool mustBrake(NBEdge *from, NBEdge *to, int toLane) const;
+    bool mustBrake(NBEdge *from, NBEdge *to, int toLane) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-		NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+        NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
         bool regardNonSignalisedLowerPriority) const;
 
     bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
@@ -506,7 +509,7 @@ private:
     /// the (outer) shape of the junction
     Position2DVector myPoly;
 
-	NBRequest *_request;
+    NBRequest *_request;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 

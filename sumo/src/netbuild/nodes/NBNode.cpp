@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBNode.cpp
-			  The representation of a single node
+              The representation of a single node
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 13:11:40  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.6  2004/03/19 13:06:09  dkrajzew
 // some further work on vissim-import and geometry computation
 //
@@ -213,7 +216,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -314,8 +317,8 @@ NBNode::ApproachingDivider::execute(double src, double dest)
     // set lanes
     for(size_t i=0; i<approachedLanes->size(); i++) {
         size_t approached = (*approachedLanes)[i];
-	    assert(approachedLanes->size()>i);
-	    assert(approachingLanes.size()>i);
+        assert(approachedLanes->size()>i);
+        assert(approachingLanes.size()>i);
         incomingEdge->setConnection(approachingLanes[i], _currentOutgoing,
             approached);
     }
@@ -402,25 +405,25 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const string &id, double x, double y)
-    : _id(StringUtils::convertUmlaute(id)), myPosition(x, y),
+NBNode::NBNode(const string &id, const Position2D &position)
+    : _id(StringUtils::convertUmlaute(id)), myPosition(position),
     _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
 
-NBNode::NBNode(const string &id, double x, double y,
+NBNode::NBNode(const string &id, const Position2D &position,
                BasicNodeType type)
-    : _id(StringUtils::convertUmlaute(id)), myPosition(x, y),
+    : _id(StringUtils::convertUmlaute(id)), myPosition(position),
     _type(type), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
 
-NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
-    : _id(StringUtils::convertUmlaute(id)), myPosition(x, y),
+NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district)
+    : _id(StringUtils::convertUmlaute(id)), myPosition(position),
     _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
 {
     _incomingEdges = new EdgeVector();
@@ -514,12 +517,26 @@ NBNode::sortSmall()
         return;
     }
     vector<NBEdge*>::iterator i;
+    if(_id=="276") {
+    for( i=_allEdges.begin();
+         i!=_allEdges.end()&&i!=_allEdges.end(); i++) {
+        cout << (*i)->getID() << ", ";
+    }
+         cout << endl;
+    }
     for( i=_allEdges.begin();
          i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
         swapWhenReversed(i, i+1);
     }
     if(_allEdges.size()>1 && i!=_allEdges.end()) {
         swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
+    }
+    if(_id=="276") {
+    for( i=_allEdges.begin();
+         i!=_allEdges.end()&&i!=_allEdges.end(); i++) {
+        cout << (*i)->getID() << ", ";
+    }
+         cout << endl;
     }
 }
 
@@ -540,6 +557,10 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
 void
 NBNode::setPriorities()
 {
+    if(_id=="25496632___6") {
+        int bla = 0;
+    }
+
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
@@ -1168,7 +1189,7 @@ NBNode::computeLogic(OptionsCont &oc)
 
     // compute the logic if necessary or split the junction
     if(_type!=NODETYPE_NOJUNCTION&&_type!=NODETYPE_DISTRICT) {
-		_request->buildBitfieldLogic(_id);
+        _request->buildBitfieldLogic(_id);
     }
 }
 
@@ -1215,6 +1236,9 @@ NBNode::reportBuild()
 void
 NBNode::sortNodesEdges()
 {
+    if(_id=="25496632___6") {
+        int bla = 0;
+    }
     // sort the edges
     buildList();
     sort(_allEdges.begin(), _allEdges.end(),
@@ -1661,7 +1685,7 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 size_t
 NBNode::eraseDummies()
 {
-	size_t ret = 0;
+    size_t ret = 0;
     if(_outgoingEdges==0||_incomingEdges==0) {
         return ret;
     }
@@ -1678,7 +1702,7 @@ NBNode::eraseDummies()
         //  node should be removed
         NBEdge *dummy = *j;
         MsgHandler::getWarningInstance()->inform(
-			string(" Removing dummy edge '") + dummy->getID() + string("'"));
+            string(" Removing dummy edge '") + dummy->getID() + string("'"));
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
@@ -1701,9 +1725,9 @@ NBNode::eraseDummies()
         // delete the dummy
         NBEdgeCont::erase(dummy);
         j = _incomingEdges->begin() + pos;
-		ret++;
+        ret++;
     }
-	return ret;
+    return ret;
 }
 
 
@@ -1781,7 +1805,7 @@ NBNode::invalidateOutgoingConnections()
 bool
 NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
 {
-	assert(_request!=0);
+    assert(_request!=0);
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
@@ -1855,11 +1879,11 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
 
 bool
 NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-				NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+                NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                 bool regardNonSignalisedLowerPriority) const
 {
     return _request->forbids(possProhibitorFrom, possProhibitorTo,
-		possProhibitedFrom, possProhibitedTo,
+        possProhibitedFrom, possProhibitedTo,
         regardNonSignalisedLowerPriority);
 }
 
@@ -2145,7 +2169,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
             }
         }
     }
-	throw 1;
+    throw 1;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/08/02 13:11:39  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.13  2004/07/02 09:32:26  dkrajzew
 // mapping of joined edges names added; removal of edges with a too low speed added
 //
@@ -206,13 +209,7 @@ NBContHelper::edge_by_junction_angle_sorter::operator() (NBEdge *e1, NBEdge *e2)
 double
 NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 {
-    double angle;
-    // convert angle if the edge is an outgoing edge
-    if(e->getFromNode()==_node) {
-        angle = e->getNormedFromNodeAngle();
-    } else {
-        angle = e->getNormedToNodeAngle();
-    }
+    double angle = e->getNormedAngle(*_node);
     assert(angle>=0&&angle<360);
     return angle;
 }

@@ -2,7 +2,7 @@
 #define NBEdge_h
 /***************************************************************************
                           NBEdge.h
-			  The representation of a single edge
+              The representation of a single edge
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.32  2004/08/02 13:11:39  dkrajzew
+// made some deprovements or so
+//
 // Revision 1.31  2004/02/16 13:58:22  dkrajzew
 // some further work on edge geometry
 //
@@ -314,8 +317,8 @@ public:
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
 
-	/// computes the edge, step2: computation of which lanes approach the edges)
-	bool computeLanes2Edges();
+    /// computes the edge, step2: computation of which lanes approach the edges)
+    bool computeLanes2Edges();
 
     /// sorts the connections of outgoing lanes (!!! Kaskade beschreiben)
     void sortOutgoingLanesConnections();
@@ -434,10 +437,9 @@ public:
 
     bool isNearEnough2BeJoined2(NBEdge *e);
 
-    double getNormedFromNodeAngle() const;
+    double getAngle(NBNode &atNode) const;
 
-    double getNormedToNodeAngle() const;
-
+    double getNormedAngle(NBNode &atNode) const;
 
 private:
     /**
