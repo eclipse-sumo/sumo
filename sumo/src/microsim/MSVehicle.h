@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2003/05/22 12:46:36  roessel
+// New method activateRemindersByEmitOrLaneChange.
+//
 // Revision 1.14  2003/05/21 16:20:45  dkrajzew
 // further work detectors
 //
@@ -774,6 +777,7 @@ private:
     std::vector< MSMoveReminder* > myMoveReminders;
 
     void workOnMoveReminders( double oldPos, double newPos, double newSpeed );
+    void activateRemindersByEmitOrLaneChange( void );
 };
 
 
