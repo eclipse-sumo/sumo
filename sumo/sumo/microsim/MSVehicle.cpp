@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.8  2002/05/08 13:24:21  croessel
+// safeGap(): vDecel shouldn't be less than 0.
+//
 // Revision 1.7  2002/05/08 11:36:26  croessel
 // destReached() changed to allow routes to include the destination-edge
 // several times before reaching the destination.
@@ -403,7 +406,8 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
     double vF = myState.mySpeed;
     double vL = pred.myState.mySpeed;
     double dF = myType->decel();
-    double vDecel = vF - dF * MSNet::deltaT();
+    double vDecel = min( static_cast<double>( 0 ), 
+                         vF - dF * MSNet::deltaT() );
     double gap = ( vDecel - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
                     
