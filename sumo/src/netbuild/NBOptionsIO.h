@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/24 08:09:29  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -69,33 +72,27 @@ class OptionsCont;
 class NBOptionsIO
 {
 public:
-    /** builds the options and parses the user input
-        (from the configuration file and the command line) and return a
-        valid container when the parsing is ok, otherwise 0 */
-    static OptionsCont *getOptions(int argc, char **argv);
+    static void fillOptions(OptionsCont &oc);
+
+    static bool checkOptions(OptionsCont &oc);
 
 private:
-    /** builds the container of possible options
-        (together with the defaults) */
-    static OptionsCont *init();
 
     /** checks whether the given option settings are ok */
-    static bool check(OptionsCont *oc);
+    static bool check(OptionsCont &oc);
 
     /** checks whether all needed informations are given */
-    static bool checkCompleteDescription(OptionsCont *oc);
+    static bool checkCompleteDescription(OptionsCont &oc);
 
     /** checks whether the node file definition is given */
-    static bool checkNodes(OptionsCont *oc);
+    static bool checkNodes(OptionsCont &oc);
 
     /** checks whether the edge file definition is given */
-    static bool checkEdges(OptionsCont *oc);
+    static bool checkEdges(OptionsCont &oc);
 
     /** checks whether the output can be build */
-    static bool checkOutput(OptionsCont *oc);
+    static bool checkOutput(OptionsCont &oc);
 
-    /** precomputes some values */
-    static void precomputeValues(OptionsCont *oc);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/06/24 08:06:36  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.18  2003/06/19 11:03:57  dkrajzew
 // debugging
 //
@@ -88,12 +91,14 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include "utils/common/HelpPrinter.h"
 #include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include "router_help.h"
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -113,6 +118,7 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * functions
  * ======================================================================= */
@@ -120,17 +126,18 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 /** validate options (settings) */
-bool checkSettings(OptionsCont *oc)
+bool
+checkOptions(OptionsCont &oc)
 {
     // check whether the output is valid and can be build
-    if(!oc->isSet("o")) {
+    if(!oc.isSet("o")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
-    std::ofstream tst(oc->getString("o").c_str());
+    std::ofstream tst(oc.getString("o").c_str());
     if(!tst.good()) {
         MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc->getString("o")
+            string("The output file '") + oc.getString("o")
             + string("' can not be build."));
         return false;
     }
@@ -140,68 +147,51 @@ bool checkSettings(OptionsCont *oc)
 
 
 /** build and retrieve the options (settings) */
-OptionsCont *
-getSettings(int argc, char **argv)
+void
+fillOptions(OptionsCont &oc)
 {
-    OptionsCont *oc = new OptionsCont();
     // register the file i/o options
-    oc->doRegister("cell-input", new Option_FileName());
-    oc->doRegister("artemis-input", new Option_FileName());
-    oc->doRegister("output", 'o', new Option_FileName());
-    oc->doRegister("net-files", 'n', new Option_FileName());
-    oc->doRegister("weights", 'w', new Option_FileName());
-    oc->doRegister("sumo-input", 's', new Option_FileName());
-    oc->doRegister("trip-defs", 't', new Option_FileName());
-    oc->doRegister("alternatives", 'a', new Option_FileName());
-    oc->doRegister("configuration-file", 'c', new Option_FileName());
-    oc->addSynonyme("net-files", "net");
-    oc->addSynonyme("output-file", "output");
-    oc->addSynonyme("configuration-file", "configuration");
-    oc->addSynonyme("weights", "weight-files");
-    oc->addSynonyme("artemis", "artemis-input");
-    oc->addSynonyme("cell", "cell-input");
-    oc->addSynonyme("sumo", "sumo-input");
-    oc->addSynonyme("trips", "trip-defs");
+    oc.doRegister("cell-input", new Option_FileName());
+    oc.doRegister("artemis-input", new Option_FileName());
+    oc.doRegister("output", 'o', new Option_FileName());
+    oc.doRegister("net-files", 'n', new Option_FileName());
+    oc.doRegister("weights", 'w', new Option_FileName());
+    oc.doRegister("sumo-input", 's', new Option_FileName());
+    oc.doRegister("trip-defs", 't', new Option_FileName());
+    oc.doRegister("alternatives", 'a', new Option_FileName());
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("net-files", "net");
+    oc.addSynonyme("output-file", "output");
+    oc.addSynonyme("configuration-file", "configuration");
+    oc.addSynonyme("weights", "weight-files");
+    oc.addSynonyme("artemis", "artemis-input");
+    oc.addSynonyme("cell", "cell-input");
+    oc.addSynonyme("sumo", "sumo-input");
+    oc.addSynonyme("trips", "trip-defs");
     // register the simulation settings
-    oc->doRegister("begin", 'b', new Option_Long(0));
-    oc->doRegister("end", 'e', new Option_Long(864000));
+    oc.doRegister("begin", 'b', new Option_Long(0));
+    oc.doRegister("end", 'e', new Option_Long(864000));
     // register Gawron's DUE-settings
-    oc->doRegister("gBeta", new Option_Float(float(0.05)));
-    oc->doRegister("gA", new Option_Float(1.0));
+    oc.doRegister("gBeta", new Option_Float(float(0.05)));
+    oc.doRegister("gA", new Option_Float(1.0));
     // register the report options
-    oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc->doRegister("continue-on-unbuild", new Option_Bool(false));
-    oc->doRegister("print-options", 'p', new Option_Bool(false));
-    oc->doRegister("help", new Option_Bool(false));
-    oc->doRegister("no-config", 'C', new Option_Bool(false));
-    oc->addSynonyme("no-config", "no-configuration");
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("help", new Option_Bool(false));
+    oc.doRegister("log-file", 'l', new Option_String());
+    oc.doRegister("no-config", 'C', new Option_Bool(false));
+    oc.addSynonyme("no-config", "no-configuration");
     // register the data processing options
-    oc->doRegister("random-per-second", 'R', new Option_Float());
-    oc->doRegister("unsorted", new Option_Bool(false));
-    oc->doRegister("save-cell-rindex", new Option_Bool(false));
-    oc->doRegister("intel-cell", new Option_Bool(false));
-    oc->doRegister("no-last-cell", new Option_Bool(false));
-    oc->doRegister("use-lanes", 'l', new Option_Bool(false));
-    oc->doRegister("scheme", 'x', new Option_String("traveltime"));
-    oc->doRegister("no-sort", 'S', new Option_Bool(false));
-    if(OptionsIO::getOptions(oc, argc, argv)) {
-        if(oc->getBool("help")) {
-            HelpPrinter::print(help);
-            delete oc;
-            return 0;
-        }
-        if(oc->getBool("p"))
-            cout << *oc;
-        if(!checkSettings(oc)) {
-            delete oc;
-            throw ProcessError();
-        }
-    } else {
-        delete oc;
-        throw ProcessError();
-    }
-    return oc;
+    oc.doRegister("random-per-second", 'R', new Option_Float());
+    oc.doRegister("unsorted", new Option_Bool(false));
+    oc.doRegister("save-cell-rindex", new Option_Bool(false));
+    oc.doRegister("intel-cell", new Option_Bool(false));
+    oc.doRegister("no-last-cell", new Option_Bool(false));
+    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
+    oc.doRegister("scheme", 'x', new Option_String("traveltime"));
+    oc.doRegister("no-sort", 'S', new Option_Bool(false));
 }
 
 
@@ -211,7 +201,7 @@ getSettings(int argc, char **argv)
  * weights which may be supplied in a separate file
  */
 RONet *
-loadNet(ROLoader &loader, OptionsCont *oc)
+loadNet(ROLoader &loader, OptionsCont &oc)
 {
     // load the net
     RONet *net = loader.loadNet();
@@ -219,7 +209,7 @@ loadNet(ROLoader &loader, OptionsCont *oc)
         return 0;
     }
     // load the weights when wished/available
-    if(oc->isSet("w")) {
+    if(oc.isSet("w")) {
         loader.loadWeights(*net);
     }
     return net;
@@ -298,30 +288,22 @@ main(int argc, char **argv)
 #endif
     int ret = 0;
     RONet *net = 0;
-    OptionsCont *oc = 0;
     try {
-        if(!XMLSubSys::init()) {
+        if(!SystemFrame::init(false, argc, argv,
+            fillOptions, checkOptions, help)) {
             throw ProcessError();
         }
-        // get the options
-        oc = getSettings(argc, argv);
-        // test whether only the help was printed
-        if(oc==0) {
-            return 0;
-        }
-        // initialise the subsystem
-        if(!SystemFrame::init(false, oc)) {
-            throw ProcessError();
-        }
+        // retrieve the options
+        OptionsCont &oc = OptionsSubSys::getOptions();
         // load data
-        ROLoader loader(*oc);
+        ROLoader loader(oc);
         net = loadNet(loader, oc);
         if(net!=0) {
             // initialise the network for route computation
             net->postloadInit();
             // build routes
             try {
-                startComputation(*net, loader, *oc);
+                startComputation(*net, loader, oc);
             } catch (SAXParseException e) {
                 MsgHandler::getErrorInstance()->inform(
                     toString<int>(e.getLineNumber()));
@@ -340,7 +322,7 @@ main(int argc, char **argv)
         ret = 1;
     }
     delete net;
-    SystemFrame::close(oc);
+    SystemFrame::close();
     if(ret==0) {
         MsgHandler::getMessageInstance()->inform("Success.");
     }

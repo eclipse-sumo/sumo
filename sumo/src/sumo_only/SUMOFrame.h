@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/06/24 08:09:29  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.2  2003/02/07 11:19:37  dkrajzew
 // updated
 //
@@ -52,13 +55,23 @@ class MSNet;
 class SUMOFrame {
 public:
     /// Builds teh simulation options
-    static OptionsCont *getOptions();
+    static void fillOptions(OptionsCont &oc);
 
     /// Build the output stream
-    static std::ostream *buildRawOutputStream(OptionsCont *oc);
+    static std::ostream *buildRawOutputStream(OptionsCont &oc);
 
     /// Performs the post-initialisation of the net (!!! should be somewhere else)
     static void postbuild(MSNet &net);
+
+    /**
+     * Checks the build settings. The following constraints must be valid:
+     * - the network-file was specified (otherwise no simulation is existing)
+     * - a junction folder must be given
+     *   (otherwise no junctions can be loaded)
+     * - the begin and the end of the simulation must be given
+     * Returns true when all constraints are valid
+     */
+    static bool checkOptions(OptionsCont &oc);
 
 };
 

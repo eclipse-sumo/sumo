@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.21  2003/06/24 08:09:28  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.20  2003/06/19 10:57:32  dkrajzew
 // division by zero in meandata computation patched
 //
@@ -283,6 +286,10 @@ namespace
 #include <iterator>
 #include <exception>
 #include <climits>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -601,12 +608,22 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
         VehCont::const_iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
-            cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id()
-                 << " with " << ( *pred )->id() << " on MSLane " << myID
-                 << " during timestep " << timestep << endl;
-            cerr << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
-            cerr << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
-            throw 1;
+            MsgHandler *handler = 0;
+            if(OptionsSubSys::getOptions().getBool("continue-on-accident")) {
+                handler = MsgHandler::getWarningInstance();
+            } else {
+                handler = MsgHandler::getErrorInstance();
+            }
+            handler->inform(
+                string("MSLane::detectCollision: Collision of ")
+                + ( *veh )->id() + string(" with ") + ( *pred )->id()
+                + string(" on MSLane ") + myID
+                + string(" during timestep ") + toString<int>(timestep));
+            DEBUG_OUT << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
+            DEBUG_OUT << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
+            if(!OptionsSubSys::getOptions().getBool("continue-on-accident")) {
+                throw ProcessError();
+            }
         }
     }
 }
@@ -1292,10 +1309,13 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 
         double intervallLength = obj.myInterval * MSNet::deltaT();
 
-        assert(meanData.contTimestepSum!=0);
-
-        meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
-        meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
+        if(meanData.contTimestepSum!=0) {
+            meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
+            meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
+        } else {
+            meanSpeed   = lane.myMaxSpeed;
+            meanSpeedSquare = -1;
+        }
 
         meanDensity = ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
             intervallLength / lane.myLength * 1000.0;

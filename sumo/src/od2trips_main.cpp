@@ -36,6 +36,7 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/HelpPrinter.h>
@@ -56,39 +57,31 @@ using namespace std;
 /* =========================================================================
  * functions
  * ======================================================================= */
-OptionsCont *
-getSettings(int argc, char **argv)
+void
+fillOptions(OptionsCont &oc)
 {
-    OptionsCont *oc = new OptionsCont();
-	oc->doRegister("configuration-file", 'c', new Option_FileName());
+	oc.doRegister("configuration-file", 'c', new Option_FileName());
     // register the file i/o options
-    oc->doRegister("net-file", 'n', new Option_FileName());
-	oc->addSynonyme("net-file", "net");
-    oc->doRegister("od-file", 'd', new Option_FileName());
-	oc->addSynonyme("od-file", "od");
-    oc->doRegister("output-file", 'o', new Option_FileName());
-	oc->addSynonyme("output-file", "output");
-	oc->doRegister("od-path", 'i', new Option_FileName());
-	oc->addSynonyme("od-path", "path");
+    oc.doRegister("net-file", 'n', new Option_FileName());
+	oc.addSynonyme("net-file", "net");
+    oc.doRegister("od-file", 'd', new Option_FileName());
+	oc.addSynonyme("od-file", "od");
+    oc.doRegister("output-file", 'o', new Option_FileName());
+	oc.addSynonyme("output-file", "output");
+	oc.doRegister("od-path", 'i', new Option_FileName());
+	oc.addSynonyme("od-path", "path");
     // register the report options
-    oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc->doRegister("print-options", 'p', new Option_Bool(false));
-    oc->doRegister("help", new Option_Bool(false));
-	oc->addSynonyme("help", "h");
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.doRegister("log-file", 'l', new Option_String());
     // register the data processing options
-    oc->doRegister("no-config", 'C', new Option_Bool(false));
-    oc->addSynonyme("no-config", "no-configuration");
-    oc->doRegister("begin", 'b', new Option_Long(0));
-    oc->doRegister("end", 'e', new Option_Long(86400));
-    oc->doRegister("scale", 's', new Option_Float(1));
-    // parse the command line arguments and configuration the file
-    bool ok = OptionsIO::getOptions(oc, argc, argv);
-    if(!ok||MsgHandler::getErrorInstance()->wasInformed()) {
-        delete oc;
-        return 0;
-    }
-    return oc;
+    oc.doRegister("no-config", 'C', new Option_Bool(false));
+    oc.addSynonyme("no-config", "no-configuration");
+    oc.doRegister("begin", 'b', new Option_Long(0));
+    oc.doRegister("end", 'e', new Option_Long(86400));
+    oc.doRegister("scale", 's', new Option_Float(1));
 }
 
 
@@ -145,41 +138,28 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-    OptionsCont *oc = 0;
     try {
-        if(!XMLSubSys::init()) {
+        // initialise subsystems
+        if(!SystemFrame::init(false, argc, argv,
+            fillOptions, 0, help)) {
             throw ProcessError();
         }
-        oc = getSettings(argc, argv);
-        // parse the settings
-        if(oc==0) {
-            MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
-            throw ProcessError();
-        }
-        // check whether only the help shall be printed
-        if(oc->getBool("help")) {
-            HelpPrinter::print(help);
-            throw ProcessError();
-        }
-		if(oc->getBool("p"))
-            cout << *oc;
-        // try to initialise the XML-subsystem
-        if(!SystemFrame::init(false, oc)) {
-            throw ProcessError();
-        }
+        // retrieve the options
+        OptionsCont &oc = OptionsSubSys::getOptions();
+        //
 	    bool ok = true;
-		if(!oc->isSet("n")) {
+		if(!oc.isSet("n")) {
             MsgHandler::getErrorInstance()->inform(
                 "No net input file (-n) specified.");
 			ok = false;
 		}
-		if(!oc->isSet("d")) {
+		if(!oc.isSet("d")) {
 			MsgHandler::getErrorInstance()->inform(
                 "No OD input file (-d) specified.");
 			ok = false;
 		}
-		string OD_filename = oc->getString("d");
-		if(!oc->isSet("o")) {
+		string OD_filename = oc.getString("d");
+		if(!oc.isSet("o")) {
             MsgHandler::getErrorInstance()->inform(
 			    "No trip table output file (-o) specified.");
 			ok = false;
@@ -196,8 +176,8 @@ main(int argc, char **argv)
         if(!ok) {
             return 1;
         }
-		string OD_outfile = oc->getString("o");
-		string OD_path = oc->getString("i");
+		string OD_outfile = oc.getString("o");
+		string OD_path = oc.getString("i");
 		struct content content[MAX_INFILES]; // helds car types
 		string *infiles = 	new string [MAX_INFILES];
 		int maxfiles=1; //number of OD-Files
@@ -215,10 +195,10 @@ main(int argc, char **argv)
 		long int i, j;
 		float factor;
 		long int  start, finish;
-		bool ok_begin = oc->isDefault("begin");
-		bool ok_end = oc->isDefault("end");
+		bool ok_begin = oc.isDefault("begin");
+		bool ok_end = oc.isDefault("end");
 		// load districts
-		ODDistrictCont *districts = loadDistricts(*oc);
+		ODDistrictCont *districts = loadDistricts(oc);
 		int od_next=0;
 		// define dimensions
 		long int max_cars=3000000; // maximum number of cars
@@ -248,10 +228,10 @@ main(int argc, char **argv)
 			} else
 				ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
 			if(ok_begin) {
-				if(oc->getLong("begin") > start) start = oc->getLong("begin");
+				if(oc.getLong("begin") > start) start = oc.getLong("begin");
 			}
 			if(ok_end) {
-				if(oc->getLong("end") < finish) finish = oc->getLong("end");
+				if(oc.getLong("end") < finish) finish = oc.getLong("end");
 			}
 			// check permitted range
 			if( (start>finish) || (start<0) || (finish>86400) ) {
@@ -261,7 +241,7 @@ main(int argc, char **argv)
 			}
 			period = finish - start;
 			// scale input
-			scale = oc->getFloat("scale");
+			scale = oc.getFloat("scale");
 			scale = scale / factor;
 			total_cars=0;
 			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
@@ -348,6 +328,6 @@ main(int argc, char **argv)
     } catch (...) {
         ret = 1;
     }
-    SystemFrame::close(oc);
+    SystemFrame::close();
     return ret;
 }

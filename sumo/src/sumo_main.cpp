@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/24 08:06:36  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.11  2003/06/19 11:03:57  dkrajzew
 // debugging
 //
@@ -141,6 +144,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
 #include <helpers/SingletonDictionary.h>
@@ -158,73 +162,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-/**
- * checkSettings
- * Checks the build settings. The following constraints must be valid:
- * - the network-file was specified (otherwise no simulation is existing)
- * - a junction folder must be given
- *   (otherwise no junctions can be loaded)
- * - the begin and the end of the simulation must be given
- * Returns true when all constraints are valid
- */
-bool
-checkSettings(OptionsCont *oc) {
-    bool ok = true;
-    try {
-        if(oc!=0) oc->resetDefaults();
-        // check the existance of a name for simulation file
-        if(!oc->isSet("n")) {
-            MsgHandler::getErrorInstance()->inform(
-                "No simulation file (-n) specified.");
-            ok = false;
-        }
-        // check if the begin and the end of the simulation are supplied
-        if(!oc->isSet("b")) {
-            MsgHandler::getErrorInstance()->inform(
-                "The begin of the simulation (-b) is not specified.");
-            ok = false;
-        }
-        if(!oc->isSet("e")) {
-            MsgHandler::getErrorInstance()->inform(
-                "The end of the simulation (-e) is not specified.");
-            ok = false;
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
-        return false;
-    }
-    return ok;
-}
-
-
-/**
- * getSettings
- * Builds the container of options and parses the configuration file
- * and the command line arguments using it. After this, the settings are
- * validated using "checkSettings".
- * Returns 0 when something failed, otherwise the build OptionsCont.
- */
-OptionsCont *
-getSettings(int argc, char **argv)
-{
-    OptionsCont *oc = SUMOFrame::getOptions();
-    // parse the command line arguments and configuration the file
-    if(OptionsIO::getOptions(oc, argc, argv)) {
-        if(oc->getBool("help"))
-            return oc;
-        if(oc->getBool("p"))
-            cout << *oc;
-        if(!checkSettings(oc)) {
-            delete oc;
-            oc = 0;
-        }
-    } else {
-        delete oc;
-        oc = 0;
-    }
-    return oc;
-}
-
 
 /**
  * loads the net, additional routes and the detectors
@@ -250,46 +187,34 @@ int
 main(int argc, char **argv)
 {
     SingletonDictionary< std::string, MSLaneState* >::create();
-    OptionsCont *oc = 0;
     size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
     srand(rand_init);
     int ret = 0;
     try {
-        if(!XMLSubSys::init()) {
+        if(!SystemFrame::init(false, argc, argv,
+            SUMOFrame::fillOptions, SUMOFrame::checkOptions, help)) {
             throw ProcessError();
         }
-        // parse the settings
-        oc = getSettings(argc, argv);
-        if(oc==0) {
-            throw ProcessError();
-        }
-        // try to initialise the XML-subsystem
-        if(!SystemFrame::init(false, oc)) {
-            throw ProcessError();
-        }
-        // check whether only the help shall be printed
-        if(oc->getBool("help")) {
-            HelpPrinter::print(help);
-            return 0;
-        }
+        // retrieve the options
+        OptionsCont &oc = OptionsSubSys::getOptions();
         // load the net
-        MSNet *net = load(*oc);
+        MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
         // simulate when everything's ok
         ostream *craw = SUMOFrame::buildRawOutputStream(oc);
         // report the begin when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation started with time: ")
-            + toString<int>(oc->getInt("b")));
+            + toString<int>(oc.getInt("b")));
         // simulate
         net->preStartInit();
-        net->simulate(craw, oc->getInt("b"), oc->getInt("e"));
+        net->simulate(craw, oc.getInt("b"), oc.getInt("e"));
         // report the end when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation ended at time: ")
-            + toString<int>(oc->getInt("e")));
+            + toString<int>(oc.getInt("e")));
         delete net;
         delete craw;
     } catch (...) {
@@ -297,7 +222,7 @@ main(int argc, char **argv)
         MsgHandler::getErrorInstance()->inform("Quitting.");
         ret = 1;
     }
-    SystemFrame::close(oc);
+    SystemFrame::close();
     SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
     delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
     return ret;

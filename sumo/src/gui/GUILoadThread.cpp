@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/24 08:09:28  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -67,6 +70,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <sumo_only/SUMOFrame.h>
 #include <helpers/SingletonDictionary.h>
@@ -107,23 +111,33 @@ GUILoadThread::init(const string &file)
 
 void GUILoadThread::run()
 {
-    OptionsCont *oc = SUMOFrame::getOptions();
-    oc->set("c", _file);
     GUINet *net = 0;
     std::ostream *craw = 0;
     int simStartTime = 0;
     int simEndTime = 0;
+
+    OptionsSubSys::close();
+    if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
+        // ok, the options could not be set
+        QThread::postEvent( _parent,
+            new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
+            string(_file)) );
+        return;
+    }
+    // retrieve the options
+    OptionsCont &oc = OptionsSubSys::getOptions();
+//    oc.set("c", _file);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-        OptionsIO::loadConfiguration(oc);
-        GUINetBuilder builder(*oc);
+//        OptionsIO::loadConfiguration(oc);
+        GUINetBuilder builder(oc);
         net = builder.buildGUINet();
         if(net!=0) {
             SUMOFrame::postbuild(*net);
-            simStartTime = oc->getInt("b");
-            simEndTime = oc->getInt("e");
+            simStartTime = oc.getInt("b");
+            simEndTime = oc.getInt("e");
             craw = SUMOFrame::buildRawOutputStream(oc);
         }
     } catch (UtilException &e) {
@@ -139,7 +153,6 @@ void GUILoadThread::run()
         net = 0;
         craw = 0;
     }
-    delete oc;
     QThread::postEvent( _parent,
         new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
         string(_file)) );

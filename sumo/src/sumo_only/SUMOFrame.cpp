@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/24 08:09:29  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.8  2003/06/19 11:01:14  dkrajzew
 // the simulation has default begin and end times now
 //
@@ -70,54 +73,53 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-OptionsCont *
-SUMOFrame::getOptions()
+void
+SUMOFrame::fillOptions(OptionsCont &oc)
 {
-    OptionsCont *oc = new OptionsCont();
     // register the file i/o options
-    oc->doRegister("net-files", 'n', new Option_FileName());
-    oc->doRegister("route-files", 'r', new Option_FileName());
-//    oc->doRegister("junction-files", 'j', new Option_FileName());
-    oc->doRegister("additional-files", 'a', new Option_FileName());
-    oc->doRegister("output-file", 'o', new Option_FileName());
-    oc->doRegister("configuration-file", 'c', new Option_FileName());
-    oc->addSynonyme("net-files", "net");
-    oc->addSynonyme("route-files", "routes");
-    oc->addSynonyme("additional-files", "additional");
-    oc->addSynonyme("output-file", "output");
-    oc->addSynonyme("configuration-file", "configuration");
+    oc.doRegister("net-files", 'n', new Option_FileName());
+    oc.doRegister("route-files", 'r', new Option_FileName());
+//    oc.doRegister("junction-files", 'j', new Option_FileName());
+    oc.doRegister("additional-files", 'a', new Option_FileName());
+    oc.doRegister("output-file", 'o', new Option_FileName());
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("net-files", "net");
+    oc.addSynonyme("route-files", "routes");
+    oc.addSynonyme("additional-files", "additional");
+    oc.addSynonyme("output-file", "output");
+    oc.addSynonyme("configuration-file", "configuration");
     // register the simulation settings
-    oc->doRegister("begin", 'b', new Option_Integer(0));
-    oc->doRegister("end", 'e', new Option_Integer(86400));
-    oc->doRegister("route-steps", 's', new Option_Integer(0));
+    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("end", 'e', new Option_Integer(86400));
+    oc.doRegister("route-steps", 's', new Option_Integer(0));
+    oc.doRegister("continue-on-accident", new Option_Bool(false));
     // register the report options
-    oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc->doRegister("print-options", 'p', new Option_Bool(false));
-    oc->doRegister("help", '?', new Option_Bool(false));
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.doRegister("log-file", 'l', new Option_String());
     // register some research options
-    oc->doRegister("initial-density", new Option_Float());
-    oc->doRegister("initial-speed", new Option_Float());
+    oc.doRegister("initial-density", new Option_Float());
+    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
-    oc->doRegister("no-config", 'C', new Option_Bool(false));
-    oc->addSynonyme("no-config", "no-configuration");
-    oc->doRegister("dump-intervals", new Option_UIntVector(""));
-    oc->doRegister("dump-basename", new Option_FileName());;
-    // parse the command line arguments and configuration the file
-    return oc;
+    oc.doRegister("no-config", 'C', new Option_Bool(false));
+    oc.addSynonyme("no-config", "no-configuration");
+    oc.doRegister("dump-intervals", new Option_UIntVector(""));
+    oc.doRegister("dump-basename", new Option_FileName());;
 }
 
 
 ostream *
-SUMOFrame::buildRawOutputStream(OptionsCont *oc) {
-    if(!oc->isSet("o")) {
+SUMOFrame::buildRawOutputStream(OptionsCont &oc) {
+    if(!oc.isSet("o")) {
 	    return 0;
     }
-    ostream *ret = new ofstream(oc->getString("o").c_str(),
+    ostream *ret = new ofstream(oc.getString("o").c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
         MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc->getString("o")
+            string("The output file '") + oc.getString("o")
             + string("' could not be built."));
         MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
@@ -130,6 +132,37 @@ void
 SUMOFrame::postbuild(MSNet &net)
 {
     MSJunction::postloadInitContainer();
+}
+
+
+bool
+SUMOFrame::checkOptions(OptionsCont &oc)
+{
+    bool ok = true;
+    try {
+        oc.resetDefaults();
+        // check the existance of a name for simulation file
+        if(!oc.isSet("n")) {
+            MsgHandler::getErrorInstance()->inform(
+                "No simulation file (-n) specified.");
+            ok = false;
+        }
+        // check if the begin and the end of the simulation are supplied
+        if(!oc.isSet("b")) {
+            MsgHandler::getErrorInstance()->inform(
+                "The begin of the simulation (-b) is not specified.");
+            ok = false;
+        }
+        if(!oc.isSet("e")) {
+            MsgHandler::getErrorInstance()->inform(
+                "The end of the simulation (-e) is not specified.");
+            ok = false;
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
+        return false;
+    }
+    return ok;
 }
 
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/24 08:06:36  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.13  2003/06/19 07:07:52  dkrajzew
 // false order of calling XML- and Options-subsystems patched
 //
@@ -127,13 +130,15 @@ namespace
 #include <netbuild/NBLoader.h>
 #include <netbuild/NBRequest.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
- #include <utils/common/SystemFrame.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/common/HelpPrinter.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "netconvert_help.h"
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -291,40 +296,31 @@ appendTurnarounds(int step)
 
 /** computes nodes' logics */
 bool
-computeLogic(int step, OptionsCont *oc)
+computeLogic(int step, OptionsCont &oc)
 {
     inform(step, "Computing node logics");
-    return NBNodeCont::computeLogics(*oc);
+    return NBNodeCont::computeLogics(oc);
 }
 
 
 /** computes nodes' tl-logics */
 bool
-computeTLLogic(int step, OptionsCont *oc)
+computeTLLogic(int step, OptionsCont &oc)
 {
     inform(step, "Computing traffic light logics");
-    return NBTrafficLightLogicCont::computeLogics(*oc);
+    return NBTrafficLightLogicCont::computeLogics(oc);
 }
 
 
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-/** initialises defaults */
-bool
-initDefaults(OptionsCont *oc)
-{
-    NBTypeCont::setDefaults(oc->getString("T"),
-        oc->getInt("L"), oc->getFloat("S"), oc->getInt("P"));
-    return true;
-}
-
 /**
  * computes the structures
  * the order of the computation steps is not variable!!!
  */
 void
-compute(OptionsCont *oc)
+compute(OptionsCont &oc)
 {
     bool ok = true;
     int step = 1;
@@ -412,27 +408,21 @@ int main(int argc, char **argv)
 #endif
 
     int ret = 0;
-    OptionsCont *oc = 0;
     try {
-        if(!XMLSubSys::init()) {
+        if(!SystemFrame::init(false, argc, argv,
+            NBOptionsIO::fillOptions, 0, help)) {
             throw ProcessError();
         }
-        // parse the settings
-        oc = NBOptionsIO::getOptions(argc, argv);
-        // check if only the help shall be printed
-        if(oc->getBool("help")) {
-            HelpPrinter::print(help);
-            delete oc;
-            return 0;
-        }
-        // try to initialise the XML-subsystem
-        if(!SystemFrame::init(false, oc)) {
-            throw ProcessError();
-        }
+        // retrieve the options
+        OptionsCont &oc = OptionsSubSys::getOptions();
         // initialise the (default) types
-        initDefaults(oc);
+        NBTypeCont::setDefaults(
+            oc.getString("T"),
+            oc.getInt("L"),
+            oc.getFloat("S"),
+            oc.getInt("P"));
         // load data
-        NBLoader::load(*oc);
+        NBLoader::load(oc);
         // check whether any errors occured
         if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
@@ -443,7 +433,7 @@ int main(int argc, char **argv)
         // perform the computation
         compute(oc);
         // save network when wished
-        save(oc->getString("o"));
+        save(oc.getString("o"));
         // remove everything from the memory
     } catch (...) {
         clearAll();
@@ -451,12 +441,12 @@ int main(int argc, char **argv)
         ret = 1;
     }
     clearAll();
-    SystemFrame::close(oc);
+    SystemFrame::close();
     // report about ending
     if(ret=0) {
         MsgHandler::getMessageInstance()->inform("Success.");
     }
-    return 0;
+    return ret;
 }
 
 

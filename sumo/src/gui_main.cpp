@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/06/24 08:06:36  dkrajzew
+// implemented SystemFrame and applied the changes to all applications
+//
 // Revision 1.6  2003/06/19 11:03:57  dkrajzew
 // debugging
 //
@@ -123,7 +126,7 @@
 #include <qapplication.h>
 #include <qgl.h>
 #include <gui/GUIApplicationWindow.h>
-#include "sumo_help.h"
+#include "gui_help.h"
 
 /* =========================================================================
  * used namespaces
@@ -134,28 +137,27 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * build options
  * ----------------------------------------------------------------------- */
-OptionsCont *
-getOptions(int argc, char **argv)
+void
+fillInitOptions(OptionsCont &oc)
 {
-    OptionsCont *oc = new OptionsCont();
-    // register screen size options
-    oc->doRegister("max-gl-width", 'w', new Option_Integer(1280));
-    oc->doRegister("max-gl-height", 'h', new Option_Integer(1024));
-    oc->doRegister("quit-on-end", 'Q', new Option_Bool(false));
-    oc->doRegister("configuration", 'c', new Option_FileName());
-    if(!OptionsParser::parse(oc, argc, argv)) {
-        delete oc;
-        return 0;
-    }
+    oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
+    oc.doRegister("max-gl-height", 'h', new Option_Integer(1024));
+    oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.doRegister("configuration", 'c', new Option_FileName());
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+}
+
+bool
+checkInitOptions(OptionsCont &oc)
+{
     // check whether the parameter are ok
-    if(oc->getInt("w")<0||oc->getInt("h")<0) {
-        cout
-            << "Both the screen's width and the screen's height must be larger than zero."
-            << endl;
-        delete oc;
-        return 0;
+    if(oc.getInt("w")<0||oc.getInt("h")<0) {
+        MsgHandler::getErrorInstance()->inform(
+            "Both the screen's width and the screen's height must be larger than zero.");
+        return false;
     }
-    return oc;
+    return true;
 }
 
 
@@ -165,20 +167,11 @@ getOptions(int argc, char **argv)
 int
 main(int argc, char **argv)
 {
-    OptionsCont *oc = getOptions(argc, argv);
-    if(oc==0) {
-        return 1;
-    }
-//    srand(time(0));
-
     srand(1040208551);
     int ret = 0;
     try {
-        if(!XMLSubSys::init()) {
-            throw ProcessError();
-        }
-        // initialise the xml-subsystem
-        if(!SystemFrame::init(true, 0)) {
+        if(!SystemFrame::init(true, argc, argv,
+            fillInitOptions, checkInitOptions, help)) {
             throw ProcessError();
         }
         // initialise the q-application
@@ -188,13 +181,16 @@ main(int argc, char **argv)
                 "This system has no OpenGL support. Exiting." );
 	        throw ProcessError();
         }
+        OptionsCont &oc = OptionsSubSys::getOptions();
         // build the main window
         GUIApplicationWindow * mw =
             new GUIApplicationWindow(
-                oc->getInt("w"),
-                oc->getInt("h"),
-                oc->getBool("Q"),
-                oc->getString("c"));
+                oc.getInt("w"),
+                oc.getInt("h"),
+                oc.getBool("Q"),
+                oc.getString("c"));
+        // delete statrup-settings
+        OptionsSubSys::close();
         a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
         mw->show();
         ret = a.exec();
@@ -202,7 +198,7 @@ main(int argc, char **argv)
         MsgHandler::getErrorInstance()->inform("Quitting (on error).");
         ret = 1;
     }
-    SystemFrame::close(oc);
+    SystemFrame::close();
     return ret;
 }
 
