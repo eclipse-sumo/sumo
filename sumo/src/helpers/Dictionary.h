@@ -5,75 +5,95 @@
  * @file   Dictionary.h
  * @author Christian Roessel
  * @date   Wed May  7 12:46:55 2003
- * @version Revision $Revision$ from $Date$ by $Author$
+ * @version Revision $Revision$
+ * from $Date$
+ * by $Author$
  *
  * @brief
  *
+>>>>>>> 1.3
  *
+ * @brief Contains the Dictionary implementation.
  */
 
 // $Log$
+// Revision 1.4  2003/06/06 13:16:13  roessel
+// Documentation updated. vectorM not static any longer.
+//
 // Revision 1.3  2003/06/06 10:47:16  dkrajzew
 // destructor changed to virtual
 //
 // Revision 1.2  2003/06/04 16:09:16  roessel
-// setFindMode creates now a static vector which is returned by reference from getStdVector.
+// setFindMode creates now a static vector which is returned by reference
+// from getStdVector.
 //
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif // HAVE_CONFIG_H
 
 #include <map>
-//#include <utility>
 #include <vector>
 
 /**
- * @class Dictionary for storing key-value pairs.
+ * Class that holds key-value pairs and has distinct insert- and find modes.
+ * 
  * The difference to a std::map is that this class has an INSERT and a FIND
  * operation mode which cannot be mixed. On construction the mode is set
  * to insert until setFindMode() is called. During INSERT you can call
- * only the methods isInsertSuccess() and
- * setFindMode(). During FIND the methods getStdVector(), getValue()
- * and the dtor are allowed.
+ * only the methods isInsertSuccess() and setFindMode(). During FIND the
+ * methods getStdVector(), getValue() and the dtor are allowed.
+ * 
  * @note If you store pointers as Value, the object they are pointing to
  * is not deleted during the dtor call.
- *
  */
 template< typename Key, typename Value >
 class Dictionary
 {
 public:
-
-    /// Destructor. If you are storing pointers you should delete them
     /**
      * Destructor.
      * @note If you are storing pointers you need to delete them seperately.
      * E.g. get the pointers with getStdVector() and delete them in a loop.
      * @see getStdVector()
-     *
      */
     virtual ~Dictionary( void )
         {
             assert( operationModeM == FIND );
             mapM.clear();
+            vectorM.clear();
         }
-    /// Constructor
+    /** 
+     * Constructor. Sets the operationMode to INSERT.
+     * 
+     */
     Dictionary() :
         mapM(  ),
-        operationModeM( INSERT )
+        operationModeM( INSERT ),
+        vectorM( )
         {}
-
-
+    
+    /** 
+     * Tries to insert a key-value pair into the dictionary. A call to this
+     * method is allowed only in operationMode INSERT.
+     * 
+     * @param aKey Key to be inserted.
+     * @param aValue Corresponding value.
+     * 
+     * @return True if insert was successful, false otherwise, i.e. a pair
+     * with the same key is already in the Dictionary.
+     */
     bool isInsertSuccess( Key aKey, Value aValue )
         {
             assert( operationModeM == INSERT );
 			return mapM.insert( std::make_pair( aKey, aValue ) ).second;
        	}
 
+    /** 
+     * Switches the operationMode from INSERT to FIND. From now on, no
+     * additional inserts are allowed. The value-vector is filled with
+     * the objects currently in the Dictionay.
+     */
     void setFindMode( void )
         {
             assert( operationModeM == INSERT );
@@ -83,14 +103,31 @@ public:
                 vectorM.push_back( it->second );
             }
         }
-
+    
+    /**
+     * Definition of the returntype of getStdVector
+     * @see getStdVector()
+     */
     typedef std::vector< Value > ValueVector;
+
+    /** 
+     * During FIND mode, get a sorted vector of the values in the Dictionary.
+     * 
+     * @return Reference to the sorted vector of values in the Dictionary.
+     */
     ValueVector& getStdVector()
         {
             assert( operationModeM == FIND );
             return vectorM;
         }
-
+    /** 
+     * During FIND mode, get the value corresponding to aKey
+     * 
+     * @param aKey Search for this key in Dictionary.
+     * 
+     * @return Value corresponding to aKey if aKey is in Dictionary, 0
+     * otherwise.
+     */
     Value getValue( Key aKey )
         {
             assert( operationModeM == FIND );
@@ -105,13 +142,16 @@ public:
 
 
 protected:
+    /// Type of the internal map
     typedef std::map< Key, Value > Map;
-    /// The type of an interator to the key-value pair map (for brevity)
-    typedef typename Map::iterator MapIt;
+
+    /// Type of the internal maps iterator.
+    typedef typename Map::iterator MapIt;   
+
     Map mapM; /**< Map to store the key-value pairs. */
 
 
-    /// Modes of operation are defined here.
+    /// Modes of operation.
     enum Mode {
         INSERT = 0,             /**< Insert-mode for inserting key-value pairs
                                  * until mode is switched by setFindMode()  */
@@ -121,27 +161,32 @@ protected:
 
     /**
      * Current mode of operation. Is set to INSERT by ctor and once switched to
-     * FIND when insertion is finished.
+     * FIND by setFindMode() when insertion is finished.
      *
      * @see Mode
      * @see setFindMode()
      */
     Mode operationModeM;
 
-    static ValueVector vectorM;
-
+    /**
+     * Vector the stores the sorted values of the Dictionary during FIND mode.
+     * Is filled in setFindMode()
+     * @setFindMode()
+     */
+    ValueVector vectorM;
+    
 private:
 
-    /// Not implemented copy-constructor
+    /// Hidden copy-ctor.
     Dictionary( const Dictionary& );
-    /// Not implemented assignment-operator
+    /// Hidden assignment-operator.
     Dictionary& operator=( const Dictionary& );
 };
 
-// static member initialization
-template< typename Key, typename Value >
-Dictionary< Key, Value >::ValueVector
-Dictionary< Key, Value >::vectorM;
+// // static member initialization
+// template< typename Key, typename Value >
+// Dictionary< Key, Value >::ValueVector
+// Dictionary< Key, Value >::vectorM;
 
 
 // Here I tried to do a specialization for all pointer types, but I failed

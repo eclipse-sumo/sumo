@@ -5,15 +5,18 @@
  * @file   SingletonDictionary.h
  * @author Christian Roessel
  * @date   Wed May  7 12:46:35 2003
- * @version Revision $Revision$ from $Date$ by $Author$
+ * @version Revision $Revision$
+ * from $Date$
+ * by $Author$
  *
- * @brief
- *
- *
+ * @brief Contains the SingletonDictiaonary implementation.
  */
 
 
 // $Log$
+// Revision 1.3  2003/06/06 13:16:13  roessel
+// Documentation updated. vectorM not static any longer.
+//
 // Revision 1.2  2003/06/06 10:46:44  dkrajzew
 // missing cassert-inclusion added
 //
@@ -21,27 +24,31 @@
 // further work detectors
 //
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <stdexcept>
 #include "Dictionary.h"
 
 
+/**
+ * Runtime-Exception class. An instance of SingletonNotCreated is thrown, if
+ * SingletonDictionary::getInstance() is called without a previous call to
+ * SingletonDictionary::create()
+ */
 class SingletonNotCreated : public std::runtime_error
 {
 public:
+    /// Sole constructor
     SingletonNotCreated( const std::string& msg = "" ) : runtime_error( msg )
         {}
 };
 
 
 /**
- * @class SingletonDictionary is derived from Dictionary. The only difference
- * is that SingletonDictionary is a global accessible Singleton.
- *
+ * Singleton class that holds key-value pairs and has distinct insert-
+ * and find modes.
+ * 
+ * @see Dictionary
  */
 template< typename Key, typename Value >
 class SingletonDictionary : public Dictionary< Key, Value >
@@ -71,7 +78,8 @@ public:
     static SingletonDictionary* getInstance( void )
         {
             if ( instanceM == 0 ) {
-                throw SingletonNotCreated();
+                throw SingletonNotCreated(
+                    "Instance of SingletonDictionary has not been created.");
             }
             return instanceM;
         }
