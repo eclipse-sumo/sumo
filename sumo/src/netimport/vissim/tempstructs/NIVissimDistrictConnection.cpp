@@ -146,11 +146,17 @@ NIVissimDistrictConnection::dict_BuildDistricts()
             NBDistrictCont::retrieve(toString<int>((*k).first));
         NBNode *districtNode = NBNodeCont::retrieve(
             string("District") + district->getID());
+        assert(district!=0&&districtNode!=0);
 
         for(IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
             NIVissimDistrictConnection *c = dictionary(*l);
             // get the edge to connect the parking place to
             NBEdge *e = NBEdgeCont::retrieve(toString<int>(c->myEdgeID));
+            if(e==0) {
+                e = NBEdgeCont::retrievePossiblySplitted(
+                    toString<int>(c->myEdgeID),
+                    c->myPosition);
+            }
             assert(e!=0);
             string id = string("ParkingPlace") + toString<int>(*l);
             NBNode *parkingPlace = NBNodeCont::retrieve(id);
@@ -200,9 +206,9 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                 if(!NBEdgeCont::insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!
                 }
-                double percNormed =
+                double percNormed2 =
                     c->myPercentages[(*k).first];
-                if(!district->addSink(destination, percNormed)) {
+                if(!district->addSink(destination, percNormed2)) {
                     throw 1; // !!!
                 }
             }

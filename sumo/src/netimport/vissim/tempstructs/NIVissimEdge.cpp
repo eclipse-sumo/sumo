@@ -61,6 +61,10 @@ NIVissimEdge::connection_cluster_position_sorter::operator() (
 {
     double pos1 = cc1->getPositionForEdge(myEdgeID);
     double pos2 = cc2->getPositionForEdge(myEdgeID);
+    if(pos2<0||pos1<0) {
+        cc1->getPositionForEdge(myEdgeID);
+        cc2->getPositionForEdge(myEdgeID);
+    }
     assert(pos1>=0&&pos2>=0);
     return pos1<pos2;
 }
@@ -335,7 +339,7 @@ NIVissimEdge::buildNBEdge()
             new NBNode(toString<int>(myID) + string("-SourceNode"),
                 pos.x(), pos.y(), "no_junction");
         if(!NBNodeCont::insert(fromNode)) {
-            cout << "nope, NIVissimDisturbance" << endl;
+            cout << "nope, NIVissimEdge" << endl;
             throw 1;
         }
     }
@@ -345,7 +349,7 @@ NIVissimEdge::buildNBEdge()
             new NBNode(toString<int>(myID) + string("-DestinationNode"),
                 pos.x(), pos.y(), "no_junction");
         if(!NBNodeCont::insert(toNode)) {
-            cout << "nope, NIVissimDisturbance" << endl;
+            cout << "nope, NIVissimEdge" << endl;
             throw 1;
         }
     }
@@ -357,10 +361,12 @@ NIVissimEdge::buildNBEdge()
     NBEdgeCont::insert(buildEdge);
     // check whether the edge contains any other clusters
     if(myConnectionClusters.size()>2) {
-        for(ConnectionClusters::iterator j=myConnectionClusters.begin()+1; j!=myConnectionClusters.end()-1; j++) {
+		bool cont = true;
+        for(ConnectionClusters::iterator j=myConnectionClusters.begin()+1; cont&&j!=myConnectionClusters.end()-1; j++) {
             // split the edge at the previously build node
             string nextID = buildEdge->getID() + "[1]";
-            NBEdgeCont::splitAt(buildEdge, (*j)->getNBNode());
+            cont = NBEdgeCont::splitAt(buildEdge, (*j)->getNBNode());
+			// !!! what to do if the edge could not be split?
             buildEdge = NBEdgeCont::retrieve(nextID);
         }
     }
@@ -428,7 +434,7 @@ NIVissimEdge::resolveSameNode()
                 node = new NBNode(nid,
                     pos.x(), pos.y(), "no_junction");
                 if(!NBNodeCont::insert(node)) {
-                    cout << "nope, NIVissimDisturbance" << endl;
+                    cout << "nope, NIVissimEdge" << endl;
                     throw 1;
                 }
             }
@@ -442,7 +448,7 @@ NIVissimEdge::resolveSameNode()
                 node = new NBNode(nid,
                     pos.x(), pos.y(), "no_junction");
                 if(!NBNodeCont::insert(node)) {
-                    cout << "nope, NIVissimDisturbance" << endl;
+                    cout << "nope, NIVissimEdge" << endl;
                     throw 1;
                 }
             }

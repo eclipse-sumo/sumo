@@ -43,6 +43,23 @@
 #include "typeloader/NIVissimSingleTypeParser_Fensterdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Auswertungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Zusammensetzungsdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Startzufallszahl.h"
+#include "typeloader/NIVissimSingleTypeParser_SimRate.h"
+#include "typeloader/NIVissimSingleTypeParser_Zeitschrittfaktor.h"
+#include "typeloader/NIVissimSingleTypeParser_Linksverkehr.h"
+#include "typeloader/NIVissimSingleTypeParser_Stauparameterdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Gelbverhaltendefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_LSAKopplungsdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Gefahrwarnungsdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_TEAPACDefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Netzobjektdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Fahrtverlaufdateien.h"
+#include "typeloader/NIVissimSingleTypeParser_Emission.h"
+#include "typeloader/NIVissimSingleTypeParser_Einheitendefinition.h"
+#include "typeloader/NIVissimSingleTypeParser__XVerteilungsdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser__XKurvedefinition.h"
+
+
 #include "tempstructs/NIVissimTL.h"
 #include "tempstructs/NIVissimClosures.h"
 #include "tempstructs/NIVissimSource.h"
@@ -130,8 +147,8 @@ Position2D
 NIVissimLoader::VissimSingleTypeParser::getPosition2D(std::istream &from)
 {
     double x, y;
-    from >> x; // !!!
-    from >> y; // !!!
+    from >> x; // type-checking is missing!
+    from >> y; // type-checking is missing!
     return Position2D(x, y);
 }
 
@@ -161,7 +178,7 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
     string tag;
     from >> tag; // "Strecke"
     int edgeid;
-    from >> edgeid; // !!!
+    from >> edgeid; // type-checking is missing!
     from >> tag; // "Spuren"
     IntVector lanes;
     while(tag!="bei") {
@@ -263,7 +280,6 @@ NIVissimLoader::load(OptionsCont &options)
             + string("' was not found."));
         return;
     }
-//    strm.unsetf (ios::skipws);
     if(!readContents(strm)) {
         return;
     }
@@ -296,7 +312,6 @@ NIVissimLoader::readContents(istream &strm)
         } else {
             strm >> tag;
         }
-        cout << tag << endl;
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
             StringUtils::to_lower_case(tag));
@@ -330,9 +345,9 @@ NIVissimLoader::postLoadBuild()
     // try to assign connection clusters to nodes
     //  only left connections will be processed in
     //   buildConnectionClusters & join
-    NIVissimNodeDef::dict_assignConnectionsToNodes();
+//30.4. brauchen wir noch!    NIVissimNodeDef::dict_assignConnectionsToNodes();
 
-    NIVissimConnectionCluster::dict_recheckNodes();
+// ??    NIVissimConnectionCluster::dict_recheckNodes();
 
     // build clusters of connections with the same direction and a similar
     //  position along the streets
@@ -341,10 +356,13 @@ NIVissimLoader::postLoadBuild()
     // join clusters when overlapping (different streets are possible)
     NIVissimConnectionCluster::join();
 
+    NIVissimConnectionCluster::addTLs();
+
     // build nodes from clusters
+    NIVissimNodeCluster::setCurrentVirtID(NIVissimNodeDef::getMaxID());
     NIVissimConnectionCluster::buildNodeClusters();
 
-    NIVissimNodeCluster::dict_recheckEdgeChanges();
+//    NIVissimNodeCluster::dict_recheckEdgeChanges();
 
     NIVissimNodeCluster::buildNBNodes();
     NIVissimDistrictConnection::dict_BuildDistrictNodes();
@@ -536,5 +554,47 @@ NIVissimLoader::buildParsers()
     myParsers[VE_Verkehrszusammensetzungsdefinition] =
         new NIVissimSingleTypeParser_Zusammensetzungsdefinition(*this);
 
+    myParsers[VE_Startzufallszahl] =
+        new NIVissimSingleTypeParser_Startzufallszahl(*this);
+    myParsers[VE_SimRate] =
+        new NIVissimSingleTypeParser_SimRate(*this);
+    myParsers[VE_Zeitschrittfaktor] =
+        new NIVissimSingleTypeParser_Zeitschrittfaktor(*this);
+    myParsers[VE_Linksverkehr] =
+        new NIVissimSingleTypeParser_Linksverkehr(*this);
+    myParsers[VE_Stauparameterdefinition] =
+        new NIVissimSingleTypeParser_Stauparameterdefinition(*this);
+    myParsers[VE_Gelbverhaltendefinition] =
+        new NIVissimSingleTypeParser_Gelbverhaltendefinition(*this);
+    myParsers[VE_LSAKopplungdefinition] =
+        new NIVissimSingleTypeParser_LSAKopplungsdefinition(*this);
+    myParsers[VE_Gefahrenwarnsystemdefinition] =
+        new NIVissimSingleTypeParser_Gefahrwarnungsdefinition(*this);
+    myParsers[VE_TEAPACdefinition] =
+        new NIVissimSingleTypeParser_TEAPACDefinition(*this);
+    myParsers[VE_Netzobjektdefinition] =
+        new NIVissimSingleTypeParser_Netzobjektdefinition(*this);
+    myParsers[VE_Fahrtverlaufdateien] =
+        new NIVissimSingleTypeParser_Fahrtverlaufdateien(*this);
+    myParsers[VE_Emission] =
+        new NIVissimSingleTypeParser_Emission(*this);
+    myParsers[VE_Einheitendefinition] =
+        new NIVissimSingleTypeParser_Einheitendefinition(*this);
+    myParsers[VE_Baujahrverteilungsdefinition] =
+        new NIVissimSingleTypeParser__XVerteilungsdefinition(*this);
+    myParsers[VE_Laufleistungsverteilungsdefinition] =
+        new NIVissimSingleTypeParser__XVerteilungsdefinition(*this);
+    myParsers[VE_Massenverteilungsdefinition] =
+        new NIVissimSingleTypeParser__XVerteilungsdefinition(*this);
+    myParsers[VE_Leistungsverteilungsdefinition] =
+        new NIVissimSingleTypeParser__XVerteilungsdefinition(*this);
+    myParsers[VE_Maxbeschleunigungskurvedefinition] =
+        new NIVissimSingleTypeParser__XKurvedefinition(*this);
+    myParsers[VE_Wunschbeschleunigungskurvedefinition] =
+        new NIVissimSingleTypeParser__XKurvedefinition(*this);
+    myParsers[VE_Maxverzoegerungskurvedefinition] =
+        new NIVissimSingleTypeParser__XKurvedefinition(*this);
+    myParsers[VE_Wunschverzoegerungskurvedefinition] =
+        new NIVissimSingleTypeParser__XKurvedefinition(*this);
 
 }

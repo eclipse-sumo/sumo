@@ -99,16 +99,13 @@ NIVissimNodeDef_Edges::computeBounding()
         */
     }
     myBoundery = boundery;
-    assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
+    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
 }
 
 
 void
 NIVissimNodeDef_Edges::searchAndSetConnections()
 {
-    if(myID==1) {
-        int bla = 0;
-    }
     IntVector connections;
     IntVector edges;
     Boundery boundery;

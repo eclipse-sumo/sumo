@@ -1,5 +1,6 @@
 #include <map>
 #include <cassert>
+#include <utils/geom/GeomHelper.h>
 #include "NIVissimAbstractEdge.h"
 
 
@@ -103,13 +104,26 @@ NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge *c) const
 }
 
 
+double
+NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
+                                     const Position2D &p2) const
+{
+    // !!! not needed
+    Position2D p = GeomHelper::intersection_position(
+        myGeom.getBegin(), myGeom.getEnd(), p1, p2);
+    return GeomHelper::nearest_position_on_line_to_point(
+        myGeom.getBegin(), myGeom.getEnd(), p);
+}
+
+
+
 IntVector
-NIVissimAbstractEdge::getWithin(const AbstractPoly &p)
+NIVissimAbstractEdge::getWithin(const AbstractPoly &p, double offset)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimAbstractEdge *e = (*i).second;
-        if(e->overlapsWith(p)) {
+        if(e->overlapsWith(p, offset)) {
             ret.push_back(e->myID);
         }
     }
@@ -118,9 +132,9 @@ NIVissimAbstractEdge::getWithin(const AbstractPoly &p)
 
 
 bool
-NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p) const
+NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p, double offset) const
 {
-    return myGeom.overlapsWith(p);
+    return myGeom.overlapsWith(p, offset);
 }
 
 
@@ -145,5 +159,13 @@ NIVissimAbstractEdge::clearDict()
     }
     myDict.clear();
 }
+
+
+const Position2DVector &
+NIVissimAbstractEdge::getGeometry() const
+{
+    return myGeom;
+}
+
 
 

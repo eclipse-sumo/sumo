@@ -16,6 +16,7 @@ public:
         const Position2DVector &poly);
     virtual void computeBounding();
     double getEdgePosition(int edgeid) const;
+    void searchAndSetConnections();
     //    virtual void searchAndSetConnections();
 //    bool matches(const IntVector &edges);
 private:

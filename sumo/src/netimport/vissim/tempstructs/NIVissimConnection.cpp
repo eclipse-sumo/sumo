@@ -105,7 +105,7 @@ NIVissimConnection::buildNodeClusters()
             IntVector connections =
                 NIVissimConnection::getWithin(*(e->myBoundery));
             int id = NIVissimNodeCluster::dictionary(-1, -1, connections,
-                IntVector());
+                IntVector(), true); // 19.5.!!! should be on a single edge
         }
     }
 }
@@ -321,6 +321,7 @@ NIVissimConnection::buildGeom()
 void
 NIVissimConnection::dict_buildNBEdgeConnections()
 {
+	size_t ref = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
@@ -332,6 +333,7 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             toString<int>(c->getFromEdgeID()),
             false);
         // check whether it is near to an already build node
+/*
         if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0
             ||
             NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()))==0 ) {
@@ -349,8 +351,13 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             fromEdge = tmpFromEdge;
             toEdge = tmpToEdge;
         }
+*/
         if(fromEdge==0||toEdge==0) {
-            continue;
+			cout << " Warning: Could not build connection between '"
+				<< c->getFromEdgeID() << "' and '"
+				<< c->getToEdgeID() << "'." << endl;
+			ref++;
+            continue; // !!!
         }
         if(fromEdge==0) {
             // This may occure when some connections were joined
@@ -359,18 +366,18 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             // See network "Karlsruhe3d/_Mendel.inp", edges 3 & 4
             // We use the really incoming nodes instead
             NBNode *origin = toEdge->getFromNode();
-            EdgeVector *incoming = origin->getIncomingEdges();
-            for(EdgeVector::iterator j=incoming->begin(); j!=incoming->end(); j++) {
+            const EdgeVector &incoming = origin->getIncomingEdges();
+            for(EdgeVector::const_iterator j=incoming.begin(); j!=incoming.end(); j++) {
                 (*j)->addEdge2EdgeConnection(toEdge);
             }
             continue;
         }
         if(toEdge==0) {
             // See network "Rome_GradeSeparation/Soluz_A_2D.INP", edges 3 & 4
-            // We use the really incoming nodes instead
+            // We use the really outgoing nodes instead
             NBNode *dest = fromEdge->getToNode();
-            EdgeVector *outgoing = dest->getOutgoingEdges();
-            for(EdgeVector::iterator j=outgoing->begin(); j!=outgoing->end(); j++) {
+            const EdgeVector &outgoing = dest->getOutgoingEdges();
+            for(EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
                 fromEdge->addEdge2EdgeConnection(*j);
             }
             continue;
@@ -383,6 +390,10 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             }
         }
     }
+	if(ref!=0) {
+		cout << "Warning: " << ref << " of " << myDict.size()
+			<< " connections could not be assigned." << endl;
+	}
 }
 
 

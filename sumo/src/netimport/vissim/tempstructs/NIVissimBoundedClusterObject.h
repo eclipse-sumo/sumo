@@ -14,6 +14,7 @@ public:
     bool crosses(const AbstractPoly &poly, double offset=0) const;
     void inCluster(int id);
     bool clustered() const;
+    const Boundery &getBoundery() const;
 public:
     static void closeLoading();
 protected:

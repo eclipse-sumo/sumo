@@ -5,6 +5,7 @@
 #include <string>
 #include <utils/common/IntVector.h>
 #include <utils/geom/AbstractPoly.h>
+#include <netbuild/NBConnection.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include "NIVissimBoundedClusterObject.h"
 #include "NIVissimNodeParticipatingEdgeVector.h"
@@ -21,10 +22,10 @@ public:
         double timegap, double waygap, double vmax);
     virtual ~NIVissimDisturbance();
     void computeBounding();
-    void addToNode(NBNode *node);
+    bool addToNode(NBNode *node);
 /*    bool tryAssignToNodeSingle(int nodeid,
         const NIVissimNodeParticipatingEdgeVector &edges);*/
-    std::pair<NBEdge*, NBEdge*> getConnection(NBNode *node, int aedgeid);
+    NBConnection getConnection(NBNode *node, int aedgeid);
 
 public:
     static bool dictionary(int id, const std::string &name,

@@ -1,5 +1,6 @@
 #include <map>
 #include <algorithm>
+#include <cassert>
 #include <utils/common/IntVector.h>
 #include <utils/convert/ToString.h>
 #include <utils/geom/Position2DVector.h>
@@ -19,10 +20,11 @@ int NIVissimNodeCluster::myCurrentID = 1;
 
 NIVissimNodeCluster::NIVissimNodeCluster(int id, int nodeid, int tlid,
                                          const IntVector &connectors,
-                                         const IntVector &disturbances)
+                                         const IntVector &disturbances,
+										 bool amEdgeSplitOnly)
     : myID(id), myNodeID(nodeid), myTLID(tlid),
     myConnectors(connectors), myDisturbances(disturbances),
-    myNBNode(0)
+    myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly)
 {
 }
 
@@ -42,6 +44,7 @@ NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o)
         myDict[id] = o;
         return true;
     }
+    assert(false);
     return false;
 }
 
@@ -49,15 +52,15 @@ NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o)
 int
 NIVissimNodeCluster::dictionary(int nodeid, int tlid,
                                 const IntVector &connectors,
-                                const IntVector &disturbances)
+                                const IntVector &disturbances,
+								bool amEdgeSplitOnly)
 {
-    int id = myCurrentID++;
-    if(nodeid>0) {
-        id = nodeid;
-        myCurrentID = nodeid + 1;
+    int id = nodeid;
+    if(nodeid<0) {
+        id = myCurrentID++;
     }
     NIVissimNodeCluster *o = new NIVissimNodeCluster(id,
-        nodeid, tlid, connectors, disturbances);
+        nodeid, tlid, connectors, disturbances, amEdgeSplitOnly);
     dictionary(id, o);
     return id;
 }
@@ -155,50 +158,51 @@ void
 NIVissimNodeCluster::buildNBNode()
 {
     if(myConnectors.size()==0) {
-        return; // !!! Check, when this is the case
+        return; // !!! Check, whether this can happen
     }
+
     // compute the position
-        // compute the places the connections cross
     Position2DVector crossings;
-    IntVector::iterator i, j;
-    for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        NIVissimAbstractEdge *c1 = NIVissimAbstractEdge::dictionary(*i);
-        c1->buildGeom();
-        for(j=i+1; j!=myConnectors.end(); j++) {
-            NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
-            c2->buildGeom();
-            if(c1->crossesEdge(c2)) {
-                crossings.push_back(c1->crossesEdgeAtPoint(c2));
-            }
-        }
-    }
-        // alternative way:
-            // compute via positions of crossings
-    if(crossings.size()==0) {
+	IntVector::iterator i, j;
+	// check whether this is a split of an edge only
+	if(myAmEdgeSplit) {
+// !!! should be		assert(myTLID==-1);
         for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
             crossings.push_back(c1->getFromGeomPosition());
-            crossings.push_back(c1->getToGeomPosition());
-        }
-    }
-        // compute the position
+		}
+	} else {
+        // compute the places the connections cross
+		for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
+			NIVissimAbstractEdge *c1 = NIVissimAbstractEdge::dictionary(*i);
+			c1->buildGeom();
+			for(j=i+1; j!=myConnectors.end(); j++) {
+	            NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
+				c2->buildGeom();
+	            if(c1->crossesEdge(c2)) {
+		            crossings.push_back(c1->crossesEdgeAtPoint(c2));
+			    }
+	        }
+		}
+        // alternative way: compute via positions of crossings
+		if(crossings.size()==0) {
+	        for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
+		        NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+			    crossings.push_back(c1->getFromGeomPosition());
+				crossings.push_back(c1->getToGeomPosition());
+			}
+		}
+	}
+        // get the position (center)
     Position2D pos = crossings.center();
-
     // build the node
-    // !!!
-/*    cout << toString<int>(myID) << ": ";
-    for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-        if(i!=myConnectors.begin()) {
-            cout << ", ";
-        }
-        cout << (*i);
-    }
-    cout << "- - - - - - - - - - " << endl;*/
-    // !!!
     NBNode *node = 0;
     if(myTLID==-1) {
-        node = new NBNode(getNodeName(), pos.x(), pos.y(),
-            "priority");
+		if(myAmEdgeSplit) {
+	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "no_junction");
+		} else {
+	        node = new NBNode(getNodeName(), pos.x(), pos.y(), "priority");
+		}
     } else {
         NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
         if(tl->getType()=="festzeit") {
@@ -254,6 +258,7 @@ NIVissimNodeCluster::buildNBNodes()
 bool
 NIVissimNodeCluster::recheckEdgeChanges()
 {
+	/*
     // do nothing when there is only one way - it is a junction
     if(myConnectors.size()<=1) {
         return false;
@@ -319,13 +324,13 @@ NIVissimNodeCluster::recheckEdgeChanges()
         }
         // check whether othe connections do connect the same edges
         c1 = NIVissimConnection::dictionary(*i);
-/*
+/!!!*
         if(c1->interactsWith(myDisturbances)) {
             // keep the connection if it interacts with any of the node's
             //  disturbances
             continue;
         }
-        */
+        *!!!/
         IntVector allFromThisEdge;
         allFromThisEdge.push_back(*i);
         for(j=i+1; j!=myConnectors.end(); j++) {
@@ -343,6 +348,7 @@ NIVissimNodeCluster::recheckEdgeChanges()
             allFromThisEdge, IntVector());
     }
     myConnectors = connections2Keep;
+	*/
     return true;
 }
 
@@ -478,3 +484,11 @@ NIVissimNodeCluster::clearDict()
     }
     myDict.clear();
 }
+
+
+void
+NIVissimNodeCluster::setCurrentVirtID(int id)
+{
+    myCurrentID = id;
+}
+

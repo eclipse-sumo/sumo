@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/05/20 09:43:12  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.5  2003/04/01 15:24:43  dkrajzew
 // parsing of parking places patched
 //
@@ -94,6 +97,7 @@ public:
     void addToConnectionCluster(NIVissimConnectionCluster *c);
 
     friend class NIVissimNodeDef_Edges;
+    friend class NIVissimNodeDef_Poly;
 
 public:
     /** @brief Adds the described item to the dictionary

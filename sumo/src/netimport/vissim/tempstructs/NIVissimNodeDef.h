@@ -16,7 +16,7 @@ public:
     virtual ~NIVissimNodeDef();
     int buildNodeCluster();
     virtual void computeBounding() = 0;
-    bool partialWithin(const AbstractPoly &p) const;
+    bool partialWithin(const AbstractPoly &p, double off=0.0) const;
     virtual void searchAndSetConnections() = 0;
     virtual double getEdgePosition(int edgeid) const = 0;
 
@@ -29,11 +29,12 @@ public:
 public:
     static bool dictionary(int id, NIVissimNodeDef *o);
     static NIVissimNodeDef *dictionary(int id);
-    static IntVector getWithin(const AbstractPoly &p);
+    static IntVector getWithin(const AbstractPoly &p, double off=0.0);
     static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();
     static size_t dictSize();
     static void clearDict();
+    static int getMaxID();
 /*
     static int searchAndSetMatchingTLParent(int tlID, const
         NIVissimExtendedEdgePointVector &edges);
@@ -52,6 +53,7 @@ protected:
 private:
     typedef std::map<int, NIVissimNodeDef*> DictType;
     static DictType myDict;
+    static int myMaxID;
 };
 
 #endif

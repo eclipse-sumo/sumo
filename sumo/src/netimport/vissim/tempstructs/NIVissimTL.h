@@ -65,7 +65,7 @@ public:
         ~NIVissimTLSignal();
         bool isWithin(const Position2DVector &poly) const;
         Position2D getPosition() const;
-        void addTo(NBNode *node) const;
+        bool addTo(NBNode *node) const;
 
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignal *o);
@@ -91,7 +91,7 @@ public:
             bool isGreenBegin, const DoubleVector &times,
             double tredyellow, double tyellow);
         ~NIVissimTLSignalGroup();
-        void addTo(NBNode *node) const;
+        bool addTo(NBNode *node) const;
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignalGroup *o);
         static NIVissimTLSignalGroup *dictionary(int lsaid, int id);

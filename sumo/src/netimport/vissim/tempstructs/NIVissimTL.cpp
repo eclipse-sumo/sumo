@@ -109,11 +109,11 @@ NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
 }
 
 
-void
+bool
 NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
 {
     NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
-    ConnectionVector assignedConnections;
+    NBConnectionVector assignedConnections;
     if(c==0) {
         // What to do if on an edge? -> close all outgoing connections
         string eid = toString<int>(myEdgeID);
@@ -129,20 +129,24 @@ NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
         if(edge->lanesWereAssigned()) {
             conn = edge->getEdgesFromLane(myLane-1);
         } else {
+            cout << "Edge : Lanes were not assigned(!)" << endl;
             conn = edge->getConnected();
         }
         //
         for(EdgeVector::const_iterator i=conn.begin(); i!=conn.end(); i++) {
             assignedConnections.push_back(
-                Connection(edge, *i)
+                NBConnection(edge, *i)
                 );
         }
     } else {
-        assignedConnections.push_back(
-            Connection(
-                NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()) ),
-                NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()) ) )
-                );
+		NBEdge *tmpFrom = NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()));
+		NBEdge *tmpTo = NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()));
+		if(tmpFrom!=0&&tmpTo!=0) {
+			assignedConnections.push_back(NBConnection(tmpFrom, tmpTo));
+		} else {
+			return false;
+			// !!! one of the edges could not be build
+		}
     }
     // add to the group
     assert(myGroupIDs.size()!=0);
@@ -156,6 +160,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
             assignedConnections);
         // !!!
     }
+	return true;
 }
 
 
@@ -278,7 +283,7 @@ NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid)
 }
 
 
-void
+bool
 NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
 {
     // get the color at the begin
@@ -291,7 +296,15 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
         color = color==NBNode::TLCOLOR_RED
             ? NBNode::TLCOLOR_GREEN : NBNode::TLCOLOR_RED;
     }
+	if(myTimes.size()==0) {
+		if(myFirstIsRed) {
+			node->addSignalGroupPhaseBegin(id, 0, NBNode::TLCOLOR_RED);
+		} else {
+			node->addSignalGroupPhaseBegin(id, 0, NBNode::TLCOLOR_GREEN);
+		}
+	}
     node->setSignalYellowTimes(id, myTRedYellow, myTYellow);
+	return true;
 }
 
 
@@ -410,7 +423,7 @@ NIVissimTL::computeBounding()
         bound->add((*j).second->getPosition());
     }
     myBoundery = bound;
-    cout << "TL " << myID << ":" << *myBoundery << endl;
+//    cout << "TL " << myID << ":" << *myBoundery << endl;
 }
 
 
@@ -436,7 +449,7 @@ NIVissimTL::buildNodeCluster()
         IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
         IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
         myNodeID = NIVissimNodeCluster::dictionary(myID, myID, connectors,
-            disturbances);
+            disturbances, false);  // 19.5.!!! should be ok
         IntVector::iterator i;
         for(i=connectors.begin(); i!=connectors.end(); i++) {
             NIVissimConnection::dictionary(*i)->inCluster(myNodeID);
@@ -465,25 +478,64 @@ NIVissimTL::clearDict()
 bool
 NIVissimTL::dict_SetSignals()
 {
+	size_t ref = 0;
+	size_t ref_groups = 0;
+	size_t ref_signals = 0;
+	size_t no_signals = 0;
+	size_t no_groups = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimTL *tl = (*i).second;
         if(tl->myNodeID<0) {
-            continue;
+			cout << " Warning: The traffic light '" << tl->myID
+				<< "' could not be assigned to a node." << endl;
+			ref++;
+            continue; // !!!
         }
+/*		if(tl->myType!="festzeit") {
+			cout << " Warning: The traffic light '" << tl->myID
+				<< "' could not be assigned to a node." << endl;
+			ref++;
+			continue;
+		}*/
         NBNode *node = NBNodeCont::retrieve(
             NIVissimNodeCluster::dictionary(tl->myNodeID)->getNodeName());
+		node->setCycleDuration(tl->myAbsDuration);
 //        node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
-            (*j).second->addTo(node);
+            if(!(*j).second->addTo(node)) {
+				cout << " Warning: The signal group '" << (*j).first
+					<< "' could not be assigned to node '"
+					<< node->getID() << "'." << endl;
+				ref_groups++;
+			}
+			no_groups++;
         }
         // add the signal group signals to the node
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for(SSignalDictType::const_iterator k=signals.begin(); k!=signals.end(); k++) {
-            (*k).second->addTo(node);
+            if(!(*k).second->addTo(node)) {
+				cout << " Warning: The signal '" << (*k).first
+					<< "' could not be assigned to node '"
+					<< node->getID() << "'." << endl;
+				ref_signals++;
+			}
+			no_signals++;
         }
     }
+	if(ref!=0) {
+		cout << "Warning: could not set " << ref << " of " << myDict.size()
+			<< " traffic lights." << endl;
+	}
+	if(ref_groups!=0) {
+		cout << "Warning: could not set " << ref_groups << " of " << no_groups
+			<< " groups." << endl;
+	}
+	if(ref_signals!=0) {
+		cout << "Warning: could not set " << ref_signals << " of " << no_signals
+			<< " signals." << endl;
+	}
     return true;
 }
 

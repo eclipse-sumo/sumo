@@ -11,7 +11,8 @@ class NIVissimNodeCluster {
 public:
     NIVissimNodeCluster(int id, int nodeid, int tlid,
         const IntVector &connectors,
-        const IntVector &disturbances);
+        const IntVector &disturbances,
+		bool amEdgeSplitOnly);
     ~NIVissimNodeCluster();
     int getID() const { return myID; }
     void buildNBNode();
@@ -24,9 +25,8 @@ public:
 
 public:
     static bool dictionary(int id, NIVissimNodeCluster *o);
-    static int dictionary(int nodeid, int tlid,
-        const IntVector &connectors,
-        const IntVector &disturbances);
+    static int dictionary(int nodeid, int tlid, const IntVector &connectors,
+		const IntVector &disturbances, bool amEdgeSplitOnly);
     static NIVissimNodeCluster *dictionary(int id);
     static size_t contSize();
     static void assignToEdges();
@@ -38,6 +38,7 @@ public:
     static void _debugOut(std::ostream &into);
     static void dict_addDisturbances();
     static void clearDict();
+    static void setCurrentVirtID(int id);
 
 
 
@@ -55,6 +56,7 @@ private:
     static DictType myDict;
     static int myCurrentID;
     NBNode *myNBNode;
+	bool myAmEdgeSplit;
 };
 
 #endif

@@ -50,4 +50,10 @@ NIVissimBoundedClusterObject::closeLoading()
 }
 
 
+const Boundery &
+NIVissimBoundedClusterObject::getBoundery() const
+{
+    return *myBoundery;
+}
+
 

@@ -63,9 +63,11 @@ public:
 
     static void clearDict();
 
+    static void addNodes();
 
     //static void dict_checkDoubleNodes();
 
+    static void addTLs();
 
 private:
     class NodeSubCluster {
@@ -95,6 +97,7 @@ private:
 
     void recheckEdges();
 
+    bool joinable(NIVissimConnectionCluster *c2);
 
 
 private:
@@ -109,6 +112,12 @@ private:
 
     // The edge which holds the cluster
     IntVector myEdges;
+
+    IntVector myNodes;
+
+    IntVector myTLs;
+
+	IntVector myOutgoingEdges, myIncomingEdges;
 
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;

@@ -8,6 +8,7 @@
 using namespace std;
 
 NIVissimNodeDef::DictType NIVissimNodeDef::myDict;
+int NIVissimNodeDef::myMaxID = 0;
 
 NIVissimNodeDef::NIVissimNodeDef(int id, const std::string &name)
     : myID(id), myName(name)
@@ -26,6 +27,9 @@ NIVissimNodeDef::dictionary(int id, NIVissimNodeDef *o)
     DictType::iterator i=myDict.find(id);
     if(i==myDict.end()) {
         myDict[id] = o;
+        myMaxID = myMaxID > id
+            ? myMaxID
+            : id;
 //        o->computeBounding();
         return true;
     }
@@ -113,8 +117,9 @@ NIVissimNodeDef::buildNodeCluster()
 {
     bool changed = true;
     int id = -1;
+	/*
     while(changed) {
-        assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
+        assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
         IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
         IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
         IntVector tls = NIVissimTL::getWithin(*myBoundery, 5.0);
@@ -136,18 +141,19 @@ NIVissimNodeDef::buildNodeCluster()
             NIVissimDisturbance::dictionary(*i)->inCluster(id);
         }
     }
+	*/
     return id;
 }
 
 
 
 IntVector
-NIVissimNodeDef::getWithin(const AbstractPoly &p)
+NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimNodeDef *d = (*i).second;
-        if(d->partialWithin(p)) {
+        if(d->partialWithin(p, off)) {
             ret.push_back((*i).first);
         }
     }
@@ -156,10 +162,10 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p)
 
 
 bool
-NIVissimNodeDef::partialWithin(const AbstractPoly &p) const
+NIVissimNodeDef::partialWithin(const AbstractPoly &p, double off) const
 {
-    assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
-    return myBoundery->partialWithin(p);
+    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
+    return myBoundery->partialWithin(p, off);
 }
 
 
@@ -187,4 +193,11 @@ NIVissimNodeDef::clearDict()
         delete (*i).second;
     }
     myDict.clear();
+}
+
+
+int
+NIVissimNodeDef::getMaxID()
+{
+    return myMaxID;
 }
