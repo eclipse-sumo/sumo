@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/04/25 09:26:05  dkrajzew
+// New names for the acceleration and the deceleration parameter applied
+//
 // Revision 1.3  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //
@@ -78,7 +81,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder1::NLHandlerBuilder1(NLContainer &container, LoadFilter filter) 
+NLHandlerBuilder1::NLHandlerBuilder1(NLContainer &container, LoadFilter filter)
     : NLSAXHandler(container, filter)
 {
     _attrHandler.add(ATTR_ID, "id");
@@ -86,8 +89,8 @@ NLHandlerBuilder1::NLHandlerBuilder1(NLContainer &container, LoadFilter filter)
     _attrHandler.add(ATTR_MAXSPEED, "maxspeed");
     _attrHandler.add(ATTR_LENGTH, "length");
     _attrHandler.add(ATTR_CHANGEURGE, "changeurge");
-    _attrHandler.add(ATTR_BMAX, "bmax");
-    _attrHandler.add(ATTR_DMAX, "dmax");
+    _attrHandler.add(ATTR_ACCEL, "accel");
+    _attrHandler.add(ATTR_DECEL, "decel");
     _attrHandler.add(ATTR_SIGMA, "sigma");
     _attrHandler.add(ATTR_KEY, "key");
     _attrHandler.add(ATTR_REQUEST, "request");
@@ -96,11 +99,11 @@ NLHandlerBuilder1::NLHandlerBuilder1(NLContainer &container, LoadFilter filter)
     _attrHandler.add(ATTR_FROM, "from");
 }
 
-NLHandlerBuilder1::~NLHandlerBuilder1() 
+NLHandlerBuilder1::~NLHandlerBuilder1()
 {
 }
 
-void 
+void
 NLHandlerBuilder1::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
     // check static net information
@@ -166,12 +169,12 @@ NLHandlerBuilder1::chooseEdge(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::addLane(const Attributes &attrs) {
     try {
         string id = _attrHandler.getString(attrs, ATTR_ID);
         try {
-            myContainer.addLane(id, 
+            myContainer.addLane(id,
                 _attrHandler.getBool(attrs, ATTR_DEPART),
                 _attrHandler.getFloat(attrs, ATTR_MAXSPEED),
                 _attrHandler.getFloat(attrs, ATTR_LENGTH),
@@ -192,7 +195,7 @@ NLHandlerBuilder1::addLane(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::openAllowedEdge(const Attributes &attrs) {
     string id;
     try {
@@ -205,7 +208,7 @@ NLHandlerBuilder1::openAllowedEdge(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::addVehicleType(const Attributes &attrs) {
     try {
         string id = _attrHandler.getString(attrs, ATTR_ID);
@@ -213,8 +216,8 @@ NLHandlerBuilder1::addVehicleType(const Attributes &attrs) {
             myContainer.addVehicleType(id,
                 _attrHandler.getFloat(attrs, ATTR_LENGTH),
                 _attrHandler.getFloat(attrs, ATTR_MAXSPEED),
-                _attrHandler.getFloat(attrs, ATTR_BMAX),
-                _attrHandler.getFloat(attrs, ATTR_DMAX),
+                _attrHandler.getFloat(attrs, ATTR_ACCEL),
+                _attrHandler.getFloat(attrs, ATTR_DECEL),
                 _attrHandler.getFloat(attrs, ATTR_SIGMA));
         } catch (XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicletype", id));
@@ -228,7 +231,7 @@ NLHandlerBuilder1::addVehicleType(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::openRoute(const Attributes &attrs) {
     string id;
     try {
@@ -241,7 +244,7 @@ NLHandlerBuilder1::openRoute(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::addJunctionKey(const Attributes &attrs) {
     try {
         string key = _attrHandler.getString(attrs, ATTR_KEY);
@@ -256,7 +259,7 @@ NLHandlerBuilder1::addJunctionKey(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::initLogic() {
     m_Key = "";
     m_pActiveLogic = new MSBitsetLogic::Logic();
@@ -271,7 +274,7 @@ NLHandlerBuilder1::initLogic() {
 void
 NLHandlerBuilder1::addLogicItem(const Attributes &attrs) {
     if(_responseSize>0&&_requestSize>0) {
-        int request = -1; 
+        int request = -1;
         string response;
         try {
             request = _attrHandler.getInt(attrs, ATTR_REQUEST);
@@ -294,7 +297,7 @@ NLHandlerBuilder1::addLogicItem(const Attributes &attrs) {
 
 void
 NLHandlerBuilder1::addTrafoItem(const Attributes &attrs) {
-    int lane = -1; 
+    int lane = -1;
     string links;
     try {
         lane = _attrHandler.getInt(attrs, ATTR_TO);
@@ -313,7 +316,7 @@ NLHandlerBuilder1::addTrafoItem(const Attributes &attrs) {
 }
 
 
-void 
+void
 NLHandlerBuilder1::myEndElement(int element, const std::string &name)
 {
     if(wanted(LOADFILTER_NET)) {
@@ -340,7 +343,7 @@ NLHandlerBuilder1::myEndElement(int element, const std::string &name)
                 SErrorHandler::add(e.getMessage("route", ""));
             } catch (XMLIdAlreadyUsedException &e) {
                 SErrorHandler::add(e.getMessage("route", ""));
-            } 
+            }
             break;
         }
     }
@@ -354,8 +357,8 @@ NLHandlerBuilder1::myEndElement(int element, const std::string &name)
 }
 
 
-void 
-NLHandlerBuilder1::myCharacters(int element, const std::string &name, const std::string &chars) 
+void
+NLHandlerBuilder1::myCharacters(int element, const std::string &name, const std::string &chars)
 {
     // check static net information
     if(wanted(LOADFILTER_NET)) {
@@ -418,7 +421,7 @@ NLHandlerBuilder1::addAllowedEdges(const std::string &chars) {
 void
 NLHandlerBuilder1::addRouteElements(const std::string &name, const std::string &chars) {
     StringTokenizer st(chars);
-    if(/* NLNetBuilder::check&& */st.size()==0) 
+    if(/* NLNetBuilder::check&& */st.size()==0)
         SErrorHandler::add("Empty route (" + name + ")");
     else {
         while(st.hasNext()) {
@@ -468,7 +471,7 @@ NLHandlerBuilder1::setLaneNumber(const std::string &chars) {
     }
 }
 
-void 
+void
 NLHandlerBuilder1::setKey(const std::string &chars) {
     if(chars.length()==0) {
         SErrorHandler::add("No key given for the current junction logic.");
@@ -478,14 +481,14 @@ NLHandlerBuilder1::setKey(const std::string &chars) {
 }
 
 
-void 
+void
 NLHandlerBuilder1::addLogicItem(int request, string response) {
     bitset<64> use(response);
     (*m_pActiveLogic)[request] = use;
     _requestItems++;
 }
 
-void 
+void
 NLHandlerBuilder1::addTrafoItem(string links, int lane) {
     bitset<64> use(links);
     (*m_pActiveTrafo)[lane] = use;
@@ -500,7 +503,7 @@ NLHandlerBuilder1::closeLogic() {
 	        m_Key +
 	        string("' is malicious."));
     }
-    MSJunctionLogic *logic = new MSBitsetLogic(_requestSize, _laneNo, m_pActiveLogic, m_pActiveTrafo); 
+    MSJunctionLogic *logic = new MSBitsetLogic(_requestSize, _laneNo, m_pActiveLogic, m_pActiveTrafo);
     MSJunctionLogic::dictionary(m_Key, logic);
 }
 

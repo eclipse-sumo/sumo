@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/04/25 09:26:05  dkrajzew
+// New names for the acceleration and the deceleration parameter applied
+//
 // Revision 1.4  2002/04/17 16:16:13  dkrajzew
 // False include patched
 //
@@ -63,7 +66,7 @@ class NLContainer;
  * ======================================================================= */
 /**
  * NLHandlerBuilder1
- * This is the handler performing the third step of the parsing of the 
+ * This is the handler performing the third step of the parsing of the
  * XML-file used.
  * It is used for:
  * - parsing the data of previously allocated instances of the MSEdge-class
@@ -73,8 +76,8 @@ class NLContainer;
 class NLHandlerBuilder1 : public NLSAXHandler {
 private:
     /// numerical ids for the attributes
-    enum AttributeEnum { ATTR_ID, ATTR_DEPART, ATTR_MAXSPEED, ATTR_LENGTH, 
-        ATTR_CHANGEURGE, ATTR_BMAX, ATTR_DMAX, ATTR_SIGMA, ATTR_KEY,
+    enum AttributeEnum { ATTR_ID, ATTR_DEPART, ATTR_MAXSPEED, ATTR_LENGTH,
+        ATTR_CHANGEURGE, ATTR_ACCEL, ATTR_DECEL, ATTR_SIGMA, ATTR_KEY,
         ATTR_REQUEST, ATTR_RESPONSE, ATTR_TO, ATTR_FROM };
     /// the right-of-way-logic of the currently chosen bitset-logic
     MSBitsetLogic::Logic   *m_pActiveLogic;
@@ -101,25 +104,25 @@ public:
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        this method 
-        a) opens edges for the addition of their elements 
-        b) adds lanes to the edges 
-        c) opens descriptions of connections between edges 
-        d) adds vehicle-types or 
+    /** called on the occurence of the beginning of a tag;
+        this method
+        a) opens edges for the addition of their elements
+        b) adds lanes to the edges
+        c) opens descriptions of connections between edges
+        d) adds vehicle-types or
         e) adds routes in dependence of the occured tag */
     void myStartElement(int element, const std::string &name, const Attributes &attrs);
-    /** called on the end of an element; 
-        this method 
-        a) builds single edges by closing their description 
-        b) closes the addition of lanes to an edge 
+    /** called on the end of an element;
+        this method
+        a) builds single edges by closing their description
+        b) closes the addition of lanes to an edge
         c) closes the addition of connections to a previously chosen following
-           edge or 
+           edge or
         d) closes the generation of a route in dependence of the occured tag*/
     void myEndElement(int element, const std::string &name);
-    /** called when simple characters occure; this method 
-        a) adds lanes connecting the previously chosen current edge with 
-           the previously chosen following edge 
+    /** called when simple characters occure; this method
+        a) adds lanes connecting the previously chosen current edge with
+           the previously chosen following edge
         b) adds edges to a route in dependence of the occured tag */
     void myCharacters(int element, const std::string &name, const std::string &chars);
 private:
