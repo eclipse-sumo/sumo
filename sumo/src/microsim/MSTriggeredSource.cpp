@@ -38,7 +38,7 @@ namespace
 #include "MSVehicleType.h"
 #include "MSVehicle.h"
 #include "MSEventControl.h"
-#include <xercesc/util/PlatformUtils.hpp>
+//#include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <utils/convert/TplConvert.h>
@@ -142,7 +142,6 @@ MSTriggeredSource::MSTriggeredSource(
         {
             cerr << "MSTriggeredSource " << myID
                  << " scanFirst() failed. Quitting" << endl;
-            XMLPlatformUtils::Terminate();
             return;
         }
 
@@ -151,7 +150,6 @@ MSTriggeredSource::MSTriggeredSource(
             cerr << "MSTriggeredSource " << myID
                  << " Couldn't parse first token of file "
                  << aXMLFilename << ". Quitting." << endl;
-            XMLPlatformUtils::Terminate();
             return;
         }
 
@@ -164,7 +162,6 @@ MSTriggeredSource::MSTriggeredSource(
                     cerr << "MSTriggeredSource " << myID
                          << " Couldn't parse RouteDistribution of file "
                          << aXMLFilename << ". Quitting." << endl;
-                    XMLPlatformUtils::Terminate();
                     return;
                 }
             }
@@ -176,7 +173,6 @@ MSTriggeredSource::MSTriggeredSource(
                 cerr << "MSTriggeredSource " << myID
                      << " Couldn't parse second token of file "
                     << aXMLFilename << ". Quitting." << endl;
-                XMLPlatformUtils::Terminate();
                 return;
             }
         }
@@ -187,7 +183,6 @@ MSTriggeredSource::MSTriggeredSource(
              << "Exception message is: \n"
              << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
              << "\n" << endl;
-        XMLPlatformUtils::Terminate();
         return;
     }
 }
@@ -208,21 +203,6 @@ MSTriggeredSource::~MSTriggeredSource( void )
 void
 MSTriggeredSource::initParser( void )
 {
-    // Initialize the XML4C2 system
-    try {
-        XMLPlatformUtils::Initialize();
-    }
-
-    catch ( const XMLException& toCatch ) {
-        cerr << "MSTriggeredSource " << myID
-             << " Error during initialization! Message:\n"
-             << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
-             << ". Quitting." << endl;
-        XMLPlatformUtils::Terminate();
-        return;
-    }
-
-
     //
     //  Create a SAX parser object. Then, according to what we were told on
     //  the command line, set it to validate or not.
@@ -341,7 +321,6 @@ MSTriggeredSource::readNextEmitElement( void )
                  << TplConvert<XMLCh>::_2str( toCatch.getMessage() )
                  << "\n" << endl;
             myIsWorking = false;
-            XMLPlatformUtils::Terminate();
             return;
         }
     }
@@ -354,6 +333,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.3  2002/10/17 10:46:21  dkrajzew
+// unneeded initialisation and false termination of the XML-system removed
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
