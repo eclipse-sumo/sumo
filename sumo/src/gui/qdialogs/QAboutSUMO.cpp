@@ -1,51 +1,13 @@
-//---------------------------------------------------------------------------//
-//                        QAboutSUMO.cpp -
-//  The about dialog
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.4  2003/06/05 11:37:30  dkrajzew
-// class templates applied
-//
-//
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif // HAVE_CONFIG_H
-
-
 /****************************************************************************
-** Form implementation generated from reading ui file 'd:\projects\sumo\sumo_about.ui'
+** Form implementation generated from reading ui file 'sumo_about.ui'
 **
-** Created: Mon Mar 10 14:41:46 2003
+** Created: Mon Aug 18 17:19:20 2003
 **      by:  The User Interface Compiler (uic)
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "QAboutSUMO.h"
+
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
@@ -54,11 +16,6 @@ namespace
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
-
-#ifndef WIN32
-#include "QAboutSUMO.moc"
-#endif
-
 
 static const char* const image0_data[] = {
 "40 42 3 1",
@@ -194,7 +151,10 @@ QAboutSUMO::QAboutSUMO( QWidget* parent,  const char* name, bool modal, WFlags f
     QPixmap image1( ( const char** ) image1_data );
     if ( !name )
 	setName( "QAboutSUMO" );
-    resize( 271, 186 );
+    resize( 266, 186 );
+    setProperty( "sizePolicy", QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, sizePolicy().hasHeightForWidth() ) );
+    setProperty( "minimumSize", QSize( 266, 186 ) );
+    setProperty( "maximumSize", QSize( 266, 186 ) );
     setProperty( "caption", tr( "Form1" ) );
 
     PixmapLabel2 = new QLabel( this, "PixmapLabel2" );
@@ -216,7 +176,6 @@ QAboutSUMO::QAboutSUMO( QWidget* parent,  const char* name, bool modal, WFlags f
     TextLabel2->setProperty( "text", tr( "(c) Institute for Transport Research/DLR & ZAIK\n	2000-2003" ) );
 
     PushButton1 = new QPushButton( this, "PushButton1" );
-    connect( PushButton1, SIGNAL(clicked()), this, SLOT(close()) );
     PushButton1->setGeometry( QRect( 90, 150, 93, 26 ) );
     PushButton1->setProperty( "text", tr( "OK" ) );
 
@@ -262,15 +221,4 @@ bool QAboutSUMO::event( QEvent* ev )
     }
     return ret;
 }
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "QAboutSUMO.icc"
-//#endif
-
-// Local Variables:
-// mode:C++
-// End:
-
 
