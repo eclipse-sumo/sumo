@@ -91,6 +91,22 @@ SOURCE=..\..\..\src\utils\convert\STRConvert.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\convert\STRConvert.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\convert\ToString.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\convert\TplConvert.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\convert\TplConvertSec.h
+# End Source File
 # End Group
 # End Target
 # End Project

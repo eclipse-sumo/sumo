@@ -125,6 +125,10 @@ SOURCE=..\..\..\src\utils\common\SystemFrame.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\common\SysUtils.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\common\UtilExceptions.cpp
 # End Source File
 # Begin Source File
@@ -210,6 +214,10 @@ SOURCE=..\..\..\src\utils\common\SUMOTime.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\SystemFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\common\SysUtils.h
 # End Source File
 # Begin Source File
 
