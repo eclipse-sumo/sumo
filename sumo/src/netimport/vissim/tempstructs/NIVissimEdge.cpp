@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/02/10 07:15:25  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.23  2004/01/28 12:39:23  dkrajzew
 // work on reading and setting speeds in vissim-networks
 //
@@ -335,12 +338,6 @@ NIVissimEdge::dict_propagateSpeeds()
 void
 NIVissimEdge::checkUnconnectedLaneSpeeds()
 {
-    if(myID==10001206) {
-        int bla = 0;
-    }
-    if(myID==10000369) {
-        int bla = 0;
-    }
     for(int i=0; i<myLaneSpeeds.size(); i++) {
         if(myLaneSpeeds[i]==-1) {
             double speed = -1;
@@ -379,12 +376,6 @@ NIVissimEdge::checkUnconnectedLaneSpeeds()
 void
 NIVissimEdge::propagateOwn()
 {
-    if(myID==10001206) {
-        int bla = 0;
-    }
-    if(myID==10000369) {
-        int bla = 0;
-    }
     for(int i=0; i<myLaneSpeeds.size(); i++) {
         if(myLaneSpeeds[i]==-1) {
             continue;
@@ -403,12 +394,6 @@ NIVissimEdge::propagateOwn()
 void
 NIVissimEdge::propagateSpeed(double speed, IntVector forLanes)
 {
-    if(myID==10001206) {
-        int bla = 0;
-    }
-    if(myID==10000369) {
-        int bla = 0;
-    }
     // if no lane is given, all set be set
     if(forLanes.size()==0) {
         for(size_t i=0; i<myNoLanes; i++) {

@@ -23,8 +23,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/02/10 07:16:05  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.7  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.6  2003/09/05 15:22:44  dkrajzew
 // handling of internal lanes added

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/02/10 07:16:05  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.4  2004/02/02 16:19:23  dkrajzew
 // trying to catch up false user input (using the same name for different routes)
 //
@@ -108,9 +111,6 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net,
                                             unsigned int time)
 {
     assert(myIntervalBegin<=time&&myIntervalEnd>=time);
-    if(myVehicle->getID()=="3"&&time==18007) {
-        int bla = 0;
-    }
     //
     unsigned int absPerEachStep = myVehicle2EmitNumber /
         (myIntervalEnd-myIntervalBegin);
