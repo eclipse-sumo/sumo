@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/11/26 09:36:01  dkrajzew
+// documentation added
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -31,11 +34,18 @@ namespace
 //
 //
 //
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <guisim/GUIJunctionWrapper.h>
 #include <utils/glutils/GLHelper.h>
 #include "GUIBaseJunctionDrawer.h"
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 GUIBaseJunctionDrawer::GUIBaseJunctionDrawer(
         std::vector<GUIJunctionWrapper*> &junctions)
     : GUIJunctionDrawer(junctions)
@@ -46,3 +56,12 @@ GUIBaseJunctionDrawer::GUIBaseJunctionDrawer(
 GUIBaseJunctionDrawer::~GUIBaseJunctionDrawer()
 {
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
+
+
