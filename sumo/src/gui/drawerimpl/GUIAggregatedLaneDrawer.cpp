@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/12/04 13:21:05  dkrajzew
+// some work on aggregated views
+//
 // Revision 1.4  2003/11/20 13:15:58  dkrajzew
 // further work on aggregated views
 //
@@ -218,9 +221,13 @@ GUIAggregatedLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
         case MSEdge::EDGEFUNCTION_NORMAL:
             {
                 double density = lane.getAggregatedDensity(0);
-                density = myBounderiesStorage.timeStepNorm(density,
-                    MS_E2_ZS_Collector::DENSITY);
-                glColor3f(1.0-density, 0.5, 0.5+density);
+                if(density==-1) {
+                    glColor3f(0.5, 0.5, 0.5);
+                } else {
+                    density = myBounderiesStorage.timeStepNorm(density,
+                        E2::DENSITY) / 2.0;
+                    glColor3f(1.0-density, 0.5, 0.5+density);
+                }
             }
             break;
         case MSEdge::EDGEFUNCTION_SOURCE:
