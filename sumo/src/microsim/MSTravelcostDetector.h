@@ -5,11 +5,13 @@
  * @file   MSTravelcostDetector.h
  * @author Christian Roessel
  * @date   Started Mon Jun  2 17:21:27 2003
- * $Revision$ from $Date$ by $Author$
+ * @version $Id$
  * @brief  Implementation of class MSTravelcostDetector.
  * 
  * 
  */
+
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -20,41 +22,20 @@
 //
 //---------------------------------------------------------------------------//
 
-
-// $Log$
-// Revision 1.6  2003/07/21 15:39:48  roessel
-// Removed superfluous cast.
-//
-// Revision 1.5  2003/07/03 11:03:10  roessel
-// In addSampleInterval(): added assert and file extension.
-//
-// Revision 1.4  2003/06/06 15:33:49  roessel
-// Added documentation.
-// Added maxIntervalLengthM member and assert in addSampleInterval().
-//
-// Revision 1.3  2003/06/06 11:00:35  roessel
-// Added cast due to compiler warning.
-//
-// Revision 1.2  2003/06/05 12:51:26  roessel
-// Modified #includes and changed getString() to toString().
-//
-// Revision 1.1  2003/06/05 11:16:14  roessel
-// Initial commit.
-//
+// $Id$
 
 #include <utility>
 #include <vector>
 #include <string>
 #include <iostream>
+#include <cassert>
 #include <map>
 #include "MSNet.h"
 #include "MSEdge.h"
+#include "MSLane.h"
 #include <utils/convert/ToString.h>
 #include <helpers/OneArgumentCommand.h>
 
-class MSEdge;
-class MSLane;
-class Command;
 
 /**
  * Template-singleton class. Sets Cost detectors on all MSLane objects. You
@@ -62,15 +43,16 @@ class Command;
  * output is written to file. There is one file for each interval.
  *
  * The template parameter class Cost must offer following methods:
- * A constructor Cost( std::string id, MSLane* lane, double startPos,
- * double length, MSNet::Time deleteDataAfterSeconds),
- * Cost::getNamePrefix(),
- * Cost::getXMLHeader() and
- * Cost::getXMLOutput().
+ * A constructor
+ * Cost( std::string id, MSLane* lane, double startPos, double length,
+ * MSNet::Time deleteDataAfterSeconds)
+ * and it must be a
+ * MSDetectorFileOutput
+ *
  * For a Cost example see MSLaneState.
  *
  * @see MSLaneState
- * @see Singleton in Design Patterns, Gamma et al.
+ * @see MSDetectorFileOutput
  */
 template< class Cost >
 class MSTravelcostDetector
