@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/02/18 05:31:25  dkrajzew
+// debug-blas removed
+//
 // Revision 1.2  2004/02/16 13:59:15  dkrajzew
 // some further work on edge geometry
 //
@@ -465,9 +468,6 @@ NBNodeCont::recheckEdges()
         const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
         for(EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
             NBEdge *e = (*j);
-            if(e->getID()=="51835839") {
-                int bla = 0;
-            }
             NBNode *connected = e->getToNode();
             if(connectionCount.find(connected)==connectionCount.end()) {
                 connectionCount[connected] = EdgeVector();

@@ -62,11 +62,6 @@ NBNodeShapeComputer::compute()
             }
         }
     }*/
-    if(myNode.getID()=="54589828") {
-        int bla = 0;
-        cout << (myNode._allEdges) << endl;
-    }
-
     if(isSimpleContinuation(myNode)) {
         ret = computeContinuationNodeShape();
     } else {

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/02/18 05:31:25  dkrajzew
+// debug-blas removed
+//
 // Revision 1.4  2004/02/16 13:59:09  dkrajzew
 // some further work on edge geometry
 //
@@ -1211,25 +1214,13 @@ NBNode::sortNodesEdges()
 {
     // sort the edges
     buildList();
-    if(getID()=="54589828") {
-        int bla = 0;
-        cout << _allEdges << endl;
-    }
     sort(_allEdges.begin(), _allEdges.end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_incomingEdges->begin(), _incomingEdges->end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_outgoingEdges->begin(), _outgoingEdges->end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
-    if(getID()=="54589828") {
-        int bla = 0;
-        cout << _allEdges << endl;
-    }
     sortSmall();
-    if(getID()=="54589828") {
-        int bla = 0;
-        cout << _allEdges << endl;
-    }
     setType(computeType());
     setPriorities();
 #ifdef _DEBUG
