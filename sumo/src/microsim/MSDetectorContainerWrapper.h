@@ -37,8 +37,9 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
     void enterDetectorByMove( MSVehicle* veh )
         {
-            typedef typename WrappedContainer::value_type ContainerItem;
-            containerM.push_front( ContainerItem( veh ) );
+//             typedef typename WrappedContainer::value_type ContainerItem;
+//             containerM.push_front( ContainerItem( veh ) );
+            enterDetectorByEmitOrLaneChange( veh );
         }
  
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
@@ -71,17 +72,18 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
     void leaveDetectorByLaneChange( MSVehicle* veh )
         {
-            typedef typename WrappedContainer::value_type ContainerItem;
-            typedef typename WrappedContainer::iterator ContainerIt;
-            typedef typename Predicate::VehEqualsC< ContainerItem >
-                ErasePredicate;
-            ContainerIt eraseIt =
-                std::find_if( containerM.begin(), containerM.end(),
-                              std::bind2nd(
-                                  ErasePredicate(), veh ) );
-            assert(containerM.size()>0);
-            assert(eraseIt!=containerM.end());
-            containerM.erase( eraseIt );
+//             typedef typename WrappedContainer::value_type ContainerItem;
+//             typedef typename WrappedContainer::iterator ContainerIt;
+//             typedef typename Predicate::VehEqualsC< ContainerItem >
+//                 ErasePredicate;
+//             ContainerIt eraseIt =
+//                 std::find_if( containerM.begin(), containerM.end(),
+//                               std::bind2nd(
+//                                   ErasePredicate(), veh ) );
+//             assert(containerM.size()>0);
+//             assert(eraseIt!=containerM.end());
+//             containerM.erase( eraseIt );
+            leaveDetectorByMove( veh );
         }
 
 
