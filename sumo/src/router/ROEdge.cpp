@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/09/17 10:14:27  dkrajzew
+// handling of unset values patched
+//
 // Revision 1.7  2003/06/19 15:22:38  dkrajzew
 // inifinite loop on lane searching patched
 //
@@ -62,7 +65,7 @@ using namespace std;
 // !!! wie wärs mit einer effort-Tabelle oder Funktion über die Zeit?
 
 ROEdge::ROEdge(const std::string &id)
-    : _id(id), _dist(0), _effort(0), _usingTimeLine(false)
+    : _id(id), _dist(0), _speed(-1), _effort(0), _usingTimeLine(false)
 {
 }
 
@@ -77,7 +80,8 @@ ROEdge::~ROEdge()
 
 
 void
-ROEdge::postloadInit() {
+ROEdge::postloadInit()
+{
     // !!! only when not lanes but the edge shall be used for routing
     if(_usingTimeLine) {
         ValueTimeLine *tmp = (*(_laneCont.begin())).second;
@@ -86,30 +90,40 @@ ROEdge::postloadInit() {
             double currValue = 0;
             ValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
             for(LaneUsageCont::iterator j=_laneCont.begin(); j!=_laneCont.end(); j++) {
-                currValue += (*j).second->getValue(range.first);
+                double tmp = (*j).second->getValue(range.first);
+                if(tmp<0) {
+                    tmp = _dist / _speed;
+                }
+                currValue += tmp;
             }
-            currValue = currValue/noLanes;
+            currValue = currValue / noLanes;
             _ownValueLine.addValue(range, currValue);
         }
     }
 }
 
-void ROEdge::setEffort(double effort)
+
+void
+ROEdge::setEffort(double effort)
 {
     _effort = effort;
 }
 
 
-void ROEdge::addLane(ROLane *lane)
+void
+ROEdge::addLane(ROLane *lane)
 {
     double length = lane->getLength();
     _dist = length > _dist ? length : _dist;
+    double speed = lane->getSpeed();
+    _speed = speed > _speed ? speed : _speed;
     _laneCont[lane] = new ValueTimeLine();
 }
 
 
-void ROEdge::setLane(long timeBegin, long timeEnd,
-                     const std::string &id, float value)
+void
+ROEdge::setLane(long timeBegin, long timeEnd,
+                const std::string &id, float value)
 {
     LaneUsageCont::iterator i = _laneCont.begin();
     while(i!=_laneCont.end()) {
@@ -125,20 +139,24 @@ void ROEdge::setLane(long timeBegin, long timeEnd,
         + string("' occured at loading weights."));
 }
 
+
 void
 ROEdge::addSucceeder(ROEdge *s)
 {
     _succeeding.push_back(s);
 }
 
+
 float
-ROEdge::getMyEffort(long time) const {
+ROEdge::getMyEffort(long time) const
+{
     if(_usingTimeLine) {
         return _ownValueLine.getValue(time);
     } else {
-        return _dist;
+        return _dist / _speed;
     }
 }
+
 
 size_t
 ROEdge::getNoFollowing()
@@ -171,58 +189,90 @@ ROEdge::getCost(long time) const
 }
 
 
-long
+double
 ROEdge::getDuration(long time) const
 {
-    return long(getMyEffort(time) / 20.9); // !!!
+    return getMyEffort(time);
 }
 
 
-void ROEdge::init() {
+void
+ROEdge::init()
+{
     _explored = false;
     _effort = DBL_MAX;
     _prevKnot = 0;
     _inFrontList= false;
 }
 
-void ROEdge::initRootDistance() {
+
+void
+ROEdge::initRootDistance()
+{
     _effort = 0;
     _inFrontList = true;
 }
 
-float ROEdge::getEffort() const {
+
+float
+ROEdge::getEffort() const
+{
     return _effort;
 }
 
-float ROEdge::getNextEffort(long time) const {
+
+float
+ROEdge::getNextEffort(long time) const
+{
     return _effort + getMyEffort(time);
 }
 
-void ROEdge::setEffort(float effort) {
+
+void
+ROEdge::setEffort(float effort)
+{
     _effort = effort;
 }
 
-bool ROEdge::isInFrontList() const {
+
+bool
+ROEdge::isInFrontList() const
+{
     return _inFrontList;
 }
 
-bool ROEdge::isExplored() const {
+
+bool
+ROEdge::isExplored() const
+{
     return _explored;
 }
 
-void ROEdge::setExplored(bool value) {
+
+void
+ROEdge::setExplored(bool value)
+{
     _explored = value;
 }
 
-ROEdge *ROEdge::getPrevKnot() const {
+
+ROEdge *
+ROEdge::getPrevKnot() const
+{
     return _prevKnot;
 }
 
-void ROEdge::setPrevKnot(ROEdge *prev) {
+
+void
+ROEdge::setPrevKnot(ROEdge *prev)
+{
     _prevKnot = prev;
 }
 
-std::string ROEdge::getID() const {
+
+std::string
+ROEdge::getID() const
+{
     return _id;
 }
 

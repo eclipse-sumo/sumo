@@ -23,23 +23,29 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/09/17 10:14:27  dkrajzew
+// handling of unset values patched
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <utils/common/Named.h>
 #include "ROLane.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROLane::ROLane(const std::string &id, double length, double maxSpeed)
-    : Named(id), _length(length), _maxSpeed(maxSpeed)
+    : Named(id), myLength(length), myMaxSpeed(maxSpeed)
 {
 }
 
@@ -48,17 +54,18 @@ ROLane::~ROLane()
 {
 }
 
-/*
-double
-ROLane::getWeight() const {
-    return _length / _maxSpeed;
-}
-*/
 
 double
 ROLane::getLength() const
 {
-    return _length;
+    return myLength;
+}
+
+
+double
+ROLane::getSpeed() const
+{
+    return myMaxSpeed;
 }
 
 

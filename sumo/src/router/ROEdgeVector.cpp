@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/17 10:14:27  dkrajzew
+// handling of unset values patched
+//
 // Revision 1.5  2003/04/10 15:47:01  dkrajzew
 // random routes are now being prunned to avoid some stress with turning vehicles
 //
@@ -120,7 +123,7 @@ ROEdgeVector::recomputeCosts(long time) const
     double costs = 0;
     for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         costs += (*i)->getCost(time);
-        time += (*i)->getDuration(time);
+        time += ((long) (*i)->getDuration(time));
     }
     return costs;
 }

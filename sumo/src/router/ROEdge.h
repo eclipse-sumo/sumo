@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/09/17 10:14:27  dkrajzew
+// handling of unset values patched
+//
 // Revision 1.5  2003/04/15 09:09:18  dkrajzew
 // documentation added
 //
@@ -108,7 +111,7 @@ public:
     double getCost(long time) const;
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    long getDuration(long time) const;
+    double getDuration(long time) const;
 
     // dijkstra
     /// Sets the current effort (from dijstra-router)
@@ -169,6 +172,8 @@ private:
 
     /// The maximum distance of this edge (including all lanes)
     double _dist;
+
+    double _speed;
 
     /// The edge this one was approached from within the current route
     ROEdge *_prevKnot;

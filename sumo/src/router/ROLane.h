@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/09/17 10:14:27  dkrajzew
+// handling of unset values patched
+//
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -35,21 +38,36 @@
 
 #include <utils/common/Named.h>
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class ROLane
+ * The class for an edge's lane. Just a container for the speed and the
+ * length of the lane.
  */
 class ROLane : public Named {
-private:
-    double _length;
-    double _maxSpeed;
 public:
+    /// Constructor
     ROLane(const std::string &id, double length, double maxSpeed);
+
+    /// Destructor
     ~ROLane();
-//    double getWeight() const;
+
+    /// Returns the length of the lane
     double getLength() const;
+
+    /// Returns the maximum speed allowed on this lane
+    double getSpeed() const;
+
+private:
+    /// The length of the lane
+    double myLength;
+
+    /// The maximum speed allowed on the lane
+    double myMaxSpeed;
+
 };
 
 
