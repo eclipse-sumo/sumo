@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:24:30  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:06:33  dkrajzew
 // new import format applied; new detectors applied
 //
@@ -107,11 +110,11 @@ MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
     }
     // build in dependence to the sample interval
     if(splInterval==1) {
-        return 
+        return
             new MSInductLoop<LoggedValue_Single<double> >
                 (id, clane, pos, splInterval, cstyle, file, false);
     } else {
-        return 
+        return
             new MSInductLoop<LoggedValue_TimeFixed<double> >
                 (id, clane, pos, splInterval, cstyle, file, false);
     }

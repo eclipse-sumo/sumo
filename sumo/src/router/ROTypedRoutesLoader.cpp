@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:36  dkrajzew
 // debugging
 //
@@ -62,7 +65,7 @@ bool
 ROTypedRoutesLoader::skipPreviousRoutes(long start)
 {
     bool ok = startReadingSteps();
-    /// skip routes 
+    /// skip routes
     if(_options->getBool("v")) {
         cout << "Skipping" << endl;
     }
@@ -127,7 +130,7 @@ ROTypedRoutesLoader::getCurrentTimeStep() const
     return _currentTimeStep;
 }
 
-bool 
+bool
 ROTypedRoutesLoader::init(OptionsCont &options)
 {
     _options = &options;

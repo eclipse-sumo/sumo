@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:38  dkrajzew
 // debugging
 //
@@ -96,7 +99,7 @@ ROVehicle::getDepartureTime() const
     return _depart;
 }
 
-bool 
+bool
 ROVehicle::reassertPeriodical()
 {
     if(_period==-1) {
@@ -123,7 +126,7 @@ ROVehicle::reassertPeriodical()
 }
 
 
-bool 
+bool
 ROVehicle::periodical() const
 {
     return _period!=-1;

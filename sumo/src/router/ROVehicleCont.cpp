@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:38  dkrajzew
 // debugging
 //
@@ -59,12 +62,12 @@ ROVehicleCont::~ROVehicleCont()
 
 priority_queue<ROVehicle*,
     std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &
-ROVehicleCont::sort() 
+ROVehicleCont::sort()
 {
 //    _sorted.reserve(_cont.size());
-    _sorted = 
+    _sorted =
         priority_queue<ROVehicle*,
-            std::vector<ROVehicle*>, 
+            std::vector<ROVehicle*>,
             ROHelper::VehicleByDepartureComperator>();
     for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
         _sorted.push((*i).second);

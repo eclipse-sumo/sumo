@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.4  2003/03/03 15:08:21  dkrajzew
 // debugging
 //
@@ -135,10 +138,10 @@ public:
     bool knowsRouteSnipplet(ROEdge *from, ROEdge *to) const;
 
     /** @brief Computes routes described by their definitions and saves them */
-    void saveAndRemoveRoutesUntil(OptionsCont &options, 
+    void saveAndRemoveRoutesUntil(OptionsCont &options,
         std::ofstream &res, std::ofstream &altres, long time);
 
-    /// Returns the information whether further vehicles are stored 
+    /// Returns the information whether further vehicles are stored
     bool furtherStored();
 
 private:

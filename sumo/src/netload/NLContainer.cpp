@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/17 14:24:30  dkrajzew
+// windows eol removed
+//
 // Revision 1.5  2003/03/03 15:06:31  dkrajzew
 // new import format applied; new detectors applied
 //
@@ -398,13 +401,13 @@ NLContainer::closeJunction()
 
 // ----- handling of detectors
 void
-NLContainer::addDetector(MSDetector *detector) 
+NLContainer::addDetector(MSDetector *detector)
 {
     m_pDetectors->push_back(detector);
 }
 
 
-void 
+void
 NLContainer::addDetectors(MSNet::DetectorCont detectors)
 {
     for(MSNet::DetectorCont::iterator i=detectors.begin(); i!=detectors.end(); i++) {

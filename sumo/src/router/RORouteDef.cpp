@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:34  dkrajzew
 // debugging
 //
@@ -65,7 +68,7 @@ RORouteDef::~RORouteDef()
 
 
 bool
-RORouteDef::computeAndSave(OptionsCont &options, 
+RORouteDef::computeAndSave(OptionsCont &options,
                            RORouter &router, long begin,
                            std::ostream &res, std::ostream &altres)
 {
@@ -89,7 +92,7 @@ RORouteDef::computeAndSave(OptionsCont &options,
 
 
 void
-RORouteDef::patchID() 
+RORouteDef::patchID()
 {
     // patch the name
     size_t idx = _id.rfind('_');

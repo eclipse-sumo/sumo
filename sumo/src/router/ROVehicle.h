@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/17 14:25:28  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:38  dkrajzew
 // debugging
 //
@@ -83,7 +86,7 @@ public:
         Changes (adapts) the departure time and the vehicle id, too */
     bool reassertPeriodical();
 
-    /** Returns the information whether more than a single vehicle with these 
+    /** Returns the information whether more than a single vehicle with these
         settings shall be emitted. */
     bool periodical() const;
 
