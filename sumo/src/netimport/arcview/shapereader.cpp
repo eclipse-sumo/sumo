@@ -73,6 +73,7 @@ shapereader::openFiles(const char * sfile, const char * dfile)
 }
 
 
+void
 shapereader::closeFiles()
 {
     DBFClose( hDBF );

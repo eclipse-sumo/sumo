@@ -17,7 +17,7 @@ public:
     shapereader(char * sfile, char * dfile);
     ~shapereader();
     int openFiles(const char * sfile, const char * dfile);
-    int closeFiles();
+    void closeFiles();
     std::string getAttribute(char *attrib);
     int getAttribute(char * attrib, const char *&res);
     int forwardShape();
