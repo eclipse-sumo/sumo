@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/11/24 10:19:13  dkrajzew
+// handling of definitions for minimum and maximum phase duration added
+//
 // Revision 1.15  2003/11/17 07:23:07  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -122,9 +125,9 @@ GenericSAX2Handler::Tag sumotags[40] =
       { "lane_cont",        SUMO_TAG_LANECONT }
 };
 
-size_t noSumoAttrs = 66;
+size_t noSumoAttrs = 68;
 
-AttributesHandler::Attr sumoattrs[66] =
+AttributesHandler::Attr sumoattrs[68] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -191,7 +194,9 @@ AttributesHandler::Attr sumoattrs[66] =
     { "dest",           SUMO_ATTR_DEST },
     { "source",         SUMO_ATTR_SOURCE },
     { "via",            SUMO_ATTR_VIA },
-    { "int_end",        SUMO_ATTR_INTERNALEND }
+    { "int_end",        SUMO_ATTR_INTERNALEND },
+    { "min_dur",        SUMO_ATTR_MINDURATION },
+    { "max_dur",        SUMO_ATTR_MAXDURATION }
 };
 
 

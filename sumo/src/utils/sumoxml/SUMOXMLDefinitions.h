@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2003/11/24 10:19:13  dkrajzew
+// handling of definitions for minimum and maximum phase duration added
+//
 // Revision 1.17  2003/11/17 07:23:07  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -267,11 +270,16 @@ enum AttrEnum
     SUMO_ATTR_DIR,
     /// The state of a link
     SUMO_ATTR_STATE,
-    // The
+
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,
-    SUMO_ATTR_INTERNALEND
+    SUMO_ATTR_INTERNALEND,
+    // Attributes for actuated traffic lights:
+        // minimum duration of a phase
+    SUMO_ATTR_MINDURATION,
+        // maximum duration of a phase
+    SUMO_ATTR_MAXDURATION
 };
 
 
@@ -286,7 +294,7 @@ extern GenericSAX2Handler::Tag sumotags[40];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[66];
+extern AttributesHandler::Attr sumoattrs[68];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
