@@ -18,8 +18,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/10 16:29:08  croessel
+// Made speed() public.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.4  2002/03/20 16:02:23  croessel
 // Initialisation and update of allowedLanes-container fixed.
@@ -60,7 +63,8 @@
 // Comment added.
 //
 // Revision 1.13  2002/01/09 15:07:39  croessel
-// Vehicle counter added. MSVehicle::howMany() knows how many vehicles are alive.
+// Vehicle counter added. MSVehicle::howMany() knows how many vehicles are 
+// alive.
 //
 // Revision 1.12  2001/12/20 14:49:30  croessel
 // using namespace std replaced by std::
@@ -323,6 +327,9 @@ public:
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
     bool congested();
+    
+    /// Returns current speed
+    float speed() const;
 
 protected:
 
@@ -348,9 +355,6 @@ private:
      
     /// Vehicles driving state. here: pos and speed
     State myState; 
-    
-    /// Returns current speed
-    float speed() const;
 
     /// Vehicle's route.
     MSNet::Route* myRoute;
