@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/12/09 11:33:49  dkrajzew
+// made the assignment operator and copy constructor explicite in the wish to save memory
+//
 // Revision 1.19  2003/11/18 14:21:20  dkrajzew
 // computation of junction-inlanes geometry added
 //
@@ -959,6 +962,22 @@ Position2DVector::closePolygon()
 {
     push_back(myCont[0]);
 }
+
+
+Position2DVector::Position2DVector(const Position2DVector &s)
+{
+    myCont.assign(s.myCont.begin(), s.myCont.end());
+}
+
+
+Position2DVector &
+Position2DVector::operator=(const Position2DVector &s)
+{
+    myCont.assign(s.myCont.begin(), s.myCont.end());
+    return *this;
+}
+
+
 
 
 

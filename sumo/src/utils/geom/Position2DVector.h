@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/12/09 11:33:49  dkrajzew
+// made the assignment operator and copy constructor explicite in the wish to save memory
+//
 // Revision 1.13  2003/11/18 14:21:20  dkrajzew
 // computation of junction-inlanes geometry added
 //
@@ -74,7 +77,15 @@ public:
 public:
     /// Constructor
     Position2DVector();
+
+    /// Constructor
     Position2DVector(size_t fieldSize);
+
+    /// Constructor
+    Position2DVector(const Position2DVector &s);
+
+    /// Assignment operator
+    Position2DVector &operator=(const Position2DVector &s);
 
     /// Destructor
     ~Position2DVector();
