@@ -37,7 +37,11 @@ class MSVehicle;
 
 namespace TD // timestep data
 {
-
+    /// This class is part of the detector-framework which consists of
+    /// MSMeanDetector or MSSumDetector, one out of LD::MSDetector,
+    /// TD::MSDetector or ED::MSDetector and a ConcreteDetector,
+    /// e.g. MSDensity. This TD::MSDetector defines methods and
+    /// members special to the TD detectors.
     template< class ConcreteDetector >
     class MSDetector
         :
@@ -46,10 +50,17 @@ namespace TD // timestep data
     {
     public:
 
+        /// Type of the detected quantity.
         typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
+        /// Type of the "vehicle-container". 
         typedef typename ConcreteDetector::Container DetectorContainer;
 
-        // returns the last aggregated data value
+        /// Get the most recently collected element of the detected values. 
+        ///
+        /// @return The most recently collected element of the
+        /// detected values or -1 if there no values have been
+        /// collected so far.
+        ///
         DetAggregate getCurrent( void ) const
             {
                 if(aggregatesM.size()==0) {
@@ -58,9 +69,25 @@ namespace TD // timestep data
                 return aggregatesM.back();
             }
 
+        /// Get the aggregated value of the detector. This method is
+        /// defined in MSSumDetector or MSMeanDetetcor.
+        ///
+        /// @param lastNSeconds Length of the aggregation intervall
+        /// (now-lastNSeconds, now].
+        ///
+        /// @return The aggregated value, sampled over lastNSeconds.
+        ///
         virtual DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
     protected:
+
+        /// Ctor for detectors using a "vehicle"-container.  Starts
+        /// old-data-removal.
+        ///
+        /// @param id The detector's id.
+        /// @param deleteDataAfterSeconds The old-data-removal interval.
+        /// @param container "Vehicle"-container handed to the
+        /// ConcreteDetector.  
         MSDetector( std::string id,
                       double lengthInMeters,
                       MSUnit::Seconds deleteDataAfterSeconds,
@@ -73,6 +100,14 @@ namespace TD // timestep data
                 startOldDataRemoval();
             }
 
+        /// Ctor for detector using a helper-detector
+        /// (e.g. E2QueueLengthAheadOfTrafficLightsInVehicles).
+        /// Starts old-data-removal.
+        ///
+        /// @param id The detector's id.
+        /// @param deleteDataAfterSeconds The old-data-removal interval.
+        /// @param helperDetector The helper-detector handed to the
+        /// ConcreteDetector.          
         MSDetector( std::string id,
                       double lengthInMeters,
                       MSUnit::Seconds deleteDataAfterSeconds,
@@ -88,19 +123,25 @@ namespace TD // timestep data
                 startOldDataRemoval();
             }
 
+        /// Dtor. Cleares the detector-quantities-container.
         virtual ~MSDetector( void )
             {
                 aggregatesM.clear();
             }
 
-        // called every timestep by MSUpdateEachTimestep inherited
-        // from base class.
+        /// Called every timestep by MSUpdateEachTimestep inherited
+        /// from TD::MSDetectorInterface.
+        /// 
+        /// @return Dummy to please MSVC++.
+        ///
         bool updateEachTimestep( void )
             {
                 aggregatesM.push_back( getDetectorAggregate() );
                 return false;
             }
 
+        /// Call once from ctor to initialize the recurring call to
+        /// freeContainer() via the MSEventControl mechanism.        
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
@@ -112,11 +153,23 @@ namespace TD // timestep data
                     MSEventControl::ADAPT_AFTER_EXECUTION );
             }
 
+        /// Type to the container that holds the detectors quantities.
         typedef typename std::deque< DetAggregate > AggregatesCont;
+        /// Iterator to the container that holds the detectors quantities.
         typedef typename AggregatesCont::iterator AggregatesContIter;
 
-        AggregatesCont aggregatesM; // stores one value each timestep
+        AggregatesCont aggregatesM; ///< Container holding the
+                                    ///detected quantities.
 
+        /// Get an iterator to an element of the
+        /// detector-quantities-container aggregatesM that is at least
+        /// lastNTimesteps "old". Used to sample in MSMeainDetector
+        /// and MSSumDetector.
+        ///
+        /// @param lastNTimesteps Length of interval.
+        ///
+        /// @return Iterator to aggregatesM.
+        ///
         AggregatesContIter getAggrContStartIterator(
             MSUnit::Steps lastNTimesteps )
             {
@@ -129,6 +182,13 @@ namespace TD // timestep data
                 return start;
             }
 
+        /// Frees the AggregatesCont aggregatesM so that container
+        /// elements that are collected more than
+        /// deleteDataAfterStepsM ago will vanish.
+        ///
+        /// @return deleteDataAfterStepsM to restart this removal via
+        /// the MSEventControl mechanism.
+        ///        
         MSUnit::IntSteps freeContainer( void )
             {
                 AggregatesContIter end = aggregatesM.end();
@@ -141,7 +201,9 @@ namespace TD // timestep data
 
     private:
 
-        MSUnit::IntSteps deleteDataAfterStepsM;
+        MSUnit::IntSteps deleteDataAfterStepsM; ///< Time between
+                                                ///calls to
+                                                ///freeContainer().
     };
 
 } // end namespace TD

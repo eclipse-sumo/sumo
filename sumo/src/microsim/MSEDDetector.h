@@ -27,7 +27,11 @@
 
 namespace ED
 {
-    
+    /// This class is part of the detector-framework which consists of
+    /// MSMeanDetector or MSSumDetector, one out of LD::MSDetector,
+    /// TD::MSDetector or ED::MSDetector and a ConcreteDetector,
+    /// e.g. MSDensity. This ED::MSDetector defines methods and
+    /// members special to the ED detectors.
     template< class ConcreteDetector >
     class MSDetector
         :
@@ -35,26 +39,44 @@ namespace ED
         , public ConcreteDetector
     {
     public:
-    
-        typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
-        typedef typename ConcreteDetector::ParameterType ParameterType;
-        typedef typename ConcreteDetector::Container DetectorContainer;
 
+        /// Type of the detected quantity.
+        typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
+        /// Type of the "vehicle-container".
+        typedef typename ConcreteDetector::Container DetectorContainer;
+        /// Type of the elements of the vehicle-container.
+        typedef typename ConcreteDetector::ParameterType ParameterType;
+
+        /// The struct that is stored when an event takes place. It
+        /// consists of the event-time and a value.
         struct TimeValue
         {
-            TimeValue( MSUnit::Seconds leaveSecond
+            /// Ctor.
+            ///
+            /// @param eventSecond The second when the event took place.
+            /// @param value The corresponding value.
+            TimeValue( MSUnit::Seconds eventSecond
                        , DetAggregate value ) 
-                : leaveSecM( leaveSecond )
+                : secondM( eventSecond )
                 , valueM( value )
                 {}
-            MSUnit::Seconds leaveSecM;
-            DetAggregate valueM;
+            MSUnit::Seconds secondM; ///< The second when the event
+                                     ///took place.
+            DetAggregate valueM; ///< The corresponding value.
         };
 
+        /// Type to the container that holds the detectors quantities.
         typedef std::deque< TimeValue > AggregatesCont;
+        /// Iterator to the container that holds the detectors quantities.
         typedef typename AggregatesCont::iterator AggregatesContIter;
 
-        // inherited from ConcreteDetector form MSObserver
+        /// Adds a value to the container of detected quantities. Is
+        /// inherited from ConcreteDetector form MSObserver. This
+        /// method is called from MSSubject if the state of the
+        /// observed object changes.
+        ///
+        /// @param aObserved The observed object.
+        ///
         void update( ParameterType aObserved )
             {
                 DetAggregate value = getValue( aObserved );
@@ -63,10 +85,24 @@ namespace ED
                         MSNet::getInstance()->simSeconds(), value ) );
             }
     
+        /// Get the aggregated value of the detector. This method is
+        /// defined in MSSumDetector or MSMeanDetetcor.
+        ///
+        /// @param lastNSeconds Length of the aggregation intervall
+        /// (now-lastNSeconds, now].
+        ///
+        /// @return The aggregated value, sampled over lastNSeconds.
+        ///
         virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
     
     protected:
-    
+
+        /// Ctor. Starts old-data-removal.
+        ///
+        /// @param id The detector's id.
+        /// @param deleteDataAfterSeconds The old-data-removal interval.
+        /// @param container "Vehicle"-container handed to the
+        /// ConcreteDetector.
         MSDetector( std::string id
                     , MSUnit::Seconds deleteDataAfterSeconds
                     , DetectorContainer& container )
@@ -79,21 +115,32 @@ namespace ED
                 startOldDataRemoval();
             }
 
+        /// Dtor. Cleares the detector-quantities-container.
         virtual ~MSDetector( void )
             {
                 aggregatesM.clear();
             }
 
+        /// Predicate for searching in a container<TimeValue>.        
         struct TimeLesser :
             public std::binary_function< TimeValue, MSUnit::Seconds, bool >
         {
             bool operator()( const TimeValue& aTimeValue,
                              MSUnit::Seconds timeBound ) const
                 {
-                    return aTimeValue.leaveSecM < timeBound;
+                    return aTimeValue.secondM < timeBound;
                 }
         };
 
+        /// Get an iterator to an element of the
+        /// detector-quantities-container aggregatesM that is at least
+        /// lastNTimesteps "old". Used to sample in MSMeainDetector
+        /// and MSSumDetector.
+        ///
+        /// @param lastNTimesteps Length of interval.
+        ///
+        /// @return Iterator to aggregatesM.
+        ///        
         AggregatesContIter getAggrContStartIterator(
             MSUnit::Steps lastNTimesteps )
             {
@@ -103,6 +150,14 @@ namespace ED
                     TimeLesser() );
             }
 
+        /// Helper for getAggrContStartIterator() that calculates the
+        /// time (now - lastNTimesteps) in seconds.
+        ///
+        /// @param lastNTimesteps Timesteps to substract.
+        ///
+        /// @return 0 if now - lastNTimesteps is negative. Else the
+        /// corresponding time in seconds.
+        ///
         MSUnit::Seconds getStartTime( MSUnit::Steps lastNTimesteps )
             {
                 MSUnit::Steps timestep =
@@ -112,7 +167,9 @@ namespace ED
                 }
                 return MSUnit::getInstance()->getSeconds( timestep );
             }
-    
+        
+        /// Call once from ctor to initialize the recurring call to
+        /// freeContainer() via the MSEventControl mechanism.    
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
@@ -123,7 +180,14 @@ namespace ED
                     deleteDataAfterStepsM,
                     MSEventControl::ADAPT_AFTER_EXECUTION );
             }
-    
+
+        /// Frees the AggregatesCont aggregatesM so that container
+        /// elements that are collected more than
+        /// deleteDataAfterStepsM ago will vanish.
+        ///
+        /// @return deleteDataAfterStepsM to restart this removal via
+        /// the MSEventControl mechanism.
+        ///        
         MSUnit::IntSteps freeContainer( void )
             {
                 AggregatesContIter end =
@@ -132,11 +196,14 @@ namespace ED
                 return deleteDataAfterStepsM;
             }
 
-        AggregatesCont aggregatesM;
+        AggregatesCont aggregatesM; ///< Container holding the
+                                    ///detected quantities.
 
     private:
         
-        MSUnit::IntSteps deleteDataAfterStepsM;
+        MSUnit::IntSteps deleteDataAfterStepsM; ///< Time between
+                                                ///calls to
+                                                ///freeContainer().
     };
 
 } // end namespace ED

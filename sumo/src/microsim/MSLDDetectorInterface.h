@@ -27,22 +27,36 @@
 
 class MSVehicle;
 
+/// @namespace LD The namespace LD contains the specifics of the LD
+/// (leave data) detectors. These detector update their value if a
+/// vehicles leaves the detector.
+/// @see namespace ED, namespace TD
+
 namespace LD
 {
-    
+    /// This abstract class declares the particular methods for the LD
+    /// (leave data) detectors. 
     class MSDetectorInterface
         :
         public MSDetectorInterfaceCommon
     {
     public:
 
+        /// Perform detector update if vehicle leaves the detector.
+        ///
+        /// @param veh The leaving vehicle.
+        ///
         virtual void leave( MSVehicle& veh ) = 0;
-
+        
+        /// Dtor
         virtual ~MSDetectorInterface( void )
             {}
     
     protected:
-
+        
+        /// Ctor. Passed the id to base class.
+        ///
+        /// @param id The detector's id.
         MSDetectorInterface( std::string id )
             : MSDetectorInterfaceCommon( id )
             {}

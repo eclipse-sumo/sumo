@@ -11,7 +11,7 @@
 ///
 ///
 
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
+/* Copyright (C) 2003, 2004 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -25,9 +25,15 @@
 #include "MSDetectorInterfaceCommon.h"
 #include "MSUpdateEachTimestep.h"
 
-namespace TD // timestep data
+/// @namespace TD The namespace TD contains the specifics of the TD
+/// (timestep data) detectors. These detectors update their value
+/// every timestep and provide access to this timestep data.
+/// @see namespace ED, namespace LD
+
+namespace TD
 {
-    
+    /// This abstract class declares the particular methods for the TD
+    /// (timestep data) detectors.
     class MSDetectorInterface
         :
         public MSDetectorInterfaceCommon
@@ -35,14 +41,22 @@ namespace TD // timestep data
     {
     public:
 
-        // returns the last aggregated data value
+        /// Get the detector's value compiled in the last/current
+        /// (depending on the time of the query) timestep.
+        ///
+        /// @return The detector's value compiled in one timestep.
+        ///
         virtual double getCurrent( void ) const = 0;
-        
+
+        /// Dtor.
         virtual ~MSDetectorInterface( void )
             {}
         
     protected:
-
+        
+        /// Ctor. Passed the id to base class.
+        ///
+        /// @param id The detector's id.
         MSDetectorInterface( std::string id )
             :
             MSDetectorInterfaceCommon( id )
@@ -56,6 +70,8 @@ namespace TD // timestep data
 
 namespace Detector
 {
+    /// Alias for easier access to the MSUpdateEachTimestep interface
+    /// for TD::MSDetectorInterface detectors.
     typedef MSUpdateEachTimestep< TD::MSDetectorInterface > UpdateE2Detectors;
 }
 
