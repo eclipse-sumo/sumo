@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/01/26 15:53:21  dkrajzew
+// added some yet unset display variables
+//
 // Revision 1.21  2004/01/26 07:00:50  dkrajzew
 // reinserted the building of repeating vehicles
 //
@@ -223,14 +226,6 @@ GUIVehicle::getLaneChangeColor2() const
     }
 }
 
-/*
-size_t
-GUIVehicle::getWaitingTime() const
-{
-    return myWaitingTime;
-}
-*/
-
 
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
@@ -317,94 +312,6 @@ GUIVehicle::microsimID() const
     return id();
 }
 
-/*
-const char * const
-GUIVehicle::getTableItem(size_t pos) const
-{
-    if(myParamCounterHelp!=0&&pos==getTableParameterNo()-1) {
-        return "type";
-    }
-    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
-        return myType->getTableItem(pos-myParamCounterHelp);
-    }
-    return myTableItems[pos];
-}
-
-
-TableType
-GUIVehicle::getTableType(size_t pos) const
-{
-    if(myParamCounterHelp!=0&&pos==getTableParameterNo()-1) {
-        return TT_MENU_BEGIN;
-    }
-    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
-        return myType->getTableType(pos-myParamCounterHelp);
-    }
-    return myTableItemTypes[pos];
-}
-
-
-void
-GUIVehicle::fillTableParameter(double *parameter) const
-{
-    parameter[0] = myState.speed();
-    parameter[1] = myState.pos();
-    parameter[2] = myDesiredDepart;
-    parameter[3] = -1;
-    parameter[4] = myLastLaneChangeOffset;
-    parameter[5] = myWaitingTime;
-    parameter[6] = myPeriod;
-    parameter[7] = myRepetitionNumber;
-	myType->fillTableParameter(parameter+9);
-}
-
-double
-GUIVehicle::getTableParameter(size_t pos) const
-{
-    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
-        return myType->getTableParameter(pos-myParamCounterHelp);
-    }
-    switch(pos) {
-    case 0:
-        return myState.speed();
-    case 1:
-        return myState.pos();
-    case 2:
-        return myDesiredDepart;
-    case 3:
-        return -1;
-    case 4:
-        return myLastLaneChangeOffset;
-    case 5:
-        return myWaitingTime;
-    case 6:
-        return myPeriod;
-    case 7:
-        return myRepetitionNumber;
-    default:
-        throw 1;
-    }
-}
-
-
-size_t
-GUIVehicle::getTableParameterNo() const
-{
-    if(myParamCounterHelp==0) {
-        myParamCounterHelp = GUIGlObject::getTableParameterNo();
-    }
-    return myParamCounterHelp
-        + myType->getNoParameter()
-        + 1;
-}
-
-*//*
-const char *
-GUIVehicle::getTableBeginValue(size_t ) const
-{
-    return myType->id().c_str();
-}
-*/
 
 bool
 GUIVehicle::active() const
@@ -420,14 +327,14 @@ GUIVehicle::setRemoved()
 }
 
 
-size_t
+int
 GUIVehicle::getRepetitionNo() const
 {
     return myRepetitionNumber;
 }
 
 
-size_t
+int
 GUIVehicle::getPeriod() const
 {
     return myPeriod;
@@ -444,7 +351,7 @@ GUIVehicle::getLastLaneChangeOffset() const
 size_t
 GUIVehicle::getRealDepartTime() const
 {
-    return -1;
+    return myRealDepart;
 }
 
 
@@ -453,9 +360,6 @@ GUIVehicle::getDesiredDepart() const
 {
     return myDesiredDepart;
 }
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

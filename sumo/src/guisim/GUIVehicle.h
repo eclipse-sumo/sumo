@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/01/26 15:53:21  dkrajzew
+// added some yet unset display variables
+//
 // Revision 1.13  2004/01/26 07:00:50  dkrajzew
 // reinserted the building of repeating vehicles
 //
@@ -153,8 +156,8 @@ public:
 
 	void setRemoved();
 
-    size_t getRepetitionNo() const;
-    size_t getPeriod() const;
+    int getRepetitionNo() const;
+    int getPeriod() const;
     size_t getLastLaneChangeOffset() const;
     size_t getRealDepartTime() const;
     size_t getDesiredDepart() const;
