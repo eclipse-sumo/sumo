@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/10/28 07:24:47  dkrajzew
+// false sorting of used connection clusters patched
+//
 // Revision 1.17  2003/10/27 10:51:55  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -366,7 +369,7 @@ NIVissimEdge::buildNBEdge(double offset)
     }
     // otherwise, build a connected edge
     else {*/
-        sort(myConnectionClusters.begin(), myConnectionClusters.end(),
+        sort(tmpClusters.begin(), tmpClusters.end(),
             connection_cluster_position_sorter(myID));
         // get or build the from-node
         //  A node may have to be build when the edge starts or ends at
