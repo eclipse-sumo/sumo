@@ -7,7 +7,7 @@ GUILaneStateReporter::GUILaneStateReporter(
         LoggedValue_TimeFloating<double> *retriever,
         const std::string &id, MSLane *lane, MSNet::Time interval,
         GUILaneStateBounderiesStorage &storage)
-    : MSE2Collector(id, lane, 0.1, lane->length()-0.2, interval), // !!!
+    : MSE2Collector(id, DU_SUMO_INTERNAL, lane, 0.1, lane->length()-0.2, interval), // !!!
     myRetriever(retriever), myBounderiesStorage(storage)
 {
     assert(lane->length()>0.2);

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 06:59:38  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.6  2003/12/04 13:31:28  dkrajzew
 // detector name changes applied
 //
@@ -66,15 +69,12 @@ class GUI_E2_ZS_Collector : public MSE2Collector
 {
 public:
     /// Constructor
-    GUI_E2_ZS_Collector(std::string id, //daraus ergibt sich der Filename
-                        MSLane* lane,
-                        MSUnit::Meters startPos,
-                        MSUnit::Meters detLength,
-                        bool visible = false,
-                        MSUnit::Seconds haltingTimeThreshold = 1,
-                        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-                        MSUnit::Meters jamDistThreshold = 10,
-                        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+    GUI_E2_ZS_Collector(std::string id, DetectorUsage usage, MSLane* lane,
+        MSUnit::Meters startPos, MSUnit::Meters detLength,
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::Meters jamDistThreshold = 10,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
 
     /// Destructor
     ~GUI_E2_ZS_Collector();
@@ -89,11 +89,6 @@ public:
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p,
         size_t glID);
-
-    /// This detector shall be shown
-    bool amVisible() const {
-        return myAmVisble;
-    }
 
 public:
     /**
@@ -119,10 +114,12 @@ public:
         Boundery getBoundery() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(double scale) const;
+        void drawGL_FG(double scale,
+            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(double scale) const;
+        void drawGL_SG(double scale,
+            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -141,7 +138,7 @@ public:
         Position2D getPosition() const;
 
         /// Returns the detector itself
-        GUI_E2_ZS_Collector &getLoop();
+        GUI_E2_ZS_Collector &getDetector();
 
     protected:
         /// Builds a view within the parameter table if the according type is available
@@ -165,7 +162,7 @@ public:
         /// The rotation in simple-geometry mode
         double mySGRotation;
 
-        /// The lengt in simple-geometry mode
+        /// The length in simple-geometry mode
 		double mySGLength;
 
         /// A sequence of positions in full-geometry mode
@@ -216,17 +213,10 @@ public:
 
     };
 
-private:
-    /// The information whether the detector itself shall be visible
-    bool myAmVisble;
 };
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "GUI_E2_ZS_Collector.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2004/01/26 06:59:38  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.28  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -132,6 +135,7 @@ namespace
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
+#include <guisim/GUIE3Collector.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUILaneStateReporter.h>
 #include <guisim/GUIJunctionWrapper.h>
@@ -165,6 +169,7 @@ GUINet::~GUINet()
     for(std::vector<GUIDetectorWrapper*>::iterator i2=myDetectorWrapper.begin(); i2!=myDetectorWrapper.end(); i2++) {
         delete (*i2);
     }
+    GUIE3Collector::eraseAll();
         // of tl-logics
     typedef std::map<MSLink*, GUITrafficLightLogicWrapper*> Link2LogicMap;
     typedef std::set<GUITrafficLightLogicWrapper*> LogicSet;
@@ -228,30 +233,28 @@ void
 GUINet::initDetectors()
 {
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
-	//
+	// e2-detectors
     MSDetectorSubSys::E2Dict::ValueVector loopVec2(
         MSDetectorSubSys::E2Dict::getInstance()->getStdVector() );
     net->myDetectorWrapper.reserve(loopVec2.size()+net->myDetectorWrapper.size());
     for(MSDetectorSubSys::E2Dict::ValueVector::iterator
         i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
-
         const MSLane *lane = (*i2)->getLane();
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
-
         // build the wrapper
-        if((*i2)->amVisible()) {
-            GUIDetectorWrapper *wrapper =
-                static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
-                    net->_idStorage, edge->getLaneGeometry(lane));
-            // add to list
-            net->myDetectorWrapper.push_back(wrapper);
-            // add to dictionary
-            net->myDetectorDict[wrapper->microsimID()] = wrapper;
+        if((*i2)->getUsageType()==DU_SUMO_INTERNAL) {
+            continue;
         }
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
+                net->_idStorage, edge->getLaneGeometry(lane));
+        // add to list
+        net->myDetectorWrapper.push_back(wrapper);
+        // add to dictionary
+        net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
-
-	//
+	// e2 over lanes -detectors
     MSDetectorSubSys::E2ZSOLDict::ValueVector loopVec3(
         MSDetectorSubSys::E2ZSOLDict::getInstance()->getStdVector() );
     net->myDetectorWrapper.reserve(loopVec2.size()+net->myDetectorWrapper.size());
@@ -266,22 +269,32 @@ GUINet::initDetectors()
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
-
-	//
+	// e1-detectors
     MSDetectorSubSys::LoopDict::ValueVector loopVec(
         MSDetectorSubSys::LoopDict::getInstance()->getStdVector() );
     net->myDetectorWrapper.reserve(loopVec.size()+net->myDetectorWrapper.size());
     for(MSDetectorSubSys::LoopDict::ValueVector::iterator
         i=loopVec.begin(); i!=loopVec.end(); i++) {
-
         const MSLane *lane = (*i)->getLane();
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
-
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             (*i)->buildDetectorWrapper(
                 net->_idStorage, edge->getLaneGeometry(lane));
+        // add to list
+        net->myDetectorWrapper.push_back(wrapper);
+        // add to dictionary
+        net->myDetectorDict[wrapper->microsimID()] = wrapper;
+    }
+	// e3-detectors
+    const GUIE3Collector::InstanceVector &loopVec4 = GUIE3Collector::getInstances();
+    net->myDetectorWrapper.reserve(loopVec4.size()+net->myDetectorWrapper.size());
+    for(GUIE3Collector::InstanceVector::const_iterator
+        i4=loopVec4.begin(); i4!=loopVec4.end(); i4++) {
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            (*i4)->buildDetectorWrapper(net->_idStorage);
         // add to list
         net->myDetectorWrapper.push_back(wrapper);
         // add to dictionary

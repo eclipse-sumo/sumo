@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/01/26 06:59:37  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.9  2003/11/11 08:13:23  dkrajzew
 // consequent usage of Position2D instead of two doubles
 //
@@ -106,9 +109,9 @@ public:
 
 
     /// returns the enumerated lane's geometry (!!! why not private with a friend?)
-    GUILaneWrapper &getLaneGeometry(size_t laneNo);
+    GUILaneWrapper &getLaneGeometry(size_t laneNo) const;
 
-    GUILaneWrapper &getLaneGeometry(const MSLane *lane);
+    GUILaneWrapper &getLaneGeometry(const MSLane *lane) const;
 
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
@@ -147,7 +150,7 @@ private:
         explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }
 
         /** the comparing function */
-        bool operator() (GUILaneWrapper *wrapper) {
+        bool operator() (const GUILaneWrapper * const wrapper) {
             return wrapper->forLane(myLane);
         }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/01/26 06:59:37  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.9  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -33,6 +36,8 @@
 #include <utils/geom/HaveBoundery.h>
 #include <utils/geom/Position2D.h>
 #include <gui/GUIGlObject.h>
+#include <gui/GUISUMOAbstractView.h>
+
 
 
 /* =========================================================================
@@ -79,10 +84,12 @@ public:
     GUIGlObjectType getType() const;
 
     /// Draws the detector in full-geometry mode
-    virtual void drawGL_FG(double scale) const = 0;
+    virtual void drawGL_FG(double scale,
+        GUISUMOAbstractView::GUIDetectorDrawer &drawer) const = 0;
 
     /// Draws the detector in simple-geometry mode
-    virtual void drawGL_SG(double scale) const = 0;
+    virtual void drawGL_SG(double scale,
+        GUISUMOAbstractView::GUIDetectorDrawer &drawer) const = 0;
 
     /// Returns the detector's coordinates
     virtual Position2D getPosition() const = 0;

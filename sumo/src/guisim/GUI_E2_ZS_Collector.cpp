@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/01/26 06:59:38  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.6  2003/12/04 13:31:28  dkrajzew
 // detector name changes applied
 //
@@ -66,16 +69,14 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * GUI_E2_ZS_Collector-methods
  * ----------------------------------------------------------------------- */
-GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id,
+GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id, DetectorUsage usage,
 		MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
-        bool visible,
 		MSUnit::Seconds haltingTimeThreshold,
 		MSUnit::MetersPerSecond haltingSpeedThreshold,
 		MSUnit::Meters jamDistThreshold,
 		MSUnit::Seconds deleteDataAfterSeconds)
-    : MSE2Collector(id, lane, startPos, detLength, haltingTimeThreshold,
-			haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds),
-    myAmVisble(visible)
+    : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
+			haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
 {
 }
 
@@ -238,23 +239,30 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale) const
+GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
+                                          GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
+    float myWidth = 1;
+    if(myDetector.getUsageType()==DU_TL_CONTROL) {
+        myWidth = 0.3;
+        glColor3f(0, .6, .8);
+    } else {
+        glColor3f(0, .8, .8);
+    }
 	double width=2; // !!!!
-    glColor3f(0, .8, .8);
     if(width>1.0) {
         glPushMatrix();
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
         glRotated( mySGRotation, 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2f(-1, 0);
-        glVertex2f(-1, -mySGLength);
-        glVertex2f(1, -mySGLength);
-        glVertex2f(1, 0);
+        glVertex2f(-myWidth, 0);
+        glVertex2f(-myWidth, -mySGLength);
+        glVertex2f(myWidth, -mySGLength);
+        glVertex2f(myWidth, 0);
         glEnd();
         glBegin( GL_LINES);
         glVertex2f(0, 0);
-        glVertex2f(0, mySGLength);
+        glVertex2f(0, -mySGLength);
         glEnd();
         glPopMatrix();
     } else {
@@ -271,14 +279,21 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale) const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale) const
+GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale,
+                                          GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
+    float myWidth = 1;
+    if(myDetector.getUsageType()==DU_TL_CONTROL) {
+        myWidth = 0.3;
+        glColor3f(0, .6, .8);
+    } else {
+        glColor3f(0, .8, .8);
+    }
 	double width=2; // !!!!
-    glColor3f(0, .8, .8);
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
 			GLHelper::drawBoxLine(myFullGeometry.at(i),
-                myShapeRotations[i], myShapeLengths[i], 1.0);
+                myShapeRotations[i], myShapeLengths[i], myWidth);
         }
     } else {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
@@ -297,16 +312,13 @@ GUI_E2_ZS_Collector::MyWrapper::getPosition() const
 
 
 GUI_E2_ZS_Collector &
-GUI_E2_ZS_Collector::MyWrapper::getLoop()
+GUI_E2_ZS_Collector::MyWrapper::getDetector()
 {
     return myDetector;
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUI_E2_ZS_Collector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

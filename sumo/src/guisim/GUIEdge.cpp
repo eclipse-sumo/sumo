@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/01/26 06:59:37  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.13  2003/11/11 08:13:23  dkrajzew
 // consequent usage of Position2D instead of two doubles
 //
@@ -122,29 +125,8 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     }
     _laneGeoms.reserve(tmp.size());
     copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));
-/*
-    // set the geomertical information for every lane
-    double x1 = fromXPos();
-    double y1 = fromYPos();
-    double x2 = toXPos();
-    double y2 = toYPos();
-    double length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
-    std::pair<double, double> offsets =
-        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, 3.5);
-    double xoff = offsets.first / 2.0;
-    double yoff = offsets.second / 2.0;
-    LaneWrapperVector tmp;
-    for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
-        GUILaneWrapper *wrapper =
-            new GUILaneWrapper(idStorage, *(*i), x1-xoff, y1-yoff, x2-xoff, y2-yoff);
-        tmp.push_back(wrapper);
-        xoff += offsets.first;
-        yoff += offsets.second;
-    }
-    // copy reverse
-    _laneGeoms.reserve(tmp.size());
-    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));*/
 }
+
 
 MSLane &
 GUIEdge::getLane(size_t laneNo)
@@ -155,7 +137,7 @@ GUIEdge::getLane(size_t laneNo)
 
 
 GUILaneWrapper &
-GUIEdge::getLaneGeometry(size_t laneNo)
+GUIEdge::getLaneGeometry(size_t laneNo) const
 {
     assert(laneNo<myLanes->size());
     return *(_laneGeoms[laneNo]);
@@ -163,9 +145,9 @@ GUIEdge::getLaneGeometry(size_t laneNo)
 
 
 GUILaneWrapper &
-GUIEdge::getLaneGeometry(const MSLane *lane)
+GUIEdge::getLaneGeometry(const MSLane *lane) const
 {
-    LaneWrapperVector::iterator i=
+    LaneWrapperVector::const_iterator i=
         find_if(_laneGeoms.begin(), _laneGeoms.end(),
             lane_wrapper_finder(*lane));
     assert(i!=_laneGeoms.end());

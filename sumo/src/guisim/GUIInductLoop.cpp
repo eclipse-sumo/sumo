@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/01/26 06:59:37  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.7  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
@@ -165,7 +168,8 @@ GUIInductLoop::MyWrapper::active() const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_SG(double scale) const
+GUIInductLoop::MyWrapper::drawGL_SG(double scale,
+                                    GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);
@@ -215,7 +219,8 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale) const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_FG(double scale) const
+GUIInductLoop::MyWrapper::drawGL_FG(double scale,
+                                    GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);

@@ -1,13 +1,13 @@
-#ifndef GUI_E2_ZS_CollectorOverLanes_h
-#define GUI_E2_ZS_CollectorOverLanes_h
+#ifndef GUIE3Collector_h
+#define GUIE3Collector_h
 //---------------------------------------------------------------------------//
-//                        GUI_E2_ZS_CollectorOverLanes.h -
-//  The gui-version of the MS_E2_ZS_CollectorOverLanes, together with the according
+//                        GUIE3Collector.h -
+//  The gui-version of the MSE3Collector, together with the according
 //   wrapper
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Okt 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  begin                : Jan 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -21,94 +21,74 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2004/01/26 06:59:38  dkrajzew
+// Revision 1.1  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
-//
-// Revision 1.3  2003/12/04 13:31:28  dkrajzew
-// detector name changes applied
-//
-// Revision 1.2  2003/11/18 14:27:39  dkrajzew
-// debugged and completed lane merging detectors
-//
-// Revision 1.1  2003/11/17 07:15:27  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.4  2003/11/12 14:00:19  dkrajzew
-// commets added; added parameter windows to all detectors
 //
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
-#include <microsim/MSNet.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/common/DoubleVector.h>
-#include <helpers/ValueSource.h>
-#include "GUI_E2_ZS_Collector.h"
+#include <string>
+#include <vector>
+#include <microsim/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class GUIGlObjectStorage;
-class GUILaneWrapper;
+#include <utils/geom/Position2DVector.h>
+#include <helpers/ValueSource.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class GUI_E2_ZS_CollectorOverLanes
- * The gui-version of the MS_E2_ZS_CollectorOverLanes.
+ * @class GUIE3Collector
+ * The gui-version of the MSE3Collector.
  * Allows the building of a wrapper (also declared herein) which draws the
- * detector on the gl-canvas. Beside this, the method "amVisible" is
- * overridden to signalise that this detector is not used for simulation-
- * -internal reasons, but is placed over the simulation by the user.
+ * detector on the gl-canvas.
  */
-class GUI_E2_ZS_CollectorOverLanes : public MS_E2_ZS_CollectorOverLanes
-{
+class GUIE3Collector : public MSE3Collector {
 public:
-    typedef std::vector<GUI_E2_ZS_Collector*> CollectorVector;
-
     /// Constructor
-    GUI_E2_ZS_CollectorOverLanes( std::string id, DetectorUsage usage,
-        MSLane* lane, MSUnit::Meters startPos,
+    GUIE3Collector(std::string id, Detector::CrossSections entries,
+        Detector::CrossSections exits,
         MSUnit::Seconds haltingTimeThreshold = 1,
-        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-        MSUnit::Meters jamDistThreshold = 10,
-        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+        MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0 / 3.6,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800);
 
     /// Destructor
-    ~GUI_E2_ZS_CollectorOverLanes();
+    ~GUIE3Collector();
 
-    // invalid in fact, as collectors do not need a lane
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage,
-        GUILaneWrapper &lane);
+    /// Returns the list of entry points
+    const Detector::CrossSections &getEntries() const;
 
-    // valid for gui-version only
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage);
+    /// Returns the list of exit points
+    const Detector::CrossSections &getExits() const;
 
-protected:
-    MSE2Collector *buildCollector(size_t c, size_t r,
-        MSLane *l, double start, double end);
-
+    /// Builds the wrapper
+    GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage);
 
 public:
+    /// Adds a build detector to an internal list
+    static void addBuild(GUIE3Collector *det);
+
+    /// The list of build detectors
+    typedef std::vector<GUIE3Collector*> InstanceVector;
+
+    /// Returns a list of known e3-instances
+    static const InstanceVector &getInstances();
+
+    /// Deletes all build e3-detectors
+    static void eraseAll();
+
+
     /**
-     * @class GUI_E2_ZS_CollectorOverLanes::MyWrapper
-     * A GUI_E2_ZS_CollectorOverLanes-visualiser
+     * @class GUIE3Collector::MyWrapper
+     * A GUIE3Collector-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUI_E2_ZS_CollectorOverLanes &detector,
-            GUIGlObjectStorage &idStorage,
-            const LaneDetMap &detectors);
+        MyWrapper(GUIE3Collector &detector,
+            GUIGlObjectStorage &idStorage);
 
         /// Destrutor
         ~MyWrapper();
@@ -141,32 +121,59 @@ public:
         Position2D getPosition() const;
 
         /// Returns the detector itself
-        GUI_E2_ZS_CollectorOverLanes &getLoop();
+        GUIE3Collector &getDetector();
+
+    public:
+        struct SingleCrossingDefinition {
+            /// The position in simple-geometry mode
+            Position2D mySGPosition;
+            /// The rotation in simple-geometry mode
+            double mySGRotation;
+            /// The position in full-geometry mode
+            Position2D myFGPosition;
+            /// The rotation in full-geometry mode
+            double myFGRotation;
+        };
 
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-            const std::string &name, E2::DetType type);
+            const std::string &name, E3::DetType type);
+
+        /// Builds the description about the position of the entry/exit point
+        SingleCrossingDefinition buildDefinition(const MSCrossSection &section,
+            bool exit);
+
+        /// Draws a single entry/exit point
+        void drawSingleCrossing(const Position2D &pos, double rot,
+            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
 
     private:
         /// The wrapped detector
-        GUI_E2_ZS_CollectorOverLanes &myDetector;
+        GUIE3Collector &myDetector;
 
         /// The detector's boundery //!!!what about SG/FG
         Boundery myBoundery;
 
-        std::vector<GUIDetectorWrapper*> mySubWrappers;
+        /// Definition of a list of cross (entry/exit-point) positions
+        typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
+
+        /// The list of entry positions
+        CrossingDefinitions myEntryDefinitions;
+
+        /// The list of exit positions
+        CrossingDefinitions myExitDefinitions;
 
         /**
-         * @class GUI_E2_ZS_CollectorOverLanes::MyWrapper::ValueRetriever
+         * @class GUI_E2_ZS_Collector::MyWrapper::ValueRetriever
          * This class realises the retrieval of a certain value
          * with a certain interval specification from the detector
          */
         class MyValueRetriever : public ValueSource<double> {
         public:
             /// Constructor
-            MyValueRetriever(GUI_E2_ZS_CollectorOverLanes &det,
-                E2::DetType type, size_t nSec)
+            MyValueRetriever(GUIE3Collector &det,
+                E3::DetType type, size_t nSec)
                 : myDetector(det), myType(type), myNSec(nSec) { }
 
             /// Destructor
@@ -185,10 +192,10 @@ public:
 
         private:
             /// The detctor to get the value from
-            GUI_E2_ZS_CollectorOverLanes &myDetector;
+            GUIE3Collector &myDetector;
 
             /// The type of the value to retrieve
-            E2::DetType myType;
+            E3::DetType myType;
 
             /// The aggregation interval
             size_t myNSec;
@@ -196,19 +203,16 @@ public:
 
     };
 
+private:
+    /// The list of e3-detectors known within the loaded simulation
+    static InstanceVector myInstances;
+
 };
 
-
-//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "GUI_E2_ZS_CollectorOverLanes.icc"
-//#endif
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
 // Local Variables:
 // mode:C++
 // End:
-
-

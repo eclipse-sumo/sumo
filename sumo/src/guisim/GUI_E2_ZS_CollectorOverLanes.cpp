@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 06:59:38  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+//
 // Revision 1.3  2003/12/04 13:31:28  dkrajzew
 // detector name changes applied
 //
@@ -72,13 +75,12 @@ using namespace std;
  * GUI_E2_ZS_CollectorOverLanes-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes( std::string id,
-		MSLane* lane, MSUnit::Meters startPos, //MSUnit::Meters detLength,
-        //const MS_E2_ZS_CollectorOverLanes::LaneContinuations &laneContinuations,
+        DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
 		MSUnit::Seconds haltingTimeThreshold,
 		MSUnit::MetersPerSecond haltingSpeedThreshold,
 		MSUnit::Meters jamDistThreshold,
 		MSUnit::Seconds deleteDataAfterSeconds)
-    : MS_E2_ZS_CollectorOverLanes(id, lane, startPos, //detLength, laneContinuations,
+    : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
         haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
         deleteDataAfterSeconds)
 {
@@ -98,22 +100,13 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage
     throw 1;
 }
 
+
 GUIDetectorWrapper *
 GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage)
 {
     return new MyWrapper(*this, idStorage, myAlreadyBuild);
 }
 
-/*
-MS_E2_ZS_Collector *
-GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-                                             double start, double end)
-{
-    return new GUI_E2_ZS_Collector(makeID(l->id(), c, r),
-        l, end, end, haltingTimeThresholdM,
-        haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
-}
-*/
 
 MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
@@ -123,8 +116,8 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
     if(start+end<l->length()) {
         start = l->length() - end - 0.1;
     }
-    return new GUI_E2_ZS_Collector(id,
-        l, start, end, false, haltingTimeThresholdM,
+    return new GUI_E2_ZS_Collector(id, myUsage,
+        l, start, end, haltingTimeThresholdM,
         haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
 }
 
@@ -237,19 +230,21 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale) const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale,
+                                                   GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_SG(scale);
+        (*i)->drawGL_SG(scale, drawer);
     }
 }
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale) const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale,
+                                                   GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_FG(scale);
+        (*i)->drawGL_FG(scale, drawer);
     }
 }
 
