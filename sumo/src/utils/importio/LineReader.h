@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/03/12 16:36:13  dkrajzew
+// status information retrieval added
+//
 // Revision 1.2  2003/02/07 10:51:26  dkrajzew
 // updated
 //
@@ -89,6 +92,9 @@ public:
 
     /// sets the current position within the file to the given value
     void setPos(unsigned long pos);
+
+    /// Returns the information whether the stream is readable
+    bool good() const;
 
 private:
     /// the name of the file to read the contents from

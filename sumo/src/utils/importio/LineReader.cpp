@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/12 16:36:12  dkrajzew
+// status information retrieval added
+//
 // Revision 1.2  2003/02/07 10:51:26  dkrajzew
 // updated
 //
@@ -76,13 +79,14 @@ LineReader::~LineReader()
 bool
 LineReader::hasMore() const
 {
-    return !_strm.eof();
+    return _rread<_available;
 }
 
 
-void LineReader::readAll(LineHandler &lh)
+void 
+LineReader::readAll(LineHandler &lh)
 {
-    while(_strm.good()&&_read<_available) {
+    while(_rread<_available) {
         if(!readLine(lh)) {
             return;
         }
@@ -192,6 +196,12 @@ LineReader::setPos(unsigned long pos)
     _strm.seekg(pos, ios::beg);
     _read = pos;
     _rread = pos;
+}
+
+bool 
+LineReader::good() const
+{
+    return _strm.good();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
