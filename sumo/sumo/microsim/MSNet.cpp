@@ -25,6 +25,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2002/06/06 17:54:03  croessel
+// The member myStep was hidden in the simulation-loop "for( Time myStep;
+// ...)", so return of simSeconds() was always 0.
+//
 // Revision 1.12  2002/05/29 17:06:03  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -213,7 +217,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
     }
 
     // the simulation loop
-    for (Time myStep = start; myStep <= stop; ++myStep) {
+    for ( myStep = start; myStep <= stop; ++myStep ) {
 #ifdef _DEBUG
         globaltime = myStep;
 #endif
@@ -252,6 +256,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         myJunctions->moveFirstVehicles();
         myEdges->detectCollisions( myStep );
 
+	
         // Let's detect.
         for( DetectorCont::iterator detec = myDetectors->begin();
              detec != myDetectors->end(); ++detec ) {
