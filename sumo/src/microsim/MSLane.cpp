@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.22  2003/07/07 08:18:43  dkrajzew
+// due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
+//
 // Revision 1.21  2003/06/24 08:09:28  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -1513,6 +1516,13 @@ MSLane::getMoveReminders( void )
 {
     return moveRemindersM;
 }
+
+GUILaneWrapper *
+MSLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+{
+    throw "Only within the gui-version";
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

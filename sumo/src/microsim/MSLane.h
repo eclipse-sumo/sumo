@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2003/07/07 08:18:43  dkrajzew
+// due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
+//
 // Revision 1.12  2003/06/05 16:02:55  dkrajzew
 // min and max-methods added (MSVC++ does not know them
 //
@@ -200,6 +203,8 @@ class MSLaneChanger;
 class MSEmitter;
 class MSLink;
 class MSMoveReminder;
+class GUILaneWrapper;
+class GUIGlObjectStorage;
 
 
 /* =========================================================================
@@ -483,6 +488,10 @@ public:
     /// Add a move-reminder to move-reminder container
     void addMoveReminder( MSMoveReminder* rem );
     MoveReminderCont getMoveReminders( void );
+
+    // gui-version only
+    virtual GUILaneWrapper *buildLaneWrapper(
+            GUIGlObjectStorage &idStorage);
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
