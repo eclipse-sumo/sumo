@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/25 11:53:48  dkrajzew
+// patched the bug on false intervals stamps if begin!=0
+//
 // Revision 1.11  2004/08/02 12:14:54  dkrajzew
 // added some security checks for buggy nets (aehhh)
 //
@@ -206,10 +209,9 @@ MSLink::getViaLane() const
 {
     return myJunctionInlane;
 }
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSLink.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

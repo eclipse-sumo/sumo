@@ -17,14 +17,30 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
-// $Id$
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2004/11/25 11:53:49  dkrajzew
+// patched the bug on false intervals stamps if begin!=0
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include "MSDetector2File.h"
 #include <microsim/MSEventControl.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include <string>
 #include <cassert>
 #include <utility>
@@ -32,13 +48,24 @@
 #include <helpers/OneArgumentCommand.h>
 #include <sstream>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member variables
+ * ======================================================================= */
 // initialize static member
 MSDetector2File*
 MSDetector2File::instanceM = 0;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSDetector2File*
 MSDetector2File::getInstance( void )
 {
@@ -65,8 +92,7 @@ MSDetector2File::~MSDetector2File( void )
             MSDetectorFileOutput *det = df->first;
             if(df->second->needsHeader()) {
                 det->writeXMLDetectorInfoEnd(*(df->second));
-//                df->second->writeString(det->getXMLDetectorInfoEnd());
-                df->second->writeString("\n");
+                df->second->closeInfo();
             }
 //!!! deleted in SharedOutputDevices            delete df->second;
         }
@@ -82,14 +108,6 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
                                          MSUnit::Seconds sampleInterval,
                                          MSUnit::Seconds write2fileInterval )
 {
-    /*
-    MSUnit::IntSteps sampleSteps(
-        MSUnit::getInstance()->getIntegerSteps( sampleInterval ) );
-    assert( sampleSteps >= 1 );
-    MSUnit::IntSteps write2fileSteps(
-        MSUnit::getInstance()->getIntegerSteps( write2fileInterval ) );
-    assert( write2fileSteps >= 1 );
-    */
     if ( det->getDataCleanUpSteps() < sampleInterval ) {
         sampleInterval = det->getDataCleanUpSteps();
         WRITE_WARNING("MSDetector2File::addDetectorAndInterval: ");
@@ -115,8 +133,10 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
             ( this, &MSDetector2File::write2file, key );
         MSEventControl::getEndOfTimestepEvents()->addEvent(
             writeData,
-            write2fileInterval - 1,
+            OptionsSubSys::getOptions().getInt("begin") + write2fileInterval - 1,
             MSEventControl::ADAPT_AFTER_EXECUTION );
+        myLastCalls[sampleInterval] =
+            OptionsSubSys::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if ( find_if( detAndFileVec.begin(), detAndFileVec.end(),
@@ -133,8 +153,6 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
     if(device->needsHeader()) {
         det->writeXMLHeader(*device);
         det->writeXMLDetectorInfoStart(*device);
-//        device->writeString(det->getXMLHeader());
-//        device->writeString(det->getXMLDetectorInfoStart());
         device->closeInfo();
     }
 }
@@ -160,9 +178,6 @@ MSDetector2File::write2file( IntervalsKey key )
         MSDetectorFileOutput* det = it->first;
         it->first->writeXMLOutput( *(it->second), startTime, stopTime );
         it->second->closeInfo();
-//        it->first->closeXML();
-//        it->second->writeString(" />\n");// << endl;
-//        it->second->writeString(oss.str());
     }
     myLastCalls[sampleInterval] = MSNet::getInstance()->simSeconds();
     return write2fileInterval;
@@ -172,6 +187,9 @@ MSDetector2File::write2file( IntervalsKey key )
 MSDetector2File::MSDetector2File( void )
 {}
 
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
 // mode:C++

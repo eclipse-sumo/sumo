@@ -20,16 +20,34 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
 // $Id$
+// $Log$
+// Revision 1.2  2004/11/25 11:53:49  dkrajzew
+// patched the bug on false intervals stamps if begin!=0
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <microsim/MSUnit.h>
 #include "MSDetectorFileOutput.h"
 #include <map>
 #include <utility>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class OutputDevice;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * Singleton class, that controls file-output of instances of class
  * MSDetectorFileOutput. Just add a existing detector, a filename
@@ -144,7 +162,10 @@ private:
 };
 
 
-#endif // MSDetector2File_H
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+#endif
 
 // Local Variables:
 // mode:C++
