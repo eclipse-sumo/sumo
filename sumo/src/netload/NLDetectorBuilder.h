@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/07/21 18:07:44  roessel
+// Adaptions due to new MSInductLoop.
+//
 // Revision 1.3  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -26,7 +29,8 @@
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:47  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+// parseable in one step
 //
 // Revision 1.6  2002/07/31 17:34:50  roessel
 // Changes since sourceforge cvs request.
@@ -52,7 +56,9 @@
  * ======================================================================= */
 #include <string>
 #include <microsim/MSNet.h>
-#include <microsim/MSDetector.h>
+
+class MSInductionLoop;
+
 
 /* =========================================================================
  * class definitions
@@ -63,15 +69,15 @@
 class NLDetectorBuilder {
 public:
     /// builds an induct loop
-    static MSDetector *buildInductLoop(const std::string &id,
+    static MSInductLoop* buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath);
 
 private:
-    /// converts the name of an output style into it's enumeration value
-    static MSDetector::OutputStyle convertStyle(const std::string &id,
-        const std::string &style);
+//     /// converts the name of an output style into it's enumeration value
+//     static MSDetector::OutputStyle convertStyle(const std::string &id,
+//         const std::string &style);
 
 };
 

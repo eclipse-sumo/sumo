@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/07/21 18:07:44  roessel
+// Adaptions due to new MSInductLoop.
+//
 // Revision 1.13  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -156,7 +159,7 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
     m_pECB(edgeBuilder),
     m_pJCB(junctionBuilder),
     m_pSLB(new NLSucceedingLaneBuilder()),
-    m_pDetectors(0),
+//     m_pDetectors(0),
     noEdges(0),
     noLanes(0),
     noJunctions(0),
@@ -165,8 +168,8 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
     noRoutes(0),
     noDetectors(0)
 {
-    // ... the storage for the detectors
-    m_pDetectors = new MSNet::DetectorCont();
+//     // ... the storage for the detectors
+//     m_pDetectors = new MSNet::DetectorCont();
 //    m_pJCB = new NLJunctionControlBuilder(this);
 }
 
@@ -419,21 +422,21 @@ NLContainer::closeJunction()
 }
 
 
-// ----- handling of detectors
-void
-NLContainer::addDetector(MSDetector *detector)
-{
-    m_pDetectors->push_back(detector);
-}
+// // ----- handling of detectors
+// void
+// NLContainer::addDetector(MSDetector *detector)
+// {
+//     m_pDetectors->push_back(detector);
+// }
 
 
-void
-NLContainer::addDetectors(MSNet::DetectorCont detectors)
-{
-    for(MSNet::DetectorCont::iterator i=detectors.begin(); i!=detectors.end(); i++) {
-        m_pDetectors->push_back(*i);
-    }
-}
+// void
+// NLContainer::addDetectors(MSNet::DetectorCont detectors)
+// {
+//     for(MSNet::DetectorCont::iterator i=detectors.begin(); i!=detectors.end(); i++) {
+//         m_pDetectors->push_back(*i);
+//     }
+// }
 
 
 
@@ -445,7 +448,8 @@ NLContainer::buildMSNet(const OptionsCont &options)
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
-    MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
+//     MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
+    MSNet::init( m_Id, edges, junctions, routeLoaders, tlc);
     return MSNet::getInstance();
 }
 
@@ -485,10 +489,10 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
 }
 
 
-MSNet::DetectorCont *
-NLContainer::getDetectors() {
-    return m_pDetectors;
-}
+// MSNet::DetectorCont *
+// NLContainer::getDetectors() {
+//     return m_pDetectors;
+// }
 
 MSNet &
 NLContainer::getNet()

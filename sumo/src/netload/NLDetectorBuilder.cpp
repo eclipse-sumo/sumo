@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/21 18:07:44  roessel
+// Adaptions due to new MSInductLoop.
+//
 // Revision 1.6  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -55,7 +58,8 @@ namespace
 // Windows eol removed
 //
 // Revision 1.5  2002/06/07 14:39:58  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new netconverting
+// methods debugged
 //
 // Revision 1.4  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
@@ -70,7 +74,6 @@ namespace
 #include <string>
 #include <iostream>
 #include <microsim/MSNet.h>
-#include <microsim/MSDetector.h>
 #include <microsim/MSInductLoop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -88,25 +91,25 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
+MSInductLoop* NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath)
 {
-    // get the output style
-    MSDetector::OutputStyle cstyle = convertStyle(id, style);
-    // check whether the file must be converted into a relative path
-    if(!FileHelpers::isAbsolute(filename)) {
-        filename = FileHelpers::getConfigurationRelative(basePath, filename);
-    }
-    // build and check the file
-    std::ofstream *file = new std::ofstream(filename.c_str());
-    if(!file->good()) {
-        throw InvalidArgument(
-            string("Could not open output for detector '") + id
-            + string("' for writing (file:") + filename
-            + string(")."));
-    }
+//     // get the output style
+//     MSDetector::OutputStyle cstyle = convertStyle(id, style);
+//     // check whether the file must be converted into a relative path
+//     if(!FileHelpers::isAbsolute(filename)) {
+//         filename = FileHelpers::getConfigurationRelative(basePath, filename);
+//     }
+//     // build and check the file
+//     std::ofstream *file = new std::ofstream(filename.c_str());
+//     if(!file->good()) {
+//         throw InvalidArgument(
+//             string("Could not open output for detector '") + id
+//             + string("' for writing (file:") + filename
+//             + string(")."));
+//     }
     // get and check the lane
     MSLane *clane = MSLane::dictionary(lane);
     if(clane==0) {
@@ -114,27 +117,28 @@ MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
             string("The lane with the id '") + lane
             + string("' is not known."));
     }
-    // build in dependence to the sample interval
-    if(splInterval==1) {
-        return
-            new MSInductLoop<LoggedValue_Single<double> >
-                (id, clane, pos, splInterval, cstyle, file, false);
-    } else {
-        return
-            new MSInductLoop<LoggedValue_TimeFixed<double> >
-                (id, clane, pos, splInterval, cstyle, file, false);
-    }
+//     // build in dependence to the sample interval
+//     if(splInterval==1) {
+//         return
+//             new MSInductLoop<LoggedValue_Single<double> >
+//                 (id, clane, pos, splInterval, cstyle, file, false);
+//     } else {
+//         return
+//             new MSInductLoop<LoggedValue_TimeFixed<double> >
+//                 (id, clane, pos, splInterval, cstyle, file, false);
+//     }
+    return new MSInductLoop(id, clane, pos);
 }
 
-MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
-        const std::string &style)
-{
-    if(style=="GNUPLOT" || style=="GPLOT")
-        return MSDetector::GNUPLOT;
-    if(style=="CSV")
-        return MSDetector::CSV;
-    throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
-}
+// MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
+//         const std::string &style)
+// {
+//     if(style=="GNUPLOT" || style=="GPLOT")
+//         return MSDetector::GNUPLOT;
+//     if(style=="CSV")
+//         return MSDetector::CSV;
+//     throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
+// }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

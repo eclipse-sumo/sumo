@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/07/21 18:07:44  roessel
+// Adaptions due to new MSInductLoop.
+//
 // Revision 1.12  2003/07/16 15:35:30  dkrajzew
 // unneeded pointer to obsolete MSModel removed
 //
@@ -112,6 +115,7 @@ class MSJunctionLogic;
 class MSRouteLoaderControl;
 class OptionsCont;
 class MSTrafficLightLogic;
+class MSInductLoop;
 
 /* =========================================================================
  * class definitions
@@ -245,18 +249,18 @@ public:
     /// Adds a build traffic light logic
     void addTLLogic(MSTrafficLightLogic *logic);
 
-    // ----- interfaces for the generation of detectors
-    /// adds a new detector to the simulation
-    void addDetector(MSDetector *detector);
+//     // ----- interfaces for the generation of detectors
+//     /// adds a new detector to the simulation
+//     void addDetector(MSInductLoop* detector);
 
-    /// adds a list of new detectors to the simulation
-    void addDetectors(MSNet::DetectorCont detectors);
+//     /// adds a list of new detectors to the simulation
+//     void addDetectors(MSNet::DetectorCont detectors);
 
     /// end of operations; builds the net
     MSNet *buildMSNet(const OptionsCont &options);
 
-    /// returns the detectors
-    MSNet::DetectorCont *getDetectors();
+//     /// returns the detectors
+//     MSNet::DetectorCont *getDetectors();
 
     /// returns the preallocated (preinitialised) net
     MSNet &getNet();
@@ -285,9 +289,9 @@ protected:
          (storage for building succeeding lanes) */
     NLSucceedingLaneBuilder   *m_pSLB;
 
-    /** pointer to the NLDetectorBuilder
-        (storage for building detectors) */
-    MSNet::DetectorCont       *m_pDetectors;
+//     /** pointer to the NLDetectorBuilder
+//         (storage for building detectors) */
+//     MSNet::DetectorCont       *m_pDetectors;
 
     /// the id of the build net (not yet used!!!)
     std::string                    m_Id; // !!! not yet set

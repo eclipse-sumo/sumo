@@ -398,14 +398,14 @@ NLNetHandler::addDetector(const Attributes &attrs) {
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            myContainer.addDetector(
-                NLDetectorBuilder::buildInductLoop(id,
-                    getString(attrs, SUMO_ATTR_LANE),
-                    getFloat(attrs, SUMO_ATTR_POSITION),
-                    getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                    getString(attrs, SUMO_ATTR_STYLE),
-                    getString(attrs, SUMO_ATTR_FILE),
-                    _file));
+//             myContainer.addDetector(
+//                 NLDetectorBuilder::buildInductLoop(id,
+//                     getString(attrs, SUMO_ATTR_LANE),
+//                     getFloat(attrs, SUMO_ATTR_POSITION),
+//                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+//                     getString(attrs, SUMO_ATTR_STYLE),
+//                     getString(attrs, SUMO_ATTR_FILE),
+//                     _file));
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
@@ -774,12 +774,12 @@ NLNetHandler::closeTrafficLightLogic() {
         m_ActiveSimplePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else {
-        MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState  >
+        MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
-            new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState > (
+            new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActiveActuatedPhases, 0,
                     myContainer.getInLanes(), 0);
-        myContainer.addDetectors(tlLogic->getDetectorList());
+//         myContainer.addDetectors(tlLogic->getDetectorList());
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActiveActuatedPhases.clear();
