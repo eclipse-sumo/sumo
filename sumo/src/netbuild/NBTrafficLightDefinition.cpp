@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -42,6 +45,8 @@ namespace
 #include <string>
 #include <algorithm>
 #include <cassert>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogicVector.h"
@@ -58,6 +63,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -436,8 +447,10 @@ NBTrafficLightDefinition::buildLoadedTrafficLights()
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
                     getID(), pos++);
             } else {
-                cout << "Warning: Could not set signal on connection (signal: "
-                    << getID() << ", group: " << group->getID() << ")" << endl;
+                MsgHandler::getWarningInstance()->inform(
+                    string("Could not set signal on connection (signal: ")
+                    + getID() + string(", group: ") + group->getID()
+                    + string(")"));
             }
         }
     }
@@ -536,7 +549,7 @@ NBTrafficLightDefinition::computeTrafficLightLogics(const std::string &key,
 
 #ifdef TL_DEBUG
     if(maxStromAnz>=10) {
-        cout << _junction->getID() << ":" << maxStromAnz << endl;
+        DEBUG_OUT << _junction->getID() << ":" << maxStromAnz << endl;
     }
 #endif
 

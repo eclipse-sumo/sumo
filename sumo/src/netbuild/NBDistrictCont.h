@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/20 16:23:08  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -77,7 +80,7 @@ public:
     static void clear();
 
     /// reports how many districts were loaded
-    static void report(bool verbose);
+    static void report();
 
     /// adds a source to the named district
     static bool addSource(const std::string &dist, NBEdge *source,

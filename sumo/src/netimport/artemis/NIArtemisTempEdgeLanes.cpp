@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:14:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/06/05 11:44:51  dkrajzew
 // class templates applied; documentation added
 //
@@ -38,7 +41,7 @@ namespace
 #include <map>
 #include <cassert>
 #include <utils/common/DoubleVector.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include <bitset>
 #include <algorithm>
@@ -158,7 +161,7 @@ NIArtemisTempEdgeLanes::close()
         // get the edge and check it
         NBEdge *edge = NBEdgeCont::retrieve(name);
         if(edge==0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("Trying to assign lanes to the unknown edge '")
                 + name + string("'."));
             continue;
@@ -184,12 +187,6 @@ NIArtemisTempEdgeLanes::close()
                 setLanes[k].set(laneNo);
             }
         }
-/*
-        for(DoubleVector::iterator m=poses.begin(); m!=poses.end(); m++) {
-            cout << (*m) << ", ";
-        }
-        cout << endl;
-*/
         // go through the build container and split the edge
         double lengthRemoved = 0;
         for(size_t k=1; k<setLanes.size()-1; k++) {
@@ -204,7 +201,7 @@ NIArtemisTempEdgeLanes::close()
             if(node==0) {
                 node = new NBNode(nodename, pos.x(), pos.y(), "priority");
                 if(!NBNodeCont::insert(node)) {
-                    SErrorHandler::add(
+                    MsgHandler::getErrorInstance()->inform(
                         string("Problems on adding a lane-splitting node for edge '")
                         + name + string("'."));
                     delete node;

@@ -1,12 +1,12 @@
-#ifndef MSRouteLoader_h
-#define MSRouteLoader_h
+#ifndef MsgRetriever_h
+#define MsgRetriever_h
 /***************************************************************************
-                          MSRouteLoader.h
-			  A class that performs the loading of routes
+                          MsgRetriever.h  -
+    Retrieves messages about the process
                              -------------------
     project              : SUMO
-    begin                : Wed, 6 Nov 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
+    begin                : Tue, 17 Jun 2003
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
     author               : Daniel Krajzewicz
     email                : Daniel.Krajzewicz@dlr.de
  ***************************************************************************/
@@ -19,66 +19,42 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
 // $Log$
-// Revision 1.3  2003/06/18 11:12:51  dkrajzew
+// Revision 1.1  2003/06/18 11:22:56  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
-// Revision 1.2  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
-//
-// Revision 1.1  2003/02/07 10:41:51  dkrajzew
-// updated
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <string>
-#include <utils/common/FileErrorReporter.h>
-#include <microsim/MSNet.h>
-#include "MSVehicleContainer.h"
-#include "MSRouteHandler.h"
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class MSRouteLoader
+ * MsgRetriever
  */
-class MSRouteLoader : public MSRouteHandler
-{
+class MsgRetriever {
 public:
-    /// constructor
-    MSRouteLoader(const std::string &file, MSNet &net);
+    /// adds a new error to the list
+    virtual void inform(const std::string &error) = 0;
+
+protected:
+    /// standard constructor
+    MsgRetriever() { }
 
     /// destructor
-    ~MSRouteLoader();
+    virtual ~MsgRetriever() { }
 
-    /** loads vehicles until a vehicle is read that starts after
-        the specified time */
-    void loadUntil(MSNet::Time time, MSVehicleContainer &into);
-
-    /// resets the reader
-    void init();
-
-    /// returns the information whether new data is available
-    bool moreAvailable() const;
-private:
-    /// the used SAX2XMLReader
-    SAX2XMLReader* myParser;
-
-    /// the token for saving the current position
-    XMLPScanToken  myToken;
-
-    /// information whether more vehicles should be available
-    bool _moreAvailable;
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "MSRouteLoader.icc"
+//#include "MsgRetriever.icc"
 //#endif
 
 #endif

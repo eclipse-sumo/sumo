@@ -50,11 +50,18 @@
 #include <xercesc/util/XMLString.hpp>
 #include <utils/convert/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSTriggeredSourceXMLHandler::MSTriggeredSourceXMLHandler(
     MSTriggeredSource& aSource )
     : mySource( aSource ),
@@ -184,10 +191,9 @@ MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
 
     MSRoute* route = MSRoute::dictionary( routeStr );
     if ( route == 0 ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Route '" << routeStr << "' does not exist."
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Route '") + routeStr + string("' does not exist."));
         throw ProcessError();
     }
 
@@ -196,16 +202,16 @@ MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
         myRouteDistAttributes.find( string( "frequency" ) )->second;
     double freq;
     if ( ! isString2doubleSuccess( freqStr, freq ) ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": No conversion possible on attribute \"frequency\" "
-            "with value " << freqStr << ". Quitting." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": No conversion possible on attribute \"frequency\" ")
+            + string("with value ") + freqStr);
         throw ProcessError();
     }
     if ( freq < double( 0 ) ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Attribute \"frequency\" has value < 0. Quitting." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Attribute \"frequency\" has value < 0."));
         throw ProcessError();
     }
 
@@ -226,10 +232,12 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
 
     MSVehicle* veh = MSVehicle::dictionary( myEmitId );
     if ( veh != 0 ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Vehicle " << myEmitId << " does already exist. "
-            "Continuing with next element." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Vehicle ") + myEmitId
+            + string(" does already exist. "));
+        MsgHandler::getWarningInstance()->inform(
+            "Continuing with next element.");
         throw ProcessError();
     }
 
@@ -238,14 +246,14 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     string emitType = myEmitAttributes.find( string( "vehtype" ) )->second;
     MSVehicleType* type = MSVehicleType::dictionary( emitType );
     if ( type == 0 ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Vehicle type " << emitType << " does not exist. "
-            "Continuing with next element." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Vehicle type ") + emitType + string(" does not exist. "));
+        MsgHandler::getWarningInstance()->inform(
+            "Continuing with next element.");
         throw ProcessError();
     }
     else {
-
         myEmitVehType = type;
     }
 
@@ -254,10 +262,10 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     double time;
     if ( ! isString2doubleSuccess( timeStr, time ) )
     {
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": No conversion possible on attribute \"time\" with value "
-             << timeStr << ". Continuing with next element."
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": No conversion possible on attribute \"time\" with value ")
+            + timeStr);
         throw ProcessError();
     }
 
@@ -278,17 +286,18 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
     string speedStr = myEmitAttributes.find( string( "speed" ) )->second;
     double speed;
     if ( ! isString2doubleSuccess( speedStr, speed ) ) {
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": No conversion possible on attribute \"speed\" with value "
-             << speedStr << ". Continuing with next element."
-             << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": No conversion possible on attribute \"speed\" with value ")
+            + speedStr);
         throw ProcessError();
     }
     if ( speed < 0 || speed > mySource.myLane->maxSpeed() ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Speed < 0 or > lane's max-speed. "
-            "Continuing with next element." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") +  mySource.getId()
+            + string(": Speed < 0 or > lane's max-speed. "));
+        MsgHandler::getWarningInstance()->inform(
+            "Continuing with next element.");
         throw ProcessError();
     }
     else {
@@ -311,19 +320,17 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
 
     if ( TplConvert<XMLCh>::_2str( aLocalname ) !=
          string( "triggeredsource" ) ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": No parent token \"triggeredsource\" found."
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": No parent token \"triggeredsource\" found."));
         throw ProcessError();
     }
 
     // Check for the two attributes id, lane and pos
     if ( aAttributes.getLength() != 3 ) {
-
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Wrong number of attributes in first token. "
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Wrong number of attributes in first token. "));
         throw ProcessError();
     }
 
@@ -349,10 +356,9 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
                 mySource.setLane( lane );
             }
             else {
-
-                cerr << "MSTriggeredSource " << mySource.getId()
-                     << ": Lane-id " << attrValue << " does not exist."
-                     << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("MSTriggeredSource ") + mySource.getId()
+                    + string(": Lane-id ") + attrValue + string(" does not exist."));
                 throw ProcessError();
             }
         }
@@ -366,18 +372,16 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
                     mySource.setPos( pos );
                 }
                 else {
-
-                    cerr << "MSTriggeredSource " << mySource.getId()
-                         << ": Position of source not within lane."
-                         << endl;
+                    MsgHandler::getErrorInstance()->inform(
+                        string("MSTriggeredSource ") + mySource.getId()
+                        + string(": Position of source not within lane."));
                     throw ProcessError();
                 }
             }
             else {
-
-                cerr << "MSTriggeredSource " << mySource.getId()
-                     << ": No conversion possible on attribute " << attrName
-                     << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("MSTriggeredSource ") + mySource.getId()
+                    + string(": No conversion possible on attribute ") + attrName);
                 throw ProcessError();
             }
         }
@@ -397,10 +401,10 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
     if ( elemName != string( "routedist" ) &&
          elemName != string( "routedistelem" ) ) {
 
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Token name \"" << elemName
-             << "\" sould be \"routedist\" or \"routedistelem\". Quitting."
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Token name \"") + elemName
+            + string("\" sould be \"routedist\" or \"routedistelem\"."));
         throw ProcessError();
     }
 
@@ -411,19 +415,18 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
             myIsParsedRouteDistToken = true;
             return true;
         }
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Token name \"" << elemName
-             << "\" sould be \"routedist\". Quitting."
-             << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Token name \"") + elemName
+            + string("\" sould be \"routedist\"."));
         throw ProcessError();
     }
     else {
 
         if ( elemName == string( "routedist" ) ) {
-
-            cerr << "MSTriggeredSource " << mySource.getId()
-                 << ": Multiple tokens \"routedist\". Quitting."
-                 << endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("MSTriggeredSource ") + mySource.getId()
+                + string(": Multiple tokens \"routedist\"."));
             throw ProcessError();
         }
 
@@ -431,30 +434,28 @@ MSTriggeredSourceXMLHandler::isParseRouteDistSuccess(
 
             // check attributes
             if ( aAttributes.getLength() != myRouteDistAttributes.size() ) {
-
-                cerr << "MSTriggeredSource " << mySource.getId()
-                     << ": Wrong number of attributes during RouteDist"
-                    " parsing. Quitting." << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("MSTriggeredSource ") + mySource.getId()
+                    + string(": Wrong number of attributes during RouteDist")
+                    + string(" parsing."));
                 throw ProcessError();
             }
 
             if ( ! isAttributes2mapSuccess(
                      myRouteDistAttributes, aAttributes ) ) {
-
-                cerr << "MSTriggeredSource " << mySource.getId()
-                     << ": Wrong attribute during RouteDist parsing. "
-                    "Quiting." << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("MSTriggeredSource ") + mySource.getId()
+                    + string(": Wrong attribute during RouteDist parsing. "));
                 throw ProcessError();
             }
 
             return isProperRouteDistValues();
         }
         else {
-
-            cerr << "MSTriggeredSource " << mySource.getId()
-                 << ": Token name \"" << elemName
-                 << "\" sould be \"routedistelem\". Quitting."
-                 << endl;
+            MsgHandler::getErrorInstance()->inform(
+                string("MSTriggeredSource ") + mySource.getId()
+                + string(": Token name \"") + elemName
+                + string("\" sould be \"routedistelem\"."));
             throw ProcessError();
         }
     }
@@ -470,26 +471,26 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
     if ( TplConvert<XMLCh>::_2str( aLocalname ) !=
          string( "emit" ) ) {
 
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Token name \""
-             << TplConvert<XMLCh>::_2str( aLocalname )
-             << "\" sould be \"emit\". Continuing with next element."
-             << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Token name \"")
+            + TplConvert<XMLCh>::_2str( aLocalname )
+            + string("\" sould be \"emit\"."));
         throw ProcessError();
     }
     if ( aAttributes.getLength() != myEmitAttributes.size() ) {
 
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Wrong number of attributes. "
-            "Continuing with next element." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Wrong number of attributes. "));
         throw ProcessError();
     }
 
     if ( ! isAttributes2mapSuccess( myEmitAttributes, aAttributes ) ) {
 
-        cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Wrong attribute. "
-            "Continuing with next element." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("MSTriggeredSource ") + mySource.getId()
+            + string(": Wrong attribute. "));
         throw ProcessError();
     }
 
@@ -579,6 +580,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.7  2003/06/18 11:12:51  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/02/07 10:41:50  dkrajzew
 // updated
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.9  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -63,7 +66,7 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/importio/LineReader.h>
@@ -109,7 +112,7 @@ ROLoader::loadNet()
     RONet *net = new RONet(_options.isSet("sumo-input"));
     std::string files = _options.getString("n");
     if(!FileHelpers::checkFileList(files)) {
-        SErrorHandler::add("Net not found!");
+        MsgHandler::getErrorInstance()->inform("Net not found!");
         delete net;
         return 0;
     }
@@ -192,7 +195,6 @@ ROLoader::processRoutesStepWise(long start, long end,
     long time=getMinTimeStep();
     long firstStep = time;
     long lastStep = time;
-//    cout << firstStep << ", " << lastStep << ", " << time << ", " << absNo << endl;
     for(; (!endReached||net.furtherStored())&&time<end; time++) {
         if(_options.getBool("v")) {
 			double perc =
@@ -281,9 +283,9 @@ ROLoader::openTypedRoutes(ROTypedRoutesLoader *handler,
 {
     // check the given files
     if(!FileHelpers::checkFileList(_options.getString(optionName))) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The list of ") + handler->getDataName() +
-            string("' is empty!"), true);
+            string("' is empty!"));
         throw ProcessError();
     }
     // allocate a reader and add it to the list
@@ -301,7 +303,7 @@ ROLoader::addToHandlerList(ROTypedRoutesLoader *handler,
         // check whether the file can be used
         //  necessary due to the extensions within cell-import
         if(!handler->checkFile(file)) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("Problems with ")
                 + handler->getDataName() + string("-typed input '")
                 + file + string("'."));
@@ -311,7 +313,7 @@ ROLoader::addToHandlerList(ROTypedRoutesLoader *handler,
         ROTypedRoutesLoader *instance = handler->getAssignedDuplicate(file);
         if(!instance->init(_options)) {
             delete instance;
-            SErrorHandler::add(string("The loader for ") + handler->getDataName()
+            MsgHandler::getErrorInstance()->inform(string("The loader for ") + handler->getDataName()
                 + string(" from file '") + file + string("' could not be initialised."));
             throw ProcessError();
         }
@@ -327,27 +329,26 @@ ROLoader::loadWeights(RONet &net) {
     string weightsFileName = _options.getString("w");
     // check whether the file exists
     if(!FileHelpers::exists(weightsFileName)) {
-        SErrorHandler::add(string("The weights file '") + weightsFileName + string("' does not exist!"), true);
+        MsgHandler::getErrorInstance()->inform(
+            string("The weights file '") + weightsFileName
+            + string("' does not exist!"));
         return false;
     }
     // build and prepare the weights handler
     ROWeightsHandler handler(_options, net, weightsFileName);
     // build and prepare the parser
     SAX2XMLReader *reader = getSAXReader(handler);
-    // report whe wished
-    if(_options.getBool("v")) {
-        cout << "Loading precomputed net weights." << endl;
-    }
+    // report when wished
+    MsgHandler::getMessageInstance()->inform(
+        "Loading precomputed net weights.");
     // read the file
     reader->parse(weightsFileName.c_str());
-    bool ok = !SErrorHandler::errorOccured();
+    bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
-    if(_options.getBool("v")) {
-        if(ok) {
-            cout << "done." << endl;
-        } else {
-            cout << "failed." << endl;
-        }
+    if(ok) {
+        MsgHandler::getMessageInstance()->inform("done.");
+    } else {
+        MsgHandler::getMessageInstance()->inform("failed.");
     }
     delete reader;
     return ok;
@@ -358,7 +359,7 @@ ROLoader::getSAXReader(GenericSAX2Handler &handler)
 {
     SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
     if(reader==0) {
-        SErrorHandler::add("The XML-parser could not be build", true);
+        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
         return 0;
     }
     reader->setFeature(
@@ -389,7 +390,7 @@ ROLoader::loadSumoRoutes(RONet &net)
     string routesFileName = _options.getString("s");
     // check whether the file exists
     if(!FileHelpers::exists(routesFileName)) {
-        SErrorHandler::add(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
+        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
         return false;
     }
     // build and prepare the weights handler
@@ -403,7 +404,7 @@ ROLoader::loadSumoRoutes(RONet &net)
     bool ok = true;
     for(size_t i=0; ok&&i<2; i++) {
         _parser->parse(routesFileName.c_str());
-        ok = !SErrorHandler::errorOccured();
+        ok = !MsgHandler::getErrorInstance()->wasInformed();
         handler.incStep();
     }
     // report whe wished
@@ -423,7 +424,7 @@ ROLoader::loadCellRoutes(RONet &net)
     string routesFileName = _options.getString("cell-input");
     // check whether the file exists
     if(!FileHelpers::exists(routesFileName)) {
-        SErrorHandler::add(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
+        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
         return false;
     }
     StringTokenizer st(routesFileName, ";");
@@ -445,7 +446,7 @@ ROLoader::loadXMLRouteDefs(RONet &net)
     string routesFileName = _options.getString("r");
     // check whether the file exists
     if(!FileHelpers::exists(routesFileName)) {
-        SErrorHandler::add(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
+        MsgHandler::getErrorInstance()->inform(string("The route definitions file '") + routesFileName + string("' does not exist!"), true);
         return false;
     }
     // build and prepare the weights handler
@@ -458,7 +459,7 @@ ROLoader::loadXMLRouteDefs(RONet &net)
         cout << "Loading route definitions...";
     // read the file
     _parser->parse(routesFileName.c_str());
-    bool ok = !SErrorHandler::errorOccured();
+    bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
     if(_options.getBool("v")) {
         if(ok)
@@ -476,7 +477,7 @@ ROLoader::loadNetInto(RONet &net)
 {
     std::string files = _options.getString("n");
     if(!FileHelpers::checkFileList(files)) {
-        SErrorHandler::add("No net given found!");
+        MsgHandler::getErrorInstance()->inform("No net given found!");
         return false;
     }
     RONetHandler handler(*_options, net);
@@ -503,19 +504,17 @@ ROLoader::loadNet(SAX2XMLReader *reader, RONetHandler &handler,
 	    if(FileHelpers::exists(tmp)) {
 	        handler.setFileName(tmp);
 	        reader->parse(tmp.c_str());
-	        ok = !(SErrorHandler::errorOccured());
+	        ok = !(MsgHandler::getErrorInstance()->wasInformed());
 	    } else {
-            if(_options.getBool("v")) {
-                cout << "failed." << endl;
-            }
-    	    SErrorHandler::add(string("The given file '") + tmp + string("' does not exist!"), true);
+            MsgHandler::getMessageInstance()->inform("failed.");
+    	    MsgHandler::getErrorInstance()->inform(
+                string("The given file '") + tmp
+                + string("' does not exist!"));
             ok = false;
 	    }
     }
-    if(_options.getBool("v")) {
-        if(ok) {
-            cout << "done." << endl;
-        }
+    if(ok) {
+        MsgHandler::getMessageInstance()->inform("done.");
     }
     return ok;
 }

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.8  2003/06/06 10:54:20  dkrajzew
 // deletion of the MSLaneState-singleton map added
 //
@@ -124,11 +127,13 @@ namespace
 #include <netload/NLNetBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
@@ -160,26 +165,27 @@ bool
 checkSettings(OptionsCont *oc) {
     bool ok = true;
     try {
-      if(oc!=0) oc->resetDefaults();
-      // check the existance of a name for simulation file
-      if(!oc->isSet("n")) {
-        cout << "Error: No simulation file (-n) specified." << endl;
-        ok = false;
-      }
-      // check if the begin and the end of the simulation are supplied
-      if(!oc->isSet("b")) {
-        cout << "Error: The begin of the simulation (-b) is not specified."
-            << endl;
-        ok = false;
-      }
-      if(!oc->isSet("e")) {
-        cout << "Error: The end of the simulation (-e) is not specified."
-            << endl;
-        ok = false;
-      }
+        if(oc!=0) oc->resetDefaults();
+        // check the existance of a name for simulation file
+        if(!oc->isSet("n")) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error: No simulation file (-n) specified.");
+            ok = false;
+        }
+        // check if the begin and the end of the simulation are supplied
+        if(!oc->isSet("b")) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error: The begin of the simulation (-b) is not specified.");
+            ok = false;
+        }
+        if(!oc->isSet("e")) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error: The end of the simulation (-e) is not specified.");
+            ok = false;
+        }
     } catch (InvalidArgument &e) {
-      cout << e.msg() << endl;
-      return false;
+        MsgHandler::getErrorInstance()->inform(e.msg());
+        return false;
     }
     return ok;
 }
@@ -238,27 +244,25 @@ int
 main(int argc, char **argv)
 {
     SingletonDictionary< std::string, MSLaneState* >::create();
-
+    OptionsCont *oc = 0;
     size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
     srand(rand_init);
     int ret = 0;
     try {
-        // try to initialise the XML-subsystem
-        if(!XMLSubSys::init()) {
-            return 1;
-        }
         // parse the settings
-        OptionsCont *oc = getSettings(argc, argv);
+        oc = getSettings(argc, argv);
         if(oc==0) {
-            cout << "Quitting." << endl;
-            return 1;
+            throw ProcessError();
+        }
+        // try to initialise the XML-subsystem
+        if(!SystemFrame::init(false, oc)) {
+            throw ProcessError();
         }
         // check whether only the help shall be printed
         if(oc->getBool("help")) {
             HelpPrinter::print(help);
-            delete oc;
             return 0;
         }
         // load the net
@@ -267,21 +271,24 @@ main(int argc, char **argv)
         // simulate when everything's ok
         ostream *craw = SUMOFrame::buildRawOutputStream(oc);
         // report the begin when wished
-        if(oc->getBool("v"))
-            cout << "Simulation started with time: " << oc->getInt("b") << endl;
+        MsgHandler::getMessageInstance()->inform(
+            string("Simulation started with time: ")
+            + toString<int>(oc->getInt("b")));
         // simulate
         net->preStartInit();
         net->simulate(craw, oc->getInt("b"), oc->getInt("e"));
         // report the end when wished
-        if(oc->getBool("v"))
-            cout << "Simulation ended at time: " << oc->getInt("e") << endl;
-        delete oc;
+        MsgHandler::getMessageInstance()->inform(
+            string("Simulation ended at time: ")
+            + toString<int>(oc->getInt("e")));
         delete net;
         delete craw;
     } catch (ProcessError) {
+        MSNet::clearAll();
+        MsgHandler::getErrorInstance()->inform("Quitting.");
         ret = 1;
     }
+    SystemFrame::close(oc);
     delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
-    XMLSubSys::close();
     return ret;
 }

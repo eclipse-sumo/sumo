@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.15  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
 //
@@ -73,16 +76,17 @@ namespace
 #include <string>
 #include <fstream>
 #include <limits.h>
-#include "router/ROLoader.h"
-#include "router/ROLoader.h"
-#include "router/RONet.h"
-#include "utils/common/SErrorHandler.h"
-#include "utils/options/Option.h"
-#include "utils/options/OptionsCont.h"
-#include "utils/options/OptionsIO.h"
-#include "utils/common/UtilExceptions.h"
+#include <router/ROLoader.h>
+#include <router/RONet.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/options/Option.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/SystemFrame.h>
 #include "utils/common/HelpPrinter.h"
-#include "utils/xml/XMLSubSys.h"
+#include <utils/convert/ToString.h>
+#include <utils/xml/XMLSubSys.h>
 #include "router_help.h"
 
 /* =========================================================================
@@ -114,12 +118,14 @@ bool checkSettings(OptionsCont *oc)
 {
     // check whether the output is valid and can be build
     if(!oc->isSet("o")) {
-        cout << "No output specified." << endl;
+        MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
     std::ofstream tst(oc->getString("o").c_str());
     if(!tst.good()) {
-        cout << "The output file '" << oc->getString("o") << "' can not be build." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("The output file '") + oc->getString("o")
+            + string("' can not be build."));
         return false;
     }
     //
@@ -158,7 +164,8 @@ getSettings(int argc, char **argv)
     oc->doRegister("gA", new Option_Float(1.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("suppress-short-trip-warnings", new Option_Bool(false));
+    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc->doRegister("continue-on-unbuild", new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
     oc->doRegister("no-config", 'C', new Option_Bool(false));
@@ -222,7 +229,7 @@ buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
     if(!ret->good()) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The file '") + name +
             string("' could not be opened for writing."));
         throw ProcessError();
@@ -283,21 +290,19 @@ main(int argc, char **argv)
     // _CrtSetBreakAlloc(434490);
 #endif
 #endif
-    bool verbose = false;
     int ret = 0;
     RONet *net = 0;
     OptionsCont *oc = 0;
     try {
-        // initialise the xml-subsystem
-        //  (options and data loading)
-        if(!XMLSubSys::init()) {
-            return 1;
-        }
         // get the options
         oc = getSettings(argc, argv);
         // test whether only the help was printed
         if(oc==0) {
             return 0;
+        }
+        // initialise the subsystem
+        if(!SystemFrame::init(false, oc)) {
+            throw ProcessError();
         }
         // load data
         ROLoader loader(*oc);
@@ -309,27 +314,27 @@ main(int argc, char **argv)
             try {
                 startComputation(*net, loader, *oc);
             } catch (SAXParseException e) {
-                cout << "Error:" << e.getLineNumber() << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    string("Error:") + toString<int>(e.getLineNumber()));
                 ret = 1;
             } catch (SAXException e) {
-                cout << "Error:"
-                    << TplConvert<XMLCh>::_2str(e.getMessage())
-                    << endl;
+                MsgHandler::getErrorInstance()->inform(
+                    TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;
             }
         } else {
             ret = 1;
         }
-        verbose = oc->getBool("v");
         delete oc;
     } catch (ProcessError) {
-        cout << "Quitting (building failed)." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            "Quitting (building failed).");
         ret = 1;
     }
     delete net;
-    XMLSubSys::close();
-    if(verbose&&ret==0) {
-        cout << "Success." << endl;
+    SystemFrame::close(oc);
+    if(ret==0) {
+        MsgHandler::getMessageInstance()->inform("Success.");
     }
     return ret;
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.15  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -109,6 +112,7 @@ namespace
 //#include <strstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundery.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "NBDistrict.h"
 #include "NBNodeCont.h"
@@ -264,7 +268,7 @@ NBNodeCont::erase(NBNode *node)
 
 
 bool
-NBNodeCont::normaliseNodePositions(bool verbose)
+NBNodeCont::normaliseNodePositions()
 {
     // compute the boundery
     Boundery boundery;
@@ -284,7 +288,7 @@ NBNodeCont::normaliseNodePositions(bool verbose)
 
 
 bool
-NBNodeCont::computeLanes2Lanes(bool verbose)
+NBNodeCont::computeLanes2Lanes()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->computeLanes2Lanes();
@@ -305,7 +309,7 @@ NBNodeCont::computeLogics(OptionsCont &oc)
 
 
 bool
-NBNodeCont::sortNodesEdges(bool verbose)
+NBNodeCont::sortNodesEdges()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->sortNodesEdges();
@@ -356,16 +360,15 @@ NBNodeCont::clear()
 
 
 void
-NBNodeCont::report(bool verbose)
+NBNodeCont::report()
 {
-    if(verbose) {
-        cout << "   " << getNo() << " nodes loaded." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("   ") + toString<int>(getNo()) + string(" nodes loaded."));
 }
 
 
 bool
-NBNodeCont::recheckEdges(bool verbose)
+NBNodeCont::recheckEdges()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         // count the edges to other nodes outgoing from the current
@@ -397,14 +400,15 @@ NBNodeCont::recheckEdges(bool verbose)
 
 
 bool
-NBNodeCont::removeDummyEdges(bool verbose)
+NBNodeCont::removeDummyEdges()
 {
 	size_t no = 0;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        no += (*i).second->eraseDummies(verbose);
+        no += (*i).second->eraseDummies();
     }
 	if(no!=0) {
-		cout << "Warning: " << no << " dummy edges removed." << endl;
+        MsgHandler::getWarningInstance()->inform(
+		    toString<int>(no) + string(" dummy edges removed."));
 	}
     return true;
 }

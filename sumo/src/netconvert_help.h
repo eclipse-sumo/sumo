@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.5  2003/06/05 14:41:53  dkrajzew
 // further parameter contraining the area of connectors to join (VIssim) added
 //
@@ -85,6 +88,7 @@ char *help[] = {
     " Processing Options:",
     "   -C, --no-config                No configuration file is used",
     "   -v, --verbose                  SUMO-Netconvert reports what it does",
+    "   -W, --suppress-warnings        No warnings will be printed",
     "   -p, --print-options            Prints option values before processing",
     "   --flip-y                       Flips the y-coordinate along zero",
     "   --speed-in-km                  vmax is parsed as given in km/h; XML only",

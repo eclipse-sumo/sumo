@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.11  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -119,6 +122,8 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBOptionsIO.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -227,7 +232,7 @@ NBOptionsIO::init()
 	oc->doRegister("vissim-offset", new Option_Float(5.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("warn", 'w', new Option_Bool(false));
+    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
     // register the data processing options
@@ -258,16 +263,16 @@ NBOptionsIO::init()
 bool
 NBOptionsIO::check(OptionsCont *oc)
 {
-   bool ok = true;
-   try {
-      if(!checkCompleteDescription(oc)) {
-         if(!checkNodes(oc)) ok = false;
-         if(!checkEdges(oc)) ok = false;
-         if(!checkOutput(oc)) ok = false;
-      }
+    bool ok = true;
+    try {
+        if(!checkCompleteDescription(oc)) {
+            if(!checkNodes(oc)) ok = false;
+            if(!checkEdges(oc)) ok = false;
+            if(!checkOutput(oc)) ok = false;
+        }
     } catch (InvalidArgument &e) {
-      cout << e.msg() << endl;
-      return false;
+        MsgHandler::getErrorInstance()->inform(e.msg());
+        return false;
     }
     return ok;
 }
@@ -296,7 +301,7 @@ NBOptionsIO::checkNodes(OptionsCont *oc)
         oc->isSet("sumo-net") ) {
         return true;
     }
-    cout << "Error: The nodes must be supplied." << endl;
+    MsgHandler::getErrorInstance()->inform("The nodes must be supplied.");
     return false;
 }
 
@@ -316,7 +321,8 @@ NBOptionsIO::checkEdges(OptionsCont *oc)
         oc->isSet("sumo-net") ) {
         return true;
     }
-    cout << "Error: Either sections or edges must be supplied." << endl;
+    MsgHandler::getErrorInstance()->inform(
+        "Either sections or edges must be supplied.");
     return false;
 }
 
@@ -326,8 +332,9 @@ NBOptionsIO::checkOutput(OptionsCont *oc)
 {
     ofstream strm(oc->getString("o").c_str()); // !!! should be made when input are ok
     if(!strm.good()) {
-        cout << "Error: The output file \"" << oc->getString("o")
-            << "\" can not be build." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("The output file \"") + oc->getString("o")
+            + string("\" can not be build."));
         return false;
     }
     return true;

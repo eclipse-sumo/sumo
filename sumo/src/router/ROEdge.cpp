@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.5  2003/04/14 13:54:20  roessel
 // Removed "EdgeType::" in method ROEdge::getNoFollowing().
 //
@@ -46,7 +49,7 @@ namespace
 #else
 #define DBL_MAX 10000000000.0 // !!!
 #endif
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <algorithm>
 #include "ROLane.h"
 #include "ROEdge.h"
@@ -113,7 +116,7 @@ void ROEdge::setLane(long timeBegin, long timeEnd,
             return;
         }
     }
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Un unknown lane '") + id
         + string("' occured at loading weights."));
 }

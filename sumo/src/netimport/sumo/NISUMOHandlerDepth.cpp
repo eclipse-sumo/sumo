@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/06/18 11:15:04  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:13:27  dkrajzew
 // names changed
 //
@@ -41,8 +44,8 @@ namespace
 #include "NISUMOHandlerDepth.h"
 
 
-NISUMOHandlerDepth::NISUMOHandlerDepth(LoadFilter what, bool warn, bool verbose)
-    : SUMOSAXHandler("sumo-network", warn, verbose),
+NISUMOHandlerDepth::NISUMOHandlerDepth(LoadFilter what)
+    : SUMOSAXHandler("sumo-network"),
     _loading(what)
 {
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.8  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -71,7 +74,7 @@ namespace
 #include "RORouter.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 
 using namespace std;
 
@@ -103,7 +106,7 @@ void
 RONet::addEdge(const std::string &name, ROEdge *edge)
 {
     if(!_edges.add(name, edge)) {
-        SErrorHandler::add(string("The edge '") + name + string("' occures at least twice."));
+        MsgHandler::getErrorInstance()->inform(string("The edge '") + name + string("' occures at least twice."));
     }
 }
 
@@ -254,7 +257,7 @@ RONet::saveRoute(OptionsCont &options, RORouter &router,
     RORouteDef *routeDef = veh->getRoute();
     // check if the route definition is valid
     if(routeDef==0) {
-        SErrorHandler::add(string("The vehicle '") + veh->getID()
+        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh->getID()
             + string("' has no valid route."));
         return false;
     }

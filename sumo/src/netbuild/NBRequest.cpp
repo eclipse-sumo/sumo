@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.14  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -105,6 +108,8 @@ namespace
 #include <sstream>
 #include <map>
 #include <cassert>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"
@@ -187,11 +192,11 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                 string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
                 string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
                 string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
-				cout << " Warning: could not prohibit "
-					<< pfID << "->" << ptID
-					<< " by "
-					<< bfID << "->" << ptID
-					<< endl;
+                MsgHandler::getWarningInstance()->inform(
+				    string("could not prohibit ")
+					+ pfID + string("->") + ptID
+					+ string(" by ")
+					+ bfID + string("->") + ptID);
                 myNotBuild++;
             }
         }
@@ -515,16 +520,16 @@ NBRequest::getIndex(NBEdge *from, NBEdge *to) const
 std::ostream &operator<<(std::ostream &os, const NBRequest &r) {
     size_t variations = r._incoming->size() * r._outgoing->size();
     for(size_t i=0; i<variations; i++) {
-        cout << i << ' ';
+        os << i << ' ';
         for(size_t j=0; j<variations; j++) {
             if(r._forbids[i][j])
-                cout << '1';
+                os << '1';
             else
-                cout << '0';
+                os << '0';
         }
-        cout << endl;
+        os << endl;
     }
-    cout << endl;
+    os << endl;
     return os;
 }
 
@@ -553,9 +558,10 @@ NBRequest::reportWarnings()
 {
     // check if any errors occured on build the link prohibitions
     if(myNotBuild!=0) {
-        cout << "Warning: " << myNotBuild << " of "
-            << (myNotBuild+myGoodBuilds) << " prohibitions were not build."
-            << endl;
+        MsgHandler::getWarningInstance()->inform(
+            toString<int>(myNotBuild) + string(" of ")
+            + toString<int>(myNotBuild+myGoodBuilds)
+            + string(" prohibitions were not build."));
     }
 }
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/06/18 11:17:29  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -60,20 +63,30 @@
 class NIXMLTypesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLTypesHandler(bool warn, bool verbose);
+    NIXMLTypesHandler();
+
     /// destructor
     ~NIXMLTypesHandler();
+
 protected:
+    /// called on the opening of a tag; inherited
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
+
+    /// called after reading intermediate characters; inherited
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
+
+    /// called on the closing of a tag; inherited
     void myEndElement(int element, const std::string &name);
+
 private:
     /** invalid copy constructor */
     NIXMLTypesHandler(const NIXMLTypesHandler &s);
+
     /** invalid assignment operator */
     NIXMLTypesHandler &operator=(const NIXMLTypesHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

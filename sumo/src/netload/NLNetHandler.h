@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:18:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/05/20 09:45:35  dkrajzew
 // some make-up done (splitting large methods; patching comments)
 //
@@ -68,8 +71,7 @@ class SAXParseException;
 class NLNetHandler : public MSRouteHandler {
 public:
     /// standard constructor
-    NLNetHandler(bool verbose, bool warn, const std::string &file,
-        NLContainer &container);
+    NLNetHandler(const std::string &file, NLContainer &container);
 
     /// Destructor
     virtual ~NLNetHandler();

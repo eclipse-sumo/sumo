@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -70,6 +73,8 @@ namespace
 #include <string>
 #include <map>
 #include <iostream>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBType.h"
 #include "NBTypeCont.h"
 #include "NBJunctionTypesMatrix.h"
@@ -120,7 +125,6 @@ int NBTypeCont::getNoLanes(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
-//        cout << "Warning: default number of lanes had to be used" << endl;
         return NBTypeCont::_defaultNoLanes;
     }
     int nolanes = (*i).second->_noLanes;
@@ -131,7 +135,6 @@ double NBTypeCont::getSpeed(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
-//        cout << "Warning: default speed had to be used" << endl;
         return NBTypeCont::_defaultSpeed;
     }
     double speed = (*i).second->_speed;
@@ -142,7 +145,6 @@ int NBTypeCont::getPriority(const string &type)
 {
     TypesCont::iterator i = _types.find(type);
     if(i==_types.end()) {
-//        cout << "Warning: default priority had to be used" << endl;
         return NBTypeCont::_defaultPriority;
     }
     int priority = (*i).second->_priority;
@@ -183,11 +185,11 @@ NBTypeCont::clear() {
 }
 
 void
-NBTypeCont::report(bool verbose)
+NBTypeCont::report()
 {
-    if(verbose) {
-        cout << "   " << getNo() << " types loaded." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("   ") + toString<int>(getNo())
+        + string(" types loaded."));
 }
 
 

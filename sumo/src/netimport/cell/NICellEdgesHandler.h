@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/06/18 11:14:48  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:10:56  dkrajzew
 // names changed
 //
@@ -60,14 +63,17 @@ private:
     NBCapacity2Lanes _capacity2Lanes;
 public:
     /// constructor
-    NICellEdgesHandler(const std::string &file, bool warn, bool verbose,
+    NICellEdgesHandler(const std::string &file,
         NBCapacity2Lanes capacity2Lanes);
+
     /// destructor
     ~NICellEdgesHandler();
+
     /** implementation of the LineHandler-interface called by a LineReader
         interprets the retrieved information and stores it into the global
         NBEdgeCont */
     bool report(const std::string &result);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

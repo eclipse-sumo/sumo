@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.10  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -140,20 +143,20 @@ public:
 	static bool computeLanes2Edges();
 
     /** sorts all lanes of all edges within the container by their direction */
-    static bool sortOutgoingLanesConnections(bool verbose);
+    static bool sortOutgoingLanesConnections();
 
     /** computes the turn-around directions of all edges within the
         container */
-    static bool computeTurningDirections(bool verbose);
+    static bool computeTurningDirections();
 
     /** rechecks whether all lanes have a successor */
-    static bool recheckLanes(bool verbose);
+    static bool recheckLanes();
 
     /** computes the node-internal priorities of links */
 //    static bool computeLinkPriorities(bool verbose);
 
     /** appends turnarounds */
-    static bool appendTurnarounds(bool verbose);
+    static bool appendTurnarounds();
 
     /** @brief Splits the edge at the position nearest to the given node */
     static bool splitAt(NBEdge *edge, NBNode *node);
@@ -194,7 +197,7 @@ public:
     static void clear();
 
     /// reports how many edges were loaded
-    static void report(bool verbose);
+    static void report();
 
     /// joins the given edges as they connect the same nodes
     static void joinSameNodeConnectingEdges(const EdgeVector &edges);

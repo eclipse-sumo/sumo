@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -50,7 +53,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "ROOrigDestRouteDef.h"
@@ -94,7 +97,7 @@ void ROTripHandler::myStartElement(int element, const std::string &name,
         // recheck attributes
         if(myBeginEdge==0||myEndEdge==0||myDepartureTime<0) {
             if(myDepartureTime<0) {
-                SErrorHandler::add("The departure time must be positive.");
+                MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
             }
             return;
         }
@@ -135,15 +138,15 @@ ROTripHandler::getEdge(const Attributes &attrs, const std::string &purpose,
             return e;
         }
     } catch(EmptyData) {
-        SErrorHandler::add(string("Missing ") +
+        MsgHandler::getErrorInstance()->inform(string("Missing ") +
             purpose + string(" edge in description of a route."));
     }
     if(e==0) {
-        SErrorHandler::add(string("The edge '") +
+        MsgHandler::getErrorInstance()->inform(string("The edge '") +
             id + string("' is not known."));
     }
     if(vid.length()!=0) {
-        SErrorHandler::add(string(" Vehicle id='") + vid + string("'."));
+        MsgHandler::getErrorInstance()->inform(string(" Vehicle id='") + vid + string("'."));
     }
     return 0;
 }
@@ -168,10 +171,10 @@ ROTripHandler::getOptionalFloat(const Attributes &attrs,
         return getFloat(attrs, SUMO_ATTR_POS);
     } catch (EmptyData) {
     } catch (NumberFormatException) {
-        SErrorHandler::add(string("The value of '") + name +
+        MsgHandler::getErrorInstance()->inform(string("The value of '") + name +
             string("' should be numeric but is not."));
         if(place.length()!=0)
-            SErrorHandler::add(string(" Route id='") + place + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" Route id='") + place + string("'"));
     }
     return -1;
 }
@@ -185,13 +188,13 @@ ROTripHandler::getDepartureTime(const Attributes &attrs,
     try {
         return getLong(attrs, SUMO_ATTR_DEPART);
     } catch(EmptyData) {
-        SErrorHandler::add("Missing departure time in description of a route.");
+        MsgHandler::getErrorInstance()->inform("Missing departure time in description of a route.");
         if(id.length()!=0)
-            SErrorHandler::add(string(" Vehicle id='") + id + string("'."));
+            MsgHandler::getErrorInstance()->inform(string(" Vehicle id='") + id + string("'."));
     } catch (NumberFormatException) {
-        SErrorHandler::add("The value of the departure time should be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("The value of the departure time should be numeric but is not.");
         if(id.length()!=0)
-            SErrorHandler::add(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
     }
     return -1;
 }
@@ -207,9 +210,9 @@ ROTripHandler::getPeriod(const Attributes &attrs,
     } catch(EmptyData) {
         return -1;
     } catch (NumberFormatException) {
-        SErrorHandler::add("The value of the period should be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("The value of the period should be numeric but is not.");
         if(id.length()!=0)
-            SErrorHandler::add(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
     }
     return -1;
 }
@@ -225,9 +228,9 @@ ROTripHandler::getRepetitionNumber(const Attributes &attrs,
     } catch(EmptyData) {
         return -1;
     } catch (NumberFormatException) {
-        SErrorHandler::add("The number of cars that shall be emitted with the same parameter must be numeric.");
+        MsgHandler::getErrorInstance()->inform("The number of cars that shall be emitted with the same parameter must be numeric.");
         if(id.length()!=0)
-            SErrorHandler::add(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
     }
     return -1;
 }
@@ -255,7 +258,7 @@ ROTripHandler::myCharacters(int element, const std::string &name,
             string id = st.next();
             ROEdge *edge = _net.getEdge(id);
             if(edge==0) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("Could not find edge '") + id
                     + string("' wihtin route '") + myID + string("'."));
                 return;
@@ -269,7 +272,7 @@ ROTripHandler::myCharacters(int element, const std::string &name,
 void
 ROTripHandler::myEndElement(int element, const std::string &name)
 {
-    if(element==SUMO_TAG_TRIPDEF&&!SErrorHandler::errorOccured()) {
+    if(element==SUMO_TAG_TRIPDEF&&!MsgHandler::getErrorInstance()->wasInformed()) {
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = 0;
         if(myEdges.size()==0) {

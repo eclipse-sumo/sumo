@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:18:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -39,9 +42,9 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/MSTrigger.h>
 #include <microsim/MSLaneSpeedTrigger.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
 #include "NLTriggerBuilder.h"
 
 
@@ -69,7 +72,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
     if(objecttype=="lane"&&objectattr=="speed") {
         MSLane *lane = MSLane::dictionary(objectid);
         if(lane==0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("The lane to use within MSLaneSpeedTrigger '")
                 + id + string("' is not known."));
             throw ProcessError();

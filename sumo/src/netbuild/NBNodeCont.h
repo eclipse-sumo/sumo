@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.12  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -149,16 +152,16 @@ public:
     static NodeCont::iterator end();
 
     /// resets the node positions in a way that they begin from (0, 0)
-    static bool normaliseNodePositions(bool verbose);
+    static bool normaliseNodePositions();
 
     /// divides the incoming lanes on outgoing lanes
-    static bool computeLanes2Lanes(bool verbose);
+    static bool computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
     static bool computeLogics(OptionsCont &oc);
 
     /// sorts the nodes' edges
-    static bool sortNodesEdges(bool verbose);
+    static bool sortNodesEdges();
 
     /// writes the number nodes into the given ostream
     static void writeXMLNumber(std::ostream &into);
@@ -176,13 +179,13 @@ public:
     static void clear();
 
     /// reports how many nodes were loaded
-    static void report(bool verbose);
+    static void report();
 
     /// Joins edges connecting the same nodes
-    static bool recheckEdges(bool verbose);
+    static bool recheckEdges();
 
     /// Removes dummy edges (edges lying completely within a node)
-    static bool removeDummyEdges(bool verbose);
+    static bool removeDummyEdges();
 
     static void searchEdgeInNode(std::string nodeid, std::string edgeid);
 

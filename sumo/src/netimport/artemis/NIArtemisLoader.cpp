@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:14:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/26 12:04:56  dkrajzew
 // some debugging
 //
@@ -40,7 +43,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/options/OptionsCont.h>
@@ -87,23 +90,20 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::~NIArtemisSingleDataTypeParser()
 
 
 bool
-NIArtemisLoader::NIArtemisSingleDataTypeParser::parse(bool verbose)
+NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
 {
-    myWorkVerbose = verbose;
-    if(myWorkVerbose) {
-        cout << "Parsing " << getDataName() << "... ";
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("Parsing ") + getDataName() + string("... "));
     string file = myParent.getFileName() + getDataName();
     LineReader reader(file);
     if(!reader.good()) {
         if(!amOptional()) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("Problems on parsing '") + file + string("'."));
             return false;
         } else {
-            if(myWorkVerbose) {
-                cout << "not supplied (no error)." << endl;
-            }
+            MsgHandler::getMessageInstance()->inform(
+                "not supplied (no error).");
             return true;
         }
     }
@@ -111,9 +111,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse(bool verbose)
     myInitialise();
     // skip/set names
     reader.readAll(*this);
-    if(myWorkVerbose) {
-        cout << "done." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform("done.");
     // parser-dependent close
     myClose();
     return true;
@@ -236,7 +234,7 @@ void NIArtemisLoader::load(OptionsCont &options)
 {
     for( ParserVector::iterator i=mySingleDataParsers.begin();
          i!=mySingleDataParsers.end(); i++) {
-        (*i)->parse(options.getBool("v"));
+        (*i)->parse();
     }
 }
 

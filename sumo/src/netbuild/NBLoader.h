@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -88,9 +91,6 @@ public:
     /** loads data from the files specified in the given option container */
     static void load(OptionsCont &oc);
 
-    /// the information whether the loading shall be done in the verbose mode
-    static bool _verbose;
-
 private:
     /** loads data from sumo-files */
     static void loadSUMO(OptionsCont &oc, bool warn);
@@ -129,11 +129,6 @@ private:
     /** loads data from vissim-input-file */
     static void loadVissim(OptionsCont &oc, bool warn);
 
-    /// prints the given message when running in verbose mode
-    static void reportBegin(const std::string &msg);
-
-    /// prints the message "done." when running in verbose mode
-    static void reportEnd();
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

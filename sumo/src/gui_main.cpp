@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/04/16 09:57:05  dkrajzew
 // additional parameter of maximum display size added
 //
@@ -104,10 +107,11 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsParser.h>
-#include <utils/common/SErrorHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/HelpPrinter.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/xml/XMLSubSys.h>
 #include <qstring.h>
 #include <qapplication.h>
@@ -158,27 +162,35 @@ main(int argc, char **argv)
         return 1;
     }
 //    srand(time(0));
+
     srand(1040208551);
-    // initialise the xml-subsystem
-    if(!XMLSubSys::init()) {
-        return 1;
+    int ret = 0;
+    try {
+        // initialise the xml-subsystem
+        if(!SystemFrame::init(true, 0)) {
+            throw ProcessError();
+        }
+        // initialise the q-application
+        QApplication a( argc, argv );
+        if ( !QGLFormat::hasOpenGL() ) {
+            MsgHandler::getErrorInstance()->inform(
+                "This system has no OpenGL support. Exiting." );
+	        throw ProcessError();
+        }
+        // build the main window
+        GUIApplicationWindow * mw =
+            new GUIApplicationWindow(
+                oc->getInt("w"),
+                oc->getInt("h"));
+        a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
+        mw->show();
+        ret = a.exec();
+    } catch(ProcessError &e) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).");
+        ret = 1;
     }
-    // initialise the q-application
-    QApplication a( argc, argv );
-    if ( !QGLFormat::hasOpenGL() ) {
-	    qWarning( "This system has no OpenGL support. Exiting." );
-	    return 1;
-    }
-    // build the main window
-    GUIApplicationWindow * mw =
-        new GUIApplicationWindow(
-            oc->getInt("w"),
-            oc->getInt("h"));
-    a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
-    mw->show();
-    int res = a.exec();
-    XMLSubSys::close();
-    return res;
+    SystemFrame::close(oc);
+    return ret;
 }
 
 

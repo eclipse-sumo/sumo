@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:18:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/06/16 14:43:34  dkrajzew
 // documentation added
 //
@@ -74,8 +77,8 @@ namespace
 #include <microsim/MSSourceLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLBuildingExceptions.h>
-#include <utils/common/SErrorHandler.h>
 #include "NLNetBuilder.h"
 #include "NLEdgeControlBuilder.h"
 
@@ -215,7 +218,7 @@ void
 NLEdgeControlBuilder::closeEdge()
 {
     if(m_pAllowedLanes==0 || m_pDepartLane==0 || m_pLanes==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Something is corrupt with the definition of lanes for the edge '")
             + m_pActiveEdge->id() + string("'."));
         return;

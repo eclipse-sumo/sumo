@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/05/20 09:48:34  dkrajzew
 // debugging
 //
@@ -53,7 +56,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
@@ -124,12 +127,12 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
                     ROEdge *from = _net.getEdge(fromname);
                     ROEdge *to = _net.getEdge(toname);
                     if(from==0) {
-                        SErrorHandler::add(
+                        MsgHandler::getErrorInstance()->inform(
                             string("The origin edge '") + fromname + string("'is not known"));
                         return false;
                     }
                     if(to==0) {
-                        SErrorHandler::add(
+                        MsgHandler::getErrorInstance()->inform(
                             string("The destination edge '") + toname + string("'is not known"));
                         return false;
                     }

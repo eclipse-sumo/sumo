@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.13  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -106,6 +109,8 @@ namespace
 #include <algorithm>
 #include <iostream>
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 #include "NBHelpers.h"
@@ -129,6 +134,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -161,7 +172,7 @@ NBEdgeCont::retrieve(const string &id)
 
 
 bool
-NBEdgeCont::computeTurningDirections(bool verbose)
+NBEdgeCont::computeTurningDirections()
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         (*i).second->computeTurningDirections();
@@ -171,7 +182,7 @@ NBEdgeCont::computeTurningDirections(bool verbose)
 
 
 bool
-NBEdgeCont::sortOutgoingLanesConnections(bool verbose)
+NBEdgeCont::sortOutgoingLanesConnections()
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         (*i).second->sortOutgoingLanesConnections();
@@ -203,9 +214,10 @@ NBEdgeCont::computeLanes2Edges()
 
 
 bool
-NBEdgeCont::recheckLanes(bool verbose) {
+NBEdgeCont::recheckLanes()
+{
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        (*i).second->recheckLanes(verbose);
+        (*i).second->recheckLanes();
     }
     return true;
 }
@@ -223,7 +235,7 @@ NBEdgeCont::computeLinkPriorities(bool verbose)
 */
 
 bool
-NBEdgeCont::appendTurnarounds(bool verbose)
+NBEdgeCont::appendTurnarounds()
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         (*i).second->appendTurnaround();
@@ -298,14 +310,14 @@ NBEdgeCont::clear() {
 
 
 void
-NBEdgeCont::report(bool verbose)
+NBEdgeCont::report()
 {
-    if(verbose) {
-        cout << "   " << getNo() << " edges loaded." << endl;
-		if(EdgesSplit>0) {
-			cout << "Warning: The split of edges was performed "
-				<< EdgesSplit << " times." << endl;
-		}
+    MsgHandler::getMessageInstance()->inform(
+        string("   ") + toString<int>(getNo()) + string(" edges loaded."));
+    if(EdgesSplit>0) {
+        MsgHandler::getWarningInstance()->inform(
+			string("Warning: The split of edges was performed ")
+            + toString<int>(EdgesSplit) + string(" times."));
     }
 }
 
@@ -596,12 +608,12 @@ void
 NBEdgeCont::search(NBEdge *e)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        cout << (*i).second << ", " << (*i).second->getID() << endl;
+        DEBUG_OUT << (*i).second << ", " << (*i).second->getID() << endl;
         if((*i).second==e) {
             int checkdummy = 0;
         }
     }
-    cout << "--------------------------------" << endl;
+    DEBUG_OUT << "--------------------------------" << endl;
 }
 
 

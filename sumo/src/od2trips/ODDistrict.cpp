@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:20:24  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/05/20 09:46:53  dkrajzew
 // usage of split and non-split od-matrices from visum and vissim rechecked
 //
@@ -43,7 +46,7 @@ namespace
 #include <utility>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Named.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "ODDistrict.h"
 
 
@@ -99,7 +102,7 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
 {
     // check whether at least one elements exists
     if(cont.size()==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Trying to use a not existing source/sink at district: ")
             + string(getID()));
         throw 1;//ProcessError();

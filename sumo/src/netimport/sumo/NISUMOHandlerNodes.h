@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/06/18 11:15:07  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:13:27  dkrajzew
 // names changed
 //
@@ -48,7 +51,7 @@ class NISUMOHandlerNodes : public SUMOSAXHandler {
 private:
     LoadFilter _loading;
 public:
-    NISUMOHandlerNodes(LoadFilter what, bool warn, bool verbose);
+    NISUMOHandlerNodes(LoadFilter what);
     ~NISUMOHandlerNodes();
 protected:
     void myStartElement(int element, const std::string &name,

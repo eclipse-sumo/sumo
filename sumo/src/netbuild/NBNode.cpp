@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.18  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -142,6 +145,8 @@ namespace
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include <iomanip>
 #include "NBNode.h"
 #include "NBNodeCont.h"
@@ -206,7 +211,7 @@ NBNode::ApproachingDivider::execute(double src, double dest)
 {
     assert(_approaching->size()>src);
     // get the origin edge
-    NBEdge *incomingEdge = (*_approaching)[src];
+    NBEdge *incomingEdge = (*_approaching)[(int) src];
     vector<size_t> approachingLanes =
         incomingEdge->getConnectionLanes(_currentOutgoing);
     assert(approachingLanes.size()!=0);
@@ -849,14 +854,18 @@ NBNode::setType(int type)
 void
 NBNode::reportBuild()
 {
-    cout << "No Junctions (converted)    : "
-        << _noNoJunctions << endl;
-    cout << "Traffic Light Junctions     : "
-        << _noTrafficLightJunctions << endl;
-    cout << "Priority Junctions          : "
-        << _noPriorityJunctions << endl;
-    cout << "Right Before Left Junctions : "
-        << _noRightBeforeLeftJunctions << endl;
+    MsgHandler::getMessageInstance()->inform(
+        string("No Junctions (converted)    : ")
+        + toString<int>(_noNoJunctions));
+    MsgHandler::getMessageInstance()->inform(
+        string("Traffic Light Junctions     : ")
+        + toString<int>(_noTrafficLightJunctions));
+    MsgHandler::getMessageInstance()->inform(
+        string("Priority Junctions          : ")
+        + toString<int>(_noPriorityJunctions));
+    MsgHandler::getMessageInstance()->inform(
+        string("Right Before Left Junctions : ")
+        + toString<int>(_noRightBeforeLeftJunctions));
 }
 
 
@@ -1104,16 +1113,6 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by)
 void
 NBNode::removeDoubleEdges()
 {
-  //  if(_id=="1483") {
-/*        cout << "Remove Double:" << endl;
-        for(size_t j=0; j<_outgoingEdges->size(); j++) {
-            if(j!=0) {
-                cout << ", ";
-            }
-            cout << (*_outgoingEdges)[j]->getID();
-        }
-        cout << endl;*/
-//    }
     EdgeVector::iterator i;
     // check incoming
     size_t pos = 0;
@@ -1139,15 +1138,6 @@ NBNode::removeDoubleEdges()
             i++;
         }
     }
-//    if(_id=="1483") {
-/*        for(j=0; j<_outgoingEdges->size(); j++) {
-            if(j!=0) {
-                cout << ", ";
-            }
-            cout << (*_outgoingEdges)[j]->getID();
-        }
-        cout << endl;*/
-//    }
 }
 
 
@@ -1230,8 +1220,8 @@ NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
         mustStop.getFrom()==0 ||
         mustStop.getTo()==0) {
 
-        cout << "Something went wrong during the building of a connection..." << endl;
-        cout << "  Continuing..." << endl;
+        MsgHandler::getWarningInstance()->inform(
+            "Something went wrong during the building of a connection...");
         return; // !!! mark to recompute connections
     }
     NBConnectionVector conn = _blockedConnections[mustStop];
@@ -1269,7 +1259,7 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 
 
 size_t
-NBNode::eraseDummies(bool verbose)
+NBNode::eraseDummies()
 {
 	size_t ret = 0;
     if(_outgoingEdges==0||_incomingEdges==0) {
@@ -1287,9 +1277,8 @@ NBNode::eraseDummies(bool verbose)
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
-		if(verbose) {
-			cout << " Removing dummy edge '" << dummy->getID() << "'" << endl;
-		}
+        MsgHandler::getWarningInstance()->inform(
+			string(" Removing dummy edge '") + dummy->getID() + string("'"));
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
@@ -1441,20 +1430,6 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
 {
     assert(find(incoming.begin(), incoming.end(), removed)==incoming.end());
     bool changed = true;
-/*
-    if(_id=="84") {
-        for(NBConnectionProhibits::iterator i2=_blockedConnections.begin(); i2!=_blockedConnections.end(); i2++) {
-            const NBConnection &blocker = (*i2).first;
-            const NBConnectionVector &blocked = (*i2).second;
-            cout << blocker.getID() << ":";
-            for(NBConnectionVector::const_iterator i3=blocked.begin(); i3!=blocked.end(); i3++) {
-                cout << (*i3).getID() << ", ";
-            }
-            cout << endl;
-        }
-        cout << "------------------------" << endl;
-    }
-*/
     while(changed) {
         changed = false;
         NBConnectionProhibits blockedConnectionsTmp = _blockedConnections;
@@ -1527,23 +1502,6 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
     }
     // remap in traffic lights
     NBTrafficLightLogicCont::remapRemoved(removed, incoming, outgoing);
-/*    for(std::vector<NBTrafficLightDefinition*>::iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); i++) {
-        (*i)->remapRemoved(removed, incoming, outgoing);
-    }*/
-    /*
-    if(_id=="84") {
-        for(NBConnectionProhibits::iterator i2=_blockedConnections.begin(); i2!=_blockedConnections.end(); i2++) {
-            const NBConnection &blocker = (*i2).first;
-            const NBConnectionVector &blocked = (*i2).second;
-            cout << blocker.getID() << ":";
-            for(NBConnectionVector::const_iterator i3=blocked.begin(); i3!=blocked.end(); i3++) {
-                cout << (*i3).getID() << ", ";
-            }
-            cout << endl;
-        }
-        cout << "------------------------" << endl;
-    }
-*/
 }
 
 

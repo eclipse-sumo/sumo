@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/18 11:15:58  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
@@ -105,7 +108,7 @@ public:
         bool positionKnown() const;
 
         /// Reads the data-type from the visum-file using the given reader
-        bool readUsing(LineReader &reader, bool verbose);
+        bool readUsing(LineReader &reader);
 
         /// Returns the name of the data type
         const std::string &getDataName() const;
@@ -162,9 +165,6 @@ public:
         /// Position the certain data type starts at within the stream
         long myPosition;
 
-        /// Information whether to work in verbose mode
-        bool myWorkVerbose;
-
     };
 
 private:
@@ -177,9 +177,6 @@ private:
 
     /// the converter to compute the lane number of edges from their capacity
     NBCapacity2Lanes _capacity2Lanes;
-
-    /// information whether the parser shall run in verbose mode
-    bool _verbose;
 
     /// the used vsystypes
     VSysTypeNames myVSysTypes;

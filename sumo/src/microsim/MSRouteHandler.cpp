@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:12:51  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -45,7 +48,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -57,10 +60,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSRouteHandler::MSRouteHandler(bool verbose, bool warn,
-                               const std::string &file,
+MSRouteHandler::MSRouteHandler(const std::string &file,
                                bool addVehiclesDirectly)
-    : SUMOSAXHandler("sumo-network/routes", warn, verbose, file),
+    : SUMOSAXHandler("sumo-network/routes", file),
     myLastDepart(0), myLastReadVehicle(0), m_pActiveRoute(0),
     myAddVehiclesDirectly(addVehiclesDirectly)
 {
@@ -108,16 +110,16 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_DECEL),
                 getFloat(attrs, SUMO_ATTR_SIGMA));
         } catch (XMLIdAlreadyUsedException &e) {
-            SErrorHandler::add(e.getMessage("vehicletype", id));
+            MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 "Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 "Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a vehicle-object.");
     }
 }
@@ -144,11 +146,11 @@ MSRouteHandler::openRoute(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a route-object.");
         return;
     } catch (XMLIdNotKnownException &e) {
-        SErrorHandler::add(e.getMessage("route", "(ID_UNKNOWN!)"));
+        MsgHandler::getErrorInstance()->inform(e.getMessage("route", "(ID_UNKNOWN!)"));
         return;
     }
     // get the information whether the route shall be deleted after
@@ -171,7 +173,7 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a vehicle-object.");
         return;
     }
@@ -187,12 +189,12 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
             getInt(attrs, SUMO_ATTR_DEPART),
             repNumber, repOffset);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Error in description: missing attribute in a vehicle-object.");
     } catch(XMLIdNotKnownException &e) {
-        SErrorHandler::add(e.getMessage("", ""));
+        MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
     } catch(XMLIdAlreadyUsedException &e) {
-        SErrorHandler::add(e.getMessage("vehicle", id));
+        MsgHandler::getErrorInstance()->inform(e.getMessage("vehicle", id));
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
@@ -251,17 +253,19 @@ MSRouteHandler::addRouteElements(const std::string &name,
 {
     StringTokenizer st(chars);
     if(st.size()==0) {
-        SErrorHandler::add("Empty route (" + name + ")");
+        MsgHandler::getErrorInstance()->inform(
+            string("Empty route (") + name + string(")"));
         return;
     }
     while(st.hasNext()) {
         string set = st.next();
         MSEdge *edge = MSEdge::dictionary(set);
         if(edge==0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("The edge '") + set + string("' within route '")
                 + m_ActiveId + string("' is not known."));
-            SErrorHandler::add(" The route can not be build.");
+            MsgHandler::getErrorInstance()->inform(
+                " The route can not be build.");
             return;
         }
         m_pActiveRoute->push_back(edge);
@@ -279,9 +283,11 @@ MSRouteHandler::myEndElement(int element, const std::string &name)
         try {
             closeRoute();
         } catch (XMLListEmptyException &e) {
-            SErrorHandler::add(e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(
+                e.getMessage("route", ""));
         } catch (XMLIdAlreadyUsedException &e) {
-            SErrorHandler::add(e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(
+                e.getMessage("route", ""));
         }
         break;
     }

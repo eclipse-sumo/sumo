@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.5  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -47,6 +50,8 @@ namespace
 #include <map>
 #include <string>
 #include <algorithm>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightLogicCont.h"
@@ -126,7 +131,9 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
         // and insert the result after coputation
         if(!insert((*i).first, def->compute(oc))) {
             // should not happen
-            cout << " Warning: Could not build traffic lights '" << def->getID() << "'" << endl;
+            MsgHandler::getWarningInstance()->inform(
+                string("Could not build traffic lights '") + def->getID()
+                + string("'"));
         }
     }
     return true;

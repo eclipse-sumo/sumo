@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -43,7 +46,7 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
@@ -103,14 +106,14 @@ void
 ROSUMOAltRoutesHandler::startRoute(const Attributes &attrs)
 {
     if(_currentAlternatives==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Route declaration without an alternatives container occured.");
         return;
     }
     // try to get the costs
     _cost = getFloatSecure(attrs, SUMO_ATTR_COST, -1);
     if(_cost<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Invalid cost in alternative for route '")
             + _currentAlternatives->getID() + string("'."));
         return;
@@ -118,7 +121,7 @@ ROSUMOAltRoutesHandler::startRoute(const Attributes &attrs)
     // try to get the propability
     _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -1);
     if(_prob<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Invalid propability in alternative for route '")
             + _currentAlternatives->getID() + string("'."));
         return;
@@ -134,7 +137,7 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add("Missing id in vehicle.");
+        MsgHandler::getErrorInstance()->inform("Missing id in vehicle.");
         return;
     }
     // get vehicle type
@@ -143,12 +146,12 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
         string name = getString(attrs, SUMO_ATTR_TYPE);
         type = _net.getVehicleType(name);
         if(type==0) {
-            SErrorHandler::add(string("The type of the vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("The type of the vehicle '") +
                 name + string("' is not known."));
         }
     } catch (EmptyData) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing type in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing type in vehicle '") +
                 id + string("'."));
         }
     }
@@ -158,12 +161,12 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
         time = getLong(attrs, SUMO_ATTR_DEPART);
     } catch (EmptyData) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing departure time in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing departure time in vehicle '") +
                 id + string("'."));
         }
     } catch (NumberFormatException) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Non-numerical departure time in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Non-numerical departure time in vehicle '") +
                 id + string("'."));
         }
     }
@@ -173,13 +176,13 @@ ROSUMOAltRoutesHandler::startVehicle(const Attributes &attrs)
         string name = getString(attrs, SUMO_ATTR_ROUTE);
         route = _net.getRouteDef(name);
         if(route==0) {
-            SErrorHandler::add(string("The route of the vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("The route of the vehicle '") +
                 name + string("' is not known."));
             return;
         }
     } catch (EmptyData) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing route in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing route in vehicle '") +
                 id + string("'."));
         }
     }
@@ -202,7 +205,7 @@ ROSUMOAltRoutesHandler::startVehType(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add("Missing id in vtype.");
+        MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
         return;
     }
     // get the other values
@@ -235,10 +238,10 @@ ROSUMOAltRoutesHandler::getFloatReporting(const Attributes &attrs,
     try {
         return getFloat(attrs, attr);
     } catch (EmptyData) {
-        SErrorHandler::add(string("Missing ") + name + string(" in vehicle '") +
+        MsgHandler::getErrorInstance()->inform(string("Missing ") + name + string(" in vehicle '") +
             id + string("'."));
     } catch (NumberFormatException) {
-        SErrorHandler::add(name + string(" in vehicle '") +
+        MsgHandler::getErrorInstance()->inform(name + string(" in vehicle '") +
             id + string("' is not numeric."));
     }
     return -1;
@@ -269,7 +272,7 @@ void ROSUMOAltRoutesHandler::myCharacters(int element,
         if(edge!=0) {
             list->add(edge);
         } else {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("The route '") + _currentAlternatives->getID() +
                 string("' contains the unknown edge '") + id +
                 string("'."));
@@ -314,13 +317,13 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add("Missing route alternative name.");
+        MsgHandler::getErrorInstance()->inform("Missing route alternative name.");
         return;
     }
     // try to get the index of the last element
     int index = getIntSecure(attrs, SUMO_ATTR_LAST, -1);
     if(index<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Missing or non-numeric index of a route alternative (id='")
             + id + string("'."));
         return;
@@ -328,7 +331,7 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
     // try to get the start time
 /*    int time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
     if(time<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Missing or non-numeric departure time of a route alternative (id='")
             + id + string("'."));
         return;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:25:12  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/04/01 15:29:30  dkrajzew
 // errors are now reported to SErrorHandler
 //
@@ -40,10 +43,10 @@ namespace
 #include <string>
 #include <iostream>
 #include <utils/xml/AttributesReadingGenericSAX2Handler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/FileErrorReporter.h>
-#include <utils/common/SErrorHandler.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
 
@@ -58,12 +61,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 SUMOSAXHandler::SUMOSAXHandler(const std::string &filetype,
-                               bool warn, bool verbose,
                                const std::string &file)
     : FileErrorReporter(filetype, file),
         AttributesReadingGenericSAX2Handler(sumotags, noSumoTags,
-                                            sumoattrs, noSumoAttrs),
-    _warn(warn), _verbose(verbose)
+                                            sumoattrs, noSumoAttrs)
 {
 }
 
@@ -76,10 +77,10 @@ SUMOSAXHandler::~SUMOSAXHandler()
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Warning: ")
         + TplConvert<XMLCh>::_2str(exception.getMessage()));
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string(" (At line/column ")
         + toString<int>(exception.getLineNumber()+1)
         + string("/")
@@ -92,10 +93,10 @@ SUMOSAXHandler::warning(const SAXParseException& exception)
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Error: ")
         + TplConvert<XMLCh>::_2str(exception.getMessage()));
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string(" (At line/column ")
         + toString<int>(exception.getLineNumber()+1)
         + string("/")
@@ -108,10 +109,10 @@ SUMOSAXHandler::error(const SAXParseException& exception)
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string("Error: ")
         + TplConvert<XMLCh>::_2str(exception.getMessage()));
-    SErrorHandler::add(
+    MsgHandler::getErrorInstance()->inform(
         string(" (At line/column ")
         + toString<int>(exception.getLineNumber()+1)
         + string("/")

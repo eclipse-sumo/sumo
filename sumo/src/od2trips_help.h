@@ -55,6 +55,7 @@ char *help[] = {
     "                                   number of read/factor",
     "   -C, --no-config                No configuration file is used",
     "   -v, --verbose                  od2trips reports what it does",
+    "   -W, --suppress-warnings        No warnings will be printed",
     "   -p, --print-options            Prints option values before processing",
     "   -h, --help                     This screen",
     0

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/06/18 11:12:51  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/03/17 14:15:55  dkrajzew
 // first steps of network reinitialisation implemented
 //
@@ -30,7 +33,7 @@
  * ======================================================================= */
 #include <string>
 #include <utils/common/FileErrorReporter.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <helpers/PreStartInitialised.h>
 #include "MSNet.h"
@@ -47,10 +50,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSRouteLoader::MSRouteLoader(bool verbose, bool warn,
-                             const std::string &file,
+MSRouteLoader::MSRouteLoader(const std::string &file,
                              MSNet &net)
-    : MSRouteHandler(verbose, warn, file, false),
+    : MSRouteHandler(file, false),
     myParser(0), _moreAvailable(true)//, _nextRead(false),
 {
     myParser = XMLReaderFactory::createXMLReader();
@@ -88,7 +90,7 @@ MSRouteLoader::init()
     _moreAvailable = true;
     myLastReadVehicle = 0;
     if(!myParser->parseFirst(_file.c_str(), myToken)) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Can not read XML-file '") + _file + string("'."));
         throw ProcessError();
     }

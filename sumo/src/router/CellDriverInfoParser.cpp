@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/02/07 10:45:03  dkrajzew
 // updated
 //
@@ -40,7 +43,7 @@ namespace
 #include <sstream>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "RORouteDef.h"
 #include "CellDriverInfoParser.h"
 
@@ -88,8 +91,9 @@ CellDriverInfoParser::computeRouteNo()
             stringstream buf;
             buf << "An invalid route index occured in a .driver file ("
                 << _driver.lastroute << " at " << _routeNo << ").";
-            SErrorHandler::add(buf.str().c_str(), true);
-            SErrorHandler::add(" Retry with a combination of '--intel-cell' and '--no-last-cell'", true);
+            MsgHandler::getErrorInstance()->inform(buf.str());
+            MsgHandler::getErrorInstance()->inform(
+                " Retry with a combination of '--intel-cell' and '--no-last-cell'");
             throw ProcessError();
         }
         _routeNo = _driver.route[_driver.lastroute];
@@ -110,8 +114,8 @@ CellDriverInfoParser::computeRouteNo()
         stringstream buf;
         buf << "A negative route index occured in a .driver file ("
             << _routeNo << ").";
-        SErrorHandler::add(buf.str().c_str(), true);
-        SErrorHandler::add(" Retry with '--intel-cell'.", true);
+        MsgHandler::getErrorInstance()->inform(buf.str());
+        MsgHandler::getErrorInstance()->inform(" Retry with '--intel-cell'.");
         throw ProcessError();
     }
     return _routeNo;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -52,7 +55,7 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/Named.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
 #include "RORoute.h"
@@ -79,15 +82,15 @@ RORouteDef::computeAndSave(OptionsCont &options,
                            std::ostream &res, std::ostream &altres,
                            bool isPeriodical)
 {
-    RORoute *current = buildCurrentRoute(router, begin);
+    RORoute *current =
+        buildCurrentRoute(router, begin,
+            options.getBool("continue-on-unbuild"));
     if(current->size()<2) {
-        if(!options.getBool("suppress-short-trip-warnings")) {
-			cout << endl;
-            SErrorHandler::add(
-                string("The route '") + _id
-                + string("' is too short, propably ending at the starting edge."));
-            SErrorHandler::add("Skipping...");
-        }
+        cout << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("The route '") + _id
+            + string("' is too short, propably ending at the starting edge."));
+        MsgHandler::getErrorInstance()->inform("Skipping...");
         delete current;
         return false;
     }

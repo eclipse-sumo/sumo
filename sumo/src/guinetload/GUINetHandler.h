@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/06/18 11:08:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -55,7 +58,7 @@ class NLContainer;
 class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
-    GUINetHandler(bool verbose, bool warn, const std::string &file,
+    GUINetHandler(const std::string &file,
         NLContainer &container);
 
     /// standard destructor

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -50,7 +53,7 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include "ROTypedRoutesLoader.h"
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
@@ -60,7 +63,7 @@ using namespace std;
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
                                                const std::string &file)
     : ROTypedRoutesLoader(net),
-    SUMOSAXHandler("xml-route definitions", true, true, file),
+    SUMOSAXHandler("xml-route definitions", file),
     _parser(XMLReaderFactory::createXMLReader()), _token()
 {
     _parser->setFeature(
@@ -99,7 +102,7 @@ bool
 ROTypedXMLRoutesLoader::addAllRoutes()
 {
     _parser->parse(_file.c_str());
-    return !SErrorHandler::errorOccured();
+    return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
 bool

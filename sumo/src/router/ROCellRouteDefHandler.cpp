@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.5  2003/03/20 16:39:15  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -50,9 +53,10 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/convert/STRConvert.h>
+#include <utils/convert/ToString.h>
 #include <utils/common/UtilExceptions.h>
 //#include "RORouteAlternative.h"
 #include "RORoute.h"
@@ -127,7 +131,8 @@ ROCellRouteDefHandler::readNextRoute(long start)
     // get the route-number
     int routeNo = _driverParser.getRouteNo();
     if(routeNo<0) {
-        cout << "Skipping Route: " <<routeNo << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Skipping Route: ") + toString<int>(routeNo));
         return true; // !!!!
     }
     // add the route when it is not yet known
@@ -171,7 +176,7 @@ ROCellRouteDefHandler::getAlternative(size_t pos)
             << " references the route #" << routeNo
             << " which is not available in '" << _routeDefFile
             << "'.";
-        SErrorHandler::add(buf.str().c_str(), true);
+        MsgHandler::getErrorInstance()->inform(buf.str());
         return 0;
     }
     RORoute *ret = new RORoute(_routeIdSupplier.getNext(), cost,
@@ -200,10 +205,10 @@ ROCellRouteDefHandler::getRouteInfoFrom(unsigned long position)
         string id = st.next();
         ROEdge *edge = _net.getEdge(id);
         if(edge==0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("A route read from '") + _routeDefFile +
                 string("' contains an unknown edge ('") +
-                id + string("')."), true);
+                id + string("')."));
             delete edges;
             return 0;
         }
@@ -240,16 +245,14 @@ ROCellRouteDefHandler::myInit(OptionsCont &options)
     _lineReader.readAll(*this);
     // save the index file when wished
     if(!_hasIndexFile&&options.getBool("save-cell-rindex")) {
-        if(options.getBool("v")) {
-            cout << "Saving the cell-rindex file '" << _routeIdxFile << "'... ";
-        }
+        MsgHandler::getMessageInstance()->inform(
+            string("Saving the cell-rindex file '") + _routeIdxFile
+            + string("'... "));
         std::ofstream out(_routeIdxFile.c_str());
         for(std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
             out << (*i) << endl;
         }
-        if(options.getBool("v")) {
-            cout << "done." << endl;
-        }
+        MsgHandler::getMessageInstance()->inform("done.");
     }
     // prepare the .driver file for reading
     return initDriverFile();
@@ -262,7 +265,7 @@ bool ROCellRouteDefHandler::report(const std::string &result)
         try {
             _routes.push_back(STRConvert::_2int(result)); // !!!
         } catch (NumberFormatException) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("Your '") + _routeIdxFile + string("' contains non-digits."));
             throw ProcessError();
         } catch (EmptyData) {
@@ -279,7 +282,7 @@ bool
 ROCellRouteDefHandler::initDriverFile()
 {
     if(!_driverStrm.good()) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Problems on opening '") + _driverFile + string("'."));
         return false;
     }

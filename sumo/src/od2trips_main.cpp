@@ -36,9 +36,11 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/HelpPrinter.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
@@ -70,7 +72,7 @@ getSettings(int argc, char **argv)
 	oc->addSynonyme("od-path", "path");
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("warn", 'w', new Option_Bool(true));
+    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
 	oc->addSynonyme("help", "h");
@@ -82,7 +84,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("scale", 's', new Option_Float(1));
     // parse the command line arguments and configuration the file
     bool ok = OptionsIO::getOptions(oc, argc, argv);
-    if(!ok||SErrorHandler::errorOccured()) {
+    if(!ok||MsgHandler::getErrorInstance()->wasInformed()) {
         delete oc;
         return 0;
     }
@@ -95,7 +97,7 @@ loadDistricts(OptionsCont &oc)
 {
     // check whether the user gave a net filename
     if(!oc.isSet("n")) {
-        SErrorHandler::add("You must supply a network ('-n').");
+        MsgHandler::getErrorInstance()->inform("You must supply a network ('-n').");
         return 0;
     }
     // build the container
@@ -105,8 +107,7 @@ loadDistricts(OptionsCont &oc)
     parser->setFeature(
         XMLString::transcode("http://xml.org/sax/features/validation"),
         false);
-    ODDistrictHandler *handler = new ODDistrictHandler(*ret,
-        oc.getBool("warn"), oc.getBool("verbose"));
+    ODDistrictHandler *handler = new ODDistrictHandler(*ret);
     // initialise parser with the handler
     parser->setContentHandler(handler);
     parser->setErrorHandler(handler);
@@ -118,7 +119,7 @@ loadDistricts(OptionsCont &oc)
     delete parser;
     delete handler;
     // check whether the loading was ok
-	if(ret->size()==0||SErrorHandler::errorOccured()) {
+	if(ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
         delete ret;
         return 0;
     }
@@ -144,37 +145,40 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
+    OptionsCont *oc = 0;
     try {
-        // try to initialise the XML-subsystem
-        if(!XMLSubSys::init()) {
-            return 1;
-        }
+        oc = getSettings(argc, argv);
         // parse the settings
-        OptionsCont *oc = getSettings(argc, argv);
         if(oc==0) {
-            cout << "Quitting." << endl;
-            return 1;
+            MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
+            throw ProcessError();
         }
         // check whether only the help shall be printed
         if(oc->getBool("help")) {
             HelpPrinter::print(help);
-            delete oc;
-            return 0;
+            throw ProcessError();
         }
 		if(oc->getBool("p"))
             cout << *oc;
+        // try to initialise the XML-subsystem
+        if(!SystemFrame::init(false, oc)) {
+            throw ProcessError();
+        }
 	    bool ok = true;
 		if(!oc->isSet("n")) {
-			cerr << "Error: No net input file (-n) specified." << endl;
+            MsgHandler::getErrorInstance()->inform(
+                "Error: No net input file (-n) specified.");
 			ok = false;
 		}
 		if(!oc->isSet("d")) {
-			cerr << "Error: No OD input file (-d) specified." << endl;
+			MsgHandler::getErrorInstance()->inform(
+                "Error: No OD input file (-d) specified.");
 			ok = false;
 		}
 		string OD_filename = oc->getString("d");
 		if(!oc->isSet("o")) {
-			cerr << "Error: No trip table output file (-o) specified." << endl;
+            MsgHandler::getErrorInstance()->inform(
+			    "Error: No trip table output file (-o) specified.");
 			ok = false;
 		}
 		string bez1=".inp";
@@ -191,20 +195,17 @@ main(int argc, char **argv)
         }
 		string OD_outfile = oc->getString("o");
 		string OD_path = oc->getString("i");
-		bool verbose = oc->getBool("v");
 		struct content content[MAX_INFILES]; // helds car types
 		string *infiles = 	new string [MAX_INFILES];
 		int maxfiles=1; //number of OD-Files
 		// reads out some metadata from *.inp
 		if( fmatype == 1) {
-			if(verbose) {
-					std::cout << "**** VISSIM input data format **** "<< endl;
-				}
+            MsgHandler::getMessageInstance()->inform(
+                "**** VISSIM input data format **** ");
 			ODInpread (OD_filename, infiles, content,&maxfiles);
 		} else {
-			if(verbose) {
-				std::cout << "**** Original input data format **** "<< endl;
-			}
+            MsgHandler::getMessageInstance()->inform(
+				"**** Original input data format **** ");
 		}
 		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
 		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
@@ -236,9 +237,8 @@ main(int argc, char **argv)
 			vector<OD_IN>::iterator it1;
 			if (fmatype == 1) {
 				OD_filename = OD_path + infiles[ifile];
-				if(verbose) {
-					std::cout << "Processing "<< OD_filename << endl;
-				}
+				MsgHandler::getMessageInstance()->inform(
+					"Processing " + OD_filename);
 			// Reads the OD Matrix
 			ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
 			// use settings if provided
@@ -252,16 +252,14 @@ main(int argc, char **argv)
 			}
 			// check permitted range
 			if( (start>finish) || (start<0) || (finish>86400) ) {
-				std::cerr << "Wrong time range (begin/end)" << endl;
+				MsgHandler::getErrorInstance()->inform(
+				    "Wrong time range (begin/end)");
 				throw ProcessError();
 			}
 			period = finish - start;
 			// scale input
 			scale = oc->getFloat("scale");
 			scale = scale / factor;
-			//if(verbose) {
-			//	std::cout << "Total number of cars desired: "<< int(total_cars/scale) << endl;
-			//}
 			total_cars=0;
 			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
 				rest = fmod ( double((*it1).how_many), double(scale)) / double(scale);
@@ -275,15 +273,13 @@ main(int argc, char **argv)
 			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
 				total_cars += (*it1).how_many;
 			}
-			if(verbose && fmatype == 2) {
-				std::cout << "Total number of cars computed: "<< total_cars << endl;
+			if(fmatype == 2) {
+                MsgHandler::getMessageInstance()->inform(
+                    string("Total number of cars computed: ")
+                    + toString<long int>(total_cars));
 			}
 			int *when = new int [period];
 			int *elements = new int [period];
-			//if(verbose) {
-			//	std::cout << "Number of OD elements: "<< maxele << "; Total number of cars: ";
-			//	std::cout << total_cars << endl;
-			//}
 			// temporary variables with initial values
 			begin=0;
 			end=0;
@@ -325,19 +321,12 @@ main(int argc, char **argv)
 			total_cars = begin;
 			od_next = od_next + total_cars;
 			delete [] when; delete [] elements;
-			//delete vector<OD_IN>::od_in;
-			//if(verbose) {
-			//	std::cout << "Final total number of cars: "<< begin << endl;
-			//}
 		}
 		total_cars = od_next;
-		if(verbose) {
-			std::cout << "Total number of released cars: "<< total_cars << endl;
-		}
+        MsgHandler::getMessageInstance()->inform(
+            string("Total number of released cars: ") + toString<int>(total_cars));
 		// sorts the time
-		if(verbose) {
-			std::cout << "Sorting ..."<< endl;
-		}
+        MsgHandler::getMessageInstance()->inform("Sorting ...");
 		IndexSort(when_all, old_index, cmpfun, total_cars);
 		std::vector<OD_OUT> source_sink(max_cars); // output OD data
 		for(i=0;i<total_cars;i++)
@@ -352,13 +341,10 @@ main(int argc, char **argv)
 		ODWrite( OD_outfile, source_sink, total_cars );
 		delete [] source; delete [] sink;
 		delete [] when_all; delete [] cartype;
-		delete oc;
-        if(verbose) {
-            cout << "Success." <<endl;
-        }
+        MsgHandler::getMessageInstance()->inform("Success.");
     } catch (ProcessError) {
         ret = 1;
     }
-    XMLSubSys::close();
+    SystemFrame::close(oc);
     return ret;
 }

@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.5  2003/06/16 14:43:34  dkrajzew
-// documentation added
+// Revision 1.6  2003/06/18 11:17:29  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/05/20 09:44:35  dkrajzew
 // some make-up done (splitting large methods)
@@ -87,8 +87,7 @@ class NBNode;
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLEdgesHandler(OptionsCont &options,
-        bool warn, bool verbose);
+    NIXMLEdgesHandler(OptionsCont &options);
 
     /// Destructor
     ~NIXMLEdgesHandler();

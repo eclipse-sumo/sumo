@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -47,7 +50,8 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <string>
 #include "ROTypedRoutesLoader.h"
-#include <utils/common/SErrorHandler.h>
+#include <utils/convert/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
@@ -78,20 +82,17 @@ ROTypedRoutesLoader::skipPreviousRoutes(long start)
 {
     bool ok = startReadingSteps();
     /// skip routes
-    if(_options->getBool("v")) {
-        cout << "Skipping" << endl;
-    }
+    MsgHandler::getMessageInstance()->inform("Skipping");
     while(!_ended&&ok&&_currentTimeStep<start) {
         ok = readNextRoute(start);
     }
-    if(_options->getBool("v")) {
-        cout << "Skipped until: " << _currentTimeStep << endl;
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("Skipped until: ") + toString<int>(_currentTimeStep));
     // check whether errors occured
     if(!ok) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Problems on parsing the ") + getDataName() +
-            string(" file."), true);
+            string(" file."));
         throw ProcessError();
     }
     return ok;
@@ -105,9 +106,9 @@ ROTypedRoutesLoader::addRoutesUntil(long time)
         ok = readNextRoute(_currentTimeStep);
     }
     if(!ok) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Problems on parsing the ") + getDataName() +
-            string(" file."), true);
+            string(" file."));
         throw ProcessError();
     }
     return ok;

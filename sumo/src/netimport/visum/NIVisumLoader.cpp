@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:15:58  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
@@ -46,8 +49,9 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_VSysTypes.h"
@@ -126,22 +130,17 @@ NIVisumLoader::NIVisumSingleDataTypeParser::positionKnown() const
 
 
 bool
-NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader,
-                                                      bool verbose)
+NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader)
 {
-    myWorkVerbose = verbose;
     if(myPosition==-1) {
         return false;
     }
-    if(myWorkVerbose) {
-        cout << "Parsing " << getDataName() << "... ";
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("Parsing ") + getDataName() + string("... "));
     reader.reinit();
     reader.setPos(myPosition);
     reader.readAll(*this);
-    if(myWorkVerbose) {
-        cout << "done." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform("done.");
     return true;
 }
 
@@ -306,10 +305,10 @@ void NIVisumLoader::load(OptionsCont &options)
     bool verbose = options.getBool("v");
     // open the file
     if(!myLineReader.setFileName(options.getString("visum"))) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Can not open visum-file '")
             + options.getString("visum")
-            + string("'."), true);
+            + string("'."));
         throw ProcessError();
     }
     // scan the file for data positions
@@ -318,7 +317,7 @@ void NIVisumLoader::load(OptionsCont &options)
     // go through the parsers and process every entry
     for( ParserVector::iterator i=mySingleDataParsers.begin();
          i!=mySingleDataParsers.end(); i++) {
-        (*i)->readUsing(myLineReader, verbose);
+        (*i)->readUsing(myLineReader);
     }
     // build traffic lights
 	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
@@ -344,7 +343,9 @@ NIVisumLoader::checkForPosition(const std::string &line)
         if(line.substr(0, dataName.length())==dataName) {
             parser->setStreamPosition(myLineReader.getPosition());
             parser->initLineParser(line.substr(dataName.length()));
-            cout << "Found: " << dataName << " at " << myLineReader.getPosition() << endl;
+            MsgHandler::getMessageInstance()->inform(
+                string("Found: ") + dataName + string(" at ")
+                + toString<int>(myLineReader.getPosition()));
         }
     }
     // it is not necessary to rea the whole file

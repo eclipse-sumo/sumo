@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/18 11:08:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.5  2003/03/20 16:16:31  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -47,11 +50,11 @@ namespace
 #include <sax2/SAX2XMLReader.hpp>
 #include <sax2/XMLReaderFactory.hpp>
 #include <sax2/DefaultHandler.hpp>
-#include <utils/common/SErrorHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <guisim/GUINet.h>
 #include <netload/NLNetHandler.h>
 #include <netload/NLLoadFilter.h>
+#include <utils/common/MsgHandler.h>
 #include "GUINetHandler.h"
 #include "GUIEdgeControlBuilder.h"
 #include "GUIContainer.h"
@@ -87,11 +90,10 @@ GUINetBuilder::buildGUINet()
     GUINet *net = 0;
     // get the matching handler
     NLNetHandler *handler =
-        new GUINetHandler(m_pOptions.getBool("v"), m_pOptions.getBool("w"),
-            "", *container);
+        new GUINetHandler("", *container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
-    if(!SErrorHandler::errorOccured()) {
+    if(!MsgHandler::getErrorInstance()->wasInformed()) {
         net = container->buildGUINet(
             m_pOptions.getUIntVector("dump-intervals"),
             m_pOptions.getString("dump-basename"),

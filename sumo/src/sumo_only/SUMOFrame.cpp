@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:21:10  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
 //
@@ -49,6 +52,7 @@ namespace
 #include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <microsim/MSJunction.h>
 #include "SUMOFrame.h"
@@ -76,7 +80,6 @@ SUMOFrame::getOptions()
     oc->doRegister("configuration-file", 'c', new Option_FileName());
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
-//    oc->addSynonyme("junction-files", "junctions");
     oc->addSynonyme("additional-files", "additional");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
@@ -86,18 +89,15 @@ SUMOFrame::getOptions()
     oc->doRegister("route-steps", 's', new Option_Integer(0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
-    oc->doRegister("warn", 'w', new Option_Bool(true));
+    oc->doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", '?', new Option_Bool(false));
-//    oc->doRegister("validate-nodes", new Option_Bool(false));
     // register some research options
     oc->doRegister("initial-density", new Option_Float());
     oc->doRegister("initial-speed", new Option_Float());
     // register the data processing options
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
-//    oc->doRegister("no-raw", 'R', new Option_Bool(false));
-//    oc->addSynonyme("no-raw", "no-raw-output");
     oc->doRegister("dump-intervals", new Option_UIntVector(""));
     oc->doRegister("dump-basename", new Option_FileName());;
     // parse the command line arguments and configuration the file
@@ -113,9 +113,10 @@ SUMOFrame::buildRawOutputStream(OptionsCont *oc) {
     ostream *ret = new ofstream(oc->getString("o").c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
-        cout << "The output file '" << oc->getString("o")
-            << "' could not be built." << endl;
-        cout << "Simulation failed." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("The output file '") + oc->getString("o")
+            + string("' could not be built."));
+        MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
     }
     return ret;

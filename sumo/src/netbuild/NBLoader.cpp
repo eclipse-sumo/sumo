@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -100,7 +103,7 @@ namespace
 #include <sax2/XMLReaderFactory.hpp>
 #include <sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
@@ -134,18 +137,11 @@ using namespace std;
 
 
 /* =========================================================================
- * static members
- * ======================================================================= */
-bool NBLoader::_verbose;
-
-
-/* =========================================================================
  * method defintions
  * ======================================================================= */
 void NBLoader::load(OptionsCont &oc) {
     // get the report options
     bool warn = oc.getBool("w");
-    _verbose = oc.getBool("v");
     // get the format to use
     //string type = oc.getString("used-file-format");
     // try to load using different methods
@@ -158,17 +154,13 @@ void NBLoader::load(OptionsCont &oc) {
     loadVissim(oc, warn);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
-        cout << "Error: No nodes loaded." << endl;
+        MsgHandler::getErrorInstance()->inform("No nodes loaded.");
         throw ProcessError();
     }
     if(NBEdgeCont::size()==0) {
-        cout << "Error: No edges loaded." << endl;
+        MsgHandler::getErrorInstance()->inform("No edges loaded.");
         throw ProcessError();
     }
-    // end loading
-    reportBegin("Closing the load process... ");
-//    NBNodeCont::close();
-    reportEnd();
 }
 
 
@@ -198,14 +190,13 @@ NBLoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
                         const string &type)
 {
     // build the handlers to load the data
-    bool verbose = oc.getBool("v");
     std::vector<SUMOSAXHandler*> handlers;
     if(what==LOADFILTER_ALL) {
-        handlers.push_back(new NISUMOHandlerNodes(what, true, verbose));
-        handlers.push_back(new NISUMOHandlerEdges(what, true, verbose));
-        handlers.push_back(new NISUMOHandlerDepth(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerNodes(what));
+        handlers.push_back(new NISUMOHandlerEdges(what));
+        handlers.push_back(new NISUMOHandlerDepth(what));
     } else {
-        handlers.push_back(new NISUMOHandlerDepth(what, true, verbose));
+        handlers.push_back(new NISUMOHandlerDepth(what));
     }
     //
 }
@@ -215,35 +206,36 @@ void
 NBLoader::loadXML(OptionsCont &oc, bool warn) {
     // load types
     if(oc.isUsableFileList("t")) {
-        NIXMLTypesHandler *handler = new NIXMLTypesHandler(warn, _verbose);
+        NIXMLTypesHandler *handler = new NIXMLTypesHandler();
         loadXMLType(handler, oc.getString("t"), "types");
-        NBTypeCont::report(_verbose);
-    } else if(_verbose||warn) {
+        NBTypeCont::report();
+    } else {
         if(oc.isSet("e")&&oc.isSet("n")) {
-            cout << "No types defined, using defaults..." << endl;
+            MsgHandler::getWarningInstance()->inform(
+                "No types defined, using defaults...");
         }
     }
 
     // load nodes
     if(oc.isUsableFileList("n")) {
         NIXMLNodesHandler *handler =
-            new NIXMLNodesHandler(oc, warn, _verbose);
+            new NIXMLNodesHandler(oc);
         loadXMLType(handler, oc.getString("n"), "nodes");
-        NBNodeCont::report(_verbose);
+        NBNodeCont::report();
     }
 
     // load the edges
     if(oc.isUsableFileList("e")) {
         NIXMLEdgesHandler *handler =
-            new NIXMLEdgesHandler(oc, warn, _verbose);
+            new NIXMLEdgesHandler(oc);
         loadXMLType(handler, oc.getString("e"), "edges");
-        NBEdgeCont::report(_verbose);
+        NBEdgeCont::report();
     }
 
     // load the connections
     if(oc.isUsableFileList("x")) {
         NIXMLConnectionsHandler *handler =
-            new NIXMLConnectionsHandler(warn, _verbose);
+            new NIXMLConnectionsHandler();
         loadXMLType(handler, oc.getString("x"), "connections");
     }
 }
@@ -268,10 +260,11 @@ NBLoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
             loadXMLFile(*parser, file, type);
         }
     } catch (const XMLException& toCatch) {
-        cout << "Error: " << TplConvert<XMLCh>::_2str(toCatch.getMessage())
-            << endl;
-        cout << "  The " << type << " could not be loaded from '" <<
-            handler->getFileName() << "'." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            TplConvert<XMLCh>::_2str(toCatch.getMessage()));
+        MsgHandler::getErrorInstance()->inform(
+            string("  The ") + type  + string(" could not be loaded from '")
+            + handler->getFileName() + string("'."));
         delete handler;
         throw ProcessError();
     }
@@ -284,10 +277,9 @@ void
 NBLoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
                       const string &type)
 {
-    if(_verbose) {
-        cout << "Parsing the " << type << " from '"
-            << file << "'..." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("Parsing the ") + type + string(" from '")
+        + string(file) + string("'..."));
     parser.parse(file.c_str());
 }
 
@@ -297,27 +289,27 @@ NBLoader::loadCell(OptionsCont &oc, bool warn) {
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
-        reportBegin("Loading nodes... ");
+        MsgHandler::getMessageInstance()->inform("Loading nodes... ");
         string file = oc.getString("cell-node-file");
-        NICellNodesHandler handler(file, warn, _verbose);
+        NICellNodesHandler handler(file);
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        reportEnd();
-        NBNodeCont::report(_verbose);
+        MsgHandler::getMessageInstance()->inform("done.");
+        NBNodeCont::report();
     }
     // load edges
     if(oc.isSet("cell-edge-file")) {
-        reportBegin("Loading edges... ");
+        MsgHandler::getMessageInstance()->inform("Loading edges... ");
         string file = oc.getString("cell-edge-file");
         // parse the file
-        NICellEdgesHandler handler(file, warn, _verbose,
+        NICellEdgesHandler handler(file,
             NBCapacity2Lanes(oc.getFloat("N")));
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        reportEnd();
-        NBEdgeCont::report(_verbose);
+        MsgHandler::getMessageInstance()->inform("done.");
+        NBEdgeCont::report();
     }
 }
 
@@ -327,7 +319,8 @@ NBLoader::useLineReader(LineReader &lr, const std::string &file,
                         LineHandler &lh) {
     // check opening
     if(!lr.setFileName(file)) {
-        cout << "The file '" << file << "' could not be opened." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            string("The file '") + file + string("' could not be opened."));
         return false;
     }
     lr.readAll(lh);
@@ -359,9 +352,9 @@ NBLoader::loadArcView(OptionsCont &oc, bool warn) {
         // check whether both the combines and explicite name giving were used
     if(oc.isSet("arcview")) {
         if(oc.isSet("arcview-dbf")||oc.isSet("arcview-shp")) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("It is not possible to load multiple files."));
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string(" Use EITHER \"--arcview\" OR \"--arcview-dbf\"/\"--arcview-shp\""));
             return;
         }
@@ -372,9 +365,9 @@ NBLoader::loadArcView(OptionsCont &oc, bool warn) {
         //  file names for bith structures are given)
     if(!oc.isSet("arcview")) {
         if(!oc.isSet("arcview-dbf")||!oc.isSet("arcview-shp")) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("You must give two files to parse ArcView-data."));
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string(" (\"--arcview-dbf\"/\"--arcview-shp\")"));
             return;
         }
@@ -383,14 +376,14 @@ NBLoader::loadArcView(OptionsCont &oc, bool warn) {
     }
     // check whether both files do exist
     if(!FileHelpers::exists(dbf_file)) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("File not found: ") + dbf_file);
     }
     if(!FileHelpers::exists(shp_file)) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("File not found: ") + shp_file);
     }
-    if(SErrorHandler::errorOccured()) {
+    if(MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
     // load the arcview files
@@ -420,25 +413,6 @@ NBLoader::loadArtemis(OptionsCont &oc, bool warn) {
     loader.load(oc);
 }
 
-
-
-
-void
-NBLoader::reportBegin(const std::string &msg)
-{
-    if(_verbose) {
-        cout << msg;
-    }
-}
-
-
-void
-NBLoader::reportEnd()
-{
-    if(_verbose) {
-        cout << "done." << endl;
-    }
-}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

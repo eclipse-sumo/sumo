@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:08:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/02/13 15:59:00  dkrajzew
 // unnecessary output of build edges id removed
 //
@@ -48,7 +51,7 @@ namespace
 #include <sax/SAXException.hpp>
 #include <netload/NLNetHandler.h>
 #include <netload/NLContainer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "GUIContainer.h"
@@ -64,9 +67,9 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUINetHandler::GUINetHandler(bool verbose, bool warn, const std::string &file,
+GUINetHandler::GUINetHandler(const std::string &file,
                              NLContainer &container)
-    : NLNetHandler(verbose, warn, file, container)
+    : NLNetHandler(file, container)
 {
 }
 
@@ -95,7 +98,7 @@ GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
         string to = getString(attrs, SUMO_ATTR_TO);
         static_cast<GUIContainer&>(myContainer).addSrcDestInfo(id, from, to);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "Error in description: An edge has no information about the from/to-node");
     }
 }

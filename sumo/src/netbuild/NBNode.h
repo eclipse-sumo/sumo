@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.14  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
@@ -284,7 +287,7 @@ public:
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
-    size_t eraseDummies(bool verbose);
+    size_t eraseDummies();
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
@@ -356,7 +359,7 @@ private:
 
     /** returns a list that contains only edges of the most highest priority
         encountered in the given list */
-    std::vector<NBEdge*> NBNode::getMostPriorised(std::vector<NBEdge*> &s);
+    std::vector<NBEdge*> getMostPriorised(std::vector<NBEdge*> &s);
 
     /** returns a list of edges which are connected to the given
         outgoing edge */

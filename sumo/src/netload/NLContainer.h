@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.9  2003/06/16 14:43:34  dkrajzew
-// documentation added
+// Revision 1.10  2003/06/18 11:18:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.8  2003/06/06 10:40:18  dkrajzew
 // new usage of MSEventControl applied

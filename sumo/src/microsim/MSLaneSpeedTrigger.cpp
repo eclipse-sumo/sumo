@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:12:51  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -36,16 +39,25 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
+#include <utils/common/MsgHandler.h>
 #include <helpers/Command.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
-#include <utils/common/SErrorHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "MSLaneSpeedTrigger.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net, MSLane &destLane,
                                        const std::string &aXMLFilename)
@@ -87,14 +99,14 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &name,
     double speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
     // check the values
     if(next<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Wrong time in MSLaneSpeedTrigger in file '")
             + _file
             + string("'."));
         return;
     }
     if(speed<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Wrong speed in MSLaneSpeedTrigger in file '")
             + _file
             + string("'."));

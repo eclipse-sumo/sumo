@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/18 11:18:04  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.11  2003/06/06 10:40:18  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -127,8 +130,7 @@ namespace
 #include "NLJunctionControlBuilder.h"
 #include "NLNetBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
-#include <utils/common/SLogging.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -458,7 +460,7 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
         while(st.hasNext()) {
             string name = st.next();
             if(!FileHelpers::exists(name)) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("The route file '") + name
                     + string("' does not exist."));
                 ok = false;
@@ -471,8 +473,7 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
         st.reinit();
         while(st.hasNext()) {
             loaders.push_back(
-                new MSRouteLoader(oc.getBool("v"), oc.getBool("w"), st.next(),
-                *(MSNet::getInstance())));
+                new MSRouteLoader(st.next(), *(MSNet::getInstance())));
         }
     }
     // build the route control

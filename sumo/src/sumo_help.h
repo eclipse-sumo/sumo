@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/31 06:18:18  dkrajzew
 // help screen corrected
 //
@@ -55,7 +58,6 @@ char *help[] = {
     "   -n, --net-files FILE[;FILE]*    FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
     "   -a, --additional-files FILE...  FILE is a detector file",
-//    "   -j, --junctions FILE[;FILE]*    FILE should contain the junction logics",
     "   -c, --configuration FILE        FILE will be used as configuration",
     "                                    1. Default: ./sumo.cfg",
     " ",
@@ -76,6 +78,7 @@ char *help[] = {
     " Processing Options:",
     "   -C, --no-config                 No configuration file will be used",
     "   -v, --verbose                   SUMO will report what it does",
+    "   -W, --suppress-warnings         No warnings will be printed",
     "   -p, --print-options             Prints option values before processing",
     "   -?, --help                      This screen",
     0

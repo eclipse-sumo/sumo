@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -45,7 +48,7 @@ namespace
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "RORouteDef.h"
@@ -104,7 +107,7 @@ ROSumoRoutesHandler::startRoute(const Attributes &attrs)
         _currentRoute = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         _currentRoute = "";
-        SErrorHandler::add("Missing id in route.");
+        MsgHandler::getErrorInstance()->inform("Missing id in route.");
     }
 }
 
@@ -118,7 +121,7 @@ ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         _currentRoute = "";
-        SErrorHandler::add("Missing id in vehicle.");
+        MsgHandler::getErrorInstance()->inform("Missing id in vehicle.");
         return;
     }
     // get vehicle type
@@ -127,13 +130,13 @@ ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
         string name = getString(attrs, SUMO_ATTR_TYPE);
         type = _net.getVehicleType(name);
         if(type==0) {
-            SErrorHandler::add(string("The type of the vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("The type of the vehicle '") +
                 name + string("' is not known."));
         }
     } catch (EmptyData) {
         _currentRoute = "";
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing type in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing type in vehicle '") +
                 id + string("'."));
         }
     }
@@ -143,12 +146,12 @@ ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
         time = getLong(attrs, SUMO_ATTR_DEPART);
     } catch (EmptyData) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing departure time in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing departure time in vehicle '") +
                 id + string("'."));
         }
     } catch (NumberFormatException) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Non-numerical departure time in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Non-numerical departure time in vehicle '") +
                 id + string("'."));
         }
     }
@@ -158,13 +161,13 @@ ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
         string name = getString(attrs, SUMO_ATTR_ROUTE);
         route = _net.getRouteDef(name);
         if(route==0) {
-            SErrorHandler::add(string("The route of the vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("The route of the vehicle '") +
                 name + string("' is not known."));
             return;
         }
     } catch (EmptyData) {
         if(id.length()!=0) {
-            SErrorHandler::add(string("Missing route in vehicle '") +
+            MsgHandler::getErrorInstance()->inform(string("Missing route in vehicle '") +
                 id + string("'."));
         }
     }
@@ -187,7 +190,7 @@ ROSumoRoutesHandler::startVehType(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         _currentRoute = "";
-        SErrorHandler::add("Missing id in vtype.");
+        MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
         return;
     }
     // get the other values
@@ -213,10 +216,10 @@ ROSumoRoutesHandler::getFloatReporting(const Attributes &attrs, AttrEnum attr,
     try {
         return getFloat(attrs, attr);
     } catch (EmptyData) {
-        SErrorHandler::add(string("Missing ") + name + string(" in vehicle '") +
+        MsgHandler::getErrorInstance()->inform(string("Missing ") + name + string(" in vehicle '") +
             id + string("'."));
     } catch (NumberFormatException) {
-        SErrorHandler::add(name + string(" in vehicle '")
+        MsgHandler::getErrorInstance()->inform(name + string(" in vehicle '")
             + id + string("' is not numeric."));
     }
     return -1;
@@ -237,7 +240,7 @@ void ROSumoRoutesHandler::myCharacters(int element, const std::string &name,
             if(edge!=0) {
                 list.add(edge);
             } else {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("The route '") + _currentRoute +
                     string("' contains the unknown edge '") + id +
                     string("'."));
@@ -250,11 +253,11 @@ void ROSumoRoutesHandler::myCharacters(int element, const std::string &name,
             _net.addRouteDef(route);
         } else {
             if(_currentRoute.length()>0) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("Something is wrong with route '") + _currentRoute
                     + string("'."));
             } else {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     string("Invalid route occured."));
             }
         }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:14:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/03/17 14:19:48  dkrajzew
 // node type assignment corrected
 //
@@ -36,7 +39,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
@@ -101,7 +104,7 @@ NIArtemisParser_Nodes::myDependentReport()
         break;
     }
     // build if ok
-    if(!SErrorHandler::errorOccured()) {
+    if(!MsgHandler::getErrorInstance()->wasInformed()) {
         NBNode *node = new NBNode(id, x, y, myType);
         if(!NBNodeCont::insert(node)) {
             delete node;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -40,7 +43,7 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -56,7 +59,7 @@ using namespace std;
 
 
 RONetHandler::RONetHandler(OptionsCont &oc, RONet &net)
-    : SUMOSAXHandler("sumo-network", true, true),
+    : SUMOSAXHandler("sumo-network"),
     _options(oc), _net(net), _currentName(),
     _currentEdge(0)
 {
@@ -100,10 +103,10 @@ RONetHandler::parseEdge(const Attributes &attrs)
         _currentName = getString(attrs, SUMO_ATTR_ID);
         _currentEdge = _net.getEdge(_currentName);
         if(_currentEdge==0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("An unknown edge occured within '")
                 + _file + string("."));
-            SErrorHandler::add("Contact your net supplier!");
+            MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
         }
         string type = getString(attrs, SUMO_ATTR_FUNC);
         if(type=="normal") {
@@ -116,10 +119,10 @@ RONetHandler::parseEdge(const Attributes &attrs)
             throw 1; // !!!
         }
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("An edge without an id occured within '")
             + _file + string("."));
-        SErrorHandler::add("Contact your net supplier!");
+        MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
     }
 }
 
@@ -133,7 +136,7 @@ RONetHandler::parseLane(const Attributes &attrs)
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("A lane without a maxspeed definition occured within '")
             + _file + string("'."));
         return;
@@ -142,14 +145,14 @@ RONetHandler::parseLane(const Attributes &attrs)
     try {
         length = getFloat(attrs, SUMO_ATTR_LENGTH);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("A lane without a length definition occured within '")
             + _file + string("'."));
         return;
     } // !!! NumberFormatException
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
     if(id.length()==0) {
-        SErrorHandler::add("Could not retrieve the id of a lane.");
+        MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
         return;
     }
     // add when both values are valid
@@ -165,10 +168,10 @@ RONetHandler::parseJunction(const Attributes &attrs)
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("A junction without an id occured within '")
             + _file + string("'."));
-        SErrorHandler::add("Contact your net supplier!");
+        MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
     }
 }
 
@@ -186,22 +189,22 @@ RONetHandler::parseConnEdge(const Attributes &attrs) {
             // connect edge
             _currentEdge->addSucceeder(succ);
         } else {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("The succeding edge '") + succID
                 + string("' does not exist."));
             error = true;
         }
     } catch (EmptyData) {
-        SErrorHandler::add("A succeding edge has no id.");
+        MsgHandler::getErrorInstance()->inform("A succeding edge has no id.");
         error = true;
     }
     // check whether everything was ok
     if(error) {
         if(_currentName.length()!=0) {
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string(" At edge '") + _currentName + string("'."));
         }
-        SErrorHandler::add(" Contact your net supplier.");
+        MsgHandler::getErrorInstance()->inform(" Contact your net supplier.");
     }
 }
 

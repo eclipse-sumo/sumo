@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -40,7 +43,7 @@ namespace
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include "ROEdge.h"
@@ -51,7 +54,7 @@ namespace
 using namespace std;
 ROWeightsHandler::ROWeightsHandler(OptionsCont &oc, RONet &net,
                                    const std::string &file)
-    : SUMOSAXHandler("sumo-netweights", true, true, file), _options(oc), _net(net),
+    : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
     _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0)
 {
     _scheme = _options.getString("scheme");
@@ -88,7 +91,7 @@ ROWeightsHandler::parseTimeStep(const Attributes &attrs) {
         _currentTimeBeg = getLong(attrs, SUMO_ATTR_BEGIN);
         _currentTimeEnd = getLong(attrs, SUMO_ATTR_END);
     } catch (...) {
-        SErrorHandler::add("Problems with timestep value.");
+        MsgHandler::getErrorInstance()->inform("Problems with timestep value.");
     }
 }
 
@@ -100,8 +103,8 @@ ROWeightsHandler::parseEdge(const Attributes &attrs) {
         string id = getString(attrs, SUMO_ATTR_ID);
         _currentEdge = _net.getEdge(id);
     } catch (EmptyData) {
-        SErrorHandler::add("An edge without an id occured.");
-        SErrorHandler::add(" Contact your weight data supplier.");
+        MsgHandler::getErrorInstance()->inform("An edge without an id occured.");
+        MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
     }
 }
 
@@ -114,21 +117,21 @@ ROWeightsHandler::parseLane(const Attributes &attrs) {
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add("A lane without an id occured.");
-        SErrorHandler::add(" Contact your weight data supplier.");
+        MsgHandler::getErrorInstance()->inform("A lane without an id occured.");
+        MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
     }
     // try to get the lane value - depending on the used scheme
     try {
         value = getFloat(attrs, SUMO_ATTR_VALUE);
     } catch (EmptyData) {
-        SErrorHandler::add(string("Missing value '") + _scheme + string("' in lane."));
-        SErrorHandler::add("Contact your weight data supplier.");
+        MsgHandler::getErrorInstance()->inform(string("Missing value '") + _scheme + string("' in lane."));
+        MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
-        SErrorHandler::add(string("The value should be numeric, but is not ('") +
+        MsgHandler::getErrorInstance()->inform(string("The value should be numeric, but is not ('") +
             getString(attrs, SUMO_ATTR_VALUE) +
             string("'"));
         if(id.length()!=0)
-            SErrorHandler::add(string(" In lane '") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" In lane '") + id + string("'"));
     }
     // set the values when retrieved (no errors)
     if(id.length()!=0&&value>0&&_currentEdge!=0) {

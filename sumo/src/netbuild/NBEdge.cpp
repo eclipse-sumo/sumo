@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/06/18 11:13:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.16  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
@@ -744,7 +747,7 @@ NBEdge::computeLanes2Edges()
 
 
 bool
-NBEdge::recheckLanes(bool verbose)
+NBEdge::recheckLanes()
 {
     size_t i;
     // check:

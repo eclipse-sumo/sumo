@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.8  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
 //
@@ -91,6 +94,7 @@ char *help[] = {
     " Processing Options:",
     "   -C, --no-config                No configuration file is used",
     "   -v, --verbose                  SUMO-Netconvert reports what it does",
+    "   -W, --suppress-warnings        No warnings will be printed",
     "   -p, --print-options            Prints option values before processing",
     "   --help                         This screen",
     0

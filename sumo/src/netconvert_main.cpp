@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/18 11:26:15  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.11  2003/06/05 14:41:53  dkrajzew
 // further parameter contraining the area of connectors to join (VIssim) added
 //
@@ -122,9 +125,11 @@ namespace
 #include <netbuild/NBRequest.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
+ #include <utils/common/SystemFrame.h>
 #include <utils/common/HelpPrinter.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include "netconvert_help.h"
 
 /* =========================================================================
@@ -147,6 +152,14 @@ using namespace std;
 /* =========================================================================
  * functions
  * ======================================================================= */
+void
+inform(int step, const std::string &about)
+{
+    MsgHandler::getMessageInstance()->inform(
+        string("Computing step ") + toString<int>(step)
+        + string(": ") + about);
+}
+
 /* -------------------------------------------------------------------------
  * computation methods
  * ----------------------------------------------------------------------- */
@@ -167,73 +180,55 @@ bool setInit(int step, bool verbose)
 
 /** removes dummy edges from junctions */
 bool
-removeDummyEdges(int step, bool verbose)
+removeDummyEdges(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Removing dummy edges " << endl;
-    }
-    return NBNodeCont::removeDummyEdges(verbose);
+    inform(step, "Removing dummy edges ");
+    return NBNodeCont::removeDummyEdges();
 }
 
 
 /** joins edges which connect the same nodes */
 bool
-joinEdges(int step, bool verbose)
+joinEdges(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Joining double connections " << endl;
-    }
-    return NBNodeCont::recheckEdges(verbose);
+    inform(step, "Joining double connections");
+    return NBNodeCont::recheckEdges();
 }
 
 
 /** computes the turning direction for each edge */
 bool
-computeTurningDirections(int step, bool verbose)
+computeTurningDirections(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Computing turning directions " << endl;
-    }
-    return NBEdgeCont::computeTurningDirections(verbose);
+    inform(step, "Computing turning directions");
+    return NBEdgeCont::computeTurningDirections();
 }
 
 
 /** sorts the edges of a node */
 bool
-sortNodesEdges(int step, bool verbose)
+sortNodesEdges(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Sorting nodes' edges, computing shape " << endl;
-    }
-    return NBNodeCont::sortNodesEdges(verbose);
+    inform(step, "Sorting nodes' edges, computing shape");
+    return NBNodeCont::sortNodesEdges();
 }
 
 
 /** sets the node positions in a way that nodes are lying at zero */
 bool
-normaliseNodePositions(int step, bool verbose)
+normaliseNodePositions(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Normalising node positions " << endl;
-    }
-    return NBNodeCont::normaliseNodePositions(verbose);
+    inform(step, "Normalising node positions");
+    return NBNodeCont::normaliseNodePositions();
 }
 
 
 /** computes edges 2 edges - relationships
     (step1: computation of approached edges) */
 bool
-computeEdge2Edges(int step, bool verbose)
+computeEdge2Edges(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Computing Approached Edges" << endl;
-    }
+    inform(step, "Computing Approached Edges");
     return NBEdgeCont::computeEdge2Edges();
 }
 
@@ -241,12 +236,9 @@ computeEdge2Edges(int step, bool verbose)
 /** computes edges 2 edges - relationships
     (step2: computation of which lanes approach the edges) */
 bool
-computeLanes2Edges(int step, bool verbose)
+computeLanes2Edges(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Computing Approaching Lanes" << endl;
-    }
+    inform(step, "Computing Approaching Lanes");
     return NBEdgeCont::computeLanes2Edges();
 }
 
@@ -254,28 +246,22 @@ computeLanes2Edges(int step, bool verbose)
 /** computes edges 2 edges - relationships
     (step3: division of lanes to approached edges) */
 bool
-computeLanes2Lanes(int step, bool verbose)
+computeLanes2Lanes(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Dividing of Lanes on Approached Lanes" << endl;
-    }
-    bool ok = NBNodeCont::computeLanes2Lanes(verbose);
+    inform(step, "Dividing of Lanes on Approached Lanes");
+    bool ok = NBNodeCont::computeLanes2Lanes();
     if(ok) {
-        return NBEdgeCont::sortOutgoingLanesConnections(verbose);
+        return NBEdgeCont::sortOutgoingLanesConnections();
     }
     return ok;
 }
 
 /** rechecks whether all lanes have a following lane/edge */
 bool
-recheckLanes(int step, bool verbose)
+recheckLanes(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Rechecking of lane endings." << endl;
-    }
-    return NBEdgeCont::recheckLanes(verbose);
+    inform(step, "Rechecking of lane endings");
+    return NBEdgeCont::recheckLanes();
 }
 
 
@@ -293,13 +279,10 @@ computeLinkPriorities(int step, bool verbose)
 
 /** appends the turnarounds */
 bool
-appendTurnarounds(int step, bool verbose)
+appendTurnarounds(int step)
 {
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Appending Turnarounds" << endl;
-    }
-    return NBEdgeCont::appendTurnarounds(verbose);
+    inform(step, "Appending Turnarounds");
+    return NBEdgeCont::appendTurnarounds();
 }
 
 
@@ -307,10 +290,7 @@ appendTurnarounds(int step, bool verbose)
 bool
 computeLogic(int step, OptionsCont *oc)
 {
-    if(oc->getBool("v")) {
-        cout << "Computing step " << step
-            << ": Computing node logics" << endl;
-    }
+    inform(step, "Computing node logics");
     return NBNodeCont::computeLogics(*oc);
 }
 
@@ -319,17 +299,14 @@ computeLogic(int step, OptionsCont *oc)
 bool
 computeTLLogic(int step, OptionsCont *oc)
 {
-    if(oc->getBool("v")) {
-        cout << "Computing step " << step
-            << ": Computing traffic light logics" << endl;
-    }
+    inform(step, "Computing traffic light logics");
     return NBTrafficLightLogicCont::computeLogics(*oc);
 }
+
 
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-
 /** initialises defaults */
 bool
 initDefaults(OptionsCont *oc)
@@ -347,26 +324,23 @@ void
 compute(OptionsCont *oc)
 {
     bool ok = true;
-    bool verbose = oc->getBool("v");
     int step = 1;
-//    if(ok) ok = setInit(step++, verbose);
-    if(ok) ok = removeDummyEdges(step++, verbose);
-//    if(ok) ok = joinEdges(step++, verbose);
-    if(ok) ok = computeTurningDirections(step++, verbose);
-    if(ok) ok = sortNodesEdges(step++, verbose);
-    if(ok) ok = normaliseNodePositions(step++, verbose);
-    if(ok) ok = computeEdge2Edges(step++, verbose);
-    if(ok) ok = computeLanes2Edges(step++, verbose);
-    if(ok) ok = computeLanes2Lanes(step++, verbose);
-    if(ok) ok = appendTurnarounds(step++, verbose);
-    if(ok) ok = recheckLanes(step++, verbose);
-//    if(ok) ok = computeLinkPriorities(step++, verbose);
+//    if(ok) ok = setInit(step++);
+    if(ok) ok = removeDummyEdges(step++);
+//    if(ok) ok = joinEdges(step++);
+    if(ok) ok = computeTurningDirections(step++);
+    if(ok) ok = sortNodesEdges(step++);
+    if(ok) ok = normaliseNodePositions(step++);
+    if(ok) ok = computeEdge2Edges(step++);
+    if(ok) ok = computeLanes2Edges(step++);
+    if(ok) ok = computeLanes2Lanes(step++);
+    if(ok) ok = appendTurnarounds(step++);
+    if(ok) ok = recheckLanes(step++);
+//    if(ok) ok = computeLinkPriorities(step++);
     if(ok) ok = computeLogic(step++, oc);
     if(ok) ok = computeTLLogic(step++, oc);
-    
-    if(ok && oc->getBool("v")) {
-        NBNode::reportBuild();
-    }
+
+    NBNode::reportBuild();
     NBRequest::reportWarnings();
     if(!ok) throw ProcessError();
 }
@@ -408,7 +382,7 @@ save(string path)
 
 /** clears all structures */
 void
-clearAll(OptionsCont *oc)
+clearAll()
 {
     NBEdgeCont::clear();
     NBNodeCont::clear();
@@ -417,7 +391,6 @@ clearAll(OptionsCont *oc)
     NBDistrictCont::clear();
     NBTrafficLightLogicCont::clear();
     NBDistribution::clear();
-    delete oc;
     XMLSubSys::close();
 }
 
@@ -435,13 +408,9 @@ int main(int argc, char **argv)
 #endif
 #endif
 
-    bool verbose = false;
+    int ret = 0;
     OptionsCont *oc = 0;
     try {
-        // try to initialise the XML-subsystem
-        if(!XMLSubSys::init()) {
-            return 1;
-        }
         // parse the settings
         oc = NBOptionsIO::getOptions(argc, argv);
         // check if only the help shall be printed
@@ -450,33 +419,36 @@ int main(int argc, char **argv)
             delete oc;
             return 0;
         }
+        // try to initialise the XML-subsystem
+        if(!SystemFrame::init(false, oc)) {
+            throw ProcessError();
+        }
         // initialise the (default) types
         initDefaults(oc);
         // load data
         NBLoader::load(*oc);
         // check whether any errors occured
-        if(SErrorHandler::errorOccured()) {
+        if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-        verbose = oc->getBool("v");
-        NBTypeCont::report(verbose);
-        NBEdgeCont::report(verbose);
-        NBNodeCont::report(verbose);
+        NBTypeCont::report();
+        NBEdgeCont::report();
+        NBNodeCont::report();
         // perform the computation
         compute(oc);
         // save network when wished
         save(oc->getString("o"));
         // remove everything from the memory
     } catch (ProcessError) {
-        clearAll(oc);
-        cout << "Quitting (conversion failed)." << endl;
-        return 1; // !!!
-
+        clearAll();
+        MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
+        ret = 1;
     }
-    clearAll(oc);
+    clearAll();
+    SystemFrame::close(oc);
     // report about ending
-    if(verbose) {
-        cout << "Success." << endl;
+    if(ret=0) {
+        MsgHandler::getMessageInstance()->inform("Success.");
     }
     return 0;
 }

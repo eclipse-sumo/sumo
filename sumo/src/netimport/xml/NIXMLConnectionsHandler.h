@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/06/18 11:17:29  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -47,26 +50,39 @@ class NBEdge;
 class NIXMLConnectionsHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLConnectionsHandler(bool warn, bool verbose);
+    NIXMLConnectionsHandler();
+
     /// destructor
     ~NIXMLConnectionsHandler();
+
 protected:
+    /// The method called by the SAX-handler to parse start tags
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
+
+    /// The method called by the SAX-handler to parse intermediate characters
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
+
+    /// The method called by the SAX-handler to parse closing tags
     void myEndElement(int element, const std::string &name);
+
 private:
+    // parses a connection when it describes a edge-2-edge relationship
     void parseEdgeBound(const Attributes &attrs, NBEdge *from,
         NBEdge *to);
+
+    // parses a connection when it describes a lane-2-lane relationship
     void parseLaneBound(const Attributes &attrs,NBEdge *from,
         NBEdge *to);
 
 private:
     /** invalid copy constructor */
     NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);
+
     /** invalid assignment operator */
     NIXMLConnectionsHandler &operator=(const NIXMLConnectionsHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

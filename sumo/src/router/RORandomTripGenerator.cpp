@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:20:54  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.3  2003/05/20 09:48:35  dkrajzew
 // debugging
 //
@@ -43,7 +46,7 @@ namespace
 
 #include <string>
 #include "RORandomTripGenerator.h"
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
@@ -104,11 +107,11 @@ RORandomTripGenerator::readNextRoute(long start)
         // chekc whether valid values could be found
         if(from==0||to==0) {
             if(from==0) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     "The network does not contain any valid starting edges!");
             }
             if(from==0) {
-                SErrorHandler::add(
+                MsgHandler::getErrorInstance()->inform(
                     "The network does not contain any valid end edges!");
             }
             return false;
@@ -144,7 +147,7 @@ RORandomTripGenerator::myInit(OptionsCont &options)
     myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / 2.0;
     if(myWishedPerSecond<0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             "We cannot less than no vehicle!");
         throw ProcessError();
     }

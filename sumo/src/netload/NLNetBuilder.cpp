@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/18 11:18:05  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.7  2003/05/21 15:18:21  dkrajzew
 // yellow traffic lights implemented
 //
@@ -113,11 +116,10 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <string>
 #include <map>
-#include <utils/common/SErrorHandler.h>
-#include <utils/common/SLogging.h>
 #include "NLContainer.h"
 #include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -160,8 +162,7 @@ NLNetBuilder::buildMSNet() {
     MSNet *net = 0;
     // get the matching handler
     NLNetHandler *handler =
-        new NLNetHandler(m_pOptions.getBool("v"), m_pOptions.getBool("w"),
-            "", *container);
+        new NLNetHandler("", *container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
 /*    // prepare for building of route readers
@@ -171,7 +172,7 @@ NLNetBuilder::buildMSNet() {
     }
 	*/
     // try to build a net
-    if(!SErrorHandler::errorOccured()) {
+    if(!MsgHandler::getErrorInstance()->wasInformed()) {
         net = container->buildMSNet(m_pOptions);
     }
     delete parser;
@@ -213,15 +214,15 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
     handler->setWanted(what);
     // check whether the list of files does not contain ';'s only
     if(!FileHelpers::checkFileList(files)) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("No ") + getDataName(what) + string(" found!"));
-        SErrorHandler::add("Check your program parameter.");
+        MsgHandler::getErrorInstance()->inform(
+            "Check your program parameter.");
         return false;
     }
     // report about loading when wished
-    if(m_pOptions.getBool("v")) {
-        cout << "Loading " << getDataName(what) << "..." << endl;
-    }
+    MsgHandler::getMessageInstance()->inform(
+        string("Loading ") + getDataName(what) + string("..."));
     // start parsing
     parser.setContentHandler(handler);
     parser.setErrorHandler(handler);
@@ -230,7 +231,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
     subreport(
         "Loading of " + getDataName(what) + " done.",
         "Loading of " + getDataName(what) + " failed.");
-    return !SErrorHandler::errorOccured();
+    return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
 
@@ -246,14 +247,14 @@ NLNetBuilder::parse(const string &files, NLNetHandler *handler,
         string tmp = st.next();
         if(!FileHelpers::exists(tmp)) {
             // report error if not
-            SErrorHandler::add(
+            MsgHandler::getErrorInstance()->inform(
                 string("The file '") + tmp + string("' does not exist!"));
             return false;
         } else {
             // parse the file
 	        handler->setFileName(tmp);
 	        parser.parse(tmp.c_str());
-	        ok = !(SErrorHandler::errorOccured());
+	        ok = !(MsgHandler::getErrorInstance()->wasInformed());
         }
     }
     return ok;
@@ -284,10 +285,10 @@ NLNetBuilder::getDataName(LoadFilter forWhat) {
 void
 NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 {
-    if(!SErrorHandler::errorOccured()) {
-        SLogging::add(ok.c_str());
+    if(!MsgHandler::getErrorInstance()->wasInformed()) {
+        MsgHandler::getMessageInstance()->inform(ok.c_str());
     } else {
-        SLogging::add(wrong.c_str());
+        MsgHandler::getMessageInstance()->inform(wrong.c_str());
     }
 }
 
@@ -296,7 +297,7 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
 void
 NLNetBuilder::report(const NLContainer &container)
 {
-    if(!SErrorHandler::errorOccured() && m_pOptions.getBool("v")) {
+    if(!MsgHandler::getErrorInstance()->wasInformed() && m_pOptions.getBool("v")) {
 //        SLogging::add(container.getStatistics());
     }
 }

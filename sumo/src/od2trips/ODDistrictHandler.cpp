@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:20:24  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
@@ -39,7 +42,7 @@ namespace
 #include <utility>
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "ODDistrict.h"
@@ -48,9 +51,8 @@ namespace
 
 using namespace std;
 
-ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont,
-                                     bool warn, bool verbose)
-    : SUMOSAXHandler("sumo-districts", warn, verbose),
+ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont)
+    : SUMOSAXHandler("sumo-districts"),
     _cont(cont), _current(0)
 {
 }
@@ -102,7 +104,7 @@ ODDistrictHandler::openDistrict(const Attributes &attrs)
     try {
         _current = new ODDistrict(getString(attrs, SUMO_ATTR_ID));
     } catch (EmptyData) {
-        SErrorHandler::add("A district without an id occured.");
+        MsgHandler::getErrorInstance()->inform("A district without an id occured.");
     }
 }
 
@@ -140,7 +142,7 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("A ") + type
             + string(" without an id occured within district '")
             + _current->getID() + string("'."));
@@ -149,7 +151,7 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
     // get the weight
     double weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
     if(weight==-1) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The weight of the ") + type + string(" '") + id
             + string("' within district '")
             + _current->getID()

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/06/18 11:14:48  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.1  2003/02/07 11:10:56  dkrajzew
 // names changed
 //
@@ -39,7 +42,7 @@ namespace
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBNode.h>
@@ -59,7 +62,6 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NICellEdgesHandler::NICellEdgesHandler(const std::string &file,
-                                       bool warn, bool verbose,
                                        NBCapacity2Lanes capacity2Lanes)
     : FileErrorReporter("cell-edges", file), _capacity2Lanes(capacity2Lanes)
 {

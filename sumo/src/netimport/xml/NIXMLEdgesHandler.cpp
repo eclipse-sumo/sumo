@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/18 11:17:29  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.6  2003/05/20 09:44:35  dkrajzew
 // some make-up done (splitting large methods)
 //
@@ -105,7 +108,9 @@ namespace
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 
@@ -125,9 +130,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLEdgesHandler::NIXMLEdgesHandler(OptionsCont &options,
-                                     bool warn, bool verbose)
-    : SUMOSAXHandler("xml-edges - file", warn, verbose),
+NIXMLEdgesHandler::NIXMLEdgesHandler(OptionsCont &options)
+    : SUMOSAXHandler("xml-edges - file"),
     _options(options)
 {
 }
@@ -208,7 +212,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
     try {
         myCurrentID = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        cout << "No id given... Skipping." << endl;
+        MsgHandler::getWarningInstance()->inform("No id given... Skipping.");
     }
 }
 

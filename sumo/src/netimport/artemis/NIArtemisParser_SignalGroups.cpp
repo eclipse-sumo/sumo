@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:14:13  dkrajzew
+// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+//
 // Revision 1.4  2003/05/20 09:37:13  dkrajzew
 // patch to current netbuilder-API; still not working properly
 //
@@ -42,7 +45,7 @@ namespace
 #include <map>
 #include <netbuild/NBConnectionDefs.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/SErrorHandler.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
@@ -91,19 +94,19 @@ NIArtemisParser_SignalGroups::myDependentReport()
     NBNode *toNode = NBNodeCont::retrieve(to);
         // check whether the node is valid
     if(node==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The node '") + nodeid + string("' is not known within a signal group."));
         return;
     }
         // check whether the incoming edge is valid
     if(fromNode==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The from node '") + from + string("' is not known within a signal group."));
         return;
     }
         // check whether the outgoing edge is valid
     if(toNode==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("The to node '") + to + string("' is not known within a signal group."));
         return;
     }
@@ -114,13 +117,13 @@ NIArtemisParser_SignalGroups::myDependentReport()
         NBContHelper::findConnectingEdge(
             node->getOutgoingEdges(), node, toNode);
     if(fromEdge==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Could not find connection between '") + from
             + string("' and '") + nodeid + string("' within a signal group."));
         return;
     }
     if(toEdge==0) {
-        SErrorHandler::add(
+        MsgHandler::getErrorInstance()->inform(
             string("Could not find connection between '") + nodeid
             + string("' and '") + to + string("' within a signal group."));
         return;
