@@ -1,9 +1,15 @@
 noinst_LIBRARIES = libhelpers.a
 
-CFRONT_FILES = Command.h SimpleCommand.h SimpleCommand.cpp SimpleCommand.icc \
-Counter.h Counter.cpp Counter.icc
+CFRONT_FILES = Command.h \
+SimpleCommand.h \
+SimpleCommand.cpp \
+SimpleCommand.icc \
+Counter.h \
+Counter.cpp \
+Counter.icc
 
-libhelpers_a_SOURCES = PreStartInitialised.cpp PreStartInitialised.h
+libhelpers_a_SOURCES = PreStartInitialised.cpp \
+PreStartInitialised.h
 
 EXTRA_DIST = $(CFRONT_FILES)
 
