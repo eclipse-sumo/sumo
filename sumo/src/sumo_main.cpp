@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/08/21 13:02:22  dkrajzew
+// cleaned up
+//
 // Revision 1.16  2003/07/22 15:40:40  dkrajzew
 // false exception catch used during debugging removed
 //
@@ -200,54 +203,8 @@ namespace
         }
         return ret;
     }
-
-/*
-    typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
-    typedef SingletonDictionary< std::string, MSInductLoop* > LoopDict;
-
-
-    void
-    createDictionaries( void )
-    {
-        LaneStateDict::create();
-        LoopDict::create();
-    }
-
-    void
-    setDictionariesFindMode( void )
-    {
-        // This is better done during the construction process. But until the
-        // SingletonDictionaries aren't widely used, we can do this here.
-        LaneStateDict::getInstance()->setFindMode();
-        LoopDict::getInstance()->setFindMode();
-    }
-
-    template< class Iter > void
-    deleteDictionaryContents( Iter start, Iter end )
-    {
-        while( start != end ) {
-            delete *start;
-            ++start;
-        }
-    }
-
-    void
-    deleteDictionariesAndContents( void )
-    {
-        LaneStateDict::ValueVector lsVec(
-            LaneStateDict::getInstance()->getStdVector() );
-        deleteDictionaryContents( lsVec.begin(), lsVec.end() );
-        delete LaneStateDict::getInstance();
-
-        LoopDict::ValueVector loopVec(
-            LoopDict::getInstance()->getStdVector() );
-        deleteDictionaryContents( loopVec.begin(), loopVec.end() );
-        delete LoopDict::getInstance();
-    } */
 }
-/*
-#include <microsim/MSDetector2File.h>
-*/
+
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
@@ -257,7 +214,7 @@ main(int argc, char **argv)
     size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
-    srand(rand_init);
+    srand(1040208551);
     int ret = 0;
     try {
         if(!SystemFrame::init(false, argc, argv,
