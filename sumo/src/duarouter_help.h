@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/20 13:15:58  dkrajzew
+// options output corrected
+//
 // Revision 1.3  2004/12/20 10:48:35  dkrajzew
 // net-files changed to net-file
 //
@@ -73,76 +76,80 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    "Usage: sumo-router [OPTION]*",
-    "Simulation of Urban MObility v0.7 - Routing Module",
+    "Simulation of Urban MObility v0.8.2 - duarouter application",
+    "  Routes vehicles by shortest path using dua.",
     "  http://sumo.sourceforge.net",
+    "Usage: sumo-duarouter [OPTION]*",
+    " ",
     "Examples: ",
-    " sumo-router -c routes_munich.cfg",
+    "  sumo-duarouter -c routes_munich.cfg",
     " ",
     "Options:",
     " Input files:",
     "  Configuration",
-    "   [-c|--configuration] <FILE>   FILE will be used as configuration",
+    "   -c, --configuration FILE    FILE will be used as configuration",
     " ",
     "  Network description:",
-    "   [-n|--net-file] <FILE>       FILE containing the SUMO-net",
-    "   [-w|--weights] <FILE>         FILE containing the weights of the net",
-    "   [-S|--supplementary-weights] <FILE>",
+    "   -n, --net-file FILE         FILE containing the SUMO-net",
+    "   -w, --weights FILE          FILE containing the weights of the net",
+    "   -S, --supplementary-weights FILE",
     "                                 FILE containing the supplementary-weights",
     "                                   of the net",
     " ",
     "  Route descriptions:",
-    "   [-s|--sumo-input] <FILE>      FILE containing SUMO-routes",
-    "   [-t|--trip-defs] <FILE>       FILE containing trip definitions",
-    "   [-a|--alternatives] <FILE>    FILE containing route alternatives",
-    "   [-f|--flow-definition] <FILE> FILE containing flow definition",
-    "   --cell-input <FILE>           FILE containing cell routes",
-    "   --artemis-input <FILE>        FILE containing cell routes",
+    "   -s, --sumo-input FILE       FILE containing SUMO-routes",
+    "   -t, --trip-defs FILE        FILE containing trip definitions",
+    "   -a, --alternatives FILE     FILE containing route alternatives",
+    "   -f, --flow-definition FILE  FILE containing flow definition",
+    "   --cell-input FILE           FILE containing cell routes",
+    "   --artemis-input FILE        FILE containing cell routes",
     " ",
     " Output files:",
-    "   [-o|--output-file] <FILE>     Generated routes will be written to FILE",
-    "                                   Additionally, a file with route",
-    "                                   alternatives will be generated as",
-    "                                   'FILE.alt'",
+    "   -o, --output-file FILE      Generated routes will be written to FILE",
+    "                                 Additionally, a file with route",
+    "                                 alternatives will be generated as",
+    "                                 'FILE.alt'",
     " ",
     " Process Options:",
-    "   [-b|--begin] <LONG>           The begin time of routing",
-    "   [-e|--end] <LONG>             The end time of routing",
-    "   [-R|--random-per-second] <FLOAT>",
-    "                                 Builds (additional) random routes",
-    "   --gBeta <FLOAT>               Gawron-Beta for DUE",
-    "   --gA <FLOAT>                  Gawron-A for DUE",
-    "   --unsorted                    The routes are assumed to be unsorted",
-    "   --save-cell-rindex            The index to cell-routes will be saved",
-    "   --intel-cell                  Set, when reading cell-routes computed",
-    "                                   on an Intel-machine",
-    "   --no-last-cell                Use best, not the last cell-route",
-    "   --continue-on-unbuild         Continue if a route could not be build",
-    "   --move-on-short                Move vehicles on too short edges forward"
-    "   --srand <INT>                 Initialises the random number generator",
-    "                                   with the given value",
-    "   --abs-rand                    Set this when the current time shall be",
-    "                                   used for random number initialisation",
+    "   -b, --begin INT             The begin time of routing",
+    "   -e, --end INT               The end time of routing",
+    "   -R, --random-per-second FLOAT   Builds (additional) random routes",
+    "   --gBeta FLOAT               Gawron-Beta for DUE",
+    "   --gA FLOAT                  Gawron-A for DUE",
+    "   --unsorted                  The routes are assumed to be unsorted",
+    "   --save-cell-rindex          The index to cell-routes will be saved",
+    "   --intel-cell                Set, when reading cell-routes computed",
+    "                                 on an Intel-machine",
+    "   --no-last-cell              Use best, not the last cell-route",
+    "   --continue-on-unbuild       Continue if a route could not be build",
+    "   --move-on-short              Move vehicles on too short edges forward"
+    "   --srand INT                 Initialises the random number generator",
+    "                                 with the given value",
+    "   --abs-rand                  Set this when the current time shall be",
+    "                                 used for random number initialisation",
     " ",
     " Deafults:",
-    "   [-V|--krauss-vmax] <FLOAT>    Default value for krauss' vmax",
-    "   [-A|--krauss-a] <FLOAT>       Default value for krauss' max. accel",
-    "   [-B|--krauss-b] <FLOAT>       Default value for krauss' max. decel",
-    "   [-L|--krauss-length] <FLOAT>  Default value for krauss' vehicle length",
-    "   [-E|--krauss-eps] <FLOAT>     Default value for krauss' driver imperf.",
+    "   -V, --krauss-vmax FLOAT    Default value for krauss' vmax",
+    "   -A, --krauss-a FLOAT       Default value for krauss' max. accel",
+    "   -B, --krauss-b FLOAT       Default value for krauss' max. decel",
+    "   -L, --krauss-length FLOAT  Default value for krauss' vehicle length",
+    "   -E, --krauss-eps FLOAT     Default value for krauss' driver imperf.",
     " ",
     " Report options:",
-    "   [-v|--verbose]                Verbose reports",
-    "   [-W|-suppress-warnings]       No warnings will be printed",
-    "   [-l|-log-file] <FILE>         Writes all messages to the file",
-    "   [-p|-print-options]           Prints option values before processing",
-    "   [-?|--help]                   This screen",
-    "   --stats-period <INT>          Step number to pass between status output",
+    "   -v, --verbose              Verbose reports",
+    "   -W, -suppress-warnings     No warnings will be printed",
+    "   -l, -log-file FILE         Writes all messages to the file",
+    "   -p, -print-options         Prints option values before processing",
+    "   -?, --help                 This screen",
+    "   --stats-period INT         Step number to pass between status output",
     0
 };
 
-// Local Variables:
-// mode:C++
-// End:
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
+
+// Local Variables:
+// mode:C++
+//

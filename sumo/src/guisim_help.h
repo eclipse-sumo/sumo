@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/20 13:15:58  dkrajzew
+// options output corrected
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -49,9 +52,10 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Usage: sumo-gui",
-    "Simulation of Urban MObility v0.7 - GUI-Simulation Module",
+    "Simulation of Urban MObility v0.8.2 - guisim application",
+    "  The graphical version of the simulation.",
     "  http://sumo.sourceforge.net",
+    "Usage: guisim [OPTION]*",
     " ",
     "Options:",
     " General options:",
@@ -66,5 +70,12 @@ char *help[] = {
     0
 };
 
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+//
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/12/20 13:15:58  dkrajzew
+// options output corrected
+//
 // Revision 1.11  2004/12/20 10:48:35  dkrajzew
 // net-files changed to net-file
 //
@@ -62,12 +65,14 @@
  * The list of help strings for the sumo (simulation) module
  */
 char *help[] = {
-    "Usage: sumo [OPTION]+",
-    "Simulation of Urban MObility v0.8 - Simulation Module",
+    "Simulation of Urban MObility v0.8.2 - sumo application",
+    "  The command line version of the simulation.",
     "  http://sumo.sourceforge.net",
+    "Usage: sumo [OPTION]+",
+    " ",
     "Examples: ",
-    "sumo -b 0 -e 1000 -n net.xml -r routes.xml -C",
-    "sumo -c munich_config.cfg",
+    "  sumo -b 0 -e 1000 -n net.xml -r routes.xml -C",
+    "  sumo -c munich_config.cfg",
     " ",
     "Options:",
     " Input files:",
@@ -114,4 +119,11 @@ char *help[] = {
     0
 };
 
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+//

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/12/20 13:15:59  dkrajzew
+// options output corrected
+//
 // Revision 1.25  2004/12/20 10:48:36  dkrajzew
 // net-files changed to net-file
 //
@@ -194,9 +197,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("agent-tl.min-diff", new Option_Float((float) .1));
     oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
 
-    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1));
-    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0));
-    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9));
+    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));
+    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));
+    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));
 
     // device
     oc.doRegister("device", new Option_Float(0.5));

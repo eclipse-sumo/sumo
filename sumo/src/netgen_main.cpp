@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/12/20 13:15:58  dkrajzew
+// options output corrected
+//
 // Revision 1.14  2004/12/16 12:17:29  dkrajzew
 // a further network prune option added
 //
@@ -63,7 +66,6 @@ namespace
 //
 // Revision 1.1  2003/07/16 15:41:17  dkrajzew
 // network generator added
-//
 //
 /* =========================================================================
  * included modules

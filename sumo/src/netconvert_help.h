@@ -2,7 +2,7 @@
 #define help_h
 /***************************************************************************
                           help.h
-			  the help text
+              the help text
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2004/12/20 13:15:58  dkrajzew
+// options output corrected
+//
 // Revision 1.8  2003/07/21 11:04:06  dkrajzew
 // the default duration of green light phases may now be changed on startup
 //
@@ -50,68 +53,106 @@
 // Revision 1.4  2002/06/07 14:58:44  dkrajzew
 // Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
 //
-//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
+/* =========================================================================
+ * definitions
+ * ======================================================================= */
 /**
  * The help text
  */
 char *help[] = {
-    "Usage: sumo-netconvert [OPTION]*",
-    "Simulation of Urban MObility v0.7 - Netconverter Module",
+    "Simulation of Urban MObility v0.8.2 - netconvert application",
+    "  Imports networks.",
     "  http://sumo.sourceforge.net",
+    "Usage: sumo-netconvert [OPTION]*",
+    " ",
     "Examples: ",
     " sumo-netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml",
     " sumo-netconvert -c owntyped.cfg",
     " ",
     "Options:",
     " Input files:",
-    "   -c, --configuration FILE       FILE will be used as configuration",
-    "                                    1. Default: ./sumo-netcovert.cfg",
-    "   -n, --xml-node-files FILE[;+]  node definitions in XML-format",
-    "   -e, --xml-edge-files FILE[;+]  edge definitions in XML-format",
-    "   -x, --xml-connection-files FILE[;+]",
-    "                                  connection definitions in XML-format",
-    "   -t, --type-file FILE           FILE contains type definitions (XML)",
-    "   --arcview FILE_NO_EXT          The name of arcview files",
-    "   --arcview-shp FILE             The name of the arcview-shp file",
-    "   --arcview-dbf FILE             The name of the arcview-sbf file",
-    "   --artemis PATH                 Artemis path",
-    "   --cell-node-file FILE          node definitions in Cell-format",
-    "   --cell-edge-file FILE          edge definitions in Cell-format",
-    "   --visum FILE                   Visum v7.5 file (.net)",
-    "   --vissim FILE                  Vissim v3.6.2+ file (.inp)",
+    "  -c, --configuration FILE       FILE will be used as configuration",
+    "                                   1. Default: ./sumo-netcovert.cfg",
+    "  -n, --xml-node-files FILE[;+]  node definitions in XML-format",
+    "  -e, --xml-edge-files FILE[;+]  edge definitions in XML-format",
+    "  -x, --xml-connection-files FILE[;+]",
+    "                                 connection definitions in XML-format",
+    "  -t, --type-file FILE           FILE contains type definitions (XML)",
+    "  --arcview FILE_NO_EXT          The name of arcview files",
+    "  --arcview-shp FILE             The name of the arcview-shp file",
+    "  --arcview-dbf FILE             The name of the arcview-sbf file",
+    "  --artemis PATH                 Artemis path",
+    "  --cell-node-file FILE          node definitions in Cell-format",
+    "  --cell-edge-file FILE          edge definitions in Cell-format",
+    "  --visum FILE                   Visum v7.5 file (.net)",
+    "  --vissim FILE                  Vissim v3.6.2+ file (.inp)",
+    "  --elmar PATH                   Elmar path and file prefix.",
     " ",
     " Output files:",
-    "   -o, --output-file FILE         The generated net will be written to FILE",
+    "  -o, --output-file FILE         The generated net will be written to FILE",
+    "  --map-output FILE              File to write joined edges information to",
+    "  --plain-output FILE            Prefix of files to write node and edge",
+    "                                   information to",
     " ",
     " Setting Defaults:",
-    "   -T, --type NAME                The default name for an edges type",
-    "   -L, --lanenumber INT           The default number of lanes in an edge",
-    "   -S, --speed DOUBLE             The default speed on an edge (in m/s)",
-    "   -P, --priority INT             The default priority of an edge",
-    " ",
-    " Computational settings:",
-    "   -N, --capacity-norm DOUBLE     The factor for flow to no. lanes conv.",
-    "   -D, --min-decel DOUBLE         The least vehicle deceleration value used",
+    "  -T, --type NAME                The default name for an edges type",
+    "  -L, --lanenumber INT           The default number of lanes in an edge",
+    "  -S, --speed DOUBLE             The default speed on an edge (in m/s)",
+    "  -P, --priority INT             The default priority of an edge",
+    "   -j, --default-junction-type [traffic_light|priority|actuated|agentbased]",
+    "                                    Determines the type of the build junctions",
     " ",
     " Processing Options:",
-    "   --flip-y                       Flips the y-coordinate along zero",
-    "   --speed-in-km                  vmax is parsed as given in km/h; XML only",
-    "   --use-laneno-as-priority       Uses the number of lanes priority hint",
-    "   --omit-corrupt-edges           Continues parsing although a corrupt edge",
-    "                                     occured (warning is printed)",
-	"   --vissim-offset DOUBLE         Specifies the structure join offset within",
-	"                                     vissim-import",
-    "   --keep-small-tyellow           Given yellow times are kept even if too ",
-    "                                     they are small",
-    "   --traffic-light-green INT      Overide the default (20s) of a green phase",
-    "                                     duration "
+    "  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.",
+    "  -D, --min-decel FLOAT          The least vehicle deceleration value used",
+    "  --vissim-speed-norm FLOAT      Factor for edge velocity (vissim only)",
+    "  --vissim-default-speed FLOAT   Default speed for edges (vissim only)",
+    "  --flip-y                       Flips the y-coordinate along zero",
+    "  --speed-in-km                  vmax is parsed as given in km/h; XML only",
+    "  --use-laneno-as-priority       Uses the number of lanes priority hint",
+    "  --omit-corrupt-edges           Continues parsing although a corrupt edge",
+    "                                    occured (warning is printed)",
+    "  --vissim-offset DOUBLE         Specifies the structure join offset within",
+    "                                   vissim-import",
+    "  --keep-small-tyellow           Given yellow times are kept even if too ",
+    "                                   they are small",
+    "  --traffic-light-green INT      Overide the default (20s) of a green phase",
+    "                                   duration ",
+    "  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order",
+    "                                  to be important",
+    "  --guess-tls                    Turn on tls guessing",
+    "  --guess-tls.min-incoming-speed FLOAT",
+    "  --guess-tls.max-incoming-speed FLOAT",
+    "  --guess-tls.min-outgoing-speed FLOAT",
+    "  --guess-tls.max-outgoing-speed FLOAT",
+    "                                 Min/max speeds that incoming/outgoing edges",
+    "                                  must allowed in order to make their junction",
+    "                                  tls-controlled.",
+    "  --tls-guess.no-incoming-min INT",
+    "  --tls-guess.no-incoming-max INT",
+    "  --tls-guess.no-outgoing-min INT",
+    "  --tls-guess.no-outgoing-max INT",
+    "                                 Min/max of incoming/outgoing edges a junction",
+    "                                  may have in order to be tls-controlled.",
+    "  --explicite-tls JID[;JID]*     Specifies which junctions named by their ids",
+    "                                  shall be tls-controlled."
+    "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
+    "                                  shall not be tls-controlled."
     " ",
     " Report options:",
-    "   -v, --verbose                   SUMO-NETCONVERT will report what it does",
-    "   -W, --suppress-warnings         No warnings will be printed",
-    "   -l, --log-file FILE             Writes all messages to the file",
-    "   -p, --print-options             Prints option values before processing",
-    "   -?, --help                      This screen",
+    "  -v, --verbose                   SUMO-NETCONVERT will report what it does",
+    "  -W, --suppress-warnings         No warnings will be printed",
+    "  -l, --log-file FILE             Writes all messages to the file",
+    "  -p, --print-options             Prints option values before processing",
+    "  -?, --help                      This screen",
     0
 };
 

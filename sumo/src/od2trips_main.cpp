@@ -62,6 +62,7 @@ void
 fillOptions(OptionsCont &oc)
 {
     oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
     // register the file i/o options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
