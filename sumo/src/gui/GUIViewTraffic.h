@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2004/12/15 09:20:17  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.20  2004/12/12 17:23:58  agaubatz
 // Editor Tool Widgets included
 //
@@ -30,7 +33,9 @@
 // using coloring schemes stored in a container
 //
 // Revision 1.17  2004/07/02 08:31:35  dkrajzew
-// detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
+// detector drawer now also draw other additional items; removed some memory
+//  leaks;
+//  some further drawing options (mainly for the online-router added)
 //
 // Revision 1.16  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
@@ -140,7 +145,7 @@ public:
     virtual ~GUIViewTraffic();
 
     /// builds the view toolbars
-    void buildViewToolBars(GUIGlChildWindow &);
+    virtual void buildViewToolBars(GUIGlChildWindow &);
 
     void track(int id);
 
@@ -159,14 +164,8 @@ public:
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingRouteFor(GUIVehicle *v, int index=-1);
 
-	long onCmdEditGraph(FXObject*,FXSelector,void*);
-
 protected:
     void draw(const MSRoute &r);
-
-/*
-void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
-*/
 public:
 
 protected:
@@ -233,8 +232,6 @@ protected:
         myLaneColoringSchemes;
 
     GUINet *_net;
-
-	GUISUMOViewParent *par;
 
 protected:
     GUIViewTraffic() { }

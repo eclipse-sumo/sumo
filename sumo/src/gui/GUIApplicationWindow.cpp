@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2004/12/15 09:20:17  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.36  2004/12/12 17:23:58  agaubatz
 // Editor Tool Widgets included
 //
@@ -1042,10 +1045,12 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
         w = new GUISUMOViewParent( myMDIClient, 0,
             myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
             this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        w->init(type, 0, myRunThread->getNet());
     } else {
         w = new GUISUMOViewParent( myMDIClient, getBuildGLCanvas(),
             myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
             this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        w->init(type, getBuildGLCanvas(), myRunThread->getNet());
     }
     w->create();
     if(myMDIClient->numChildren()==1) {

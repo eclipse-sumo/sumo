@@ -87,6 +87,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\src\netedit\ColorSelector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netedit\ConfigDialog.cpp
 # End Source File
 # Begin Source File
@@ -100,6 +104,14 @@ SOURCE=..\..\..\src\giant_main.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\netedit\GNEApplicationWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\GNEViewParent.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\GNEViewTraffic.cpp
 # End Source File
 # Begin Source File
 
@@ -148,6 +160,10 @@ SOURCE=..\..\..\src\giant_help.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netedit\GNEApplicationWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netedit\GNEViewTraffic.h
 # End Source File
 # Begin Source File
 

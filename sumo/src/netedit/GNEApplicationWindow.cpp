@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/12/15 09:20:18  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.6  2004/12/13 15:32:57  dkrajzew
 // debugging
 //
@@ -101,6 +104,12 @@ namespace
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <guisim/GUINetWrapper.h>
+#include "GNEViewParent.h"
+
+
+#include <netbuild/NBEdge.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 
 #include "Image.h"
 #include "ConfigDialog.h"
@@ -891,6 +900,8 @@ GNEApplicationWindow::onCmdEraseStains(FXObject*,FXSelector,void*)
 }
 
 
+int idbla = 0;
+
 long
 GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 {
@@ -902,6 +913,29 @@ GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
         graph=m_img->Tracking(graph);
         m_img->GetFXImage()->render();
         dc.drawImage(m_img->GetFXImage(),0,0);
+        vector<Edge*> edges = graph.GetEArray();
+        for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+            Edge*e = *i;
+            string name = toString<int>(idbla++);
+            Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
+            NBNode *fromNode = NBNodeCont::retrieve(fromPos);
+            if(fromNode==0) {
+                fromNode = new NBNode(name, fromPos);
+            }
+            Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
+            NBNode *toNode = NBNodeCont::retrieve(toPos);
+            if(toNode==0) {
+                toNode = new NBNode(name, toPos);
+            }
+            if(fromNode!=toNode) {
+                int lanes = 1;
+                double speed = 13.8;
+                double length = -1;
+                NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
+                    "stdtype", speed, lanes, length, -1);
+            }
+        }
+
     }
     return 1;
 }
@@ -1546,13 +1580,15 @@ GNEApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = 0;
     if(myMDIClient->numChildren()==0) {
-        w = new GUISUMOViewParent( myMDIClient, 0,
+        w = new GNEViewParent( myMDIClient, 0,
             myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
             this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        w->init(type, 0, myRunThread->getNet());
     } else {
-        w = new GUISUMOViewParent( myMDIClient, getBuildGLCanvas(),
+        w = new GNEViewParent( myMDIClient, getBuildGLCanvas(),
             myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
             this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        w->init(type, getBuildGLCanvas(), myRunThread->getNet());
     }
     w->create();
     if(myMDIClient->numChildren()==1) {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/15 09:20:19  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.2  2004/12/12 17:23:59  agaubatz
 // Editor Tool Widgets included
 //
@@ -191,16 +194,14 @@ public:
 
     long onConfigure(FXObject*,FXSelector,void*);
     long onPaint(FXObject*,FXSelector,void*);
-    long onLeftBtnPress(FXObject*,FXSelector,void*);
-    long onLeftBtnRelease(FXObject*,FXSelector,void*);
-    long onRightBtnPress(FXObject*,FXSelector,void*);
-    long onRightBtnRelease(FXObject*,FXSelector,void*);
-    long onMouseMove(FXObject*,FXSelector,void*);
-    long onRightMouseTimeOut(FXObject*,FXSelector,void*);
-    long onCmdShowToolTips(FXObject*,FXSelector,void*);
-//new Andreas begin
-//	long onCmdEditGraph(FXObject*,FXSelector,void*);
-//new Andreas end
+    virtual long onLeftBtnPress(FXObject*,FXSelector,void*);
+    virtual long onLeftBtnRelease(FXObject*,FXSelector,void*);
+    virtual long onRightBtnPress(FXObject*,FXSelector,void*);
+    virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
+    virtual long onMouseMove(FXObject*,FXSelector,void*);
+    virtual long onRightMouseTimeOut(FXObject*,FXSelector,void*);
+    virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
+
     long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 

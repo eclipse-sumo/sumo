@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/15 09:20:17  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.10  2004/12/13 15:33:46  dkrajzew
 // code beautifying
 //
@@ -113,13 +116,13 @@ public:
         FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
         );
 
-    void init(ViewType view, FXGLCanvas *share, GUINet &net);
+    virtual void init(ViewType view, FXGLCanvas *share, GUINet &net);
 
 
     /// destructor
     ~GUISUMOViewParent();
 
-    void create();
+    virtual void create();
 
     long onCmdRecenterView(FXObject*,FXSelector,void*);
     long onCmdShowLegend(FXObject*,FXSelector,void*);
@@ -154,17 +157,19 @@ public:
 
     GUIMainWindow *getParent() { return myParent; }
 
-	FXGroupBox *getEditGroupBox();
-
-private:
+protected:
     /** builds the toolbar  */
-    void buildToolBar(FXComposite *c);
+    virtual void buildToolBar(FXComposite *c);
 
 	/** builds the edit frame  */
-	void buildEditFrame(FXComposite *c);
+//	void buildEditFrame(FXComposite *c);
 
     /** build the artifact choosing toolbar */
     void buildTrackingTools();
+
+protected:
+    /// The parent window
+    GUIMainWindow *myParent;
 
 private:
     /// the zooming factor
@@ -190,9 +195,6 @@ private:
 
     /// the artifact chooser
     GUIDialog_GLObjChooser *_chooser;
-
-    /// The parent window
-    GUIMainWindow *myParent;
 
     /// The tool bar
 //    FXToolBar *myToolBar;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/12/15 09:20:19  dkrajzew
+// made guisim independent of giant/netedit
+//
 // Revision 1.2  2004/12/12 17:23:59  agaubatz
 // Editor Tool Widgets included
 //
@@ -789,7 +792,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
         }
         _lock.unlock();
     }
-	
+
     _changer->onLeftBtnPress(o, sel, data);
     grab();
     return 1;
@@ -803,31 +806,6 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
     _popup = 0;
     _changer->onLeftBtnRelease(o, sel, data);
     ungrab();
-	FXEvent *e = (FXEvent*) data;
-	//new Andreas
-	if(e->state&&_inEditMode){
-		_lock.lock();
-		if(makeCurrent()) 
-	{
-        // initialise the select mode
-        unsigned int id = getObjectUnderCursor();
-        GUIGlObject *o = 0;
-        if(id!=0) {
-            o = gIDStorage.getObjectBlocking(id);
-        } else {
-            o = gNetWrapper;
-        }
-
-        if(o!=0) {
-			GUIParameterTableWindow *w =
-			o->getParameterWindow(*myApp, *this);
-        }
-        makeNonCurrent();
-    }
-	_lock.unlock();
-	}
-
-	//new Andreas
     return 1;
 }
 

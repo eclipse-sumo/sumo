@@ -116,6 +116,15 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetbuild
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetgen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetimport
+    End Project Dependency
 }}}
 
 ###############################################################################
