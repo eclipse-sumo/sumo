@@ -21,7 +21,7 @@ public:
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper);
 
-private:
+public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         MyWrapper(GUIInductLoop &detector,
@@ -31,16 +31,15 @@ private:
         Boundery getBoundery() const;
         void drawGL(double scale) const;
 
-        /// Returns an own popup-menu
-        QGLObjectPopupMenu *getPopUpMenu(
-            GUIApplicationWindow *app, GUISUMOAbstractView *parent);
+        GUIParameterTableWindow *getParameterWindow(
+            GUIApplicationWindow &app, GUISUMOAbstractView &parent);
 
         /// Returns the type of the object as coded in GUIGlObjectType
         GUIGlObjectType getType() const;
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
-
+/*
         void insertTableParameter(GUIParameterTableWindow *window,
             QListView *table, double *parameter,
             QListViewItem **vitems);
@@ -49,20 +48,26 @@ private:
 
         double getTableParameter(size_t pos) const;
 
-        void fillTableParameter(double *parameter) const;
+*/
+//        void fillTableParameter(double *parameter) const;
 
         /// Needed to set the id
         friend class GUIGlObjectStorage;
-
+/*
         const char * const getTableItem(size_t pos) const;
-
+*/
 	    bool active() const;
-    protected:
 
+        double getXCoordinate() const;
+        double getYCoordinate() const;
+
+        GUIInductLoop &getLoop();
+    protected:
+/*
         TableType getTableType(size_t pos) const;
 
         const char *getTableBeginValue(size_t pos) const;
-
+*/
 
     private:
         GUIInductLoop &myDetector;

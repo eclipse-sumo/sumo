@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.9  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -69,10 +72,13 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-#include <gui/popup/QGLObjectPopupMenu.h>
-#include <qwidget.h>
-#include <qpopupmenu.h>
+//#include <gui/popup/QGLObjectPopupMenu.h>
+//#include <qwidget.h>
+//#include <qpopupmenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/partable/GUIParameterTableWindow.h>
+#include <gui/popup/QGLObjectPopupMenu.h>
+
 
 
 /* =========================================================================
@@ -86,24 +92,16 @@ using namespace std;
  * ======================================================================= */
 double GUILaneWrapper::myAllMaxSpeed = 0;
 
-const char * const
-GUILaneWrapper::myTableItems[] =
-{
-    "length", "maxspeed", 0
-};
-
-const TableType
-GUILaneWrapper::myTableItemTypes[] =
-{
-    TT_DOUBLE, TT_DOUBLE
-};
-
-
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+
+
+
+
+
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
     : GUIGlObject(idStorage, string("lane:")+lane.id()),
@@ -203,14 +201,11 @@ GUILaneWrapper::forLane(const MSLane &lane) const
 
 
 QGLObjectPopupMenu *
-GUILaneWrapper::getPopUpMenu(GUIApplicationWindow *app,
-                             GUISUMOAbstractView *parent)
+GUILaneWrapper::getPopUpMenu(GUIApplicationWindow &app,
+                             GUISUMOAbstractView &parent)
 {
-    int id;
-    QGLObjectPopupMenu *ret =
-        new QGLObjectPopupMenu(app, parent, this);
-    // insert name
-    id = ret->insertItem(
+    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
+    int id = ret->insertItem(
         new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
     ret->insertSeparator();
     // add view options
@@ -223,9 +218,24 @@ GUILaneWrapper::getPopUpMenu(GUIApplicationWindow *app,
     id = ret->insertItem("Open ValueTracker");
     ret->setItemEnabled(id, FALSE);
     // add simulation options
-    ret->insertSeparator();
+/*    ret->insertSeparator();
     id = ret->insertItem("Close");
-    ret->setItemEnabled(id, FALSE);
+    ret->setItemEnabled(id, FALSE);*/
+    return ret;
+}
+
+
+GUIParameterTableWindow *
+GUILaneWrapper::getParameterWindow(GUIApplicationWindow &app,
+                                   GUISUMOAbstractView &parent)
+{
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this);
+    // add items
+    ret->mkItem("maxspeed [m/s]", false, myLane.maxSpeed());
+    ret->mkItem("length [m]", false, myLane.length());
+    // close building
+    ret->closeBuilding();
     return ret;
 }
 
@@ -243,7 +253,7 @@ GUILaneWrapper::microsimID() const
     return myLane.id();
 }
 
-
+/*
 const char * const
 GUILaneWrapper::getTableItem(size_t pos) const
 {
@@ -255,14 +265,6 @@ TableType
 GUILaneWrapper::getTableType(size_t pos) const
 {
     return myTableItemTypes[pos];
-}
-
-
-void
-GUILaneWrapper::fillTableParameter(double *parameter) const
-{
-    parameter[0] = myLane.length();
-    parameter[1] = myLane.maxSpeed();
 }
 
 
@@ -278,12 +280,35 @@ GUILaneWrapper::getTableParameter(size_t pos) const
         throw 1;
     }
 }
+*/
 
+/*
+void
+GUILaneWrapper::fillTableParameter(double *parameter) const
+{
+    parameter[0] = myLane.length();
+    parameter[1] = myLane.maxSpeed();
+}
+*/
 
 const Position2DVector &
 GUILaneWrapper::getShape()
 {
     return myShape;
+}
+
+
+size_t
+GUILaneWrapper::getLinkNumber() const
+{
+    return myLane.getLinkCont().size();
+}
+
+
+MSLink::LinkState
+GUILaneWrapper::getLinkState(size_t pos) const
+{
+    return myLane.getLinkCont()[pos]->getState();
 }
 
 

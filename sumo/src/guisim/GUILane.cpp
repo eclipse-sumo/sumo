@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.8  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -61,9 +64,9 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
-#include <gui/GUIGlObjectStorage.h>
-#include "GUIVehicle.h"
 #include "GUILane.h"
+#include "GUIVehicle.h"
+#include <gui/GUIGlObjectStorage.h>
 #include "GUINet.h"
 
 

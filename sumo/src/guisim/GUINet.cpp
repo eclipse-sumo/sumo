@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.13  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -74,7 +77,10 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <gui/GUIGlObjectStorage.h>
+#include "GUINetWrapper.h"
 #include <guisim/GUIEdge.h>
+#include <guisim/GUIEmitterWrapper.h>
+#include <guisim/GUIDetectorWrapper.h>
 //#include "GUIEdgeGrid.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -86,7 +92,8 @@ namespace
  * member method definitions
  * ======================================================================= */
 GUINet::GUINet()
-    : MSNet(), _grid(*this, 10, 10)
+    : MSNet(), _grid(*this, 10, 10),
+    myWrapper(new GUINetWrapper(_idStorage, *this))
 {
 }
 
@@ -94,6 +101,7 @@ GUINet::GUINet()
 GUINet::~GUINet()
 {
     _idStorage.clear();
+    delete myWrapper;
 }
 
 
@@ -152,10 +160,14 @@ GUINet::initDetectors()
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
 
+        // build the wrapper
         GUIDetectorWrapper *wrapper =
             (*i)->buildDetectorWrapper(
                 net->_idStorage, edge->getLaneGeometry(lane));
+        // add to list
         net->myDetectorWrapper.push_back(wrapper);
+        // add to dictionary
+        net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
 
 }
@@ -184,6 +196,34 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
     }
     return edge->getLanePosition(vehicle->getLane(), pos);
 }
+
+
+Position2D
+GUINet::getDetectorPosition(const std::string &name) const
+{
+    std::map<std::string, GUIDetectorWrapper*>::const_iterator i=
+        myDetectorDict.find(name);
+    assert(i!=myDetectorDict.end());
+    GUIDetectorWrapper *tmp = (*i).second;
+    return Position2D(
+        (*i).second->getXCoordinate(),
+        (*i).second->getYCoordinate());
+}
+
+
+Position2D
+GUINet::getEmitterPosition(const std::string &name) const
+{
+    std::map<std::string, GUIEmitterWrapper*>::const_iterator i=
+        myEmitterDict.find(name);
+    assert(i!=myEmitterDict.end());
+    return Position2D(
+        (*i).second->getXCoordinate(),
+        (*i).second->getYCoordinate());
+}
+
+
+
 
 
 bool
@@ -227,6 +267,12 @@ GUINet::getDetectorWrapperNo() const
     return myDetectorWrapper.size();
 }
 
+
+GUINetWrapper *
+GUINet::getWrapper() const
+{
+    return myWrapper;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

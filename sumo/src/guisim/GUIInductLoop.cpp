@@ -4,6 +4,9 @@
 #include "GUILaneWrapper.h"
 #include "GUIInductLoop.h"
 #include <utils/glutils/GLHelper.h>
+#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/logging/UIntParametrisedDblFuncBinding.h>
+#include <utils/logging/DoubleFunctionBinding.h>
 #include <qgl.h>
 
 using namespace std;
@@ -66,12 +69,33 @@ GUIInductLoop::MyWrapper::getBoundery() const
 
 
 
-QGLObjectPopupMenu *
-GUIInductLoop::MyWrapper::getPopUpMenu(GUIApplicationWindow *app,
-                            GUISUMOAbstractView *parent)
+GUIParameterTableWindow *
+GUIInductLoop::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
+                                             GUISUMOAbstractView &parent)
 {
-    throw 1;
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this);
+    // add items
+    ret->mkItem("flow [veh/h]", true,
+        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+            &(getLoop()), GUIInductLoop::getFlow, 1));
+    ret->mkItem("mean speed [m/s]", true,
+        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+            &(getLoop()), GUIInductLoop::getMeanSpeed, 1));
+    ret->mkItem("occupancy [%]", true,
+        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+            &(getLoop()), GUIInductLoop::getOccupancy, 1));
+    ret->mkItem("mean vehicle length [m]", true,
+        new UIntParametrisedDblFuncBinding<GUIInductLoop>(
+            &(getLoop()), GUIInductLoop::getMeanVehicleLength, 1));
+    ret->mkItem("empty time [s]", true,
+        new DoubleFunctionBinding<GUIInductLoop>(
+            &(getLoop()), GUIInductLoop::getTimestepsSinceLastDetection));
+    // close building
+    ret->closeBuilding();
+    return ret;
 }
+
 
 
 
@@ -86,11 +110,11 @@ GUIInductLoop::MyWrapper::getType() const
 std::string
 GUIInductLoop::MyWrapper::microsimID() const
 {
-    return "bla";
+    return myDetector.getId();
 }
 
 
-
+/*
 void
 GUIInductLoop::MyWrapper::insertTableParameter(GUIParameterTableWindow *window,
                                     QListView *table, double *parameter,
@@ -113,27 +137,29 @@ GUIInductLoop::MyWrapper::getTableParameter(size_t pos) const
 }
 
 
-void
-GUIInductLoop::MyWrapper::fillTableParameter(double *parameter) const
-{
-}
-
-
 
 const char * const
 GUIInductLoop::MyWrapper::getTableItem(size_t pos) const
 {
     throw 1;
 }
+*/
+
+/*
+void
+GUIInductLoop::MyWrapper::fillTableParameter(double *parameter) const
+{
+}
+*/
 
 
 bool
 GUIInductLoop::MyWrapper::active() const
 {
-    throw 1;
+    return true;
 }
 
-
+/*
 TableType
 GUIInductLoop::MyWrapper::getTableType(size_t pos) const
 {
@@ -145,47 +171,75 @@ GUIInductLoop::MyWrapper::getTableBeginValue(size_t pos) const
 {
     throw 1;
 }
-
+*/
 
 void
 GUIInductLoop::MyWrapper::drawGL(double scale) const
 {
     double width = 2.0 * scale;
+    glLineWidth(1.0);
+    // shape
     glColor3f(1, 1, 0);
-//    if(width>1.0) {
-        glPushMatrix();
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        glRotated( myRotation, 0, 0, 1 );
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
+    glTranslated(myPosition.x(), myPosition.y(), 0);
+    glRotated( myRotation, 0, 0, 1 );
+    glBegin( GL_QUADS );
+    glVertex2f(0-1.0, 2);
+    glVertex2f(-1.0, -2);
+    glVertex2f(1.0, -2);
+    glVertex2f(1.0, 2);
+    glEnd();
+    glBegin( GL_LINES);
+    // without the substracted offsets, lines are partially longer
+    //  than the boxes
+    glVertex2f(0, 2-.1);
+    glVertex2f(0, -2+.1);
+    glEnd();
+
+
+    // outline
+    if(width>1) {
+        glColor3f(1, 1, 1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // !!!
         glBegin( GL_QUADS );
-        glVertex2f(0-1.0, 0);
+        glVertex2f(0-1.0, 2);
         glVertex2f(-1.0, -2);
         glVertex2f(1.0, -2);
-        glVertex2f(1.0, 0);
-        glEnd();
-        glBegin( GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, -2);
-        glEnd();
-        glPopMatrix();
-
-        glPushMatrix();
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        glRotated( myRotation, 0, 0, 1 );
-        glBegin( GL_QUADS );
-        glVertex2f(0-1.0, 0);
-        glVertex2f(-1.0, 2);
         glVertex2f(1.0, 2);
-        glVertex2f(1.0, 0);
         glEnd();
+    }
+
+    // position indicator
+    if(width>1) {
+        glRotated( 90, 0, 0, -1 );
+        glColor3f(1, 1, 1);
         glBegin( GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, 2);
+        glVertex2f(0, 1.7);
+        glVertex2f(0, -1.7);
         glEnd();
-        glPopMatrix();
-/*    } else {
-        glBegin( GL_LINES);
-        glVertex2f(myBegin.x(), myBegin.y());
-        glVertex2f(myEnd.x(), myEnd.y());
-        glEnd();
-    }*/
+    }
+    glPopMatrix();
 }
+
+
+double
+GUIInductLoop::MyWrapper::getXCoordinate() const
+{
+    return myPosition.x();
+}
+
+
+double
+GUIInductLoop::MyWrapper::getYCoordinate() const
+{
+    return myPosition.y();
+}
+
+GUIInductLoop &
+GUIInductLoop::MyWrapper::getLoop()
+{
+    return myDetector;
+}
+
+

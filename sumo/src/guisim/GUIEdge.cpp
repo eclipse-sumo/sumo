@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.9  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -62,10 +65,10 @@ namespace
 #include <microsim/MSJunction.h>
 #include <gui/GUIGlObjectStorage.h>
 #include <utils/geom/GeomHelper.h>
-#include "GUILaneChanger.h"
-#include "GUILane.h"
 #include "GUIEdge.h"
 #include "GUINet.h"
+#include "GUILaneChanger.h"
+#include "GUILane.h"
 
 
 /* =========================================================================

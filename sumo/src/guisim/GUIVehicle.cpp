@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.12  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -74,9 +77,11 @@ namespace
 #include "GUIVehicle.h"
 #include <qwidget.h>
 #include <gui/GUISUMOAbstractView.h>
+//#include <gui/TableTypes.h>
 #include <gui/popup/QGLObjectPopupMenu.h>
-#include <gui/TableTypes.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/logging/UIntFunction2DoubleBinding.h>
 
 
 /* =========================================================================
@@ -91,33 +96,10 @@ using namespace std;
 float GUIVehicle::_laneChangeColor1[3];
 float GUIVehicle::_laneChangeColor2[3];
 
-const char * const
-GUIVehicle::myTableItems[] =
-{
-    "speed", "position",
-    "desired depart", "real depart",
-    "last lane change", "waiting time",
-    "emission period", "following vehicles",
-    "type",
-    0
-};
-
-const TableType
-GUIVehicle::myTableItemTypes[] =
-{
-    TT_DOUBLE, TT_DOUBLE,
-    TT_DOUBLE, TT_DOUBLE,
-    TT_DOUBLE, TT_DOUBLE,
-    TT_DOUBLE, TT_DOUBLE,
-    TT_MENU_END
-};
-
-size_t GUIVehicle::myParamCounterHelp = 0;
-
-
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+
 GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
                        MSNet::Time departTime,
@@ -224,7 +206,7 @@ GUIVehicle::getLaneChangeColor2() const
 }
 
 
-long
+size_t
 GUIVehicle::getWaitingTime() const
 {
     return myWaitingTime;
@@ -245,14 +227,12 @@ GUIVehicle::getNextPeriodical() const
 
 
 QGLObjectPopupMenu *
-GUIVehicle::getPopUpMenu(GUIApplicationWindow *app,
-                         GUISUMOAbstractView *parent)
+GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,
+                         GUISUMOAbstractView &parent)
 {
-    int id;
-    QGLObjectPopupMenu *ret =
-        new QGLObjectPopupMenu(app, parent, this);
+    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
     // insert name
-    id = ret->insertItem(
+    int id = ret->insertItem(
         new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
     ret->insertSeparator();
     // add view options
@@ -276,6 +256,37 @@ GUIVehicle::getPopUpMenu(GUIApplicationWindow *app,
 }
 
 
+GUIParameterTableWindow *
+GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
+                               GUISUMOAbstractView &parent)
+{
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this);
+    // add items
+    ret->mkItem("type [NAME]", false, (double) 0);
+    ret->mkItem("left same route [#]", false, getRepetitionNo());
+    ret->mkItem("emission period [s]", false, getPeriod());
+    ret->mkItem("waiting time [s]", true,
+        new UIntFunction2DoubleBinding<GUIVehicle>(
+            this, GUIVehicle::getWaitingTime));
+    ret->mkItem("last lane change [s]", true,
+        new UIntFunction2DoubleBinding<GUIVehicle>(
+            this, GUIVehicle::getLastLaneChangeOffset));
+    ret->mkItem("real depart [s]", false, getRealDepartTime());
+    ret->mkItem("desired depart [s]", false, getDesiredDepart());
+    ret->mkItem("position [m]", true,
+        new DoubleFunctionBinding<GUIVehicle>(
+            this, GUIVehicle::pos));
+    ret->mkItem("speed [m/s]", true,
+        new DoubleFunctionBinding<GUIVehicle>(
+            this, GUIVehicle::speed));
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+
+
 GUIGlObjectType
 GUIVehicle::getType() const
 {
@@ -289,7 +300,7 @@ GUIVehicle::microsimID() const
     return id();
 }
 
-
+/*
 const char * const
 GUIVehicle::getTableItem(size_t pos) const
 {
@@ -370,13 +381,13 @@ GUIVehicle::getTableParameterNo() const
         + 1;
 }
 
-
+*//*
 const char *
-GUIVehicle::getTableBeginValue(size_t /*pos*/) const
+GUIVehicle::getTableBeginValue(size_t ) const
 {
     return myType->id().c_str();
 }
-
+*/
 
 bool
 GUIVehicle::active() const
@@ -390,6 +401,44 @@ GUIVehicle::setRemoved()
 {
 	myLane = 0;
 }
+
+
+size_t
+GUIVehicle::getRepetitionNo() const
+{
+    return myRepetitionNumber;
+}
+
+
+size_t
+GUIVehicle::getPeriod() const
+{
+    return myPeriod;
+}
+
+
+size_t
+GUIVehicle::getLastLaneChangeOffset() const
+{
+    return myLastLaneChangeOffset;
+}
+
+
+size_t
+GUIVehicle::getRealDepartTime() const
+{
+    return -1;
+}
+
+
+size_t
+GUIVehicle::getDesiredDepart() const
+{
+    return myDesiredDepart;
+}
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

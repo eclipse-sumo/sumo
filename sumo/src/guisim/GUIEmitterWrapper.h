@@ -9,6 +9,8 @@ public:
     GUIEmitterWrapper();
     ~GUIEmitterWrapper();
     Boundery getBoundery() const;
+    virtual double getXCoordinate() const = 0;
+    virtual double getYCoordinate() const = 0;
 };
 
 #endif

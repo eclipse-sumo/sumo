@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.7  2003/06/05 11:40:28  dkrajzew
 // class templates applied; documentation added
 //
@@ -57,6 +60,7 @@
  * class declarations
  * ======================================================================= */
 class GUISUMOAbstractView;
+class QGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -76,8 +80,11 @@ public:
     ~GUIVehicle();
 
     /// returns the popup-menu for vehicles
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow *app,
-        GUISUMOAbstractView *parent);
+    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+        GUISUMOAbstractView &parent);
+
+    GUIParameterTableWindow *getParameterWindow(
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
@@ -110,8 +117,11 @@ public:
 
     /** @brief returns the number of steps waited
         A vehicle is meant to be "waiting" when it's speed is less than 0.1
-        It is only computed for "critical" vehicles */
-    long getWaitingTime() const;
+        It is only computed for "critical" vehicles
+        The method return a size_t, now, as we assume a vehicle will not wait for
+        longer than about 50 hours which still fits into a size_t when the simulation
+        runs in ms */
+    size_t getWaitingTime() const;
 
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
@@ -119,20 +129,29 @@ public:
     virtual MSVehicle *getNextPeriodical() const;
 
 
-    virtual size_t getTableParameterNo() const;
+//    virtual size_t getTableParameterNo() const;
 
     /// GUINet is allowed to build vehicles
     friend class GUINet;
-
+/*
     double getTableParameter(size_t pos) const;
 
-    void fillTableParameter(double *parameter) const;
+
 
     const char * const getTableItem(size_t pos) const;
-
+*/
+//    void fillTableParameter(double *parameter) const;
 	bool active() const;
 
 	void setRemoved();
+
+    size_t getRepetitionNo() const;
+    size_t getPeriod() const;
+    size_t getLastLaneChangeOffset() const;
+    size_t getRealDepartTime() const;
+    size_t getDesiredDepart() const;
+
+
 
 protected:
     /// Use this constructor only.
@@ -140,10 +159,11 @@ protected:
         std::string id, MSRoute* route, MSNet::Time departTime,
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset, float *defColor);
-
+/*
     TableType getTableType(size_t pos) const;
 
     const char *getTableBeginValue(size_t pos) const;
+*/
 
 private:
     /// the color read from the XML-description
@@ -161,11 +181,6 @@ private:
     /// dark grey
     static float _laneChangeColor2[3];
 
-    static const char * const myTableItems[];
-
-    static const TableType myTableItemTypes[];
-
-    static size_t myParamCounterHelp;
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

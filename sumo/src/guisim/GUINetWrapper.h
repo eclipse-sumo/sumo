@@ -1,11 +1,12 @@
-#ifndef GUIJunctionWrapper_h
-#define GUIJunctionWrapper_h
+#ifndef GUINetWrapper_h
+#define GUINetWrapper_h
 //---------------------------------------------------------------------------//
-//                        GUIJunctionWrapper.h -
-//  Holds geometrical values for a junction
+//                        GUINetWrapper.h -
+//  No geometrical information is hold, here. Still, some methods for
+//      displaying network-information are stored in here
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 1 Jul 2003
+//  begin                :
 //  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -20,20 +21,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.5  2003/07/30 08:54:14  dkrajzew
+// Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
-//
-// Revision 1.4  2003/07/22 14:59:27  dkrajzew
-// changes due to new detector handling
-//
-// Revision 1.3  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.2  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
-//
-// Revision 1.1  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
 //
 //
 /* =========================================================================
@@ -57,8 +46,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class MSNet;
-class MSJunction;
+class GUINet;
 
 
 /* =========================================================================
@@ -66,17 +54,16 @@ class MSJunction;
  * ======================================================================= */
 /**
  */
-class GUIJunctionWrapper :
+class GUINetWrapper :
             public GUIGlObject,
             public HaveBoundery {
 public:
     /// constructor
-    GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
-        MSJunction &junction,
-        const Position2DVector &shape);
+    GUINetWrapper( GUIGlObjectStorage &idStorage,
+        GUINet &net);
 
     /// destructor
-    virtual ~GUIJunctionWrapper();
+    virtual ~GUINetWrapper();
 
     /// Returns a popup-menu
     QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
@@ -91,13 +78,9 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
-    /// returns the shape of the junction
-    const Position2DVector &getShape() const;
-
     Boundery getBoundery() const;
 
-    static void fill(std::vector<GUIJunctionWrapper*> &list,
-        GUIGlObjectStorage &idStorage);
+    GUINet &getNet() const;
 
 protected:
 
@@ -105,19 +88,13 @@ protected:
 
 protected:
 
-    MSJunction &myJunction;
+    GUINet &myNet;
 
-    Position2DVector myShape;
-/*
-    static const char * const myTableItems[];
-
-    static const TableType myTableItemTypes[];
-*/
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIJunctionWrapper.icc"
+//#include "GUINetWrapper.icc"
 //#endif
 
 #endif

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.13  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -86,6 +89,7 @@ class GUILaneWrapper;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
 class GUIEmitterWrapper;
+class GUINetWrapper;
 
 
 /* =========================================================================
@@ -122,6 +126,12 @@ public:
     Position2D getVehiclePosition(const std::string &name,
         bool useCenter=true) const;
 
+    /// returns the position of a detector (!!! shouldn't it be a const&?)
+    Position2D getDetectorPosition(const std::string &name) const;
+
+    /// returns the position of a emitter (!!! shouldn't it be a const&?)
+    Position2D getEmitterPosition(const std::string &name) const;
+
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;
 
@@ -134,6 +144,8 @@ public:
         int repNo, int repOffset, float *defColor);
 
     size_t getDetectorWrapperNo() const;
+
+    GUINetWrapper *getWrapper() const;
 
 
     friend class GUIViewTraffic; // !!!
@@ -158,10 +170,15 @@ protected:
         in order to make them grippable by openGL */
     GUIGlObjectStorage _idStorage;
 
+    GUINetWrapper *myWrapper;
+
     std::vector<GUIEdge*> myEdgeWrapper;
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
     std::vector<GUIEmitterWrapper*> myEmitter;
+
+    std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
+    std::map<std::string, GUIEmitterWrapper*> myEmitterDict;
 
 private:
     static void initDetectors();

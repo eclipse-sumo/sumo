@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/07/30 08:54:14  dkrajzew
+// the network is capable to display the networks state, now
+//
 // Revision 1.8  2003/07/22 14:59:27  dkrajzew
 // changes due to new detector handling
 //
@@ -59,10 +62,11 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/qutils/NewQMutex.h>
 #include <gui/GUIGlObject.h>
-#include <gui/TableTypes.h>
+//#include <gui/TableTypes.h>
 
 
 /* =========================================================================
@@ -71,6 +75,7 @@
 class MSVehicle;
 class MSNet;
 class Position2DVector;
+class QGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -94,8 +99,11 @@ public:
     virtual ~GUILaneWrapper();
 
     /// Returns a popup-menu fpr lanes
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow *app,
-        GUISUMOAbstractView *parent);
+    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+        GUISUMOAbstractView &parent);
+
+    GUIParameterTableWindow *getParameterWindow(
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
@@ -135,19 +143,24 @@ public:
     GUIGlObjectType getType() const;
 
     const Position2DVector &getShape();
-
+/*
     double getTableParameter(size_t pos) const;
 
-    void fillTableParameter(double *parameter) const;
-
     const char * const getTableItem(size_t pos) const;
+*/
+
+    //void fillTableParameter(double *parameter) const;
+
+    size_t getLinkNumber() const;
+
+    MSLink::LinkState getLinkState(size_t pos) const;
 
 protected:
-
+/*
     TableType getTableType(size_t pos) const;
 
-    const char *getTableBeginValue(size_t /*pos*/) const { throw 1; }
-
+    const char *getTableBeginValue(size_t ) const { throw 1; }
+*/
 	bool active() const { return true; }
 
 protected:
@@ -176,9 +189,6 @@ protected:
     /// The maximum velocity over all lanes
     static double myAllMaxSpeed;
 
-    static const char * const myTableItems[];
-
-    static const TableType myTableItemTypes[];
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
