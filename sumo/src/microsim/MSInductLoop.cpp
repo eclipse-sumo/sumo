@@ -1,12 +1,13 @@
-//---------------------------------------------------------------------------//
-//                        MSInductLoop.cpp  -  Simple detector that emulates
-//                        induction loops.
-//                           -------------------
-//  begin                : Thu, 14 Mar 2002
-//  copyright            : (C) 2002 by Christian Roessel
-//  organisation         : ZAIK http://www.zaik.uni-koeln.de/AFS
-//  email                : roessel@zpr.uni-koeln.de
-//---------------------------------------------------------------------------//
+/**
+ * @file   MSInductLoop.cpp
+ * @author Christian Roessel
+ * @date   Mon Jul 21 16:12:01 2003
+ * @version $Id$
+ * @brief  Definition of class MSInductLoop.
+ * 
+ */
+
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
 //---------------------------------------------------------------------------//
 //
@@ -16,420 +17,229 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-/*
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-*/
-// $Log$
-// Revision 1.7  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
-//
-// Revision 1.6  2003/04/09 15:36:13  dkrajzew
-// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
-//
-// Revision 1.5  2003/04/02 11:44:03  dkrajzew
-// continuation of implementation of actuated traffic lights
-//
-// Revision 1.4  2003/03/17 14:14:06  dkrajzew
-// Windows eol removed
-//
-// Revision 1.3  2003/03/03 14:56:19  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.11  2002/06/12 10:12:47  croessel
-// There was a problem with infinite densities because myPassingSpeed
-// could have the value 0 after reinitializing the detector and detection
-// of a just emitted vehicle with speed = 0. I added a if (speed>0)
-// condition in sample() to detect only the vehicles, that really passed
-// the detector (speed > 0).
-// Set floating-point output to ios::fixed.
-//
-// Revision 1.10  2002/06/06 17:50:55  croessel
-// Calculation of local density refined.
-// New assertions for localDensity.
-// avgFlow is now veh/hour.
-//
-// Revision 1.9  2002/05/16 14:12:42  croessel
-// In constructor: Make sure that vehicles will be detected even at lane end.
-//
-// Revision 1.8  2002/04/18 13:49:29  croessel
-// Added some static_casts in writeData. Added the output of the number of
-// vehicles that contributed to the sampling.
-//
-// Revision 1.7  2002/04/17 14:50:36  croessel
-// Modified assert in constructor. Added assert in constructor.
-//
-// Revision 1.6  2002/04/11 16:14:42  croessel
-// Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
-// declaration of OutputStyle.
-//
-// Revision 1.5  2002/04/11 15:25:55  croessel
-// Changed float to double.
-//
-// Revision 1.4  2002/04/11 10:07:22  croessel
-// #include <cassert> added.
-//
-// Revision 1.3  2002/04/11 10:04:12  croessel
-// Changed myFile-type from reference to pointer.
-//
-// Revision 1.2  2002/04/10 15:50:55  croessel
-// Changeg cless name from MSDetector to MSInductLoop.
-//
-// Revision 1.1  2002/04/10 15:34:21  croessel
-// Renamed MSDetector into MSInductLoop.
-//
-// Revision 1.2  2002/04/10 15:02:46  croessel
-// Get the job done version.
-//
-// Revision 1.1  2002/03/14 18:48:54  croessel
-// Initial commit.
-//
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// $Id$
+
+
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSInductLoop.h"
 #include "MSLane.h"
-#include "MSEdge.h"
-#include "MSNet.h"
-#include <sstream>
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
+#include <utils/convert/ToString.h>
+#include <cassert>
+#include <numeric>
 #include <cassert>
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+
 using namespace std;
 
 
-/* =========================================================================
- * member definitions
- * ======================================================================= */
-template<class _T>
-MSInductLoop<_T>::~MSInductLoop<_T>()
+string MSInductLoop::xmlHeaderM(
+"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+"<!--\n"
+"- nVehContrib is the number of vehicles that passed the detector during the\n"
+"  current interval.\n"
+"- flow [veh/h] denotes the same quantity in [veh/h]\n"
+"- occupancy [%] is the time the detector was occupied by vehicles.\n"
+"- speed [m/s] is the average speed of the nVehContib vehicles.\n"
+"  If nVehContrib==0, speed is set to -1.\n"
+"- speedsquare [(m/s)^2]\n"
+"  If nVehContrib==0, speedsquare is set to -1.\n"
+"- length [m] is the average vehicle length of the nVehContrib vehilces.\n"
+"  If nVehContrib==0, length is set to -1.\n"
+"-->\n\n");
+
+string MSInductLoop::xmlDetectorInfoEndM( "</detetcor>\n" );
+
+bool
+MSInductLoop::isStillActive( MSVehicle& veh,
+                             double oldPos,
+                             double newPos,
+                             double newSpeed )
 {
+    double entryTimestep = MSNet::getInstance()->timestep();
+    double leaveTimestep = entryTimestep;
+    if ( newPos < posM ) {
+        // detector not reached yet                
+        return true;
+    }
+    double speed = newSpeed * MSNet::deltaT();
+    if ( oldPos <= posM && !( oldPos == newPos ) ) {
+        // entered the detector by move
+        entryTimestep -= 1 - ( posM - oldPos ) / speed;
+        if ( newPos - veh.length() > posM ) {
+            // entered and passed detector in a single timestep
+            leaveTimestep -= ( newPos - veh.length() - posM ) / speed;
+            enterDetectorByMove( veh, entryTimestep );
+            leaveDetectorByMove( veh, leaveTimestep );
+            return false;
+        }
+        // entered detector, but not passed
+        enterDetectorByMove( veh, entryTimestep );
+        return true;
+    }
+    // vehicle has been on the detector the previous timestep
+    if ( newPos - veh.length() > posM ) {
+        // passed the detector
+        leaveTimestep -= ( newPos - veh.length() - posM ) / speed;
+        leaveDetectorByMove( veh, leaveTimestep );
+        return false;
+    }
+    // vehicle stays on the detector
+    return true;
 }
 
-//---------------------------------------------------------------------------//
-
-template<class _T>
-MSInductLoop<_T>::MSInductLoop<_T>( string id, MSLane* lane,
-                                   double position,
-                                   MSNet::Time sampleInterval,
-                                   MSDetector::OutputStyle style,
-                                   ofstream* file, bool floating) :
-    MSDetector( id, style, file, sampleInterval, floating),
-    myLane           ( lane ),
-    myPos            ( position ),
-    mySampleIntervall( sampleInterval ),
-    myPassedVeh      ( 0 ),
-//     myPassedVehLeader( 0 ),
-    myPassingSpeed   ( 0 ),
-//     myPassedVehLeaderSpeed( 0 ),
-    myPassingTime    ( 0 ),
-//     myPassedVehLeaderTime( 0 ),
-    myNSamples       ( 0 ),
-    myNPassedVeh     ( 0 ),
-//    myLocalDensity( sampleInterval ),
-    mySpeed( sampleInterval ),
-    myOccup( sampleInterval ),
-    myVehLengths( sampleInterval ),
-	myNIntervalls( 0 )
-{
-    // Make sure that vehicles will be detected even at lane-end.
-    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
-    assert( myPos > 0 );
-
-    // return when just a part of a logic (no file)
-    if(myFile==0) {
-        return;
-    }
-    // Write header.
-    switch ( myStyle ) {
-        case GNUPLOT:
+void
+MSInductLoop::dismissByLaneChange( MSVehicle& veh )
         {
-            ostringstream header;
-            header << "# Induction-loop-detector ID = " << myID << endl;
-            header << "#   on Lane     " << myLane->id() << endl;
-            header << "#   at position " << myPos << endl;
-            header << "#   sampleIntervall = "
-                   << mySampleIntervall << " seconds" << endl << endl;
-            header << "# n   endOfInterv nVehicles  avgFlow "
-                   << "avgSpeed  Occup   avgLength" << endl;
-            header << "#         [s]                [veh/h] "
-                   << " [m/s]     [s]       [m]" << endl;
-
-            *myFile << header.str() << endl;
-            break;
+            if ( veh.pos() > posM && veh.pos() - veh.length() <= posM ) {
+                // vehicle is on detector during lane change
+                leaveDetectorByLaneChange( veh );
+            }
         }
-        case CSV:
-            // No header. CSV has no spec for comments etc.
-            break;
-        default:
-            assert( true );
-    }
-}
+    
 
-//---------------------------------------------------------------------------//
 
-template<class _T>
-void
-MSInductLoop<_T>::sample( double simSec )
+bool
+MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-    // If sampleIntervall is over, write the data to file and reset the
-    // detector.
-    ++myNSamples;
-    if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
-         mySampleIntervall ) {
-        ++myNIntervalls;
-        if(myFile!=0) {
-            writeData();
-        }
-		myNSamples = 0;
-		myNPassedVeh = 0;
+    if ( veh.pos() > posM ) {
+        // vehicle-front is beyond detector. Ignore
+        return false;
     }
-
-    // find the vehicle that passed the detector
-    const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
-    MSLane::VehCont::const_iterator currVeh;
-    if ( myLane->empty() ) {
-        // no vehicles on lane
-        currVeh = vehs.end();
-    } else {
-        // find the vehicle
-        currVeh = find_if( vehs.begin(), vehs.end(),
-            bind2nd( MSLane::VehPosition(), myPos ) );
-        // We need to use a vehicle several times if it needs several timesteps
-        // to pass the detector
-        // do not use a vehicle twice that completely passed the detector
-        if ( currVeh != vehs.end() &&
-             *currVeh == myPassedVeh &&
-             (*currVeh)->pos() - (*currVeh)->length() - myPos > 0 ) {
-            currVeh = vehs.end();
-        }
-    }
-
-    // update values
-    if(currVeh==vehs.end()) {
-        // no vehicle was found
-//        myLocalDensity.add(0);
-        mySpeed.add(0);
-        myOccup.add(0);
-        myVehLengths.add(0);
-        myLane->releaseVehicles();
-        return;
-    }
-	MSVehicle *vehicle = (*currVeh);
-    // We have now a valid beyond the detector. If its speed is > 0 it
-    // had passed the detector and should be sampled, otherwise it
-    // might be just emitted and should not be sampled.
-    double speed = vehicle->speed();
-    double occTime =  occTime = MSNet::deltaT();
-    if (speed != 0) {
-        occTime = vehicle->length() / speed;
-    }
-    if (occTime > MSNet::deltaT() ) {
-        occTime = MSNet::deltaT();
-    }
-//     cout << "occtime = " << occTime << endl;
-    myOccup.add(occTime);
-
-    // Add length and speed several times if vehicle occupies
-    // detector several timesteps???
-    if ( myPassedVeh == *currVeh ) {
-        mySpeed.add(0);
-//         myVehLengths.add(0);
-    }
-    else {
-        // vehicle occupies detector more than one timestep
-        myVehLengths.add(vehicle->length());
-//        myLocalDensity.add(localDensity( **currVeh, simSec ));
-        mySpeed.add(speed);
-        myPassedVeh = vehicle;
-        myNPassedVeh++;
-	    myPassingSpeed = speed;
-	    myPassingTime  = simSec - ( vehicle->pos() - myPos ) / speed;
-    }
-    myLane->releaseVehicles();
-}
-
-//---------------------------------------------------------------------------//
-
-// template<class _T>
-// double
-// MSInductLoop<_T>::localDensity( const MSVehicle& veh, double simSec )
-// {
-//     assert( myPassingTime <= simSec );
-
-//     // Local Density is calculated via the timeheadway and the speed
-//     // of the leading vehicle. After the first detection there will
-//     // always be a myPassedVeh.
-//     double localDens    = 0.0;
-//     double currPassTime = 0.0;
-
-//     if ( myPassedVeh != 0 ) {
-
-// 	    assert( veh.speed() > 0 );
-
-//         currPassTime = simSec - ( veh.pos() - myPos ) / veh.speed();
-// 	    double timeHeadWay = currPassTime - myPassingTime;
-// 	    localDens = 1 / ( myPassingSpeed * timeHeadWay );
-
-// 	    assert( localDens >= 0 );
-//     }
-
-//     // update members
-//     myPassingSpeed = veh.speed();
-//     if ( myPassedVeh != 0 ) {
-// 	    myPassingTime  = currPassTime;
-//     }
-//     else {
-// 	    myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
-//     }
-//     return localDens;
-// }
-
-//---------------------------------------------------------------------------//
-
-template<class _T>
-void
-MSInductLoop<_T>::writeData()
-{
-    double avgFlow    = 0; // [veh/h]
-    double avgSpeed   = 0; // [m/s]
-    double avgLength  = 0; // [veh/km]
-
-    if ( myNPassedVeh > 0 ) {
-
-		double dNPassedVeh =
-			static_cast< double >( myNPassedVeh );
-/*
-        if ( myNIntervalls > 1 ) {
-            avgDensity = myLocalDensity.getAbs() /
-                dNPassedVeh * 1000.0;
-	        assert( avgDensity > 0 );
-        }
-        else if ( myNPassedVeh > 1 ) {
-            // first intervall, first event does not contribute
-            avgDensity = myLocalDensity.getAbs() /
-                (dNPassedVeh - 1.0) * 1000;
-            assert( avgDensity > 0 );
-        }
-        else {
-            avgDensity = -1;
-        }
-
-*/
-		avgLength = myVehLengths.getAbs() / dNPassedVeh; // [m]
-		avgSpeed  = mySpeed.getAbs() / dNPassedVeh; // [m/s]
-        avgFlow   = dNPassedVeh /
-	        static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
-    }
-
-    MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
-
-    switch ( myStyle ) {
-        case GNUPLOT:
-            writeGnuPlot( endOfInterv,
-                          avgFlow,
-                          avgSpeed,
-                          myOccup.getAbs(),
-                          avgLength );
-            break;
-        case CSV:
-            writeCSV( endOfInterv,
-                      avgFlow,
-                      avgSpeed,
-                      myOccup.getAbs(),
-                      avgLength );
-            break;
-        default:
-            assert( true );
-    }
-}
-
-//---------------------------------------------------------------------------//
-
-template<class _T>
-void
-MSInductLoop<_T>::writeGnuPlot( MSNet::Time endOfInterv,
-                            double avgFlow,
-                            double avgSpeed,
-                            double occup,
-                            double avgLength )
-{
-    ( *myFile ).setf( ios::fixed, ios::floatfield );
-    *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
-            << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
-            << setw( 9 ) << setprecision( 0 ) << myNPassedVeh << " "
-            << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
-            << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
-            << setw( 8 ) << setprecision( 2 ) << occup << " "
-            << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
-}
-
-//---------------------------------------------------------------------------//
-
-template<class _T>
-void
-MSInductLoop<_T>::writeCSV( MSNet::Time endOfInterv,
-                        double avgFlow,
-                        double avgSpeed,
-                        double occup,
-                        double avgLength )
-{
-    ( *myFile ).setf( ios::fixed, ios::floatfield );
-    *myFile << setprecision( 0 ) << myNIntervalls << ";"
-            << setprecision( 0 ) << endOfInterv << ";"
-            << setprecision( 0 ) << myNPassedVeh << ";"
-            << setprecision( 1 ) << avgFlow << ";"
-            << setprecision( 3 ) << avgSpeed << ";"
-            << setprecision( 2 ) << occup << ";"
-            << setprecision( 3 ) << avgLength << endl;
+    // vehicle is in front of detector
+    return true;
 }
 
 
-
-template<class _T>
-MSNet::Time
-MSInductLoop<_T>::getLastVehicleTime() const
-{
-    return myPassingTime;
-}
-
-template<class _T>
 double
-MSInductLoop<_T>::getGap() const
+MSInductLoop::getFlow( MSNet::Time lastNTimesteps ) const
 {
-    double gap = MSNet::globaltime - myPassingTime;
-    return gap;
+    // unit is [veh/h]
+    return getNVehContributed( lastNTimesteps ) * 3600.0 /
+        ( lastNTimesteps * MSNet::deltaT() );
+}
+
+double
+MSInductLoop::getMeanSpeed( MSNet::Time lastNTimesteps ) const
+{
+    // unit is [m/s]
+    assert( lastNTimesteps > 0 );
+    int nVeh = getNVehContributed( lastNTimesteps );
+    if ( nVeh == 0 ) {
+        return -1;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       vehicleDataContM.end(),
+                       0.0,
+                       speedSum ) / nVeh;
+}
+
+double
+MSInductLoop::getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const
+{
+    // unit is [(m/s)^2]
+    assert( lastNTimesteps > 0 );
+    int nVeh = getNVehContributed( lastNTimesteps );
+    if ( nVeh == 0 ) {
+        return -1;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       vehicleDataContM.end(),
+                       0.0,
+                       speedSquareSum ) / nVeh;
+}
+
+double
+MSInductLoop::getOccupancy( MSNet::Time lastNTimesteps ) const
+{
+    // unit is [%]
+    assert( lastNTimesteps > 0 );
+    int nVeh = getNVehContributed( lastNTimesteps );
+    if ( nVeh == 0 ) {
+        return 0;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       vehicleDataContM.end(),
+                       0.0,
+                       occupancySum ) /
+        static_cast<double>( lastNTimesteps );
+}
+
+double
+MSInductLoop::getMeanVehicleLength( MSNet::Time lastNTimesteps ) const
+{
+    assert( lastNTimesteps > 0 );
+    int nVeh = getNVehContributed( lastNTimesteps );
+    if ( nVeh == 0 ) {
+        return -1;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       vehicleDataContM.end(),
+                       0.0,
+                       lengthSum ) / nVeh;
+}
+    
+double
+MSInductLoop::getTimestepsSinceLastDetection() const
+{
+    // was getGap()
+    if ( vehOnDetectorM != 0 ) {
+        // detector is occupied
+        return 0;
+    }
+    return MSNet::getInstance()->timestep() - leaveTimestepM;
+}
+
+int
+MSInductLoop::getNVehContributed( MSNet::Time lastNTimesteps ) const
+{
+    return distance( getStartIterator( lastNTimesteps ),
+                     vehicleDataContM.end() );
 }
 
 
+string&
+MSInductLoop::getXMLHeader( void )
+{
+    return xmlHeaderM;
+}
 
-//---------------------------------------------------------------------------//
 
-//--------------- DO NOT DEFINE ANYTHING AFTER THIS POINT -------------------//
+string
+MSInductLoop::getXMLDetectorInfoStart( void )
+{
+    string detectorInfo("<detector type=\"inductionloop\" id=\"" + idM +
+                        "\" lane=\"" + laneM->id() + "\" pos=\"" +
+                        toString(posM) + "\" >\n");
+    return detectorInfo;
+}
 
-//#ifdef DISABLE_INLINE
-//#include "MSInductLoop.icc"
-//#endif
+string&
+MSInductLoop::getXMLDetectorInfoEnd( void )
+{
+    return xmlDetectorInfoEndM;
+}
+
+
+string
+MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
+{
+    MSNet::Time& t( lastNTimesteps );
+    string nVehContrib = "nVehContrib=\"" +
+        toString( getNVehContributed( t ) ) + "\" ";
+    string flow = "flow=\"" + toString( getFlow( t ) ) + "\" ";
+    string occup = "occupancy=\"" + toString( getOccupancy( t ) ) + "\" ";
+    string speed = "speed=\"" + toString( getMeanSpeed( t ) ) + "\" ";
+    string speedSquare = "speedsquare=\"" +
+        toString( getMeanSpeedSquare( t ) ) + "\" ";
+    string avgVehLength = "length=\"" + toString( getMeanVehicleLength( t ) ) +
+        "\"";
+    return nVehContrib + flow + occup + speed + speedSquare + avgVehLength;
+}
 
 // Local Variables:
 // mode:C++
