@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2004/11/29 09:21:45  dkrajzew
+// detectors debugging
+//
 // Revision 1.36  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -461,9 +464,9 @@ MSLaneState::writeXMLHeader( XMLDevice &dev ) const
 void
 MSLaneState::writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
 {
-    MSNet::Time lastNTimesteps = stopTime-startTime;
-    dev.writeString("<interval start=\"").writeString(
-        toString(startTime)).writeString("\" stop=\"").writeString(
+    MSNet::Time lastNTimesteps = stopTime-startTime+1;
+    dev.writeString("<interval begin=\"").writeString(
+        toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
     dev.writeString("traveltime=\"").writeString(
         toString( getMeanTraveltime( lastNTimesteps ))).writeString("\" ");

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/29 09:21:47  dkrajzew
+// detectors debugging
+//
 // Revision 1.2  2004/11/25 16:26:48  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -387,8 +390,8 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
 {
     MSUnit::Seconds lastNSeconds =
         MSUnit::getInstance()->getSeconds( stopTime-startTime )+1;
-    dev.writeString("<interval start=\"").writeString(
-        toString(startTime)).writeString("\" stop=\"").writeString(
+    dev.writeString("<interval begin=\"").writeString(
+        toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
     if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
         dev.writeString("collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"");

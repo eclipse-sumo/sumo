@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2004/11/29 09:21:45  dkrajzew
+// detectors debugging
+//
 // Revision 1.54  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -478,6 +481,20 @@ MSNet::init( string id, MSEdgeControl* ec,
     MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
 }
 
+void
+MSNet::closeBuilding(const NLNetBuilder &nb)
+{
+    // set requests/responses
+    MSJunction::postloadInitContainer();
+    // make detectors accessable
+    MSDetectorSubSys::setDictionariesFindMode();
+    // initialise lane mean data and readers
+    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
+        i!=myPreStartInitialiseItems.end(); i++) {
+        (*i)->init(*this);
+    }
+}
+
 
 MSNet::~MSNet()
 {
@@ -704,17 +721,6 @@ void
 MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 {
     myPreStartInitialiseItems.push_back(preinit);
-}
-
-
-void
-MSNet::preStartInit()
-{
-    MSDetectorSubSys::setDictionariesFindMode();
-    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
-        i!=myPreStartInitialiseItems.end(); i++) {
-        (*i)->init(*this);
-    }
 }
 
 

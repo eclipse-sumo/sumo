@@ -189,8 +189,8 @@ void
 MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
                                MSNet::Time startTime, MSNet::Time stopTime)
 {
-    dev.writeString("<interval start=\"").writeString(
-        toString(startTime)).writeString("\" stop=\"").writeString(
+    dev.writeString("<interval begin=\"").writeString(
+        toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\">\n");
     write(dev, startTime, stopTime);
     dev.writeString("</interval>");

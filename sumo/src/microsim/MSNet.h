@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.44  2004/11/29 09:21:46  dkrajzew
+// detectors debugging
+//
 // Revision 1.43  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -453,9 +456,6 @@ public:
     /// adds an item that must be initialised every time the simulation starts
     void addPreStartInitialisedItem(PreStartInitialised *preinit);
 
-    /// initialises items that require it befor simulation start
-    void preStartInit();
-
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
@@ -520,6 +520,8 @@ public:
     size_t getMeanDataSize() const;
     MSEdgeControl &getEdgeControl(NLNetBuilder &);
     void addMeanData(MSMeanData_Net *newMeanData);
+
+    virtual void closeBuilding(const NLNetBuilder &nb);
 
 protected:
     /** initialises the MeanData-container */

@@ -510,8 +510,8 @@ public:
     ///
     void writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time stopTime )
         {
-            dev.writeString("<interval start=\"").writeString(
-                toString(startTime)).writeString("\" stop=\"").writeString(
+            dev.writeString("<interval begin=\"").writeString(
+                toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
             if ( hasDetector(
                      E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {

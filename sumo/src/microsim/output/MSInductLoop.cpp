@@ -293,8 +293,8 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
         + distance(
             getDismissedStartIterator( t ), mend );
-    dev.writeString("<interval start=\"").writeString(
-        toString(startTime)).writeString("\" stop=\"").writeString(
+    dev.writeString("<interval begin=\"").writeString(
+        toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ").writeString("nVehContrib=\"").writeString(
         toString(getNVehContributed( t ))).writeString("\" flow=\"").writeString(
         toString(getFlow( t ))).writeString("\" occupancy=\"").writeString(
