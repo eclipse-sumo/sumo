@@ -16,6 +16,7 @@ RONet.cpp \
 RONetHandler.cpp \
 RONode.cpp \
 ROOrigDestRouteDef.cpp \
+RORandomTripGenerator.cpp \
 RORouteAlternativesDef.cpp \
 RORoute.cpp \
 RORouteDefCont.cpp \
@@ -50,6 +51,7 @@ RONetHandler.h \
 RONodeCont.h \
 RONode.h \
 ROOrigDestRouteDef.h \
+RORandomTripGenerator.h \
 RORouteAlternativesDef.h \
 RORouteDefCont.h \
 RORouteDef.h \
@@ -69,6 +71,10 @@ ROVehicleType.h \
 ROVehicleType_Krauss.h \
 ROVehTypeCont.h \
 ROWeightsHandler.h
+
+
+
+
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
