@@ -52,7 +52,7 @@ string MSInductLoop::xmlHeaderM(
 "  If nVehContrib==0, length is set to -1.\n"
 "-->\n\n");
 
-string MSInductLoop::xmlDetectorInfoEndM( "</detetcor>\n" );
+string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
 
 bool
 MSInductLoop::isStillActive( MSVehicle& veh,
@@ -228,7 +228,7 @@ MSInductLoop::getXMLDetectorInfoEnd( void )
 string
 MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
 {
-    MSNet::Time& t( lastNTimesteps );
+    MSNet::Time t( lastNTimesteps );
     string nVehContrib = "nVehContrib=\"" +
         toString( getNVehContributed( t ) ) + "\" ";
     string flow = "flow=\"" + toString( getFlow( t ) ) + "\" ";
@@ -240,6 +240,16 @@ MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
         "\"";
     return nVehContrib + flow + occup + speed + speedSquare + avgVehLength;
 }
+
+
+GUIDetectorWrapper *
+MSInductLoop::buildDetectorWrapper(GUIGlObjectStorage &,
+                                   GUILaneWrapper &)
+{
+    throw "Only within the gui-version";
+}
+
+
 
 // Local Variables:
 // mode:C++

@@ -28,11 +28,14 @@
 #include <string>
 #include <deque>
 #include "MSNet.h"
-#include <SimpleCommand.h>
-#include <SingletonDictionary.h>
+#include <helpers/SimpleCommand.h>
+#include <helpers/SingletonDictionary.h>
 #include "MSEventControl.h"
 
 class MSLane;
+class GUIDetectorWrapper;
+class GUIGlObjectStorage;
+class GUILaneWrapper;
 
 
 /**
@@ -48,15 +51,14 @@ class MSInductLoop
 public:
     typedef SingletonDictionary< std::string, MSInductLoop* > InductLoopDict;
     
-    MSInductLoop( std::string id,
-                  MSLane* lane,
-                  double position,
+    MSInductLoop( const std::string &id, 
+                MSLane* lane, double position, 
                   MSNet::Time deleteDataAfterSeconds = 900 ) 
         : MSMoveReminder( lane, id ),
           posM( position ),
-          deleteDataAfterSecondsM( deleteDataAfterSeconds )          
+          deleteDataAfterSecondsM( deleteDataAfterSeconds ),
+          vehOnDetectorM(0)
         {
-            std::cout << "MSInductLoop " << id << std::endl;
             assert( posM >= 0 && posM <= laneM->length() );
 
             // insert object into dictionary
@@ -206,6 +208,10 @@ public:
         }
     };
 
+    virtual GUIDetectorWrapper *buildDetectorWrapper(
+        GUIGlObjectStorage &idStorage,
+        GUILaneWrapper &wrapper);
+
 protected:
     /**
      * @name Methods called by Reminder methods.
@@ -257,7 +263,7 @@ protected:
             if ( deleteBeforeTime > 0 ) {
                 vehicleDataContM.erase(
                     vehicleDataContM.begin(),
-                    lower_bound( vehicleDataContM.begin(),
+                    std::lower_bound( vehicleDataContM.begin(),
                                  vehicleDataContM.end(),
                                  deleteBeforeTime,
                                  leaveTimeLesser() ) );
@@ -282,7 +288,7 @@ protected:
                                      leaveTimeLesser() );
         }
 
-private:
+protected:
    
     /// InductLoop's position on MSMoveReminder's lane.
     const double posM;
@@ -308,7 +314,6 @@ private:
     /// Hidden assignment operator.
     MSInductLoop& operator=( const MSInductLoop& );
 
-    
 };
 
 namespace
