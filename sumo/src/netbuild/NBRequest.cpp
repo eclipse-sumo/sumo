@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/01/26 07:05:41  dkrajzew
+// removed some debug values
+//
 // Revision 1.25  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -279,9 +282,6 @@ NBRequest::buildBitfieldLogic(const std::string &key)
 void
 NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 {
-    if(from->getID()=="2205"&&to->getID()=="36419") {
-        int bla = 0;
-    }
     EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
         NBContHelper::nextCCW(_all, pfrom);
@@ -323,14 +323,6 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-    if( (from1->getID()=="2205"&&to1->getID()=="36419")
-        ||
-        (from2->getID()=="2205"&&to2->getID()=="36419") ) {
-
-        if(from1->getID()=="93829"||from2->getID()=="93829") {
-            int bla = 0;
-        }
-    }
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -501,14 +493,6 @@ NBRequest::resetSignalised()
                             if(idx2<0) {
                                 continue;
                             }
-    if( ((*i11)->getID()=="2205"&&(*i12).edge->getID()=="36419")
-        ||
-        ((*i21)->getID()=="2205"&&(*i22).edge->getID()=="36419") ) {
-
-        if((*i11)->getID()=="93829"||(*i21)->getID()=="93829") {
-            int bla = 0;
-        }
-    }
                             // check
                             // same incoming connections do not prohibit each other
                             if((*i11)==(*i21)) {
