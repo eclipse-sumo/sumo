@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/04/25 14:37:57  dkrajzew
+// Declarations of size variables changed from signed to unsigned due to warnings
+//
 // Revision 1.5  2002/04/25 09:26:05  dkrajzew
 // New names for the acceleration and the deceleration parameter applied
 //
@@ -90,7 +93,7 @@ private:
     /// the number of lanes
     int     _laneNo;
     /// inserted items
-    size_t _trafoItems, _requestItems;
+    int _trafoItems, _requestItems;
     /// the current key
     std::string    m_Key;
 public:
