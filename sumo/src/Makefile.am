@@ -167,10 +167,14 @@ AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
 SUBDIRS = \
 gui guinetload guisim \
 helpers microsim netload sumo_only \
-netbuild netgen netimport \
+netbuild netedit netgen netimport \
 od2trips \
 router routing_dua routing_jtr \
 utils
 
-EXTRA_DIST = sumo_version.cpp sumo_version.h
+EXTRA_DIST = sumo_version.cpp sumo_version.h \
+giant_help.h giant_main.cpp netedit_help.h netedit_main.cpp \
+tagreader.cpp
+
+
 

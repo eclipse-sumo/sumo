@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libcommon.a
 
-EXTRA_DIST = NamedObjectCont.cpp DoubleVector.h
+EXTRA_DIST = NamedObjectCont.cpp DoubleVector.h StdDefs.h SUMOTime.h
 
 libcommon_a_SOURCES = BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \

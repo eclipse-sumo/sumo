@@ -11,7 +11,8 @@ GUILaneDrawer_FGnT.h GUILaneDrawer_FGwT.h \
 GUILaneDrawer_SGnT.h GUILaneDrawer_SGwT.h \
 GUILaneRepresentation.h \
 GUIColorer_GradientByFunctionValue.h \
-GUIColorer_GradientByTimedFV.h
+GUIColorer_GradientByTimedFV.h \
+GUIColorer_ShadeByFunctionValue1.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
 

@@ -1,6 +1,6 @@
 noinst_LIBRARIES = librouter.a
 
-EXTRA_DIST =
+EXTRA_DIST = ReferencedItem.h
 
 librouter_a_SOURCES = CellDriverInfoParser.cpp CellDriverInfoParser.h \
 ROAbstractEdgeBuilder.h \

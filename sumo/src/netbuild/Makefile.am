@@ -27,7 +27,7 @@ CFRONT_FILES =
 
 SUBDIRS = nodes
 
-EXTRA_DIST = $(CFRONT_FILES)
+EXTRA_DIST = $(CFRONT_FILES) NBMMLDirections.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)

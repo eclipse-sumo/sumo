@@ -1,10 +1,13 @@
 SUBDIRS = \
 duarouter \
+giant \
 guisim \
 jtrrouter \
 netconvert \
+netedit \
 netgen \
 od2trips \
+routeremapper \
 sumo \
 y_libgui \
 y_libguinetload \
@@ -16,6 +19,7 @@ y_libnetimport \
 y_libnetload \
 y_librouter \
 z_libmicrosim_output \
+z_libmicrosim_tls \
 z_libutils_common \
 z_libutils_convert \
 z_libutils_dev \
@@ -25,6 +29,7 @@ z_libutils_foxtools \
 z_libutils_geom \
 z_libutils_gfx \
 z_libutils_glutils \
+z_libutils_gui \
 z_libutils_importio \
 z_libutils_iodevices \
 z_libutils_options \

@@ -1,5 +1,7 @@
 noinst_LIBRARIES = libfoxtools.a
 
+EXTRA_DIST = FXThreadMessageRetriever.h
+
 libfoxtools_a_SOURCES = \
 FXBaseObject.cpp FXBaseObject.h \
 fxexdefs.h \

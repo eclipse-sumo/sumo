@@ -14,7 +14,7 @@ msvc6_TypeTraits.h
 libhelpers_a_SOURCES = PreStartInitialised.cpp \
 PreStartInitialised.h
 
-EXTRA_DIST = $(CFRONT_FILES)
+EXTRA_DIST = $(CFRONT_FILES) ValueRetriever.h ValueSource.h
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src -I$(top_srcdir)/src/microsim
 
