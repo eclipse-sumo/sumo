@@ -30,11 +30,11 @@ public:
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
                    ALL };
-    
+
     enum Containers { COUNTER = 0,
                       VEHICLES,
-                      HALTINGS };    
-    
+                      HALTINGS };
+
     typedef MSE2DetectorInterface E2ZSDetector;
     typedef std::vector< E2ZSDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
@@ -42,7 +42,7 @@ public:
     typedef ContainerCont::iterator ContainerContIter;
     typedef SingletonDictionary< std::string,
                                  MS_E2_ZS_Collector* > E2ZSDictionary;
-    
+
     MS_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
                         MSLane* lane,
                         MSUnit::Meters startPos,
@@ -70,7 +70,7 @@ public:
             assert( startPosM >= 0 &&
                     startPosM < laneLength );
             assert( endPosM - startPosM > 0 && endPosM < laneLength );
-            
+
             // insert object into dictionary
             if ( ! E2ZSDictionary::getInstance()->isInsertSuccess(
                      idM, this ) ) {
@@ -80,20 +80,20 @@ public:
 
     ~MS_E2_ZS_Collector( void )
         {
-            for ( DetContIter it = detectorsM.begin();
-                  it != detectorsM.end(); ++it ) {
-                if ( *it != 0 ) {
-                    delete *it;
+            for ( DetContIter it1 = detectorsM.begin();
+                  it1 != detectorsM.end(); ++it1 ) {
+                if ( *it1 != 0 ) {
+                    delete *it1;
                 }
             }
-            for ( ContainerContIter it = containersM.begin();
-                  it != containersM.end(); ++it ) {
-                if ( *it != 0 ) {
-                    delete *it;
+            for ( ContainerContIter it2 = containersM.begin();
+                  it2 != containersM.end(); ++it2 ) {
+                if ( *it2 != 0 ) {
+                    delete *it2;
                 }
             }
         }
-    
+
     double getGurrent( DetType type ) const
         {
             assert(type != ALL );
@@ -104,7 +104,7 @@ public:
             // error, requested type not present
             return std::numeric_limits< double >::max();
         }
-    
+
     double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds ) const
         {
             assert(type != ALL );
@@ -113,9 +113,9 @@ public:
                 return det->getAggregate( lanstNSeconds );
             }
             // error, requested type not present
-            return std::numeric_limits< double >::max(); 
+            return std::numeric_limits< double >::max();
         }
-    
+
     void addDetector( DetType type, std::string detId )
         {
             using namespace Detector;
@@ -128,7 +128,7 @@ public:
                 case MAX_JAM_LENGTH_IN_VEHICLES:
                 {
                     createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
-                    break;   
+                    break;
                 }
                 case MAX_JAM_LENGTH_IN_METERS:
                 {
@@ -171,7 +171,7 @@ public:
                         detId );
                     createDetector(
                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
-                        detId );                  
+                        detId );
                     break;
                 }
                 default:
@@ -180,20 +180,20 @@ public:
                 }
             }
         }
-    
+
     bool update( void )
         {
-            for ( ContainerContIter it = containersM.begin();
-                  it != containersM.end(); ++it ) {
-                    if ( *it != 0 ) {
-                        (*it)->update();
+            for ( ContainerContIter it1 = containersM.begin();
+                  it1 != containersM.end(); ++it1 ) {
+                    if ( *it1 != 0 ) {
+                        (*it1)->update();
                     }
                 }
-            
-            for ( DetContIter it = detectorsM.begin();
-                  it != detectorsM.end(); ++it ) {
-                if ( *it != 0 ) {
-                    (*it)->update();
+
+            for ( DetContIter it2 = detectorsM.begin();
+                  it2 != detectorsM.end(); ++it2 ) {
+                if ( *it2 != 0 ) {
+                    (*it2)->update();
                 }
             }
             return true;
@@ -223,7 +223,7 @@ public:
      * Methods in this group are inherited from MSMoveReminder. They are
      * called by the moving, entering and leaving vehicles.
      *
-     */    
+     */
     //@{
     bool isStillActive( MSVehicle& veh,
                         double oldPos,
@@ -238,7 +238,7 @@ public:
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
                     if ( *it != 0 ) {
-                        (*it)->enterDetectorByMove( veh );
+                        (*it)->enterDetectorByMove( &veh );
                     }
                 }
             }
@@ -262,7 +262,7 @@ public:
                             veh.length() );
                     }
                 }
-            }               
+            }
             if ( newPos - veh.length() > endPosM ) {
                 // vehicle will leave detector
                 for ( ContainerContIter it = containersM.begin();
@@ -283,7 +283,7 @@ public:
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
                     if ( *it != 0 ) {
-                        (*it)->leaveDetectorByLaneChange( veh );
+                        (*it)->leaveDetectorByLaneChange( &veh );
                     }
                 }
                 if ( veh.pos() - veh.length() < startPosM ||
@@ -298,7 +298,7 @@ public:
                 }
             }
         }
-    
+
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
             if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
@@ -306,7 +306,7 @@ public:
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
                     if ( *it != 0 ) {
-                        (*it)->enterDetectorByEmitOrLaneChange( veh );
+                        (*it)->enterDetectorByEmitOrLaneChange( &veh );
                     }
                 }
                 if ( veh.pos() - veh.length() < startPosM ) {
@@ -329,7 +329,7 @@ public:
                                 veh.length() );
                         }
                     }
-                }               
+                }
                 return true;
             }
             if ( veh.pos() - veh.length() > endPosM ){
@@ -344,27 +344,27 @@ public:
     /**
      * @name Inherited MSDetectorFileOutput methods.
      *
-     */ 
+     */
     //@{
-    /** 
+    /**
      * Returns a string indentifying an object of this class. Used for
-     * distinct filenames. 
+     * distinct filenames.
      */
     std::string  getNamePrefix( void ) const
         {
             return std::string("MS_E2_ZS_Collector");
         }
-    
-    /** 
+
+    /**
      * Get a header for file output which shall contain some
      * explanation of the output generated by getXMLOutput.
-     */ 
+     */
     std::string& getXMLHeader( void ) const
         {
             return xmlHeaderM;
         }
-    
-    /** 
+
+    /**
      * Get the XML-formatted output of the concrete detector.
      *
      * @param lastNTimesteps Generate data out of the interval
@@ -395,8 +395,8 @@ public:
             }
             return result;
         }
-    
-    /** 
+
+    /**
      * Get an opening XML-element containing information about the detector.
      */
     std::string  getXMLDetectorInfoStart( void ) const
@@ -410,15 +410,15 @@ public:
                              "\" >\n");
             return detectorInfo;
         }
-    
-//     /** 
+
+//     /**
 //      * Get a closing XML-element to getXMLDetectorInfoStart.
 //      */
 //     std::string& getXMLDetectorInfoEnd( void ) const
 //         {
-//             return 
+//             return
 //         }
-    /** 
+    /**
      * Get the data-clean up interval in timesteps.
      */
     MSUnit::IntSteps getDataCleanUpSteps( void ) const
@@ -435,22 +435,22 @@ protected:
             assert(type != ALL );
             return detectorsM[ type ];
         }
-    
-    
-    
+
+
+
 private:
     MSUnit::Meters startPosM;
     MSUnit::Meters endPosM;
-    
+
     MSUnit::Seconds deleteDataAfterSecondsM;
     MSUnit::Steps haltingTimeThresholdM;
     MSUnit::CellsPerStep haltingSpeedThresholdM;
     MSUnit::Cells jamDistThresholdM;
-    
+
     DetectorCont detectorsM;
-    
+
     ContainerCont containersM;
-    
+
     static std::string xmlHeaderM;
 
     void createContainer( Containers type )
@@ -460,7 +460,7 @@ private:
                 {
                     if ( containersM[ COUNTER ] == 0 ) {
                         containersM[ COUNTER ] =
-                            new DetectorContainer::Counter();
+                            new DetectorContainer::Count();
                     }
                     break;
                 }
@@ -502,7 +502,7 @@ private:
                             E2Density::getDetectorName() + detId,
                             endPosM - startPosM,
                             deleteDataAfterSecondsM,
-                            *static_cast< DetectorContainer::Counter* >(
+                            *static_cast< DetectorContainer::Count* >(
                                 containersM[ COUNTER ] ) );
                     break;
                 }
@@ -528,7 +528,7 @@ private:
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Haltings* >(
                                 containersM[ HALTINGS ] ) );
-                    
+
                     break;
                 }
                 case JAM_LENGTH_SUM_IN_VEHICLES:
@@ -553,7 +553,7 @@ private:
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Haltings* >(
                                 containersM[ HALTINGS ] ) );
-                    
+
                     break;
                 }
                 case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
@@ -589,7 +589,7 @@ private:
                     assert( 0 );
                 }
             }
-        }        
+        }
 };
 
 
