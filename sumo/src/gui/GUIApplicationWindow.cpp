@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/05/20 13:05:33  dkrajzew
+// temporary font patch
+//
 // Revision 1.8  2003/05/20 09:23:53  dkrajzew
 // some statistics added; some debugging done
 //
@@ -132,6 +135,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     _runThread = new GUIRunThread(this, 1);
 
     // initialise font drawing
+/*
     myFonts.add("std", ".\\fonts\\arial11.fnt");
     myFonts.add("std", ".\\fonts\\arial10.fnt");
     myFonts.add("std", ".\\fonts\\arial9.fnt");
@@ -139,7 +143,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     myFonts.add("std", ".\\fonts\\arial7.fnt");
     myFonts.add("std", ".\\fonts\\arial6.fnt");
     myFonts.add("std", ".\\fonts\\arial5.fnt");
-
+*/
     // build tool bars
     buildFileTools();
     buildSimulationTools();
