@@ -30,7 +30,10 @@ public:
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
                    ALL };
-    enum Containers { COUNTER = 0, VEHICLES, HALTINGS };    
+    
+    enum Containers { COUNTER = 0,
+                      VEHICLES,
+                      HALTINGS };    
     
     typedef MSE2DetectorInterface E2ZSDetector;
     typedef std::vector< E2ZSDetector* > DetectorCont;
@@ -194,6 +197,24 @@ public:
                 }
             }
             return true;
+        }
+
+    void resetQueueLengthAheadOfTrafficLights( void )
+        {
+            MSQueueLengthAheadOfTrafficLightsInVehicles* det1 = 0;
+            if ((det1 = dynamic_cast<
+                 MSQueueLengthAheadOfTrafficLightsInVehicles* >(
+                     detectorsM[
+                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ]))){
+                det1->resetMax();
+            }
+            MSQueueLengthAheadOfTrafficLightsInMeters* det2 = 0;
+            if ((det2 = dynamic_cast<
+                 MSQueueLengthAheadOfTrafficLightsInMeters* >(
+                     detectorsM[
+                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ]))){
+                det2->resetMax();
+            }
         }
 
     /**
