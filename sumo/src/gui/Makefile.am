@@ -23,7 +23,8 @@ QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
 TableTypes.h \
 GUIApplicationWindow.moc GUIChooser.moc GUISUMOAbstractView.moc \
 GUISUMOViewParent.moc GUIViewTraffic.moc QAboutSUMO.moc \
-QGUIImageField.moc QGUIToggleButton.moc
+QGUIImageField.moc QGUIToggleButton.moc \
+QSimulationEndedEvent.h QSimulationEndedEvent.cpp
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(all_includes) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
