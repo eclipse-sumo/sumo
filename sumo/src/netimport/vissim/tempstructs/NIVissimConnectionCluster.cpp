@@ -196,6 +196,55 @@ NIVissimConnectionCluster::join()
     size_t pos = 0;
 	IntVector incoming, outgoing;
     ContType::iterator i = myClusters.begin();
+    // step1 - faster but no complete
+    while(i!=myClusters.end()) {
+        joinAble.clear();
+        bool restart = false;
+        ContType::iterator j = i + 1;
+
+        // check whether every combination has been processed
+        while(j!=myClusters.end()) {
+
+if(find((*i)->myConnections.begin(), (*i)->myConnections.end(), 10094)!=(*i)->myConnections.end()
+   &&
+   find((*j)->myConnections.begin(), (*j)->myConnections.end(), 10094)!=(*j)->myConnections.end()
+   )
+{
+	int bla = 0;
+}
+
+
+
+
+			// check whether the current clusters overlap
+			if((*i)->joinable(*j)) {
+                joinAble.push_back(*j);
+            }
+            j++;
+        }
+        for(std::vector<NIVissimConnectionCluster*>::iterator k=joinAble.begin();
+                k!=joinAble.end(); k++) {
+            // add the overlaping cluster
+            (*i)->add(*k);
+            // erase the overlaping cluster
+            delete *k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+        }
+        //
+        if(joinAble.size()>0) {
+            i = myClusters.begin() + pos;
+			// clear temporary storages
+            incoming.clear();
+            outgoing.clear();
+            joinAble.clear();
+        } else {
+            i++;
+            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            pos++;
+        }
+    }
+
+    i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
         ContType::iterator j = i + 1;
@@ -235,6 +284,10 @@ NIVissimConnectionCluster::join()
 bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2)
 {
+	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
+		return true;
+	}
+
 	if( (IntVectorHelper::subSetExists(myOutgoingEdges, c2->myOutgoingEdges)
 			||
 	     IntVectorHelper::subSetExists(myIncomingEdges, c2->myIncomingEdges)
@@ -246,6 +299,7 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2)
 
 		return true;
 	}
+	return false;
 }
 
 void

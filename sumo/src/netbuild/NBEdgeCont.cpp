@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.11  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -429,10 +432,16 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id)
 {
+	if(id=="76") {
+		int bla = 0;
+	}
     size_t len = id.length();
     EdgeVector ret;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         string curr = (*i).first;
+		if(curr.find("76")!=string::npos) {
+			int bla = 0;
+		}
         // the next check makes it possibly faster - we don not have
         //  to compare the names
         if(curr.length()<=len) {

@@ -114,8 +114,6 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         default:
             break;
         }
-        // all routes wil be read from the network description!
-        MSRouteHandler::myStartElement(element, name, attrs);
     }
     // check junction logics
     if(wanted(LOADFILTER_LOGICS)) {
@@ -147,6 +145,9 @@ NLNetHandler::myStartElement(int element, const std::string &name,
             break;
         }
     }
+    if(wanted(LOADFILTER_DYNAMIC)) {
+        MSRouteHandler::myStartElement(element, name, attrs);
+	}
 }
 
 
@@ -319,6 +320,14 @@ NLNetHandler::addPhase(const Attributes &attrs) {
         SErrorHandler::add("Missing break definition.");
         return;
     }
+    // try to get the yellow definition
+    string yellowMask;
+    try {
+        yellowMask = getString(attrs, SUMO_ATTR_YELLOW);
+    } catch (EmptyData) {
+        SErrorHandler::add("Missing yellow definition.");
+        return;
+    }
     // try to get the phase duration
     size_t duration;
     try {
@@ -349,11 +358,12 @@ NLNetHandler::addPhase(const Attributes &attrs) {
     if(m_Type!="actuated") {
         m_ActiveSimplePhases.push_back(
             MSSimpleTrafficLightLogic<64>::PhaseDefinition(
-            duration, std::bitset<64>(phase), prios));
+            duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
     } else {
         m_ActiveActuatedPhases.push_back(
             ActuatedPhaseDefinition(
-            duration, std::bitset<64>(phase), prios, min, max));
+            duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
+			min, max));
     }
 }
 
@@ -525,8 +535,6 @@ NLNetHandler::myCharacters(int element, const std::string &name,
         default:
             break;
         }
-        // all routes wil be read from the network description!
-        MSRouteHandler::myCharacters(element, name, chars);
     }
     // check junction logics
     if(wanted(LOADFILTER_LOGICS)) {
@@ -551,6 +559,9 @@ NLNetHandler::myCharacters(int element, const std::string &name,
             break;
         }
     }
+    if(wanted(LOADFILTER_DYNAMIC)) {
+        MSRouteHandler::myCharacters(element, name, chars);
+	}
 }
 
 
@@ -686,8 +697,6 @@ NLNetHandler::myEndElement(int element, const std::string &name)
             closeSuccLane();
             break;
         }
-        // All routes will be read from the network description!
-        MSRouteHandler::myEndElement(element, name);
     }
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -701,6 +710,9 @@ NLNetHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
+    if(wanted(LOADFILTER_DYNAMIC)) {
+        MSRouteHandler::myEndElement(element, name);
+	}
 }
 
 

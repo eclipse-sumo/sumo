@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.8  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -219,21 +222,23 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         }
         // add phase
         size_t duration = 30;
-        ret->addStep(duration, driveMask, brakeMask);
+        ret->addStep(duration, driveMask, brakeMask, std::bitset<64>());
         // add possible additional left-turn phase when existing
+		std::bitset<64> yellow = driveMask;
         cei1.resetNonLeftMovers(driveMask, brakeMask);
         if(driveMask.any()) {
 			// let the junction be clear from any vehicles before alowing turn left
 	        std::bitset<64> inv;
 		    inv.flip();
-			ret->addStep(breakingTime, std::bitset<64>(), inv);
+			ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
 			// let vehicles moving left pass secure
-            ret->addStep(10, driveMask, brakeMask);
+            ret->addStep(10, driveMask, brakeMask, std::bitset<64>());
+			yellow = driveMask;
         }
         // add the dead phase for this junction
         std::bitset<64> inv;
         inv.flip();
-        ret->addStep(breakingTime, std::bitset<64>(), inv);
+        ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
     }
 #ifdef TL_DEBUG
     cout << "Phasenfolge (Ende):" << endl;

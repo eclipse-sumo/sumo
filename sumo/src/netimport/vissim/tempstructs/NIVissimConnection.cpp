@@ -357,6 +357,14 @@ NIVissimConnection::dict_buildNBEdgeConnections()
 				<< c->getFromEdgeID() << "' and '"
 				<< c->getToEdgeID() << "'." << endl;
 			ref++;
+        fromEdge = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(c->getFromEdgeID()),
+            toString<int>(c->getToEdgeID()),
+            true);
+        toEdge = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(c->getToEdgeID()),
+            toString<int>(c->getFromEdgeID()),
+            false);
             continue; // !!!
         }
         if(fromEdge==0) {

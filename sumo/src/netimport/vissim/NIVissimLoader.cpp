@@ -351,10 +351,13 @@ NIVissimLoader::postLoadBuild()
 
     // build clusters of connections with the same direction and a similar
     //  position along the streets
+	NIVissimConnectionCluster::searchForConnection(10094);
     NIVissimEdge::buildConnectionClusters();
+	NIVissimConnectionCluster::searchForConnection(10094);
 
     // join clusters when overlapping (different streets are possible)
     NIVissimConnectionCluster::join();
+	NIVissimConnectionCluster::searchForConnection(10094);
 
     NIVissimConnectionCluster::addTLs();
 

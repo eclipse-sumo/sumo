@@ -44,6 +44,10 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
+	const IntVector &getConnections() const {
+		return myConnections;
+	}
+
 public:
     /** @brief Tries to joind clusters participating within a node
         This is done by joining clusters which overlap */

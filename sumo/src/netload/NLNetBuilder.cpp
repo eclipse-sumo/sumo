@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/21 15:18:21  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.6  2003/05/20 09:45:35  dkrajzew
 // some make-up done (splitting large methods; patching comments)
 //
@@ -161,11 +164,12 @@ NLNetBuilder::buildMSNet() {
             "", *container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
-    // prepare for building of route readers
+/*    // prepare for building of route readers
     string route_files = "";
     if(m_pOptions.isSet("r")) {
         route_files = m_pOptions.getString("r");
     }
+	*/
     // try to build a net
     if(!SErrorHandler::errorOccured()) {
         net = container->buildMSNet(m_pOptions);
@@ -187,6 +191,11 @@ NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser) {
     // load the junctions
     if(m_pOptions.isSet("j")&&ok) {
         ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"),
+            handler, parser);
+    }
+    // load the junctions
+    if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
+        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
             handler, parser);
     }
     // load additional net elements (sources, detectors, ...)
@@ -261,6 +270,9 @@ NLNetBuilder::getDataName(LoadFilter forWhat) {
         break;
     case LOADFILTER_NETADD:
         return "additional net elements";
+        break;
+    case LOADFILTER_DYNAMIC:
+        return "vehicle routes";
         break;
     default:
         break;

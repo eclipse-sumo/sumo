@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.12  2003/05/20 09:33:48  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -208,15 +211,14 @@ NBRequest::buildBitfieldLogic(const std::string &key)
         for(j=_outgoing->begin(); j!=_outgoing->end(); j++) {
             computeRightOutgoingLinkCrossings(*i, *j);
             computeLeftOutgoingLinkCrossings(*i, *j);
-	EdgeVector::const_iterator i2, j2;
+/*	EdgeVector::const_iterator i2, j2;
     for(i2=_incoming->begin(); i2!=_incoming->end(); i2++) {
         for(j2=_outgoing->begin(); j2!=_outgoing->end(); j2++) {
 			if(*i!=*i2||*j!=*j2) {
 				setBlocking(*i, *j, *i2, *j2);
 			}
         }
-    }
-
+    }*/
         }
     }
     NBJunctionLogicCont::add(key, bitsetToXML(key));
@@ -501,7 +503,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
         }
         std::pair<std::bitset<64>, std::bitset<64> > masks =
             buildPhaseMasks(defs, *l);
-        logic->addStep(duration, masks.first, masks.second);
+        logic->addStep(duration, masks.first, masks.second, std::bitset<64>()); // !!! yellow ligh is not considered!!!
     }
     // returns the build logic
     NBTrafficLightLogicVector *ret =

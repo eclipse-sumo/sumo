@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.6  2003/04/07 12:15:45  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -75,7 +78,7 @@ public:
         This is done during the building, the new phase is inserted at the end of
         the list of already added phases */
     void addStep(size_t duration, std::bitset<64> driveMask,
-        std::bitset<64> brakeMask);
+        std::bitset<64> brakeMask, std::bitset<64> yellowMask);
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
     void writeXML(std::ostream &into, size_t no,
@@ -109,11 +112,13 @@ private:
         /// The information which links have to brake within this phase
         std::bitset<64>     brakeMask;
 
+        std::bitset<64>     yellowMask;
+
         /// Constructor
         PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
-            std::bitset<64> brakeMaskArg)
+            std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg)
             : duration(durationArg), driveMask(driveMaskArg),
-            brakeMask(brakeMaskArg) { }
+            brakeMask(brakeMaskArg), yellowMask(yellowMaskArg) { }
 
         /// Destructor
         ~PhaseDefinition() { }
@@ -122,7 +127,8 @@ private:
         bool operator!=(const PhaseDefinition &pd) const {
             return pd.duration != duration ||
                 pd.driveMask != driveMask ||
-                pd.brakeMask != brakeMask;
+                pd.brakeMask != brakeMask ||
+				pd.yellowMask != yellowMask;
         }
 
     };

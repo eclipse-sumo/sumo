@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.13  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -326,6 +329,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::~NBEdge()
 {
+	if(_id=="76") {
+		int bla = 0;
+	}
     delete _reachable;
 //    delete _linkIsPriorised;
     delete _succeedinglanes;

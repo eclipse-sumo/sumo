@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/21 15:18:19  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.6  2003/04/07 12:15:44  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -87,9 +90,10 @@ NBTrafficLightLogic::~NBTrafficLightLogic()
 void
 NBTrafficLightLogic::addStep(size_t duration,
                              std::bitset<64> driveMask,
-                             std::bitset<64> brakeMask)
+                             std::bitset<64> brakeMask,
+							 std::bitset<64> yellowMask)
 {
-    _phases.push_back(PhaseDefinition(duration, driveMask, brakeMask));
+    _phases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
 }
 
 
@@ -115,7 +119,7 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
         }
     }
     into << "</inlanes>" << endl;
-    // wrte the phases
+    // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
         std::bitset<64> mask = (*i).driveMask;
@@ -128,8 +132,14 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no,
         stringstream tmp2;
         mask = (*i).brakeMask;
         tmp2 << mask;
-        into << " brake=\"" << tmp2.str().substr(64-_noLinks) << "\"/>"
-            << endl;
+        into << " brake=\"" << tmp2.str().substr(64-_noLinks) << "\"";
+		// write the information which link have a yellow light
+        stringstream tmp3;
+        mask = (*i).yellowMask;
+        tmp3 << mask;
+        into << " yellow=\"" << tmp3.str().substr(64-_noLinks) << "\"";
+		// close phase information
+		into << "/>" << endl;
     }
     into << "   </tl-logic>" << endl << endl;
 }

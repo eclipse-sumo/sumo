@@ -288,6 +288,9 @@ void
 NIVissimEdge::dict_buildNBEdges()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+		if((*i).first==76) {
+			int bla = 0;
+		}
         NIVissimEdge *edge = (*i).second;
         edge->buildNBEdge();
     }
@@ -299,6 +302,21 @@ NIVissimEdge::buildNBEdge()
 {
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
+	if(myID==1000052) {
+		int bla = 0;
+		for(ConnectionClusters::iterator i=myConnectionClusters.begin(); i!=myConnectionClusters.end(); i++) {
+			NIVissimConnectionCluster *cc = *i;
+			const IntVector &conns = cc->getConnections();
+			for(IntVector::const_iterator j=conns.begin(); j!=conns.end(); j++) {
+				if(j!=conns.begin()) {
+					cout << ", " ;
+				}
+				cout << *j;
+			}
+			cout << endl;
+		}
+
+	}
     if(myConnectionClusters.size()!=0) {
 /*        NBNode *from = new NBNode(
             toString<int>(myID) + "-Begin",

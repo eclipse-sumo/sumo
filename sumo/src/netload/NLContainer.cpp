@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/21 15:18:21  dkrajzew
+// yellow traffic lights implemented
+//
 // Revision 1.6  2003/03/17 14:24:30  dkrajzew
 // windows eol removed
 //
@@ -430,9 +433,8 @@ NLContainer::buildMSNet(const OptionsCont &options)
 {
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
-    MSEmitControl *emitters = new MSEmitControl("");
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-    MSNet::init( m_Id, edges, junctions, emitters,
+    MSNet::init( m_Id, edges, junctions,
                  m_EventControl,
                  m_pDetectors,
                  routeLoaders);
@@ -446,7 +448,7 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
-    if(oc.isSet("r")) {
+    if(oc.isSet("r")&&oc.getInt("route-steps")>0) {
         // extract the list
         StringTokenizer st(oc.getString("r"), ';');
         // check whether all files can be opened
