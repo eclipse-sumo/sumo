@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/12/16 12:16:05  dkrajzew
+// code beautifying
+//
 // Revision 1.3  2004/08/02 13:11:40  dkrajzew
 // made some deprovements or so
 //
@@ -43,19 +46,25 @@
 // reshifting of networks added
 //
 // Revision 1.14  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.13  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.12  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.11  2003/04/10 15:45:19  dkrajzew
 // some lost changes reapplied
 //
 // Revision 1.10  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.9  2003/04/01 15:15:54  dkrajzew
 // further work on vissim-import
@@ -88,7 +97,8 @@
 // Report methods transfered from loader to the containers
 //
 // Revision 1.4  2002/06/11 16:00:40  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.3  2002/05/14 04:42:56  dkrajzew
 // new computation flow

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.34  2004/12/16 12:16:06  dkrajzew
+// code beautifying
+//
 // Revision 1.33  2004/11/23 10:21:40  dkrajzew
 // debugging
 //
@@ -115,16 +118,19 @@
 // updated
 //
 // Revision 1.2  2002/10/17 13:32:01  dkrajzew
-// possibility to add connections between lanes added; adding of connectionsbetween edges revalidated
+// possibility to add connections between lanes added; adding of connections
+//  between edges revalidated
 //
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
 // Revision 1.5  2002/06/11 16:00:39  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on the
+//  EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow
