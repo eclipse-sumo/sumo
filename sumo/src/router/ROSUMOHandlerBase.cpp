@@ -43,9 +43,10 @@ ROSUMOHandlerBase::getFloatReporting(const Attributes &attrs, AttrEnum attr,
 }
 
 
+/*
 RGBColor
-ROSUMOHandlerBase::getRGBColorReporting(const Attributes &attrs,
-                                        const std::string &id)
+ROSUMOHandlerBase::parseColor(const Attributes &attrs,
+                              const std::string &id)
 {
     try {
         return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
@@ -56,6 +57,7 @@ ROSUMOHandlerBase::getRGBColorReporting(const Attributes &attrs,
     }
     return RGBColor(-1, -1, -1);
 }
+*/
 
 
 ROVehicleType*
@@ -118,8 +120,9 @@ ROSUMOHandlerBase::getVehicleRoute(const Attributes &attrs,
 
 
 RGBColor
-ROSUMOHandlerBase::getVehicleColor(const Attributes &attrs,
-                                   const std::string &id)
+ROSUMOHandlerBase::parseColor(const Attributes &attrs,
+                              const std::string &type,
+                              const std::string &id)
 {
     RGBColor col;
     try {
@@ -127,7 +130,7 @@ ROSUMOHandlerBase::getVehicleColor(const Attributes &attrs,
     } catch (EmptyData) {
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-            string("The color definition for vehicle '") +
+            string("The color definition for ") + type + (" '") +
             id + string("' is malicious."));
     }
     return col;
@@ -159,7 +162,7 @@ ROSUMOHandlerBase::startVehicle(const Attributes &attrs)
     // get the route id
     RORouteDef *route = getVehicleRoute(attrs, id);
     // get the vehicle color
-    RGBColor color = getVehicleColor(attrs, id);
+    RGBColor color = parseColor(attrs, "vehicle", id);
     // build the vehicle
     // get further optional information
     int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
@@ -190,7 +193,7 @@ ROSUMOHandlerBase::startVehType(const Attributes &attrs)
     float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL, id, "accel");
     float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL, id, "decel");
     float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA, id, "sigma");
-    RGBColor color = getRGBColorReporting(attrs, id);
+    RGBColor color = parseColor(attrs, "vehicle type", id);
     // build the vehicle type after checking
     //  by now, only vehicles using the krauss model are supported
     if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {

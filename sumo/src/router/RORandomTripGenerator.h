@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.1  2003/04/09 15:41:19  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -35,6 +38,7 @@
 
 #include <string>
 #include <utils/router/IDSupplier.h>
+#include <utils/gfx/RGBColor.h>
 #include "ROTypedRoutesLoader.h"
 
 
@@ -92,6 +96,10 @@ private:
 
     /** The supplier for ids */
     IDSupplier myIDSupplier;
+
+    /// The color random routes shall have
+    RGBColor myColor;
+
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.8  2003/06/24 08:17:54  dkrajzew
 // some strange things happening during the computation of alternatives patched
 //
@@ -64,9 +67,10 @@ namespace
 using namespace std;
 
 RORouteAlternativesDef::RORouteAlternativesDef(const std::string &id,
+                                               const RGBColor &color,
                                                size_t lastUsed,
                                                double gawronBeta, double gawronA)
-    : RORouteDef(id)/*, _current(-1)*/, _lastUsed(lastUsed),
+    : RORouteDef(id, color)/*, _current(-1)*/, _lastUsed(lastUsed),
     _gawronBeta(gawronBeta), _gawronA(gawronA)
 {
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
@@ -150,7 +153,7 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
                     // build the route
                     RORouteDef *route =
                         new ROOrigDestRouteDef(myRouteIDSupplier.getNext(),
-                        from, to);
+                            RGBColor(-1, -1, -1), from, to);
                     _net.addRouteDef(route);
                     ROVehicleType *type = _net.getDefaultVehicleType();
                     string vehID = myVehIDSupplier.getNext();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.5  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -45,6 +48,7 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
+#include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
 
 /* =========================================================================
@@ -68,7 +72,8 @@ class RORouteDef : public ReferencedItem,
                    public Named {
 public:
     /// Constructor
-    RORouteDef(const std::string &id);
+    RORouteDef(const std::string &id,
+        const RGBColor &color);
 
     /// Destructor
 	virtual ~RORouteDef();
@@ -105,6 +110,10 @@ protected:
 
     /** @brief Writes the list of known alternatives */
     virtual void xmlOutAlternatives(std::ostream &altres) const = 0;
+
+protected:
+    /// The color the route shall have
+    RGBColor myColor;
 
 };
 

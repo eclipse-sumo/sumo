@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -212,6 +215,8 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
             + id + string("'."));
         return;
     }
+    // try to get the color
+    myCurrentColor = parseColor(attrs, "route", id);
     // try to get the start time
 /*    int time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
     if(time<0) {
@@ -222,8 +227,8 @@ ROSUMOAltRoutesHandler::startAlternative(const Attributes &attrs)
     }*/
     // !!!
     // build the alternative cont
-    _currentAlternatives = new RORouteAlternativesDef(id, index,
-        _gawronBeta, _gawronA);
+    _currentAlternatives = new RORouteAlternativesDef(id, myCurrentColor,
+        index, _gawronBeta, _gawronA);
 }
 
 

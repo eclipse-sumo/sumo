@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.5  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -53,8 +56,9 @@ namespace
 using namespace std;
 
 ROCompleteRouteDef::ROCompleteRouteDef(const std::string &id,
+                                       const RGBColor &color,
                                        const ROEdgeVector &edges)
-    : RORouteDef(id), _edges(edges)
+    : RORouteDef(id, color), _edges(edges)
 {
 }
 

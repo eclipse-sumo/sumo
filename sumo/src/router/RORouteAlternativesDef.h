@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.4  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -60,8 +63,8 @@ class ROEdge;
 class RORouteAlternativesDef : public RORouteDef {
 public:
     /// Constructor
-    RORouteAlternativesDef(const std::string &id, size_t lastUsed,
-        double gawronBeta, double gawronA);
+    RORouteAlternativesDef(const std::string &id, const RGBColor &color,
+        size_t lastUsed, double gawronBeta, double gawronA);
 
     /// Destructor
     virtual ~RORouteAlternativesDef();

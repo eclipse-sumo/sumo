@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -141,7 +144,7 @@ ROCellRouteDefHandler::readNextRoute(long start)
     // add the route when it is not yet known
     RORouteAlternativesDef *altDef =
         new RORouteAlternativesDef(_routeIdSupplier.getNext(),
-        _driverParser.getLast(), _gawronBeta, _gawronA);
+            RGBColor(-1, -1, -1), _driverParser.getLast(), _gawronBeta, _gawronA);
     for(size_t i=0; i<3; i++) {
         RORoute *alt = getAlternative(i);
         if(alt!=0) {

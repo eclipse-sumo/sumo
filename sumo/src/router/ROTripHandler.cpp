@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/07/22 15:14:13  dkrajzew
 // debugging (false vehicle length)
 //
@@ -285,9 +288,11 @@ ROTripHandler::myEndElement(int element, const std::string &name)
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = 0;
         if(myEdges.size()==0) {
-            route = new ROOrigDestRouteDef(myID, myBeginEdge, myEndEdge);
+            route = new ROOrigDestRouteDef(myID, myColor,
+                myBeginEdge, myEndEdge);
         } else {
-            route = new ROCompleteRouteDef(myID, myEdges);
+            route = new ROCompleteRouteDef(myID, myColor,
+                myEdges);
         }
         ROVehicleType *type = _net.getVehicleTypeSecure(myType);
         // check whether any errors occured

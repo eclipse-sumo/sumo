@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -66,8 +69,8 @@ namespace
 using namespace std;
 
 
-RORouteDef::RORouteDef(const std::string &id)
-    : ReferencedItem(), Named(id)
+RORouteDef::RORouteDef(const std::string &id, const RGBColor &color)
+    : ReferencedItem(), Named(id), myColor(color)
 {
 }
 

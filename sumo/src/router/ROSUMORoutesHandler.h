@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -38,8 +41,10 @@
 
 #include <string>
 #include "ROSUMOHandlerBase.h"
+#include <utils/gfx/RGBColor.h>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+
 
 /* =========================================================================
  * class declarations
@@ -83,6 +88,9 @@ private:
 private:
     /// the name of the current route
     std::string _currentRoute;
+
+    /// The color of the current route
+    RGBColor myCurrentColor;
 
 private:
     /// we made the copy constructor invalid

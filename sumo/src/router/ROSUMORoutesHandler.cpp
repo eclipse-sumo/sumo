@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.6  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -107,6 +110,7 @@ ROSumoRoutesHandler::startRoute(const Attributes &attrs)
 {
     try {
         _currentRoute = getString(attrs, SUMO_ATTR_ID);
+        myCurrentColor = parseColor(attrs, "route", _currentRoute);
     } catch (EmptyData) {
         _currentRoute = "";
         MsgHandler::getErrorInstance()->inform("Missing id in route.");
@@ -138,7 +142,7 @@ ROSumoRoutesHandler::myCharacters(int element, const std::string &name,
         }
         if(ok) {
             ROCompleteRouteDef *route =
-                new ROCompleteRouteDef(_currentRoute, list);
+                new ROCompleteRouteDef(_currentRoute, myCurrentColor, list);
             _net.addRouteDef(route);
         } else {
             if(_currentRoute.length()>0) {

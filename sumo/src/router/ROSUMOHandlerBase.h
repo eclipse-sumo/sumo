@@ -27,9 +27,9 @@ protected:
     float getFloatReporting(const Attributes &attrs, AttrEnum attr,
         const std::string &id, const std::string &name);
 
-    /// Retrieves the vehicle's color definition
-    RGBColor getRGBColorReporting(const Attributes &attrs,
-        const std::string &id);
+    /// Retrieves the routes's color definition
+    RGBColor parseColor(const Attributes &attrs,
+        const std::string &type, const std::string &id);
 
     /// Parses and returns the type of the vehicle
     ROVehicleType* getVehicleType(const Attributes &attrs,
@@ -43,10 +43,6 @@ protected:
     RORouteDef *getVehicleRoute(const Attributes &attrs,
         const std::string &id);
 
-    /// Parses and returns the color of the current vehicle
-    RGBColor getVehicleColor(const Attributes &attrs,
-        const std::string &id);
-
     /// Parses a vehicle
     void startVehicle(const Attributes &attrs);
 
@@ -55,6 +51,9 @@ protected:
 
 protected:
     std::string myDataName;
+
+    /// The color of the current route
+    RGBColor myCurrentColor;
 
 };
 

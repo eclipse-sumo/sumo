@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/06/18 11:36:50  dkrajzew
 // a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
 //
@@ -60,9 +63,10 @@ namespace
 using namespace std;
 
 ROOrigDestRouteDef::ROOrigDestRouteDef(const std::string &id,
+                                       const RGBColor &color,
                                        ROEdge *from, ROEdge *to,
                                        bool removeFirst)
-    : RORouteDef(id), _from(from), _to(to), _current(0),
+    : RORouteDef(id, color), _from(from), _to(to), _current(0),
     myRemoveFirst(removeFirst)
 {
     assert(_from!=0);

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:26:33  dkrajzew
+// all vehicles, routes and vehicle types may now have specific colors
+//
 // Revision 1.7  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
@@ -53,7 +56,10 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/convert/TplConvert.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include "RORouteDef.h"
 #include "ROOrigDestRouteDef.h"
 #include "RONet.h"
@@ -73,6 +79,23 @@ RORandomTripGenerator::RORandomTripGenerator(RONet &net,
     : ROTypedRoutesLoader(net),
     myIDSupplier("Rand")
 {
+    if(!OptionsSubSys::getOptions().isSet("random-route-color")) {
+        myColor = RGBColor(-1, -1, -1);
+        return;
+    }
+    string color =
+        OptionsSubSys::getOptions().getString("random-route-color");
+    StringTokenizer st(color, ";");
+    try {
+        double r = TplConvert<char>::_2float(st.next().c_str());
+        double g = TplConvert<char>::_2float(st.next().c_str());
+        double b = TplConvert<char>::_2float(st.next().c_str());
+        myColor = RGBColor(r, g, b);
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Something is wrong with the color definition for random routes\n")
+            + string(" Option: 'random-route-color'"));
+    }
 }
 
 RORandomTripGenerator::~RORandomTripGenerator()
@@ -131,7 +154,7 @@ RORandomTripGenerator::readNextRoute(long start)
         // build trip and add
         string id = myIDSupplier.getNext();
         RORouteDef *route =
-            new ROOrigDestRouteDef(id, from, to, true);
+            new ROOrigDestRouteDef(id, myColor, from, to, true);
         _net.addVehicle(id,
             new ROVehicle(id, route, start, _net.getDefaultVehicleType(),
                 RGBColor(
