@@ -18,8 +18,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:22  traffic
-// Initial revision
+// Revision 1.2  2002/06/18 16:35:37  croessel
+// Moved deinition to cpp or icc in order to make files cfront compliant.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:22  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:13  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -45,8 +48,12 @@
 #ifndef SimpleCommand_H
 #define SimpleCommand_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include "Command.h"
-#include "../microsim/MSNet.h"
+
 
 /**
    See Design-Patterns, Gamma et al.
@@ -67,15 +74,14 @@ public:
 
     typedef MSNet::Time ( T::* Operation )();
 
-    SimpleCommand( T* receiver, Operation op ) :
-        myReceiver( receiver ),
-        myOperation( op ) {}
+    SimpleCommand( T* receiver, Operation op );
+     
 
     ~SimpleCommand();
 
     /** Execute the command and return an offset for recurring commands
         or 0 for single-execution commands. */    
-    MSNet::Time execute() { ( myReceiver->*myOperation )(); }
+    MSNet::Time execute();
 
 protected:
 
@@ -86,11 +92,21 @@ private:
 };
 
 
+//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
+#ifndef DISABLE_INLINE
+#include "SimpleCommand.icc"
+#endif // DISABLE_INLINE
+
+#ifndef EXTERNAL_TEMPLATE_DEFINITION
+#include "SimpleCommand.cpp"
+#endif // EXTERNAL_TEMPLATE_DEFINITION
+
 #endif // SimpleCommand_H
 
 // Local Variables:
 // mode:C++
 // End:
+
 
 
 

@@ -16,8 +16,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:22  traffic
-// Initial revision
+// Revision 1.2  2002/06/18 16:35:37  croessel
+// Moved deinition to cpp or icc in order to make files cfront compliant.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:22  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:13  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -35,6 +38,12 @@
 #ifndef Counter_H
 #define Counter_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+#include <cstddef>
+
 /**
    Source:
    This is a slightly-modified version of an article that appeared in the 
@@ -50,18 +59,27 @@ template< typename T  >
 class Counter
 {
 public:
-    Counter() { ++count; }
-    Counter( const Counter& ) { ++count; }
-    ~Counter() { --count; }
+    Counter();
+	  
+    Counter( const Counter& );
 
-    static size_t howMany() { return count; }
+    ~Counter();
+	  
+    static size_t howMany();
 
 private:                                 
     static size_t count;
 };
 
-template< typename T >
-size_t Counter< T >::count = 0;
+
+//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
+#ifndef DISABLE_INLINE
+#include "Counter.icc"
+#endif // DISABLE_INLINE
+
+#ifndef EXTERNAL_TEMPLATE_DEFINITION
+#include "Counter.cpp"
+#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #endif // Counter_H
 
