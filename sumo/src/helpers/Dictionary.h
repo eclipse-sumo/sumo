@@ -13,6 +13,9 @@
  */
 
 // $Log$
+// Revision 1.3  2003/06/06 10:47:16  dkrajzew
+// destructor changed to virtual
+//
 // Revision 1.2  2003/06/04 16:09:16  roessel
 // setFindMode creates now a static vector which is returned by reference from getStdVector.
 //
@@ -53,7 +56,7 @@ public:
      * @see getStdVector()
      *
      */
-    ~Dictionary( void )
+    virtual ~Dictionary( void )
         {
             assert( operationModeM == FIND );
             mapM.clear();
@@ -63,14 +66,14 @@ public:
         mapM(  ),
         operationModeM( INSERT )
         {}
-    
+
 
     bool isInsertSuccess( Key aKey, Value aValue )
         {
             assert( operationModeM == INSERT );
 			return mapM.insert( std::make_pair( aKey, aValue ) ).second;
        	}
-       
+
     void setFindMode( void )
         {
             assert( operationModeM == INSERT );
@@ -104,7 +107,7 @@ public:
 protected:
     typedef std::map< Key, Value > Map;
     /// The type of an interator to the key-value pair map (for brevity)
-    typedef typename Map::iterator MapIt;   
+    typedef typename Map::iterator MapIt;
     Map mapM; /**< Map to store the key-value pairs. */
 
 
@@ -126,7 +129,7 @@ protected:
     Mode operationModeM;
 
     static ValueVector vectorM;
-    
+
 private:
 
     /// Not implemented copy-constructor
