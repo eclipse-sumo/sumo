@@ -5,5 +5,4 @@ sumo-netconvert-userdocs.sgml \
 sumo-userdocs.sgml \
 sumo_user.xml
 
-SUBDIRS = sumo-netconvert-devdocs.imgs \
-gfx
+SUBDIRS = gfx
