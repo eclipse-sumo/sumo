@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/30 09:22:31  dkrajzew
+// chequered board generation verified and eased
+//
 // Revision 1.3  2003/07/22 15:09:50  dkrajzew
 // errors on building and warnings removed
 //
@@ -147,18 +150,21 @@ TNGNet::CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY)
 	for (ix=0; ix<NumX; ix++) {
 		for (iy=0; iy<NumY; iy++) {
 			// create Node
-			Node = new TNode(GetID(), ix, iy);
+            string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
+			Node = new TNode(nodeID, ix, iy);
 			Node->SetX(ix * SpaceX);
 			Node->SetY(iy * SpaceY);
 			NodeList.push_back(Node);
 			// create Links
 			if (ix > 0) {
-				Link = new TLink(GetID(), Node, FindNode(ix-1, iy));
-				LinkList.push_back(Link);
+                connect(Node, FindNode(ix-1, iy));
+/*				Link = new TLink(GetID(), Node, FindNode(ix-1, iy));
+				LinkList.push_back(Link);*/
 			}
 			if (iy > 0) {
-				Link = new TLink(GetID(), Node, FindNode(ix, iy-1));
-				LinkList.push_back(Link);
+                connect(Node, FindNode(ix, iy-1));
+/*				Link = new TLink(GetID(), Node, FindNode(ix, iy-1));
+				LinkList.push_back(Link);*/
 			}
 		}
 	}
