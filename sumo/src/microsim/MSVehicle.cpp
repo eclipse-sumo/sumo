@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2003/11/11 08:36:21  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.38  2003/10/31 08:04:18  dkrajzew
 // an invalid assertion removed
 //
@@ -969,20 +972,11 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
                                  const MSVehicle* neigh )
 {
-    if(MSNet::globaltime==54777&&myID=="7534") {
-        int bla = 0;
-    }
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
         DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
-    if(myID=="99"&&myLane->id()=="522_1") {
-        int bla = 0;
-    }
-    if(MSNet::globaltime==54042&&myID=="60") {
-        int bla = 0;
-    }
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
     if(!myLane->appropriate(this)) {
@@ -1035,12 +1029,6 @@ MSVehicle::moveFirstChecked()
 	    int textdummy = 0;
     }
 #endif
-    if(MSNet::globaltime==54777&&myID=="7534") {
-        int bla = 0;
-    }
-    if(myID=="99"&&myLane->id()=="522_1") {
-        int bla = 0;
-    }
     // get vsafe
     double vSafe = 0;
     assert(myLFLinkLanes.size()!=0);
@@ -1099,10 +1087,6 @@ MSVehicle::moveFirstChecked()
     // update position
     myState.myPos += vNext * MSNet::deltaT();
     MSLane *approachedLane = myLane;
-//    myTargetVia = myLane;
-    if(MSNet::globaltime==54777&&myID=="7534") {
-        int bla = 0;
-    }
 
     size_t no = 0;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {
@@ -1113,8 +1097,6 @@ MSVehicle::moveFirstChecked()
 //        bool approachAllowed = false;
 //        bool approachInformationReached = false;
         assert(approachedLane!=0);
-        double bla1 = myState.myPos;
-        double bla2 = approachedLane->length();
 		myState.myPos -= approachedLane->length();
 //        myTargetVia = (*link)->myJunctionInlane;
         assert(myState.myPos>0);

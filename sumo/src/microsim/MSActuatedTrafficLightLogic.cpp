@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2003/11/11 08:36:21  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.20  2003/10/08 07:09:16  dkrajzew
 // gcc did not knew a const_iterator to a map (?)
 //
@@ -255,7 +258,6 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
 {
     // increment the index to the current phase
     _step++;
-    int bla = _phases.size();
     assert(_step<=_phases.size());
     if(_step==_phases.size()) {
         _step = 0;

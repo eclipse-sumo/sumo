@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2003/11/11 08:36:21  dkrajzew
+// removed some debug-variables
+//
 // Revision 1.12  2003/10/16 08:33:49  dkrajzew
 // new lane changing rules implemented
 //
@@ -291,13 +294,6 @@ MSLaneChanger::change()
         return;
     }
 */
-    if(MSNet::globaltime>=54550&&vehicle->id()=="4257") {
-        int bla = 0;
-    }
-
-    if(MSNet::globaltime>=54550&&vehicle->id()=="6340") {
-        int bla = 0;
-    }
 
 //    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
 #ifdef ABS_DEBUG
