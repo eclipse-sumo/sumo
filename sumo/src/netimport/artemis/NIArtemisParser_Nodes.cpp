@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 17:14:39  dkrajzew
+// more stringent usage of insertion into containers; y-direction flipped
+//
 // Revision 1.1  2003/03/03 15:00:31  dkrajzew
 // initial commit for artemis-import files
 //
@@ -122,7 +125,9 @@ NIArtemisParser_Nodes::myDependentReport()
     // build if ok
     if(!SErrorHandler::errorOccured()) {
         NBNode *node = new NBNode(id, x, y, myType);
-        NBNodeCont::insert(node);
+        if(!NBNodeCont::insert(node)) {
+            delete node;
+        }
     }
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 17:14:42  dkrajzew
+// more stringent usage of insertion into containers; y-direction flipped
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -69,7 +72,7 @@ NIVisumParser_Nodes::myDependentReport()
         double x = TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
         double y = TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // add to the list
-        if(!NBNodeCont::insert(id, x, -y)) {
+        if(!NBNodeCont::insert(id, x, y)) {
             addError(
                 string(" Duplicate node occured ('")
                 + id + string("')."));

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 17:14:41  dkrajzew
+// more stringent usage of insertion into containers; y-direction flipped
+//
 // Revision 1.1  2003/02/07 11:10:56  dkrajzew
 // names changed
 //
@@ -79,7 +82,10 @@ NICellNodesHandler::report(const std::string &result)
             try {
                 x = TplConvert<char>::_2float(st.next().c_str());
                 y = TplConvert<char>::_2float(st.next().c_str());
-                NBNodeCont::insert(id, x, y);
+                if(!NBNodeCont::insert(id, x, y)) {
+                    SErrorHandler::add(
+                        string("Could not build node '") + id + string("'."));
+                }
             } catch (NumberFormatException) {
                 addError(
                     string("The following cell-nodes - entry contains a non-digit position information:")
