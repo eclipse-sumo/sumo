@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.4  2002/06/06 07:21:10  croessel
+// Changed inclusion from .iC to .icc
+//
 // Revision 1.3  2002/05/29 17:06:04  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -157,7 +160,7 @@ MSVehicleType::dictionary(string id)
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #ifdef DISABLE_INLINE
-#include "MSVehicleType.iC"
+#include "MSVehicleType.icc"
 #endif
 
 // Local Variables:

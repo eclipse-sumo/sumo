@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.12  2002/06/06 07:21:10  croessel
+// Changed inclusion from .iC to .icc
+//
 // Revision 1.11  2002/05/29 17:06:03  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -787,7 +790,7 @@ MSVehicle::onAllowed( const MSLane* lane ) const
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #ifdef DISABLE_INLINE
-#include "MSVehicle.iC"
+#include "MSVehicle.icc"
 #endif
 
 // Local Variables:
