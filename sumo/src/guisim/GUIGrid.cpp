@@ -277,9 +277,11 @@ GUIGrid::computeLaneCells(size_t index, GUILaneWrapper &lane)
     const Position2D &beg = lane.getBegin();
     const Position2D &end = lane.getEnd();
     double length = GeomHelper::distance(beg, end);
-    std::pair<double, double> offsets =
-        GeomHelper::getNormal90D_CW(beg, end, length,
+    std::pair<double, double> offsets(0, 0);
+    if(length!=0) {
+        offsets = GeomHelper::getNormal90D_CW(beg, end, length,
             3.5 / 2.0);
+    }
     double x11 = beg.x() - offsets.first;
     double y11 = beg.y() + offsets.second;
     double x12 = end.x() - offsets.first;
