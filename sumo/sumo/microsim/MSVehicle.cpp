@@ -24,6 +24,12 @@ namespace
 } 
 
 // $Log$
+// Revision 1.13  2002/06/11 19:38:22  croessel
+// Bugfix: in safeGap(), vDecel should be max(...), not
+// min(...). Otherwise gap is always < 0 and LaneChanger will almost
+// always allow a change. This may lead to collisions in the next
+// timesteps.
+//
 // Revision 1.12  2002/06/06 07:21:10  croessel
 // Changed inclusion from .iC to .icc
 //
@@ -423,11 +429,11 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
     double vF = myState.mySpeed;
     double vL = pred.myState.mySpeed;
     double dF = myType->decel();
-    double vDecel = min( static_cast<double>( 0 ), 
+    double vDecel = max( static_cast<double>( 0 ), 
                          vF - dF * MSNet::deltaT() );
     double gap = ( vDecel - vL  ) *
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
-                    
+
     // safeGap my be negative ( no interaction between vehicles )
     return max( static_cast<double>( 0 ), gap );
 }
