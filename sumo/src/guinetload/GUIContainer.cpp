@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/04 15:17:15  roessel
+// Added #include "microsim/MSRouteLoaderControl.h"
+//
 // Revision 1.5  2003/03/20 16:16:31  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -59,7 +62,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include "GUIContainer.h"
-
+#include "microsim/MSRouteLoaderControl.h"
 
 /* =========================================================================
  * used namespaces
