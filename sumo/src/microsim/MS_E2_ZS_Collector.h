@@ -217,6 +217,14 @@ public:
             }
         }
 
+    bool isStillActive( MSVehicle& veh,
+                        double oldPos,
+                        double newPos,
+                        double newSpeed )
+    {
+        return isStillActive(veh, oldPos, newPos);
+    }
+
     /**
      * @name Inherited MSMoveReminder methods.
      *
