@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2002/10/15 10:24:30  roessel
+// MSLane::MeanData constructor checks now for illegal intervals.
+//
 // Revision 1.13  2002/09/25 17:14:42  roessel
 // MeanData calculation and output implemented.
 //
@@ -1447,6 +1450,11 @@ MSLane::MeanData::MeanData( const MSLane& obj,
     myIndex( index ),
     myInterval( interval )
 {
+    if ( myInterval == 0 ){
+        cerr << "MSLane::MeanData constructor: interval = 0, should be > 0.\n"
+             << "I will set it to 5 minutes.\n";
+        myInterval = static_cast<unsigned>( 300 / MSNet::deltaT() );
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
