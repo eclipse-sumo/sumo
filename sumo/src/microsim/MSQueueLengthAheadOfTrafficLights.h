@@ -29,6 +29,7 @@
 
 class MSQueueLengthAheadOfTrafficLightsInVehicles
 {
+    friend class MS_E2_ZS_Collector;
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
@@ -77,6 +78,7 @@ private:
 
 class MSQueueLengthAheadOfTrafficLightsInMeters
 {
+    friend class MS_E2_ZS_Collector;
 protected:
     typedef double DetectorAggregate;
     typedef DetectorContainer::Haltings Container;
