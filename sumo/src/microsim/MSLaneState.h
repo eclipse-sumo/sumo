@@ -235,34 +235,29 @@ public:
      */
     int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
 
+    /**
+     * @name Inherited MSDetectorFileOutput methods. 
+     *
+     * @see MSDetectorFileOutput
+     */
+    //@{
+    /** 
+     * Returns a string indentifiing the class. Used for filenames in
+     * MSTravelcostDetector
+     * 
+     * @see MSTravelcostDetector
+     * @return String "MSLaneState"
+     */
+    std::string getNamePrefix( void ) const;
 
+    
     /** 
      * Creates a XML-header and -comment explaining the data written by
      * getXMLOutput().
      * 
      * @return XML-header and comment.
      */
-    std::string& getXMLHeader( void );
-    
-    /** 
-     * Creates an open xml tag with information about the detector. You
-     * should close this tag with getXMLDetectorInfoEnd().
-     *
-     * @see getXMLDetectorInfoEnd()
-     * 
-     * @return XML-header and comment.
-     */
-    std::string getXMLDetectorInfoStart( void );
-
-
-    /** 
-     * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
-     *
-     * @see getXMLDetectorInfoStart()
-     * 
-     * @return String </detector>
-     */
-    std::string& getXMLDetectorInfoEnd( void );
+    std::string& getXMLHeader( void ) const;
     
 
     /** 
@@ -279,6 +274,36 @@ public:
      */
     std::string getXMLOutput( MSNet::Time lastNTimesteps );
 
+
+    /** 
+     * Creates an open xml tag with information about the detector. You
+     * should close this tag with getXMLDetectorInfoEnd().
+     *
+     * @see getXMLDetectorInfoEnd()
+     * 
+     * @return XML-header and comment.
+     */
+    std::string getXMLDetectorInfoStart( void ) const;
+
+
+    /** 
+     * Closes the detector-info-tag opened by getXMLDetectorInfoStart()
+     *
+     * @see getXMLDetectorInfoStart()
+     * 
+     * @return String </detector>
+     */
+    std::string& getXMLDetectorInfoEnd( void ) const;
+
+
+    /** 
+     * Get the data-clean up interval in timesteps.
+     * 
+     */
+    MSNet::Time getDataCleanUpSteps( void ) const;
+    //@}
+
+    
     /**
      * @name Reminder methods.
      *
@@ -371,14 +396,7 @@ public:
     static void actionsAfterMoveAndEmit( void );
     //@}
 
-    /** 
-     * Returns a string indentifiing the class. Used for filenames in
-     * MSTravelcostDetector
-     * 
-     * @see MSTravelcostDetector
-     * @return String "MSLaneState"
-     */
-    std::string getNamePrefix( void );
+
 
     // forward declarations
     struct TimestepData;

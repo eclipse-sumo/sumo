@@ -12,7 +12,7 @@
  * @author Christian Roessel
  * @date   Started Tue, 18 Feb 2003
  *
- * $Revision$ from $date$ by $Author$
+ * $Id$
  *
  * @brief  Definition of class MSLaneState.
  *
@@ -29,91 +29,8 @@
 //---------------------------------------------------------------------------//
 
 
-// $Log$
-// Revision 1.24  2003/07/30 09:08:59  dkrajzew
-// output corrigued
-//
-// Revision 1.23  2003/07/21 14:59:56  roessel
-// Added two methods getXMLDetectorInfoStart() and getXMLDetectorInfoEnd() and static string detectorInfoEndM.
-//
-// Revision 1.22  2003/07/03 11:00:52  roessel
-// Put global functions in an unnamed namespace to make them local.
-//
-// Revision 1.21  2003/06/10 12:55:11  roessel
-// Added documentation.
-//
-// Revision 1.20  2003/06/05 15:48:36  roessel
-// Added waitingQueueElemsM.push_back() for enterDetector-methods.
-//
-// Revision 1.19  2003/06/05 12:57:08  roessel
-// Modified #includes.
-// Changed calls to operator() of nested structs because of MSVC++ compile
-// problems.
-//
-// Revision 1.18  2003/06/05 09:53:46  roessel
-// Numerous changes and new methods/members.
-//
-// Revision 1.17  2003/05/28 15:35:47  roessel
-// deleteOldData implemented.
-// Added argument MSNet::Time deleteDataAfterSeconds to constructor.
-//
-// Revision 1.16  2003/05/28 11:18:09  roessel
-// Pass pointer instead of reference to MSLaneStateReminder ctor.
-//
-// Revision 1.15  2003/05/28 07:51:25  dkrajzew
-// had to add a return value due to the usage of the mem_func-function in
-// combination with for_each (MSVC++-reasons?)
-//
-// Revision 1.14  2003/05/27 18:59:01  roessel
-// Removed OutputStyle in ctor (output will be xml).
-// Activated MSEventControl for regular file-output. Works now because
-// MSEventControl is a singleton now.
-//
-// Revision 1.13  2003/05/26 15:24:15  roessel
-// Removed warnings/errors. Changed return-type of getNumberOfWaiting to
-// double.
-//
-// Revision 1.12  2003/05/26 13:56:57  roessel
-// changed push_back to sorted-insert in leaveDetectorByMove and
-// leaveDetectorByLaneChange.
-//
-// Revision 1.11  2003/05/26 13:19:20  roessel
-// Completed all get* methods.
-//
-// Revision 1.10  2003/05/25 17:50:12  roessel
-// Implemented getCurrentNumberOfWaiting.
-// Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
-// a TimestepData entry in timestepDataM every timestep (makes live easier).
-// actionAfterMove calculates the waitingQueueLength and updates the current
-// TimestepData.
-// These two methods must be called in the simulation loop.
-//
-// Revision 1.9  2003/05/23 16:42:22  roessel
-// Added method getCurrentDensity().
-//
-// Revision 1.8  2003/05/22 12:41:00  roessel
-// Two fixes (& and clear()) and many cout
-//
-// Revision 1.7  2003/05/21 16:20:44  dkrajzew
-// further work detectors
-//
-// Revision 1.5  2003/04/04 15:29:09  roessel
-// Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due
-// to compiler warnings (number too long for unsigned long)
-//
-// Revision 1.4  2003/04/02 11:44:03  dkrajzew
-// continuation of implementation of actuated traffic lights
-//
-// Revision 1.3  2003/03/19 08:02:02  dkrajzew
-// debugging due to Linux-build errors
-//
-// Revision 1.2  2003/03/17 14:12:19  dkrajzew
-// Windows eol removed
-//
-// Revision 1.1  2003/03/03 14:56:19  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-//
+// $Id$
+
 
 /* =========================================================================
  * included modules
@@ -452,28 +369,18 @@ MSLaneState::getNVehPassedEntireDetector( MSNet::Time lastNTimesteps )
         vehLeftDetectorM.end(), 0, passedEntireSum );
 }
 
+string
+MSLaneState::getNamePrefix( void ) const
+{
+    return string("MSLaneState");
+}
+
+
 string&
-MSLaneState::getXMLHeader( void )
+MSLaneState::getXMLHeader( void ) const
 {
     return xmlHeaderM;
 }
-
-string
-MSLaneState::getXMLDetectorInfoStart( void )
-{
-    string detectorInfo("<detector type=\"lanestate\" id=\"" + idM +
-                        "\" lane=\"" + laneM->id() + "\" startpos=\"" +
-                        toString(posM) + "\" length=\"" + toString(lengthM) +
-                        "\" >\n");
-    return detectorInfo;
-}
-
-string&
-MSLaneState::getXMLDetectorInfoEnd( void )
-{
-    return detectorInfoEndM;
-}
-
 
 string
 MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
@@ -500,6 +407,29 @@ MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
         nVehEntire + nVehEntered + nVehLeft;
 }
 
+string
+MSLaneState::getXMLDetectorInfoStart( void ) const
+{
+    string detectorInfo("<detector type=\"lanestate\" id=\"" + idM +
+                        "\" lane=\"" + laneM->id() + "\" startpos=\"" +
+                        toString(posM) + "\" length=\"" + toString(lengthM) +
+                        "\" >\n");
+    return detectorInfo;
+}
+
+string&
+MSLaneState::getXMLDetectorInfoEnd( void ) const
+{
+    return detectorInfoEndM;
+}
+
+
+MSNet::Time
+MSLaneState::getDataCleanUpSteps( void ) const
+{
+    return static_cast<MSNet::Time>(
+        MSNet::getSeconds( deleteDataAfterSecondsM ) );
+}
 
 void
 MSLaneState::addMoveData( MSVehicle& veh,
@@ -607,12 +537,6 @@ MSLaneState::actionsAfterMoveAndEmit( void )
 {
     for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
               mem_fun( &MSLaneState::actionAfterMoveAndEmit ) );
-}
-
-string
-MSLaneState::getNamePrefix( void )
-{
-    return string("MSLaneState");
 }
 
 
