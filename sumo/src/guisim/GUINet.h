@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2003/11/12 14:01:54  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.18  2003/10/22 15:42:56  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -84,7 +87,6 @@
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <gui/GUIGlObjectStorage.h>
-//#include "GUIEdgeGrid.h"
 #include "GUIGrid.h"
 
 
@@ -97,11 +99,14 @@ class MSEmitControl;
 class MSEventControl;
 class MSRouteLoaderControl;
 class MSTLLogicControl;
+class MSTrafficLightLogic;
+class MSLink;
 class GUILaneWrapper;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
 class GUIEmitterWrapper;
 class GUINetWrapper;
+class GUITrafficLightLogicWrapper;
 class RGBColor;
 
 
@@ -113,9 +118,14 @@ class RGBColor;
  * information than the normal network version does. Due to this, not only
  * these retrival, but also some further initialisation methods must have
  * been implemented. Nonethenless, this class has almost the same functions
- * as the MSNet-class
+ * as the MSNet-class.
+ * Some microsimulation items are wrapped in certain classes to allow their
+ * drawing and their enumerated access. This enumeration is realised by
+ * inserting the wrapped items into vectors and is needed to fasten the
+ * network's drawing as only visible items are being drawn.
  */
-class GUINet : public MSNet
+class GUINet
+    : public MSNet
 {
 public:
     /// destructor
@@ -164,23 +174,28 @@ public:
 
     GUINetWrapper *getWrapper() const;
 
+    GUIGlObjectStorage &getIDStorage();
+
+    unsigned int getLinkTLID(MSLink *link) const;
+
 
     friend class GUIViewTraffic; // !!!
     friend class GUIViewAggregatedLanes; // !!!
     friend class GUISUMOAbstractView; // !!!
-    friend class GUIEdgeControlBuilder;
-    friend class GUILane;
-    friend class GUIInternalLane;
-    friend class GUIVehicleTransfer;
     friend class GUIGrid;
+
+private:
+    /// Initialises the detector wrappers
+    static void initDetectors();
+
+    /// Initialises the tl-logic map and wrappers
+    static void initTLMap();
 
 protected:
     /// default constructor
     GUINet();
 
-    /// the grid of edges
-//    GUIEdgeGrid _edgeGrid;
-
+    /** A grid laid over the network to allow the drawing of visible items only */
     GUIGrid _grid;
 
     /// the networks boundery
@@ -190,18 +205,33 @@ protected:
         in order to make them grippable by openGL */
     GUIGlObjectStorage _idStorage;
 
+    /// The wrapper for the network
     GUINetWrapper *myWrapper;
 
+    /// Wrapped MS-edges
     std::vector<GUIEdge*> myEdgeWrapper;
+
+    /// Wrapped MS-junctions
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
+
+    /// Wrapped MS-detectors
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
+
+    /// Wraped MS-emitters
     std::vector<GUIEmitterWrapper*> myEmitter;
 
+    /// Wrapped TL-Logics
+    std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
+
+    /// A detector dictionary
     std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
+
+    /// An emitter dictionary
     std::map<std::string, GUIEmitterWrapper*> myEmitterDict;
 
-private:
-    static void initDetectors();
+    /// A link2tl-logic map
+    std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;
+
 };
 
 

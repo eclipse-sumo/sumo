@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/11/12 14:01:54  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.14  2003/10/30 08:59:43  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -87,6 +90,7 @@ namespace
 #include "GUILaneWrapper.h"
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
+#include <guisim/GUINet.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <gui/popup/QGLObjectPopupMenu.h>
@@ -397,6 +401,12 @@ GUILaneWrapper::releaseVehicles()
     myLane.releaseVehicles();
 }
 
+
+unsigned int
+GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
+{
+    return net.getLinkTLID(myLane.getLinkCont()[pos]);
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

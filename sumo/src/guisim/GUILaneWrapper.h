@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/11/12 14:01:54  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.12  2003/11/11 08:11:05  dkrajzew
 // logging (value passing) moved from utils to microsim
 //
@@ -84,6 +87,7 @@
  * ======================================================================= */
 class MSVehicle;
 class MSNet;
+class GUINet;
 class Position2DVector;
 class QGLObjectPopupMenu;
 
@@ -169,8 +173,14 @@ public:
 
     size_t getLinkNumber() const;
 
+    /// Returns the state of the numbered link
     MSLink::LinkState getLinkState(size_t pos) const;
+
+    /// Returns the direction of the numbered link
     MSLink::LinkDirection getLinkDirection(size_t pos) const;
+
+    /// Returns the tl-logic the numbered link is controlled by
+    unsigned int getLinkTLID(const GUINet &net, size_t pos) const;
 
     double getAggregatedDensity(size_t aggregationPosition) const;
 

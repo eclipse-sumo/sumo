@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2003/11/12 14:06:32  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.17  2003/11/11 08:40:45  dkrajzew
 // consequent position2D instead of two doubles implemented; logging moved from utils to microsim
 //
@@ -86,6 +89,9 @@
 #include <qtoolbutton.h>
 #include <utils/glutils/FontStorage.h>
 
+#include <helpers/ValueRetriever.h>
+#include <helpers/ValueSource.h>
+
 
 /* =========================================================================
  * class declarations
@@ -138,10 +144,10 @@ public:
     void removeChild(QWidget *child);
 
     bool aggregationAllowed();
-
-    void buildSimStepConnection(GUIGlObject &o,
-        DoubleValueSource *source, DoubleValueRetriever *retriever);
-
+/*
+    void buildSimStepConnectiontemplate<typename _T>(GUIGlObject &o,
+        ValueSource<_T> *source, ValueRetriever<_T> *retriever);
+*/
 private slots:
     /** called from the menu, this method allows to choose a simulation
         to load and loads it */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/11/12 14:01:54  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.21  2003/11/11 08:13:23  dkrajzew
 // consequent usage of Position2D instead of two doubles
 //
@@ -81,8 +84,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -98,6 +99,7 @@ namespace
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSTrafficLightLogic.h>
 #include <gui/GUIGlObjectStorage.h>
 #include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
@@ -106,11 +108,10 @@ namespace
 #include <guisim/GUIVehicleTransfer.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
-//#include "GUIEdgeGrid.h"
+#include <guisim/GUITrafficLightLogicWrapper.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIHelpingJunction.h"
-//#include "GUIHelpingDetector.h"
 
 
 /* =========================================================================
@@ -151,10 +152,9 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
 
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   /*DetectorCont* detectors, */MSRouteLoaderControl *rlc,
-                   MSTLLogicControl *tlc)
+                   MSRouteLoaderControl *rlc, MSTLLogicControl *tlc)
 {
-    MSNet::init(id, ec, jc,/*detectors, */rlc, tlc);
+    MSNet::init(id, ec, jc, rlc, tlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
     GUIEdge::fill(net->myEdgeWrapper);
@@ -162,9 +162,9 @@ GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
     GUIHelpingJunction::fill(net->myJunctionWrapper, net->_idStorage);
     // initialise detector storage for gui
     initDetectors();
-    // initialise the lane states for lane wrappers when wished
+    // initialise the tl-map
+    initTLMap();
     // build the grid
-//    net->_edgeGrid.init();
     net->_grid.init();
     // get the boundery
     net->_boundery = net->_grid.getBoundery();
@@ -217,6 +217,39 @@ GUINet::initDetectors()
         net->myDetectorWrapper.push_back(wrapper);
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
+    }
+}
+
+
+void
+GUINet::initTLMap()
+{
+    GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
+	//
+    typedef std::vector<MSTrafficLightLogic*> LogicVector;
+    // get the list of loaded tl-logics
+    LogicVector tlls = MSTrafficLightLogic::getList();
+    // allocate storage for the wrappers
+    net->myTLLogicWrappers.reserve(tlls.size());
+    // go through the logics
+    for(LogicVector::iterator i=tlls.begin(); i!=tlls.end(); i++) {
+        // get the logic
+        MSTrafficLightLogic *tll = (*i);
+        // build the wrapper
+        GUITrafficLightLogicWrapper *tllw =
+            new GUITrafficLightLogicWrapper(net->_idStorage, *tll);
+        // get the links
+        const MSTrafficLightLogic::LinkVectorVector &links =
+            tll->getLinks();
+        // build the association link->wrapper
+        MSTrafficLightLogic::LinkVectorVector::const_iterator j;
+        for(j=links.begin(); j!=links.end(); j++) {
+            MSTrafficLightLogic::LinkVector::const_iterator j2;
+            for(j2=(*j).begin(); j2!=(*j).end(); j2++) {
+                net->myLinks2Logic[*j2] = tllw;
+            }
+        }
+        // save the wrapper
     }
 }
 
@@ -308,6 +341,7 @@ GUINet::buildNewGUIVehicle( std::string id, MSRoute* route,
     return veh;
 }
 
+
 size_t
 GUINet::getDetectorWrapperNo() const
 {
@@ -321,6 +355,24 @@ GUINet::getWrapper() const
 {
     return myWrapper;
 }
+
+
+GUIGlObjectStorage &
+GUINet::getIDStorage()
+{
+    return _idStorage;
+}
+
+
+unsigned int
+GUINet::getLinkTLID(MSLink *link) const
+{
+    std::map<MSLink*, GUITrafficLightLogicWrapper*>::const_iterator i =
+        myLinks2Logic.find(link);
+    assert(i!=myLinks2Logic.end());
+    return (*i).second->getGlID();
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

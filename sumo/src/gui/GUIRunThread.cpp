@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/11/12 14:06:33  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.14  2003/11/11 08:42:14  dkrajzew
 // synchronisation problems of parameter tracker updates patched
 //
@@ -72,8 +75,9 @@ namespace
 #include <helpers/SingletonDictionary.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
-#include <microsim/logging/DoublePassingConnector.h>
 #include <guisim/GUILaneStateReporter.h>
+#include <guisim/guilogging/GLObjectValuePassConnector.h>
+#include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
 #include <qthread.h>
 #include <guisim/GUINet.h>
 #include "QSimulationStepEvent.h"
@@ -132,7 +136,8 @@ GUIRunThread::run()
 	        // execute a single step
             _net->simulationStep(_craw, _simStartTime, _step);
             MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
-            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<DoublePassingConnector> >::getInstance()->updateAll();
+            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
+            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SimplePhaseDef> > >::getInstance()->updateAll();
 
             // inform parent that a step has been performed
             QThread::postEvent( _parent, new QSimulationStepEvent() );

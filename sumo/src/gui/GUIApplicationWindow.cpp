@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/11/12 14:06:32  dkrajzew
+// visualisation of tl-logics added
+//
 // Revision 1.25  2003/11/11 08:40:45  dkrajzew
 // consequent position2D instead of two doubles implemented; logging moved from utils to microsim
 //
@@ -125,9 +128,6 @@ namespace
 
 #include <guisim/GUINet.h>
 #include <utils/convert/ToString.h>
-#include <microsim/logging/DoubleValueSource.h>
-#include <microsim/logging/DoubleValueRetriever.h>
-#include <guisim/guilogging/GLObjectDblPassConnector.h>
 
 #include <utils/fonts/arial11.h>
 #include <utils/fonts/arial10.h>
@@ -810,17 +810,18 @@ GUIApplicationWindow::aggregationAllowed()
     return myAllowAggregated;
 }
 
-
+/*
+template<typename _T>
 void
 GUIApplicationWindow::buildSimStepConnection(GUIGlObject &o,
-                                             DoubleValueSource *source,
-                                             DoubleValueRetriever *retriever)
+                                                    ValueSource<T> *source,
+                                             ValueRetriever<T> *retriever)
 {
-    GLObjectDblPassConnector *c =
-        new GLObjectDblPassConnector(o, source, retriever);
+    GLObjectValuePassConnector *c =
+        new GLObjectValuePassConnector(o, source, retriever);
 //    _runThread->addSimStepConnector(c);
 }
-
+*/
 
 
 
