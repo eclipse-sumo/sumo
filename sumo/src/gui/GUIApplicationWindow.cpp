@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/07/30 12:50:22  dkrajzew
+// subwindows do not close at main window closing-bug patched
+//
 // Revision 1.18  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -236,8 +239,19 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
 GUIApplicationWindow::~GUIApplicationWindow()
 {
     _runThread->prepareDestruction();
-    _runThread->wait();
+    size_t i;
+    for(i=0; i<mySubWindows.size(); i++) {
+        mySubWindows[i]->close();
+/*        QApplication::postEvent( mySubWindows[i],
+            new QCloseEvent());*/
+    }
     delete _loadThread;
+    for(i=0; i<mySubWindows.size(); i++) {
+        while(mySubWindows[i]->isVisible());
+        delete mySubWindows[i];
+    }
+    //
+    _runThread->wait();
     delete _runThread;
 }
 
@@ -484,7 +498,8 @@ GUIApplicationWindow::singleStep()
 }
 
 
-void GUIApplicationWindow::closeAllWindows()
+void 
+GUIApplicationWindow::closeAllWindows()
 {
     // remove trackers and other external windows
     size_t i;
