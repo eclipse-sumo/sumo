@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/08/02 13:15:21  dkrajzew
+// missing "showAsKMH"-initialisation added
+//
 // Revision 1.1  2004/07/02 08:55:10  dkrajzew
 // visualisation of vss added
 //
@@ -82,7 +85,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
     GUIGlObject_AAManipulatable(gIDStorage,
         string("speedtrigger:") + id, GLO_LANESPEEDTRIGGER),
-    myAmOverriding(false)
+    myAmOverriding(false), myShowAsKMH(true)
 {
     mySGPositions.reserve(destLanes.size());
     myFGPositions.reserve(destLanes.size());
