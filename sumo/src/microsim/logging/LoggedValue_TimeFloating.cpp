@@ -25,6 +25,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.4  2004/03/19 13:06:44  dkrajzew
+// some work on the style
+//
 // Revision 1.3  2004/03/01 11:15:12  roessel
 // Reintroduced formerly removed files.
 //
@@ -65,7 +68,7 @@ LoggedValue_TimeFloating<_T>::LoggedValue_TimeFloating(size_t sampleInterval)
 template<typename _T>
 LoggedValue_TimeFloating<_T>::~LoggedValue_TimeFloating()
 {
-    delete myFloatingArray;
+    delete[] myFloatingArray;
 }
 
 
@@ -78,12 +81,13 @@ LoggedValue_TimeFloating<_T>::add(_T value)
     // add the current value
     myCurrentValue += value;
     // store the current value
-    myFloatingArray[mySampledUnits++] = value;
+    myFloatingArray[mySampledUnits] = value;
     // check whether the number of sampled units exceeds the array
-    if(mySampledUnits>mySampleInterval) {
+    mySampledUnits++;
+    if(mySampledUnits>=mySampleInterval) {
         mySampledUnits = 0;
         // set the information that the buffer was full
-        bool myBufferWasFull = true;
+        myBufferWasFull = true;
     }
 }
 

@@ -25,6 +25,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.4  2004/03/19 13:06:44  dkrajzew
+// some work on the style
+//
 // Revision 1.3  2004/03/01 11:15:12  roessel
 // Reintroduced formerly removed files.
 //

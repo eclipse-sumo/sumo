@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 13:06:44  dkrajzew
+// some work on the style
+//
 // Revision 1.3  2004/03/01 10:49:51  roessel
 // Reintroduced formerly removed files.
 //
@@ -35,8 +38,6 @@
 // Revision 1.1  2003/03/06 17:22:16  dkrajzew
 // initial commit for value logging cleasses
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,16 +92,11 @@ private:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
 #include "LoggedValue_TimeFloating.cpp"
-#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "LoggedValue_TimeFloating.icc"
-//#endif
 
 #endif
 
