@@ -1,10 +1,10 @@
-#ifndef MSE2EDDETECTORINTERFACE_H
-#define MSE2EDDETECTORINTERFACE_H
+#ifndef MSEDDETECTORINTERFACE_H
+#define MSEDDETECTORINTERFACE_H
 
 ///
-/// @file    MSE2EDDetectorInterface.h
+/// @file    MSEDDetectorInterface.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Fri Nov 28 2003 18:21 CET
+/// @date    Started Tue Dec 02 2003 20:04 CET
 /// @version $Id$
 ///
 /// @brief   
@@ -25,27 +25,33 @@
 #include "MSDetectorInterfaceCommon.h"
 #include <string>
 
-class MSE2EDDetectorInterface
-    :
-    public MSDetectorInterfaceCommon
+namespace ED
 {
-public:
     
-    virtual ~MSE2EDDetectorInterface( void )
-        {}
+    class MSDetectorInterface
+        :
+        public MSDetectorInterfaceCommon
+    {
+    public:
     
-protected:
-    MSE2EDDetectorInterface( std::string id )
-        : MSDetectorInterfaceCommon( id )
-        {}
+        virtual ~MSDetectorInterface( void )
+            {}
+    
+    protected:
+    
+        MSDetectorInterface( std::string id )
+            : MSDetectorInterfaceCommon( id )
+            {}
+    
+    private:
 
-private:
-
-};
+    };
+ 
+} // end namespace ED
 
 
 // Local Variables:
 // mode:C++
 // End:
 
-#endif // MSE2EDDETECTORINTERFACE_H
+#endif // MSEDDETECTORINTERFACE_H

@@ -1,12 +1,12 @@
-/**
- * @file    MSE3DetectorInterface.cpp
- * @author  Christian Roessel <christian.roessel@dlr.de>
- * @date    Started Tue Nov 25 2003 18:37 CET
- * @version $Id$
- *
- * @brief   
- *
- */
+///
+/// @file    MSLDDetectorInterface.cpp
+/// @author  Christian Roessel <christian.roessel@dlr.de>
+/// @date    Started Tue Dec 02 2003 20:04 CET
+/// @version $Id$
+///
+/// @brief   
+///
+///
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
@@ -23,4 +23,4 @@
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include "MSE3DetectorInterface.h"
+#include "MSLDDetectorInterface.h"

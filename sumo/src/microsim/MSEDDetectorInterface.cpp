@@ -1,7 +1,7 @@
 ///
-/// @file    MSE2EDDetectorInterface.cpp
+/// @file    MSEDDetectorInterface.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Fri Nov 28 2003 18:21 CET
+/// @date    Started Tue Dec 02 2003 20:04 CET
 /// @version $Id$
 ///
 /// @brief   
@@ -23,4 +23,4 @@
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include "MSE2EDDetectorInterface.h"
+#include "MSEDDetectorInterface.h"
