@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/02/16 13:44:27  dkrajzew
+// dump output generating function renamed in order to add vehicle dump ability in the future
+//
 // Revision 1.3  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -57,8 +60,11 @@ public:
     /// Builds teh simulation options
     static void fillOptions(OptionsCont &oc);
 
-    /// Build the output stream
-    static std::ostream *buildRawOutputStream(OptionsCont &oc);
+    /// Build the network dump output stream
+    static std::ostream *buildNetDumpStream(OptionsCont &oc);
+
+    /// Build the trip description output stream
+    static std::ostream *buildTripDescStream(OptionsCont &oc);
 
     /// Performs the post-initialisation of the net (!!! should be somewhere else)
     static void postbuild(MSNet &net);

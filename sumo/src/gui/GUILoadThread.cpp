@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/02/16 13:44:26  dkrajzew
+// dump output generating function renamed in order to add vehicle dump ability in the future
+//
 // Revision 1.22  2004/02/10 07:05:58  dkrajzew
 // debugging of network loading after a network failed to be loaded
 //
@@ -195,7 +198,7 @@ void GUILoadThread::run()
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
             simEndTime = oc.getInt("e");
-            craw = SUMOFrame::buildRawOutputStream(oc);
+            craw = SUMOFrame::buildNetDumpStream(oc);
         }
         srand(oc.getInt("srand"));
     } catch (UtilException &e) {

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/02/16 13:44:26  dkrajzew
+// dump output generating function renamed in order to add vehicle dump ability in the future
+//
 // Revision 1.19  2003/12/11 07:14:04  dkrajzew
 // new netload usage adapted
 //
@@ -231,7 +234,7 @@ main(int argc, char **argv)
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
         // simulate when everything's ok
-        ostream *craw = SUMOFrame::buildRawOutputStream(oc);
+        ostream *craw = SUMOFrame::buildNetDumpStream(oc);
         // report the begin when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation started with time: ")

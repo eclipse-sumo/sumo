@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/02/16 13:44:27  dkrajzew
+// dump output generating function renamed in order to add vehicle dump ability in the future
+//
 // Revision 1.16  2004/01/26 07:09:33  dkrajzew
 // added the possibility to place lsa-detectors at a default position/using a default length
 //
@@ -99,17 +102,20 @@ using namespace std;
 void
 SUMOFrame::fillOptions(OptionsCont &oc)
 {
-    // register the file i/o options
+    // register input options
     oc.doRegister("net-files", 'n', new Option_FileName());
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.doRegister("additional-files", 'a', new Option_FileName());
-    oc.doRegister("output-file", 'o', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("net-files", "net");
     oc.addSynonyme("route-files", "routes");
     oc.addSynonyme("additional-files", "additional");
-    oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
+    // register output options
+    oc.doRegister("netstate-dump", new Option_FileName());
+    oc.addSynonyme("netstate-dump", "ndump");
+    oc.doRegister("tripstate-output", new Option_FileName());
+    oc.addSynonyme("tripstate-output", "tout");
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
@@ -139,15 +145,33 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
 
 ostream *
-SUMOFrame::buildRawOutputStream(OptionsCont &oc) {
-    if(!oc.isSet("o")) {
+SUMOFrame::buildNetDumpStream(OptionsCont &oc) {
+    if(!oc.isSet("netstate-dump")) {
 	    return 0;
     }
-    ostream *ret = new ofstream(oc.getString("o").c_str(),
+    ostream *ret = new ofstream(oc.getString("netstate-dump").c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
         MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("o")
+            string("The output file '") + oc.getString("netstate-dump")
+            + string("' could not be built."));
+        MsgHandler::getErrorInstance()->inform("Simulation failed.");
+        throw ProcessError();
+    }
+    return ret;
+}
+
+
+ostream *
+SUMOFrame::buildTripDescStream(OptionsCont &oc) {
+    if(!oc.isSet("tripstate-output")) {
+	    return 0;
+    }
+    ostream *ret = new ofstream(oc.getString("tripstate-output").c_str(),
+        ios::out|ios::trunc);
+    if(!ret->good()) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The output file '") + oc.getString("tripstate-output")
             + string("' could not be built."));
         MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
