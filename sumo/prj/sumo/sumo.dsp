@@ -97,6 +97,10 @@ SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\Command_SaveTLSState.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -125,6 +129,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSEdge.cpp
 # End Source File
 # Begin Source File
@@ -150,6 +158,10 @@ SOURCE=..\..\src\microsim\MSGlobals.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInductLoop.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInternalLane.cpp
 # End Source File
 # Begin Source File
 
@@ -269,6 +281,10 @@ SOURCE=..\..\src\netload\NLDetectorBuilder.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netload\NLDiscreteEventBuilder.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netload\NLEdgeControlBuilder.cpp
 # End Source File
 # Begin Source File
@@ -373,11 +389,19 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\Action.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\xml\AttributesHandler.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\actions\Command_SaveTLSState.h
 # End Source File
 # Begin Source File
 
@@ -449,6 +473,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSEdge.h
 # End Source File
 # Begin Source File
@@ -466,6 +494,10 @@ SOURCE=..\..\src\microsim\MSEventControl.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInductLoop.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInternalLane.h
 # End Source File
 # Begin Source File
 

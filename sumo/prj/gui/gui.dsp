@@ -135,6 +135,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\Command_SaveTLSState.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
 # End Source File
 # Begin Source File
@@ -167,11 +171,27 @@ SOURCE=..\..\src\gui_main.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIAggregatedLaneDrawer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIApplicationWindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\GUIBarROWRulesDrawer.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseLaneDrawer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseROWDrawer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -188,6 +208,14 @@ SOURCE=..\..\src\gui\GUIDanielPerspectiveChanger.cpp
 # Begin Source File
 
 SOURCE=..\..\src\guinetload\GUIDetectorBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_nT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_wT.cpp
 # End Source File
 # Begin Source File
 
@@ -227,7 +255,19 @@ SOURCE=..\..\src\guisim\GUIInductLoop.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUIInternalLane.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guinetload\GUIJunctionControlBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.cpp
 # End Source File
 # Begin Source File
 
@@ -240,6 +280,26 @@ SOURCE=..\..\src\guisim\GUILane.cpp
 # Begin Source File
 
 SOURCE=..\..\src\guisim\GUILaneChanger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_FGnT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_FGwT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGnT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGwT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUILaneStateReporter.cpp
 # End Source File
 # Begin Source File
 
@@ -295,15 +355,15 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FG.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SG.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIRunThread.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\GUISimpleJunctionDrawer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\GUISimpleLaneDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -319,11 +379,27 @@ SOURCE=..\..\src\gui\GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\GUITriangleVehicleDrawer.cpp
+SOURCE=..\..\src\guisim\GUIVehicle.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\guisim\GUIVehicle.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUIViewAggregatedLanes.cpp
 # End Source File
 # Begin Source File
 
@@ -332,6 +408,10 @@ SOURCE=..\..\src\gui\GUIViewTraffic.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\glutils\lfontrenderer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\geom\Line2D.cpp
 # End Source File
 # Begin Source File
 
@@ -368,6 +448,10 @@ SOURCE=..\..\src\gui\moc_GUISUMOAbstractView.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\moc_GUISUMOViewParent.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\moc_GUIViewAggregatedLanes.cpp
 # End Source File
 # Begin Source File
 
@@ -415,6 +499,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSEdge.cpp
 # End Source File
 # Begin Source File
@@ -440,6 +528,10 @@ SOURCE=..\..\src\microsim\MSGlobals.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInductLoop.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInternalLane.cpp
 # End Source File
 # Begin Source File
 
@@ -560,6 +652,10 @@ SOURCE=..\..\src\netload\NLContainer.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netload\NLDetectorBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netload\NLDiscreteEventBuilder.cpp
 # End Source File
 # Begin Source File
 
@@ -727,6 +823,10 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\Action.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\fonts\arial10.h
 # End Source File
 # Begin Source File
@@ -771,6 +871,10 @@ SOURCE=..\..\src\utils\geom\Bresenham.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\Command_SaveTLSState.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\logging\DoubleFunctionBinding.h
 # End Source File
 # Begin Source File
@@ -807,6 +911,10 @@ SOURCE=..\..\src\gui_help.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIAggregatedLaneDrawer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIApplicationWindow.h
 
 !IF  "$(CFG)" == "gui - Win32 Release"
@@ -835,6 +943,22 @@ InputPath=..\..\src\gui\GUIApplicationWindow.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\GUIBarROWRulesDrawer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseLaneDrawer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseROWDrawer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h
 # End Source File
 # Begin Source File
 
@@ -874,6 +998,14 @@ SOURCE=..\..\src\gui\GUIDanielPerspectiveChanger.h
 # Begin Source File
 
 SOURCE=..\..\src\guinetload\GUIDetectorBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_nT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_wT.h
 # End Source File
 # Begin Source File
 
@@ -925,7 +1057,19 @@ SOURCE=..\..\src\guisim\GUIInductLoop.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUIInternalLane.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guinetload\GUIJunctionControlBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.h
 # End Source File
 # Begin Source File
 
@@ -938,6 +1082,26 @@ SOURCE=..\..\src\guisim\GUILane.h
 # Begin Source File
 
 SOURCE=..\..\src\guisim\GUILaneChanger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_FGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_FGwT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGwT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUILaneStateReporter.h
 # End Source File
 # Begin Source File
 
@@ -1062,15 +1226,15 @@ SOURCE=..\..\src\guisim\GUIRightOfWayJunction.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_FG.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIROWDrawer_SG.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\GUIRunThread.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\GUISimpleJunctionDrawer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\GUISimpleLaneDrawer.h
 # End Source File
 # Begin Source File
 
@@ -1132,11 +1296,50 @@ InputPath=..\..\src\gui\GUISUMOViewParent.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\GUITriangleVehicleDrawer.h
+SOURCE=..\..\src\guisim\GUIVehicle.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\guisim\GUIVehicle.h
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\GUIViewAggregatedLanes.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUIViewAggregatedLanes.h...
+InputPath=..\..\src\gui\GUIViewAggregatedLanes.h
+
+"..\..\src\gui\moc_GUIViewAggregatedLanes.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIViewAggregatedLanes.h -o ..\..\src\gui\moc_GUIViewAggregatedLanes.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUIViewAggregatedLanes.h...
+InputPath=..\..\src\gui\GUIViewAggregatedLanes.h
+
+"..\..\src\gui\moc_GUIViewAggregatedLanes.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIViewAggregatedLanes.h -o ..\..\src\gui\moc_GUIViewAggregatedLanes.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -1219,6 +1422,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSEdge.h
 # End Source File
 # Begin Source File
@@ -1248,6 +1455,10 @@ SOURCE=..\..\src\utils\common\MsgRetriever.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSInductLoop.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInternalLane.h
 # End Source File
 # Begin Source File
 
@@ -1396,6 +1607,10 @@ SOURCE=..\..\src\netload\NLContainer.h
 # Begin Source File
 
 SOURCE=..\..\src\netload\NLDetectorBuilder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netload\NLDiscreteEventBuilder.h
 # End Source File
 # Begin Source File
 
@@ -1603,6 +1818,10 @@ InputPath=..\..\src\gui\QGUIToggleButton.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QMessageEvent.h
 # End Source File
 # Begin Source File
 
