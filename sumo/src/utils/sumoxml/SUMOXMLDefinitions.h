@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2003/12/04 13:15:43  dkrajzew
+// handling of internal links added
+//
 // Revision 1.19  2003/12/04 13:14:08  dkrajzew
 // gfx-module added temporary to sumo
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/12/04 13:15:43  dkrajzew
+// handling of internal links added
+//
 // Revision 1.17  2003/12/04 13:14:08  dkrajzew
 // gfx-module added temporary to sumo
 //

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.15  2003/11/24 10:18:32  dkrajzew
 // handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
 //
@@ -163,6 +166,9 @@ protected:
     /// the right-of-way-logic of the currently chosen bitset-logic
     MSBitsetLogic::Logic                    *m_pActiveLogic;
 
+    /// the description about which in-junction lanes disallow other passing the junction
+    MSBitsetLogic::Foes                     *m_pActiveFoes;
+
     /// the current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases   m_ActivePhases;
 
@@ -246,7 +252,10 @@ private:
 
 
     /// adds the incoming lanes
-    void addInLanes(const std::string &chars);
+    void addIncomingLanes(const std::string &chars);
+
+    /// adds the internal lanes
+    void addInternalLanes(const std::string &chars);
 
 
     /// allocates edges from the initial list
@@ -280,7 +289,8 @@ private:
     void addLaneContinuation(const Attributes &attrs);
 
     /// adds a logic item
-    void addLogicItem(int request, const std::string &response);
+    void addLogicItem(int request, const std::string &response,
+        const std::string &foes);
 
     /// ends the loading of a junction logic
     void closeJunctionLogic();

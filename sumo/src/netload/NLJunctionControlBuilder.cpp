@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.9  2003/11/18 14:23:57  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -143,7 +146,8 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &type,
                                        double x, double y)
 {
-    m_pActiveInLanes.clear();
+    m_pActiveInternalLanes.clear();
+    m_pActiveIncomingLanes.clear();
     m_CurrentId = id;
     m_Key = key;
     m_TLKey = key;
@@ -173,9 +177,16 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
 
 
 void
-NLJunctionControlBuilder::addInLane(MSLane *lane)
+NLJunctionControlBuilder::addInternalLane(MSLane *lane)
 {
-    m_pActiveInLanes.push_back(lane);
+    m_pActiveInternalLanes.push_back(lane);
+}
+
+
+void
+NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
+{
+    m_pActiveIncomingLanes.push_back(lane);
 }
 
 
@@ -219,14 +230,17 @@ NLJunctionControlBuilder::build()
 MSJunction *
 NLJunctionControlBuilder::buildNoLogicJunction()
 {
-    MSNoLogicJunction::InLaneCont *cont =
-        new MSNoLogicJunction::InLaneCont();
-    cont->reserve(m_pActiveInLanes.size());
+/*    MSNoLogicJunction::InLaneCont *cont =
+        new MSNoLogicJunction::LaneCont();
+    copy(m_pActiveInLanes.begin(), m_pActiveInLanes.end(),
+        back_inserter(*cont));*/
+/*    cont->reserve(m_pActiveInLanes.size());
     for(LaneCont::iterator i=m_pActiveInLanes.begin();
             i!=m_pActiveInLanes.end(); i++) {
         cont->push_back(*i);
-    }
-    return new MSNoLogicJunction(m_CurrentId, m_X, m_Y, cont);
+    }*/
+    return new MSNoLogicJunction(m_CurrentId, m_X, m_Y,
+        m_pActiveIncomingLanes, m_pActiveInternalLanes);
 }
 
 
@@ -234,10 +248,11 @@ MSJunction *
 NLJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
-    MSRightOfWayJunction::InLaneCont cont = getInLaneContSecure();
+/*    MSRightOfWayJunction::LaneCont internal = getInternalLaneContSecure();
+    MSRightOfWayJunction::LaneCont incoming = getIncomingLaneContSecure();*/
     // build the junction
     return new MSRightOfWayJunction(m_CurrentId, m_X, m_Y,
-        cont, jtype);
+        m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype);
 }
 
 
@@ -271,12 +286,15 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
     return jtype;
 }
 
-MSRightOfWayJunction::InLaneCont
-NLJunctionControlBuilder::getInLaneContSecure()
+/*
+MSRightOfWayJunction::LaneCont
+NLJunctionControlBuilder::getIncomingLaneContSecure()
 {
     // build the inlane container
-    MSRightOfWayJunction::InLaneCont cont;
-    cont.reserve(m_pActiveInLanes.size());
+    MSRightOfWayJunction::LaneCont cont;
+    cont.reserve(m_pActiveIncomingLanes.size());
+    copy(m_pActiveIncomingLanes.begin(), m_pActiveIncomingLanes.end(),
+
     for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
         MSRightOfWayJunction::InLane lane(*i);
         cont.push_back(lane);
@@ -285,17 +303,33 @@ NLJunctionControlBuilder::getInLaneContSecure()
 }
 
 
-const NLJunctionControlBuilder::LaneCont &
-NLJunctionControlBuilder::getInLanes() const
+MSRightOfWayJunction::LaneCont
+NLJunctionControlBuilder::getInternalLaneContSecure()
 {
-    return m_pActiveInLanes;
+    // build the inlane container
+    MSRightOfWayJunction::LaneCont cont;
+    cont.reserve(m_pActiveInternalLanes.size());
+    for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
+        MSRightOfWayJunction::InLane lane(*i);
+        cont.push_back(lane);
+    }
+    return cont;
+}
+*/
+
+
+const NLJunctionControlBuilder::LaneCont &
+NLJunctionControlBuilder::getIncomingLanes() const
+{
+    return m_pActiveIncomingLanes;
 }
 
 
 void
-NLJunctionControlBuilder::initInLanes()
+NLJunctionControlBuilder::initIncomingLanes()
 {
-    m_pActiveInLanes.clear();
+    m_pActiveIncomingLanes.clear();
+//    m_pActiveInternalLanes.clear();
 }
 
 

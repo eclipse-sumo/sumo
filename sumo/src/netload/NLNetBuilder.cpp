@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.12  2003/11/24 10:17:03  dkrajzew
 // removed some dead code
 //
@@ -162,6 +165,12 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr)
         oc.getUIntVector("dump-intervals"),
         oc.getString("dump-basename")/*,
         false*/);
+    // set whether empty edges shall be printed on dump
+    MSGlobals::myOmitEmptyEdgesOnDump =
+        !m_pOptions.getBool("dump-empty-edges");
+    // set whether internal lanes shall be used
+    MSGlobals::myUsingInternalLanes =
+        m_pOptions.getBool("use-internal-links");
 }
 
 
@@ -191,8 +200,6 @@ NLNetBuilder::buildMSNet()
         net = container->buildMSNet(m_pOptions);
     }
     delete parser;
-    if(ok)
-        report(*container);
     delete handler;
     delete container;
     return net;
@@ -200,7 +207,8 @@ NLNetBuilder::buildMSNet()
 
 
 bool
-NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser) {
+NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser)
+{
     // load the net
     bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
         handler, parser);
@@ -219,14 +227,14 @@ NLNetBuilder::load(NLNetHandler *handler, SAX2XMLReader &parser) {
         ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
             handler, parser);
     }
-    // set whether empty edges shall be printed on dump
-    MSGlobals::myOmitEmptyEdgesOnDump = !m_pOptions.getBool("dump-empty-edges");
     return ok;
 }
 
+
 bool
 NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler *handler,
-                   SAX2XMLReader &parser) {
+                   SAX2XMLReader &parser)
+{
     // initialise the handler for the current type of data
     handler->setWanted(what);
     // check whether the list of files does not contain ';'s only
@@ -277,8 +285,10 @@ NLNetBuilder::parse(const string &files, NLNetHandler *handler,
     return ok;
 }
 
+
 string
-NLNetBuilder::getDataName(LoadFilter forWhat) {
+NLNetBuilder::getDataName(LoadFilter forWhat)
+{
     switch(forWhat) {
     case LOADFILTER_ALL:
         return "net";
@@ -306,16 +316,6 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
         MsgHandler::getMessageInstance()->inform(ok.c_str());
     } else {
         MsgHandler::getMessageInstance()->inform(wrong.c_str());
-    }
-}
-
-
-
-void
-NLNetBuilder::report(const NLContainer &container)
-{
-    if(!MsgHandler::getErrorInstance()->wasInformed() && m_pOptions.getBool("v")) {
-//        SLogging::add(container.getStatistics());
     }
 }
 

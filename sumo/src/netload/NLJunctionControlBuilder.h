@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.6  2003/11/18 14:23:57  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -118,7 +121,10 @@ public:
         const std::string &type, double x, double y);
 
     /// Adds an incoming lane to the previously chosen junction
-    void addInLane(MSLane *lane);
+    void addIncomingLane(MSLane *lane);
+
+    /// Adds an internal lane to the previously chosen junction
+    void addInternalLane(MSLane *lane);
 
     /** @brief Closes (ends) the processing of the current junction;
         This method may throw a XMLIdAlreadyUsedException when a junction
@@ -130,10 +136,10 @@ public:
     MSJunctionControl *build();
 
     /** Returns the current inlane - container */
-    const LaneCont &getInLanes() const;
+    const LaneCont &getIncomingLanes() const;
 
     /// clears the inlanes-container
-    void initInLanes();
+    void initIncomingLanes();
 
 protected:
     /** builds a junction that does not use a logic */
@@ -149,14 +155,17 @@ protected:
     MSJunctionLogic *getJunctionLogicSecure();
 
     /** builds the junction's list of lanes catching occuring errors */
-    MSRightOfWayJunction::InLaneCont getInLaneContSecure();
+    MSRightOfWayJunction::LaneCont getInLaneContSecure();
 
 protected:
     /// the list of the simulations junctions
     MSJunctionControl::JunctionCont          *m_pJunctions;
 
     /// the list of the incoming lanes of the currently chosen junction
-    LaneCont                    m_pActiveInLanes;
+    LaneCont                    m_pActiveIncomingLanes;
+
+    /// the list of the internal lanes of the currently chosen junction
+    LaneCont                    m_pActiveInternalLanes;
 
     /// the id of the currently chosen junction
     std::string                 m_CurrentId;

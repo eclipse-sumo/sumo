@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.17  2003/11/18 14:23:57  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -225,7 +228,7 @@ public:
     void closeEdge();
 
     /// clears the inclanes-list
-    void initInLanes();
+    void initIncomingLanes();
 
 
     // interfaces for the building of succeeding lanes
@@ -256,13 +259,16 @@ public:
         std::string type, double x, double y);
 
     /// adds an incoming lane to the junction;
-    void addInLane(const std::string &id);
+    void addIncomingLane(const std::string &id);
+
+    /// adds an internal lane to the junction;
+    void addInternalLane(const std::string &id);
 
     /// closes the building of a junction
     void closeJunction();
 
     /// Returns the list of the current incoming lanes
-    const std::vector<MSLane*> &getInLanes() const;
+    const std::vector<MSLane*> &getIncomingLanes() const;
 
 
     /// Adds a build traffic light logic

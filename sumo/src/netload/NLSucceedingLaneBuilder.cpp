@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.6  2003/09/24 13:29:39  dkrajzew
 // retrival of lanes by the position within the bitset added
 //
@@ -78,6 +81,8 @@ namespace
 #include "NLNetBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -127,9 +132,9 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         throw XMLIdNotKnownException("lane", laneId);
     }
     MSLane *via = 0;
-    if(viaID!="") {
+    if(viaID!="" && OptionsSubSys::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
-        if(lane==0) {
+        if(via==0) {
             throw XMLIdNotKnownException("lane", viaID);
         }
     }
@@ -142,6 +147,13 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         }
     }
     // build the link
+        // if internal lanes are used, the next lane of a normal edge
+        // will be an internal lane
+/*    if(via!=0&&OptionsSubSys::getOptions().getBool("use-internal-links")) {
+        lane = via;
+    } else {
+        via = 0;
+    }*/
     MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
     // if a traffic light is responsible for it, inform the traffic light
     if(logic!=0) {

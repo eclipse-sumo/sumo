@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.17  2003/11/18 14:23:57  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -417,13 +420,23 @@ NLContainer::openJunction(const string &id, const string &key, string type,
 
 
 void
-NLContainer::addInLane(const string &id)
+NLContainer::addIncomingLane(const string &id)
 {
     MSLane *lane = MSLane::dictionary(id);
     if(lane==0) {
         throw XMLIdNotKnownException("lane", id);
     }
-    m_pJCB->addInLane(lane);
+    m_pJCB->addIncomingLane(lane);
+}
+
+void
+NLContainer::addInternalLane(const string &id)
+{
+    MSLane *lane = MSLane::dictionary(id);
+    if(lane==0) {
+        throw XMLIdNotKnownException("lane", id);
+    }
+    m_pJCB->addInternalLane(lane);
 }
 
 void
@@ -519,16 +532,16 @@ NLContainer::getNet()
 
 
 const std::vector<MSLane*> &
-NLContainer::getInLanes() const
+NLContainer::getIncomingLanes() const
 {
-    return m_pJCB->getInLanes();
+    return m_pJCB->getIncomingLanes();
 }
 
 
 void
-NLContainer::initInLanes()
+NLContainer::initIncomingLanes()
 {
-    m_pJCB->initInLanes();
+    m_pJCB->initIncomingLanes();
 }
 
 void

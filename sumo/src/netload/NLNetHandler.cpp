@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.34  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.33  2003/12/04 13:14:08  dkrajzew
 // gfx-module added temporary to sumo
 //
@@ -60,6 +63,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/AttributesHandler.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSTrafficLightLogic.h>
@@ -279,6 +283,7 @@ NLNetHandler::initJunctionLogic()
 {
     m_Key = "";
     m_pActiveLogic = new MSBitsetLogic::Logic();
+    m_pActiveFoes = new MSBitsetLogic::Foes();
     _requestSize = -1;
     _laneNo = -1;
     _requestItems = 0;
@@ -289,8 +294,8 @@ void
 NLNetHandler::addLogicItem(const Attributes &attrs)
 {
     if(_requestSize>0) {
+        // parse the request
         int request = -1;
-        string response;
         try {
             request = getInt(attrs, SUMO_ATTR_REQUEST);
         } catch (EmptyData) {
@@ -299,13 +304,26 @@ NLNetHandler::addLogicItem(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(
                 "Error in description: one of the request keys is not numeric.");
         }
+        // parse the response
+        string response;
         try {
             response = getString(attrs, SUMO_ATTR_RESPONSE);
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Missing respond for a request");
         }
-        if(request>=0 && response.length()>0)
-            addLogicItem(request, response);
+        // parse the internal links information (when wished)
+        string foes;
+        if(MSGlobals::myUsingInternalLanes) {
+            try {
+                foes = getString(attrs, SUMO_ATTR_FOES);
+            } catch (EmptyData) {
+                MsgHandler::getErrorInstance()->inform("Missing foes for a request");
+            }
+        }
+        // store received information
+        if(request>=0 && response.length()>0) {
+            addLogicItem(request, response, foes);
+        }
     } else {
         MsgHandler::getErrorInstance()->inform(
             "The request size,  the response size or the number of lanes is not given! Contact your net supplier");
@@ -322,7 +340,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     _requestSize = -1;
     _tlLogicNo = -1;
     myContinuations.clear();
-    myContainer.initInLanes();
+    myContainer.initIncomingLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
     } catch (EmptyData) {
@@ -639,8 +657,11 @@ NLNetHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_NODECOUNT:
             setNodeNumber(chars);
             break;
-        case SUMO_TAG_INLANES:
-            addInLanes(chars);
+        case SUMO_TAG_INCOMING_LANES:
+            addIncomingLanes(chars);
+            break;
+        case SUMO_TAG_INTERNAL_LANES:
+            addInternalLanes(chars);
             break;
         default:
             break;
@@ -732,6 +753,7 @@ NLNetHandler::setRequestSize(const std::string &chars)
     try {
         _requestSize = STRConvert::_2int(chars);
         m_pActiveLogic->resize(_requestSize);
+        m_pActiveFoes->resize(_requestSize);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException) {
@@ -791,23 +813,48 @@ NLNetHandler::setTLLogicNo(const std::string &chars)
 
 
 void
-NLNetHandler::addLogicItem(int request, const string &response)
+NLNetHandler::addLogicItem(int request, const string &response,
+                           const std::string &foes)
 {
+    // add the read response for the given request index
     bitset<64> use(response);
     assert(m_pActiveLogic->size()>(size_t) request);
     (*m_pActiveLogic)[request] = use;
+    // add the read junction-internal foes for the given request index
+    //  ...but only if junction-internal lanes shall be loaded
+    if(MSGlobals::myUsingInternalLanes) {
+        bitset<64> use2(foes);
+        assert(m_pActiveFoes->size()>(size_t) request);
+        (*m_pActiveFoes)[request] = use2;
+    }
+    // increse number of set information
     _requestItems++;
 }
 
 
 void
-NLNetHandler::addInLanes(const std::string &chars)
+NLNetHandler::addIncomingLanes(const std::string &chars)
 {
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
         try {
-            myContainer.addInLane(set);
+            myContainer.addIncomingLane(set);
+        } catch (XMLIdNotKnownException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
+        }
+    }
+}
+
+
+void
+NLNetHandler::addInternalLanes(const std::string &chars)
+{
+    StringTokenizer st(chars);
+    while(st.hasNext()) {
+        string set = st.next();
+        try {
+            myContainer.addInternalLane(set);
         } catch (XMLIdNotKnownException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
         }
@@ -902,7 +949,7 @@ NLNetHandler::closeJunctionLogic()
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(_requestSize, _laneNo,
-            m_pActiveLogic);
+            m_pActiveLogic, m_pActiveFoes);
     MSJunctionLogic::dictionary(m_Key, logic); // !!! replacement within the dictionary
 }
 
@@ -923,7 +970,7 @@ NLNetHandler::closeTrafficLightLogic()
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, step,
-                    myContainer.getInLanes(), firstEventOffset,
+                    myContainer.getIncomingLanes(), firstEventOffset,
                     myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
@@ -935,7 +982,7 @@ NLNetHandler::closeTrafficLightLogic()
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
                     m_Key, m_ActivePhases, step,
-                    myContainer.getInLanes(), firstEventOffset,
+                    myContainer.getIncomingLanes(), firstEventOffset,
                     myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary

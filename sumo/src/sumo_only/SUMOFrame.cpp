@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/12/04 13:16:34  dkrajzew
+// handling of internal links added
+//
 // Revision 1.13  2003/10/28 08:33:44  dkrajzew
 // random number specification options added
 //
@@ -123,6 +126,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
 
+    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
 }
 
 

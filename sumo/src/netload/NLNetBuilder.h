@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/12/04 13:18:23  dkrajzew
+// handling of internal links added
+//
 // Revision 1.5  2003/10/22 15:47:44  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -147,9 +150,6 @@ protected:
 
     /// reports the process (done or failure)
     void subreport(const std::string &ok, const std::string &wrong) ;
-
-    /// prints the final report
-    void report(const NLContainer &container);
 
 protected:
     /// the options to get the names from
