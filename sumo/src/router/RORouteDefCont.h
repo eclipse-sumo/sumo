@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/15 09:09:18  dkrajzew
+// documentation added
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -60,20 +63,41 @@ class ROEdge;
  * A container for route definitions
  */
 class RORouteDefCont : public NamedObjectCont<RORouteDef*> {
-private:
-    typedef std::map<std::pair<ROEdge*, ROEdge*>, RORouteDef*> idMap;
-    idMap _known;
-    IDSupplier _idSupplier;
 public:
+    /// Constructor
     RORouteDefCont();
+
+    /// Destructor
     ~RORouteDefCont();
+
+    /// Adds a named route definition to the container
     bool add(std::string id, RORouteDef *def);
-//    std::string add(ROEdge *from, ROEdge *to);
+
+    /// Writes the known routes into the given file using the XML-format
     static void writeXML(std::ostream &os);
+
+    /// returns the information whether a route with the given name is known
     bool known(const std::string &name) const;
+
+    /// Returns the information whether a route connecting the given edges is known
     bool known(ROEdge *from, ROEdge *to) const;
+
+    /// returns the id of the route that connects the given edges (if known)
     std::string getID(ROEdge *from, ROEdge *to) const;
+
+    /// Removes all route definitions from the container
     void clear();
+
+private:
+    /// Definitions of a container of route definitions from their start eand end points to the route definition
+    typedef std::map<std::pair<ROEdge*, ROEdge*>, RORouteDef*> idMap;
+
+    /// Container with routes definitions accessable by their starting and ending point
+    idMap _known;
+
+    /// A supplier of further ids
+    IDSupplier _idSupplier;
+
 private:
     /// we made the copy constructor invalid
     RORouteDefCont(const RORouteDefCont &src);

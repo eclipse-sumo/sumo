@@ -20,12 +20,13 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/15 09:09:10  dkrajzew
+// documentation added
+//
 // Revision 1.2  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -76,8 +77,13 @@ private:
     void setVehicleColor(const GUIVehicle &vehicle,
         GUIViewTraffic::VehicleColoringScheme scheme);
 
+    /// Sets the front color of the vehicle if the vehicle shall be draw in more than a single color
     void setVehicleColor1Of3(const GUIVehicle &vehicle);
+
+    /// Sets the right color of the vehicle if the vehicle shall be draw in more than a single color
     void setVehicleColor2Of3(const GUIVehicle &vehicle);
+
+    /// Sets the left color of the vehicle if the vehicle shall be draw in more than a single color
     void setVehicleColor3Of3(const GUIVehicle &vehicle);
 
 };

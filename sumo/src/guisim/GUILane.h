@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/15 09:09:13  dkrajzew
+// documentation added
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -71,11 +74,17 @@ public:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveNonCriticalSingle();
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     void moveCriticalSingle();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveNonCriticalMulti();
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     void moveCriticalMulti();
 
     /** the same as in MSLane, but locks the access for the visualisation
@@ -83,11 +92,15 @@ public:
     void moveNonCriticalMulti(
         MSEdge::LaneCont::const_iterator firstNeighLane,
         MSEdge::LaneCont::const_iterator lastNeighLane );
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     void moveCriticalMulti(
         MSEdge::LaneCont::const_iterator firstNeighLane,
         MSEdge::LaneCont::const_iterator lastNeighLane );
 
-
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     void setCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation

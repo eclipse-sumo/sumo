@@ -79,6 +79,6 @@ NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.h \
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h \
 NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h \
 NIVissimSingleTypeParser_Zuflussdefinition.h \
-NIVissimSingleTypeParser_Zusammensetzungsdefinition.h 
+NIVissimSingleTypeParser_Zusammensetzungsdefinition.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

@@ -277,7 +277,7 @@ NIVissimConnectionCluster::searchForConnection(int id)
         IntVector connections = (*i)->myConnections;
         if(find(connections.begin(), connections.end(), id)!=connections.end()) {
             for(IntVector::iterator j=connections.begin(); j!=connections.end(); j++) {
-                int bla = *j;
+                int checkdummy = *j;
             }
         }
         pos++;

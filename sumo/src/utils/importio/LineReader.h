@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/04/15 09:09:19  dkrajzew
+// documentation added
+//
 // Revision 1.4  2003/03/20 16:41:10  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -112,7 +115,14 @@ private:
     /// a string-buffer
     std::string _strBuffer;
 
-    size_t _read, _available, _rread;
+    /// Information about how many characters were supplied to the LineHandler
+    size_t _read;
+
+    /// Information how many bytes are available within the used file
+    size_t _available;
+
+    /// Information how many bytes were read by the reader from the file
+    size_t _rread;
 
 };
 

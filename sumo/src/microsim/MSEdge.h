@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/04/15 09:09:14  dkrajzew
+// documentation added
+//
 // Revision 1.4  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -234,16 +237,25 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /** @brief Moves all vehicles the edge, regarding whether the movement shall be rechecked
+    /** @brief Moves all vehicles of the edge until the first occures which movement shall be rechecked
         See the according lane-function for further information
         Use this for edges with only one lane */
     virtual void moveNonCriticalSingle();
+
+
+    /** @brief Moves all vehicles the edge, beginning at the first vehicle which may leave the edge
+        See the according lane-function for further information
+        Use this for edges with only one lane */
     virtual void moveCriticalSingle();
 
-    /** @brief Moves all vehicles the edge, regarding whether the movement shall be rechecked
+    /** @brief Moves all vehicles of the edge until the first occures which movement shall be rechecked
         See the according lane-function for further information
         Use this for edges with more than one lane */
     virtual void moveNonCriticalMulti();
+
+    /** @brief Moves all vehicles the edge, beginning at the first vehicle which may leave the edge
+        See the according lane-function for further information
+        Use this for edges with more than one lane */
     virtual void moveCriticalMulti();
 
     /** @brief moves vehicles which has to be recheked (may leave the lane in the near future)

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/15 09:09:14  dkrajzew
+// documentation added
+//
 // Revision 1.5  2003/03/20 16:19:28  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -118,15 +121,20 @@ protected:
     /// the networks boundery
     Boundery _boundery;
 
+    /** @brief A container for numerical ids of objects
+        in order to make them grippable by openGL */
     GUIGlObjectStorage _idStorage;
 
+    /// A mutex for single allocation usage
 	static NewQMutex _lock;
 
 public:
+    /// Locks allocations to make allocations threadsafe
 	static void lockAlloc() {
 		_lock.lock();
 	}
 
+    /// Unlocks allocations
 	static void unlockAlloc() {
 		_lock.unlock();
 	}

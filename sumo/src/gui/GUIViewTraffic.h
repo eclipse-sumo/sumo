@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/15 09:09:11  dkrajzew
+// documentation added
+//
 // Revision 1.4  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
 //
@@ -102,8 +105,10 @@ public:
     /// Returns the gl-id of the object under the given coordinates
     void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
 
+    /// A reimplementation due to some internal reasons
     void makeCurrent();
 
+    /// A method that updates the tooltip
     void updateToolTip();
 
 public slots:
@@ -118,6 +123,7 @@ public slots:
     /** toggles the drwaing of the grid */
     void toggleShowGrid();
 
+    /// toggles whether tooltips shall be shown or not
     void toggleToolTips();
 
 public:
@@ -306,19 +312,26 @@ private:
     /// Information whether too-tip informations shall be generated
     bool _useToolTips;
 
+    /// Information how many times the drawing method was called at once
     size_t _noDrawing;
 
+    /// The used tooltip-class
     QGLObjectToolTip *_toolTip;
 
+    /// position to display the tooltip at
     size_t _toolTipX, _toolTipY;
 
+    /// The current mouse position (if the mouse is over this canvas)
     size_t _mouseX, _mouseY;
 
     GUIEdgeGrid::GUIEdgeSet _edges;
 
+    /// Offset to the mouse-hotspot from the mouse position
     int _mouseHotspotX, _mouseHotspotY;
 
+    /// A lock for drawing operations
     NewQMutex _lock;
+
 };
 
 
