@@ -107,7 +107,7 @@ private:
     /// The node the cluster is assigned to
     int myNodeCluster;
 
-    // The edge which hold the cluster
+    // The edge which holds the cluster
     IntVector myEdges;
 
 private:

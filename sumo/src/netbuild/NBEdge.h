@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/03/26 12:00:08  dkrajzew
+// debugging for Vissim and Visum-imports
+//
 // Revision 1.7  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -249,7 +252,7 @@ public:
     /** @brief Returns the node at the given edges length (using an epsilon)
         When no node is existing at the given position, 0 is returned
         The epsilon is a static member of NBEdge, should be setable via program options */
-    NBNode *tryGetNodeAtPosition(double pos) const;
+    NBNode *tryGetNodeAtPosition(double pos, double tolerance=5.0) const;
 
     NBEdge *checkCorrectNode(NBEdge *opposite);
 

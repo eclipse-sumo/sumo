@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/26 12:04:04  dkrajzew
+// debugging for Vissim and Visum-imports
+//
 // Revision 1.1  2003/02/07 11:14:53  dkrajzew
 // updated
 //
@@ -310,7 +313,7 @@ NIVisumLoader::checkForPosition(const std::string &line)
         if(line.substr(0, dataName.length())==dataName) {
             parser->setStreamPosition(myLineReader.getPosition());
             parser->initLineParser(line.substr(dataName.length()));
-            cout << "Found: " << dataName << endl;
+            cout << "Found: " << dataName << " at " << myLineReader.getPosition() << endl;
         }
     }
     // it is not necessary to rea the whole file

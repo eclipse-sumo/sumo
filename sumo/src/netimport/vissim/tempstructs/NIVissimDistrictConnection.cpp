@@ -137,7 +137,8 @@ NIVissimDistrictConnection::dict_BuildDistricts()
             // get the edge to connect the parking place to
             NBEdge *e = NBEdgeCont::retrieve(toString<int>(c->myEdgeID));
             Position2D edgepos = c->geomPosition();
-            NBNode *edgeend = e->tryGetNodeAtPosition(c->myPosition);
+            NBNode *edgeend = e->tryGetNodeAtPosition(c->myPosition,
+                e->getLength()/4.0);
             if(edgeend==0) {
                 assert(false);
                 // Edge splitting omitted on build district connections by now

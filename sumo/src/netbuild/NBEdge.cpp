@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/03/26 12:00:08  dkrajzew
+// debugging for Vissim and Visum-imports
+//
 // Revision 1.8  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -1044,14 +1047,14 @@ NBEdge::isTurningDirection(NBEdge *edge) const
 
 
 NBNode *
-NBEdge::tryGetNodeAtPosition(double pos) const
+NBEdge::tryGetNodeAtPosition(double pos, double tolerance) const
 {
     // return the from-node when the position is at the begin of the edge
-    if(pos<5.0) {
+    if(pos<tolerance) {
         return _from;
     }
     // return the to-node when the position is at the end of the edge
-    if(pos>_length-5.0) {
+    if(pos>_length-tolerance) {
         return _to;
     }
     return 0;

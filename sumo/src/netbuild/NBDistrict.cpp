@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/26 12:00:07  dkrajzew
+// debugging for Vissim and Visum-imports
+//
 // Revision 1.4  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -121,8 +124,8 @@ NBDistrict::addSink(NBEdge *sink, double weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
-    normalise(_sourceWeights, _sources.size());
-    normalise(_sinkWeights, _sinks.size());
+    DoubleVectorHelper::normalise(_sourceWeights, 1.0);
+    DoubleVectorHelper::normalise(_sinkWeights, 1.0);
     // write the head and the id of the district
     into << "   " << "<district id=\"" << _id << "\">" << endl;
     size_t i;
@@ -168,7 +171,7 @@ NBDistrict::setCenter(double x, double y)
 
 
 
-void
+/*void
 NBDistrict::normalise(DoubleVector &dv, size_t num)
 {
     // normalise sources
@@ -178,7 +181,7 @@ NBDistrict::normalise(DoubleVector &dv, size_t num)
         dv = DoubleVector(1.0 / (double) num);
     }
 }
-
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

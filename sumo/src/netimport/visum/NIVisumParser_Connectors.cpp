@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/26 12:04:04  dkrajzew
+// debugging for Vissim and Visum-imports
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -83,6 +86,8 @@ NIVisumParser_Connectors::myDependentReport()
         double proz = getWeightedFloat("Proz");
         if(proz>0) {
             proz /= 100;
+        } else {
+            proz = 1;
         }
         // get the duration to wait
         double retard =
