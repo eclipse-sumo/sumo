@@ -32,7 +32,7 @@ GenericSAX2Handler::Tag sumotags[38] =
     /* 23 */  { "dsource",          SUMO_TAG_DSOURCE },
     /* 24 */  { "dsink",            SUMO_TAG_DSINK },
     /* 25 */  { "edges",            SUMO_TAG_EDGES },
-    /* 26 */  { "node_count",        SUMO_TAG_NODECOUNT },
+    /* 26 */  { "node_count",       SUMO_TAG_NODECOUNT },
     /* 27 */  { "tl-logic",         SUMO_TAG_TLLOGIC },
     /* 28 */  { "offset",           SUMO_TAG_OFFSET },
     /* 29 */  { "initstep",         SUMO_TAG_INITSTEP },
@@ -46,9 +46,9 @@ GenericSAX2Handler::Tag sumotags[38] =
     /* 38 */  { "step",             SUMO_TAG_STEP }
 };
 
-size_t noSumoAttrs = 48;
+size_t noSumoAttrs = 49;
 
-AttributesHandler::Attr sumoattrs[48] =
+AttributesHandler::Attr sumoattrs[49] =
 {
     /* 00 */ { "id",            SUMO_ATTR_ID },
     /* 01 */ { "name",          SUMO_ATTR_NAME },
@@ -97,5 +97,6 @@ AttributesHandler::Attr sumoattrs[48] =
     /* 44 */ { "objecttype",    SUMO_ATTR_OBJECTTYPE },
     /* 45 */ { "attr",          SUMO_ATTR_ATTR },
     /* 46 */ { "objectid",      SUMO_ATTR_OBJECTID },
-    /* 47 */ { "time",          SUMO_ATTR_TIME }
+    /* 47 */ { "time",          SUMO_ATTR_TIME },
+    /* 48 */ { "multi_ref",     SUMO_ATTR_MULTIR }
 };

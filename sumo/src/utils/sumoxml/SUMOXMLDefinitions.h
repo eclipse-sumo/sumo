@@ -149,13 +149,15 @@ enum AttrEnum
     /** trigger: name of the object to manipulate */
     SUMO_ATTR_OBJECTID,
     /** trigger: the time of the step */
-    SUMO_ATTR_TIME
+    SUMO_ATTR_TIME,
+    /** routes: information whether not only one vehicle uses the route */
+    SUMO_ATTR_MULTIR
 };
 
 extern size_t noSumoTags;
 extern GenericSAX2Handler::Tag sumotags[38];
 
 extern size_t noSumoAttrs;
-extern AttributesHandler::Attr sumoattrs[48];
+extern AttributesHandler::Attr sumoattrs[49];
 
 #endif
