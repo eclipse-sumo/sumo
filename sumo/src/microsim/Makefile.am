@@ -5,7 +5,7 @@ EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
 MSInductLoop.cpp \
-MSLaneState.cpp 
+MSLaneState.cpp
 
 libmicrosim_a_SOURCES = MSDetector.cpp \
 MSEdgeControl.cpp \
