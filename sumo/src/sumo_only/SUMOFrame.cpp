@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/31 06:13:28  dkrajzew
+// junction-options removed; questionmark added (same as --help)
+//
 // Revision 1.4  2003/03/20 16:45:25  dkrajzew
 // windows eol removed
 //
@@ -64,13 +67,13 @@ SUMOFrame::getOptions()
     // register the file i/o options
     oc->doRegister("net-files", 'n', new Option_FileName());
     oc->doRegister("route-files", 'r', new Option_FileName());
-    oc->doRegister("junction-files", 'j', new Option_FileName());
+//    oc->doRegister("junction-files", 'j', new Option_FileName());
     oc->doRegister("additional-files", 'a', new Option_FileName());
     oc->doRegister("output-file", 'o', new Option_FileName());
     oc->doRegister("configuration-file", 'c', new Option_FileName("sumo.cfg"));
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
-    oc->addSynonyme("junction-files", "junctions");
+//    oc->addSynonyme("junction-files", "junctions");
     oc->addSynonyme("additional-files", "additional");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
@@ -82,7 +85,7 @@ SUMOFrame::getOptions()
     oc->doRegister("verbose", 'v', new Option_Bool(false));
     oc->doRegister("warn", 'w', new Option_Bool(true));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
-    oc->doRegister("help", new Option_Bool(false));
+    oc->doRegister("help", '?', new Option_Bool(false));
 //    oc->doRegister("validate-nodes", new Option_Bool(false));
     // register some research options
     oc->doRegister("initial-density", new Option_Float());
