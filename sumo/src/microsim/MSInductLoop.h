@@ -310,8 +310,8 @@ public:
                      double entryTimestep,
                      double leaveTimestep )
             : lengthM( veh.length() ), 
-              entryTimeM( entryTimestep * MSNet::deltaT() ),  
-              leaveTimeM( leaveTimestep * MSNet::deltaT() ),  
+              entryTimeM( MSNet::getSeconds( entryTimestep ) ),  
+              leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),  
               speedM( lengthM / ( leaveTimeM - entryTimeM ) ),
               speedSquareM( speedM * speedM ),
               occupancyM( leaveTimeM - entryTimeM )
