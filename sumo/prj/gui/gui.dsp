@@ -933,7 +933,7 @@ InputPath=..\..\src\gui\GUIApplicationWindow.h
 InputPath=..\..\src\gui\GUIApplicationWindow.h
 
 "..\..\src\gui\moc_GUIApplicationWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIApplicationWindow.h -o ..\..\src\gui\moc_GUIApplicationWindow.cpp
+	$(QTDIR)\bin\moc.exe ..\..\src\gui\GUIApplicationWindow.h -o ..\..\src\gui\moc_GUIApplicationWindow.cpp
 
 # End Custom Build
 
@@ -980,7 +980,7 @@ InputPath=..\..\src\gui\GUIChooser.h
 InputPath=..\..\src\gui\GUIChooser.h
 
 "..\..\src\gui\moc_GUIChooser.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIChooser.h -o ..\..\src\gui\moc_GUIChooser.cpp
+	$(QTDIR)\bin\moc.exe ..\..\src\gui\GUIChooser.h -o ..\..\src\gui\moc_GUIChooser.cpp
 
 # End Custom Build
 
