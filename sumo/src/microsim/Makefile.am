@@ -128,7 +128,7 @@ MSVehicleTransfer.h \
 MSVehicleType.h \
 MS_E2_ZS_Collector.h
 
-SUBDIRS = actions
+SUBDIRS = actions logging
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
