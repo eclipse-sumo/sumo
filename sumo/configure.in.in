@@ -39,7 +39,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(sumo,0.7.2)
+AM_INIT_AUTOMAKE(sumo,0.8.0)
 
 AC_PREFIX_DEFAULT(/usr/local)
 dnl if test "x$prefix" = "xNONE"; then
