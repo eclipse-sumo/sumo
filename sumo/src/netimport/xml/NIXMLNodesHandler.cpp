@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/07 08:33:15  dkrajzew
+// further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
+//
 // Revision 1.4  2003/06/19 10:59:34  dkrajzew
 // error output patched
 //
@@ -98,6 +101,8 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBOwnTLDef.h>
 
 
 /* =========================================================================
@@ -135,68 +140,103 @@ void
 NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
                                   const Attributes &attrs)
 {
-    string id;
-    if(tag=="node") {
-        try {
-            // retrieve the id of the node
-            id = getString(attrs, SUMO_ATTR_ID);
-            string name = id;
-            // retrieve the name of the node
-            try {
-                name = getString(attrs, SUMO_ATTR_NAME);
-            } catch (EmptyData) {
-            }
-
-            // retrieve the position of the node
-            double x, y;
-            x = y = -1.0;
-                // retrieve the x-position
-            try {
-                x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for X (at tag ID='") + id
-                    + string("')."));
-            }
-                // retrieve the y-position
-            try {
-                y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Y (at tag ID='") + id
-                    + string("')."));
-            }
-            // check whether the positions are valid
-            if(x==-1||y==-1) {
-                addError(
-                    string("Node position for node '") + id
-                    + string("' is not given."));
-                return;
-            }
-            // check whether the y-axis shall be flipped
-            if(_options.getBool("flip-y")) {
-                y *= -1.0;
-            }
-            // insert the node
-            string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-            if(type.length()==0&&!NBNodeCont::insert(id, x, y)) {
-                addError(
-                    string("Duplicate node occured. ID='") + id
-                    + string("'"));
-            }
-            if(type.length()>0&&!NBNodeCont::insert(id, x, y, type)) {
-                if(NBNodeCont::retrieve(x, y)!=0) {
-                    addError(
-                        string("Duplicate node occured. ID='") + id
-                        + string("'"));
-                }
-            }
-        } catch (EmptyData) {
-            MsgHandler::getMessageInstance()->inform(
-                "No id given... Skipping.");
+    if(tag!="node") {
+        return;
+    }
+    try {
+        // retrieve the id of the node
+        myID = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        MsgHandler::getWarningInstance()->inform(
+            "No node id given... Skipping.");
+        return;
+    }
+    // retrieve the name of the node
+    string name = getStringSecure(attrs, SUMO_ATTR_NAME, myID);
+    // retrieve the position of the node
+    if(!setPosition(attrs)) {
+        return;
+    }
+    // get the type
+    myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    // check whether there is a traffic light to assign this node to
+    // build the node
+    NBNode *node = new NBNode(myID, myX, myY);
+    // insert the node
+    if(!NBNodeCont::insert(node)) {
+        if(NBNodeCont::retrieve(myX, myY)!=0) {
+            addError(string("Duplicate node occured. ID='") + myID
+                + string("'"));
         }
     }
+    // process traffic light definition
+    if(myType=="traffic_light") {
+        processTrafficLightDefinitions(attrs, node);
+    }
 }
+
+
+
+bool
+NIXMLNodesHandler::setPosition(const Attributes &attrs)
+{
+    // retrieve the positions
+    try {
+        myX = getFloat(attrs, SUMO_ATTR_X);
+        myY = getFloat(attrs, SUMO_ATTR_Y);
+    } catch (NumberFormatException) {
+        addError(string("Not numeric value for position (at node ID='") + myID
+            + string("')."));
+        return false;
+    } catch (EmptyData) {
+        addError(string("Node position (at node ID='") + myID
+            + string("') is not given."));
+        return false;
+    }
+    // check whether the y-axis shall be flipped
+    if(_options.getBool("flip-y")) {
+        myY *= -1.0;
+    }
+    return true;
+}
+
+
+void
+NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
+                                                  NBNode *currentNode)
+{
+    NBTrafficLightDefinition *tlDef = 0;
+    try {
+        string tlID = getString(attrs, SUMO_ATTR_TLID);
+        // ok, the traffic light has a name
+        tlDef = NBTrafficLightLogicCont::getDefinition(tlID);
+        if(tlDef==0) {
+            // this traffic light is visited the first time
+            NBTrafficLightDefinition *tlDef =
+                new NBOwnTLDef(tlID, currentNode);
+            if(!NBTrafficLightLogicCont::insert(tlID, tlDef)) {
+                // actually, nothing should fail here
+                delete tlDef;
+                throw ProcessError();
+            }
+        } else {
+            tlDef->addNode(currentNode);
+        }
+    } catch (EmptyData) {
+        // ok, this node is a traffic light node where no other nodes
+        //  participate
+        NBTrafficLightDefinition *tlDef =
+            new NBOwnTLDef(myID, currentNode);
+        if(!NBTrafficLightLogicCont::insert(myID, tlDef)) {
+            // actually, nothing should fail here
+            delete tlDef;
+            throw ProcessError();
+        }
+    }
+    // inform the node
+    currentNode->addTrafficLight(tlDef);
+}
+
 
 void
 NIXMLNodesHandler::myCharacters(int element, const std::string &name,

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/07/07 08:33:15  dkrajzew
+// further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
+//
 // Revision 1.4  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -69,6 +72,7 @@
  * class declarations
  * ======================================================================= */
 class OptionsCont;
+class NBNode;
 
 
 /* =========================================================================
@@ -101,8 +105,27 @@ protected:
     void myEndElement(int element, const std::string &name);
 
 private:
+    /** @brief Sets the position of the node
+        Returns false when the information about the node's position was not valid */
+    bool setPosition(const Attributes &attrs);
+
+    /** @brief Builds the defined traffic light or adds a node to it */
+    void processTrafficLightDefinitions(const Attributes &attrs,
+        NBNode *currentNode);
+
+
+private:
     /// A reference to the program's options
     OptionsCont &_options;
+
+    /// The id of the currently parsed node
+    std::string myID;
+
+    /// The position of the currently parsed node
+    double myX, myY;
+
+    /// The (optional) type of the node currently parsed
+    std::string myType;
 
 private:
     /** invalid copy constructor */
