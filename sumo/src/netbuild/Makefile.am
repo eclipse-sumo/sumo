@@ -1,4 +1,4 @@
-noinst_LIBRARIES = libnetbuild.a
+noinst_LIBRARIES = libnetbuild.a libnetbuildmain.a 
 
 libnetbuild_a_SOURCES = NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \
@@ -8,7 +8,7 @@ NBEdgeCont.cpp NBEdgeCont.h NBHelpers.cpp NBHelpers.h \
 NBJunctionLogicCont.cpp NBJunctionLogicCont.h \
 NBJunctionTypesMatrix.cpp NBJunctionTypesMatrix.h \
 NBLinkCliqueContainer.cpp NBLinkCliqueContainer.h \
-NBLinkPossibilityMatrix.h NBLoader.cpp NBLoader.h \
+NBLinkPossibilityMatrix.h \
 NBLogicKeyBuilder.cpp NBLogicKeyBuilder.h NBNode.cpp NBNode.h \
 NBNodeCont.cpp NBNodeCont.h NBOptionsIO.cpp NBOptionsIO.h \
 NBRequest.cpp NBRequest.h \
@@ -20,9 +20,13 @@ NBTrafficLightLogicVector.cpp NBTrafficLightLogicVector.h \
 NBTrafficLightPhases.cpp NBTrafficLightPhases.h \
 NBType.cpp NBType.h NBTypeCont.cpp NBTypeCont.h NLLoadFilter.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
-NBLoadedTLDef.cpp NBLoadedTLDef.h
+NBLoadedTLDef.cpp NBLoadedTLDef.h 
+
+libnetbuildmain_a_SOURCES = NBLoader.cpp NBLoader.h 
 
 CFRONT_FILES =
+
+SUBDIRS = 
 
 EXTRA_DIST = $(CFRONT_FILES)
 

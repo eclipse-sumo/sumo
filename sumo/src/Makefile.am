@@ -24,7 +24,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 sumo_netconvert_SOURCES = netconvert_main.cpp \
 netconvert_help.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) 
-sumo_netconvert_LDADD   = ./netbuild/libnetbuild.a \
+sumo_netconvert_LDADD   = ./netbuild/libnetbuildmain.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -34,10 +34,11 @@ sumo_netconvert_LDADD   = ./netbuild/libnetbuild.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
+./netbuild/libnetbuild.a \
+./utils/sumoxml/libsumoxml.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 ./utils/gfx/libgfx.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
@@ -53,10 +54,10 @@ sumo_router_LDADD   = ./router/librouter.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
+./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/router/librouter.a \
 ./utils/importio/libimportio.a \
-./utils/sumoxml/libsumoxml.a \
 -l$(LIB_XERCES)
 
 
@@ -64,11 +65,11 @@ sumo_od2trips_SOURCES = od2trips_main.cpp \
 od2trips_help.h
 sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
+./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
 ./utils/xml/libxml.a \
-./utils/sumoxml/libsumoxml.a \
 -l$(LIB_XERCES)
 
 
