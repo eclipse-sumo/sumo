@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2004/02/18 05:29:11  dkrajzew
+// false resetting of values after swap patched
+//
 // Revision 1.14  2003/12/12 12:55:59  dkrajzew
 // looking back implemented
 //
@@ -391,15 +394,21 @@ MSLaneChanger::change()
                     myCandi->hoppedVeh = prohibitor;
                     myCandi->lane->myTmpVehicles.push_back( prohibitor );
 
+                    // leave lane and detectors
+                    vehicle->leaveLaneAtLaneChange();
+                    prohibitor->leaveLaneAtLaneChange();
+                    // patch position and speed
                     double p1 = vehicle->pos();
                     vehicle->myState.myPos = prohibitor->myState.myPos;
                     prohibitor->myState.myPos = p1;
-
-                    vehicle->leaveLaneAtLaneChange();
+                    p1 = vehicle->speed();
+                    vehicle->myState.mySpeed = prohibitor->myState.mySpeed;
+                    prohibitor->myState.mySpeed = p1;
+                    // enter lane and detectors
                     vehicle->enterLaneAtLaneChange( target->lane );
-                    vehicle->myLastLaneChangeOffset = 0;
-                    prohibitor->leaveLaneAtLaneChange();
                     prohibitor->enterLaneAtLaneChange( myCandi->lane );
+                    // mark lane change
+                    vehicle->myLastLaneChangeOffset = 0;
                     prohibitor->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
