@@ -1585,7 +1585,7 @@
         </sect3>
 
         <sect3>
-          <title>Simulation timing</title>
+          <title>Error Control</title>
 
           <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-accident</para><para>Normally,
           when an accident occurs, the simulation is stopped. You may allow
@@ -1607,6 +1607,16 @@
           [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
 
@@ -1725,6 +1735,16 @@
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
       </sect2>
 
       <sect2>
@@ -1733,37 +1753,74 @@
         <sect3>
           <title>Build description options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --grid-net | -g ]</para><para>Forces
-          NETGEN to build a grid-like network.</para></listitem><listitem><para>OPTIONAL:
-          [ --spider-net | -s ]</para><para>Forces NETGEN to build a
-          spider-net-like network.</para></listitem><listitem><para>OPTIONAL:
-          [ --random-net | -r ]</para><para>Forces NETGEN to build a random
-          network.</para><para></para></listitem><listitem><para>OPTIONAL: [
-          --grid-x-number | --x-no ] &#60;INT&#62;</para><para>Describes how
-          many junctions in the x-directions shall be build.</para></listitem><listitem><para>OPTIONAL:
+          <caution>
+            <para><inlinegraphic fileref="./gfx/attention_small.gif"
+            format="GIF" /> At least one of the next three switches must be
+            supplied.</para>
+          </caution>
+
+          <para><itemizedlist><listitem><para>OPTIONAL (see warning above): [
+          --grid-net | -g ]</para><para>Forces NETGEN to build a grid-like
+          network.</para></listitem><listitem><para>OPTIONAL (see warning
+          above): [ --spider-net | -s ]</para><para>Forces NETGEN to build a
+          spider-net-like network.</para></listitem><listitem><para>OPTIONAL
+          (see warning above): [ --random-net | -r ]</para><para>Forces NETGEN
+          to build a random network.</para></listitem></itemizedlist></para>
+
+          <para>The next options are valid if the &#34;--grid-net&#34; -
+          switch was set.</para>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --grid-x-number |
+          --x-no ] &#60;INT&#62;</para><para>Describes how many junctions in
+          the x-directions shall be build. Default: 5</para></listitem><listitem><para>OPTIONAL:
           [ --grid-y-number | --y-no ] &#60;INT&#62;</para><para>Describes how
-          many junctions in the y-directions shall be build.</para></listitem><listitem><para>OPTIONAL:
+          many junctions in the y-directions shall be build. Default: 5</para></listitem><listitem><para>OPTIONAL:
           [ --grid-number | --number ] &#60;INT&#62;</para><para>Describes how
-          many junctions in both the x- and the y-direction shall be build.</para></listitem><listitem><para>OPTIONAL:
-          [ --grid-x-length | --x-length ] &#60;FLOAT&#62;</para><para>Describes
-          how long each horizontal street shall be in meters.</para></listitem><listitem><para>OPTIONAL:
+          many junctions in both the x- and the y-direction shall be build.
+          Default: 5</para></listitem><listitem><para>OPTIONAL: [
+          --grid-x-length | --x-length ] &#60;FLOAT&#62;</para><para>Describes
+          how long each horizontal street shall be in meters. Default: 100</para></listitem><listitem><para>OPTIONAL:
           [ --grid-y-length | --y-length ] &#60;FLOAT&#62;</para><para>Describes
-          how long each vertical street shall be in meters.</para></listitem><listitem><para>OPTIONAL:
+          how long each vertical street shall be in meters. Default: 100</para></listitem><listitem><para>OPTIONAL:
           [ --grid-length | --length ] &#60;FLOAT&#62;</para><para>Describes
-          how long both horizontal and vertical streets shall be (in meters).</para><para></para></listitem><listitem><para>OPTIONAL:
-          [ --arcview-input | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
-          the edge attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt
-          assuming it is an export from ArcView done by shapelib. Parses the
-          edge geometries from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt
-          assuming it is an export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
-          --arcview-shp &#60;FILE&#62;</para><para>Parses the edge geometries
-          from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt assuming it is an
-          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
-          --arcview-dbf &#60;FILE&#62;</para><para>Parses the edge attributes
-          from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt assuming it is an
-          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
-          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
-          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+          how long both horizontal and vertical streets shall be (in meters).
+          Default: 100</para></listitem></itemizedlist></para>
+
+          <para>The next options are valid if the &#34;--spider-net&#34; -
+          switch was set.</para>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --spider-arm-number
+          | --arms ] &#60;INT&#62;</para><para>Specifies how many arms (axes)
+          the net shall have. Default: 13</para></listitem><listitem><para>OPTIONAL:
+          [ --spider-circle-number | --circles ] &#60;INT&#62;</para><para>Specifies
+          how many circles shall be build. Default: 20</para></listitem><listitem><para>OPTIONAL:
+          [ --spider-space-rad | --radius ] &#60;FLOAT&#62;</para><para>Specifies
+          how far the circles shall be from each other in meters. Default: 100</para></listitem></itemizedlist></para>
+
+          <para>The next options are valid if the &#34;--random-net&#34; -
+          switch was set.</para>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --rand-iterations |
+          --iterations ] &#60;FLOAT&#62;</para><para>Describes how many times
+          an edge shall be added to the net. Default: 2000</para></listitem><listitem><para>OPTIONAL:
+          [ --rand-max-distance | --max-dist ] &#60;FLOAT&#62;</para><para>Default:
+          250</para></listitem><listitem><para>OPTIONAL: [ --rand-min-distance
+          | --min-dist ] &#60;FLOAT&#62;</para><para>Default: 100</para></listitem><listitem><para>OPTIONAL:
+          [ --rand-min-angle | --min-angle ] &#60;FLOAT&#62;</para><para>Default:
+          45.0/180.0*PI (aeehh)</para></listitem><listitem><para>OPTIONAL: [
+          --rand-num-tries | --num-tries ] &#60;FLOAT&#62;</para><para>Default:
+          50</para></listitem><listitem><para>OPTIONAL: [ --rand-connectivity
+          | --connectivity ] &#60;FLOAT&#62;</para><para>Default: 0.95</para></listitem><listitem><para>OPTIONAL:
+          [ --rand-neighbor-dist1 | --dist1 ] &#60;FLOAT&#62;</para><para>Default:
+          0</para></listitem><listitem><para>OPTIONAL: [ --rand-neighbor-dist2
+          | --dist2 ] &#60;FLOAT&#62;</para><para>Default: 0</para></listitem><listitem><para>OPTIONAL:
+          [ --rand-neighbor-dist3 | --dist3 ] &#60;FLOAT&#62;</para><para>Default:
+          10</para></listitem><listitem><para>OPTIONAL: [
+          --rand-neighbor-dist4 | --dist4 ] &#60;FLOAT&#62;</para><para>Default:
+          10</para></listitem><listitem><para>OPTIONAL: [
+          --rand-neighbor-dist5 | --dist5 ] &#60;FLOAT&#62;</para><para>Default:
+          2</para></listitem><listitem><para>OPTIONAL: [ --rand-neighbor-dist6
+          | --dist6 ] &#60;FLOAT&#62;</para><para>Default: 1</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1775,50 +1832,35 @@
         </sect3>
 
         <sect3>
-          <title>Import defaults</title>
+          <title>Building defaults</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --type | -T ]
-          &#60;STRING&#62;</para><para>The name of the default type of edges.
-          Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --speed | -S ]
+          &#60;DOUBLE&#62;</para><para>The maximum speed allowed on an edge in
+          m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
+          [ --type | -T ] &#60;STRING&#62;</para><para>The name of the default
+          type of edges. Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
           [ --lanenumber | -L ] &#60;INT&#62;</para><para>The number of lanes
           an edge has to use as default. Default: 1</para></listitem><listitem><para>OPTIONAL:
-          [ --speed | -S ] &#60;DOUBLE&#62;</para><para>The maximum speed
-          allowed on an edge in m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
           [ --priority | -P ] &#60;INT&#62;</para><para>The default priority
-          of an edge. Default: 1</para></listitem></itemizedlist></para>
-        </sect3>
-
-        <sect3>
-          <title>Computation variables settings</title>
-
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --capacity-norm | -C
-          ] &#60;DOUBLE&#62;</para><para>The value to divide a given capacity
-          by to gain the number of lanes. Default: 2000</para></listitem><listitem><para>OPTIONAL:
-          [ --min-decel | -D ] &#60;DOUBLE&#62;</para><para>The minimum
-          deceleration value for vehicles. Default: 3.0</para></listitem></itemizedlist></para>
+          of an edge. Default: 1</para></listitem><listitem><para>OPTIONAL: [
+          --default-junction-type | --junctions | -j ] [ priority |
+          traffic_light | actuated | agentbased ]</para><para>Defines what
+          type of junctions shall be build. Remark that the junction in the
+          center of a spider-network is always a priority junction. Default:
+          priority</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --omit-corrupt-edges</para><para>Continues
-          with parsing although a corrupt edge occured. This edge is not
-          inserted and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
-          --flip-y</para><para>Flips the y-position of nodes (and edges) along
-          the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
-          --speed-in-km</para><para>Parses speed information stored in
-          XML-edge definition files as being given in km/h (not m/s as usual)</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist><listitem><para>OPTIONAL: --flip-y</para><para>Flips
+          the y-position of nodes (and edges) along the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
           --use-laneno-as-priority</para><para>Interprets the number of lanes
           as an edges priority.</para></listitem><listitem><para>OPTIONAL:
           --all-logics</para><para>Computes and saves all possible cliques and
           phases for a traffic light instead of the fastest one only.</para><caution><para><inlinegraphic
           fileref="./gfx/attention_small.gif" format="GIF" /> This process may
-          be very time consuming.</para></caution></listitem><listitem><para>OPTIONAL:
-          --keep-small-tyellow</para><para>If a given yellow-time is smaller
-          than the computed, it is normally replaced by the computed one and a
-          warning is printed. Setting this option, you force NETCONVERT to
-          keep the given time yellow light shall be shown (for a certain
-          signal).</para></listitem></itemizedlist></para>
+          be very time consuming.</para></caution></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -1833,6 +1875,16 @@
           [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
 
@@ -1937,6 +1989,16 @@
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
       </sect2>
 
       <sect2>
@@ -1993,6 +2055,16 @@
           (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
+        </sect3>
       </sect2>
 
       <sect2>
@@ -2018,6 +2090,16 @@
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Random number options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
+          the random number generator with the current time (in ms) in the
+          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
+          generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
