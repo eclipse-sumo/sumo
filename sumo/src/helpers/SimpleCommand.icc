@@ -46,8 +46,8 @@ inline SimpleCommand< T >::~SimpleCommand< T >( void )
 //---------------------------------------------------------------------------//
 
 
-template< class T > MSNet::Time
-inline SimpleCommand< T >::execute()
+template< class T > inline MSNet::Time
+SimpleCommand< T >::execute()
 {
     return ( myReceiver->*myOperation )();
 }
@@ -60,6 +60,9 @@ inline SimpleCommand< T >::execute()
 
 
 // $Log$
+// Revision 1.3  2003/06/04 16:07:35  roessel
+// Positioned the inline at the proper place.
+//
 // Revision 1.2  2003/02/07 10:40:13  dkrajzew
 // updated
 //
