@@ -162,8 +162,10 @@ dnl perform program name transformation
 AC_ARG_PROGRAM
 
 dnl add here all your Makefiles. These will be created by configure
-AC_OUTPUT(sumo/data/config/Makefile
+AC_OUTPUT(
+sumo/data/config/Makefile
 sumo/data/detectors/Makefile
+sumo/data/junctions/Makefile
 sumo/data/nets/Makefile
 sumo/data/routes/Makefile
 sumo/data/routedefs/Makefile
