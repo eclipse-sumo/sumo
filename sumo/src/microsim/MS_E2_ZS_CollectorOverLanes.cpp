@@ -13,7 +13,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         MSUnit::Seconds deleteDataAfterSeconds)
         : startPosM(startPos),
         deleteDataAfterSecondsM(deleteDataAfterSeconds),
-        haltingTimeThresholdM(haltingSpeedThreshold),
+        haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold),
         jamDistThresholdM(jamDistThreshold),
         myID(id), myStartLaneID(lane->id())
