@@ -33,28 +33,28 @@ bool
 GUILaneStateReporter::updateEachTimestep( void )
 {
     // density
-    double val = getAggregate(E2::DENSITY, 1);
+    float val = (float) getAggregate(E2::DENSITY, 1);
     if(myDensityRetriever!=0) {
         myDensityRetriever->add(val);
     }
     myFloatingDensity =
         myFloatingDensity * gAggregationRememberingFactor
-        + val * (1.0 - gAggregationRememberingFactor);
+        + val * (1.0f - gAggregationRememberingFactor);
     // speed
-    val = getAggregate(E2::SPACE_MEAN_SPEED, 1);
+    val = (float) getAggregate(E2::SPACE_MEAN_SPEED, 1);
     if(mySpeedRetriever!=0) {
         mySpeedRetriever->add(val);
     }
     myFloatingSpeed =
         myFloatingSpeed * gAggregationRememberingFactor
-        + val * (1.0 - gAggregationRememberingFactor);
+        + val * (1.0f - gAggregationRememberingFactor);
     // halts
-    val = getAggregate(E2::HALTING_DURATION_MEAN, 1);
+    val = (float) getAggregate(E2::HALTING_DURATION_MEAN, 1);
     if(myHaltingDurRetriever!=0) {
         myHaltingDurRetriever->add(val);
     }
     myFloatingHaltings =
         myFloatingHaltings * gAggregationRememberingFactor
-        + val * (1.0 - gAggregationRememberingFactor);
+        + val * (1.0f - gAggregationRememberingFactor);
     return true;
 }

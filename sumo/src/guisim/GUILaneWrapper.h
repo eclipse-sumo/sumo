@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.15  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -77,12 +80,13 @@
 #include <utility>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSE2Collector.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/foxtools/FXMutex.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/drawer/GUILaneRepresentation.h>
 
 
 /* =========================================================================
@@ -106,8 +110,7 @@ class MSEdge;
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
  */
-class GUILaneWrapper :
-            public GUIGlObject {
+class GUILaneWrapper : public GUILaneRepresentation {
 public:
     /// constructor
     GUILaneWrapper( GUIGlObjectStorage &idStorage,
@@ -116,12 +119,12 @@ public:
     /// destructor
     virtual ~GUILaneWrapper();
 
-    /// Returns a popup-menu fpr lanes
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    /// Returns a popup-menu for lanes
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+        GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
@@ -129,6 +132,7 @@ public:
     /** returns the length of the lane */
     double getLength() const;
 
+	//{
     /** returns the begin position of the lane */
     const Position2D &getBegin() const;
 
@@ -145,6 +149,11 @@ public:
         real length */
     double visLength() const;
 
+    const Position2DVector &getShape() const;
+    const DoubleVector &getShapeRotations() const;
+    const DoubleVector &getShapeLengths() const;
+	//}
+
     /** returns the purpose (source, sink, normal) of the parent edge */
     MSEdge::EdgeBasicFunction getPurpose() const;
 
@@ -160,9 +169,6 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
-    const Position2DVector &getShape() const;
-    const DoubleVector &getShapeRotations() const;
-    const DoubleVector &getShapeLengths() const;
 
     const MSLane::VehCont &getVehiclesSecure();
     void releaseVehicles();
@@ -185,6 +191,9 @@ public:
 
     const MSEdge& getMSEdge() const;
 
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 protected:
     bool active() const { return true; }
@@ -229,8 +238,6 @@ protected:
     float myAggregatedFloats[3];
 
     static size_t myAggregationSizes[];
-
-
 
 };
 

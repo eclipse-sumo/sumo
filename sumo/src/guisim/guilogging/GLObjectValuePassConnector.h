@@ -1,7 +1,7 @@
 #ifndef GLObjectValuePassConnector_h
 #define GLObjectValuePassConnector_h
 
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <microsim/MSUpdateEachTimestep.h>
 #include <helpers/ValueSource.h>
 #include <helpers/ValueRetriever.h>

@@ -1,7 +1,7 @@
 #ifndef GUILaneStateReporter_h
 #define GUILaneStateReporter_h
 
-#include <microsim/MSE2Collector.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSUpdateEachTimestep.h>

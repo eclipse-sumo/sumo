@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.8  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -59,12 +62,12 @@ namespace
 #include <iostream> // !!!
 #include <utility>
 #include <guisim/GUINet.h>
-#include <gui/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUINetWrapper.h"
-#include <gui/popup/GUIGLObjectPopupMenu.h>
-#include <gui/partable/GUIParameterTableWindow.h>
-#include <gui/GUIAppEnum.h>
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
@@ -95,7 +98,7 @@ GUINetWrapper::~GUINetWrapper()
 
 
 GUIGLObjectPopupMenu *
-GUINetWrapper::getPopUpMenu(GUIApplicationWindow &app,
+GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -110,7 +113,7 @@ GUINetWrapper::getPopUpMenu(GUIApplicationWindow &app,
 
 
 GUIParameterTableWindow *
-GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUINetWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -132,6 +135,10 @@ GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
         new CastingFunctionBinding<MSVehicleControl, double, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getLoadedVehicleNo));
+    ret->mkItem("vehicles waiting [#]", true,
+        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+            &(getNet().getVehicleControl()),
+            &MSVehicleControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
         OptionsSubSys::getOptions().getInt("e"));
     ret->mkItem("begin time [s]", false,
@@ -160,10 +167,10 @@ GUINetWrapper::microsimID() const
 }
 
 
-Boundery
-GUINetWrapper::getBoundery() const
+Boundary
+GUINetWrapper::getBoundary() const
 {
-    return myNet.getBoundery();
+    return myNet.getBoundary();
 }
 
 
@@ -173,13 +180,14 @@ GUINetWrapper::getNet() const
     return myNet;
 }
 
-
+Boundary
+GUINetWrapper::getCenteringBoundary() const
+{
+	return getBoundary();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUINetWrapper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

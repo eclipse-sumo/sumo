@@ -20,18 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.3  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
 // Revision 1.2  2003/11/26 09:48:58  dkrajzew
 // time display added to the tl-logic visualisation
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <gui/GUIGlObject.h>
-#include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 
 /* =========================================================================
@@ -39,6 +42,7 @@
  * ======================================================================= */
 class GUIGlObjectStorage;
 class MSTrafficLightLogic;
+class GUIMainWindow;
 
 
 /* =========================================================================
@@ -60,11 +64,11 @@ public:
     ~GUITrafficLightLogicWrapper();
 
     /// Returns an own popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window
-    GUIParameterTableWindow *getParameterWindow(GUIApplicationWindow &app,
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
@@ -81,12 +85,36 @@ public:
 
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void showPhases();
+
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
+
+public:
+    class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
+    public:
+
+        GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow &app,
+            GUISUMOAbstractView &parent, GUIGlObject &o);
+
+        ~GUITrafficLightLogicWrapperPopupMenu();
+
+        /// Called if the phases shall be shown
+        long onCmdShowPhases(FXObject*,FXSelector,void*);
+
+
+    protected:
+        GUITrafficLightLogicWrapperPopupMenu() { }
+
+    };
+
 private:
     /// The wrapped tl-logic
     MSTrafficLightLogic &myTLLogic;
 
     /// The main application
-    GUIApplicationWindow *myApp;
+    GUIMainWindow *myApp;
 
 };
 

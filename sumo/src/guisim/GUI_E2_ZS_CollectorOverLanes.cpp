@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.7  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -57,17 +60,17 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <microsim/MSInductLoop.h>
-#include <gui/GUIGlObject.h>
+#include <microsim/output/MSInductLoop.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_CollectorOverLanes.h"
-#include <gui/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <guisim/GUIEdge.h>
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
-#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -156,7 +159,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUIDetectorWrapper *dw =
             c->buildDetectorWrapper(idStorage, w, detector, glID);
         mySubWrappers.push_back(dw);
-        myBoundery.add(dw->getBoundery());
+        myBoundary.add(dw->getBoundary());
     }
 }
 
@@ -169,15 +172,15 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper()
 }
 
 
-Boundery
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getBoundery() const
+Boundary
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::getBoundary() const
 {
-    return myBoundery;
+    return myBoundary;
 }
 
 
 GUIParameterTableWindow *
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIMainWindow &app,
                                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -267,7 +270,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale)
 Position2D
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::getPosition() const
 {
-    return myBoundery.getCenter();
+    return myBoundary.getCenter();
 }
 
 

@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.1  2004/07/02 08:55:10  dkrajzew
 // visualisation of vss added
-//
 //
 /* =========================================================================
  * included modules
@@ -35,9 +37,10 @@
 #include <string>
 #include <helpers/Command.h>
 #include <microsim/MSLaneSpeedTrigger.h>
-#include <gui/GUIGlObject.h>
-#include <gui/GUIGlObject_AAManipulatable.h>
-#include <utils/geom/HaveBoundery.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 
 
@@ -58,7 +61,7 @@ class GUIManipulator;
  */
 class GUILaneSpeedTrigger
     : public MSLaneSpeedTrigger,
-    public GUIGlObject_AAManipulatable {
+    public GUIGlObject_AbstractAdd {
 public:
     /** constructor */
     GUILaneSpeedTrigger(const std::string &id, MSNet &net,
@@ -70,11 +73,11 @@ public:
 
     //@{ From GUIGlObject
     /// Returns an own popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window
-    GUIParameterTableWindow *getParameterWindow(GUIApplicationWindow &app,
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
@@ -98,12 +101,12 @@ public:
     double getDefaultSpeed() const;
 
 
-    Boundery getBoundery() const;
+    Boundary getBoundary() const;
 
     /// Returns the current speed
     double getCurrentSpeed() const;
 
-    GUIManipulator *openManipulator(GUIApplicationWindow &app,
+    GUIManipulator *openManipulator(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     void setOverriding(bool val);
@@ -119,6 +122,24 @@ protected:
         element begins */
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
+
+public:
+    class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GUILaneSpeedTriggerPopupMenu)
+    public:
+
+        GUILaneSpeedTriggerPopupMenu(GUIMainWindow &app,
+            GUISUMOAbstractView &parent, GUIGlObject &o);
+
+        ~GUILaneSpeedTriggerPopupMenu();
+
+        /** @brief Called if the object's manipulator shall be shown */
+        long onCmdOpenManip(FXObject*,FXSelector,void*);
+
+    protected:
+        GUILaneSpeedTriggerPopupMenu() { }
+
+    };
 
 private:
     /// Definition of a positions container

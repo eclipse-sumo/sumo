@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.21  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -103,18 +106,18 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include <microsim/MSNet.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUINet.h>
-#include <gui/GUIAppEnum.h>
-#include <gui/icons/GUIIconSubSys.h>
-#include <gui/partable/GUIParameterTableWindow.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -138,7 +141,7 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
  * ======================================================================= */
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
-    : GUIGlObject(idStorage, string("lane:")+lane.id()),
+    : GUILaneRepresentation(idStorage, string("lane:")+lane.id()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
     double x1 = shape.at(0).x();
@@ -254,7 +257,7 @@ GUILaneWrapper::forLane(const MSLane &lane) const
 
 
 GUIGLObjectPopupMenu *
-GUILaneWrapper::getPopUpMenu(GUIApplicationWindow &app,
+GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
                              GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -280,7 +283,7 @@ GUILaneWrapper::getPopUpMenu(GUIApplicationWindow &app,
 
 
 GUIParameterTableWindow *
-GUILaneWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -353,7 +356,7 @@ GUILaneWrapper::buildAggregatedValuesStorage()
     }
     // make them read from lane
     myAggregatedFloats[0] = 0; // density
-    myAggregatedFloats[1] = myLane.maxSpeed(); // speed
+    myAggregatedFloats[1] = (float) myLane.maxSpeed(); // speed
     myAggregatedFloats[2] = 0; // haltings
     string id = string("*") + myLane.id();
     if(gAllowAggregatedFloating) {
@@ -386,10 +389,10 @@ GUILaneWrapper::getAggregatedNormed(E2::DetType what,
     case E2::HALTING_DURATION_MEAN:
         {
             double val = myAggregatedValues[2]->getAvg();
-            if(val>MSGlobals::myTimeToGridlock) {
+            if(val>MSGlobals::gTimeToGridlock) {
                 return 1;
             } else {
-                return val / (double) MSGlobals::myTimeToGridlock;
+                return val / (double) MSGlobals::gTimeToGridlock;
             }
         }
     default:
@@ -409,10 +412,10 @@ GUILaneWrapper::getAggregatedFloat(E2::DetType what) const
     case E2::HALTING_DURATION_MEAN:
         {
             double val = myAggregatedFloats[2];
-            if(val>MSGlobals::myTimeToGridlock) {
+            if(val>MSGlobals::gTimeToGridlock) {
                 return 1;
             } else {
-                return val / (double) MSGlobals::myTimeToGridlock;
+                return val / (double) MSGlobals::gTimeToGridlock;
             }
         }
     default:
@@ -460,6 +463,17 @@ const MSEdge&
 GUILaneWrapper::getMSEdge() const
 {
     return myLane.edge();
+}
+
+
+Boundary
+GUILaneWrapper::getCenteringBoundary() const
+{
+	Boundary b;
+	b.add(_begin);
+	b.add(_end);
+	b.grow(20);
+	return b;
 }
 
 

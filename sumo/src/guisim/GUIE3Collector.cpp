@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.5  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -48,8 +51,8 @@ namespace
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
 #include <utils/geom/Line2D.h>
-#include <gui/partable/GUIParameterTableWindow.h>
-#include <gui/textures/GUITexturesHelper.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -86,14 +89,14 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
     Detector::CrossSections::const_iterator i;
     for(i=entries.begin(); i!=entries.end(); i++) {
         SingleCrossingDefinition def = buildDefinition(*i, false);
-        myBoundery.add(def.mySGPosition);
-        myBoundery.add(def.myFGPosition);
+        myBoundary.add(def.mySGPosition);
+        myBoundary.add(def.myFGPosition);
         myEntryDefinitions.push_back(def);
     }
     for(i=exits.begin(); i!=exits.end(); i++) {
         SingleCrossingDefinition def = buildDefinition(*i, true);
-        myBoundery.add(def.mySGPosition);
-        myBoundery.add(def.myFGPosition);
+        myBoundary.add(def.mySGPosition);
+        myBoundary.add(def.myFGPosition);
         myExitDefinitions.push_back(def);
     }
 }
@@ -125,15 +128,15 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
 }
 
 
-Boundery
-GUIE3Collector::MyWrapper::getBoundery() const
+Boundary
+GUIE3Collector::MyWrapper::getBoundary() const
 {
-    return myBoundery;
+    return myBoundary;
 }
 
 
 GUIParameterTableWindow *
-GUIE3Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
                                               GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -184,11 +187,11 @@ GUIE3Collector::MyWrapper::drawGL_SG(double scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
-    glColor3f(0, .8, 0);
+    glColor3d(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
         drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
     }
-    glColor3f(.8, 0, 0);
+    glColor3d(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
         drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
     }
@@ -200,11 +203,11 @@ GUIE3Collector::MyWrapper::drawGL_FG(double scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
-    glColor3f(0, .8, 0);
+    glColor3d(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
     }
-    glColor3f(.8, 0, 0);
+    glColor3d(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
     }
@@ -220,14 +223,14 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
     glTranslated(pos.x(), pos.y(), 0);
     glRotated( rot, 0, 0, 1 );
     glBegin( GL_LINES);
-    glVertex2f(1.7, 0);
-    glVertex2f(-1.7, 0);
+    glVertex2d(1.7, 0);
+    glVertex2d(-1.7, 0);
     glEnd();
     glBegin( GL_QUADS );
-    glVertex2f(-1.7, .5);
-    glVertex2f(-1.7, -.5);
-    glVertex2f(1.7, -.5);
-    glVertex2f(1.7, .5);
+    glVertex2d(-1.7, .5);
+    glVertex2d(-1.7, -.5);
+    glVertex2d(1.7, -.5);
+    glVertex2d(1.7, .5);
     glEnd();
     // arrows
     glTranslated(1.5, 0, 0);
@@ -241,7 +244,7 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
 Position2D
 GUIE3Collector::MyWrapper::getPosition() const
 {
-    return myBoundery.getCenter();
+    return myBoundary.getCenter();
 }
 
 

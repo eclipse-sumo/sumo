@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.9  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -43,7 +46,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MSE2Collector.h>
+#include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
@@ -116,8 +119,8 @@ public:
         /// Destrutor
         ~MyWrapper();
 
-        /// Returns the boundery of the wrapped detector
-        Boundery getBoundery() const;
+        /// Returns the boundary of the wrapped detector
+        Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale);
@@ -127,7 +130,7 @@ public:
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
-            GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+            GUIMainWindow &app, GUISUMOAbstractView &parent);
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
@@ -157,8 +160,8 @@ public:
         /// The wrapped detector
         GUI_E2_ZS_Collector &myDetector;
 
-        /// The detector's boundery //!!!what about SG/FG
-        Boundery myBoundery;
+        /// The detector's boundary //!!!what about SG/FG
+        Boundary myBoundary;
 
         /// The position in simple-geometry mode
         Position2D mySGPosition;

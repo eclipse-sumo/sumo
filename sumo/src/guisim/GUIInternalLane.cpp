@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.16  2004/08/02 11:57:34  dkrajzew
 // debugging
 //
@@ -198,15 +201,9 @@ GUIInternalLane::push( MSVehicle* veh )
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        MsgHandler::getWarningInstance()->inform(
-            string("Vehicle '") + veh->id()
-            + string("' beamed due to a collision on push!\n")
-            + string("  Lane: '") + id() + string("', previous vehicle: '")
-            + prev->id() + string("', time: ")
-            + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
-            + string("."));
-        veh->onTripEnd(*this);
-        veh->removeApproachingInformationOnKill(this);
+        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        veh->onTripEnd(/* *this*/);
+        veh->removeApproachingInformationOnKill(/*this*/);
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         // maybe the vehicle is being tracked; mark as not within the simulation any longer

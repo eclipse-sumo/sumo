@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
+// Revision 1.2  2004/10/29 06:01:54  dksumo
+// renamed boundery to boundary
+//
+// Revision 1.1  2004/10/22 12:49:17  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.12  2004/04/02 11:20:35  dkrajzew
 // changes needed to visualise the selection status
 //
@@ -27,7 +36,9 @@
 // porting to FOX
 //
 // Revision 1.10  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation; variable offsets
+//  and lengths for lsa-detectors; coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.9  2003/11/11 08:13:23  dkrajzew
 // consequent usage of Position2D instead of two doubles
@@ -42,7 +53,8 @@
 // changes due to new detector handling
 //
 // Revision 1.5  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner
+//  than GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.4  2003/03/17 14:09:10  dkrajzew
 // Windows eol removed
@@ -53,9 +65,6 @@
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -66,10 +75,10 @@
 #include <vector>
 #include <string>
 #include <utils/geom/Position2D.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
 
 
@@ -86,7 +95,7 @@ class GUIGlObjectStorage;
  * class definitions
  * ======================================================================= */
 /**
- * This is the gui-version of the MSEgde
+ * This is the gui-version of the MSEdge
  */
 class GUIEdge : public MSEdge, public GUIGlObject
 {
@@ -108,7 +117,7 @@ public:
     static std::vector<size_t> getIDs();
 
     /// Returns the street's geometry
-    Boundery getBoundery() const;
+    Boundary getBoundary() const;
 
     /// returns the id of the edge (!!! not already implemented in MSEdge?)
     std::string getID() const;
@@ -143,12 +152,12 @@ public:
 
     /// Returns an own popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent)
+        GUIMainWindow &app, GUISUMOAbstractView &parent)
         { throw 1; }
 
     /// Returns an own parameter window
     virtual GUIParameterTableWindow *getParameterWindow(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent)
+        GUIMainWindow &app, GUISUMOAbstractView &parent)
         { throw 1; }
 
     /// Returns the type of the object as coded in GUIGlObjectType
@@ -158,6 +167,10 @@ public:
     std::string microsimID() const;
 
     bool active() const;
+
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 private:
 

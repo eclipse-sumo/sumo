@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.27  2004/08/02 11:57:34  dkrajzew
 // debugging
 //
@@ -120,7 +123,7 @@ namespace
 #include <microsim/MSNet.h>
 #include "GUILane.h"
 #include "GUIVehicle.h"
-#include <gui/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUINet.h"
 
 
@@ -225,16 +228,10 @@ GUILane::push( MSVehicle* veh )
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        MsgHandler::getWarningInstance()->inform(
-            string("Vehicle '") + veh->id()
-            + string("' beamed due to a collision on push!\n")
-            + string("  Lane: '") + id() + string("', previous vehicle: '")
-            + prev->id() + string("', time: ")
-            + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
-            + string("."));
-       veh->onTripEnd(*this);
+        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+       veh->onTripEnd(/* *this*/);
         resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
-        veh->removeApproachingInformationOnKill(this);
+        veh->removeApproachingInformationOnKill(/*this*/);
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         // maybe the vehicle is being tracked; mark as not within the simulation any longer
@@ -253,9 +250,9 @@ GUILane::push( MSVehicle* veh )
 //        setApproaching(veh->pos(), veh);
         return false;
     } else {
-        veh->onTripEnd(*this);
+        veh->onTripEnd(/* *this */);
         resetApproacherDistance();
-        veh->removeApproachingInformationOnKill(this);
+        veh->removeApproachingInformationOnKill(/*this*/);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         _lock.unlock();//Display();
         return true;

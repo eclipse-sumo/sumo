@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.26  2004/08/02 11:58:00  dkrajzew
 // using OutputDevices instead of ostreams
 //
@@ -105,9 +108,9 @@
 #include <string>
 #include <utility>
 #include <microsim/MSNet.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
-#include "GUIGrid.h"
+#include <utils/gui/windows/GUIGrid.h>
 
 
 /* =========================================================================
@@ -123,11 +126,11 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
-class GUIEmitterWrapper;
 class GUITriggerWrapper;
 class GUINetWrapper;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
+class GUIEdge;
 class OutputDevice;
 
 
@@ -154,17 +157,17 @@ public:
     ~GUINet();
 
     /// returns the bounder of the network
-    const Boundery &getBoundery() const;
+    const Boundary &getBoundary() const;
 
     /// preinitialises the network (before the network is loaded
     static void preInitGUINet( MSNet::Time startTimeStep,
-        MSVehicleControl *vc,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+        MSVehicleControl *vc);
 
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
         MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
-        const std::vector<OutputDevice*> &streams);
+        const std::vector<OutputDevice*> &streams,
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;
@@ -173,23 +176,11 @@ public:
     Position2D getVehiclePosition(const std::string &name,
         bool useCenter=true) const;
 
-    /// returns the position of a detector
-//    Position2D getAdditionalStructPosition(const std::string &name) const;
-
-    /// returns the position of a detector
-//    Position2D getDetectorPosition(const std::string &name) const;
-
-    /// returns the position of an emitter
-//    Position2D getEmitterPosition(const std::string &name) const;
-
-    /// returns the position of a trigger
-//    Position2D getTriggerPosition(const std::string &name) const;
-
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;
 
-    /// returns the boundery of an edge
-    Boundery getEdgeBoundery(const std::string &name) const;
+    /// returns the boundary of an edge
+    Boundary getEdgeBoundary(const std::string &name) const;
 
     /// Some further steps needed for gui processing
     void guiSimulationStep();
@@ -202,11 +193,13 @@ public:
 
     std::vector<size_t> getJunctionIDs() const; // !!! should not be done herein
 
+    std::vector<size_t> getAdditionalIDs() const;
+
 
     friend class GUIViewTraffic; // !!!
     friend class GUIViewAggregatedLanes; // !!!
     friend class GUISUMOAbstractView; // !!!
-    friend class GUIGrid;
+    friend class GUIGridBuilder;
 
 private:
     /// Initialises the detector wrappers
@@ -222,8 +215,8 @@ protected:
     /** A grid laid over the network to allow the drawing of visible items only */
     GUIGrid _grid;
 
-    /// the networks boundery
-    Boundery _boundery;
+    /// the networks boundary
+    Boundary _boundary;
 
     /// The wrapper for the network
     GUINetWrapper *myWrapper;
@@ -234,17 +227,11 @@ protected:
     /// Wrapped MS-junctions
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
 
-    /// Wrapped MS-detectors
-//    std::vector<GUIAbstractAddGlObject*> myAdditionalWrapper;
-
     /// Wrapped TL-Logics
     std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
 
     /// A detector dictionary
     std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
-
-    /// An emitter dictionary
-    std::map<std::string, GUIEmitterWrapper*> myEmitterDict;
 
     /// A link2tl-logic map
     std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;

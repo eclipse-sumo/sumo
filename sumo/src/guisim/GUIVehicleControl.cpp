@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.3  2004/07/02 08:58:30  dkrajzew
 // using global object selection
 //
@@ -39,6 +42,7 @@ namespace
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <gui/GUIGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 
 /* =========================================================================
@@ -83,14 +87,18 @@ void
 GUIVehicleControl::scheduleVehicleRemoval(MSVehicle *veh)
 {
     assert(myRunningVehNo>0);
-    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPOUTPUT)) {
-        MSCORN::compute_TripInfoOutput(veh);
+    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
+        MSCORN::compute_TripDurationsOutput(veh);
+    }
+    if(MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
+        MSCORN::compute_VehicleRouteOutput(veh);
     }
     myRunningVehNo--;
     myEndedVehNo++;
     static_cast<GUIVehicle*>(veh)->setRemoved();
-    gIDStorage.remove(
-        static_cast<GUIVehicle*>(veh)->getGlID());
+	if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
+		MSVehicle::remove(veh->id());
+	}
 }
 
 

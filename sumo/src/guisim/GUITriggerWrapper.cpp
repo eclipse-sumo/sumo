@@ -10,9 +10,9 @@ GUITriggerWrapper::~GUITriggerWrapper()
 }
 
 
-Boundery
-GUITriggerWrapper::getBoundery() const
+Boundary
+GUITriggerWrapper::getBoundary() const
 {
-    return Boundery();
+    return Boundary();
 }
 

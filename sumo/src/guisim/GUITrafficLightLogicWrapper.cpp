@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.5  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -35,24 +38,24 @@ namespace
 // Revision 1.2  2003/11/26 09:48:58  dkrajzew
 // time display added to the tl-logic visualisation
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <gui/GUIGlObject.h>
-#include <gui/GUIGlObjectStorage.h>
+#include <cassert>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
-#include <microsim/MSTrafficLightLogic.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUIAppEnum.h>
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
+#include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include "GUITrafficLightLogicWrapper.h"
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -62,8 +65,50 @@ using namespace std;
 
 
 /* =========================================================================
- * member metho definitions
+ * FOX callback mapping
  * ======================================================================= */
+FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
+    GUITrafficLightLogicWrapperPopupMenuMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,    GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
+};
+
+// Object implementation
+FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, GUIGLObjectPopupMenu, GUITrafficLightLogicWrapperPopupMenuMap, ARRAYNUMBER(GUITrafficLightLogicWrapperPopupMenuMap))
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu - methods
+ * ----------------------------------------------------------------------- */
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
+        GUIMainWindow &app, GUISUMOAbstractView &parent,
+        GUIGlObject &o)
+    : GUIGLObjectPopupMenu(app, parent, o)
+{
+}
+
+
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu()
+{
+}
+
+
+long
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases(
+        FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper*>(myObject)->showPhases();
+    return 1;
+}
+
+
+/* -------------------------------------------------------------------------
+ * GUITrafficLightLogicWrapper - methods
+ * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
         GUIGlObjectStorage &idStorage, MSTrafficLightLogic &tll)
     : GUIGlObject(idStorage, string("tl-logic:")+tll.id()), myTLLogic(tll)
@@ -77,11 +122,12 @@ GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper()
 
 
 GUIGLObjectPopupMenu *
-GUITrafficLightLogicWrapper::getPopUpMenu(GUIApplicationWindow &app,
+GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
                                           GUISUMOAbstractView &parent)
 {
     myApp = &app;
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu *ret =
+        new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
@@ -125,7 +171,7 @@ GUITrafficLightLogicWrapper::getPhaseDef() const
 
 
 GUIParameterTableWindow *
-GUITrafficLightLogicWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &app,
                                                 GUISUMOAbstractView &parent)
 {
     return 0;
@@ -152,6 +198,11 @@ GUITrafficLightLogicWrapper::microsimID() const
     return myTLLogic.id();
 }
 
+Boundary
+GUITrafficLightLogicWrapper::getCenteringBoundary() const
+{
+	throw 1;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

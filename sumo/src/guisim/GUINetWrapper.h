@@ -21,12 +21,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.2  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
 // Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
-//
 //
 /* =========================================================================
  * included modules
@@ -38,11 +40,11 @@
 #include <string>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/HaveBoundery.h>
+#include <utils/geom/HaveBoundary.h>
 #include <utils/foxtools/FXMutex.h>
-#include <gui/GUIGlObjectStorage.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 /* =========================================================================
@@ -58,7 +60,7 @@ class GUINet;
  */
 class GUINetWrapper :
             public GUIGlObject,
-            public HaveBoundery {
+            public HaveBoundary {
 public:
     /// constructor
     GUINetWrapper( GUIGlObjectStorage &idStorage,
@@ -68,11 +70,11 @@ public:
     virtual ~GUINetWrapper();
 
     /// Returns a popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+        GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
@@ -80,9 +82,13 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
-    Boundery getBoundery() const;
+    Boundary getBoundary() const;
 
     GUINet &getNet() const;
+
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 protected:
 
@@ -95,9 +101,6 @@ protected:
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUINetWrapper.icc"
-//#endif
 
 #endif
 

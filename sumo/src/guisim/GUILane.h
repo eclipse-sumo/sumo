@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.9  2004/07/02 08:52:49  dkrajzew
 // numerical id added (for online-routing)
 //
@@ -84,7 +87,7 @@ class GUILane :
 public:
     /// constructor
     GUILane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge* egde, size_t numericalID,
+        double length, MSEdge* edge, size_t numericalID,
         const Position2DVector &shape );
 
     /// destructor

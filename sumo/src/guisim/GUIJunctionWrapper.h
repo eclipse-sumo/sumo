@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.8  2004/04/02 11:18:37  dkrajzew
 // recenter view - icon added to the popup menu
 //
@@ -56,11 +59,11 @@
 #include <string>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/HaveBoundery.h>
+#include <utils/geom/HaveBoundary.h>
 #include <utils/foxtools/FXMutex.h>
-#include <gui/GUIGlObjectStorage.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 /* =========================================================================
@@ -81,7 +84,7 @@ class MSJunction;
  */
 class GUIJunctionWrapper :
             public GUIGlObject,
-            public HaveBoundery {
+            public HaveBoundary {
 public:
     /// constructor
     GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
@@ -92,13 +95,13 @@ public:
     virtual ~GUIJunctionWrapper();
 
     /// Returns a popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /** @brief Build this gl-object's parameter window
         Throws an exception in fact as junctions do not have any parameter */
     GUIParameterTableWindow *getParameterWindow(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+        GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
@@ -109,8 +112,12 @@ public:
     /// returns the shape of the junction
     const Position2DVector &getShape() const;
 
-    /// Returns the boundery of the junction
-    Boundery getBoundery() const;
+    /// Returns the boundary of the junction
+    Boundary getBoundary() const;
+
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 protected:
 

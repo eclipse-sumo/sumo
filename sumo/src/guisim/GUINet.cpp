@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.35  2004/08/02 11:58:00  dkrajzew
 // using OutputDevices instead of ostreams
 //
@@ -140,21 +143,20 @@ namespace
 #include <set>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
-#include <microsim/MSInductLoop.h>
-#include <microsim/MSDetectorSubSys.h>
+#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSDetectorSubSys.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
-#include <microsim/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/NamedObjectContSingleton.h>
-#include <gui/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
-#include <gui/GUIExcp_VehicleIsInvisible.h>
-//#include <guisim/GUIEmitterWrapper.h>
+#include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
@@ -170,13 +172,15 @@ namespace
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIHelpingJunction.h"
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include "GUIGridBuilder.h"
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUINet::GUINet()
-    : MSNet(), _grid(*this, 10, 10),
+    : MSNet(), _grid(10, 10),
     myWrapper(new GUINetWrapper(gIDStorage, *this))
 {
 }
@@ -205,30 +209,22 @@ GUINet::~GUINet()
         // of the network itself
     delete myWrapper;
     GUIE3Collector::clearInstances();
-    // remove further gui-structures
-//    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->clear();
-//    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->clear();
-//    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->clear();
-
 }
 
 
-const Boundery &
-GUINet::getBoundery() const
+const Boundary &
+GUINet::getBoundary() const
 {
-    return _boundery;
+    return _boundary;
 }
 
 
 void
 GUINet::preInitGUINet( MSNet::Time startTimeStep,
-                      MSVehicleControl *vc,
-                      TimeVector dumpMeanDataIntervalls,
-                      std::string baseNameDumpFiles )
+                      MSVehicleControl *vc)
 {
     myInstance = new GUINet();
-    MSNet::preInit(startTimeStep, vc,
-        dumpMeanDataIntervalls, baseNameDumpFiles);
+    MSNet::preInit(startTimeStep, vc);
 }
 
 
@@ -237,9 +233,12 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
                    MSJunctionControl* jc,
                    MSRouteLoaderControl *rlc,
                    MSTLLogicControl *tlc,
-                   const std::vector<OutputDevice*> &streams)
+                   const std::vector<OutputDevice*> &streams,
+                      TimeVector dumpMeanDataIntervalls,
+                      std::string baseNameDumpFiles )
 {
-    MSNet::init(id, ec, jc, rlc, tlc, streams);
+    MSNet::init(id, ec, jc, rlc, tlc, streams,
+        dumpMeanDataIntervalls, baseNameDumpFiles);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
     GUIEdge::fill(net->myEdgeWrapper);
@@ -250,9 +249,10 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
     // initialise the tl-map
     initTLMap();
     // build the grid
-    net->_grid.init();
-    // get the boundery
-    net->_boundery = net->_grid.getBoundery();
+	GUIGridBuilder b(*net, net->_grid);
+	b.build();
+    // get the boundary
+    net->_boundary = net->_grid.getBoundary();
 }
 
 
@@ -263,7 +263,6 @@ GUINet::initDetectors()
     // e2-detectors
     MSDetectorSubSys::E2Dict::ValueVector loopVec2(
         MSDetectorSubSys::E2Dict::getInstance()->getStdVector() );
-//    net->myAdditionalWrapper.reserve(loopVec2.size()+net->myAdditionalWrapper.size());
     for(MSDetectorSubSys::E2Dict::ValueVector::iterator
         i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
         const MSLane *lane = (*i2)->getLane();
@@ -278,30 +277,24 @@ GUINet::initDetectors()
         GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
                 gIDStorage, edge->getLaneGeometry(lane));
-        // add to list
-//        net->myAdditionalWrapper.push_back(wrapper);
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // e2 over lanes -detectors
     MSDetectorSubSys::E2ZSOLDict::ValueVector loopVec3(
         MSDetectorSubSys::E2ZSOLDict::getInstance()->getStdVector() );
-//    net->myAdditionalWrapper.reserve(loopVec2.size()+net->myAdditionalWrapper.size());
     for(MSDetectorSubSys::E2ZSOLDict::ValueVector::iterator
         i3=loopVec3.begin(); i3!=loopVec3.end(); i3++) {
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_CollectorOverLanes*>(*i3)->buildDetectorWrapper(
                 gIDStorage);
-        // add to list
-//        net->myAdditionalWrapper.push_back(wrapper);
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // e1-detectors
     MSDetectorSubSys::LoopDict::ValueVector loopVec(
         MSDetectorSubSys::LoopDict::getInstance()->getStdVector() );
-//    net->myAdditionalWrapper.reserve(loopVec.size()+net->myAdditionalWrapper.size());
     for(MSDetectorSubSys::LoopDict::ValueVector::iterator
         i=loopVec.begin(); i!=loopVec.end(); i++) {
         const MSLane *lane = (*i)->getLane();
@@ -311,20 +304,15 @@ GUINet::initDetectors()
         GUIDetectorWrapper *wrapper =
             (*i)->buildDetectorWrapper(
                 gIDStorage, edge->getLaneGeometry(lane));
-        // add to list
-//        net->myAdditionalWrapper.push_back(wrapper);
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // e3-detectors
     const GUIE3Collector::InstanceVector &loopVec4 = GUIE3Collector::getInstances();
-//    net->myAdditionalWrapper.reserve(loopVec4.size()+net->myAdditionalWrapper.size());
     for(GUIE3Collector::InstanceVector::const_iterator i4=loopVec4.begin(); i4!=loopVec4.end(); i4++) {
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             (*i4)->buildDetectorWrapper(gIDStorage);
-        // add to list
-//        net->myAdditionalWrapper.push_back(wrapper);
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
@@ -359,7 +347,6 @@ GUINet::initTLMap()
                 net->myLinks2Logic[*j2] = tllw;
             }
         }
-        // save the wrapper
     }
 }
 
@@ -391,38 +378,6 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
     return edge->getLanePosition(vehicle->getLane(), pos);
 }
 
-/*
-Position2D
-GUINet::getDetectorPosition(const std::string &name) const
-{
-    std::map<std::string, GUIDetectorWrapper*>::const_iterator i=
-        myDetectorDict.find(name);
-    assert(i!=myDetectorDict.end());
-    GUIDetectorWrapper *tmp = (*i).second;
-    return (*i).second->getPosition();
-}
-*/
-/*
-Position2D
-GUINet::getEmitterPosition(const std::string &name) const
-{
-    std::map<std::string, GUIEmitterWrapper*>::const_iterator i=
-        myEmitterDict.find(name);
-    assert(i!=myEmitterDict.end());
-    return (*i).second->getPosition();
-}
-*/
-/*
-Position2D
-GUINet::getTriggerPosition(const std::string &name) const
-{
-    GUILaneSpeedTrigger *trigger =
-        static_cast<GUILaneSpeedTrigger*>
-            (NamedObjectContSingleton<MSTrigger*>::getInstance().get(name));
-    assert(trigger!=0);
-    return trigger->getPosition();
-}
-*/
 
 bool
 GUINet::vehicleExists(const std::string &name) const
@@ -431,21 +386,13 @@ GUINet::vehicleExists(const std::string &name) const
 }
 
 
-Boundery
-GUINet::getEdgeBoundery(const std::string &name) const
+Boundary
+GUINet::getEdgeBoundary(const std::string &name) const
 {
     GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
-    return edge->getBoundery();
+    return edge->getBoundary();
 }
 
-/*
-size_t
-GUINet::getDetectorWrapperNo() const
-{
-    // !!! maybe this should return all the values for lanes, junction, detectors etc.
-    return myAdditionalWrapper.size();
-}
-*/
 
 GUINetWrapper *
 GUINet::getWrapper() const

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.12  2004/07/02 08:41:00  dkrajzew
 // using global selection storage
 //
@@ -35,14 +38,13 @@
 // Revision 1.8  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <utils/geom/HaveBoundery.h>
+#include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
-#include <gui/GUIGlObject_AbstractAdd.h>
-#include <gui/GUISUMOAbstractView.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 
 /* =========================================================================
@@ -82,7 +84,7 @@ public:
     ~GUIDetectorWrapper();
 
     /** @brief Returns the popup-menu of this detector */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns the type of the object (always GLO_DETECTOR)

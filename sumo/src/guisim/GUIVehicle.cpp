@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.25  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -95,8 +98,6 @@ namespace
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -112,17 +113,17 @@ namespace
 #include "GUINet.h"
 #include "GUIVehicle.h"
 #include <gui/GUIApplicationWindow.h>
-#include <gui/GUISUMOAbstractView.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <gui/GUIGlobals.h>
-#include <gui/partable/GUIParameterTableWindow.h>
-#include <gui/GUIAppEnum.h>
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <gui/GUIViewTraffic.h>
 
 
 /* =========================================================================
@@ -136,6 +137,80 @@ using namespace std;
  * ======================================================================= */
 RGBColor GUIVehicle::_laneChangeColor1;
 RGBColor GUIVehicle::_laneChangeColor2;
+
+
+/* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_ALLROUTES, GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute),
+};
+
+// Object implementation
+FXIMPLEMENT(GUIVehicle::GUIVehiclePopupMenu, GUIGLObjectPopupMenu, GUIVehiclePopupMenuMap, ARRAYNUMBER(GUIVehiclePopupMenuMap))
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUIVehicle::GUIVehiclePopupMenu - methods
+ * ----------------------------------------------------------------------- */
+GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
+        GUIMainWindow &app, GUISUMOAbstractView &parent,
+        GUIGlObject &o)
+    : GUIGLObjectPopupMenu(app, parent, o)
+{
+}
+
+
+GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu()
+{
+}
+
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->showRoute(
+        static_cast<GUIVehicle*>(myObject), -1);
+    return 1;
+}
+
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->hideRoute(
+        static_cast<GUIVehicle*>(myObject), -1);
+    return 1;
+}
+
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->showRoute(
+        static_cast<GUIVehicle*>(myObject), 0);
+    return 1;
+}
+
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->hideRoute(
+        static_cast<GUIVehicle*>(myObject), 0);
+    return 1;
+}
 
 
 /* =========================================================================
@@ -270,10 +345,10 @@ GUIVehicle::getNextPeriodical() const
 
 
 GUIGLObjectPopupMenu *
-GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,
+GUIVehicle::getPopUpMenu(GUIMainWindow &app,
                          GUISUMOAbstractView &parent)
 {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
@@ -291,12 +366,22 @@ GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
+    if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, 0)) {
+        new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
+    } else {
+        new FXMenuCommand(ret, "Show Current Route", 0, ret, MID_SHOW_CURRENTROUTE);
+    }
+    if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, -1)) {
+        new FXMenuCommand(ret, "Hide All Routes", 0, ret, MID_HIDE_ALLROUTES);
+    } else {
+        new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
+    }
     return ret;
 }
 
 
 GUIParameterTableWindow *
-GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
+GUIVehicle::getParameterWindow(GUIMainWindow &app,
                                GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -379,10 +464,14 @@ GUIVehicle::getDesiredDepart() const
 }
 
 
+Boundary
+GUIVehicle::getCenteringBoundary() const
+{
+	throw 1;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIVehicle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

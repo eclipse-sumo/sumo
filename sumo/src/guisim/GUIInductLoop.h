@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.10  2004/07/02 08:42:14  dkrajzew
 // changes in the detector drawer applied
 //
@@ -28,17 +31,18 @@
 // porting to FOX
 //
 // Revision 1.8  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors; coupling of detectors to
+//  tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.7  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
-//
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MSInductLoop.h>
+#include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include "GUIDetectorWrapper.h"
@@ -90,8 +94,8 @@ public:
         /// Destructor
         ~MyWrapper();
 
-        /// Returns the boundery of the wrapped detector
-        Boundery getBoundery() const;
+        /// Returns the boundary of the wrapped detector
+        Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale);
@@ -100,7 +104,7 @@ public:
         void drawGL_SG(double scale);
 
         GUIParameterTableWindow *getParameterWindow(
-            GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+            GUIMainWindow &app, GUISUMOAbstractView &parent);
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
@@ -121,8 +125,8 @@ public:
         /// The wrapped detector
         GUIInductLoop &myDetector;
 
-        /// The detector's boundery //!!!what about SG/FG
-        Boundery myBoundery;
+        /// The detector's boundary //!!!what about SG/FG
+        Boundary myBoundary;
 
         /// The position in full-geometry mode
         Position2D myFGPosition;

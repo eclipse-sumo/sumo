@@ -20,19 +20,22 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.1  2004/07/02 08:59:58  dkrajzew
 // detector handling (handling of additional elements) revisited
 //
 
-#include <utils/geom/HaveBoundery.h>
+#include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 
 class GUITriggerWrapper
-    : public HaveBoundery {
+    : public HaveBoundary {
 public:
     GUITriggerWrapper();
     ~GUITriggerWrapper();
-    Boundery getBoundery() const;
+    Boundary getBoundary() const;
     Position2D getPosition() const;
 };
 

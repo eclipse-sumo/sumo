@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.2  2004/08/02 13:15:21  dkrajzew
 // missing "showAsKMH"-initialisation added
 //
 // Revision 1.1  2004/07/02 08:55:10  dkrajzew
 // visualisation of vss added
-//
 //
 /* =========================================================================
  * included modules
@@ -47,7 +49,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Line2D.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/glutils/GLHelper.h>
 #include <utils/convert/ToString.h>
 #include <helpers/Command.h>
@@ -57,17 +59,18 @@ namespace
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include "GUILaneSpeedTrigger.h"
-#include <gui/popup/GUIGLObjectPopupMenu.h>
-#include <gui/icons/GUIIconSubSys.h>
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <gui/GUIApplicationWindow.h>
-#include <gui/textures/GUITexturesHelper.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <gui/manipulators/GUIManip_LaneSpeedTrigger.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 
 /* =========================================================================
@@ -77,13 +80,57 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu)
+    GUILaneSpeedTriggerPopupMenuMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip),
+
+};
+
+// Object implementation
+FXIMPLEMENT(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu, GUIGLObjectPopupMenu, GUILaneSpeedTriggerPopupMenuMap, ARRAYNUMBER(GUILaneSpeedTriggerPopupMenuMap))
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - methods
+ * ----------------------------------------------------------------------- */
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
+        GUIMainWindow &app, GUISUMOAbstractView &parent,
+        GUIGlObject &o)
+    : GUIGLObjectPopupMenu(app, parent, o)
+{
+}
+
+
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu()
+{
+}
+
+
+long
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
+                                                                  FXSelector,
+                                                                  void*)
+{
+    static_cast<GUILaneSpeedTrigger*>(myObject)->openManipulator(
+        *myApplication, *myParent);
+    return 1;
+}
+
+
+/* -------------------------------------------------------------------------
+ * GUILaneSpeedTrigger - methods
+ * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
             MSNet &net, const std::vector<MSLane*> &destLanes,
             const std::string &aXMLFilename)
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
-    GUIGlObject_AAManipulatable(gIDStorage,
+    GUIGlObject_AbstractAdd(gIDStorage,
         string("speedtrigger:") + id, GLO_LANESPEEDTRIGGER),
     myAmOverriding(false), myShowAsKMH(true)
 {
@@ -115,10 +162,11 @@ GUILaneSpeedTrigger::~GUILaneSpeedTrigger()
 
 
 GUIGLObjectPopupMenu *
-GUILaneSpeedTrigger::getPopUpMenu(GUIApplicationWindow &app,
+GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
                                   GUISUMOAbstractView &parent)
 {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu *ret =
+        new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
@@ -167,7 +215,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIApplicationWindow &app,
 
 
 GUIParameterTableWindow *
-GUILaneSpeedTrigger::getParameterWindow(GUIApplicationWindow &app,
+GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
                                         GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -237,7 +285,7 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
 
         int noPoints = 9;
         if(scale>25) {
-            noPoints = 9 + scale / 10;
+            noPoints = (int) (9.0 + scale / 10.0);
             if(noPoints>36) {
                 noPoints = 36;
             }
@@ -259,7 +307,7 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
             // compute
         float value = (float) getCurrentSpeed();
         if(myShowAsKMH) {
-            value *= 3.6;
+            value *= 3.6f;
         }
         if(value!=myLastValue) {
             myLastValue = value;
@@ -279,25 +327,25 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
         glTranslated(.8,
             -((float) GUITexturesHelper::getFontRenderer().GetHeight())/2.0*.1,
             0);
-        glScalef(.1, .1, .1);
+        glScaled(.1, .1, .1);
         GUITexturesHelper::getFontRenderer().directDraw(myLastValueString);
 
         glPopMatrix();
     }
 }
 
-Boundery
-GUILaneSpeedTrigger::getBoundery() const
+Boundary
+GUILaneSpeedTrigger::getBoundary() const
 {
     Position2D pos = getPosition();
-    Boundery ret(pos.x(), pos.y(), pos.x(), pos.y());
+    Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
     ret.grow(2.0);
     return ret;
 }
 
 
 GUIManipulator *
-GUILaneSpeedTrigger::openManipulator(GUIApplicationWindow &app,
+GUILaneSpeedTrigger::openManipulator(GUIMainWindow &app,
                                      GUISUMOAbstractView &parent)
 {
     GUIManip_LaneSpeedTrigger *gui =

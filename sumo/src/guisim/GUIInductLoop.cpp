@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.11  2004/07/02 08:42:13  dkrajzew
 // changes in the detector drawer applied
 //
@@ -50,14 +53,14 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <microsim/MSInductLoop.h>
-#include <gui/GUIGlObject.h>
+#include <microsim/output/MSInductLoop.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUIInductLoop.h"
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
-#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_UIntParam.h>
 #include <microsim/logging/FunctionBinding.h>
 
@@ -115,10 +118,10 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
     Line2D l(v.getBegin(), v.getEnd());
     double sgPos = pos / v.length() * l.length();
     mySGPosition = l.getPositionAtDistance(sgPos);
-    myBoundery.add(myFGPosition.x()+5.5, myFGPosition.y()+5.5);
-    myBoundery.add(myFGPosition.x()-5.5, myFGPosition.y()-5.5);
-    myBoundery.add(mySGPosition.x()+5.5, mySGPosition.y()+5.5);
-    myBoundery.add(mySGPosition.x()-5.5, mySGPosition.y()-5.5);
+    myBoundary.add(myFGPosition.x()+5.5, myFGPosition.y()+5.5);
+    myBoundary.add(myFGPosition.x()-5.5, myFGPosition.y()-5.5);
+    myBoundary.add(mySGPosition.x()+5.5, mySGPosition.y()+5.5);
+    myBoundary.add(mySGPosition.x()-5.5, mySGPosition.y()-5.5);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
     mySGRotation = -l.atan2DegreeAngle();
 }
@@ -129,16 +132,16 @@ GUIInductLoop::MyWrapper::~MyWrapper()
 }
 
 
-Boundery
-GUIInductLoop::MyWrapper::getBoundery() const
+Boundary
+GUIInductLoop::MyWrapper::getBoundary() const
 {
-    return myBoundery;
+    return myBoundary;
 }
 
 
 
 GUIParameterTableWindow *
-GUIInductLoop::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
                                              GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -194,16 +197,16 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale)
     glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
     glRotated( mySGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
-    glVertex2f(0-1.0, 2);
-    glVertex2f(-1.0, -2);
-    glVertex2f(1.0, -2);
-    glVertex2f(1.0, 2);
+    glVertex2d(0-1.0, 2);
+    glVertex2d(-1.0, -2);
+    glVertex2d(1.0, -2);
+    glVertex2d(1.0, 2);
     glEnd();
     glBegin( GL_LINES);
     // without the substracted offsets, lines are partially longer
     //  than the boxes
-    glVertex2f(0, 2-.1);
-    glVertex2f(0, -2+.1);
+    glVertex2d(0, 2.0-.1);
+    glVertex2d(0, -2.0+.1);
     glEnd();
 
 
@@ -225,8 +228,8 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale)
         glRotated( 90, 0, 0, -1 );
         glColor3f(1, 1, 1);
         glBegin( GL_LINES);
-        glVertex2f(0, 1.7);
-        glVertex2f(0, -1.7);
+        glVertex2d(0, 1.7);
+        glVertex2d(0, -1.7);
         glEnd();
     }
     glPopMatrix();
@@ -244,16 +247,16 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale)
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated( myFGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
-    glVertex2f(0-1.0, 2);
-    glVertex2f(-1.0, -2);
-    glVertex2f(1.0, -2);
-    glVertex2f(1.0, 2);
+    glVertex2d(0-1.0, 2);
+    glVertex2d(-1.0, -2);
+    glVertex2d(1.0, -2);
+    glVertex2d(1.0, 2);
     glEnd();
     glBegin( GL_LINES);
     // without the substracted offsets, lines are partially longer
     //  than the boxes
-    glVertex2f(0, 2-.1);
-    glVertex2f(0, -2+.1);
+    glVertex2d(0, 2-.1);
+    glVertex2d(0, -2+.1);
     glEnd();
 
 
@@ -275,8 +278,8 @@ GUIInductLoop::MyWrapper::drawGL_FG(double scale)
         glRotated( 90, 0, 0, -1 );
         glColor3f(1, 1, 1);
         glBegin( GL_LINES);
-        glVertex2f(0, 1.7);
-        glVertex2f(0, -1.7);
+        glVertex2d(0, 1.7);
+        glVertex2d(0, -1.7);
         glEnd();
     }
     glPopMatrix();

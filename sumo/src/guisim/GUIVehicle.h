@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.16  2004/04/02 11:20:35  dkrajzew
 // changes needed to visualise the selection status
 //
@@ -65,8 +68,6 @@
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -76,9 +77,10 @@
 
 #include <vector>
 #include <string>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSVehicle.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 
 /* =========================================================================
@@ -105,11 +107,11 @@ public:
     ~GUIVehicle();
 
     /// returns the popup-menu for vehicles
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(
-        GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+        GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
@@ -156,6 +158,9 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 //    virtual size_t getTableParameterNo() const;
 
@@ -170,6 +175,38 @@ public:
     size_t getLastLaneChangeOffset() const;
     size_t getDesiredDepart() const;
 
+    /**
+     * @class GUIVehiclePopupMenu
+     * A popup-menu for vehicles. In comparison to the normal popup-menu, this one
+     *  also allows to:
+     * - show/hide the vehicle route
+     */
+    class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GUIVehiclePopupMenu)
+    public:
+        /// Constructor
+        GUIVehiclePopupMenu(GUIMainWindow &app,
+            GUISUMOAbstractView &parent, GUIGlObject &o);
+
+        /// Destructor
+        ~GUIVehiclePopupMenu();
+
+        /// Called if all routes of the vehicle shall be shown
+        long onCmdShowAllRoutes(FXObject*,FXSelector,void*);
+
+        /// Called if all routes of the vehicle shall be hidden
+        long onCmdHideAllRoutes(FXObject*,FXSelector,void*);
+
+        /// Called if the current route of the vehicle shall be shown
+        long onCmdShowCurrentRoute(FXObject*,FXSelector,void*);
+
+        /// Called if the current route of the vehicle shall be hidden
+        long onCmdHideCurrentRoute(FXObject*,FXSelector,void*);
+
+    protected:
+        GUIVehiclePopupMenu() { }
+
+    };
 
 
 protected:
@@ -203,9 +240,6 @@ private:
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIVehicle.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.9  2004/07/02 08:41:00  dkrajzew
 // using global selection storage
 //
@@ -47,14 +50,14 @@ namespace
 
 #include "GUIDetectorWrapper.h"
 #include <gui/GUIApplicationWindow.h>
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <gui/popup/GUIGLObjectPopupMenu.h>
-#include <gui/GUISUMOAbstractView.h>
-#include <gui/icons/GUIIconSubSys.h>
-#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -81,7 +84,7 @@ GUIDetectorWrapper::~GUIDetectorWrapper()
 
 
 GUIGLObjectPopupMenu *
-GUIDetectorWrapper::getPopUpMenu(GUIApplicationWindow &app,
+GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.6  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -42,11 +45,10 @@
 // Revision 1.4  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
@@ -119,8 +121,8 @@ public:
         /// Destrutor
         ~MyWrapper();
 
-        /// Returns the boundery of the wrapped detector
-        Boundery getBoundery() const;
+        /// Returns the boundary of the wrapped detector
+        Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale);
@@ -130,7 +132,7 @@ public:
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
-            GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+            GUIMainWindow &app, GUISUMOAbstractView &parent);
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
@@ -156,8 +158,8 @@ public:
         /// The wrapped detector
         GUI_E2_ZS_CollectorOverLanes &myDetector;
 
-        /// The detector's boundery //!!!what about SG/FG
-        Boundery myBoundery;
+        /// The detector's boundary //!!!what about SG/FG
+        Boundary myBoundary;
 
         std::vector<GUIDetectorWrapper*> mySubWrappers;
 
@@ -204,10 +206,6 @@ public:
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "GUI_E2_ZS_CollectorOverLanes.icc"
-//#endif
 
 #endif
 

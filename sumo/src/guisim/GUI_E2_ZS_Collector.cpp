@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/11/24 08:46:42  dkrajzew
+// recent changes applied
+//
 // Revision 1.9  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -49,15 +52,15 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <microsim/MSInductLoop.h>
-#include <gui/GUIGlObject.h>
+#include <microsim/output/MSInductLoop.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_Collector.h"
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
-#include <gui/partable/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -160,9 +163,9 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
         myShapeRotations.push_back(atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265);
     }
     //
-    myBoundery = myFullGeometry.getBoxBoundery();
-    myBoundery.add(mySGPosition);
-    myBoundery.add(endPos);
+    myBoundary = myFullGeometry.getBoxBoundary();
+    myBoundary.add(mySGPosition);
+    myBoundary.add(endPos);
 }
 
 
@@ -171,15 +174,15 @@ GUI_E2_ZS_Collector::MyWrapper::~MyWrapper()
 }
 
 
-Boundery
-GUI_E2_ZS_Collector::MyWrapper::getBoundery() const
+Boundary
+GUI_E2_ZS_Collector::MyWrapper::getBoundary() const
 {
-    return myBoundery;
+    return myBoundary;
 }
 
 
 GUIParameterTableWindow *
-GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
                                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -250,12 +253,12 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
 {
-    float myWidth = 1;
+    double myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
         myWidth = 0.3;
-        glColor3f(0, .6, .8);
+        glColor3d(0, .6, .8);
     } else {
-        glColor3f(0, .8, .8);
+        glColor3d(0, .8, .8);
     }
     double width=2; // !!!
     if(width>1.0) {
@@ -263,14 +266,14 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
         glRotated( mySGRotation, 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2f(-myWidth, 0);
-        glVertex2f(-myWidth, -mySGLength);
-        glVertex2f(myWidth, -mySGLength);
-        glVertex2f(myWidth, 0);
+        glVertex2d(-myWidth, 0);
+        glVertex2d(-myWidth, -mySGLength);
+        glVertex2d(myWidth, -mySGLength);
+        glVertex2d(myWidth, 0);
         glEnd();
         glBegin( GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, -mySGLength);
+        glVertex2d(0, 0);
+        glVertex2d(0, -mySGLength);
         glEnd();
         glPopMatrix();
     } else {
@@ -278,8 +281,8 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
         glRotated( mySGRotation, 0, 0, 1 );
         glBegin( GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, -mySGLength);
+        glVertex2d(0, 0);
+        glVertex2d(0, -mySGLength);
         glEnd();
         glPopMatrix();
     }
@@ -289,12 +292,12 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale)
 {
-    float myWidth = 1;
+    double myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
         myWidth = 0.3;
-        glColor3f(0, .6, .8);
+        glColor3d(0, .6, .8);
     } else {
-        glColor3f(0, .8, .8);
+        glColor3d(0, .8, .8);
     }
     double width=2; // !!!
     if(width>1.0) {
@@ -314,7 +317,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale)
 Position2D
 GUI_E2_ZS_Collector::MyWrapper::getPosition() const
 {
-    return myBoundery.getCenter();
+    return myBoundary.getCenter();
 }
 
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.5  2004/07/02 08:40:42  dkrajzew
 // changes in the detector drawer applied
 //
@@ -42,7 +45,7 @@
  * ======================================================================= */
 #include <string>
 #include <vector>
-#include <microsim/MSE3Collector.h>
+#include <microsim/output/e3_detectors/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
 #include <utils/geom/Position2DVector.h>
 #include <helpers/ValueSource.h>
@@ -105,8 +108,8 @@ public:
         /// Destrutor
         ~MyWrapper();
 
-        /// Returns the boundery of the wrapped detector
-        Boundery getBoundery() const;
+        /// Returns the boundary of the wrapped detector
+        Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale);
@@ -116,7 +119,7 @@ public:
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
-            GUIApplicationWindow &app, GUISUMOAbstractView &parent);
+            GUIMainWindow &app, GUISUMOAbstractView &parent);
 
         /// returns the id of the object as known to microsim
         std::string microsimID() const;
@@ -161,8 +164,8 @@ public:
         /// The wrapped detector
         GUIE3Collector &myDetector;
 
-        /// The detector's boundery //!!!what about SG/FG
-        Boundery myBoundery;
+        /// The detector's boundary //!!!what about SG/FG
+        Boundary myBoundary;
 
         /// Definition of a list of cross (entry/exit-point) positions
         typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;

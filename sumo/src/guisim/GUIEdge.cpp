@@ -23,6 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
+// Revision 1.3  2004/11/22 12:37:02  dksumo
+// debugging false information clearing at vehicle removal
+//
+// Revision 1.2  2004/10/29 06:01:54  dksumo
+// renamed boundery to boundary
+//
+// Revision 1.1  2004/10/22 12:49:15  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.16  2004/04/02 11:20:35  dkrajzew
 // changes needed to visualise the selection status
 //
@@ -65,9 +77,6 @@ namespace
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -81,11 +90,12 @@ namespace
 #include <algorithm>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
-#include <gui/GUIGlObjectStorage.h>
+#include <microsim/MSSlowLaneChanger.h>
+#include <microsim/MSLaneChanger.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
 #include "GUINet.h"
-#include "GUILaneChanger.h"
 #include "GUILane.h"
 
 
@@ -187,10 +197,10 @@ GUIEdge::getIDs()
 }
 
 
-Boundery
-GUIEdge::getBoundery() const
+Boundary
+GUIEdge::getBoundary() const
 {
-    Boundery ret;
+    Boundary ret;
     ret.add(_to->getPosition());
     ret.add(_from->getPosition());
     return ret;
@@ -214,7 +224,7 @@ GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     _function = function;
 
     if ( myLanes->size() > 1 ) {
-        myLaneChanger = new GUILaneChanger( myLanes );
+        myLaneChanger = new MSLaneChanger( myLanes );
     }
 }
 
@@ -266,6 +276,15 @@ bool
 GUIEdge::active() const
 {
     return true;
+}
+
+
+Boundary
+GUIEdge::getCenteringBoundary() const
+{
+	Boundary b = getBoundary();
+	b.grow(20);
+	return b;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/24 08:46:43  dkrajzew
+// recent changes applied
+//
 // Revision 1.8  2004/07/02 08:54:11  dkrajzew
 // some design issues
 //
@@ -66,13 +69,13 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUIAppEnum.h>
-#include <gui/GUISUMOAbstractView.h>
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include "GUIJunctionWrapper.h"
-#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================
@@ -99,7 +102,7 @@ GUIJunctionWrapper::~GUIJunctionWrapper()
 
 
 GUIGLObjectPopupMenu *
-GUIJunctionWrapper::getPopUpMenu(GUIApplicationWindow &app,
+GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -122,7 +125,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIApplicationWindow &app,
 
 
 GUIParameterTableWindow *
-GUIJunctionWrapper::getParameterWindow(GUIApplicationWindow &app,
+GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
 {
     throw 1;
@@ -144,16 +147,16 @@ GUIJunctionWrapper::microsimID() const
 }
 
 
-Boundery
-GUIJunctionWrapper::getBoundery() const
+Boundary
+GUIJunctionWrapper::getBoundary() const
 {
-    Boundery boundery;
+    Boundary boundary;
     size_t shapeLength = myShape.size();
     for(size_t i=0; i<shapeLength; i++) {
         const Position2D &pos = myShape.at(i);
-        boundery.add(pos.x(), pos.y());
+        boundary.add(pos.x(), pos.y());
     }
-    return boundery;
+    return boundary;
 }
 
 
@@ -162,6 +165,17 @@ GUIJunctionWrapper::getShape() const
 {
     return myShape;
 }
+
+
+Boundary
+GUIJunctionWrapper::getCenteringBoundary() const
+{
+	Boundary b = getBoundary();
+	b.grow(20);
+	return b;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
