@@ -104,7 +104,7 @@ MSTriggeredSource::RouteDistribution::getRndRoute( void )
     // Get random value between 0 and
     // myDistribution.back().myFrequencySum and return the route of
     // the first element that has a higher frequency sum.
-    double rndFreq = double( rand() ) / double( RAND_MAX ) *
+    double rndFreq = double( rand() ) / double( (RAND_MAX+1) ) *
         myDistribution.back().myFrequencySum;
     RouteDistCont::iterator routeElemIt =
         find_if( myDistribution.begin(),
@@ -346,6 +346,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.14  2003/10/15 11:42:35  dkrajzew
+// false usage of rand() patched
+//
 // Revision 1.13  2003/09/30 14:46:59  dkrajzew
 // only some make-up made
 //

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/10/15 11:41:43  dkrajzew
+// false usage of rand() patched
+//
 // Revision 1.5  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -196,7 +199,7 @@ MSRightOfWayJunction::deadlockKiller()
         // !!! random choosing may choose one of less priorised lanes
         unsigned noLockIndex = static_cast< unsigned > (
             floor( static_cast< double >( rand() ) /
-                    static_cast< double >( RAND_MAX ) *
+                    static_cast< double >( RAND_MAX+1 ) *
                     trueRequests.size()
                 )
             );
