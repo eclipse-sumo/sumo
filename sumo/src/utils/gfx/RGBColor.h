@@ -20,12 +20,13 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:38:51  dkrajzew
+// handling of colors improved
+//
 // Revision 1.2  2003/02/07 10:50:53  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -33,22 +34,43 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <iostream>
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class RGBColor
+ * The definition of a color in the RGB-space.
+ * The cube is meant to lie between (0, 0, 0) and (1, 1, 1)
  */
 class RGBColor {
-private:
-    double _red, _green, _blue;
 public:
-    RGBColor() { }
+    /// Default constructor - the color is marked as being undefined
+    RGBColor();
+
+    /// Parametrised constructor
     RGBColor(double red, double green, double blue);
+
+    /// Destructor
     ~RGBColor();
+
+    /// Returns the red-amount of the color
     double red() const;
+
+    /// Returns the green-amount of the color
     double green() const;
+
+    /// Returns the blue-amount of the color
     double blue() const;
+
+    /// Writes the color to the given stream
+    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
+
+private:
+    /// The color amounts
+    double myRed, myGreen, myBlue;
 };
 
 

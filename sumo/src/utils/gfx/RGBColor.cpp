@@ -23,22 +23,34 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/16 15:38:51  dkrajzew
+// handling of colors improved
+//
 // Revision 1.2  2003/02/07 10:50:53  dkrajzew
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include "RGBColor.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+RGBColor::RGBColor()
+    : myRed(-1), myGreen(-1), myBlue(-1)
+{
+}
+
+
 RGBColor::RGBColor(double red, double green, double blue)
-    : _red(red), _green(green), _blue(blue)
+    : myRed(red), myGreen(green), myBlue(blue)
 {
 }
 
@@ -51,24 +63,33 @@ RGBColor::~RGBColor()
 double
 RGBColor::red() const
 {
-    return _red;
+    return myRed;
 }
 
 
 double
 RGBColor::green() const
 {
-    return _green;
+    return myGreen;
 }
 
 
 double
 RGBColor::blue() const
 {
-    return _blue;
+    return myBlue;
 }
 
 
+std::ostream &
+operator<<(std::ostream &os, const RGBColor &col)
+{
+    os
+        << col.myRed << ","
+        << col.myGreen << ","
+        << col.myBlue;
+    return os;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
