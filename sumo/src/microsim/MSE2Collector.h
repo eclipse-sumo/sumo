@@ -306,6 +306,12 @@ public:
                     // vehicle partially on det
                     occupancyCorrectionM.dismissOccupancyCorrection( veh );
                 }
+                for ( DetLDContIter ld = detectorsLDM.begin();
+                      ld != detectorsLDM.end(); ++ld ) {
+                    if ( *ld != 0 ) {
+                        (*ld)->leave( veh );
+                    }
+                }
             }
         }
 
