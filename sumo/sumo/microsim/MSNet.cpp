@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2002/08/07 12:44:52  roessel
+// Added #include <cassert>
+//
 // Revision 1.15  2002/08/06 14:13:27  roessel
 // New method preInit() and changes in init().
 //
@@ -163,10 +166,10 @@ namespace
 #endif
 
 #include <iostream>
-//#include <fstream>
 #include <sstream>
 #include <typeinfo>
 #include <algorithm>
+#include <cassert>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
