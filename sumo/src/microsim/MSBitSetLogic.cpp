@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2004/01/12 15:03:40  dkrajzew
+// removed some unneeded debug-variables
+//
 // Revision 1.7  2003/12/09 11:29:39  dkrajzew
 // removed some memory leaks
 //
@@ -146,7 +149,6 @@ MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
         bool linkPermit = request.test( i ) &&
             respond.test( i ) &&
             ( innerState & ( *myInternalLinksFoes )[ i ]).none();
-        std::bitset<64> bla = ( *myInternalLinksFoes )[ i ];
         respond.set( i, linkPermit );
   //      std::cout << ( *myInternalLinksFoes )[ i ] << std::endl;
     }

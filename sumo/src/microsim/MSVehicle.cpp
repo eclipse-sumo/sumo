@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2004/01/12 15:03:40  dkrajzew
+// removed some unneeded debug-variables
+//
 // Revision 1.45  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -647,9 +650,6 @@ MSVehicle::MSVehicle( string id,
     movedDistanceDuringStepM(0)
 {
     myCurrEdge = myRoute->begin();
-    if(myID=="Rand41") {
-        int bla = 0;
-    }
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
     assert(myAllowedLanes!=0);
 }
@@ -718,12 +718,6 @@ MSVehicle::destReached( const MSEdge* targetEdge )
 {
     if(targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return false;
-    }
-    if(MSNet::globaltime==18&&id()=="Rand0") {
-        int bla = 0;
-    }
-    if(id()=="Rand364") {
-        int bla = 0;
     }
     // search for the target in the vehicle's route. Usually there is
     // only one iteration. Only for very short edges a vehicle can
@@ -1069,9 +1063,6 @@ MSVehicle::moveFirstChecked()
 	    int textdummy = 0;
     }
 #endif
-    if(MSNet::globaltime==52961&&myID=="8119") {
-        int bla = 0;
-    }
     // get vsafe
     double vSafe = 0;
     assert(myLFLinkLanes.size()!=0);
@@ -1133,9 +1124,6 @@ MSVehicle::moveFirstChecked()
     MSLane *approachedLane = myLane;
 
     // move the vehicle forward
-    if(myID=="3"&&MSNet::globaltime==50425) {
-        int bla = 0;
-    }
     size_t no = 0;
     double driven = approachedLane->length() - pos;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {

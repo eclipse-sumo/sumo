@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.42  2004/01/12 15:03:40  dkrajzew
+// removed some unneeded debug-variables
+//
 // Revision 1.41  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -1300,9 +1303,6 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
         meanSpeedSquare = -1;
         meanDensity = 0;
 
-    }
-    if(obj.myObj.myID=="220_0") {
-        int bla = 0;
     }
     os << "      <lane id=\""      << obj.myObj.myID
        << "\" traveltime=\""  << traveltime
