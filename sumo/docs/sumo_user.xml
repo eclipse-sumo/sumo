@@ -1599,7 +1599,9 @@
 
               <para>These detectors do describe a part of a lane or
               alternatively a part of the network made up of consecutive lanes
-              (a begin lane and his predecessors).</para>
+              (a begin lane and his predecessors). The measured values are
+              derived from the movements over the whole part of the network
+              the detector is lying at.</para>
             </listitem>
 
             <listitem>
@@ -1611,7 +1613,11 @@
             <listitem>
               <para>E3: Multi-Origin/Multi-Destination detectors</para>
 
-              <para>... not yet implemented ...</para>
+              <para>E3-detectors do measure vehicles passing a set of entry
+              and an according set of exit points. Each of these points is a
+              position on a lane. Measured are values that may be derived from
+              the movements of vehicles between any of the entry and any of
+              the exit points.</para>
             </listitem>
 
             <listitem>
@@ -1649,17 +1655,21 @@
           <sect4>
             <title>E1-Detectors (Induct Loops)</title>
 
-            <para>An induct loop is described the following way:
-            <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
+            <para>An induct loop is described the following way:</para>
+
+            <para>a) <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
             type=&#34;[induct_loop|E1]&#34; lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag>. or :
-            <sgmltag>&#60;e1-detector id=&#34;&#60;ID&#62;&#34;
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag> </para>
+
+            <para>or :</para>
+
+            <para>b) <sgmltag>&#60;e1-detector id=&#34;&#60;ID&#62;&#34;
             lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
-            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag>. </para>
+            file=&#34;&#60;OUTPUT_FILE&#62;&#34;/&#62;</sgmltag> </para>
 
             <para>The id is any string that let&#39;s you know which detector
             is meant. The type indicates that a induct loop shall be build,
@@ -1723,22 +1733,34 @@
           <sect4>
             <title>E2-Detectors (Areal, lane-based Detectors)</title>
 
-            <para>An induct loop is described the following way:
-            <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
+            <para>An induct loop is described the following way:</para>
+
+            <para>a) <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
             type=&#34;[areal|lane_based|E2]&#34;
             lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
             file=&#34;&#60;OUTPUT_FILE&#62;&#34;
-            [measures=&#34;&#60;MEASURES&#62;&#34;]/&#62;</sgmltag> or:
-            <sgmltag>&#60;e2-detector id=&#34;&#60;ID&#62;&#34;
+            [measures=&#34;&#60;MEASURES&#62;&#34;]
+            [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag> </para>
+
+            <para>or:</para>
+
+            <para>b) <sgmltag>&#60;e2-detector id=&#34;&#60;ID&#62;&#34;
             lane=&#34;&#60;LANE_ID&#62;&#34;
             pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;
             length=&#34;&#60;DETECTOR_LENGTH&#62;&#34;
             freq=&#34;&#60;AGGREGATION_TIME&#62;&#34; [style=&#34;xml&#34;]
             file=&#34;&#60;OUTPUT_FILE&#62;&#34;
-            [measures=&#34;&#60;MEASURES&#62;&#34;]/&#62;</sgmltag>. </para>
+            [measures=&#34;&#60;MEASURES&#62;&#34;]
+            [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+            [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag> </para>
 
             <para>Most of the attributes have the same meaning as for induct
             loops. As an areal detector has a certain length, this length must
@@ -1751,7 +1773,8 @@
             current lane onto this lane&#39;s predeccessors when the
             detector&#39;s length plus his position is larger than the place
             available on the lane. The attribute &#34;measures&#34; describes
-            which values the detector shall compute.</para>
+            which values the detector shall compute. The optional values are
+            described below.</para>
 
             <para><caution><para><inlinegraphic
             fileref="./gfx/attention_small.gif" format="GIF" />The folder the
@@ -1939,7 +1962,118 @@
           <sect4>
             <title>E3-Detectors (Multi-Origin/Multi-Destination Detectors)</title>
 
-            <para>... to be described ...</para>
+            <para>The descriptions of e3-detectors have to include the set of
+            entry and the set of exit points. Due to this, it is not possible
+            to use a single tag to specify a detector. Instead, the
+            description consists of the following parts: </para>
+
+            <orderedlist>
+              <listitem>
+                <para>A beginning tag that describes some global attributes of
+                the detector just as the descriptions of e1- and e2-detectors
+                do. The format is either:</para>
+
+                <para>a) <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
+                type=&#34;[multi_od|E3]&#34;
+                file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+                [measures=&#34;&#60;MEASURES&#62;&#34;]
+                [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+                [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag> </para>
+
+                <para>or:</para>
+
+                <para>b) <sgmltag>&#60;e3-detector id=&#34;&#60;ID&#62;&#34;
+                file=&#34;&#60;OUTPUT_FILE&#62;&#34;
+                [measures=&#34;&#60;MEASURES&#62;&#34;]
+                [time_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+                [speed_treshhold=&#34;&#60;FLOAT&#62;&#34;]
+                [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag> </para>
+
+                <para>As one can see, no information about the detector&#39;s
+                position are stored herein. They are stored in embedded tags
+                instead (2. and 3.)</para>
+              </listitem>
+
+              <listitem>
+                <para>A set of tags that describe the detector&#39;s entry
+                points in the form:</para>
+
+                <para> <sgmltag>&#60;det_entry
+                lane=&#34;&#60;LANE_ID&#62;&#34;
+                pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;/&#62;</sgmltag></para>
+              </listitem>
+
+              <listitem>
+                <para>A set of tags that describe the detector&#39;s exit
+                points in the form:</para>
+
+                <para><sgmltag>&#60;det_exit lane=&#34;&#60;LANE_ID&#62;&#34;
+                pos=&#34;&#60;POSITION_ON_LANE&#62;&#34;/&#62;</sgmltag></para>
+              </listitem>
+
+              <listitem>
+                <para>A closing tag that must match the opening tag (1.):</para>
+
+                <para>a) <sgmltag>&#60;/detector&#62;</sgmltag></para>
+
+                <para>or</para>
+
+                <para>b) <sgmltag>&#60;/e3-detector&#62;</sgmltag></para>
+              </listitem>
+            </orderedlist>
+
+            <para>The following example</para>
+
+            <para><sgmltag>&#60;e3-detector id=&#34;e3_1&#34;
+            file=&#34;./output/e3_1.xml&#34;&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;det_entry lane=&#34;myEdge0_0&#34;
+            pos=&#34;0&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;det_entry lane=&#34;myEdge0_1&#34;
+            pos=&#34;0&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;det_entry lane=&#34;myEdge2_0&#34;
+            pos=&#34;0&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag> &#60;det_entry lane=&#34;myEdge2_1&#34;
+            pos=&#34;0&#34;/&#62;</sgmltag></para>
+
+            <para><sgmltag>&#60;/e3-detector&#62;</sgmltag></para>
+
+            <para>will build an e3-detector starting at either lane 0 or 1 of
+            the edge called &#34;myEdge0&#34; and end at the same lane of
+            &#34;myEdge2&#34;. All values will be computed as the
+            default-value for measures is used. They will be written into the
+            file &#34;e3_1.xml&#34; lying in the subfolder of the folder the
+            configuration was read in/the program has been started within.</para>
+
+            <para>Most of the values have been discussed in the previous
+            subchapters. The only thing that differs from e1/e2-detectors are
+            the measures e3-detectors are able to compute. Possible values
+            are:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>MEAN_TRAVELTIME: The mean traveltime of vehicles between
+                any entry and any exit point</para>
+              </listitem>
+
+              <listitem>
+                <para>MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: The mean time the
+                vehicles had to wait between these points</para>
+              </listitem>
+
+              <listitem>
+                <para>NUMBER_OF_VEHICLES: The number of vehicles that has
+                passed any of the entry and any of the exit points</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>As for e2-detectors, you can use the value &#34;ALL&#34; for
+            the attribute measures to compute all values. This is also this
+            attributes default value.</para>
           </sect4>
 
           <sect4>
@@ -2044,6 +2178,18 @@
           fileref="./gfx/attention_small.gif" format="GIF" /> By now, the
           behaviour after an accident is not defined; this option should not
           be used, yet. (Still, no accidents occur at normal circumstances)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Artifact Defaults</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL:
+          --actuating-detector-pos &#60;FLOAT&#62;</para><para>The distance
+          from the actuated traffic light logic to the induct loops that do
+          actuate it in m. default: 100m</para></listitem><listitem><para>OPTIONAL:
+          --agent-detector-len &#60;FLOAT&#62;</para><para>The length of the
+          e2-detectors that compute the jam used by a agent based traffic
+          light logic in m. default: 75m</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
