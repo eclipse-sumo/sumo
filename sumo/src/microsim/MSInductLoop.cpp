@@ -4,7 +4,7 @@
  * @date   Mon Jul 21 16:12:01 2003
  * @version $Id$
  * @brief  Definition of class MSInductLoop.
- * 
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -55,10 +55,10 @@ string MSInductLoop::xmlHeaderM(
 
 string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
 
-MSInductLoop::MSInductLoop( const string& id, 
+MSInductLoop::MSInductLoop( const string& id,
                             MSLane* lane,
-                            double positionInMeters, 
-                            MSNet::Time deleteDataAfterSeconds ) 
+                            double positionInMeters,
+                            MSNet::Time deleteDataAfterSeconds )
     : MSMoveReminder( lane, id ),
       posM( MSNet::getCells( positionInMeters ) ),
       deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
@@ -67,15 +67,13 @@ MSInductLoop::MSInductLoop( const string& id,
       vehicleDataContM()
 {
     assert( posM >= 0 && posM <= laneM->length() );
-    
+
     // insert object into dictionary
     if ( ! InductLoopDict::getInstance()->isInsertSuccess( idM,
                                                            this ) ) {
         assert( false );
     }
-    
-//     laneM->addMoveReminder( this );
-    
+
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSInductLoop >(
         this, &MSInductLoop::deleteOldData );
@@ -100,9 +98,9 @@ MSInductLoop::isStillActive( MSVehicle& veh,
 {
     double entryTimestep = MSNet::getInstance()->timestep();
     double leaveTimestep = entryTimestep;
-    
+
     if ( newPos < posM ) {
-        // detector not reached yet                
+        // detector not reached yet
         return true;
     }
     double speed = newSpeed * MSNet::deltaT();
@@ -141,7 +139,7 @@ MSInductLoop::dismissByLaneChange( MSVehicle& veh )
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange( veh );
     }
-}    
+}
 
 
 bool
@@ -232,7 +230,7 @@ MSInductLoop::getMeanVehicleLength( MSNet::Time lastNTimesteps ) const
                                  lengthSum );
     return MSNet::getMeters( lengthS / nVeh );
 }
-    
+
 
 double
 MSInductLoop::getTimestepsSinceLastDetection() const
@@ -278,7 +276,7 @@ MSInductLoop::getXMLDetectorInfoStart( void ) const
 }
 
 
-string&
+const string&
 MSInductLoop::getXMLDetectorInfoEnd( void ) const
 {
     return xmlDetectorInfoEndM;
@@ -286,7 +284,7 @@ MSInductLoop::getXMLDetectorInfoEnd( void ) const
 
 
 string
-MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps ) 
+MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
 {
     MSNet::Time t( lastNTimesteps );
     string nVehContrib = "nVehContrib=\"" +
@@ -298,7 +296,16 @@ MSInductLoop::getXMLOutput( MSNet::Time lastNTimesteps )
         toString( getMeanSpeedSquare( t ) ) + "\" ";
     string avgVehLength = "length=\"" + toString( getMeanVehicleLength( t ) ) +
         "\"";
-    return nVehContrib + flow + occup + speed + speedSquare + avgVehLength;
+
+    MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
+    size_t nVehCrossed = getNVehContributed(lastNTimesteps)
+        + distance(
+            getDismissedStartIterator( lastNTimesteps ), mend );
+
+    string singleInductLoopVehs = "nVehCrossed=\"" +
+        toString( nVehCrossed ) + "\"";
+    return nVehContrib + flow + occup + speed + speedSquare + avgVehLength
+        + singleInductLoopVehs;
 }
 
 
@@ -337,7 +344,7 @@ MSInductLoop::leaveDetectorByMove( MSVehicle& veh,
     vehicleDataContM.push_back( VehicleData( veh, entryTimestep,
                                              leaveTimestep ) );
     lastLeaveTimestepM = leaveTimestep;
-}    
+}
 
 
 void
@@ -345,11 +352,14 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 {
     // Discard entry data
     vehiclesOnDetM.erase( &veh );
+    dismissedContM.push_back(MSNet::getInstance()->getCurrentTimeStep());
+/*    double leaveTimestep = ( newPos - veh.length() - posM ) / speed;
+    myDismissedByLaneChange++;*/
 }
 
 
 MSNet::Time
-MSInductLoop::deleteOldData( void ) 
+MSInductLoop::deleteOldData( void )
 {
     double deleteBeforeTimestep =
         MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
@@ -360,9 +370,14 @@ MSInductLoop::deleteOldData( void )
                          vehicleDataContM.end(),
                          deleteBeforeTimestep,
                          leaveTimeLesser() ) );
+        dismissedContM.erase(
+            dismissedContM.begin(),
+            lower_bound( dismissedContM.begin(),
+                         dismissedContM.end(),
+                         deleteBeforeTimestep ) );
     }
     return deleteDataAfterStepsM;
-}   
+}
 
 
 MSInductLoop::VehicleDataCont::const_iterator
@@ -373,11 +388,25 @@ MSInductLoop::getStartIterator( MSNet::Time lastNTimesteps ) const
         startTime = static_cast< double >(
             MSNet::getInstance()->timestep() - lastNTimesteps ) *
             MSNet::deltaT();
-    }            
+    }
     return lower_bound( vehicleDataContM.begin(),
                         vehicleDataContM.end(),
                         startTime,
                         leaveTimeLesser() );
+}
+
+MSInductLoop::DismissedCont::const_iterator
+MSInductLoop::getDismissedStartIterator( MSNet::Time lastNTimesteps ) const
+{
+    double startTime = 0;
+    if ( lastNTimesteps < MSNet::getInstance()->timestep() ) {
+        startTime = static_cast< double >(
+            MSNet::getInstance()->timestep() - lastNTimesteps ) *
+            MSNet::deltaT();
+    }
+    return lower_bound( dismissedContM.begin(),
+                        dismissedContM.end(),
+                        startTime );
 }
 
 // Local Variables:

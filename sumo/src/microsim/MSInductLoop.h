@@ -143,9 +143,6 @@ public:
      * @return True if vehicle is on or in front of the detector.
      */
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
-    void removeOnTripEnd( MSVehicle *veh ) {
-//        leaveDetectorByLaneChange(*veh);
-    }
     //@}
 
     /**
@@ -291,7 +288,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoStart
      */
-    std::string& getXMLDetectorInfoEnd( void ) const;
+    const std::string& getXMLDetectorInfoEnd( void ) const;
 
     /**
      * Get the data-clean up interval in timesteps.
@@ -319,6 +316,7 @@ public:
      */
     struct VehicleData
     {
+        /// Use this constructor if the vehicle has passed the induct loop completely
         VehicleData( MSVehicle& veh,
                      double entryTimestep,
                      double leaveTimestep )
@@ -329,6 +327,7 @@ public:
               speedSquareM( speedM * speedM ),
               occupancyM( leaveTimeM - entryTimeM )
             {}
+
         double lengthM;         /**< Length of the vehicle. */
         double entryTimeM;      /**< Entry-time of the vehicle in [s]. */
         double leaveTimeM;      /**< Leave-time of the vehicle in [s]. */
@@ -337,6 +336,8 @@ public:
         double occupancyM;      /**< Occupancy of the detector in [s]. */
     };
 
+
+    typedef std::vector<double> DismissedCont;
 
 
 protected:
@@ -420,6 +421,9 @@ protected:
     VehicleDataCont::const_iterator getStartIterator(
         MSNet::Time lastNTimesteps ) const;
 
+    DismissedCont::const_iterator getDismissedStartIterator(
+        MSNet::Time lastNTimesteps ) const;
+
 
     const double posM;          /**< Detector's position on lane [cells]. */
 
@@ -433,6 +437,8 @@ protected:
 
     VehicleMap vehiclesOnDetM;  /**< Map that holds the vehicles that
                                  * are currently on the detector. */
+
+    DismissedCont dismissedContM;
 
     /**
      * Container that hold the data of the counted vehicles. It is
