@@ -101,7 +101,19 @@ SOURCE=..\..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSActuatedTrafficLightLogic.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSAgentbasedTrafficLightLogic.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSApproachingVehiclesStates.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSCORN.cpp
 # End Source File
 # Begin Source File
 
@@ -442,6 +454,10 @@ SOURCE=..\..\..\src\microsim\MSApproachingVehiclesStates.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSBitSetLogic.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSCORN.h
 # End Source File
 # Begin Source File
 

@@ -202,6 +202,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSCORN.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSCrossSection.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1578,6 +1581,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSBitSetLogic.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCORN.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSCrossSection.h">
