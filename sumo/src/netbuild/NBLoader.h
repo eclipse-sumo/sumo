@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/19 07:17:21  dkrajzew
+// new message subsystem paradigm applied
+//
 // Revision 1.5  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -93,14 +96,14 @@ public:
 
 private:
     /** loads data from sumo-files */
-    static void loadSUMO(OptionsCont &oc, bool warn);
+    static void loadSUMO(OptionsCont &oc);
 
     /** loads net or logics */
     static void loadSUMOFiles(OptionsCont &oc, LoadFilter what,
         const std::string &files, const std::string &type);
 
     /** loads data from XML-files */
-    static void loadXML(OptionsCont &oc, bool warn);
+    static void loadXML(OptionsCont &oc);
 
     /** loads data from the list of xml-files of certain type */
     static void loadXMLType(SUMOSAXHandler *handler,
@@ -111,23 +114,23 @@ private:
         const std::string &type);
 
     /** loads data from cell-input-files */
-    static void loadCell(OptionsCont &oc, bool warn);
+    static void loadCell(OptionsCont &oc);
 
     /** loads data from artemis-input-files */
-    static void loadArtemis(OptionsCont &oc, bool warn);
+    static void loadArtemis(OptionsCont &oc);
 
     /** reads using a file reader */
     static bool useLineReader(LineReader &lr, const std::string &file,
         LineHandler &lh);
 
     /** loads data from visum-input-file */
-    static void loadVisum(OptionsCont &oc, bool warn);
+    static void loadVisum(OptionsCont &oc);
 
     /** loads data from arcview-files */
-    static void loadArcView(OptionsCont &oc, bool warn);
+    static void loadArcView(OptionsCont &oc);
 
     /** loads data from vissim-input-file */
-    static void loadVissim(OptionsCont &oc, bool warn);
+    static void loadVissim(OptionsCont &oc);
 
 };
 

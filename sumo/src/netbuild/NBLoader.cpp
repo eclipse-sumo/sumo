@@ -25,8 +25,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/19 07:17:21  dkrajzew
+// new message subsystem paradigm applied
+//
 // Revision 1.7  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a messageing or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.6  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -141,17 +144,16 @@ using namespace std;
  * ======================================================================= */
 void NBLoader::load(OptionsCont &oc) {
     // get the report options
-    bool warn = oc.getBool("w");
     // get the format to use
     //string type = oc.getString("used-file-format");
     // try to load using different methods
-    loadSUMO(oc, warn);
-    loadXML(oc, warn);
-    loadCell(oc, warn);
-    loadVisum(oc, warn);
-    loadArcView(oc, warn);
-    loadArtemis(oc, warn);
-    loadVissim(oc, warn);
+    loadSUMO(oc);
+    loadXML(oc);
+    loadCell(oc);
+    loadVisum(oc);
+    loadArcView(oc);
+    loadArtemis(oc);
+    loadVissim(oc);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -168,7 +170,7 @@ void NBLoader::load(OptionsCont &oc) {
  * file loading methods
  * ----------------------------------------------------------------------- */
 void
-NBLoader::loadSUMO(OptionsCont &oc, bool warn)
+NBLoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
     if(oc.isUsableFileList("sumo-net")) {
@@ -203,7 +205,7 @@ NBLoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 
 
 void
-NBLoader::loadXML(OptionsCont &oc, bool warn) {
+NBLoader::loadXML(OptionsCont &oc) {
     // load types
     if(oc.isUsableFileList("t")) {
         NIXMLTypesHandler *handler = new NIXMLTypesHandler();
@@ -285,7 +287,7 @@ NBLoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
 
 
 void
-NBLoader::loadCell(OptionsCont &oc, bool warn) {
+NBLoader::loadCell(OptionsCont &oc) {
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
@@ -329,7 +331,7 @@ NBLoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NBLoader::loadVisum(OptionsCont &oc, bool warn) {
+NBLoader::loadVisum(OptionsCont &oc) {
     if(!oc.isSet("visum")) {
         return;
     }
@@ -341,7 +343,7 @@ NBLoader::loadVisum(OptionsCont &oc, bool warn) {
 
 
 void
-NBLoader::loadArcView(OptionsCont &oc, bool warn) {
+NBLoader::loadArcView(OptionsCont &oc) {
     if(!oc.isSet("arcview")&&!oc.isSet("arcview-dbf")&&!oc.isSet("arcview-shp")) {
         return;
     }
@@ -393,7 +395,7 @@ NBLoader::loadArcView(OptionsCont &oc, bool warn) {
 
 
 void
-NBLoader::loadVissim(OptionsCont &oc, bool warn) {
+NBLoader::loadVissim(OptionsCont &oc) {
     if(!oc.isSet("vissim")) {
         return;
     }
@@ -404,7 +406,7 @@ NBLoader::loadVissim(OptionsCont &oc, bool warn) {
 
 
 void
-NBLoader::loadArtemis(OptionsCont &oc, bool warn) {
+NBLoader::loadArtemis(OptionsCont &oc) {
     if(!oc.isSet("artemis")) {
         return;
     }
