@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libhelpers.a
 
 CFRONT_FILES = Command.h \
-SimpleCommand.h SimpleCommand.cpp \
+SimpleCommand.h SimpleCommand.cpp DiscreteCommand.h \
 Counter.h Counter.cpp \
 Counter.icc \
 Dictionary.h \
