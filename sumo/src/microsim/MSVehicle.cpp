@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2003/10/28 08:37:01  dkrajzew
+// retelportation avoidance added
+//
 // Revision 1.36  2003/10/24 16:48:37  roessel
 // Added new method getMovedDistance and corresponding member.
 //
@@ -1695,7 +1698,7 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 void
 MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
-//    myApproachedLane = 0;
+    myWaitingTime = 0;
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, myState.mySpeed );
