@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/12/11 06:19:04  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.6  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
 //
@@ -113,6 +116,7 @@ class MSDetectorControl;
 class OptionsCont;
 class NLNetHandler;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -125,13 +129,13 @@ class NLNetHandler;
 class NLNetBuilder {
 public:
     /// standard constructor
-    NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr=0);
+    NLNetBuilder(const OptionsCont &oc);
 
     /// Destructor
     virtual ~NLNetBuilder();
 
     /// the net loading method
-    MSNet *buildMSNet();
+    virtual MSNet *buildNet();
 
 protected:
     /// counts the structures and preallocates them

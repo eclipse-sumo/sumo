@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/12/11 06:18:03  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.20  2003/12/09 11:23:07  dkrajzew
 // some memory leaks removed
 //
@@ -182,8 +185,9 @@ void GUILoadThread::run()
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-        GUINetBuilder builder(oc);
-        net = builder.buildGUINet(_parent->aggregationAllowed());
+        GUINetBuilder builder(oc, _parent->aggregationAllowed());
+        net =
+            static_cast<GUINet*>(builder.buildNet());
         if(net!=0) {
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");

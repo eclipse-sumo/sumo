@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/12/11 06:19:35  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.11  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
@@ -132,7 +135,6 @@
 #include <fstream>
 #include <microsim/MSNet.h>
 #include <microsim/MSEmitControl.h>
-#include <netload/NLNetBuilder.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsParser.h>

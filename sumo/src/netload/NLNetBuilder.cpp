@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/12/11 06:19:04  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.14  2003/12/05 10:26:10  dkrajzew
 // handling of internal links when theyre not wished improved
 //
@@ -156,25 +159,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr)
+NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
     : m_pOptions(oc)
 {
-    // build a vehicle transfer if none was supplied
-    if(tr==0) {
-        tr = new MSVehicleTransfer();
-    }
-    // set whether empty edges shall be printed on dump
-    MSGlobals::myOmitEmptyEdgesOnDump =
-        !m_pOptions.getBool("dump-empty-edges");
-    // set whether internal lanes shall be used
-    MSGlobals::myUsingInternalLanes =
-        m_pOptions.getBool("use-internal-links");
-    // preinit network
-    MSNet::preInit(
-        tr,
-        oc.getInt("b"),
-        oc.getUIntVector("dump-intervals"),
-        oc.getString("dump-basename"));
 }
 
 
@@ -183,12 +170,28 @@ NLNetBuilder::~NLNetBuilder()
 }
 
 
+
 MSNet *
-NLNetBuilder::buildMSNet()
+NLNetBuilder::buildNet()
 {
+    // pre-initialise the network
+     // set whether empty edges shall be printed on dump
+    MSGlobals::myOmitEmptyEdgesOnDump =
+        !m_pOptions.getBool("dump-empty-edges");
+     // set whether internal lanes shall be used
+    MSGlobals::myUsingInternalLanes =
+        m_pOptions.getBool("use-internal-links");
+     // preinit network
+    MSNet::preInitMSNet(
+        m_pOptions.getInt("b"),
+        m_pOptions.getUIntVector("dump-intervals"),
+        m_pOptions.getString("dump-basename"));
+
+    // initialise loading buffer ...
     NLContainer *container = new NLContainer(
         new NLEdgeControlBuilder(),
         new NLJunctionControlBuilder());
+    // ... and the parser
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
     parser->setFeature(
         XMLString::transcode("http://xml.org/sax/features/validation"),

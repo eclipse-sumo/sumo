@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/12/11 06:18:35  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.12  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed
 //
@@ -70,10 +73,10 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
 #include <guisim/GUINet.h>
-#include <guisim/GUIVehicleTransfer.h>
 #include <netload/NLNetHandler.h>
 #include <netload/NLLoadFilter.h>
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSGlobals.h>
 #include "GUINetHandler.h"
 #include "GUIEdgeControlBuilder.h"
 #include "GUIJunctionControlBuilder.h"
@@ -92,13 +95,10 @@ using namespace XERCES_CPP_NAMESPACE;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUINetBuilder::GUINetBuilder(const OptionsCont &oc)
-    : NLNetBuilder(oc, new GUIVehicleTransfer())
+GUINetBuilder::GUINetBuilder(const OptionsCont &oc,
+                             bool allowAggregatedViews)
+    : NLNetBuilder(oc), myAgregatedViewsAllowed(allowAggregatedViews)
 {
-    GUINet::preInitGUINet(
-        oc.getInt("b"),
-        oc.getUIntVector("dump-intervals"),
-        oc.getString("dump-basename"));
 }
 
 
@@ -107,12 +107,28 @@ GUINetBuilder::~GUINetBuilder()
 }
 
 
-GUINet *
-GUINetBuilder::buildGUINet(bool allowAggregation)
+
+
+MSNet *
+GUINetBuilder::buildNet()
 {
+    // set whether empty edges shall be printed on dump
+    MSGlobals::myOmitEmptyEdgesOnDump =
+        !m_pOptions.getBool("dump-empty-edges");
+    // set whether internal lanes shall be used
+    MSGlobals::myUsingInternalLanes =
+        m_pOptions.getBool("use-internal-links");
+    // preinit network
+    GUINet::preInitGUINet(
+        m_pOptions.getInt("b"),
+        m_pOptions.getUIntVector("dump-intervals"),
+        m_pOptions.getString("dump-basename"));
+
+    // initialise loading buffer ...
     GUIContainer *container = new GUIContainer(
-        new GUIEdgeControlBuilder(allowAggregation),
+        new GUIEdgeControlBuilder(myAgregatedViewsAllowed),
         new GUIJunctionControlBuilder());
+    // ... and the parser
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
     parser->setFeature(
         XMLString::transcode("http://xml.org/sax/features/validation"),

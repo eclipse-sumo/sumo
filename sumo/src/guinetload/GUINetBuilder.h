@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/12/11 06:18:35  dkrajzew
+// network loading and initialisation improved
+//
 // Revision 1.3  2003/09/05 14:56:11  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -57,13 +60,19 @@ class GUINetBuilder : public NLNetBuilder
 {
 public:
     /// constructor
-    GUINetBuilder(const OptionsCont &oc);
+    GUINetBuilder(const OptionsCont &oc,
+        bool allowAggregatedViews);
 
     /// destructor
     ~GUINetBuilder();
 
     /// builds the gui network
-    GUINet *buildGUINet(bool allowAggregation);
+    MSNet *buildNet();
+
+private:
+    /// information whether aggregated views may be used
+    bool myAgregatedViewsAllowed;
+
 };
 
 
