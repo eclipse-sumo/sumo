@@ -22,6 +22,9 @@
 
 
 // $Log$
+// Revision 1.5  2003/07/03 11:03:10  roessel
+// In addSampleInterval(): added assert and file extension.
+//
 // Revision 1.4  2003/06/06 15:33:49  roessel
 // Added documentation.
 // Added maxIntervalLengthM member and assert in addSampleInterval().
@@ -146,6 +149,7 @@ public:
     void addSampleInterval( MSNet::Time intervalLength )
         {
             assert( maxIntervalLengthM >= intervalLength );
+            assert( intervalLength >= 1 );
             if ( intervalsAndFilesM.find( intervalLength ) !=
                  intervalsAndFilesM.end() ) {
                 cerr << "MSTravelcostDetector::addSampleInterval "
@@ -155,7 +159,7 @@ public:
             }
             // open file
             std::string filename = Cost::getNamePrefix() + "_" +
-                toString( intervalLength );
+                toString( intervalLength ) + ".xml";
             std::ofstream* ofs = new std::ofstream( filename.c_str() );
             assert( ofs != 0 );   
             intervalsAndFilesM.insert(
