@@ -7,7 +7,7 @@
 /// @date    Started Tue Dec 02 2003 22:13 CET
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -57,18 +57,18 @@ namespace E2
                    HALTING_DURATION_SUM, // ED
                    HALTING_DURATION_MEAN, // LD
                    APPROACHING_VEHICLES_STATES, // special treatment
-                   ALL }; 
+                   ALL };
 
     const DetType lastTD = CURRENT_HALTING_DURATION_SUM_PER_VEHICLE;
     const DetType lastED = HALTING_DURATION_SUM;
     const DetType lastLD = HALTING_DURATION_MEAN;
-    
-    DetType& operator++( DetType& det );      
+
+    DetType& operator++( DetType& det );
 
     enum Containers { COUNTER = 0,
                       VEHICLES,
                       HALTINGS };
-    
+
     Containers& operator++( Containers& cont );
 }
 
@@ -83,7 +83,7 @@ public:
     typedef TD::MSDetectorInterface TDDetector;
     typedef std::vector< TDDetector* > DetTDCont;
     typedef DetTDCont::iterator DetTDContIter;
-    
+
     typedef ED::MSDetectorInterface EDDetector;
     typedef std::vector< EDDetector* > DetEDCont;
     typedef DetEDCont::iterator DetEDContIter;
@@ -153,7 +153,7 @@ public:
 
 
     const MSApproachingVehiclesStates::DetectorAggregate
-    getCurrentApproachingStates( unsigned nApproachingVeh ) 
+    getCurrentApproachingStates( unsigned nApproachingVeh )
         {
             if ( approachingVehStatesDetectorM == 0 ) {
                 addDetector( E2::APPROACHING_VEHICLES_STATES );
@@ -161,12 +161,12 @@ public:
             return approachingVehStatesDetectorM->getDetectorAggregate(
                 nApproachingVeh );
         }
-    
-    
+
+
     double getCurrent( E2::DetType type )
         {
             assert( type <= E2::lastTD );
-            
+
             TDDetector* det = static_cast< TDDetector* >( getDetector( type ));
             if ( det != 0 ){
                 return det->getCurrent();
@@ -182,18 +182,18 @@ public:
     double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type <= E2::lastLD );
-            
+
             MSDetectorInterfaceCommon* det = getDetector( type );
             if ( det != 0 ){
                 return det->getAggregate( lastNSeconds );
             }
-            
+
             // requested type not present
             // create it and return nonsens value for the first access
             addDetector( type, std::string("") );
             return std::numeric_limits< double >::max();
         }
-    
+
     bool hasDetector( E2::DetType type )
         {
             assert( type < E2::ALL );
@@ -214,8 +214,8 @@ public:
                 }
             }
         }
-        
-    
+
+
     void resetQueueLengthAheadOfTrafficLights( void )
         {
             using namespace Detector;
@@ -424,7 +424,7 @@ protected:
     MSDetectorInterfaceCommon* getDetector( E2::DetType type ) const
         {
             assert( type <= E2::lastLD );
-            
+
             if ( type <= E2::lastTD ){
                 return detectorsTDM[ type ];
             }
@@ -439,7 +439,7 @@ protected:
     E2::DetType getIndex( E2::DetType type ) const
         {
             assert( type <= E2::lastLD );
-            
+
             if ( type <= E2::lastTD ){
                 return type;
             }
@@ -450,7 +450,7 @@ protected:
                 return E2::DetType( type - E2::lastED - 1 );
             }
         }
-    
+
 private:
     MSUnit::Meters startPosM;
     MSUnit::Meters endPosM;
@@ -463,7 +463,7 @@ private:
     DetTDCont detectorsTDM;
     DetEDCont detectorsEDM;
     DetLDCont detectorsLDM;
-    
+
     ContainerCont containersM;
 
     MSDetectorOccupancyCorrection occupancyCorrectionM;
@@ -474,35 +474,30 @@ private:
 
     void createContainer( E2::Containers type )
         {
+            if ( containersM[ type ] != 0 ) {
+                return;
+            }
             switch( type ){
                 case E2::COUNTER:
                 {
-                    if ( containersM[ E2::COUNTER ] == 0 ) {
-                        containersM[ E2::COUNTER ] =
-                            new DetectorContainer::Count(
-                                occupancyCorrectionM );
-                    }
+                    containersM[ E2::COUNTER ] =
+                        new DetectorContainer::Count( occupancyCorrectionM );
                     break;
                 }
                 case E2::VEHICLES:
                 {
-                    if ( containersM[ E2::VEHICLES ] == 0 ) {
-                        containersM[ E2::VEHICLES ] =
-                            new DetectorContainer::VehiclesList(
-                                occupancyCorrectionM );
-                    }
+                    containersM[ E2::VEHICLES ] =
+                        new DetectorContainer::VehiclesList(
+                            occupancyCorrectionM );
                     break;
                 }
                 case E2::HALTINGS:
                 {
-                    if ( containersM[ E2::HALTINGS ] == 0 ) {
-                        containersM[ E2::HALTINGS ] =
-                            new DetectorContainer::HaltingsList(
-                                //occupancyCorrectionM,
-                                haltingTimeThresholdM,
-                                haltingSpeedThresholdM,
-                                jamDistThresholdM );
-                    }
+                    containersM[ E2::HALTINGS ] =
+                        new DetectorContainer::HaltingsList(
+                            haltingTimeThresholdM,
+                            haltingSpeedThresholdM,
+                            jamDistThresholdM );
                     break;
                 }
                 default:
@@ -683,6 +678,7 @@ private:
                 }
                 case E2::HALTING_DURATION_SUM:
                 {
+                /* !!!
                     createContainer( E2::HALTINGS );
                     detectorsEDM[ getIndex( E2::HALTING_DURATION_SUM ) ] =
                         new E2NStartedHalts(
@@ -690,6 +686,7 @@ private:
                             deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
+                */
                     break;
                 }
                 case E2::HALTING_DURATION_MEAN:
@@ -722,11 +719,10 @@ private:
                 if ( *it == 0 ) {
                     continue;
                 }
-                result += std::string("<") +
-                    (*it)->getName() +
-                    std::string(" value=\"") +
+                result += (*it)->getName() +
+                    std::string("=\"") +
                     toString( (*it)->getAggregate( lastNSeconds ) ) +
-                    std::string("\"/>\n");
+                    std::string("\" ");
             }
             return result;
         }
