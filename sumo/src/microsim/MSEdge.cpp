@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2004/01/27 10:36:28  dkrajzew
+// patched some linux-warnings
+//
 // Revision 1.10  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -156,8 +159,7 @@ MSEdge::DictType MSEdge::myDict;
  * member method definitions
  * ======================================================================= */
 MSEdge::MSEdge(string id)
-    : myID(id), myLaneChanger(0),
-    myAllowed(0), myLanes(0)
+    : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0)
 {
 }
 

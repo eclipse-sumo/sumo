@@ -35,7 +35,8 @@
 
 #ifdef WIN32
 #include "helpers/msvc6_TypeTraits.h"
-#elif
+#endif
+#ifndef WIN32
 #include "helpers/gcc_TypeTraits.h"
 #endif
 

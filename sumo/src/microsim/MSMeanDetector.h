@@ -31,7 +31,8 @@
 #include "MSSumDetector.h"
 #ifdef WIN32
 #include "helpers/msvc6_TypeManip.h"
-#elif
+#endif
+#ifndef WIN32
 #include "helpers/gcc_TypeManip.h"
 #endif
 

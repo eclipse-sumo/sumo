@@ -120,8 +120,8 @@ struct MSDetectorMapWrapper
     typedef typename WrappedContainer::iterator ContainerIt;
 //    typedef typename WrappedContainer::data_type Data;
 
-    void write() const {
-        for(WrappedContainer::const_iterator i=containerM.begin(); i!=containerM.end(); i++) {
+    void write()  {
+        for(ContainerIt i=containerM.begin(); i!=containerM.end(); i++) {
             std::cout << (*i).first << " " << this << std::endl;
         }
     }

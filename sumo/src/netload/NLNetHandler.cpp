@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.42  2004/01/27 10:32:25  dkrajzew
+// patched some linux-warnings
+//
 // Revision 1.41  2004/01/26 11:07:50  dkrajzew
 // error checking added
 //
@@ -116,10 +119,11 @@ NLNetHandler::NLNetHandler(const std::string &file,
                            double stdDetectorPositions,
                            double stdDetectorLengths)
     : MSRouteHandler(file, true),
-    myContainer(container), _tlLogicNo(-1), m_Offset(0),
-    myCurrentIsInternalToSkip(false), myDetectorBuilder(detBuilder),
-    myStdDetectorPositions(stdDetectorPositions),
-    myStdDetectorLengths(stdDetectorLengths)
+      myContainer(container), _tlLogicNo(-1), m_Offset(0),
+      myCurrentIsInternalToSkip(false),
+      myStdDetectorPositions(stdDetectorPositions),
+      myStdDetectorLengths(stdDetectorLengths),
+      myDetectorBuilder(detBuilder)
 {
 }
 

@@ -2,12 +2,12 @@
 #define Bin_ShapeReader_h
 
 
-#include "shapefil.h"
-#include <string.h>
+#include <string>
 //#include <iostream.h>
 #include <vector>
-#include "utils\geom\Position2D.h"
-#include "utils\geom\position2dvector.h"
+#include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
+#include "shapefil.h"
 
 
 class shapereader
@@ -17,7 +17,7 @@ public:
     shapereader(char * sfile, char * dfile);
     ~shapereader();
     int openFiles(const char * sfile, const char * dfile);
-    closeFiles();
+    int closeFiles();
     std::string getAttribute(char *attrib);
     int getAttribute(char * attrib, const char *&res);
     int forwardShape();

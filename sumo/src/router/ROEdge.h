@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/01/27 10:31:50  dkrajzew
+// patched some linux-warnings
+//
 // Revision 1.8  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -81,10 +84,10 @@ public:
 
 
     /// Constructor
-	ROEdge(const std::string &id);
+    ROEdge(const std::string &id);
 
     /// Desturctor
-	~ROEdge();
+    virtual ~ROEdge();
 
     /** @brief Initialises te edge after loading
         The weights over time are being set, here */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/01/27 10:33:22  dkrajzew
+// patched some linux-warnings
+//
 // Revision 1.10  2004/01/12 15:53:00  dkrajzew
 // work on code style
 //
@@ -311,6 +314,7 @@ NIArcView_Loader::getStringSecure(const std::string &which)
             string("The attribute '") + which
             + string("' is not given within the file!"));
     }
+    return "";
 }
 
 
@@ -318,69 +322,69 @@ double
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
     try{
-    if ( myWorkInBinModus )
-    {
-        int speedcat =
-            TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
-        switch(speedcat) {
-            case 1:
-                return 300 / 3.6;
-            case 2:
-                return 130 / 3.6;
-            case 3:
-                return 100 / 3.6;
-            case 4:
-                return 90 / 3.6;
-            case 5:
-                return 70 / 3.6;
-            case 6:
-                return 50 / 3.6;
-            case 7:
-                return 30 / 3.6;
-            case 8:
-                return 10 / 3.6;
-            default:
-                throw 1;
+	if ( myWorkInBinModus )
+	{
+	    int speedcat =
+		TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
+	    switch(speedcat) {
+		case 1:
+		    return 300.0 / 3.6;
+		case 2:
+		    return 130. / 3.6;
+		case 3:
+		    return 100. / 3.6;
+		case 4:
+		    return 90. / 3.6;
+		case 5:
+		    return 70. / 3.6;
+		case 6:
+		    return 50. / 3.6;
+		case 7:
+		    return 30. / 3.6;
+		case 8:
+		    return 10. / 3.6;
+		default:
+		    throw 1;
             }
-    }
-    else
-    {
+	}
+	else
+	{
 
             int speedcat = TplConvert<char>::_2int(myColumnsParser.get("SPEED_CAT", true).c_str());
             switch(speedcat) {
-            case 1:
-                return 300 / 3.6;
-            case 2:
-                return 130 / 3.6;
-            case 3:
-                return 100 / 3.6;
-            case 4:
-                return 90 / 3.6;
-            case 5:
-                return 70 / 3.6;
-            case 6:
-                return 50 / 3.6;
-            case 7:
-                return 30 / 3.6;
-            case 8:
-                return 10 / 3.6;
-            default:
-                throw 1;
+		case 1:
+		    return 300. / 3.6;
+		case 2:
+		    return 130. / 3.6;
+		case 3:
+		    return 100. / 3.6;
+		case 4:
+		    return 90. / 3.6;
+		case 5:
+		    return 70. / 3.6;
+		case 6:
+		    return 50. / 3.6;
+		case 7:
+		    return 30. / 3.6;
+		case 8:
+		    return 10. / 3.6;
+		default:
+		    throw 1;
             }
-            }
-        } catch (...) {
-            if(myColumnsParser.get("SPEED_CAT", true)=="NA") {
-                MsgHandler::getWarningInstance()->inform(
-                    string("non-applicable speed definition found for edge '")
-                    + edgeid + string("'")); // !!! Warning-level
-                MsgHandler::getWarningInstance()->inform("Using 30km/h");
-                return 30 / 3.6;
-            }
-            addError(
-                string("Error on parsing edge speed definition for edge '")
-                + edgeid + string("'."));
-            return 0;
-        }
+	}
+    } catch (...) {
+	if(myColumnsParser.get("SPEED_CAT", true)=="NA") {
+	    MsgHandler::getWarningInstance()->inform(
+		string("non-applicable speed definition found for edge '")
+		+ edgeid + string("'")); // !!! Warning-level
+	    MsgHandler::getWarningInstance()->inform("Using 30km/h");
+	    return 30.0 / 3.6;
+	}
+	addError(
+	    string("Error on parsing edge speed definition for edge '")
+	    + edgeid + string("'."));
+	return 0;
+    }
 }
 
 
@@ -389,50 +393,52 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
 {
 
     try {
-    if ( myWorkInBinModus )
-    {
-        try{
+	if ( myWorkInBinModus )
+	{
+	    try{
 	        size_t lanecat =
-                TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
-			return lanecat;
-		}
-		catch(...)
-		{
+		    TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
+		return lanecat;
+	    }
+	    catch(...)
+	    {
 	        size_t lanecat =
-                TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
-		    switch(lanecat) {
-	        case 1:
+		    TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
+		switch(lanecat) {
+		    case 1:
 		        return 1;
-			case 2:
-				return 2;
-	        case 3:
+		    case 2:
+			return 2;
+		    case 3:
 		        return 4;
-			default:
-				throw 1;
-	}	}
-    }
-    else
-    {
-		try
-		{
-	        size_t lanecat =
-                TplConvert<char>::_2int(myColumnsParser.get("rnol", true).c_str());
-			return lanecat;
+		    default:
+			throw 1;
 		}
-		catch(...)
-		{
+	    }
+	}
+	else
+	{
+	    try
+	    {
 	        size_t lanecat =
-                TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
-		    switch(lanecat) {
-	        case 1:
+		    TplConvert<char>::_2int(myColumnsParser.get("rnol", true).c_str());
+		return lanecat;
+	    }
+	    catch(...)
+	    {
+	        size_t lanecat =
+		    TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
+		switch(lanecat) {
+		    case 1:
 		        return 1;
-			case 2:
-				return 2;
-	        case 3:
+		    case 2:
+			return 2;
+		    case 3:
 		        return 4;
-			default:
-				throw 1;
-	}		}
+		    default:
+			throw 1;
+		}
+	    }
 	}
     } catch (...) {
         if(myColumnsParser.get("LANE_CAT", true)=="NA") {

@@ -1,10 +1,8 @@
 noinst_LIBRARIES = librouter.a
 
-
 EXTRA_DIST =
 
-librouter_a_SOURCES =
-CellDriverInfoParser.cpp CellDriverInfoParser.h \
+librouter_a_SOURCES = CellDriverInfoParser.cpp CellDriverInfoParser.h \
 ROAbstractEdgeBuilder.h \
 ROAbstractRouteDefLoader.cpp ROAbstractRouteDefLoader.h \
 ROAbstractRouter.cpp ROAbstractRouter.h \
