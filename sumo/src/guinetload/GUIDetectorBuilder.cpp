@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/11 08:16:50  dkrajzew
+// logging (value passing) moved from utils to microsim
+//
 // Revision 1.4  2003/09/22 12:28:55  dkrajzew
 // construction using two sample intervals inserted (using one by now)
 //
@@ -45,8 +48,8 @@ namespace
 #include <microsim/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/logging/LoggedValue_Single.h>
-#include <utils/logging/LoggedValue_TimeFixed.h>
+#include <microsim/logging/LoggedValue_Single.h>
+#include <microsim/logging/LoggedValue_TimeFixed.h>
 #include "GUIDetectorBuilder.h"
 
 
