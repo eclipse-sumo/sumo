@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/01/12 15:57:21  dkrajzew
+// catching the case of not crossing lines on concatanation
+//
 // Revision 1.20  2003/12/09 11:33:49  dkrajzew
 // made the assignment operator and copy constructor explicite in the wish to save memory
 //
@@ -661,14 +664,18 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
 void
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 {
+    //
     Line2D l1(myCont[myCont.size()-2], myCont[myCont.size()-1]);
     l1.extrapolateBy(100);
     Line2D l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
-    Position2D p = l1.intersectsAt(l2);
-    myCont[myCont.size()-1] = p;
-    copy(v.myCont.begin()+1, v.myCont.end(),
-        back_inserter(myCont));
+    if(l1.intersects(l2)) {
+        Position2D p = l1.intersectsAt(l2);
+        myCont[myCont.size()-1] = p;
+        copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
+    } else {
+        copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
+    }
 }
 
 
