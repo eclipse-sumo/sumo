@@ -27,7 +27,7 @@
 #include <list>
 #include <string>
 #include "MSOccupancyCorrection.h"
-#include "MSDetectorContainer.h"
+#include "MSDoubleDetectorContainer.h"
 
 class MSVehicle;
 class MSLane;
