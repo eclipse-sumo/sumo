@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/07/02 09:51:38  dkrajzew
+// emissions and trip-file included in the options list
+//
 // Revision 1.9  2004/01/26 07:13:51  dkrajzew
 // added the possibility to place lsa-detectors at a default position/using a default length
 //
@@ -41,8 +44,6 @@
 // Revision 1.3  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -80,6 +81,10 @@ char *help[] = {
     "                                    specifies where to save the net loads",
     "   --dump-intervals UINT[;UINT]*   UINT is a positive integer time interval",
     "                                    for which a net load will generated",
+    "   --emissions FILE                Writes statistics about vehicle emissions",
+    "                                    to FILE",
+    "   --tripinfo FILE                 Writes trip information for each vehicle",
+    "                                    to FILE",
     " ",
     " Simulation timing:",
     "   -b, --begin INT                 First time step of the simulation",
