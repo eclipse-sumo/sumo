@@ -116,7 +116,7 @@ netload \
 od2trips \
 router \
 sumo_only \
-utils 
+utils
 
 EXTRA_DIST = version.cpp
 

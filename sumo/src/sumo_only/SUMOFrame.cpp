@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 16:45:25  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/02/07 11:19:37  dkrajzew
 // updated
 //
@@ -63,7 +66,7 @@ SUMOFrame::getOptions()
     oc->doRegister("route-files", 'r', new Option_FileName());
     oc->doRegister("junction-files", 'j', new Option_FileName());
     oc->doRegister("additional-files", 'a', new Option_FileName());
-    oc->doRegister("output-file", 'o', new Option_FileName(""));
+    oc->doRegister("output-file", 'o', new Option_FileName());
     oc->doRegister("configuration-file", 'c', new Option_FileName("sumo.cfg"));
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
@@ -87,8 +90,8 @@ SUMOFrame::getOptions()
     // register the data processing options
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
-    oc->doRegister("no-raw", 'R', new Option_Bool(false));
-    oc->addSynonyme("no-raw", "no-raw-output");
+//    oc->doRegister("no-raw", 'R', new Option_Bool(false));
+//    oc->addSynonyme("no-raw", "no-raw-output");
     oc->doRegister("dump-intervals", new Option_UIntVector(""));
     oc->doRegister("dump-basename", new Option_FileName());;
     // parse the command line arguments and configuration the file
@@ -98,22 +101,18 @@ SUMOFrame::getOptions()
 
 ostream *
 SUMOFrame::buildRawOutputStream(OptionsCont *oc) {
-    if(oc->getBool("R"))
+    if(!oc->isSet("o")) {
 	    return 0;
-
-    filebuf *fb = new filebuf; // !!! possible memory leak
-    ostream *craw = new ostream( (oc->getString("o")=="") ?
-	    cout.rdbuf() :
-	    fb->open(oc->getString("o").c_str(), ios::out|ios::trunc));
-    if(craw->rdbuf()!=fb)
-	    delete fb;
-    if(!craw->good()) {
+    }
+    ostream *ret = new ofstream(oc->getString("o").c_str(),
+        ios::out|ios::trunc);
+    if(!ret->good()) {
         cout << "The output file '" << oc->getString("o")
             << "' could not be built." << endl;
         cout << "Simulation failed." << endl;
         throw ProcessError();
     }
-    return craw;
+    return ret;
 }
 
 
