@@ -6,6 +6,7 @@
     project              : SUMO		 :
 	subproject           : OD2TRIPS
     begin                : Thu, 12 September 2002
+	modified			 : Thu, 25 March 2003, INVENT purposes
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     authors              : Daniel Krajzewicz, Peter Mieth
     emails               : Daniel.Krajzewicz@dlr.de, Peter.Mieth@dlr.de
@@ -30,8 +31,8 @@
 #include <parsers/SAXParser.hpp>
 #include <sax2/SAX2XMLReader.hpp>
 #include <sax2/XMLReaderFactory.hpp>
-
 #include <sax2/DefaultHandler.hpp>
+
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -65,6 +66,8 @@ getSettings(int argc, char **argv)
 	oc->addSynonyme("od-file", "od");
     oc->doRegister("output-file", 'o', new Option_FileName());
 	oc->addSynonyme("output-file", "output");
+	oc->doRegister("od-path", 'i', new Option_FileName());
+	oc->addSynonyme("od-path", "path");
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
     oc->doRegister("warn", 'w', new Option_Bool(true));
@@ -123,7 +126,7 @@ loadDistricts(OptionsCont &oc)
     return ret;
 }
 
-int cmpfun(int a, int b)
+int cmpfun(long int a, long int b)
 {
 	if (a > b)
 		return 1;
@@ -178,117 +181,154 @@ main(int argc, char **argv)
             return 1;
         }
 		string OD_outfile = oc->getString("o");
+		string OD_path = oc->getString("i");
 		bool verbose = oc->getBool("v");
-		int maxele=50000; // initial number of ODs, finally derived from OD-inputfile
-		int total_cars=0;  // total number of cars, finally derived from OD-inputfile
-		int i, j;
-		// OD list
-		vector<OD_IN> od_in;
-        od_in.reserve(maxele);
+		content content[MAX_INFILES]; // helds car types
+		string *infiles = 	new string [MAX_INFILES];
+		int maxfiles=0; //number of OD-Files
+		// reads out some metadata from *.inp
+		ODInpread (OD_filename, infiles, content,&maxfiles);
+		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
+		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
+		long int i, j;
 		float factor;
-		int start, finish;
+		long int  start, finish;
 		bool ok_begin = oc->isDefault("begin");
 		bool ok_end = oc->isDefault("end");
-		// Reads the OD Matrix
-	    ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
-		// use settings if provided
-		if(ok_begin) start = oc->getLong("begin");
-		if(ok_end) finish = oc->getLong("end");
-		// check permitted range
-		if( (start>finish) || (start<0) || (finish>86400) ) {
-			std::cout << "Wrong time range (begin/end)" << endl;
-			throw ProcessError();
-		}
-		const int period = finish - start;
-        // scale input
-        double scale = oc->getFloat("scale");
-		scale = scale / factor;
-        vector<OD_IN>::iterator it1;
-		total_cars = 0;
-        for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-            total_cars += (*it1).how_many;
-        }
-		if(verbose) {
-			std::cout << "Total number of cars desired: "<< int(total_cars/scale) << endl;
-		}
-		total_cars=0;
-		double rest;
-        for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-			rest = fmod ( double((*it1).how_many), scale) / scale;
-			if(rest <= 0.5)
-				(*it1).how_many = int(double((*it1).how_many) / scale);
-			else
-				(*it1).how_many = int(double((*it1).how_many) / scale)+1;
-        }
-        // recompute total_cars
-        total_cars = 0;
-        for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-            total_cars += (*it1).how_many;
-        }
-		if(verbose) {
-			std::cout << "Total number of cars computed: "<< total_cars << endl;
-		}
-		// define dimensions
-		std::vector<OD_OUT> source_sink(total_cars); // output OD data
-		// temporary storage space
-		int *when_all = new int [total_cars];
-		string *source = new string [total_cars];
-		string *sink = 	new string [total_cars];
-		int *old_index= new int [total_cars]; // holds the old index after sorting
-		int *when = new int [period];
-		int *elements = new int [period];
-		// initial order for index
-		for(i=0;i<total_cars;i++) *(old_index+i)=i;
-		if(verbose) {
-			std::cout << "Number of OD elements: "<< maxele << "; Total number of cars: ";
-			std::cout << total_cars << endl;
-		}
-		// temporary variables with initial values
-		int begin=0;
-		int end=0;
-		int index;
-		bool ini=true; // initialize random numbers with time, only first call
-		for(i=0;i<period;i++) *(when+i)=0;
 		// load districts
 		ODDistrictCont *districts = loadDistricts(*oc);
-		 // loop over all ODs
-		for(i=0;i<maxele;i++) {
-            OD_IN tmp = od_in[i];
-			end = od_in[i].how_many;
-            if(end!=0) {
-			    // Gets random numbers which are the release times
-			    // for the cars
-			    end = Get_rand( end, period, elements, when, ini);
-			    ini = false;
-			    end = begin+end;
-			    for(j=begin;j<end;j++)
-			    {
-				    // find dsource, dsink
-				    *(source+j) = districts->getRandomSourceFromDistrict(od_in[i].from);
-				    *(sink+j) = districts->getRandomSinkFromDistrict(od_in[i].to);
-				    *(when_all+j) = *(when+j-begin);
-			    }
-			    begin=end;
-            }
+		int od_next=0;
+		// define dimensions
+		long int max_cars=3000000; // maximum number of cars
+		// temporary storage space
+		long int *when_all = new long int [max_cars];
+		string *source = new string [max_cars];
+		string *sink = 	new string [max_cars];
+		int *cartype = 	new int [max_cars];
+		long int *old_index= new long int [max_cars]; // holds the old index after sorting
+		int index, tmpk, k;
+		long int begin, end, period;
+		bool ini;
+		double tmprand, maxrand;
+		float scale, rest;
+		ini=true; // initialize random numbers with time, only first call
+		for (int ifile=0;ifile<maxfiles;ifile++) { // proceed for all *.fma files
+			// OD list
+			vector<OD_IN> od_in;
+			vector<OD_IN>::iterator it1;
+			OD_filename = OD_path + infiles[ifile];
+			if(verbose) {
+				std::cout << "Processing "<< OD_filename << endl;
+			}
+			// Reads the OD Matrix
+			ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
+			// use settings if provided
+			if(ok_begin) {
+				if(oc->getLong("begin") > start) start = oc->getLong("begin");
+			}
+			if(ok_end) {
+				if(oc->getLong("end") < finish) finish = oc->getLong("end");
+			}
+			// check permitted range
+			if( (start>finish) || (start<0) || (finish>86400) ) {
+				std::cerr << "Wrong time range (begin/end)" << endl;
+				throw ProcessError();
+			}
+			period = finish - start;
+			// scale input
+			scale = oc->getFloat("scale");
+			scale = scale / factor;
+			//if(verbose) {
+			//	std::cout << "Total number of cars desired: "<< int(total_cars/scale) << endl;
+			//}
+			total_cars=0;
+			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
+				rest = fmod ( double((*it1).how_many), scale) / scale;
+				if(rest <= 0.5)
+					(*it1).how_many = int(double((*it1).how_many) / scale);
+				else
+					(*it1).how_many = int(double((*it1).how_many) / scale)+1;
+			}
+			// recompute total_cars
+			total_cars = 0;
+			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
+				total_cars += (*it1).how_many;
+			}
+			//if(verbose) {
+			//	std::cout << "Total number of cars computed: "<< total_cars << endl;
+			//}
+			int *when = new int [period];
+			int *elements = new int [period];
+			//if(verbose) {
+			//	std::cout << "Number of OD elements: "<< maxele << "; Total number of cars: ";
+			//	std::cout << total_cars << endl;
+			//}
+			// temporary variables with initial values
+			begin=0;
+			end=0;
+			for(i=0;i<period;i++) *(when+i)=0;
+			// loop over all ODs
+			for(i=0;i<maxele;i++) {
+				//OD_IN tmp = od_in[i];
+				end = od_in[i].how_many;
+				if(end!=0) {
+					// Gets random numbers which are the release times
+					// for the cars
+					end = Get_rand( end, period, start, elements, when, ini);
+					ini = false;
+					end = begin+end;
+					for(j=begin;j<end;j++)
+					{
+						*(old_index+j+od_next)=j+od_next; // initial order for index
+						// find dsource, dsink
+						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
+						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
+						*(sink+j+od_next) = districts->getRandomSinkFromDistrict(od_in[i].to);
+						*(when_all+j+od_next) = *(when+j-begin);
+						maxrand=0.;
+						// determine car type
+						for (k=0;k<content[ifile].max;k++) {
+							tmprand= rand() * content[ifile].fraction[k];
+								if (maxrand<tmprand) {
+									maxrand=tmprand;
+									tmpk=k;
+								}
+						}
+						*(cartype+j+od_next) = content[ifile].cartype[tmpk];
+					}
+					begin=end;
+				}
+			}
+			total_cars = begin;
+			od_next = od_next + total_cars;
+			delete [] when; delete [] elements;
+			//delete vector<OD_IN>::od_in;
+			//if(verbose) {
+			//	std::cout << "Final total number of cars: "<< begin << endl;
+			//}
 		}
-        total_cars = begin;
+		total_cars = od_next;
 		if(verbose) {
-			std::cout << "Final total number of cars: "<< begin << endl;
+			std::cout << "Total number of released cars: "<< total_cars << endl;
 		}
 		// sorts the time
+		if(verbose) {
+			std::cout << "Sorting ..."<< endl;
+		}
 		IndexSort(when_all, old_index, cmpfun, total_cars);
+		std::vector<OD_OUT> source_sink(max_cars); // output OD data
 		for(i=0;i<total_cars;i++)
 		{
 			index = old_index[i];
 			source_sink[i].from = *(source+index);
 			source_sink[i].to = *(sink+index);
 			source_sink[i].time = *(when_all+i);
+			source_sink[i].type = *(cartype+index);
 		}
 		// writes output to file
-		ODwrite( OD_outfile, source_sink, total_cars );
+		ODWrite( OD_outfile, source_sink, total_cars );
 		delete [] source; delete [] sink;
-		delete [] when_all; delete [] elements;
-		delete [] when; delete [] old_index;
+		delete [] when_all; delete [] cartype;
 		delete oc;
         if(verbose) {
             cout << "Success." <<endl;
@@ -299,5 +339,3 @@ main(int argc, char **argv)
     XMLSubSys::close();
     return ret;
 }
-
-
