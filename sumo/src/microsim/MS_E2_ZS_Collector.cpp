@@ -24,3 +24,15 @@
 #endif // HAVE_CONFIG_H
 
 #include "MS_E2_ZS_Collector.h"
+
+
+using namespace std;
+
+// static member
+string MS_E2_ZS_Collector::xmlHeaderM(
+"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+"<!--\n"
+"- density [veh/km]\n"
+"-->\n\n");
+
+

@@ -11,6 +11,7 @@
 #include <string>
 #include <cassert>
 #include <vector>
+#include <limits>
 
 
 class
@@ -18,19 +19,23 @@ MS_E2_ZS_Collector : public MSMoveReminder,
                      public MSDetectorFileOutput
 {
 public:
-    enum DetType { ALL, DENSITY };
-    
-    typedef std::vector< MSE2DetectorInterface* > DetectorCont;
+    enum DetType { DENSITY = 0, ALL };
+
+    typedef MSE2DetectorInterface E2ZSDetector;
+    typedef std::vector< E2ZSDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
     typedef SingletonDictionary< std::string, MS_E2_ZS_Collector* > Dictionary;
     
-    MS_E2_ZS_Collector( const std::string id, //daraus ergibt sich der Filename
-                        const MSLane* lane,
+    MS_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
+                        MSLane* lane,
                         const MSUnit::Meters startPos,
-                        const MSUnit::Meters detLength )
+                        const MSUnit::Meters detLength,
+                        MSUnit::Seconds deleteDataAfterSeconds = 1800 )
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
-          endPosM( startPos + detLength )
+          endPosM( startPos + detLength ),
+          deleteDataAfterSecondsM( deleteDataAfterSeconds ),
+          detectorsM(1)
         {
             assert( laneM != 0 );
             MSUnit::Meters laneLength =
@@ -44,13 +49,65 @@ public:
                 assert( false );
             }
 
+            
+        }
 
+    ~MS_E2_ZS_Collector( void )
+        {
+            for ( DetContIter it = detectorsM.begin();
+                  it != detectorsM.end(); ++it ) {
+                delete *it;
+            }
         }
     
-    double getGurrent( DetType type );
-    double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds );
-    void addDetector( DetType type, const std::string detId );
+    double getGurrent( DetType type ) const
+        {
+            assert(type != ALL );
+            E2ZSDetector* det = getDetector( type );
+            if ( det != 0 ){
+                return det->getCurrent();
+            }
+            // error, requested type not present
+            return std::numeric_limits< double >::max();
+        }
     
+    double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds ) const
+        {
+            assert(type != ALL );
+            E2ZSDetector* det = getDetector( type );
+            if ( det != 0 ){
+                return det->getAggregate( lanstNSeconds );
+            }
+            // error, requested type not present
+            return std::numeric_limits< double >::max(); 
+        }
+    
+    void addDetector( DetType type, std::string detId )
+        {
+            using namespace Detector;
+            switch( type ) {
+                case DENSITY:
+                {
+                    detectorsM[DENSITY] =
+                        new E2Density( E2Density::getDetectorName() + detId,
+                                       endPosM - startPosM,
+                                       deleteDataAfterSecondsM );
+                    break;
+                }
+                case ALL:
+                {
+                    detectorsM[DENSITY] =
+                        new E2Density( E2Density::getDetectorName() + detId,
+                                       endPosM - startPosM,
+                                       deleteDataAfterSecondsM );
+                    break;
+                }
+                default:
+                {
+                    assert( 0 );
+                }
+            }
+        }
     
     void update( void )
         {
@@ -59,8 +116,6 @@ public:
                 (*it)->update();
             }
         }
-    
-
 
     /**
      * @name Inherited MSMoveReminder methods.
@@ -197,18 +252,21 @@ public:
      * @param lastNTimesteps Generate data out of the interval
      * (now-lastNTimesteps, now].
      */
-    std::string getXMLOutput( MSUnit::Steps lastNTimesteps )
+    std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps )
         {
             std::string result;
             MSUnit::Seconds lastNSeconds =
                 MSUnit::getInstance()->getSeconds( lastNTimesteps );
             for ( DetContIter it = detectorsM.begin();
                   it != detectorsM.end(); ++it ) {
+                if ( *it == 0 ) {
+                    continue;
+                }
                 std::string aggregate =
                     toString( (*it)->getAggregate( lastNSeconds ) );
-                if ( Detector::E2Density* det =
-                     dynamic_cast< Detector::E2Density* >( *it ) ) {
-                    result += std::string("<") + det->getDetectorName() +
+                if ( dynamic_cast< Detector::E2Density* >( *it ) ) {
+                    result += std::string("<") +
+                        Detector::E2Density::getDetectorName() +
                         std::string(" value=\"") + aggregate +
                         std::string("\"/>\n");
                 }
@@ -245,24 +303,36 @@ public:
     /** 
      * Get the data-clean up interval in timesteps.
      */
-    MSUnit::Steps getDataCleanUpSteps( void ) const{}
+    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+        {
+            return MSUnit::getInstance()->getIntegerSteps(
+                deleteDataAfterSecondsM );
+        }
     //@}
 
 protected:
 
+    E2ZSDetector* getDetector( DetType type ) const
+        {
+            assert(type != ALL );
+            return detectorsM[ type ];
+        }
+    
     
     
 private:
     const MSUnit::Meters startPosM;
     const MSUnit::Meters endPosM;
-
+    
+    MSUnit::Seconds deleteDataAfterSecondsM;
+    
     DetectorCont detectorsM;
 
     static std::string xmlHeaderM;
     
 };
 
-std::string MS_E2_ZS_Collector::xmlHeaderM = std::string("hallo");
+
 
 #endif // MS_E2_ZS_COLLECTOR
 
