@@ -36,7 +36,7 @@ private:
 protected:
     
     typedef double DetectorAggregate;
-    typedef DetectorContainer::TraveltimeMap Container;
+    typedef DetectorContainer::TimeMap Container;
     typedef Container::InnerContainer TravelTimeMap;
     
     MSE3Traveltime( const Container& container )

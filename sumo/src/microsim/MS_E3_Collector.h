@@ -336,7 +336,7 @@ private:
                 {
                     if ( containersM[ E3::TRAVELTIME ] == 0 ) {
                         containersM[ E3::TRAVELTIME ] =
-                            new DetectorContainer::TraveltimeMap();
+                            new DetectorContainer::TimeMap();
                     }
                     break;
                 }
@@ -371,7 +371,7 @@ private:
                         new E3Traveltime(
                             E3Traveltime::getDetectorName() + detId,
                             deleteDataAfterSecondsM,
-                            *static_cast< DetectorContainer::TraveltimeMap* >(
+                            *static_cast< DetectorContainer::TimeMap* >(
                                 containersM[ E3::TRAVELTIME ] ) );
                     break;
                 }
