@@ -21,9 +21,9 @@ cvs dist cvs-clean configure.in configure.files subdirs package-messages package
 	  fi; \
 	fi; \
 	if test "$@" = "package-merge"; then \
-		MAKE=$(MAKE) POFILES="$(POFILES)" PACKAGE="$(PACKAGE)" \
+		MAKE="$(MAKE)" POFILES="$(POFILES)" PACKAGE="$(PACKAGE)" \
 	  	$(SHELL) $$admindir/cvs.sh package-merge ;\
-	else MAKE=$(MAKE) $(SHELL) $$admindir/cvs.sh $@ ;\
+	else MAKE="$(MAKE)" $(SHELL) $$admindir/cvs.sh $@ ;\
 	fi
 
 configure.in: configure.files $(shell test -f configure.files && cat configure.files) subdirs

@@ -78,6 +78,11 @@ while (<>) {
 # 2. begins with: "for ac_file in.*CONFIG_FILES"  (the next 'for' after (1))
 #    end with: "rm -f conftest.s\*"
 # on autoconf 250, it ends with '# CONFIG_HEADER section'
+#
+# gg: if a post-processing commands section is found first, 
+#    stop there and insert a new loop to honour the case/esac.
+# (pattern: /^\s+#\sRun the commands associated with the file./)
+
 	if (/^\s*for\s+ac_file\s+in\s+.*CONFIG_FILES/ ) {
 	    $flag = 3;
 	} else {
@@ -94,9 +99,11 @@ while (<>) {
 	    if ($ac_version != 2141) {
 	        print STDERR "hmm, don't know autoconf version\n";
 	    }
-        } elsif (/^\#\s*CONFIG_HEADER section.*/) {
+        } elsif (/^\#\s*CONFIG_HEADER section.*|^\s+#\s(Run) the commands associated/) {
           $flag = 4;
+          $commands = defined $1;
           &insert_main_loop();
+          $commands && insert_command_loop();
           if($ac_version != 250) {
             print STDERR "hmm, something went wrong :-(\n";
           }
@@ -174,4 +181,10 @@ rm -f \$ac_cs_root.s*
 
 EOF
     return;
+}
+
+sub insert_command_loop {
+    print <<EOF;
+  for ac_file in .. \$CONFIG_FILES ; do
+EOF
 }

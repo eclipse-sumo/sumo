@@ -59,15 +59,15 @@ esac
 
 AUTOMAKE_STRING=`$AUTOMAKE --version | head -1`
 case $AUTOMAKE_STRING in
-  automake*1.5d* )
+  automake*1.5d* | automake*1.5* | automake*1.5-* )
     echo "*** YOU'RE USING $AUTOMAKE_STRING."
-    echo "*** KDE requires automake 1.5"
+    echo "*** KDE requires automake 1.6.1 or newer"
     exit 1
     ;;
-  automake*1.5* | automake*1.5-* | automake*1.6.* | automake*1.7* ) : ;;
+  automake*1.6.* | automake*1.7* ) : ;;
   "" )
     echo "*** AUTOMAKE NOT FOUND!."
-    echo "*** KDE requires automake 1.5"
+    echo "*** KDE requires automake 1.6.1 or newer"
     exit 1
     ;;
   unsermake* ) :
@@ -76,7 +76,7 @@ case $AUTOMAKE_STRING in
     ;;
   * )
     echo "*** YOU'RE USING $AUTOMAKE_STRING."
-    echo "*** KDE requires automake 1.5"
+    echo "*** KDE requires automake 1.6"
     exit 1
     ;;
 esac
@@ -196,7 +196,7 @@ configure_in()
 rm -f configure.in configure.in.new
 kde_use_qt_param=
 test -f configure.files || { echo "need configure.files for configure.in"; exit 1; }
-cat `egrep -v "configure.in.bot" < configure.files` > configure.in.new
+cat `fgrep -v "configure.in.bot" < configure.files | fgrep -v "configure.in.mid"` > configure.in.new
 echo "KDE_CREATE_SUBDIRSLIST" >> configure.in.new
 if test -f Makefile.am.in; then
   subdirs=`cat subdirs`
@@ -205,7 +205,6 @@ if test -f Makefile.am.in; then
     echo "AM_CONDITIONAL($dir""_SUBDIR_included, test \"x\$$dir""_SUBDIR_included\" = xyes)" >> configure.in.new
   done
 fi
-# echo "AC_OUTPUT( \\" >> configure.in.new
 mfs=`find . -type d -print | fgrep -v "/." | \
      sed -e "s#\./##" -e "/^debian/d" | sort`
 for i in $mfs; do
@@ -244,6 +243,10 @@ done
 if test -n "$UNSERMAKE"; then
   echo "AC_CONFIG_FILES([ MakeVars ])" >> configure.in.new
 fi
+
+midfiles=`cat configure.files | fgrep "configure.in.mid"`
+test -n "$midfiles" && cat $midfiles >> configure.in.new
+
 echo "AC_OUTPUT" >> configure.in.new
 modulename=
 if test -f configure.in.in; then
@@ -294,7 +297,7 @@ if test -f configure.in.in && head -2 configure.in.in | grep "^#MIN_CONFIG" > /d
 	echo $admindir/configure.in.min >> configure.files
 fi
 test -f configure.in.in && echo configure.in.in >> configure.files
-list=`find . -name "configure.in.in" -o -name "configure.in.bot" | sort`
+list=`find . -name "configure.in.in" -o -name "configure.in.bot" -o -name "configure.in.mid" | sort`
 for i in $list; do if test -f $i && test `dirname $i` != "." ; then
   echo $i >> configure.files
 fi; done
@@ -339,8 +342,8 @@ for d in $compilelast; do
 done
 
 if test -f Makefile.am.in; then
-  cp Makefile.am.in Makefile.am
   if test -n "$UNSERMAKE"; then
+    cp Makefile.am.in Makefile.am
     topsubdirs=
     for i in $compilefirst $dirs $compilelast; do
        vari=`echo $i | sed -e "s,[-+],_,g"`
@@ -351,6 +354,9 @@ if test -f Makefile.am.in; then
     done
     echo "SUBDIRS=$topsubdirs" >> Makefile.am
   else
+    cat Makefile.am.in | \
+        sed -e 's,^\s*\(COMPILE_BEFORE.*\),# \1,' | \
+        sed -e 's,^\s*\(COMPILE_AFTER.*\),# \1,' > Makefile.am
     echo "SUBDIRS="'$(TOPSUBDIRS)' >> Makefile.am
   fi
 fi

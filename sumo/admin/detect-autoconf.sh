@@ -52,12 +52,12 @@ checkAutoheader()
 checkAutomakeAclocal ()
 {
   if test -z "$UNSERMAKE"; then
-    if test -x "`$WHICH automake-1.5`" ; then
-      AUTOMAKE="`$WHICH automake-1.5`"
-      ACLOCAL="`$WHICH aclocal-1.5`"
-    elif test -x "`$WHICH automake-1.6`" ; then
+    if test -x "`$WHICH automake-1.6`" ; then
       AUTOMAKE="`$WHICH automake-1.6`"
       ACLOCAL="`$WHICH aclocal-1.6`"
+    elif test -x "`$WHICH automake-1.7`" ; then
+      AUTOMAKE="`$WHICH automake-1.7`"
+      ACLOCAL="`$WHICH aclocal-1.7`"
     fi
   else
      AUTOMAKE="$UNSERMAKE"

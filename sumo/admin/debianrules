@@ -30,7 +30,7 @@ $mandir			=	"$kde_prefix/share/man";
 $infodir		=	"$kde_prefix/share/info";
 $sysconfdir		=	"/etc";
 
-$QTDIR			=	"/usr/share/qt";
+$QTDIR			=	"/usr/share/qt3";
 $IDL			=	"$kde_bindir/cuteidl";
 $DCOPIDL		=	"$kde_bindir/dcopidl";
 $DCOPIDL2CPP		=	"$kde_bindir/dcopidl2cpp";
@@ -45,7 +45,12 @@ if (defined $ENV{DEB_BUILD_OPTIONS} &&
 }
 else {
   $enable_debug="--disable-debug";
-  $enable_final="--enable-final";
+   if (defined $ENV{DEB_BUILD_OPTIONS} &&
+      $ENV{DEB_BUILD_OPTIONS} =~ /\bnofinal\b/) {
+      $enable_final="";
+   } else {
+      $enable_final="--enable-final";
+   }
 }
 
 if (@ARGV && $ARGV[0] eq 'echodirs') {
@@ -81,9 +86,9 @@ if (@ARGV && $ARGV[0] eq 'echodirs') {
   print STDOUT "export ARTSCCONFIG=$ARTSCCONFIG\n";
   print STDOUT "export INSTALL_DATA=install -p -c -m 644\n";
 
-  print STDOUT "configkde=$enable_debug $enable_final --disable-rpath --prefix=\$(kde_prefix) --libexecdir=\$(kde_bindir) --sysconfdir=\$(sysconfdir) --libdir=\$(kde_libdir) --includedir=\$(kde_includedir) --with-qt-includes=/usr/include/qt --mandir=\$(mandir) --infodir=\$(infodir)\n";
-  print STDOUT "configkdevelop=$enable_debug $enable_final --disable-rpath --enable-docbase --enable-kdoc2 --libdir=\$(kde_libdir) --includedir=\$(kde_includedir) --with-qt-includes=/usr/include/qt --mandir=\$(mandir) --with-kdelibsdoc-dir=/usr/share/doc/kdelibs3-doc/html\n";
-  print STDOUT "configkdepim=$enable_debug $enable_final --disable-rpath --with-extra-includes=/usr/include/libpisock --enable-shared --prefix=\$(kde_prefix) --libexecdir=\$(kde_bindir) --with-qt-includes=/usr/include/qt --mandir=\$(mandir) --infodir=\$(infodir)\n";
+  print STDOUT "configkde=$enable_debug $enable_final --disable-rpath --prefix=\$(kde_prefix) --libexecdir=\$(kde_bindir) --sysconfdir=\$(sysconfdir) --libdir=\$(kde_libdir) --includedir=\$(kde_includedir) --with-qt-includes=/usr/include/qt3 --mandir=\$(mandir) --infodir=\$(infodir)\n";
+  print STDOUT "configkdevelop=$enable_debug $enable_final --disable-rpath --enable-docbase --enable-kdoc2 --libdir=\$(kde_libdir) --includedir=\$(kde_includedir) --with-qt-includes=/usr/include/qt3 --mandir=\$(mandir) --with-kdelibsdoc-dir=/usr/share/doc/kdelibs3-doc/html\n";
+  print STDOUT "configkdepim=$enable_debug $enable_final --disable-rpath --with-extra-includes=/usr/include/libpisock --enable-shared --prefix=\$(kde_prefix) --libexecdir=\$(kde_bindir) --with-qt-includes=/usr/include/qt3 --mandir=\$(mandir) --infodir=\$(infodir)\n";
 
   exit
 }

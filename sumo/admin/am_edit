@@ -62,6 +62,9 @@ sub tag_UIFILES();
 sub tag_SUBDIRS();
 sub tag_ICON();
 sub tag_CLOSURE();
+sub tag_NO_UNDEFINED();
+sub tag_NMCHECK();
+sub tag_NMCHECK_GLOBAL();
 sub tag_DIST();
 
 # Some global globals...
@@ -252,7 +255,9 @@ sub processMakefile ($)
         $depedmocs{$program} = "";
         $important{$program} = "";
 	tag_IDLFILES();             # Sorts out idl rules
+	tag_NO_UNDEFINED();
 	tag_CLOSURE();
+	tag_NMCHECK();
 	tag_UIFILES();             # Sorts out ui rules
         tag_METASOURCES ();         # Sorts out the moc rules
         if ($sources_changed{$program}) {
@@ -316,11 +321,13 @@ sub processMakefile ($)
     tag_LOCALINSTALL();         # add $(DESTDIR) before all kde_ dirs
     tag_ICON();
     tag_SUBDIRS();
+    tag_NMCHECK_GLOBAL();
 
     my $tmp = "force-reedit:\n";
     $tmp   .= "\t$automkCall\n\tcd \$(top_srcdir) && perl $thisProg $printname\n\n";
     appendLines($tmp);
     
+    make_bcheck_target();
     make_meta_classes();
     tag_COMPILE_FIRST();
     tag_FINAL() if (!$kdeopts{"nofinal"});
@@ -434,13 +441,13 @@ sub processMakefile ($)
 
     while ($found) {
         if ($MakefileData =~ m/\n(.*)\$\(CXXFLAGS\)(.*)\n/) {
-            my $vor = $1;   # "vor" means before in German
-            my $nach = $2; # "nach" means after in German
+            my $stuff_before = $1;
+            my $stuff_after = $2;
             my $lookup = quotemeta("$1\$(CXXFLAGS)$2");
             my $replacement = "$1\$(KCXXFLAGS)$2";
             $MakefileData =~ s/$lookup/$replacement/;
             $lookup =~ s/\\\$\\\(CXXFLAGS\\\)/\\\$\\\(KCXXFLAGS\\\)/;
-            $replacement = "$vor\$(KCXXFLAGS) \$(KDE_CXXFLAGS)$nach";
+            $replacement = "$stuff_before\$(KCXXFLAGS) \$(KDE_CXXFLAGS)$stuff_after";
             substituteLine($lookup, $replacement);
         } else {
             $found = 0;
@@ -533,7 +540,8 @@ sub initialise ()
     read_variables();
 
     if ($MakefileData =~ /\nKDE_OPTIONS\s*=\s*([^\n]*)\n/) {
-        local @kde_options = split(/[\s\034]/, $1);
+	my $kde_options_str = $1;
+        local @kde_options = split(/[\034\s]+/, $kde_options_str);
         if (grep(/^foreign$/, @kde_options)) {
             push(@foreignfiles, $makefileDir . "/");
             return 0; # don't touch me
@@ -560,7 +568,8 @@ sub initialise ()
       }
 
     while ($MakefileData =~ /\n\.SUFFIXES:([^\n]+)\n/g) {
-	my @list=split(' ', $1);
+	my $suffixes_str = $1;
+	my @list=split(' ', $suffixes_str);
 	foreach $ext (@list) {
 	    if ($ext =~ /^\.$cppExt$/) {
 		$cxxsuffix = $ext;
@@ -571,20 +580,20 @@ sub initialise ()
 	}
     }
 
-    while ($MakefileData =~ /\n(\S*)_OBJECTS\s*=[ \t\034]*([^\n]*)\n/g) {
+    while ($MakefileData =~ /\n(\S*)_OBJECTS\s*=[\034\s]*([^\n]*)\n/g) {
 
         my $program = $1;
         my $objs = $2; # safe them
 
         my $ocv = 0;
 
-        my @objlist = split(/[\s\034]+/, $objs);
+        my @objlist = split(/[\034\s]+/, $objs);
         foreach $obj (@objlist) {
             if ($obj =~ /(\S*)\$\((\S+)\)/ ) {
 		my $pre = $1;
                 my $variable = $2;
 		if ($pre eq '' && exists($varcontent{$variable})) {
-		    my @addlist = split(/[\s\034]+/, $varcontent{$variable});
+		    my @addlist = split(/[\034\s]+/, $varcontent{$variable});
 		    push(@objlist, @addlist);
                 } elsif ($variable !~ 'OBJEXT') {
                     $ocv = 1;
@@ -633,7 +642,8 @@ sub initialise ()
     my @marks = ('MAINTAINERCLEANFILES', 'CLEANFILES', 'DISTCLEANFILES');
     foreach $mark (@marks) {
         while ($MakefileData =~ /\n($mark)\s*=\s*([^\n]*)/g) {
-            foreach $file (split('[\034\s]', $2)) {
+	    my $clean_str = $2; 
+            foreach $file (split('[\034\s]+', $clean_str)) {
                 $file =~ s/\.\///;
                 push(@cleanfiles, $file);
             }
@@ -659,8 +669,7 @@ sub tag_META_INCLUDES ()
     my $headerStr = $2;
     removeLine ($lookup, $1);
 
-    $headerStr =~ tr/\034/ /;
-    my @headerlist = split(' ', $headerStr);
+    my @headerlist = split(/[\034\s]+/, $headerStr);
 
     foreach $dir (@headerlist)
     {
@@ -696,7 +705,7 @@ sub tag_FINAL()
 	my $moc_cpp_added = 0;  # If we added some .moc.cpp files, due to
 				# no other .cpp file including the .moc one.
         
-        my @progsources = split(/[\s\034]+/, $sources{$program});
+        my @progsources = split(/[\034\s]+/, $sources{$program});
         my %shash = ();
         @shash{@progsources} = 1;  # we are only interested in the existence
         my %sourcelist = ();
@@ -728,7 +737,7 @@ sub tag_FINAL()
             
             my $mocfiles_in = ($suffix eq $cxxsuffix) && $moc_cpp_added;
             
-            my @sourcelist = split(/[\s\034]+/, $sourcelist{$suffix});
+            my @sourcelist = split(/[\034\s]+/, $sourcelist{$suffix});
             
             if ((@sourcelist == 1 && !$mocfiles_in) || $suffix_is_cxx != 1 ) {
                 
@@ -805,8 +814,9 @@ sub tag_COMPILE_FIRST()
   foreach $program (@programs) {
     my $lookup = "$program" . '_COMPILE_FIRST\s*=\s*(.*)';
     if ($MakefileData =~ m/\n$lookup\n/) {
-      my @compilefirst = split(/[\s\034]+/, $1);
-      my @progsources = split(/[\s\034]+/, $sources{$program});
+      my $compilefirst_str = $1;
+      my @compilefirst = split(/[\034\s]+/, $compilefirst_str);
+      my @progsources = split(/[\034\s]+/, $sources{$program});
       my %donesources = ();
       $handling = "";
       foreach $source (@progsources) {
@@ -917,7 +927,7 @@ sub tag_METASOURCES ()
 # Errors are logged in the global $errorflags
 sub tag_AUTOMAKE ()
 {
-    my $lookup = '.*cd \$\(top_srcdir\)\s+&&[\s\034]+\$\(AUTOMAKE\)(.*)';
+    my $lookup = '.*cd \$\(top_srcdir\)\s+&&[\034\s]+\$\(AUTOMAKE\)(.*)';
     return 1    if ($MakefileData !~ /\n($lookup)\n/);
     print STDOUT "AUTOMAKE processing <$1>\n"        if ($verbose);
 
@@ -1186,7 +1196,8 @@ sub tag_ICON()
         my $iconauto = ($2 =~ /AUTO\s*$/);
         my @appnames = ();
         if ( ! $iconauto ) {
-            my @_appnames = split(" ", $2);
+	    my $appicon_str = $2;
+            my @_appnames = split(" ", $appicon_str);
             print STDOUT "KDE_ICON processing <@_appnames>\n"   if ($verbose);
             foreach $appname (@_appnames) {
                 push(@appnames, quotemeta($appname));
@@ -1511,6 +1522,28 @@ sub replaceDestDir($) {
 }
 
 #---------------------------------------------------------------------------
+# libtool is very hard to persuade it could use -Wl,--no-undefined for making
+# -no-undefined actually work
+# append $(KDE_NO_UNFINED) after every -no-undefined in LDFLAGS
+# this may go away if libtool ever does this on its own
+sub tag_NO_UNDEFINED () {
+    return if ($program !~ /_la$/);
+
+    my $lookup = quotemeta($realname{$program}) . ":.*?\n\t.*?\\((.*?)\\) .*\n";
+    $MakefileData =~ m/$lookup/;
+    return if ($1 !~ /CXXLINK/);
+
+    if ($MakefileData !~ /\n$program\_LDFLAGS\s*=.*-no-undefined/ ) {
+        return;
+    }
+
+    $lookup = $program . '\_LDFLAGS(\s*)=(.*)-no-undefined(.*)';
+    if ($MakefileData =~ /\n$lookup\n/) {
+	my $replace = $program . "\_LDFLAGS$1=$2-no-undefined \$(KDE_NO_UNDEFINED)$3";
+        substituteLine($lookup, $replace);
+    }
+}
+
 sub tag_CLOSURE () {
     return if ($program !~ /_la$/);
 
@@ -1542,6 +1575,57 @@ sub tag_CLOSURE () {
     $closure_output .= " $closure";
 }
 
+sub tag_NMCHECK () {
+    return if ($program !~ /_la$/);
+    my $lookup = quotemeta($realname{$program}) . ":.*?\n\t.*?\\((.*?)\\) .*\n";
+    $MakefileData =~ m/$lookup/;
+    my $linkcmd = $1;
+    return if ($linkcmd !~ /CXXLINK/ && $linkcmd !~ /LINK/);
+
+    $lookup = $program . '_NMCHECK\s*=([^\n]*)';
+    if( $MakefileData !~ m/\n$lookup\n/ ) {
+	return;
+    }
+    my $allowed = $1;
+    $allowed =~ s/^ *//;
+    $lookup = $program . '_NMCHECKWEAK\s*=([^\n]*)';
+    my $weak = "";
+    my $is_weak = 0;
+    if( $MakefileData =~ m/\n$lookup\n/ ) {
+	$weak = $1;
+	$is_weak = 1;
+    }
+    $weak =~ s/^ *//;
+
+    if( $is_weak )
+    {
+	$weak = '--allowweak=\'' . $weak . '\' ';
+    }
+    my $nmline = "\@KDE_USE_NMCHECK_TRUE@\t\@\$(MAKE) \$(AM_MAKEFLAGS) nmcheck_$realname{$program} || ( rm -f $realname{$program}; exit 1 )";
+    $lookup = '(\t\$\(CXXLINK\)[^\n]*' . $program . '_OBJECTS[^\n]*)';
+    if( $MakefileData =~ /\n$lookup\n/ ) {
+	my $oldstuff = $1;
+	substituteLine( $lookup, $oldstuff . "\n" . $nmline );
+    }
+    $lookup = '(\t\$\(LINK\)[^\n]*' . $program . '_OBJECTS[^\n]*)';
+    if( $MakefileData =~ /\n$lookup\n/ ) {
+	my $oldstuff = $1;
+	substituteLine( $lookup, $oldstuff . "\n" . $nmline );
+    }
+    $nmline = "\@\$(top_srcdir)/admin/nmcheck $realname{$program} \'$allowed\' $weak";
+    appendLines( "\nnmcheck_$realname{$program}: $realname{$program} \n\t$nmline\n" );
+    $target_adds{ "nmcheck" } .= "nmcheck_$realname{$program} ";
+}
+
+sub tag_NMCHECK_GLOBAL() {
+    $target_adds{ "nmcheck" } .= ""; # always create nmcheck target
+    $target_adds{ "nmcheck-am" } .= "nmcheck";
+    my $lookup = 'RECURSIVE_TARGETS\s*=\s*(.*)';
+    if ($MakefileData =~ /\n$lookup/) {
+      substituteLine($lookup, "RECURSIVE_TARGETS = $1 nmcheck-recursive");
+    }
+}
+
 sub tag_DIST () {
     my %foundfiles = ();
     opendir (THISDIR, ".");
@@ -1558,7 +1642,8 @@ sub tag_DIST () {
     my @marks = ("EXTRA_DIST", "DIST_COMMON", '\S*_SOURCES', '\S*_HEADERS', 'CLEANFILES', 'DISTCLEANFILES', '\S*_OBJECTS');
     foreach $mark (@marks) {
         while ($MakefileData =~ /\n($mark)\s*=\s*([^\n]*)/g) {
-            foreach $file (split('[\034\s]', $2)) {
+	    my $cleanfiles_str = $2;
+            foreach $file (split('[\034\s]+', $cleanfiles_str)) {
                 $file =~ s/\.\///;
                 $foundfiles{$file} = 0 if (defined $foundfiles{$file});
             }
@@ -1889,6 +1974,27 @@ sub addMocRules ()
     }
 }
 
+sub make_bcheck_target()
+{
+    my $lookup = 'RECURSIVE_TARGETS\s*=\s*(.*)';
+    my $bcheckdep = "bcheck-am";
+    if ($MakefileData =~ /\n$lookup/) {
+      substituteLine($lookup, "RECURSIVE_TARGETS = $1 bcheck-recursive");
+      $bcheckdep = "bcheck-recursive";
+    }
+
+    my $t = "bcheck: $bcheckdep\n\n" .
+            "bcheck-am:\n";
+    if($cxxsuffix ne "KKK") {
+      $t .=  "\ttest ! -r bchecktest.cc.class || mv -f bchecktest.cc.class bchecktest.cc.oldclass\n" .
+             "\t\@echo \"int main() {return 0;}\" > bchecktest.cc\n" .
+             "\tfor i in \$(include_HEADERS); do echo \"#include \\\"\$\$i\\\"\" >> bchecktest.cc; done \n" .
+             "\ttest ! -s bchecktest.cc || \$(CXXCOMPILE) --dump-class-hierarchy bchecktest.cc\n" .
+               "\ttest ! -s bchecktest.cc.oldclass || test ! -s bchecktest.cc.class || cmp -s bchecktest.cc.oldclass bchecktest.cc.class";
+    }
+    appendLines("$t\n");
+}
+
 sub make_meta_classes ()
 {
     return if ($kdeopts{"qtonly"});
@@ -1898,7 +2004,7 @@ sub make_meta_classes ()
     my $moc_class_headers = "";
     foreach $program (@programs) {
 	my $mocs = "";
-	my @progsources = split(/[\s\034]+/, $sources{$program});
+	my @progsources = split(/[\034\s]+/, $sources{$program});
 	my @depmocs = split(' ', $depedmocs{$program});
 	my %shash = (), %mhash = ();
 	@shash{@progsources} = 1;  # we are only interested in the existence
@@ -1986,8 +2092,8 @@ sub substituteLine ($$)
     if ($MakefileData =~ /\n($lookup)/) {
       $old = $1;
       $old =~ s/\034/\\\n#>\- /g;         # Fix continuation lines
-      $new =~ s/\034/\\\n/g;
-      my $newCount = ($new =~ tr/\n//) + 1;
+      my $newCount = ($new =~ tr/\034//) + ($new =~ tr/\n//) + 1;
+      $new =~ s/\\\n/\034/g;
       $MakefileData =~ s/\n$lookup/\n#>- $old\n#>\+ $newCount\n$new/;
     } else {
       print STDERR "Warning: substitution of \"$lookup\" in $printname failed\n";
@@ -2000,8 +2106,8 @@ sub substituteLine ($$)
 sub appendLines ($)
 {
   my ($new) = @_;
-  $new =~ s/\034/\\\n/g;        # Fix continuation lines
-  my $newCount = ($new =~ tr/\n//) + 1;
+  my $newCount = ($new =~ tr/\034//) + ($new =~ tr/\n//) + 1;
+  $new =~ s/\\\n/\034/g;        # Fix continuation lines
   $MakefileData .= "\n#>\+ $newCount\n$new";
 }
 
