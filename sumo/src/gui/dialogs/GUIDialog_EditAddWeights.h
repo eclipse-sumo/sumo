@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.1  2004/07/02 08:10:56  dkrajzew
 // edition of breakpoints and additional weights added
 //
@@ -59,7 +62,7 @@ class GUIDialog_EditAddWeights : public FXMainWindow
     FXDECLARE(GUIDialog_EditAddWeights)
 public:
     /// constructor
-    GUIDialog_EditAddWeights(GUIApplicationWindow *parent);
+    GUIDialog_EditAddWeights(FXWindow *parent);
 
     /// destructor
     ~GUIDialog_EditAddWeights();
@@ -93,7 +96,7 @@ private:
     MFXAddEditTypedTable *myTable;
 
     /// the parent window
-    GUIApplicationWindow *myParent;
+//    GUIApplicationWindow *myParent;
 
     ///
     bool myEntriesAreValid;

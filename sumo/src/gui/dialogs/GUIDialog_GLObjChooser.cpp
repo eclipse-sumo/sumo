@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.4  2004/08/02 11:28:57  dkrajzew
 // ported to fox 1.2
 //
@@ -60,17 +63,19 @@ namespace
 #include <string>
 #include <vector>
 #include <gui/GUISUMOViewParent.h>
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUIGlObject.h>
-#include <gui/GUIGlObjectStorage.h>
-#include <gui/icons/GUIIconSubSys.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <microsim/MSJunction.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
 #include "GUIDialog_GLObjChooser.h"
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
 
 
 /* =========================================================================
@@ -98,7 +103,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
                                                GUIGlObjectType type,
                                                GUIGlObjectStorage &glStorage)
     : FXMainWindow(gFXApp, "Instance Action Chooser", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-    myObjectType(type), myParent(parent)
+    myObjectType(type), myParent(parent), mySelected(0)
 {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
@@ -117,6 +122,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         break;
     case GLO_VEHICLE:
         ids = GUIVehicle::getIDs();
+        break;
+    case GLO_ADDITIONAL:
+        ids = GUIGlObject_AbstractAdd::getIDList();
         break;
     default:
         break;
@@ -140,9 +148,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
             selected = gSelected.isSelected(type, *i);
         }
         if(selected) {
-            myList->appendItem(name.c_str(), GUIIconSubSys::getIcon(ICON_FLAG));
+            myList->appendItem(name.c_str(), GUIIconSubSys::getIcon(ICON_FLAG), (void*) o);
         } else {
-            myList->appendItem(name.c_str());
+            myList->appendItem(name.c_str(), 0, (void*) o);
         }
         glStorage.unblockObject(*i);
     }
@@ -174,9 +182,9 @@ GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
 {
     int selected = myList->getCurrentItem();
     if(selected>=0) {
-        mySelectedID = string(myList->getItemText(selected).text());
+        mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
     } else {
-        mySelectedID = "";
+        mySelected = 0;
     }
     close(true);
     return 1;
@@ -186,7 +194,7 @@ GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
 long
 GUIDialog_GLObjChooser::onCmdCancel(FXObject*,FXSelector,void*)
 {
-    mySelectedID = "";
+    mySelected = 0;
     close(true);
     return 1;
 }
@@ -195,17 +203,17 @@ GUIDialog_GLObjChooser::onCmdCancel(FXObject*,FXSelector,void*)
 FXbool
 GUIDialog_GLObjChooser::close(FXbool notify)
 {
-    if(mySelectedID.length()!=0) {
-        myParent->setView(myObjectType, mySelectedID, "");
+    if(mySelected!=0) {
+        myParent->setView(mySelected);
     }
     return FXMainWindow::close(notify);
 }
 
 
-std::string
-GUIDialog_GLObjChooser::getID() const
+GUIGlObject *
+GUIDialog_GLObjChooser::getObject() const
 {
-    return mySelectedID;
+    return static_cast<GUIGlObject*>(mySelected);
 }
 
 

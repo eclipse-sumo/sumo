@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.2  2004/04/02 10:57:31  dkrajzew
 // deselection of selected items added; saving of selected items names added
 //
@@ -63,7 +66,7 @@ class GUIDialog_GLChosenEditor : public FXMainWindow
     FXDECLARE(GUIDialog_GLChosenEditor)
 public:
     /// constructor
-    GUIDialog_GLChosenEditor(GUIApplicationWindow *parent);
+    GUIDialog_GLChosenEditor(GUIMainWindow *parent);
 
     /// destructor
     ~GUIDialog_GLChosenEditor();
@@ -84,7 +87,7 @@ private:
     FXList *myList;
 
     /// the parent window
-    GUIApplicationWindow *myParent;
+    GUIMainWindow *myParent;
 
 protected:
     GUIDialog_GLChosenEditor() { }

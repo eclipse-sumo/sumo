@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.2  2004/04/02 10:56:20  dkrajzew
 // first try to implement an option for switching off textures
 //
@@ -36,8 +39,9 @@ namespace
  * included modules
  * ======================================================================= */
 #include "GUIDialog_AppSettings.h"
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
+#include <utils/gui/images/GUIImageGlobals.h>
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.2  2004/04/02 10:58:27  dkrajzew
 // visualisation whether an item is selected added
 //
@@ -45,7 +48,7 @@
 #include <string>
 #include <vector>
 #include <fx.h>
-#include <gui/GUIGlObjectTypes.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 
 
 /* =========================================================================
@@ -53,6 +56,7 @@
  * ======================================================================= */
 class GUISUMOViewParent;
 class GUIGlObjectStorage;
+class GUIGlObject;
 
 
 /* =========================================================================
@@ -68,6 +72,7 @@ class GUIDialog_GLObjChooser : public FXMainWindow
 {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLObjChooser)
+
 public:
     /// constructor
     GUIDialog_GLObjChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
@@ -76,9 +81,10 @@ public:
     /// destructor
     ~GUIDialog_GLObjChooser();
 
-    /// returns the id of the chosen artifact; 0 if none was chosen
-    std::string getID() const;
+    /// Returns the chosen (selected) object
+    GUIGlObject *getObject() const;
 
+    /// Closes the window
     FXbool close(FXbool notify=FALSE);
 
     long onCmdCenter(FXObject*,FXSelector,void*);
@@ -89,7 +95,7 @@ private:
     FXList *myList;
 
     /// the chosen id
-    std::string mySelectedID;
+    GUIGlObject *mySelected;
 
     /// the artifact to choose
     GUIGlObjectType myObjectType;

@@ -1,6 +1,6 @@
 #include "GUIDialog_SimSettings.h"
 
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 
 

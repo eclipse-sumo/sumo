@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:00:08  dkrajzew
+// new class hierarchy for windows applied
+//
 // Revision 1.5  2004/08/02 11:28:57  dkrajzew
 // ported to fox 1.2
 //
@@ -53,12 +56,15 @@ namespace
 #include <iostream>
 #include <fstream>
 #include <gui/GUIApplicationWindow.h>
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <guisim/GUINet.h>
 #include "GUIDialog_GLChosenEditor.h"
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
 
 
 /* =========================================================================
@@ -85,7 +91,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIApplicationWindow *parent)
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent)
     : FXMainWindow(gFXApp, "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
     myParent(parent)
 {
