@@ -59,7 +59,7 @@ public:
         }
     
 protected:
-    // E2 Ctor
+    // E2 ZS Ctor
     MSSumDetector( std::string id,
                    double lengthInMeters,
                    MSUnit::Seconds deleteDataAfterSeconds,
@@ -69,7 +69,7 @@ protected:
                         container )
         {}
 
-    // Another E2 ctor
+    // Another E2 ZS ctor
     MSSumDetector( std::string id,
                    double lengthInMeters,
                    MSUnit::Seconds deleteDataAfterSeconds,
@@ -79,6 +79,15 @@ protected:
                         helperDetector )
         {}
 
+    // E2 ED ctor
+    MSSumDetector( std::string id,
+                   MSUnit::Seconds deleteDataAfterSeconds,
+                   DetectorContainer& container )
+        : DetectorType( id,
+                        deleteDataAfterSeconds,
+                        container )
+        {}    
+    
     // E3 ctor
     MSSumDetector( std::string id,
                    MSUnit::Seconds deleteDataAfterSeconds,
