@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.19  2004/11/23 10:11:34  dkrajzew
 // adapted the new class hierarchy
 //
@@ -156,8 +159,11 @@ public:
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingRouteFor(GUIVehicle *v, int index=-1);
 
+	long onCmdEditGraph(FXObject*,FXSelector,void*);
+
 protected:
     void draw(const MSRoute &r);
+
 /*
 void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
 */
@@ -227,6 +233,8 @@ protected:
         myLaneColoringSchemes;
 
     GUINet *_net;
+
+	GUISUMOViewParent *par;
 
 protected:
     GUIViewTraffic() { }

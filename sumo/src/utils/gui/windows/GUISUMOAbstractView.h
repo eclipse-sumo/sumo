@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/12 17:23:59  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -180,6 +183,9 @@ public:
     /// A reimplementation due to some internal reasons
     FXbool makeCurrent();
 
+	/// returns true, if the edit button was pressed
+	bool isInEditMode();
+
     //GUINet &getNet() const;
 
 
@@ -192,6 +198,9 @@ public:
     long onMouseMove(FXObject*,FXSelector,void*);
     long onRightMouseTimeOut(FXObject*,FXSelector,void*);
     long onCmdShowToolTips(FXObject*,FXSelector,void*);
+//new Andreas begin
+//	long onCmdEditGraph(FXObject*,FXSelector,void*);
+//new Andreas end
     long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
@@ -374,8 +383,10 @@ protected:
     /// The perspective changer
     GUIPerspectiveChanger *_changer;
 
-    /// Information whether too-tip informations shall be generated
+    /// Information whether tool-tip informations shall be generated
     bool _useToolTips;
+
+	bool _inEditMode;
 
     /// The used tooltip-class
     GUIGLObjectToolTip *_toolTip;

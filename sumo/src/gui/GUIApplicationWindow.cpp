@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.35  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -286,7 +289,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         FXMDIClient::ID_MDI_MENUWINDOW,LAYOUT_LEFT);
     new FXMDIDeleteButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENUCLOSE,FRAME_RAISED|LAYOUT_RIGHT);
-    new FXMDIRestoreButton(myMenuBar,myMDIClient,
+	new FXMDIRestoreButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENURESTORE,FRAME_RAISED|LAYOUT_RIGHT);
     new FXMDIMinimizeButton(myMenuBar,myMDIClient,
         FXMDIClient::ID_MDI_MENUMINIMIZE,FRAME_RAISED|LAYOUT_RIGHT);

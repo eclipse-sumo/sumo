@@ -3,101 +3,16 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: z_libutils_guidiv - Win32 Debug--------------------
-</h3>
-<h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP2F.tmp" with contents
-[
-/nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "C:\Programme\Sumo\fox-1.2.11\include" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sumo\sumo\src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp"
-"C:\sumo\sumo\src\utils\gui\windows\GUIMainWindow.cpp"
-"C:\sumo\sumo\src\utils\gui\div\GUIParam_PopupMenu.cpp"
-"C:\sumo\sumo\src\utils\gui\div\GUIParameterTableWindow.cpp"
-"C:\sumo\sumo\src\utils\gui\tracker\GUIParameterTracker.cpp"
-"C:\sumo\sumo\src\utils\gui\windows\GUISUMOAbstractView.cpp"
-"C:\sumo\sumo\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.cpp"
-]
-Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP2F.tmp" 
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP30.tmp" with contents
-[
-/nologo /out:"Debug\z_libutils_guidiv.lib" 
-.\Debug\GUIAppGlobals.obj
-.\Debug\GUIDanielPerspectiveChanger.obj
-.\Debug\GUIFrame.obj
-.\Debug\GUIGlChildWindow.obj
-.\Debug\GUIGlobalSelection.obj
-.\Debug\GUIGlObject.obj
-.\Debug\GUIGlObject_AbstractAdd.obj
-.\Debug\GUIGlObjectGlobals.obj
-.\Debug\GUIGLObjectPopupMenu.obj
-.\Debug\GUIGlObjectStorage.obj
-.\Debug\GUIGLObjectToolTip.obj
-.\Debug\GUIGradients.obj
-.\Debug\GUIGradientStorage.obj
-.\Debug\GUIGrid.obj
-.\Debug\GUIIOGlobals.obj
-.\Debug\GUIMainWindow.obj
-.\Debug\GUIMessageWindow.obj
-.\Debug\GUIParam_PopupMenu.obj
-.\Debug\GUIParameterTableItem.obj
-.\Debug\GUIParameterTableWindow.obj
-.\Debug\GUIParameterTracker.obj
-.\Debug\GUIPerspectiveChanger.obj
-.\Debug\GUISelectedStorage.obj
-.\Debug\GUISUMOAbstractView.obj
-.\Debug\GUITLLogicPhasesTrackerWindow.obj
-.\Debug\TrackerValueDesc.obj
-]
-Creating command line "link.exe -lib @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP30.tmp"
-<h3>Output Window</h3>
-Compiling...
-GUIGLObjectPopupMenu.cpp
-Generating Code...
-Compiling...
-GUIMainWindow.cpp
-GUIParam_PopupMenu.cpp
-GUIParameterTableWindow.cpp
-GUIParameterTracker.cpp
-GUISUMOAbstractView.cpp
-GUITLLogicPhasesTrackerWindow.cpp
-Generating Code...
-Creating library...
-<h3>
---------------------Configuration: z_libutils_guiicons - Win32 Debug--------------------
-</h3>
-<h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP31.tmp" with contents
-[
-/nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "C:\Programme\Sumo\fox-1.2.11\include" /I "..\..\..\src" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /Fp"Debug/z_libutils_guiicons.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sumo\sumo\src\utils\gui\images\GUIIconSubSys.cpp"
-]
-Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP31.tmp" 
-Creating command line "link.exe -lib /nologo /out:"Debug\z_libutils_guiicons.lib"  .\Debug\GUIIconSubSys.obj .\Debug\GUIImageGlobals.obj .\Debug\GUITexturesHelper.obj "
-<h3>Output Window</h3>
-Compiling...
-GUIIconSubSys.cpp
-Creating library...
-<h3>
 --------------------Configuration: y_libgui - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP32.tmp" with contents
+Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP138.tmp" with contents
 [
 /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "C:\Programme\Sumo\fox-1.2.11\include" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sumo\sumo\src\gui\GUIApplicationWindow.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_AppSettings.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_Breakpoints.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_EditAddWeights.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_GLChosenEditor.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_GLObjChooser.cpp"
-"C:\sumo\sumo\src\gui\dialogs\GUIDialog_SimSettings.cpp"
-"C:\sumo\sumo\src\gui\GUILoadThread.cpp"
 "C:\sumo\sumo\src\gui\GUISUMOViewParent.cpp"
-"C:\sumo\sumo\src\gui\GUIViewAggregatedLanes.cpp"
-"C:\sumo\sumo\src\gui\GUIViewTraffic.cpp"
 ]
-Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP32.tmp" 
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP33.tmp" with contents
+Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP138.tmp" 
+Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP139.tmp" with contents
 [
 /nologo /out:"Debug\y_libgui.lib" 
 .\Debug\GUIApplicationWindow.obj
@@ -138,93 +53,16 @@ Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP33.tmp" with cont
 .\Debug\GUIViewAggregatedLanes.obj
 .\Debug\GUIViewTraffic.obj
 ]
-Creating command line "link.exe -lib @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP33.tmp"
+Creating command line "link.exe -lib @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP139.tmp"
 <h3>Output Window</h3>
 Compiling...
-GUIApplicationWindow.cpp
-Generating Code...
-Compiling...
-GUIDialog_AppSettings.cpp
-GUIDialog_Breakpoints.cpp
-GUIDialog_EditAddWeights.cpp
-GUIDialog_GLChosenEditor.cpp
-GUIDialog_GLObjChooser.cpp
-GUIDialog_SimSettings.cpp
-GUILoadThread.cpp
 GUISUMOViewParent.cpp
-GUIViewAggregatedLanes.cpp
-GUIViewTraffic.cpp
-Generating Code...
-Creating library...
-<h3>
---------------------Configuration: y_libguisim - Win32 Debug--------------------
-</h3>
-<h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP34.tmp" with contents
-[
-/nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "C:\Programme\Sumo\fox-1.2.11\include" /I "..\..\..\src" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include\xercesc" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /Fp"Debug/y_libguisim.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sumo\sumo\src\guisim\GUIDetectorWrapper.cpp"
-"C:\sumo\sumo\src\guisim\GUIJunctionWrapper.cpp"
-"C:\sumo\sumo\src\guisim\GUILaneSpeedTrigger.cpp"
-"C:\sumo\sumo\src\guisim\GUILaneWrapper.cpp"
-"C:\sumo\sumo\src\guisim\GUINetWrapper.cpp"
-"C:\sumo\sumo\src\guisim\GUITrafficLightLogicWrapper.cpp"
-"C:\sumo\sumo\src\guisim\GUIVehicle.cpp"
-]
-Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP34.tmp" 
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP35.tmp" with contents
-[
-/nologo /out:"Debug\y_libguisim.lib" 
-.\Debug\GUI_E2_ZS_Collector.obj
-.\Debug\GUI_E2_ZS_CollectorOverLanes.obj
-.\Debug\GUIDetectorWrapper.obj
-.\Debug\GUIE3Collector.obj
-.\Debug\GUIEdge.obj
-.\Debug\GUIGridBuilder.obj
-.\Debug\GUIHelpingJunction.obj
-.\Debug\GUIInductLoop.obj
-.\Debug\GUIInternalLane.obj
-.\Debug\GUIJunctionWrapper.obj
-.\Debug\GUILane.obj
-.\Debug\GUILaneChanger.obj
-.\Debug\GUILaneSpeedTrigger.obj
-.\Debug\GUILaneStateReporter.obj
-.\Debug\GUILaneWrapper.obj
-.\Debug\GUINet.obj
-.\Debug\GUINetWrapper.obj
-.\Debug\GUINoLogicJunction.obj
-.\Debug\GUIRightOfWayJunction.obj
-.\Debug\GUIRoute.obj
-.\Debug\GUIRouteHandler.obj
-.\Debug\GUISourceLane.obj
-.\Debug\GUITrafficLightLogicWrapper.obj
-.\Debug\GUIVehicle.obj
-.\Debug\GUIVehicleControl.obj
-.\Debug\GUIVehicleType.obj
-]
-Creating command line "link.exe -lib @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP35.tmp"
-<h3>Output Window</h3>
-Compiling...
-GUIDetectorWrapper.cpp
-GUIJunctionWrapper.cpp
-GUILaneSpeedTrigger.cpp
-GUILaneWrapper.cpp
-GUINetWrapper.cpp
-GUITrafficLightLogicWrapper.cpp
-GUIVehicle.cpp
 Creating library...
 <h3>
 --------------------Configuration: netedit - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP36.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "C:\Programme\Sumo\fox-1.2.11\include" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include" /I "C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/netedit.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sumo\sumo\src\netedit\GNEApplicationWindow.cpp"
-"C:\sumo\sumo\src\netedit_main.cpp"
-]
-Creating command line "cl.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP36.tmp" 
-Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP37.tmp" with contents
+Creating temporary file "C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP13A.tmp" with contents
 [
 opengl32.lib C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\lib\xerces-c_2D.lib C:\Programme\Sumo\fox-1.2.11\lib\FOXDLLD-1.2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/netedit.pdb" /debug /machine:I386 /out:"Debug/netedit.exe" /pdbtype:sept 
 .\Debug\ColorSelector.obj
@@ -265,11 +103,8 @@ opengl32.lib C:\Programme\Sumo\xerces-c_2_5_0-windows_nt-msvc_60\lib\xerces-c_2D
 \sumo\sumo\prj\msvc6\z_libmicrosim_tls\Debug\z_libmicrosim_tls.lib
 \sumo\sumo\prj\msvc6\z_libutils_iodevices\Debug\z_libutils_iodevices.lib
 ]
-Creating command line "link.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP37.tmp"
+Creating command line "link.exe @C:\DOKUME~1\TANIUN~1\LOKALE~1\Temp\RSP13A.tmp"
 <h3>Output Window</h3>
-Compiling...
-GNEApplicationWindow.cpp
-netedit_main.cpp
 Linking...
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/12 17:23:59  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.2  2004/12/02 13:54:23  agaubatz
 // Netedit update, A. Gaubatz
 //
@@ -197,6 +200,8 @@ enum {
     MID_SHOWGRID,
     /// Show Tool Tips - Button
     MID_SHOWTOOLTIPS,
+	/// Graph Edit Button
+	MID_EDIT_GRAPH,
     /// Show Full Geom - Button
     MID_SHOWFULLGEOM,
     /// Make Snapshot - Button

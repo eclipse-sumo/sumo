@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.9  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -76,6 +79,7 @@ namespace
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 
 /* =========================================================================
@@ -124,11 +128,53 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 }
 
 
+/*
+
+GUIParameterTableWindow *
+GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
+                                   GUISUMOAbstractView &parent)
+{
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this, 2);
+    // add items
+    ret->mkItem("maxspeed [m/s]", false, myLane.maxSpeed());
+    ret->mkItem("length [m]", false, myLane.length());
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+*/
+
 GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
-{
-    throw 1;
+{	
+	std::vector<std::string> s=myJunction.getNames();
+	int NumberOfRows =s.size();
+	GUIParameterTableWindow *ret =
+		new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
+    // add items
+	//ret->mkItem("length [m]", false, myJunction.length());
+    ret->mkItem("x-Position", false, myJunction.getPosition().x());
+	ret->mkItem("y-Position", false, myJunction.getPosition().y());
+	
+	//std::vector<string>::iterator p=s.begin();
+	/*
+	while(p !=s.end())
+	{
+		ret->mkItem("name", false, s[]);
+		p++;
+	}
+	*/
+	for(int i=0 ; i<s.size(); i++)
+	{
+		ret->mkItem("name", false, s[i]);
+	}
+
+    // close building
+    ret->closeBuilding();
+    return ret;
+    //throw 1;
 }
 
 

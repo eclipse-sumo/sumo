@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.33  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -197,6 +200,9 @@ FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[]={
     FXMAPFUNCS(SEL_COMMAND,  MID_COLOURVEHICLES, MID_COLOURVEHICLES+99, GUIViewTraffic::onCmdColourVehicles),
     FXMAPFUNCS(SEL_COMMAND,  MID_COLOURLANES,    MID_COLOURLANES+99,    GUIViewTraffic::onCmdColourLanes),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewTraffic::onCmdShowToolTips),
+// new Andreas begin
+	FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GUIViewTraffic::onCmdEditGraph),
+// new Andreas end
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewTraffic::onCmdShowGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWFULLGEOM,   GUIViewTraffic::onCmdShowFullGeom),
 };
@@ -218,6 +224,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
     _net(&net)
 {
     init(net);
+	par=parent;
 }
 
 
@@ -233,6 +240,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
     _net(&net)
 {
     init(net);
+	par=parent;
 }
 
 
@@ -349,6 +357,20 @@ GUIViewTraffic::create()
     myLocatorPopup->create();
 }
 
+long
+GUIViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
+{
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    _inEditMode = button->amChecked();
+	if(button->amChecked())
+		par->getEditGroupBox()->show();
+	else
+		par->getEditGroupBox()->hide();
+    update();
+    return 1;
+}
+
 
 void
 GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
@@ -417,6 +439,14 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
         &toolbar,
         "\tToggles Geometry\tToggle whether full or simple Geometry shall be used.",
         GUIIconSubSys::getIcon(ICON_SHOWFULLGEOM), this, MID_SHOWFULLGEOM,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+
+	new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+
+	new MFXCheckableButton(false,
+        &toolbar,
+        "\tToggle Editor Tool\tToggle Editor Tool Selection.",
+        GUIIconSubSys::getIcon(ICON_EDITGRAPH), this, MID_EDIT_GRAPH,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 }
 

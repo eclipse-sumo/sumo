@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/12/12 17:23:59  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.2  2004/12/02 13:54:23  agaubatz
 // Netedit update, A. Gaubatz
 //
@@ -106,6 +109,7 @@ namespace
 #include "paintbrush3x.xpm"
 #include "paintbrush4x.xpm"
 #include "paintbrush5x.xpm"
+#include "edit_graph.xpm"
 
 
 #include "flag.cpp"
@@ -197,11 +201,12 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 	myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
 	myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
 	myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
-	myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
-	myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
-	myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
-	myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
-	myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
+	myIcons[ICON_RUBBER1X]     = new FXXPMIcon(a, rubber1x_xpm);
+	myIcons[ICON_RUBBER2X]     = new FXXPMIcon(a, rubber2x_xpm);
+	myIcons[ICON_RUBBER3X]     = new FXXPMIcon(a, rubber3x_xpm);
+	myIcons[ICON_RUBBER4X]     = new FXXPMIcon(a, rubber4x_xpm);
+	myIcons[ICON_RUBBER5X]     = new FXXPMIcon(a, rubber5x_xpm);
+	myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
 
     // vss
     myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);

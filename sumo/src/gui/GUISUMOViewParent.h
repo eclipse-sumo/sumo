@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.8  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -145,9 +148,14 @@ public:
 
     GUIMainWindow *getParent() { return myParent; }
 
+	FXGroupBox *getEditGroupBox();
+
 private:
     /** builds the toolbar  */
     void buildToolBar(FXComposite *c);
+
+	/** builds the edit frame  */
+	void buildEditFrame(FXComposite *c);
 
     /** build the artifact choosing toolbar */
     void buildTrackingTools();
@@ -161,6 +169,18 @@ private:
 
     /// information whether the canvas may be rotated
     bool _allowRotation;
+	
+	//Editor Frame Widgets
+	FXGroupBox  *groupBox;
+	FXTextField *JunctionNameTextField;
+	FXTextField *xPosTextField;
+	FXTextField *yPosTextField;
+	FXTextField *LaneNameTextField;
+	FXTextField *LaneStartTextField;
+	FXTextField *LaneEndTextField;
+	FXTextField *MaxSpeedTextField;
+	FXTextField *LengthTextField;
+
 
     /// the artifact chooser
     GUIDialog_GLObjChooser *_chooser;

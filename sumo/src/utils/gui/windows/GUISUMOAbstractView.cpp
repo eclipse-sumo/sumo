@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/12 17:23:59  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -279,6 +282,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myAmInitialised(false)
 {
     flags|=FLAG_ENABLED;
+	_inEditMode=false;
     // compute the net scale
     double nw = myGrid->getBoundary().getWidth();
     double nh = myGrid->getBoundary().getHeight();
@@ -309,6 +313,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myAmInitialised(false)
 {
     flags|=FLAG_ENABLED;
+	_inEditMode=false;
     // compute the net scale
     double nw = myGrid->getBoundary().getWidth();
     double nh = myGrid->getBoundary().getHeight();
@@ -329,6 +334,13 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
     if(_lock.locked()) {
         _lock.unlock();
     }
+}
+
+
+bool
+GUISUMOAbstractView::isInEditMode()
+{
+	return _inEditMode;
 }
 
 
@@ -777,6 +789,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
         }
         _lock.unlock();
     }
+	
     _changer->onLeftBtnPress(o, sel, data);
     grab();
     return 1;
@@ -790,6 +803,31 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
     _popup = 0;
     _changer->onLeftBtnRelease(o, sel, data);
     ungrab();
+	FXEvent *e = (FXEvent*) data;
+	//new Andreas
+	if(e->state&&_inEditMode){
+		_lock.lock();
+		if(makeCurrent()) 
+	{
+        // initialise the select mode
+        unsigned int id = getObjectUnderCursor();
+        GUIGlObject *o = 0;
+        if(id!=0) {
+            o = gIDStorage.getObjectBlocking(id);
+        } else {
+            o = gNetWrapper;
+        }
+
+        if(o!=0) {
+			GUIParameterTableWindow *w =
+			o->getParameterWindow(*myApp, *this);
+        }
+        makeNonCurrent();
+    }
+	_lock.unlock();
+	}
+
+	//new Andreas
     return 1;
 }
 
@@ -882,8 +920,17 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data)
     }
     return FXGLCanvas::onKeyRelease(o, sel, data);
 }
-
-
+/*
+long
+GUISUMOAbstractView::onCmdEditGraph(FXObject*sender,FXSelector,void*)
+{
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    _inEditMode = button->amChecked();
+    update();
+    return 1;
+}
+*/
 
 long
 GUISUMOAbstractView::onCmdShowToolTips(FXObject*sender,FXSelector,void*)

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/12/12 17:23:58  agaubatz
+// Editor Tool Widgets included
+//
 // Revision 1.11  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -158,22 +161,30 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 {
     // Make MDI Window Menu
     setTracking();
-    FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame *contentFrame =
         new FXVerticalFrame(this,
         FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
         0,0,0,0,0,0,0,0);
     // build the tool bar
-    buildToolBar(glcanvasFrame);
-    switch(view) {
+    buildToolBar(contentFrame);
+    FXHorizontalFrame *glcanvasFrame =
+        new FXHorizontalFrame(contentFrame,
+        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+        0,0,0,0,0,0,0,0);
+	switch(view) {
     case MICROSCOPIC_VIEW:
         if(share!=0) {
+			buildEditFrame(glcanvasFrame);
             _view =
                 new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
                     myParent->getGLVisual(), share);
         } else {
+			buildEditFrame(glcanvasFrame);
             _view =
                 new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
                     myParent->getGLVisual());
+			//if(!(_view->isInEditMode()))
+			//	groupBox->hide();
         }
         break;
     case LANE_AGGREGATED_VIEW:
@@ -199,6 +210,59 @@ GUISUMOViewParent::~GUISUMOViewParent()
     myParent->removeChild(this);
     delete myToolBar;
 //    delete myToolBarDrag;
+}
+
+void
+GUISUMOViewParent::buildEditFrame(FXComposite *c)
+{
+	groupBox=new FXGroupBox(c,"Title Left",
+		GROUPBOX_TITLE_LEFT|FRAME_RIDGE|LAYOUT_FILL_Y);
+	new FXLabel(groupBox,"Junction(s)");
+	FXMatrix *myMatrix1=new FXMatrix(groupBox,2,FRAME_THICK|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);	
+	new FXLabel(myMatrix1,"Name:");
+	JunctionNameTextField =new FXTextField(myMatrix1,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix1,"X-Position:");
+	xPosTextField =new FXTextField(myMatrix1,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix1,"Y-Position");
+	yPosTextField =new FXTextField(myMatrix1,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix1,"Mode");
+	FXHorizontalFrame *buttonFrame =
+		new FXHorizontalFrame(myMatrix1,
+		LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
+	new FXToggleButton(buttonFrame,"\t\tClick to change junction mode (currently in priority mode).","\t\tClick to change junction mode (currently in trafficlights mode).",GUIIconSubSys::getIcon(ICON_EXTRACT)/*icon1*/,GUIIconSubSys::getIcon(ICON_DILATE)/*icon2*/,NULL,0,ICON_BEFORE_TEXT|JUSTIFY_LEFT|FRAME_RAISED|FRAME_THICK);
+	new FXButton(buttonFrame,"\t\ttest\status bar?",GUIIconSubSys::getIcon(ICON_EXTRACT),NULL,0,ICON_BEFORE_TEXT|LAYOUT_RIGHT|FRAME_RAISED|FRAME_THICK);
+	new FXButton(myMatrix1,"Add Junction\t\Add Junction.",NULL,NULL,0,ICON_BEFORE_TEXT|LAYOUT_FILL_X|LAYOUT_FILL_Y|FRAME_RAISED|FRAME_THICK);
+	new FXButton(myMatrix1,"Delete Junction\t\Delete Junction.",NULL,NULL,0,LAYOUT_FILL_X|LAYOUT_FILL_Y|FRAME_RAISED|FRAME_THICK);
+
+	new FXLabel(groupBox,"Lane(s)");
+	FXMatrix *myMatrix2=new FXMatrix(groupBox,2,FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);	
+	new FXLabel(myMatrix2,"Name:");
+	LaneNameTextField =new FXTextField(myMatrix2,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix2,"Lane Start:");
+	LaneStartTextField =new FXTextField(myMatrix2,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix2,"Lane End");
+	LaneEndTextField =new FXTextField(myMatrix2,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix2,"Max. Speed");
+	MaxSpeedTextField =new FXTextField(myMatrix2,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXLabel(myMatrix2,"Length");
+	LengthTextField =new FXTextField(myMatrix2,12,this,
+		NULL,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
+	new FXButton(myMatrix2,"Add Lane\ttest\Add Lane.",NULL,NULL,0,ICON_BEFORE_TEXT|LAYOUT_FILL_X|LAYOUT_FILL_Y|FRAME_RAISED|FRAME_THICK);
+	new FXButton(myMatrix2,"Delete Lane\ttest\Delete Lane.",NULL,NULL,0,ICON_BEFORE_TEXT|LAYOUT_FILL_X|LAYOUT_FILL_Y|FRAME_RAISED|FRAME_THICK);
+}
+
+
+FXGroupBox*
+GUISUMOViewParent::getEditGroupBox()
+{
+	return groupBox;
 }
 
 
