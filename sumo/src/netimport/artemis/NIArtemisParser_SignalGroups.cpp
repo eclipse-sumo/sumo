@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:37:13  dkrajzew
+// patch to current netbuilder-API; still not working properly
+//
 // Revision 1.3  2003/03/17 14:18:58  dkrajzew
 // Windows eol removed
 //
@@ -106,10 +109,10 @@ NIArtemisParser_SignalGroups::myDependentReport()
     }
     NBEdge *fromEdge =
         NBContHelper::findConnectingEdge(
-            *node->getIncomingEdges(), fromNode, node);
+            node->getIncomingEdges(), fromNode, node);
     NBEdge *toEdge =
         NBContHelper::findConnectingEdge(
-            *node->getOutgoingEdges(), node, toNode);
+            node->getOutgoingEdges(), node, toNode);
     if(fromEdge==0) {
         SErrorHandler::add(
             string("Could not find connection between '") + from
@@ -123,7 +126,7 @@ NIArtemisParser_SignalGroups::myDependentReport()
         return;
     }
     // compute the phases
-    Connection c(fromEdge, toEdge);
+    NBConnection c(fromEdge, toEdge);
     NIArtemisTempSignal::addConnectionPhases(c, startPhase, endPhase,
         group);
 }

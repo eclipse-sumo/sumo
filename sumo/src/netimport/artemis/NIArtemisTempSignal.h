@@ -4,12 +4,13 @@
 #include <string>
 #include <map>
 #include <netbuild/NBConnectionDefs.h>
+#include <netbuild/NBConnection.h>
 
 class NIArtemisTempSignal {
 public:
     static void addPhase(const std::string &nodeid,
         char phaseName, double perc, int start);
-    static void addConnectionPhases(const Connection &c,
+    static void addConnectionPhases(const NBConnection &c,
         char startPhase, char endPhase, const std::string &group);
     static void close();
 private:
@@ -38,7 +39,7 @@ private:
         char myStartPhase, myEndPhase;
     };
 
-    typedef std::map<Connection, ConnectionPhases*> ConnectionToPhases;
+    typedef std::map<NBConnection, ConnectionPhases*> ConnectionToPhases;
 
     static ConnectionToPhases myPhasesDict;
 

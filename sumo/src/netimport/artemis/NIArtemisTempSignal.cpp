@@ -44,7 +44,7 @@ NIArtemisTempSignal::addPhase(const std::string &nodeid,
 }
 
 void
-NIArtemisTempSignal::addConnectionPhases(const Connection &c,
+NIArtemisTempSignal::addConnectionPhases(const NBConnection &c,
                                          char startPhase, char endPhase,
                                          const std::string &group)
 {
