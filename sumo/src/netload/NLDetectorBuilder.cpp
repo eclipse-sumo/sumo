@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/12/16 12:23:03  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.22  2004/11/23 10:12:45  dkrajzew
 // new detectors usage applied
 //
@@ -200,12 +203,12 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         throw InvalidArgument("The position lies beyond the lane's length.");
     }
     // build the loop
-    MSInductLoop *loop = createInductLoop(id, clane, pos);
+    MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
 
-    det2file->addDetectorAndInterval(loop, device, splInterval, splInterval);
+    det2file->addDetectorAndInterval(loop, device, splInterval);
 }
 
 
@@ -244,7 +247,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
     det2file->addDetectorAndInterval(det, device,
-        splInterval, splInterval);
+        splInterval);
 }
 
 
@@ -434,7 +437,6 @@ NLDetectorBuilder::endE3Detector()
     MSDetector2File* det2file = MSDetector2File::getInstance();
     det2file->addDetectorAndInterval(det,
         myE3Definition->myDevice,
-        myE3Definition->mySampleInterval,
         myE3Definition->mySampleInterval);
     // clean up
     delete myE3Definition;
@@ -571,9 +573,10 @@ NLDetectorBuilder::parseE3Measures(const std::string &measures)
 
 MSInductLoop *
 NLDetectorBuilder::createInductLoop(const std::string &id,
-                                    MSLane *lane, double pos)
+                                    MSLane *lane, double pos,
+                                    int splInterval)
 {
-    return new MSInductLoop(id, lane, pos);
+    return new MSInductLoop(id, lane, pos, splInterval);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/16 12:22:12  dkrajzew
+// got rid of an unnecessary detector parameter/debugging
+//
 // Revision 1.3  2004/11/23 10:35:47  dkrajzew
 // debugging
 //
@@ -49,7 +52,7 @@
 class OutputDevice : public XMLDevice {
 public:
     /// Constructor
-    OutputDevice() : myNeedHeader(true) { }
+    OutputDevice() : myNeedHeader(true), myNeedDetectorName(false) { }
 
     /// Destructor
     virtual ~OutputDevice() { }
@@ -72,6 +75,9 @@ public:
     virtual XMLDevice &writeString(const std::string &str) = 0;
 
     virtual void closeInfo() = 0;
+
+    /// Returns the information whether the detector's name should always be printed
+    bool needsDetectorName() const { return myNeedDetectorName; }
     //}
 
     /// Returns the information whether a header shall be printed
@@ -80,9 +86,16 @@ public:
     /// Sets the information whether a header is wished
     void setNeedsHeader(bool value) { myNeedHeader = value; }
 
+    /// Sets the information whether the detector's name should always be printed
+    void setNeedsDetectorName(bool value) { myNeedDetectorName = value; }
+
+
 protected:
     /// The information whether a header shall be written
     bool myNeedHeader;
+
+    /// The information wheter the detector's name should be printed
+    bool myNeedDetectorName;
 
 };
 
