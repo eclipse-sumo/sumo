@@ -158,11 +158,12 @@ namespace DetectorContainer
 {
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
-    typedef MSDetectorMapWrapper<
-        std::map< MSVehicle*, MSUnit::Seconds > > TimeMap;
+    
+    typedef MSDetectorMapWrapper< MSUnit::Seconds > TimeMap;
+    
     class EmptyType{};
-    typedef MSDetectorMapWrapper<
-        std::map< MSVehicle*, EmptyType > > VehicleMap;
+    
+    typedef MSDetectorMapWrapper< EmptyType > VehicleMap;
 
 }
 

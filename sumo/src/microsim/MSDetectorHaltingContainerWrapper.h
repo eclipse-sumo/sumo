@@ -76,10 +76,10 @@ namespace halt
     class BeginOfHalt{};
     class EndOfHalt{};
     
-    typedef MSSubject<
-        const DetectorContainer::Halting, true, BeginOfHalt > HaltBeginSubject;
-    typedef MSSubject<
-        const DetectorContainer::Halting, true, EndOfHalt >   HaltEndSubject;
+    typedef MSSubjectPassesObserved<
+        const DetectorContainer::Halting, BeginOfHalt > HaltBeginSubject;
+    typedef MSSubjectPassesObserved<
+        const DetectorContainer::Halting, EndOfHalt >   HaltEndSubject;
 
     typedef HaltBeginSubject::Observer HaltBeginObserver;
     typedef HaltEndSubject::Observer   HaltEndObserver;
@@ -294,8 +294,7 @@ namespace DetectorContainer
 
     typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 
-    typedef MSDetectorHaltingMapWrapper<
-        std::map< MSVehicle*, E3Halting > > HaltingsMap;
+    typedef MSDetectorHaltingMapWrapper< E3Halting > HaltingsMap;
 
     typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   
 }
