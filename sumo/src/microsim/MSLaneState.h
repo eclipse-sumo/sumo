@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.14  2003/06/05 09:53:46  roessel
+// Numerous changes and new methods/members.
+//
 // Revision 1.13  2003/05/28 15:36:32  roessel
 // Added argument MSNet::Time deleteDataAfterSeconds with default value 900
 // timesteps to constructor.
@@ -74,12 +77,11 @@
  * included modules
  * ======================================================================= */
 #include "MSNet.h"
-#include "MSVehicle.h"
 #include <string>
-#include <fstream>
 #include <functional>
 #include <deque>
 #include <map>
+#include <iostream>
 
 /* =========================================================================
  * class declarations
@@ -98,13 +100,11 @@ public:
     /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */
-    MSLaneState( std::string     id,
+    MSLaneState( std::string    id,
                  MSLane*        lane,
                  double         begin,
                  double         length,
-                 MSNet::Time    sampleIntervall,
-                 std::ofstream* file,
-                 MSNet::Time deleteDataAfterSeconds = 900 );
+                 MSNet::Time    deleteDataAfterSeconds = 900 );
 
     /// Destructor.
     ~MSLaneState();
@@ -147,8 +147,20 @@ public:
 
     double getMeanTraveltime( MSNet::Time lastNTimesteps );
 
+    int getNVehContributed( MSNet::Time lastNTimesteps );
 
-    void addMoveData( MSVehicle& veh, double timestepFraction );
+    int getNVehEnteredDetector( MSNet::Time lastNTimesteps );
+
+    int getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps );
+
+    int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );
+
+    static std::string& getXMLHeader( void );
+    
+    std::string getXMLOutput( MSNet::Time lastNTimesteps );
+    
+    void addMoveData( MSVehicle& veh, double newSpeed,
+                      double timestepFraction );
 
     void enterDetectorByMove( MSVehicle& veh, double enterTimestepFraction );
 
@@ -158,22 +170,12 @@ public:
 
     void leaveDetectorByLaneChange( MSVehicle& veh );
 
-    bool actionBeforeMove( void );
+    static void actionsBeforeMoveAndEmit( void );
 
-    bool actionAfterMove( void );
+    static void actionsAfterMoveAndEmit( void );
 
-    MSNet::Time deleteOldData( void );
+    static std::string getNamePrefix( void );
 
-    /** Function-object in order to find the vehicle, that has just
-        passed the detector. */
-    struct VehPosition : public std::binary_function< const MSVehicle*,
-                         double, bool >
-    {
-        /// compares vehicle position to the detector position
-        bool operator() ( const MSVehicle* cmp, double pos ) const {
-            return cmp->pos() > pos;
-        }
-    };
 
     struct TimestepData;
     struct WaitingQueueElem;
@@ -191,7 +193,8 @@ public:
             speedSquareSumM(0),
             contTimestepSumM(0),
             timestepSumM(0),
-            queueLengthM(-1)
+            queueLengthM(-1),
+            nVehEnteredDetectorM(0)
             {}
 
         MSNet::Time timestepM;
@@ -200,17 +203,39 @@ public:
         double contTimestepSumM;
         double timestepSumM;
         int queueLengthM;
+        int nVehEnteredDetectorM;
     };
 
     struct VehicleData
     {
+        struct entryTimestepLesser :
+            public std::binary_function< VehicleData, double, bool >
+        {
+            bool operator()( const VehicleData& data,
+                             double entryTimestepBound ) const
+                {
+                    return data.entryContTimestepM < entryTimestepBound;
+                }
+        };
+        
+        struct entryTimestepLesserMap :
+            public std::binary_function< VehicleDataMap::value_type,
+            double, bool >
+        {
+            bool operator()( const VehicleDataMap::value_type& data,
+                             double entryTimestepBound ) const
+                {
+                    return data.second.entryContTimestepM < entryTimestepBound;
+                }
+        };
+
         struct leaveTimestepLesser :
             public std::binary_function< VehicleData, double, bool >
         {
             bool operator()( const VehicleData& data,
-                             double leaveTimestep ) const
+                             double leaveTimestepBound ) const
                 {
-                    return data.leaveContTimestepM < leaveTimestep;
+                    return data.leaveContTimestepM < leaveTimestepBound;
                 }
         };
 
@@ -218,12 +243,14 @@ public:
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
             leaveContTimestepM ( -1 ),
-            passedEntireDetectorM ( enteredDetectorByMove )
+            passedEntireDetectorM ( enteredDetectorByMove ),
+            leftDetectorByMoveM ( false )
             {}
 
         double entryContTimestepM;
         double leaveContTimestepM;
         bool passedEntireDetectorM;
+        bool leftDetectorByMoveM;
     };
 
     struct WaitingQueueElem
@@ -248,41 +275,37 @@ public:
     };
 
 protected:
+    bool actionBeforeMoveAndEmit( void );
 
+    bool actionAfterMoveAndEmit( void );
+
+    MSNet::Time deleteOldData( void );
+    
     void calcWaitingQueueLength( void );
 
-    TimestepDataCont::iterator getStartIterator( MSNet::Time lastNTimesteps );
+    double getStartTimestep( MSNet::Time lastNTimesteps );    
 
-    /// Write the data according to OutputStyle when the sampleIntervall
-    /// is over.
-    MSNet::Time writeData();
+    bool needsNewCalculation( MSNet::Time lastNTimesteps );
 
-    /// Write in gnuplot-style to myFile.
-    void writeGnuPlot( MSNet::Time endOfInterv,
-                       double avgDensity,
-                       double avgSpeed,
-                       double avgSpeedSquare,
-                       double avgTraveltime,
-                       int avgNumberOfWaiting );
-
-    /// Write in CSV-style to myFile.
-    void writeCSV( MSNet::Time endOfInterv,
-                   double avgDensity,
-                   double avgSpeed,
-                   double avgSpeedSquare,
-                   double avgTraveltime,
-                   int avgNumberOfWaiting );
+    template< class T >
+    typename T::iterator getStartIterator( MSNet::Time lastNTimesteps,
+                                           T& container )
+        {
+            typename T::iterator start = container.begin();
+            if ( container.size() > lastNTimesteps ) {
+                start =  container.end() - lastNTimesteps;
+            }
+            return start;
+        }
+    
 
 private:
     std::string idM;
 
-    /// File where output goes to.
-    std::ofstream* fileM;
-
     TimestepDataCont     timestepDataM;
-    VehicleDataMap       vehicleDataM;
+    VehicleDataMap       vehOnDetectorM;
     WaitingQueueElemCont waitingQueueElemsM;
-    VehicleDataCont      vehLeftLaneM;
+    VehicleDataCont      vehLeftDetectorM;
 
     /// Lane where detector works on.
     MSLane* laneM;
@@ -293,14 +316,19 @@ private:
     /// The length on the lane
     double lengthM;
 
-    /// Number of already processed sampleIntervalls
-    unsigned nIntervallsM;
-
-    MSNet::Time sampleIntervalM;
-
     MSMoveReminder* reminderM;
 
     const MSNet::Time deleteDataAfterSecondsM;
+
+    bool modifiedSinceLastLookupM;
+
+    MSNet::Time lookedUpLastNTimestepsM;
+
+    int nVehContributedM;
+
+    static std::vector< MSLaneState* > laneStateDetectorsM;
+
+    static std::string xmlHeaderM;
 
     /// Default constructor.
     MSLaneState();
@@ -313,42 +341,60 @@ private:
 };
 
 inline double speedSum( double sumSoFar,
-                 const MSLaneState::TimestepData& data )
+                        const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSumM;
 }
 
 inline double speedSquareSum( double sumSoFar,
-                       const MSLaneState::TimestepData& data )
+                              const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSquareSumM;
 }
 
 inline double contTimestepSum( double sumSoFar,
-                        const MSLaneState::TimestepData& data )
+                               const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.contTimestepSumM;
 }
 
 inline double timestepSum( double sumSoFar,
-                    const MSLaneState::TimestepData& data )
+                           const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.timestepSumM;
 }
 
 inline double waitingQueueSum( double sumSoFar,
-                        const MSLaneState::TimestepData& data )
+                               const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.queueLengthM;
 }
 
 inline double traveltimeSum( double sumSoFar,
-                      const MSLaneState::VehicleData& data )
+                             const MSLaneState::VehicleData& data )
 {
     if ( data.passedEntireDetectorM ) {
         return sumSoFar + data.leaveContTimestepM - data.entryContTimestepM;
-    }
+    }    
     return sumSoFar;
+}
+
+inline int leftByMoveSum( int sumSoFar,
+                          const MSLaneState::VehicleData& data )
+{
+    return sumSoFar + data.leftDetectorByMoveM;
+}
+
+inline int passedEntireSum( int sumSoFar,
+                            const MSLaneState::VehicleData& data )
+{
+    return sumSoFar + data.passedEntireDetectorM;
+}
+
+inline int nVehEnteredSum( int sumSoFar,
+                           const MSLaneState::TimestepData& data )
+{
+    return sumSoFar + data.nVehEnteredDetectorM;
 }
 
 #endif

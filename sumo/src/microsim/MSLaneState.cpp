@@ -16,14 +16,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-/*
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-*/
+
+
 // $Log$
+// Revision 1.18  2003/06/05 09:53:46  roessel
+// Numerous changes and new methods/members.
+//
 // Revision 1.17  2003/05/28 15:35:47  roessel
 // deleteOldData implemented.
 // Added argument MSNet::Time deleteDataAfterSeconds to constructor.
@@ -32,7 +30,8 @@ namespace
 // Pass pointer instead of reference to MSLaneStateReminder ctor.
 //
 // Revision 1.15  2003/05/28 07:51:25  dkrajzew
-// had to add a return value due to the usage of the mem_func-function in combination with for_each (MSVC++-reasons?)
+// had to add a return value due to the usage of the mem_func-function in
+// combination with for_each (MSVC++-reasons?)
 //
 // Revision 1.14  2003/05/27 18:59:01  roessel
 // Removed OutputStyle in ctor (output will be xml).
@@ -100,12 +99,12 @@ namespace
 #include "MSLaneStateReminder.h"
 #include "../helpers/SimpleCommand.h"
 #include "../helpers/SingletonDictionary.h"
-#include <sstream>
+#include "../helpers/convert.h"
 #include <algorithm>
 #include <numeric>
-#include <iomanip>
 #include <iostream>
 #include <cassert>
+
 
 
 /* =========================================================================
@@ -118,12 +117,45 @@ using namespace std;
  * member definitions
  * ======================================================================= */
 
+// static member
+vector< MSLaneState* > MSLaneState::laneStateDetectorsM;
+
+string MSLaneState::xmlHeaderM(
+"<!--\n"
+"- noVehContrib is the number of vehicles have been on the lane for\n"
+"  at least on timestep during the current intervall.\n"
+"  They contribute to speed, speedsquare and density.\n"
+"  They may not have passed the entire lane.\n"
+"- noVehEntireLane is the number of vehicles that have passed the\n"
+"  entire lane and left the lane during the current intervall. They\n"
+"  may have started their journey on this lane in a previous intervall.\n"
+"  Only those vehicles contribute to traveltime. \n"
+"- noVehEntered is the number of vehicles that entered this lane\n"
+"  during the current intervall either by move, emit or lanechange.\n"
+"  Note that noVehEntered might be high if vehicles are emitted on\n"
+"  this lane.\n"
+"- noVehLeft is the number of vehicles that left this lane during\n"
+"  the current intervall by move.\n"
+"- traveltime [s]\n"
+"  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed. \n"
+"  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to\n"
+"  laneLength / speed.\n"
+"  Else traveltime is calculated from the data of the vehicles that\n"
+"  passed the entire lane.\n"
+"- speed [m/s]\n"
+"  If noVehContrib==0 then speed is set to laneMaxSpeed.\n"
+"- speedsquare [(m/s)^2]\n"
+"  If noVehContrib==0 then speedsquare is set to -1.\n"
+"- density [veh/km]\n"
+"  If noVehContrib==0 then density is set to 0.\n"
+"-->\n");
+
 MSLaneState::~MSLaneState()
 {
     timestepDataM.clear();
-    vehicleDataM.clear();
+    vehOnDetectorM.clear();
     waitingQueueElemsM.clear();
-    vehLeftLaneM.clear();
+    vehLeftDetectorM.clear();
     delete reminderM;
 }
 
@@ -133,23 +165,21 @@ MSLaneState::MSLaneState( string id,
                           MSLane* lane,
                           double begin,
                           double length,
-                          MSNet::Time sampleInterval,
-                          ofstream *file,
                           MSNet::Time deleteDataAfterSeconds ) :
-    idM             ( id ),
-    fileM           ( file ),
-    timestepDataM   ( ),
-    vehicleDataM    ( ),
+    idM               ( id ),
+    timestepDataM     ( ),
+    vehOnDetectorM    ( ),
     waitingQueueElemsM( ),
-    laneM           ( lane ),
-    posM            ( begin ),
-    lengthM         ( length ),
-    nIntervallsM    ( 0 ),
-    sampleIntervalM ( sampleInterval ),
-    deleteDataAfterSecondsM( deleteDataAfterSeconds )
-{
-     assert( posM >= 0 );
-    assert( posM <= laneM->length() );
+    vehLeftDetectorM  ( ),
+    laneM             ( lane ),
+    posM              ( begin ),
+    lengthM           ( length ),
+    deleteDataAfterSecondsM( deleteDataAfterSeconds ),
+    modifiedSinceLastLookupM( true ),
+    lookedUpLastNTimestepsM( 0 ),
+    nVehContributedM( 0 )
+ {
+    assert( posM >= 0 );
     assert( posM + lengthM <= laneM->length() );
 
     // insert object into dictionary
@@ -159,56 +189,21 @@ MSLaneState::MSLaneState( string id,
         assert( false );
     }
 
+    // insert object in static container
+    laneStateDetectorsM.push_back( this );
+
     // add reminder to lane
     MSMoveReminder* reminderM =
-        new MSLaneStateReminder( posM, posM + lengthM, this );
+        new MSLaneStateReminder( posM, posM + lengthM, this, laneM );
     laneM->addMoveReminder( reminderM );
-
-    // return when just a part of a junction-logic (no file)
-    if(file==0) {
-        return;
-    }
-
-    // start file-output through MSEventControl
-    Command* writeData = new SimpleCommand< MSLaneState >(
-        this, &MSLaneState::writeData );
-    MSEventControl::getInstance()->addEvent(
-        writeData,
-        sampleIntervalM,
-        MSEventControl::ADAPT_AFTER_EXECUTION );
 
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSLaneState >(
         this, &MSLaneState::deleteOldData );
-    MSEventControl::getInstance()->addEvent(
+    MSEventControl::getEndOfTimestepEvents()->addEvent(
         deleteOldData,
         deleteDataAfterSecondsM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
-    
-//     // Write header.
-//     switch ( styleM ) {
-//         case GNUPLOT:
-//         {
-//             ostringstream header;
-//             header << "# Lane-state-detector ID = " << idM << endl;
-//             header << "#   on Lane     " << laneM->id() << endl;
-//             header << "#   at position " << posM << endl;
-//             header << "#   sampleIntervall = "
-//                    << sampleIntervalM << " seconds" << endl << endl;
-//             header << "# n   endOfInterv nVehicles avgDensity avgFlow "
-//                    << "avgSpeed avgOccup avgLength" << endl;
-//             header << "#         [s]                [veh/km]  [veh/h] "
-//                    << " [m/s]     [s]       [m]" << endl;
-
-//             *fileM << header.str() << endl;
-//             break;
-//         }
-//         case CSV:
-//             // No header. CSV has no spec for comments etc.
-//             break;
-//         default:
-//             assert( true );
-//     }
 }
 
 
@@ -262,57 +257,56 @@ MSLaneState::getCurrentNumberOfWaiting( void )
 double
 MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
 {
+    // unit is [m/s]
     assert( lastNTimesteps > 0 );
-    if ( timestepDataM.empty() ) {
-        return 0;
-    }
+    if ( getNVehContributed( lastNTimesteps ) == 0 ) {
+        return laneM->maxSpeed();
+    }   
     double denominator =
-        accumulate( getStartIterator( lastNTimesteps ),
-                    timestepDataM.end(), 0.0, contTimestepSum ) *
-        MSNet::deltaT();
-    if ( denominator == 0 ) {
-        return 0;
-    }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       timestepDataM.end(), 0.0, speedSum ) /
+        accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
+                    timestepDataM.end(), 0.0, contTimestepSum );
+    assert ( denominator > 0 );
+    return accumulate(
+        getStartIterator( lastNTimesteps, timestepDataM ),
+        timestepDataM.end(), 0.0, speedSum ) * MSNet::deltaT() /
         denominator;
 }
 
 double
 MSLaneState::getCurrentMeanSpeed( void )
 {
-    if ( timestepDataM.empty() ) {
+    // unit is [m/s]
+    if ( timestepDataM.empty( ) ) {
         return 0;
     }
     TimestepData& data = timestepDataM.back();
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSumM / ( data.contTimestepSumM * MSNet::deltaT() );
+    return data.speedSumM * MSNet::deltaT() / data.contTimestepSumM;
 }
 
 double
 MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
 {
+    // unit is [(m/s)^2]
     assert( lastNTimesteps > 0 );
-    if ( timestepDataM.empty() ) {
-        return 0;
-    }
+    if ( getNVehContributed( lastNTimesteps ) == 0 ) {
+        return -1;
+    }     
     double denominator =
-        accumulate( getStartIterator( lastNTimesteps ),
-                    timestepDataM.end(), 0.0, contTimestepSum ) *
-        MSNet::deltaT();
-    if ( denominator == 0 ) {
-        return 0;
-    }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       timestepDataM.end(), 0.0, speedSquareSum ) /
-        denominator;
+        accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
+                    timestepDataM.end(), 0.0, contTimestepSum );
+    assert( denominator > 0 );
+    return accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
+                       timestepDataM.end(), 0.0, speedSquareSum ) *
+        MSNet::deltaT() * MSNet::deltaT() / denominator;
 }
 
 double
 MSLaneState::getCurrentMeanSpeedSquare( void )
 {
+    // unit is [(m/s)^2]
     if ( timestepDataM.empty() ) {
         return 0;
     }
@@ -320,18 +314,19 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSquareSumM / ( data.contTimestepSumM * MSNet::deltaT() );
+    return data.speedSquareSumM * MSNet::deltaT() * MSNet::deltaT() /
+        data.contTimestepSumM;
 }
 
 double
 MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
 {
+    // unit is veh/km
     assert( lastNTimesteps > 0 );
-    if ( timestepDataM.empty() ) {
+    if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return 0;
     }
-    // unit is veh/km
-    return accumulate( getStartIterator( lastNTimesteps ),
+    return accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
                        timestepDataM.end(), 0.0, contTimestepSum ) /
         ( lastNTimesteps * laneM->length() ) * 1000.0;
 }
@@ -339,44 +334,138 @@ MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
 double
 MSLaneState::getCurrentDensity( void )
 {
+    // unit is veh/km
     if ( timestepDataM.empty() ) {
         return 0;
     }
-    // unit is veh/km
     return timestepDataM.back().contTimestepSumM / laneM->length() * 1000.0;
 }
 
 double
 MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
 {
-    if ( vehLeftLaneM.empty() ) {
-        return -1;
+    // unit is [s]
+    if ( getNVehContributed( lastNTimesteps ) == 0 ) {
+        return laneM->length() / laneM->maxSpeed();
     }
-    double startTimestep = MSNet::getInstance()->timestep() - lastNTimesteps;
-    return accumulate(
-        lower_bound( vehLeftLaneM.begin(), vehLeftLaneM.end(), startTimestep,
+    int nVehPassedEntire = getNVehPassedEntireDetector( lastNTimesteps );
+    if ( nVehPassedEntire == 0 ) {
+        return laneM->length() / getMeanSpeedSquare( lastNTimesteps );
+    }
+
+    
+    double traveltime = accumulate(
+        lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
+                     getStartTimestep( lastNTimesteps ),
                      VehicleData::leaveTimestepLesser() ),
-        vehLeftLaneM.end(),
+        vehLeftDetectorM.end(),
         0.0,
-        traveltimeSum ) * MSNet::deltaT();
+        traveltimeSum ) *
+        MSNet::deltaT() / nVehPassedEntire;
+    assert ( traveltime >= laneM->length() / laneM->maxSpeed() );
+    return traveltime;
 }
+
+
+int
+MSLaneState::getNVehContributed( MSNet::Time lastNTimesteps )
+{
+    if ( ! needsNewCalculation( lastNTimesteps ) ) {
+        return nVehContributedM;
+    }
+    // get the nVehicles that left the detector after startTimestep
+    int nVehLeft = distance(
+        lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
+                     getStartTimestep( lastNTimesteps ),
+                     VehicleData::leaveTimestepLesser() ),
+        vehLeftDetectorM.end() );
+    assert( nVehLeft >= 0 );
+    nVehContributedM = nVehLeft + vehOnDetectorM.size();
+    modifiedSinceLastLookupM = false;
+    lookedUpLastNTimestepsM  = lastNTimesteps;
+    return nVehContributedM;
+}
+
+
+int
+MSLaneState::getNVehEnteredDetector( MSNet::Time lastNTimesteps )
+{
+    assert( lastNTimesteps > 0 );
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    return accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
+                       timestepDataM.end(), 0, nVehEnteredSum );
+}
+
+
+int
+MSLaneState::getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps )
+{
+    return accumulate(
+        lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
+                     getStartTimestep( lastNTimesteps ),
+                     VehicleData::leaveTimestepLesser() ),
+        vehLeftDetectorM.end(), 0, leftByMoveSum );
+}
+
+
+int
+MSLaneState::getNVehPassedEntireDetector( MSNet::Time lastNTimesteps )
+{
+    return accumulate(
+        lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
+                     getStartTimestep( lastNTimesteps ),
+                     VehicleData::leaveTimestepLesser() ),
+        vehLeftDetectorM.end(), 0, passedEntireSum );
+}
+
+string&
+MSLaneState::getXMLHeader( void )
+{
+    return xmlHeaderM;
+}
+
+string
+MSLaneState::getXMLOutput( MSNet::Time lastNTimesteps )
+{
+    string traveltime = string("traveltime=\"") +
+        getString( getMeanTraveltime( lastNTimesteps ) ) + string("\" ");
+    string speed = string("speed=\"") +
+        getString( getMeanSpeed( lastNTimesteps ) ) + string("\" ");
+    string speedSquare = string("speedsquare=\"") +
+        getString( getMeanSpeedSquare( lastNTimesteps ) ) + string("\" ");
+    string density = string("density=\"") +
+        getString( getMeanDensity( lastNTimesteps ) ) + string("\" ");
+    string nVehContrib = string("noVehContrib=\"") +
+        getString( getNVehContributed( lastNTimesteps ) ) + string("\" ");
+    string nVehEntire = string("noVehEntire=\"") +
+        getString( getNVehPassedEntireDetector( lastNTimesteps ) ) +
+        string("\" ");
+    string nVehEntered = string("noVehEntered=\"") +
+        getString( getNVehEnteredDetector( lastNTimesteps ) ) + string("\" ");
+    string nVehLeft = string("noVehLeftByMove=\"") +
+        getString( getNVehLeftDetectorByMove( lastNTimesteps ) ) +
+        string("\"");
+    return traveltime + speed + speedSquare + density + nVehContrib +
+        nVehEntire + nVehEntered + nVehLeft;
+}
+    
 
 void
 MSLaneState::addMoveData( MSVehicle& veh,
+                          double newSpeed,
                           double timestepFraction )
 {
-    cout << "MSLaneState::addMoveData " << idM
-         << endl;
+    modifiedSinceLastLookupM = true;
     assert (timestepFraction >= 0);
     assert (timestepFraction <= MSNet::deltaT() );
-
     // update timestepDataM
     TimestepData& data = timestepDataM.back();
-    data.speedSumM += veh.speed();
-    data.speedSquareSumM += veh.speed() * veh.speed();
+    data.speedSumM += newSpeed;
+    data.speedSquareSumM += newSpeed * newSpeed;
     data.contTimestepSumM += timestepFraction;
-    ++data.timestepSumM;
-
+    ++data.timestepSumM;   
     // update waitingQueueElemsM
     waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
@@ -385,10 +474,11 @@ void
 MSLaneState::enterDetectorByMove( MSVehicle& veh,
                                   double enterTimestepFraction )
 {
-    cout << "MSLaneState::enterDetectorByMove" << endl;
-    // update vehicleDataM
-    assert ( vehicleDataM.find( veh.id() ) == vehicleDataM.end() ) ;
-    vehicleDataM.insert(
+    modifiedSinceLastLookupM = true;    
+    ++( timestepDataM.back().nVehEnteredDetectorM );
+    // update vehOnDetectorM
+    assert ( vehOnDetectorM.find( veh.id() ) == vehOnDetectorM.end() ) ;
+    vehOnDetectorM.insert(
         make_pair( veh.id(), VehicleData(
                        enterTimestepFraction +
                        MSNet::getInstance()->timestep(),
@@ -399,8 +489,10 @@ MSLaneState::enterDetectorByMove( MSVehicle& veh,
 void
 MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
 {
-    assert ( vehicleDataM.find( veh.id() ) == vehicleDataM.end() ) ;
-    vehicleDataM.insert(
+    modifiedSinceLastLookupM = true;
+    ++( timestepDataM.back().nVehEnteredDetectorM );
+    assert ( vehOnDetectorM.find( veh.id() ) == vehOnDetectorM.end() );
+    vehOnDetectorM.insert(
         make_pair( veh.id(), VehicleData(
                        MSNet::getInstance()->timestep(),
                        false )));
@@ -411,57 +503,80 @@ void
 MSLaneState::leaveDetectorByMove( MSVehicle& veh,
                                   double leaveTimestepFraction )
 {
-    cout << "MSLaneState::leaveDetectorByMove" << endl;
-    // finalize vehicleDataM
+    modifiedSinceLastLookupM = true;
+    // finalize vehOnDetectorM
     VehicleDataMap::iterator dataIt =
-        vehicleDataM.find( veh.id() );
-    assert ( dataIt != vehicleDataM.end() );
+        vehOnDetectorM.find( veh.id() );
+    assert ( dataIt != vehOnDetectorM.end() );
     dataIt->second.leaveContTimestepM =
         leaveTimestepFraction + MSNet::getInstance()->timestep();
     if ( ! dataIt->second.passedEntireDetectorM ) {
         dataIt->second.passedEntireDetectorM = false;
     }
+    dataIt->second.leftDetectorByMoveM = true;
     // insert so that container keeps being sorted
-    vehLeftLaneM.insert(
-        find_if( vehLeftLaneM.rend(), vehLeftLaneM.rbegin(),
+    vehLeftDetectorM.insert(
+        find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
                  bind2nd( VehicleData::leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
-    vehicleDataM.erase( dataIt );
+    vehOnDetectorM.erase( dataIt );
 }
 
 void
 MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
 {
-    cout << "MSLaneState::leaveDetectorByLaneChange" << endl;
+    modifiedSinceLastLookupM = true;
     // finalize vehicleData
     VehicleDataMap::iterator dataIt =
-        vehicleDataM.find( veh.id() );
-    assert( dataIt != vehicleDataM.end() );
+        vehOnDetectorM.find( veh.id() );
+    assert( dataIt != vehOnDetectorM.end() );
     dataIt->second.leaveContTimestepM = MSNet::getInstance()->timestep();
     dataIt->second.passedEntireDetectorM = false;
+    dataIt->second.leftDetectorByMoveM = false;
     // insert so that container keeps being sorted
-    vehLeftLaneM.insert(
-        find_if( vehLeftLaneM.rend(), vehLeftLaneM.rbegin(),
+    vehLeftDetectorM.insert(
+        find_if( vehLeftDetectorM.rend(), vehLeftDetectorM.rbegin(),
                  bind2nd( VehicleData::leaveTimestepLesser(),
                           dataIt->second.leaveContTimestepM ) ).base(),
         dataIt->second );
-    vehicleDataM.erase( dataIt );
+    vehOnDetectorM.erase( dataIt );
 }
 
-bool
-MSLaneState::actionBeforeMove( void )
+
+void
+MSLaneState::actionsBeforeMoveAndEmit( void )
 {
-    // create a TimestepData entry for every timestep. Not neccessary, but
+    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
+              mem_fun( &MSLaneState::actionBeforeMoveAndEmit ) );
+}
+
+void
+MSLaneState::actionsAfterMoveAndEmit( void )
+{
+    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
+              mem_fun( &MSLaneState::actionAfterMoveAndEmit ) );
+}
+
+string
+MSLaneState::getNamePrefix( void )
+{
+    return string("MSLaneState");
+}
+
+
+bool
+MSLaneState::actionBeforeMoveAndEmit( void )
+{
+    // create a TimestepData entry for every timestep. Not essential, but
     // makes live easier.
     timestepDataM.push_back(
         TimestepData( MSNet::getInstance()->timestep() ) );
     return true;
 }
 
-
 bool
-MSLaneState::actionAfterMove( void )
+MSLaneState::actionAfterMoveAndEmit( void )
 {
     calcWaitingQueueLength();
     return true;
@@ -476,14 +591,14 @@ MSLaneState::deleteOldData( void )
         end -= deleteDataAfterSecondsM;
         timestepDataM.erase( timestepDataM.begin(), end );
     }
-    // delete vehLeftLaneM partly
+    // delete vehLeftDetectorM partly
     MSNet::Time deleteBeforeStep =
         MSNet::getInstance()->timestep() - deleteDataAfterSecondsM;
     if ( deleteBeforeStep > 0 ) {
-        vehLeftLaneM.erase(
-            vehLeftLaneM.begin(),
-            lower_bound( vehLeftLaneM.begin(),
-                         vehLeftLaneM.end(),
+        vehLeftDetectorM.erase(
+            vehLeftDetectorM.begin(),
+            lower_bound( vehLeftDetectorM.begin(),
+                         vehLeftDetectorM.end(),
                          deleteBeforeStep,
                          VehicleData::leaveTimestepLesser() ) );
     }
@@ -493,6 +608,7 @@ MSLaneState::deleteOldData( void )
 void
 MSLaneState::calcWaitingQueueLength( void )
 {
+    modifiedSinceLastLookupM = true;
     int nVehQueuing = 0;
     if ( ! waitingQueueElemsM.empty() ) {
         // veh in waitingQueueElemsM are not sorted
@@ -520,118 +636,28 @@ MSLaneState::calcWaitingQueueLength( void )
     timestepDataM.begin()->queueLengthM = nVehQueuing;
 }
 
-
-MSLaneState::TimestepDataCont::iterator
-MSLaneState::getStartIterator( MSNet::Time lastNTimesteps )
+double
+MSLaneState::getStartTimestep( MSNet::Time lastNTimesteps )
 {
-    TimestepDataCont::iterator start = timestepDataM.begin();
-    if ( timestepDataM.size() > lastNTimesteps ) {
-        start =  timestepDataM.end() - lastNTimesteps;
+    double timestep =
+        static_cast< double >( MSNet::getInstance()->timestep() ) -
+        static_cast< double >( lastNTimesteps );
+    if ( timestep < 0 ) {
+        return 0;
     }
-    return start;
+    return timestep;
 }
 
 
-MSNet::Time
-MSLaneState::writeData()
+bool
+MSLaneState::needsNewCalculation( MSNet::Time lastNTimesteps )
 {
-//     double avgDensity = 0;
-//     double avgFlow    = 0;
-//     double avgSpeed   = 0;
-//     double avgLength  = 0;
-
-//     double NPassedVehicles = myVehicleNo.getAbs();
-//     if ( NPassedVehicles > 0 ) {
-
-//         if ( NPassedVehicles > 1 ) {
-
-//             avgDensity = myLocalDensity.getAbs() /
-//                 static_cast< double >( NPassedVehicles - 1 ) * 1000.0;
-//             avgSpeed  = mySpeed.getAbs() /
-// 	            static_cast< double >( NPassedVehicles ); // [m/s]
-//             avgLength = myVehLengths.getAbs() /
-// 	            static_cast< double >( NPassedVehicles ); // [m]
-// 	        // [veh/km], first detected vehicle doesn't
-// 	        // contribute.
-// 	        assert( avgDensity > 0 );
-//         }
-
-//         avgFlow   = static_cast< double >( NPassedVehicles ) /
-// 	        static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
-//     }
-
-//     MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
-
-//     switch ( myStyle ) {
-//         case GNUPLOT:
-//             writeGnuPlot( endOfInterv,
-//                           avgDensity,
-//                           avgFlow,
-//                           avgSpeed,
-//                           myOccup.getAbs(),
-//                           avgLength );
-//             break;
-//         case CSV:
-//             writeCSV( endOfInterv,
-//                       avgDensity,
-//                       avgFlow,
-//                       avgSpeed,
-//                       myOccup.getAbs(),
-//                       avgLength );
-//             break;
-//         default:
-//             assert( true );
-//     }
-	cout << "writeData for LaneState "<< idM << " at timestep " <<
-        MSNet::getInstance()->timestep() << endl;
-    return sampleIntervalM;
+    if ( modifiedSinceLastLookupM ||
+         lookedUpLastNTimestepsM != lastNTimesteps ) {
+        return true;
+    }
+    return false;
 }
-
-//---------------------------------------------------------------------------//
-
-
-void
-MSLaneState::writeGnuPlot( MSNet::Time endOfInterv,
-                           double avgDensity,
-                           double avgSpeed,
-                           double avgSpeedSquare,
-                           double avgTraveltime,
-                           int avgNumberOfWaiting )
-{
-//     ( *myFile ).setf( ios::fixed, ios::floatfield );
-//     *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
-//             << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
-//             << setw( 9 ) << setprecision( 0 ) << myVehicleNo.getAbs() << " "
-// 	    << setw(10 ) << setprecision( 2 ) << avgDensity << " "
-//             << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
-//             << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
-//             << setw( 8 ) << setprecision( 2 ) << occup << " "
-//             << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
-}
-
-//---------------------------------------------------------------------------//
-
-
-void
-MSLaneState::writeCSV( MSNet::Time endOfInterv,
-                       double avgDensity,
-                       double avgSpeed,
-                       double avgSpeedSquare,
-                       double avgTraveltime,
-                       int avgNumberOfWaiting )
-{
-//     ( *myFile ).setf( ios::fixed, ios::floatfield );
-//     *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
-//             << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
-//             << setw( 5 ) << setprecision( 0 ) << myVehicleNo.getAbs() << ";"
-//             << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
-//             << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
-//             << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
-//             << setw( 7 ) << setprecision( 2 ) << occup << ";"
-//             << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
-}
-
-//---------------------------------------------------------------------------//
 
 
 
