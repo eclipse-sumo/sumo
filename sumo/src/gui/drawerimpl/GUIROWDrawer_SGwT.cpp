@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 06:42:07  dkrajzew
+// non-setting tooltip bug patched
+//
 // Revision 1.3  2003/12/04 13:22:05  dkrajzew
 // unused file inclusion removed
 //
@@ -140,6 +143,7 @@ GUIROWDrawer_SGwT::drawArrows(const GUILaneWrapper &lane)
     // draw all links
     double visLength = -lane.visLength();
     glPushMatrix();
+    glPushName(lane.getGlID());
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
     glPolygonMode(GL_FRONT, GL_FILL);
@@ -175,6 +179,7 @@ GUIROWDrawer_SGwT::drawArrows(const GUILaneWrapper &lane)
         glEnd();
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    glPopName();
     glPopMatrix();
 }
 

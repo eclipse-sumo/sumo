@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 06:42:07  dkrajzew
+// non-setting tooltip bug patched
+//
 // Revision 1.3  2003/12/04 13:22:05  dkrajzew
 // unused file inclusion removed
 //
@@ -38,8 +41,6 @@ namespace
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -162,6 +163,7 @@ GUIROWDrawer_FGwT::drawArrows(const GUILaneWrapper &lane)
     const Position2D &s = end;
     double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
     glPushMatrix();
+    glPushName(lane.getGlID());
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
     glPolygonMode(GL_FRONT, GL_FILL);
@@ -196,14 +198,12 @@ GUIROWDrawer_FGwT::drawArrows(const GUILaneWrapper &lane)
         glEnd();
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    glPopName();
     glPopMatrix();
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIROWDrawer_FGwT.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
