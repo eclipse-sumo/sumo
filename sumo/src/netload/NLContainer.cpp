@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/05 10:21:56  roessel
+// In ctor: set m_EventControl = 0. First guess because of modified MSEventControl. Needs additional discussion.
+//
 // Revision 1.8  2003/05/27 18:27:59  roessel
 // Access EventControl via singleton-mechanism in ctor.
 // Don't pass m_EventControl to MSNet::init in NLContainer::buildMSNet.
@@ -153,7 +156,8 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
     noRoutes(0),
     noDetectors(0)
 {
-    m_EventControl = MSEventControl::getInstance();
+//     m_EventControl = MSEventControl::getInstance();
+    m_EventControl = 0;
     // ... the storage for the detectors
     m_pDetectors = new MSNet::DetectorCont();
     m_pJCB = new NLJunctionControlBuilder(this);
@@ -507,5 +511,6 @@ NLContainer::getInLanes() const
 
 // Local Variables:
 // mode:C++
-//
+// End:
+
 
