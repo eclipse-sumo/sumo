@@ -6,8 +6,8 @@
 #include "MSUnit.h"
 #include "MSLane.h"
 #include "MSDetectorFileOutput.h"
-#include "MSDetectorContainer.h"
 #include "MSDetectorContainerBase.h"
+#include "MSDetectorContainer.h"
 #include "MSHaltingDetectorContainer.h"
 #include "helpers/SingletonDictionary.h"
 #include "utils/convert/ToString.h"
@@ -47,7 +47,8 @@ public:
     typedef SingletonDictionary< std::string,
                                  MS_E2_ZS_Collector* > E2ZSDictionary;
 
-    MS_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
+    MS_E2_ZS_Collector( std::string id, //daraus sollte sich der Filename
+                        // ergeben
                         MSLane* lane,
                         MSUnit::Meters startPos,
                         MSUnit::Meters detLength,
@@ -66,8 +67,7 @@ public:
           jamDistThresholdM( MSUnit::getInstance()->getCells(
                                  jamDistThreshold ) ),
           detectorsM(11),
-          containersM(3),
-          approachingVehiclesStatesDetM(0)
+          containersM(3)
         {
             assert( laneM != 0 );
             MSUnit::Meters laneLength =
@@ -91,9 +91,6 @@ public:
                     delete *it1;
                 }
             }
-            if ( approachingVehiclesStatesDetM != 0 ) {
-                delete approachingVehiclesStatesDetM;
-            }
             for ( ContainerContIter it2 = containersM.begin();
                   it2 != containersM.end(); ++it2 ) {
                 if ( *it2 != 0 ) {
@@ -115,17 +112,7 @@ public:
             return std::numeric_limits< double >::max();
         }
 
-    const Detector::E2ApproachingVehiclesStates::DetectorAggregate&
-    getApproachingVehiclesStates( unsigned nApproachingVehicles )
-        {
-            if ( approachingVehiclesStatesDetM == 0 ) {
-                // requested type not present
-                // create it
-                addApproachingVehiclesStatesDetector("");
-            }
-            return approachingVehiclesStatesDetM->getDetectorAggregate(
-                nApproachingVehicles );
-        }
+
     
     double getAggregate( DetType type, MSUnit::Seconds lanstNSeconds )
         {
@@ -163,23 +150,7 @@ public:
                 createDetector( SPACE_MEAN_SPEED, detId );
                 createDetector(
                     CURRENT_HALTING_DURATION_SUM_PER_VEHICLE, detId );
-                addApproachingVehiclesStatesDetector( detId );
             }
-        }
-
-    void addApproachingVehiclesStatesDetector( std::string detId = "" )
-        {
-            if ( approachingVehiclesStatesDetM != 0 ) {
-                return;
-            }
-            if ( detId == "" ) {
-                detId = idM;
-            }
-            createContainer( VEHICLES );
-            approachingVehiclesStatesDetM = new
-                Detector::E2ApproachingVehiclesStates(
-                    endPosM, *static_cast< DetectorContainer::Vehicles* >(
-                        containersM[ VEHICLES ] ) );
         }
     
     bool update( void )
@@ -201,16 +172,17 @@ public:
 
     void resetQueueLengthAheadOfTrafficLights( void )
         {
+            using namespace Detector;
             MSQueueLengthAheadOfTrafficLightsInVehicles* det1 = 0;
-            if ((det1 = dynamic_cast<
-                 MSQueueLengthAheadOfTrafficLightsInVehicles* >(
+            if ((det1 = static_cast<
+                 E2QueueLengthAheadOfTrafficLightsInVehicles* >(
                      detectorsM[
                          QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ]))){
                 det1->resetMax();
             }
             MSQueueLengthAheadOfTrafficLightsInMeters* det2 = 0;
-            if ((det2 = dynamic_cast<
-                 MSQueueLengthAheadOfTrafficLightsInMeters* >(
+            if ((det2 = static_cast<
+                 E2QueueLengthAheadOfTrafficLightsInMeters* >(
                      detectorsM[
                          QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ]))){
                 det2->resetMax();
@@ -389,12 +361,11 @@ public:
                         std::string(" value=\"") + aggregate +
                         std::string("\"/>\n");
                 }
-//                 else if ( ) // check other concrete detectors
                 else {
                     assert( 0 );
                 }
             }
-            return result;
+            return result;            
         }
 
     /**
@@ -452,8 +423,6 @@ private:
 
     ContainerCont containersM;
 
-    Detector::E2ApproachingVehiclesStates* approachingVehiclesStatesDetM;
-    
     static std::string xmlHeaderM;
 
     void createContainer( Containers type )
