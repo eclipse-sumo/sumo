@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/01/26 07:31:22  dkrajzew
+// differnt detector usage types added
+//
 // Revision 1.10  2004/01/13 14:25:02  dkrajzew
 // corrected the output description
 //
@@ -78,7 +81,8 @@ MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
  * method definitions
  * ======================================================================= */
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
-        std::string id, MSLane* lane, MSUnit::Meters startPos,
+        std::string id, DetectorUsage usage, MSLane* lane,
+        MSUnit::Meters startPos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -88,7 +92,8 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold),
         jamDistThresholdM(jamDistThreshold),
-        myID(id), myStartLaneID(lane->id())
+        myID(id), myStartLaneID(lane->id()),
+        myUsage(usage)
 {
     // insert object into dictionary
     if ( ! MSDetectorSubSys::E2ZSOLDict::getInstance()->isInsertSuccess(myID, this ) ) {
@@ -103,9 +108,6 @@ MS_E2_ZS_CollectorOverLanes::init(
         MSUnit::Meters detLength,
         const LaneContinuations &laneContinuations)
 {
-    if(lane->id()=="218489_0") {
-        int bla = 0;
-    }
     myLength = detLength;
     if(startPosM==0) {
         startPosM = 0.1;
@@ -247,7 +249,7 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
     if(start+end<l->length()) {
         start = l->length() - end - 0.1;
     }
-    return new MSE2Collector(id,
+    return new MSE2Collector(id, myUsage,
         l, start, end, haltingTimeThresholdM,
         haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
 }

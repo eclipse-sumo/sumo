@@ -20,12 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 07:31:22  dkrajzew
+// differnt detector usage types added
+//
 // Revision 1.6  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 // $Log$
+// Revision 1.7  2004/01/26 07:31:22  dkrajzew
+// differnt detector usage types added
+//
 // Revision 1.6  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -66,12 +72,11 @@ public:
 
 	/// Constructor
     MS_E2_ZS_CollectorOverLanes( std::string id,
-                        MSLane* lane,
-                        MSUnit::Meters startPos,
-                        MSUnit::Seconds haltingTimeThreshold = 1,
-                        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
-                        MSUnit::Meters jamDistThreshold = 10,
-                        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+        DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+        MSUnit::Meters jamDistThreshold = 10,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
 
 	/** @brief Builds the consecutive E2-detectors
 		This is not done within the constructor to allow overriding of
@@ -237,6 +242,8 @@ protected:
 
 	/// Storage for detectors which already have been build for a single lane
     LaneDetMap myAlreadyBuild;
+
+    DetectorUsage myUsage;
 
 };
 
