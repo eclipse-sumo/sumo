@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.12  2004/11/23 10:12:46  dkrajzew
 // new detectors usage applied
 //
@@ -204,7 +207,7 @@ NLJunctionControlBuilder::closeJunction()
         junction = buildNoLogicJunction();
         break;
     case TYPE_TRAFFIC_LIGHT:
-        junction = buildTrafficLightJunction();
+//        junction = buildTrafficLightJunction();
         throw 1;
         break;
     case TYPE_RIGHT_BEFORE_LEFT:
@@ -235,15 +238,6 @@ NLJunctionControlBuilder::build()
 MSJunction *
 NLJunctionControlBuilder::buildNoLogicJunction()
 {
-/*    MSNoLogicJunction::InLaneCont *cont =
-        new MSNoLogicJunction::LaneCont();
-    copy(m_pActiveInLanes.begin(), m_pActiveInLanes.end(),
-        back_inserter(*cont));*/
-/*    cont->reserve(m_pActiveInLanes.size());
-    for(LaneCont::iterator i=m_pActiveInLanes.begin();
-            i!=m_pActiveInLanes.end(); i++) {
-        cont->push_back(*i);
-    }*/
     return new MSNoLogicJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes);
 }
@@ -253,30 +247,9 @@ MSJunction *
 NLJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
-/*    MSRightOfWayJunction::LaneCont internal = getInternalLaneContSecure();
-    MSRightOfWayJunction::LaneCont incoming = getIncomingLaneContSecure();*/
     // build the junction
     return new MSRightOfWayJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype);
-}
-
-
-MSJunction *
-NLJunctionControlBuilder::buildTrafficLightJunction()
-{
-    throw 1;
-    /*
-    MSJunctionLogic *jtype = getJunctionLogicSecure();
-    MSRightOfWayJunction::InLaneCont cont = getInLaneContSecure();
-    // get the traffic light logic
-    MSTrafficLightLogic *tlLogic = MSTrafficLightLogic::dictionary(m_CurrentId);//m_TLKey);
-    if(tlLogic==0) {
-        throw XMLIdNotKnownException("trafficlight (key)", m_CurrentId);//m_TLKey);
-    }
-    // build the junction
-    return new MSTrafficLightJunction(m_CurrentId, m_X, m_Y, cont, jtype,
-        tlLogic, m_Delay, m_InitStep, m_Container->getEventControl());
-        */
 }
 
 
@@ -291,37 +264,6 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
     return jtype;
 }
 
-/*
-MSRightOfWayJunction::LaneCont
-NLJunctionControlBuilder::getIncomingLaneContSecure()
-{
-    // build the inlane container
-    MSRightOfWayJunction::LaneCont cont;
-    cont.reserve(m_pActiveIncomingLanes.size());
-    copy(m_pActiveIncomingLanes.begin(), m_pActiveIncomingLanes.end(),
-
-    for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
-        MSRightOfWayJunction::InLane lane(*i);
-        cont.push_back(lane);
-    }
-    return cont;
-}
-
-
-MSRightOfWayJunction::LaneCont
-NLJunctionControlBuilder::getInternalLaneContSecure()
-{
-    // build the inlane container
-    MSRightOfWayJunction::LaneCont cont;
-    cont.reserve(m_pActiveInternalLanes.size());
-    for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
-        MSRightOfWayJunction::InLane lane(*i);
-        cont.push_back(lane);
-    }
-    return cont;
-}
-*/
-
 
 const NLJunctionControlBuilder::LaneCont &
 NLJunctionControlBuilder::getIncomingLanes() const
@@ -334,14 +276,10 @@ void
 NLJunctionControlBuilder::initIncomingLanes()
 {
     m_pActiveIncomingLanes.clear();
-//    m_pActiveInternalLanes.clear();
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLJunctionControlBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.1  2004/11/23 10:18:41  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -146,8 +149,11 @@ MSAgentbasedTrafficLightLogic::sproutDetectors(
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
             MS_E2_ZS_CollectorOverLanes* det =
                 nb.buildMultiLaneE2Det(laneContinuations, id,
-                    DU_TL_CONTROL, lane, 0, det_offset);
-//          det->addDetector( E2::ALL, "detectors" );
+                    DU_TL_CONTROL, lane, 0, det_offset,
+                    /*haltingTimeThreshold*/ 1,
+                    /*haltingSpeedThreshold*/5.0/3.6,
+                    /*jamDistThreshold*/ 10,
+                    /*deleteDataAfterSeconds*/ 1800);
             myE2Detectors[lane] = det;
         }
     }

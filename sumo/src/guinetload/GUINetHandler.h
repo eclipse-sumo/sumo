@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.10  2004/11/23 10:12:27  dkrajzew
 // new detectors usage applied
 //
@@ -90,7 +93,9 @@ public:
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         double stdDetectorPositions, double stdDetectorlength,
         int stdLearnHorizon, int stdDecisionHorizon,
-        double stdDeltaLimit, int stdTCycle);
+        double stdDeltaLimit, int stdTCycle,
+        double stdActuatedMaxGap, double stdActuatedPassingTime,
+        double stdActuatedDetectorGap);
 
     /// standard destructor
     ~GUINetHandler();

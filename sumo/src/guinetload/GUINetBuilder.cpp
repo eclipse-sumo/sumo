@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.21  2004/11/25 16:26:46  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -154,7 +157,11 @@ GUINetBuilder::buildNet(MSVehicleControl *vc)
         m_pOptions.getInt("agent-tl.learn-horizon"),
         m_pOptions.getInt("agent-tl.decision-horizon"),
         m_pOptions.getFloat("agent-tl.min-diff"),
-        m_pOptions.getInt("agent-tl.tcycle"));
+        m_pOptions.getInt("agent-tl.tcycle"),
+
+        m_pOptions.getFloat("actuated-tl.max-gap"),
+        m_pOptions.getFloat("actuated-tl.passing-time"),
+        m_pOptions.getFloat("actuated-tl.detector-gap"));
     // ... and the parser
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
     GUINet *net = 0;

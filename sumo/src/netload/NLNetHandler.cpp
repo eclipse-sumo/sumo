@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.50  2004/12/16 12:23:36  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.49  2004/11/23 10:12:46  dkrajzew
 // new detectors usage applied
 //
@@ -147,7 +150,11 @@ NLNetHandler::NLNetHandler(const std::string &file,
                            double stdDetectorPositions,
                            double stdDetectorLengths,
                            int stdLearnHorizon, int stdDecisionHorizon,
-                           double stdDeltaLimit, int stdTCycle)
+                           double stdDeltaLimit, int stdTCycle,
+
+                           double stdActuatedMaxGap,
+                           double stdActuatedPassingTime,
+                           double stdActuatedDetectorGap)
     : MSRouteHandler(file, true),
     myContainer(container), _tlLogicNo(-1), m_Offset(0),
     myCurrentIsInternalToSkip(false),
@@ -155,7 +162,12 @@ NLNetHandler::NLNetHandler(const std::string &file,
     myStdDetectorLengths(stdDetectorLengths),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myStdLearnHorizon(stdLearnHorizon), myStdDecisionHorizon(stdDecisionHorizon),
-    myStdDeltaLimit(stdDeltaLimit), myStdTCycle(stdTCycle)
+    myStdDeltaLimit(stdDeltaLimit), myStdTCycle(stdTCycle),
+
+    myStdActuatedMaxGap(stdActuatedMaxGap),
+    myStdActuatedPassingTime(stdActuatedPassingTime),
+    myStdActuatedDetectorGap(stdActuatedDetectorGap)
+
 
 {
 }
@@ -1336,7 +1348,10 @@ NLNetHandler::closeTrafficLightLogic()
         // build an actuated logic
         MSActuatedTrafficLightLogic *tlLogic =
             new MSActuatedTrafficLightLogic(m_Key, m_ActivePhases,
-                step, firstEventOffset);
+                step, firstEventOffset,
+                myStdActuatedMaxGap,
+                myStdActuatedPassingTime,
+                myStdActuatedDetectorGap);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();

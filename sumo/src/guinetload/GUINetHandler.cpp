@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.19  2004/11/23 10:12:27  dkrajzew
 // new detectors usage applied
 //
@@ -139,10 +142,14 @@ GUINetHandler::GUINetHandler(const std::string &file,
                              double stdDetectorPositions,
                              double stdDetectorLengths,
                              int stdLearnHorizon, int stdDecisionHorizon,
-                             double stdDeltaLimit, int stdTCycle)
+                             double stdDeltaLimit, int stdTCycle,
+                             double stdActuatedMaxGap,
+                             double stdActuatedPassingTime,
+                             double stdActuatedDetectorGap)
     : NLNetHandler(file, container, detBuilder, triggerBuilder,
         stdDetectorPositions, stdDetectorLengths, stdLearnHorizon,
-        stdDecisionHorizon, stdDeltaLimit, stdTCycle)
+        stdDecisionHorizon, stdDeltaLimit, stdTCycle,
+        stdActuatedMaxGap, stdActuatedPassingTime, stdActuatedDetectorGap)
 {
 }
 

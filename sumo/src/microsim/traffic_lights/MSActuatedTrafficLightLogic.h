@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.1  2004/11/23 10:18:41  dkrajzew
 // all traffic lights moved to microsim/traffic_lights
 //
@@ -128,7 +131,8 @@ public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, size_t delay);
+        size_t step, size_t delay,
+        double maxGap, double passingTime, double detectorGap);
 
     void init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
@@ -175,6 +179,10 @@ protected:
 
     /// information whether the current phase should be lenghtend
     bool _continue;
+
+    double myMaxGap;
+    double myPassingTime;
+    double myDetectorGap;
 
 };
 

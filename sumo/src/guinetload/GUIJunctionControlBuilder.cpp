@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.3  2004/08/02 11:56:31  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -98,12 +101,13 @@ GUIJunctionControlBuilder::buildLogicJunction()
     myShape.clear();
 }
 
-
+/*
 MSJunction *
 GUIJunctionControlBuilder::buildTrafficLightJunction()
 {
     throw 1;
 }
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

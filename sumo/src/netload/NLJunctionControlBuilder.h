@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2004/12/16 12:23:37  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.8  2004/08/02 12:47:30  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -153,7 +156,7 @@ protected:
     virtual MSJunction *buildLogicJunction();
 
     /** builds a traffic light junction */
-    virtual MSJunction *buildTrafficLightJunction();
+//    virtual MSJunction *buildTrafficLightJunction();
 
     /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/12/16 12:23:30  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.23  2004/11/25 16:26:50  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -181,11 +184,20 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));
     oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((float) (80.0/3.6)));
 
+    // tls
     oc.doRegister("agent-tl.detector-len", new Option_Float(75));
     oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));
     oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));
     oc.doRegister("agent-tl.min-diff", new Option_Float((float) .1));
     oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
+
+    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1));
+    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0));
+    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9));
+
+    // device
+    oc.doRegister("device", new Option_Float(0.5));
+    oc.doRegister("knownveh", new Option_String("444_4"));
 
     RandHelper::insertRandOptions(oc);
 }

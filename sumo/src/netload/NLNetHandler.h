@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2004/12/16 12:23:36  dkrajzew
+// first steps towards a better parametrisation of traffic lights
+//
 // Revision 1.25  2004/11/23 10:12:46  dkrajzew
 // new detectors usage applied
 //
@@ -155,7 +158,9 @@ public:
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         double stdDetectorPositions, double stdDetectorlength,
         int stdLearnHorizon, int stdDecisionHorizon, double stdDeltaLimit,
-        int stdTCycle);
+        int stdTCycle,
+        double stdActuatedMaxGap, double stdActuatedPassingTime,
+        double stdActuatedDetectorGap);
 
     /// Destructor
     virtual ~NLNetHandler();
@@ -263,6 +268,9 @@ protected:
     int myStdDecisionHorizon;
     double myStdDeltaLimit;
     int myStdTCycle;
+    double myStdActuatedMaxGap;
+    double myStdActuatedPassingTime;
+    double myStdActuatedDetectorGap;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
