@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 07:50:43  dkrajzew
+// using the xmlhelpers instead of building the parser by the object itself
+//
 // Revision 1.5  2003/09/23 14:18:15  dkrajzew
 // hierarchy refactored; user-friendly implementation
 //
@@ -35,9 +38,6 @@ namespace
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,19 +45,26 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/common/XMLHelpers.h>
 #include "MSEventControl.h"
 #include "MSTriggeredReader.h"
 #include "MSTriggeredXMLReader.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
                                            const std::string &filename)
     : MSTriggeredReader(net),
@@ -75,25 +82,7 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader()
 void
 MSTriggeredXMLReader::init(MSNet &net)
 {
-    myParser = XMLReaderFactory::createXMLReader();
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/namespaces" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema-full-checking"),
-        false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/validation"), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/dynamic" ), false );
-    myParser->setContentHandler( this );
-    myParser->setErrorHandler( this );
+    myParser = XMLHelpers::getSAXReader(*this);
     if(!myParser->parseFirst(_file.c_str(), myToken)) {
         MsgHandler::getErrorInstance()->inform(
             string("Can not read XML-file '") + _file + string("'."));
@@ -121,11 +110,7 @@ MSTriggeredXMLReader::readNextTriggered()
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSTriggeredXMLReader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -19,8 +19,10 @@
 //
 //---------------------------------------------------------------------------//
 
-// $Revision$
-
+// $Log$
+// Revision 1.18  2004/01/26 07:50:16  dkrajzew
+// using the xmlhelpers instead of building the parser by the object itself
+//
 namespace
 {
     const char rcsid[] =
@@ -35,7 +37,6 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
 #include "MSTriggeredSource.h"
 #include "MSTriggeredSourceXMLHandler.h"
 #include "MSVehicleType.h"
@@ -44,7 +45,7 @@ namespace
 #include "MSVehicleControl.h"
 #include <utils/common/MsgHandler.h>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
+#include <utils/common/XMLHelpers.h>
 #include <utils/convert/TplConvert.h>
 #include <helpers/Command.h>
 #include <helpers/SimpleCommand.h>
@@ -217,37 +218,16 @@ void
 MSTriggeredSource::initParser( void )
 {
     //
-    //  Create a SAX parser object. Then, according to what we were told on
-    //  the command line, set it to validate or not.
-    //
-    myParser = XMLReaderFactory::createXMLReader();
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/namespaces" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema" ), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/schema-full-checking"),
-        false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://xml.org/sax/features/validation"), false );
-    myParser->setFeature(
-        XMLString::transcode(
-            "http://apache.org/xml/features/validation/dynamic" ), false );
-
-
-
-    //
     //  Create our SAX handler object and install it on the parser, as the
     //  document and error handler.
     //
     MSTriggeredSourceXMLHandler* handler =
         new MSTriggeredSourceXMLHandler( *this ); // !!!
-    myParser->setContentHandler( handler );
-    myParser->setErrorHandler( handler );
+    //
+    //  Create a SAX parser object. Then, according to what we were told on
+    //  the command line, set it to validate or not.
+    //
+    myParser = XMLHelpers::getSAXReader(*handler);
 }
 
 //---------------------------------------------------------------------------//
@@ -345,6 +325,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.18  2004/01/26 07:50:16  dkrajzew
+// using the xmlhelpers instead of building the parser by the object itself
+//
 // Revision 1.17  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
