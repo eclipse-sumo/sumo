@@ -114,7 +114,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // -------- forced changing
     double rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        :*/ myVehicle.getLane().maxSpeed() * 5;
+        :*/ myVehicle.getLane().maxSpeed() * 50;
     if( bestLaneOffset<0&&currentDistDisallows(currentDist, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
@@ -287,8 +287,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // -------- forced changing
     double lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        : */myVehicle.getLane().maxSpeed() * 5;
-    if( bestLaneOffset>0&&currentDistDisallows(currentDist, bestLaneOffset, lv)) {
+        : */myVehicle.getLane().maxSpeed() * 50;
+    if( bestLaneOffset>0
+        &&
+        currentDistDisallows(currentDist, bestLaneOffset, lv)) {
+
         informBlocker(msgPass, blocked, LCA_MLEFT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.vsafe(myVehicle.speed(),
