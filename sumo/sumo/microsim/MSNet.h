@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2002/05/14 07:45:21  dkrajzew
+// new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
+//
 // Revision 1.6  2002/04/17 10:44:13  croessel
 // (Windows) Carriage returns removed.
 //
@@ -103,6 +106,10 @@
 #include <string>
 #include <iostream>
 #include "MSPerson.h"
+#ifdef _SPEEDCHECK
+#include <ctime>
+#endif
+
 
 class MSEdge;
 class MSEdgeControl;
@@ -183,6 +190,15 @@ public:
     /** a visible variables for the current time step - for debugging
         purposes only */
     static Time globaltime;
+#endif
+
+#ifdef _SPEEDCHECK
+    /** the number of vehicles moved */
+    static long noVehicles;
+    /** the begin of the speed measurement in s */
+    static time_t begin;
+    /** the end of the speed measurement in s */
+    static time_t end;
 #endif
 
 protected:

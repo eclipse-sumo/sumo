@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2002/05/14 07:45:21  dkrajzew
+// new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
+//
 // Revision 1.9  2002/05/06 06:25:29  dkrajzew
 // The output is now directed directly into the output file, no longer via a buffer
 //
@@ -136,12 +139,6 @@ namespace
 #include <ctime>
 #endif
 
-#ifdef _SPEEDCHECK
-extern long novehicles;
-extern time_t begin;
-extern time_t end;
-#endif
-
 #include <iostream>
 //#include <fstream>
 #include <sstream>
@@ -164,10 +161,16 @@ using namespace std;
 MSNet::DictType MSNet::myDict;
 MSNet::RouteDict MSNet::myRoutes;
 double MSNet::myDeltaT = 1;
+
 #ifdef _DEBUG
 MSNet::Time MSNet::globaltime;
 #endif
 
+#ifdef _SPEEDCHECK
+long MSNet::noVehicles;
+time_t MSNet::begin;
+time_t MSNet::end;
+#endif
 
 MSNet::MSNet(string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
@@ -210,13 +213,16 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 #endif
 
 #ifdef _SPEEDCHECK
-        if(myStep==100) {
+        if(myStep==1) {
             time(&begin);
-            novehicles = 0;
+            noVehicles = 0;
         }
-        if(myStep==10000) {
+        if(myStep==stop) {
             time(&end);
-            int bla = 0;
+            double ups = ((double) noVehicles / (double) (end-begin));
+            double mups = ups / 1000000.0;
+            cout << noVehicles << " vehicles in " << (end-begin) << " sec" << endl;
+            cout << ups << "UPS; " << mups << "MUPS" << endl;
         }
 #endif
 
