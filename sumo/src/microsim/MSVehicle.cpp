@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2003/11/24 10:22:56  dkrajzew
+// patched the false usage of oldLaneMoveReminders when more than one street is within
+//
 // Revision 1.41  2003/11/20 14:59:17  dkrajzew
 // detector usage patched
 //
@@ -625,6 +628,7 @@ MSVehicle::MSVehicle( string id,
     myMeanData( noMeanData ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
+    myOldLaneMoveReminderOffsets( 0 ),
     myLaneChangeState(*this),
     movedDistanceDuringStepM(0)
 {
@@ -1659,19 +1663,29 @@ MSVehicle::updateMeanData( double entryTimestep,
 void
 MSVehicle::enterLaneAtMove( MSLane* enteredLane )
 {
+    // save the old work reminders, patching the position information
+    // add the information about the new offset to the old lane reminders
+    double oldLaneLength = myLane->length();
+    OffsetVector::iterator i;
+    for(i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); i++) {
+        (*i) += oldLaneLength;
+    }
+    for(size_t j=0; j<myMoveReminders.size(); j++) {
+        myOldLaneMoveReminderOffsets.push_back(oldLaneLength);
+    }
+    copy(myMoveReminders.begin(), myMoveReminders.end(),
+        back_inserter(myOldLaneMoveReminders));
+    assert(myOldLaneMoveReminders.size()==myOldLaneMoveReminderOffsets.size());
+    // set the entered lane as the current lane
     myLane = enteredLane;
     myTarget = enteredLane;
-//    myApproachedLane = 0;
+    // and update the mean data
     double entryTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() ) -
         myState.myPos / myState.mySpeed;
     updateMeanData( entryTimestep, 0, myState.mySpeed );
-    // switch the reminders and work on them
-//    myOldLaneMoveReminders = myMoveReminders;
-    copy(myMoveReminders.begin(), myMoveReminders.end(),
-        back_inserter(myOldLaneMoveReminders));
+    // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
-//    workOnMoveReminders( 0.0, myState.pos(), myState.speed(), CURRENT );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1946,15 +1960,18 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
         }
     }
     if ( mode != CURRENT ) {
+        OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
         for ( MoveReminderContIt rem = myOldLaneMoveReminders.begin();
               rem != myOldLaneMoveReminders.end(); /* empty */ ) {
-            double oldLaneLength = (*rem)->getLane()->length();
+            double oldLaneLength = *off;
             if ( ! (*rem)->isStillActive( *this, oldLaneLength + oldPos,
                                           oldLaneLength + newPos, newSpeed) ) {
                 rem = myOldLaneMoveReminders.erase( rem );
+                off = myOldLaneMoveReminderOffsets.erase(off);
             }
             else {
                 ++rem;
+                ++off;
             }
         }
     }
@@ -2043,16 +2060,13 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
     }
     //
     rem = myOldLaneMoveReminders.begin();
-/*    double oldLaneLength = (*rem)->getLane()->length();
-    oldPos += oldLaneLength;
-    pos += oldLaneLength;*/
-    for (; rem != myOldLaneMoveReminders.end(); ++rem ) {
-        double oldLaneLength = (*rem)->getLane()->length();
+    OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
+    for (; rem != myOldLaneMoveReminders.end(); ++rem, ++off ) {
+        double oldLaneLength = *off;
         if( (*rem)->isStillActive( *this,
                 oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
             assert(false);
         }
-  //      (*rem)->dismissCorrectionsOnTripEnd(*this);
     }
 }
 

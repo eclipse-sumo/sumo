@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.27  2003/11/24 10:22:57  dkrajzew
+// patched the false usage of oldLaneMoveReminders when more than one street is within
+//
 // Revision 1.26  2003/11/20 14:59:17  dkrajzew
 // detector usage patched
 //
@@ -923,6 +926,8 @@ private:
     typedef MoveReminderCont::iterator MoveReminderContIt;
     MoveReminderCont myMoveReminders;
     MoveReminderCont myOldLaneMoveReminders;
+    typedef std::vector<double> OffsetVector;
+    OffsetVector myOldLaneMoveReminderOffsets;
     enum MoveOnReminderMode {BOTH, CURRENT};
 
     void workOnMoveReminders( double oldPos, double newPos, double newSpeed,
