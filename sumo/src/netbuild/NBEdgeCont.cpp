@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.22  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
 //
@@ -373,9 +376,8 @@ NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
     double pos = GeomHelper::nearest_position_on_line_to_point(
-        Position2D(edge->_from->getXCoordinate(), edge->_from->getYCoordinate()),
-        Position2D(edge->_to->getXCoordinate(), edge->_to->getYCoordinate()),
-        Position2D(node->getXCoordinate(), node->getYCoordinate()));
+        edge->_from->getPosition(), edge->_to->getPosition(),
+        node->getPosition());
     if(pos<=0) {
         return false;
     }
@@ -395,10 +397,8 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     // build the new edges' geometries
     std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);
-    geoms.first.push_back(
-        Position2D(node->getXCoordinate(), node->getYCoordinate()));
-    geoms.second.push_front(
-        Position2D(node->getXCoordinate(), node->getYCoordinate()));
+    geoms.first.push_back(node->getPosition());
+    geoms.second.push_front(node->getPosition());
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
@@ -554,9 +554,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
         NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
-    if(tpledge->getID()=="1000057"||tpledge->getID()=="1000055[1]") {
-        int bla = 0;
-    }
     NBNode *from = tpledge->getFromNode();
     NBNode *to = tpledge->getToNode();
     EdgeVector::const_iterator i;

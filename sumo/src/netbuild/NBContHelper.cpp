@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.10  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
 //
@@ -309,8 +312,8 @@ operator<<(std::ostream &os, const EdgeVector &ev)
 NBContHelper::edge_to_lane_sorter::edge_to_lane_sorter(NBNode *from, NBNode *to)
 {
     flip = atan2(
-        from->getXCoordinate()-to->getXCoordinate(),
-        from->getYCoordinate()-to->getYCoordinate())<0;
+        from->getPosition().x()-to->getPosition().x(),
+        from->getPosition().y()-to->getPosition().y())<0;
 }
 
 

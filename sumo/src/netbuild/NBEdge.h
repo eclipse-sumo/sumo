@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.23  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
 //
@@ -417,6 +420,8 @@ public:
     }
 
     void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
+    NBEdge *getTurnDestination() const;
+
 
 private:
     /**
@@ -487,6 +492,7 @@ private:
         const Position2D &to, double lanewidth, size_t lane);
 
     void computeLaneShapes();
+
 
 protected:
     void setTurningDestination(NBEdge *e);

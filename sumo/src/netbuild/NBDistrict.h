@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.6  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
 //
@@ -52,6 +55,7 @@
 #include "NBCont.h"
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
+#include <utils/geom/Position2D.h>
 
 
 /* =========================================================================
@@ -90,11 +94,8 @@ public:
     /// writes the sumo-xml-representation into the given stream
     void writeXML(std::ostream &into);
 
-    /// returns the district's x-coordinate
-    double getXCoordinate() const;
-
-    /// returns the district's y-coordinate
-    double getYCoordinate() const;
+    /// Returns the position of this district's center
+    const Position2D &getPosition() const;
 
     /// computes the center of the district
     void computeCenter();
@@ -132,7 +133,8 @@ private:
     WeightsCont _sinkWeights;
 
     /// the position of the distrct (it's mass-middle-point)
-    double _x, _y;
+    Position2D myPosition;
+
 
     /// Information whether the position is given
     bool _posKnown;

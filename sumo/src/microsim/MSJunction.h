@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2003/11/11 08:38:51  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.7  2003/07/30 09:02:01  dkrajzew
 // comments corrigued
 //
@@ -63,6 +66,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utils/geom/Position2D.h>
 
 
  /* =========================================================================
@@ -121,11 +125,8 @@ public:
         This is done for all junctions within the dictionary */
     static void postloadInitContainer();
 
-    /** returns the junction's x-position */
-    double getXCoordinate() const;
-
-    /** returns the junction's y-position */
-    double getYCoordinate() const;
+    /** returns the junction's position */
+    const Position2D &getPosition() const;
 
     /// Returns the id of the junction
     std::string id() const;
@@ -147,7 +148,7 @@ protected:
     static DictType myDict;
 
     /** the position */
-    double myX, myY;
+    Position2D myPosition;
 
 private:
     /// Default constructor.

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.31  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
 //
@@ -311,8 +314,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         throw std::exception();
     }
     _angle = NBHelpers::angle(
-        _from->getXCoordinate(), _from->getYCoordinate(),
-        _to->getXCoordinate(), _to->getYCoordinate()
+        _from->getPosition().x(), _from->getPosition().y(),
+        _to->getPosition().x(), _to->getPosition().y()
         );
      _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
@@ -325,8 +328,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _ToEdges = new map<NBEdge*, vector<size_t> >();
     if(_length<=0) {
         _length = GeomHelper::distance(
-            Position2D(_from->getXCoordinate(), _from->getYCoordinate()),
-            Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+            _from->getPosition(), _to->getPosition());
     }
     if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
         _length = 200;
@@ -335,10 +337,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _length = 200;
     }
    assert(_length>0);
-    myGeom.push_back(
-        Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
-    myGeom.push_back(
-        Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+    myGeom.push_back(_from->getPosition());
+    myGeom.push_back(_to->getPosition());
     if(_priority<0) {
         _priority = 0;
     }
@@ -367,8 +367,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         throw std::exception();
     }
     _angle = NBHelpers::angle(
-        _from->getXCoordinate(), _from->getYCoordinate(),
-        _to->getXCoordinate(), _to->getYCoordinate()
+        _from->getPosition().x(), _from->getPosition().y(),
+        _to->getPosition().x(), _to->getPosition().y()
         );
     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
@@ -381,8 +381,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _ToEdges = new map<NBEdge*, vector<size_t> >();
     if(_length<=0) {
         _length = GeomHelper::distance(
-            Position2D(_from->getXCoordinate(), _from->getYCoordinate()),
-            Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+            _from->getPosition(), _to->getPosition());
     }
     if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
         _length = 200;
@@ -593,10 +592,10 @@ NBEdge::writeXMLStep1(std::ostream &into)
         "\" Speed=\"" << _speed <<
         "\" Name=\"" << _name <<
         "\" NoLanes=\"" << _nolanes <<
-        "\" XFrom=\"" << _from->getXCoordinate() <<
-        "\" YFrom=\"" << _from->getYCoordinate() <<
-        "\" XTo=\"" << _to->getXCoordinate() <<
-        "\" YTo=\"" << _to->getYCoordinate() <<
+        "\" XFrom=\"" << _from->getPosition().x() <<
+        "\" YFrom=\"" << _from->getPosition().y() <<
+        "\" XTo=\"" << _to->getPosition().x() <<
+        "\" YTo=\"" << _to->getPosition().y() <<
         "\" From=\"" << _from->getID() <<
         "\" To=\"" << _to->getID() <<
         "\" Priority=\"" << _priority <<
@@ -744,18 +743,9 @@ NBEdge::computeLaneShape(size_t lane)
         Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
     // prune the geometry to the begin and the end node
     //  begin node first
-    if(_id=="17") {
-        int bla = 0;
-        cout << "Junction:" << setprecision(10) <<
-            _from->getXCoordinate() << ", " << _from->getYCoordinate() << endl;
-        cout << "Shape:" << myGeom << endl;
-
-    }
-    shape.pruneFromBeginAt(
-        Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
+    shape.pruneFromBeginAt(_from->getPosition());
     //  then end node
-    shape.pruneFromEndAt(
-        Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
+    shape.pruneFromEndAt(_to->getPosition());
     return shape;
 }
 
@@ -993,15 +983,6 @@ NBEdge::computeLanes2Edges()
 bool
 NBEdge::recheckLanes()
 {
-/*    if(_id=="131") {
-        int bla;
-        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
-            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
-                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
-            }
-        }
-        cout << "----------" << endl;
-    }*/
     size_t i;
     // check:
     //  if there is a lane with no connections and any neighbour lane has
@@ -1025,15 +1006,6 @@ NBEdge::recheckLanes()
             setConnection(i, 0, 0);
         }
     }
-/*    if(_id=="131") {
-        int bla;
-        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
-            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
-                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
-            }
-        }
-        cout << "----------" << endl;
-    }*/
     return true;
 }
 
@@ -1490,15 +1462,6 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
         }
     }
     // replace in _reachable
-/*    if(_id=="131") {
-        int bla;
-        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
-            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
-                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
-            }
-        }
-        cout << "----------" << endl;
-    }*/
     if(_reachable!=0) {
         for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
             for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
@@ -1509,29 +1472,9 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
             }
         }
     }
-/*    if(_id=="131") {
-        int bla;
-        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
-            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
-                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
-            }
-        }
-        cout << "----------" << endl;
-    }*/
     // replace in _succeedinglanes
     if(_succeedinglanes!=0) {
-/*        if(_id=="131") {
-            for(LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->begin(); l2!=_succeedinglanes->end(); l2++) {
-                int bla;
-                cout << "_succeedinglanes:" << (*l2).first->getID() << ":";
-                for(LaneVector::iterator l3=(*l2).second.begin(); l3!=(*l2).second.end(); l3++) {
-                    cout << (*l3) << ", ";
-                }
-                cout << endl;
-            }
-            cout << "---------" << endl;
-        }*/
-        LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->find(which);
+       LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->find(which);
         if(l!=_succeedinglanes->end()) {
             LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->find(by);
             if(l2!=_succeedinglanes->end()) {
@@ -1542,17 +1485,6 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
             }
             _succeedinglanes->erase(l);
         }
-/*        if(_id=="131") {
-            for(LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->begin(); l2!=_succeedinglanes->end(); l2++) {
-                int bla;
-                cout << "_succeedinglanes:" << (*l2).first->getID() << ":";
-                for(LaneVector::iterator l3=(*l2).second.begin(); l3!=(*l2).second.end(); l3++) {
-                    cout << (*l3) << ", ";
-                }
-                cout << endl;
-            }
-            cout << "---------" << endl;
-        }*/
     }
 }
 
@@ -1959,12 +1891,6 @@ NBEdge::isJoinable() const
 void
 NBEdge::computeEdgeShape()
 {
-    if(_id=="302") {
-        int bla = 0;
-    }
-    if(_id=="1000077[0]") {
-        int bla = 0;
-    }
     size_t i;
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end
@@ -2033,6 +1959,14 @@ NBEdge::hasSignalisedConnectionTo(NBEdge *e) const
     }
     return false;
 }
+
+
+NBEdge*
+NBEdge::getTurnDestination() const
+{
+    return _turnDestination;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

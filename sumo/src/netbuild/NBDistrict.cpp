@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.10  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -85,14 +88,14 @@ NBDistrict::NBDistrict(const std::string &id, const std::string &name,
                        double x, double y)
     : Named(StringUtils::convertUmlaute(id)),
     _name(StringUtils::convertUmlaute(name)),
-    _x(x), _y(y), _posKnown(true)
+    myPosition(x, y), _posKnown(true)
 {
 }
 
 
 NBDistrict::NBDistrict(const std::string &id, const std::string &name)
     : Named(id), _name(name),
-    _x(0), _y(0), _posKnown(true)
+    myPosition(0, 0), _posKnown(true) // !!! (true???)
 {
 }
 
@@ -163,25 +166,10 @@ NBDistrict::writeXML(std::ostream &into)
 }
 
 
-double
-NBDistrict::getXCoordinate() const
-{
-    return _x;
-}
-
-
-double
-NBDistrict::getYCoordinate() const
-{
-    return _y;
-}
-
-
 void
 NBDistrict::setCenter(double x, double y)
 {
-    _x = x;
-    _y = y;
+    myPosition = Position2D(x, y);
 }
 
 
@@ -264,6 +252,13 @@ NBDistrict::normalise(DoubleVector &dv, size_t num)
     }
 }
 */
+
+
+const Position2D &
+NBDistrict::getPosition() const
+{
+    return myPosition;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

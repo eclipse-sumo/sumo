@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/11/11 08:38:51  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.6  2003/07/22 15:05:22  dkrajzew
 // warnings removed; formatted the code
 //
@@ -85,7 +88,7 @@ MSJunction::DictType MSJunction::myDict;
  * member method definition
  * ======================================================================= */
 MSJunction::MSJunction( std::string id, double x, double y ) :
-    myID( id ), myX(x), myY(y)
+    myID( id ), myPosition(x, y)
 {
 }
 
@@ -149,18 +152,10 @@ MSJunction::getNames()
 
 //-------------------------------------------------------------------------//
 
-double
-MSJunction::getXCoordinate() const
+const Position2D &
+MSJunction::getPosition() const
 {
-    return myX;
-}
-
-//-------------------------------------------------------------------------//
-
-double
-MSJunction::getYCoordinate() const
-{
-    return myY;
+    return myPosition;
 }
 
 //-------------------------------------------------------------------------//

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.3  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -174,11 +177,7 @@ NBHelpers::normalIDRepresentation(const std::string &id)
 double
 NBHelpers::distance(NBNode *node1, NBNode *node2)
 {
-    double xb = node1->getXCoordinate();
-    double xe = node2->getXCoordinate();
-    double yb = node1->getYCoordinate();
-    double ye = node2->getYCoordinate();
-    return sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
+    return GeomHelper::distance(node1->getPosition(), node2->getPosition());
 }
 
 

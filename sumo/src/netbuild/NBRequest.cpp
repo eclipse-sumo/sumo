@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/11/11 08:33:54  dkrajzew
+// consequent position2D instead of two doubles added
+//
 // Revision 1.21  2003/10/15 11:49:26  dkrajzew
 // unneeded debug-ifs removed
 //
@@ -165,9 +168,6 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
 	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
-    if(junction->getID()=="303") {
-        int bla = 0;
-    }
     size_t variations = _incoming->size() * _outgoing->size();
     _forbids.reserve(variations);
     _done.reserve(variations);
@@ -638,27 +638,6 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
 						continue;
                     }
                     os << '0';
-/*	                // if this node is controlled by a traffic light
-                    // but this connection is not, this connection may not drive
-                    // if the other is a foe
-                    const EdgeLane &el = (*connected)[k];
-                    if(_junction->getID()=="858") {
-                        string fromID = (*i)->getID();
-                        string toID = (*connected)[k].edge->getID();
-                        if(from->getID()=="1000045+1000043[1]"&&to->getID()=="1000046") {
-                            if((*i)->getID()=="1000041+1000040"&&(*connected)[k].edge->getID()=="1000046") {
-                                    int bla = 0;
-                            }
-                        }
-                    }
-                    if( _junction->isTLControlled() && (*i)!=from) { // !!! (the best way to check this?)
-                        if(from->getToNode()->foes(from, to, *i, (*connected)[k].edge)) {
-                            os << '1';
-                            continue;
-                        }
-                    }
-                    // ok, seems to be priorised
-                    os << '0';*/
                 }
             }
         }
