@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/08/21 13:00:57  dkrajzew
+// random networks debugging
+//
 // Revision 1.6  2003/07/30 09:30:11  dkrajzew
 // parameter to specify the duration of the red phase of a traffic light added
 //
@@ -194,6 +197,10 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("min-decel", new Option_Float(3.0));
     oc.doRegister("all-logics", new Option_Bool(false));
     oc.addSynonyme("default-junction-type", "junctions");
+    oc.doRegister("x-offset-to-apply", new Option_Float(0));
+    oc.doRegister("y-offset-to-apply", new Option_Float(0));
+    oc.doRegister("rotation-to-apply", new Option_Float(0));
+    oc.doRegister("print-node-positions", new Option_Bool(false));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
@@ -240,8 +247,8 @@ buildNetwork()
     }
     // random net
 	TNGRandomNet RandomNet(net);
-	RandomNet.SetMaxDistance(oc.getFloat("max-distance"));
-	RandomNet.SetMinDistance(oc.getFloat("min-distance"));
+	RandomNet.SetMaxDistance(oc.getFloat("rand-max-distance"));
+	RandomNet.SetMinDistance(oc.getFloat("rand-min-distance"));
 	RandomNet.SetMinLinkAngle(oc.getFloat("min-angle"));
 	RandomNet.SetNumTries(oc.getFloat("num-tries"));
 	RandomNet.SetConnectivity(oc.getFloat("connectivity"));
@@ -283,7 +290,7 @@ main(int argc, char **argv)
         delete net;
         NBNetBuilder nb;
         nb.buildLoaded();
-    } catch (ProcessError) {
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
