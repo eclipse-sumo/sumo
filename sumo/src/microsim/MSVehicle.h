@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.19  2003/07/30 09:18:42  dkrajzew
+// the waiting time is now an unsigned int
+//
 // Revision 1.18  2003/06/19 10:58:34  dkrajzew
 // too conservative computation of the braking gap patched
 //
@@ -686,8 +689,11 @@ protected:
     MSLane *myTarget;
 
     /** @brief The time the vehicle waits
-        This is the number of simulation steps the vehicle was not faster than 0.1m/s */
-    long myWaitingTime;
+        This is the number of simulation steps the vehicle was not faster than 0.1m/s
+        It's a size_t, now, as we assume a vehicle will not wait for
+        longer than about 50 hours which still fits into a size_t when the simulation
+        runs in ms */
+    size_t myWaitingTime;
 
     /// The number of cars that shall be emitted with the same settings
     int myRepetitionNumber;
