@@ -269,7 +269,7 @@ MSInductLoop::getXMLDetectorInfoStart( void )
 {
     string detectorInfo("<detector type=\"inductionloop\" id=\"" + idM +
                         "\" lane=\"" + laneM->id() + "\" pos=\"" +
-                        toString(posM) + "\" >\n");
+                        toString(posM) + "\" >");
     return detectorInfo;
 }
 
