@@ -259,11 +259,19 @@ SOURCE=..\..\src\guinetload\GUINetHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUINetWrapper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUINoLogicJunction.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\gui\partable\GUIParameterTable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\GUIParameterTableItem.cpp
 # End Source File
 # Begin Source File
 
@@ -731,6 +739,10 @@ SOURCE=..\..\src\utils\glutils\FontStorage.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\FunctionBinding.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
 # End Source File
 # Begin Source File
@@ -901,6 +913,10 @@ SOURCE=..\..\src\guinetload\GUINetHandler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUINetWrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUINoLogicJunction.h
 # End Source File
 # Begin Source File
@@ -929,6 +945,10 @@ InputPath=..\..\src\gui\partable\GUIParameterTable.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\partable\GUIParameterTableItem.h
 # End Source File
 # Begin Source File
 
@@ -1563,10 +1583,6 @@ SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\SystemFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\gui\TableTypes.h
 # End Source File
 # Begin Source File
 

@@ -980,6 +980,10 @@ SOURCE=..\..\src\netbuild\NBLogicKeyBuilder.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netbuild\NBMMLDirections.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netbuild\NBNetBuilder.h
 # End Source File
 # Begin Source File
