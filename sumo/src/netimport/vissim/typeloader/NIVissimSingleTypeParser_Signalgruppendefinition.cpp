@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.6  2003/04/16 09:59:53  dkrajzew
 // further work on Vissim-import
 //
@@ -81,7 +84,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
 {
     //
 	int id;
-    from >> id; // !!!
+    from >> id; // type-checking is missing!
     //
     string tag;
     tag = myRead(from);
@@ -148,10 +151,10 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         isGreenBegin = false;
         while(tag=="rotende"||tag=="gruenanfang") {
             double point;
-            from >> point; // !!!
+            from >> point; // type-checking is missing!
             times.push_back(point);
             from >> tag;
-            from >> point; // !!!
+            from >> point; // type-checking is missing!
             times.push_back(point);
             tag = myRead(from);
         }

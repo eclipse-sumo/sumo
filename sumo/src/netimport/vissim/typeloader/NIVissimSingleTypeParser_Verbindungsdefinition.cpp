@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:42:38  dkrajzew
+// all data types implemented
+//
 // Revision 1.5  2003/03/26 12:17:14  dkrajzew
 // further debugging/improvements of Vissim-import
 //
@@ -74,7 +77,7 @@ bool
 NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
 {
 	int id;
-    from >> id; // !!!
+    from >> id; // type-checking is missing!
     string tag;
     // Read optional value "Name", skip optional value "Beschriftung"
     string name;
@@ -125,19 +128,19 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
             direction = NIVissimConnection::NIVC_DIR_ALL;
         }
         else if(tag=="dxnothalt") {
-            from >> dxnothalt; // !!!
+            from >> dxnothalt; // type-checking is missing!
         } else if(tag=="dxeinordnen") {
-            from >> dxeinordnen; // !!!
+            from >> dxeinordnen; // type-checking is missing!
         }
         else if(tag=="segment") {
             from >> tag;
             from >> seglength;
         }
         if(tag=="zuschlag") {
-            from >> zuschlag1; // !!!
+            from >> zuschlag1; // type-checking is missing!
             tag = readEndSecure(from);
             if(tag=="zuschlag") {
-                from >> zuschlag2; // !!!
+                from >> zuschlag2; // type-checking is missing!
                 tag = readEndSecure(from, "auswertung");
             }
         } else {
@@ -164,7 +167,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
                 // get the lane number
 //                from >> tag;
                 int laneNo;
-                from >> laneNo; // !!!
+                from >> laneNo; // type-checking is missing!
                 // get the list of assigned car classes
                 IntVector assignedVehicles;
                 tag = myRead(from);

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/05/20 09:42:38  dkrajzew
+// all data types implemented
+//
 // Revision 1.4  2003/03/20 16:32:24  dkrajzew
 // windows eol removed
 //
@@ -89,7 +92,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         } else if(tag=="typ") {
             type = myRead(from);
         } else if(tag=="laenge") {
-            from >> length; // !!! no error-catching mechanism
+            from >> length; // type-checking is missing!
         }
     }
     // read in the number of lanes
@@ -103,10 +106,10 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     while(tag!="von") {
         tag = myRead(from);
         if(tag=="zuschlag") {
-            from >> zuschlag1; // !!! no error-catching mechanism
+            from >> zuschlag1; // type-checking is missing!
             tag = myRead(from);
             if(tag=="zuschlag") {
-                from >> zuschlag2; // !!! no error-catching mechanism
+                from >> zuschlag2; // type-checking is missing!
             }
         }
     }
@@ -130,7 +133,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         if(tag=="spur") {
             // get the lane number
             int laneNo;
-            from >> laneNo; // !!!
+            from >> laneNo; // type-checking is missing!
             // get the list of assigned car classes
             IntVector assignedVehicles;
             tag = myRead(from);

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -66,7 +69,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from)
 {
     // id
     int id;
-    from >> id; // !!!
+    from >> id; // type-checking is missing!
     // name
     string tag;
     from >> tag;
@@ -81,8 +84,8 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from)
     } else {
         int r, g, b;
         r = TplConvert<char>::_2int(colorName.c_str());
-        from >> g; // !!!
-        from >> b; // !!!
+        from >> g; // type-checking is missing!
+        from >> b; // type-checking is missing!
         color = RGBColor(
             (double) r / 255.0,
             (double) g / 255.0,

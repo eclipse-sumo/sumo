@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.3  2003/04/09 15:53:22  dkrajzew
 // netconvert-changes: further work on Vissim-import, documentation added
 //
@@ -110,12 +113,12 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     from >> tag;
     //
     double absdur;
-    from >> absdur; // !!!
+    from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
     double offset = 0;
     if(tag=="versatz") {
-        from >> offset; // !!!
+        from >> offset; // type-checking is missing!
     }
     if(tag!="szpkonfdatei"&&tag!="DATAEND"&&tag!="progdatei") {
         tag = readEndSecure(from);
@@ -135,12 +138,12 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     from >> tag;
     //
     double absdur;
-    from >> absdur; // !!!
+    from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
     double offset = 0;
     if(tag=="versatz") {
-        from >> offset; // !!!
+        from >> offset; // type-checking is missing!
     }
     return NIVissimTL::dictionary(id, "vas", name, absdur, offset);
 }
@@ -154,12 +157,12 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     from >> tag;
     //
     double absdur;
-    from >> absdur; // !!!
+    from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
     double offset = 0;
     if(tag=="versatz") {
-        from >> offset; // !!!
+        from >> offset; // type-checking is missing!
     }
     while(tag!="datei") {
         tag = myRead(from);

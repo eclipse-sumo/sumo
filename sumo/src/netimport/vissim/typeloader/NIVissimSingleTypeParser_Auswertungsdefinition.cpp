@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.2  2003/04/01 15:24:43  dkrajzew
 // parsing of parking places patched
 //
@@ -71,6 +74,9 @@ NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from)
         while(type!="signalgruppe") {
             type = myRead(from);
         }
+		while(type!="DATAEND") {
+			type = readEndSecure(from, "messung");
+		}
     } else if (type=="vbv") {
     } else if (type=="dichte") {
     } else if (type=="emissionen") {

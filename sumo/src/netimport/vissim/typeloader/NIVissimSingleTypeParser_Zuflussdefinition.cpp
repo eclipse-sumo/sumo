@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/05/20 09:42:38  dkrajzew
+// all data types implemented
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -61,7 +64,7 @@ bool
 NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
 {
 	string id, edgeid;
-    from >> id; // !!!
+    from >> id; // type-checking is missing!
     string tag, name;
     // override some optional values till q
     while(tag!="q") {
@@ -69,7 +72,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
         if(tag=="name") {
             name = readName(from);
         } else if(tag=="strecke") {
-            from >> edgeid; // !!!
+            from >> edgeid; // type-checking is missing!
         }
     }
     // read q

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.3  2003/03/26 12:17:14  dkrajzew
 // further debugging/improvements of Vissim-import
 //
@@ -96,9 +99,9 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
             from >> edgeid;
             tag = readEndSecure(from, "strecke");
             if(tag=="von") {
-                from >> from_pos; // !!!
+                from >> from_pos; // type-checking is missing!
                 from >> tag;
-                from >> to_pos; // !!!
+                from >> to_pos; // type-checking is missing!
                 tag = readEndSecure(from, "strecke");
             }
             edges.push_back(new NIVissimNodeParticipatingEdge(edgeid, from_pos, to_pos));

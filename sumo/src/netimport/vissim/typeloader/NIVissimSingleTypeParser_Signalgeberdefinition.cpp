@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.6  2003/04/16 09:59:52  dkrajzew
 // further work on Vissim-import
 //
@@ -97,7 +100,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     IntVector groupids;
     if(tag=="lsa") {
         int groupid;
-        from >> lsaid; // !!!
+        from >> lsaid; // type-checking is missing!
         from >> tag; // "Gruppe"
         do {
             from >> groupid;

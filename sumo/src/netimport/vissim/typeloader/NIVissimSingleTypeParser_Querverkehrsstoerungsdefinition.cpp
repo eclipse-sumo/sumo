@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:42:37  dkrajzew
+// all data types implemented
+//
 // Revision 1.3  2003/03/20 16:32:24  dkrajzew
 // windows eol removed
 //
@@ -172,12 +175,12 @@ NIVissimExtendedEdgePoint
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream &from)
 {
     int edgeid;
-    from >> edgeid; // !!!
+    from >> edgeid; // type-checking is missing!
     //
     string tag;
     int laneno;
     from >> tag;
-    from >> laneno; // !!!
+    from >> laneno; // type-checking is missing!
     IntVector lanes;
     lanes.push_back(laneno);
     //
