@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.10  2002/05/17 13:23:36  croessel
+// Changed novehicles to MSNet::noVehicles
+//
 // Revision 1.9  2002/05/17 13:04:24  croessel
 // Added _SPEEDCHECK code in all move-methos.
 // Added upper bound (= vaacel) for vSafe in nextState().
@@ -455,7 +458,7 @@ MSVehicle::move( MSLane* lane,
                  MSVehicle* neigh, double gap2neigh )
 {
 #ifdef _SPEEDCHECK
-    novehicles++;
+    MSNet::noVehicles++;
 #endif
 
     // Pragmatic solution: ignore neighbours
@@ -487,7 +490,7 @@ void
 MSVehicle::moveDecel2laneEnd( MSLane* lane )
 {
 #ifdef _SPEEDCHECK
-    novehicles++;
+    MSNet::noVehicles++;
 #endif
 
     double gap = lane->length() - myState.myPos;
@@ -509,7 +512,7 @@ void
 MSVehicle::moveUpdateState( const State newState )
 {
 #ifdef _SPEEDCHECK
-    novehicles++;
+    MSNet::noVehicles++;
 #endif
 
     myState.myPos  += newState.mySpeed * MSNet::deltaT();
@@ -525,7 +528,7 @@ void
 MSVehicle::moveSetState( const State newState )
 {
 #ifdef _SPEEDCHECK
-    novehicles++;
+    MSNet::noVehicles++;
 #endif
 
     myState = newState;
