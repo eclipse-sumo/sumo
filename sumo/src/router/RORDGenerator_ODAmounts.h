@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/02/02 16:19:23  dkrajzew
+// trying to catch up false user input (using the same name for different routes)
+//
 // Revision 1.2  2004/01/27 08:45:00  dkrajzew
 // given flow definitions an own tag
 //
@@ -35,6 +38,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <set>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
@@ -196,6 +200,9 @@ private:
 
     /// The information whether no further routes exist
     bool myEnded;
+
+    /// A storage for ids (!!! this should be done router-wide)
+    std::set<std::string> myKnownIDs;
 
 private:
     /// we made the copy constructor invalid

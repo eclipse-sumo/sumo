@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/02/02 16:19:23  dkrajzew
+// trying to catch up false user input (using the same name for different routes)
+//
 // Revision 1.3  2004/01/27 08:45:00  dkrajzew
 // given flow definitions an own tag
 //
@@ -129,7 +132,6 @@ void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net,
                                                  unsigned int time)
 {
-    cout << time << ":" << myVehicle->getID() << endl;
     string id = myVehicle->getID()
         + string("_") + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
@@ -228,6 +230,13 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
     myID = getVehicleID(attrs);
+    if(myKnownIDs.find(myID)!=myKnownIDs.end()) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The id '") + myID
+            + string("' appears twice within the flow descriptions.'"));
+        return;
+    }
+    myKnownIDs.insert(myID); // !!! a local storage is not save
     myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, myID, false);
     myEndEdge = getEdge(attrs, "destination",
         SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
@@ -297,7 +306,7 @@ void
 RORDGenerator_ODAmounts::myEndElement(int element, const std::string &name)
 {
     switch(element) {
-    case SUMO_TAG_TRIPDEF:
+    case SUMO_TAG_FLOW:
         myEndFlowAmountDef();
         break;
     case SUMO_TAG_INTERVAL:
