@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/12/04 13:24:45  dkrajzew
+// error handliung improved
+//
 // Revision 1.17  2003/11/26 10:57:14  dkrajzew
 // messages from the simulation are now also passed to the message handler
 //
@@ -79,6 +82,7 @@ namespace
 
 #include <utils/common/MsgRetrievingFunction.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 #include <guisim/GUINet.h>
 
@@ -155,33 +159,41 @@ GUIRunThread::run()
 	        // simulation is being perfomed
             _simulationInProgress = true;
 	        // execute a single step
-            _net->simulationStep(_craw, _simStartTime, _step);
-            _net->guiSimulationStep();
+            try {
+                _net->simulationStep(_craw, _simStartTime, _step);
+                _net->guiSimulationStep();
 
-            // inform parent that a step has been performed
-            QThread::postEvent( _parent, new QSimulationStepEvent() );
-	        // increase step counter
-            _step++;
-	        // stop the simulation when the last step has been reached
-            if(_step==_simEndTime) {
+                // inform parent that a step has been performed
+                QThread::postEvent( _parent, new QSimulationStepEvent() );
+	            // increase step counter
+                _step++;
+	            // stop the simulation when the last step has been reached
+                if(_step==_simEndTime) {
+                    QThread::postEvent( _parent,
+                        new QSimulationEndedEvent(
+                            QSimulationEndedEvent::ER_END_STEP_REACHED, _step) );
+                    _halting = true;
+                }
+    	        // stop the execution when only a single step should have
+	            //  been performed
+                if(_single) {
+                    _halting = true;
+                }
+	            // simulation step is over
+                _simulationInProgress = false;
+                // check whether all vehicles loaded have left the simulation
+                if(_net->getLoadedVehicleNo()==_net->getEndedVehicleNo()) {
+                    _halting = true;
+                    QThread::postEvent( _parent,
+                        new QSimulationEndedEvent(
+                            QSimulationEndedEvent::ER_NO_VEHICLES, _step-1) );
+                }
+            } catch (ProcessError &e) {
+                int bla = 0;
                 QThread::postEvent( _parent,
                     new QSimulationEndedEvent(
                         QSimulationEndedEvent::ER_END_STEP_REACHED, _step) );
                 _halting = true;
-            }
-	        // stop the execution when only a single step should have
-	        //  been performed
-            if(_single) {
-                _halting = true;
-            }
-	        // simulation step is over
-            _simulationInProgress = false;
-            // check whether all vehicles loaded have left the simulation
-            if(_net->getLoadedVehicleNo()==_net->getEndedVehicleNo()) {
-                _halting = true;
-                QThread::postEvent( _parent,
-                    new QSimulationEndedEvent(
-                        QSimulationEndedEvent::ER_NO_VEHICLES, _step-1) );
             }
         }
         // sleep
