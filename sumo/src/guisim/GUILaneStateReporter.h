@@ -1,22 +1,22 @@
 #ifndef GUILaneStateReporter_h
 #define GUILaneStateReporter_h
 
-#include <microsim/MSLaneState.h>
+#include <microsim/MS_E2_ZS_Collector.h>
 #include <utils/logging/LoggedValue_TimeFloating.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSUpdateEachTimestep.h>
 
-class GUILaneStateReporter : public MSLaneState
+class GUILaneStateReporter : public MS_E2_ZS_Collector,
+    public MSUpdateEachTimestep<GUILaneStateReporter>
 {
 public:
     GUILaneStateReporter(LoggedValue_TimeFloating<double> *retriever,
-        const std::string &id, MSLane *lane, double beginpos, double length,
-        MSNet::Time interval);
+        const std::string &id, MSLane *lane, MSNet::Time interval);
     ~GUILaneStateReporter();
-protected:
-    bool actionAfterMoveAndEmit( void );
-
+    bool updateEachTimestep( void );
 protected:
     LoggedValue_TimeFloating<double> *myRetriever;
+
 };
 
 #endif

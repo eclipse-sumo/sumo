@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/10/30 08:59:43  dkrajzew
+// first implementation of aggregated views using E2-detectors
+//
 // Revision 1.19  2003/10/22 15:42:56  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -181,13 +184,15 @@ GUINet::initDetectors()
             static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
 
         // build the wrapper
-        GUIDetectorWrapper *wrapper =
-            static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
-                net->_idStorage, edge->getLaneGeometry(lane));
-        // add to list
-        net->myDetectorWrapper.push_back(wrapper);
-        // add to dictionary
-        net->myDetectorDict[wrapper->microsimID()] = wrapper;
+        if((*i2)->amVisible()) {
+            GUIDetectorWrapper *wrapper =
+                static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
+                    net->_idStorage, edge->getLaneGeometry(lane));
+            // add to list
+            net->myDetectorWrapper.push_back(wrapper);
+            // add to dictionary
+            net->myDetectorDict[wrapper->microsimID()] = wrapper;
+        }
     }
 
 	//

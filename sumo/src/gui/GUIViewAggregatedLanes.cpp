@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/10/30 08:57:53  dkrajzew
+// first implementation of aggregated views using E2-detectors
+//
 // Revision 1.3  2003/10/15 11:37:50  dkrajzew
 // old row-drawer replaced by new ones; setting of name information seems tobe necessary
 //
@@ -280,10 +283,10 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         _junctionColScheme);
     _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
-    _rowDrawer->drawGLROWs(_edges2Show, _edges2ShowSize,
-        width);
-    _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
-        scale/*, width, _laneColScheme*/);
+//    _rowDrawer->drawGLROWs(_edges2Show, _edges2ShowSize,
+//        width);
+//    _detectorDrawer->drawGLDetectors(_detectors2Show, _detectors2ShowSize,
+//        scale/*, width, _laneColScheme*/);
     glPopMatrix();
 }
 

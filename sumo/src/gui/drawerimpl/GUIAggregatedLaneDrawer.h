@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/10/30 08:57:01  dkrajzew
+// first implementation of aggregated views using E2-detectors
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -78,6 +81,10 @@ private:
     /// sets the colour of the vehicle to draw
     void setLaneColor(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme);
+
+private:
+    static double myMaxValues[5];
+    static double myMinValues[5];
 
 };
 

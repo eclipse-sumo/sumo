@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/30 08:57:53  dkrajzew
+// first implementation of aggregated views using E2-detectors
+//
 // Revision 1.12  2003/08/20 11:58:04  dkrajzew
 // cleaned up a bit
 //
@@ -65,6 +68,8 @@ namespace
 #include <iostream>
 #include <helpers/SingletonDictionary.h>
 #include <microsim/MSLaneState.h>
+#include <microsim/MSUpdateEachTimestepContainer.h>
+#include <guisim/GUILaneStateReporter.h>
 #include <qthread.h>
 #include <guisim/GUINet.h>
 #include "QSimulationStepEvent.h"
@@ -122,7 +127,9 @@ GUIRunThread::run()
             _simulationInProgress = true;
 	        // execute a single step
             _net->simulationStep(_craw, _simStartTime, _step);
-	        // inform parent that a step has been performed
+            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
+
+            // inform parent that a step has been performed
             QThread::postEvent( _parent, new QSimulationStepEvent() );
 	        // increase step counter
             _step++;

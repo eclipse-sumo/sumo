@@ -29,6 +29,10 @@ public:
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &lane);
 
+    bool amVisible() const {
+        return true;
+    }
+
 public:
     class MyWrapper : public GUIDetectorWrapper {
     public:

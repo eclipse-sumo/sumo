@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/10/30 08:59:43  dkrajzew
+// first implementation of aggregated views using E2-detectors
+//
 // Revision 1.13  2003/10/01 11:15:09  dkrajzew
 // GUILaneStateReporter moved to guisim
 //
@@ -72,6 +75,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include "GUILaneStateReporter.h"
 #include <string>
 #include <iostream> // !!!
 #include <utility>
@@ -81,7 +85,6 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-#include "GUILaneStateReporter.h"
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
@@ -349,14 +352,13 @@ void
 GUILaneWrapper::buildAggregatedValuesStorage()
 {
     //
-    myAggregatedValues = new LoggedValue_TimeFloating<double>*[3];
-    for(size_t i=0; i<3; i++) {
+    myAggregatedValues = new LoggedValue_TimeFloating<double>*[5];
+    for(size_t i=0; i<5; i++) {
         myAggregatedValues[i] =
             new LoggedValue_TimeFloating<double>(myAggregationSizes[i]);
         string id = string("*") + myLane.id() + toString<size_t>(i);
         new GUILaneStateReporter(myAggregatedValues[i],
-            id,
-            &myLane, 0, myLane.length(), myAggregationSizes[i]);
+            id, &myLane, 60);
     }
 }
 
