@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/26 07:18:25  dkrajzew
+// some code style work
+//
 // Revision 1.5  2003/06/05 14:29:12  dkrajzew
 // building problems under Linux patched
 //
@@ -42,7 +45,6 @@ namespace
 // Revision 1.1  2002/07/25 08:55:42  dkrajzew
 // support for Visum7.5 & Cell import added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -52,10 +54,12 @@ namespace
 #include <utils/common/StringUtils.h>
 #include "NamedColumnsParser.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -63,6 +67,7 @@ using namespace std;
 NamedColumnsParser::NamedColumnsParser()
 {
 }
+
 
 NamedColumnsParser::NamedColumnsParser(const std::string &def,
                                        const std::string &defDelim,
@@ -73,25 +78,29 @@ NamedColumnsParser::NamedColumnsParser(const std::string &def,
     _lineDelim = lineDelim;
 }
 
+
 NamedColumnsParser::~NamedColumnsParser()
 {
 }
 
+
 void
 NamedColumnsParser::reinit(const std::string &def,
-                                const std::string &defDelim,
-                                const std::string &lineDelim,
-                                bool prune)
+                           const std::string &defDelim,
+                           const std::string &lineDelim,
+                           bool prune)
 {
     reinitMap(def, defDelim, prune);
     _lineDelim = lineDelim;
 }
+
 
 void
 NamedColumnsParser::parseLine(const std::string &line)
 {
     _line = StringTokenizer(line, _lineDelim);
 }
+
 
 std::string
 NamedColumnsParser::get(const std::string &name, bool prune) const
@@ -112,14 +121,14 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
 
 void
 NamedColumnsParser::reinitMap(const std::string &s,
-			      const std::string &delim, bool prune)
+                              const std::string &delim, bool prune)
 {
     _defMap.clear();
     int pos = 0;
     StringTokenizer st(s, delim);
     while(st.hasNext()) {
-	std::string next = st.next();
-	checkPrune(next, prune);
+	    std::string next = st.next();
+	    checkPrune(next, prune);
         _defMap.insert(map<string, int>::value_type(next, pos++));
     }
 }
@@ -129,7 +138,7 @@ void
 NamedColumnsParser::checkPrune(std::string &str, bool prune) const
 {
     if(!prune) {
-	return;
+        return;
     }
     size_t idx = str.find_first_not_of(" ");
     if(idx!=string::npos) {
@@ -141,10 +150,8 @@ NamedColumnsParser::checkPrune(std::string &str, bool prune) const
     }
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NamedColumnsParser.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
