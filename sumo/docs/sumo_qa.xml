@@ -1,8 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <chapter>
   <title>Questions and Answers</title>
+
+  <sect1>
+    <title>General</title>
+
+    <sect2>
+      <title>What is SUMO?</title>
+
+      <para><emphasis>Question: </emphasis>What is SUMO?</para>
+
+      <para><emphasis>Answer:</emphasis> SUMO is a traffic simulation package.
+      It is meant to be used to simulate networks of a city&#39;s size, but
+      you can of course use it for smaller networks and larger, too, if your
+      computer power is large enough.</para>
+    </sect2>
+
+    <sect2>
+      <title>What does &#34;SUMO&#34; mean?</title>
+
+      <para><emphasis>Question: </emphasis>What does &#34;SUMO&#34; mean?</para>
+
+      <para><emphasis>Answer:</emphasis> &#34;SUMO&#34; is an acronym for
+      &#34;Simulation of Urban MObility&#34;. </para>
+    </sect2>
+
+    <sect2>
+      <title>What kind of a traffic simulation is SUMO?</title>
+
+      <para><emphasis>Question: </emphasis>What kind of a traffic simulation
+      is SUMO?</para>
+
+      <para><emphasis>Answer:</emphasis> SUMO is a microscopic,
+      space-continuous road traffic simulation. In the next time it will be
+      extended to be multi-modal.</para>
+    </sect2>
+  </sect1>
 
   <sect1>
     <title>Building</title>
@@ -52,7 +87,7 @@
         <title>The application hangs after a while (few memory consumption,
         most of the system time)</title>
 
-        <para><emphasis>Question: </emphasis>When I start the SUMO-NETCONEVERT
+        <para><emphasis>Question: </emphasis>When I start the SUMO-NETCONVERT
         with large networks, the system hangs after a while. The program uses
         most of the system time, but when I look into the task manager almost
         no memory is used.</para>
@@ -67,6 +102,22 @@
 
   <sect1>
     <title>Simulation</title>
+
+    <sect2>
+      <title>Networks</title>
+
+      <sect3>
+        <title>Network changes</title>
+
+        <para><emphasis>Question: </emphasis>I have changed my network and now
+        SUMO does not load it.</para>
+
+        <para><emphasis>Answer:</emphasis> Actually, SUMO-networks are not
+        meant to be edited by hand. You have to describe everything within the
+        your input properly and let NETVCONVERT build your network. Editing
+        networks by hand is very complicated and error-proned.</para>
+      </sect3>
+    </sect2>
 
     <sect2>
       <title>Vehicles</title>
