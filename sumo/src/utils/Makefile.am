@@ -1,4 +1,5 @@
-SUBDIRS = common \
+SUBDIRS = actions \
+common \
 convert \
 dev \
 distribution \

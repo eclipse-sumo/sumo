@@ -2,6 +2,7 @@ noinst_LIBRARIES = libnetload.a
 
 libnetload_a_SOURCES = NLContainer.cpp \
 NLDetectorBuilder.cpp \
+NLDiscreteEventBuilder.cpp \
 NLEdgeControlBuilder.cpp \
 NLJunctionControlBuilder.cpp \
 NLNetBuilder.cpp \
@@ -11,6 +12,7 @@ NLSucceedingLaneBuilder.cpp \
 NLTriggerBuilder.cpp \
 NLContainer.h \
 NLDetectorBuilder.h \
+NLDiscreteEventBuilder.h \
 NLEdgeControlBuilder.h \
 NLJunctionControlBuilder.h \
 NLLoadFilter.h \

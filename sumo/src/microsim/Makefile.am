@@ -3,7 +3,7 @@ noinst_LIBRARIES = libmicrosim.a
 
 EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
-MSActuatedTrafficLightLogic.cpp 
+MSActuatedTrafficLightLogic.cpp
 
 libmicrosim_a_SOURCES = MSDetectorSubSys.cpp \
 MSEdgeControl.cpp \
@@ -11,6 +11,7 @@ MSEdge.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
 MSInductLoop.cpp \
+MSInternalLane.cpp \
 MSJunctionControl.cpp \
 MSJunction.cpp \
 MSJunctionLogic.cpp \
@@ -46,6 +47,7 @@ MSEdge.h \
 MSEmitControl.h \
 MSEventControl.h \
 MSInductLoop.h \
+MSInternalLane.h \
 MSJunctionControl.h \
 MSJunction.h \
 MSJunctionLogic.h \
@@ -81,6 +83,8 @@ MSTLLogicControl.h \
 MSTravelcostDetector.h \
 MSDetector2File.h \
 MSDetectorFileOutput.h
+
+SUBDIRS = actions
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
