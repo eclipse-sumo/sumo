@@ -130,7 +130,6 @@ NLNetHandler::myStartElement(int element, const std::string &name,
             addLogicItem(attrs);
             break;
         case SUMO_TAG_LANECONT:
-	    cout << "a1" << endl;
             addLaneContinuation(attrs);
         default:
             break;
@@ -343,7 +342,6 @@ NLNetHandler::addPhase(const Attributes &attrs)
     string yellowMask;
     try {
         yellowMask = getString(attrs, SUMO_ATTR_YELLOW);
-        //cout << yellowMask << endl;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
         return;
@@ -888,7 +886,6 @@ NLNetHandler::closeTrafficLightLogic()
         return;
     }
     if(m_Type=="actuated") {
-	cout << "Had Size " << myContinuations.size() << endl;
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
@@ -899,7 +896,6 @@ NLNetHandler::closeTrafficLightLogic()
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if(m_Type=="agentbased") {
-	cout << "Had Size " << myContinuations.size() << endl;
         MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
