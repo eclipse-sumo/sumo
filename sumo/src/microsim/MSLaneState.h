@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.16  2003/06/06 07:42:31  roessel
+// Thanks, but removed umlaut.
+//
 // Revision 1.15  2003/06/05 16:04:46  dkrajzew
 // had to remove sorting-methods from the VehicleData-structure
 //
@@ -226,7 +229,7 @@ public:
     };
 
 
-    /* schön gemacht: */
+    /* schoen gemacht: */
     /*   \|/*/
     /*   -O-*/
     /*   /|\*/
