@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.19  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.18  2003/11/20 14:43:45  dkrajzew
 // push() debugged; dead code removed
 //
@@ -343,6 +346,7 @@ public:
     void initialize( /*MSJunction* backJunction,*/
                      MSLinkCont* succs);
     void resetApproacherDistance();
+    void resetApproacherDistance(MSVehicle *v);
 
     virtual void moveNonCritical();
 

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.8  2003/09/05 15:07:53  dkrajzew
 // tried to improve the building/deletion usage
 //
@@ -300,6 +303,7 @@ public:
 
     LaneCont* getLanes( void );
 
+    const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
 
 protected:
     /// Unique ID.

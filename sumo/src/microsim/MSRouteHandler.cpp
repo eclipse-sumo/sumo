@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.7  2003/11/20 13:28:38  dkrajzew
 // loading and using of a predefined vehicle color added
 //
@@ -65,6 +68,8 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -280,9 +285,11 @@ MSRouteHandler::addRouteElements(const std::string &name,
             string("Empty route (") + name + string(")"));
         return;
     }
+    MSEdge *edge = 0;
     while(st.hasNext()) {
         string set = st.next();
-        MSEdge *edge = MSEdge::dictionary(set);
+        edge = MSEdge::dictionary(set);
+        // check whether the edge exists
         if(edge==0) {
             MsgHandler::getErrorInstance()->inform(
                 string("The edge '") + set + string("' within route '")

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.42  2003/11/24 10:22:56  dkrajzew
 // patched the false usage of oldLaneMoveReminders when more than one street is within
 //
@@ -77,7 +80,9 @@ namespace
 // too conservative computation of the braking gap patched
 //
 // Revision 1.24  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease
+//  the search for further couts which must be redirected to the messaging
+//  subsystem
 //
 // Revision 1.23  2003/06/05 10:19:44  roessel
 // Added previous lane reminder-container and workOnMoveReminders().
@@ -357,6 +362,8 @@ namespace
 #include <cstdlib>
 #include <algorithm>
 #include "MSMoveReminder.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -633,7 +640,11 @@ MSVehicle::MSVehicle( string id,
     movedDistanceDuringStepM(0)
 {
     myCurrEdge = myRoute->begin();
+    if(myID=="Rand41") {
+        int bla = 0;
+    }
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
+    assert(myAllowedLanes!=0);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -698,6 +709,15 @@ MSVehicle::hasSuccEdge(unsigned int nSuccs) const
 bool
 MSVehicle::destReached( const MSEdge* targetEdge )
 {
+    if(targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+        return false;
+    }
+    if(MSNet::globaltime==18&&id()=="Rand0") {
+        int bla = 0;
+    }
+    if(id()=="Rand364") {
+        int bla = 0;
+    }
     // search for the target in the vehicle's route. Usually there is
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
@@ -1065,7 +1085,7 @@ MSVehicle::moveFirstChecked()
                     } else {
                         vSafe = (*i).myVLinkWait;
                     }
-//                    cont = false;
+                    cont = false;
 			    }
 		    }
         } else {
@@ -1100,6 +1120,9 @@ MSVehicle::moveFirstChecked()
 
     size_t no = 0;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {
+        if(approachedLane!=myLane) {
+            leaveLaneAtMove();
+        }
         MSLinkCont::const_iterator &link = (*i).myLink;
         // check whether the vehicle was allowed to enter lane
         //  otherwise it is decelareted and we do not need to test for it's
@@ -1127,14 +1150,22 @@ MSVehicle::moveFirstChecked()
         if(!onLinkEnd&&approachAllowed&&approachedLane!=0&&myApproachedLane!=myTarget) {
             myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
         }*/
-		approachedLane = (*link)->getLane();
+        if(approachedLane!=myLane) {
+            enterLaneAtMove(approachedLane);
+        }
+
+        if(!approachedLane->isLinkEnd(link)) {
+            approachedLane = (*link)->getViaLane();
+            if(approachedLane==0) {
+                approachedLane = (*link)->getLane();
+            }
+        }
         approachedLane->setApproaching(myState.pos(), this);
         no++;
     }
     if(no==0) {
         workOnMoveReminders( pos, pos + vNext * MSNet::deltaT(), vNext );
     }
-    assert(no<=1);
     myTarget = approachedLane;
     // update speed
     myState.mySpeed = vNext;
@@ -1163,18 +1194,17 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     MSLane *nextLane = myLane;
     // compute the way the vehicle may drive when accelerating
     double dist = boundVSafe + brakeGap(myLane);
-//    myApproachedLane = 0;
-
     double vLinkPass = boundVSafe;
     double vLinkWait = vLinkPass;
-
-    bool onePassed = false;
+    size_t view = 1;
+    bool nextInternal =
+        nextLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
 
     // loop over following lanes
     while(true) {
         // get the next link used
     	MSLinkCont::iterator link =
-	    	myLane->succLinkSec( *this, 1, *nextLane );
+	    	myLane->succLinkSec( *this, view, *nextLane );
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if(nextLane->isLinkEnd(link)) {
@@ -1192,8 +1222,13 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    // if the vehicle drives over the end of the lane, inform the link
 
         // get the following lane
-    	nextLane = (*link)->getLane();
-//        MSLane *via = (*link)->myJunctionInlane; // !!! myJunctionInlane umbenennen
+    	nextLane = (*link)->getViaLane();
+        if(nextLane==0) {
+            nextInternal = false;
+            nextLane = (*link)->getLane();
+        } else {
+            nextInternal = true;
+        }
 
     	// compute the velocity to use when the link is not blocked by oter vehicles
 	    	// the vehicle shall be not fastern when reaching the next lane than allowed
@@ -1228,7 +1263,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 
     		// compute the velocity to use when the link may be used
 	    vLinkPass =
-		    MIN4(vLinkPass, vmaxNextLane, vsafePredNextLane, vsafeNextLaneEnd);
+		    MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
 
 
 	    // if the link may not be used (is blocked by another vehicle) then let the
@@ -1253,15 +1288,11 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    }
         myLFLinkLanes.push_back(
             DriveProcessItem(link, vLinkPass, vLinkWait));
-        if(
-            /*myState.pos()+vLinkPass*MSNet::deltaT()-nextLane->length()>0*/
-            vsafePredNextLane>0&&dist-seen>0/*||(*link)->myPrio*/) {
-
+        if( vsafePredNextLane>0&&dist-seen>0 ) {
 		    (*link)->setApproaching(this);
         } else {
             return;
         }
-
 
     	// set the information about which lane is being approached
 //	    myApproachedLane = nextLane;
@@ -1276,18 +1307,14 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 	    	myVLinkPass = MIN(myVLinkPass, vSafe);
     		myVLinkWait = MIN(myVLinkWait, vSafe);
     	}*/
-        double vSafe = vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
-        vLinkPass = MIN(vLinkPass, vSafe);
-        vLinkWait = MIN(vLinkWait, vSafe);
-        myLFLinkLanes.push_back(
-            DriveProcessItem(link, vLinkPass, vLinkWait));
-
 
         seen += nextLane->length();
         if(seen>dist) {
             return;
         }
-        onePassed = true;
+        if(!nextInternal) {
+            view++;
+        }
     }
 }
 
@@ -1531,7 +1558,10 @@ MSVehicle::vaccel( const MSLane* lane ) const
 bool
 MSVehicle::onAllowed( const MSLane* lane ) const
 {
-     MSEdge::LaneCont::const_iterator compare =
+    if(myLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+        return true;
+    }
+    MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes->begin(), myAllowedLanes->end(), lane );
      return ( compare != myAllowedLanes->end() );
 }
@@ -1540,6 +1570,9 @@ MSVehicle::onAllowed( const MSLane* lane ) const
 bool
 MSVehicle::onAllowed( ) const
 {
+    if(myLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+        return true;
+    }
      MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes->begin(), myAllowedLanes->end(), myLane );
      return ( compare != myAllowedLanes->end() );
@@ -1686,6 +1719,17 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
     updateMeanData( entryTimestep, 0, myState.mySpeed );
     // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
+
+    // proceed in route
+    const MSEdge &enteredEdge = enteredLane->edge();
+    if(enteredEdge.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        MSRouteIterator edgeIt = myCurrEdge;
+        while ( *edgeIt != &enteredEdge ) {
+            ++edgeIt;
+            assert( edgeIt != myRoute->end() );
+        }
+        myCurrEdge = edgeIt;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2066,6 +2110,36 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
         if( (*rem)->isStillActive( *this,
                 oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
             assert(false);
+        }
+    }
+}
+
+
+void
+MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
+{
+    bool found = false;
+    for(DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); i++) {
+        const DriveProcessItem &item = *i;
+        // ok, leave if a dead end occured
+        //  (the vehicle does not drive any further)
+        if(begin->isLinkEnd((*i).myLink)) {
+            return;
+        }
+        //
+        if((*item.myLink)->getViaLane()==begin||(*item.myLink)->getLane()==begin) {
+            found = true;
+        }
+        if(found) {
+            MSLane *l1 = (*item.myLink)->getViaLane();
+            MSLane *l2 = (*item.myLink)->getLane();
+            if(l1!=0) {
+                l1->resetApproacherDistance(this);
+            }
+            if(l2!=0) {
+                l2->resetApproacherDistance(this);
+            }
+            begin = l2;
         }
     }
 }

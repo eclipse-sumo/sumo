@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.3  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -98,27 +101,36 @@ public:
         including the link's "own" link-bit. */
     typedef std::vector< std::bitset< N > > Logic;
 
+    /** @brief Container holding the information which internal lanes prohibt which links
+        Build the same way as Logic */
+    typedef std::vector< std::bitset< N > > Foes;
+
+
     /// Use this constructor only.
     MSBitSetLogic( unsigned int nLinks,
                    unsigned int nInLanes,
-                   Logic* logic );
+                   Logic* logic,
+                   Foes *foes);
 
     /// Modifies the passed respond according to the request.
     void respond( const MSLogicJunction::Request& request,
-                  MSLogicJunction::Respond& respond ) const;
+        const MSLogicJunction::InnerState& innerState,
+        MSLogicJunction::Respond& respond ) const;
 
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
 
-    /// Default constructor.
-    MSBitSetLogic();
+    /// internal lanes logic
+    Foes *myInternalLinksFoes;
 
-    /// Copy constructor.
+private:
+    /// Invalidated copy constructor.
     MSBitSetLogic( const MSBitSetLogic& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator.
     MSBitSetLogic& operator=( const MSBitSetLogic& );
+
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION

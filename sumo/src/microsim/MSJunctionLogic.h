@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -61,7 +64,8 @@ public:
 
     /// Modifies the passed respond according to the request.
     virtual void respond( const MSLogicJunction::Request& request,
-                          MSLogicJunction::Respond& respond ) const = 0;
+        const MSLogicJunction::InnerState& innerState,
+        MSLogicJunction::Respond& respond ) const = 0;
 
     /// Returns the logic's number of links.
     unsigned int nLinks();

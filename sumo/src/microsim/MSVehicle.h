@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.28  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.27  2003/11/24 10:22:57  dkrajzew
 // patched the false usage of oldLaneMoveReminders when more than one street is within
 //
@@ -687,6 +690,7 @@ public:
         MSEdge *to);
 
     size_t getWaitingTime() const;
+    void removeApproachingInformationOnKill(MSLane *begin);
 
 //    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!
 

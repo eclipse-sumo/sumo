@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.6  2003/06/18 11:31:49  dkrajzew
 // some functions commented out or unneeded debug outputs removed
 //
@@ -76,6 +79,8 @@ namespace
 #include "MSLinkCont.h"
 #include "MSLogicJunction.h"
 #include "MSLane.h"
+#include "MSInternalLane.h"
+
 
 /* =========================================================================
  * used namespaces
@@ -89,11 +94,11 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
-MSLogicJunction::MSLogicJunction( string id, double x, double y,
-				  InLaneCont in )
-    : MSJunction( id, x, y ), myInLanes(in),
-    myRequest(false),
-    myRespond(false)
+MSLogicJunction::MSLogicJunction(string id, double x, double y,
+                                 LaneCont incoming, LaneCont internal)
+    : MSJunction( id, x, y ),
+    myIncomingLanes(incoming), myInternalLanes(internal),
+    myRequest(false), myInnerState(false), myRespond(false)
 {
 }
 
@@ -109,15 +114,25 @@ MSLogicJunction::~MSLogicJunction()
 void
 MSLogicJunction::postloadInit()
 {
+    // inform links where they have to report approaching vehicles to
     size_t requestPos = 0;
-    for(InLaneCont::iterator i=myInLanes.begin(); i!=myInLanes.end(); i++) {
-        const MSLinkCont &links = (*i).myLane->getLinkCont();
-        // set information for every link
+    LaneCont::iterator i;
+    // going through the incoming lanes...
+    for(i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); i++) {
+        const MSLinkCont &links = (*i)->getLinkCont();
+        // ... set information for every link
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
                 &myRespond, requestPos/*, clearInfo*/);
             requestPos++;
         }
+    }
+    // set information for the internal lanes
+    requestPos = 0;
+    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
+        // ... set information about participation
+        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
+            &myInnerState, requestPos++);
     }
 }
 

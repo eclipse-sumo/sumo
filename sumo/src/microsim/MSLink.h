@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.10  2003/11/12 13:50:30  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -149,6 +152,9 @@ public:
 
     /// Returns the connected lane
     MSLane *getLane() const;
+
+    /// Returns the innerlane following
+    MSLane * const getViaLane() const;
 
     bool havePriority() const;
 

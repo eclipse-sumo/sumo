@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.7  2003/10/31 08:03:38  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -115,18 +118,20 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/*
 MSRightOfWayJunction::InLane::InLane(MSLane* lane) :
     myLane( lane )
 {
 }
 
 //-------------------------------------------------------------------------//
-
+*/
 MSRightOfWayJunction::MSRightOfWayJunction( string id,
                                             double x, double y,
-                                            InLaneCont in,
+                                            LaneCont incoming,
+                                            LaneCont internal,
                                             MSJunctionLogic* logic)
-    : MSLogicJunction( id, x, y, in ),
+    : MSLogicJunction( id, x, y, incoming, internal ),
     myLogic( logic )
 {
 }
@@ -136,7 +141,7 @@ bool
 MSRightOfWayJunction::clearRequests()
 {
     myRequest.reset();
-//    myRespond.reset();
+    myInnerState.reset();
     return true;
 }
 
@@ -144,11 +149,6 @@ MSRightOfWayJunction::clearRequests()
 
 MSRightOfWayJunction::~MSRightOfWayJunction()
 {
-/*    for(InLaneCont::iterator i1=myInLanes->begin(); i1!=myInLanes->end(); i1++) {
-        delete (*i1);
-    }
-    delete myInLanes;*/
-    // Remark: All logics are deleted using MSJunctionLogic::clear()
 }
 
 //-------------------------------------------------------------------------//
@@ -159,10 +159,11 @@ MSRightOfWayJunction::setAllowed()
 #ifdef ABS_DEBUG
 	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
 		DEBUG_OUT << "Request: " << myRequest << endl;
+		DEBUG_OUT << "InnerSt: " << myInnerState<< endl;
 	}
 #endif
     // Get myRespond from logic and check for deadlocks.
-    myLogic->respond( myRequest, myRespond );
+    myLogic->respond( myRequest, myInnerState, myRespond );
     deadlockKiller();
 #ifdef ABS_DEBUG
 	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
@@ -182,7 +183,14 @@ MSRightOfWayJunction::deadlockKiller()
         return;
     }
 
-    if ( myRespond.none() ) {
+    // let's assume temporary, that deadlocks only occure on right-before-left
+    //  junctions
+    if ( myRespond.none() && myInnerState.none() ) {
+#ifdef ABS_DEBUG
+	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+		DEBUG_OUT << "Killing deadlock" << endl;
+	}
+#endif
 
         // Handle deadlock: Create randomly a deadlock-free request out of
         // myRequest, i.e. a "single bit" request. Then again, send it
@@ -210,7 +218,7 @@ MSRightOfWayJunction::deadlockKiller()
         assert(trueRequests.size()>noLockIndex);
         noLockRequest.set( trueRequests[ noLockIndex ] );
         // Calculate respond with deadlock-free request.
-        myLogic->respond( noLockRequest, myRespond );
+        myLogic->respond( noLockRequest, myInnerState,  myRespond );
     }
     return;
 }

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.4  2003/04/14 08:33:01  dkrajzew
 // some further bugs removed
 //
@@ -56,7 +59,7 @@ namespace
 
 #include "MSNoLogicJunction.h"
 #include "MSLane.h"
-//#include "MSJunctionLogic.h"
+#include "MSInternalLane.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -78,10 +81,11 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSNoLogicJunction::MSNoLogicJunction( string id, double x, double y,
-				      InLaneCont* in) :
-    MSJunction( id, x, y ),
-    myInLanes( in )
+MSNoLogicJunction::MSNoLogicJunction(string id, double x, double y,
+                                     LaneCont incoming,
+                                     LaneCont internal)
+    : MSJunction( id, x, y ),
+    myIncomingLanes( incoming ), myInternalLanes( internal )
 {
 }
 
@@ -103,12 +107,20 @@ MSNoLogicJunction::~MSNoLogicJunction()
 void
 MSNoLogicJunction::postloadInit()
 {
-    for(InLaneCont::iterator i=myInLanes->begin(); i!=myInLanes->end(); i++) {
+    LaneCont::iterator i;
+    // inform links where they have to report approaching vehicles to
+    for(i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); i++) {
         const MSLinkCont &links = (*i)->getLinkCont();
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myDump, 0,
-                &myDump, 0/*, myDump*/);
+                &myDump, 0);
         }
+    }
+    // set information for the internal lanes
+    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
+        // ... set information about participation
+        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
+            &myDump, 0);
     }
 }
 

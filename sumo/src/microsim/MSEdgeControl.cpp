@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.4  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -184,28 +187,16 @@ MSEdgeControl::moveNonCritical()
     LaneUsageVector::iterator i;
     // reset the approaching vehicle distance, first
     for(i=myLanes.begin(); i!=myLanes.end(); i++) {
-        (*i).lane->resetApproacherDistance(/*(*i).firstNeigh, (*i).lastNeigh*/);
+        (*i).lane->resetApproacherDistance();
     }
     // move non-critical vehicles
     for(i=myLanes.begin(); i!=myLanes.end(); i++) {
         if((*i).noVehicles!=0) {
-            (*i).lane->moveNonCritical(/*(*i).firstNeigh, (*i).lastNeigh*/);
+            (*i).lane->moveNonCritical();
         }
     }
-    /*
-    EdgeCont::iterator edge;
-    // Move vehicles on lanes but hand command
-    // over to the real lanes.
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->moveNonCriticalSingle();
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->moveNonCriticalMulti();
-    }
-    */
 }
+
 
 void
 MSEdgeControl::moveCritical()
@@ -215,18 +206,8 @@ MSEdgeControl::moveCritical()
             (*i).lane->moveCritical(/*(*i).firstNeigh, (*i).lastNeigh*/);
         }
     }
-/*    EdgeCont::iterator edge;
-    // Move vehicles on lanes but hand command
-    // over to the real lanes.
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->moveCriticalSingle();
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->moveCriticalMulti();
-    }*/
 }
+
 
 void
 MSEdgeControl::moveFirst()
@@ -240,26 +221,6 @@ MSEdgeControl::moveFirst()
     for(i=myLanes.begin(); i!=myLanes.end(); i++) {
         (*i).lane->integrateNewVehicle();
     }
-/*    EdgeCont::iterator edge;
-    // Move vehicles on lanes but hand command
-    // over to the real lanes.
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->setCritical();
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->setCritical();
-    }
-    // copy the vehicles to their new lanes if necessary
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->vehicle2target();
-    }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->vehicle2target();
-    }*/
 }
 
 void
@@ -267,7 +228,7 @@ MSEdgeControl::changeLanes()
 {
     for ( EdgeCont::iterator edge = myMultiLaneEdges->begin();
           edge != myMultiLaneEdges->end(); ++edge ) {
-
+        assert((*edge)->getLanes()->size()>1);
           ( *edge )->changeLanes();
     }
 }

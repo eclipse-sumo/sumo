@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.4  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -89,7 +92,6 @@
 #include <iostream>
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
-
 #include "MSBitSetLogic.h"
 
 
@@ -99,9 +101,9 @@
 template< size_t N >
 MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
                                         unsigned int nInLanes,
-                                        Logic* logic ) :
-    MSJunctionLogic( nLinks, nInLanes ),
-    myLogic( logic )
+                                        Logic* logic, Foes *foes)
+    : MSJunctionLogic( nLinks, nInLanes ),
+    myLogic( logic ), myInternalLinksFoes(foes)
 {
 }
 
@@ -116,8 +118,9 @@ MSBitSetLogic< N >::~MSBitSetLogic< N >()
 //-------------------------------------------------------------------------//
 
 template< size_t N > void
-MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
-                             MSLogicJunction::Respond& respond ) const
+MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
+                            const MSLogicJunction::InnerState& innerState,
+                            MSLogicJunction::Respond& respond ) const
 {
     size_t i;
     // calculate respond
@@ -126,7 +129,21 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
         bool linkPermit = request.test( i ) &&
             ( request & ( *myLogic )[ i ]).none();
         respond.set( i, linkPermit );
+//        std::cout << ( *myLogic )[ i ] << std::endl;
     }
+//    std::cout << "- - - - - - -" << std::endl;
+    // check whether internal lanes disallow any movement
+    //  the number of internal lanes is equal to the number of links
+    for ( i = 0; i < myNLinks; ++i ) {
+
+        bool linkPermit = request.test( i ) &&
+            ( innerState & ( *myInternalLinksFoes )[ i ]).none();
+        std::bitset<64> bla = ( *myInternalLinksFoes )[ i ];
+        respond.set( i, linkPermit );
+  //      std::cout << ( *myInternalLinksFoes )[ i ] << std::endl;
+    }
+//    std::cout << "-------------" << std::endl;
+
 }
 
 

@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -92,10 +95,8 @@ public:
     virtual ~MSRightOfWayJunction();
 
     /** Use this constructor only. */
-    MSRightOfWayJunction( std::string id,
-                          double x, double y,
-                          InLaneCont in,
-                          MSJunctionLogic* logic );
+    MSRightOfWayJunction( std::string id, double x, double y,
+        LaneCont incoming, LaneCont internal, MSJunctionLogic* logic );
 
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
@@ -112,14 +113,12 @@ protected:
     MSJunctionLogic* myLogic;
 
 private:
-    /// Default constructor.
-    MSRightOfWayJunction();
-
-    /// Copy constructor.
+    /// Invalidated copy constructor.
     MSRightOfWayJunction( const MSRightOfWayJunction& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator.
     MSRightOfWayJunction& operator=( const MSRightOfWayJunction& );
+
 };
 
 

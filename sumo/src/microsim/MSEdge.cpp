@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.9  2003/09/05 15:07:53  dkrajzew
 // tried to improve the building/deletion usage
 //
@@ -186,7 +189,7 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     myLanes = lanes;
     _function = function;
 
-    if ( myLanes->size() > 1 ) {
+    if ( myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL ) {
         myLaneChanger = new MSLaneChanger( myLanes );
     }
 }
@@ -274,6 +277,7 @@ MSEdge::nLanes() const
     return myLanes->size();
 }
 
+
 ostream&
 operator<<(ostream& os, const MSEdge& edge)
 {
@@ -281,9 +285,13 @@ operator<<(ostream& os, const MSEdge& edge)
     return os;
 }
 
+
 void
 MSEdge::changeLanes()
 {
+    if(_function==EDGEFUNCTION_INTERNAL) {
+        return;
+    }
     assert( myLaneChanger != 0 );
     myLaneChanger->laneChange();
 }
@@ -457,6 +465,7 @@ MSEdge::emit(MSVehicle &v)
     }
 }
 
+
 vector< MSEdge* >
 MSEdge::getEdgeVector( void )
 {
@@ -469,12 +478,30 @@ MSEdge::getEdgeVector( void )
     return edges;
 }
 
+
 MSEdge::LaneCont*
 MSEdge::getLanes( void )
 {
     return myLanes;
 }
 
+
+const MSEdge *
+MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
+{
+    // !!! too slow
+    for(LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); i++) {
+        MSLane *l = *i;
+        const MSLinkCont &lc = l->getLinkCont();
+        for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); j++) {
+            MSLink *link = *j;
+            if(&link->getLane()->edge()==followerAfterInternal) {
+                return &(link->getViaLane()->edge());
+            }
+        }
+    }
+    return 0;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

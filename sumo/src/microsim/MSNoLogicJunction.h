@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.4  2003/07/07 08:19:53  dkrajzew
 // As by now GUINoLogicJunctions exist, we have to make the destructor virtual
 //
@@ -84,10 +87,11 @@ public:
     virtual ~MSNoLogicJunction();
 
     /** Container for incoming lanes. */
-    typedef std::vector< MSLane* > InLaneCont;
+    typedef std::vector< MSLane* > LaneCont;
 
     /** Use this constructor only. */
-    MSNoLogicJunction( std::string id, double x, double y, InLaneCont* in );
+    MSNoLogicJunction( std::string id, double x, double y,
+        LaneCont incoming, LaneCont internal );
 
     /** Here, do nothing. */
     bool clearRequests();
@@ -100,16 +104,17 @@ public:
     void postloadInit();
 
 private:
-    /** Junction's in-lanes. */
-    InLaneCont* myInLanes;
+    /** Lanes incoming to the junction */
+    LaneCont myIncomingLanes;
 
-    /// Default constructor.
-    MSNoLogicJunction();
+    /** The junctions internal lanes */
+    LaneCont myInternalLanes;
 
-    /// Copy constructor.
+private:
+    /// Invalidated copy constructor.
     MSNoLogicJunction( const MSNoLogicJunction& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator.
     MSNoLogicJunction& operator=( const MSNoLogicJunction& );
 
     /** @brief a dump container

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.9  2003/11/12 13:50:30  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -97,6 +100,9 @@ MSLink::setRequestInformation(
 void
 MSLink::setApproaching(MSVehicle *approaching)
 {
+    if(myRequest==0) {
+        return;
+    }
     myApproaching = approaching;
     myRequest->set(myRequestIdx);
 }
@@ -182,6 +188,11 @@ MSLink::havePriority() const
 }
 
 
+MSLane * const
+MSLink::getViaLane() const
+{
+    return myJunctionInlane;
+}
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "MSLink.icc"

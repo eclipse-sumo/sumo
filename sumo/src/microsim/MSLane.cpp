@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.39  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.38  2003/11/26 10:59:42  dkrajzew
 // messages from the simulation are now also passed to the message handler; debug couts removed
 //
@@ -437,6 +440,16 @@ MSLane::initialize( MSLinkCont* links )
 void
 MSLane::resetApproacherDistance()
 {
+    myBackDistance = 100000;
+    myApproaching = 0;
+}
+
+void
+MSLane::resetApproacherDistance(MSVehicle *v)
+{
+    if(myApproaching!=v) {
+        return;
+    }
     myBackDistance = 100000;
     myApproaching = 0;
 }
@@ -872,8 +885,11 @@ MSLane::push(MSVehicle* veh)
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
             + string("' removed due to a collision on push!\n")
-            + string("  Lane: '") + id() + string("' Previous vehicle: '")
-            + myVehBuffer->id() + string("'."));
+            + string("  Lane: '") + id() + string("', previous vehicle: '")
+            + myVehBuffer->id() + string("', time: ")
+            + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
+            + string("."));
+        veh->removeApproachingInformationOnKill(this);
         MSVehicle::remove(veh->id());
         return true;
     }
@@ -917,8 +933,14 @@ MSLane::pop()
 bool
 MSLane::appropriate(const MSVehicle *veh)
 {
-    MSLinkCont::iterator link = succLinkSec( *veh, 1, *this );
-    return ( link != myLinks.end() );
+    if(myEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+
+        return true;
+    } else {
+
+        MSLinkCont::iterator link = succLinkSec( *veh, 1, *this );
+        return ( link != myLinks.end() );
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -997,10 +1019,11 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     if(nRouteEdge==0 ) {
         return succLinkSource.myLinks.end();
     }
+
     // the link must be from a lane to the right or left from the current lane
     //  we have to do it via the edge
     for ( MSLinkCont::iterator link = succLinkSource.myLinks.begin();
-          link != succLinkSource.myLinks.end() ; ++link ) {
+            link != succLinkSource.myLinks.end() ; ++link ) {
 
         if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
             return link;

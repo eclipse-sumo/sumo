@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/12/04 13:30:41  dkrajzew
+// work on internal lanes
+//
 // Revision 1.5  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -66,6 +69,12 @@
 
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class MSLane;
+
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
@@ -83,7 +92,7 @@ public:
         sideroad-links if necessary (e.g. if a prioritized vehicle
         has no drive request but it's brake distance is past the
         junction it may block sideroad vehicles. */
-    class InLane
+/*    class InLane
     {
     public:
         // needed to initialise (!!! should be wrapped)
@@ -103,49 +112,59 @@ public:
 
         /// invalidated default constructor
         InLane();
-    };
+    };*/
 
     /** Container for incoming lanes. */
-    typedef std::vector< InLane > InLaneCont;
+    typedef std::vector< MSLane* > LaneCont;
 
     /// Destructor.
     virtual ~MSLogicJunction();
 
-    /** @brief Container for first-vehicle's request.
+    /** @brief Container for vehicle requests.
         Each element of this container represents one particular
         link from one lane to another. */
     typedef std::bitset<64> Request;
 
     /** @brief Container for the request responds.
-        The respond is lane-bound, not link-bound, so the size maybe
-        smaller than the RequestCont's one. */
+        The respond is link-bound */
     typedef std::bitset<64> Respond;
+
+    /** @brief Container for junction-internal lane occupation
+        Each element of this container represents one particular
+        junction-internal lane */
+    typedef std::bitset<64> InnerState;
 
     /// initialises the junction after the whole net has been loaded
     virtual void postloadInit();
 
 protected:
-    /// list of incoming lanes
-    InLaneCont myInLanes;
-
     /// constructor; this class is virtual
-    MSLogicJunction( std::string id, double x, double y, InLaneCont in );
+    MSLogicJunction( std::string id, double x, double y,
+        LaneCont incoming, LaneCont internal );
+
+protected:
+    /// list of incoming lanes
+    LaneCont myIncomingLanes;
+
+    /// list of incoming lanes
+    LaneCont myInternalLanes;
 
     /** Current request. */
     Request myRequest;
 
-    /** Current respond. */
-    Respond  myRespond;
+    /** Current inner state */
+    InnerState  myInnerState;
+
+    /** Current respond */
+    Respond myRespond;
 
 private:
-    /// Default constructor.
-    MSLogicJunction();
-
-    /// Copy constructor.
+    /// Invalidated copy constructor.
     MSLogicJunction( const MSLogicJunction& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator.
     MSLogicJunction& operator=( const MSLogicJunction& );
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
