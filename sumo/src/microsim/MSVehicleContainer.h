@@ -20,14 +20,19 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/12/12 12:38:42  dkrajzew
+// made the code more pretty
+//
 // Revision 1.4  2003/08/04 11:40:21  dkrajzew
 // false inclusion hierarchy patched; missing inclusions added
 //
 // Revision 1.3  2003/07/07 08:20:59  dkrajzew
-// a bug on output patched (the output operator wrote to cout instead of the given stream)
+// a bug on output patched (the output operator wrote to cout instead of the
+//  given stream)
 //
 // Revision 1.2  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+//  debugged; setting and retrieval of some parameter added
 //
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
@@ -41,8 +46,11 @@
 #include <iostream>
 #include "MSNet.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
-//#include "MSVehicle.h"
 
 
 /* =========================================================================
@@ -151,5 +159,15 @@ private:
 
 };
 
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+//#ifndef DISABLE_INLINE
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 
