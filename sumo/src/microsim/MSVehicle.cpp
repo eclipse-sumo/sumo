@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2004/01/26 15:55:55  dkrajzew
+// the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff)
+//
 // Revision 1.47  2004/01/26 07:51:44  dkrajzew
 // the vehicle leaves his move reminders when leaving the simulation, now (is still false)
 //
@@ -2180,6 +2183,13 @@ MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
             begin = l2;
         }
     }
+}
+
+
+void
+MSVehicle::onDepart()
+{
+    myRealDepart = MSNet::getInstance()->getCurrentTimeStep();
 }
 
 

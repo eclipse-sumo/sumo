@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.31  2004/01/26 15:55:55  dkrajzew
+// the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff)
+//
 // Revision 1.30  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -794,6 +797,8 @@ public:
             return movedDistanceDuringStepM;
         }
 
+public:
+    void onDepart();
 
 protected:
     /// Use this constructor only.
@@ -849,6 +854,9 @@ protected:
     /// Desired departure time (seconds).
     MSNet::Time myDesiredDepart;
 
+    /// The vehicle's real depart
+    MSNet::Time myRealDepart;
+
     /// Vehicle-type.
     const MSVehicleType* myType;
 
@@ -876,7 +884,6 @@ private:
     {
         double entryContTimestep;
         unsigned entryDiscreteTimestep;
-//         double entryPos;
         double speedSum;
         double speedSquareSum;
         bool enteredAtLaneStart;
