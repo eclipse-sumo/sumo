@@ -1,0 +1,130 @@
+<net>
+
+  <edge id="1i" Length="500" Speed="11.111" Name="1i" NoLanes="1" XFrom="-500" YFrom="0" XTo="0" YTo="0" From="1" To="0" Priority="46" Angle="89.9838" Unknown="51">
+   <lanes>
+    <lane id="1i_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="0">
+      <succlane lane="4o_0" yield="0"/>
+      <succlane lane="2o_0" yield="1"/>
+      <succlane lane="3o_0" yield="1"/>
+      <succlane lane="1o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">1i_0</cedge>
+   <cedge id="2o">1i_0</cedge>
+   <cedge id="3o">1i_0</cedge>
+   <cedge id="4o">1i_0</cedge>
+  </edge>
+
+  <edge id="1o" Length="500" Speed="11.111" Name="1o" NoLanes="1" XFrom="0" YFrom="0" XTo="-500" YTo="0" From="0" To="1" Priority="46" Angle="270.016" Unknown="51">
+   <lanes>
+    <lane id="1o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="1">
+      <succlane lane="1i_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1i">1o_0</cedge>
+  </edge>
+
+  <edge id="2i" Length="500" Speed="11.111" Name="2i" NoLanes="1" XFrom="500" YFrom="0" XTo="0" YTo="0" From="2" To="0" Priority="46" Angle="270.016" Unknown="51">
+   <lanes>
+    <lane id="2i_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="0">
+      <succlane lane="3o_0" yield="1"/>
+      <succlane lane="1o_0" yield="1"/>
+      <succlane lane="4o_0" yield="1"/>
+      <succlane lane="2o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">2i_0</cedge>
+   <cedge id="2o">2i_0</cedge>
+   <cedge id="3o">2i_0</cedge>
+   <cedge id="4o">2i_0</cedge>
+  </edge>
+
+  <edge id="2o" Length="500" Speed="11.111" Name="2o" NoLanes="1" XFrom="0" YFrom="0" XTo="500" YTo="0" From="0" To="2" Priority="46" Angle="89.9838" Unknown="51">
+   <lanes>
+    <lane id="2o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="2">
+      <succlane lane="2i_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="2i">2o_0</cedge>
+  </edge>
+
+  <edge id="3i" Length="500" Speed="11.111" Name="3i" NoLanes="1" XFrom="0" YFrom="-500" XTo="0" YTo="0" From="3" To="0" Priority="46" Angle="180" Unknown="51">
+   <lanes>
+    <lane id="3i_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="0">
+      <succlane lane="1o_0" yield="1"/>
+      <succlane lane="4o_0" yield="1"/>
+      <succlane lane="2o_0" yield="1"/>
+      <succlane lane="3o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">3i_0</cedge>
+   <cedge id="2o">3i_0</cedge>
+   <cedge id="3o">3i_0</cedge>
+   <cedge id="4o">3i_0</cedge>
+  </edge>
+
+  <edge id="3o" Length="500" Speed="11.111" Name="3o" NoLanes="1" XFrom="0" YFrom="0" XTo="0" YTo="-500" From="0" To="3" Priority="46" Angle="0" Unknown="51">
+   <lanes>
+    <lane id="3o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="3">
+      <succlane lane="3i_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="3i">3o_0</cedge>
+  </edge>
+
+  <edge id="4i" Length="500" Speed="11.111" Name="4i" NoLanes="1" XFrom="0" YFrom="500" XTo="0" YTo="0" From="4" To="0" Priority="46" Angle="0" Unknown="51">
+   <lanes>
+    <lane id="4i_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="0">
+      <succlane lane="2o_0" yield="1"/>
+      <succlane lane="3o_0" yield="1"/>
+      <succlane lane="1o_0" yield="0"/>
+      <succlane lane="4o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">4i_0</cedge>
+   <cedge id="2o">4i_0</cedge>
+   <cedge id="3o">4i_0</cedge>
+   <cedge id="4o">4i_0</cedge>
+  </edge>
+
+  <edge id="4o" Length="500" Speed="11.111" Name="4o" NoLanes="1" XFrom="0" YFrom="0" XTo="0" YTo="500" From="0" To="4" Priority="46" Angle="180" Unknown="51">
+   <lanes>
+    <lane id="4o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="4">
+      <succlane lane="4i_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="4i">4o_0</cedge>
+  </edge>
+  <junction id="0" key="i_+1be3a5a7a1a_-1b_+1be3a5a7a1a_-1b_+1ae3a5a7a1a_-1a_+1ae3a5a7a1a_-1a" x="0" y="0" type="priority">
+    <inlanes>1i_0 4i_0 2i_0 3i_0</inlanes>
+  </junction>
+  <junction id="1" key="c_+1bb1a_-1b" x="-500" y="0" type="priority">
+    <inlanes>1o_0</inlanes>
+  </junction>
+  <junction id="2" key="c_+1bb1a_-1b" x="500" y="0" type="priority">
+    <inlanes>2o_0</inlanes>
+  </junction>
+  <junction id="3" key="c_+1bb1a_-1b" x="0" y="-500" type="priority">
+    <inlanes>3o_0</inlanes>
+  </junction>
+  <junction id="4" key="c_+1bb1a_-1b" x="0" y="500" type="priority">
+    <inlanes>4o_0</inlanes>
+  </junction>
+
+</net>

@@ -1,0 +1,128 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(sumo/main.cpp)
+AC_CANONICAL_SYSTEM
+
+dnl create an config-header
+AM_CONFIG_HEADER(config.h)
+
+dnl enabel automake-support
+AM_INIT_AUTOMAKE(sumo,0.6.3)
+
+AC_PREFIX_DEFAULT(/usr/local)
+if test "x$prefix" = "xNONE"; then
+  prefix=$ac_default_prefix
+  ac_configure_args="$ac_configure_args --prefix $prefix"
+fi
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_INSTALL
+
+dnl don't create shared libtool-libraries
+dnl AC_DISABLE_SHARED
+
+dnl create static libtool-libraries instead
+dnl AC_ENABLE_STATIC(yes)
+
+dnl enable libtool-support
+AM_PROG_LIBTOOL
+
+
+dnl Checks for libraries.
+dnl Checks for xerces-library
+AC_ARG_WITH(xerces-libraries,
+    [  --with-xerces-libraries=DIR where the Xerces library is installed.],
+    [  ac_xerces_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for xerces-lib])
+if test x"$ac_xerces_libraries" = x; then
+   if test -e /usr/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_libraries=/usr/lib
+   elif test -e /usr/local/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_libraries=/usr/local/lib
+   elif test -e /usr/local/xerces/lib/libxerces.so; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_libraries=/usr/local/xerces/lib/
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_xerces_libraries/libxerces.so"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
+   fi
+fi
+XERCESLIBPATH="$ac_xerces_libraries"
+AC_SUBST(XERCESLIBPATH)
+
+
+dnl Checks for header files.
+dnl Chechs for Xerces-includes.
+AC_ARG_WITH(xerces-includes,
+    [  --with-xerces-includes=DIR  where the Xerces includes are. ],
+    [
+       ac_xerces_includes="$withval"
+    ])
+
+AC_MSG_CHECKING([for xerces-includes])
+if test x"$ac_xerces_includes" = x; then
+   if test -e /usr/include/xerces; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/include/xerces
+   elif test -e /usr/local/include/xerces; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/include/xerces
+   elif test -e /usr/local/xerces/include; then
+      AC_MSG_RESULT([yes])
+      ac_xerces_includes=/usr/local/xerces/include
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
+   fi
+else
+   if test -e "$ac_xerces_includes"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xerces-includes not found in "$ac_xerces_includes".])
+   fi
+fi
+XERCESINCLUDE="$ac_xerces_includes"
+AC_SUBST(XERCESINCLUDE)
+
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_SIZE_T
+
+
+dnl Checks for library functions.
+
+
+dnl XERCES, just set it
+XERCESLIB="xerces"
+AC_SUBST(XERCESLIB)
+
+
+dnl perform program name transformation
+AC_ARG_PROGRAM
+
+dnl add here all your Makefiles. These will be created by configure
+AC_OUTPUT(sumo/data/config/Makefile sumo/data/nets/Makefile
+sumo/data/routes/Makefile sumo/data/junctions/Makefile
+sumo/data/Makefile 
+sumo/helpers/Makefile
+sumo/microsim/Makefile 
+sumo/netload/Makefile 
+sumo/utils/Makefile
+sumo/Makefile 
+Makefile)
+
+
+

@@ -1,0 +1,30 @@
+<bitsetlogic>
+   <key>i_+1be3a5a7a1a_-1b_+1be3a5a7a1a_-1b_+1ae3a5a7a1a_-1a_+1ae3a5a7a1a_-1a</key>
+   <requestsize>16</requestsize>
+   <responsesize>16</responsesize>
+   <lanenumber>4</lanenumber>
+   <logic>
+      <logicitem request="0" response="0000110101101100"/>
+      <logicitem request="1" response="0000110010011110"/>
+      <logicitem request="2" response="0000010010000001"/>
+      <logicitem request="3" response="0000000000000000"/>
+      <logicitem request="4" response="0000000011010110"/>
+      <logicitem request="5" response="0000000011001001"/>
+      <logicitem request="6" response="0001000001001000"/>
+      <logicitem request="7" response="0000000000000000"/>
+      <logicitem request="8" response="0000000000001101"/>
+      <logicitem request="9" response="0001000000001100"/>
+      <logicitem request="10" response="0000000100000100"/>
+      <logicitem request="11" response="0000000000000000"/>
+      <logicitem request="12" response="0001000000000000"/>
+      <logicitem request="13" response="0000000100000000"/>
+      <logicitem request="14" response="0000000000010000"/>
+      <logicitem request="15" response="0000000000000000"/>
+   </logic>
+   <transformation>
+      <trafoitem from="1111000000000000" to="0"/>
+      <trafoitem from="0000111100000000" to="1"/>
+      <trafoitem from="0000000011110000" to="2"/>
+      <trafoitem from="0000000000001111" to="3"/>
+   </transformation>
+</bitsetlogic>

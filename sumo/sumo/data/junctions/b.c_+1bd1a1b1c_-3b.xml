@@ -1,0 +1,14 @@
+<bitsetlogic>
+   <key>c_+1bd1a1b1c_-3b</key>
+   <requestsize>3</requestsize>
+   <responsesize>3</responsesize>
+   <lanenumber>1</lanenumber>
+   <logic>
+      <logicitem request="0" response="000"/>
+      <logicitem request="1" response="000"/>
+      <logicitem request="2" response="000"/>
+   </logic>
+   <transformation>
+      <trafoitem from="111" to="0"/>
+   </transformation>
+</bitsetlogic>

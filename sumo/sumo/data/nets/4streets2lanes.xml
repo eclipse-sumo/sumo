@@ -1,0 +1,226 @@
+<net>
+
+  <edge id="1fi" Length="250" Speed="11.111" Name="1fi" NoLanes="1" XFrom="-500" YFrom="0" XTo="-250" YTo="0" From="1" To="m1" Priority="46" Angle="89.9838" Unknown="51">
+   <lanes>
+    <lane id="1fi_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="m1">
+      <succlane lane="1si_0" yield="0"/>
+      <succlane lane="1si_1" yield="0"/>
+      <succlane lane="1si_2" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1si">1fi_0</cedge>
+  </edge>
+
+  <edge id="1o" Length="500" Speed="11.111" Name="1o" NoLanes="1" XFrom="0" YFrom="0" XTo="-500" YTo="0" From="0" To="1" Priority="46" Angle="270.016" Unknown="51">
+   <lanes>
+    <lane id="1o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="1">
+      <succlane lane="1fi_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1fi">1o_0</cedge>
+  </edge>
+
+  <edge id="1si" Length="250" Speed="11.111" Name="1si" NoLanes="3" XFrom="-250" YFrom="0" XTo="0" YTo="0" From="m1" To="0" Priority="49" Angle="89.9838" Unknown="54">
+   <lanes>
+    <lane id="1si_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="4o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="1si_1" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="2o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="1si_2" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="3o_0" yield="1"/>
+      <succlane lane="1o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">1si_2</cedge>
+   <cedge id="2o">1si_1</cedge>
+   <cedge id="3o">1si_2</cedge>
+   <cedge id="4o">1si_0</cedge>
+  </edge>
+
+  <edge id="2fi" Length="250" Speed="11.111" Name="2fi" NoLanes="1" XFrom="500" YFrom="0" XTo="250" YTo="0" From="2" To="m2" Priority="46" Angle="270.016" Unknown="51">
+   <lanes>
+    <lane id="2fi_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="m2">
+      <succlane lane="2si_0" yield="0"/>
+      <succlane lane="2si_1" yield="0"/>
+      <succlane lane="2si_2" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="2si">2fi_0</cedge>
+  </edge>
+
+  <edge id="2o" Length="500" Speed="11.111" Name="2o" NoLanes="1" XFrom="0" YFrom="0" XTo="500" YTo="0" From="0" To="2" Priority="46" Angle="89.9838" Unknown="51">
+   <lanes>
+    <lane id="2o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="2">
+      <succlane lane="2fi_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="2fi">2o_0</cedge>
+  </edge>
+
+  <edge id="2si" Length="250" Speed="11.111" Name="2si" NoLanes="3" XFrom="250" YFrom="0" XTo="0" YTo="0" From="m2" To="0" Priority="49" Angle="270.016" Unknown="54">
+   <lanes>
+    <lane id="2si_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="3o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="2si_1" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="1o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="2si_2" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="4o_0" yield="1"/>
+      <succlane lane="2o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">2si_1</cedge>
+   <cedge id="2o">2si_2</cedge>
+   <cedge id="3o">2si_0</cedge>
+   <cedge id="4o">2si_2</cedge>
+  </edge>
+
+  <edge id="3fi" Length="250" Speed="11.111" Name="3fi" NoLanes="1" XFrom="0" YFrom="-500" XTo="0" YTo="-250" From="3" To="m3" Priority="46" Angle="180" Unknown="51">
+   <lanes>
+    <lane id="3fi_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="m3">
+      <succlane lane="3si_0" yield="0"/>
+      <succlane lane="3si_1" yield="0"/>
+      <succlane lane="3si_2" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="3si">3fi_0</cedge>
+  </edge>
+
+  <edge id="3o" Length="500" Speed="11.111" Name="3o" NoLanes="1" XFrom="0" YFrom="0" XTo="0" YTo="-500" From="0" To="3" Priority="46" Angle="0" Unknown="51">
+   <lanes>
+    <lane id="3o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="3">
+      <succlane lane="3fi_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="3fi">3o_0</cedge>
+  </edge>
+
+  <edge id="3si" Length="250" Speed="11.111" Name="3si" NoLanes="3" XFrom="0" YFrom="-250" XTo="0" YTo="0" From="m3" To="0" Priority="49" Angle="180" Unknown="54">
+   <lanes>
+    <lane id="3si_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="1o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="3si_1" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="4o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="3si_2" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="2o_0" yield="1"/>
+      <succlane lane="3o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">3si_0</cedge>
+   <cedge id="2o">3si_2</cedge>
+   <cedge id="3o">3si_2</cedge>
+   <cedge id="4o">3si_1</cedge>
+  </edge>
+
+  <edge id="4fi" Length="250" Speed="11.111" Name="4fi" NoLanes="1" XFrom="0" YFrom="500" XTo="0" YTo="250" From="4" To="m4" Priority="46" Angle="0" Unknown="51">
+   <lanes>
+    <lane id="4fi_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="m4">
+      <succlane lane="4si_0" yield="0"/>
+      <succlane lane="4si_1" yield="0"/>
+      <succlane lane="4si_2" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="4si">4fi_0</cedge>
+  </edge>
+
+  <edge id="4o" Length="500" Speed="11.111" Name="4o" NoLanes="1" XFrom="0" YFrom="0" XTo="0" YTo="500" From="0" To="4" Priority="46" Angle="180" Unknown="51">
+   <lanes>
+    <lane id="4o_0" depart="1" maxspeed="11.111" length="500" changeurge="0">
+     <succ junction="4">
+      <succlane lane="4fi_0" yield="0"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="4fi">4o_0</cedge>
+  </edge>
+
+  <edge id="4si" Length="250" Speed="11.111" Name="4si" NoLanes="3" XFrom="0" YFrom="250" XTo="0" YTo="0" From="m4" To="0" Priority="49" Angle="0" Unknown="54">
+   <lanes>
+    <lane id="4si_0" depart="1" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="2o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="4si_1" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="3o_0" yield="1"/>
+     </succ>
+    </lane>
+    <lane id="4si_2" depart="0" maxspeed="11.111" length="250" changeurge="0">
+     <succ junction="0">
+      <succlane lane="1o_0" yield="1"/>
+      <succlane lane="4o_0" yield="1"/>
+     </succ>
+    </lane>
+   </lanes>
+   <cedge id="1o">4si_2</cedge>
+   <cedge id="2o">4si_0</cedge>
+   <cedge id="3o">4si_1</cedge>
+   <cedge id="4o">4si_2</cedge>
+  </edge>
+  <junction id="0" key="i_-1a_+3bb2ab4ac6a7a_+3bb3ab5ac6a1a_-1a_+3ab3ab4ac7a1a_-1a_+3ab2ab5ac7a1a_-1a" x="0" y="0" type="priority">
+    <inlanes>1si_0 1si_1 1si_2 4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2</inlanes>
+  </junction>
+  <junction id="1" key="c_+1bb1a_-1b" x="-500" y="0" type="priority">
+    <inlanes>1o_0</inlanes>
+  </junction>
+  <junction id="2" key="c_+1bb1a_-1b" x="500" y="0" type="priority">
+    <inlanes>2o_0</inlanes>
+  </junction>
+  <junction id="3" key="c_+1bb1a_-1b" x="0" y="-500" type="priority">
+    <inlanes>3o_0</inlanes>
+  </junction>
+  <junction id="4" key="c_+1bb1a_-1b" x="0" y="500" type="priority">
+    <inlanes>4o_0</inlanes>
+  </junction>
+  <junction id="m1" key="c_+1bd1a1b1c_-3b" x="-250" y="0" type="priority">
+    <inlanes>1fi_0</inlanes>
+  </junction>
+  <junction id="m2" key="c_+1bd1a1b1c_-3b" x="250" y="0" type="priority">
+    <inlanes>2fi_0</inlanes>
+  </junction>
+  <junction id="m3" key="c_+1bd1a1b1c_-3b" x="0" y="-250" type="priority">
+    <inlanes>3fi_0</inlanes>
+  </junction>
+  <junction id="m4" key="c_+1bd1a1b1c_-3b" x="0" y="250" type="priority">
+    <inlanes>4fi_0</inlanes>
+  </junction>
+
+</net>

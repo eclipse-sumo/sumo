@@ -1,0 +1,101 @@
+/***************************************************************************
+                          NLHandlerEdgeAllocator.cpp
+			  The second-step - handler that is responsible for 
+			  the allocation of edges
+                             -------------------
+    project              : SUMO
+    begin                : Mon, 9 Jul 2001
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+     const char rcsid[] = "$Id$";
+}
+// $Log$
+// Revision 1.1  2002/04/08 07:21:24  traffic
+// Initial revision
+//
+// Revision 2.0  2002/02/14 14:43:23  croessel
+// Bringing all files to revision 2.0. This is just cosmetics.
+//
+// Revision 1.3  2002/02/13 15:40:43  croessel
+// Merge between SourgeForgeRelease and tesseraCVS.
+//
+// Revision 1.1  2001/12/06 13:36:08  traffic
+// moved from netbuild
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <string>
+#include <sax/HandlerBase.hpp>
+#include <sax/AttributeList.hpp>
+#include <sax/SAXParseException.hpp>
+#include <sax/SAXException.hpp>
+#include "NLContainer.h"
+#include "NLHandlerEdgeAllocator.h"
+#include "SErrorHandler.h"
+#include "../utils/XMLConvert.h"
+#include "../utils/XMLBuildingExceptions.h"
+#include "NLSAXHandler.h"
+#include "NLTags.h"
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+NLHandlerEdgeAllocator::NLHandlerEdgeAllocator(NLContainer *container) : NLSAXHandler(container) 
+{
+}
+
+NLHandlerEdgeAllocator::~NLHandlerEdgeAllocator() 
+{
+}
+
+void 
+NLHandlerEdgeAllocator::startElement(const XMLCh* const name, AttributeList& attributes) 
+{
+  NLSAXHandler::startElement(name, attributes);
+  string id;
+  switch(convert(name)) {
+  case NLTag_edge:
+    {
+      try {
+      	id = XMLConvert::_2str(attributes.getValue("id"));
+	      myContainer->addEdge(id);
+      } catch (XMLIdAlreadyUsedException &e) {
+      	SErrorHandler::add(e.getMessage("edge", id));
+      } catch (XMLUngivenParameterException &e) {
+  		  SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+	    }
+    }
+    break;
+  default:
+    break;
+  }
+}
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NLHandlerEdgeAllocator.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:

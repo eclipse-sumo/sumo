@@ -1,0 +1,112 @@
+/***************************************************************************
+                          NLHandlerCounter.cpp
+			  The first-step - handler which counts the given
+			  structures
+                             -------------------
+    project              : SUMO
+    begin                : Mon, 9 Jul 2001
+    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+     const char rcsid[] = "$Id$";
+}
+// $Log$
+// Revision 1.1  2002/04/08 07:21:24  traffic
+// Initial revision
+//
+// Revision 2.0  2002/02/14 14:43:22  croessel
+// Bringing all files to revision 2.0. This is just cosmetics.
+//
+// Revision 1.3  2002/02/13 15:40:42  croessel
+// Merge between SourgeForgeRelease and tesseraCVS.
+//
+// Revision 1.1  2001/12/06 13:36:07  traffic
+// moved from netbuild
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <string>
+#include <sax/HandlerBase.hpp>
+#include <sax/AttributeList.hpp>
+#include <sax/SAXParseException.hpp>
+#include <sax/SAXException.hpp>
+#include "NLContainer.h"
+#include "NLHandlerCounter.h"
+#include "NLSAXHandler.h"
+#include "NLTags.h"
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+NLHandlerCounter::NLHandlerCounter(NLContainer *container, bool dynamicOnly) : NLSAXHandler(container), m_bDynamicOnly(dynamicOnly) {
+}
+
+/// standard destructor
+NLHandlerCounter::~NLHandlerCounter() 
+{
+}
+
+void 
+NLHandlerCounter::startElement(const XMLCh* const name, AttributeList& attributes) 
+{
+  NLSAXHandler::startElement(name, attributes);
+  switch(convert(name)) {
+  case NLTag_edge:
+    myContainer->incEdges();
+    break;
+  case NLTag_lane:
+    myContainer->incLanes();
+    break;
+  case NLTag_vtype:
+    myContainer->incVehicleTypes();
+    break;
+  case NLTag_junction:
+    myContainer->incJunctions();
+    break;
+  case NLTag_vehicle:
+    myContainer->incVehicles();
+    break;
+  case NLTag_route:
+    myContainer->incRoutes();
+    break;
+  default:
+    break;
+  }
+}
+
+void 
+NLHandlerCounter::endDocument() 
+{
+  if(!m_bDynamicOnly)
+    myContainer->preallocate();
+  else
+    myContainer->preallocateVehicles();
+}
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "NLHandlerCounter.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
