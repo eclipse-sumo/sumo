@@ -1,0 +1,238 @@
+#include <string>
+#include <utils/xml/GenericSAX2Handler.h>
+#include <utils/xml/AttributesHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/SErrorHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include "RORouteDef.h"
+#include "ROCompleteRouteDef.h"
+#include "ROVehicle.h"
+#include "ROVehicleType.h"
+#include "ROVehicleType_Krauss.h"
+#include "ROSUMORoutesHandler.h"
+#include "ROEdgeVector.h"
+#include "RONet.h"
+ 
+using namespace std;
+
+ROSumoRoutesHandler::ROSumoRoutesHandler(RONet &net, const std::string &file)
+    : ROTypedXMLRoutesLoader(net, file)
+{
+/*    _attrHandler.add(SUMO_ATTR_ID, "id");
+    _attrHandler.add(SUMO_ATTR_MAXSPEED, "maxspeed");
+    _attrHandler.add(SUMO_ATTR_LENGTH, "length");
+    _attrHandler.add(SUMO_ATTR_ACCEL, "accel");
+    _attrHandler.add(SUMO_ATTR_DECEL, "decel");
+    _attrHandler.add(SUMO_ATTR_SIGMA, "sigma");
+    _attrHandler.add(SUMO_ATTR_TYPE, "type");
+    _attrHandler.add(SUMO_ATTR_DEPART, "depart");
+    _attrHandler.add(SUMO_ATTR_ROUTE, "route");*/
+}
+
+
+ROSumoRoutesHandler::~ROSumoRoutesHandler()
+{
+}
+
+void ROSumoRoutesHandler::myStartElement(int element, const std::string &name,
+                                         const Attributes &attrs)
+{
+    switch(element) {
+    case SUMO_TAG_ROUTE:
+        startRoute(attrs);
+        break;
+    case SUMO_TAG_VEHICLE:
+        startVehicle(attrs);
+        break;
+    case SUMO_TAG_VTYPE:
+        startVehType(attrs);
+        break;
+    default:
+        break;
+    }
+}
+
+
+void
+ROSumoRoutesHandler::startRoute(const Attributes &attrs)
+{
+    try {
+        _currentRoute = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        _currentRoute = "";
+        SErrorHandler::add("Missing id in route.");
+    }
+}
+
+
+void
+ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
+{
+    // get the vehicle id
+    string id;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        _currentRoute = "";
+        SErrorHandler::add("Missing id in vehicle.");
+        return;
+    }
+    // get vehicle type
+    ROVehicleType *type = 0;
+    try {
+        string name = getString(attrs, SUMO_ATTR_TYPE);
+        type = _net.getVehicleType(name);
+        if(type==0) {
+            SErrorHandler::add(string("The type of the vehicle '") +
+                name + string("' is not known."));
+        }
+    } catch (EmptyData) {
+        _currentRoute = "";
+        if(id.length()!=0) {
+            SErrorHandler::add(string("Missing type in vehicle '") +
+                id + string("'."));
+        }
+    }
+    // get the departure time
+    long time = -1;
+    try {
+        time = getLong(attrs, SUMO_ATTR_DEPART);
+    } catch (EmptyData) {
+        if(id.length()!=0) {
+            SErrorHandler::add(string("Missing departure time in vehicle '") +
+                id + string("'."));
+        }
+    } catch (NumberFormatException) {
+        if(id.length()!=0) {
+            SErrorHandler::add(string("Non-numerical departure time in vehicle '") +
+                id + string("'."));
+        }
+    }
+    // get the route id
+    RORouteDef *route;
+    try {
+        string name = getString(attrs, SUMO_ATTR_ROUTE);
+        route = _net.getRouteDef(name);
+        if(route==0) {
+            SErrorHandler::add(string("The route of the vehicle '") +
+                name + string("' is not known."));
+            return;
+        }
+    } catch (EmptyData) {
+        if(id.length()!=0) {
+            SErrorHandler::add(string("Missing route in vehicle '") +
+                id + string("'."));
+        }
+    }
+    // build the vehicle
+    _net.addVehicle(id, new ROVehicle(id, route, time, type));
+    _currentTimeStep = time;
+}
+
+
+void
+ROSumoRoutesHandler::startVehType(const Attributes &attrs)
+{
+    // get the vehicle type id
+    string id;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData) {
+        _currentRoute = "";
+        SErrorHandler::add("Missing id in vtype.");
+        return;
+    }
+    // get the other values
+    float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED, id, "maxspeed");
+    float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, id, "length");
+    float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL, id, "accel");
+    float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL, id, "decel");
+    float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA, id, "sigma");
+    // build the vehicle type after checking
+    //  by now, only vehicles using the krauss model are supported
+    if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
+        _net.addVehicleType(
+            new ROVehicleType_Krauss(id, accel, decel, sigma, length, maxspeed));
+    }
+}
+
+
+float
+ROSumoRoutesHandler::getFloatReporting(const Attributes &attrs, AttrEnum attr,
+                                       const std::string &id,
+                                       const std::string &name)
+{
+    try {
+        return getFloat(attrs, attr);
+    } catch (EmptyData) {
+        SErrorHandler::add(string("Missing ") + name + string(" in vehicle '") +
+            id + string("'."));
+    } catch (NumberFormatException) {
+        SErrorHandler::add(name + string(" in vehicle '") 
+            + id + string("' is not numeric."));
+    }
+    return -1;
+}
+
+
+
+void ROSumoRoutesHandler::myCharacters(int element, const std::string &name,
+                                       const std::string &chars)
+{
+    if(element==SUMO_TAG_ROUTE&&_currentRoute.length()!=0) {
+        ROEdgeVector list;
+        StringTokenizer st(chars);
+        bool ok = st.size()>1;
+        while(ok&&st.hasNext()) { // !!! too slow !!!
+            string id = st.next();
+            ROEdge *edge = _net.getEdge(id);
+            if(edge!=0) {
+                list.add(edge);
+            } else {
+                SErrorHandler::add(
+                    string("The route '") + _currentRoute +
+                    string("' contains the unknown edge '") + id +
+                    string("'."));
+                ok = false;
+            }
+        }
+        if(ok) {
+            ROCompleteRouteDef *route = 
+                new ROCompleteRouteDef(_currentRoute, list);
+            _net.addRouteDef(route);
+        } else {
+            if(_currentRoute.length()>0) {
+                SErrorHandler::add(
+                    string("Something is wrong with route '") + _currentRoute 
+                    + string("'."));
+            } else {
+                SErrorHandler::add(
+                    string("Invalid route occured."));
+            }
+        }
+    }
+}
+
+
+void
+ROSumoRoutesHandler::myEndElement(int element, const std::string &name)
+{
+    if(element==SUMO_TAG_ROUTE) {
+        _currentRoute = "";
+        _netRouteRead = true;
+    }
+}
+
+ROTypedRoutesLoader *
+ROSumoRoutesHandler::getAssignedDuplicate(const std::string &file) const
+{
+    return new ROSumoRoutesHandler(_net, file);
+}
+
+std::string
+ROSumoRoutesHandler::getDataName() const {
+    return "precomputed sumo routes";
+}
+
+
