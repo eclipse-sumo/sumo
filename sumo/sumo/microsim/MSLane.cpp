@@ -24,6 +24,10 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.7  2002/04/18 14:51:11  croessel
+// In setDriveRequests(): set gap to UINT_MAX instead of 0 for vehicles
+// without a predecessor.
+//
 // Revision 1.6  2002/04/18 14:05:21  croessel
 // Changed detectCollisions() output from pointer-address to vehicle-id.
 //
@@ -170,6 +174,7 @@ namespace
 #include <algorithm>
 #include <iterator>
 #include <exception>
+#include <climits>
 
 using namespace std;
 
@@ -998,11 +1003,12 @@ MSLane::setDriveRequests()
     switch ( myLFState ) {
         case FREE_ON_CURR: {
             // Move vehicle freely.
-            myFirst->moveUpdateState( myFirst->nextState( this, 
-                                                          MSVehicle::State(), 
-                                                          0, 
-                                                          MSVehicle::State(),
-                                                          0) );                         
+            myFirst->moveUpdateState( 
+                myFirst->nextState( this, 
+                                    MSVehicle::State(), 
+                                    static_cast< double >( UINT_MAX ), 
+                                    MSVehicle::State(),
+                                    0) );                         
             return;
         }
 
@@ -1022,9 +1028,11 @@ MSLane::setDriveRequests()
         }
 
         case FREE_ON_SUCC: {
-            myTargetState = myFirst->nextState( this, 
-                                                MSVehicle::State(), 0,
-                                                MSVehicle::State(), 0 );
+            myTargetState = 
+                myFirst->nextState( this, 
+                                    MSVehicle::State(), 
+                                    static_cast< double >( UINT_MAX ),
+                                    MSVehicle::State(), 0 );
             break;
         }
 
