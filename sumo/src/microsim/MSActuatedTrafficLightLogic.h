@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/10/01 13:59:53  dkrajzew
+// logic building completed (Julia Ringel)
+//
 // Revision 1.12  2003/09/23 14:19:59  dkrajzew
 // an easier usage of the current actuated phase definition added
 //
@@ -120,11 +123,14 @@ public:
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
     virtual bool gapControl();
 
+    // Checkes wheter the tested phase is a neither a yellow nor a allred phase
+    virtual bool isGreenPhase() const ;
+
 protected:
     /// Builds the detectors
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes);
 
-    MSActuatedPhaseDefinition * currentPhaseDef();
+    MSActuatedPhaseDefinition * currentPhaseDef() const ;
 
 
 protected:
