@@ -54,9 +54,9 @@ protected:
 
     DetectorAggregate getAggregate( MSVehicle& veh ) // [s]
         {
-            TravelTimeMap ttMap = containerM.containerM;
-            TravelTimeMap::const_iterator pair = ttMap.find( &veh );
-            assert( pair != ttMap.end() );
+            TravelTimeMap::const_iterator pair =
+                containerM.containerM.find( &veh );
+            assert( pair != containerM.containerM.end() );
             MSUnit::Seconds startTime = pair->second;
             MSUnit::Seconds time = MSNet::getInstance()->simSeconds();
             assert( time > startTime );
