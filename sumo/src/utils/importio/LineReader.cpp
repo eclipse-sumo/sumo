@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/26 12:06:39  dkrajzew
+// errors on reading small files in readline debugged
+//
 // Revision 1.4  2003/03/18 13:23:22  dkrajzew
 // windows eol removed
 //
@@ -115,7 +118,10 @@ LineReader::readLine(LineHandler &lh)
             _rread += idx+1;
         } else {
             if(_read<_available) {
-                _strm.read(_buffer, 1024);
+                _strm.read(_buffer, 
+                    _available - _read<1024
+                    ? _available - _read
+                    : 1024);
                 size_t noBytes = _available - _read;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 _strBuffer += string(_buffer, noBytes);
@@ -158,7 +164,7 @@ LineReader::setFileName(const std::string &file)
     if(_strm.is_open()) {
         _strm.close();
     }
-    _strm.clear();
+//    _strm.clear();
     _fileName = file;
     _strm.open(file.c_str(), ios::binary);
     _strm.unsetf (ios::skipws);
@@ -199,6 +205,7 @@ LineReader::setPos(unsigned long pos)
     _strm.seekg(pos, ios::beg);
     _read = pos;
     _rread = pos;
+    _strBuffer = "";
 }
 
 bool
