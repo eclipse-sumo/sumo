@@ -71,7 +71,7 @@ public:
     Edge* GetEdge(int i);
 
     //Holt sich entlang der Kanten eine beliebige Knotenfolge
-    void drive(int i);
+    void Drive(int i);
 
     int GetPfad();
 
