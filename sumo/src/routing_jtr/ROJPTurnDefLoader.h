@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //

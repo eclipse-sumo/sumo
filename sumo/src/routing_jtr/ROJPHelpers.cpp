@@ -1,8 +1,6 @@
-#ifndef ROJPRouter_h
-#define ROJPRouter_h
 //---------------------------------------------------------------------------//
-//                        ROJPRouter.h -
-//      The junction-percentage router
+//                        ROJPHelpers.cpp -
+//      A set of helping functions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -19,12 +17,14 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
-// Revision 1.3  2004/01/28 14:19:20  dkrajzew
-// allowed to specify the maximum edge number in a route by a factor
-//
-// Revision 1.2  2004/01/26 09:58:15  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further container
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
@@ -37,58 +37,44 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <router/ROAbstractRouter.h>
-#include <router/ROEdgeVector.h>
+#include <string>
+#include "ROJPHelpers.h"
+#include <router/RONet.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include "ROJPEdge.h"
 
 
 /* =========================================================================
- * class declarations
+ * used namespaces
  * ======================================================================= */
-class RONet;
-class ROEdge;
-class ROJPEdge;
+using namespace std;
 
 
 /* =========================================================================
- * class definitions
+ * method definitions
  * ======================================================================= */
-/**
- * @class ROJPRouter
- * Lays the given route over the edges using the dijkstra algorithm
- */
-class ROJPRouter : public ROAbstractRouter {
-public:
-    /// Constructor
-    ROJPRouter(RONet &net);
-
-    /// Destructor
-    ~ROJPRouter();
-
-    /** @brief Builds the route between the given edges using the minimum afford at the given time
-        The definition of the afford depends on the wished routing scheme */
-    ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild);
-
-private:
-    /// Performs the computation
-    ROEdgeVector jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild);
-
-
-private:
-    /// The network to use
-    RONet &myNet;
-
-    /// The maximum number of edges a route may have
-    int myMaxEdges;
-
-};
+void
+ROJPHelpers::parseROJPEdges(RONet &net, std::set<ROJPEdge*> &into,
+                            const std::string &chars)
+{
+	StringTokenizer st(chars, ";");
+	while(st.hasNext()) {
+		string name = st.next();
+		ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge(name));
+		if(edge==0) {
+			MsgHandler::getErrorInstance()->inform(
+				string("The edge '") + name + string(" declared as a sink was not found in the network."));
+			throw ProcessError();
+		}
+		into.insert(edge);
+	}
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#endif
-
 // Local Variables:
 // mode:C++
 // End:
-

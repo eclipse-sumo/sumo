@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
 // Revision 1.3  2004/02/02 16:21:06  dkrajzew
 // new default behaviour on incomplete edge propabilities
 //

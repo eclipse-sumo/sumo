@@ -1,8 +1,8 @@
-#ifndef ROJPEdgeBuilder_h
-#define ROJPEdgeBuilder_h
+#ifndef ROJPRouter_h
+#define ROJPRouter_h
 //---------------------------------------------------------------------------//
-//                        ROJPEdgeBuilder.h -
-//      The builder for jp-edges
+//                        ROJPRouter.h -
+//      The junction-percentage router
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
+// Revision 1.3  2004/01/28 14:19:20  dkrajzew
+// allowed to specify the maximum edge number in a route by a factor
+//
+// Revision 1.2  2004/01/26 09:58:15  dkrajzew
+// sinks are now simply marked as these instead of the usage of a further container
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -31,42 +40,49 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <router/ROAbstractEdgeBuilder.h>
+#include <router/ROAbstractRouter.h>
+#include <router/ROEdgeVector.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class ROEdge;
 class RONet;
+class ROEdge;
+class ROJPEdge;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class ROJPEdgeBuilder
- * This class builds edges that may be used by the junction-percantage
- *  router.
+ * @class ROJPRouter
+ * Lays the given route over the edges using the dijkstra algorithm
  */
-class ROJPEdgeBuilder : public ROAbstractEdgeBuilder {
+class ROJPRouter : public ROAbstractRouter {
 public:
     /// Constructor
-    ROJPEdgeBuilder();
+    ROJPRouter(RONet &net);
 
     /// Destructor
-    ~ROJPEdgeBuilder();
+    ~ROJPRouter();
 
-    /** @brief Builds a jp-edge */
-    ROEdge *buildEdge(const std::string &name);
-
-    /** Post process the edges */
-    void setTurningDefinitions(RONet &net,
-        const std::vector<float> &turn_defs);
+    /** @brief Builds the route between the given edges using the minimum afford at the given time
+        The definition of the afford depends on the wished routing scheme */
+    ROEdgeVector compute(ROEdge *from, ROEdge *to,
+        long time, bool continueOnUnbuild);
 
 private:
-    /// The turn definitions
-    std::vector<std::string> myNames;
+    /// Performs the computation
+    ROEdgeVector jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild);
+
+
+private:
+    /// The network to use
+    RONet &myNet;
+
+    /// The maximum number of edges a route may have
+    int myMaxEdges;
 
 };
 

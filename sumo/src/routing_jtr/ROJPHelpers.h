@@ -1,5 +1,7 @@
+#ifndef ROJPHelpers_h
+#define ROJPHelpers_h
 //---------------------------------------------------------------------------//
-//                        ROJPHelpers.cpp -
+//                        ROJPHelpers.h -
 //      A set of helping functions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -17,12 +19,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -34,37 +34,39 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "ROJPHelpers.h"
-#include <router/RONet.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
-#include "ROJPEdge.h"
+#include <set>
+#include <string>
 
 
 /* =========================================================================
- * method definitions
+ * class declarations
  * ======================================================================= */
-void
-ROJPHelpers::parseROJPEdges(RONet &net, std::set<ROJPEdge*> &into,
-                            const std::string &chars)
-{
-	StringTokenizer st(chars, ";");
-	while(st.hasNext()) {
-		string name = st.next();
-		ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge(name));
-		if(edge==0) {
-			MsgHandler::getErrorInstance()->inform(
-				string("The edge '") + name + string(" declared as a sink was not found in the network."));
-			throw ProcessError();
-		}
-		into.insert(edge);
-	}
-}
+class RONet;
+class ROJPEdge;
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class ROJPHelpers
+ * Some functions commonly used within the junction-percentage router.
+ */
+class ROJPHelpers {
+public:
+    /** @brief Parses the names of given edges as a list of edge names, adds the edges into the container
+        It is assumed, the names are divided by a ';' */
+	static void parseROJPEdges(RONet &net, std::set<ROJPEdge*> &into,
+		const std::string &chars);
+
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+#endif
+
 // Local Variables:
 // mode:C++
 // End:
+
+

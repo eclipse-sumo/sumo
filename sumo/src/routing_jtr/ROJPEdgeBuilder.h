@@ -1,5 +1,7 @@
+#ifndef ROJPEdgeBuilder_h
+#define ROJPEdgeBuilder_h
 //---------------------------------------------------------------------------//
-//                        ROJPEdgeBuilder.cpp -
+//                        ROJPEdgeBuilder.h -
 //      The builder for jp-edges
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -17,12 +19,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -34,50 +34,49 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <router/RONet.h>
-#include "ROJPEdge.h"
-#include "ROJPEdgeBuilder.h"
+#include <router/ROAbstractEdgeBuilder.h>
 
 
 /* =========================================================================
- * used namespaces
+ * class declarations
  * ======================================================================= */
-using namespace std;
+class ROEdge;
+class RONet;
 
 
 /* =========================================================================
- * method definitions
+ * class definitions
  * ======================================================================= */
-ROJPEdgeBuilder::ROJPEdgeBuilder()
-{
-}
+/**
+ * @class ROJPEdgeBuilder
+ * This class builds edges that may be used by the junction-percantage
+ *  router.
+ */
+class ROJPEdgeBuilder : public ROAbstractEdgeBuilder {
+public:
+    /// Constructor
+    ROJPEdgeBuilder();
 
+    /// Destructor
+    ~ROJPEdgeBuilder();
 
-ROJPEdgeBuilder::~ROJPEdgeBuilder()
-{
-}
+    /** @brief Builds a jp-edge */
+    ROEdge *buildEdge(const std::string &name);
 
+    /** Post process the edges */
+    void setTurningDefinitions(RONet &net,
+        const std::vector<float> &turn_defs);
 
-ROEdge *
-ROJPEdgeBuilder::buildEdge(const std::string &name)
-{
-    myNames.push_back(name);
-    return new ROJPEdge(name);
-}
+private:
+    /// The turn definitions
+    std::vector<std::string> myNames;
 
-
-void
-ROJPEdgeBuilder::setTurningDefinitions(RONet &net,
-                                       const std::vector<float> &turn_defs)
-{
-    for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
-        ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge((*i)));
-        edge->setTurnDefaults(turn_defs);
-    }
-}
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+#endif
 
 // Local Variables:
 // mode:C++

@@ -1,8 +1,6 @@
-#ifndef ROJPEdge_h
-#define ROJPEdge_h
 //---------------------------------------------------------------------------//
-//                        ROJPEdge.h -
-//  An edge the router may route through
+//                        ROJPEdgeBuilder.cpp -
+//      The builder for jp-edges
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -19,7 +17,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
+// Revision 1.1  2004/02/06 08:43:46  dkrajzew
+// new naming applied to the folders (jp-router is now called jtr-router)
+//
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
@@ -31,71 +37,50 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <string>
-#include <map>
-#include <vector>
-#include <utils/router/FloatValueTimeLine.h>
-#include <router/ROEdge.h>
+#include <router/RONet.h>
+#include "ROJPEdge.h"
+#include "ROJPEdgeBuilder.h"
 
 
 /* =========================================================================
- * class declarations
+ * used namespaces
  * ======================================================================= */
-class ROLane;
+using namespace std;
 
 
 /* =========================================================================
- * class definitions
+ * method definitions
  * ======================================================================= */
-/**
- * @class ROJPEdge
- * A router's edge extended by the definition about the propability a
- *  vehicle's propabilities to choose a certain following edge over time.
- */
-class ROJPEdge : public ROEdge {
-public:
-    /// Constructor
-	ROJPEdge(const std::string &id);
+ROJPEdgeBuilder::ROJPEdgeBuilder()
+{
+}
 
-    /// Desturctor
-	~ROJPEdge();
 
-    /// Adds information about a connected edge
-    void addFollower(ROEdge *s);
+ROJPEdgeBuilder::~ROJPEdgeBuilder()
+{
+}
 
-    /// adds the information about the percentage of using a certain follower
-    void addFollowerPropability(ROJPEdge *follower,
-        unsigned int begTime, unsigned int endTime, float percentage);
 
-    /// Returns the next edge to use
-    ROJPEdge *chooseNext(unsigned int time) const;
+ROEdge *
+ROJPEdgeBuilder::buildEdge(const std::string &name)
+{
+    myNames.push_back(name);
+    return new ROJPEdge(name);
+}
 
-    /// Sets the turning definition defaults
-    void setTurnDefaults(const std::vector<float> &defs);
 
-private:
-    /// Definition of a map that stores the propabilities of using a certain follower over time
-    typedef std::map<ROJPEdge*, FloatValueTimeLine*> FollowerUsageCont;
-
-    /// Storage for the propabilities of using a certain follower over time
-    FollowerUsageCont myFollowingDefs;
-
-    /// The defaults for turnings
-    std::vector<float> myParsedTurnings;
-
-private:
-    /// we made the copy constructor invalid
-    ROJPEdge(const ROJPEdge &src);
-
-    /// we made the assignment operator invalid
-    ROJPEdge &operator=(const ROJPEdge &src);
-
-};
+void
+ROJPEdgeBuilder::setTurningDefinitions(RONet &net,
+                                       const std::vector<float> &turn_defs)
+{
+    for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
+        ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge((*i)));
+        edge->setTurnDefaults(turn_defs);
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#endif
 
 // Local Variables:
 // mode:C++
