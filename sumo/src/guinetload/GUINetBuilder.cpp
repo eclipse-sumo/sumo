@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/01/26 06:49:06  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+//
 // Revision 1.14  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -60,8 +63,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -72,13 +73,12 @@ namespace
 #include <vector>
 #include <parsers/SAXParser.hpp>
 #include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
-#include <sax2/DefaultHandler.hpp>
 #include <utils/options/OptionsCont.h>
 #include <guisim/GUINet.h>
 #include <netload/NLNetHandler.h>
 #include <netload/NLLoadFilter.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/XMLHelpers.h>
 #include <microsim/MSGlobals.h>
 #include "GUINetHandler.h"
 #include "GUIEdgeControlBuilder.h"
@@ -132,14 +132,13 @@ GUINetBuilder::buildNet()
     GUIContainer *container = new GUIContainer(
         new GUIEdgeControlBuilder(myAgregatedViewsAllowed),
         new GUIJunctionControlBuilder());
-    // ... and the parser
-    SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
-    parser->setFeature(
-        XMLString::transcode("http://xml.org/sax/features/validation"),
-        false);
-    GUINet *net = 0;
     // get the matching handler
-    GUINetHandler handler("", *container, new GUIDetectorBuilder());
+    GUINetHandler handler("", *container, new GUIDetectorBuilder(),
+        m_pOptions.getFloat("actuating-detector-pos"),
+        m_pOptions.getFloat("agent-detector-len"));
+    // ... and the parser
+    SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+    GUINet *net = 0;
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!MsgHandler::getErrorInstance()->wasInformed()) {

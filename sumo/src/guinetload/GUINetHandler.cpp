@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/26 06:49:06  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+//
 // Revision 1.15  2004/01/12 14:59:51  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -112,8 +115,11 @@ using namespace std;
  * ======================================================================= */
 GUINetHandler::GUINetHandler(const std::string &file,
                              NLContainer &container,
-                             NLDetectorBuilder *detBuilder)
-    : NLNetHandler(file, container, detBuilder)
+                             NLDetectorBuilder *detBuilder,
+                             double stdDetectorPositions,
+                             double stdDetectorLengths)
+    : NLNetHandler(file, container, detBuilder,
+        stdDetectorPositions, stdDetectorLengths)
 {
 }
 
@@ -199,7 +205,8 @@ GUINetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
+		myContainer.addJunctionInitInfo(tlLogic,
+            myContainer.getIncomingLanes(), m_DetectorOffset);
     } else if (m_Type=="agentbased") {
         MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes>
             *tlLogic =
@@ -209,7 +216,8 @@ GUINetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
+		myContainer.addJunctionInitInfo(tlLogic,
+            myContainer.getIncomingLanes(), m_DetectorOffset);
 	} else {
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic(

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/01/26 06:49:06  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+//
 // Revision 1.6  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -40,8 +43,6 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -71,7 +72,8 @@ class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
     GUINetHandler(const std::string &file,
-        NLContainer &container, NLDetectorBuilder *detBuilder);
+        NLContainer &container, NLDetectorBuilder *detBuilder,
+        double stdDetectorPositions, double stdDetectorlength);
 
     /// standard destructor
     ~GUINetHandler();

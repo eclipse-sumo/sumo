@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/01/26 06:49:06  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+//
 // Revision 1.12  2004/01/12 14:59:51  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -54,8 +57,6 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -83,6 +84,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "GUIContainer.h"
 #include "microsim/MSRouteLoaderControl.h"
+
 
 /* =========================================================================
  * used namespaces
@@ -119,7 +121,7 @@ GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
         MSEdgeControl *edges = m_pECB->build();
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
-        MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
+        MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
         GUINet::initGUINet( "", edges, junctions, /*m_pDetectors, */routeLoaders, tlc );
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {

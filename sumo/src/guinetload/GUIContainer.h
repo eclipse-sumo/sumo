@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/26 06:49:06  dkrajzew
+// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+//
 // Revision 1.5  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -30,8 +33,6 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -57,6 +58,7 @@ class OptionsCont;
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUIContainer
  * As some artifacts used by the simulation differ between the gui- and the
  * normal version, a special builder is needed for both. Most artifacts used
  * by the gui-enabled simulation are simple inheritances from their normal
