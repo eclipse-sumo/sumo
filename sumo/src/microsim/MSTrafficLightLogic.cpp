@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/09/24 13:28:55  dkrajzew
+// retrival of lanes by the position within the bitset added
+//
 // Revision 1.8  2003/09/05 15:13:58  dkrajzew
 // saving of tl-states implemented
 //
@@ -131,7 +134,7 @@ MSTrafficLightLogic::clear()
 
 
 void
-MSTrafficLightLogic::addLink(MSLink *link, size_t pos)
+MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
 {
     // !!! should be done within the loader (checking necessary)
     myLinks.reserve(pos+1);
@@ -139,6 +142,12 @@ MSTrafficLightLogic::addLink(MSLink *link, size_t pos)
         myLinks.push_back(LinkVector());
     }
     myLinks[pos].push_back(link);
+    //
+    myLanes.reserve(pos+1);
+    while(myLanes.size()<=pos) {
+        myLanes.push_back(LaneVector());
+    }
+    myLanes[pos].push_back(lane);
 }
 
 
@@ -217,6 +226,22 @@ MSTrafficLightLogic::buildStateList() const
     }
     return strm.str();
 }
+
+
+const MSTrafficLightLogic::LaneVector &
+MSTrafficLightLogic::getLanesAt(size_t i) const
+{
+    return myLanes[i];
+}
+
+
+const MSTrafficLightLogic::LinkVector &
+MSTrafficLightLogic::getLinksAt(size_t i) const
+{
+    return myLinks[i];
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

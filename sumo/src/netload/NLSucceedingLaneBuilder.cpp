@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/24 13:29:39  dkrajzew
+// retrival of lanes by the position within the bitset added
+//
 // Revision 1.5  2003/09/05 15:20:19  dkrajzew
 // loading of internal links added
 //
@@ -142,7 +145,11 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
     // if a traffic light is responsible for it, inform the traffic light
     if(logic!=0) {
-        logic->addLink(link, linkNo);
+        MSLane *current = MSLane::dictionary(m_CurrentLane);
+        if(current==0) {
+            throw XMLIdNotKnownException("lane", m_CurrentLane);
+        }
+        logic->addLink(link, current, linkNo);
     }
     // add the link to the container
     m_SuccLanes->push_back(link);

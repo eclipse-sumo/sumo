@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/09/24 13:28:55  dkrajzew
+// retrival of lanes by the position within the bitset added
+//
 // Revision 1.9  2003/09/05 15:13:58  dkrajzew
 // saving of tl-states implemented
 //
@@ -70,6 +73,19 @@ class MSEventControl;
  */
 class MSTrafficLightLogic {
 public:
+    /// Definition of the list of links that participate in this tl-light
+    typedef std::vector<MSLink*> LinkVector;
+
+    /// Definition of a list that holds lists of links that do have the same attribute
+    typedef std::vector<LinkVector> LinkVectorVector;
+
+    /// Definition of the list of links that participate in this tl-light
+    typedef std::vector<MSLane*> LaneVector;
+
+    /// Definition of a list that holds lists of links that do have the same attribute
+    typedef std::vector<LaneVector> LaneVectorVector;
+
+public:
     /// Constructor
     MSTrafficLightLogic(const std::string &id, size_t delay);
 
@@ -112,16 +128,26 @@ public:
 	/// Returns the current step
 	virtual size_t step() const = 0;
 
+    /// Clears all incoming vehicle information on links that have red
     void maskRedLinks();
+
+    /// Clears all incoming vehicle information on links that have yellow
     void maskYellowLinks();
 
     friend class NLSucceedingLaneBuilder;
 
+    /// Builds a string that contains the states of the signals
     std::string buildStateList() const;
+
+    /// Returns the list of lanes that are controlled by the signals at the given position
+    const LaneVector &getLanesAt(size_t i) const;
+
+    /// Returns the list of links that are controlled by the signals at the given position
+    const LinkVector &getLinksAt(size_t i) const;
 
 protected:
     /// Adds a link on building
-    void addLink(MSLink *link, size_t pos);
+    void addLink(MSLink *link, MSLane *lane, size_t pos);
 
 protected:
     /// Definition of the dictionary type for traffic light logics
@@ -133,14 +159,11 @@ protected:
     /// The id of the logic
     std::string _id;
 
-    /// Definition of the list of links which participate in this tl-light
-    typedef std::vector<MSLink*> LinkVector;
-
-    /// Definition of a list which holds lists of links which do have the same attribute
-    typedef std::vector<LinkVector> LinkVectorVector;
-
     /// The list of links which do participate in this traffic light
     LinkVectorVector myLinks;
+
+    /// The list of links which do participate in this traffic light
+    LaneVectorVector myLanes;
 
 private:
     /**
