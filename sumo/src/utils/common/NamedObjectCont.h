@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/12 15:13:00  dkrajzew
+// allowed the extraction of a vector containing the stored items
+//
 // Revision 1.5  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
 //
@@ -41,6 +44,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 
 /* =========================================================================
@@ -78,15 +82,24 @@ public:
     /// Removes the named item from the container
     void erase(const std::string &id);
 
+    /* @brief Returns a vector that contains all objects. */
+    const std::vector<T> &getVector() const;
+
 protected:
-    /// Definition of the container type
-    typedef std::map< std::string, T > myCont;
+    /// Definition of the key to pointer map type
+    typedef std::map< std::string, T > IDMap;
 
     /// Definition of the container type iterator
     typedef typename myCont::iterator myContIt;
 
-    /// The container
-    myCont   _cont;
+    /// The map from key to object
+    IDMap myMap;
+
+    /// Definition of the key to pointer map type
+    typedef std::vector<T> ObjectVector;
+
+    /// The vector of all known items
+    ObjectVector myVector;
 
 };
 

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/01/12 15:13:00  dkrajzew
+// allowed the extraction of a vector containing the stored items
+//
 // Revision 1.3  2003/02/10 17:42:36  roessel
 // Added necessary keyword typename.
 //
@@ -25,26 +28,30 @@
 // updated
 //
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-#include <map>
+
 #include "NamedObjectCont.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 template<class T>
 NamedObjectCont<T>::NamedObjectCont<T>()
 {
 }
 
+
 template< class T >
 NamedObjectCont< T >::~NamedObjectCont<T>()
 {
-    for( typename myCont::iterator i=_cont.begin();
-         i!=_cont.end();
+    for( typename IDMap::iterator i=myMap.begin();
+         i!=myMap.end();
          i++) {
         delete (*i).second;
     }
@@ -52,11 +59,13 @@ NamedObjectCont< T >::~NamedObjectCont<T>()
 
 
 template<class T>
-bool NamedObjectCont<T>::add(const std::string &id, T item) {
-    if(_cont.find(id)!=_cont.end()) {
+bool NamedObjectCont<T>::add(const std::string &id, T item)
+{
+    if(myMap.find(id)!=myMap.end()) {
         return false;
     }
-    _cont.insert(std::make_pair(id, item));
+    myMap.insert(std::make_pair(id, item));
+    myVector.push_back(item);
     return true;
 }
 
@@ -65,8 +74,8 @@ template<class T>
 T
 NamedObjectCont<T>::get(const std::string &id) const
 {
-    typename std::map<std::string, T>::const_iterator i = _cont.find(id);
-    if(i==_cont.end()) {
+    typename std::map<std::string, T>::const_iterator i = myMap.find(id);
+    if(i==myMap.end()) {
         return 0;
     }
     return (*i).second;
@@ -77,12 +86,13 @@ template<class T>
 void
 NamedObjectCont<T>::clear()
 {
-    for(typename myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         delete (*i).second;
     }
-    while(_cont.size()>0) {
-        _cont.erase(_cont.begin());
+    while(myMap.size()>0) {
+        myMap.erase(myMap.begin());
     }
+    myVector.clear();
 }
 
 
@@ -90,7 +100,8 @@ template<class T>
 size_t
 NamedObjectCont<T>::size() const
 {
-    return _cont.size();
+    assert(myMap.size()==myVector.size());
+    return myMap.size();
 }
 
 
@@ -98,12 +109,27 @@ template<class T>
 void
 NamedObjectCont<T>::erase(const std::string &id)
 {
-    typename myCont::iterator i=_cont.find(id);
-    if(i==_cont.end()) {
+    typename IDMap::iterator i=myMap.find(id);
+    if(i==myMap.end()) {
         throw 1; // !!! should not happen
     }
-    delete (*i).second;
-    _cont.erase(i);
+    T *o = (*i).second;
+    myMap.erase(i);
+    // and from the vector
+    typename ObjectVector::iterator i2 =
+        find(myVector.begin(), myVector.end(), o);
+    if(i2==myVector.end()) {
+        throw 1; // !!! should not happen
+    }
+    myVector.erase(i2);
+    delete o;
+}
+
+
+const std::vector<T> &
+NamedObjectCont<T>::getVector() const
+{
+    return myVector;
 }
 
 
