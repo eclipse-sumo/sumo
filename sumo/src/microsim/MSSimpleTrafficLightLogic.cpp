@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 16:07:35  dkrajzew
+// new usage of traffic lights implemented
+//
 // Revision 1.4  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -50,8 +53,9 @@ std::bitset<64> MSSimpleTrafficLightLogic<N>::_allClear;
 
 template< size_t N >
 MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
-    const std::string &id, const Phases &phases, size_t step)
-    : MSTrafficLightLogic(id), _phases(phases),
+    const std::string &id, const Phases &phases, size_t step,
+    MSEventControl &ec, size_t delay)
+    : MSTrafficLightLogic(id, ec, delay), _phases(phases),
     _step(step)
 {
 }
@@ -60,17 +64,6 @@ MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
 template< size_t N >
 MSSimpleTrafficLightLogic<N>::~MSSimpleTrafficLightLogic<N>()
 {
-}
-
-
-template< size_t N > void
-MSSimpleTrafficLightLogic<N>::applyPhase(MSLogicJunction::Request &request) const
-{
-    assert(_phases.size()>_step);
-    std::bitset<64> allowed = _phases[_step].driveMask;
-    for(size_t i=0; i<request.size(); i++) {
-        request[i] = request[i] & allowed.test(i);
-    }
 }
 
 
@@ -87,6 +80,14 @@ MSSimpleTrafficLightLogic<N>::yellowMask() const
 {
     assert(_phases.size()>_step);
     return _phases[_step].yellowMask;
+}
+
+
+template< size_t N > const std::bitset<64> &
+MSSimpleTrafficLightLogic<N>::allowed() const
+{
+    assert(_phases.size()>_step);
+    return _phases[_step].driveMask;
 }
 
 
@@ -113,12 +114,12 @@ MSSimpleTrafficLightLogic<N>::duration() const
 
 
 template< size_t N > MSNet::Time
-MSSimpleTrafficLightLogic<N>::nextPhase(MSLogicJunction::InLaneCont &inLanes)
+MSSimpleTrafficLightLogic<N>::nextPhase()
 {
     // increment the index to the current phase
     nextStep();
     // reset the link priorities
-    setLinkPriorities(inLanes);
+    setLinkPriorities();
     // set the next event
     return duration();
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/05 16:07:36  dkrajzew
+// new usage of traffic lights implemented
+//
 // Revision 1.6  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -104,26 +107,22 @@ public:
 public:
     /// constructor
     MSSimpleTrafficLightLogic(const std::string &id, const Phases &phases,
-        size_t step);
+        size_t step, MSEventControl &ec, size_t delay);
 
     /// destructor
     ~MSSimpleTrafficLightLogic();
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase(MSLogicJunction::InLaneCont &inLanes);
-
-    /** @brief masks the request with the current phase
-        the request is simply masked using the "and" combination,
-        so only vehicles which do not have red are known and so the others
-        are not regarded further */
-    virtual void applyPhase(MSLogicJunction::Request &request) const;
+    virtual MSNet::Time nextPhase();
 
     /// Returns the priorities for all lanes for the current phase
     virtual const std::bitset<64> &linkPriorities() const;
 
     /// Returns a bitset where all links having yellow are set
     virtual const std::bitset<64> &yellowMask() const;
+
+    virtual const std::bitset<64> &allowed() const;
 
     /** @brief Switches to the next step
         Returns the number of the next step what is needed as

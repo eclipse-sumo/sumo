@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 16:11:03  dkrajzew
+// new usage of traffic lights implemented
+//
 // Revision 1.4  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -39,9 +42,13 @@
 #include <map>
 #include <string>
 #include <bitset>
+#include <helpers/Command.h>
 #include "MSNet.h"
 #include "MSLogicJunction.h"
 
+
+class MSLink;
+class MSEventControl;
 
 /* =========================================================================
  * class definitions
@@ -52,7 +59,8 @@
 class MSTrafficLightLogic {
 public:
     /// Constructor
-    MSTrafficLightLogic(const std::string &id);
+    MSTrafficLightLogic(const std::string &id, MSEventControl &ec,
+        size_t delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();
@@ -65,21 +73,18 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase(MSLogicJunction::InLaneCont &inLanes) = 0;
+    virtual MSNet::Time nextPhase() = 0;
 
     /** @brief Returns the MSEdgeControl associated to the key id if exists,
         Otherwise returns 0. */
     static MSTrafficLightLogic *dictionary(const std::string &name);
 
-    /** @brief Applies the right-of-way rules of the phase specified by the second argument to the first argument
-        Requests of vehicles which are not allowed to drive as they
-        have red light are masked out from the given request */
-    virtual void applyPhase(MSLogicJunction::Request &request) const = 0;
-
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
 
     virtual const std::bitset<64> &yellowMask() const = 0;
+
+    virtual const std::bitset<64> &allowed() const = 0;
 
     /// Returns the index of the phase next to the given phase
     virtual size_t nextStep() = 0;
@@ -89,10 +94,18 @@ public:
 
     /** @brief Sets the priorities of incoming lanes
         This must be done as they change when the light changes */
-    void setLinkPriorities(MSLogicJunction::InLaneCont &inLanes);
+    void setLinkPriorities();
 
 	/// Returns the current step
 	virtual size_t step() const = 0;
+
+    void maskRedLinks();
+
+    friend class NLSucceedingLaneBuilder;
+
+protected:
+    /// Adds a link on building
+    void addLink(MSLink *link, size_t pos);
 
 protected:
     /// Definition of the dictionary type for traffic light logics
@@ -103,6 +116,43 @@ protected:
 
     /// The id of the logic
     std::string _id;
+
+    /// Definition of the list of links which participate in this tl-light
+    typedef std::vector<MSLink*> LinkVector;
+
+    /// Definition of a list which holds lists of links which do have the same attribute
+    typedef std::vector<LinkVector> LinkVectorVector;
+
+    /// The list of links which do participate in this traffic light
+    LinkVectorVector myLinks;
+
+private:
+    /**
+     * Class realising the switch between the traffic light states (phases
+     */
+    class SwitchCommand : public Command {
+    private:
+        /// The logic to be executed on a switch
+        MSTrafficLightLogic *_tlLogic;
+
+    public:
+        /// Constructor
+        SwitchCommand(MSTrafficLightLogic *tlLogic)
+            : _tlLogic(tlLogic) { }
+
+        /// Destructor
+        ~SwitchCommand() { }
+
+        /** @brief Executes this event
+            Executes the regarded junction's "nextPhase"- method */
+        MSNet::Time execute() {
+            return _tlLogic->nextPhase();
+        }
+
+    private:
+        /// invalidated default constructor
+        SwitchCommand();
+    };
 
 private:
     /// invalidated copy constructor
