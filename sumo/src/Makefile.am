@@ -12,6 +12,7 @@ sumo_help.h
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./microsim/actions/libmsactions.a \
 ./utils/common/libcommon.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
@@ -98,11 +99,14 @@ sumo_gui_LDFLAGS = -L$(XERCES_LDFLAGS) $(QT_LDFLAGS) $(X_LDFLAGS)
 sumo_gui_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
+./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/popup/libguipopup.a \
 ./gui/partable/libguipartable.a \
+./gui/qdialogs/libguiqdialogs.a \
 ./gui/vartracker/libguivartracker.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./microsim/actions/libmsactions.a \
 ./utils/common/libcommon.a \
 ./utils/xml/libxml.a \
 ./utils/sumoxml/libsumoxml.a \
