@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/10/28 07:24:01  dkrajzew
+// false edge joining bug patched
+//
 // Revision 1.16  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -342,9 +345,9 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
     }
 
     // join clusters which where connections do disturb each other
-	if( IntVectorHelper::subSetExists(getDisturbanceParticipators(), myConnections)
+	if( IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), myConnections)
         ||
-        IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), c2->myConnections)) {
+        IntVectorHelper::subSetExists(getDisturbanceParticipators(), c2->myConnections)) {
 
 		return true;
 	}
