@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2003/06/05 10:29:54  roessel
+// Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
+//
 // Revision 1.14  2003/05/27 18:34:41  roessel
 // Removed parameter MSEventControl* evc from MSNet::init.
 // MSEventControl now accessible via the singleton-mechanism.
@@ -31,13 +34,17 @@
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.11  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.10  2003/04/07 10:29:02  dkrajzew
-// usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
+// usage of globaltime temporary fixed (is still used in
+// MSActuatedTrafficLightControl)
 //
 // Revision 1.9  2003/04/04 15:31:48  roessel
-// Commented out the #ifdef _DEBUG because some files claimed that globaltime is unknown. There are several files accessing the "debug" variables globaltime and searchedtime.
+// Commented out the #ifdef _DEBUG because some files claimed that globaltime
+// is unknown. There are several files accessing the "debug" variables
+// globaltime and searchedtime.
 //
 // Revision 1.8  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -52,10 +59,12 @@
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
 // Revision 1.4  2002/10/18 11:49:32  dkrajzew
-// usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
+// usage of MeanData rechecked for closing of the generated files and the
+// destruction of allocated ressources
 //
 // Revision 1.3  2002/10/17 10:45:17  dkrajzew
-// preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
+// preinitialisation added; errors due to usage of local myStep instead of
+// instance-global myStep patched
 //
 // Revision 1.2  2002/10/16 16:44:23  dkrajzew
 // globa file include; no usage of MSPerson; single step execution implemented
@@ -207,7 +216,8 @@ class MSLaneState;
  */
 class MSNet
 {
-    /// for some reasons, we won't be able to use static protected variables otherwise
+    /// for some reasons, we won't be able to use static protected variables
+    /// otherwise
     friend class GUINet;
 
 public:
@@ -232,7 +242,8 @@ public:
     typedef std::vector< Time > TimeVector;
 
     /**
-     * @brief Create unique instance of MSNet and initialize with the beginning timestep.
+     * @brief Create unique instance of MSNet and initialize with the
+     * beginning timestep.
      * To finish the initialization call &ref init.
      * @param startTimestep Timestep the simulation will start with.
      */
@@ -359,7 +370,8 @@ protected:
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
 
-    /// Definition of the static dictionary to associate string-ids with objects.
+    /// Definition of the static dictionary to associate string-ids with
+    /// objects.
     typedef std::map< std::string, MSNet* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
@@ -441,7 +453,7 @@ private:
 
 	size_t myEndedVehNo;
 
-    std::vector< MSLaneState* > laneStateDetectorsM;
+//     std::vector< MSLaneState* > laneStateDetectorsM;
 };
 
 
@@ -455,3 +467,5 @@ private:
 
 // Local Variables:
 // mode:C++
+// End:
+

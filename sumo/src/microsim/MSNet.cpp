@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.19  2003/06/05 10:29:54  roessel
+// Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
+//
 // Revision 1.18  2003/05/27 18:36:06  roessel
 // Removed parameter MSEventControl* evc from MSNet::init.
 // MSEventControl now accessible via the singleton-mechanism.
@@ -43,7 +46,8 @@ namespace
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.13  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.12  2003/04/16 10:05:06  dkrajzew
 // uah, debugging
@@ -52,7 +56,8 @@ namespace
 // some further bugs removed
 //
 // Revision 1.10  2003/04/07 10:29:02  dkrajzew
-// usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
+// usage of globaltime temporary fixed (is still used in
+// MSActuatedTrafficLightControl)
 //
 // Revision 1.9  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -70,10 +75,12 @@ namespace
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
 // Revision 1.4  2002/10/18 11:49:32  dkrajzew
-// usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
+// usage of MeanData rechecked for closing of the generated files and the
+// destruction of allocated ressources
 //
 // Revision 1.3  2002/10/17 10:45:17  dkrajzew
-// preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
+// preinitialisation added; errors due to usage of local myStep instead of
+// instance-global myStep patched
 //
 // Revision 1.2  2002/10/16 16:44:23  dkrajzew
 // globa file include; no usage of MSPerson; single step execution implemented
@@ -250,6 +257,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include "helpers/SingletonDictionary.h"
 #include "MSLaneState.h"
+#include "MSTravelcostDetector.h"
 
 
 /* =========================================================================
@@ -338,7 +346,8 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                   dumpMeanDataIntervalls.begin();
               it != dumpMeanDataIntervalls.end(); ++it ) {
 
-            string fileName   = baseNameDumpFiles + "_" + toString( *it ) + string(".xml");
+            string fileName   = baseNameDumpFiles + "_" + toString( *it ) +
+                string(".xml");
             ofstream* filePtr = new ofstream( fileName.c_str() );
             if( *filePtr==0 ) {
                 SErrorHandler::add(
@@ -359,7 +368,7 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                 "- noVehEntered is the number of vehicles that entered this lane\n"
                 "  during the current intervall either by move, emit or lanechange.\n"
                 "  Note that noVehEntered might be high if vehicles are emitted on\n"
-                "  this lane."
+                "  this lane.\n"
                 "- noVehLeft is the number of vehicles that left this lane during\n"
                 "  the current intervall by move.\n"
                 "- traveltime [s]\n"
@@ -392,7 +401,7 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
-    myInstance->myEvents       = MSEventControl::getInstance();
+//     myInstance->myEvents       = MSEventControl::getInstance();
     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
 
@@ -444,11 +453,16 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
             << "<sumo-results>" << endl;
     }
     
-    SingletonDictionary<
-        std::string, MSLaneState* >::getInstance()->setFindMode();
-    laneStateDetectorsM = SingletonDictionary<
-        std::string, MSLaneState* >::getInstance()->getStdVector();
+//     SingletonDictionary<
+//         std::string, MSLaneState* >::getInstance()->setFindMode();
+//     laneStateDetectorsM = SingletonDictionary<
+//         std::string, MSLaneState* >::getInstance()->getStdVector();
 
+    typedef MSTravelcostDetector< MSLaneState > Traveltime;
+    Traveltime::create( 900 );
+    Traveltime::getInstance()->addSampleInterval( 60 );
+    Traveltime::getInstance()->addSampleInterval( 300 );
+    
     // the simulation loop
     for ( myStep = start; myStep <= stop; ++myStep ) {
 		cout << myStep << (char) 13;
@@ -492,7 +506,12 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 		cout << step << endl;
 	}
 #endif
+    
+    // execute beginOfTimestepEvents
+    MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
 
+    MSLaneState::actionsBeforeMoveAndEmit();
+    
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
 
@@ -503,11 +522,10 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     myEdges->detectCollisions( myStep );
 
-    // execute Events
-    myEvents->execute(myStep);
+//     // execute Events
+//     myEvents->execute(myStep);
     
-    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
-              mem_fun( &MSLaneState::actionBeforeMove ) );
+
     
     // move Vehicles
     myJunctions->resetRequests();
@@ -519,6 +537,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     myEdges->moveFirst();
 
+    MSLaneState::actionsAfterMoveAndEmit();
+    
     myEdges->detectCollisions( myStep );
 
     // Let's detect.
@@ -526,12 +546,13 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         detec != myDetectors->end(); ++detec ) {
         ( *detec )->sample( simSeconds() );
     }
-    for_each( laneStateDetectorsM.begin(), laneStateDetectorsM.end(),
-              mem_fun( &MSLaneState::actionAfterMove ) );
-    
 
 
 
+    // Vehicles change Lanes (maybe)
+    myEdges->changeLanes();
+
+    myEdges->detectCollisions( myStep );
 
     // Check if mean-lane-data is due
     unsigned passedSteps = myStep - start + 1;
@@ -549,17 +570,17 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
                 << "</interval>\n";
         }
     }
-
-    // Vehicles change Lanes (maybe)
-    myEdges->changeLanes();
-
-    myEdges->detectCollisions( myStep );
+    
     // raw output.
     if ( craw ) {
         (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
         (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
         (*craw) << "    </timestep>" << endl;
     }
+
+    // execute endOfTimestepEvents
+    MSEventControl::getEndOfTimestepEvents()->execute(myStep);
+
 }
 
 
