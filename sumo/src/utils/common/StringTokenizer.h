@@ -2,7 +2,7 @@
 #define StringTokenizer_h
 /***************************************************************************
                           StringTokenizer.h
-			  A java-style StringTokenizer for c++ (stl)
+              A java-style StringTokenizer for c++ (stl)
                              -------------------
     project              : none
     begin                : ?
@@ -111,6 +111,8 @@ public:
 
     /** returns the item at the given position */
     std::string get(size_t pos) const;
+
+    std::vector<std::string> getVector();
 
 private:
     /** splits the first string at all occurences of the second */

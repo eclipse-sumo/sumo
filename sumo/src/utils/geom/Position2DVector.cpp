@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/07/02 09:44:40  dkrajzew
+// changes for 0.8.0.2
+//
 // Revision 1.24  2004/04/02 11:29:02  dkrajzew
 // computation of moving a line strip to the side patched (is still not correct to 100%)
 //
@@ -673,6 +676,10 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
 void
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 {
+    if(GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<0.1) {
+        copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
+        return;
+    }
     //
     Line2D l1(myCont[myCont.size()-2], myCont[myCont.size()-1]);
     l1.extrapolateBy(100);
@@ -691,34 +698,34 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 Position2DVector
 Position2DVector::getSubpart(double begin, double end) const
 {
-	Position2DVector ret;
-	Position2D begPos = positionAtLengthPosition(begin);
+    Position2DVector ret;
+    Position2D begPos = positionAtLengthPosition(begin);
     Position2D endPos = myCont[myCont.size()-1];
     if(length()>end) {
-	    endPos = positionAtLengthPosition(end);
+        endPos = positionAtLengthPosition(end);
     }
-	ret.push_back(begPos);
+    ret.push_back(begPos);
 
-	double seen = 0;
-	ContType::const_iterator i = myCont.begin();
-	// skip previous segments
-	while((i+1)!=myCont.end()
-		&&
-		seen+GeomHelper::distance((*i), *(i+1))<begin) {
-		seen += GeomHelper::distance((*i), *(i+1));
-		i++;
-	}
-	// append segments in between
-	while((i+1)!=myCont.end()
-		&&
-		seen+GeomHelper::distance((*i), *(i+1))<end) {
-		ret.push_back(*(i+1));
-		seen += GeomHelper::distance((*i), *(i+1));
-		i++;
-	}
-	// append end
-	ret.push_back(endPos);
-	return ret;
+    double seen = 0;
+    ContType::const_iterator i = myCont.begin();
+    // skip previous segments
+    while((i+1)!=myCont.end()
+        &&
+        seen+GeomHelper::distance((*i), *(i+1))<begin) {
+        seen += GeomHelper::distance((*i), *(i+1));
+        i++;
+    }
+    // append segments in between
+    while((i+1)!=myCont.end()
+        &&
+        seen+GeomHelper::distance((*i), *(i+1))<end) {
+        ret.push_back(*(i+1));
+        seen += GeomHelper::distance((*i), *(i+1));
+        i++;
+    }
+    // append end
+    ret.push_back(endPos);
+    return ret;
 }
 
 

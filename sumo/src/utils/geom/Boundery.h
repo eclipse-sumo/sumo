@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 09:44:40  dkrajzew
+// changes for 0.8.0.2
+//
 // Revision 1.7  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -80,7 +83,9 @@ public:
     bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
     bool partialWithin(const AbstractPoly &poly, double offset=0) const;
     bool crosses(const Position2D &p1, const Position2D &p2) const;
-    void grow(double by);
+    /** brief extends the boundery by the given amount
+        The method returns a reference to the instance for further use */
+    Boundery &grow(double by);
     void flipY();
     void set(double xmin, double ymin, double xmax, double ymax);
 

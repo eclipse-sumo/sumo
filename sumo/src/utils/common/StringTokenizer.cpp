@@ -1,6 +1,6 @@
 /***************************************************************************
                           StringTokenizer.cpp
-			  A java-style StringTokenizer for c++ (stl)
+              A java-style StringTokenizer for c++ (stl)
                              -------------------
     project              : none
     begin                : ?
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:42:36  dkrajzew
+// changes for 0.8.0.2
+//
 // Revision 1.3  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
 //
@@ -247,10 +250,21 @@ void StringTokenizer::prepareNewline(const string &tosplit) {
     }
 }
 
+
+std::vector<std::string>
+StringTokenizer::getVector()
+{
+    std::vector<std::string> ret;
+    ret.reserve(size());
+    while(hasNext()) {
+        ret.push_back(next());
+    }
+    reinit();
+    return ret;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "StringTokenizer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

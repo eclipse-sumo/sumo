@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:44:40  dkrajzew
+// changes for 0.8.0.2
+//
 // Revision 1.4  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
 // Revision 1.3  2003/11/12 13:48:49  dkrajzew
 // visualisation of tl-logics added
-//
 //
 /* =========================================================================
  * included modules
@@ -55,9 +57,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "HaveBoundery.icc"
-//#endif
 
 #endif
 

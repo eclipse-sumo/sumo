@@ -10,7 +10,8 @@ StringUtils.cpp StringUtils.h UtilExceptions.cpp UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
 SystemFrame.cpp SystemFrame.h LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
-XMLHelpers.cpp XMLHelpers.h
+XMLHelpers.cpp XMLHelpers.h \
+NamedObjectContSingleton.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)

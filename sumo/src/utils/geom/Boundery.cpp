@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 09:44:40  dkrajzew
+// changes for 0.8.0.2
+//
 // Revision 1.7  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -210,13 +213,14 @@ Boundery::partialWithin(const AbstractPoly &poly, double offset) const
 }
 
 
-void
+Boundery &
 Boundery::grow(double by)
 {
     _xmax += by;
     _ymax += by;
     _xmin -= by;
     _ymin -= by;
+    return *this;
 }
 
 
