@@ -80,11 +80,12 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 KDE_OPTIONS = qtonly
 sumo_gui_LDFLAGS = -L$(XERCESLIBPATH) \
 $(all_libraries)
-sumo_gui_LDADD =  ./guinetload/libguinetload.a \
+sumo_gui_LDADD =  ./gui/libgui.a \
+./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
-./gui/libgui.a \
-./gui/vartracker/libguivartracker.a \
+./gui/popup/libguipopup.a \
 ./gui/partable/libguipartable.a \
+./gui/vartracker/libguivartracker.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./utils/xml/libxml.a \
