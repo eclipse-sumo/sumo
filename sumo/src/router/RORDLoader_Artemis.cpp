@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -104,13 +107,6 @@ RORDLoader_Artemis::RORDLoader_Artemis(RONet &net, string file)
 
 RORDLoader_Artemis::~RORDLoader_Artemis()
 {
-}
-
-
-ROAbstractRouteDefLoader *
-RORDLoader_Artemis::getAssignedDuplicate(const std::string &file) const
-{
-    return new RORDLoader_Artemis(_net, file);
 }
 
 
@@ -232,16 +228,6 @@ RORDLoader_Artemis::report(const std::string &result)
         }
     }
     return true;
-}
-
-
-
-bool
-RORDLoader_Artemis::checkFile(const std::string &file) const
-{
-    return FileHelpers::exists(file + "/HVdests.txt")
-        &&
-        FileHelpers::exists(file + "/Flows.txt");
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.14  2004/01/26 09:54:29  dkrajzew
 // the loader now stops on errors as described within the manual
 //
@@ -161,22 +164,18 @@ ROLoader::openRoutes(RONet &net, float gBeta, float gA)
 {
 	// build loader
 	    // load additional precomputed sumo-routes when wished
-	openTypedRoutes(new RORDLoader_SUMORoutes(net), "sumo-input");
+	openTypedRoutes("sumo-input", net, gBeta, gA);
 		// load the XML-trip definitions when wished
-	openTypedRoutes(
-        new RORDLoader_TripDefs(net, myEmptyDestinationsAllowed),
-        "trip-defs");
+	openTypedRoutes("trip-defs", net, gBeta, gA);
 		// load the cell-routes when wished
-	openTypedRoutes(new RORDLoader_Cell(net, gBeta, gA), "cell-input");
+	openTypedRoutes("cell-input", net, gBeta, gA);
 		// load artemis routes when wished
-	openTypedRoutes(new RORDLoader_Artemis(net), "artemis-input");
+	openTypedRoutes("artemis-input", net, gBeta, gA);
 		// load the sumo-alternative file when wished
-	openTypedRoutes(new RORDLoader_SUMOAlt(net, gBeta, gA), "alternatives");
+	openTypedRoutes("alternatives", net, gBeta, gA);
 	// build generators
 		// load the amount definitions if wished
-	openTypedRoutes(
-        new RORDGenerator_ODAmounts(net, myEmptyDestinationsAllowed),
-        "flows");
+	openTypedRoutes("flows", net, gBeta, gA);
 		// check whether random routes shall be build, too
     if(_options.isSet("R")) {
         RORDGenerator_Random *randGen = new RORDGenerator_Random(net);
@@ -292,57 +291,125 @@ ROLoader::closeReading()
 
 
 void
-ROLoader::openTypedRoutes(ROAbstractRouteDefLoader *handler,
-                          const std::string &optionName)
+ROLoader::openTypedRoutes(const std::string &optionName,
+                          RONet &net, float gBeta, float gA)
 {
 	// check whether the current loader is wished
 	if(!_options.isSet(optionName)) {
-		delete handler;
 		return;
 	}
     // check the given files
     if(!FileHelpers::checkFileList(_options.getString(optionName))) {
         MsgHandler::getErrorInstance()->inform(
-            string("The list of ") + handler->getDataName() +
+            string("The list of ") + optionName +
             string("' is empty!"));
         throw ProcessError();
     }
     // allocate a reader and add it to the list
-    addToHandlerList(handler,
-		_options.getString(optionName));
+    addToHandlerList(optionName, net, gBeta, gA);
 }
 
 
 void
-ROLoader::addToHandlerList(ROAbstractRouteDefLoader *handler,
-                           const std::string &fileList)
+ROLoader::addToHandlerList(const std::string &optionName,
+                           RONet &net, float gBeta, float gA)
 {
+    string fileList = _options.getString(optionName);
     StringTokenizer st(fileList, ";");
     while(st.hasNext()) {
         // get the file name
         string file = st.next();
         // check whether the file can be used
         //  necessary due to the extensions within cell-import
-        if(!handler->checkFile(file)) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Problems with ")
-                + handler->getDataName() + string("-typed input '")
-                + file + string("'."));
-            throw ProcessError();
-        }
+        checkFile(optionName, file);
         // build the instance when everything's all right
         ROAbstractRouteDefLoader *instance =
-			handler->getAssignedDuplicate(file);
+            buildNamedHandler(optionName, file, net, gBeta, gA);
         if(!instance->init(_options)) {
             delete instance;
-            MsgHandler::getErrorInstance()->inform(string("The loader for ") + handler->getDataName()
-                + string(" from file '") + file + string("' could not be initialised."));
+            MsgHandler::getErrorInstance()->inform(string("The loader for ")
+                + optionName + string(" from file '") + file
+                + string("' could not be initialised."));
             throw ProcessError();
         }
         _handler.push_back(instance);
     }
-    // delete the archetype
-    delete handler;
+}
+
+
+ROAbstractRouteDefLoader*
+ROLoader::buildNamedHandler(const std::string &optionName,
+                            const std::string &file,
+                            RONet &net, float gBeta, float gA)
+{
+    if(optionName=="sumo-input") {
+        return new RORDLoader_SUMORoutes(net, file);
+    }
+    if(optionName=="trip-defs") {
+        return new RORDLoader_TripDefs(net,
+            myEmptyDestinationsAllowed, file);
+    }
+    if(optionName=="cell-input") {
+        return new RORDLoader_Cell(net, gBeta, gA, file);
+    }
+    if(optionName=="artemis-input") {
+        return new RORDLoader_Artemis(net, file);
+    }
+    if(optionName=="alternatives") {
+        return new RORDLoader_SUMOAlt(net, gBeta, gA, file);
+    }
+    if(optionName=="flows") {
+        return new RORDGenerator_ODAmounts(net,
+            myEmptyDestinationsAllowed, file);
+    }
+    throw 1;
+}
+
+
+void
+ROLoader::checkFile(const std::string &optionName,
+                    const std::string &file)
+{
+    if(optionName=="sumo-input") {
+        if(FileHelpers::exists(file)) {
+            return;
+        }
+    }
+    if(optionName=="trip-defs") {
+        if(FileHelpers::exists(file)) {
+            return;
+        }
+    }
+    if(optionName=="cell-input") {
+        if( FileHelpers::exists(file+string(".driver"))
+            &&
+            FileHelpers::exists(file+string(".rinfo"))) {
+
+            return;
+        }
+    }
+    if(optionName=="artemis-input") {
+        if( FileHelpers::exists(file + "/HVdests.txt")
+            &&
+            FileHelpers::exists(file + "/Flows.txt")) {
+
+            return;
+        }
+    }
+    if(optionName=="alternatives") {
+        if(FileHelpers::exists(file)) {
+            return;
+        }
+    }
+    if(optionName=="flows") {
+        if(FileHelpers::exists(file)) {
+            return;
+        }
+    }
+    MsgHandler::getErrorInstance()->inform(
+        string("Problems with ") + optionName + string("-typed input '")
+        + file + string("'."));
+    throw ProcessError();
 }
 
 

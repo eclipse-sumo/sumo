@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -70,9 +73,6 @@ public:
     /// Destructor
     virtual ~ROAbstractRouteDefLoader();
 
-    /// Returns the fully configurated loader of this type
-    virtual ROAbstractRouteDefLoader *getAssignedDuplicate(const std::string &file) const = 0;
-
     /** @brief Skips routes which begin before the given time
 		This method uses the method myReadRoutesAtLeastUntil(time) to overread
 		the first routes, so the loaders must determine by themselves whether
@@ -91,9 +91,6 @@ public:
 
     /// Initialises the reader
     bool init(OptionsCont &options);
-
-    /// Checks whether the file to use exists
-    virtual bool checkFile(const std::string &file) const;
 
     /// Returns the time the current (last read) route starts at
     virtual unsigned int getCurrentTimeStep() const = 0;

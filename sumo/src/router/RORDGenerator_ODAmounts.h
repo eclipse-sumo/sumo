@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.3  2004/02/02 16:19:23  dkrajzew
 // trying to catch up false user input (using the same name for different routes)
 //
@@ -66,9 +69,6 @@ public:
 
     /// Destructor
     ~RORDGenerator_ODAmounts();
-
-    /// Returns the fully configurated loader of this type
-    ROAbstractRouteDefLoader *getAssignedDuplicate(const std::string &file) const;
 
     /** @brief Returns the name of the data read.
         "XML-route definitions" is returned here */

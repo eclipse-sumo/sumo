@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.4  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -111,12 +114,12 @@ private:
 
     /** @brief Opens routes
         The loading structures were built in previous */
-    void openTypedRoutes(ROAbstractRouteDefLoader *handler,
-        const std::string &optionName);
+    void openTypedRoutes(const std::string &optionName,
+        RONet &net, float gBeta, float gA);
 
     /// Adds a route loader to the list of known route loaders
-    void addToHandlerList(ROAbstractRouteDefLoader *handler,
-        const std::string &fileList);
+    void addToHandlerList(const std::string &optionName,
+        RONet &net, float gBeta, float gA);
 
     /** @brief Skips routes which start before the wished time period
         This is done for all previously build route loaders */
@@ -124,6 +127,14 @@ private:
 
     /// Returns the first known time step
     unsigned int getMinTimeStep() const;
+
+private:
+    ROAbstractRouteDefLoader* buildNamedHandler(
+        const std::string &optionName, const std::string &file
+        , RONet &net, float gBeta, float gA);
+
+    void checkFile(const std::string &optionName
+        , const std::string &file);
 
 private:
     /// Options to use

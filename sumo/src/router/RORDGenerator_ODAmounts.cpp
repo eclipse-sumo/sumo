@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.5  2004/02/10 07:16:05  dkrajzew
 // removed some debug-variables
 //
@@ -357,14 +360,6 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
                 myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber);
         myFlows.push_back(fd);
     }
-}
-
-
-ROAbstractRouteDefLoader *
-RORDGenerator_ODAmounts::getAssignedDuplicate(const std::string &file) const
-{
-    return new RORDGenerator_ODAmounts(_net,
-        myEmptyDestinationsAllowed, file);
 }
 
 

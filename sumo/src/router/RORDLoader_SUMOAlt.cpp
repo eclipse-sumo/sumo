@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/02/16 13:47:07  dkrajzew
+// Type-dependent loader/generator-"API" changed
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -202,13 +205,6 @@ RORDLoader_SUMOAlt::myEndElement(int element, const std::string &name)
         endAlternative();
         _nextRouteRead = true;
     }
-}
-
-
-ROAbstractRouteDefLoader *
-RORDLoader_SUMOAlt::getAssignedDuplicate(const std::string &file) const
-{
-    return new RORDLoader_SUMOAlt(_net, _gawronBeta, _gawronA, file);
 }
 
 
