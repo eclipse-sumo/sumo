@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.29  2003/08/07 10:06:30  roessel
+// Added static member myCellLength and some conversion methods from
+// cells to meters, steps to seconds etc.. This will be moved out to a
+// class MSUnit soon. The cellLength for space-continuous models is 1,
+// but not for space-discrete models.
+//
 // Revision 1.28  2003/08/04 11:45:54  dkrajzew
 // missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
 //
@@ -339,6 +345,18 @@ public:
     /// Returns the timestep-length in seconds.
     static double deltaT();
 
+    /** 
+     * Get the models cellLength in meter
+     * 
+     * 
+     * @return The model's cellLength in meter
+     */
+    static double getCellLength( void )
+        {
+            return myCellLength;
+        }
+    
+
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
     double simSeconds();
@@ -399,16 +417,37 @@ public:
 
     Time getCurrentTimeStep() const;
 
-    static double getSeconds( double steps )
+    static double getSeconds( double steps ) 
         {
             return steps * myDeltaT;
         }
 
-    static Time getSteps( double seconds )
+    static Time getSteps( double seconds ) 
         {
             return static_cast< Time >(
                 floor( seconds / myDeltaT ) );
         }
+
+    static double getMeterPerSecond( double cellsPerTimestep ) 
+        {
+            return cellsPerTimestep * myCellLength / myDeltaT;
+        }
+
+    static double getMeters( double cells ) 
+        {
+            return cells * myCellLength;
+        }
+
+    static double getCells( double meter ) 
+        {
+            return meter / myCellLength;
+        }
+
+    static double getVehPerKm( double vehPerCell ) 
+        {
+            return vehPerCell * 1000.0 / myCellLength;
+        }
+    
 
 
     void newUnbuildVehicleLoaded();
@@ -456,6 +495,9 @@ protected:
 
     /// Timestep [sec]
     static double myDeltaT;
+
+    /// CellLength [m]. Is 1 for space-continous models like SK
+    static double myCellLength;
 
     /// Current time step.
     Time myStep;

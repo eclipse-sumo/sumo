@@ -25,6 +25,12 @@ namespace
 }
 
 // $Log$
+// Revision 1.33  2003/08/07 10:06:30  roessel
+// Added static member myCellLength and some conversion methods from
+// cells to meters, steps to seconds etc.. This will be moved out to a
+// class MSUnit soon. The cellLength for space-continuous models is 1,
+// but not for space-discrete models.
+//
 // Revision 1.32  2003/08/04 11:45:54  dkrajzew
 // missing deletion of traffic light logics on closing a network added; vehicle coloring scheme applied
 //
@@ -320,6 +326,7 @@ using namespace std;
 MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
+double MSNet::myCellLength = 1;
 
 MSNet::Time MSNet::globaltime;
 
