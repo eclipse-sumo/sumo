@@ -563,6 +563,10 @@ SOURCE=..\..\src\gui\partable\QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\QSimulationEndedEvent.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
@@ -1399,6 +1403,10 @@ InputPath=..\..\src\gui\partable\QParamPopupMenu.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QSimulationEndedEvent.h
 # End Source File
 # Begin Source File
 
