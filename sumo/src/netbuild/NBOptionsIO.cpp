@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/04/10 15:45:20  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.8  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -226,6 +229,7 @@ NBOptionsIO::init()
     oc->doRegister("recompute-junction-logics", new Option_Bool(false));
     oc->doRegister("omit-corrupt-edges", new Option_Bool(false));
     oc->doRegister("flip-y", new Option_Bool(false));
+    oc->doRegister("all-logics", new Option_Bool(false));
     oc->doRegister("speed-in-km", new Option_Bool(false));
     oc->doRegister("use-laneno-as-priority", new Option_Bool(false));
     return oc;

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/04/10 15:45:19  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.11  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -95,6 +98,7 @@ namespace
 #include <map>
 #include <algorithm>
 //#include <strstream>
+#include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundery.h>
 #include <utils/convert/ToString.h>
 #include "NBDistrict.h"
@@ -282,10 +286,10 @@ NBNodeCont::computeEdges2Lanes(bool verbose)
 
 // computes the "wheel" of incoming and outgoing edges for every node
 bool
-NBNodeCont::computeLogics(bool verbose, long maxSize, double minVehDecel)
+NBNodeCont::computeLogics(OptionsCont &oc)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->computeLogic(maxSize, minVehDecel);
+        (*i).second->computeLogic(oc);
     }
     return true;
 }

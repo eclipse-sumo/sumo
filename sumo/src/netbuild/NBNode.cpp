@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/04/10 15:45:18  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.13  2003/04/07 12:15:40  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -126,6 +129,7 @@ namespace
 #include <deque>
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 #include <iomanip>
 #include "NBNode.h"
 #include "NBNodeCont.h"
@@ -149,10 +153,11 @@ using namespace std;
  * static variable definitions
  * ======================================================================= */
 const int NBNode::TYPE_NOJUNCTION = 0;
-const int NBNode::TYPE_TRAFFIC_LIGHT = 1;
-const int NBNode::TYPE_PRIORITY_JUNCTION = 2;
-const int NBNode::TYPE_RIGHT_BEFORE_LEFT = 3;
-const int NBNode::TYPE_DISTRICT = 4;
+const int NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT = 1;
+const int NBNode::TYPE_ACTUATED_TRAFFIC_LIGHT = 2;
+const int NBNode::TYPE_PRIORITY_JUNCTION = 3;
+const int NBNode::TYPE_RIGHT_BEFORE_LEFT = 4;
+const int NBNode::TYPE_DISTRICT = 5;
 const int NBNode::TYPE_DEAD_END = -1;
 
 int NBNode::_noDistricts = 0;
@@ -431,7 +436,9 @@ NBNode::NBNode(const string &id, double x, double y,
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
     if(type=="traffic_light") {
-        _type = TYPE_TRAFFIC_LIGHT;
+        _type = TYPE_SIMPLE_TRAFFIC_LIGHT;
+    } else if(type=="actuated_traffic_light") {
+        _type = TYPE_ACTUATED_TRAFFIC_LIGHT;
     } else if(type=="priority") {
         _type = TYPE_PRIORITY_JUNCTION;
     } else if(type=="no_junction") {
@@ -440,6 +447,7 @@ NBNode::NBNode(const string &id, double x, double y,
         throw 1;
     }
 }
+
 
 
 NBNode::NBNode(const std::string &id, double x, double y, int type,
@@ -592,7 +600,9 @@ NBNode::setPriorities()
         (*i)->setJunctionPriority(this, 0);
     }
     // compute the priorities on junction when needed
-    if(_type==TYPE_PRIORITY_JUNCTION||_type==TYPE_TRAFFIC_LIGHT) {
+    if( _type==TYPE_PRIORITY_JUNCTION
+        ||_type==TYPE_SIMPLE_TRAFFIC_LIGHT
+        ||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
         setPriorityJunctionPriorities();
     }
 }
@@ -627,7 +637,7 @@ NBNode::computeType() const
             // As default, TYPE_TRAFFIC_LIGHT is used, this should be valid for
             //  most coarse networks
             // !!!
-            int tmptype = TYPE_TRAFFIC_LIGHT;
+            int tmptype = TYPE_SIMPLE_TRAFFIC_LIGHT;
             try {
                 tmptype = NBTypeCont::getJunctionType(
                     (*i)->getPriority(),
@@ -829,7 +839,8 @@ NBNode::writeXML(ostream &into)
         case TYPE_NOJUNCTION:
             into << " type=\"" << "none\"";
             break;
-        case TYPE_TRAFFIC_LIGHT:
+        case TYPE_SIMPLE_TRAFFIC_LIGHT:
+        case TYPE_ACTUATED_TRAFFIC_LIGHT:
             into << " type=\"" << "traffic_light\"";
             break;
         case TYPE_PRIORITY_JUNCTION:
@@ -853,7 +864,7 @@ NBNode::writeXML(ostream &into)
     into <<  ">" << endl;
     // write additional information about the traffic light presettings
     //  when the junction is a traffic light
-    if(_type==TYPE_TRAFFIC_LIGHT) {
+    if(_type==TYPE_SIMPLE_TRAFFIC_LIGHT||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
         into << "      <offset>" << 0 << "</offset>" << endl;
         into << "      <initstep>" << 0 << "</initstep>" << endl;
     }
@@ -885,7 +896,7 @@ NBNode::setKey(string key)
 
 
 void
-NBNode::computeLogic(long maxSize, double minVehDecel)
+NBNode::computeLogic(OptionsCont &oc)
 {
     if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
@@ -899,15 +910,16 @@ NBNode::computeLogic(long maxSize, double minVehDecel)
 
     // compute the logic if necessary or split the junction
     if(_type!=TYPE_NOJUNCTION&&_type!=TYPE_DISTRICT) {
-        computeLogic(request, maxSize);
+        computeLogic(request, oc);
     }
     // build the lights when needed
-    if(_type==TYPE_TRAFFIC_LIGHT) {
+    if(_type==TYPE_SIMPLE_TRAFFIC_LIGHT||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
         // compute the braking time
         double vmax = NBContHelper::maxSpeed(*_incomingEdges);
-        size_t brakingTime = (size_t) (vmax / 2.0);
+        size_t brakingTime = (size_t) (vmax / oc.getFloat("min-decel"));
         int build = request->buildTrafficLight(_id,
-            mySignalGroups, myCycleDuration, brakingTime);
+            mySignalGroups, myCycleDuration, brakingTime,
+            oc.getBool("all-logics"));
         if(build==0) {
             _type==TYPE_PRIORITY_JUNCTION;
         }
@@ -924,7 +936,8 @@ NBNode::setType(int type)
     case TYPE_NOJUNCTION:
         _noNoJunctions++;
         break;
-    case TYPE_TRAFFIC_LIGHT:
+    case TYPE_SIMPLE_TRAFFIC_LIGHT:
+    case TYPE_ACTUATED_TRAFFIC_LIGHT:
         _noTrafficLightJunctions++;
         break;
     case TYPE_PRIORITY_JUNCTION:
@@ -1002,7 +1015,7 @@ NBNode::sortNodesEdges()
 
 
 void
-NBNode::computeLogic(NBRequest *request, long maxSize)
+NBNode::computeLogic(NBRequest *request, OptionsCont &oc)
 {
 /*    if(_id=="318") {
         EdgeVector::iterator i;

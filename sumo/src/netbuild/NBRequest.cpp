@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/04/10 15:45:20  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.8  2003/04/07 12:15:43  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -403,11 +406,12 @@ NBRequest::getSizes() const
 int
 NBRequest::buildTrafficLight(const std::string &key,
                              const NBNode::SignalGroupCont &defs,
-                             size_t cycleTime, size_t breakingTime) const
+                             size_t cycleTime, size_t breakingTime,
+                             bool buildAll) const
 {
     NBTrafficLightLogicVector *logics = defs.size()!=0
         ? buildLoadedTrafficLights(key, defs, cycleTime)
-        : buildOwnTrafficLights(key, breakingTime);
+        : buildOwnTrafficLights(key, breakingTime, buildAll);
     NBTrafficLightLogicCont::insert(key, logics);
     return logics->size();
 }
@@ -480,7 +484,8 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
 
 NBTrafficLightLogicVector *
 NBRequest::buildOwnTrafficLights(const std::string &key,
-                                 size_t breakingTime) const
+                                 size_t breakingTime,
+                                 bool buildAll) const
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -493,27 +498,29 @@ NBRequest::buildOwnTrafficLights(const std::string &key,
             joinLaneLinks, removeTurnArounds, removal,
             appendSmallestOnly, skipLarger, breakingTime);
 
-    joinLaneLinks = false;
-    removeTurnArounds = true;
-    removal = LRT_NO_REMOVAL;
-    NBTrafficLightLogicVector *logics2 =
-        computeTrafficLightLogics(key,
-            joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger, breakingTime);
+    if(buildAll) {
+        joinLaneLinks = false;
+        removeTurnArounds = true;
+        removal = LRT_NO_REMOVAL;
+        NBTrafficLightLogicVector *logics2 =
+            computeTrafficLightLogics(key,
+                joinLaneLinks, removeTurnArounds, removal,
+                appendSmallestOnly, skipLarger, breakingTime);
 
-    joinLaneLinks = false;
-    removeTurnArounds = true;
-    removal = LRT_REMOVE_ALL_LEFT;
-    NBTrafficLightLogicVector *logics3 =
-        computeTrafficLightLogics(key,
-            joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger, breakingTime);
+        joinLaneLinks = false;
+        removeTurnArounds = true;
+        removal = LRT_REMOVE_ALL_LEFT;
+        NBTrafficLightLogicVector *logics3 =
+            computeTrafficLightLogics(key,
+                joinLaneLinks, removeTurnArounds, removal,
+                appendSmallestOnly, skipLarger, breakingTime);
 
-    // join build logics
-    logics1->add(*logics2);
-    logics1->add(*logics3);
-    delete logics2;
-    delete logics3;
+        // join build logics
+        logics1->add(*logics2);
+        logics1->add(*logics3);
+        delete logics2;
+        delete logics3;
+    }
     return logics1;
 }
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/10 15:45:18  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -91,7 +94,7 @@ using namespace std;
  * ======================================================================= */
 NBJunctionTypesMatrix::NBJunctionTypesMatrix()
 {
-    _map['t'] = NBNode::TYPE_TRAFFIC_LIGHT;
+    _map['t'] = NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT;
     _map['x'] = NBNode::TYPE_NOJUNCTION;
     _map['p'] = NBNode::TYPE_PRIORITY_JUNCTION;
     _map['r'] = NBNode::TYPE_RIGHT_BEFORE_LEFT;

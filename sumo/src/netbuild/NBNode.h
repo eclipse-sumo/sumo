@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/04/10 15:45:19  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.10  2003/04/07 12:15:41  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -108,6 +111,7 @@
  * ======================================================================= */
 class NBRequest;
 class NBDistrict;
+class OptionsCont;
 
 
 /* =========================================================================
@@ -237,7 +241,9 @@ public:
     /** internal type for no-junction */
     static const int TYPE_NOJUNCTION;
     /** internal type for a traffic-light-junction */
-    static const int TYPE_TRAFFIC_LIGHT;
+    static const int TYPE_SIMPLE_TRAFFIC_LIGHT;
+    /** internal type for a traffic-light-junction */
+    static const int TYPE_ACTUATED_TRAFFIC_LIGHT;
     /** internal type for a priority-junction */
     static const int TYPE_PRIORITY_JUNCTION;
     /** internal type for a right-before-left junction */
@@ -315,7 +321,7 @@ public:
     void computeEdges2Lanes();
 
     /// computes the node's type, logic and traffic light
-    void computeLogic(long maxSize, double minVehDecel);
+    void computeLogic(OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges();
@@ -408,7 +414,7 @@ private:
     void setPriorityJunctionPriorities();
 
     /// computes the logic
-    void computeLogic(NBRequest *request, long maxSize);
+    void computeLogic(NBRequest *request, OptionsCont &oc);
 
     /** used while fine sorting the incoming and outgoing edges, this method
         performs the swapping of two edges in the _allEdges-list when the

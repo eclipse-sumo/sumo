@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/04/10 15:45:20  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.5  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -82,6 +85,7 @@ class NBEdge;
 class NBJunctionTypeIO;
 class NBTrafficLightLogic;
 class NBTrafficLightPhases;
+class OptionsCont;
 
 
 /* =========================================================================
@@ -131,7 +135,7 @@ public:
     /// builds the traffic light logics
     int buildTrafficLight(const std::string &key,
         const NBNode::SignalGroupCont &defs, size_t cycleTime,
-        size_t breakingTime) const;
+        size_t breakingTime, bool buildAll) const;
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
@@ -176,7 +180,7 @@ private:
         const NBNode::SignalGroupCont &defs, size_t cycleTime) const;
 
     NBTrafficLightLogicVector *buildOwnTrafficLights(
-        const std::string &key, size_t breakingTime) const;
+        const std::string &key, size_t breakingTime, bool buildAll) const;
 
 
     /** compute the traffic light logics for the current node and the

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/04/10 15:45:19  dkrajzew
+// some lost changes reapplied
+//
 // Revision 1.10  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -97,7 +100,7 @@
  * class declarations
  * ======================================================================= */
 class NBDistrict;
-
+class OptionsCont;
 
 
 /* =========================================================================
@@ -149,8 +152,7 @@ public:
     static bool computeEdges2Lanes(bool verbose);
 
     /// build the list of outgoing edges and lanes
-    static bool computeLogics(bool verbose, long maxSize,
-        double minVehDecel);
+    static bool computeLogics(OptionsCont &oc);
 
     /// sorts the nodes' edges
     static bool sortNodesEdges(bool verbose);
