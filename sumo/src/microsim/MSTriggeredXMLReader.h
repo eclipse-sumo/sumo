@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/09/22 14:56:07  dkrajzew
+// base debugging
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -68,7 +71,7 @@ protected:
     /// reads from the XML-file (parses from file)
     bool readNextTriggered();
 
-private:
+protected:
     /// The used SAX-parser
     SAX2XMLReader* myParser;
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/09/22 14:56:06  dkrajzew
+// base debugging
+//
 // Revision 1.4  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -118,6 +121,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
     // set the values for the next step as they are valid
     _currentSpeed = speed;
     _offset = MSNet::Time(next) - _offset;
+    _nextRead = true;
 }
 
 

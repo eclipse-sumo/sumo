@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/09/22 14:56:06  dkrajzew
+// base debugging
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -54,7 +57,8 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand( void )
 
 
 MSNet::Time
-MSTriggeredReader::MSTriggerCommand::execute() {
+MSTriggeredReader::MSTriggerCommand::execute()
+{
     _parent.processNext();
     _parent.readNextTriggered();
     return _parent._offset;
@@ -62,7 +66,7 @@ MSTriggeredReader::MSTriggerCommand::execute() {
 
 
 MSTriggeredReader::MSTriggeredReader(MSNet &net)
-    : PreStartInitialised(net)
+    : PreStartInitialised(net), _offset(0)
 {
 }
 

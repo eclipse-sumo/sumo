@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/09/22 14:56:07  dkrajzew
+// base debugging
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -46,6 +49,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include "MSEventControl.h"
 #include "MSTriggeredReader.h"
 #include "MSTriggeredXMLReader.h"
 
@@ -84,12 +88,17 @@ MSTriggeredXMLReader::init(MSNet &net)
     myParser->setFeature(
         XMLString::transcode(
             "http://apache.org/xml/features/validation/dynamic" ), false );
+    myParser->setContentHandler( this );
+    myParser->setErrorHandler( this );
     if(!myParser->parseFirst(_file.c_str(), myToken)) {
         MsgHandler::getErrorInstance()->inform(
             string("Can not read XML-file '") + _file + string("'."));
         throw ProcessError();
     }
-    while(!readNextTriggered());
+    if(readNextTriggered()) {
+        MSEventControl::getBeginOfTimestepEvents()->addEvent(
+            new MSTriggerCommand(*this), _offset, MSEventControl::ADAPT_AFTER_EXECUTION);
+    }
 }
 
 
