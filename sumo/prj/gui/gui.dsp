@@ -39,6 +39,7 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
 # PROP Intermediate_Dir "Release"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /MD /w /W0 /GR /GX /O2 /I "d:\libs\xerces-c2_1_0-win32\include" /I "d:\libs\xerces-c2_1_0-win32\include\xercesc" /I "..\..\src" /I "d:\libs\glut\\" /I "d:\libs\qt\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /YX /FD /c
@@ -49,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\gui.exe ..\..\bin\gui.exe
@@ -77,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 opengl32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\gui.exe ..\..\bin\guiD.exe
@@ -286,7 +287,7 @@ SOURCE=..\..\src\gui\moc_QAboutSUMO.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+SOURCE=..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp
 # End Source File
 # Begin Source File
 
@@ -506,11 +507,11 @@ SOURCE=..\..\src\gui\QAboutSUMO.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QGLObjectPopupMenu.cpp
+SOURCE=..\..\src\gui\popup\QGLObjectPopupMenu.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QGLObjectPopupMenuItem.cpp
+SOURCE=..\..\src\gui\popup\QGLObjectPopupMenuItem.cpp
 # End Source File
 # Begin Source File
 
@@ -1217,25 +1218,25 @@ InputPath=..\..\src\gui\QAboutSUMO.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QGLObjectPopupMenu.h
+SOURCE=..\..\src\gui\popup\QGLObjectPopupMenu.h
 
 !IF  "$(CFG)" == "gui - Win32 Release"
 
-# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h...
-InputPath=..\..\src\gui\QGLObjectPopupMenu.h
+# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h ...
+InputPath=..\..\src\gui\popup\QGLObjectPopupMenu.h
 
-"..\..\src\gui\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\QGLObjectPopupMenu.h -o ..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+"..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\popup\QGLObjectPopupMenu.h -o ..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp
 
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
 
-# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h...
-InputPath=..\..\src\gui\QGLObjectPopupMenu.h
+# Begin Custom Build - Moc'ing QGLObjectPopupMenu.h ...
+InputPath=..\..\src\gui\popup\QGLObjectPopupMenu.h
 
-"..\..\src\gui\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\QGLObjectPopupMenu.h -o ..\..\src\gui\moc_QGLObjectPopupMenu.cpp
+"..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\popup\QGLObjectPopupMenu.h -o ..\..\src\gui\popup\moc_QGLObjectPopupMenu.cpp
 
 # End Custom Build
 
@@ -1244,7 +1245,7 @@ InputPath=..\..\src\gui\QGLObjectPopupMenu.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QGLObjectPopupMenuItem.h
+SOURCE=..\..\src\gui\popup\QGLObjectPopupMenuItem.h
 # End Source File
 # Begin Source File
 
@@ -1399,10 +1400,6 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # Begin Source File
 
 SOURCE="..\..\..\..\..\libs\qt\lib\qt-mt230nc.lib"
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\libs\glut\glut32.lib
 # End Source File
 # Begin Source File
 
