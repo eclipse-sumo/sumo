@@ -6,6 +6,7 @@
 
 #include "Image.h"
 #include <fx.h>
+#include "ConfigDialog.h"
 
 Image::Image(FXImage *img,FXApp *a)
 {
@@ -91,108 +92,124 @@ void Image::ExtractStreets()
 Führt eine Erosion durch, d.h. eine Verdünnung
 der Schwärzen Flächen des Bildes
 */
-void Image::Erode()
+void Image::Erode(ConfigDialog* myDialog)
 {
-    //Hole Höhe und Breite des Image
-    FXint wid = m_img->getWidth();
-    FXint hei = m_img->getHeight();
+    FXSlider* my = myDialog->getEroSlider();
+	int ende=my->getValue();
+	
+	for(int lauf=0; lauf<=ende;lauf++)
+	{
+		//Hole Höhe und Breite des Image
+		FXint wid = m_img->getWidth();
+		FXint hei = m_img->getHeight();
 
-    //Integer-Varaiblen für die Schleifendurchläufe
-    FXint i,j,k,m;
+		//Integer-Varaiblen für die Schleifendurchläufe
+		FXint i,j,k,m;
 
-    bool tester= true;
+		bool tester= true;
 
-    //Durchlaufe das Image
-    for (i=0 ; i<wid ; i++)
-        for (j=0; j<hei ; j++)
-        {
-             //Überprüfe die Nachbarn des aktuellen Pixels
-            for (k=i-1 ; k<=i+1 ; k++)
-                for (m=j-1 ; m<=j+1 ;m++)
-                {
-                    //Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
-                    if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
-                    {
-                        //Hole die Farbe des aktuellen Pixels
-                        FXColor col=m_img->getPixel(k,m);
+		//Durchlaufe das Image
+		for (i=0 ; i<wid ; i++)
+			for (j=0; j<hei ; j++)
+			{
+				 //Überprüfe die Nachbarn des aktuellen Pixels
+				for (k=i-1 ; k<=i+1 ; k++)
+					for (m=j-1 ; m<=j+1 ;m++)
+					{
+						//Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
+						if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
+						{
+							//Hole die Farbe des aktuellen Pixels
+							FXColor col=m_img->getPixel(k,m);
 
-                        //Wenn Pixel nicht schwarz ist, setze tester auf false
-                        if(!(col==FXRGB(0,0,0)))
-                            tester = false;
-                    }
-                }
+							//Wenn Pixel nicht schwarz ist, setze tester auf false
+							if(!(col==FXRGB(0,0,0)))
+								tester = false;
+						}
+					}
 
-        // Wenn wir keine nichtschwarzen Nachbarpixel haben, bleibt das Pixel schwarz
-        if (tester == true)
-            m_transimg->setPixel(i,j,FXRGB(0,0,0));
+			// Wenn wir keine nichtschwarzen Nachbarpixel haben, bleibt das Pixel schwarz
+			if (tester == true)
+				m_transimg->setPixel(i,j,FXRGB(0,0,0));
 
-        // Sonst wird es auf weiß gesetzt
-        else
-            m_transimg->setPixel(i,j,FXRGB(255,255,255));//weiß
-        tester=true;
-        }
+			// Sonst wird es auf weiß gesetzt
+			else
+				m_transimg->setPixel(i,j,FXRGB(255,255,255));//weiß
+			tester=true;
+			}
 
-    //Kopiere das Bearbeitungsimage in das Anzeigeimage
-    Copy(m_transimg,m_img);
+		//Kopiere das Bearbeitungsimage in das Anzeigeimage
+		Copy(m_transimg,m_img);
+		lauf++;
+	}
 }
 
 /*
 Invers zur Erosion, d.h. hier werden die schwarzen
 Flächen verbreitert
 */
-void Image::Dilate()
+void Image::Dilate(ConfigDialog* myDialog)
 {
-    //Siehe Methode Erode
-    int wid = m_img->getWidth();
-    int hei = m_img->getHeight();
-    int i,j,k,m;
-    bool tester = true;
-    for (i=0 ; i<wid ; ++i)
-        for (j=0; j<hei ; ++j)
-        {
-            //Überprüfe die Nachbarn des aktuellen Pixels
-            for (k=i-1 ; k<=i+1 ; ++k)
-                for (m=j-1 ; m<=j+1 ;++m)
-                {
-                    //Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
-                    if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
-                    {
-                        FXColor col=m_img->getPixel(k,m);
-                        //Wenn Farbe nicht weiß ist, setze tester auf false
-                        if(col!=FXRGB(255,255,255))
-                            tester = false;
+	FXSlider* mySlider= myDialog->getDilSlider();
+	int value=mySlider->getValue();
 
-                    }
-                }
+	for(int go =0; go <= value; go++)
+	{
+	
+		//Siehe Methode Erode
+		int wid = m_img->getWidth();
+		int hei = m_img->getHeight();
+		int i,j,k,m;
+		bool tester = true;
+		for (i=0 ; i<wid ; ++i)
+			for (j=0; j<hei ; ++j)
+			{
+				//Überprüfe die Nachbarn des aktuellen Pixels
+				for (k=i-1 ; k<=i+1 ; ++k)
+					for (m=j-1 ; m<=j+1 ;++m)
+					{
+						//Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
+						if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
+						{
+							FXColor col=m_img->getPixel(k,m);
+							//Wenn Farbe nicht weiß ist, setze tester auf false
+							if(col!=FXRGB(255,255,255))
+								tester = false;
 
-        // Wenn wir keine nichtweißen Nachbarpixel haben, bleibt das Pixel weiß
-        if (tester == true)
-            m_transimg->setPixel(i,j,FXRGB(255,255,255));
+						}
+					}
 
-        // Sonst wird es auf schwarz gesetzt
-        else
-            m_transimg->setPixel(i,j,FXRGB(0,0,0));
-        tester = true;
-        }
-    Copy(m_transimg,m_img);
+			// Wenn wir keine nichtweißen Nachbarpixel haben, bleibt das Pixel weiß
+			if (tester == true)
+				m_transimg->setPixel(i,j,FXRGB(255,255,255));
+
+			// Sonst wird es auf schwarz gesetzt
+			else
+				m_transimg->setPixel(i,j,FXRGB(0,0,0));
+			tester = true;
+			}
+		Copy(m_transimg,m_img);
+		go++;
+	}
 }
 
 /*
 Führt erst eine Erosion, dann eine Dilatation durch
 */
-void Image::Opening()
+void Image::Opening(ConfigDialog* myDialog)
 {
-    Erode();
-    Dilate();
+    
+	Erode(myDialog);
+    Dilate(myDialog);
 }
 
 /*
 Invers zu Opening(Dilatation->Erosion)
 */
-void Image::Closing()
+void Image::Closing(ConfigDialog* myDialog)
 {
-    Dilate();
-    Erode();
+    Dilate(myDialog);
+    Erode(myDialog);
 }
 
 void Image::CloseGaps()
@@ -591,9 +608,12 @@ void Image::RarifySkeleton()
 }
 
 
-Graph Image::Tracking(Graph gr)
+Graph Image::Tracking(Graph gr,ConfigDialog* myDialog)
 {
-    Vertex* temp=NULL;
+	FXSlider* mySlider=myDialog->getNodeSlider();
+	int value= mySlider->getValue();
+	
+	Vertex* temp=NULL;
 
     //Hole die Breite und Höhe des Image
     int wid = m_img->getWidth();
@@ -619,19 +639,19 @@ Graph Image::Tracking(Graph gr)
             if(m_img->getPixel(i,j)==FXRGB(0,0,0))
             {
                 //´-1,-1´ bedeutet, daß kein Vorgängerpixel existiert
-                Graph hilfsgr=Pixel_Counter(i,j,-1,-1,0,gr,temp);
+                Graph hilfsgr=Pixel_Counter(i,j,-1,-1,0,gr,temp,value);
 
                 //Nur wenn die neue Zusammenhangskomponente mehr als 20 Knoten enthält, wird sie in den Graphen aufgenommen
                 if (hilfsgr.Number_of_Vertex()-gr.Number_of_Vertex()>20)
                     gr=hilfsgr;
             }
-	gr.Reduce_plus();
-	gr.MergeVertex();
+    //	gr.Reduce_plus();
+	//gr.MergeVertex(10);
     return gr;
 }
 
 
-Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, Vertex* temp)
+Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, Vertex* temp,int value)
 {
 
     int neighbour_counter;
@@ -705,7 +725,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         //Der Pixel liegt auf einer ´Linie´..
         if(neighbour_counter==1)
         {
-            if((p_counter>0)&&(p_counter<20))
+            if((p_counter>0)&&(p_counter<value))
             {
                 ++p_counter;
                 //rot .. der Pixel wird gelöscht
@@ -713,7 +733,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
             }
             else
             {
-                if(p_counter==20)
+                if(p_counter==value)
                     p_counter=0;
                 ++p_counter;
                 //gelb
@@ -763,7 +783,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         while (iter !=n_List.end())
         {
             if(m_img->getPixel(iter->GetX(),iter->GetY())==FXRGB(0,0,255))
-				gr=Pixel_Counter(iter->GetX(),iter->GetY(),i,j,1,gr,temp);
+				gr=Pixel_Counter(iter->GetX(),iter->GetY(),i,j,1,gr,temp,value);
             iter++;
         }
     }
@@ -773,9 +793,12 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
 }
 
 
-void Image::EraseStains(int deep)
+void Image::EraseStains(ConfigDialog* myDialog)
 {
-    //Hole Breite und Höhe des Image
+    FXSlider* mySlider= myDialog->getEraSlider();
+	int deep=mySlider->getValue();
+	
+	//Hole Breite und Höhe des Image
     int wid = m_img->getWidth();
     int hei = m_img->getHeight();
 

@@ -45,23 +45,23 @@ public:
     Führt eine Erosion durch, d.h. eine Verdünnung
     der Schwärzen Flächen des Bildes
     */
-    void Erode();
+    void Erode(ConfigDialog* myDialog);
 
     /*
     Invers zur Erosion, d.h. hier werden die schwarzen
     Flächen verbreitert
     */
-    void Dilate();
+    void Dilate(ConfigDialog* myDialog);
 
     /*
     Führt erst eine Erosion, dann eine Dilatation durch
     */
-    void Opening();
+    void Opening(ConfigDialog* myDialog);
 
     /*
     Invers zu Opening(Dilatation->Erosion)
     */
-    void Closing();
+    void Closing(ConfigDialog* myDialog);
 
     /*
     Färbt weiße Pixel schwarz, die mehr als fünf schwarze
@@ -85,17 +85,17 @@ public:
     Entfernt scharze Elemente(Fragmente), die
     nicht zu Straßen gehören
     */
-    void EraseStains(int deep);
+    void EraseStains(ConfigDialog* myDialog);
 
     /*
     Erzeugt einen Graphen aus dem minimalen Skelett
     */
-    Graph Tracking(Graph gr);
+    Graph Tracking(Graph gr, ConfigDialog* myDialog);
 
     /*
     Hilfsmethode für die Grapherzeugung (Tracking)
     */
-    Graph Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr,Vertex* temp);
+    Graph Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr,Vertex* temp, int value);
 
     /*
     Malt die Knoten des Graphen ins Bild
