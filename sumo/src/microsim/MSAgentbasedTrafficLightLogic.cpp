@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/11/20 13:25:41  dkrajzew
+// unneded debug outputs removed
+//
 // Revision 1.7  2003/11/18 14:26:55  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -87,13 +90,6 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
     // change values for setting the detectors, here
     double laneStateDetectorLength = 75; // length of the detecor
     std::vector<MSLane*>::const_iterator i;
-
-    cout << _id << ":";
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        cout << (*i)->id() << ", " << endl;
-    }
-
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
