@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/16 15:21:16  dkrajzew
+// conversion tools splitted and relocated to avoid mandatory inclusion of unused files
+//
 // Revision 1.4  2003/07/07 08:13:15  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
@@ -55,7 +58,7 @@ namespace
 #include <netload/NLNetHandler.h>
 #include <netload/NLContainer.h>
 #include <utils/convert/TplConvert.h>
-#include <utils/convert/ConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
@@ -133,7 +136,7 @@ GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
 void
 GUINetHandler::addJunctionShape(const std::string &chars)
 {
-    Position2DVector shape = ConvHelper::parseShape(chars);
+    Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addJunctionShape(shape);
 }
 
@@ -141,7 +144,7 @@ GUINetHandler::addJunctionShape(const std::string &chars)
 void
 GUINetHandler::addLaneShape(const std::string &chars)
 {
-    Position2DVector shape = ConvHelper::parseShape(chars);
+    Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
 }
 
