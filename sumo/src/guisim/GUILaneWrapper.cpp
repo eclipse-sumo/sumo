@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/01 11:15:09  dkrajzew
+// GUILaneStateReporter moved to guisim
+//
 // Revision 1.12  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -78,7 +81,7 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-#include <gui/GUILaneStateReporter.h>
+#include "GUILaneStateReporter.h"
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
