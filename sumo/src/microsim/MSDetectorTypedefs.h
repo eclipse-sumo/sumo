@@ -34,6 +34,7 @@
 #include "MSNVehicles.h"
 #include "MSSpaceMeanSpeed.h"
 #include "MSCurrentHaltingDurationSumPerVehicle.h"
+#include "MSApproachingVehiclesStates.h"
 
 namespace Detector 
 {
@@ -62,11 +63,16 @@ namespace Detector
     typedef MSMeanDetector< MSE2Detector< MSNVehicles > > E2NVehicles;
 
     typedef MSMeanDetector< MSE2Detector<
+        MSOccupancyDegree > > E2OccupancyDegree;
+
+    typedef MSMeanDetector< MSE2Detector<
         MSSpaceMeanSpeed > > E2SpaceMeanSpeed;
 
     typedef MSMeanDetector< MSE2Detector<
         MSCurrentHaltingDurationSumPerVehicle > >
     E2CurrentHaltingDurationSumPerVehicle;
+
+    typedef MSApproachingVehiclesStates E2ApproachingVehiclesStates;
     
 }
 
