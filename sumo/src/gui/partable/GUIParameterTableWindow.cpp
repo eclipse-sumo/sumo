@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/08/14 13:38:25  dkrajzew
+// applied other window controls
+//
 // Revision 1.5  2003/07/30 08:48:28  dkrajzew
 // new parameter table usage paradigm; undocummented yet
 //
@@ -67,7 +70,9 @@ using namespace std;
  * ======================================================================= */
 GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
                                                  GUIGlObject &o )
-	: QDialog( 0, 0 ), myObject(o),
+	: QDialog( 0, 0, FALSE,
+        WStyle_Customize | WStyle_NormalBorder | WStyle_Title | WStyle_SysMenu ),
+    myObject(o),
     myApplication(app)
 {
     setCaption(string(o.getFullName() + " Parameter").c_str() );
