@@ -14,11 +14,12 @@ MSDetectorCounterContainerWrapper.cpp \
 MSDetectorFileOutput.cpp \
 MSDetectorOccupancyCorrection.cpp \
 MSDetectorSubSys.cpp \
-MSEDDetectorInterface.cpp \
-MSLDDetectorInterface.cpp \
-MSTDDetectorInterface.cpp \
+MSE2Collector.cpp \
+MSE3Collector.cpp \
 MSE3MeanNHaltings.cpp \
 MSE3NVehicles.cpp \
+MSE3Traveltime.cpp \
+MSEDDetectorInterface.cpp \
 MSEdge.cpp \
 MSEdgeControl.cpp \
 MSEmitControl.cpp \
@@ -33,6 +34,7 @@ MSJamLengthSum.cpp \
 MSJunction.cpp \
 MSJunctionControl.cpp \
 MSJunctionLogic.cpp \
+MSLDDetectorInterface.cpp \
 MSLane.cpp \
 MSLaneChanger.cpp \
 MSLaneSpeedTrigger.cpp \
@@ -40,10 +42,10 @@ MSLaneState.cpp \
 MSLink.cpp \
 MSLogicJunction.cpp \
 MSMaxJamLength.cpp \
-MSNet.cpp \
-MSNoLogicJunction.cpp \
 MSNStartedHalts.cpp \
 MSNVehicles.cpp \
+MSNet.cpp \
+MSNoLogicJunction.cpp \
 MSOccupancyDegree.cpp \
 MSQueueLengthAheadOfTrafficLights.cpp \
 MSRightOfWayJunction.cpp \
@@ -55,9 +57,9 @@ MSSimpleTrafficLightLogic.cpp \
 MSSource.cpp \
 MSSourceLane.cpp \
 MSSpaceMeanSpeed.cpp \
+MSTDDetectorInterface.cpp \
 MSTLLogicControl.cpp \
 MSTrafficLightLogic.cpp \
-MSE3Traveltime.cpp \
 MSTriggeredReader.cpp \
 MSTriggeredSource.cpp \
 MSTriggeredSourceXMLHandler.cpp \
@@ -67,9 +69,7 @@ MSVehicle.cpp \
 MSVehicleContainer.cpp \
 MSVehicleTransfer.cpp \
 MSVehicleType.cpp \
-MS_E2_ZS_Collector.cpp \
 MS_E2_ZS_CollectorOverLanes.cpp \
-MS_E3_Collector.cpp \
 MSActuatedPhaseDefinition.h \
 MSActuatedTrafficLightLogic.h \
 MSAgentbasedTrafficLightLogic.h \
@@ -85,15 +85,14 @@ MSDetectorFileOutput.h \
 MSDetectorHaltingContainerWrapper.h \
 MSDetectorOccupancyCorrection.h \
 MSDetectorSubSys.h \
-MSEDDetector.h \
-MSEDDetectorInterface.h \
-MSLDDetector.h \
-MSLDDetectorInterface.h \
-MSTDDetector.h \
-MSTDDetectorInterface.h \
+MSE2Collector.h \
+MSE3Collector.h \
 MSE3MeanNHaltings.h \
 MSE3MoveReminder.h \
 MSE3NVehicles.h \
+MSE3Traveltime.h \
+MSEDDetector.h \
+MSEDDetectorInterface.h \
 MSEdge.h \
 MSEdgeControl.h \
 MSEmitControl.h \
@@ -108,6 +107,8 @@ MSJamLengthSum.h \
 MSJunction.h \
 MSJunctionControl.h \
 MSJunctionLogic.h \
+MSLDDetector.h \
+MSLDDetectorInterface.h \
 MSLane.h \
 MSLaneChanger.h \
 MSLaneSpeedTrigger.h \
@@ -118,10 +119,10 @@ MSLogicJunction.h \
 MSMaxJamLength.h \
 MSMeanDetector.h \
 MSMoveReminder.h \
-MSNet.h \
-MSNoLogicJunction.h \
 MSNStartedHalts.h \
 MSNVehicles.h \
+MSNet.h \
+MSNoLogicJunction.h \
 MSObserver.h \
 MSOccupancyDegree.h \
 MSPredicates.h \
@@ -137,10 +138,11 @@ MSSourceLane.h \
 MSSpaceMeanSpeed.h \
 MSSubject.h \
 MSSumDetector.h \
+MSTDDetector.h \
+MSTDDetectorInterface.h \
 MSTLLogicControl.h \
 MSTrafficLightLogic.h \
 MSTravelcostDetector.h \
-MSE3Traveltime.h \
 MSTrigger.h \
 MSTriggeredReader.h \
 MSTriggeredSource.h \
@@ -153,9 +155,7 @@ MSVehicle.h \
 MSVehicleContainer.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
-MS_E2_ZS_Collector.h \
-MS_E2_ZS_CollectorOverLanes.h \
-MS_E3_Collector.h
+MS_E2_ZS_CollectorOverLanes.h 
 
 SUBDIRS = actions logging
 

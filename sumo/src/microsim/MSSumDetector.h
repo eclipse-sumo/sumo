@@ -38,8 +38,8 @@ class MSSumDetector : public DetectorType
 {
     enum ContainerType { JUST_VALUE = 0, TIME_VALUE_STRUCT };
     
-    friend class MS_E2_ZS_Collector; // only MS_E2/3_ZS_Collector have
-    friend class MS_E3_Collector; // access to ctor
+    friend class MSE2Collector; // only MSE2/3Collector have
+    friend class MSE3Collector; // access to ctor
     
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;

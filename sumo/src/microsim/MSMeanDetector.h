@@ -35,8 +35,8 @@ template < class DetectorType
            , bool hasTimeValueCont = false >
 class MSMeanDetector : public MSSumDetector< DetectorType, hasTimeValueCont >
 {
-    friend class MS_E2_ZS_Collector; // only MS_E2/3_ZS_Collector has
-    friend class MS_E3_Collector; // access to ctor
+    friend class MSE2Collector; // only MSE2/3Collector has
+    friend class MSE3Collector; // access to ctor
     
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;

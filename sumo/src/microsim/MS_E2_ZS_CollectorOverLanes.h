@@ -1,7 +1,7 @@
 #ifndef MS_E2_ZS_CollectorOverLanes_h
 #define MS_E2_ZS_CollectorOverLanes_h
 
-#include "MS_E2_ZS_Collector.h"
+#include "MSE2Collector.h"
 
 
 
@@ -9,7 +9,7 @@ class
 MS_E2_ZS_CollectorOverLanes
 {
 public:
-    typedef std::vector< MS_E2_ZS_Collector* > CollectorCont;
+    typedef std::vector< MSE2Collector* > CollectorCont;
     typedef std::map<std::string, std::vector<std::string> > LaneContinuations;
 
     MS_E2_ZS_CollectorOverLanes( std::string id,
@@ -96,7 +96,7 @@ protected:
     void extendTo(double length, const LaneContinuations &laneContinuations);
     std::string  makeID( const std::string &baseID,
         size_t c, size_t r ) const;
-    virtual MS_E2_ZS_Collector *buildCollector(size_t c, size_t r,
+    virtual MSE2Collector *buildCollector(size_t c, size_t r,
         MSLane *l, double start, double end);
 
 
@@ -111,7 +111,7 @@ protected:
 
     typedef std::vector<MSLane*> LaneVector;
     typedef std::vector<LaneVector> LaneVectorVector;
-    typedef std::vector<MS_E2_ZS_Collector*> DetectorVector;
+    typedef std::vector<MSE2Collector*> DetectorVector;
     typedef std::vector<DetectorVector> DetectorVectorVector;
     typedef std::vector<double> DoubleVector;
     typedef DoubleVector LengthVector;
@@ -125,7 +125,7 @@ protected:
 
     std::string myID;
     std::string myStartLaneID;
-    typedef std::map<MSLane*, MS_E2_ZS_Collector*> LaneDetMap;
+    typedef std::map<MSLane*, MSE2Collector*> LaneDetMap;
 
     LaneDetMap myAlreadyBuild;
 

@@ -1,15 +1,15 @@
-#ifndef MS_E3_COLLECTOR_H
-#define MS_E3_COLLECTOR_H
+#ifndef MSE3COLLECTOR_H
+#define MSE3COLLECTOR_H
 
-/**
- * @file   MS_E3_Collector.h
- * @author Christian Roessel
- * @date   Started Tue Nov 25 12:39:10 2003
- * @version $Id$
- * @brief  
- * 
- * 
- */
+///
+/// @file    MSE3Collector.h
+/// @author  Christian Roessel <christian.roessel@dlr.de>
+/// @date    Started Tue Dec 02 2003 22:17 CET
+/// @version $Id$
+///
+/// @brief   
+///
+///
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
@@ -60,7 +60,7 @@ namespace E3
 
 //using namespace E3;
 
-class MS_E3_Collector : public MSDetectorFileOutput
+class MSE3Collector : public MSDetectorFileOutput
 {
 public:
 
@@ -70,12 +70,12 @@ public:
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
     typedef SingletonDictionary<
-        std::string, MS_E3_Collector* > E3Dictionary;
+        std::string, MSE3Collector* > E3Dictionary;
     typedef std::vector< Detector::E3EntryReminder* > EntryReminders;
     typedef std::vector< Detector::E3LeaveReminder* > LeaveReminders;
     
 
-    MS_E3_Collector(
+    MSE3Collector(
         std::string id
         , Detector::CrossSections entries
         , Detector::CrossSections exits
@@ -114,7 +114,7 @@ public:
             }
         }
     
-    virtual ~MS_E3_Collector( void )
+    virtual ~MSE3Collector( void )
         {
             deleteContainer( entryRemindersM );
             deleteContainer( leaveRemindersM );
@@ -197,7 +197,7 @@ public:
      */
     std::string  getNamePrefix( void ) const
         {
-            return std::string("MS_E3_Collector");
+            return std::string("MSE3Collector");
         }
 
     /**
@@ -425,9 +425,8 @@ private:
 };
 
 
-
 // Local Variables:
 // mode:C++
 // End:
 
-#endif // MS_E3_COLLECTOR_H
+#endif // MSE3COLLECTOR_H

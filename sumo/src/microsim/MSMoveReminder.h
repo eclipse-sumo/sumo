@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.12  2003/12/02 21:48:10  roessel
+// Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
+//
 // Revision 1.11  2003/10/08 08:05:06  roessel
 // Commented out overloaded isStillActive method. Makes no sense unless
 // newSpeed can be retrieved by MSVehicle.
@@ -114,19 +117,8 @@ public:
     virtual bool isStillActive( MSVehicle& veh,
                                 double oldPos,
                                 double newPos,
-                                double newSpeed )
-        {
-            assert (false);
-            return false;
-        }
-//     virtual bool isStillActive( MSVehicle& veh,
-//                                 double oldPos,
-//                                 double newPos )
-//         {
-//             assert (false);
-//             return false;
-//         }
-
+                                double newSpeed ) = 0;
+    
     /**
      *  Informs corresponding detector if vehicle leaves reminder
      *  by lanechange.

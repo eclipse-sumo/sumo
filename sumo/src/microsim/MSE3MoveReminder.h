@@ -28,7 +28,7 @@
 #include <string>
 #include "helpers/TypeManip.h"
 
-class MS_E3_Collector;
+class MSE3Collector;
 class MSLane;
 class MSVehicle;
 
@@ -40,7 +40,7 @@ public:
     MSE3MoveReminder(
         std::string id
         , MSCrossSection crossSection
-        , MS_E3_Collector& collector
+        , MSE3Collector& collector
         )
         : MSMoveReminder( &( crossSection.laneM ), id )
           , collectorM( collector )
@@ -102,7 +102,7 @@ private:
         }
 
     
-    MS_E3_Collector& collectorM;
+    MSE3Collector& collectorM;
     MSUnit::Cells posM;
 };
 

@@ -23,8 +23,8 @@
 
 #include <string>
 #include <helpers/SingletonDictionary.h>
-#include "MS_E2_ZS_Collector.h"
-#include "MS_E3_Collector.h"
+#include "MSE2Collector.h"
+#include "MSE3Collector.h"
 
 class MSLaneState;
 class MSInductLoop;
@@ -34,8 +34,8 @@ class MSDetectorSubSys {
 public:
     typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
     typedef SingletonDictionary< std::string, MSInductLoop* > LoopDict;
-    typedef MS_E2_ZS_Collector::E2Dictionary E2Dict;
-    typedef MS_E3_Collector::E3Dictionary E3Dict;
+    typedef MSE2Collector::E2Dictionary E2Dict;
+    typedef MSE3Collector::E3Dictionary E3Dict;
     typedef SingletonDictionary< std::string, MS_E2_ZS_CollectorOverLanes* >
         E2ZSOLDict;
 

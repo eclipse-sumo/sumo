@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.32  2003/12/02 21:48:27  roessel
+// Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
+//
 // Revision 1.31  2003/11/26 09:35:03  dkrajzew
 // special case of being unset (==-1) applied to min/max of actuated/agentbase phase definitions
 //
@@ -58,7 +61,7 @@ namespace
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSInductLoop.h>
-#include <microsim/MS_E2_ZS_Collector.h>
+#include <microsim/MSE2Collector.h>
 #include <microsim/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSAgentbasedTrafficLightLogic.h>

@@ -1,12 +1,12 @@
-/**
- * @file   MS_E3_Collector.cpp
- * @author Christian Roessel
- * @date   Started Tue Nov 25 12:40:18 2003
- * @version $Id$
- * @brief  
- * 
- * 
- */
+///
+/// @file    MSE3Collector.cpp
+/// @author  Christian Roessel <christian.roessel@dlr.de>
+/// @date    Started Tue Dec 02 2003 22:17 CET
+/// @version $Id$
+///
+/// @brief   
+///
+///
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
 
@@ -19,18 +19,16 @@
 //
 //---------------------------------------------------------------------------//
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include "MS_E3_Collector.h"
+#include "MSE3Collector.h"
 
-// static member
-std::string MS_E3_Collector::xmlHeaderM(
+std::string MSE3Collector::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
 "<!--\n"
-"- nE3Vehicles [veh]\n"
+"- nVehicles [veh]\n"
 "- meanTraveltime [s]\n"
 "- meanNHaltsPerVehicle [n]\n"
 "-->\n\n");

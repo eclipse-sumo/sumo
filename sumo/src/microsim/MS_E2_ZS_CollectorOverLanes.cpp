@@ -43,7 +43,7 @@ MS_E2_ZS_CollectorOverLanes::init(
     myLaneCombinations.push_back(LaneVector());
     myLaneCombinations[0].push_back(lane);
     myDetectorCombinations.push_back(DetectorVector());
-    MS_E2_ZS_Collector *c =
+    MSE2Collector *c =
         buildCollector(0, 0, lane, startPosM, length);
     myDetectorCombinations[0].push_back(c);
     myAlreadyBuild[lane] = c;
@@ -105,7 +105,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     LaneVector nlv = lv;
                     nlv.push_back(l);
                     DetectorVector ndv = dv;
-                    MS_E2_ZS_Collector *coll = 0;
+                    MSE2Collector *coll = 0;
                     if(myAlreadyBuild.find(l)==myAlreadyBuild.end()) {
                         coll = buildCollector(0, 0, l, 0.1, lanelen);
                     } else {
@@ -126,7 +126,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
 }
 
 
-MS_E2_ZS_Collector *
+MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             double start, double end)
 {
@@ -134,7 +134,7 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
     if(start+end<l->length()) {
         start = l->length() - end - 0.1;
     }
-    return new MS_E2_ZS_Collector(id,
+    return new MSE2Collector(id,
         l, start, end, haltingTimeThresholdM,
         haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
 }

@@ -24,14 +24,12 @@
 
 #include "MSDetectorContainerWrapper.h"
 #include "MSUnit.h"
-//#include "MS_E2_ZS_Collector.h"
 #include <string>
 #include <vector>
-//#include <iterator>
 
 class MSApproachingVehiclesStates 
 {
-    friend class MS_E2_ZS_Collector;
+    friend class MSE2Collector;
 public:
 
     class VehicleState
