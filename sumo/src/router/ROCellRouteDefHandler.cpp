@@ -105,6 +105,7 @@ ROCellRouteDefHandler::readNextRoute(long start)
         new ROVehicle(id, altDef, _driverParser.getRouteStart(),
         _net.getDefaultVehicleType()));
     _netRouteRead = true;
+    return true;
 }
 
 

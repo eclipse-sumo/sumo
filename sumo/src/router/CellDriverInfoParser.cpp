@@ -58,7 +58,7 @@ CellDriverInfoParser::computeRouteNo()
         _routeNo = _driver.route[_driver.lastroute];
     } else {
         // get the shortest route
-        float min = 1E+37; // !!! some kind of a float-max
+        float min = float(1E+37); // !!! some kind of a float-max
         for(int i=0; i<3; i++) {
             if (_driver.p[i] <= 1.0 &&
                 _driver.p[i] >=0 &&
