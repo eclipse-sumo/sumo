@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/08/02 11:29:37  dkrajzew
+// first steps towards user-defined color gradients usage
+//
 // Revision 1.4  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -85,6 +88,9 @@ protected:
 protected:
     /// The list of edges to consider at drawing
     std::vector<GUIEdge*> &myEdges;
+
+    /// The gradient used
+    static std::vector<RGBColor> myDensityGradient;
 
 private:
     bool myUseExponential;

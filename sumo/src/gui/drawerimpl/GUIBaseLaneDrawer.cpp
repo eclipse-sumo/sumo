@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 11:29:37  dkrajzew
+// first steps towards user-defined color gradients usage
+//
 // Revision 1.6  2004/07/02 08:12:51  dkrajzew
 // global object selection added
 //
@@ -73,11 +76,22 @@ using namespace std;
 
 
 /* =========================================================================
+ * static member variables
+ * ======================================================================= */
+std::vector<RGBColor> GUIBaseLaneDrawer::myDensityGradient;
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUIBaseLaneDrawer::GUIBaseLaneDrawer(std::vector<GUIEdge*> &edges)
     : myEdges(edges), myUseExponential(true)
 {
+    if(myDensityGradient.size()==0) {
+        myDensityGradient =
+            gGradients->getRGBColors(
+                GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
+    }
 }
 
 
@@ -186,9 +200,16 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
             if(density==-1) {
                 glColor3f(0.5, 0.5, 0.5);
             } else {
-//                density /= 2.0;
-                //0xe6, 0x98
-                glColor3f(density, 1.0-density, 0);
+                if(density<0) {
+                    density = 0; // !!! Aua!!!
+                }
+                if(density>1) {
+                    density = 1; // !!! Aua!!!
+                }
+                int idx = (int) (density * 100.0);
+                assert(idx<myDensityGradient.size());
+                const RGBColor &c = myDensityGradient[idx];
+                glColor3f(c.red(), c.green(), c.blue());
             }
         }
         break;
