@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/22 15:09:50  dkrajzew
+// errors on building and warnings removed
+//
 // Revision 1.3  2003/07/21 11:05:31  dkrajzew
 // patched some bugs found in first real-life execution
 //
@@ -36,7 +39,6 @@ namespace
  * included modules
  * ======================================================================= */
 #include <algorithm>
-#include "NGNetElements.h"
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
@@ -47,6 +49,7 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
+#include "NGNetElements.h"
 
 
 /* =========================================================================

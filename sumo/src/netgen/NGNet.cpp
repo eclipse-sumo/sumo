@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/22 15:09:50  dkrajzew
+// errors on building and warnings removed
+//
 // Revision 1.2  2003/07/21 11:05:30  dkrajzew
 // patched some bugs found in first real-life execution
 //
@@ -80,7 +83,7 @@ TNGNet::GetID()
 
 void
 TNGNet::SaveNet(char* FileName)
-{
+{/*
 	FILE* File;
 	// --------- nodes ---------------------------------------------------------
 	char NodeName[LENGTH];
@@ -92,8 +95,8 @@ TNGNet::SaveNet(char* FileName)
 	// node
 	TNodeList::iterator ni;
     for (ni = NodeList.begin(); ni != NodeList.end(); ++ni) {
-		fprintf(File, "%s%d%s", "   <node id=\"", (*ni)->GetID(), "\" ");
-		fprintf(File, "%s%f%s%f%s%", "x=\"", (*ni)->x(), "\" y=\"", (*ni)->y(), "\" ");
+		fprintf(File, "%s%d%s", "   <node id=\"", (*ni)->GetID().c_str(), "\" ");
+		fprintf(File, "%s%f%s%f%s%", (const char*) "x=\"", (*ni)->x(), (const char *)"\" y=\"", (*ni)->y(), "\" ");
 		fprintf(File, "%s\n", "type=\"priority\"/>");
 	}
 	// end
@@ -111,12 +114,12 @@ TNGNet::SaveNet(char* FileName)
     for (li = LinkList.begin(); li != LinkList.end(); ++li) {
 //   <edge id="1i" fromnode="1" tonode="0" type="25"/>
    		fprintf(File, "%s%d%s", "   <edge id=\"", (*li)->GetID(), "\" ");
-		fprintf(File, "%s%d%s%d%s%", "fromnode=\"", (*li)->StartNode()->GetID(), "\" tonode=\"", (*li)->EndNode()->GetID(), "\" ");
+		fprintf(File, "%s%d%s%d%s", "fromnode=\"", (*li)->StartNode()->GetID(), "\" tonode=\"", (*li)->EndNode()->GetID(), "\" ");
 		fprintf(File, "%s\n", "type=\"25\"/>");
 	}
 	// end
 	fprintf(File, "</edges>\n\n");
-	fclose(File);
+	fclose(File);*/
 }
 
 
