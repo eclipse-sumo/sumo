@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/04/02 11:26:26  dkrajzew
+// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
+//
 // Revision 1.7  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -220,6 +223,15 @@ private:
 
     /// The file to write the computed route alternatives into
     std::ofstream *myRouteAlternativesOutput;
+
+    /// number of read routes
+    size_t myReadRouteNo;
+
+    /// number of discarded routes
+    size_t myDiscardedRouteNo;
+
+    /// number of written routes
+    size_t myWrittenRouteNo;
 
 private:
     /// we made the copy constructor invalid

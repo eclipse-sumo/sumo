@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/04/02 11:26:26  dkrajzew
+// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
+//
 // Revision 1.16  2004/01/26 09:54:59  dkrajzew
 // error handling corrected
 //
@@ -97,6 +100,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 
 
 /* =========================================================================
@@ -110,7 +114,8 @@ using namespace std;
  * ======================================================================= */
 RONet::RONet(bool multireferencedRoutes)
     : _vehicleTypes(new ROVehicleType_Krauss()),
-    myRoutesOutput(0), myRouteAlternativesOutput(0)
+    myRoutesOutput(0), myRouteAlternativesOutput(0),
+    myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0)
 {
 }
 
@@ -254,6 +259,7 @@ void
 RONet::addVehicle(const std::string &id, ROVehicle *veh)
 {
     _vehicles.add(id, veh);
+    myReadRouteNo++;
 }
 
 
@@ -299,13 +305,19 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
-    if(current->getFirst()->getLength()<=veh->getType()->getLength()) {
+    while(current->getFirst()->getLength()<=veh->getType()->getLength()) {
         mh->inform(string("The vehicle '")
             + veh->getID()
             + string("' is too long to start at edge '")
             + current->getFirst()->getID() + string("'."));
-        delete current;
-        return false;
+        if(!options.getBool("move-on-short")||current->size()<3) {
+            mh->inform(" Discarded.");
+            delete current;
+            return false;
+        }
+        current->pruneFirst();
+        mh->inform(string(" Prunned (now starting at '")
+            + current->getFirst()->getID() + string("')."));
     }
     // add build route
     routeDef->addAlternative(current, veh->getDepartureTime());
@@ -328,13 +340,32 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         std::vector<ROVehicle*>,
         ROHelper::VehicleByDepartureComperator>
         &sortedVehicles = _vehicles.sort();
+    long lastTime = -1;
     // write all vehicles (and additional structures)
     while(!sortedVehicles.empty()) {
         // get the next vehicle
         ROVehicle *veh = sortedVehicles.top();
-        if(veh->getDepartureTime()>time) {
+        long currentTime = veh->getDepartureTime();
+        // check whether it shall not yet be computed
+        if(currentTime>time) {
             break;
         }
+        // check whether to print the output
+        if(lastTime!=currentTime&&lastTime!=-1) {
+            // report writing progress
+            if( options.getInt("stats-period")>=0
+                &&
+                (currentTime%options.getInt("stats-period"))==0) {
+
+                MsgHandler::getMessageInstance()->inform(
+                    string("Read: ") + toString<int>(myReadRouteNo)
+                    + string(",  Discarded: ") + toString<int>(myDiscardedRouteNo)
+                    + string(",  Written: ") + toString<int>(myWrittenRouteNo));
+            }
+        }
+        lastTime = currentTime;
+
+        // ok, compute the route (try it)
         sortedVehicles.pop();
         // write the route
         if(saveRoute(options, router, veh)) {
@@ -345,6 +376,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
 				veh->saveTypeAndSelf(*myRoutesOutput,
 					*myRouteAlternativesOutput, *_vehicleTypes.getDefault());
 			}
+            myWrittenRouteNo++;
+        } else {
+            myDiscardedRouteNo++;
         }
         // remove the route if it is not longer used
         removeRouteSecure(veh->getRoute());
