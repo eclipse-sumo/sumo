@@ -22,28 +22,25 @@
 //
 //---------------------------------------------------------------------------//
 
-// $Id
+// $Id$
 
 #include "MSMoveReminder.h"
-#include "MSNet.h"
 #include "MSLane.h"
 #include "MSUnit.h"
 #include "MSVehicle.h"
 #include <deque>
-#include <list>
 #include <string>
-#include <utility>
 #include <algorithm>
 #include <functional>
-
-
-
+#include <iterator>
+#include <numeric>
 
 template < class Detector >
-class MSE2Detector : public MSMoveReminder, public Detector
+class MSE2Detector : public MSMoveReminder,
+                     public Detector
 {
 public:
-    typedef typename Detector::DetAggregate DetAggregate;
+    typedef typename Detector::DetectorAggregate DetAggregate;
     typedef typename Detector::VehicleCont VehicleCont;
     typedef typename VehicleCont::iterator VehicleContIter;
 
@@ -64,7 +61,7 @@ public:
     // call every timestep. Stores detector-data in a container
     void update( void )
         {
-            aggregatesM.push_back( getDetAggregate( vehOnDetectorM ) );
+            aggregatesM.push_back( getDetectorAggregate( vehOnDetectorM ) );
         }
 
     // returns the last aggregated data value
@@ -74,7 +71,7 @@ public:
         }
 
     // returns the mean value of the lastNSeconds
-    DetAggregate getMean( MSNet::Time lastNSeconds )
+    DetAggregate getMean( MSUnit::Seconds lastNSeconds )
         {
             MSUnit* unit = MSUnit::getInstance();
             AggregatesContIter start =
@@ -107,14 +104,14 @@ public:
             }
             if ( newPos - veh.length() < startPosM ) {
                 // vehicle entered detector partially
-                occupancyEntryCorrection( veh, ( newPos - startPosM ) /
-                                          veh.length() );
+                setOccupancyEntryCorrection( veh, ( newPos - startPosM ) /
+                                             veh.length() );
             }
             if ( newPos > endPosM && newPos - veh.length() <= endPosM ) {
                 // vehicle left detector partially
-                occupancyLeaveCorrection( veh, ( endPosM -
-                                                 (newPos - veh.length() ) ) /
-                                          veh.length() );
+                setOccupancyLeaveCorrection( veh, (endPosM -
+                                                   (newPos - veh.length() ) ) /
+                                             veh.length() );
             }               
             if ( newPos - veh.length() > endPosM ) {
                 // vehicle will leave detector
@@ -144,14 +141,15 @@ public:
                 enterDetectorByEmitOrLaneChange( veh );
                 if ( veh.pos() - veh.length() < startPosM ) {
                     // vehicle entered detector partially
-                    occupancyEntryCorrection(veh, ( veh.pos() - startPosM ) /
+                    setOccupancyEntryCorrection(veh, (veh.pos() - startPosM ) /
                                              veh.length() );
                 }
                 if ( veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
                     // vehicle left detector partially
-                    occupancyLeaveCorrection(veh, ( endPosM -
-                                                    (veh.pos()-veh.length())) /
-                                             veh.length() );
+                    setOccupancyLeaveCorrection(veh,
+                                                ( endPosM -
+                                                  (veh.pos() - veh.length()))/
+                                                veh.length() );
                 }               
                 return true;
             }
@@ -177,7 +175,7 @@ private:
                                 // the vehicles that are currently on the
                                 // detector.
 
-    AggregatesContIter getStartIterator( MSNet::Time lastNTimesteps )
+    AggregatesContIter getStartIterator( MSUnit::Seconds lastNTimesteps )
         {
             AggregatesContIter start = aggregatesM.begin();
             if ( aggregatesM.size() > lastNTimesteps ) {
