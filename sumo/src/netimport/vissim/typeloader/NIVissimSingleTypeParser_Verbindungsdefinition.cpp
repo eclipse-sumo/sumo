@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 09:24:04  dkrajzew
+// reinserted the needed but removed check
+//
 // Revision 1.7  2003/07/22 15:11:25  dkrajzew
 // removed warnings
 //
@@ -105,7 +108,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
                 ));
             tag = myRead(from);
             try {
-//                double tmp = TplConvert<char>::_2float(tag.c_str());
+                double tmp = TplConvert<char>::_2float(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException &e) {
             }
