@@ -1004,6 +1004,15 @@
               --output-file=MySUMOFile.net.xml</para>
             </blockquote>
 
+            <para>As Vissim-networks do not hold explicite definitions of a
+            edge&#39;s speed, we have to use the vehicle flow definitions. Two
+            parameter control this process. &#34;vissim-default-speed&#34; is
+            the definition of the speed limit to use when no information is
+            available in m/s. The default value for this parameter is 50km/h.
+            The second parameter &#34;vissim-speed-norm&#34; describes the
+            factor to multiply a described flows maximum velocity to gain the
+            velocity to use.</para>
+
             <para>During import, different actions must be done which may
             yield in some loss of data and may be watched in part by setting
             the verbose option. The additional warnings will be described in a
@@ -2517,6 +2526,31 @@
           allowed on an edge in m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
           [ --priority | -P ] &#60;INT&#62;</para><para>The default priority
           of an edge. Default: 1</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Import-type dependent parameter</title>
+
+          <sect4>
+            <title>For Vissim-Imports</title>
+
+            <itemizedlist>
+              <listitem>
+                <para>OPTIONAL: [ --vissim-speed-norm ] &#60;DOUBLE&#62;</para>
+
+                <para>A factor that is multiplied with a streams maximum
+                velocity to determine the velocity to use for an edge.
+                Default: 1.0</para>
+              </listitem>
+
+              <listitem>
+                <para>OPTIONAL: [ --vissim-default-speed ] &#60;DOUBLE&#62;</para>
+
+                <para>The default speed to use for a street when no
+                information is available</para>
+              </listitem>
+            </itemizedlist>
+          </sect4>
         </sect3>
 
         <sect3>
