@@ -23,17 +23,23 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/12/09 11:27:50  dkrajzew
+// removed some dead code
+//
 // Revision 1.4  2003/08/14 13:47:44  dkrajzew
-// false usage of function-pointers patched; false inclusion of .moc-files removed
+// false usage of function-pointers patched; false inclusion of .moc-files
+//  removed
 //
 // Revision 1.3  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
 // Revision 1.2  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner than
+//  GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.1  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 //
 /* =========================================================================
@@ -62,24 +68,6 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
-
-
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
-/*const char * const
-GUIJunctionWrapper::myTableItems[] =
-{
-    "type", 0
-};
-
-const TableType
-GUIJunctionWrapper::myTableItemTypes[] =
-{
-    TT_DOUBLE
-};
-*/
-
 
 
 /* =========================================================================
@@ -148,38 +136,6 @@ GUIJunctionWrapper::microsimID() const
 }
 
 
-
-/*
-
-const char * const
-GUIJunctionWrapper::getTableItem(size_t pos) const
-{
-    return myTableItems[pos];
-}
-
-
-TableType
-GUIJunctionWrapper::getTableType(size_t pos) const
-{
-    return myTableItemTypes[pos];
-}
-
-
-double
-GUIJunctionWrapper::getTableParameter(size_t pos) const
-{
-    throw 1;
-}
-*/
-/*
-
-void
-GUIJunctionWrapper::fillTableParameter(double *parameter) const
-{
-}
-
-*/
-
 Boundery
 GUIJunctionWrapper::getBoundery() const
 {
@@ -201,9 +157,6 @@ GUIJunctionWrapper::getShape() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIJunctionWrapper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

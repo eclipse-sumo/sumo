@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/12/09 11:27:50  dkrajzew
+// removed some dead code
+//
 // Revision 1.5  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -30,10 +33,12 @@
 // removed some warnings
 //
 // Revision 1.2  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner than
+//  GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.1  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 //
 /* =========================================================================
@@ -51,7 +56,6 @@
 #include <gui/GUIGlObjectStorage.h>
 #include <gui/popup/QGLObjectPopupMenu.h>
 #include <gui/GUIGlObject.h>
-//#include <gui/TableTypes.h>
 
 
 /* =========================================================================
@@ -65,6 +69,10 @@ class MSJunction;
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUIJunctionWrapper
+ * As MSJunctions do not have a graphical representation but a complex
+ *  inheritance tree, this class is used to encapsulate the geometry of an
+ *  abstract junction and to be used as a gl-object.
  */
 class GUIJunctionWrapper :
             public GUIGlObject,
@@ -82,6 +90,8 @@ public:
     QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
+    /** @brief Build this gl-object's parameter window
+        Throws an exception in fact as junctions do not have any parameter */
     GUIParameterTableWindow *getParameterWindow(
         GUIApplicationWindow &app, GUISUMOAbstractView &parent);
 
@@ -94,25 +104,22 @@ public:
     /// returns the shape of the junction
     const Position2DVector &getShape() const;
 
+    /// Returns the boundery of the junction
     Boundery getBoundery() const;
-
-    static void fill(std::vector<GUIJunctionWrapper*> &list,
-        GUIGlObjectStorage &idStorage);
 
 protected:
 
+    /// returns the information whether this item is still an active part of the sim
 	bool active() const { return true; }
 
 protected:
 
+    /// A reference to the real junction
     MSJunction &myJunction;
 
+    /// The junction's shape
     Position2DVector myShape;
-/*
-    static const char * const myTableItems[];
 
-    static const TableType myTableItemTypes[];
-*/
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
