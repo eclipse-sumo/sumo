@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/13 07:46:57  dkrajzew
+// handling of continuation (geometry) nodes added
+//
 // Revision 1.1  2004/01/12 15:26:11  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -1290,14 +1293,19 @@ NBNode::chooseLaneOffset2(DoubleVector &chk)
 double
 NBNode::getOffset(Position2DVector on, Position2DVector cross) const
 {
-    if(!on.intersects(cross)) {
-        return -1;
+    if(on.intersects(cross)) {
+        DoubleVector posses = on.intersectsAtLengths(cross);
+        assert(posses.size()>0);
+        return DoubleVectorHelper::maxValue(posses);
     }
-//    on.extrapolateBy(100);
-    DoubleVector posses = on.intersectsAtLengths(cross);
-    assert(posses.size()>0);
-    return DoubleVectorHelper::maxValue(posses);
-//    return on.positionAtLengthPosition(pos);
+    on.extrapolate(10);
+    cross.extrapolate(10);
+    if(on.intersects(cross)) {
+        DoubleVector posses = on.intersectsAtLengths(cross);
+        assert(posses.size()>0);
+        return DoubleVectorHelper::maxValue(posses) - 10;
+    }
+    return -1;
 }
 
 
