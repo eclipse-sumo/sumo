@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2005/02/01 10:08:24  dkrajzew
+// performance computation added; got rid of MSNet::Time
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -60,7 +63,7 @@ MSNet::simSeconds()
 
 
 inline
-MSNet::Time
+SUMOTime
 MSNet::timestep( void )
 {
     return myStep;

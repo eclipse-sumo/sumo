@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2005/02/01 10:08:23  dkrajzew
+// performance computation added; got rid of MSNet::Time
+//
 // Revision 1.38  2004/12/16 12:20:09  dkrajzew
 // debugging
 //
@@ -36,7 +39,8 @@ namespace
 // using OutputDevices instead of ostreams
 //
 // Revision 1.34  2004/07/02 08:57:29  dkrajzew
-// using global object selection; detector handling (handling of additional elements) revisited
+// using global object selection; detector handling
+//  (handling of additional elements) revisited
 //
 // Revision 1.33  2004/04/02 11:17:07  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
@@ -187,7 +191,11 @@ namespace
  * ======================================================================= */
 GUINet::GUINet()
     : MSNet(), _grid(10, 10),
-    myWrapper(new GUINetWrapper(gIDStorage, *this))
+    myWrapper(new GUINetWrapper(gIDStorage, *this)),
+    myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
+    myOverallSimDuration(0), myLastVehicleMovementCount(0),
+    myOverallVehicleCount(0)
+
 {
 }
 
@@ -226,7 +234,7 @@ GUINet::getBoundary() const
 
 
 void
-GUINet::preInitGUINet( MSNet::Time startTimeStep,
+GUINet::preInitGUINet( SUMOTime startTimeStep,
                       MSVehicleControl *vc)
 {
     myInstance = new GUINet();
@@ -239,11 +247,12 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
                    MSJunctionControl* jc,
                    MSRouteLoaderControl *rlc,
                    MSTLLogicControl *tlc,
+                   bool logExecutionTime,
                    const std::vector<OutputDevice*> &streams,
                       TimeVector dumpMeanDataIntervalls,
                       std::string baseNameDumpFiles )
 {
-    MSNet::init(id, ec, jc, rlc, tlc, streams,
+    MSNet::init(id, ec, jc, rlc, tlc, logExecutionTime, streams,
         dumpMeanDataIntervalls, baseNameDumpFiles);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
@@ -375,6 +384,7 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
     return edge->getLanePosition(vehicle->getLane(), pos);
 }
 
+
 bool
 GUINet::hasPosition(GUIVehicle *vehicle) const
 {
@@ -383,9 +393,9 @@ GUINet::hasPosition(GUIVehicle *vehicle) const
     if(edge==0) {
         return false;
     }
-	if(&(vehicle->getLane())==0) {
+    if(&(vehicle->getLane())==0) {
         return false;
-	}
+    }
     return true;
 }
 
@@ -451,17 +461,146 @@ GUINet::closeBuilding(const NLNetBuilder &nb)
     initTLMap();
     // build the grid
     // build the grid
-	GUIGridBuilder b(*this, _grid);
-	b.build();
+    GUIGridBuilder b(*this, _grid);
+    b.build();
     // get the boundary
     _boundary = _grid.getBoundary();
 }
 
+
+int
+GUINet::getWholeDuration() const
+{
+    return myLastSimDuration+/*myLastVisDuration+*/myLastIdleDuration;
+}
+
+
+int
+GUINet::getSimDuration() const
+{
+    return myLastSimDuration;
+}
+
+/*
+int
+GUINet::getVisDuration() const
+{
+    return myLastVisDuration;
+}
+*/
+
+
+double
+GUINet::getRTFactor() const
+{
+    if(myLastSimDuration==0) {
+        return -1;
+    }
+    return 1000. / (double) myLastSimDuration;
+}
+
+
+double
+GUINet::getUPS() const
+{
+    if(myLastSimDuration==0) {
+        return -1;
+    }
+    return (double) myLastVehicleMovementCount / (double) myLastSimDuration * 1000.;
+}
+
+
+double
+GUINet::getMeanRTFactor(int duration) const
+{
+    if(myOverallSimDuration==0) {
+        return -1;
+    }
+    return ((double)(duration)*1000./(double)myOverallSimDuration);
+}
+
+
+double
+GUINet::getMeanUPS() const
+{
+    if(myOverallSimDuration==0) {
+        return -1;
+    }
+    return ((double)myVehiclesMoved / (double)myOverallSimDuration * 1000.);
+}
+
+
+int
+GUINet::getIdleDuration() const
+{
+    return myLastIdleDuration;
+}
+
+
+void
+GUINet::setSimDuration(int val)
+{
+    myLastSimDuration = val;
+    myOverallSimDuration += val;
+    myLastVehicleMovementCount = getVehicleControl().getRunningVehicleNo();
+    myOverallVehicleCount += myLastVehicleMovementCount;
+}
+
+/*
+void
+GUINet::setVisDuration(int val)
+{
+    myLastVisDuration = val;
+}
+*/
+
+void
+GUINet::setIdleDuration(int val)
+{
+    myLastIdleDuration = val;
+}
+
+
+
 #ifdef NETWORKING_BLA
 
 void
-GUINet::networking(MSNet::Time startTimeStep, MSNet::Time currentStep)
+GUINet::networking(SUMOTime startTimeStep, SUMOTime currentStep)
 {
+    MSVehicle::DictType::iterator i;
+    for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
+        GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
+        if(!hasPosition(v1)||!v1->networking_hasDevice()) {
+            continue;
+        }
+        v1->networking_Begin();
+    }
+    for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
+        GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
+        if(!hasPosition(v1)||!v1->networking_hasDevice()) {
+            continue;
+        }
+        Position2D p1 = getVehiclePosition(v1->id());
+        MSVehicle::DictType::iterator j = i;
+        ++j;
+        for(; j!=MSVehicle::myDict.end(); ++j) {
+            GUIVehicle *v2 = static_cast<GUIVehicle*>((*j).second);
+            if(!hasPosition(v2)||!v1->networking_hasDevice()) {
+                continue;
+            }
+            Position2D p2 = getVehiclePosition(v2->id());
+            if(fabs(p1.x()-p2.x())<10&&fabs(p1.y()-p2.y())<10) {
+                v1->networking_KnowsAbout(v2, currentStep);
+            }
+        }
+    }
+    for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
+        GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
+        if(!hasPosition(v1)||!v1->networking_hasDevice()) {
+            continue;
+        }
+        v1->networking_End();
+    }
 }
 #endif
 

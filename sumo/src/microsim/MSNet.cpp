@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2005/02/01 10:08:24  dkrajzew
+// performance computation added; got rid of MSNet::Time
+//
 // Revision 1.56  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -45,7 +48,8 @@ namespace
 // warnings and errors are now reported to MsgHandler, not cerr
 //
 // Revision 1.49  2004/04/02 11:36:27  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+// "compute or not"-structure added; added two further simulation-wide output
+//  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.48  2004/02/05 16:39:45  dkrajzew
 // removed some memory leaks
@@ -75,7 +79,8 @@ namespace
 // grid lock dissolving by vehicle teleportation added
 //
 // Revision 1.39  2003/10/06 07:42:36  dkrajzew
-// simulate-bug (ending on first step) patched - was due to yet unloaded vehicles
+// simulate-bug (ending on first step) patched - was due to yet unloaded
+//  vehicles
 //
 // Revision 1.38  2003/10/01 11:31:22  dkrajzew
 // globaltime is now always set
@@ -393,6 +398,9 @@ namespace
 #include "output/meandata/MSMeanData_Net_Utils.h"
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/SysUtils.h>
+
+#include <ctime>
 
 
 /* =========================================================================
@@ -409,10 +417,10 @@ MSNet* MSNet::myInstance = 0;
 double MSNet::myDeltaT = 1;
 double MSNet::myCellLength = 1;
 
-MSNet::Time MSNet::globaltime;
+SUMOTime MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 21880;
+SUMOTime MSNet::searchedtime = 21880;
 std::string MSNet::searched1 = "2635";
 std::string MSNet::searched2 = "2858";
 std::string MSNet::searchedJunction = "536";
@@ -423,7 +431,7 @@ std::string MSNet::searchedJunction = "536";
  * member method definitions
  * ======================================================================= */
 MSNet::MSNet()
-    : myEdges(0)
+    : myEdges(0), mySimDuration(0), myVehiclesMoved(0)
 {
 }
 
@@ -440,7 +448,7 @@ MSNet::getInstance( void )
 
 
 void
-MSNet::preInitMSNet(MSNet::Time startTimeStep,
+MSNet::preInitMSNet(SUMOTime startTimeStep,
                     MSVehicleControl *vc)
 {
     myInstance = new MSNet();
@@ -449,7 +457,7 @@ MSNet::preInitMSNet(MSNet::Time startTimeStep,
 
 
 void
-MSNet::preInit(MSNet::Time startTimeStep,
+MSNet::preInit(SUMOTime startTimeStep,
                MSVehicleControl *vc)
 {
     MSCORN::init();
@@ -467,6 +475,7 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSRouteLoaderControl *rlc,
              MSTLLogicControl *tlc,
+             bool logExecutionTime,
              const std::vector<OutputDevice*> &streams,
                TimeVector dumpMeanDataIntervalls,
                std::string baseNameDumpFiles)
@@ -482,7 +491,9 @@ MSNet::init( string id, MSEdgeControl* ec,
             dumpMeanDataIntervalls, baseNameDumpFiles);
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
     MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
+    myInstance->myLogExecutionTime = logExecutionTime;
 }
+
 
 void
 MSNet::closeBuilding(const NLNetBuilder &nb)
@@ -533,15 +544,16 @@ MSNet::~MSNet()
 
 
 bool
-MSNet::simulate( Time start, Time stop )
+MSNet::simulate( SUMOTime start, SUMOTime stop )
 {
     initialiseSimulation();
     // the simulation loop
     myStep = start;
     try {
         do {
-            cout << myStep << (char) 13;
+            preSimStepOutput();
             simulationStep(start, myStep);
+            postSimStepOutput();
             myStep++;
         } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
         if(myStep>stop) {
@@ -553,7 +565,7 @@ MSNet::simulate( Time start, Time stop )
         WRITE_MESSAGE("Simulation End: An error occured (see log).");
     }
     // exit simulation loop
-    closeSimulation();
+    closeSimulation(start, stop);
     return true;
 }
 
@@ -592,7 +604,7 @@ MSNet::initialiseSimulation()
 
 
 void
-MSNet::closeSimulation()
+MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 {
     // print the last line of the "netstate" output
     if ( myOutputStreams[OS_NETSTATE]!=0 ) {
@@ -610,11 +622,17 @@ MSNet::closeSimulation()
     if ( myOutputStreams[OS_VEHROUTE]!=0 ) {
         myOutputStreams[OS_VEHROUTE]->getOStream() << "</vehicleroutes>" << endl;
     }
+    if(myLogExecutionTime!=0&&mySimDuration!=0) {
+        cout << "Performance: " << endl
+            << " Duration: " << mySimDuration << "ms" << endl
+            << " Real time factor: " << ((float)(stop-start)*1000./(float)mySimDuration) << endl
+            << " UPS: " << ((float) myVehiclesMoved / (float) mySimDuration * 1000.) << endl;
+    }
 }
 
 
 void
-MSNet::simulationStep( Time start, Time step )
+MSNet::simulationStep( SUMOTime start, SUMOTime step )
 {
     myStep = step;
     globaltime = myStep;
@@ -622,13 +640,15 @@ MSNet::simulationStep( Time start, Time step )
     globaltime = myStep;
 #endif
     // execute beginOfTimestepEvents
+    if(myLogExecutionTime) {
+        mySimStepBegin = SysUtils::getCurrentMillis();
+    }
     MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
 
     MSLaneState::actionsBeforeMoveAndEmit();
 
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
-
     // emit Vehicles
     size_t emittedVehNo = myEmitter->emitVehicles(myStep);
     myVehicleControl->vehiclesEmitted(emittedVehNo);
@@ -684,10 +704,21 @@ MSNet::simulationStep( Time start, Time step )
     }
     */
     // write the output
+    /*
+    long etime = time(0);
+    cout << (etime-btime) << endl;
+    */
+    long ve = SysUtils::getCurrentMillis();
     writeOutput();
     // execute endOfTimestepEvents
     MSEventControl::getEndOfTimestepEvents()->execute(myStep);
 
+    if(myLogExecutionTime) {
+        mySimStepEnd = SysUtils::getCurrentMillis();
+        mySimStepDuration = mySimStepEnd - mySimStepBegin;
+        mySimDuration += mySimStepDuration;
+        myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
+    }
 }
 
 
@@ -727,7 +758,7 @@ MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 }
 
 
-MSNet::Time
+SUMOTime
 MSNet::getCurrentTimeStep() const
 {
     return myStep;
@@ -758,8 +789,13 @@ MSNet::writeOutput()
             << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
             << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
             << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
-            << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\"/>"
-            << endl;
+            << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\" ";
+        if(myLogExecutionTime) {
+            myOutputStreams[OS_EMISSIONS]->getOStream()
+                << "duration=\"" << mySimStepDuration << "\" ";
+        }
+        myOutputStreams[OS_EMISSIONS]->getOStream()
+            << "/>" << endl;
     }
 }
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.46  2005/02/01 10:08:24  dkrajzew
+// performance computation added; got rid of MSNet::Time
+//
 // Revision 1.45  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -39,7 +42,8 @@
 // Polygon visualisation added
 //
 // Revision 1.39  2004/04/02 11:36:27  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+// "compute or not"-structure added; added two further simulation-wide output
+//  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.38  2004/02/16 15:20:21  dkrajzew
 // used a double for seconds within an hour to avoid number truncation
@@ -296,6 +300,8 @@
 
 #include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
+#include "MSVehicleControl.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -317,7 +323,6 @@ class MSLane;
 class MSLaneState;
 class MSTLLogicControl;
 class MSVehicleTransfer;
-class MSVehicleControl;
 class OutputDevice;
 class NLNetBuilder;
 class MSTrigger;
@@ -359,11 +364,8 @@ public:
      */
     static MSNet* getInstance( void );
 
-    /// Type for time (seconds).
-    typedef unsigned int Time;
-
     /// List of times (intervals or similar)
-    typedef std::vector< Time > TimeVector;
+    typedef std::vector< SUMOTime > TimeVector;
 
     /// Definition of the static Container to associate string-ids with
     /// objects.
@@ -383,17 +385,18 @@ public:
      * To finish the initialization call &ref init.
      * @param startTimestep Timestep the simulation will start with.
      */
-    static void preInitMSNet( Time startTimestep,
+    static void preInitMSNet( SUMOTime startTimestep,
         MSVehicleControl *vc);
 
-    static void preInit( Time startTimestep,
+    static void preInit( SUMOTime startTimestep,
         MSVehicleControl *vc);
 
     /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
     static void init( std::string id, MSEdgeControl* ec,
         MSJunctionControl* jc, MSRouteLoaderControl *rlc,
-        MSTLLogicControl *tlc, const std::vector<OutputDevice*> &streams,
+        MSTLLogicControl *tlc, bool logExecutionTime,
+        const std::vector<OutputDevice*> &streams,
         TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /// Destructor.
@@ -405,15 +408,15 @@ public:
         the Vehicles change Lanes.  The method returns true when the
         simulation could be finished without errors, otherwise
         false. */
-    bool simulate( Time start, Time stop );
+    bool simulate( SUMOTime start, SUMOTime stop );
 
     void initialiseSimulation();
 
-    void closeSimulation();
+    void closeSimulation(SUMOTime start, SUMOTime stop);
 
 
     /// performs a single simulation step
-    void simulationStep( Time start, Time step);
+    void simulationStep( SUMOTime start, SUMOTime step);
 
     /** @brief Inserts a MSNet into the static dictionary
         Returns true if the key id isn't already in the dictionary.
@@ -450,7 +453,7 @@ public:
     double simSeconds();
 
     /** Returns the current timestep. */
-    Time timestep( void );
+    SUMOTime timestep( void );
 
     /** @brief Returns the number of unique mean-data-dump-intervalls.
         In vehicles and lanes you will need one element more for the
@@ -469,27 +472,27 @@ public:
     friend class MSRouteHandler;
 
     /// The current simulation time for debugging purposes
-    static Time globaltime;
+    static SUMOTime globaltime;
 
     /// ----------------- debug variables -------------
 #ifdef ABS_DEBUG
-    static Time searchedtime;
+    static SUMOTime searchedtime;
     static std::string searched1, searched2, searchedJunction;
 #endif
 
     /// ----------------- speedcheck variables -------------
 
 
-    Time getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
     static double getSeconds( double steps )
         {
             return steps * myDeltaT;
         }
 
-    static Time getSteps( double seconds )
+    static SUMOTime getSteps( double seconds )
         {
-            return static_cast< Time >(
+            return static_cast< SUMOTime >(
                 floor( seconds / myDeltaT ) );
         }
 
@@ -531,6 +534,36 @@ public:
     void addMeanData(MSMeanData_Net *newMeanData);
 
     virtual void closeBuilding(const NLNetBuilder &nb);
+
+    bool logSimulationDuration() const { return myLogExecutionTime; }
+
+    //{
+    /// to be called before a simulation step is done, this prints the current step number
+    inline void preSimStepOutput() {
+        std::cout << "Step #" << myStep;
+        if(!myLogExecutionTime) {
+            std::cout << (char) 13;
+        }
+    }
+
+    /// to be called after a simulation step is done, this prints some further statistics
+    inline void postSimStepOutput() {
+        if(myLogExecutionTime) {
+            if(mySimStepDuration!=0) {
+                std::cout << " (" << mySimStepDuration << "ms ~= "
+                    << (1000/mySimStepDuration) << "*RT, ~"
+                    << (myVehicleControl->getRunningVehicleNo()/mySimStepDuration*1000)
+                        << "UPS)"
+                    << "               "
+                    << (char) 13;
+            } else {
+                std::cout << " (" << mySimStepDuration << "ms; further information not available"
+                    << "       "
+                    << (char) 13;
+            }
+        }
+    }
+    //}
 
 protected:
     /** initialises the MeanData-container */
@@ -577,7 +610,7 @@ protected:
     static double myCellLength;
 
     /// Current time step.
-    Time myStep;
+    SUMOTime myStep;
 
 
 
@@ -591,6 +624,20 @@ protected:
 
     /// List of output (files)
     std::vector<OutputDevice*> myOutputStreams;
+
+    //{@ data needed for computing performance values
+    /// Information whether the simulation duration shall be logged
+    bool myLogExecutionTime;
+
+    /// The last simulation step begin, end and duration
+    long mySimStepBegin, mySimStepEnd, mySimStepDuration;
+
+    /// The overall simulation duration
+    long mySimDuration;
+
+    /// The overall number of vehicle movements
+    long myVehiclesMoved;
+    //}
 
 protected:
     /// Copy constructor.

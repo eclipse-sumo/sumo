@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2005/02/01 10:08:23  dkrajzew
+// performance computation added; got rid of MSNet::Time
+//
 // Revision 1.29  2004/12/16 12:20:09  dkrajzew
 // debugging
 //
@@ -167,12 +170,13 @@ public:
     const Boundary &getBoundary() const;
 
     /// preinitialises the network (before the network is loaded
-    static void preInitGUINet( MSNet::Time startTimeStep,
+    static void preInitGUINet( SUMOTime startTimeStep,
         MSVehicleControl *vc);
 
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
         MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
+        bool logExecutionTime,
         const std::vector<OutputDevice*> &streams,
         TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
@@ -192,6 +196,42 @@ public:
     /// Some further steps needed for gui processing
     void guiSimulationStep();
 
+    //{@ functions for performace measurements
+    /// Returns the duration of the last step (sim+visualisation+idle) (in ms)
+    int getWholeDuration() const;
+
+    /// Returns the duration of the last step's simulation part (in ms)
+    int getSimDuration() const;
+
+    /// Returns the simulation speed as a factor to real time
+    double getRTFactor() const;
+
+    /// Returns the update per seconds rate
+    double getUPS() const;
+
+    /// Returns the simulation speed as a factor to real time
+    double getMeanRTFactor(int duration) const;
+
+    /// Returns the update per seconds rate
+    double getMeanUPS() const;
+
+    // Returns the duration of the last step's visualisation part (in ms)
+    //int getVisDuration() const;
+
+    /// Returns the duration of the last step's idle part (in ms)
+    int getIdleDuration() const;
+
+    /// Sets the duration of the last step's simulation part
+    void setSimDuration(int val);
+
+    // Sets the duration of the last step's visualisation part
+    //void setVisDuration(int val);
+
+    /// Sets the duration of the last step's idle part
+    void setIdleDuration(int val);
+
+    //}
+
     size_t getDetectorWrapperNo() const;
 
     GUINetWrapper *getWrapper() const;
@@ -209,8 +249,8 @@ public:
     friend class GUIGridBuilder;
 
     virtual void closeBuilding(const NLNetBuilder &nb);
-	bool hasPosition(GUIVehicle *v) const;
-	void networking(MSNet::Time startTimeStep, MSNet::Time currentStep);
+    bool hasPosition(GUIVehicle *v) const;
+    void networking(SUMOTime startTimeStep, SUMOTime currentStep);
 
 private:
     /// Initialises the detector wrappers
@@ -246,6 +286,11 @@ protected:
 
     /// A link2tl-logic map
     std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;
+
+    /// The step durations (simulation, /*visualisation, */idle)
+    int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
+
+    long myLastVehicleMovementCount, myOverallSimDuration, myOverallVehicleCount;
 
 };
 
