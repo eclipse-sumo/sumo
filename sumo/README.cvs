@@ -1,0 +1,8 @@
+After downloading the sources from cvs call
+
+make -f admin/Makefile.common cvs
+./configure
+make
+
+to build sumo*. Add configure-option when needed (see ./configure --help 
+for possible options)
