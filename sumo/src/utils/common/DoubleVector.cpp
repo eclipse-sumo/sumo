@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/08/20 11:46:27  dkrajzew
+// some further methods added needed for the computation of node shapes
+//
 // Revision 1.8  2003/07/21 05:16:08  dkrajzew
 // inifinite loop patched; one should make both classes a single templte!
 //
@@ -106,6 +109,59 @@ DoubleVectorHelper::removeDouble(DoubleVector &v)
         i++;
     }
 }
+
+
+double
+DoubleVectorHelper::max(const DoubleVector &v)
+{
+    double m = *(v.begin());
+    for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
+        if((*j)>m) {
+            m = *j;
+        }
+    }
+    return m;
+}
+
+
+void
+DoubleVectorHelper::remove_smaller_than(DoubleVector &v, double swell)
+{
+    for(DoubleVector::iterator j=v.begin(); j!=v.end(); ) {
+        if((*j)<swell) {
+            j = v.erase(j);
+        } else {
+            j++;
+        }
+    }
+}
+
+
+void
+DoubleVectorHelper::remove_larger_than(DoubleVector &v, double swell)
+{
+    for(DoubleVector::iterator j=v.begin(); j!=v.end(); ) {
+        if((*j)>swell) {
+            j = v.erase(j);
+        } else {
+            j++;
+        }
+    }
+}
+
+
+double
+DoubleVectorHelper::min(const DoubleVector &v)
+{
+    double m = *(v.begin());
+    for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
+        if((*j)<m) {
+            m = *j;
+        }
+    }
+    return m;
+}
+
 
 
 
