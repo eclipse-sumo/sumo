@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/26 12:04:56  dkrajzew
+// some debugging
+//
 // Revision 1.3  2003/03/17 14:18:57  dkrajzew
 // Windows eol removed
 //
@@ -38,7 +41,7 @@ namespace
  * ======================================================================= */
 #include <string>
 #include <utils/common/SErrorHandler.h>
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include "NIArtemisLoader.h"
