@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/07/16 15:39:39  dkrajzew
+// color attribute added
+//
 // Revision 1.12  2003/07/08 12:11:08  dkrajzew
 // comma at end of list - warning patched
 //
@@ -233,7 +236,9 @@ enum AttrEnum
     /** edge: the shape in xml-definition */
     SUMO_ATTR_SHAPE ,
     /// The information about how to spread the lanes from the given position
-    SUMO_ATTR_SPREADFUNC
+    SUMO_ATTR_SPREADFUNC,
+    /// A color information
+    SUMO_ATTR_COLOR
 };
 
 
@@ -248,7 +253,7 @@ extern GenericSAX2Handler::Tag sumotags[38];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[59];
+extern AttributesHandler::Attr sumoattrs[60];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

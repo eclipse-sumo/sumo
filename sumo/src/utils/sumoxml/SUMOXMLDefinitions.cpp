@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/16 15:39:39  dkrajzew
+// color attribute added
+//
 // Revision 1.11  2003/07/07 08:50:29  dkrajzew
 // added tags for shapes and lane position description
 //
@@ -108,9 +111,9 @@ GenericSAX2Handler::Tag sumotags[38] =
       { "shape",            SUMO_TAG_SHAPE }
 };
 
-size_t noSumoAttrs = 59;
+size_t noSumoAttrs = 60;
 
-AttributesHandler::Attr sumoattrs[59] =
+AttributesHandler::Attr sumoattrs[60] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -170,7 +173,8 @@ AttributesHandler::Attr sumoattrs[59] =
     { "tl",             SUMO_ATTR_TLID },
     { "linkno",         SUMO_ATTR_TLLINKNO },
     { "shape",          SUMO_ATTR_SHAPE },
-    { "spread_type",    SUMO_ATTR_SPREADFUNC }
+    { "spread_type",    SUMO_ATTR_SPREADFUNC },
+    { "color",          SUMO_ATTR_COLOR }
 };
 
 
