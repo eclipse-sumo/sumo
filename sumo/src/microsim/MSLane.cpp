@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.18  2003/06/04 16:29:42  roessel
+// Vehicles are emtted completely on current lane in emitTry() (needed for detectors). Vehicles that will be destroyed because they reached their destination will dismiss their active reminders in push().
+//
 // Revision 1.17  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -31,7 +34,8 @@ namespace
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.15  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.14  2003/04/16 10:05:03  dkrajzew
 // uah, debugging
@@ -52,13 +56,17 @@ namespace
 // updated
 //
 // Revision 1.7  2002/10/29 10:43:38  dkrajzew
-// bug of trying to set the destination lane for vehicles that vanish before they reach the point of halt removed
+// bug of trying to set the destination lane for vehicles that vanish before
+// they reach the point of halt removed
 //
 // Revision 1.6  2002/10/28 12:59:38  dkrajzew
 // vehicles are now deleted whe the tour is over
 //
 // Revision 1.5  2002/10/18 11:51:03  dkrajzew
-// breakRequest or driveRequest may be set, althoug no first vehicle exists due to regarding a longer break gap...; assertion in moveFirst replaced by a check with a normal exit
+// breakRequest or driveRequest may be set, althoug no first vehicle exists due
+// to regarding a longer break gap...; assertion in moveFirst replaced by a
+// check
+// with a normal exit
 //
 // Revision 1.4  2002/10/17 13:35:23  dkrajzew
 // insecure usage of potentially null-link-lanes patched
@@ -691,6 +699,7 @@ MSLane::emitTry( MSVehicle& veh )
             ( 2 * MSVehicleType::minDecel() ) +
             MSVehicle::tau() + veh.length()*/
         : myApproaching->getSecureGap(*this, veh);
+    safeSpace = max( safeSpace, veh.length() );
     if ( safeSpace<length() ) {
         MSVehicle::State state;
         state.setPos(safeSpace);
@@ -916,6 +925,17 @@ MSLane::push(MSVehicle* veh)
         return false;
     }
     else {
+        // Dismiss reminders by passing them completely.
+        double speed = veh->speed();
+        if ( veh->pos() + speed * MSNet::deltaT() - veh->length() < 0 ){
+            speed = veh->pos() / MSNet::deltaT() + speed + 0,01;
+        }
+        double oldLaneLength = veh->myLane->length();
+        veh->workOnMoveReminders( veh->pos() + oldLaneLength,
+                                  veh->pos() + oldLaneLength + speed *
+                                  MSNet::deltaT(),
+                                  speed );
+        
         MSVehicle::remove(veh->id());
         return true;
         // TODO
