@@ -29,6 +29,7 @@ public:
                    JAM_LENGTH_SUM_IN_METERS,
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
                    QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
+                   N_VEHICLES,
                    ALL };
 
     enum Containers { COUNTER = 0,
@@ -61,7 +62,7 @@ public:
                                       haltingSpeedThreshold ) ),
           jamDistThresholdM( MSUnit::getInstance()->getCells(
                                  jamDistThreshold ) ),
-          detectorsM(7),
+          detectorsM(8),
           containersM(3)
         {
             assert( laneM != 0 );
@@ -159,6 +160,11 @@ public:
                         detId );
                     break;
                 }
+                case N_VEHICLES:
+                {
+                    createDetector( N_VEHICLES, detId );
+                    break;
+                }
                 case ALL:
                 {
                     createDetector( DENSITY, detId );
@@ -172,6 +178,7 @@ public:
                     createDetector(
                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
                         detId );
+                    createDetector( N_VEHICLES, detId );
                     break;
                 }
                 default:
@@ -183,24 +190,31 @@ public:
 
     bool update( void )
         {
+//             std::cout << MSNet::getInstance()->getCurrentTimeStep() << "\t"
+//                       << idM << "\t";
             for ( ContainerContIter it1 = containersM.begin();
                   it1 != containersM.end(); ++it1 ) {
                     if ( *it1 != 0 ) {
                         (*it1)->update();
                     }
                 }
-
+//             int i = 0;
             for ( DetContIter it2 = detectorsM.begin();
                   it2 != detectorsM.end(); ++it2 ) {
                 if ( *it2 != 0 ) {
                     (*it2)->update();
+//                     std::cout << i << ": " << (*it2)->getCurrent() << "\t";
                 }
+//                 ++i;
             }
+//             std::cout << std::endl;
             return true;
         }
 
     void resetQueueLengthAheadOfTrafficLights( void )
         {
+//             std::cout << MSNet::getInstance()->getCurrentTimeStep() << "\t"
+//                       << idM << "\treset" << std::endl;
             MSQueueLengthAheadOfTrafficLightsInVehicles* det1 = 0;
             if ((det1 = dynamic_cast<
                  MSQueueLengthAheadOfTrafficLightsInVehicles* >(
@@ -586,11 +600,23 @@ private:
                     }
                     detectorsM[
                         QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ] =
-                        new E2QueueLengthAheadOfTrafficLightsInVehicles(
+                        new E2QueueLengthAheadOfTrafficLightsInMeters(
                             E2JamLengthSumInMeters::getDetectorName() + detId,
                             endPosM - startPosM,
                             deleteDataAfterSecondsM,
                             *detectorsM[ MAX_JAM_LENGTH_IN_METERS ] );
+                    break;
+                }
+                case N_VEHICLES:
+                {
+                    createContainer( COUNTER );
+                    detectorsM[ N_VEHICLES ] =
+                        new E2NVehicles(
+                            E2NVehicles::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Count* >(
+                                containersM[ COUNTER ] ) );
                     break;
                 }
                 default:
