@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/02/10 07:07:47  dkrajzew
+// removed some dead code
+//
 // Revision 1.5  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -38,9 +41,6 @@ namespace
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,46 +74,9 @@ GUISourceLane::~GUISourceLane()
 {
 }
 
-/*
-void
-GUISourceLane::moveNonCriticalSingle()
-{
-    _lock.lock();//Display();
-    MSSourceLane::moveNonCriticalSingle();
-    _lock.unlock();//Display();
-}
-
 
 void
-GUISourceLane::moveCriticalSingle()
-{
-    _lock.lock();//Display();
-    MSSourceLane::moveCriticalSingle();
-    _lock.unlock();//Display();
-}
-
-
-void
-GUISourceLane::moveNonCriticalMulti()
-{
-    _lock.lock();//Display();
-    MSSourceLane::moveNonCriticalMulti();
-    _lock.unlock();//Display();
-}
-
-
-void
-GUISourceLane::moveCriticalMulti()
-{
-    _lock.lock();//Display();
-    MSSourceLane::moveCriticalMulti();
-    _lock.unlock();//Display();
-}
-
-*/
-void
-GUISourceLane::moveNonCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                               const MSEdge::LaneCont::const_iterator &lastNeighLane */)
+GUISourceLane::moveNonCritical()
 {
     _lock.lock();//Display();
     MSSourceLane::moveNonCritical(/*firstNeighLane, lastNeighLane*/);
@@ -122,8 +85,7 @@ GUISourceLane::moveNonCritical(/*const MSEdge::LaneCont::const_iterator &firstNe
 
 
 void
-GUISourceLane::moveCritical(/*const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                            const MSEdge::LaneCont::const_iterator &lastNeighLane */)
+GUISourceLane::moveCritical()
 {
     _lock.lock();//Display();
     MSSourceLane::moveCritical(/*firstNeighLane, lastNeighLane*/);
@@ -138,9 +100,6 @@ GUISourceLane::setCritical()
     MSSourceLane::setCritical();
     _lock.unlock();//Display();
 }
-
-
-
 
 
 bool
@@ -213,9 +172,6 @@ GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUISourceLane.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
