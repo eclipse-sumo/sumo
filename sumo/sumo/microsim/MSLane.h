@@ -21,8 +21,12 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/10 16:17:00  croessel
+// Added friend detectors.
+// Added public id() member-function.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.7  2002/03/20 15:58:32  croessel
 // Return to previous revision.
@@ -133,6 +137,8 @@ class MSLane
 public:
     friend class MSLaneChanger;
     friend class XMLOut;
+    friend class MSDetector;
+    friend class MSInductLoop;
 
     /** Class to generate XML-output for an edges and all lanes hold by 
         this edge. 
@@ -175,7 +181,7 @@ public:
         /** Indicator if a vehicle wants to take this link. Set only
             if it's velocity is sufficient. */
         bool myDriveRequest;
-
+        
     protected:
         /** Function object in order to find the requested link out
             of myLinks, if there is a used one. */
@@ -307,6 +313,9 @@ public:
     /// Container for vehicles. 
     typedef std::deque< MSVehicle* > VehCont;
     
+    /// Returns the objects id.
+    string id() { return myID; }
+
 protected:
     /** Function Object for use with Function Adater on vehicle
         containers. */ 
