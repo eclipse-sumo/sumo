@@ -6,7 +6,9 @@ SimpleCommand.cpp \
 SimpleCommand.icc \
 Counter.h \
 Counter.cpp \
-Counter.icc
+Counter.icc \
+Dictionary.h \
+SingletonDictionary.h 
 
 libhelpers_a_SOURCES = PreStartInitialised.cpp \
 PreStartInitialised.h
