@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/08/14 13:51:51  dkrajzew
+// reshifting of networks added
+//
 // Revision 1.12  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -210,6 +213,7 @@ public:
 
     /// moves the geometry of the edges by the network offset
     static bool normaliseEdgePositions();
+    static bool reshiftEdgePositions(double xoff, double yoff, double rot);
 
 private:
     static std::vector<std::string> buildPossibilities(

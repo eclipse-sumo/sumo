@@ -56,6 +56,8 @@ protected:
     /** rechecks whether all lanes have a following lane/edge */
     bool recheckLanes(int step);
 
+    bool computeNodeShapes(int step);
+
     /** appends the turnarounds */
     bool appendTurnarounds(int step);
 
@@ -64,6 +66,8 @@ protected:
 
     /** computes nodes' tl-logics */
     bool computeTLLogic(int step, OptionsCont &oc);
+
+    bool reshiftRotateNet(int step, OptionsCont &oc);
 
 };
 

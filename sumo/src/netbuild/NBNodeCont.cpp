@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/08/14 13:51:51  dkrajzew
+// reshifting of networks added
+//
 // Revision 1.17  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -293,6 +296,16 @@ NBNodeCont::normaliseNodePositions()
 
 
 bool
+NBNodeCont::reshiftNodePositions(double xoff, double yoff, double rot)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->reshiftPosition(xoff, yoff, rot);
+    }
+    return true;
+}
+
+
+bool
 NBNodeCont::computeLanes2Lanes()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
@@ -451,6 +464,15 @@ Position2D
 NBNodeCont::getNetworkOffset()
 {
     return myNetworkOffset;
+}
+
+bool
+NBNodeCont::computeNodeShapes()
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->computeNodeShape();
+    }
+    return true;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/08/14 13:51:51  dkrajzew
+// reshifting of networks added
+//
 // Revision 1.16  2003/07/22 15:09:11  dkrajzew
 // removed warnings
 //
@@ -647,6 +650,15 @@ NBEdgeCont::normaliseEdgePositions()
     return true;
 }
 
+
+bool
+NBEdgeCont::reshiftEdgePositions(double xoff, double yoff, double rot)
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        (*i).second->reshiftPosition(xoff, yoff, rot);
+    }
+    return true;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

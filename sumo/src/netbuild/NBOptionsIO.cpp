@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/08/14 13:51:51  dkrajzew
+// reshifting of networks added
+//
 // Revision 1.17  2003/07/22 15:22:05  dkrajzew
 // duration of traffic lines may now be changed on command line
 //
@@ -219,6 +222,9 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("keep-small-tyellow", new Option_Bool(false));
     oc.doRegister("traffic-light-green", new Option_Integer());
     oc.doRegister("traffic-light-yellow", new Option_Integer());
+    oc.doRegister("x-offset-to-apply", new Option_Float(0));
+    oc.doRegister("y-offset-to-apply", new Option_Float(0));
+    oc.doRegister("rotation-to-apply", new Option_Float(0));
 }
 
 

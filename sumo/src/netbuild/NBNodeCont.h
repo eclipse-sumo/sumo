@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2003/08/14 13:51:51  dkrajzew
+// reshifting of networks added
+//
 // Revision 1.14  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -157,6 +160,7 @@ public:
 
     /// resets the node positions in a way that they begin from (0, 0)
     static bool normaliseNodePositions();
+    static bool reshiftNodePositions(double xoff, double yoff, double rot);
 
     /// divides the incoming lanes on outgoing lanes
     static bool computeLanes2Lanes();
@@ -197,6 +201,8 @@ public:
 
     /// Returns the minimum position
     static Position2D getNetworkOffset();
+
+    static bool computeNodeShapes();
 
 
 private:

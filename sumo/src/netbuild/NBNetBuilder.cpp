@@ -77,7 +77,7 @@ NBNetBuilder::computeTurningDirections(int step)
 bool
 NBNetBuilder::sortNodesEdges(int step)
 {
-    inform(step, "Sorting nodes' edges, computing shape");
+    inform(step, "Sorting nodes' edges");
     return NBNodeCont::sortNodesEdges();
 }
 
@@ -129,6 +129,14 @@ NBNetBuilder::recheckLanes(int step)
 }
 
 
+bool
+NBNetBuilder::computeNodeShapes(int step)
+{
+    inform(step, "Computing node shapes");
+    return NBNodeCont::computeNodeShapes();
+}
+
+
 /** computes the node-internal priorities of links */
 /*bool
 computeLinkPriorities(int step, bool verbose)
@@ -165,6 +173,27 @@ NBNetBuilder::computeTLLogic(int step, OptionsCont &oc)
 }
 
 
+bool
+NBNetBuilder::reshiftRotateNet(int step, OptionsCont &oc)
+{
+    inform(-1, "Transposing network");
+    if(!oc.isDefault("x-offset-to-apply")) {
+        return true;
+    }
+    double xoff = oc.getFloat("x-offset-to-apply");
+    double yoff = oc.getFloat("y-offset-to-apply");
+    double rot = oc.getFloat("rotation-to-apply");
+    inform(step, "Normalising node positions");
+    bool ok = NBNodeCont::reshiftNodePositions(xoff, yoff, rot);
+    if(ok) {
+        ok = NBEdgeCont::reshiftEdgePositions(xoff, yoff, rot);
+    }
+    return ok;
+}
+
+
+
+
 void
 NBNetBuilder::compute(OptionsCont &oc)
 {
@@ -181,9 +210,12 @@ NBNetBuilder::compute(OptionsCont &oc)
     if(ok) ok = computeLanes2Lanes(step++);
     if(ok) ok = appendTurnarounds(step++);
     if(ok) ok = recheckLanes(step++);
+    if(ok) ok = computeNodeShapes(step++);
 //    if(ok) ok = computeLinkPriorities(step++);
     if(ok) ok = computeLogic(step++, oc);
     if(ok) ok = computeTLLogic(step++, oc);
+
+    if(ok) ok = reshiftRotateNet(step++, oc);
 
     NBNode::reportBuild();
     NBRequest::reportWarnings();
