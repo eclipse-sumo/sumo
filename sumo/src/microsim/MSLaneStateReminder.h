@@ -22,6 +22,10 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.5  2003/05/28 11:19:51  roessel
+// Changed ctor argument from reference to pointer.
+// Added private default-ctor, copy-ctor, assignement-operator declarations.
+//
 // Revision 1.4  2003/05/27 17:27:15  dkrajzew
 // unworking default constructor overriding removed
 //
@@ -29,7 +33,8 @@
 // Added condition in isActivatedByEmitOrLaneChange.
 //
 // Revision 1.2  2003/05/22 12:44:10  roessel
-// Changed void activateByEmit... to bool isActivatedByEmit. Not activated reminders will be erased from the vehicles reminder-list.
+// Changed void activateByEmit... to bool isActivatedByEmit. Not activated
+// reminders will be erased from the vehicles reminder-list.
 //
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
@@ -44,7 +49,7 @@ class MSLaneStateReminder : public MSMoveReminder
 public:
     MSLaneStateReminder( double startPos,
                          double endPos,
-                         MSLaneState& ls ) :
+                         MSLaneState* ls ) :
         startPosM( startPos ),
         endPosM( endPos ),
         laneStateM( ls )
@@ -67,7 +72,7 @@ public:
             if ( oldPos <= startPosM && newPos > startPosM ) {
                 // vehicle will enter detector
                 timestepFraction = ( newPos-startPosM ) / newSpeed;
-                laneStateM.enterDetectorByMove( veh, timestepFraction );
+                laneStateM->enterDetectorByMove( veh, timestepFraction );
             }
             if ( newPos > endPosM ) {
                 timestepFraction = ( endPosM-oldPos ) / newSpeed;
@@ -78,26 +83,26 @@ public:
                     timestepFractionReduce = ( startPosM-oldPos ) / newSpeed;
                     assert( timestepFraction - timestepFractionReduce >= 0 );
                 }
-                laneStateM.addMoveData(
+                laneStateM->addMoveData(
                     veh, timestepFraction - timestepFractionReduce );
-                laneStateM.leaveDetectorByMove( veh, timestepFraction );
+                laneStateM->leaveDetectorByMove( veh, timestepFraction );
                 return false;
             }
-            laneStateM.addMoveData( veh, timestepFraction );
+            laneStateM->addMoveData( veh, timestepFraction );
             return true;
         }
 
     void dismissByLaneChange( MSVehicle& veh )
         {
             if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
-                laneStateM.leaveDetectorByLaneChange( veh );
+                laneStateM->leaveDetectorByLaneChange( veh );
             }
         }
 
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
             if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
-                laneStateM.enterDetectorByEmitOrLaneChange( veh );
+                laneStateM->enterDetectorByEmitOrLaneChange( veh );
                 return true;
             }
             if ( veh.pos() > endPosM ){
@@ -109,8 +114,16 @@ public:
 private:
     double startPosM;
     double endPosM;
-    MSLaneState& laneStateM;
+    MSLaneState* laneStateM;
 
+    /// Default constructor.
+    MSLaneStateReminder();
+
+    /// Copy constructor.
+    MSLaneStateReminder( const MSLaneStateReminder& );
+
+    /// Assignment operator.
+    MSLaneStateReminder& operator=( const MSLaneStateReminder& );
 };
 
 
