@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/12/04 13:25:52  dkrajzew
+// handling of internal links added; documentation added; some dead code removed
+//
 // Revision 1.11  2003/10/22 15:41:28  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -127,9 +130,6 @@ GUINetBuilder::buildGUINet(bool allowAggregation)
             m_pOptions);
     }
     delete parser;
-    if(ok) {
-        report(*container);
-    }
     delete handler;
     delete container;
     return net;

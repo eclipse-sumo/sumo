@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/12/04 13:25:52  dkrajzew
+// handling of internal links added; documentation added; some dead code removed
+//
 // Revision 1.11  2003/11/17 07:13:48  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -216,7 +219,7 @@ GUINetHandler::closeTrafficLightLogic()
             *tlLogic =
             new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset, myContinuations);
+                    myContainer.getIncomingLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
@@ -226,7 +229,7 @@ GUINetHandler::closeTrafficLightLogic()
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes> (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset, myContinuations);
+                    myContainer.getIncomingLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
