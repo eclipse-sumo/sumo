@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 13:40:11  dkrajzew
+// typing of nodes during loading allwoed
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -151,6 +154,9 @@ private:
 public:
     /** constructor */
     NBNode(const std::string &id, double x, double y);
+    /** constructor */
+    NBNode(const std::string &id, double x, double y,
+        const std::string &type);
     /** sumo-node constructor */
     NBNode(const std::string &id, double x, double y,
         int type, const std::string &key);

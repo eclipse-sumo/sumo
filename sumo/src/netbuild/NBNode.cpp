@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:40:10  dkrajzew
+// typing of nodes during loading allwoed
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -240,6 +243,21 @@ NBNode::NBNode(const string &id, double x, double y)
     _outgoingEdges = new EdgeCont();
 }
 
+NBNode::NBNode(const string &id, double x, double y, 
+               const std::string &type)
+    : _id(id), _x(x), _y(y), _type(-1)
+{
+    _incomingEdges = new EdgeCont();
+    _outgoingEdges = new EdgeCont();
+    if(type=="traffic_light") {
+        _type = TYPE_TRAFFIC_LIGHT;
+    } else if(type=="priority") {
+        _type = TYPE_PRIORITY_JUNCTION;
+    } else {
+        _type = -1;
+    }
+}
+
 NBNode::NBNode(const std::string &id, double x, double y, int type,
                const std::string &key)
     : _id(id), _x(x), _y(y), _key(key), _type(type)
@@ -377,6 +395,10 @@ NBNode::setPriorities()
 int
 NBNode::computeType() const
 {
+    // the type may already be set from the data
+    if(_type>0) {
+        return _type;
+    }
     // check whether the junction is not a real junction
     if(_incomingEdges->size()==1&&_outgoingEdges->size()==1) {
         return TYPE_PRIORITY_JUNCTION; // !!! no junction?
@@ -685,6 +707,9 @@ NBNode::computeLogic(NBRequest *request, long maxSize) {
 
 void
 NBNode::computeEdges2Lanes() {
+    if(_id=="I880_2") {
+        int bla = 0;
+    }
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
