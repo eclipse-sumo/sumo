@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/26 09:54:59  dkrajzew
+// error handling corrected
+//
 // Revision 1.15  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -258,10 +261,14 @@ bool
 RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
                  ROVehicle *veh)
 {
+    MsgHandler *mh = MsgHandler::getErrorInstance();
+    if(options.getBool("continue-on-unbuild")) {
+        mh = MsgHandler::getWarningInstance();
+    }
     RORouteDef *routeDef = veh->getRoute();
     // check if the route definition is valid
     if(routeDef==0) {
-        MsgHandler::getErrorInstance()->inform(string("The vehicle '") + veh->getID()
+        mh->inform(string("The vehicle '") + veh->getID()
             + string("' has no valid route."));
         return false;
     }
@@ -282,7 +289,7 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
         //  router
         if(current->size()!=0) {
             cout << endl;
-            MsgHandler::getWarningInstance()->inform(
+            mh->inform(
                 string("The route '") + routeDef->getID()
                 + string("' is too short, propably ending at the starting edge."));
             MsgHandler::getWarningInstance()->inform("Skipping...");
@@ -293,7 +300,7 @@ RONet::saveRoute(OptionsCont &options, ROAbstractRouter &router,
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
     if(current->getFirst()->getLength()<=veh->getType()->getLength()) {
-        MsgHandler::getErrorInstance()->inform(string("The vehicle '")
+        mh->inform(string("The vehicle '")
             + veh->getID()
             + string("' is too long to start at edge '")
             + current->getFirst()->getID() + string("'."));
