@@ -21,15 +21,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.3  2003/09/23 14:18:15  dkrajzew
 // hierarchy refactored; user-friendly implementation
 //
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,6 +38,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <vector>
 #include <helpers/Command.h>
 #include "MSTriggeredXMLReader.h"
 #include "MSTrigger.h"
@@ -62,11 +63,11 @@ class MSLaneSpeedTrigger : public MSTriggeredXMLReader,
 public:
     /** constructor */
     MSLaneSpeedTrigger(const std::string &id,
-        MSNet &net, MSLane &destLane,
+        MSNet &net, const std::vector<MSLane*> &destLanes,
         const std::string &aXMLFilename);
 
     /** destructor */
-    ~MSLaneSpeedTrigger();
+    virtual ~MSLaneSpeedTrigger();
 
     /** the implementation of the MSTriggeredReader-init method */
     void init(MSNet &net);
@@ -77,7 +78,7 @@ public:
 protected:
     /** the implementation of the SAX-handler interface for reading
         element begins */
-    void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
 
     /** the implementation of the SAX-handler interface for reading
@@ -91,20 +92,21 @@ protected:
 
     bool nextRead();
 
-private:
+protected:
+    /// Define the container for those lanes that shall be manipulated
+    typedef std::vector<MSLane*> LaneCont;
+
     /** the lane the trigger is responsible for */
-    MSLane &_destLane;
+    LaneCont myDestLanes;
 
     /** the speed that will be set on the next call */
-    double _currentSpeed;
+    double myCurrentSpeed;
 
     bool myHaveNext;
+
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSLaneSpeedTrigger.icc"
-//#endif
 
 #endif
 

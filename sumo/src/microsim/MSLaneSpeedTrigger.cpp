@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.6  2003/09/23 14:18:15  dkrajzew
 // hierarchy refactored; user-friendly implementation
 //
@@ -39,9 +42,6 @@ namespace
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -55,6 +55,7 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/common/UtilExceptions.h>
 #include "MSLaneSpeedTrigger.h"
 
 
@@ -68,12 +69,14 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
-                                       MSNet &net, MSLane &destLane,
+                                       MSNet &net,
+                                       const std::vector<MSLane*> &destLanes,
                                        const std::string &aXMLFilename)
     : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
-    _destLane(destLane), myHaveNext(false)
+    myDestLanes(destLanes), myHaveNext(false)
 {
 }
+
 
 MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
 {
@@ -84,14 +87,23 @@ void
 MSLaneSpeedTrigger::init(MSNet &net)
 {
     MSTriggeredXMLReader::init(net);
-    _destLane.myMaxSpeed = _currentSpeed;
+    std::vector<MSLane*>::iterator i;
+    /*
+    for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
+        (*i)->myMaxSpeed = myCurrentSpeed;
+    }
+    */
 }
 
 
 void
 MSLaneSpeedTrigger::processNext()
 {
-    _destLane.myMaxSpeed = _currentSpeed;
+    std::vector<MSLane*>::iterator i;
+    for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
+        (*i)->myMaxSpeed = myCurrentSpeed;
+    }
+    myHaveNext = false;
 }
 
 
@@ -104,27 +116,34 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
         return;
     }
     // extract the values
-    long next = getLongSecure(attrs, SUMO_ATTR_TIME, -1);
-    double speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
-    // check the values
-    if(next<0) {
+    try {
+        long next = getLongSecure(attrs, SUMO_ATTR_TIME, -1);
+        double speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
+        // check the values
+        if(next<0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Wrong time in MSLaneSpeedTrigger in file '")
+                + _file
+                + string("'."));
+            return;
+        }
+        if(speed<0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Wrong speed in MSLaneSpeedTrigger in file '")
+                + _file
+                + string("'."));
+            return;
+        }
+        // set the values for the next step as they are valid
+        myCurrentSpeed = speed;
+        _offset = MSNet::Time(next);
+        myHaveNext = true;
+    } catch(NumberFormatException &e) {
         MsgHandler::getErrorInstance()->inform(
-            string("Wrong time in MSLaneSpeedTrigger in file '")
-            + _file
+            string("Could not initialise vss '") + getID()
             + string("'."));
-        return;
+        throw ProcessError();
     }
-    if(speed<0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Wrong speed in MSLaneSpeedTrigger in file '")
-            + _file
-            + string("'."));
-        return;
-    }
-    // set the values for the next step as they are valid
-    _currentSpeed = speed;
-    _offset = MSNet::Time(next) - _offset;
-    myHaveNext = true;
 }
 
 
@@ -149,9 +168,6 @@ MSLaneSpeedTrigger::nextRead()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSLaneSpeedTrigger.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

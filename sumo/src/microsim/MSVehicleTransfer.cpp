@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.9  2004/04/23 12:39:26  dkrajzew
 // debug-variables removed
 //
@@ -94,7 +97,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
     for(VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
         // get the vehicle information
         VehicleInformation &desc = *i;
-        MSEdge *e = desc.myNextPossibleEdge;
+        MSEdge *e = (MSEdge*) desc.myVeh->getEdge();
         // check whether the vehicle may be emitted onto a following edge
         if(e->emit(*(desc.myVeh))) {
             // remove from this if so
@@ -108,7 +111,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
             if(desc.myProceedTime<time) {
                 // get the lanes of the next edge (the one the vehicle wiil be
                 //  virtually on after all these computations)
-                MSLane *tmp = *(desc.myNextPossibleEdge->getLanes()->begin());
+                MSLane *tmp = *(e->getLanes()->begin());
                 // get the one beyond the one the vehicle moved to
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->id());
                 // let the vehicle move to the next edge
@@ -121,7 +124,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                     i = myVehicles.erase(i);
                     continue;
                 }
-                desc.myNextPossibleEdge = nextEdge;
+//                desc.myNextPossibleEdge = nextEdge;
                 // get the time the vehicle needs to pass the current edge
                 desc.myProceedTime = time + tmp->length() / tmp->maxSpeed()
                     * 2.0; // !!! maybe, the time should be compued in other ways

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.5  2003/12/12 12:37:42  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -95,14 +98,14 @@ private:
 
         /// The time the vehicle should be moved virtually one lane further
         MSNet::Time myProceedTime;
-
+/*
         /// The next edge within the vehicle's route
         MSEdge *myNextPossibleEdge;
-
+*/
         /// Constructor
         VehicleInformation(MSVehicle *veh, MSNet::Time insertTime, MSEdge *e)
-            : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime),
-            myNextPossibleEdge(e)
+            : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)/*,
+            myNextPossibleEdge(e)*/
         { }
 
     };

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.6  2004/01/26 07:50:43  dkrajzew
 // using the xmlhelpers instead of building the parser by the object itself
 //
@@ -47,6 +50,9 @@ namespace
 
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <sax/SAXException.hpp>
+#include <sax/SAXParseException.hpp>
+#include <utils/convert/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -82,13 +88,28 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader()
 void
 MSTriggeredXMLReader::init(MSNet &net)
 {
-    myParser = XMLHelpers::getSAXReader(*this);
-    if(!myParser->parseFirst(_file.c_str(), myToken)) {
+    try {
+        myParser = XMLHelpers::getSAXReader(*this);
+        if(!myParser->parseFirst(_file.c_str(), myToken)) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Can not read XML-file '") + _file + string("'."));
+            throw ProcessError();
+        }
+    } catch (SAXException &e) {
         MsgHandler::getErrorInstance()->inform(
-            string("Can not read XML-file '") + _file + string("'."));
+            TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError();
+    } catch (XMLException &e) {
+        MsgHandler::getErrorInstance()->inform(
+            TplConvert<XMLCh>::_2str(e.getMessage()));
         throw ProcessError();
     }
+
     if(readNextTriggered()) {
+        if(_offset<MSNet::getInstance()->getCurrentTimeStep()) {
+            _offset = MSNet::getInstance()->getCurrentTimeStep() + 1;
+            // !!! Warning?
+        }
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
             new MSTriggerCommand(*this), _offset, MSEventControl::ADAPT_AFTER_EXECUTION);
     } else {

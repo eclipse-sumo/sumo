@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.4  2003/09/23 14:18:15  dkrajzew
 // hierarchy refactored; user-friendly implementation
 //
@@ -29,9 +32,6 @@
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */

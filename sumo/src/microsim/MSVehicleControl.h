@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.2  2004/04/02 11:36:28  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -107,20 +110,21 @@ public:
         is given and no explicite information about s single vehicle's emission
         is needed.
         Still, we do need this if we want to compute the mean waiting time. */
-    void vehicleEmitted(MSVehicle *v);
+    virtual void vehicleEmitted(MSVehicle *v);
+    virtual void vehicleMoves(MSVehicle *v);
 
 protected:
     /// The number of build vehicles
-	size_t myLoadedVehNo;
+    size_t myLoadedVehNo;
 
     /// The number of emitted vehicles
-	size_t myEmittedVehNo;
+    size_t myEmittedVehNo;
 
     /// The number of vehicles within the network (build and emitted but not removed)
     size_t myRunningVehNo;
 
     /// The number of removed vehicles
-	size_t myEndedVehNo;
+    size_t myEndedVehNo;
 
     /// The aggregated time vehicles had to wait for departure
     long myAbsVehWaitingTime;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.2  2004/04/02 11:36:28  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -58,7 +61,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
 {
-	myLoadedVehNo++;
+    myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type,
         MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
@@ -70,7 +73,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                const MSVehicleType* type,
                                int repNo, int repOffset, const RGBColor &col)
 {
-	myLoadedVehNo++;
+    myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type,
         MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
@@ -91,8 +94,8 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
             -
             v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
     }
-	myRunningVehNo--;
-	myEndedVehNo++;
+    myRunningVehNo--;
+    myEndedVehNo++;
     MSVehicle::remove(v->id());
 }
 
@@ -144,6 +147,9 @@ MSVehicleControl::getEmittedVehicleNo() const
 double
 MSVehicleControl::getMeanWaitingTime() const
 {
+    if(myEmittedVehNo==0) {
+        return -1;
+    }
     return (double) myAbsVehWaitingTime / (double) myEmittedVehNo;
 }
 
@@ -151,6 +157,9 @@ MSVehicleControl::getMeanWaitingTime() const
 double
 MSVehicleControl::getMeanTravelTime() const
 {
+    if(myEndedVehNo==0) {
+        return -1;
+    }
     return (double) myAbsVehTravelTime / (double) myEndedVehNo;
 }
 
@@ -158,8 +167,8 @@ MSVehicleControl::getMeanTravelTime() const
 void
 MSVehicleControl::vehiclesEmitted(size_t no)
 {
-	myEmittedVehNo += no;
-	myRunningVehNo += no;
+    myEmittedVehNo += no;
+    myRunningVehNo += no;
 }
 
 
@@ -180,6 +189,13 @@ MSVehicleControl::vehicleEmitted(MSVehicle *v)
             v->desiredDepart());
     }
 }
+
+
+void
+MSVehicleControl::vehicleMoves(MSVehicle *v)
+{
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

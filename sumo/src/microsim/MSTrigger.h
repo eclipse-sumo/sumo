@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/07/02 09:56:40  dkrajzew
+// debugging while implementing the vss visualisation
+//
 // Revision 1.3  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -40,24 +43,20 @@
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class MSTrigger
  */
 class MSTrigger : public Named {
 public:
-	/// Constructor
-    MSTrigger(const std::string &id) : Named(id) { }
+    /// Constructor
+    MSTrigger(const std::string &id);
 
-	/// Destructor
-    ~MSTrigger() { }
+    /// Destructor
+    ~MSTrigger();
 
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSTrigger.icc"
-//#endif
 
 #endif
 
