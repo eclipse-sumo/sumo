@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.3  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -38,7 +41,6 @@
 
 #include <string>
 #include "ROSUMOHandlerBase.h"
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
 
 
 /* =========================================================================

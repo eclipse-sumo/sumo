@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/08/18 12:41:40  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.8  2003/07/30 09:25:17  dkrajzew
 // loading of directions and priorities of links implemented
 //
@@ -53,6 +56,8 @@
 #endif // HAVE_CONFIG_H
 
 #include <sax/HandlerBase.hpp>
+#include <sax/SAXException.hpp>
+#include <sax/AttributeList.hpp>
 #include "NLNetBuilder.h"
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
@@ -62,11 +67,17 @@
 
 
 /* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
+
+
+/* =========================================================================
  * class declarations
  * ======================================================================= */
-class AttributeList;
 class NLContainer;
-class SAXParseException;
 
 
 /* =========================================================================

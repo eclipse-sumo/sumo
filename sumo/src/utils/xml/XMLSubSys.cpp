@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/08/18 12:49:31  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -42,6 +45,14 @@ namespace
 #include <util/PlatformUtils.hpp>
 #include <utils/convert/TplConvert.h>
 #include "XMLSubSys.h"
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================

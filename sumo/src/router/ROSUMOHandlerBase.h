@@ -3,8 +3,17 @@
 
 #include <string>
 #include "ROTypedXMLRoutesLoader.h"
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/sumoxml/SUMOXMLDefinitions.h>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
+
 
 
 class ROVehicleType;

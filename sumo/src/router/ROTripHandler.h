@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.4  2003/07/16 15:36:50  dkrajzew
 // vehicles and routes may now have colors
 //
@@ -51,12 +54,6 @@
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
-
-
- /* =========================================================================
- * class declarations
- * ======================================================================= */
-class SAX2XMLReader;
 
 
 /* =========================================================================

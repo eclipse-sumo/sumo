@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/08/18 12:35:09  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.8  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -66,6 +69,14 @@ namespace
 #include "GUIJunctionControlBuilder.h"
 #include "GUIContainer.h"
 #include "GUINetBuilder.h"
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================

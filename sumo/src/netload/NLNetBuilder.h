@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/08/18 12:41:40  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
 //
@@ -80,8 +83,18 @@
 #include <parsers/SAXParser.hpp>
 #include <framework/XMLFormatter.hpp>
 #include <sax2/DefaultHandler.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
+
 
 /* =========================================================================
  * class declarations
@@ -92,7 +105,6 @@ class MSEmitControl;
 class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;
-class SAX2XMLReader;
 class NLNetHandler;
 
 /* =========================================================================

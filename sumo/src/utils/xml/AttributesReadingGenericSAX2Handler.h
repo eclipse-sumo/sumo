@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/08/18 12:49:31  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.3  2003/03/19 08:12:16  dkrajzew
 // false order of upper class instantiation patched
 //
@@ -64,6 +67,7 @@ public:
 
     /** destructor */
     virtual ~AttributesReadingGenericSAX2Handler() { }
+
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.11  2003/07/07 08:36:58  dkrajzew
 // Warnings are now reported to the MsgHandler
 //
@@ -57,6 +60,7 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -85,6 +89,14 @@ namespace
 #include "ROArtemisRouteDefHandler.h"
 #include "RORandomTripGenerator.h"
 #include "ROTypedRoutesLoader.h"
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================

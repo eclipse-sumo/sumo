@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/08/18 12:49:30  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.14  2003/07/30 09:28:40  dkrajzew
 // link direction and priority attribute names added
 //
@@ -63,6 +66,14 @@
 
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================

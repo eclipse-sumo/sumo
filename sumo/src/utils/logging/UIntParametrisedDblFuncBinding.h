@@ -3,9 +3,9 @@
 /***************************************************************************
                           UIntParametrisedDblFuncBinding.h
                              -------------------
-    begin                : 
-    copyright            : (C) 2001 by 
-    email                : 
+    begin                :
+    copyright            : (C) 2001 by
+    email                :
  ***************************************************************************/
 
 /***************************************************************************
@@ -30,8 +30,8 @@ public:
     /// Type of the function to execute.
     typedef double ( T::* Operation )(size_t ) const;
 
-    UIntParametrisedDblFuncBinding( T* source, Operation operation, 
-                size_t param ) 
+    UIntParametrisedDblFuncBinding( T* source, Operation operation,
+                size_t param )
                 :
         mySource( source ),
         myOperation( operation ),

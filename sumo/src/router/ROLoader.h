@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -35,6 +38,15 @@
 
 #include <string>
 #include "RORouteDefList.h"
+#include <sax2/SAX2XMLReader.hpp>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================
@@ -45,7 +57,6 @@ class RONet;
 class RONetHandler;
 class ROTypedRoutesLoader;
 class ofstream;
-class SAX2XMLReader;
 class GenericSAX2Handler;
 
 

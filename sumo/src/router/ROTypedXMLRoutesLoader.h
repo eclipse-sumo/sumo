@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.4  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -44,6 +47,14 @@
 #include <framework/XMLPScanToken.hpp>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include "ROTypedRoutesLoader.h"
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================

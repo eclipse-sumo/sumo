@@ -30,7 +30,16 @@
 #include "MSNet.h"
 #include <string>
 #include <vector>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <sax2/Attributes.hpp>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================
@@ -38,7 +47,6 @@
  * ======================================================================= */
 class MSEventControl;
 class MSVehicleType;
-class SAX2XMLReader;
 class MSVehicle;
 class MSRoute;
 
@@ -184,6 +192,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.7  2003/08/18 12:37:04  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.6  2003/06/06 10:39:17  dkrajzew
 // new usage of MSEventControl applied
 //

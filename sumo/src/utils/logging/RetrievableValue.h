@@ -7,7 +7,7 @@ public:
     RetrievableValue();
     ~RetrievableValue();
     void getValue() const;
-    
+
 
 };
 

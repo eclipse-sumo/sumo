@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/08/18 12:49:31  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.4  2003/03/18 13:16:58  dkrajzew
 // windows eol removed
 //
@@ -56,6 +59,15 @@
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
+
 
 /* =========================================================================
  * class definitions

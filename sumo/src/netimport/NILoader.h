@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/08/18 12:40:17  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.1  2003/07/17 12:15:39  dkrajzew
 // NBLoader moved to netimport; NBNetBuilder performs now all the building steps
 //
@@ -70,6 +73,15 @@
  * ======================================================================= */
 #include <string>
 #include <netbuild/NLLoadFilter.h>
+#include <sax2/SAX2XMLReader.hpp>
+
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
 
 
 /* =========================================================================
@@ -79,7 +91,6 @@ class OptionsCont;
 class SUMOSAXHandler;
 class LineReader;
 class LineHandler;
-class SAX2XMLReader;
 
 
 /* =========================================================================

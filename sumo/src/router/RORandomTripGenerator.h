@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/08/18 12:44:54  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.2  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -46,8 +49,8 @@
  * class declarations
  * ======================================================================= */
 class RONet;
-class SAX2XMLReader;
 class OptionsCont;
+
 
 /* =========================================================================
  * class definitions

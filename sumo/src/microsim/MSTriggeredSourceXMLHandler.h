@@ -35,14 +35,23 @@
  * included modules
  * ======================================================================= */
 #include <xercesc/sax2/DefaultHandler.hpp>
+#include <sax2/Attributes.hpp>
 #include <map>
 #include <string>
 #include "MSNet.h"
 
+
+/* =========================================================================
+ * xerces 2.2 compatibility
+ * ======================================================================= */
+#if defined(XERCES_HAS_CPP_NAMESPACE)
+using namespace XERCES_CPP_NAMESPACE;
+#endif
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class Attributes;
 class MSTriggeredSource;
 class MSVehicleType;
 
@@ -146,6 +155,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.4  2003/08/18 12:37:04  dkrajzew
+// xerces 2.2 and later compatibility patched
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
