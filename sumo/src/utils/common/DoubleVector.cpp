@@ -21,7 +21,7 @@ DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
     }
     double rsum = sum(dv);
     if(rsum==0) {
-        set(dv, 1.0/msum);
+        set(dv, 1.0/msum/(double) dv.size());
         return;
     }
     div(dv, rsum/msum);
