@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/07/02 09:46:28  dkrajzew
+// some helper procedures for vss visualisation
+//
 // Revision 1.2  2003/10/02 14:55:58  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -34,6 +37,8 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <vector>
+#include <utility>
 #include <utils/geom/Position2DVector.h>
 
 
@@ -48,19 +53,21 @@ public:
     /// Draws a filled polygon described by the list of points
     static void drawFilledPoly(const Position2DVector &v, bool close);
 
-	static void drawBoxLine(const Position2D &beg, double rot,
-		double visLength, double width);
+    static void drawBoxLine(const Position2D &beg, double rot,
+        double visLength, double width);
 
-	static void drawLine(const Position2D &beg, double rot,
-		double visLength);
+    static void drawLine(const Position2D &beg, double rot,
+        double visLength);
+
+    static void drawFilledCircle(double width, int steps=8);
+
+private:
+    static std::vector<std::pair<float, float> > myCircleCoords;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GLHelper.icc"
-//#endif
 
 #endif
 

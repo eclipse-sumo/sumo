@@ -29,7 +29,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <iostream>
 #include <fstream>
-#include <GL/gl.h>		/* OpenGL header file */
+#include <GL/gl.h>      /* OpenGL header file */
 #include "lfontrenderer.h"
 
 using namespace std;
@@ -173,20 +173,20 @@ uint LFontRenderer::LoadFont(const std::string& fontname, const std::string& fil
     glBindTexture(GL_TEXTURE_2D, font.textureId);
 /*
     glTexImage2D(GL_TEXTURE_2D,
-			    0,
-			    2,
-			    width, height,
-			    0,
-			    GL_LUMINANCE_ALPHA,
-			    GL_UNSIGNED_BYTE,
-			    clrPixel);
+                0,
+                2,
+                width, height,
+                0,
+                GL_LUMINANCE_ALPHA,
+                GL_UNSIGNED_BYTE,
+                clrPixel);
     glTexSubImage2D(GL_TEXTURE_2D,
-			    0,
-			    0, 0,
-			    width, height,
-			    GL_LUMINANCE_ALPHA,
-			    GL_UNSIGNED_BYTE,
-			    buf2);
+                0,
+                0, 0,
+                width, height,
+                GL_LUMINANCE_ALPHA,
+                GL_UNSIGNED_BYTE,
+                buf2);
 */
     glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, width, height, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, buf2);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -551,3 +551,60 @@ LFontRenderer::add(const LFont &sfont)
 
     m_fonts.push_back(font);
 }
+
+
+
+void
+LFontRenderer::directDraw(const std::string &what)
+{
+    glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
+    glMatrixMode(GL_TEXTURE);
+    glLoadIdentity();
+    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+
+    glDisable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    float next_x = 0;
+    for (uint k=0; k<what.length(); k++) {
+        byte c = what[k];
+        if (!m_fonts[m_activeFont].chars[c].enabled)
+            c = 32;
+        glBegin(GL_TRIANGLE_STRIP);
+        glTexCoord2f(
+            m_fonts[m_activeFont].chars[c].left,
+            m_fonts[m_activeFont].chars[c].top);
+        glVertex2f(-next_x, 0);
+        glTexCoord2f(
+            m_fonts[m_activeFont].chars[c].left,
+            m_fonts[m_activeFont].chars[c].bottom);
+        glVertex2f(-next_x, m_fonts[m_activeFont].height);
+        glTexCoord2f(
+            m_fonts[m_activeFont].chars[c].right,
+            m_fonts[m_activeFont].chars[c].top);
+        glVertex2f(
+            -next_x - m_fonts[m_activeFont].height*m_fonts[m_activeFont].widthScale*m_fonts[m_activeFont].chars[c].widthFactor,
+            0);
+        glTexCoord2f(
+            m_fonts[m_activeFont].chars[c].right,
+            m_fonts[m_activeFont].chars[c].bottom);
+        glVertex2f(
+            -next_x - m_fonts[m_activeFont].height*m_fonts[m_activeFont].widthScale*m_fonts[m_activeFont].chars[c].widthFactor,
+            0 + m_fonts[m_activeFont].height);
+
+        next_x += m_fonts[m_activeFont].height*m_fonts[m_activeFont].widthScale*m_fonts[m_activeFont].chars[c].widthFactor;
+        glEnd();
+    }
+//    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
+    glMatrixMode(GL_MODELVIEW);
+}
+

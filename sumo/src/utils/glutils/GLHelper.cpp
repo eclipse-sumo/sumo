@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/02 09:46:28  dkrajzew
+// some helper procedures for vss visualisation
+//
 // Revision 1.3  2004/03/19 13:01:29  dkrajzew
 // porting to FOX
 //
@@ -46,6 +49,13 @@ namespace
 #include <GL/gl.h>
 
 #include "GLHelper.h"
+#include <utils/geom/GeomHelper.h>
+
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
+std::vector<std::pair<float, float> > GLHelper::myCircleCoords;
 
 
 /* =========================================================================
@@ -55,23 +65,23 @@ void
 GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_POLYGON);
-	const Position2DVector::ContType &l = v.getCont();
-	for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-		const Position2D &p = *i;
-		glVertex2f(p.x(), p.y());
-	}
+    glBegin(GL_POLYGON);
+    const Position2DVector::ContType &l = v.getCont();
+    for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
+        const Position2D &p = *i;
+        glVertex2f(p.x(), p.y());
+    }
     if(close) {
         const Position2D &p = *(l.begin());
         glVertex2f(p.x(), p.y());
     }
-	glEnd();
+    glEnd();
 }
 
 
 void
 GLHelper::drawBoxLine(const Position2D &beg, double rot, double visLength,
-					  double width)
+                      double width)
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -105,12 +115,39 @@ GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
 
 
 
+void
+GLHelper::drawFilledCircle(double width, int steps)
+{
+    if(myCircleCoords.size()==0) {
+        for(int i=0; i<360; i+=10) {
+            double x = sin((float) i / 180.0 * PI);
+            double y = cos((float) i / 180.0 * PI);
+            myCircleCoords.push_back(std::pair<float, float>(x, y));
+        }
+    }
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    std::pair<float, float> p1 = myCircleCoords[0];
+    for(int i=0; i<steps; i++) {
+        const std::pair<float, float> &p2 =
+            myCircleCoords[36.0/(float) steps * (float) i];
+        glBegin(GL_TRIANGLES);
+        glVertex2f(p1.first * width, p1.second * width);
+        glVertex2f(p2.first * width, p2.second * width);
+        glVertex2f(0, 0);
+        glEnd();
+        p1 = p2;
+    }
+    const std::pair<float, float> &p2 = myCircleCoords[0];
+    glBegin(GL_TRIANGLES);
+    glVertex2f(p1.first * width, p1.second * width);
+    glVertex2f(p2.first * width, p2.second * width);
+    glVertex2f(0, 0);
+    glEnd();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GLHelper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

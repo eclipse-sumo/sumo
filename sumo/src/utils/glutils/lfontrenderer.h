@@ -34,7 +34,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _WIN32
 #include <windows.h>
-#include <GL/gl.h>		/* OpenGL header file */
+#include <GL/gl.h>      /* OpenGL header file */
 //#include <glut.h>
 #endif // _WIN32
 
@@ -144,6 +144,7 @@ public:
 
 
     void add(const LFont &sfont);
+    void directDraw(const std::string &what);
 protected:
     void myDraw(int x, int y, int w, int h);
 
