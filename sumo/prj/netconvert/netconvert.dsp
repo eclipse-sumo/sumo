@@ -373,6 +373,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.cpp
 # End Source File
 # Begin Source File
@@ -390,6 +394,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestell
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.cpp
 # End Source File
 # Begin Source File
 
@@ -470,6 +478,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschild
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -993,6 +1005,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.h
 # End Source File
 # Begin Source File
@@ -1010,6 +1026,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestell
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.h
 # End Source File
 # Begin Source File
 
@@ -1090,6 +1110,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschild
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.h
 # End Source File
 # Begin Source File
 
@@ -1282,7 +1306,7 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Group
 # Begin Source File
 
-SOURCE="..\..\..\..\..\libs\xerces\lib\xerces-c_2.lib"
+SOURCE=..\..\..\..\..\libs\xerces\lib\xerces.lib
 # End Source File
 # End Target
 # End Project

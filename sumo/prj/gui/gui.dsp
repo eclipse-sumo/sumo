@@ -1006,6 +1006,14 @@ InputPath=..\..\src\gui\QGUIToggleButton.h
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
 
+# Begin Custom Build - Moc'ing QGUIToggleButton.h...
+InputPath=..\..\src\gui\QGUIToggleButton.h
+
+"..\..\src\gui\moc_QGUIToggleButton.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\QGUIToggleButton.h -o ..\..\src\gui\moc_QGUIToggleButton.cpp
+
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
