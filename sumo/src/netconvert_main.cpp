@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/06/19 07:07:52  dkrajzew
+// false order of calling XML- and Options-subsystems patched
+//
 // Revision 1.12  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -411,6 +414,9 @@ int main(int argc, char **argv)
     int ret = 0;
     OptionsCont *oc = 0;
     try {
+        if(!XMLSubSys::init()) {
+            throw ProcessError();
+        }
         // parse the settings
         oc = NBOptionsIO::getOptions(argc, argv);
         // check if only the help shall be printed
@@ -439,7 +445,7 @@ int main(int argc, char **argv)
         // save network when wished
         save(oc->getString("o"));
         // remove everything from the memory
-    } catch (ProcessError) {
+    } catch (...) {
         clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;

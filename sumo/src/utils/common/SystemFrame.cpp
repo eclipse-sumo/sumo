@@ -29,10 +29,8 @@ SystemFrame::init(bool gui, OptionsCont *oc)
     if(oc!=0&&oc->getBool("suppress-warnings")) {
         MsgHandler::getWarningInstance()->report2cout(false);
     }
-    // initialise the xml-subsystem
-    bool ok = XMLSubSys::init();
     // return the state
-    return ok;
+    return true;
 }
 
 

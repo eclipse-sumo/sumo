@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/06/19 07:07:52  dkrajzew
+// false order of calling XML- and Options-subsystems patched
+//
 // Revision 1.16  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -294,6 +297,9 @@ main(int argc, char **argv)
     RONet *net = 0;
     OptionsCont *oc = 0;
     try {
+        if(!XMLSubSys::init()) {
+            throw ProcessError();
+        }
         // get the options
         oc = getSettings(argc, argv);
         // test whether only the help was printed
@@ -326,7 +332,7 @@ main(int argc, char **argv)
             ret = 1;
         }
         delete oc;
-    } catch (ProcessError) {
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;

@@ -147,6 +147,9 @@ main(int argc, char **argv)
     int ret = 0;
     OptionsCont *oc = 0;
     try {
+        if(!XMLSubSys::init()) {
+            throw ProcessError();
+        }
         oc = getSettings(argc, argv);
         // parse the settings
         if(oc==0) {
@@ -342,7 +345,7 @@ main(int argc, char **argv)
 		delete [] source; delete [] sink;
 		delete [] when_all; delete [] cartype;
         MsgHandler::getMessageInstance()->inform("Success.");
-    } catch (ProcessError) {
+    } catch (...) {
         ret = 1;
     }
     SystemFrame::close(oc);

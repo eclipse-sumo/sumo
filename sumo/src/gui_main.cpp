@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/06/19 07:07:52  dkrajzew
+// false order of calling XML- and Options-subsystems patched
+//
 // Revision 1.4  2003/06/18 11:26:15  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -166,6 +169,9 @@ main(int argc, char **argv)
     srand(1040208551);
     int ret = 0;
     try {
+        if(!XMLSubSys::init()) {
+            throw ProcessError();
+        }
         // initialise the xml-subsystem
         if(!SystemFrame::init(true, 0)) {
             throw ProcessError();
@@ -185,7 +191,7 @@ main(int argc, char **argv)
         a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
         mw->show();
         ret = a.exec();
-    } catch(ProcessError &e) {
+    } catch(...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).");
         ret = 1;
     }
