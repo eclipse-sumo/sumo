@@ -22,8 +22,107 @@
 //
 //---------------------------------------------------------------------------//
 
-class MSQueueLengthAheadOfTrafficLights
-{};
+#include "MSHaltingDetectorContainer.h"
+#include "MSUnit.h"
+#include "MSE2DetectorInterface.h"
+#include <string>
+
+class MSQueueLengthAheadOfTrafficLightsInVehicles
+{
+protected:
+    typedef double DetectorAggregate;
+    typedef DetectorContainer::Haltings Container;
+//     typedef Container::HaltingsConstIt HaltingsConstIt;
+//     typedef Container::InnerCont Haltings;
+    
+    MSQueueLengthAheadOfTrafficLightsInVehicles(
+        double lengthInMeters,
+//         const Container& container,
+        const MSE2DetectorInterface& helperDetector )
+        : //containerM( container ),
+          helperDetectorM( helperDetector ),
+          maxNVehM( 0 )
+        {}
+
+    virtual ~MSQueueLengthAheadOfTrafficLightsInVehicles( void )
+        {}
+
+    DetectorAggregate getDetectorAggregate( void )
+        {
+            // helperDet.getDetectorAggregate must be called
+            // earlier. E2_ZS_Collector is responsible for this.
+            DetectorAggregate helperAggr =
+                helperDetectorM.getCurrent();
+            if ( helperAggr > maxNVehM ) {
+                maxNVehM = helperAggr;
+            }
+            return maxNVehM;
+        }
+
+    void resetMax( void )
+        {
+            maxNVehM = 0.0;
+        }
+
+    static std::string getDetectorName( void )
+        {
+            return "queueLengthAheadOfTrafficLightsInVehicles";
+        }
+private:
+//     const Container& containerM;
+    const MSE2DetectorInterface& helperDetectorM;
+    double maxNVehM;
+};
+
+
+class MSQueueLengthAheadOfTrafficLightsInMeters
+{
+protected:
+    typedef double DetectorAggregate;
+    typedef DetectorContainer::Haltings Container;
+//     typedef Container::HaltingsConstIt HaltingsConstIt;
+//     typedef Container::InnerCont Haltings;
+    
+    MSQueueLengthAheadOfTrafficLightsInMeters(
+        double lengthInMeters,
+//         const Container& container,
+        const MSE2DetectorInterface& helperDetector )
+        : //containerM( container ),
+          helperDetectorM( helperDetector ),
+          maxJamLengthM( 0 )
+        {}
+    
+    virtual ~MSQueueLengthAheadOfTrafficLightsInMeters( void )
+        {}
+
+    DetectorAggregate getDetectorAggregate( void )
+        {
+            // helperDet.getDetectorAggregate must be called
+            // earlier. E2_ZS_Collector is responsible for this.
+            DetectorAggregate helperAggr =
+                helperDetectorM.getCurrent();
+            if ( helperAggr > maxJamLengthM ) {
+                maxJamLengthM = helperAggr;
+            }
+            return MSUnit::getInstance()->getMeters( maxJamLengthM );
+        }
+
+    void resetMax( void )
+        {
+            maxJamLengthM = 0.0;
+        }
+
+    static std::string getDetectorName( void )
+        {
+            return "queueLengthAheadOfTrafficLightsInMeters";
+        }
+    
+private:
+//     const Container& containerM;
+    const MSE2DetectorInterface& helperDetectorM;
+    MSUnit::Cells maxJamLengthM;
+};
+
 
 #endif // MSQUEUELENGTHAHEADOFTRAFFICLIGHTS_H
 
