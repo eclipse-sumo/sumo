@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.7  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -143,6 +146,12 @@ using namespace std;
 
 
 /* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
 MSLaneChanger::~MSLaneChanger()
@@ -234,7 +243,7 @@ MSLaneChanger::change()
     vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+        DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
     if ( candiOnAllowed( myCandi ) ) {
@@ -247,7 +256,7 @@ MSLaneChanger::change()
             vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "changed2right" << endl;
+        DEBUG_OUT << "changed2right" << endl;
     }
 #endif
             return;
@@ -261,7 +270,7 @@ MSLaneChanger::change()
             vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "changed2left" << endl;
+        DEBUG_OUT << "changed2left" << endl;
     }
 #endif
             return;
@@ -279,7 +288,7 @@ MSLaneChanger::change()
             vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "changed:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+        DEBUG_OUT << "changed:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
             return;
@@ -290,7 +299,7 @@ MSLaneChanger::change()
     vehicle->myLastLaneChangeOffset++;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "kept" << endl;
+        DEBUG_OUT << "kept" << endl;
     }
 #endif
     return;
@@ -610,9 +619,9 @@ MSLaneChanger::safeChange( ChangerIt target )
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime&&(vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
         if(neighFollow!=0) {
-            cout << "NeighFollow:" << neighFollow->id() << endl;
+            DEBUG_OUT << "NeighFollow:" << neighFollow->id() << endl;
         } else {
-            cout << "No NeighFollow" << endl;
+            DEBUG_OUT << "No NeighFollow" << endl;
         }
     }
 #endif

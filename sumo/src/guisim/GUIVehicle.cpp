@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.9  2003/06/06 10:29:24  dkrajzew
 // new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
@@ -318,7 +321,7 @@ GUIVehicle::fillTableParameter(double *parameter) const
     parameter[5] = myWaitingTime;
     parameter[6] = myPeriod;
     parameter[7] = myRepetitionNumber;
-	myType->fillTableParameter(parameter+9);
+	myType->fillTableParameter(parameter, 9);
 }
 
 double

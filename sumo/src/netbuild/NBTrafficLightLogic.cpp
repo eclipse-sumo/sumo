@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.8  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -66,6 +69,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -151,7 +160,7 @@ NBTrafficLightLogic::_debugWritePhases() const
 {
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
-        cout << (*i).duration << "s : " << (*i).driveMask << endl;
+        DEBUG_OUT << (*i).duration << "s : " << (*i).driveMask << endl;
     }
 }
 

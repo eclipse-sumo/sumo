@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.23  2003/06/05 10:19:44  roessel
 // Added previous lane reminder-container and workOnMoveReminders().
 //
@@ -304,6 +307,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -711,12 +720,9 @@ MSVehicle::move( MSLane* lane,
                  const MSVehicle* pred,
                  const MSVehicle* neigh )
 {
-#ifdef _SPEEDCHECK
-    MSNet::noVehicles++;
-#endif
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        cout << "movea/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "movea/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     double gap = gap2pred(*pred);
@@ -777,7 +783,7 @@ MSVehicle::move( MSLane* lane,
     myState.mySpeed = vNext;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        cout << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
 }
@@ -788,12 +794,9 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
                                  const MSVehicle* neigh )
 {
-#ifdef _SPEEDCHECK
-    MSNet::noVehicles++;
-#endif
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        cout << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     myLFLinkLanes.clear();
@@ -847,7 +850,7 @@ MSVehicle::moveFirstChecked()
 {
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
-	    cout << endl << "moveFirstChecked; vsafe:" << vsafe << endl;
+	    DEBUG_OUT << endl << "moveFirstChecked; vsafe:" << vsafe << endl;
     }
 #endif
     // get vsafe
@@ -937,7 +940,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
 {
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        cout << "vsafeCriticalCont/" << MSNet::globaltime << ":" << myID << endl;
+        DEBUG_OUT << "vsafeCriticalCont/" << MSNet::globaltime << ":" << myID << endl;
     }
 #endif
     double decelAbility = myType->decel();
@@ -1059,9 +1062,6 @@ MSVehicle::endsOn(const MSLane &lane) const
 void
 MSVehicle::moveDecel2laneEnd( MSLane* lane )
 {
-#ifdef _SPEEDCHECK
-    MSNet::noVehicles++;
-#endif
     double gap = lane->length() - myState.myPos; // !!!
 //!!!    assert( gap <= brakeGap( lane ) );
 
@@ -1085,10 +1085,6 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
 void
 MSVehicle::moveUpdateState( const State newState )
 {
-#ifdef _SPEEDCHECK
-    MSNet::noVehicles++;
-#endif
-
     myState.myPos  += newState.mySpeed * MSNet::deltaT();
     assert( myState.myPos >= 0 );
 
@@ -1101,10 +1097,6 @@ MSVehicle::moveUpdateState( const State newState )
 void
 MSVehicle::moveSetState( const State newState )
 {
-#ifdef _SPEEDCHECK
-    MSNet::noVehicles++;
-#endif
-
     myState = newState;
     assert( myState.myPos >= 0 );
     assert( myState.mySpeed >= 0 );
@@ -1359,7 +1351,7 @@ MSVehicle::dumpData( unsigned index )
 
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() );
-   
+
     myLane->addVehicleData( leaveTimestep - md.entryContTimestep,
                             MSNet::getInstance()->timestep() -
                             md.entryDiscreteTimestep,
@@ -1413,7 +1405,6 @@ MSVehicle::updateMeanData( double entryTimestep,
         if ( pos == 0 ) {
             md->enteredAtLaneStart = true;
             md->entryTravelTimestep = entryTimestep;
-//             cout << "enteredAtLaneStart = true" << endl;
         }
         else {
             md->enteredAtLaneStart = false;
@@ -1426,7 +1417,7 @@ MSVehicle::updateMeanData( double entryTimestep,
 //         cout << "MSVehicle::updateMeanData speed " << speed << " at "
 //              << MSNet::getInstance()->timestep() << " veh " << myID << endl;
 //     }
-}   
+}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1582,7 +1573,7 @@ MSVehicle::meanDataMove( void )
 //         cout << "MSVehicle::meanDataMove speed " << speed << " at "
 //              << MSNet::getInstance()->timestep() << " veh " << myID << endl;
 //     }
-    
+
     for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
           md != myMeanData.end(); ++md ) {
 
@@ -1712,7 +1703,7 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
     if ( mode != CURRENT ) {
         for ( MoveReminderContIt rem = myOldLaneMoveReminders.begin();
               rem != myOldLaneMoveReminders.end(); /* empty */ ) {
-            double oldLaneLength = (*rem)->getLane()->length();           
+            double oldLaneLength = (*rem)->getLane()->length();
             if ( ! (*rem)->isStillActive( *this, oldLaneLength + oldPos,
                                           oldLaneLength + newPos, newSpeed) ) {
                 rem = myOldLaneMoveReminders.erase( rem );

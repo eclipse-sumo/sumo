@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.2  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -64,6 +67,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -129,7 +138,7 @@ MSSourceLane::emitTry( MSVehicle& veh )
     myVehicles.push_front( &veh );
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -160,7 +169,7 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.10  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
 //
@@ -245,9 +248,9 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
     }
 #ifdef TL_DEBUG
-    cout << "Phasenfolge (Ende):" << endl;
+    DEBUG_OUT << "Phasenfolge (Ende):" << endl;
     ret->_debugWritePhases();
-    cout << "----------------------------------" << endl;
+    DEBUG_OUT << "----------------------------------" << endl;
 #endif
     return ret;
 }

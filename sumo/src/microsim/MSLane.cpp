@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.19  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.18  2003/06/04 16:29:42  roessel
 // Vehicles are emtted completely on current lane in emitTry() (needed for detectors). Vehicles that will be destroyed because they reached their destination will dismiss their active reminders in push().
 //
@@ -283,6 +286,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -709,7 +718,7 @@ MSLane::emitTry( MSVehicle& veh )
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -743,7 +752,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -773,7 +782,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             myVehicles.insert( leaderIt, &veh );
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -806,7 +815,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         myVehicles.push_back( &veh );
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -842,7 +851,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         myVehicles.insert( leaderIt, &veh );
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-		cout << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
+		DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -910,9 +919,9 @@ MSLane::push(MSVehicle* veh)
 {
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-	    cout << "Push Failed on Lane:" << myID << endl;
-	    cout << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-	    cout << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+	    DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
+	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
 
@@ -935,7 +944,7 @@ MSLane::push(MSVehicle* veh)
                                   veh->pos() + oldLaneLength + speed *
                                   MSNet::deltaT(),
                                   speed );
-        
+
         MSVehicle::remove(veh->id());
         return true;
         // TODO
@@ -1285,8 +1294,6 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 
         meanDensity = ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
             intervallLength / lane.myLength * 1000.0;
-
-//         cout << "meanDensity " <<  meanDensity << endl;
 
         // only vehicles that used the lane entirely contribute to traveltime
         if ( meanData.nVehEntireLane > 0 ) {

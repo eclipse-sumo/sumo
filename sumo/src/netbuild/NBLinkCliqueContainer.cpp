@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -48,6 +51,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -143,7 +152,6 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *v,
         }
     }
     //
-//    cout << *ret;
     return ret;
 }
 
@@ -242,11 +250,11 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         }
     }
 #ifdef TL_DEBUG
-	cout << "Cliquen:" << endl;
+	DEBUG_OUT << "Cliquen:" << endl;
 	for(LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
-		cout << (*a) << endl;
+		DEBUG_OUT << (*a) << endl;
 	}
-	cout << "--------------------------------" << endl;
+	DEBUG_OUT << "--------------------------------" << endl;
 #endif
 }
 
@@ -271,15 +279,10 @@ NBLinkCliqueContainer::buildFurther()
     }
 	//
 #ifdef TL_DEBUG
-	cout << "------------" << endl << "Cliquen: " << endl;
+	DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
 	for(i=0; i<_cliques.size(); i++) {
-		cout << _cliques[i] << endl;
+		DEBUG_OUT << _cliques[i] << endl;
 	}
-/*	cout << "------------" << endl;
-	for(i=0; i<_cliques.size(); i++) {
-		cout << _further[i] <<endl;
-	}
-	cout << "------------" << endl;*/
 #endif
 }
 

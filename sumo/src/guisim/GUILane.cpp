@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.4  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -59,6 +62,12 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -168,9 +177,9 @@ GUILane::push( MSVehicle* veh )
     _lock.lock();//Display();
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-	    cout << "Push Failed on Lane:" << myID << endl;
-	    cout << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-	    cout << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+	    DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
+	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
 

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/06/18 11:30:26  dkrajzew
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+//
 // Revision 1.4  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -90,10 +93,22 @@ namespace
 #include <cassert>
 #include <cmath>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//-------------------------------------------------------------------------//
 
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSRightOfWayJunction::InLane::InLane(MSLane* lane) :
     myLane( lane )
 {
@@ -137,7 +152,7 @@ MSRightOfWayJunction::setAllowed()
 {
 #ifdef ABS_DEBUG
 	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
-		cout << "Request: " << myRequest << endl;
+		DEBUG_OUT << "Request: " << myRequest << endl;
 	}
 #endif
     // Get myRespond from logic and check for deadlocks.
@@ -145,7 +160,7 @@ MSRightOfWayJunction::setAllowed()
     deadlockKiller();
 #ifdef ABS_DEBUG
 	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
-		cout << "Respond: " << myRespond << endl;
+		DEBUG_OUT << "Respond: " << myRespond << endl;
 	}
 #endif
     return true;
