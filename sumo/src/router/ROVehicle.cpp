@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.4  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -53,9 +56,9 @@ namespace
 using namespace std;
 
 ROVehicle::ROVehicle(const std::string &id, RORouteDef *route, long depart,
-                     ROVehicleType *type, long period)
+                     ROVehicleType *type, int period, int repNo)
 	: _id(id), _type(type), _route(route), _depart(depart),
-    _period(period)
+    _period(period), _repNo(repNo)
 {
 }
 
@@ -84,6 +87,10 @@ void ROVehicle::xmlOut(std::ostream &os) const
     os << " type=\"" << _type->getID() << "\"";
 	os << " route=\"" << _route->getID() << "\"";
 	os << " depart=\"" << _depart << "\"";
+    if(_period!=-1) {
+        os << " period=\"" << _period << "\"";
+        os << " repno=\"" << _repNo << "\"";
+    }
 	os << "/>" << endl;
 }
 
@@ -99,6 +106,8 @@ ROVehicle::getDepartureTime() const
     return _depart;
 }
 
+
+/*
 bool
 ROVehicle::reassertPeriodical()
 {
@@ -106,17 +115,7 @@ ROVehicle::reassertPeriodical()
         return false;
     }
     // patch the name
-    size_t idx = _id.rfind('_');
-    if(idx!=string::npos) {
-        try {
-            int no = TplConvert<char>::_2int(_id.substr(idx+1).c_str());
-            _id = _id.substr(0, idx+1) + toString<int>(no+1);
-        } catch (NumberFormatException) {
-            _id = _id + "_0";
-        }
-    } else {
-        _id = _id + "_0";
-    }
+    _id = StringUtils::version1(_id);
     // patch departure time
     _depart += _period;
     // patch the name of the route
@@ -124,7 +123,7 @@ ROVehicle::reassertPeriodical()
     // assign reemission
     return true;
 }
-
+*/
 
 bool
 ROVehicle::periodical() const

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/03/03 15:22:36  dkrajzew
 // debugging
 //
@@ -43,6 +46,7 @@ namespace
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/SErrorHandler.h>
 #include "RORouteDef.h"
 #include "RONet.h"
@@ -51,6 +55,7 @@ namespace
 #include "RORouteDefList.h"
 #include "ROVehicle.h"
 #include "RORunningVehicle.h"
+#include "ROCompleteRouteDef.h"
 #include "ROTypedRoutesLoader.h"
 
 using namespace std;
@@ -59,14 +64,6 @@ ROTripHandler::ROTripHandler(RONet &net,
                                      const std::string &fileName)
     : ROTypedXMLRoutesLoader(net, fileName)
 {
-/*    _attrHandler.add(SUMO_ATTR_id, "id");
-    _attrHandler.add(SUMO_ATTR_time, "time");
-    _attrHandler.add(SUMO_ATTR_from, "from");
-    _attrHandler.add(SUMO_ATTR_to, "to");
-    _attrHandler.add(SUMO_ATTR_type, "type");
-    _attrHandler.add(SUMO_ATTR_speed, "speed");
-    _attrHandler.add(SUMO_ATTR_pos, "pos");
-    _attrHandler.add(SUMO_ATTR_lane, "lane");*/
 }
 
 
@@ -74,45 +71,30 @@ ROTripHandler::~ROTripHandler()
 {
 }
 
+
 void ROTripHandler::myStartElement(int element, const std::string &name,
                                       const Attributes &attrs)
 {
     if(element==SUMO_TAG_TRIPDEF) {
         // get the vehicle id, the edges, the speed and position and
-        //  the departure time
-        string id = getVehicleID(attrs);
-        ROEdge *from = getEdge(attrs, "origin", SUMO_ATTR_FROM, id);
-        ROEdge *to = getEdge(attrs, "destination", SUMO_ATTR_TO, id);
-        string typeID = getVehicleType(attrs);
-        float pos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, id);
-        float speed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, id);
-        long time = getDepartureTime(attrs, id);
-        long period = getPeriod(attrs, id);
-        string lane = getLane(attrs);
+        //  the departure time and other information
+        myID = getVehicleID(attrs);
+        myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, myID);
+        myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, myID);
+        myType = getVehicleType(attrs);
+        myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
+        mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
+        myDepartureTime = getDepartureTime(attrs, myID);
+        myPeriodTime = getPeriod(attrs, myID);
+        myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
+        myLane = getLane(attrs);
         // recheck attributes
-        if(from==0||to==0||time<0) {
-/*            if(from==0) {
-                SErrorHandler::add("The from edge is not known.");
-            }
-            if(to==0) {
-                SErrorHandler::add("The to edge is not known.");
-            }*/
-            if(time<0) {
+        if(myBeginEdge==0||myEndEdge==0||myDepartureTime<0) {
+            if(myDepartureTime<0) {
                 SErrorHandler::add("The departure time must be positive.");
             }
             return;
         }
-        // add the vehicle type, the vehicle and the route to the net
-        RORouteDef *route = new ROOrigDestRouteDef(id, from, to);
-        ROVehicleType *type = _net.getVehicleTypeSecure(typeID);
-        if(pos>0||speed>0) {
-            _net.addVehicle(id, new RORunningVehicle(id, route, time, type, lane, pos, speed, period));
-        } else {
-            _net.addVehicle(id, new ROVehicle(id, route, time, type, period));
-        }
-        _net.addRouteDef(route);
-        _nextRouteRead = true;
-        _currentTimeStep = time;
     }
 }
 
@@ -203,17 +185,35 @@ ROTripHandler::getDepartureTime(const Attributes &attrs,
 }
 
 
-long
+int
 ROTripHandler::getPeriod(const Attributes &attrs,
                          const std::string &id)
 {
-    // get the departure time
+    // get the repetition period
     try {
-        return getLong(attrs, SUMO_ATTR_PERIOD);
+        return getInt(attrs, SUMO_ATTR_PERIOD);
     } catch(EmptyData) {
         return -1;
     } catch (NumberFormatException) {
         SErrorHandler::add("The value of the period should be numeric but is not.");
+        if(id.length()!=0)
+            SErrorHandler::add(string(" Route id='") + id + string("'"));
+    }
+    return -1;
+}
+
+
+int
+ROTripHandler::getRepetitionNumber(const Attributes &attrs,
+                                   const std::string &id)
+{
+    // get the repetition period
+    try {
+        return getInt(attrs, SUMO_ATTR_PERIOD);
+    } catch(EmptyData) {
+        return -1;
+    } catch (NumberFormatException) {
+        SErrorHandler::add("The number of cars that shall be emitted with the same parameter must be numeric.");
         if(id.length()!=0)
             SErrorHandler::add(string(" Route id='") + id + string("'"));
     }
@@ -236,13 +236,55 @@ void
 ROTripHandler::myCharacters(int element, const std::string &name,
                                const std::string &chars)
 {
+    if(element==SUMO_TAG_TRIPDEF) {
+        StringTokenizer st(chars);
+        myEdges.clear();
+        while(st.hasNext()) {
+            string id = st.next();
+            ROEdge *edge = _net.getEdge(id);
+            if(edge==0) {
+                SErrorHandler::add(
+                    string("Could not find edge '") + id
+                    + string("' wihtin route '") + myID + string("'."));
+                return;
+            }
+            myEdges.add(edge);
+        }
+    }
 }
 
 
 void
 ROTripHandler::myEndElement(int element, const std::string &name)
 {
+    if(element==SUMO_TAG_TRIPDEF) {
+        // add the vehicle type, the vehicle and the route to the net
+        RORouteDef *route = 0;
+        if(myEdges.size()==0) {
+            route = new ROOrigDestRouteDef(myID, myBeginEdge, myEndEdge);
+        } else {
+            route = new ROCompleteRouteDef(myID, myEdges);
+        }
+        ROVehicleType *type = _net.getVehicleTypeSecure(myType);
+        if(myPos>=0||mySpeed>=0) {
+            _net.addVehicle(myID,
+                new RORunningVehicle(myID, route, myDepartureTime,
+                    type, myLane, myPos, mySpeed, myPeriodTime,
+                    myNumberOfRepetitions));
+        } else {
+            _net.addVehicle(myID,
+                new ROVehicle(myID, route, myDepartureTime,
+                    type, myPeriodTime, myNumberOfRepetitions));
+        }
+        _net.addRouteDef(route);
+        _nextRouteRead = true;
+        _currentTimeStep = myDepartureTime;
+    }
 }
+
+
+
+
 
 ROTypedRoutesLoader *
 ROTripHandler::getAssignedDuplicate(const std::string &file) const
@@ -250,10 +292,13 @@ ROTripHandler::getAssignedDuplicate(const std::string &file) const
     return new ROTripHandler(_net, file);
 }
 
+
 std::string
 ROTripHandler::getDataName() const {
     return "XML-route definitions";
 }
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

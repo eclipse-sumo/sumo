@@ -4,4 +4,4 @@ LoggedValue_TimeFloating.cpp \
 LoggedValue.h \
 LoggedValue_Single.h \
 LoggedValue_TimeFixed.h \
-LoggedValue_TimeFloating.h 
+LoggedValue_TimeFloating.h

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -63,7 +66,7 @@ public:
     void add(ROEdge *id);
 
     /// Saves the whole route (as a route)
-    void xmlOut(std::ostream &os) const;
+    void xmlOut(std::ostream &os, bool isPeriodical) const;
 
     /// Saves the edges the route consists of
     void xmlOutEdges(std::ostream &os) const;

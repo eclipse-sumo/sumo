@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:35  dkrajzew
 // debugging
 //
@@ -53,9 +56,8 @@ class RORunningVehicle : public ROVehicle {
 public:
     /// Constructor
     RORunningVehicle(const std::string &id, RORouteDef *route, long time,
-        ROVehicleType *type,
-        const std::string &lane, float pos, float speed,
-        long period);
+        ROVehicleType *type, const std::string &lane, float pos,
+        float speed, int period, int repNo);
 
     /// Destructor
     ~RORunningVehicle();

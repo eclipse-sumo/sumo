@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/20 16:39:16  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -46,24 +49,56 @@ class ROEdge;
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class ROEdgeVector
+ * A list of edges (to pass)
  */
 class ROEdgeVector {
-private:
-    typedef std::vector<ROEdge*> EdgeVector;
-    EdgeVector _edges;
 public:
+    /// Constructor
     ROEdgeVector();
+
+    /// Destructor
     ~ROEdgeVector();
+
+    /// Adds a further edge to the end
     void add(ROEdge *edge);
+
+    /// Returns the first edge
     ROEdge *getFirst() const;
+
+    /// Returns the last edge
     ROEdge *getLast() const;
+
+    /// Returns a list of the edge ids in the order of the edges
     std::deque<std::string> getIDs() const;
+
+    /// Computes the costs to pass the edges beginning at the given time
     double recomputeCosts(long time) const;
+
+    /** @brief Returns the infomration whether both lists are equal
+        @deprecated (Should be a comparison operator */
     bool equals(const ROEdgeVector &vc) const;
+
+    /// Returns the number of edges within the list
     size_t size() const;
+
+    /// Empties the list
+    void clear();
+
+    /** @brief Returns the inverse list
+        A list which starts at the last element of this list and ends with the first one is returned */
     ROEdgeVector getReverse() const;
+
+    /// Output operator
     friend std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev);
+private:
+
+    /// Definition of a list of edges
+    typedef std::vector<ROEdge*> EdgeVector;
+
+    /// The list of edges
+    EdgeVector _edges;
+
 };
 
 

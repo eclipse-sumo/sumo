@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/20 16:41:09  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.3  2003/03/12 16:35:42  dkrajzew
 // some further functionality added needed by the artemis-import
 //

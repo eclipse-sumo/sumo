@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 16:39:16  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -86,9 +89,9 @@ ROOrigDestRouteDef::addAlternative(RORoute *current, long begin)
 
 
 void
-ROOrigDestRouteDef::xmlOutCurrent(std::ostream &res) const
+ROOrigDestRouteDef::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
 {
-    _current->xmlOut(res);
+    _current->xmlOut(res, isPeriodical);
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:39:16  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -136,6 +139,13 @@ size_t
 ROEdgeVector::size() const
 {
     return _edges.size();
+}
+
+
+void
+ROEdgeVector::clear()
+{
+    _edges.clear();
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:39:15  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.4  2003/03/03 15:08:20  dkrajzew
 // debugging
 //
@@ -142,7 +145,7 @@ ROCellRouteDefHandler::readNextRoute(long start)
     string id = _vehicleIdSupplier.getNext();
     _net.addVehicle(id,
         new ROVehicle(id, altDef, _driverParser.getRouteStart(),
-        _net.getDefaultVehicleType(), -1));
+        _net.getDefaultVehicleType(), -1, 0));
     _nextRouteRead = true;
     return true;
 }

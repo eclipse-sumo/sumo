@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/02/07 10:45:05  dkrajzew
 // updated
 //
@@ -64,9 +67,13 @@ RORoute::add(ROEdge *edge)
 
 
 void
-RORoute::xmlOut(std::ostream &os) const
+RORoute::xmlOut(std::ostream &os, bool isPeriodical) const
 {
-    os << "<route id=\"" << _id << "\">";
+    os << "<route id=\"" << _id << "\"";
+    if(isPeriodical) {
+        os << " multi_ref=\"x\"";
+    }
+    os << ">";
 //    os << " references=\"" << _references << "\">";
     os << _route;
     os << "</route>" << endl;

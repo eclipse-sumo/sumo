@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.4  2003/02/07 10:45:06  dkrajzew
 // updated
 //
@@ -211,9 +214,9 @@ RORouteAlternativesDef::gawronG(double a, double x)
 
 
 void
-RORouteAlternativesDef::xmlOutCurrent(std::ostream &res) const
+RORouteAlternativesDef::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
 {
-    _alternatives[_lastUsed]->xmlOut(res);
+    _alternatives[_lastUsed]->xmlOut(res, isPeriodical);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:35  dkrajzew
 // debugging
 //
@@ -77,7 +80,7 @@ public:
         The route herself will be written into the first, the alternatives
         (also including the current route) will be written to the second file */
     bool computeAndSave(OptionsCont &options, RORouter &router, long begin,
-        std::ostream &res, std::ostream &altres);
+        std::ostream &res, std::ostream &altres, bool isPeriodical);
 
     /** @brief Changes the id to a next, hopefully valid
         This is done if the vehicle(s) using this route are emitted periodically */
@@ -93,7 +96,8 @@ protected:
     virtual void addAlternative(RORoute *current, long begin) = 0;
 
     /** @brief Writes the current route */
-    virtual void xmlOutCurrent(std::ostream &res) const = 0;
+    virtual void xmlOutCurrent(std::ostream &res,
+        bool isPeriodical) const = 0;
 
     /** @brief Writes the list of known alternatives */
     virtual void xmlOutAlternatives(std::ostream &altres) const = 0;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.4  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -62,7 +65,7 @@ class ROVehicle {
 public:
     /// Constructor
 	ROVehicle(const std::string &id, RORouteDef *route, long depart,
-        ROVehicleType *type, long period);
+        ROVehicleType *type, int period, int repNo);
 
     /// Destructor
 	virtual ~ROVehicle();
@@ -84,7 +87,7 @@ public:
 
     /** @brief Checks whether a next trip shall be generated
         Changes (adapts) the departure time and the vehicle id, too */
-    bool reassertPeriodical();
+//    bool reassertPeriodical();
 
     /** Returns the information whether more than a single vehicle with these
         settings shall be emitted. */
@@ -104,7 +107,10 @@ protected:
 	long _depart;
 
     /// The repetition period (-1 if only one vehicle shall be emitted)
-    long _period;
+    int _period;
+
+    /// The number of times such vehicles shall be emitted
+    int _repNo;
 
 };
 

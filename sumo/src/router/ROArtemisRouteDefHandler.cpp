@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 16:39:15  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/03/17 14:26:38  dkrajzew
 // debugging
 //
@@ -136,7 +139,7 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
                     string vehID = myVehIDSupplier.getNext();
                     _net.addVehicle(vehID,
                         new ROVehicle(vehID, route,
-                            start, type, -1));
+                            start, type, -1, 0));
                     j = poss.end()-1;
                 }
             }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.3  2003/03/03 15:22:36  dkrajzew
 // debugging
 //
@@ -166,7 +169,11 @@ ROSumoRoutesHandler::startVehicle(const Attributes &attrs)
         }
     }
     // build the vehicle
-    _net.addVehicle(id, new ROVehicle(id, route, time, type, -1));
+    // get further optional information
+    int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
+    int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
+    _net.addVehicle(id, new ROVehicle(id, route, time, type,
+        repOffset, repNumber));
     _currentTimeStep = time;
 }
 

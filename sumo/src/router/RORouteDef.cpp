@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.4  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -70,7 +73,8 @@ RORouteDef::~RORouteDef()
 bool
 RORouteDef::computeAndSave(OptionsCont &options,
                            RORouter &router, long begin,
-                           std::ostream &res, std::ostream &altres)
+                           std::ostream &res, std::ostream &altres,
+                           bool isPeriodical)
 {
     RORoute *current = buildCurrentRoute(router, begin);
     if(current->size()<2) {
@@ -84,7 +88,7 @@ RORouteDef::computeAndSave(OptionsCont &options,
         return false;
     }
     addAlternative(current, begin);
-    xmlOutCurrent(res);
+    xmlOutCurrent(res, isPeriodical);
 //    current->xmlOut(res);
     xmlOutAlternatives(altres);
     return true;

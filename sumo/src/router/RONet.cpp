@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/20 16:39:16  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.5  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -254,7 +257,8 @@ RONet::saveRoute(OptionsCont &options, RORouter &router,
     }
     // build and save the route
     return routeDef->computeAndSave(options,
-        router, veh->getDepartureTime(), res, altres);
+        router, veh->getDepartureTime(), res, altres,
+        veh->periodical());
 }
 
 void
@@ -291,10 +295,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options,
             veh->xmlOut(altres);
         }
         // remove the route if it is not longer used
-        if(!veh->reassertPeriodical()) {
-            removeRouteSecure(veh->getRoute());
-            _vehicles.eraseVehicle(veh);
-        }
+        removeRouteSecure(veh->getRoute());
+        _vehicles.eraseVehicle(veh);
     }
 }
 

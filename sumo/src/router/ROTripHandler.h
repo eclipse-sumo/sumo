@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/20 16:39:17  dkrajzew
+// periodical car emission implemented; windows eol removed
+//
 // Revision 1.2  2003/03/03 15:22:36  dkrajzew
 // debugging
 //
@@ -108,8 +111,10 @@ private:
     long getDepartureTime(const Attributes &attrs, const std::string &id);
 
     /// Parses and returns the period the trip shall be repeated with
-    long getPeriod(const Attributes &attrs,
-        const std::string &id);
+    int getPeriod(const Attributes &attrs, const std::string &id);
+
+    /// Parses and returns the number of cars that shall use the same parameter
+    int getRepetitionNumber(const Attributes &attrs, const std::string &id);
 
     /** @brief Parses and returns the name of the lane the vehicle starts at
         This value is optional */
@@ -118,6 +123,39 @@ private:
 private:
     /// generates numerical ids
     IDSupplier _idSupplier;
+
+    /// The id of the vehicle
+    std::string myID;
+
+    /// The starting edge
+    ROEdge *myBeginEdge;
+
+    /// The end edge
+    ROEdge *myEndEdge;
+
+    /// The type of the vehicle
+    std::string myType;
+
+    /// The optional position the vehicle shall star at
+    double myPos;
+
+    /// The optional speed the vehicle shall start with
+    double mySpeed;
+
+    /// The time the vehicle shall start at
+    int myDepartureTime;
+
+    /// The period the next vehicle with the same route shall be emitted at
+    int myPeriodTime;
+
+    /// The number of times cars with the current parameter shall be reemitted
+    int myNumberOfRepetitions;
+
+    /// The optional name of the lane the vehicle shall start at
+    std::string myLane;
+
+    /// The list of edges to take when given
+    ROEdgeVector myEdges;
 
 private:
     /// we made the copy constructor invalid
