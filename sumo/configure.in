@@ -1,12 +1,29 @@
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
+
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(src/sumo_main.cpp)
-AC_CANONICAL_SYSTEM
 
-dnl create an config-header
-AM_CONFIG_HEADER(config.h)
+AC_INIT(acinclude.m4) dnl a source file from your sub dir
 
-dnl enabel automake-support
+
+
+dnl `AC_CONFIG_AUX_DIR'
+dnl     Automake will look for various helper scripts, such as
+dnl     `mkinstalldirs', in the directory named in this macro invocation.
+dnl     If not seen, the scripts are looked for in their `standard'
+dnl     locations (either the top source directory, or in the source
+dnl     directory corresponding to the current `Makefile.am', whichever is
+dnl     appropriate).
+dnl This is so we can use kde-common
+AC_CONFIG_AUX_DIR(admin)
+
+AC_CANONICAL_SYSTEM 
+
+dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(sumo,0.7.2)
+
+dnl KDE_SET_PREFIX
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
@@ -14,20 +31,10 @@ if test "x$prefix" = "xNONE"; then
   ac_configure_args="$ac_configure_args --prefix $prefix"
 fi
 
-dnl Checks for programs.
-AC_PROG_CXX
-AC_PROG_INSTALL
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
 
-dnl don't create shared libtool-libraries
-dnl AC_DISABLE_SHARED
-
-dnl create static libtool-libraries instead
-dnl AC_ENABLE_STATIC(yes)
-
-dnl enable libtool-support
-AM_PROG_LIBTOOL
-
-
+dnl start of sumo-specific configure options
 dnl Check for enable-features that shall go into config.h
 AC_ARG_ENABLE(debug,
               [  --enable-debug          enable sumo debugging code [default=no].],
@@ -61,10 +68,44 @@ if test x$cfront_model = xtrue; then
 	AC_DEFINE(EXTERNAL_TEMPLATE_DEFINITION, 1,
 		[Define to 1 in order to enable external template definitions (cfront-model).])
 fi
+dnl end of sumo-specific configure-options
 
-AM_CONDITIONAL(CFRONT, test x$cfront_model = xtrue)
+dnl Checks for programs.
+dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch 
+dnl -fno-exceptions gesetzt
+AC_CHECK_COMPILERS
+
+dnl CXXFLAGS="$NOOPT_CXXFLAGS" dnl __kdevelop[noopt]__
+dnl CFLAGS="$NOOPT_CFLAGS" dnl __kdevelop[noopt]__
+
+dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach 
+dnl hinter das standardmaessige -fno-exception geschrieben.
+CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS" dnl __kdevelop[exc]__
+
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+KDE_PROG_LIBTOOL
+
+all_libraries="$all_libraries $USER_LDFLAGS"
+all_includes="$all_includes $USER_INCLUDES"
+AC_SUBST(all_includes)
+AC_SUBST(all_libraries)
 
 
+dnl for NLS support. Call them in this order!
+dnl WITH_NLS is for the po files
+AM_KDE_WITH_NLS
+
+KDE_USE_QT(3)
+AC_PATH_QT
+
+dnl KDE_NEED_FLEX dnl __kdevelop__
+dnl AC_PROG_YACC dnl __kdevelop__
+
+dnl Perform program name transformation
+dnl AC_ARG_PROGRAM
+
+dnl start sumo-specific header and library search
 dnl Checks for libraries.
 dnl Checks for xerces-library
 AC_ARG_WITH(xerces-libraries,
@@ -157,16 +198,16 @@ XERCESINCLUDE="$ac_xerces_includes"
 XERCESINCLUDE_PRIOR_1_7="$ac_xerces_includes/xercesc"
 AC_SUBST(XERCESINCLUDE)
 AC_SUBST(XERCESINCLUDE_PRIOR_1_7)
+dnl end sumo-specific header and library search
 
 
-dnl Checks for typedefs, structures, and compiler characteristics.
+dnl PACKAGE set before
 
+KDE_CREATE_SUBDIRSLIST
 
-dnl perform program name transformation
-AC_ARG_PROGRAM
-
-dnl add here all your Makefiles. These will be created by configure
+dnl add here all your Makefiles. This are created by configure
 AC_OUTPUT(
+data/ressources/Makefile
 src/gui/Makefile
 src/gui/icons/Makefile
 src/guinetload/Makefile
@@ -201,6 +242,4 @@ src/utils/xml/Makefile
 src/Makefile
 tools/Makefile
 Makefile)
-
-
 
