@@ -80,28 +80,31 @@ RONetHandler::parseLane(const Attributes &attrs)
     double maxSpeed = -1;
     double length = -1;
     // get the speed
-/*    try {
-        maxSpeed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1);
+    try {
+        maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
     } catch (EmptyData) {
         SErrorHandler::add(
             string("A lane without a maxspeed definition occured within '") 
             + _file + string("'."));
-        SErrorHandler::add("Contact your net supplier!");
-    }*/
+        return;
+    } // !!! NumberFormatException
     // get the length
     try {
-        length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, -1);
+        length = getFloat(attrs, SUMO_ATTR_LENGTH);
     } catch (EmptyData) {
         SErrorHandler::add(
             string("A lane without a length definition occured within '") 
             + _file + string("'."));
-        SErrorHandler::add("Contact your net supplier!");
+        return;
+    } // !!! NumberFormatException
+    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    if(id.length()==0) {
+        SErrorHandler::add("Could not retrieve the id of a lane.");
+        return;
     }
     // add when both values are valid
-    if(/*maxSpeed>0&&*/length>0) {
-        _currentEdge->addLane(new ROLane(length, maxSpeed));
-    } else {
-        string id = getString(attrs, SUMO_ATTR_ID);
+    if(maxSpeed>0&&length>0&&id.length()>0) {
+        _currentEdge->addLane(new ROLane(id, length, maxSpeed));
     }
 }
 
