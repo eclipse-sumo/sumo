@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/27 10:30:50  dkrajzew
+// debugged the usage of a temporary value returned by reference
+//
 // Revision 1.5  2003/12/04 13:11:42  dkrajzew
 // message retrival added
 //
@@ -70,6 +73,7 @@ namespace
 #include <exception>
 #include "UtilExceptions.h"
 
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -78,14 +82,22 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * InvalidArgument - static variables
+ * ----------------------------------------------------------------------- */
+std::string InvalidArgument::myDefaultMessage = "<no description available>";
+
+
 /* -------------------------------------------------------------------------
  * InvalidArgument - methods
  * ----------------------------------------------------------------------- */

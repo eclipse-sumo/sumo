@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/01/27 10:30:50  dkrajzew
+// debugged the usage of a temporary value returned by reference
+//
 // Revision 1.6  2004/01/26 07:28:29  dkrajzew
 // something went wrong with the earlier usage of strings
 //
@@ -76,8 +79,10 @@
 class UtilException : public std::exception {
 public:
     virtual const std::string &msg() const {
-        return std::string("<no description available>");
+        return myDefaultMessage;
     }
+private:
+    static std::string myDefaultMessage;
 };
 
 
