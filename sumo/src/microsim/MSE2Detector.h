@@ -24,38 +24,32 @@
 
 // $Id$
 
-#include "MSMoveReminder.h"
-#include "MSLane.h"
 #include "MSUnit.h"
-#include "MSVehicle.h"
+#include "MSPredicates.h"
+#include "MSE2DetectorInterface.h"
+#include "MSEventControl.h"
+#include "helpers/SimpleCommand.h"
 #include <deque>
 #include <string>
 #include <algorithm>
 #include <functional>
-#include <iterator>
-#include <numeric>
+#include "helpers/SingletonDictionary.h"
 
-template < class Detector >
-class MSE2Detector : public MSMoveReminder,
-                     public Detector
+class MSVehicle;
+
+template < class ConcreteDetector >
+class MSE2Detector : public MSE2DetectorInterface,
+                     public ConcreteDetector
 {
 public:
-    typedef typename Detector::DetectorAggregate DetAggregate;
-    typedef typename Detector::VehicleCont VehicleCont;
+    typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
+    typedef typename ConcreteDetector::VehicleCont VehicleCont;
     typedef typename VehicleCont::iterator VehicleContIter;
-
-    MSE2Detector( std::string id,
-                  const MSLane* lane,
-                  const double beginInMeters,
-                  const double lengthInMeters )
-        : MSMoveReminder( lane, id ),
-          Detector( lane, lengthInMeters ),
-          startPosM( MSUnit::getInstance()->getCells( beginInMeters ) )
+    typedef SingletonDictionary< std::string, MSE2Detector* > Dictionary;
+    
+    const std::string& getId( void ) const
         {
-            assert( startPosM >= 0 );
-            double length = MSUnit::getInstance()->getCells( lengthInMeters );
-            assert( startPosM + length <= laneM->length() );
-            endPosM = startPosM + length;
+            return idM;
         }
 
     // call every timestep. Stores detector-data in a container
@@ -69,136 +63,76 @@ public:
         {
             return aggregatesM.back();
         }
+  
+    virtual DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
-    // returns the mean value of the lastNSeconds
-    DetAggregate getMean( MSUnit::Seconds lastNSeconds )
+protected:
+    MSE2Detector( std::string id,
+                  double lengthInMeters,
+                  MSUnit::Seconds deleteDataAfterSeconds )
+        : ConcreteDetector( lengthInMeters ),
+          idM( id ),
+          deleteDataAfterStepsM( MSUnit::getInstance()->getIntegerSteps(
+                                     deleteDataAfterSeconds ) ),
+          vehOnDetectorM()
         {
-            MSUnit* unit = MSUnit::getInstance();
-            AggregatesContIter start =
-                getStartIterator( unit->getStep( lastNSeconds ) );
-            seconds = unit->getSecond(std::distance(start, aggregatesM.end()));
-            return std::accumulate( start, aggregatesM.end(),
-                                    static_cast< DetAggregate >( 0 ) ) /
-                seconds;
+            // insert object into dictionary
+            if ( ! Dictionary::getInstance()->isInsertSuccess( idM, this ) ) {
+                assert( false );
+            }
+
+            // start old-data removal through MSEventControl
+            Command* deleteData = new SimpleCommand< MSE2Detector >(
+                this, &MSE2Detector::freeContainer );
+            MSEventControl::getEndOfTimestepEvents()->addEvent(
+                deleteData,
+                deleteDataAfterStepsM,
+                MSEventControl::ADAPT_AFTER_EXECUTION );
         }
 
-    /**
-     * @name Inherited MSMoveReminder methods.
-     *
-     * Methods in this group are inherited from MSMoveReminder. They are
-     * called by the moving, entering and leaving vehicles.
-     *
-     */    
-    //@{
-    bool isStillActive( MSVehicle& veh,
-                        double oldPos,
-                        double newPos )
+    virtual ~MSE2Detector( void )
         {
-            if ( newPos <= startPosM ) {
-                // detector not yet reached
-                return true;
-            }
-            if ( oldPos <= startPosM && newPos > startPosM ) {
-                // vehicle will enter detector
-                enterDetectorByMove( veh );
-            }
-            if ( newPos - veh.length() < startPosM ) {
-                // vehicle entered detector partially
-                setOccupancyEntryCorrection( veh, ( newPos - startPosM ) /
-                                             veh.length() );
-            }
-            if ( newPos > endPosM && newPos - veh.length() <= endPosM ) {
-                // vehicle left detector partially
-                setOccupancyLeaveCorrection( veh, (endPosM -
-                                                   (newPos - veh.length() ) ) /
-                                             veh.length() );
-            }               
-            if ( newPos - veh.length() > endPosM ) {
-                // vehicle will leave detector
-                leaveDetectorByMove( veh );
-                return false;
-            }
-            return true;
+            aggregatesM.clear();
+            clearVehicleCont( vehOnDetectorM );
         }
 
-    void dismissByLaneChange( MSVehicle& veh )
-        {
-            if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
-                // vehicle is on detector
-                leaveDetectorByLaneChange( veh );
-                if ( veh.pos() - veh.length() < startPosM ||
-                     veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
-                    // vehicle partially on det
-                    dismissOccupancyCorrection( veh );
-                }
-            }
-        }
-    
-    bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
-        {
-            if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
-                // vehicle is on detector
-                enterDetectorByEmitOrLaneChange( veh );
-                if ( veh.pos() - veh.length() < startPosM ) {
-                    // vehicle entered detector partially
-                    setOccupancyEntryCorrection(veh, (veh.pos() - startPosM ) /
-                                             veh.length() );
-                }
-                if ( veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
-                    // vehicle left detector partially
-                    setOccupancyLeaveCorrection(veh,
-                                                ( endPosM -
-                                                  (veh.pos() - veh.length()))/
-                                                veh.length() );
-                }               
-                return true;
-            }
-            if ( veh.pos() - veh.length() > endPosM ){
-                // vehicle is beyond detector
-                return false;
-            }
-            // vehicle is in front of detector
-            return true;
-        }
-    //@}
-
-private:    
     typedef typename std::deque< DetAggregate > AggregatesCont;
     typedef typename AggregatesCont::iterator AggregatesContIter;
-
-    double startPosM; // in cells
-    double endPosM;   // in cells
-
+    
     AggregatesCont aggregatesM; // stores one value each timestep
-
-    VehicleCont vehOnDetectorM; // vehicles or vehicle-collector-pairs of
-                                // the vehicles that are currently on the
-                                // detector.
-
-    AggregatesContIter getStartIterator( MSUnit::Seconds lastNTimesteps )
+    
+    AggregatesContIter getAggrContStartIterator( MSUnit::Steps lastNTimesteps )
         {
             AggregatesContIter start = aggregatesM.begin();
+            typedef typename AggregatesCont::difference_type Distance;
+            Distance steps = static_cast< Distance >( lastNTimesteps );
             if ( aggregatesM.size() > lastNTimesteps ) {
-                start = aggregatesM.end() - lastNTimesteps;
+                start = aggregatesM.end() - steps;
             }
             return start;
         }
+
+private:
+    const std::string idM;
+    MSUnit::IntSteps deleteDataAfterStepsM;
+
+    VehicleCont vehOnDetectorM; // vehicles or vehicle-collector-pairs of
+    // the vehicles that are currently on the
+    // detector.
     
-    VehicleContIter getInsertIterator( MSVehicle& veh )
+    VehicleContIter getVehContInsertIterator( MSVehicle& veh )
         {
-            typedef typename Detector::PosGreater PosGreater;
             return std::find_if( vehOnDetectorM.begin(),
                                  vehOnDetectorM.end(),
-                                 std::bind2nd( PosGreater(),
+                                 std::bind2nd( Predicate::PosGreater(),
                                                veh.pos() ) );
         }
 
-    VehicleContIter getEraseIterator( MSVehicle& veh )
+    VehicleContIter getVehContEraseIterator( MSVehicle& veh )
         {
-            typedef typename Detector::VehEquals VehEquals;
             return std::find_if( vehOnDetectorM.begin(),
                                  vehOnDetectorM.end(),
-                                 std::bind2nd( VehEquals(),
+                                 std::bind2nd( Predicate::VehEquals(),
                                                &veh ) );
         }   
     
@@ -209,7 +143,7 @@ private:
 
     void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
         {
-            vehOnDetectorM.insert( getInsertIterator( veh ),
+            vehOnDetectorM.insert( getVehContInsertIterator( veh ),
                                    getNewContainerItem( veh ) );
         }
     
@@ -221,16 +155,19 @@ private:
     
     void leaveDetectorByLaneChange( MSVehicle& veh )
         {
-            vehOnDetectorM.erase( getEraseIterator( veh ) );
+            vehOnDetectorM.erase( getVehContEraseIterator( veh ) );
         }
-};
 
-
-#include "MSDensity.h"
-// typedefs for concrete detectors.
-namespace E2Detector 
-{
-    typedef MSE2Detector< MSDensity > Density;
+    MSUnit::IntSteps freeContainer( void )
+        {
+            AggregatesContIter end = aggregatesM.end();
+            if ( aggregatesM.size() > deleteDataAfterStepsM ) {
+                end -= deleteDataAfterStepsM;
+                aggregatesM.erase( aggregatesM.begin(), end );
+            }
+            return deleteDataAfterStepsM;
+        }
+    
 };
 
 #endif // MSE2DETECTOR_H
