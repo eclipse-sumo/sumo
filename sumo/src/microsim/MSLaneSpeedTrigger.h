@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.4  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -75,6 +78,17 @@ public:
     /** the implementation of the MSTriggeredReader-processNext method */
     void processNext();
 
+    double getDefaultSpeed() const;
+
+    void setOverriding(bool val);
+
+    void setOverridingValue(double val);
+
+    double getLoadedSpeed();
+
+    /// Returns the current speed
+    double getCurrentSpeed() const;
+
 protected:
     /** the implementation of the SAX-handler interface for reading
         element begins */
@@ -104,7 +118,20 @@ protected:
 
     bool myHaveNext;
 
+    /// The original speed allowed on the lanes
+    double myDefaultSpeed;
+
+    /// The information whether the read speed shall be overridden
+    bool myAmOverriding;
+
+    /// The speed to use if overriding the read speed
+    double mySpeedOverrideValue;
+
+    /// The loaded speed
+    double myLoadedSpeed;
+
 };
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

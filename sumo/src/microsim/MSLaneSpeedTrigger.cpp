@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.8  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -76,7 +79,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &aXMLFilename)
     : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
-    myDestLanes(destLanes), myHaveNext(false)
+    myDestLanes(destLanes), myHaveNext(false), myAmOverriding(false)
 {
 }
 
@@ -90,12 +93,6 @@ void
 MSLaneSpeedTrigger::init(MSNet &net)
 {
     MSTriggeredXMLReader::init(net);
-    std::vector<MSLane*>::iterator i;
-    /*
-    for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-        (*i)->myMaxSpeed = myCurrentSpeed;
-    }
-    */
 }
 
 
@@ -141,12 +138,62 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
         myCurrentSpeed = speed;
         _offset = MSNet::Time(next);
         myHaveNext = true;
+        myLoadedSpeed = myCurrentSpeed;
+        if(myAmOverriding) {
+            myCurrentSpeed = mySpeedOverrideValue;
+        }
     } catch(NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Could not initialise vss '") + getID()
             + string("'."));
         throw ProcessError();
     }
+}
+
+
+double
+MSLaneSpeedTrigger::getDefaultSpeed() const
+{
+    return myDefaultSpeed;
+}
+
+
+void
+MSLaneSpeedTrigger::setOverriding(bool val)
+{
+    myAmOverriding = val;
+    if(myAmOverriding) {
+        myCurrentSpeed = mySpeedOverrideValue;
+    } else {
+        myCurrentSpeed = myLoadedSpeed;
+    }
+}
+
+
+void
+MSLaneSpeedTrigger::setOverridingValue(double val)
+{
+    mySpeedOverrideValue = val;
+    if(myAmOverriding) {
+        myCurrentSpeed = mySpeedOverrideValue;
+        processNext();
+    } else {
+        myCurrentSpeed = myLoadedSpeed;
+    }
+}
+
+
+double
+MSLaneSpeedTrigger::getLoadedSpeed()
+{
+    return myLoadedSpeed;
+}
+
+
+double
+MSLaneSpeedTrigger::getCurrentSpeed() const
+{
+    return (*(myDestLanes.begin()))->maxSpeed();
 }
 
 

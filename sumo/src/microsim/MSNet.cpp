@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.55  2004/11/29 09:21:45  dkrajzew
 // detectors debugging
 //
@@ -805,6 +808,23 @@ MSNet::getEdgeControl(NLNetBuilder &)
 }
 
 
+void
+MSNet::addTrigger(MSTrigger *t)
+{
+    myTrigger.push_back(t);
+}
+
+
+MSTrigger *
+MSNet::getTrigger(const std::string &id)
+{
+    for(TriggerVector::iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
+        if((*i)->getID()==id) {
+            return (*i);
+        }
+    }
+    return 0;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

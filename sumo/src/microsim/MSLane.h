@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.25  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.24  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -468,6 +471,9 @@ public:
     size_t getNumericalID() const;
 
     void add(MSMeanData_Net *newMeanData);
+
+    const std::string &getID() const;
+
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.37  2004/11/29 09:21:45  dkrajzew
 // detectors debugging
 //
@@ -468,6 +471,9 @@ MSLaneState::writeXMLOutput( XMLDevice &dev, MSNet::Time startTime, MSNet::Time 
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
+    if(dev.needsDetectorName()) {
+        dev.writeString("id=\"").writeString(idM).writeString("\" ");
+    }
     dev.writeString("traveltime=\"").writeString(
         toString( getMeanTraveltime( lastNTimesteps ))).writeString("\" ");
     dev.writeString("speed=\"").writeString(

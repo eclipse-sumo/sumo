@@ -74,7 +74,7 @@ public:
                  MSLane*        lane,
                  double         beginInMeters,
                  double         lengthInMeters,
-                 MSNet::Time    deleteDataAfterSeconds = 900 );
+                 MSNet::Time    deleteDataAfterSeconds);
 
     /**
      * Destructor. Clears containers.

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.45  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.44  2004/11/29 09:21:46  dkrajzew
 // detectors debugging
 //
@@ -317,6 +320,7 @@ class MSVehicleTransfer;
 class MSVehicleControl;
 class OutputDevice;
 class NLNetBuilder;
+class MSTrigger;
 
 
 /* =========================================================================
@@ -456,6 +460,11 @@ public:
     /// adds an item that must be initialised every time the simulation starts
     void addPreStartInitialisedItem(PreStartInitialised *preinit);
 
+    /// adds a trigger
+    void addTrigger(MSTrigger *t);
+
+    MSTrigger *getTrigger(const std::string &id);
+
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
@@ -554,6 +563,12 @@ protected:
 
     /// Container for items to initialise before starting
     PreStartVector myPreStartInitialiseItems;
+
+    /// Definition of the container for items to initialise before starting
+    typedef std::vector<MSTrigger*> TriggerVector;
+
+    /// Container for items to initialise before starting
+    TriggerVector myTrigger;
 
     /// Timestep [sec]
     static double myDeltaT;

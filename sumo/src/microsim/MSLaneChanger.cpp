@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.18  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -400,7 +403,7 @@ MSLaneChanger::change()
             if( prohibitor==0||(
                 hoppedPos>vehicle->pos() && prohibitor->pos()>hoppedPos) ) {
 
-                prohibitor = target->hoppedVeh;
+                prohibitor = 0;// !!! vehicles should not jump over more than one lanetarget->hoppedVeh;
             }
         }
         if( prohibitor!=0
@@ -423,10 +426,15 @@ MSLaneChanger::change()
 
                 // ok, may be swapped
                     // remove vehicle to swap with
-                MSVehicle *bla = *(target->lane->myTmpVehicles.begin());
-                assert(bla==prohibitor);
-                target->lane->myTmpVehicles.erase(
-                    target->lane->myTmpVehicles.begin());
+				MSLane::VehCont::iterator i =
+					find(
+						target->lane->myTmpVehicles.begin(),
+						target->lane->myTmpVehicles.end(),
+						prohibitor);
+				if(i!=target->lane->myTmpVehicles.end()) {
+	                MSVehicle *bla = *i;
+		            assert(bla==prohibitor);
+	                target->lane->myTmpVehicles.erase(i);
                     // set this vehicle
                 target->hoppedVeh = vehicle;
                 target->lane->myTmpVehicles.push_front( vehicle );
@@ -461,6 +469,7 @@ MSLaneChanger::change()
     }
 #endif
                 return true;
+				}
             }
         }
     }

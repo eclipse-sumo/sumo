@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.49  2004/12/16 12:25:26  dkrajzew
+// started a better vss handling
+//
 // Revision 1.48  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -1289,10 +1292,6 @@ MSLane::swapAfterLaneChange()
 void
 MSLane::setApproaching(double dist, MSVehicle *veh)
 {
-    if(veh->id()=="54086"&&MSNet::globaltime>=32242-1) {
-        int bla = 0;
-    }
-
     myBackDistance = dist;
     myApproaching = veh;
 }
@@ -1424,6 +1423,14 @@ MSLane::getLastVehicle(MSLaneChanger &lc) const
     }
     return *myVehicles.begin();
 }
+
+
+const std::string &
+MSLane::getID() const
+{
+    return myID;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
