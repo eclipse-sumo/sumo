@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/10/14 14:17:29  dkrajzew
+// forgotten setting of information about an read route added
+//
 // Revision 1.7  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -185,6 +188,7 @@ ROSUMOAltRoutesHandler::myEndElement(int element, const std::string &name)
 {
     if(element==SUMO_TAG_ROUTEALT) {
         endAlternative();
+        _nextRouteRead = true;
     }
 }
 
