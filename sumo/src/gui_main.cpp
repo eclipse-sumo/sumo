@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2004/04/02 11:32:01  dkrajzew
+// first try to optionally disable textures
+//
 // Revision 1.14  2004/03/19 13:05:30  dkrajzew
 // porting to fox
 //
@@ -191,6 +194,7 @@ fillInitOptions(OptionsCont &oc)
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
     oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
+    oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
 }
 
@@ -242,7 +246,9 @@ main(int argc, char **argv)
         gQuitOnEnd = oc.getBool("quit-on-end");
         gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
+        gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
+
         // build the main window
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application,
@@ -263,5 +269,6 @@ main(int argc, char **argv)
     SystemFrame::close();
     return ret;
 }
+
 
 
