@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/10/22 05:22:54  dkrajzew
+// missing inclusion added
+//
 // Revision 1.9  2003/10/21 14:45:00  dkrajzew
 // error checking improved
 //
@@ -60,6 +63,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gfx/GfxConvHelper.h>
+#include <utils/convert/ToString.h>
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 #include "RORouteAlternativesDef.h"
