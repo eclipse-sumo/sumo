@@ -24,6 +24,14 @@ namespace
 }
 */
 // $Log$
+// Revision 1.10  2003/05/25 17:50:12  roessel
+// Implemented getCurrentNumberOfWaiting.
+// Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
+// a TimestepData entry in timestepDataM every timestep (makes live easier).
+// actionAfterMove calculates the waitingQueueLength and updates the current
+// TimestepData.
+// These two methods must be called in the simulation loop.
+//
 // Revision 1.9  2003/05/23 16:42:22  roessel
 // Added method getCurrentDensity().
 //
@@ -103,15 +111,14 @@ MSLaneState::MSLaneState( string id,
     idM             ( id ),
     styleM          ( style ),
     fileM           ( file ),
-    timestepDataM   ( 0 ),
+    timestepDataM   ( ),
     vehicleDataM    ( ),
     waitingQueueElemsM( ),
     laneM           ( lane ),
     posM            ( begin ),
     lengthM         ( length ),
     nIntervallsM    ( 0 ),
-    sampleIntervalM ( sampleInterval ),
-    createdCurrentTimestepDataM( false )
+    sampleIntervalM ( sampleInterval )
 {
     assert( posM >= 0 );
     assert( posM <= laneM->length() );
@@ -179,35 +186,35 @@ MSLaneState::MSLaneState( string id,
 int
 MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
 {
-//     const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
-//     if (vehs.size()==0)  {
-//         return 0;
-//     }
 
-//     int waiting = 0;
-//     double lastpos = myPos+myLength;
-//     for (MSLane::VehCont::const_iterator currVeh=vehs.end()-1; currVeh!=vehs.begin();currVeh--)   {
-//         double aktpos = (*currVeh)->pos();
-//         double delta = lastpos - aktpos;
-//         // define the maximum rear-to-front-distance
-//         double rtfd = 10;
-//         double deltamax = (*currVeh)->length() + rtfd;
-//         if (delta > deltamax) {
-//             return waiting;
-//         }
-//         if (myPos > aktpos) {
-//             return waiting;
-//         }
-//         waiting ++;
-//         lastpos = aktpos;
-//     }
-//     return waiting;
 }
 
 
 int
 MSLaneState::getCurrentNumberOfWaiting( void )
-{}
+{
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    TimestepDataCont::iterator dataIt = timestepDataM.end() - 1;
+    // a queueLengthM of -1 before actionAfterMove has been called indicates
+    // that no veh contributed in this timestep. In this case actionAfterMove
+    // sets queueLengthM to 0.
+    if ( dataIt->queueLengthM == - 1 ) {
+        if ( dataIt == timestepDataM.begin() ) {
+            // container-size == 1
+            return 0;
+        }
+        else {
+            // actionAfterMove not called yet. Return previous timestep's data
+            return (--dataIt)->queueLengthM;
+        }
+    }
+    else {
+        // actionAfterMove has bee called. Return current timestep's data
+        return dataIt->queueLengthM;
+    }
+}
 
 double
 MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
@@ -245,34 +252,16 @@ MSLaneState::addMoveData( MSVehicle& veh,
          << endl;
     assert (timestepFraction >= 0);
     assert (timestepFraction <= MSNet::deltaT() );
-    if ( ! createdCurrentTimestepDataM ) {
-        timestepDataM.push_back( TimestepData() );
-        TimestepData data = timestepDataM.back();
-        createdCurrentTimestepDataM = true;
-        
-        cout << "\ntimestepDataM.size " << timestepDataM.size() << endl;
-        cout << "speedSumM        neu " << data.speedSumM << endl;
-        cout << "contTimestepSumM neu " << data.contTimestepSumM << endl;
-    }
+
     // update timestepDataM
     TimestepData& data = timestepDataM.back();
-    
-    cout << "speed            " << veh.speed() << endl;
-//     cout << "speedSumM        " << data.speedSumM << endl;
-    cout << "fraction         " << timestepFraction << endl;
-//     cout << "contTimestepSumM " << data.contTimestepSumM << endl;
-
     data.speedSumM += veh.speed();
     data.speedSquareSumM += veh.speed() * veh.speed();
     data.contTimestepSumM += timestepFraction;
     ++data.timestepSumM;
 
-    cout << "speedSumM        " << data.speedSumM << endl;
-    cout << "contTimestepSumM " << data.contTimestepSumM << endl;
-    cout << "timestepSumM     " << data.timestepSumM << endl;
-    
     // update waitingQueueElemsM
-    waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos() , veh.length()));
+    waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
 
 void
@@ -333,22 +322,38 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     vehicleDataM.erase( dataIt );
 }
 
+void
+MSLaneState::actionBeforeMove( void )
+{
+    // create a TimestepData entry for every timestep. Not neccessary, but
+    // makes live easier.
+    timestepDataM.push_back(
+        TimestepData( MSNet::getInstance()->timestep() ) );
+}
+
+
+void
+MSLaneState::actionAfterMove( void )
+{
+    calcWaitingQueueLength();
+}
+
+
+
 
 void
 MSLaneState::calcWaitingQueueLength( void )
 {
-    // sort entries
-    sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
-          WaitingQueuePos() );
     int nVehQueuing = 0;
-    if (waitingQueueElemsM.size() > 0 ) {
+    if ( ! waitingQueueElemsM.empty() ) {
+        // veh in waitingQueueElemsM are not sorted
+        sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
+              WaitingQueuePos() );
+    
         std::vector<WaitingQueueElem>::iterator it =
             waitingQueueElemsM.begin();
         for (;;) {
             if ( it+1 == waitingQueueElemsM.end() ) {
-                cout << "MSLaneState::calcWaitingQueueLength " << idM
-                     << " only one "
-                     "veh on detector. Is it queueing???" << endl;
                 break;
             }
             if ( it->posM - it->vehLengthM - (it+1)->posM <
@@ -360,14 +365,11 @@ MSLaneState::calcWaitingQueueLength( void )
                 break;
             }
         }
-        // add nVehQueuing-value to current timestepDataM
-        timestepDataM.begin()->queueLengthM = nVehQueuing;
         waitingQueueElemsM.clear();
     }
-    cout << "MSLaneState::calcWaitingQueueLength " << idM
-         << " no vehicle on detector."
-         << endl;
-    createdCurrentTimestepDataM = false;
+    
+    // add nVehQueuing-value to current timestepDataM
+    timestepDataM.begin()->queueLengthM = nVehQueuing;
 }
 
 MSNet::Time

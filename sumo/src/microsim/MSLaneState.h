@@ -21,6 +21,14 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.7  2003/05/25 17:50:31  roessel
+// Implemented getCurrentNumberOfWaiting.
+// Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
+// a TimestepData entry in timestepDataM every timestep (makes live easier).
+// actionAfterMove calculates the waitingQueueLength and updates the current
+// TimestepData.
+// These two methods must be called in the simulation loop.
+//
 // Revision 1.6  2003/05/23 16:42:22  roessel
 // Added method getCurrentDensity().
 //
@@ -95,6 +103,17 @@ public:
      */
     int getNumberOfWaiting( MSNet::Time lastNTimesteps );
 
+    /** 
+     * Returns the waitingQueueLength.
+     * Vehicles in a waiting-queue have a gap <= vehLength.
+     * If called before the vehicles are
+     * moved, the value of the previous timestep is returned, if called
+     * after move, the value of the current timestep is returned. Currently
+     * the junctions do their job before the move, so if you call the method
+     * by a junction, you will get the value of the previous timestep.
+     * 
+     * @return waitingQueueLength of the current or previous timestep
+     */
     int getCurrentNumberOfWaiting( void );
 
     double getMeanSpeed( MSNet::Time lastNTimesteps );
@@ -122,7 +141,9 @@ public:
 
     void leaveDetectorByLaneChange( MSVehicle& veh );
 
-    void calcWaitingQueueLength( void );
+    void actionBeforeMove( void );
+
+    void actionAfterMove( void );
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
@@ -136,6 +157,8 @@ public:
     };
 
 protected:
+    void calcWaitingQueueLength( void );
+    
     /// Write the data according to OutputStyle when the sampleIntervall
     /// is over.
     MSNet::Time writeData();
@@ -159,12 +182,13 @@ protected:
 
     struct TimestepData
     {
-        TimestepData() :
+        TimestepData( MSNet::Time timestep ) :
+            timestepM( timestep ),
             speedSumM(0),
             speedSquareSumM(0),
             contTimestepSumM(0),
             timestepSumM(0),
-            queueLengthM(0)
+            queueLengthM(-1)
             {}
 
         MSNet::Time timestepM;
@@ -207,7 +231,8 @@ private:
     /// File where output goes to.
     std::ofstream* fileM;
 
-    std::deque< TimestepData > timestepDataM;
+    typedef std::deque< TimestepData > TimestepDataCont;
+    TimestepDataCont timestepDataM;
     std::map< std::string, VehicleData > vehicleDataM;
     std::vector< WaitingQueueElem > waitingQueueElemsM;
     std::deque< VehicleData > vehLeftLaneM;
@@ -237,46 +262,7 @@ private:
 
     MSNet::Time sampleIntervalM;
 
-    bool createdCurrentTimestepDataM;
-
     MSMoveReminder* reminderM;
-
-//     /// Number of finished sampleIntervalls.
-//     unsigned myNSamples;
-
-//     /// Sample-intervall in seconds.
-//     MSNet::Time mySampleIntervall;
-
-//     /// Last vehicle that passed the detector.
-//     MSVehicle* myPassedVeh;
-
-//     /// Speed of the last vehicle, that has passed the detector.
-//     double myPassingSpeed;
-
-//     /// Time when last vehicle has passed the detector.
-//     double myPassingTime;
-
-//     /** Number of vehicles which have already passed the detector */
-//     _T myVehicleNo;
-
-//     /// local-densities sampled
-//     _T myLocalDensity;
-
-//     /// Speeds sampled
-//     _T mySpeed;
-
-//     /// Occupancy-times sampled
-//     _T myOccup;
-
-//     /// Veh-lengths
-//     _T myVehLengths;
-
-//     /// The number of vehicles which are slower than 0.1 m/s
-//     _T myNoSlow;
-
-//     /** @brief The information in which time step the detector was asked the last time
-//         Needed to reduce the update frequency of the iterators */
-//     MSNet::Time myLastUpdateTime;
 
     /// Default constructor.
     MSLaneState();
