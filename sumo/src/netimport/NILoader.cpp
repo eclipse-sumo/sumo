@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 07:06:32  dkrajzew
+// removed some dead code; usage of xmlhelpers added
+//
 // Revision 1.2  2004/01/12 15:37:10  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -112,8 +115,6 @@ namespace
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
 #include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
-#include <sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -137,6 +138,7 @@ namespace
 #include <netimport/sumo/NISUMOHandlerNodes.h>
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
+#include <utils/common/XMLHelpers.h>
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
 #include <utils/convert/TplConvert.h>
@@ -186,13 +188,6 @@ NILoader::loadSUMO(OptionsCont &oc)
         loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"),
             "sumo-net");
     }
-    // load the junction logics only when they shall not be recomputed
-/*    if( oc.isUsableFileList("sumo-logics")
-        &&
-        !oc.getBool("recompute-junction-logics") ) {
-        loadSUMOFiles(oc, LOADFILTER_LOGICS, oc.getString("sumo-logics"),
-            "sumo-logics");
-    }*/
 }
 
 
@@ -258,10 +253,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
                       const string &type)
 {
     // build parser
-    SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
-    parser->setFeature(XMLString::transcode("http://xml.org/sax/features/validation"), false);
-    parser->setContentHandler(handler);
-    parser->setErrorHandler(handler);
+    SAX2XMLReader* parser = XMLHelpers::getSAXReader(*handler);
     // start the parsing
     try {
         StringTokenizer st(files, ";");
@@ -425,11 +417,7 @@ NILoader::loadArtemis(OptionsCont &oc) {
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NILoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
