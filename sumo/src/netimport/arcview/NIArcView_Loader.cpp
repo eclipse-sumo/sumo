@@ -127,7 +127,6 @@ NIArcView_Loader::parseLine(const std::string &line)
             NBEdgeCont::insert(edge);
         }
     }
-    cout << id << endl;
     return true;
 }
 
