@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/12/04 12:51:26  dkrajzew
+// documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
+//
 // Revision 1.9  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
 //
@@ -60,6 +63,7 @@ namespace
 #include <netbuild/NBNetBuilder.h>
 #include <netgen/NGNet.h>
 #include <netgen/NGRandomNet.h>
+#include <netbuild/NBTypeCont.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsSubSys.h>
@@ -80,7 +84,6 @@ namespace
    #include <utils/dev/MemDiff.h>
 #endif
 #endif
-
 
 
 /* =========================================================================
@@ -123,11 +126,11 @@ checkOptions(OptionsCont &oc)
         return false;
     }
     // check whether the junction type to use is properly set
-    if(!oc.isDefault("j")) {
-        string type = oc.getString("j");
-        if(type!="traffic_light"&&type!="priority") {
+    if(!oc.isDefault("default-junction-type")) {
+        string type = oc.getString("default-junction-type");
+        if(type!="traffic_light"&&type!="priority"&&type!="actuated"&&type!="agentbased") {
             MsgHandler::getErrorInstance()->inform(
-                "Only the following junction types are known: traffic_light, priority");
+                "Only the following junction types are known: traffic_light, priority, actuated, agentbased");
             return false;
         }
     }
@@ -154,7 +157,7 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("grid-net", "grid");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
-    // regsister random-net options
+    // register random-net options
     oc.doRegister("rand-max-distance", new Option_Float(250));
     oc.doRegister("rand-min-distance", new Option_Float(100));
     oc.doRegister("rand-min-angle", new Option_Float(45.0/180.0*PI));
@@ -238,10 +241,10 @@ buildNetwork()
             yNo = oc.getInt("number");
         }
         if(oc.isDefault("x-length")&&!oc.isDefault("length")) {
-            xLength = oc.getInt("length");
+            xLength = oc.getFloat("length");
         }
         if(oc.isDefault("y-length")&&!oc.isDefault("length")) {
-            yLength = oc.getInt("length");
+            yLength = oc.getFloat("length");
         }
         net->CreateChequerBoard(xNo, yNo, xLength, yLength);
         return net;
@@ -283,11 +286,20 @@ main(int argc, char **argv)
             fillOptions, checkOptions, help)) {
             throw ProcessError();
         }
+        // initialise the (default) types
+        OptionsCont &oc = OptionsSubSys::getOptions();
+        NBTypeCont::setDefaults(
+            oc.getString("T"),
+            oc.getInt("L"),
+            oc.getFloat("S"),
+            oc.getInt("P"));
         // build the netgen-network description
         TNGNet *net = buildNetwork();
+        // ... and we have to do this...
+        oc.resetDefaults();
+        oc.set("no-node-removal", true);
         // transfer to the netbuilding structures
         net->toNB();
-//     	net->SaveNet("test");
         delete net;
         NBNetBuilder nb;
         nb.buildLoaded();

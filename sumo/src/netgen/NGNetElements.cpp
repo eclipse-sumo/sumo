@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/12/04 12:51:28  dkrajzew
+// documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
+//
 // Revision 1.4  2003/07/22 15:09:50  dkrajzew
 // errors on building and warnings removed
 //
@@ -43,6 +46,7 @@ namespace
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <netbuild/NBTypeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/ToString.h>
@@ -126,13 +130,16 @@ TNode::buildNBNode() const
     //
     NBNode *node = new NBNode(myID, (double) myX, (double) myY);
     // check whether it is a traffic light junction
-    string nodeType = OptionsSubSys::getOptions().getString("j");
-    if(nodeType!="traffic_light") {
+    string nodeType = OptionsSubSys::getOptions().getString("default-junction-type");
+    if(nodeType=="priority") {
         return node;
+    }
+    if(nodeType=="traffic-light") {
+        nodeType = "static";
     }
     // this traffic light is visited the first time
     NBTrafficLightDefinition *tlDef =
-        new NBOwnTLDef(myID, node);
+        new NBOwnTLDef(myID, nodeType, node);
     if(!NBTrafficLightLogicCont::insert(myID, tlDef)) {
         // actually, nothing should fail here
         delete tlDef;
@@ -207,7 +214,10 @@ TLink::buildNBEdge() const
         NBNodeCont::retrieve(myStartNode->GetID()), // from
         NBNodeCont::retrieve(myEndNode->GetID()), // to
         "netgen-default", // type
-        13.9, 1, -1, 0 // speed, lane number, length, priority
+        NBTypeCont::getDefaultSpeed(),
+        NBTypeCont::getDefaultNoLanes(),
+        -1,
+        NBTypeCont::getDefaultPriority()
         );
 }
 
