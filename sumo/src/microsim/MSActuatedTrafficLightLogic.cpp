@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2003/09/23 14:19:59  dkrajzew
+// an easier usage of the current actuated phase definition added
+//
 // Revision 1.15  2003/09/22 12:31:06  dkrajzew
 // actuated traffic lights are now derived from simple traffic lights
 //
@@ -246,7 +249,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 {
     // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
     MSNet::Time actDuration = MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
-    if (actDuration >= static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration) {
+    if (actDuration >= currentPhaseDef()->maxDuration) {
         return _continue = false;
     }
 
@@ -265,7 +268,6 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
             }
         }
     }
-
     return _continue = false;
 }
 
@@ -286,6 +288,12 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 
 
 
+template< class _TInductLoop, class _TLaneState >
+MSActuatedPhaseDefinition *
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::currentPhaseDef()
+{
+    return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

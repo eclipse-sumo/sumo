@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/09/23 14:19:59  dkrajzew
+// an easier usage of the current actuated phase definition added
+//
 // Revision 1.11  2003/09/22 12:31:06  dkrajzew
 // actuated traffic lights are now derived from simple traffic lights
 //
@@ -120,6 +123,9 @@ public:
 protected:
     /// Builds the detectors
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes);
+
+    MSActuatedPhaseDefinition * currentPhaseDef();
+
 
 protected:
     /// A map from lanes to induct loops lying on them
