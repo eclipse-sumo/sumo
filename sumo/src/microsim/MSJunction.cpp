@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/07/07 08:16:28  dkrajzew
+// a junction is now able to return its id
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -171,6 +174,13 @@ MSJunction::postloadInitContainer()
         (*i).second->postloadInit();
     }
 }
+
+std::string
+MSJunction::id() const
+{
+    return myID;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
