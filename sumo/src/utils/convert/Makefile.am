@@ -2,8 +2,7 @@ noinst_LIBRARIES = libconvert.a
 
 EXTRA_DIST = TplConvertSec.cpp TplConvert.cpp
 
-libconvert_a_SOURCES = TplConvert.cpp \
-STRConvert.h \
+libconvert_a_SOURCES = STRConvert.h \
 ToString.h \
 TplConvert.h \
 TplConvertSec.h
