@@ -144,6 +144,10 @@ SOURCE=..\..\src\utils\importio\LineReader.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\LogFile.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
@@ -740,6 +744,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\geom\Position2DVector.cpp
 # End Source File
 # Begin Source File
@@ -861,6 +869,10 @@ SOURCE=..\..\src\utils\importio\LineHandler.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\importio\LineReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\LogFile.h
 # End Source File
 # Begin Source File
 
@@ -1497,6 +1509,10 @@ SOURCE=..\..\src\utils\options\OptionsLoader.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\options\OptionsParser.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\options\OptionsSubSys.h
 # End Source File
 # Begin Source File
 

@@ -109,6 +109,10 @@ SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\common\LogFile.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
@@ -305,6 +309,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # End Source File
 # Begin Source File
@@ -378,6 +386,10 @@ SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\HelpPrinter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\LogFile.h
 # End Source File
 # Begin Source File
 
@@ -594,6 +606,10 @@ SOURCE=..\..\src\utils\options\OptionsLoader.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\options\OptionsParser.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\options\OptionsSubSys.h
 # End Source File
 # Begin Source File
 

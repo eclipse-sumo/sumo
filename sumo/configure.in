@@ -223,6 +223,14 @@ AC_OUTPUT(
 ./data/examples/cross3ltl_inductloops/output/Makefile
 ./data/examples/cross3ltl_meandata/Makefile
 ./data/examples/cross3ltl_meandata/output/Makefile
+./data/examples/due2s_automatic/Makefile
+./data/examples/due2s_automatic/aggregated/Makefile
+./data/examples/due2s_singlestep/Makefile
+./data/examples/due2s_singlestep/aggregated/Makefile
+./data/examples/due3s_automatic/Makefile
+./data/examples/due3s_automatic/aggregated/Makefile
+./data/examples/due3s_singlestep/Makefile
+./data/examples/due3s_singlestep/aggregated/Makefile
 ./data/examples/eight1l/Makefile
 ./data/examples/eight1ltl/Makefile
 ./data/examples/eight3l/Makefile
