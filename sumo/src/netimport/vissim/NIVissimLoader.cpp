@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/09/23 14:15:33  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.17  2003/09/05 15:18:08  dkrajzew
 // removed some unneeded code
 //
@@ -422,6 +425,8 @@ NIVissimLoader::postLoadBuild(double offset)
     NIVissimBoundedClusterObject::closeLoading();
     NIVissimConnection::dict_assignToEdges();
     NIVissimDisturbance::dict_SetDisturbances();
+    // build district->connections map
+    NIVissimDistrictConnection::dict_BuildDistrictConnections();
     // build clusters around nodes
 //    NIVissimNodeDef::buildNodeClusters();
     // build node clusters around traffic lights
@@ -437,6 +442,8 @@ NIVissimLoader::postLoadBuild(double offset)
     // build clusters of connections with the same direction and a similar
     //  position along the streets
     NIVissimEdge::buildConnectionClusters();
+    // check whether further nodes (connection clusters by now) must be added
+    NIVissimDistrictConnection::dict_CheckEdgeEnds();
 
     // join clusters when overlapping (different streets are possible)
     NIVissimConnectionCluster::joinBySameEdges(offset);

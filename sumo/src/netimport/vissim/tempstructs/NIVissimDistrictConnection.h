@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/09/23 14:16:37  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.4  2003/03/31 06:15:49  dkrajzew
 // further work on vissim-import
 //
@@ -87,6 +90,14 @@ public:
 
     /// Clears the dictionary
     static void clearDict();
+
+    static void dict_BuildDistrictConnections();
+
+    static void dict_CheckEdgeEnds();
+
+
+private:
+    void checkEdgeEnd();
 
 private:
     /// The id of the connections

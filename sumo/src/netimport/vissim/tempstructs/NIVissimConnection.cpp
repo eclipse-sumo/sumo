@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/09/23 14:16:36  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.11  2003/09/22 12:42:17  dkrajzew
 // further work on vissim-import
 //
@@ -67,6 +70,7 @@ namespace
 using namespace std;
 
 NIVissimConnection::DictType NIVissimConnection::myDict;
+int NIVissimConnection::myMaxID;
 
 NIVissimConnection::NIVissimConnection(int id,
         const std::string &name, const NIVissimExtendedEdgePoint &from_def,
@@ -112,6 +116,9 @@ NIVissimConnection::dictionary(int id, const std::string &name,
     if(!dictionary(id, o)) {
         delete o;
         return false;
+    }
+    if(myMaxID<id) {
+        myMaxID = id;
     }
     return true;
 }
@@ -410,6 +417,11 @@ NIVissimConnection::dict_assignToEdges()
 }
 
 
+int
+NIVissimConnection::getMaxID()
+{
+    return myMaxID;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

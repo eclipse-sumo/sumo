@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/09/23 14:16:37  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.4  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -91,6 +94,7 @@ public:
     static IntVector getForEdge(int edgeid, bool omitNodeAssigned=true);
     static void dict_buildNBEdgeConnections();
     static void dict_assignToEdges();
+    static int getMaxID();
     const IntVector &getFromLanes() const;
     const IntVector &getToLanes() const;
 /*    static void assignNodes();
@@ -109,6 +113,7 @@ private:
 private:
     typedef std::map<int, NIVissimConnection*> DictType;
     static DictType myDict;
+    static int myMaxID;
 };
 
 

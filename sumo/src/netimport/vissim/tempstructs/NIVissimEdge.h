@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/09/23 14:16:37  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.7  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
@@ -44,6 +47,8 @@
 #include <map>
 #include <netbuild/NBEdge.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/common/IntVector.h>
+#include <utils/common/DoubleVector.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
 
@@ -92,6 +97,7 @@ public:
     /// Returns the length of the node
     double getLength() const;
 
+    void checkDistrictConnectionExistanceAt(double pos);
 
     void mergedInto(NIVissimConnectionCluster *old,
         NIVissimConnectionCluster *act);
@@ -124,17 +130,22 @@ public:
 
 
 private:
+    /// The definition for a container for connection clusters
+    typedef std::vector<NIVissimConnectionCluster*> ConnectionClusters;
+
+private:
     /// Builds the NBEdge from this VissimEdge
     void buildNBEdge(double offset);
 
     /// Returns the origin node
-    std::pair<bool, NBNode*> getFromNode();
+    std::pair<bool, NBNode*> getFromNode(ConnectionClusters &clusters);
 
     /// Returns the destination node
-    std::pair<bool, NBNode*> getToNode();
+    std::pair<bool, NBNode*> getToNode(ConnectionClusters &clusters);
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
-    std::pair<NBNode*, NBNode*> resolveSameNode(double offset);
+    std::pair<NBNode*, NBNode*> resolveSameNode(double offset, 
+        NBNode *prevFrom, NBNode *prevTo);
 
 private:
     static NBNode *getNodeSecure(int nodeid, const Position2D &pos,
@@ -183,9 +194,6 @@ private:
     };
 
 private:
-    /// The definition for a container for connection clusters
-    typedef std::vector<NIVissimConnectionCluster*> ConnectionClusters;
-
     /// The name of the edge
     std::string myName;
 
@@ -211,7 +219,9 @@ private:
     IntVector myOutgoingConnections;
 
     /// List of districts referencing this edge
-    IntVector myDistricts;
+//    IntVector myDistricts;
+
+    DoubleVector myDistrictConnections;
 
 private:
     /// Definition of the dictionary type

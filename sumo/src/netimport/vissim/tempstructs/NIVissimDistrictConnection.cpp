@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/09/23 14:16:37  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.12  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -127,7 +130,7 @@ NIVissimDistrictConnection::dictionary(int id)
 }
 
 void
-NIVissimDistrictConnection::dict_BuildDistrictNodes()
+NIVissimDistrictConnection::dict_BuildDistrictConnections()
 {
     //  pre-assign connections to districts
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -138,7 +141,34 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
             myDistrictsConnections[*j].push_back((*i).first);
         }
     }
+}
 
+
+void
+NIVissimDistrictConnection::dict_CheckEdgeEnds()
+{
+    for(std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
+        const IntVector &connections = (*k).second;
+        for(IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
+            NIVissimDistrictConnection *c = dictionary(*j);
+            c->checkEdgeEnd();
+        }
+    }
+}
+
+
+void
+NIVissimDistrictConnection::checkEdgeEnd()
+{
+    NIVissimEdge *edge = NIVissimEdge::dictionary(myEdgeID);
+    assert(edge!=0);
+    edge->checkDistrictConnectionExistanceAt(myPosition);
+}
+
+
+void
+NIVissimDistrictConnection::dict_BuildDistrictNodes()
+{
     for(std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
         // get the connections
         const IntVector &connections = (*k).second;
@@ -173,7 +203,6 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
 void
 NIVissimDistrictConnection::dict_BuildDistricts()
 {
-
     // add the sources and sinks
     //  their normalised propability is computed within NBDistrict
     //   to avoid double code writing and more securty within the converter
