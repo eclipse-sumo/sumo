@@ -19,6 +19,7 @@ public:
     NBNode *getNBNode() const;
     Position2D getPos() const;
 //    void addNodesEdges();
+    std::string getNodeName() const;
 
 
 public:
@@ -43,6 +44,7 @@ public:
 //    static NIVissimEdgePosMap getParticipatingEdgePositions();
 //    static void container_computePositions();
 private:
+
     int myID;
     int myNodeID;
     int myTLID;

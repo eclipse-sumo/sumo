@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/09 15:53:22  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.2  2003/04/07 12:17:10  dkrajzew
 // further work on traffic lights import
 //
@@ -102,6 +105,7 @@ bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
         int id, std::string name, std::istream &from)
 {
+    string type = "festzeit";
     string tag;
     from >> tag;
     //
@@ -113,7 +117,13 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     if(tag=="versatz") {
         from >> offset; // !!!
     }
-    return NIVissimTL::dictionary(id, "festzeit", name, absdur, offset);
+    if(tag!="szpkonfdatei"&&tag!="DATAEND"&&tag!="progdatei") {
+        tag = readEndSecure(from);
+        if(tag=="szpkonfdatei"||tag=="progdatei") {
+            type = "festzeit_fake";
+        }
+    }
+    return NIVissimTL::dictionary(id, type, name, absdur, offset);
 }
 
 

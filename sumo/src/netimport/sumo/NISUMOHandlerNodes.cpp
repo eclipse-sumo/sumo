@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/04/09 15:53:17  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.1  2003/02/07 11:13:27  dkrajzew
 // names changed
 //
@@ -102,7 +105,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         if(typestr=="none") {
             type = NBNode::TYPE_NOJUNCTION;
         } else if(typestr=="traffic_light") {
-            type = NBNode::TYPE_TRAFFIC_LIGHT;
+            type = NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT;
         } else if(typestr=="priority") {
             type = NBNode::TYPE_PRIORITY_JUNCTION;
         } else if(typestr=="right_before_left") {

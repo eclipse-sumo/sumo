@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/04/09 15:53:26  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.2  2003/02/13 15:55:16  dkrajzew
 // xml-loaders now use new options
 //
@@ -60,35 +63,52 @@
  * ======================================================================= */
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class OptionsCont;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * NIXMLEdgesHandler
- * A class that loads the edges stored in xml
+ * @class NIXMLEdgesHandler
+ * A class that parses edges from XML-files
  */
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
     NIXMLEdgesHandler(OptionsCont &options,
         bool warn, bool verbose);
-    /// standard destructor
+
+    /// Destructor
     ~NIXMLEdgesHandler();
+
 protected:
+    /// The method called by the SAX-handler to parse start tags
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
+
+    /// The method called by the SAX-handler to parse characters
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
+
+    /// The method called by the SAX-handler to parse end tags
     void myEndElement(int element, const std::string &name);
+
 private:
+    /// A reference to the program's options
     OptionsCont &_options;
+
 private:
     /** invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);
+
     /** invalid assignment operator */
     NIXMLEdgesHandler &operator=(const NIXMLEdgesHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/09 15:53:24  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.4  2003/04/07 12:17:11  dkrajzew
 // further work on traffic lights import
 //
@@ -102,6 +105,8 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     string type = tl->getType();
     if(type=="festzeit") {
         return parseFixedTime(id, name, lsaid, from);
+    } if(type=="festzeit_fake") {
+        return parseExternFixedTime(id, name, lsaid, from);
     } if(type=="vas") {
         return parseVAS(id, name, lsaid, from);
     } if(type=="vsplus") {
@@ -212,6 +217,15 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseTL(
 
 bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parsePOS(
+        int id, const std::string &name, int lsaid, std::istream &from)
+{
+    cout << "Warning: VAS traffic lights are not supported." << endl;
+    return true;
+}
+
+
+bool
+NIVissimSingleTypeParser_Signalgruppendefinition::parseExternFixedTime(
         int id, const std::string &name, int lsaid, std::istream &from)
 {
     cout << "Warning: VAS traffic lights are not supported." << endl;

@@ -112,6 +112,9 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
             pos.push_back(c->geomPosition());
         }
         Position2D distCenter = pos.center();
+        if(connections.size()==1) { // !!! ok, ok, maybe not the best way just to add an offset
+            distCenter.add(10, 10);
+        }
         district->setCenter(distCenter.x(), distCenter.y());
         // build the node
         string id = "District" + district->getID();

@@ -5,6 +5,7 @@
 #include <utils/geom/Position2DVector.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
+#include "NIVissimTL.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeCluster.h"
@@ -137,6 +138,19 @@ NIVissimNodeCluster::container_computePositions()
 }
 */
 
+std::string
+NIVissimNodeCluster::getNodeName() const
+{
+    if(myTLID==-1) {
+        return toString<int>(myID);
+    } else {
+        return toString<int>(myID)
+            + string("LSA ")
+            + toString<int>(myTLID);
+    }
+}
+
+
 void
 NIVissimNodeCluster::buildNBNode()
 {
@@ -183,11 +197,17 @@ NIVissimNodeCluster::buildNBNode()
     // !!!
     NBNode *node = 0;
     if(myTLID==-1) {
-        node = new NBNode(toString<int>(myID), pos.x(), pos.y(),
+        node = new NBNode(getNodeName(), pos.x(), pos.y(),
             "priority");
     } else {
-        node = new NBNode(toString<int>(myID), pos.x(), pos.y(),
-            "traffic_light");
+        NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
+        if(tl->getType()=="festzeit") {
+            node = new NBNode(getNodeName(), pos.x(), pos.y(),
+                "traffic_light");
+        } else {
+            node = new NBNode(getNodeName(), pos.x(), pos.y(),
+                "actuated_traffic_light");
+        }
     }
     if(!NBNodeCont::insert(node)) {
         cout << "nope, NIVissimNodeCluster" << endl;
@@ -441,7 +461,7 @@ NIVissimNodeCluster::dict_addDisturbances()
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         const IntVector &disturbances = (*i).second->myDisturbances;
-        NBNode *node = NBNodeCont::retrieve(toString<int>((*i).first));
+        NBNode *node = NBNodeCont::retrieve((*i).second->getNodeName());
         for(IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
             NIVissimDisturbance *disturbance = NIVissimDisturbance::dictionary(*j);
             disturbance->addToNode(node);

@@ -533,6 +533,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdef
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\vissim\tempstructs\NIVissimSource.cpp
 # End Source File
 # Begin Source File
@@ -1182,6 +1186,10 @@ SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenvert
 # Begin Source File
 
 SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.h
 # End Source File
 # Begin Source File
 

@@ -470,8 +470,9 @@ NIVissimTL::dict_SetSignals()
         if(tl->myNodeID<0) {
             continue;
         }
-        NBNode *node = NBNodeCont::retrieve(toString<int>(tl->myNodeID));
-        node->setType(NBNode::TYPE_TRAFFIC_LIGHT);
+        NBNode *node = NBNodeCont::retrieve(
+            NIVissimNodeCluster::dictionary(tl->myNodeID)->getNodeName());
+//        node->setType(NBNode::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/04/09 15:53:27  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.2  2003/02/13 15:55:17  dkrajzew
 // xml-loaders now use new options
 //
@@ -59,31 +62,52 @@
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class OptionsCont;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class NIXMLNodesHandler : public SUMOSAXHandler {
+/**
+ * @class NIXMLNodesHandler
+ * A class that parses nodes from XML-files
+ */
+class NIXMLNodesHandler
+    : public SUMOSAXHandler {
 public:
     /// standard constructor
     NIXMLNodesHandler(OptionsCont &options,
         bool warn, bool verbose);
-    /// standard destructor
+
+    /// Destructor
     ~NIXMLNodesHandler();
+
 protected:
+    /// The method called by the SAX-handler to parse start tags
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
+
+    /// The method called by the SAX-handler to parse characters
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
+
+    /// The method called by the SAX-handler to parse end tags
     void myEndElement(int element, const std::string &name);
+
 private:
+    /// A reference to the program's options
     OptionsCont &_options;
+
 private:
     /** invalid copy constructor */
     NIXMLNodesHandler(const NIXMLNodesHandler &s);
+
     /** invalid assignment operator */
     NIXMLNodesHandler &operator=(const NIXMLNodesHandler &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

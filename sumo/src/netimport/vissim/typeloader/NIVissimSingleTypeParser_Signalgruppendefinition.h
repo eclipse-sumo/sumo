@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/04/09 15:53:24  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.2  2003/04/07 12:17:12  dkrajzew
 // further work on traffic lights import
 //
@@ -80,6 +83,10 @@ private:
 
     /// Parses a traffic light group which belongs to a POS traffic light
     bool parsePOS(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs fixed time traffic light with an extern definition
+    bool parseExternFixedTime(int id, const std::string &name, int lsaid,
         std::istream &from);
 
 };

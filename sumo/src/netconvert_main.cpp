@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/09 15:53:16  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.7  2003/04/04 08:41:48  dkrajzew
 // help screen updated; min-decel usage added
 //
@@ -137,6 +140,18 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * computation methods
  * ----------------------------------------------------------------------- */
+
+
+/** removes dummy edges from junctions */
+bool setInit(int step, bool verbose)
+{
+    if(verbose) {
+        cout << "Computing step " << step
+            << ": Setting structures to initial " << endl;
+    }
+    NBEdgeCont::setInit(verbose);
+    return true;
+}
 
 
 /** removes dummy edges from junctions */
@@ -254,8 +269,7 @@ bool computeLogic(int step, OptionsCont *oc)
         cout << "Computing step " << step
             << ": Computing node logics" << endl;
     }
-    return NBNodeCont::computeLogics(
-        oc->getBool("v"), 0, oc->getFloat("min-decel"));
+    return NBNodeCont::computeLogics(*oc);
 }
 
 /* -------------------------------------------------------------------------
@@ -281,6 +295,7 @@ compute(OptionsCont *oc)
     bool ok = true;
     bool verbose = oc->getBool("v");
     int step = 1;
+//    if(ok) ok = setInit(step++, verbose);
     if(ok) ok = removeDummyEdges(step++, verbose);
     if(ok) ok = joinEdges(step++, verbose);
     if(ok) ok = computeTurningDirections(step++, verbose);
@@ -292,7 +307,9 @@ compute(OptionsCont *oc)
     if(ok) ok = recheckLanes(step++, verbose);
     if(ok) ok = computeLinkPriorities(step++, verbose);
     if(ok) ok = computeLogic(step++, oc);
-    if(ok && oc->getBool("v")) NBNode::reportBuild();
+    if(ok && oc->getBool("v")) {
+        NBNode::reportBuild();
+    }
     if(!ok) throw ProcessError();
 }
 
@@ -383,11 +400,14 @@ int main(int argc, char **argv)
         if(SErrorHandler::errorOccured()) {
             throw ProcessError();
         }
+        verbose = oc->getBool("v");
+        NBTypeCont::report(verbose);
+        NBEdgeCont::report(verbose);
+        NBNodeCont::report(verbose);
         // perform the computation
         compute(oc);
         // save network when wished
         save(oc->getString("o"));
-        verbose = oc->getBool("v");
         // remove everything from the memory
     } catch (ProcessError) {
         clearAll(oc);

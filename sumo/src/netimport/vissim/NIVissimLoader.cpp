@@ -42,6 +42,7 @@
 #include "typeloader/NIVissimSingleTypeParser_Kennungszeile.h"
 #include "typeloader/NIVissimSingleTypeParser_Fensterdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Auswertungsdefinition.h"
+#include "typeloader/NIVissimSingleTypeParser_Zusammensetzungsdefinition.h"
 #include "tempstructs/NIVissimTL.h"
 #include "tempstructs/NIVissimClosures.h"
 #include "tempstructs/NIVissimSource.h"
@@ -295,7 +296,7 @@ NIVissimLoader::readContents(istream &strm)
         } else {
             strm >> tag;
         }
-//        cout << tag << endl;
+        cout << tag << endl;
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
             StringUtils::to_lower_case(tag));
@@ -532,6 +533,8 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Fensterdefinition(*this);
     myParsers[VE_Auswertungsdefinition] =
         new NIVissimSingleTypeParser_Auswertungsdefinition(*this);
+    myParsers[VE_Verkehrszusammensetzungsdefinition] =
+        new NIVissimSingleTypeParser_Zusammensetzungsdefinition(*this);
 
 
 }

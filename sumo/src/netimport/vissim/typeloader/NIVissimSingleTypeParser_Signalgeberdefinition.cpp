@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/09 15:53:23  dkrajzew
+// netconvert-changes: further work on Vissim-import, documentation added
+//
 // Revision 1.4  2003/04/07 12:17:11  dkrajzew
 // further work on traffic lights import
 //
@@ -104,6 +107,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         cout << "Omitting unknown traffic light!!!" << endl;
         return true;
     }
+
     //
     from >> tag;
     int edgeid;
@@ -122,6 +126,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     }
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "BLA");
     //
+    NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     NIVissimTL::NIVissimTLSignal *signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
             laneno, position, assignedVehicleTypes);
