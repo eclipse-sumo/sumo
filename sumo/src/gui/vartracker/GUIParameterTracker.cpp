@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/06/18 11:02:33  dkrajzew
+// new fonts usage added
+//
 // Revision 1.3  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
@@ -190,9 +193,13 @@ GUIParameterTracker::GUIParameterTrackerPanel::initializeGL()
     glDisable(GL_COLOR_MATERIAL);
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
-    if(myApplication->myFonts.has("std")) {
-        myFontRenderer.add(myApplication->myFonts.get("std"));
-    }
+    myFontRenderer.add(myApplication->myFonts.get("std11"));
+    myFontRenderer.add(myApplication->myFonts.get("std10"));
+    myFontRenderer.add(myApplication->myFonts.get("std9"));
+    myFontRenderer.add(myApplication->myFonts.get("std8"));
+    myFontRenderer.add(myApplication->myFonts.get("std7"));
+    myFontRenderer.add(myApplication->myFonts.get("std6"));
+    myFontRenderer.add(myApplication->myFonts.get("std5"));
     _lock.unlock();
 }
 
@@ -344,6 +351,15 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
     float max = (float) desc.getMax();
     float abs = (height) * (((float)d-yoff)/range) * 0.8f;
     return (height * 0.5f) - abs - 6;
+/*
+		float height = cvsGetHeight();
+		float range = (float) desc.getRange();
+		float yoff = (float) desc.getYCenter();
+		float max = (float) desc.getMax();
+		float bla = (height) * (((float)d-yoff)/range) * 0.8f;
+		return
+			(height * 0.5f) - bla - 6;
+*/
 }
 
 
