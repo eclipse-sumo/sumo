@@ -33,6 +33,7 @@ MSMaxJamLength.cpp \
 MSNet.cpp \
 MSNoLogicJunction.cpp \
 MSNVehicles.cpp \
+MSOccupancyDegree.cpp \
 MSQueueLengthAheadOfTrafficLights.cpp \
 MSRightOfWayJunction.cpp \
 MSRoute.cpp \
@@ -93,6 +94,7 @@ MSNet.h \
 MSNoLogicJunction.h \
 MSNVehicles.h \
 MSOccupancyCorrection.h \
+MSOccupancyDegree.h \
 MSPredicates.h \
 MSQueueLengthAheadOfTrafficLights.h \
 MSRightOfWayJunction.h \
