@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/06/05 06:29:50  dkrajzew
+// first tries to build under linux: warnings removed; moc-files included Makefiles added
+//
 // Revision 1.5  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -80,7 +83,7 @@ GUILaneWrapper::myTableItems[] =
     "length", "maxspeed", 0
 };
 
-const TableType const
+const TableType
 GUILaneWrapper::myTableItemTypes[] =
 {
     TT_DOUBLE, TT_DOUBLE
@@ -236,7 +239,7 @@ GUILaneWrapper::getTableItem(size_t pos) const
 }
 
 
-const TableType
+TableType
 GUILaneWrapper::getTableType(size_t pos) const
 {
     return myTableItemTypes[pos];

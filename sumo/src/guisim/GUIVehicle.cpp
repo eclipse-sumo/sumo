@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/05 06:29:50  dkrajzew
+// first tries to build under linux: warnings removed; moc-files included Makefiles added
+//
 // Revision 1.7  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -87,7 +90,7 @@ GUIVehicle::myTableItems[] =
     0
 };
 
-const TableType const
+const TableType
 GUIVehicle::myTableItemTypes[] =
 {
     TT_DOUBLE, TT_DOUBLE,
@@ -288,7 +291,7 @@ GUIVehicle::getTableItem(size_t pos) const
 }
 
 
-const TableType
+TableType
 GUIVehicle::getTableType(size_t pos) const
 {
     if(myParamCounterHelp!=0&&pos==getTableParameterNo()-1) {

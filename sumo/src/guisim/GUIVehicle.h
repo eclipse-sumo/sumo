@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/06/05 06:29:50  dkrajzew
+// first tries to build under linux: warnings removed; moc-files included Makefiles added
+//
 // Revision 1.5  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
 //
@@ -132,7 +135,7 @@ protected:
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset, float *defColor);
 
-    const TableType getTableType(size_t pos) const;
+    TableType getTableType(size_t pos) const;
 
     const char *getTableBeginValue(size_t pos) const;
 
@@ -154,7 +157,7 @@ private:
 
     static const char * const myTableItems[];
 
-    static const TableType const myTableItemTypes[];
+    static const TableType myTableItemTypes[];
 
     static size_t myParamCounterHelp;
 };

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/05 06:29:50  dkrajzew
+// first tries to build under linux: warnings removed; moc-files included Makefiles added
+//
 // Revision 1.10  2003/05/28 07:52:31  dkrajzew
 // new usage of MSEventControl adapted
 //
@@ -105,10 +108,10 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
 
 void
 GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   DetectorCont* detectors,
-                   MSRouteLoaderControl *rlc)
+                   DetectorCont* detectors, MSRouteLoaderControl *rlc,
+                   MSTLLogicControl *tlc)
 {
-    MSNet::init(id, ec, jc, detectors, rlc);
+    MSNet::init(id, ec, jc, detectors, rlc, tlc);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     net->_edgeGrid.init();
     net->_boundery = net->_edgeGrid.getBoundery();

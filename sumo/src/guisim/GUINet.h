@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/06/05 06:29:50  dkrajzew
+// first tries to build under linux: warnings removed; moc-files included Makefiles added
+//
 // Revision 1.10  2003/05/28 07:52:31  dkrajzew
 // new usage of MSEventControl adapted
 //
@@ -71,6 +74,7 @@ class MSJunctionControl;
 class MSEmitControl;
 class MSEventControl;
 class MSRouteLoaderControl;
+class MSTLLogicControl;
 
 
 /* =========================================================================
@@ -97,10 +101,8 @@ public:
         TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /// initialises the network (after the loading)
-    static void initGUINet( std::string id,
-        MSEdgeControl* ec, MSJunctionControl* jc,
-        DetectorCont* detectors,
-        MSRouteLoaderControl *rlc);
+    static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
+        DetectorCont* detectors, MSRouteLoaderControl *rlc, MSTLLogicControl *tlc);
 
     /// returns the position of a junction (!!! shouldn't it be a const&?)
     Position2D getJunctionPosition(const std::string &name) const;
@@ -125,7 +127,7 @@ public:
     friend class GUISUMOAbstractView; // !!!
     friend class GUIEdgeControlBuilder;
     friend class GUILane;
-    friend class GUIViewTraffic;
+
 protected:
     /// default constructor
     GUINet();
