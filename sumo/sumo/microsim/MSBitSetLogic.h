@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/06/21 10:59:09  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.3  2002/06/18 16:39:21  croessel
 // Moved code to cpp and made file cfront-compliant.
 //
@@ -72,47 +75,48 @@ public:
     /** Container that holds the right of way bitsets. Each link has it's own
         bitset. The bits in the bitsets correspond to the links. To create
         a bitset for a particular link, set the bits to true that correspond
-        to links that have the right of way. All others set to false, 
+        to links that have the right of way. All others set to false,
         including the link's "own" link-bit. */
     typedef std::vector< std::bitset< N > > Logic;
-    
+
     /** Container that matches links to lanes. Each inLane has a bitset with
         bits set to true for all links that belong to this lane. All other
         bits set to false. */
-    typedef std::vector< std::bitset< N > > Link2LaneTrafo;    
-                
+    typedef std::vector< std::bitset< N > > Link2LaneTrafo;
+
     /// Use this constructor only.
     MSBitSetLogic( unsigned int nLinks,
                    unsigned int nInLanes,
                    Logic* logic,
                    Link2LaneTrafo* transform );
-                
-    /// Modifies the passed respond according to the request.    
+
+    /// Modifies the passed respond according to the request.
     void respond( const MSLogicJunction::Request& request,
-                  MSLogicJunction::Respond& respond ) const; 
-                     
+                  MSLogicJunction::Respond& respond ) const;
+
 protected:
 
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
-    
+
     /// tranformation from link to lane
     Link2LaneTrafo* myTransform;
 
     /// Default constructor.
     MSBitSetLogic();
-    
+
     /// Copy constructor.
     MSBitSetLogic( const MSBitSetLogic& );
-    
+
     /// Assignment operator.
-    MSBitSetLogic& operator=( const MSBitSetLogic& );     
+    MSBitSetLogic& operator=( const MSBitSetLogic& );
 };
 
-
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
+#ifndef MSVC
 #include "MSBitSetLogic.cpp"
+#endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /** To make things easier we use a fixed size. 64 will be sufficient even for

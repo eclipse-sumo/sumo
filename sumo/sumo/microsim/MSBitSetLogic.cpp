@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2002/06/21 10:59:09  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.7  2002/06/20 08:00:59  dkrajzew
 // template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
 //
@@ -61,14 +64,14 @@
 // Initial commit.
 //
 
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-/*namespace !!!
+//#ifdef EXTERNAL_TEMPLATE_DEFINITION
+/*namespace
 {
     const char rcsid[] =
     "$Id$";
 }*/
-#include "MSBitSetLogic.h"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
+
+//#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #include <bitset>
 #include <vector>
@@ -76,7 +79,7 @@
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
 
-
+#include "MSBitSetLogic.h"
 
 template< size_t N >
 MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2002/06/21 10:59:09  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.16  2002/06/20 13:44:58  dkrajzew
 // safeGap is now using fabs
 //
@@ -187,10 +190,6 @@ namespace
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
-
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "../helpers/Counter.cpp"
-#endif
 
 using namespace std;
 
