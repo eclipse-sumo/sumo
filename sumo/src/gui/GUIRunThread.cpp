@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/06 11:12:38  dkrajzew
+// deletion of singletons changed/added
+//
 // Revision 1.8  2003/06/06 10:33:47  dkrajzew
 // changes due to moving the popup-menus into a subfolder
 //
@@ -92,8 +95,7 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _step = start;
     try {
         SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
-        SingletonDictionary< std::string, MSLaneState* >::remove();
-
+        delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
     } catch (SingletonNotCreated &e) {
     }
     SingletonDictionary< std::string, MSLaneState* >::create();

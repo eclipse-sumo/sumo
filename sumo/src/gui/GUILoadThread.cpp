@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/06 11:12:37  dkrajzew
+// deletion of singletons changed/added
+//
 // Revision 1.7  2003/06/06 10:33:47  dkrajzew
 // changes due to moving the popup-menus into a subfolder
 //
@@ -116,13 +119,11 @@ void GUILoadThread::run()
         delete craw;
         net = 0;
         craw = 0;
-        SingletonDictionary< std::string, MSLaneState* >::remove();
     } catch (XMLBuildingException &e) {
         delete net;
         delete craw;
         net = 0;
         craw = 0;
-        SingletonDictionary< std::string, MSLaneState* >::remove();
     }
     delete oc;
     QThread::postEvent( _parent,
