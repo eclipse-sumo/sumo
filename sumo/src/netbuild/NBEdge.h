@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 13:32:01  dkrajzew
+// possibility to add connections between lanes added; adding of connectionsbetween edges revalidated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -140,7 +143,8 @@ private:
 
     enum EdgeBuildingStep {
         INIT = 0,
-        EDGE2EDGES = 1
+        EDGE2EDGES = 1,
+        EDGE2LANES = 2
     };
 
     /// the building step
@@ -236,6 +240,7 @@ public:
         using "computeEdge2Edges"
         returns false when an connection already existed; otherwise true */
     bool addEdge2EdgeConnection(NBEdge *dest);
+    bool addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane);
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
 

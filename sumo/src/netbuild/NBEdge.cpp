@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:32:01  dkrajzew
+// possibility to add connections between lanes added; adding of connectionsbetween edges revalidated
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -506,13 +509,29 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
     if(_connectedEdges==0) {
         _connectedEdges = new std::vector<NBEdge*>();
     }
-    if(find(_connectedEdges->begin(), _connectedEdges->end(), dest)!=_connectedEdges->end()) {
+    if(find(_connectedEdges->begin(), _connectedEdges->end(), dest)==_connectedEdges->end()) {
         _connectedEdges->push_back(dest);
+        _step = EDGE2EDGES;
+        (*_ToEdges)[dest] = vector<size_t>();
         return true;
     }
     return false;
 }
 
+
+bool
+NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
+{
+    bool ok = addEdge2EdgeConnection(dest);
+    setConnection(from, dest, toLane);
+    vector<size_t> &lanes = (_ToEdges->find(dest))->second;
+    vector<size_t>::iterator i = find(lanes.begin(), lanes.end(), from);
+    if(i==lanes.end()) {
+        lanes.push_back(from);
+    }
+    _step = EDGE2LANES;
+    return true;
+}
 
 bool
 NBEdge::computeEdge2Edges()
@@ -644,7 +663,9 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
     for(i=0; i<size; i++) {
         // res will be the number of lanes which are meant to reach the
         //  current outgoing edge
-        double res = (double) (*priorities)[i] * (double) _nolanes / (double) prioSum;
+        double res = 
+            (double) (*priorities)[i] * 
+            (double) _nolanes / (double) prioSum;
         // do not let this number be greater than the number of available lanes
         if(res>_nolanes)
             res = _nolanes;
@@ -685,7 +706,8 @@ NBEdge::divideOnEdges(vector<NBEdge*> *outgoing) {
     }
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
-    ToEdgeConnectionsAdder *adder = new ToEdgeConnectionsAdder(_ToEdges, transition);
+    ToEdgeConnectionsAdder *adder 
+        = new ToEdgeConnectionsAdder(_ToEdges, transition);
     Bresenham::compute(adder, _nolanes, noVirtual);
     delete adder;
     delete priorities;
@@ -703,7 +725,9 @@ NBEdge::preparePriorities(vector<NBEdge*> *outgoing) {
     vector<NBEdge*>::iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
 	    assert(((*i)->getJunctionPriority(_to)+1)*2>0);
-        priorities->push_back(((*i)->getJunctionPriority(_to)+1)*2);
+        int prio = (*i)->getJunctionPriority(_to);
+        prio = (prio+1) * 2;
+        priorities->push_back(prio);
     }
     // when the right turning direction has not a higher priority, divide
     //  the importance by 2 due to the possibility to leave the junction
@@ -809,7 +833,8 @@ void
 NBEdge::appendTurnaround()
 {
     if(_turnDestination!=0) {
-        setConnection(_nolanes-1, _turnDestination, _turnDestination->getNoLanes()-1);
+        setConnection(_nolanes-1, _turnDestination, 
+            _turnDestination->getNoLanes()-1);
     }
 }
 
