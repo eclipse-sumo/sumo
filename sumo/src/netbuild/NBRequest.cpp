@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/12/05 10:24:36  dkrajzew
+// false blocking on uncontrolled links being non-foes to controlled ones patched
+//
 // Revision 1.23  2003/12/04 13:06:45  dkrajzew
 // work on internal lanes
 //
@@ -273,6 +276,9 @@ NBRequest::buildBitfieldLogic(const std::string &key)
 void
 NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 {
+    if(from->getID()=="2205"&&to->getID()=="36419") {
+        int bla = 0;
+    }
     EdgeVector::const_iterator pfrom = find(_all->begin(), _all->end(), from);
     while(*pfrom!=to) {
         NBContHelper::nextCCW(_all, pfrom);
@@ -314,7 +320,14 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
+    if( (from1->getID()=="2205"&&to1->getID()=="36419")
+        ||
+        (from2->getID()=="2205"&&to2->getID()=="36419") ) {
 
+        if(from1->getID()=="93829"||from2->getID()=="93829") {
+            int bla = 0;
+        }
+    }
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -485,6 +498,14 @@ NBRequest::resetSignalised()
                             if(idx2<0) {
                                 continue;
                             }
+    if( ((*i11)->getID()=="2205"&&(*i12).edge->getID()=="36419")
+        ||
+        ((*i21)->getID()=="2205"&&(*i22).edge->getID()=="36419") ) {
+
+        if((*i11)->getID()=="93829"||(*i21)->getID()=="93829") {
+            int bla = 0;
+        }
+    }
                             // check
                             // same incoming connections do not prohibit each other
                             if((*i11)==(*i21)) {
@@ -498,6 +519,11 @@ NBRequest::resetSignalised()
                                 ||
                                 ((*i12).tlID!=""&&(*i22).tlID!="") ) {
                                 // do nothing
+                                continue;
+                            }
+                            // supposing, we don not have to
+                            //  brake if we are no foes
+                            if(!foes(*i11, (*i12).edge, *i21, (*i22).edge)) {
                                 continue;
                             }
                             // otherwise:
