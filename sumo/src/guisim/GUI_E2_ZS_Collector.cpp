@@ -7,14 +7,11 @@
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <utils/logging/UIntParametrisedDblFuncBinding.h>
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <microsim/logging/UIntParametrisedDblFuncBinding.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 #include <qgl.h>
 
 using namespace std;
-
-#define FULL_LENGTH 4
-#define HALF_LENGTH 2
 
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id,
 		MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
@@ -96,12 +93,47 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this);
+    // add items
+    myMkExistingItem(*ret, "density [?]",
+        MS_E2_ZS_Collector::DENSITY);
+    myMkExistingItem(*ret, "jam lengths [veh]",
+        MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES);
+    myMkExistingItem(*ret, "jam length [m]",
+        MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS);
+    myMkExistingItem(*ret, "jam len sum [veh]",
+        MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES);
+    myMkExistingItem(*ret, "jam len sum [m]",
+        MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS);
+    myMkExistingItem(*ret, "queue length [veh]",
+        MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
+    myMkExistingItem(*ret, "queue length [m]",
+        MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
+    myMkExistingItem(*ret, "vehicles [veh]",
+        MS_E2_ZS_Collector::N_VEHICLES);
+    myMkExistingItem(*ret, "occupancy degree [?]",
+        MS_E2_ZS_Collector::OCCUPANCY_DEGREE);
+    myMkExistingItem(*ret, "space mean speed [?]",
+        MS_E2_ZS_Collector::SPACE_MEAN_SPEED);
+    myMkExistingItem(*ret, "halting duration [?]",
+        MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
     // close building
     ret->closeBuilding();
     return ret;
 }
 
 
+void
+GUI_E2_ZS_Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
+                                                 const std::string &name,
+                                                 MS_E2_ZS_Collector::DetType type)
+{
+    if(!myDetector.hasDetector(type)) {
+        return;
+    }
+    DoubleValueSource *binding =
+        new ValueRetriever(myDetector, type, 1);
+    ret.mkItem(name.c_str(), true, binding);
+}
 
 
 GUIGlObjectType
@@ -177,18 +209,12 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale) const
 }
 
 
-double
-GUI_E2_ZS_Collector::MyWrapper::getXCoordinate() const
+Position2D
+GUI_E2_ZS_Collector::MyWrapper::getPosition() const
 {
-    return myBoundery.getCenter().first;
+    return myBoundery.getCenter();
 }
 
-
-double
-GUI_E2_ZS_Collector::MyWrapper::getYCoordinate() const
-{
-    return myBoundery.getCenter().second;
-}
 
 GUI_E2_ZS_Collector &
 GUI_E2_ZS_Collector::MyWrapper::getLoop()

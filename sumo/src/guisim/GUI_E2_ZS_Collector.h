@@ -57,10 +57,12 @@ public:
 
         bool active() const;
 
-        double getXCoordinate() const;
-        double getYCoordinate() const;
+        Position2D getPosition() const;
 
         GUI_E2_ZS_Collector &getLoop();
+    protected:
+        void myMkExistingItem(GUIParameterTableWindow &ret,
+            const std::string &name, MS_E2_ZS_Collector::DetType type);
 
     private:
         GUI_E2_ZS_Collector &myDetector;
@@ -71,6 +73,27 @@ public:
 		Position2DVector myFullGeometry;
 		DoubleVector myShapeLengths;
 		DoubleVector myShapeRotations;
+
+        class ValueRetriever : public DoubleValueSource {
+        public:
+            ValueRetriever(GUI_E2_ZS_Collector &det,
+                MS_E2_ZS_Collector::DetType type, size_t nSec)
+                : myDetector(det), myType(type), myNSec(nSec) { }
+            ~ValueRetriever() { }
+            double getValue() const
+                {
+                    return myDetector.getAggregate(myType, myNSec);
+                }
+
+            DoubleValueSource *copy() const {
+                return new ValueRetriever(myDetector, myType, myNSec);
+            }
+
+        private:
+            GUI_E2_ZS_Collector &myDetector;
+            MS_E2_ZS_Collector::DetType myType;
+            size_t myNSec;
+        };
 
     };
 
