@@ -49,6 +49,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <utils/convert/TplConvert.h>
+#include <utils/convert/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
@@ -149,11 +150,12 @@ MSTriggeredSourceXMLHandler::endElement( const XMLCh* const ,
 void
 MSTriggeredSourceXMLHandler::error( const SAXParseException& e )
 {
-    cout << "\nError at file " << TplConvert<XMLCh>::_2str( e.getSystemId() )
-		 << ", line " << e.getLineNumber()
-		 << ", char " << e.getColumnNumber()
-         << "\n  Message: " << TplConvert<XMLCh>::_2str( e.getMessage() )
-         << endl;
+    MsgHandler::getErrorInstance()->inform(
+        string("Error at file ") + TplConvert<XMLCh>::_2str( e.getSystemId() )
+        + string(", line ") + toString<int>(e.getLineNumber())
+        + string(", char ") + toString<int>(e.getColumnNumber())
+        + string("\n  Message: ")
+        + TplConvert<XMLCh>::_2str( e.getMessage() ));
 }
 
 //---------------------------------------------------------------------------//
@@ -161,12 +163,13 @@ MSTriggeredSourceXMLHandler::error( const SAXParseException& e )
 void
 MSTriggeredSourceXMLHandler::fatalError( const SAXParseException& e )
 {
-    cout << "\nFatal Error at file "
-         << TplConvert<XMLCh>::_2str( e.getSystemId() )
-		 << ", line " << e.getLineNumber()
-		 << ", char " << e.getColumnNumber()
-         << "\n  Message: " << TplConvert<XMLCh>::_2str( e.getMessage() )
-         << endl;
+    MsgHandler::getErrorInstance()->inform(
+        string("Fatal Error at file ")
+        + TplConvert<XMLCh>::_2str( e.getSystemId() )
+        + string(", line ") + toString<int>(e.getLineNumber())
+		+ string(", char ") + toString<int>(e.getColumnNumber())
+        + string("\n  Message: ")
+        + TplConvert<XMLCh>::_2str( e.getMessage() ));
 }
 
 //---------------------------------------------------------------------------//
@@ -174,11 +177,13 @@ MSTriggeredSourceXMLHandler::fatalError( const SAXParseException& e )
 void
 MSTriggeredSourceXMLHandler::warning( const SAXParseException& e )
 {
-    cout << "\nWarning at file " << TplConvert<XMLCh>::_2str( e.getSystemId() )
-		 << ", line " << e.getLineNumber()
-		 << ", char " << e.getColumnNumber()
-         << "\n  Message: " << TplConvert<XMLCh>::_2str( e.getMessage() )
-         << endl;
+    MsgHandler::getWarningInstance()->inform(
+        string("\nWarning at file ") + TplConvert<XMLCh>::_2str( e.getSystemId() )
+        + TplConvert<XMLCh>::_2str( e.getSystemId() )
+        + string(", line ") + toString<int>(e.getLineNumber())
+		+ string(", char ") + toString<int>(e.getColumnNumber())
+        + string("\n  Message: ")
+        + TplConvert<XMLCh>::_2str( e.getMessage() ));
 }
 
 //---------------------------------------------------------------------------//
@@ -581,6 +586,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.10  2003/07/30 09:17:29  dkrajzew
+// now reports to the MessageHandler
+//
 // Revision 1.9  2003/07/22 15:07:40  dkrajzew
 // warnings removed
 //
