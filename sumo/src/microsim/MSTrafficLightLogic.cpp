@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/09/05 15:13:58  dkrajzew
+// saving of tl-states implemented
+//
 // Revision 1.7  2003/08/04 11:42:35  dkrajzew
 // missing deletion of traffic light logics on closing a network added
 //
@@ -54,6 +57,7 @@ namespace
 #include <string>
 #include <iostream>
 #include <map>
+#include <sstream>
 #include "MSLink.h"
 #include "MSLane.h"
 #include "MSTrafficLightLogic.h"
@@ -194,6 +198,25 @@ MSTrafficLightLogic::maskYellowLinks()
 }
 
 
+std::string
+MSTrafficLightLogic::buildStateList() const
+{
+    std::ostringstream strm;
+    const std::bitset<64> &allowedLinks = allowed();
+    const std::bitset<64> &yellowLinks = yellowMask();
+    for(size_t i=0; i<myLinks.size(); i++) {
+        if(yellowLinks.test(i)) {
+            strm << "Y";
+        } else {
+            if(allowedLinks.test(i)) {
+                strm << "G";
+            } else {
+                strm << "R";
+            }
+        }
+    }
+    return strm.str();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/05 15:13:58  dkrajzew
+// saving of tl-states implemented
+//
 // Revision 1.8  2003/08/04 11:42:35  dkrajzew
 // missing deletion of traffic light logics on closing a network added
 //
@@ -113,6 +116,8 @@ public:
     void maskYellowLinks();
 
     friend class NLSucceedingLaneBuilder;
+
+    std::string buildStateList() const;
 
 protected:
     /// Adds a link on building
