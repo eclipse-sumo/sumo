@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/12/20 15:00:36  dkrajzew
+// version patched
+//
 // Revision 1.5  2004/12/20 14:05:15  dkrajzew
 // version patched
 //
@@ -83,7 +86,7 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - duarouter application",
+    "Simulation of Urban MObility v0.8.2 - duarouter application",
     "  Routes vehicles by shortest path using dua.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-duarouter [OPTION]*",

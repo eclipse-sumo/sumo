@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/12/20 15:00:37  dkrajzew
+// version patched
+//
 // Revision 1.13  2004/12/20 14:05:16  dkrajzew
 // version patched
 //
@@ -72,7 +75,7 @@
  * The list of help strings for the sumo (simulation) module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - sumo application",
+    "Simulation of Urban MObility v0.8.2 - sumo application",
     "  The command line version of the simulation.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo [OPTION]+",

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/20 15:00:36  dkrajzew
+// version patched
+//
 // Revision 1.3  2004/12/20 14:05:15  dkrajzew
 // version patched
 //
@@ -62,7 +65,7 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - giant application",
+    "Simulation of Urban MObility v0.8.2 - giant application",
     "  Graphical network editor and simulation.",
     "  http://sumo.sourceforge.net",
     "Usage: giant [OPTION]*",

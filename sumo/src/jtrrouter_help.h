@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/20 15:00:36  dkrajzew
+// version patched
+//
 // Revision 1.4  2004/12/20 14:05:15  dkrajzew
 // version patched
 //
@@ -54,7 +57,7 @@
  * The list of help strings for the sumo-junction percentage router module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - jtrrouter application",
+    "Simulation of Urban MObility v0.8.2 - jtrrouter application",
     "  Routes vehicles by turning ratios.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-jtrrouter [OPTION]*",

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/20 15:00:37  dkrajzew
+// version patched
+//
 // Revision 1.3  2004/12/20 14:05:16  dkrajzew
 // version patched
 //
@@ -62,7 +65,7 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - netedit application",
+    "Simulation of Urban MObility v0.8.2 - netedit application",
     "  A graphical network editor.",
     "  http://sumo.sourceforge.net",
     "Usage: netedit [OPTION]*",

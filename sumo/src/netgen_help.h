@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/12/20 15:00:37  dkrajzew
+// version patched
+//
 // Revision 1.5  2004/12/20 14:05:16  dkrajzew
 // version patched
 //
@@ -49,7 +52,7 @@
  * ======================================================================= */
 char *help[] =
 {
-    "Simulation of Urban MObility v0.8.2.1 - netgen application",
+    "Simulation of Urban MObility v0.8.2 - netgen application",
     "  Generates abstract networks.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-netgen [OPTION]*",

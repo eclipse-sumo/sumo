@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2004/12/20 15:00:37  dkrajzew
+// version patched
+//
 // Revision 1.10  2004/12/20 14:05:15  dkrajzew
 // version patched
 //
@@ -75,7 +78,7 @@
  * The help text
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2.1 - netconvert application",
+    "Simulation of Urban MObility v0.8.2 - netconvert application",
     "  Imports networks.",
     "  http://sumo.sourceforge.net",
     "Usage: sumo-netconvert [OPTION]*",
