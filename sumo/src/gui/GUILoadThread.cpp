@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/07/07 08:09:38  dkrajzew
+// Some further error checking was added and the usage of the SystemFrame was refined
+//
 // Revision 1.11  2003/06/24 08:09:28  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -81,6 +84,7 @@ namespace
 #include "QSimulationEndedEvent.h"
 
 
+#include <ctime>
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -126,7 +130,14 @@ void GUILoadThread::run()
     }
     // retrieve the options
     OptionsCont &oc = OptionsSubSys::getOptions();
-//    oc.set("c", _file);
+    if(!SUMOFrame::checkOptions(oc)) {
+        // the options are not valid
+        QThread::postEvent( _parent,
+            new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
+            string(_file)) );
+        return;
+    }
+    // try to load
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
