@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/07/07 08:08:33  dkrajzew
+// The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
+//
 // Revision 1.14  2003/06/24 14:28:53  dkrajzew
 // first steps towards a settings manipulation applied
 //
@@ -145,9 +148,9 @@ const char * startSimText = "Click this button to start the loaded simulation. <
 const char * stopSimText = "Click this button to interupt the running simulation. <br><br>"
 "You can also select the <b>Stop Simulation</b> from the Simulation menu.";
 
-const char * resumeSimText = "Click this button to resume a stopped simulation. <br><br>"
+/*const char * resumeSimText = "Click this button to resume a stopped simulation. <br><br>"
 "You can also select the <b>Resume Simulation</b> from the Simulation menu.";
-
+*/
 const char * singleSimStepText = "Click this button to perform a single simulation step. <br><br>"
 "You can also select the <b>Single Step</b> from the Simulation menu.";
 
@@ -188,7 +191,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
 
     // build menu bar
     buildFileMenu();
-    buildSettingsMenu();
+//    buildSettingsMenu();
     buildWindowsMenu();
     buildHelpMenu();
 
@@ -266,19 +269,19 @@ GUIApplicationWindow::buildSimulationTools()
         this, SLOT(stop()), simTools, "stop simulation" );
     QWhatsThis::add( _stopSimButton, stopSimText );
     _stopSimButton->setEnabled(false);
-    // add "resume simulation" - button
+/*    // add "resume simulation" - button
     icon = QPixmap( cont_xpm );
     _resumeSimButton = new QToolButton( icon, "Resume Simulation",
         QString::null, this, SLOT(resume()), simTools,
         "resume simulation" );
     QWhatsThis::add( _resumeSimButton, resumeSimText );
-    _resumeSimButton->setEnabled(false);
+    _resumeSimButton->setEnabled(false);*/
     // add "single step" - button
     icon = QPixmap( step_xpm );
     _singleStepButton = new QToolButton( icon, "Single Step",
         QString::null, this, SLOT(singleStep()), simTools,
         "single step" );
-    QWhatsThis::add( _resumeSimButton, singleSimStepText );
+    QWhatsThis::add( _singleStepButton, singleSimStepText );
     _singleStepButton->setEnabled(false);
     // add the information about the current time step
     QLabel *label = new QLabel(QString("Current Step:"),
@@ -441,7 +444,9 @@ GUIApplicationWindow::start()
     // check whether it was started before and pasued;
     //  when yes, prompt the user for acknowledge
     if(_wasStarted) {
-        switch( QMessageBox::warning( this, version,
+        resume();
+        return;
+/*        switch( QMessageBox::warning( this, version,
                     "Do you really want to restart the simulation\n"
                     "All structures will start from the beginning step!\n\n",
                     "Yes", "No", 0,
@@ -452,11 +457,11 @@ GUIApplicationWindow::start()
             return;
         default:
             break;
-        }
+        }*/
     }
     _wasStarted = true;
     _startSimButton->setEnabled(false);
-    _resumeSimButton->setEnabled(false);
+//    _resumeSimButton->setEnabled(false);
     _stopSimButton->setEnabled(true);
     _singleStepButton->setEnabled(false);
     _runThread->begin();
@@ -468,7 +473,7 @@ GUIApplicationWindow::stop()
 {
     _stopSimButton->setEnabled(false);
     _startSimButton->setEnabled(true);
-    _resumeSimButton->setEnabled(true);
+//    _resumeSimButton->setEnabled(true);
     _singleStepButton->setEnabled(true);
     _runThread->stop();
 }
@@ -479,7 +484,7 @@ GUIApplicationWindow::resume()
 {
     _stopSimButton->setEnabled(true);
     _startSimButton->setEnabled(false);
-    _resumeSimButton->setEnabled(false);
+//    _resumeSimButton->setEnabled(false);
     _singleStepButton->setEnabled(false);
     _runThread->resume();
 }
@@ -651,7 +656,7 @@ void
 GUIApplicationWindow::resetSimulationToolBar()
 {
     _startSimButton->setEnabled(false);
-    _resumeSimButton->setEnabled(false);
+//    _resumeSimButton->setEnabled(false);
     _stopSimButton->setEnabled(false);
     _singleStepButton->setEnabled(false);
     _simStepLabel->setText("-");

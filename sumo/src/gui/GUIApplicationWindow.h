@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/07/07 08:08:33  dkrajzew
+// The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
+//
 // Revision 1.11  2003/06/24 14:28:53  dkrajzew
 // first steps towards a settings manipulation applied
 //
@@ -127,14 +130,11 @@ private slots:
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
-    /** starts the loaded simulation if any via the RunThread */
+    /** starts the loaded simulation if any exists, via the RunThread */
     void start();
 
-    /** stops the loaded simulation if any via the RunThread */
+    /** stops the loaded simulation if any exists, via the RunThread */
     void stop();
-
-    /** resumes the simulation, if any via the RunThread */
-    void resume();
 
     /** performs a single simulation step via the RunThread */
     void singleStep();
@@ -201,6 +201,9 @@ private:
     /// Builds the menu bar entry "Help"
     void buildHelpMenu();
 
+    /** resumes the simulation, if any exists, via the RunThread */
+    void resume();
+
 
     /** called when a net was loaded */
     void netLoaded(QSimulationLoadedEvent *ec);
@@ -232,7 +235,7 @@ private:
     GUIRunThread *_runThread;
 
     /** buttons to control the simulation process */
-    QToolButton *_startSimButton, *_stopSimButton, *_resumeSimButton,
+    QToolButton *_startSimButton, *_stopSimButton, //*_resumeSimButton,
         *_singleStepButton;
 
     /** button for window adding */
