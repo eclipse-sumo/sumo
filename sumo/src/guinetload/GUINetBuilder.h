@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.4  2003/12/11 06:18:35  dkrajzew
 // network loading and initialisation improved
 //
@@ -29,9 +32,6 @@
 // Revision 1.2  2003/02/07 10:38:19  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -61,13 +61,14 @@ class GUINetBuilder : public NLNetBuilder
 public:
     /// constructor
     GUINetBuilder(const OptionsCont &oc,
+        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
         bool allowAggregatedViews);
 
     /// destructor
     ~GUINetBuilder();
 
     /// builds the gui network
-    MSNet *buildNet();
+    MSNet *buildNet(MSVehicleControl *vc);
 
 private:
     /// information whether aggregated views may be used

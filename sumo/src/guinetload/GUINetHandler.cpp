@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.17  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -100,6 +103,7 @@ namespace
 #include <netload/NLContainer.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/gfx/GfxConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
@@ -112,6 +116,8 @@ namespace
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
 #include "GUINetHandler.h"
+#include <guisim/GUIVehicleType.h>
+#include <guisim/GUIRoute.h>
 
 
 /* =========================================================================
@@ -126,9 +132,10 @@ using namespace std;
 GUINetHandler::GUINetHandler(const std::string &file,
                              NLContainer &container,
                              NLDetectorBuilder &detBuilder,
+                             NLTriggerBuilder &triggerBuilder,
                              double stdDetectorPositions,
                              double stdDetectorLengths)
-    : NLNetHandler(file, container, detBuilder,
+    : NLNetHandler(file, container, detBuilder, triggerBuilder,
         stdDetectorPositions, stdDetectorLengths)
 {
 }
@@ -198,6 +205,81 @@ GUINetHandler::addLaneShape(const std::string &chars)
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
 }
+
+
+void
+GUINetHandler::addVehicleType(const Attributes &attrs)
+{
+    RGBColor col =
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+    // !!! unsecure
+    try {
+        string id = getString(attrs, SUMO_ATTR_ID);
+        try {
+            addParsedVehicleType(id,
+                getFloat(attrs, SUMO_ATTR_LENGTH),
+                getFloat(attrs, SUMO_ATTR_MAXSPEED),
+                getFloat(attrs, SUMO_ATTR_ACCEL),
+                getFloat(attrs, SUMO_ATTR_DECEL),
+                getFloat(attrs, SUMO_ATTR_SIGMA),
+                col);
+        } catch (XMLIdAlreadyUsedException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
+        } catch (EmptyData) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error in description: missing attribute in a vehicletype-object.");
+        } catch (NumberFormatException) {
+            MsgHandler::getErrorInstance()->inform(
+                "Error in description: one of an vehtype's attributes must be numeric but is not.");
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing id of a vehicle-object.");
+    }
+}
+
+
+void
+GUINetHandler::addParsedVehicleType(const string &id, const float length,
+                                    const float maxspeed, const float bmax,
+                                    const float dmax, const float sigma,
+                                    const RGBColor &c)
+{
+    GUIVehicleType *vtype =
+        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
+    if(!MSVehicleType::dictionary(id, vtype)) {
+        throw XMLIdAlreadyUsedException("VehicleType", id);
+    }
+}
+
+
+void
+GUINetHandler::openRoute(const Attributes &attrs)
+{
+    myColor =
+        GfxConvHelper::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+    MSRouteHandler::openRoute(attrs);
+}
+
+
+void
+GUINetHandler::closeRoute()
+{
+    int size = m_pActiveRoute->size();
+    if(size==0) {
+        throw XMLListEmptyException();
+    }
+    GUIRoute *route =
+        new GUIRoute(myColor, m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
+    m_pActiveRoute->clear();
+    if(!MSRoute::dictionary(m_ActiveId, route)) {
+        delete route;
+        throw XMLIdAlreadyUsedException("route", m_ActiveId);
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.14  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -75,12 +78,14 @@ namespace
 #include <microsim/MSEventControl.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSTLLogicControl.h>
+#include <microsim/MSRouteLoader.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUISourceLane.h>
+#include <guisim/GUIRouteHandler.h>
 #include <guisim/GUIVehicle.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
@@ -101,8 +106,8 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIContainer::GUIContainer(NLEdgeControlBuilder * const edgeBuilder,
-                           NLJunctionControlBuilder * const junctionBuilder)
+GUIContainer::GUIContainer(NLEdgeControlBuilder &edgeBuilder,
+                           NLJunctionControlBuilder &junctionBuilder)
     : NLContainer(edgeBuilder, junctionBuilder)
 {
 }
@@ -116,14 +121,14 @@ GUIContainer::~GUIContainer()
 GUINet *
 GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
 {
-	closeJunctions(db);
+    closeJunctions(db);
     MSEdgeControl *edges = 0;
     MSJunctionControl *junctions = 0;
     MSEmitControl *emitters = 0;
     MSRouteLoaderControl *routeLoaders = 0;
     try {
-        MSEdgeControl *edges = m_pECB->build();
-        MSJunctionControl *junctions = m_pJCB->build();
+        MSEdgeControl *edges = myEdgeControlBuilder.build();
+        MSJunctionControl *junctions = myJunctionControlBuilder.build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
         std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
@@ -143,7 +148,7 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
         MSJunctionControl::clear();
         MSJunctionLogic::clear();
         MSLane::clear();
-        MSNet::clear();
+//        MSNet::clear();
         MSVehicle::clear();
         MSVehicleType::clear();
         MSRoute::clear();
@@ -166,8 +171,18 @@ GUIContainer::addSrcDestInfo(const std::string &id, const std::string &from,
         throw XMLIdNotKnownException("junction", to);
     }
     // set the values
-    static_cast<GUIEdgeControlBuilder*>(m_pECB)->addSrcDestInfo(id, fromJ, toJ);
+    static_cast<GUIEdgeControlBuilder&>(myEdgeControlBuilder).addSrcDestInfo(id, fromJ, toJ);
 }
+
+
+MSRouteLoader *
+GUIContainer::buildRouteLoader(const std::string &file)
+{
+    return new MSRouteLoader(
+        *(MSNet::getInstance()),
+        new GUIRouteHandler(file, false));
+}
+
 
 
 void
@@ -186,7 +201,7 @@ GUIContainer::addLane(const string &id, const bool isDepartLane,
 void
 GUIContainer::addJunctionShape(const Position2DVector &shape)
 {
-    static_cast<GUIJunctionControlBuilder*>(m_pJCB)->addJunctionShape(shape);
+    static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
 }
 
 
@@ -201,7 +216,7 @@ void
 GUIContainer::closeLane()
 {
     MSLane *lane =
-        static_cast<GUIEdgeControlBuilder*>(m_pECB)->addLane(
+        static_cast<GUIEdgeControlBuilder&>(myEdgeControlBuilder).addLane(
             getNet(), myID, myCurrentMaxSpeed, myCurrentLength,
             myLaneIsDepart, myShape);
     // insert the lane into the lane-dictionary, checking

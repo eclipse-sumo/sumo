@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.8  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -58,6 +61,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <netload/NLNetHandler.h>
+#include <utils/gfx/RGBColor.h>
 
 
 /* =========================================================================
@@ -79,7 +83,8 @@ class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
     GUINetHandler(const std::string &file,
-        NLContainer &container, NLDetectorBuilder &detBuilder,
+        NLContainer &container,
+        NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         double stdDetectorPositions, double stdDetectorlength);
 
     /// standard destructor
@@ -95,6 +100,17 @@ protected:
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
+    /** parses an occured vehicle type definition */
+    virtual void addVehicleType(const Attributes &attrs);
+
+    /** adds the parsed vehicle type */
+    virtual void addParsedVehicleType(const std::string &id,
+        const float length, const float maxspeed, const float bmax,
+        const float dmax, const float sigma, const RGBColor &c);
+
+    void closeRoute();
+    void openRoute(const Attributes &attrs);
+
 private:
     /// adds information about the source and the destination junctions
     void addSourceDestinationInformation(const Attributes &attrs);
@@ -102,6 +118,10 @@ private:
     void addJunctionShape(const std::string &chars);
 
     void addLaneShape(const std::string &chars);
+
+private:
+    RGBColor myColor;
+
 
 private:
     /** invalid copy constructor */

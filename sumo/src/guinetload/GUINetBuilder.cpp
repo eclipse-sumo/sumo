@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.17  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -90,6 +93,7 @@ namespace
 #include "GUIJunctionControlBuilder.h"
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
+#include "GUITriggerBuilder.h"
 #include "GUINetBuilder.h"
 #include <guisim/GUIVehicleControl.h>
 
@@ -106,8 +110,11 @@ using namespace XERCES_CPP_NAMESPACE;
  * member method definitions
  * ======================================================================= */
 GUINetBuilder::GUINetBuilder(const OptionsCont &oc,
+                             NLEdgeControlBuilder &eb,
+                             NLJunctionControlBuilder &jb,
                              bool allowAggregatedViews)
-    : NLNetBuilder(oc), myAgregatedViewsAllowed(allowAggregatedViews)
+    : NLNetBuilder(oc, eb, jb),
+    myAgregatedViewsAllowed(allowAggregatedViews)
 {
 }
 
@@ -120,7 +127,7 @@ GUINetBuilder::~GUINetBuilder()
 
 
 MSNet *
-GUINetBuilder::buildNet()
+GUINetBuilder::buildNet(MSVehicleControl *vc)
 {
     // set whether empty edges shall be printed on dump
     MSGlobals::myOmitEmptyEdgesOnDump =
@@ -130,20 +137,18 @@ GUINetBuilder::buildNet()
         m_pOptions.getBool("use-internal-links");
     // preinit network
     GUINet::preInitGUINet(
-        m_pOptions.getInt("b"),
-        new GUIVehicleControl(),
+        m_pOptions.getInt("b"), vc,
         m_pOptions.getUIntVector("dump-intervals"),
         m_pOptions.getString("dump-basename"));
 
-    // we need a specialised detector builder
+    // we need a specialised detector and trigger builders
     GUIDetectorBuilder db;
+    GUITriggerBuilder tb;
     // initialise loading buffer ...
     GUIContainer *container = new GUIContainer(
-        new GUIEdgeControlBuilder(
-            static_cast<GUINet*>(GUINet::getInstance())->getIDStorage()),
-        new GUIJunctionControlBuilder());
+        myEdgeBuilder, myJunctionBuilder);
     // get the matching handler
-    GUINetHandler handler("", *container, db,
+    GUINetHandler handler("", *container, db, tb,
         m_pOptions.getFloat("actuating-detector-pos"),
         m_pOptions.getFloat("agent-detector-len"));
     // ... and the parser

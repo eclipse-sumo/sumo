@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/07/02 08:38:51  dkrajzew
+// changes needed to implement the online-router (class derivation)
+//
 // Revision 1.7  2004/04/02 11:14:36  dkrajzew
 // extended traffic lights are no longer template classes
 //
@@ -72,8 +75,8 @@ class GUIContainer : public NLContainer
 {
 public:
     /// constructor
-    GUIContainer(NLEdgeControlBuilder * const edgeBuilder,
-        NLJunctionControlBuilder * const junctionBuilder);
+    GUIContainer(NLEdgeControlBuilder&edgeBuilder,
+        NLJunctionControlBuilder &junctionBuilder);
 
     /// destructor
     ~GUIContainer();
@@ -97,6 +100,10 @@ public:
     void addLaneShape(const Position2DVector &shape);
 
     void closeLane();
+
+protected:
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
+
 
 private:
     /// The id of the current lane
