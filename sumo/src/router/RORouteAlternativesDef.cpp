@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/10/31 08:00:33  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.11  2003/10/21 14:45:23  dkrajzew
 // errors on numerical problems with large differences patched
 //
@@ -225,7 +228,8 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         }
     }
     // find the route to use
-    double chosen = ( (double)rand() / (double)((RAND_MAX+1)));
+    double chosen = (double)rand() /
+        ( static_cast<double>(RAND_MAX) + 1);
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getPropability();

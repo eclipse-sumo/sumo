@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/10/31 08:01:49  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.3  2003/10/28 08:32:55  dkrajzew
 // random number specification option added
 //
@@ -62,7 +65,8 @@ TNeighbourDistribution::Num()
 	for (i=Neighbours.begin(); i!=Neighbours.end(); ++i)
 		sum += (*i).second;
 	// RandValue = [0,sum]
-	RandValue = sum * rand()/RAND_MAX;
+	RandValue = sum * static_cast<double>(rand()) /
+        ( static_cast<double>(RAND_MAX) + 1);
 	// find selected item
 	i = Neighbours.begin();
 	sum = (*i).second;
@@ -227,14 +231,17 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 float
 TNGRandomNet::GetAngle()
 {
-	return 2*PI*rand()/RAND_MAX;
+	return 2*PI*rand() /
+        ( static_cast<double>(RAND_MAX) + 1);
 }
 
 
 float
 TNGRandomNet::GetDistance()
 {
-	return (myMaxDistance - myMinDistance)*rand()/RAND_MAX + myMinDistance;
+	return (myMaxDistance - myMinDistance)*
+        static_cast<double>(rand()) / static_cast<double>(RAND_MAX)
+        + myMinDistance;
 }
 
 
@@ -242,7 +249,7 @@ bool
 TNGRandomNet::UseOuterNode()
 {
 	float value = rand();
-	float max = RAND_MAX;
+	float max = static_cast<float>(RAND_MAX) + 1;
 	value = value/max;
 	if ((value) < myConnectivity)
 		return true;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/10/31 08:02:31  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.16  2003/10/22 07:07:06  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -134,9 +137,9 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
         (double) (256-((prod>>16) & 255)) / (double) 255);
     // color2
     _randomColor2 = RGBColor(
-        (double)rand() / (double)(RAND_MAX),
-        (double)rand() / (double)(RAND_MAX),
-        (double)rand() / (double)(RAND_MAX));
+        (double)rand() / ( static_cast<double>(RAND_MAX) + 1),
+        (double)rand() / ( static_cast<double>(RAND_MAX) + 1),
+        (double)rand() / ( static_cast<double>(RAND_MAX) + 1));
     // lane change color (static!!!)
     _laneChangeColor1 = RGBColor(1, 1, 1);
     _laneChangeColor2 = RGBColor(0.7, 0.7, 0.7);

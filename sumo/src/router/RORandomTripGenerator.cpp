@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/31 08:00:32  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.8  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -158,9 +161,12 @@ RORandomTripGenerator::readNextRoute(long start)
         _net.addVehicle(id,
             new ROVehicle(id, route, start, _net.getDefaultVehicleType(),
                 RGBColor(
-                    double( rand() ) / double( RAND_MAX ) / 2.0 + 0.5,
-                    double( rand() ) / double( RAND_MAX ) / 2.0 + 0.5,
-                    double( rand() ) / double( RAND_MAX )  / 2.0 + 0.5),
+                    double( rand() ) /
+                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5,
+                    double( rand() ) /
+                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5,
+                    double( rand() ) /
+                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5),
                 -1, 0));
         _net.addRouteDef(route);
         _nextRouteRead = true;

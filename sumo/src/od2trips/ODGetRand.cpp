@@ -80,7 +80,8 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	newele=maxele;
 	while (check < number)
 	{
-		rand_space = 1. * (newele-1) / RAND_MAX;
+		rand_space = static_cast<double>(newele-1) /
+            ( static_cast<double>(RAND_MAX) + 1);
 		index = (int) (rand() * rand_space);
 		if(index==maxele) index--;
 		*(output+check) = *(input+index)+start;

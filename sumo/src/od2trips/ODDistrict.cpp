@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/10/31 08:01:13  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.6  2003/10/15 11:53:14  dkrajzew
 // false usage of rand() patched
 //
@@ -114,7 +117,8 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
         throw 1;//ProcessError();
     }
     // compute which item to retrieve
-    double val = rand() / (RAND_MAX+1);
+    double val = rand() /
+        ( static_cast<double>(RAND_MAX) + 1);
     // go through the list to retrieve the item
     for(WeightedEdgeIDCont::const_iterator i=cont.begin(); i!=cont.end(); i++) {
         val -= (*i).second;

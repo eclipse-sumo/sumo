@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/31 08:00:32  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.12  2003/10/15 11:55:11  dkrajzew
 // false usage of rand() patched
 //
@@ -364,7 +367,8 @@ RONet::getRandomSource()
         return 0;
     }
     // choose an edge by random
-    double random = double( rand() ) / double( (RAND_MAX+1) );
+    double random = double( rand() ) /
+        ( static_cast<double>(RAND_MAX) + 1);
     return mySourceEdges[(size_t) (random*(mySourceEdges.size()-1))];
 }
 
@@ -379,7 +383,8 @@ RONet::getRandomDestination()
     }
     // choose an edge by random
     // choose an edge by random
-    double random = double( rand() ) / double( (RAND_MAX+1) );
+    double random = double( rand() ) /
+        ( static_cast<double>(RAND_MAX) + 1);
     return myDestinationEdges[(size_t) (random*(myDestinationEdges.size()-1))];
 }
 

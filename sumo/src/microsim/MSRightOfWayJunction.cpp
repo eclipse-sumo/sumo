@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/10/31 08:03:38  dkrajzew
+// hope to have patched false usage of RAND_MAX when using gcc
+//
 // Revision 1.6  2003/10/15 11:41:43  dkrajzew
 // false usage of rand() patched
 //
@@ -197,12 +200,10 @@ MSRightOfWayJunction::deadlockKiller()
         }
         // Choose randomly an index out of [0,trueRequests.size()];
         // !!! random choosing may choose one of less priorised lanes
-        unsigned noLockIndex = static_cast< unsigned > (
-            floor( static_cast< double >( rand() ) /
-                    static_cast< double >( RAND_MAX+1 ) *
-                    trueRequests.size()
-                )
-            );
+        unsigned noLockIndex = static_cast< unsigned > ( floor (
+           static_cast< double >( rand() ) /
+           (static_cast< double >( RAND_MAX ) + 1.0) *
+           static_cast< double >( trueRequests.size() ) ) );
 
         // Create deadlock-free request.
         std::bitset<64> noLockRequest(false);
