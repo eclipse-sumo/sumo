@@ -30,8 +30,8 @@ float factrl(int n)
     static float a[33]={1.0,1.0,2.0,6.0,24.0,120.0,720.0}; /* fill in the first few values */
     int j1;
 
-    if (n < 0) cout << "\nNegative factorial in routine FACTRL\n" ;
-    if (n > 32) cout << "\nFactorial value too large in routine FACTRL\n";
+    if (n < 0) { throw 1; } //cout << "\nNegative factorial in routine FACTRL\n" ;
+    if (n > 32) { throw 1; } //cout << "\nFactorial value too large in routine FACTRL\n";
 
     while (ntop < n) { /* use the precalulated value for n = 0....6 */
         j1 = ntop++;
