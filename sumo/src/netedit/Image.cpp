@@ -478,7 +478,10 @@ void Image::RarifySkeleton()
                     }
                     if(black_neighbours==5)
                     {
-
+						//Setze ein weißes Pixel in die Mitte, wenn die Anordnung ein "Plus" ist
+						if ((CountTransitions(i,j)==4)&&(m_img->getPixel(i-1,j)==FXRGB(0,0,0))) 
+						m_img->setPixel(i,j,FXRGB(255,255,255));
+						
                         if
                         (
 						(

@@ -394,9 +394,7 @@ Graph::DelDoubleEdge(Vertex* v, Vertex* w)
 			ptemp=eArray[i];
 			if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
 			{
-				eArray.erase(eArray.begin()+i);
-				v->DekrementOutDegree();
-				w->DekrementInDegree();
+				DelEdge(v,w);
 				i--;
 			}
 	}
@@ -567,7 +565,7 @@ Graph::MergeVertex()
 	int length;
 	/*Hilfszeiger*/
 	Edge* aktuell;
-	Edge* aktuell2;
+	//Edge* aktuell2;
 	/*Für den Start- und Endknoten einer Kante*/
 	Vertex* start;
 	Vertex* end;
@@ -599,26 +597,25 @@ Graph::MergeVertex()
 			/*Zeiger auf den neu hinzugefügten Knoten*/
 			Vertex* neu = SearchVertex(xneu,yneu);
 			
-			/*Hole jede Kante*/
-			for(unsigned int j=0; j<eArray.size(); j++)
+			//Neu
+			int startnachfolger=start->GetNachfolger();
+			while (startnachfolger>0)
 			{
-				aktuell2 = eArray[j];
-				start2 = aktuell2->GetStartingVertex();
-				end2   = aktuell2->GetEndingVertex();
-				
-				/*Es folgt eine Überprüfung, ob von der aktuell2 Kante der Start oder Endknoten
-				mit einem Knoten der aktuell-Kante übereinstimmt
-				So bekommt man die nachfolger von Start und EndKnoten*/
-
-				if(((start2==start)||(end2==start))||((start2==end)||(end2==end)))
-				{
-					DelEdge(start2,end2);
-					DelEdge(end2,start2);
-					if((start2==start)||(start2==end)) mArray.push_back(end2);
-					else mArray.push_back(start2);
-					j-=2;
-					if (j<-1) j=-1;
-				}
+				start2=start->GetNachfolgeVertex(startnachfolger-1);
+				mArray.push_back(start2);
+				DelEdge(start,start2);
+				DelEdge(start2,start);
+				startnachfolger--;
+			}
+			
+			int endnachfolger=end->GetNachfolger();	
+			while (endnachfolger>0)
+			{
+				end2=end->GetNachfolgeVertex(endnachfolger-1);
+				mArray.push_back(end2);
+				DelEdge(end,end2);
+				DelEdge(end2,end);
+				endnachfolger--;
 			}
 			
 			/*Löschen der Start- und Endknoten der zu kurzen Kante*/
@@ -635,6 +632,7 @@ Graph::MergeVertex()
 			//Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
 			i-=2;
 			if (i<-1) i=-1;
+		
 		}
 	}
 }
