@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2004/01/13 07:46:04  dkrajzew
+// method for determining the back direction edge in a edge container added
+//
 // Revision 1.10  2004/01/12 15:25:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -120,21 +123,20 @@ public:
      * Class to sort edges by their angle
      */
     class edge_by_junction_angle_sorter {
-    private:
-        /// the edge to compute the relative angle of
-        NBNode *_node;
-
     public:
         /// constructor
         explicit edge_by_junction_angle_sorter(NBNode *n) : _node(n) {}
 
-    public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const;
 
     private:
         /// Converts the angle of the edge if it is an incoming edge
         double getConvAngle(NBEdge *e) const;
+
+    private:
+        /// the edge to compute the relative angle of
+        NBNode *_node;
 
     };
 
@@ -147,13 +149,6 @@ public:
      * is the reference angle).
      */
     class relative_edge_sorter {
-    private:
-        /// the edge to compute the relative angle of
-        NBEdge *_edge;
-
-        /// the node to use
-        NBNode *_node;
-
     public:
         /// constructor
         explicit relative_edge_sorter(NBEdge *e, NBNode *n)
@@ -168,13 +163,7 @@ public:
                 _edge->getAngle(), e2->getAngle());
             return relAngle1 > relAngle2;
         }
-    };
 
-    /**
-     * relative_edgelane_sorter
-     * Class to sort edges by their angle
-     */
-    class relative_edgelane_sorter {
     private:
         /// the edge to compute the relative angle of
         NBEdge *_edge;
@@ -182,6 +171,13 @@ public:
         /// the node to use
         NBNode *_node;
 
+    };
+
+    /**
+     * relative_edgelane_sorter
+     * Class to sort edges by their angle
+     */
+    class relative_edgelane_sorter {
     public:
         /// constructor
         explicit relative_edgelane_sorter(NBEdge *e, NBNode *n)
@@ -196,6 +192,14 @@ public:
                 _edge->getAngle(), e2.edge->getAngle());
             return relAngle1 > relAngle2;
         }
+
+    private:
+        /// the edge to compute the relative angle of
+        NBEdge *_edge;
+
+        /// the node to use
+        NBNode *_node;
+
     };
 
     /**
@@ -217,13 +221,6 @@ public:
      * to the given edge as her first entry
      */
     class edge_opposite_direction_sorter {
-    private:
-        /// the angle to find the edge with the opposite direction
-        double _angle;
-
-        /// the edge - to avoid comparison of an edge with itself
-        NBEdge *_edge;
-
     public:
         /// constructor
         explicit edge_opposite_direction_sorter(NBEdge *e)
@@ -253,6 +250,14 @@ public:
             }
             return fabs(d - _angle);
         }
+
+    private:
+        /// the angle to find the edge with the opposite direction
+        double _angle;
+
+        /// the edge - to avoid comparison of an edge with itself
+        NBEdge *_edge;
+
     };
 
     /**
@@ -262,10 +267,6 @@ public:
      * to the given edge as her first entry
      */
     class edge_similar_direction_sorter {
-    private:
-        /// the angle to find the edge with the opposite direction
-        double _angle;
-
     public:
         /// constructor
         explicit edge_similar_direction_sorter(NBEdge *e)
@@ -285,6 +286,10 @@ public:
             double d = e->getAngle();
             return fabs(d - _angle);
         }
+
+    private:
+        /// the angle to find the edge with the opposite direction
+        double _angle;
     };
 
 
@@ -413,6 +418,24 @@ public:
     };
 
     friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);
+
+    class opposite_finder {
+    public:
+        /// constructor
+        opposite_finder(NBEdge *edge)
+            : myReferenceEdge(edge) { }
+
+        bool operator() (NBEdge *e) const {
+            return e->isTurningDirection(myReferenceEdge)||
+                myReferenceEdge->isTurningDirection(e);
+        }
+
+    private:
+        NBEdge *myReferenceEdge;
+
+    };
+
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
