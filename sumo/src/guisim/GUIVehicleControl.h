@@ -19,9 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/04/02 11:19:16  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/12/11 06:26:27  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
-//
 //
 /* =========================================================================
  * included modules
@@ -43,7 +45,7 @@
 class GUIVehicleControl : public MSVehicleControl {
 public:
     /// Constructor
-    GUIVehicleControl(MSNet &net);
+    GUIVehicleControl();
 
     /// Destructor
     ~GUIVehicleControl();

@@ -22,13 +22,16 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 11:19:16  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/12/11 06:26:27  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <microsim/MSCORN.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -37,8 +40,8 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIVehicleControl::GUIVehicleControl(MSNet &net)
-    : MSVehicleControl(net)
+GUIVehicleControl::GUIVehicleControl()
+    : MSVehicleControl()
 {
 }
 
@@ -65,10 +68,11 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                int repNo, int repOffset, const RGBColor &col)
 {
 	myLoadedVehNo++;
+    MSNet *net = MSNet::getInstance();
     return new GUIVehicle(
-        static_cast<GUINet&>(myNet).getIDStorage(),
+        static_cast<GUINet*>(net)->getIDStorage(),
         id, route, departTime, type,
-        myNet.getNDumpIntervalls(), repNo, repOffset, col);
+        net->getNDumpIntervalls(), repNo, repOffset, col);
 }
 
 
@@ -76,6 +80,9 @@ void
 GUIVehicleControl::scheduleVehicleRemoval(MSVehicle *veh)
 {
     assert(myRunningVehNo>0);
+    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPOUTPUT)) {
+        MSCORN::compute_TripInfoOutput(veh);
+    }
 	myRunningVehNo--;
 	myEndedVehNo++;
     static_cast<GUIVehicle*>(veh)->setRemoved();
