@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/05/14 04:54:25  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.4  2002/04/24 10:38:22  dkrajzew
 // False usage of strstream in error report changed into a corrected usage of stringstream
 //
@@ -113,41 +116,29 @@ NLSAXHandler::~NLSAXHandler()
 void
 NLSAXHandler::warning(const SAXParseException& exception)
 {
-    ostringstream buf;
-    buf << "XML-Warning:" + XMLConvert::_2str(exception.getMessage()) << endl;
-/*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_'
-          << exception.getColumnNumber() << ')';
-/*    }  */
-    SErrorHandler::add(buf.str(), true);
+    setError("XML-Warning:", exception);
     GenericSAX2Handler::warning(exception);
 }
 
 void
 NLSAXHandler::error(const SAXParseException& exception)
 {
-    ostringstream buf;
-    buf << "XML-Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
-/*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_'
-          << exception.getColumnNumber() << ')';
-/*    }  */
-    SErrorHandler::add(buf.str(), true);
+    setError("XML-Error:", exception);
     GenericSAX2Handler::error(exception);
 }
 
 void
 NLSAXHandler::fatalError(const SAXParseException& exception)
 {
-    ostringstream buf;
-    buf << "XML-Fatal Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
-/*    if(NLNetBuilder::check) {*/
-      buf << " (At line/column " <<  exception.getLineNumber()+1 << '/' <<
-          exception.getColumnNumber() << ')';
-/*    }  */
-    SErrorHandler::add(buf.str(), true);
+    setError("XML-Fatal Error:", exception);
     SErrorHandler::setFatal();
     GenericSAX2Handler::fatalError(exception);
+}
+
+void 
+NLSAXHandler::setFileName(const std::string &file) 
+{
+    _file = file;
 }
 
 void
@@ -160,6 +151,12 @@ NLSAXHandler::myEndElement(int element, const std::string &name) {
 
 void
 NLSAXHandler::myCharacters(int element, const std::string &name, const std::string &chars) {
+}
+
+void 
+NLSAXHandler::setError(const string &type, const SAXParseException& exception) {
+    SErrorHandler::add(XMLConvert::buildErrorMessage(_file, type, exception), 
+		       true);
 }
 
 bool

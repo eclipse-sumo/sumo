@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/05/14 04:55:40  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.3  2002/03/20 12:07:24  dkrajzew
 // limits.h changed to climits
@@ -52,12 +55,15 @@ namespace
  * included modules
  * ======================================================================= */
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <climits>
 #include <sax/AttributeList.hpp>
 #include "XMLConvert.h"
 #include <util/XMLString.hpp>
 #include "XMLBuildingExceptions.h"
+#include <sax/SAXException.hpp>
+#include <sax/SAXParseException.hpp>
 
 /* =========================================================================
  * used namespaces
@@ -231,6 +237,19 @@ XMLConvert::_2bool(const XMLCh *inp)
            ((char) inp[0])=='*' || 
            ((char) inp[0])=='T' );
 }
+
+string
+XMLConvert::buildErrorMessage(const std::string &file, const string &type, 
+			      const SAXParseException& exception) {
+    ostringstream buf;
+    buf << type << endl;
+    buf << XMLConvert::_2str(exception.getMessage()) << endl;
+    buf << " In file: " << file << endl;
+    buf << " At line/column " << exception.getLineNumber()+1 << '/'
+          << exception.getColumnNumber();
+    return buf.str();
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

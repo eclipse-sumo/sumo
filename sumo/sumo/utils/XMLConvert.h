@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/05/14 04:55:40  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:23:17  dkrajzew
 // XERCES-builtin functions for string parsing replaced by own methods
@@ -47,6 +50,8 @@
  * ======================================================================= */
 #include <string>
 #include <sax/AttributeList.hpp>
+#include <sax/SAXException.hpp>
+#include <sax/SAXParseException.hpp>
 
 /* =========================================================================
  * class definitions
@@ -91,6 +96,11 @@ class XMLConvert {
     /** converts the given xml-string into a bool; 
         throws XMLUngivenParameterException when the xml-string is 0 */
     static bool _2bool(const XMLCh *inp);
+    /** build the error message from the given descriptions and the 
+	occured exception */
+    static std::string buildErrorMessage(const std::string &file,
+					 const std::string &type, 
+					 const SAXParseException& exception);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

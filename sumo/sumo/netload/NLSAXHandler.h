@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/05/14 04:54:25  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.3  2002/04/17 11:18:48  dkrajzew
 // windows-newlines removed
 //
@@ -75,7 +78,9 @@ protected:
     /// the handler for the SAX2-attributes
     AttributesHandler          _attrHandler;
     /// the definition of what to load
-    LoadFilter                  _filter;
+    LoadFilter                 _filter;
+    /// the name of the file that is currently build
+    std::string                _file;
 private:
     static Tag  _tags[21];
 public:
@@ -85,13 +90,14 @@ public:
     ~NLSAXHandler();
     /// returns the begin of processing message
     virtual std::string getMessage() const = 0;
-    // does nothing; just for allowing of instantiations of derived classed
+    /// does nothing; just for allowing of instantiations of derived classed
     virtual void myStartElement(int element, const std::string &name, const Attributes &attrs);
-    // does nothing; just for allowing of instantiations of derived classed
+    /// does nothing; just for allowing of instantiations of derived classed
     virtual void myEndElement(int element, const std::string &name);
-    // does nothing; just for allowing of instantiations of derived classed
+    /// does nothing; just for allowing of instantiations of derived classed
     virtual void myCharacters(int element, const std::string &name, const std::string &chars);
-    
+    /// sets the file name
+    void setFileName(const std::string &file);
     // -----------------------------------------------------------------------
     //  Handlers for the SAX ErrorHandler interface
     // -----------------------------------------------------------------------
@@ -102,6 +108,9 @@ public:
     /// called on a XML-fatal error; the error is reported to the SErrorHandler
     virtual void fatalError(const SAXParseException& exception);
 protected:
+    /** adds the message about the occured error to the error handler 
+	after building it */
+    void setError(const std::string &type, const SAXParseException& exception);
     /** returns the information whether instances belonging to the 
         given class of data shall be extracted during this parsing */
     bool wanted(LoadFilter filter) const;

@@ -22,8 +22,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/05/14 04:55:39  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:28  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.

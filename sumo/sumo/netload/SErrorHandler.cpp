@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/05/14 04:54:25  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.2  2002/04/24 10:38:44  dkrajzew
 // Strings are now passed as references
 //
@@ -63,7 +66,7 @@ bool SErrorHandler::m_WasFatal;
  * ======================================================================= */
 SErrorHandler::SErrorHandler()
 {
-  m_WasFatal = false;
+    m_WasFatal = false;
 }
 
 SErrorHandler::~SErrorHandler()
@@ -73,41 +76,43 @@ SErrorHandler::~SErrorHandler()
 void
 SErrorHandler::add(const string &error, bool report)
 {
-  m_Errors.push_back(error);
-  if(report)
-    cerr << error << endl;
+    m_Errors.push_back(error);
+    if(report) {
+	cerr << error << endl;
+    }
 }
 
 void
 SErrorHandler::add(char *error, bool report)
 {
-  string str = error;
-  add(str, report);
+    string str = error;
+    add(str, report);
 }
 
 
 void
 SErrorHandler::print()
 {
-  for(Errors::iterator i=m_Errors.begin(); i!=m_Errors.end(); i++) {
-    cout << (*i) << endl;
-  }
+    for(Errors::iterator i=m_Errors.begin(); i!=m_Errors.end(); i++) {
+	cout << (*i) << endl;
+    }
 }
 
 void
 SErrorHandler::setFatal()
 {
-  m_WasFatal = true;
+    m_WasFatal = true;
 }
 
 bool
 SErrorHandler::wasFatal()
 {
-  return m_WasFatal;
+    return m_WasFatal;
 }
 
 bool
 SErrorHandler::errorOccured()
 {
-  return !(m_Errors.size()==0);
+    return !(m_Errors.size()==0);
 }
+

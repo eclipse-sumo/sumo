@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/05/14 04:54:25  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.5  2002/04/24 10:32:05  dkrajzew
 // Unfound files are now only reported once
 //
@@ -72,6 +75,7 @@ namespace
 #include "../utils/StringTokenizer.h"
 #include "../utils/OptionsCont.h"
 #include "../utils/XMLConvert.h"
+#include "../utils/FileHelpers.h"
 
 /* =========================================================================
  * used namespaces
@@ -122,25 +126,24 @@ NLNetBuilder::build() {
     return net;
 }
 
+
 bool
 NLNetBuilder::count(NLContainer &container, SAX2XMLReader &parser) {
-//    if(m_pOptions.getBool("v"))
-//        cout << "Loading " << getDataName(what) << "..." << endl;
     bool ok = true;
     NLSAXHandler *handler = new NLHandlerCounter(container, LOADFILTER_ALL);
     prepareParser(parser, handler, 0);
-    parse(m_pOptions.getString("n"), parser);
-    if(m_pOptions.isSet("j")) {
+    ok = parse(m_pOptions.getString("n"), handler, parser);
+    if(ok&&m_pOptions.isSet("j")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_LOGICS);
-        ok = parse(m_pOptions.getString("j"), parser);
+        ok = parse(m_pOptions.getString("j"), handler, parser);
     }
     if(ok&&m_pOptions.isSet("d")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DETECTORS);
-        ok = parse(m_pOptions.getString("d"), parser);
+        ok = parse(m_pOptions.getString("d"), handler, parser);
     }
     if(ok&&m_pOptions.isSet("r")) {
         (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DYNAMIC);
-        ok = parse(m_pOptions.getString("r"), parser);
+        ok = parse(m_pOptions.getString("r"), handler, parser);
     }
     delete handler;
     container.preallocate();
@@ -171,7 +174,7 @@ NLNetBuilder::load(LoadFilter what, string files, NLContainer &cont, SAX2XMLRead
     int step = 0;
     for(std::vector<NLSAXHandler*>::iterator i=steps.begin(); i!=steps.end(); i++) {
         prepareParser(parser, *i, step);
-        parse(files, parser);
+        parse(files, *i, parser);
         delete *i;
         step++;
     }
@@ -187,14 +190,19 @@ NLNetBuilder::prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int st
 }
 
 bool
-NLNetBuilder::parse(const string &files, SAX2XMLReader &parser)
+NLNetBuilder::parse(const string &files, NLSAXHandler *handler, SAX2XMLReader &parser)
 {
     bool ok = true;
     StringTokenizer st(files, ';');
     while(ok&&st.hasNext()) {
         string tmp = st.next();
-        parser.parse(tmp.c_str());
-        ok = !(SErrorHandler::errorOccured());
+	if(FileHelpers::exists(tmp)) { 
+	    handler->setFileName(tmp);
+	    parser.parse(tmp.c_str());
+	    ok = !(SErrorHandler::errorOccured());
+	} else {
+	    SErrorHandler::add(string("The given file '") + tmp + string("' does not exist!"), true);
+	}
     }
     return ok;
 }

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/05/14 04:54:25  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.4  2002/04/24 10:32:05  dkrajzew
 // Unfound files are now only reported once
 //
@@ -97,7 +100,7 @@ private:
     /// prepares the parser for processing using the current handler
     void prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step);
     /// parses the files using the given initialised parser
-    bool parse(const std::string &files, SAX2XMLReader &parser);
+    bool parse(const std::string &files, NLSAXHandler *handler, SAX2XMLReader &parser);
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
     /// returns the list of handlers needed to parse the given data type

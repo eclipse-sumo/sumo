@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/05/14 04:55:59  dkrajzew
+// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+//
 // Revision 1.2  2002/04/08 07:25:36  georg
 // check out/commit test
 //
@@ -106,21 +109,18 @@ void OptionsLoader::endElement(const XMLCh* const name) {
 }
 
 void OptionsLoader::warning(const SAXParseException& exception) {
-  cerr << "Warning: " << XMLConvert::_2str(exception.getMessage()) << endl;
-  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
-  _error = true;
+    cerr << XMLConvert::buildErrorMessage(_file, "Warning: ", exception);
+    _error = true;
 }
 
 void OptionsLoader::error(const SAXParseException& exception) {
-  cerr << "Error: " + XMLConvert::_2str(exception.getMessage()) << endl;
-  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
-  _error = true;
+    cerr << XMLConvert::buildErrorMessage(_file, "Error: ", exception);
+    _error = true;
 }
 
 void OptionsLoader::fatalError(const SAXParseException& exception) {
-  cerr << "Error: " + XMLConvert::_2str(exception.getMessage()) << endl;
-  cerr << " (At line/column " << exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
-  _error = true;
+    cerr << XMLConvert::buildErrorMessage(_file, "Fatal-Error:", exception);
+    _error = true;
 }
 
 bool OptionsLoader::errorOccured() {
