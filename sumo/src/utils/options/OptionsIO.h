@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/10/27 10:55:10  dkrajzew
+// problems on setting gui options patched - the configuration is not loaded directly any more
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -81,7 +84,8 @@ class OptionsCont;
 class OptionsIO {
 public:
     /** loads the configuration and parses the command line arguments */
-    static bool getOptions(OptionsCont *oc, int argv, char **argc);
+    static bool getOptions(bool loadConfig, OptionsCont *oc,
+        int argv, char **argc);
 
     /** loads and parses the configuration */
     static bool loadConfiguration(OptionsCont *oc);

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/10/27 10:55:10  dkrajzew
+// problems on setting gui options patched - the configuration is not loaded directly any more
+//
 // Revision 1.4  2003/07/07 08:49:25  dkrajzew
 // no configuration is loaded as default any more
 //
@@ -131,7 +134,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 bool
-OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv)
+OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
 {
     bool ret = true;
     // preparse the options
@@ -140,6 +143,10 @@ OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv)
     // return when the help shall be printed
     if(oc->exists("help")&&oc->getBool("help")) {
         return ret;
+    }
+    // check whether to use the command line parameetr only
+    if(!loadConfig) {
+        return true;
     }
     // read the configuration when everything's ok
     if(ret) {

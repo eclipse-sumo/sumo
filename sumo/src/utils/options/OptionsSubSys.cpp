@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/27 10:55:10  dkrajzew
+// problems on setting gui options patched - the configuration is not loaded directly any more
+//
 // Revision 1.1  2003/06/24 08:12:59  dkrajzew
 // a subsystem for option handling common to most of the applications added
 //
@@ -49,14 +52,14 @@ OptionsCont OptionsSubSys::myOptions;
  * method definitions
  * ======================================================================= */
 bool
-OptionsSubSys::init(int argc, char **argv,
+OptionsSubSys::init(bool loadConfig, int argc, char **argv,
                     fill_options *fill_f,
                     check_options *check_f,
                     char *help[])
 {
     (*fill_f)(myOptions);
     // parse options
-    if(OptionsIO::getOptions(&myOptions, argc, argv)) {
+    if(OptionsIO::getOptions(loadConfig, &myOptions, argc, argv)) {
         // check whether the help shall be printed
         if(myOptions.getBool("help")) {
             HelpPrinter::print(help);
@@ -86,7 +89,7 @@ OptionsSubSys::guiInit(fill_options *fill_f, const std::string &conf)
     (*fill_f)(myOptions);
     myOptions.set("c", conf);
     // parse options
-    if(!OptionsIO::getOptions(&myOptions, 1, 0)) {
+    if(!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
         // the options could not be parsed
         //  - something is wrong with the calling parameter
         return false;

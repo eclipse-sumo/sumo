@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/10/27 10:54:31  dkrajzew
+// problems on setting gui options patched - the configuration is not loaded directly any more
+//
 // Revision 1.4  2003/06/24 08:10:23  dkrajzew
 // extended by the options sub system; dcumentation added
 //
@@ -66,7 +69,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
         return false;
     }
     // initialise the options-subsystem
-    if(!OptionsSubSys::init(argc, argv, fill_f, check_f, help)) {
+    if(!OptionsSubSys::init(!gui, argc, argv, fill_f, check_f, help)) {
         return false;
     }
     // initialise the output

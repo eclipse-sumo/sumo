@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/27 10:55:10  dkrajzew
+// problems on setting gui options patched - the configuration is not loaded directly any more
+//
 // Revision 1.1  2003/06/24 08:12:59  dkrajzew
 // a subsystem for option handling common to most of the applications added
 //
@@ -60,7 +63,7 @@ public:
         fill_f is used to fill the given OptionsCont with values, check_f
         to validate them. This method performs the parsing of options and
         also other options-related function (printing the help screen etc.) */
-    static bool init(int argc, char **argv,
+    static bool init(bool loadConfig, int argc, char **argv,
         fill_options *fill_f, check_options *check_f,
         char *help[]);
 
