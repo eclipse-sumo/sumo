@@ -32,6 +32,7 @@ MSLogicJunction.cpp \
 MSMaxJamLength.cpp \
 MSNet.cpp \
 MSNoLogicJunction.cpp \
+MSNVehicles.cpp \
 MSQueueLengthAheadOfTrafficLights.cpp \
 MSRightOfWayJunction.cpp \
 MSRoute.cpp \
@@ -89,6 +90,7 @@ MSMeanDetector.h \
 MSMoveReminder.h \
 MSNet.h \
 MSNoLogicJunction.h \
+MSNVehicles.h \
 MSOccupancyCorrection.h \
 MSPredicates.h \
 MSQueueLengthAheadOfTrafficLights.h \
