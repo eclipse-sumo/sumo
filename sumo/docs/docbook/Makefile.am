@@ -1,8 +1,3 @@
-EXTRA_DIST = sumo_dev.xml sumo_qa.xml sumo_user.xml \
-sumo-glossary.deu.sgml \
-sumo-glossary.eng.sgml \
-sumo-netconvert-devdocs.sgml \
-sumo-netconvert-userdocs.sgml \
-sumo-userdocs.sgml
+EXTRA_DIST = i880.xml sumo_dev.xml sumo_qa.xml sumo_user.xml
 
 SUBDIRS = gfx xslt
