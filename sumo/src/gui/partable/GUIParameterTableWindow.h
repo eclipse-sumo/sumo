@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 08:48:28  dkrajzew
+// new parameter table usage paradigm; undocummented yet
+//
 // Revision 1.3  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -34,8 +37,9 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <vector>
 #include <qdialog.h>
-
+#include "GUIParameterTableItem.h"
 
 /* =========================================================================
  * class declarations
@@ -48,6 +52,8 @@ class QPaintEvent;
 class QListViewItem;
 class QEvent;
 class QResizeEvent;
+class GUIParameterTable;
+class DoubleValueSource;
 
 
 /* =========================================================================
@@ -59,10 +65,22 @@ class GUIParameterTableWindow : public QDialog
     Q_OBJECT
 public:
     /// Constructor
-    GUIParameterTableWindow( GUIApplicationWindow *app, GUIGlObject *o );
+    GUIParameterTableWindow( GUIApplicationWindow &app, GUIGlObject &o);
 
     /// Destructor
     ~GUIParameterTableWindow();
+
+    virtual void buildParameterPopUp(QMouseEvent * e, GUIParameterTableItem *i);
+
+//    virtual DoubleValueSource *bind(size_t what);
+
+    void closeBuilding();
+
+    void mkItem(const char *name, bool dynamic,
+        DoubleValueSource *src);
+
+    void mkItem(const char *name, bool dynamic,
+        double value);
 
 protected:
     /// Callback for events
@@ -72,23 +90,29 @@ protected:
     void resizeEvent ( QResizeEvent * );
 
 protected:
+//    virtual size_t getParameterNo() const = 0;
+
+    void updateTable();
+
     /// The object to get the information from
-    GUIGlObject *myObject;
+    GUIGlObject &myObject;
 
     /// The table to display the information in
-    QListView *myTable;
+    GUIParameterTable *myTable;
 
     /// A list of current parameter
-    double *myParameter;
+//    double *myParameter;
 
     /// A backup for current parameter so that only those will be reset which have changed
-    double *myParameterBuffer;
+//    double *myParameterBuffer;
 
     /// The main application
-    GUIApplicationWindow *myApplication;
+    GUIApplicationWindow &myApplication;
 
     /// The list of parameter names
-    QListViewItem **myItems;
+//    GUIParameterTableItem **myItems;
+
+    std::vector<GUIParameterTableItem*> myItems;
 
 };
 

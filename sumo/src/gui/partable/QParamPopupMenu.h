@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/30 08:48:28  dkrajzew
+// new parameter table usage paradigm; undocummented yet
+//
 // Revision 1.1  2003/05/20 09:23:58  dkrajzew
 // some statistics added; some debugging done
 //
@@ -28,6 +31,8 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <string>
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -39,8 +44,10 @@
  * class definitions
  * ======================================================================= */
 class GUIParameterTable;
+class GUIParameterTableWindow;
 class GUIGlObject;
 class GUIApplicationWindow;
+class DoubleValueSource;
 
 
 /* =========================================================================
@@ -58,9 +65,9 @@ class QParamPopupMenu :
 
 public:
 	/// Constructor
-    QParamPopupMenu(GUIApplicationWindow *app,
-        GUIParameterTable *parent, GUIGlObject *o,
-		int pos);
+    QParamPopupMenu(GUIApplicationWindow &app,
+        GUIParameterTable &parent, GUIParameterTableWindow &parentWindow,
+        GUIGlObject &o, const std::string &varName, DoubleValueSource *src);
 
 	/// Destructor
     ~QParamPopupMenu();
@@ -71,14 +78,20 @@ public slots:
 
 private:
 	/// The object the table displays
-    GUIGlObject *myObject;
+    GUIGlObject &myObject;
+
+    GUIParameterTable &myParent;
+
+    GUIParameterTableWindow &myParentWindow;
 
 	/** @brief The main application window
 		holder of some needed values */
-    GUIApplicationWindow *myApplication;
+    GUIApplicationWindow &myApplication;
 
-	/// the numerical id of the value (parameter) this popupmenu appears about
-	int myItemNo;
+    std::string myVarName;
+
+
+    DoubleValueSource *mySource;
 
 };
 

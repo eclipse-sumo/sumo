@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 08:48:28  dkrajzew
+// new parameter table usage paradigm; undocummented yet
+//
 // Revision 1.3  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -33,11 +36,14 @@
  * included modules
  * ======================================================================= */
 #include <iostream>
+#include <string>
 #include <qpopupmenu.h>
 #include "GUIParameterTable.h"
+#include "GUIParameterTableWindow.h"
 #include <gui/GUIGlObject.h>
 #include "QParamPopupMenu.h"
 #include <gui/vartracker/GUIParameterTracker.h>
+#include <utils/logging/DoubleFunctionBinding.h>
 
 #ifndef WIN32
 #include "QParamPopupMenu.moc"
@@ -52,12 +58,15 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-QParamPopupMenu::QParamPopupMenu(GUIApplicationWindow *app,
-                                       GUIParameterTable *parent,
-                                       GUIGlObject *o,
-									   int pos)
-    : QPopupMenu(parent), myObject(o),/* myParent(parent),*/
-    myApplication(app), myItemNo(pos)
+QParamPopupMenu::QParamPopupMenu(GUIApplicationWindow &app,
+                                 GUIParameterTable &parent,
+                                 GUIParameterTableWindow &parentWindow,
+                                 GUIGlObject &o,
+                                 const std::string &varName,
+                                 DoubleValueSource *src)
+    : QPopupMenu(&parent), myObject(o), myParent(parent),
+    myParentWindow(parentWindow), myApplication(app), myVarName(varName),
+    mySource(src)
 {
 }
 
@@ -70,8 +79,8 @@ QParamPopupMenu::~QParamPopupMenu()
 void
 QParamPopupMenu::newTracker()
 {
-    // the application gets responsible for this object on building
-    new GUIParameterTracker(myApplication, myObject, myItemNo);
+    new GUIParameterTracker(myApplication, myVarName, myObject,
+        mySource, 0, 0);
 }
 
 

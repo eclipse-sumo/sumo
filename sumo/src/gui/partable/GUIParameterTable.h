@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/30 08:48:28  dkrajzew
+// new parameter table usage paradigm; undocummented yet
+//
 // Revision 1.2  2003/06/05 11:38:20  dkrajzew
 // class templates applied; documentation added
 //
@@ -41,6 +44,8 @@
  * ======================================================================= */
 class GUIApplicationWindow;
 class GUIGlObject;
+class GUIParameterTableWindow;
+class DoubleValueSource;
 
 
 /* =========================================================================
@@ -52,11 +57,14 @@ class GUIParameterTable : public QListView
     Q_OBJECT
 public:
     /// Constructor
-    GUIParameterTable( GUIApplicationWindow *app,
-        GUIGlObject *o, QWidget * parent = 0, const char *name = 0 );
+    GUIParameterTable( GUIApplicationWindow &app,
+        GUIParameterTableWindow &parent,
+        GUIGlObject &o, const char *name = 0 );
 
     /// Destructor
     ~GUIParameterTable();
+
+//    virtual DoubleValueSource *bind(size_t what)  = 0;
 
 protected:
     /// Callback called whe the user selects an entry
@@ -70,13 +78,15 @@ signals:
 
 private:
     /// The object which values are displayed
-	GUIGlObject *myObject;
+	GUIGlObject &myObject;
+
+    GUIParameterTableWindow &myParent;
 
     /// The currently selected item
-    QListViewItem* selected;
+//    QListViewItem* selected;
 
     /// The main application
-    GUIApplicationWindow *myApplication;
+    GUIApplicationWindow &myApplication;
 
 };
 

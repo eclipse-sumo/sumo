@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/30 08:48:28  dkrajzew
+// new parameter table usage paradigm; undocummented yet
+//
 // Revision 1.4  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -41,6 +44,7 @@ namespace
 #include <qlistview.h>
 #include "GUIParameterTable.h"
 #include "QParamPopupMenu.h"
+#include "GUIParameterTableWindow.h"
 
 #ifndef WIN32
 #include "GUIParameterTable.moc"
@@ -50,11 +54,12 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIParameterTable::GUIParameterTable(GUIApplicationWindow *app,
-									 GUIGlObject *o,
-                                     QWidget * parent,
+GUIParameterTable::GUIParameterTable(GUIApplicationWindow &app,
+                                     GUIParameterTableWindow &parent,
+									 GUIGlObject &o,
                                      const char *name)
-	: QListView( parent, name ), myObject(o), selected(0), myApplication(app)
+	: QListView( &parent, name ), myObject(o), myParent(parent),
+    /*selected(0), */myApplication(app)
 {
 }
 
@@ -68,7 +73,7 @@ GUIParameterTable::~GUIParameterTable()
 void
 GUIParameterTable::contentsMousePressEvent( QMouseEvent * e )
 {
-    selected = selectedItem();
+//    selected = selectedItem();
     QListView::contentsMousePressEvent( e );
     Qt::ButtonState button = e->button();
     if(button!=Qt::RightButton) {
@@ -76,24 +81,8 @@ GUIParameterTable::contentsMousePressEvent( QMouseEvent * e )
         return;
     }
     // build the popup
-    QParamPopupMenu *p =
-		new QParamPopupMenu(myApplication, this, myObject, 0);
-    int id = p->insertItem("Open in new Tracker", p, SLOT(newTracker()));
-    p->setItemEnabled(id, TRUE);
-    id = p->insertItem("Open in Tracker...");
-    p->setItemEnabled(id, FALSE);
-    id = p->insertItem("Show in Distribution over same");
-    p->setItemEnabled(id, FALSE);
-    id = p->insertItem("Begin logging...");
-    p->setItemEnabled(id, FALSE);
-    p->insertSeparator();
-    id = p->insertItem("Set as coloring scheme ...");
-    p->setItemEnabled(id, FALSE);
-    // set geometry
-    p->setGeometry(e->globalX(), e->globalY(),
-        p->width()+e->globalX(), p->height()+e->globalY());
-    // show
-    p->show();
+    myParent.buildParameterPopUp(e,
+        static_cast<GUIParameterTableItem*>(selectedItem()));
 }
 
 /*
