@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/01/27 14:19:35  dkrajzew
+// ability to load from a string added
+//
 // Revision 1.22  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -54,7 +57,8 @@ namespace
 // network loading and initialisation improved
 //
 // Revision 1.12  2003/12/04 13:25:52  dkrajzew
-// handling of internal links added; documentation added; some dead code removed
+// handling of internal links added; documentation added;
+//  some dead code removed
 //
 // Revision 1.11  2003/10/22 15:41:28  dkrajzew
 // we have to distinct between two teleporter versions now
@@ -69,10 +73,14 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.7  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 // Revision 1.6  2003/06/18 11:08:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.5  2003/03/20 16:16:31  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -108,6 +116,7 @@ namespace
 #include "GUITriggerBuilder.h"
 #include "GUINetBuilder.h"
 #include <guisim/GUIVehicleControl.h>
+#include <xercesc/framework/MemBufInputSource.hpp>
 
 
 /* =========================================================================
@@ -116,6 +125,10 @@ namespace
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
+
+
+
+static const char*  gMemBufId = "internal";
 
 
 /* =========================================================================
@@ -136,6 +149,49 @@ GUINetBuilder::~GUINetBuilder()
 }
 
 
+MSNet *
+GUINetBuilder::buildNetworkFromDescription(MSVehicleControl *vc,
+                                           const std::string &description)
+{
+    // preinit network
+    GUINet::preInitGUINet(m_pOptions.getInt("b"), vc);
+
+    // we need a specialised detector and trigger builders
+    GUIDetectorBuilder db;
+    GUITriggerBuilder tb;
+    // initialise loading buffer ...
+    GUIContainer *container = new GUIContainer(
+        myEdgeBuilder, myJunctionBuilder);
+    // get the matching handler
+    GUINetHandler handler("", *container, db, tb,
+        m_pOptions.getFloat("actuating-detector-pos"),
+        m_pOptions.getFloat("agent-tl.detector-len"),
+        m_pOptions.getInt("agent-tl.learn-horizon"),
+        m_pOptions.getInt("agent-tl.decision-horizon"),
+        m_pOptions.getFloat("agent-tl.min-diff"),
+        m_pOptions.getInt("agent-tl.tcycle"),
+
+        m_pOptions.getFloat("actuated-tl.max-gap"),
+        m_pOptions.getFloat("actuated-tl.passing-time"),
+        m_pOptions.getFloat("actuated-tl.detector-gap"));
+    handler.setWanted(LOADFILTER_NET);
+    // ... and the parser
+    GUINet *net = 0;
+    SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+    MemBufInputSource* memBufIS =
+        new MemBufInputSource((const XMLByte*)description.c_str(),
+            description.length(), gMemBufId, false);
+    parser->parse(*memBufIS);
+    if(!MsgHandler::getErrorInstance()->wasInformed()) {
+        net = container->buildGUINet(db, m_pOptions);
+        if(net!=0) {
+            net->closeBuilding(*this);
+        }
+    }
+    delete parser;
+    delete container;
+    return net;
+}
 
 
 MSNet *

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/01/27 14:19:35  dkrajzew
+// ability to load from a string added
+//
 // Revision 1.5  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -65,10 +68,14 @@ public:
         bool allowAggregatedViews);
 
     /// destructor
-    ~GUINetBuilder();
+    virtual ~GUINetBuilder();
 
     /// builds the gui network
-    MSNet *buildNet(MSVehicleControl *vc);
+    virtual MSNet *buildNetworkFromDescription(MSVehicleControl *vc,
+        const std::string &description);
+
+    /// builds the gui network
+    virtual MSNet *buildNet(MSVehicleControl *vc);
 
 private:
     /// information whether aggregated views may be used
@@ -78,9 +85,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUINetBuilder.icc"
-//#endif
 
 #endif
 
