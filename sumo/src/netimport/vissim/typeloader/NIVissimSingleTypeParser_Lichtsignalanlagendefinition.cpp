@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/04/07 12:17:10  dkrajzew
+// further work on traffic lights import
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -76,6 +79,18 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
     type = myRead(from);
     if(type=="festzeit") {
         return parseFixedTime(id, name, from);
+    } if(type=="vas") {
+        return parseVAS(id, name, from);
+    } if(type=="vsplus") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="trends") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="vap") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="tl") {
+        return parseRestActuated(id, name, from, type);
+    } if(type=="pos") {
+        return parseRestActuated(id, name, from, type);
     }
     SErrorHandler::add(
         string("Unsupported LSA-Type '") + type + string("' occured."));
@@ -98,5 +113,47 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     if(tag=="versatz") {
         from >> offset; // !!!
     }
-    return NIVissimTL::dictionary(id, name, absdur, offset);
+    return NIVissimTL::dictionary(id, "festzeit", name, absdur, offset);
 }
+
+
+bool
+NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
+        int id, std::string name, std::istream &from)
+{
+    string tag;
+    from >> tag;
+    //
+    double absdur;
+    from >> absdur; // !!!
+    //
+    tag = readEndSecure(from);
+    double offset = 0;
+    if(tag=="versatz") {
+        from >> offset; // !!!
+    }
+    return NIVissimTL::dictionary(id, "vas", name, absdur, offset);
+}
+
+
+bool
+NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
+        int id, std::string name, std::istream &from, const std::string &type)
+{
+    string tag;
+    from >> tag;
+    //
+    double absdur;
+    from >> absdur; // !!!
+    //
+    tag = readEndSecure(from);
+    double offset = 0;
+    if(tag=="versatz") {
+        from >> offset; // !!!
+    }
+    while(tag!="datei") {
+        tag = myRead(from);
+    }
+    return NIVissimTL::dictionary(id, type, name, absdur, offset);
+}
+

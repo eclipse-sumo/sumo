@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/04/07 12:17:12  dkrajzew
+// further work on traffic lights import
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -49,6 +52,35 @@ public:
 
     /// Parses the data type from the given stream
     bool parse(std::istream &from);
+
+private:
+    /// Parses a traffic light group which belongs to a fixed time traffic light
+    bool parseFixedTime(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a VAS traffic light
+    bool parseVAS(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a VSPLUS traffic light
+    bool parseVSPLUS(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a TRENDS traffic light
+    bool parseTRENDS(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a VAStraffic light
+    bool parseVAP(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a TL traffic light
+    bool parseTL(int id, const std::string &name, int lsaid,
+        std::istream &from);
+
+    /// Parses a traffic light group which belongs to a POS traffic light
+    bool parsePOS(int id, const std::string &name, int lsaid,
+        std::istream &from);
 
 };
 

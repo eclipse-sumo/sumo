@@ -115,7 +115,7 @@ NIVissimNodeDef::buildNodeCluster()
     while(changed) {
         IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
         IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
-        IntVector tls = NIVissimTL::getWithin(*myBoundery);
+        IntVector tls = NIVissimTL::getWithin(*myBoundery, 5.0);
         if(tls.size()>1) {
             cout << "NIVissimNodeDef: more than a single signal" << endl;
             throw 1;

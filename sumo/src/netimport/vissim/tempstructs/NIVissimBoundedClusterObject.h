@@ -11,7 +11,7 @@ public:
     NIVissimBoundedClusterObject();
     virtual ~NIVissimBoundedClusterObject();
     virtual void computeBounding() = 0;
-    bool crosses(const AbstractPoly &poly) const;
+    bool crosses(const AbstractPoly &poly, double offset=0) const;
     void inCluster(int id);
     bool clustered() const;
 public:

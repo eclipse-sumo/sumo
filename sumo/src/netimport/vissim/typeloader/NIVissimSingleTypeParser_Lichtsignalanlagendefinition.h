@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/04/07 12:17:11  dkrajzew
+// further work on traffic lights import
+//
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
 //
@@ -54,6 +57,15 @@ public:
 private:
     /// parses a traffic light with fixed times (no other types are supported by now)
     bool parseFixedTime(int id, std::string name, std::istream &from);
+
+    /** @brief Parses a vas-traffic light;
+        All other actuated traffic lights are parsed using "parseRestActuated"
+        as they have a different format */
+    bool parseVAS(int id, std::string name, std::istream &from);
+
+    /// Parses actuated traffic lights (beside VAS)
+    bool parseRestActuated(int id, std::string name, std::istream &from,
+        const std::string &type);
 
 };
 

@@ -18,9 +18,10 @@ NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject()
 
 
 bool
-NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly) const
+NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly,
+                                      double offset) const
 {
-    return myBoundery->overlapsWith(poly);
+    return myBoundery->overlapsWith(poly, offset);
 }
 
 

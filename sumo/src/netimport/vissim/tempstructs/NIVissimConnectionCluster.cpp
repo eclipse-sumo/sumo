@@ -242,7 +242,8 @@ NIVissimConnectionCluster::buildNodeClusters()
             (*i)->recomputeBoundery();
             disturbances = NIVissimDisturbance::getWithin((*i)->myBoundery);
             //
-            tls = NIVissimTL::getWithin((*i)->myBoundery);
+    cout << "Cluster " << ":" << (*i)->myBoundery << endl;
+            tls = NIVissimTL::getWithin((*i)->myBoundery, 5.0);
             if(tls.size()>1) {
                 cout << "NIVissimConnectionCluster:More than a single signal" << endl;
                 throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
@@ -257,6 +258,10 @@ NIVissimConnectionCluster::buildNodeClusters()
             (*i)->myNodeCluster, tlsid, (*i)->myConnections, disturbances);
         assert((*i)->myNodeCluster==id||(*i)->myNodeCluster<0);
         (*i)->myNodeCluster = id;
+        if(tlsid>=0) {
+            NIVissimTL *tl = NIVissimTL::dictionary(tlsid);
+            tl->setNodeID(id);
+        }
 /*        for(IntVector::iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
             NIVissimDisturbance::dictionary(*j)->
         }*/

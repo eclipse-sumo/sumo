@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/07 12:17:11  dkrajzew
+// further work on traffic lights import
+//
 // Revision 1.3  2003/03/20 16:32:24  dkrajzew
 // windows eol removed
 //
@@ -84,20 +87,20 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     tag = overrideOptionalLabel(from, tag);
     //
     int vwished = -1;
-    int lsaid, groupid;
+    int lsaid;
+    IntVector groupids;
     if(tag=="lsa") {
+        int groupid;
         from >> lsaid; // !!!
         from >> tag; // "Gruppe"
-        from >> groupid;
-        tag = myRead(from);
-        if(tag=="oder") {
-            cout << "NIVissimSingleTypeParser_Signalgeberdefinition: multiplicity" << endl;
-            return true;
-        }
+        do {
+            from >> groupid;
+            groupids.push_back(groupid);
+            tag = myRead(from);
+        } while(tag=="oder");
         //
     } else {
-        from >> tag;
-        from >> vwished;
+        from >> tag; // strecke
         cout << "Omitting unknown traffic light!!!" << endl;
         return true;
     }
@@ -120,7 +123,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "BLA");
     //
     NIVissimTL::NIVissimTLSignal *signal =
-        new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupid, edgeid,
+        new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
             laneno, position, assignedVehicleTypes);
     assert(NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal));
     return true;

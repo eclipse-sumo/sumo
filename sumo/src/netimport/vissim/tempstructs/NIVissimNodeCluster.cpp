@@ -181,10 +181,16 @@ NIVissimNodeCluster::buildNBNode()
     }
     cout << "- - - - - - - - - - " << endl;*/
     // !!!
-    NBNode *node = new NBNode(toString<int>(myID),
-        pos.x(), pos.y(), "priority");
+    NBNode *node = 0;
+    if(myTLID==-1) {
+        node = new NBNode(toString<int>(myID), pos.x(), pos.y(),
+            "priority");
+    } else {
+        node = new NBNode(toString<int>(myID), pos.x(), pos.y(),
+            "traffic_light");
+    }
     if(!NBNodeCont::insert(node)) {
-        cout << "nope, NIVissimDisturbance" << endl;
+        cout << "nope, NIVissimNodeCluster" << endl;
         throw 1;
     }
     myNBNode = node;

@@ -1,5 +1,6 @@
 #include <map>
 #include <string>
+#include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundery.h>
 #include <utils/common/SErrorHandler.h>
@@ -22,12 +23,12 @@ NIVissimTL::SignalDictType NIVissimTL::NIVissimTLSignal::myDict;
 
 NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
                                                const std::string &name,
-                                               int groupid,
+                                               const IntVector &groupids,
                                                int edgeid,
                                                int laneno,
                                                double position,
                                                const IntVector &vehicleTypes)
-    : myLSA(lsaid), myID(id), myName(name), myGroupID(groupid),
+    : myLSA(lsaid), myID(id), myName(name), myGroupIDs(groupids),
     myEdgeID(edgeid), myLane(laneno), myPosition(position),
     myVehicleTypes(vehicleTypes)
 {
@@ -97,6 +98,17 @@ NIVissimTL::NIVissimTLSignal::clearDict()
 }
 
 
+NIVissimTL::SSignalDictType
+NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
+{
+    SignalDictType::iterator i = myDict.find(tlid);
+    if(i==myDict.end()) {
+        return SSignalDictType();
+    }
+    return (*i).second;
+}
+
+
 void
 NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
 {
@@ -104,13 +116,18 @@ NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
     ConnectionVector assignedConnections;
     if(c==0) {
         // What to do if on an edge? -> close all outgoing connections
+        string eid = toString<int>(myEdgeID);
         NBEdge *edge =
-            NBEdgeCont::retrieve(toString<int>(myEdgeID));
+            NBEdgeCont::retrieve(eid);
+        if(edge==0) {
+            edge = NBEdgeCont::retrievePossiblySplitted(eid, myPosition);
+        }
+        assert(edge!=0);
         // Check whether it is already known, which edges are approached
         //  by which lanes
         EdgeVector conn;
         if(edge->lanesWereAssigned()) {
-            conn = edge->getEdgesFromLane(myLane);
+            conn = edge->getEdgesFromLane(myLane-1);
         } else {
             conn = edge->getConnected();
         }
@@ -128,7 +145,17 @@ NIVissimTL::NIVissimTLSignal::addTo(NBNode *node) const
                 );
     }
     // add to the group
-    node->addToSignalGroup(toString<int>(myGroupID), assignedConnections);
+    assert(myGroupIDs.size()!=0);
+    if(myGroupIDs.size()==1) {
+        node->addToSignalGroup(
+            toString<int>(*(myGroupIDs.begin())),
+            assignedConnections);
+    } else {
+        node->addToSignalGroup(
+            toString<int>(*(myGroupIDs.begin())),
+            assignedConnections);
+        // !!!
+    }
 }
 
 
@@ -240,6 +267,17 @@ NIVissimTL::NIVissimTLSignalGroup::clearDict()
 }
 
 
+NIVissimTL::SGroupDictType
+NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid)
+{
+    GroupDictType::iterator i = myDict.find(tlid);
+    if(i==myDict.end()) {
+        return SGroupDictType();
+    }
+    return (*i).second;
+}
+
+
 void
 NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
 {
@@ -265,10 +303,11 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBNode *node) const
 
 NIVissimTL::DictType NIVissimTL::myDict;
 
-NIVissimTL::NIVissimTL(int id, const std::string &name,
-                       double absdur, double offset)
+NIVissimTL::NIVissimTL(int id, const std::string &type,
+                       const std::string &name, double absdur,
+                       double offset)
     : myID(id), myName(name), myAbsDuration(absdur), myOffset(offset),
-    myCurrentGroup(0), myNodeID(-1)
+    myCurrentGroup(0), myNodeID(-1), myType(type)
 
 {
 }
@@ -278,69 +317,16 @@ NIVissimTL::~NIVissimTL()
 {
 }
 
-/*
-void
-NIVissimTL::addTrafficLight(int id,const std::string &name,
-                            int groupid,
-                            int edgeid, int laneno,
-                            double position, const IntVector &vehicleTypes)
-{
-    NIVissimTLSignal *o =
-        new NIVissimTLSignal(id, name, groupid, edgeid, laneno, position, vehicleTypes);
-    mySignals.push_back(o);
-}
 
-
-void
-NIVissimTL::openGroup(int id, const std::string &name)
-{
-    myCurrentGroup = new NIVissimTLSignalGroup(id, name);
-}
-
-
-void
-NIVissimTL::currentGroup_setStaticGreen()
-{
-    myCurrentGroup->setStaticGreen();
-}
-
-
-void
-NIVissimTL::currentGroup_setStaticRed()
-{
-    myCurrentGroup->setStaticRed();
-}
-
-
-void
-NIVissimTL::currentGroup_addTimes(const DoubleVector &times)
-{
-    myCurrentGroup->addTimes(times);
-}
-
-
-void
-NIVissimTL::currentGroup_addYellowTimes(double tredyellow, double tyellow)
-{
-    myCurrentGroup->addYellowTimes(tredyellow, tyellow);
-}
-
-
-void
-NIVissimTL::endGroup()
-{
-    myGroups[myCurrentGroup->myID] = myCurrentGroup;
-}
-
-*/
 
 
 
 bool
-NIVissimTL::dictionary(int id,const std::string &name,
-                       double absdur, double offset)
+NIVissimTL::dictionary(int id, const std::string &type,
+                       const std::string &name, double absdur,
+                       double offset)
 {
-    NIVissimTL *o = new NIVissimTL(id, name, absdur, offset);
+    NIVissimTL *o = new NIVissimTL(id, type, name, absdur, offset);
     if(!dictionary(id, o)) {
         delete o;
         return false;
@@ -403,11 +389,11 @@ NIVissimTL::assignNode()
 
 
 IntVector
-NIVissimTL::getWithin(const AbstractPoly &poly)
+NIVissimTL::getWithin(const AbstractPoly &poly, double offset)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->crosses(poly)) {
+        if((*i).second->crosses(poly, offset)) {
             ret.push_back((*i).second->myID);
         }
     }
@@ -419,10 +405,12 @@ void
 NIVissimTL::computeBounding()
 {
     Boundery *bound = new Boundery();
-    for(SignalVector::iterator j=mySignals.begin(); j!=mySignals.end(); j++) {
-        bound->add((*j)->getPosition());
+    SSignalDictType signals = NIVissimTLSignal::getSignalsFor(myID);
+    for(SSignalDictType::const_iterator j=signals.begin(); j!=signals.end(); j++) {
+        bound->add((*j).second->getPosition());
     }
     myBoundery = bound;
+    cout << "TL " << myID << ":" << *myBoundery << endl;
 }
 
 
@@ -472,20 +460,6 @@ NIVissimTL::clearDict()
 
 
 
-/*
-bool
-NIVissimTL::crosses(const AbstractPoly &poly) const
-{
-    // check signals?!
-    for(SignalVector::const_iterator j=mySignals.begin(); j!=mySignals.end(); j++) {
-        if((*j)->crosses(poly)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-*/
 
 
 bool
@@ -499,17 +473,38 @@ NIVissimTL::dict_SetSignals()
         NBNode *node = NBNodeCont::retrieve(toString<int>(tl->myNodeID));
         node->setType(NBNode::TYPE_TRAFFIC_LIGHT);
         // add each group to the node's container
-        const GroupMap &sgs = tl->myGroups;
-        for(GroupMap::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
+        SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
+        for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
             (*j).second->addTo(node);
         }
         // add the signal group signals to the node
-        const SignalVector &ss = tl->mySignals;
-        for(SignalVector::const_iterator k=ss.begin(); k!=ss.end(); k++) {
-            (*k)->addTo(node);
+        SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
+        for(SSignalDictType::const_iterator k=signals.begin(); k!=signals.end(); k++) {
+            (*k).second->addTo(node);
         }
     }
     return true;
+}
+
+
+std::string
+NIVissimTL::getType() const
+{
+    return myType;
+}
+
+
+int
+NIVissimTL::getID() const
+{
+    return myID;
+}
+
+
+void
+NIVissimTL::setNodeID(int id)
+{
+    myNodeID = id;
 }
 
 
