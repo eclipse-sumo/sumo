@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/09/05 15:26:39  dkrajzew
+// umlaute conversion added
+//
 // Revision 1.4  2003/06/18 11:37:48  dkrajzew
 // documentation patched
 //
@@ -59,8 +62,8 @@ public:
     /// Builds
     static std::string version1(std::string str);
 
-    /// Converts german "Umlate" to theri HTML-version
-    static std::string to_html(std::string str);
+    /// Converts german "Umlate" to their latin-version
+    static std::string convertUmlaute(std::string str);
 
     /** Replaces all occurences of the second string by the third
         string within the first string */

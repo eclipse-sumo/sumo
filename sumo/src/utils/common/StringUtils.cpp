@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/09/05 15:26:39  dkrajzew
+// umlaute conversion added
+//
 // Revision 1.4  2003/07/30 09:27:40  dkrajzew
 // the double-trimming function debugged
 //
@@ -97,17 +100,8 @@ StringUtils::version1(std::string str)
 
 
 std::string
-StringUtils::to_html(std::string str)
+StringUtils::convertUmlaute(std::string str)
 {
-    /*
-    str = replace(str, "ä", "&auml;");
-    str = replace(str, "Ä", "&Auml;");
-    str = replace(str, "ö", "&ouml;");
-    str = replace(str, "Ö", "&Ouml;");
-    str = replace(str, "ü", "&uuml;");
-    str = replace(str, "Ü", "&Uuml;");
-    str = replace(str, "ß", "&szlig;");
-    */
     str = replace(str, "ä", "ae");
     str = replace(str, "Ä", "Ae");
     str = replace(str, "ö", "oe");
@@ -115,6 +109,10 @@ StringUtils::to_html(std::string str)
     str = replace(str, "ü", "ue");
     str = replace(str, "Ü", "Ue");
     str = replace(str, "ß", "ss");
+    str = replace(str, "É", "E");
+    str = replace(str, "é", "e");
+    str = replace(str, "È", "E");
+    str = replace(str, "è", "e");
     return str;
 }
 

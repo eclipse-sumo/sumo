@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/09/05 15:23:23  dkrajzew
+// umlaute conversion added
+//
 // Revision 1.3  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -41,15 +44,25 @@ namespace
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
+#include <utils/common/StringUtils.h>
 #include "ROEdgeVector.h"
 #include "ROEdge.h"
 #include "RORoute.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORoute::RORoute(const std::string &id, double costs, double prop,
                  const ROEdgeVector &route)
-	: Named(id), _costs(costs), _propability(prop), _route(route)
+	: Named(StringUtils::convertUmlaute(id)), _costs(costs),
+    _propability(prop), _route(route)
 {
 }
 

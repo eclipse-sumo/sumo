@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 15:23:23  dkrajzew
+// umlaute conversion added
+//
 // Revision 1.9  2003/08/21 12:59:35  dkrajzew
 // some bugs patched
 //
@@ -61,6 +64,7 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/Named.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
@@ -69,11 +73,19 @@ namespace
 #include "ReferencedItem.h"
 #include "RORouteDef.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 RORouteDef::RORouteDef(const std::string &id, const RGBColor &color)
-    : ReferencedItem(), Named(id), myColor(color)
+    : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
+    myColor(color)
 {
 }
 
