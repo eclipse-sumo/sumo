@@ -5,6 +5,7 @@ EXTRA_DIST =
 libguisim_a_SOURCES = GUIEdge.cpp GUIEdge.h  GUIEdgeCont.h \
 GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
 GUILaneWrapper.cpp GUILaneWrapper.h GUINet.cpp GUINet.h \
+GUINetWrapper.cpp GUINetWrapper.h \
 GUISourceLane.cpp GUISourceLane.h GUIVehicle.cpp GUIVehicle.h \
 GUIRightOfWayJunction.cpp GUIRightOfWayJunction.h \
 GUINoLogicJunction.cpp GUINoLogicJunction.h \
