@@ -100,7 +100,7 @@ MSLaneState::MSLaneState( string id,
     waitingQueueElemsM( ),
     vehLeftDetectorM  ( ),
     startPosM   ( begin ),
-    deleteDataAfterSecondsM( deleteDataAfterSeconds ),
+    deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
     modifiedSinceLastLookupM( true ),
     lookedUpLastNTimestepsM( 0 ),
     nVehContributedM( 0 )
@@ -127,7 +127,7 @@ MSLaneState::MSLaneState( string id,
         this, &MSLaneState::deleteOldData );
     MSEventControl::getEndOfTimestepEvents()->addEvent(
         deleteOldData,
-        deleteDataAfterSecondsM,
+        deleteDataAfterStepsM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
 }
 
@@ -247,25 +247,25 @@ MSLaneState::getCurrentNumberOfWaiting( void )
 double
 MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
 {
-    // unit is [m/s]
+    // return unit is [m/s]
     assert( lastNTimesteps > 0 );
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return laneM->maxSpeed();
     }
-    double denominator =
+    double denominator = // [cells/step]
         accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                    timestepDataM.end(), 0.0, contTimestepSum );
+                    timestepDataM.end(), 0.0, contTimestepSum ); 
     assert ( denominator > 0 );
-    return accumulate(
-        getStartIterator( lastNTimesteps, timestepDataM ),
-        timestepDataM.end(), 0.0, speedSum ) * MSNet::deltaT() /
-        denominator;
+    double speedS = accumulate( // [cells/step]
+            getStartIterator( lastNTimesteps, timestepDataM ),
+            timestepDataM.end(), 0.0, speedSum );
+    return MSNet::getMeterPerSecond( speedS / denominator );
 }
 
 double
 MSLaneState::getCurrentMeanSpeed( void )
 {
-    // unit is [m/s]
+    // return unit is [m/s]
     if ( timestepDataM.empty( ) ) {
         return 0;
     }
@@ -273,30 +273,33 @@ MSLaneState::getCurrentMeanSpeed( void )
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSumM * MSNet::deltaT() / data.contTimestepSumM;
+    return MSNet::getMeterPerSecond(
+        data.speedSumM / data.contTimestepSumM );
 }
 
 double
 MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
 {
-    // unit is [(m/s)^2]
+    // return unit is [(m/s)^2]
     assert( lastNTimesteps > 0 );
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return -1;
     }
-    double denominator =
+    double denominator = // [cells/step]
         accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
                     timestepDataM.end(), 0.0, contTimestepSum );
     assert( denominator > 0 );
-    return accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                       timestepDataM.end(), 0.0, speedSquareSum ) *
-        MSNet::deltaT() * MSNet::deltaT() / denominator;
+    double speedSSum = accumulate( // [(cells/step)^2]
+        getStartIterator( lastNTimesteps, timestepDataM ),
+        timestepDataM.end(), 0.0, speedSquareSum );
+    return MSNet::getMeterPerSecond(
+        MSNet::getMeterPerSecond( speedSSum / denominator ) );
 }
 
 double
 MSLaneState::getCurrentMeanSpeedSquare( void )
 {
-    // unit is [(m/s)^2]
+    // return unit is [(m/s)^2]
     if ( timestepDataM.empty() ) {
         return 0;
     }
@@ -304,55 +307,59 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
     if ( data.contTimestepSumM == 0 ) {
         return 0;
     }
-    return data.speedSquareSumM * MSNet::deltaT() * MSNet::deltaT() /
-        data.contTimestepSumM;
+    return MSNet::getMeterPerSecond(
+        MSNet::getMeterPerSecond(
+            data.speedSquareSumM / data.contTimestepSumM ) );
 }
 
 double
 MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
 {
-    // unit is veh/km
+    // return unit is veh/km
     assert( lastNTimesteps > 0 );
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return 0;
     }
-    return accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                       timestepDataM.end(), 0.0, contTimestepSum ) /
-        ( lastNTimesteps * laneM->length() ) * 1000.0;
+    double stepsOnDetDuringlastNTimesteps  = accumulate(
+        getStartIterator( lastNTimesteps, timestepDataM ),
+        timestepDataM.end(), 0.0, contTimestepSum ); 
+    return MSNet::getVehPerKm(
+        stepsOnDetDuringlastNTimesteps / lastNTimesteps / laneM->length() );
 }
 
 double
 MSLaneState::getCurrentDensity( void )
 {
-    // unit is veh/km
+    // return unit is veh/km
     if ( timestepDataM.empty() ) {
         return 0;
     }
-    return timestepDataM.back().contTimestepSumM / laneM->length() * 1000.0;
+    return MSNet::getVehPerKm(
+        timestepDataM.back().contTimestepSumM / laneM->length() );
 }
 
 double
 MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
 {
-    // unit is [s]
+    // return unit is [s]
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
-        return laneM->length() / laneM->maxSpeed();
+        return MSNet::getSeconds( laneM->length() / laneM->maxSpeed() );
     }
     int nVehPassedEntire = getNVehPassedEntireDetector( lastNTimesteps );
     if ( nVehPassedEntire == 0 ) {
-        return laneM->length() / getMeanSpeedSquare( lastNTimesteps );
+        return MSNet::getMeters( laneM->length() ) /
+            getMeanSpeed( lastNTimesteps );
     }
-
-    double traveltime = accumulate(
+    double traveltimeS = accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
                      leaveTimestepLesser() ),
         vehLeftDetectorM.end(),
         0.0,
-        traveltimeSum ) *
-        MSNet::deltaT() / nVehPassedEntire;
+        traveltimeSum );
+    double traveltime =  traveltimeS / nVehPassedEntire;
     assert ( traveltime >= laneM->length() / laneM->maxSpeed() );
-    return traveltime;
+    return MSNet::getSeconds( traveltime );
 }
 
 
@@ -468,8 +475,7 @@ MSLaneState::getXMLDetectorInfoEnd( void ) const
 MSNet::Time
 MSLaneState::getDataCleanUpSteps( void ) const
 {
-    return static_cast<MSNet::Time>(
-        MSNet::getSeconds( deleteDataAfterSecondsM ) );
+    return deleteDataAfterStepsM;
 }
 
 void
@@ -603,13 +609,13 @@ MSLaneState::deleteOldData( void )
 {
     // delete timestepDataM partly
     TimestepDataCont::iterator end = timestepDataM.end();
-    if ( timestepDataM.size() > deleteDataAfterSecondsM ) {
-        end -= deleteDataAfterSecondsM;
+    if ( timestepDataM.size() > deleteDataAfterStepsM ) {
+        end -= deleteDataAfterStepsM;
         timestepDataM.erase( timestepDataM.begin(), end );
     }
     // delete vehLeftDetectorM partly
     MSNet::Time deleteBeforeStep =
-        MSNet::getInstance()->timestep() - deleteDataAfterSecondsM;
+        MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
     if ( deleteBeforeStep > 0 ) {
         vehLeftDetectorM.erase(
             vehLeftDetectorM.begin(),
@@ -618,7 +624,7 @@ MSLaneState::deleteOldData( void )
                          deleteBeforeStep,
                          leaveTimestepLesser() ) );
     }
-    return deleteDataAfterSecondsM;
+    return deleteDataAfterStepsM;
 }
 
 void

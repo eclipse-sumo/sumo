@@ -475,7 +475,7 @@ public:
         MSNet::Time timestepM;  /**< The timestep the data belongs to. */
         double speedSumM;       /**< Sum of the speeds the vehicles on the
                                  * detector added via addMoveData() during
-                                 * timestep. */
+                                 * timestep. [cells/timestep] */
         double speedSquareSumM; /**< Sum of the speedsquares the
                                  * vehicles on the detector added via
                                  * addMoveData() during timestep. */
@@ -632,9 +632,9 @@ protected:
 
     /** 
      * Deletes data from timestepDataM and vehLeftDetectorM if 
-     * deleteDataAfterSecondsM is over. Is called via MSEventControl.
+     * deleteDataAfterStepsM is over. Is called via MSEventControl.
      * 
-     * @return deleteDataAfterSecondsM to recur the event. 
+     * @return deleteDataAfterStepsM to recur the event. 
      */
     MSNet::Time deleteOldData( void );
 
@@ -714,9 +714,9 @@ private:
 
     double endPosM;             /**< End-position of the detector. */
 
-    const MSNet::Time deleteDataAfterSecondsM; /**< Keep at least data from
-                                                * the last
-                                                * deleteDataAfterSecondsM. */
+    const MSNet::Time deleteDataAfterStepsM; /**< Keep at least data from
+                                              * the last
+                                              * deleteDataAfterStepsM steps. */
 
     bool modifiedSinceLastLookupM; /**< Indicator if container have been
                                     * modified since last
