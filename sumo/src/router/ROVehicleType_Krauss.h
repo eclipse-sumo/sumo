@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/10/17 07:16:45  dkrajzew
+// errors patched
+//
 // Revision 1.4  2003/07/22 15:14:13  dkrajzew
 // debugging (false vehicle length)
 //
@@ -70,7 +73,7 @@ private:
     /// Krauﬂ-parameter
 	double myA, myB, myEps, myMaxSpeed;
 
-private:
+public:
     /// default parameter
     static double myDefault_A, myDefault_B, myDefault_EPS,
         myDefault_LENGTH, myDefault_MAXSPEED;

@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.26  2003/10/17 07:16:44  dkrajzew
+// errors patched
+//
 // Revision 1.25  2003/10/17 06:53:08  dkrajzew
 // added the possibility to change the standard-krauss parameter via the command line
 //
@@ -105,6 +108,7 @@ namespace
 #include <limits.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
+#include <router/ROVehicleType_Krauss.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
