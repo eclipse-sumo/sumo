@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/01/27 14:28:03  dkrajzew
+// improved variable naming in "forbids"
+//
 // Revision 1.8  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -27,10 +30,12 @@
 // tl-building order patched
 //
 // Revision 1.6  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams modality
+//  cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.3  2003/06/24 08:21:01  dkrajzew
 // some further work on importing traffic lights
@@ -41,16 +46,12 @@
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-
 
 #include <vector>
 #include <string>
@@ -88,8 +89,7 @@ public:
         TLCOLOR_YELLOW,
         TLCOLOR_REDYELLOW,
         TLCOLOR_GREEN,
-        TLCOLOR_BLINK,
-        TLCOLOR_BLUE // :-)
+        TLCOLOR_BLINK
     };
 
 
@@ -118,13 +118,14 @@ public:
     /// Adds a node to the traffic light logic
     void addNode(NBNode *node);
 
-	bool mustBrake(NBEdge *from, NBEdge *to) const;
+    bool mustBrake(NBEdge *from, NBEdge *to) const;
 
     bool mustBrake(const NBConnection &possProhibited,
         const NBConnection &possProhibitor,
         bool regardNonSignalisedLowerPriority) const;
 
-    bool mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2,
+    bool mustBrake(NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+        NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
         bool regardNonSignalisedLowerPriority) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
@@ -137,9 +138,6 @@ public:
     virtual void setTLControllingInformation() const = 0;
 
     virtual void setParticipantsInformation();
-
-
-//    virtual bool includes(NBEdge *from, NBEdge *to) const; // !!! collectLinks must have been called in prior
 
 public:
     virtual void remapRemoved(NBEdge *removed,
@@ -159,8 +157,6 @@ protected:
 
     void collectEdges();
 
-
-
 private:
     NBTrafficLightLogicVector *buildLoadedTrafficLights(
         size_t breakingTime);
@@ -168,17 +164,7 @@ private:
     NBTrafficLightLogicVector *buildOwnTrafficLights(
         size_t breakingTime, bool buildAll) const;
 
-
-/*    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
-        size_t noLinks, const PhaseIndexVector &phaseList,
-        NBLinkCliqueContainer &cliquen,
-        const NBRequestEdgeLinkIterator &cei1) const;*/
-/*
-    std::pair<std::bitset<64>, std::bitset<64> >
-        buildPhaseMasks(size_t time) const;
-*/
     size_t computeBrakingTime(double minDecel) const;
-
 
     /// returns the information whether the given link is a left-mover
     bool isLeftMover(NBEdge *from, NBEdge *to) const;
@@ -202,19 +188,12 @@ protected:
 
     EdgeVector _within;
 
-//    EdgeVector _outgoing;
-
     NBConnectionVector _links;
 
 };
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBTrafficLightDefinition.icc"
-//#endif
 
 #endif
 

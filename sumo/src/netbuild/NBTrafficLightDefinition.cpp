@@ -23,8 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.13  2004/11/23 10:21:41  dkrajzew
-// debugging
+// Revision 1.14  2005/01/27 14:28:03  dkrajzew
+// improved variable naming in "forbids"
+//
+// Revision 1.2  2004/10/29 05:52:34  dksumo
+// fastened up the output of warnings and messages
+//
+// Revision 1.1  2004/10/22 12:49:46  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.12  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
@@ -33,7 +39,8 @@ namespace
 // tl-building order patched
 //
 // Revision 1.10  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams
+//  modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.8  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
@@ -42,7 +49,8 @@ namespace
 // added the generation about link directions and priority
 //
 // Revision 1.6  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.5  2003/06/24 14:35:19  dkrajzew
 // unneded debug-prints removed
@@ -51,14 +59,16 @@ namespace
 // some further work on importing traffic lights
 //
 // Revision 1.3  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
 //
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
-//
 //
 /* =========================================================================
  * included modules
@@ -290,11 +300,15 @@ NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const
 
 
 bool
-NBTrafficLightDefinition::mustBrake(NBEdge *from1, NBEdge *to1,
-                                    NBEdge *from2, NBEdge *to2,
+NBTrafficLightDefinition::mustBrake(NBEdge *possProhibitedFrom,
+                                    NBEdge *possProhibitedTo,
+                                    NBEdge *possProhibitorFrom,
+                                    NBEdge *possProhibitorTo,
                                     bool regardNonSignalisedLowerPriority) const
 {
-    return forbids(from1, to1, from2, to2, regardNonSignalisedLowerPriority);
+    return forbids(possProhibitorFrom, possProhibitorTo,
+        possProhibitedFrom, possProhibitedTo,
+        regardNonSignalisedLowerPriority);
 }
 
 
@@ -365,9 +379,6 @@ NBTrafficLightDefinition::addNode(NBNode *node)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBTrafficLightDefinition.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
