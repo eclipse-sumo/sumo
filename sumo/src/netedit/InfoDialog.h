@@ -1,5 +1,5 @@
 
-#ifndef _INFOGDIALOG_H_
+#ifndef _INFODIALOG_H_
 #define _INFODIALOG_H_
 
 
@@ -23,21 +23,21 @@ protected:
   FXHorizontalFrame* buttonframe;
   FXPopup*           pane;
   FXVerticalFrame*   boxframe1;
-  
-  
+
+
 public:
 
 
 // Messages
   enum{
-	ID_PANEL=FXMainWindow::ID_LAST,	
-	
-	ID_OK,
+    ID_PANEL=FXMainWindow::ID_LAST,
+
+    ID_OK,
   };
 
 private:
   InfoDialog(){}
-  
+
 public:
   InfoDialog(FXWindow* owner);
   virtual ~InfoDialog();
@@ -45,11 +45,11 @@ public:
   long onCmdPanel(FXObject*,FXSelector,void* ptr);
   long onCmdOK(FXObject*,FXSelector,void* ptr);
 
- 
- 
 
 
-  
+
+
+
   //void create();
   };
 

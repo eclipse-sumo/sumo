@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/01/27 14:31:27  dkrajzew
+// netedit now works using an own MDIChild-window; Graph is translated into a MSNet
+//
 // Revision 1.12  2005/01/06 17:02:32  miguelliebe
 // debugging
 //
@@ -62,11 +65,11 @@ namespace
 // Revision 1.1  2004/11/22 12:45:40  dksumo
 // added 'netedit' classes
 //
-//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -125,6 +128,7 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 
 #include "Image.h"
+#include "GNEImageProcWindow.h"
 
 
 /* =========================================================================
@@ -154,6 +158,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_ADD_WEIGHTS,  GNEApplicationWindow::onCmdEditAddWeights),
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GNEApplicationWindow::onCmdEditBreakpoints),
 
+    /*
 //new Andreas (Anfang)
     FXMAPFUNC(SEL_COMMAND,  MID_EXTRACT_STREETS,  GNEApplicationWindow::onCmdExtractStreets),
     FXMAPFUNC(SEL_COMMAND,  MID_DILATION,  GNEApplicationWindow::onCmdDilate),
@@ -166,7 +171,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_ERASE_STAINS,  GNEApplicationWindow::onCmdEraseStains),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_BMP_DIALOG,  GNEApplicationWindow::onCmdShowBMPDialog),
 //new Andreas (End)
+*/
+    FXMAPFUNCS(SEL_UPDATE,  MID_EXTRACT_STREETS, MID_OPEN_BMP_DIALOG, GNEApplicationWindow::onUpdPictureMenu),
+    FXMAPFUNCS(SEL_COMMAND,  MID_EXTRACT_STREETS, MID_OPEN_BMP_DIALOG, GNEApplicationWindow::onCmdPictureMenu),
+    FXMAPFUNCS(SEL_UPDATE,  MID_SHOW_GRAPH_ON_EMPTY_BITMAP, MID_EXPORT_EDGES_XML, GNEApplicationWindow::onUpdGraphMenu),
+    FXMAPFUNCS(SEL_COMMAND,  MID_SHOW_GRAPH_ON_EMPTY_BITMAP, MID_EXPORT_EDGES_XML, GNEApplicationWindow::onCmdGraphMenu),
 
+/*
 //new Miguel (Anfang)
     FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GRAPH_ON_EMPTY_BITMAP,  GNEApplicationWindow::onCmdShowGraphOnEmptyBitmap),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,  GNEApplicationWindow::onCmdShowGraphOnActualBitmap),
@@ -177,11 +188,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_EXPORT_VERTEXES_XML,  GNEApplicationWindow::onCmdExportVertexesXML),
     FXMAPFUNC(SEL_COMMAND,  MID_EXPORT_EDGES_XML,  GNEApplicationWindow::onCmdExportEdgesXML),
 //new Miguel (End)
-
+*/
+/*
     FXMAPFUNC(SEL_PAINT,             ID_CANVAS,   GNEApplicationWindow::onPaint),
     FXMAPFUNC(SEL_LEFTBUTTONPRESS,   ID_CANVAS,   GNEApplicationWindow::onMouseDown),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE, ID_CANVAS,   GNEApplicationWindow::onMouseUp),
     FXMAPFUNC(SEL_MOTION,            ID_CANVAS,   GNEApplicationWindow::onMouseMove),
+    */
     FXMAPFUNC(SEL_COMMAND,           ID_CLEAR,    GNEApplicationWindow::onCmdClear),
     FXMAPFUNC(SEL_UPDATE,            ID_CLEAR,    GNEApplicationWindow::onUpdClear),
 
@@ -215,6 +228,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
 // Object implementation
 FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
 
+
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
@@ -228,11 +242,13 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     mySimDelay(50)
 {
     // No image loaded, yet.
+    /*
     m_img=NULL;
-	extrFlag=false;
-	dialog=new ConfigDialog(this);
-	dialog2 = new InfoDialog(this);
-
+    extrFlag=false;
+    /*
+    dialog=new ConfigDialog(this);
+    dialog2 = new InfoDialog(this);
+*/
 
     setTarget(this);
     setSelector(MID_WINDOW);
@@ -250,13 +266,13 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
         LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
         TOOLBARGRIP_DOUBLE);
-
+/*
     myIMGToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
     myIMGToolBar = new FXToolBar(this,myIMGToolBarDrag,
         LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myIMGToolBar, myIMGToolBar, FXToolBar::ID_TOOLBARGRIP,
         TOOLBARGRIP_DOUBLE);
-
+*/
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -284,13 +300,13 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
 
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
-    scrollBox=new FXScrollWindow(myMainSplitter,FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0);
-
+//    scrollBox=new FXScrollWindow(myMainSplitter,FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0);
+/*
     // Drawing canvas
     myCanvas=new FXCanvas(scrollBox,this,ID_CANVAS,FRAME_SUNKEN|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_CENTER_X|LAYOUT_CENTER_Y,0,0,0,0);
-
+*/
     //delete
-    drawColor=FXRGB(255,0,0);
+//    drawColor=FXRGB(255,0,0);
     //delete
 
     // fill menu and tool bar
@@ -320,11 +336,12 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
         gStartAtBegin = false;
     }
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
-
+/*
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
     fdesc.weight = FONTWEIGHT_BOLD;
     myBoldFont = new FXFont(getApp(), fdesc);
+    */
 }
 
 
@@ -341,12 +358,9 @@ GNEApplicationWindow::create()
     FXMainWindow::create();
     myMenuBarDrag->create();
     myToolBarDrag->create();
-    myIMGToolBarDrag->create();
     myFileMenu->create();
 //  mySubFileMenu1->create();
     myEditMenu->create();
-    myImageMenu->create();
-    myGraphMenu->create();
     mySettingsMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
@@ -369,6 +383,7 @@ GNEApplicationWindow::~GNEApplicationWindow()
     //
     GUIIconSubSys::close();
     GUITexturesHelper::close();
+//    delete myGLVisual;
     // delete some non-parented windows
     delete myToolBarDrag;
     //
@@ -381,6 +396,8 @@ GNEApplicationWindow::~GNEApplicationWindow()
     delete mySettingsMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
+
+    delete gGradients;
 }
 
 
@@ -390,7 +407,7 @@ GNEApplicationWindow::detach()
     FXMainWindow::detach();
     myMenuBarDrag->detach();
     myToolBarDrag->detach();
-    myIMGToolBarDrag->detach();
+//    myIMGToolBarDrag->detach();
 }
 
 
@@ -472,35 +489,36 @@ GNEApplicationWindow::fillMenuBar()
     myImageMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Bild",NULL,myImageMenu);
     new FXMenuCommand(myImageMenu,
-        "Strassenflächen Extrahieren...\t\tÖffnet einen Dialog für die Extraktion der Strassenflächen. Wählen Sie die Farben, die zu den Strassen gehören.",
-        NULL,this,MID_EXTRACT_STREETS);
+        "Extract Streets\t\tExtracts streets (areas with one of the chosen colours).",
+        GUIIconSubSys::getIcon(ICON_EXTRACT),this,MID_EXTRACT_STREETS);
     new FXMenuCommand(myImageMenu,
-        "Schwarze Leichen...\t\tLöscht isolierte schwarze Flächen aus dem Bild.",
-        NULL,this,MID_ERASE_STAINS);
+        "Dilatation\t\tPerforms a dilatation on the image.",
+        GUIIconSubSys::getIcon(ICON_DILATE),this,MID_DILATION);
     new FXMenuCommand(myImageMenu,
-        "Erosion...\t\tÖffnet ein Dialogfenster, in welchem Sie die Anzahl der Erosionen bestimmen können.",
-        NULL,this,MID_EROSION);
+        "Erosion...\t\tPerforms an erosion on the image.",
+        GUIIconSubSys::getIcon(ICON_ERODE),this,MID_EROSION);
     new FXMenuCommand(myImageMenu,
-        "Dilatation...\t\tÖffnet ein Dialogfenster, in welchem Sie die Anzahl der Dilatationen bestimmen können.",
-        NULL,this,MID_DILATION);
+        "Open morphologically\t\tOpens morphologically (erode first, then dilate).",
+        GUIIconSubSys::getIcon(ICON_OPENING),this,MID_OPENING);
     new FXMenuCommand(myImageMenu,
-        "Morphologisch Öffnen\t\tÖffnet das Bild morphologisch. Dies entspricht einer Erosion gefolgt von einer Dilatation.",
-        NULL,this,MID_OPENING);
+        "Close morphologically\t\tCloses morphologically (dilate first, then close).",
+        GUIIconSubSys::getIcon(ICON_CLOSING),this,MID_CLOSING);
     new FXMenuCommand(myImageMenu,
-        "Morphologisch Schließen\t\tSchließt das Bild morphologisch. Dies entspricht einer Dilatation gefolgt von einer Erosion.",
-        NULL,this,MID_CLOSING);
+        "Close Gaps\t\tMinimizes small white spots in black areas.",
+        GUIIconSubSys::getIcon(ICON_CLOSE_GAPS),this,MID_CLOSE_GAPS);
     new FXMenuCommand(myImageMenu,
-        "Lücken Schließen\t\tSchließt kleine Löcher und Lücken des Bildes.",
-        NULL,this,MID_CLOSE_GAPS);
+        "Remove Unconnected\t\tErases black ´noise´.",
+        GUIIconSubSys::getIcon(ICON_ERASE_STAINS),this,MID_ERASE_STAINS);
     new FXMenuCommand(myImageMenu,
-        "Skelettieren\t\tSkelettiert das Bild. Die Strassen werden dann als dünne Strassenmittellinie repräsentiert.",
-        NULL,this,MID_SKELETONIZE);
+        "Skeletonize\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
+        GUIIconSubSys::getIcon(ICON_SKELETONIZE),this,MID_SKELETONIZE);
     new FXMenuCommand(myImageMenu,
         "Skelett Maximal Verdünnen\t\tDas Strassenskelett wird maximal verdünnt. Löscht man nach dieser Operation noch Pixel zerfällt das Skelett.",
         NULL,this,MID_RARIFY);
+    new FXMenuSeparator(myImageMenu);
     new FXMenuCommand(myImageMenu,
-        "Erzeuge Strassengraphen\t\tErzeugt auis dem generierten Skelett einen Graphen.",
-        NULL,this,MID_CREATE_GRAPH);
+        "Generate Graph\t\tCreates a graph from the skeleton.",
+        GUIIconSubSys::getIcon(ICON_CREATE_GRAPH),this,MID_CREATE_GRAPH);
 
     // build graph menu (Miguel)
     myGraphMenu = new FXMenuPane(this);
@@ -540,15 +558,19 @@ GNEApplicationWindow::fillMenuBar()
     new FXMenuCheck(myWindowsMenu,
         "Show Message Window\t\tToggle the Message Window on/off.",
         myMessageWindow,FXWindow::ID_TOGGLESHOWN);
-	new FXMenuCheck(myWindowsMenu,
+    /* !!!
+    new FXMenuCheck(myWindowsMenu,
         "Show Image Window\t\tToggle the Image Window on/off.",
         scrollBox,FXWindow::ID_TOGGLESHOWN);
+        */
     new FXMenuCheck(myWindowsMenu,
         "Show Simulation Toolbar\t\tToggle the Toolbar on/off.",
         myToolBar, FXWindow::ID_TOGGLESHOWN);
-	new FXMenuCheck(myWindowsMenu,
+    /*
+    new FXMenuCheck(myWindowsMenu,
         "Show Image Toolbar\t\tToggle the Image Toolbar on/off.",
         myIMGToolBar, FXWindow::ID_TOGGLESHOWN);
+        */
     new FXMenuSeparator(myWindowsMenu);
     new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
         GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
@@ -644,83 +666,84 @@ GNEApplicationWindow::fillToolBar()
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
     //The Image Toolbar
-
-	new FXButton(myIMGToolBar,"\t\tExtract Street Colors.",
+/*
+    new FXButton(myIMGToolBar,"\t\tExtract Street Colors.",
         GUIIconSubSys::getIcon(ICON_EXTRACT), this, MID_EXTRACT_STREETS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tDilatation",
+    new FXButton(myIMGToolBar,"\t\tDilatation",
         GUIIconSubSys::getIcon(ICON_DILATE), this, MID_DILATION,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tErosion.",
+    new FXButton(myIMGToolBar,"\t\tErosion.",
         GUIIconSubSys::getIcon(ICON_ERODE), this, MID_EROSION,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tOpening. (Erosion followed by a dilatation).",
+    new FXButton(myIMGToolBar,"\t\tOpening. (Erosion followed by a dilatation).",
         GUIIconSubSys::getIcon(ICON_OPENING), this, MID_OPENING,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tClosing (Dilatation followed by erosion).",
+    new FXButton(myIMGToolBar,"\t\tClosing (Dilatation followed by erosion).",
         GUIIconSubSys::getIcon(ICON_CLOSING), this, MID_CLOSING,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tMinimizes small white spots in black areas.",
+    new FXButton(myIMGToolBar,"\t\tMinimizes small white spots in black areas.",
         GUIIconSubSys::getIcon(ICON_CLOSE_GAPS), this, MID_CLOSE_GAPS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tErases black ´noise´.",
+    new FXButton(myIMGToolBar,"\t\tErases black ´noise´.",
         GUIIconSubSys::getIcon(ICON_ERASE_STAINS), this, MID_ERASE_STAINS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
+    new FXButton(myIMGToolBar,"\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
         GUIIconSubSys::getIcon(ICON_SKELETONIZE), this, MID_SKELETONIZE,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.",
-		GUIIconSubSys::getIcon(ICON_CREATE_GRAPH), this, MID_CREATE_GRAPH,
+    new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.",
+        GUIIconSubSys::getIcon(ICON_CREATE_GRAPH), this, MID_CREATE_GRAPH,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-	new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
+    new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
         GUIIconSubSys::getIcon(ICON_OPEN_BMP_DIALOG), this, MID_OPEN_BMP_DIALOG,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+*/
+    /*
+    paintpop=new FXPopup(this,POPUP_VERTICAL);
+    new FXButton(paintpop,"\t\tPaintbrush, very thin",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(paintpop,"\t\tPaintbrush,  thin",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH2X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(paintpop,"\t\tPaintbrush, normal",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH3X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(paintpop,"\t\tPaintbrush, thick",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH4X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(paintpop,"\t\tPaintbrush, very thick",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH5X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
+        GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X),paintpop,
+        MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-	paintpop=new FXPopup(this,POPUP_VERTICAL);
-	new FXButton(paintpop,"\t\tPaintbrush, very thin",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(paintpop,"\t\tPaintbrush,  thin",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH2X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(paintpop,"\t\tPaintbrush, normal",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH3X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(paintpop,"\t\tPaintbrush, thick",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH4X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(paintpop,"\t\tPaintbrush, very thick",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH5X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
-		GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X),paintpop,
-		MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
-	rubberpop=new FXPopup(this,POPUP_VERTICAL);
-	new FXButton(rubberpop,"\t\tPaintbrush, very thin",
-		GUIIconSubSys::getIcon(ICON_RUBBER1X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(rubberpop,"\t\tPaintbrush,  thin",
-		GUIIconSubSys::getIcon(ICON_RUBBER2X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(rubberpop,"\t\tPaintbrush, normal",
-		GUIIconSubSys::getIcon(ICON_RUBBER3X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(rubberpop,"\t\tPaintbrush, thick",
-		GUIIconSubSys::getIcon(ICON_RUBBER4X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(rubberpop,"\t\tPaintbrush, very thick",
-		GUIIconSubSys::getIcon(ICON_RUBBER5X), this, MID_OPEN_BMP_DIALOG,
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
-		GUIIconSubSys::getIcon(ICON_RUBBER1X),rubberpop,
-		MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
-		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
+    rubberpop=new FXPopup(this,POPUP_VERTICAL);
+    new FXButton(rubberpop,"\t\tPaintbrush, very thin",
+        GUIIconSubSys::getIcon(ICON_RUBBER1X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(rubberpop,"\t\tPaintbrush,  thin",
+        GUIIconSubSys::getIcon(ICON_RUBBER2X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(rubberpop,"\t\tPaintbrush, normal",
+        GUIIconSubSys::getIcon(ICON_RUBBER3X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(rubberpop,"\t\tPaintbrush, thick",
+        GUIIconSubSys::getIcon(ICON_RUBBER4X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXButton(rubberpop,"\t\tPaintbrush, very thick",
+        GUIIconSubSys::getIcon(ICON_RUBBER5X), this, MID_OPEN_BMP_DIALOG,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
+        GUIIconSubSys::getIcon(ICON_RUBBER1X),rubberpop,
+        MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+*/
 }
-
+/*
 // Mouse button was pressed somewhere
 long GNEApplicationWindow::onMouseDown(FXObject*,FXSelector,void*)
 {
@@ -785,7 +808,7 @@ long GNEApplicationWindow::onPaint(FXObject*,FXSelector,void* ptr)
   }
   return 1;
   }
-
+*/
 // Handle the clear message
 long GNEApplicationWindow::onCmdClear(FXObject*,FXSelector,void*){
   /*
@@ -799,31 +822,32 @@ long GNEApplicationWindow::onCmdClear(FXObject*,FXSelector,void*){
 
 long GNEApplicationWindow::onUpdClear(FXObject* sender,FXSelector,void*)
 {
-
+/*!!!
   if(dirty)
     sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_ENABLE),NULL);
   else
     sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_DISABLE),NULL);
-
+*/
   return 1;
 }
 
+/*
 long
 GNEApplicationWindow::onCmdExtractStreets(FXObject*,FXSelector,void*)
 {
-	if(extrFlag==false)
-	{
-		extrFlag=true;
-		FXDCWindow dc(myCanvas);
-		if(m_img)
-		{
-			m_img->ExtractStreets();
-			m_img->GetFXImage()->render();
-			dc.drawImage(m_img->GetFXImage(),0,0);	
-		}
-	}
-	else 
-		dialog2->show();
+    if(extrFlag==false)
+    {
+        extrFlag=true;
+        FXDCWindow dc(myCanvas);
+        if(m_img)
+        {
+            m_img->ExtractStreets();
+            m_img->GetFXImage()->render();
+            dc.drawImage(m_img->GetFXImage(),0,0);
+        }
+    }
+    else
+        dialog2->show();
     return 1;
 }
 
@@ -897,20 +921,20 @@ bool skelFlag=false;
 long
 GNEApplicationWindow::onCmdSkeletonize(FXObject*,FXSelector,void*)
 {
-	if(skelFlag==false)
-	{
-		skelFlag=true;
-		FXDCWindow dc(myCanvas);
-		if(m_img)
-		{
-			m_img->CreateSkeleton();
-			m_img->GetFXImage()->render();
-			dc.drawImage(m_img->GetFXImage(),0,0);
-		}
-	}
-	else
-		dialog2->show();
-	return 1;
+    if(skelFlag==false)
+    {
+        skelFlag=true;
+        FXDCWindow dc(myCanvas);
+        if(m_img)
+        {
+            m_img->CreateSkeleton();
+            m_img->GetFXImage()->render();
+            dc.drawImage(m_img->GetFXImage(),0,0);
+        }
+    }
+    else
+        dialog2->show();
+    return 1;
 }
 
 long
@@ -933,48 +957,48 @@ long
 GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 {
     if(graphFlag==false)
-	{
-		graphFlag=true;
-		Graph leergraph;
-		graph=leergraph;
-		Graph* gr =new Graph();
-		gr=&graph;
-		FXDCWindow dc(myCanvas);
-		if(m_img)
-		{
-			gr=m_img->Tracking(gr,dialog);
-			gr->MergeVertex();
-			gr->Reduce_plus(dialog);
-			m_img->GetFXImage()->render();
-			dc.drawImage(m_img->GetFXImage(),0,0);
-			vector<Edge*> edges = gr->GetEArray();
-			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-				Edge*e = *i;
-				string name = toString<int>(idbla++);
-				Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
-				NBNode *fromNode = NBNodeCont::retrieve(fromPos);
-				if(fromNode==0) {
-					fromNode = new NBNode(name, fromPos);
-				}
-				Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
-				NBNode *toNode = NBNodeCont::retrieve(toPos);
-				if(toNode==0) {
-					toNode = new NBNode(name, toPos);
-				}
-				if(fromNode!=toNode) {
-					int lanes = 1;
-					double speed = 13.8;
-					double length = -1;
-					NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
-						"stdtype", speed, lanes, length, -1);
-				}
-			}
-		
+    {
+        graphFlag=true;
+        Graph leergraph;
+        graph=leergraph;
+        Graph* gr =new Graph();
+        gr=&graph;
+        FXDCWindow dc(myCanvas);
+        if(m_img)
+        {
+            gr=m_img->Tracking(gr,dialog);
+            gr->MergeVertex();
+            gr->Reduce_plus(dialog);
+            m_img->GetFXImage()->render();
+            dc.drawImage(m_img->GetFXImage(),0,0);
+            vector<Edge*> edges = gr->GetEArray();
+            for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+                Edge*e = *i;
+                string name = toString<int>(idbla++);
+                Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
+                NBNode *fromNode = NBNodeCont::retrieve(fromPos);
+                if(fromNode==0) {
+                    fromNode = new NBNode(name, fromPos);
+                }
+                Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
+                NBNode *toNode = NBNodeCont::retrieve(toPos);
+                if(toNode==0) {
+                    toNode = new NBNode(name, toPos);
+                }
+                if(fromNode!=toNode) {
+                    int lanes = 1;
+                    double speed = 13.8;
+                    double length = -1;
+                    NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
+                        "stdtype", speed, lanes, length, -1);
+                }
+            }
 
-		}
-	}
-	else
-		dialog2->show();
+
+        }
+    }
+    else
+        dialog2->show();
     return 1;
 }
 
@@ -986,7 +1010,8 @@ GNEApplicationWindow::onCmdShowBMPDialog(FXObject*,FXSelector,void*)
 
 }
 /////////////////////////new Andreas (Ende)
-
+*/
+/*
 //Noch zu ändern!!!!!!!!!!!!!!!!!!
 /////////////////////////new Miguel (Anfang)
 long
@@ -1021,7 +1046,7 @@ GNEApplicationWindow::onCmdReduceVertexes(FXObject*,FXSelector,void*)
 {
     /*
     graph.Reduce();
-    */
+    *//*
     return 1;
 
 }
@@ -1059,11 +1084,11 @@ GNEApplicationWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     graph.Export_Edges_XML();
     graph.GetTraces(1,1000);
-	return 1;
+    return 1;
 }
 
 /////////////////////////new Miguel (Ende)
-
+*/
 
 
 long
@@ -1119,7 +1144,7 @@ long
 GNEApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
 {
     // get the new file name
-    FXFileDialog opendialog(this,"Open Document");
+    FXFileDialog opendialog(this,"Open Simulation Configuration");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.sumo.cfg");
     if(gCurrentFolder.length()!=0) {
@@ -1163,13 +1188,13 @@ long
 GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 {
     //reset of algorithm flags
-	extrFlag=true;
-	graphFlag=false;
-	skelFlag=false;
-	// get the new file name
-    
-	
-	FXFileDialog opendialog(this,"Öffne BitMap");
+//  extrFlag=true;
+/*  graphFlag=false;
+    skelFlag=false;*/
+    // get the new file name
+
+
+    FXFileDialog opendialog(this,"Öffne BitMap");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.bmp");
     if(gCurrentFolder.length()!=0) {
@@ -1177,53 +1202,62 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        FXImage *img=new FXBMPImage(getApp(),NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-        if(img)
+        FXImage *fximg=new FXBMPImage(getApp(),NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
+        if(fximg)
         {
             FXFileStream stream;
             if(stream.open(opendialog.getFilename().text(),FXStreamLoad))
                 {
-                    img->loadPixels(stream);
+                    fximg->loadPixels(stream);
                     stream.close();
-                    img->create();
+                    fximg->create();
                 }
         }
-        m_img = new Image(img,getApp());
-        myCanvas->setWidth(m_img->GetFXImage()->getWidth());
-        myCanvas->setHeight(m_img->GetFXImage()->getHeight());
-        
-		
-		//Sets the Flag for Extract Streets if a sceletton is loaded
-		FXint wid = m_img->GetFXImage()->getWidth();
-		FXint hei = m_img->GetFXImage()->getHeight();
-		
-		for (FXint i=0 ; i<wid ; ++i)
-		{	
-			for (FXint j=0; j<hei ; ++j)
-			{
-
-				FXColor col=m_img->GetFXImage()->getPixel(i,j);
-
-				// prooves if a pixel is coloured
-				if(
-					//not white
-					(col!=FXRGB(255,255,255))&&
-					//not black
-					(col!=FXRGB(0,0,0))
-					
-				)
-					extrFlag=false;
-			}
-		}
+        Image *img = new Image(fximg,getApp());
+        bool extrFlag = true;
+//        myCanvas->setWidth(m_img->GetFXImage()->getWidth());
+//        myCanvas->setHeight(m_img->GetFXImage()->getHeight());
 
 
+        //Sets the Flag for Extract Streets if a sceletton is loaded
+        FXint wid = img->GetFXImage()->getWidth();
+        FXint hei = img->GetFXImage()->getHeight();
 
+        for (FXint i=0 ; i<wid ; ++i)
+        {
+            for (FXint j=0; j<hei ; ++j)
+            {
 
-		FXDCWindow dc(myCanvas);
+                FXColor col=img->GetFXImage()->getPixel(i,j);
+
+                // prooves if a pixel is coloured
+                if(
+                    //not white
+                    (col!=FXRGB(255,255,255))&&
+                    //not black
+                    (col!=FXRGB(0,0,0))
+
+                    ) {
+
+                    extrFlag=false;
+                }
+            }
+        }
+        GNEImageProcWindow *nWindow =
+            new GNEImageProcWindow(this, myMDIClient, myMDIMenu,
+                img, extrFlag, FXString("Hallo!!!"));
+        nWindow->create();
+        if(myMDIClient->numChildren()==1) {
+            nWindow->maximize();
+        } else {
+            myMDIClient->vertical(true);
+        }
+        myMDIClient->setActiveChild(nWindow);
+/*
+        FXDCWindow dc(myCanvas);
         dc.drawImage(m_img->GetFXImage(),0,0);
-    
-	
-	}
+        */
+    }
     return 1;
 
 }
@@ -1231,43 +1265,46 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdSaveImage(FXObject*,FXSelector,void*)
 {
+    /*
     if(m_img)
-	{
-		FXFileDialog savedialog(this,"Save Document");
-		FXString file=imgfilename;
-		savedialog.setSelectMode(SELECTFILE_ANY);
-		savedialog.setPatternList("*.bmp");
-		savedialog.setCurrentPattern(0);
-		savedialog.setFilename(file);
-		if(gCurrentFolder.length()!=0)
-			savedialog.setDirectory(gCurrentFolder.c_str());
-		if(savedialog.execute())
-		{
-			//setCurrentPattern(savedialog.getCurrentPattern());
-			file=savedialog.getFilename();
-			if(FXFile::exists(file))
-			{
-				if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",file.text())) return 1;
-			}
-			FXFileStream stream;
-			FXString s=".bmp";
-			FXString a=savedialog.getFilename().text();
-			if(a.right(4)==".bmp")
-			{
-				if(stream.open(savedialog.getFilename().text(),FXStreamSave))
-					{
-						m_img->GetFXImage()->savePixels(stream);
-						stream.close();
-					}
-			}
-			else
-				if(stream.open(savedialog.getFilename().text()+s,FXStreamSave))
-					{
-						m_img->GetFXImage()->savePixels(stream);
-						stream.close();
-					}
-		}
+    {
+        FXFileDialog savedialog(this,"Save Document");
+        FXString file=imgfilename;
+        savedialog.setSelectMode(SELECTFILE_ANY);
+        savedialog.setPatternList("*.bmp");
+        savedialog.setCurrentPattern(0);
+        savedialog.setFilename(file);
+        if(gCurrentFolder.length()!=0)
+            savedialog.setDirectory(gCurrentFolder.c_str());
+        if(savedialog.execute())
+        {
+            //setCurrentPattern(savedialog.getCurrentPattern());
+            file=savedialog.getFilename();
+            if(FXFile::exists(file))
+            {
+                if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",file.text())) return 1;
+            }
+            FXFileStream stream;
+            FXString s=".bmp";
+            FXString a=savedialog.getFilename().text();
+            if(a.right(4)==".bmp")
+            {
+                if(stream.open(savedialog.getFilename().text(),FXStreamSave))
+                    {
+                        m_img->GetFXImage()->savePixels(stream);
+                        stream.close();
+                    }
+            }
+            else
+                if(stream.open(savedialog.getFilename().text()+s,FXStreamSave))
+                    {
+                        m_img->GetFXImage()->savePixels(stream);
+                        stream.close();
+                    }
+        }
     }
+  return 1;
+  */
   return 1;
 }
 
@@ -1610,13 +1647,19 @@ GNEApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
         case GUIEvent_SimulationEnded::ER_ERROR_IN_SIM:
             text << "Reason: An error occured (see log).";
             break;
+        case GUIEvent_SimulationEnded::ER_FORCED:
+            gQuitOnEnd = true;
+            break;
         default:
             throw 1;
         }
         //
         onCmdStop(0, 0, 0);
-        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
-            text.str().c_str());
+        string tstr = text.str();
+        if(ec->getReason()!=GUIEvent_SimulationEnded::ER_FORCED) {
+            FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
+                tstr.c_str());
+        }
     } else {
         onCmdStop(0, 0, 0);
     }
@@ -1717,6 +1760,7 @@ GNEApplicationWindow::closeAllWindows()
     mySubWindows.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
+    myTrackerLock.unlock();
     //
     update();
 }
@@ -1749,6 +1793,70 @@ GNEApplicationWindow::getCurrentSimTime() const
 {
     return myRunThread->getCurrentTimeStep();
 }
+
+
+
+long
+GNEApplicationWindow::onUpdPictureMenu(FXObject *sender,FXSelector,void*ptr)
+{
+    GUIGlChildWindow *child =
+        static_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
+    bool allow = false;
+    if(child!=0) {
+        allow = child->getBuildGLCanvas()==0;
+    }
+    sender->handle(this,
+        allow?FXSEL(SEL_COMMAND,ID_ENABLE):FXSEL(SEL_COMMAND,ID_DISABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdPictureMenu(FXObject *sender,FXSelector sel,void*ptr)
+{
+    GUIGlChildWindow *child =
+        static_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
+    bool allow = false;
+    if(child!=0) {
+        if(child->getBuildGLCanvas()==0) {
+            child->handle(sender, sel, ptr);
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdGraphMenu(FXObject *sender,FXSelector,void*ptr)
+{
+    GUIGlChildWindow *child =
+        static_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
+    bool allow = false;
+    if(child!=0) {
+        allow = child->getBuildGLCanvas()==0;
+    }
+    sender->handle(this,
+        allow?FXSEL(SEL_COMMAND,ID_ENABLE):FXSEL(SEL_COMMAND,ID_DISABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdGraphMenu(FXObject *sender,FXSelector sel,void*ptr)
+{
+    GUIGlChildWindow *child =
+        static_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
+    bool allow = false;
+    if(child!=0) {
+        if(child->getBuildGLCanvas()==0) {
+            child->handle(sender, sel, ptr);
+        }
+    }
+    return 1;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

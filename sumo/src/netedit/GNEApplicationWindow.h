@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/01/27 14:31:27  dkrajzew
+// netedit now works using an own MDIChild-window; Graph is translated into a MSNet
+//
 // Revision 1.5  2004/12/21 16:56:24  agaubatz
 // debug
 //
@@ -149,7 +152,7 @@ public:
     long onCmdEditBreakpoints(FXObject*,FXSelector,void*);
 
     //!!!!! Menu Einträge von Andreas (Anfang)
-
+/*
     /// Extracts the bitmaps´ pixels which are determined as road area
     long onCmdExtractStreets(FXObject*,FXSelector,void*);
 
@@ -181,7 +184,8 @@ public:
 
     //Opens a Dialog Window for Image-Filter Configuration
     long onCmdShowBMPDialog(FXObject*,FXSelector,void*);
-
+*/
+    /*
     /// Opens the Show Graph on empty Bitmap Dialog
     long onCmdShowGraphOnEmptyBitmap(FXObject*,FXSelector,void*);
 
@@ -205,7 +209,7 @@ public:
 
     /// Opens the Export Edges XML Dialog
     long onCmdExportEdgesXML(FXObject*,FXSelector,void*);
-
+*/
     /// Opens the application settings menu
     long onCmdAppSettings(FXObject*,FXSelector,void*);
 
@@ -237,13 +241,19 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
-
+/*
     long onPaint(FXObject*,FXSelector,void*);
     long onMouseDown(FXObject*,FXSelector,void*);
     long onMouseUp(FXObject*,FXSelector,void*);
     long onMouseMove(FXObject*,FXSelector,void*);
+    */
     long onCmdClear(FXObject*,FXSelector,void*);
     long onUpdClear(FXObject*,FXSelector,void*);
+
+    long onUpdPictureMenu(FXObject*,FXSelector,void*);
+    long onCmdPictureMenu(FXObject*,FXSelector,void*);
+    long onUpdGraphMenu(FXObject*,FXSelector,void*);
+    long onCmdGraphMenu(FXObject*,FXSelector,void*);
 
     FXTimer *addTimeout(FXObject *tgt, FXSelector sel,
         FXuint ms=1000, void *ptr=NULL);
@@ -311,7 +321,7 @@ protected:
     FXStatusBar *myStatusbar;
 
     /// for some menu detaching fun
-    FXToolBarShell *myToolBarDrag, *myMenuBarDrag, *myIMGToolBarDrag;
+    FXToolBarShell *myToolBarDrag, *myMenuBarDrag/*, *myIMGToolBarDrag*/;
 
     ///
     FXRealSpinDial *mySimDelayTarget;
@@ -332,7 +342,7 @@ protected:
     FXToolBar *myToolBar;
 
     // The Image Toolbar
-    FXToolBar *myIMGToolBar;
+//    FXToolBar *myIMGToolBar;
 
     /// The gl-visual used
     FXGLVisual *myGLVisual;
@@ -353,40 +363,35 @@ protected:
     FXRecentFiles myRecentFiles;
 
     //Scrollwindow for the canvas
-    FXScrollWindow *scrollBox;
+//    FXScrollWindow *scrollBox;
 
-    FXHorizontalFrame *hoFrame;
+//    FXHorizontalFrame *hoFrame;
 
     // Drawing Canvas
-    FXCanvas *myCanvas;
+//    FXCanvas *myCanvas;
 
     // Bitmap Member variable
-    Image *m_img;
+    //Image *m_img;
 
     // Bitmap Member variable
-    Graph graph;
+    //Graph graph;
 
     // Image Configuration Dialog
     ConfigDialog *dialog;
-	InfoDialog *dialog2;
+    InfoDialog *dialog2;
 
-	// default filename for the imagefiledialog
-	FXString imgfilename;
+    // default filename for the imagefiledialog
+    FXString imgfilename;
 
-	//Popupbutton for painttool
-	FXPopup* paintpop;
+    //Popupbutton for painttool
+//  FXPopup* paintpop;
 
-	//Popupbutton for painttool
-	FXPopup* rubberpop;
+    //Popupbutton for painttool
+//  FXPopup* rubberpop;
 
-	//flag for Streetextraction..Algorithm may only be used once
-	bool extrFlag;
+    //flag for Streetextraction..Algorithm may only be used once
+//  bool extrFlag;
 
-private:
-  int                mdflag;                  // Mouse button down?
-  int                dirty;                   // Canvas has been painted?
-  FXColor            drawColor;               // Color for the line
-  int                m_mergeTol;
 };
 
 
