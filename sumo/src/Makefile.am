@@ -2,7 +2,8 @@ bin_PROGRAMS = sumo \
 sumo-netconvert \
 sumo-router \
 sumo-od2trips \
-sumo-gui
+sumo-gui \
+tagreader
 
 sumo_SOURCES = sumo_main.cpp \
 sumo_help.h
@@ -19,6 +20,11 @@ od2trips_help.h
 sumo_gui_SOURCES = gui_main.cpp \
 gui_help.h \
 sumo_version.cpp sumo_version.h
+
+tagreader_SOURCES = tagreader.cpp \
+div/structureparser.cpp div/structureparser.h
+
+
 
 sumo_LDFLAGS = -L$(XERCESLIBPATH) \
 $(all_libraries)
@@ -106,7 +112,11 @@ $(LIB_QPE) \
 $(LIB_QT) \
 $(LIBSOCKET)
 
-
+tagreader_LDFLAGS = $(all_libraries)
+tagreader_LDADD   = -l$(XERCESLIB) \
+$(LIB_QPE) \
+$(LIB_QT) \
+$(LIBSOCKET)
 
 
 AM_CPPFLAGS = -I$(top_srcdir) \
@@ -115,7 +125,8 @@ AM_CPPFLAGS = -I$(top_srcdir) \
 -I$(XERCESINCLUDE_PRIOR_1_7) \
 $(all_includes)
 
-SUBDIRS = gui \
+SUBDIRS = div \
+gui \
 guinetload \
 guisim \
 helpers \

@@ -245,7 +245,9 @@ AC_OUTPUT(
 ./prj/netconvert/Makefile
 ./prj/od2trips/Makefile
 ./prj/router/Makefile
+./prj/tagreader/Makefile
 ./src/Makefile
+./src/div/Makefile
 ./src/gui/Makefile
 ./src/gui/icons/Makefile
 ./src/gui/icons/view_traffic/Makefile
