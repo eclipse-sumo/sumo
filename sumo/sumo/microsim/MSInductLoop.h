@@ -1,8 +1,8 @@
-#ifndef MSDetector_H
-#define MSDetector_H
+#ifndef MSInductLoop_H
+#define MSInductLoop_H
 
 //---------------------------------------------------------------------------//
-//                        MSDetector.h  -  Simple detector that emulates 
+//                        MSInductLoop.h  -  Simple detector that emulates 
 //                        induction loops.
 //                           -------------------
 //  begin                : Thu, 14 Mar 2002
@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2002/04/10 15:50:55  croessel
+// Changeg cless name from MSDetector to MSInductLoop.
+//
 // Revision 1.1  2002/04/10 15:34:21  croessel
 // Renamed MSDetector into MSInductLoop.
 //
@@ -38,13 +41,14 @@
 #include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
+#include "MSDetector.h"
 #include <string>
 #include <fstream>
 #include <functional>
 
 /**
  */
-class MSDetector
+class MSInductLoop : public MSDetector
 {
 public:
 
@@ -52,18 +56,18 @@ public:
         (CSV). */
     enum OutputStyle { GNUPLOT, CSV };
 
-    /** Constructor: Detector detects on lane at position pos. He collects
+    /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */ 
-    MSDetector( std::string    id,
-                MSLane*        lane,
-                float          position,
-                MSNet::Time    sampleIntervall,
-                OutputStyle    style,
-                std::ofstream& file );
+    MSInductLoop( std::string    id,
+                  MSLane*        lane,
+                  float          position,
+                  MSNet::Time    sampleIntervall,
+                  MSDetector::OutputStyle    style,
+                  std::ofstream& file );
     
     /// Destructor.
-    ~MSDetector();
+    ~MSInductLoop();
 
     /// Call sample every timestep to update the detector.
     void sample( double currSimSeconds );
@@ -103,20 +107,14 @@ private:
         }
     };
 
-    /// Object's Id.
-    std::string myID;
-
     /// Lane where detector works on.
     MSLane* myLane;
 
-    /// Detectors position on myLane.
+    /// InductLoops position on myLane.
     float myPos;
 
     /// Sample-intervall in seconds.
     MSNet::Time mySampleIntervall;
-
-    /// Ouput-style.
-    OutputStyle myStyle;
 
     /// File where output goes to.
     std::ofstream& myFile;
@@ -153,20 +151,20 @@ private:
     unsigned myNIntervalls;
 
     /// Default constructor.
-    MSDetector();
+    MSInductLoop();
     
     /// Copy constructor.
-    MSDetector( const MSDetector& );
+    MSInductLoop( const MSInductLoop& );
     
     /// Assignment operator.
-    MSDetector& operator=( const MSDetector& );     
+    MSInductLoop& operator=( const MSInductLoop& );     
 };
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
 
 //#ifndef DISABLE_INLINE
-//#include "MSDetector.icc"
+//#include "MSInductLoop.icc"
 //#endif
 
 #endif

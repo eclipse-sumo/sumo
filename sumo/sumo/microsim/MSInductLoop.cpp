@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        MSDetector.cpp  -  Simple detector that emulates 
+//                        MSInductLoop.cpp  -  Simple detector that emulates 
 //                        induction loops.
 //                           -------------------
 //  begin                : Thu, 14 Mar 2002
@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/04/10 15:50:55  croessel
+// Changeg cless name from MSDetector to MSInductLoop.
+//
 // Revision 1.1  2002/04/10 15:34:21  croessel
 // Renamed MSDetector into MSInductLoop.
 //
@@ -39,7 +42,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "MSDetector.h"
+#include "MSInductLoop.h"
 #include "MSLane.h"
 #include "MSEdge.h"
 #include <sstream>
@@ -51,24 +54,23 @@ using namespace std;
 
 //---------------------------------------------------------------------------//
 
-MSDetector::~MSDetector()
+MSInductLoop::~MSInductLoop()
 {
 
 }
 
 //---------------------------------------------------------------------------//
 
-MSDetector::MSDetector( string         id,
-                        MSLane*        lane,
-                        float          position,
-                        MSNet::Time    sampleIntervall,
-                        OutputStyle    style,
-                        ofstream&      file ) :
-    myID             ( id ),
+MSInductLoop::MSInductLoop( string         id,
+                            MSLane*        lane,
+                            float          position,
+                            MSNet::Time    sampleIntervall,
+                            MSDetector::OutputStyle    style,
+                            ofstream&      file ) :
+    MSDetector( id, style ),
     myLane           ( lane ),
     myPos            ( position ),
     mySampleIntervall( sampleIntervall ),
-    myStyle          ( style ),
     myFile           ( file ),
     myPassedVeh      ( 0 ),
     myPassingSpeed   ( 0 ),
@@ -86,20 +88,20 @@ MSDetector::MSDetector( string         id,
     // Write header.
     switch ( myStyle ) {
         case GNUPLOT: 
-            {
-                ostringstream header;
-                header << "# Induction-loop-detector ID = " << myID << endl;
-                header << "#   on Lane     " << myLane->id() << endl;
-                header << "#   at position " << myPos << endl;
-                header << "#   sampleIntervall = " 
-                       << mySampleIntervall << " seconds" << endl << endl;
-                header << "# n   endOfInterv avgDensity avgFlow avgSpeed "
-                       << "avgOccup avgLength" << endl;
-                header << "#         [s]      [veh/km]  [veh/h]   [m/s]  "
-                       << "   [s]      [m]" << endl;
-                myFile << header.str() << endl;
-                break;
-            }
+        {
+            ostringstream header;
+            header << "# Induction-loop-detector ID = " << myID << endl;
+            header << "#   on Lane     " << myLane->id() << endl;
+            header << "#   at position " << myPos << endl;
+            header << "#   sampleIntervall = " 
+                   << mySampleIntervall << " seconds" << endl << endl;
+            header << "# n   endOfInterv avgDensity avgFlow avgSpeed "
+                   << "avgOccup avgLength" << endl;
+            header << "#         [s]      [veh/km]  [veh/h]   [m/s]  "
+                   << "   [s]      [m]" << endl;
+            myFile << header.str() << endl;
+            break;
+        }
         case CSV:
             // No header. CSV has no spec for comments etc.
             break;
@@ -111,7 +113,7 @@ MSDetector::MSDetector( string         id,
 //---------------------------------------------------------------------------//
 
 void
-MSDetector::sample( double simSec )
+MSInductLoop::sample( double simSec )
 {
     // If sampleIntervall is over, write the data to file and reset the 
     // detector.
@@ -169,7 +171,7 @@ MSDetector::sample( double simSec )
 //---------------------------------------------------------------------------//
 
 double 
-MSDetector::localDensity( const MSVehicle& veh, double simSec )
+MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 {
     // Local Density is calculated via the timeheadway and the speed
     // of the leading vehicle. After the first detection there will
@@ -198,7 +200,7 @@ MSDetector::localDensity( const MSVehicle& veh, double simSec )
 
 
 void   
-MSDetector::writeData()
+MSInductLoop::writeData()
 {
 
     double avgDensity = myLocalDensitySum / ( myNPassedVeh - 1 ) 
@@ -233,12 +235,12 @@ MSDetector::writeData()
 //---------------------------------------------------------------------------//
 
 void
-MSDetector::writeGnuPlot( MSNet::Time endOfInterv,
-                          double avgDensity,
-                          double avgFlow,
-                          double avgSpeed,
-                          double occup,
-                          double avgLength )
+MSInductLoop::writeGnuPlot( MSNet::Time endOfInterv,
+                            double avgDensity,
+                            double avgFlow,
+                            double avgSpeed,
+                            double occup,
+                            double avgLength )
 {
     myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
            << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
@@ -252,12 +254,12 @@ MSDetector::writeGnuPlot( MSNet::Time endOfInterv,
 //---------------------------------------------------------------------------//
 
 void
-MSDetector::writeCSV( MSNet::Time endOfInterv,
-                      double avgDensity,
-                      double avgFlow,
-                      double avgSpeed,
-                      double occup,
-                      double avgLength )
+MSInductLoop::writeCSV( MSNet::Time endOfInterv,
+                        double avgDensity,
+                        double avgFlow,
+                        double avgSpeed,
+                        double occup,
+                        double avgLength )
 {
     myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
            << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
@@ -273,7 +275,7 @@ MSDetector::writeCSV( MSNet::Time endOfInterv,
 //--------------- DO NOT DEFINE ANYTHING AFTER THIS POINT -------------------//
 
 //#ifdef DISABLE_INLINE
-//#include "MSDetector.icc"
+//#include "MSInductLoop.icc"
 //#endif
 
 // Local Variables:
