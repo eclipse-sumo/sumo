@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/18 13:23:22  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/12 16:36:12  dkrajzew
 // status information retrieval added
 //
@@ -83,7 +86,7 @@ LineReader::hasMore() const
 }
 
 
-void 
+void
 LineReader::readAll(LineHandler &lh)
 {
     while(_rread<_available) {
@@ -198,7 +201,7 @@ LineReader::setPos(unsigned long pos)
     _rread = pos;
 }
 
-bool 
+bool
 LineReader::good() const
 {
     return _strm.good();
