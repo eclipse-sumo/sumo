@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/10/17 06:11:48  dkrajzew
+// forgot setting of drive request when regarding a critical non-first vehicle added
+//
 // Revision 1.3  2002/10/16 17:33:10  dkrajzew
 // error in moveCritical yielding in collisions removed
 //
@@ -697,6 +700,7 @@ MSVehicle::vsafeCritical( const MSVehicle *pred) const
         // check the progress on the following lane
         //  (incrementally from lane to lane)
         currentLane = (*link)->myLane;
+        (*link)->myDriveRequest = true;
         // check whether the next lane is empty; 
         //  if not, check the last vehicle on this lane
         const MSVehicle * const nextPred = currentLane->getLastVehicle();
