@@ -93,9 +93,11 @@ struct MSDetectorHaltingContainerWrapper :
                       jamIt != --containerM.end(); /* empty */ ){
                     ContainerIt rearIt = jamIt;
                     ContainerIt frontIt = ++jamIt;
+                    if ( ! rearIt->isHaltingM || ! frontIt->isHaltingM ) {
+                        continue;
+                    }
                     if ( frontIt->posM - frontIt->vehM->length()
-                         - rearIt->posM <=
-                         jamDistThresholdM ) {
+                         - rearIt->posM <= jamDistThresholdM ) {
                         if ( rearIt == containerM.begin() ) {
                             rearIt->isInJamM = true;
                         }
