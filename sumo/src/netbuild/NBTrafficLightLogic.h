@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/01 15:15:23  dkrajzew
+// some documentation added
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -50,40 +53,87 @@
  * class definitions
  * ======================================================================= */
 /**
- * NBTrafficLightLogic
+ * @class NBTrafficLightLogic
+ * A completely build logic for a traffic light; Held until being saved
+ * at the end of a networks's building
  */
 class NBTrafficLightLogic {
+public:
+    /// Constructor
+    NBTrafficLightLogic(const std::string &key, size_t noLinks,
+        size_t tyellow);
+
+    /// Copy constructor
+    NBTrafficLightLogic(const NBTrafficLightLogic &s);
+
+    /// Destructor
+    ~NBTrafficLightLogic();
+
+    /** @brief Adds a phase to the logic
+        This is done during the building, the new phase is inserted at the end of
+        the list of already added phases */
+    void addStep(size_t duration, std::bitset<64> driveMask,
+        std::bitset<64> brakeMask);
+
+    /// Writes the traffic light logic into the given stream in it's XML-representation
+    void writeXML(std::ostream &into, size_t no,
+        const EdgeVector &inLanes) const;
+
+    /// Debug method showing the phases
+    void _debugWritePhases() const;
+
+    /// Information whether the given logic is equal to this
+    bool equals(const NBTrafficLightLogic &logic) const;
+
 private:
+    /// The key (id) of the logic
     std::string _key;
+
+    /// The number of participating links
     size_t _noLinks;
+
+    /// The duration of the yellow-phase
+    size_t myTYellow;
+
+    /**
+     * @class PhaseDefinition
+     * The definition of a single phase of the logic
+     */
     class PhaseDefinition {
     public:
+        /// The duration of the phase in s
         size_t              duration;
+
+        /// The information which links may drive within this phase
         std::bitset<64>     driveMask;
+
+        /// The information which links have to brake within this phase
         std::bitset<64>     brakeMask;
+
+        /// Constructor
         PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
             std::bitset<64> brakeMaskArg)
             : duration(durationArg), driveMask(driveMaskArg),
             brakeMask(brakeMaskArg) { }
+
+        /// Destructor
         ~PhaseDefinition() { }
+
+        /// Comparison operator
         bool operator!=(const PhaseDefinition &pd) const {
             return pd.duration != duration ||
                 pd.driveMask != driveMask ||
                 pd.brakeMask != brakeMask;
         }
+
     };
+
+    /// Definition of a vector of traffic light phases
     typedef std::vector<PhaseDefinition> PhaseDefinitionVector;
+
+    /// The junction logic's storage for traffic light phase list
     PhaseDefinitionVector _phases;
-public:
-    NBTrafficLightLogic(const std::string &key, size_t noLinks);
-    NBTrafficLightLogic(const NBTrafficLightLogic &s);
-    ~NBTrafficLightLogic();
-    void addStep(size_t duration, std::bitset<64> driveMask,
-        std::bitset<64> brakeMask);
-    void writeXML(std::ostream &into, size_t no,
-        const EdgeVector &inLanes) const;
-    void _debugWritePhases() const;
-    bool equals(const NBTrafficLightLogic &logic) const;
+
 };
 
 

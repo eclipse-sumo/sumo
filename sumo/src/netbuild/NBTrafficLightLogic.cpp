@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/01 15:15:21  dkrajzew
+// some documentation added
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -61,8 +64,9 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &key,
-                                         size_t noLinks)
-    : _key(key), _noLinks(noLinks)
+                                         size_t noLinks,
+                                         size_t tyellow)
+    : _key(key), _noLinks(noLinks), myTYellow(tyellow)
 {
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/01 15:15:24  dkrajzew
+// some documentation added
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -51,15 +54,39 @@ class NBLinkCliqueContainer;
 class NBRequestEdgeLinkIterator;
 class NBTrafficLightLogic;
 
+/// Definition of a vector holding indices of phases
 typedef std::vector<size_t> PhaseIndexVector;
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class NBTrafficLightPhases
+ * An intermediate class for building of traffic light logics. Obtains
+ * a container with cliques and builds logics.
  */
 class NBTrafficLightPhases {
+public:
+    /// Constructor
+    NBTrafficLightPhases(const NBLinkCliqueContainer &cliques,
+        size_t noCliques);
+
+    /// Destructor
+    ~NBTrafficLightPhases();
+
+    /// Adds
+    void add(const PhaseIndexVector &phase);
+    void add(const NBTrafficLightPhases &phases, bool skipLarger);
+//    PhaseIndexVector getBest() const;
+    NBTrafficLightLogicVector *computeLogics(const std::string &key,
+        size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
+        const EdgeVector &inLanes) const;
+    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
+        size_t noLinks, const PhaseIndexVector &phaseList,
+        const NBRequestEdgeLinkIterator &cei1) const;
+    friend std::ostream &operator<<(std::ostream &os,
+        const NBTrafficLightPhases &p);
+
 private:
     typedef std::vector<PhaseIndexVector> PhasesVector;
     typedef std::vector<PhasesVector> PhasesVectorVector;
@@ -125,21 +152,6 @@ private:
 
 
 
-public:
-    NBTrafficLightPhases(const NBLinkCliqueContainer &cliques,
-        size_t noCliques);
-    ~NBTrafficLightPhases();
-    void add(const PhaseIndexVector &phase);
-    void add(const NBTrafficLightPhases &phases, bool skipLarger);
-//    PhaseIndexVector getBest() const;
-    NBTrafficLightLogicVector *computeLogics(const std::string &key,
-        size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
-        const EdgeVector &inLanes) const;
-    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
-        size_t noLinks, const PhaseIndexVector &phaseList,
-        const NBRequestEdgeLinkIterator &cei1) const;
-    friend std::ostream &operator<<(std::ostream &os,
-        const NBTrafficLightPhases &p);
 };
 
 

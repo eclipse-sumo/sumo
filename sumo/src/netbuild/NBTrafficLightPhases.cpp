@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/01 15:15:24  dkrajzew
+// some documentation added
+//
 // Revision 1.4  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -181,7 +184,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               const NBRequestEdgeLinkIterator &cei1) const
 {
     NBTrafficLightLogic *ret =
-        new NBTrafficLightLogic(key, noLinks);
+        new NBTrafficLightLogic(key, noLinks, 0);// !!!
     for(size_t i=0; i<phaseList.size(); i++) {
         // add the complete phase
         std::bitset<64> driveMask;
