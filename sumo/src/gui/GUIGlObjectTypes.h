@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/16 15:20:36  dkrajzew
+// types enumeration is now using powers of two to allow enum combination
+//
 // Revision 1.2  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
@@ -42,17 +45,17 @@
  */
 enum GUIGlObjectType {
     /// a vehicles
-    GLO_VEHICLE = 0,
+    GLO_VEHICLE = 1,
     /// a detector
-    GLO_DETECTOR = 1,
+    GLO_DETECTOR = 2,
     /// an emitter
-    GLO_EMITTER = 2,
+    GLO_EMITTER = 4,
     /// a lane
-    GLO_LANE = 3,
+    GLO_LANE = 8,
     /// an edges
-    GLO_EDGE = 4,
+    GLO_EDGE = 16,
     /// a junctions
-    GLO_JUNCTION = 5
+    GLO_JUNCTION = 32
 };
 
 
