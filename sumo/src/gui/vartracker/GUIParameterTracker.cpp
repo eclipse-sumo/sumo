@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/07/02 08:26:11  dkrajzew
+// aggregation debugged and saving option added
+//
 // Revision 1.13  2004/03/19 12:42:59  dkrajzew
 // porting to FOX
 //
@@ -92,9 +95,10 @@ using namespace std;
  * FOX callback mapping
  * ======================================================================= */
 FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
-    FXMAPFUNC(SEL_CONFIGURE, 0,           GUIParameterTracker::onConfigure),
-    FXMAPFUNC(SEL_PAINT,     0,           GUIParameterTracker::onPaint),
-    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUIParameterTracker::onSimStep),
+    FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
 
 };
 
@@ -109,10 +113,9 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
     : FXMainWindow(gFXApp,"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
     myApplication(&app)
 {
-    buildFileTools();
-    buildFileMenu();
+    buildToolBar();
     app.addChild(this, true);
-	FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
         *myApplication, *this);
@@ -126,11 +129,10 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
     : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
     myApplication(&app)
 {
-    buildFileMenu();
-    buildFileTools();
+    buildToolBar();
     setTitle("Tracker");
     app.addChild(this, true);
-	FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
         FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
         0,0,0,0,0,0,0,0);
@@ -145,9 +147,18 @@ GUIParameterTracker::~GUIParameterTracker()
     for(TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         delete (*i1);
     }
+    // deleted by GUINet
     for(ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
         delete (*i2);
     }
+}
+
+
+void
+GUIParameterTracker::create()
+{
+    FXMainWindow::create();
+    myToolBarDrag->create();
 }
 
 
@@ -175,14 +186,24 @@ GUIParameterTracker::getMaxGLHeight() const
 
 
 void
-GUIParameterTracker::buildFileMenu()
+GUIParameterTracker::buildToolBar()
 {
-}
+    myToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
+    myToolBar = new FXToolBar(this,myToolBarDrag,
+        LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
+        TOOLBARGRIP_DOUBLE);
 
-
-void
-GUIParameterTracker::buildFileTools()
-{
+    myAggregationInterval =
+        new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
+            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+    myAggregationInterval->appendItem("1s");
+    myAggregationInterval->appendItem("1min");
+    myAggregationInterval->appendItem("5min");
+    myAggregationInterval->appendItem("15min");
+    myAggregationInterval->appendItem("30min");
+    myAggregationInterval->appendItem("60min");
+    myAggregationInterval->setNumVisible(6);
 }
 
 
@@ -218,6 +239,42 @@ long
 GUIParameterTracker::onSimStep(FXObject*sender,FXSelector,void*)
 {
     update();
+    return 1;
+}
+
+
+long
+GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
+{
+    int index = myAggregationInterval->getCurrentItem();
+    size_t aggInt = 0;
+    switch(index) {
+    case 0:
+        aggInt = 1;
+        break;
+    case 1:
+        aggInt = 60;
+        break;
+    case 2:
+        aggInt = 60 * 5;
+        break;
+    case 3:
+        aggInt = 60 * 15;
+        break;
+    case 4:
+        aggInt = 60 * 30;
+        break;
+    case 5:
+        aggInt = 60 * 60;
+        break;
+    default:
+        throw 1;
+        break;
+    }
+    TrackedVarsVector::iterator i1;
+    for(i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+        (*i1)->setAggregationSpan(aggInt);
+    }
     return 1;
 }
 
@@ -320,12 +377,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     }
     glEnd();
 
-    const std::vector<float> &values = desc.getValues();
+    const std::vector<float> &values = desc.getAggregatedValues();
     if(values.size()<2) {
         glPopMatrix();
         desc.unlockValues();
         return;
     }
+
+    size_t beginStep = desc.getRecordingBegin();
 
     // init values
     double xStep = 2.0 / ((double) values.size());
@@ -347,8 +406,24 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glEnd();
     desc.unlockValues();
     glPopMatrix();
+    // set the begin and the end time step
+        // begin
+    std::string val = StringUtils::trim(beginStep, 2);
+    GUITexturesHelper::getFontRenderer().StringOut(
+        getWidth()/10.0*1.0
+            - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2,
+        patchHeightVal(desc, desc.getMin())
+            + GUITexturesHelper::getFontRenderer().GetHeight(),
+        val);
+        // end
+    val = StringUtils::trim(beginStep + values.size()*desc.getAggregationSpan(), 2);
+    GUITexturesHelper::getFontRenderer().StringOut(
+        getWidth()/10.0*9.0
+            - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2,
+        patchHeightVal(desc, desc.getMin())
+            + GUITexturesHelper::getFontRenderer().GetHeight(),
+        val);
     // add current value string
-    GUITexturesHelper::getFontRenderer().SetColor(red, green, blue);
     GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, yp), StringUtils::trim(yp, 2));
     GUITexturesHelper::getFontRenderer().StringOut(namePos+3, 0,

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 08:26:11  dkrajzew
+// aggregation debugged and saving option added
+//
 // Revision 1.8  2004/03/19 12:42:59  dkrajzew
 // porting to FOX
 //
@@ -58,7 +61,7 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#include <GL/gl.h>		/* OpenGL header file */
+#include <GL/gl.h>      /* OpenGL header file */
 #endif // _WIN32
 
 
@@ -72,6 +75,10 @@ class GUIParameterTracker : public FXMainWindow
 {
     FXDECLARE(GUIParameterTracker)
 public:
+    enum {
+        MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
+        ID_LAST
+    };
     /// Constructor (one value is defined)
     GUIParameterTracker( GUIApplicationWindow &app, const std::string &name,
         GUIGlObject &o, int xpos, int ypos);
@@ -79,10 +86,11 @@ public:
     /// Constructor (the tracker is empty)
     GUIParameterTracker(GUIApplicationWindow &app);
 
-//    void create();
-
     /// Destructor
     ~GUIParameterTracker();
+
+    /// Creates the window
+    void create();
 
     /// Returns the information about the largest width allowed for openGL-windows
     int getMaxGLWidth() const;
@@ -90,12 +98,21 @@ public:
     /// Returns the information about the largest height allowed for openGL-windows
     int getMaxGLHeight() const;
 
+    /// Adds a further time line to display
     void addTracked(GUIGlObject &o, ValueSource<double> *src,
         TrackerValueDesc *newTracked);
 
+    /// Called on window resizing
     long onConfigure(FXObject*,FXSelector,void*);
+
+    /// Called if the window shall be repainted
     long onPaint(FXObject*,FXSelector,void*);
+
+    /// Called on a simulation step
     long onSimStep(FXObject*,FXSelector,void*);
+
+    /// Called when the aggregation interval (combo) has been changed
+    long onCmdChangeAggregation(FXObject*,FXSelector,void*);
 
 protected:
     /// Adds a further variable to display
@@ -121,8 +138,13 @@ public:
         /// needed to update
         friend class GUIParameterTracker;
 
+        /// Called on window resizing
         long onConfigure(FXObject*,FXSelector,void*);
+
+        /// Called if the window shall be repainted
         long onPaint(FXObject*,FXSelector,void*);
+
+        /// Called on a simulation step
         long onSimStep(FXObject*sender,FXSelector,void*);
 
     private:
@@ -149,6 +171,7 @@ public:
         GUIApplicationWindow *myApplication;
 
     protected:
+        /// FOX needs this
         GUIParameterTrackerPanel() { }
     };
 
@@ -157,8 +180,8 @@ public:
     friend class GUIParameterTrackerPanel;
 
 private:
-    void buildFileTools();
-    void buildFileMenu();
+    /// Builds the tool bar
+    void buildToolBar();
 
 
 protected:
@@ -174,11 +197,26 @@ protected:
     /// The panel to display the values in
     GUIParameterTrackerPanel *myPanel;
 
+    /// Definition of a list of value passing objects
     typedef std::vector<GLObjectValuePassConnector<double>*> ValuePasserVector;
 
+    /// The value sources
     ValuePasserVector myValuePassers;
 
+    /// for some menu detaching fun
+    FXToolBarShell *myToolBarDrag;
+
+    /// A combo box to select an aggregation interval
+    FXComboBox *myAggregationInterval;
+
+    /// The simulation delay
+    FXdouble myAggregationDelay;
+
+    /// The application tool bar
+    FXToolBar *myToolBar;
+
 protected:
+    /// Fox needs this
     GUIParameterTracker() { }
 
 };

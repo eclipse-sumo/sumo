@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 08:26:11  dkrajzew
+// aggregation debugged and saving option added
+//
 // Revision 1.6  2004/03/19 12:42:59  dkrajzew
 // porting to FOX
 //
@@ -58,13 +61,14 @@ namespace
  * ======================================================================= */
 TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    const RGBColor &col,
-                                   GUIGlObject *o/*,
-                                   DoubleValueSource *src*/)
-    : myName(name), myObject(o)/*, mySource(src)*/,
+                                   GUIGlObject *o)
+    : myName(name), myObject(o),
     myActiveCol(col), myInactiveCol(col),
     myAmActive(true),
-    myMin(0), myMax(0)
+    myMin(0), myMax(0),
+    myAggregationInterval(1), myInvalidValue(-1), myValidNo(0)
 {
+    myRecordingBegin = MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
@@ -85,6 +89,34 @@ TrackerValueDesc::addValue(double value)
     }
     myLock.lock();
     myValues.push_back(value);
+    if(value!=myInvalidValue) {
+        myTmpLastAggValue += value;
+        myValidNo++;
+    }
+    // check what to do with aggregated values
+    if(myValues.size()!=0&&myValues.size()%myAggregationInterval==0) {
+        // ok, a new aggregation is filled completely. Set.
+        if(myValidNo!=0) {
+            myAggregatedValues.push_back(
+                myTmpLastAggValue / (float) myValidNo);
+        } else {
+            myAggregatedValues.push_back(0);
+        }
+        myTmpLastAggValue = 0;
+        myValidNo = 0;
+    } else {
+        // remove the one previously set
+        if(myAggregatedValues.size()!=0) {
+            myAggregatedValues.erase(myAggregatedValues.end()-1);
+        }
+        // append newly computed
+        if(myValidNo!=0) {
+            myAggregatedValues.push_back(
+                myTmpLastAggValue / (float) myValidNo);
+        } else {
+            myAggregatedValues.push_back(0);
+        }
+    }
     myLock.unlock();
 }
 
@@ -136,6 +168,14 @@ TrackerValueDesc::getValues()
 }
 
 
+const std::vector<float> &
+TrackerValueDesc::getAggregatedValues()
+{
+    myLock.lock();
+    return myAggregatedValues;
+}
+
+
 const std::string &
 TrackerValueDesc::getName() const
 {
@@ -146,6 +186,52 @@ void
 TrackerValueDesc::unlockValues()
 {
     myLock.unlock();
+}
+
+
+void
+TrackerValueDesc::setAggregationSpan(size_t as)
+{
+    myLock.lock();
+    if(myAggregationInterval!=as) {
+        // ok, the aggregation has changed,
+        //  let's recompute the list of aggregated values
+        myAggregatedValues.clear();
+        std::vector<float>::iterator i;
+        for(i=myValues.begin(); i!=myValues.end(); ) {
+            float value = 0;
+            myValidNo = 0;
+            for(int j=0; j<as&&i!=myValues.end(); j++, ++i) {
+                if((*i)!=myInvalidValue) {
+                    value += (*i);
+                    myValidNo++;
+                }
+            }
+            if(myValidNo==0) {
+                myAggregatedValues.push_back(0);
+                myTmpLastAggValue = 0;
+            } else {
+                myAggregatedValues.push_back(value / (float) myValidNo);
+                myTmpLastAggValue = value / (float) myValidNo;
+            }
+        }
+    }
+    myAggregationInterval = as;
+    myLock.unlock();
+}
+
+
+size_t
+TrackerValueDesc::getAggregationSpan() const
+{
+    return myAggregationInterval;
+}
+
+
+size_t
+TrackerValueDesc::getRecordingBegin() const
+{
+    return myRecordingBegin;
 }
 
 
