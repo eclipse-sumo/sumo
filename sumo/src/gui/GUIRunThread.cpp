@@ -16,6 +16,9 @@ GUIRunThread::GUIRunThread(GUIApplicationWindow *parent, long sleepPeriod)
 
 GUIRunThread::~GUIRunThread()
 {
+    _quit = true;
+    wait();
+    deleteSim();
 }
 
 
