@@ -23,11 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 07:24:19  dkrajzew
+// added the possibility to check the format (xml/csv) of a file; added the possibility to compute the absoulte path from a base path and a relative path
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
 // Revision 1.1  2002/10/16 15:09:09  dkrajzew
-// initial commit for some utility classes common to most propgrams of the sumo-package
+// initial commit for some utility classes common to most propgrams of the
+//  sumo-package
 //
 // Revision 1.6  2002/07/25 08:48:29  dkrajzew
 // machine-dependent binary data reading added
@@ -36,7 +40,8 @@ namespace
 // Usage of relative pathnames within configuration files implemented
 //
 // Revision 1.4  2002/07/02 08:28:26  dkrajzew
-// checkFileList - a method which checks whether the given list of files is not empty - added
+// checkFileList - a method which checks whether the given list of files is not
+//  empty - added
 //
 // Revision 1.3  2002/06/11 14:38:22  dkrajzew
 // windows eol removed
@@ -109,7 +114,8 @@ FileHelpers::checkFileList(const std::string &files)
 
 
 std::string
-FileHelpers::removeFile(const std::string &path) {
+FileHelpers::removeFile(const std::string &path)
+{
     size_t beg = path.find_last_of("\\/");
     if(beg==string::npos||beg==0)
         return "";
@@ -119,13 +125,16 @@ FileHelpers::removeFile(const std::string &path) {
 
 std::string
 FileHelpers::getConfigurationRelative(const std::string &configPath,
-                                      const std::string &path) {
+                                      const std::string &path)
+{
     string retPath = removeFile(configPath);
     return retPath + path;
 }
 
+
 bool
-FileHelpers::isAbsolute(const std::string &path) {
+FileHelpers::isAbsolute(const std::string &path)
+{
     // check UNIX - absolute paths
     if(path.at(0)=='/') {
         return true;
@@ -136,6 +145,7 @@ FileHelpers::isAbsolute(const std::string &path) {
     }
     return false;
 }
+
 
 int
 FileHelpers::readInt(std::ifstream &strm, bool intelFile)
@@ -218,11 +228,35 @@ FileHelpers::readByte(std::ifstream &strm)
 }
 
 
+FileHelpers::FileType
+FileHelpers::checkFileType(const std::string &filename)
+{
+    ifstream strm(filename.c_str());
+    if(!strm.good()) {
+        return INVALID;
+    }
+    string l;
+    strm >> l;
+    if(l[0]=='<') {
+        return XML;
+    } else {
+        return CSV;
+    }
+}
+
+
+std::string
+FileHelpers::checkForRelativity(std::string filename,
+                                const std::string &basePath)
+{
+     if(!isAbsolute(filename)) {
+         filename = getConfigurationRelative(basePath, filename);
+     }
+     return filename;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "FileHelpers.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

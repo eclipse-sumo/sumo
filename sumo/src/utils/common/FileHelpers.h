@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/01/26 07:24:19  dkrajzew
+// added the possibility to check the format (xml/csv) of a file; added the possibility to compute the absoulte path from a base path and a relative path
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -71,7 +74,21 @@
  * A class holding some static functions for the easier usage of files.
  */
 class FileHelpers {
- public:
+public:
+    /**
+     * enum FileType
+     * A set of known filetypes
+     */
+    enum FileType {
+        /// no file at all...
+        INVALID,
+        /// XML (eXtensible Markup Language) - derivates
+        XML,
+        /// CSV (Comma Separated Values) - derivates
+        CSV
+    };
+
+public:
     /** checks whether the given file exists */
     static bool exists(std::string path);
 
@@ -102,12 +119,19 @@ class FileHelpers {
 
     /** reads a byte */
     static unsigned char readByte(std::ifstream &strm);
+
+    /// Checks whether the given file is a xml or csv file
+    static FileType checkFileType(const std::string &filename);
+
+    /// Check for relativity
+    static std::string checkForRelativity(std::string filename,
+        const std::string &basePath);
+
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "FileHelpers.icc"
-//#endif
 
 #endif
 
