@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include <utils/common/MsgHandler.h>
 #include "MSLane.h"
 #include "MSVehicle.h"
@@ -23,7 +24,7 @@ MSVehicleTransfer::addVeh(MSLane &from)
         + e->id() + string("'."));
     // let the vehicle be on the one
     if(veh->proceedVirtualReturnIfEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
-        MSVehicle::remove(veh->id());
+        removeVehicle(veh->id());
         return;
     }
     // mark the next one
@@ -75,7 +76,7 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                         string("Vehicle '") + desc.myVeh->id()
                         + string("' ends teleporting on end edge '") + e->id()
                         + string("'."));
-                    MSVehicle::remove(desc.myVeh->id());
+                    removeVehicle(desc.myVeh->id());
                     i = myVehicles.erase(i);
                     continue;
                 }
@@ -92,13 +93,27 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
 }
 
 
+
+void
+MSVehicleTransfer::removeVehicle(const std::string &id)
+{
+    MSVehicle::remove(id);
+}
+
+
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance()
 {
-    if(myInstance==0) {
-        myInstance = new MSVehicleTransfer();
-    }
+    assert(myInstance!=0);
     return myInstance;
+}
+
+
+void
+MSVehicleTransfer::setInstance(MSVehicleTransfer *vt)
+{
+    assert(myInstance==0);
+    myInstance = vt;
 }
 
 

@@ -2,6 +2,7 @@
 #define MSVehicleTransfer_h
 
 
+#include <string>
 #include <vector>
 #include "MSNet.h"
 
@@ -14,10 +15,16 @@ public:
     void addVeh(MSLane &firstFrom);
     void checkEmissions(MSNet::Time time);
     static MSVehicleTransfer *getInstance();
+    static void setInstance(MSVehicleTransfer *vt);
     ~MSVehicleTransfer();
 
-private:
+    friend class NLNetBuilder;
+
+protected:
     MSVehicleTransfer();
+    void removeVehicle(const std::string &id);
+
+private:
 
     struct VehicleInformation {
         MSVehicle *myVeh;

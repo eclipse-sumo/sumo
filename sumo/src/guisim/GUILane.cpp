@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/10/22 15:43:49  dkrajzew
+// further work on a correct deletion of vehicles articipating in an accident
+//
 // Revision 1.14  2003/10/22 07:07:06  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -214,9 +217,13 @@ GUILane::push( MSVehicle* veh )
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
-            MSVehicle::remove(myVehBuffer->id());
+            myVehBuffer->leaveLaneAtLaneChange();
+    		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
+            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+                static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
+            myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());
