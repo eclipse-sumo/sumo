@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/16 12:25:51  dkrajzew
+// code beautifying
+//
 // Revision 1.1  2003/02/07 10:40:13  dkrajzew
 // updated
 //
@@ -33,6 +36,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include <string>
 
 
 /* =========================================================================
@@ -75,9 +80,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "PreStartInitialised.icc"
-//#endif
 
 #endif
 
