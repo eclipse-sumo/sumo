@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 13:06:09  dkrajzew
+// some further work on vissim-import and geometry computation
+//
 // Revision 1.5  2004/02/18 05:31:25  dkrajzew
 // debug-blas removed
 //
@@ -1748,6 +1751,10 @@ NBNode::getEmptyDir() const
         pos.add(toAdd);
     }
     pos.mul(-1.0/(_incomingEdges->size()+_outgoingEdges->size()));
+    if(pos.x()==0&&pos.y()==0) {
+        pos = Position2D(1, 0);
+    }
+    pos.norm();
     return pos;
 }
 

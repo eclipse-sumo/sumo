@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 13:06:09  dkrajzew
+// some further work on vissim-import and geometry computation
+//
 // Revision 1.3  2004/02/18 05:31:25  dkrajzew
 // debug-blas removed
 //
@@ -299,6 +302,7 @@ NBNodeCont::erase(NBNode *node)
     }
     _nodes.erase(i);
     delete node;
+	return true;
 }
 
 

@@ -143,14 +143,18 @@ NBNodeShapeComputer::computeContinuationNodeShape()
                     myNode.getOutgoingEdges().end(),
                     NBContHelper::opposite_finder(inc)));
             double v2 = myOutPos[out];
-            addCCWPoint(ret, inc, MAX(v1, v2));
-            addCWPoint(ret, out, MAX(v1, v2));
+            addCCWPoint(ret, inc, MAX(v1, v2), 1.5);
+            addCWPoint(ret, out, MAX(v1, v2), 1.5);
         }
     } else {
-        addCCWPoint(ret, myIncPos.begin()->first, myIncPos.begin()->second);
-        addCWPoint(ret, myIncPos.begin()->first, myIncPos.begin()->second);
-        addCCWPoint(ret, myOutPos.begin()->first, myOutPos.begin()->second);
-        addCWPoint(ret, myOutPos.begin()->first, myOutPos.begin()->second);
+        addCCWPoint(ret,
+            myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
+        addCWPoint(ret,
+            myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
+        addCCWPoint(ret,
+            myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
+        addCWPoint(ret,
+            myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
     }
     return ret;
 }
@@ -186,8 +190,8 @@ NBNodeShapeComputer::computeRealNodeShape()
             used.myCrossingPosition =
                 MAX(used.myCrossingPosition, used2.myCrossingPosition);
             // ok, process both directions
-            addCCWPoint(ret, current, used.myCrossingPosition);
-            addCWPoint(ret, (*li), used.myCrossingPosition);
+            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
+            addCWPoint(ret, (*li), used.myCrossingPosition, 2.5);
             // and skip the next one
             if(i+1!=myNode._allEdges.end()) {
                 i++;
@@ -200,12 +204,12 @@ NBNodeShapeComputer::computeRealNodeShape()
             if((*ri)->isTurningDirection(current)) {
                 continue;
             }
-            addCCWPoint(ret, current, used.myCrossingPosition);
-            addCWPoint(ret, current, used.myCrossingPosition);
+            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
+            addCWPoint(ret, current, used.myCrossingPosition, 2.5);
         } else {
             // process this edge only
-            addCCWPoint(ret, current, used.myCrossingPosition);
-            addCWPoint(ret, current, used.myCrossingPosition);
+            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
+            addCWPoint(ret, current, used.myCrossingPosition, 2.5);
         }
     }
     return ret;
@@ -311,9 +315,10 @@ NBNodeShapeComputer::buildCrossingDescription(const EdgeVector::const_iterator &
 
 void
 NBNodeShapeComputer::addCCWPoint(Position2DVector &poly,
-                                 NBEdge *e, double offset)
+                                 NBEdge *e, double offset,
+                                 double width)
 {
-    Position2DVector l = e->getCCWBounderyLine(myNode, 1.5);
+    Position2DVector l = e->getCCWBounderyLine(myNode, width);
     double len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));
@@ -324,9 +329,10 @@ NBNodeShapeComputer::addCCWPoint(Position2DVector &poly,
 
 void
 NBNodeShapeComputer::addCWPoint(Position2DVector &poly,
-                                NBEdge *e, double offset)
+                                NBEdge *e, double offset,
+                                double width)
 {
-    Position2DVector l = e->getCWBounderyLine(myNode, 1.5);
+    Position2DVector l = e->getCWBounderyLine(myNode, width);
     double len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));

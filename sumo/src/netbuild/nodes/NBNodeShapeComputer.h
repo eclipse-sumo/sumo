@@ -18,8 +18,10 @@ private:
     Position2DVector computeJoinSplitNodeShape();
     Position2DVector computeContinuationNodeShape();
 
-    void addCCWPoint(Position2DVector &poly, NBEdge *e, double offset);
-    void addCWPoint(Position2DVector &poly, NBEdge *e, double offset);
+    void addCCWPoint(Position2DVector &poly, NBEdge *e, double offset,
+        double width);
+    void addCWPoint(Position2DVector &poly, NBEdge *e, double offset,
+        double width);
 
     bool isSimpleContinuation(const NBNode &n) const;
 

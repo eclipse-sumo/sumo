@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/03/19 13:06:09  dkrajzew
+// some further work on vissim-import and geometry computation
+//
 // Revision 1.25  2004/01/28 12:40:23  dkrajzew
 // added to possibility to give each lane a speed
 //
@@ -399,7 +402,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
     // compute the position to split the edge at
-    assert(pos<edge->getLength());
+//!!!    assert(pos<edge->getLength());
     // build the new edges' geometries
     std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);

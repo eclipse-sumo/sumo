@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2004/03/19 13:06:09  dkrajzew
+// some further work on vissim-import and geometry computation
+//
 // Revision 1.43  2004/02/16 13:58:22  dkrajzew
 // some further work on edge geometry
 //
@@ -2065,9 +2068,6 @@ void
 NBEdge::computeEdgeShape()
 {
     size_t i;
-    if(_id=="51835838") {
-        int bla = 0;
-    }
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end
         Line2D lb = Line2D(
@@ -2165,6 +2165,12 @@ bool
 NBEdge::isNearEnough2BeJoined2(NBEdge *e)
 {
     DoubleVector distances = myGeom.distances(e->getGeometry());
+    if(distances.size()==0) {
+        distances = e->getGeometry().distancesExt(myGeom);
+/*        Position2D p1 = myGeom.center();
+        Position2D p2 = e->getGeometry().center();
+        double dist = GeomHelper::distance(p1, p2);*/
+    }
     double max = DoubleVectorHelper::maxValue(distances);
     return max<7;
 }
