@@ -52,7 +52,7 @@ protected:
         {
             return "occupancyDegree";
         }
-    
+
 private:
     const MSUnit::Meters detectorLengthM;
     const VehicleCont& containerM;
@@ -75,15 +75,23 @@ MSOccupancyDegree::getDetectorAggregate( void )
     if ( size == 0 ) {
         return 0;
     }
-    double occupanceDegree =
+    double entryCorr(0);
+    double leaveCorr(0);
+    if ( getOccupancyEntryCorrection() > 0 ){
+        entryCorr = ( 1 - getOccupancyEntryCorrection() );
+    }
+    if ( getOccupancyLeaveCorrection() > 0 ){
+        leaveCorr = ( 1 - getOccupancyEntryCorrection() );
+    }
+    double occupancyDegree =
         ( std::accumulate( containerM.begin(), containerM.end(),
                            0.0, occupancySumUp )
-          - containerM.front()->length() * getOccupancyEntryCorrection()
-          - containerM.back()->length() *  getOccupancyLeaveCorrection() ) /
+          - containerM.front()->length() * entryCorr
+          - containerM.back()->length() *  leaveCorr ) /
         detectorLengthM;
-    assert ( occupanceDegree >= 0 && occupanceDegree <= 1 );
+    assert ( occupancyDegree >= 0 && occupancyDegree <= 1 );
     resetOccupancyCorrection();
-    return occupanceDegree;
+    return occupancyDegree;
 }   
 
 
