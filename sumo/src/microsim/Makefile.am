@@ -15,6 +15,7 @@ MSDetectorFileOutput.cpp \
 MSDetectorOccupancyCorrection.cpp \
 MSDetectorSubSys.cpp \
 MSE2DetectorInterface.cpp \
+MSE2EDDetectorInterface.cpp \
 MSE3DetectorInterface.cpp \
 MSE3MeanNHaltings.cpp \
 MSE3NVehicles.cpp \
@@ -23,6 +24,7 @@ MSEdgeControl.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
 MSGlobals.cpp \
+MSHaltingDurationSum.cpp \
 MSInductLoop.cpp \
 MSInternalLane.cpp \
 MSJamLengthAheadOfTrafficLights.cpp \
@@ -39,6 +41,7 @@ MSLogicJunction.cpp \
 MSMaxJamLength.cpp \
 MSNet.cpp \
 MSNoLogicJunction.cpp \
+MSNStartedHalts.cpp \
 MSNVehicles.cpp \
 MSOccupancyDegree.cpp \
 MSQueueLengthAheadOfTrafficLights.cpp \
@@ -83,6 +86,8 @@ MSDetectorOccupancyCorrection.h \
 MSDetectorSubSys.h \
 MSE2Detector.h \
 MSE2DetectorInterface.h \
+MSE2EDDetector.h \
+MSE2EDDetectorInterface.h \
 MSE3DetectorInterface.h \
 MSE3MeanNHaltings.h \
 MSE3MoveReminder.h \
@@ -92,6 +97,7 @@ MSEdgeControl.h \
 MSEmitControl.h \
 MSEventControl.h \
 MSGlobals.h \
+MSHaltingDurationSum.h \
 MSInductLoop.h \
 MSInternalLane.h \
 MSJamLengthAheadOfTrafficLights.h \
@@ -111,7 +117,9 @@ MSMeanDetector.h \
 MSMoveReminder.h \
 MSNet.h \
 MSNoLogicJunction.h \
+MSNStartedHalts.h \
 MSNVehicles.h \
+MSObserver.h \
 MSOccupancyDegree.h \
 MSPredicates.h \
 MSQueueLengthAheadOfTrafficLights.h \
@@ -124,6 +132,7 @@ MSSimpleTrafficLightLogic.h \
 MSSource.h \
 MSSourceLane.h \
 MSSpaceMeanSpeed.h \
+MSSubject.h \
 MSSumDetector.h \
 MSTLLogicControl.h \
 MSTrafficLightLogic.h \
