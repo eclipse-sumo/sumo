@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLNetHandler.cpp
-			  The third-step - handler building structures
+              The third-step - handler building structures
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.48  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
 // Revision 1.47  2004/06/17 13:08:15  dkrajzew
 // Polygon visualisation added
 //
@@ -137,6 +140,7 @@ using namespace std;
 NLNetHandler::NLNetHandler(const std::string &file,
                            NLContainer &container,
                            NLDetectorBuilder &detBuilder,
+                           NLTriggerBuilder &triggerBuilder,
                            double stdDetectorPositions,
                            double stdDetectorLengths)
     : MSRouteHandler(file, true),
@@ -144,7 +148,7 @@ NLNetHandler::NLNetHandler(const std::string &file,
       myCurrentIsInternalToSkip(false),
       myStdDetectorPositions(stdDetectorPositions),
       myStdDetectorLengths(stdDetectorLengths),
-      myDetectorBuilder(detBuilder)
+      myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder)
 {
 }
 
@@ -243,7 +247,7 @@ NLNetHandler::myStartElement(int element, const std::string &name,
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myStartElement(element, name, attrs);
-	}
+    }
 }
 
 
@@ -335,13 +339,13 @@ NLNetHandler::addLane(const Attributes &attrs)
 void
 NLNetHandler::addPoly(const Attributes &attrs)
 {
-    try {       
-        std::string name = getString(attrs, SUMO_ATTR_NAME);     
+    try {
+        std::string name = getString(attrs, SUMO_ATTR_NAME);
         actuell_poly_name = name;
-        try {           
-            myContainer.addPoly(name,                      
+        try {
+            myContainer.addPoly(name,
                 getString(attrs, SUMO_ATTR_TYPE),
-                getString(attrs, SUMO_ATTR_COLOR)); 
+                getString(attrs, SUMO_ATTR_COLOR));
 
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
@@ -350,7 +354,7 @@ NLNetHandler::addPoly(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing name of an poly-object.");
     }
-    
+
 }
 
 
@@ -544,7 +548,7 @@ NLNetHandler::addPhase(const Attributes &attrs)
             new MSActuatedPhaseDefinition(
                 duration, std::bitset<64>(phase),
                 prios, std::bitset<64>(yellowMask),
-			    min, max));
+                min, max));
     } else {
         // for an controlled tls-logic
         m_ActivePhases.push_back(
@@ -854,7 +858,7 @@ NLNetHandler::addTrigger(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            NLTriggerBuilder::buildTrigger(
+            myTriggerBuilder.buildTrigger(
                 myContainer.getNet(), id,
                 getString(attrs, SUMO_ATTR_OBJECTTYPE),
                 getString(attrs, SUMO_ATTR_OBJECTID),
@@ -1036,7 +1040,7 @@ NLNetHandler::myCharacters(int element, const std::string &name,
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, name, chars);
-	}
+    }
 }
 
 
@@ -1198,12 +1202,12 @@ NLNetHandler::addIncomingLanes(const std::string &chars)
 //-----------------------------------------------------------------------------------
 
 
-void          
+void
 NLNetHandler::addPolyPosition(const std::string &chars)
 {
     Polygon2D *ptr;
     Position2DVector shape;
-    ptr = MSNet::getInstance()->poly_dic[actuell_poly_name]; 
+    ptr = MSNet::getInstance()->poly_dic[actuell_poly_name];
     if(ptr==0) {
         return;
     }
@@ -1280,7 +1284,7 @@ NLNetHandler::myEndElement(int element, const std::string &name)
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myEndElement(element, name);
-	}
+    }
 }
 
 
@@ -1302,9 +1306,9 @@ NLNetHandler::closeJunctionLogic()
 {
     if(_requestItems!=_requestSize) {
         MsgHandler::getErrorInstance()->inform(
-	        string("The description for the junction logic '") +
-	        m_Key +
-	        string("' is malicious."));
+            string("The description for the junction logic '") +
+            m_Key +
+            string("' is malicious."));
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(_requestSize, _laneNo,
@@ -1332,7 +1336,7 @@ NLNetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic,
+        myContainer.addJunctionInitInfo(tlLogic,
             myContainer.getIncomingLanes(), m_DetectorOffset);
     } else if(m_Type=="agentbased") {
         // build an agentbased logic
@@ -1343,9 +1347,9 @@ NLNetHandler::closeTrafficLightLogic()
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic,
+        myContainer.addJunctionInitInfo(tlLogic,
             myContainer.getIncomingLanes(), m_DetectorOffset);
-	} else {
+    } else {
         // build an uncontrolled (fix) tls-logic
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic(
@@ -1455,9 +1459,6 @@ NLNetHandler::setError(const string &type,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLNetHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -2,8 +2,8 @@
 #define NLContainer_h
 /***************************************************************************
                           NLContainer.h
-			  Holds the builded structures or structures that
-			  hold these
+              Holds the builded structures or structures that
+              hold these
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.24  2004/06/17 13:08:15  dkrajzew
-// Polygon visualisation added
+// Revision 1.25  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
 //
 // Revision 1.23  2004/04/02 11:23:51  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
@@ -153,6 +153,7 @@ class OptionsCont;
 class MSTrafficLightLogic;
 class MSInductLoop;
 class MSExtendedTrafficLightLogic;
+class MSRouteLoader;
 
 
 /* =========================================================================
@@ -183,8 +184,8 @@ public:
 
 public:
     /// standard constructor
-    NLContainer(NLEdgeControlBuilder * const edgeBuilder,
-        NLJunctionControlBuilder * const junctionBuilder);
+    NLContainer(NLEdgeControlBuilder &edgeBuilder,
+        NLJunctionControlBuilder &junctionBuilder);
 
     /// standard destructor
     virtual ~NLContainer();
@@ -230,15 +231,15 @@ public:
         if a) no edge was chosen b) a lane with the given id already existed
         and c) another lane was already set as the depart-lane */
     virtual void addLane(const std::string &id, const bool isDepartLane,
-		 const float maxSpeed, const float length,
-		 const float changeUrge);
+         const float maxSpeed, const float length,
+         const float changeUrge);
 
     /// closes the lane currently build
     virtual void closeLane();
 
     /// closes the addition of an edges lanes
     void closeLanes();
-     
+
     /// add a Polygon
     void addPoly(const std::string &name, const std::string &type, const std::string &color);
 
@@ -314,8 +315,8 @@ public:
     MSTrafficLightLogic *getTLLogic(const std::string &id) const;
 
 
-	void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-		const std::vector<MSLane*> &lv, double det_offset);
+    void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
+        const std::vector<MSLane*> &lv, double det_offset);
 
     /// end of operations; builds the net
     MSNet *buildMSNet(NLDetectorBuilder &db,
@@ -324,13 +325,17 @@ public:
     /// returns the preallocated (preinitialised) net
     MSNet &getNet();
 
+
+
 protected:
     /// builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
 
-	void closeJunctions(NLDetectorBuilder &db);
+    void closeJunctions(NLDetectorBuilder &db);
 
     std::vector<MSTrafficLightLogic*> getTLLogicVector() const;
+
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 
 private:
     /** invalid copy constructor */
@@ -342,11 +347,11 @@ private:
 protected:
     /** pointer to the NLEdgeControlBuilder (storage for edges during
         building) */
-    NLEdgeControlBuilder      *m_pECB;
+    NLEdgeControlBuilder      &myEdgeControlBuilder;
 
     /** pointer to the NLJunctionControlBuilder
          (storage for junctions during building) */
-    NLJunctionControlBuilder  *m_pJCB;
+    NLJunctionControlBuilder  &myJunctionControlBuilder;
 
     /** pointer to the NLSucceedingLaneBuilder
          (storage for building succeeding lanes) */
@@ -364,8 +369,8 @@ protected:
     std::map<std::string, MSTrafficLightLogic*> myLogics;
 
     /* @brief Backward edge continuation map
-	   The key is the name of an edge, the value is the list of edges
-	   that do approach the key-edge */
+       The key is the name of an edge, the value is the list of edges
+       that do approach the key-edge */
     SSVMap myContinuations;
 
 
@@ -384,13 +389,13 @@ protected:
     /// the number of routes inside the net
     int noDetectors;
 
-	std::string myCurrentID;
+    std::string myCurrentID;
 
 
-	typedef std::vector<MSLane*> LaneVector;
+    typedef std::vector<MSLane*> LaneVector;
     typedef std::pair<LaneVector, double> TLInitInfo;
-	typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
-	TLLogicInitInfoMap myJunctions2PostLoadInit;
+    typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
+    TLLogicInitInfoMap myJunctions2PostLoadInit;
 
 private:
     /// definition of a map to store junction logics into

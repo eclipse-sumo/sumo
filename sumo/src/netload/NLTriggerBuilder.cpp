@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
 // Revision 1.4  2003/06/18 11:18:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -43,6 +46,7 @@ namespace
 #include <microsim/MSTrigger.h>
 #include <microsim/MSLaneSpeedTrigger.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLTriggerBuilder.h"
@@ -57,6 +61,16 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+NLTriggerBuilder::NLTriggerBuilder()
+{
+}
+
+
+NLTriggerBuilder::~NLTriggerBuilder()
+{
+}
+
+
 MSTrigger *
 NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
                                const std::string &objecttype,
@@ -70,32 +84,41 @@ NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
     }
     // check which typ of a trigger shall be build
     if(objecttype=="lane"&&objectattr=="speed") {
-        MSLane *lane = MSLane::dictionary(objectid);
-        if(lane==0) {
+        std::vector<MSLane*> lanes;
+        StringTokenizer st(objectid, ";");
+        while(st.hasNext()) {
+            MSLane *lane = MSLane::dictionary(st.next());
+            if(lane==0) {
+                MsgHandler::getErrorInstance()->inform(
+                    string("The lane to use within MSLaneSpeedTrigger '")
+                    + id + string("' is not known."));
+                throw ProcessError();
+            }
+            lanes.push_back(lane);
+        }
+        if(lanes.size()==0) {
             MsgHandler::getErrorInstance()->inform(
-                string("The lane to use within MSLaneSpeedTrigger '")
-                + id + string("' is not known."));
+                string("No lane defined for MSLaneSpeedTrigger '")
+                + id + string("'."));
             throw ProcessError();
         }
-        return buildLaneSpeedTrigger(net, id, *lane, file);
+        return buildLaneSpeedTrigger(net, id, lanes, file);
     }
     return 0;
 }
 
+
 MSLaneSpeedTrigger *
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
                                         const std::string &id,
-                                        MSLane &lane,
+                                        const std::vector<MSLane*> &destLanes,
                                         const std::string &file)
 {
-    return new MSLaneSpeedTrigger(id, net, lane, file);
+    return new MSLaneSpeedTrigger(id, net, destLanes, file);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLTriggerBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

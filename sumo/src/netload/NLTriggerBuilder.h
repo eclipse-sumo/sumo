@@ -18,10 +18,16 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+// $Log$
+// Revision 1.3  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
+#include <vector>
 
 
 /* =========================================================================
@@ -36,29 +42,34 @@ class MSLaneSpeedTrigger;
  * class definitions
  * ======================================================================= */
 /**
- * This class builds trigger objects.
+ * @class
+ * This class builds trigger objects in their non-gui version
  */
 class NLTriggerBuilder {
 public:
+    /// Constructor
+    NLTriggerBuilder();
+
+    /// Destructor
+    ~NLTriggerBuilder();
+
     /** @brief builds the specified trigger
         The certain type and purpose of the trigger is not yet known */
-    static MSTrigger *buildTrigger(MSNet &net,
+    MSTrigger *buildTrigger(MSNet &net,
         const std::string &id,
         const std::string &objecttype, const std::string &objectid,
         const std::string &objectattr,
         std::string file, std::string base);
 
-private:
+protected:
     /// builds a lane speed trigger
-    static MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
-        const std::string &id, MSLane &lane,
+    virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
+        const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLTriggerBuilder.icc"
-//#endif
 
 #endif
 

@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLNetBuilder.cpp
-			  Container for MSNet during its building
+              Container for MSNet during its building
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
 // Revision 1.18  2004/04/02 11:23:52  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
 //
@@ -160,6 +163,7 @@ namespace
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
+#include "NLTriggerBuilder.h"
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <utils/common/MsgHandler.h>
@@ -180,8 +184,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
-    : m_pOptions(oc)
+NLNetBuilder::NLNetBuilder(const OptionsCont &oc,
+                           NLEdgeControlBuilder &eb,
+                           NLJunctionControlBuilder &jb)
+    : m_pOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb)
 {
 }
 
@@ -193,7 +199,7 @@ NLNetBuilder::~NLNetBuilder()
 
 
 MSNet *
-NLNetBuilder::buildNet()
+NLNetBuilder::buildNet(MSVehicleControl *vc)
 {
     // pre-initialise the network
      // set whether empty edges shall be printed on dump
@@ -205,19 +211,19 @@ NLNetBuilder::buildNet()
      // preinit network
     MSNet::preInitMSNet(
         m_pOptions.getInt("b"),
-        new MSVehicleControl(),
+        vc,
         m_pOptions.getUIntVector("dump-intervals"),
         m_pOptions.getString("dump-basename"));
 
     // we need a specialised detector builder
     NLDetectorBuilder db;
+    NLTriggerBuilder tb;
     // initialise loading buffer ...
-    NLContainer *container = new NLContainer(
-        new NLEdgeControlBuilder(),
-        new NLJunctionControlBuilder());
+    NLContainer *container =
+        new NLContainer(myEdgeBuilder, myJunctionBuilder);
     // ... and the parser
     // get the matching handler
-    NLNetHandler handler("", *container, db,
+    NLNetHandler handler("", *container, db, tb,
         m_pOptions.getFloat("actuating-detector-pos"),
         m_pOptions.getFloat("agent-detector-len"));
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
@@ -305,9 +311,9 @@ NLNetBuilder::parse(const string &files, NLNetHandler &handler,
             return false;
         } else {
             // parse the file
-	        handler.setFileName(tmp);
-	        parser.parse(tmp.c_str());
-	        ok = !(MsgHandler::getErrorInstance()->wasInformed());
+            handler.setFileName(tmp);
+            parser.parse(tmp.c_str());
+            ok = !(MsgHandler::getErrorInstance()->wasInformed());
         }
     }
     return ok;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
 // Revision 1.23  2004/06/17 13:08:16  dkrajzew
 // Polygon visualisation added
 //
@@ -130,6 +133,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * ======================================================================= */
 class NLContainer;
 class NLDetectorBuilder;
+class NLTriggerBuilder;
 
 
 /* =========================================================================
@@ -145,7 +149,7 @@ class NLNetHandler : public MSRouteHandler {
 public:
     /// standard constructor
     NLNetHandler(const std::string &file, NLContainer &container,
-        NLDetectorBuilder &detBuilder,
+        NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         double stdDetectorPositions, double stdDetectorlength);
 
     /// Destructor
@@ -196,7 +200,7 @@ protected:
 
 protected:
     /** adds the message about the occured error to the error handler
-	after building it */
+    after building it */
     void setError(const std::string &type,
         const SAXParseException& exception);
 
@@ -267,7 +271,7 @@ private:
     /// adds a lane to the previously opened edge
     void addLane(const Attributes &attrs);
 
-    /// adds a polygon 
+    /// adds a polygon
     void addPoly(const Attributes &attrs);
 
     /// add the position to the Polygon
@@ -387,6 +391,9 @@ private:
 
     /// The type of the last detector
     std::string myDetectorType;
+
+    /// The trigger builder to use
+    NLTriggerBuilder &myTriggerBuilder;
 
 private:
     /** invalid copy constructor */

@@ -1,7 +1,7 @@
 /***************************************************************************
                           NLContainer.cpp
-			  Holds the builded structures or structures that
-			  hold these
+              Holds the builded structures or structures that
+              hold these
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -24,8 +24,8 @@ namespace
          "$Id$";
 }
 // $Log$
-// Revision 1.24  2004/06/17 13:08:15  dkrajzew
-// Polygon visualisation added
+// Revision 1.25  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
 //
 // Revision 1.23  2004/04/02 11:23:51  dkrajzew
 // extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
@@ -164,7 +164,6 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSNet.h>
 #include <microsim/MSRouteLoader.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSRoute.h>
@@ -194,11 +193,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
-                         NLJunctionControlBuilder * const junctionBuilder)
+NLContainer::NLContainer(NLEdgeControlBuilder &edgeBuilder,
+                         NLJunctionControlBuilder &junctionBuilder)
     :
-    m_pECB(edgeBuilder),
-    m_pJCB(junctionBuilder),
+    myEdgeControlBuilder(edgeBuilder),
+    myJunctionControlBuilder(junctionBuilder),
     m_pSLB(new NLSucceedingLaneBuilder()),
     noEdges(0),
     noLanes(0),
@@ -213,8 +212,6 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
 
 NLContainer::~NLContainer()
 {
-    delete m_pECB;
-    delete m_pJCB;
     delete m_pSLB;
 }
 
@@ -279,7 +276,7 @@ void
 NLContainer::setEdgeNumber(size_t noEdges)
 {
     // preallocate the storage for the edges
-    m_pECB->prepare(noEdges);
+    myEdgeControlBuilder.prepare(noEdges);
 }
 
 
@@ -287,7 +284,7 @@ void
 NLContainer::setNodeNumber(size_t noNodes)
 {
     // preallocate the storage for the edges
-    m_pJCB->prepare(noEdges);
+    myJunctionControlBuilder.prepare(noEdges);
 }
 
 
@@ -298,7 +295,7 @@ void
 NLContainer::addEdge(const string &id)
 {
     try {
-        m_pECB->addEdge(id);
+        myEdgeControlBuilder.addEdge(id);
     } catch (XMLIdAlreadyUsedException &e) {
         throw e;
     }
@@ -327,12 +324,12 @@ NLContainer::chooseEdge(const string &id, const std::string &func)
     }
     //
     try {
-        m_pECB->chooseEdge(id, funcEnum);
+        myEdgeControlBuilder.chooseEdge(id, funcEnum);
     } catch (XMLIdNotKnownException &e) {
         throw e;
     }
-	// continuation
-	myCurrentID = id;
+    // continuation
+    myCurrentID = id;
 }
 
 
@@ -342,7 +339,7 @@ NLContainer::addLane(const string &id, const bool isDepartLane,
                      const float changeUrge)
 {
     MSLane *lane =
-        m_pECB->addLane(getNet(), id, maxSpeed, length, isDepartLane);
+        myEdgeControlBuilder.addLane(getNet(), id, maxSpeed, length, isDepartLane);
     if(!MSLane::dictionary(id, lane))
         throw XMLIdAlreadyUsedException("Lanes", id);
 }
@@ -351,12 +348,12 @@ NLContainer::addLane(const string &id, const bool isDepartLane,
 void
 NLContainer::closeLanes()
 {
-    m_pECB->closeLanes();
+    myEdgeControlBuilder.closeLanes();
 }
 
-  
-void 
-NLContainer::addPoly(const std::string &name, const std::string &type, 
+
+void
+NLContainer::addPoly(const std::string &name, const std::string &type,
                      const std::string &color)
 {
     RGBColor col;
@@ -364,18 +361,18 @@ NLContainer::addPoly(const std::string &name, const std::string &type,
        col = GfxConvHelper::parseColor(color);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-            string("The color definition for polygon '") + name + 
+            string("The color definition for polygon '") + name +
             string("' is not given, using default."));
         col = RGBColor(1, 1, 0);
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-            string("The color definition for polygon '") + name + 
+            string("The color definition for polygon '") + name +
             string("' is malicious."));
         return;
-    } 
+    }
     if(!MSNet::getInstance()->addPoly(name, type, col)) {
         MsgHandler::getErrorInstance()->inform(
-            string("Duplicate polygon '") + name + 
+            string("Duplicate polygon '") + name +
             string("' occured."));
     }
 }
@@ -388,14 +385,14 @@ NLContainer::openAllowedEdge(const string &id)
     if(edge==0) {
         throw XMLIdNotKnownException("edge", id);
     }
-    m_pECB->openAllowedEdge(edge);
-	// continuation
-	StringVector pred;
-	if(myContinuations.find(id)!=myContinuations.end()) {
-		pred = myContinuations[id];
-	}
-	pred.push_back(myCurrentID);
-	myContinuations[id] = pred;
+    myEdgeControlBuilder.openAllowedEdge(edge);
+    // continuation
+    StringVector pred;
+    if(myContinuations.find(id)!=myContinuations.end()) {
+        pred = myContinuations[id];
+    }
+    pred.push_back(myCurrentID);
+    myContinuations[id] = pred;
 }
 
 
@@ -407,7 +404,7 @@ NLContainer::addAllowed(const string &id)
         throw XMLIdNotKnownException("lane", id);
     }
     try {
-        m_pECB->addAllowed(lane);
+        myEdgeControlBuilder.addAllowed(lane);
     } catch (XMLInvalidChildException &e) {
         throw e;
     }
@@ -417,14 +414,14 @@ NLContainer::addAllowed(const string &id)
 void
 NLContainer::closeAllowedEdge()
 {
-    m_pECB->closeAllowedEdge();
+    myEdgeControlBuilder.closeAllowedEdge();
 }
 
 
 void
 NLContainer::closeEdge()
 {
-    m_pECB->closeEdge();
+    myEdgeControlBuilder.closeEdge();
 }
 
 
@@ -474,7 +471,7 @@ void
 NLContainer::openJunction(const string &id, const string &key, string type,
                           double x, double y)
 {
-    m_pJCB->openJunction(id, key, type, x, y);
+    myJunctionControlBuilder.openJunction(id, key, type, x, y);
 }
 
 
@@ -485,9 +482,8 @@ NLContainer::addIncomingLane(const string &id)
     if(lane==0) {
         throw XMLIdNotKnownException("lane", id);
     }
-    m_pJCB->addIncomingLane(lane);
+    myJunctionControlBuilder.addIncomingLane(lane);
 }
-
 
 void
 NLContainer::addInternalLane(const string &id)
@@ -496,14 +492,14 @@ NLContainer::addInternalLane(const string &id)
     if(lane==0) {
         throw XMLIdNotKnownException("lane", id);
     }
-    m_pJCB->addInternalLane(lane);
+    myJunctionControlBuilder.addInternalLane(lane);
 }
 
 void
 NLContainer::closeJunction()
 {
     try {
-        m_pJCB->closeJunction();
+        myJunctionControlBuilder.closeJunction();
     } catch (XMLIdAlreadyUsedException &e) {
         throw e;
     } catch (XMLIdNotKnownException &e) {
@@ -516,9 +512,9 @@ NLContainer::closeJunction()
 MSNet *
 NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
 {
-	closeJunctions(db);
-    MSEdgeControl *edges = m_pECB->build();
-    MSJunctionControl *junctions = m_pJCB->build();
+    closeJunctions(db);
+    MSEdgeControl *edges = myEdgeControlBuilder.build();
+    MSJunctionControl *junctions = myJunctionControlBuilder.build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
     std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
@@ -530,22 +526,22 @@ NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
 void
 NLContainer::closeJunctions(NLDetectorBuilder &db)
 {
-	for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-		(*i).first->init(
+    for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
+        (*i).first->init(
             db, (*i).second.first, myContinuations, (*i).second.second);
-	}
+    }
 }
 
 
 
 void
 NLContainer::addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-								 const LaneVector &lv, double det_offset)
+                                 const LaneVector &lv, double det_offset)
 {
-	if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
-		throw 1; // !!!
-	}
-	myJunctions2PostLoadInit[key] = TLInitInfo(lv, det_offset);
+    if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
+        throw 1; // !!!
+    }
+    myJunctions2PostLoadInit[key] = TLInitInfo(lv, det_offset);
 }
 
 
@@ -575,12 +571,24 @@ NLContainer::buildRouteLoaderControl(const OptionsCont &oc)
         // open files for reading
         st.reinit();
         while(st.hasNext()) {
-            loaders.push_back(
-                new MSRouteLoader(st.next(), *(MSNet::getInstance())));
+            string file = st.next();
+            loaders.push_back(buildRouteLoader(file));
+/*                new MSRouteLoader(
+                    *(MSNet::getInstance()),
+                    new MSRouteHandler(file, false)));*/
         }
     }
     // build the route control
     return new MSRouteLoaderControl(getNet(), oc.getInt("s"), loaders);
+}
+
+
+MSRouteLoader *
+NLContainer::buildRouteLoader(const std::string &file)
+{
+    return new MSRouteLoader(
+        *(MSNet::getInstance()),
+        new MSRouteHandler(file, false));
 }
 
 
@@ -594,14 +602,14 @@ NLContainer::getNet()
 const std::vector<MSLane*> &
 NLContainer::getIncomingLanes() const
 {
-    return m_pJCB->getIncomingLanes();
+    return myJunctionControlBuilder.getIncomingLanes();
 }
 
 
 void
 NLContainer::initIncomingLanes()
 {
-    m_pJCB->initIncomingLanes();
+    myJunctionControlBuilder.initIncomingLanes();
 }
 
 void

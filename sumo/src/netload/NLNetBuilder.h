@@ -2,7 +2,7 @@
 #define NLNetBuilder_h
 /***************************************************************************
                           NLNetBuilder.h
-			  Container for MSNet during its building
+              Container for MSNet during its building
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2004/07/02 09:37:31  dkrajzew
+// work on class derivation (for online-routing mainly)
+//
 // Revision 1.8  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -118,6 +121,8 @@ class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;
 class NLNetHandler;
+class NLEdgeControlBuilder;
+class NLJunctionControlBuilder;
 
 
 /* =========================================================================
@@ -132,14 +137,15 @@ class NLNetHandler;
  */
 class NLNetBuilder {
 public:
-    /// standard constructor
-    NLNetBuilder(const OptionsCont &oc);
+    /// constructor
+    NLNetBuilder(const OptionsCont &oc,
+        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb);
 
     /// Destructor
     virtual ~NLNetBuilder();
 
     /// the net loading method
-    virtual MSNet *buildNet();
+    virtual MSNet *buildNet(MSVehicleControl *vc);
 
 protected:
     /// counts the structures and preallocates them
@@ -162,6 +168,12 @@ protected:
 protected:
     /// the options to get the names from
     const OptionsCont &m_pOptions;
+
+    /// The edge control builder to use
+    NLEdgeControlBuilder &myEdgeBuilder;
+
+    /// The junction control builder to use
+    NLJunctionControlBuilder &myJunctionBuilder;
 
 private:
     /** invalid copy operator */
