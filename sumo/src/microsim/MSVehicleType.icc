@@ -1,0 +1,157 @@
+/***************************************************************************
+                          MSVehicleType.icc  -  Base Class for Vehicle
+                          parameters. 
+                             -------------------
+    begin                : Tue, 06 Mar 2001
+    copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
+    author               : Christian Roessel
+    email                : roessel@zpr.uni-koeln.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+// $Log$
+// Revision 1.1  2002/10/16 14:48:26  dkrajzew
+// ROOT/sumo moved to ROOT/src
+//
+// Revision 1.2  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.2  2002/07/31 14:41:06  croessel
+// New methods return often used precomputed values.
+//
+// Revision 1.1  2002/05/29 17:09:22  croessel
+// Initial commit.
+//
+
+/**************** INCLUDE HEADER FILES HERE ********************************/
+
+
+
+/**************** DO NOT INCLUDE ANYTHING AFTER THIS POINT *****************/
+#ifdef DISABLE_INLINE
+#define inline
+#endif
+
+/**************** DEFINE INLINE FUNCTIONS HERE *****************************/
+
+
+inline
+double
+MSVehicleType::length() const
+{
+    return myLength;
+}
+
+
+inline
+double
+MSVehicleType::maxSpeed() const
+{
+    return myMaxSpeed;
+}
+
+
+inline
+double
+MSVehicleType::accel() const
+{
+    return myAccel;
+}
+
+
+inline
+double
+MSVehicleType::decel() const
+{
+    return myDecel;
+}
+
+
+inline
+double
+MSVehicleType::dawdle() const
+{
+    return myDawdle;
+}
+
+
+inline
+double
+MSVehicleType::minDecel()
+{
+    return myMinDecel;
+}
+
+
+inline
+double
+MSVehicleType::maxLength() 
+{
+    return myMaxLength;
+}
+
+
+inline
+double
+MSVehicleType::accelSpeed( void ) const
+{
+    return myAccelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::decelSpeed( void ) const
+{
+    return myDecelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::accelPlusDecelSpeed( void ) const
+{
+    return myAccelPlusDecelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::inversTwoDecel( void ) const
+{
+    return myInversTwoDecel;
+}
+
+
+inline
+double
+MSVehicleType::accelDist( void ) const
+{
+    return myAccelDist;
+}
+
+
+inline
+double
+MSVehicleType::decelDist( void ) const
+{
+    return myDecelDist;
+}
+
+
+#ifdef DISABLE_INLINE
+#undef inline
+#endif
+
+// Local Variables:
+// mode:C++
+// End:
+

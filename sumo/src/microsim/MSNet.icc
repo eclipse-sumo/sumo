@@ -1,0 +1,76 @@
+/***************************************************************************
+                          MSNet.icc  -  We will simulate on this
+                          object. Holds all necessary objects for
+                          micro-simulation.
+                             -------------------
+    begin                : Tue, 06 Mar 2001
+    copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
+    author               : Christian Roessel
+    email                : roessel@zpr.uni-koeln.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+// $Log$
+// Revision 1.1  2002/10/16 14:48:26  dkrajzew
+// ROOT/sumo moved to ROOT/src
+//
+// Revision 1.2  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.2  2002/07/30 15:17:47  croessel
+// Made MSNet-class a singleton-class.
+//
+// Revision 1.1  2002/05/29 17:09:21  croessel
+// Initial commit.
+//
+
+/**************** INCLUDE HEADER FILES HERE ********************************/
+
+
+
+/**************** DO NOT INCLUDE ANYTHING AFTER THIS POINT *****************/
+#ifdef DISABLE_INLINE
+#define inline
+#endif
+
+/**************** DEFINE INLINE FUNCTIONS HERE *****************************/
+
+inline
+double
+MSNet::deltaT()
+{
+    return myDeltaT;
+}
+
+
+inline
+double
+MSNet::simSeconds()
+{
+    return static_cast< double >( myStep ) * myDeltaT;
+}
+
+
+inline
+MSNet::Time
+MSNet::timestep( void )
+{
+    return myStep;
+}
+
+
+#ifdef DISABLE_INLINE
+#undef inline
+#endif
+
+// Local Variables:
+// mode:C++
+// End:
