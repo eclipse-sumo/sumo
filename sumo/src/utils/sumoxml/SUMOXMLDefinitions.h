@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/06/05 14:30:53  dkrajzew
+// new attributes needed for loading new traffic lights added
+//
 // Revision 1.8  2003/05/21 15:15:43  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -209,7 +212,11 @@ enum AttrEnum
     /** weights: time range begin */
     SUMO_ATTR_BEGIN,
     /** weights: time range end */
-    SUMO_ATTR_END
+    SUMO_ATTR_END,
+    /** link: the traffic light id responsible for this link */
+    SUMO_ATTR_TLID,
+    /** link: the index of the link within the traffic light */
+    SUMO_ATTR_TLLINKNO
 };
 
 
@@ -224,7 +231,7 @@ extern GenericSAX2Handler::Tag sumotags[36];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[55];
+extern AttributesHandler::Attr sumoattrs[57];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

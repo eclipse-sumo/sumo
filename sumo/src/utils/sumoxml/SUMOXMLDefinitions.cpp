@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/05 14:30:53  dkrajzew
+// new attributes needed for loading new traffic lights added
+//
 // Revision 1.8  2003/05/21 15:15:43  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -97,9 +100,9 @@ GenericSAX2Handler::Tag sumotags[36] =
       { "step",             SUMO_TAG_STEP }
 };
 
-size_t noSumoAttrs = 55;
+size_t noSumoAttrs = 57;
 
-AttributesHandler::Attr sumoattrs[55] =
+AttributesHandler::Attr sumoattrs[57] =
 {
 	{ "id",            SUMO_ATTR_ID },
     { "name",          SUMO_ATTR_NAME },
@@ -155,7 +158,10 @@ AttributesHandler::Attr sumoattrs[55] =
     { "begin",         SUMO_ATTR_BEGIN },
     { "end",           SUMO_ATTR_END },
     { "period",        SUMO_ATTR_PERIOD },
-    { "repno",         SUMO_ATTR_REPNUMBER }
+    { "repno",         SUMO_ATTR_REPNUMBER },
+    { "tl",            SUMO_ATTR_TLID },
+    { "linkno",        SUMO_ATTR_TLLINKNO }
+
 };
 
 
