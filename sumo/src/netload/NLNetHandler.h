@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/20 09:45:35  dkrajzew
+// some make-up done (splitting large methods; patching comments)
+//
 // Revision 1.3  2003/03/20 16:35:44  dkrajzew
 // windows eol removed
 //
@@ -114,9 +117,6 @@ protected:
     /// the right-of-way-logic of the currently chosen bitset-logic
     MSBitsetLogic::Logic                    *m_pActiveLogic;
 
-    /// the transformation matrix of the bitset-logic currently chosen
-    MSBitsetLogic::Link2LaneTrafo           *m_pActiveTrafo;
-
     /// the current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic<64>::Phases   m_ActiveSimplePhases;
 
@@ -126,14 +126,11 @@ protected:
     /// the size of the request
     int             _requestSize;
 
-    /// the size of the response
-    int             _responseSize;
-
     /// the number of lanes
     int             _laneNo;
 
     /// counter for the inserted items
-    int             _trafoItems, _requestItems;
+    int             _requestItems;
 
     /// the current key
     std::string     m_Key;
@@ -165,10 +162,6 @@ private:
 
     /// adds a logic item to the current logic
     void addLogicItem(const Attributes &attrs);
-
-    /// adds a transformation item to the current logic
-    void addTrafoItem(const Attributes &attrs);
-
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const Attributes &attrs);
@@ -216,9 +209,6 @@ private:
     /// sets the request size of the current junction logic
     void setRequestSize(const std::string &chars);
 
-    /// sets the response size of the current junction logic
-    void setResponseSize(const std::string &chars);
-
     /// sets the lane number of the current junction logic
     void setLaneNumber(const std::string &chars);
 
@@ -230,9 +220,6 @@ private:
 
     /// adds a logic item
     void addLogicItem(int request, const std::string &response);
-
-    /// adds a trafo item
-    void addTrafoItem(const std::string &links, int lane);
 
     /// ends the loading of a junction logic
     void closeJunctionLogic();

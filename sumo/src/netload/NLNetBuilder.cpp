@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:45:35  dkrajzew
+// some make-up done (splitting large methods; patching comments)
+//
 // Revision 1.5  2003/04/01 15:18:12  dkrajzew
 // minor changes
 //
@@ -132,8 +135,8 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc)
     MSNet::preInit(
         oc.getInt("b"),
         oc.getUIntVector("dump-intervals"),
-        oc.getString("dump-basename"),
-        false);
+        oc.getString("dump-basename")/*,
+        false*/);
 }
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/05/20 09:45:35  dkrajzew
+// some make-up done (splitting large methods; patching comments)
+//
 // Revision 1.4  2003/03/19 08:07:34  dkrajzew
 // bugs and syntactical faults arised during compilation on Linux removed
 //
@@ -76,9 +79,6 @@ enum LoadFilter {
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
 //#include "LoadFilter.icc"
 //#endif
 

@@ -129,9 +129,6 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         case SUMO_TAG_LOGICITEM:
             addLogicItem(attrs);
             break;
-        case SUMO_TAG_TRAFOITEM:
-            addTrafoItem(attrs);
-            break;
         default:
             break;
         }
@@ -252,18 +249,15 @@ void
 NLNetHandler::initJunctionLogic() {
     m_Key = "";
     m_pActiveLogic = new MSBitsetLogic::Logic();
-    m_pActiveTrafo = new MSBitsetLogic::Link2LaneTrafo();
     _requestSize = -1;
-    _responseSize = -1;
     _laneNo = -1;
-    _trafoItems = 0;
     _requestItems = 0;
 }
 
 
 void
 NLNetHandler::addLogicItem(const Attributes &attrs) {
-    if(_responseSize>0&&_requestSize>0) {
+    if(_requestSize>0) {
         int request = -1;
         string response;
         try {
@@ -284,28 +278,6 @@ NLNetHandler::addLogicItem(const Attributes &attrs) {
     } else {
         SErrorHandler::add(
             "The request size,  the response size or the number of lanes is not given! Contact your net supplier");
-    }
-}
-
-
-void
-NLNetHandler::addTrafoItem(const Attributes &attrs) {
-    int lane = -1;
-    string links;
-    try {
-        lane = getInt(attrs, SUMO_ATTR_TO);
-    } catch (EmptyData) {
-        SErrorHandler::add("Missing lane number...");
-    } catch (NumberFormatException) {
-        SErrorHandler::add("The lane number is not numeric.");
-    }
-    try {
-        links = getString(attrs, SUMO_ATTR_FROM);
-    } catch (EmptyData) {
-        SErrorHandler::add("Missing links in a lane transformation.");
-    }
-    if(lane>=0 && links.length()>0) {
-        addTrafoItem(links, lane);
     }
 }
 
@@ -564,11 +536,6 @@ NLNetHandler::myCharacters(int element, const std::string &name,
                 setRequestSize(chars);
             }
             break;
-        case SUMO_TAG_RESPONSESIZE:
-            if(m_Key.length()!=0) {
-                setResponseSize(chars);
-            }
-            break;
         case SUMO_TAG_LANENUMBER:
             if(m_Key.length()!=0) {
                 setLaneNumber(chars);
@@ -640,23 +607,9 @@ NLNetHandler::setRequestSize(const std::string &chars) {
 }
 
 void
-NLNetHandler::setResponseSize(const std::string &chars) {
-    try {
-        _responseSize = STRConvert::_2int(chars);
-        m_pActiveTrafo->resize(_responseSize);
-    } catch (EmptyData) {
-        SErrorHandler::add("Missing response size.");
-    } catch (NumberFormatException) {
-        SErrorHandler::add(
-            "Response size is not numeric! Contact your netconvert-programmer.");
-    }
-}
-
-void
 NLNetHandler::setLaneNumber(const std::string &chars) {
     try {
         _laneNo = STRConvert::_2int(chars);
-        m_pActiveTrafo->resize(_responseSize);
     } catch (EmptyData) {
         SErrorHandler::add("Missing lane number.");
     } catch (NumberFormatException) {
@@ -693,14 +646,6 @@ NLNetHandler::addLogicItem(int request, const string &response) {
     assert(m_pActiveLogic->size()>(size_t) request);
     (*m_pActiveLogic)[request] = use;
     _requestItems++;
-}
-
-void
-NLNetHandler::addTrafoItem(const string &links, int lane) {
-    bitset<64> use(links);
-    assert(m_pActiveTrafo->size()>(size_t) lane);
-    (*m_pActiveTrafo)[lane] = use;
-    _trafoItems++;
 }
 
 
@@ -773,7 +718,7 @@ NLNetHandler::closeJunction() {
 
 void
 NLNetHandler::closeJunctionLogic() {
-    if(_trafoItems!=_laneNo||_requestItems!=_requestSize) {
+    if(_requestItems!=_requestSize) {
         SErrorHandler::add(
 	        string("The description for the junction logic '") +
 	        m_Key +
@@ -781,7 +726,7 @@ NLNetHandler::closeJunctionLogic() {
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(_requestSize, _laneNo,
-            m_pActiveLogic, m_pActiveTrafo);
+            m_pActiveLogic);
     MSJunctionLogic::dictionary(m_Key, logic); // !!! replacement within the dictionary
 }
 
