@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/08/02 11:42:27  dkrajzew
+// ported to fox 1.2
+//
 // Revision 1.10  2004/07/02 08:25:01  dkrajzew
 // some design issues
 //
@@ -94,7 +97,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
                                                  size_t noRows )
     : FXMainWindow(
         app.getApp() ,string(o.getFullName() + " Parameter").c_str(),
-        NULL,NULL,DECOR_ALL,0,0,300,noRows*20+60),
+        NULL,NULL,DECOR_ALL,20,20,300,noRows*20+60),
     myObject(&o),
     myApplication(&app), myCurrentPos(0)
 {
@@ -106,6 +109,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
     myTable->setColumnText(0, "Name");
     myTable->setColumnText(1, "Value");
     myTable->setColumnText(2, "Dynamic");
+    myTable->getRowHeader()->setWidth(0);
     FXHeader *header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     header->setItemSize(0, 150);
