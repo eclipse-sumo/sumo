@@ -98,6 +98,10 @@ struct MSDetectorHaltingContainerWrapper
     typedef typename WrappedContainer::iterator HaltingsIt;
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
+    typedef halt::HaltBeginSubject HaltBeginSubject;
+    typedef halt::HaltEndSubject HaltEndSubject;
+    typedef halt::HaltBeginObserver HaltBeginObserver;
+    typedef halt::HaltEndObserver HaltEndObserver;
 
     MSDetectorHaltingContainerWrapper( void )
         {}
@@ -135,7 +139,7 @@ struct MSDetectorHaltingContainerWrapper
                 haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     if ( haltIt->isHaltingM ) {
-                        halt::HaltEndSubject::notify( *haltIt );
+                        HaltEndSubject::notify( *haltIt );
                     }
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
@@ -150,7 +154,7 @@ struct MSDetectorHaltingContainerWrapper
                             // halting-duration
                             haltIt->haltingDurationM =
                                 haltIt->timeBelowSpeedThresholdM++;
-                            halt::HaltBeginSubject::notify( *haltIt );
+                            HaltBeginSubject::notify( *haltIt );
                         }
                         else {
                             haltIt->haltingDurationM++;
@@ -186,21 +190,21 @@ struct MSDetectorHaltingContainerWrapper
             return false;
         }
 
-    void attach( halt::HaltBeginObserver* toAttach )
+    void attach( HaltBeginObserver* toAttach )
         {
-            halt::HaltBeginSubject::attach( toAttach );
+            HaltBeginSubject::attach( toAttach );
         }
-    void detach( halt::HaltBeginObserver* toDetach )
+    void detach( HaltBeginObserver* toDetach )
         {
-            halt::HaltBeginSubject::detach( toDetach );
+            HaltBeginSubject::detach( toDetach );
         }    
-    void attach( halt::HaltEndObserver* toAttach )
+    void attach( HaltEndObserver* toAttach )
         {
-            halt::HaltEndSubject::attach( toAttach );
+            HaltEndSubject::attach( toAttach );
         }
-    void detach( halt::HaltEndObserver* toDetach )
+    void detach( HaltEndObserver* toDetach )
         {
-            halt::HaltEndSubject::detach( toDetach );
+            HaltEndSubject::detach( toDetach );
         }    
     
     MSUnit::Steps timeThresholdM;
