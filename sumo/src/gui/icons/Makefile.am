@@ -20,10 +20,7 @@ view1.xpm \
 view2.xpm \
 view3.xpm
 
-SUBDIRS = view_traffic
-
-
-
-
-
-
+SUBDIRS = \
+arrows \
+view_traffic \
+yes_no
