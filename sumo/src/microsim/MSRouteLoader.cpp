@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/03/17 14:15:55  dkrajzew
+// first steps of network reinitialisation implemented
+//
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -83,6 +86,7 @@ MSRouteLoader::init()
 {
     myLastDepart = 0;
     _moreAvailable = true;
+    myLastReadVehicle = 0;
     if(!myParser->parseFirst(_file.c_str(), myToken)) {
         SErrorHandler::add(
             string("Can not read XML-file '") + _file + string("'."));

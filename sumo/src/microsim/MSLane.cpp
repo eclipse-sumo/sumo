@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2003/03/17 14:15:55  dkrajzew
+// first steps of network reinitialisation implemented
+//
 // Revision 1.9  2003/03/03 14:56:20  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -303,7 +306,8 @@ MSLane::MSLane( MSNet &net,
     myEdge( edge ),
 //    myNextJunction( 0 ),
     myVehBuffer( 0 ),
-    myMeanData()
+    myMeanData(),
+    myApproaching(0)
 {
 }
 
@@ -1256,12 +1260,18 @@ MSLane::getLinkCont() const
 void
 MSLane::init(MSNet &net)
 {
+    // reset mean data information
     myMeanData.clear();
     size_t noIntervals = net.getNDumpIntervalls();
     if(net.withGUI()) {
         noIntervals++;
     }
     myMeanData.insert( myMeanData.end(), noIntervals, MeanDataValues() );
+    // empty vehicle buffers
+    myVehicles.clear();
+    myTmpVehicles.clear();
+    // remove information about the approaching vehicle
+    myApproaching = 0;
 }
 
 
@@ -1303,7 +1313,7 @@ MSLane::setApproaching(double dist, MSVehicle *veh)
 }
 
 
-MSLane::VehCont::const_iterator 
+MSLane::VehCont::const_iterator
 MSLane::findNextVehicleByPosition(double pos) const
 {
     assert(pos<myLength);
@@ -1329,7 +1339,7 @@ MSLane::findNextVehicleByPosition(double pos) const
 }
 
 
-MSLane::VehCont::const_iterator 
+MSLane::VehCont::const_iterator
 MSLane::findPrevVehicleByPosition(const VehCont::const_iterator &beginAt,
                                   double pos) const
 {

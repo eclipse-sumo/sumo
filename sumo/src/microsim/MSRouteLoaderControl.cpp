@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/17 14:15:55  dkrajzew
+// first steps of network reinitialisation implemented
+//
 // Revision 1.2  2003/03/03 14:56:25  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -101,6 +104,8 @@ MSRouteLoaderControl::loadNext(MSNet::Time step)
 void
 MSRouteLoaderControl::init(MSNet &net)
 {
+    myAllLoaded = false;
+    myLastLoadTime = -myInAdvanceStepNo;
     // initialize all used loaders
     for( LoaderVector::iterator i=myRouteLoaders.begin();
          i!=myRouteLoaders.end(); i++) {
