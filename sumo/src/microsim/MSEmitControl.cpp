@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2004/01/26 15:55:04  dkrajzew
+// the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff
+//
 // Revision 1.7  2003/09/17 10:11:37  dkrajzew
 // error on broke vehicle departure map reference patched
 //
@@ -133,8 +136,6 @@ MSEmitControl::MSEmitControl(string id)
 
 MSEmitControl::~MSEmitControl()
 {
-    // !!!
-//    delete myAllVeh;
 }
 
 
@@ -203,6 +204,7 @@ MSEmitControl::tryEmit(MSVehicle *veh,
     if (veh->departEdge().emit(*veh)) {
         // Successful emission.
 		noEmitted++;
+        veh->onDepart();
             // Check whether another vehicle shall be
             //  emitted with the same parameter
         if(veh->periodical()) {
