@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/06 17:17:32  dkrajzew
+// y-direction flipped
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -92,6 +95,7 @@ public:
 
     /// returns the y-size of a grid cell
     const double &getYCellSize() const;
+
 private:
     /// definition of a cell position
     typedef std::pair<int, int> CellPos;
@@ -125,8 +129,11 @@ private:
 		~EdgeAssigner();
 		void execute(double x, double y);
 	};*/
+
+    /// Builds the relationship-grid
     void buildRelationships();
 
+    /// removes items being in _grid at position(x, y) from the given container
     void removeFrom(GUIEdgeCont &cont, int x, int y);
 
 private:
@@ -139,7 +146,7 @@ private:
     /// the grid of edge lists (two dimensional)
     GUIEdgeCont *_grid;
 
-    // counted: u, l, ul
+    /// counted: u, l, ul
     GUIEdgeCont **_relations;
 
 

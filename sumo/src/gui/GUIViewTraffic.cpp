@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/06 17:17:30  dkrajzew
+// y-direction flipped
+//
 // Revision 1.3  2003/03/03 15:10:20  dkrajzew
 // debugging
 //
@@ -384,7 +387,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     }
     double x = (_net.getBoundery().getCenter().first - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale; // offset to right
-    double y = (_net.getBoundery().getCenter().second + _changer->getYPos()); // center of view
+    double y = (_net.getBoundery().getCenter().second - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale; // offset to top
 	GUINet::lockAlloc();
     _net._edgeGrid.get(_edges, x, y, xoff, yoff);
@@ -481,13 +484,13 @@ GUIViewTraffic::paintGLGrid()
     double yend = (_net._edgeGrid.getNoYCells())
         * _net._edgeGrid.getYCellSize();
     for(size_t yr=0; yr<_net._edgeGrid.getNoYCells()+1; yr++) {
-        glVertex2f(0, -ypos);
-        glVertex2f(xend, -ypos);
+        glVertex2f(0, ypos);
+        glVertex2f(xend, ypos);
         ypos += _net._edgeGrid.getYCellSize();
     }
     for(size_t xr=0; xr<_net._edgeGrid.getNoXCells()+1; xr++) {
         glVertex2f(xpos, 0);
-        glVertex2f(xpos, -yend);
+        glVertex2f(xpos, yend);
         xpos += _net._edgeGrid.getXCellSize();
     }
     glEnd();
@@ -570,7 +573,7 @@ GUIViewTraffic::applyChanges(double scale,
     // Translate to the middle of the net
     glTranslated(
         -(_net.getBoundery().getCenter().first),
-        (_net.getBoundery().getCenter().second),
+        -(_net.getBoundery().getCenter().second),
         0);
     // Translate in dependence to the view position applied by the user
 //    glTranslated(_changer->getXPos()/scale, _changer->getYPos()/scale, 0);

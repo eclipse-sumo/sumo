@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/06 17:17:28  dkrajzew
+// y-direction flipped
+//
 // Revision 1.1  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -81,26 +84,26 @@ GUISimpleLaneDrawer::drawLaneNoTooltips(const GUILaneWrapper &lane,
     if(!_drawLines) {
         glPushMatrix();
         const Position2D &beg = lane.getBegin();
-        glTranslated(beg.x(), -beg.y(), 0);
-        double rot = -lane.getRotation();
-        glRotated( rot, 0, 0, 1 );
+        glTranslated(beg.x(), beg.y(), 0);
+        glRotated( lane.getRotation(), 0, 0, 1 );
+        double visLength = -lane.visLength();
         glBegin( GL_QUADS );
         glVertex2f(0-1.5, 0);
-        glVertex2f(-1.5, lane.visLength());
-        glVertex2f(1.5, lane.visLength());
+        glVertex2f(-1.5, visLength);
+        glVertex2f(1.5, visLength);
         glVertex2f(1.5, 0);
         glEnd();
         glBegin( GL_LINES);
         glVertex2f(0, 0);
-        glVertex2f(0, lane.visLength());
+        glVertex2f(0, visLength);
         glEnd();
         glPopMatrix();
     } else {
         const Position2D &begin = lane.getBegin();
         const Position2D &end = lane.getEnd();
         glBegin( GL_LINES);
-        glVertex2f(begin.x(), -begin.y());
-        glVertex2f(end.x(), -end.y());
+        glVertex2f(begin.x(), begin.y());
+        glVertex2f(end.x(), end.y());
         glEnd();
     }
 }
@@ -115,26 +118,26 @@ GUISimpleLaneDrawer::drawLaneWithTooltips(const GUILaneWrapper &lane,
     if(!_drawLines) {
         glPushMatrix();
         const Position2D &beg = lane.getBegin();
-        glTranslated(beg.x(), -beg.y(), 0);
-        double rot = -lane.getRotation();
-        glRotated( rot, 0, 0, 1 );
+        glTranslated(beg.x(), beg.y(), 0);
+        glRotated( lane.getRotation(), 0, 0, 1 );
+        double visLength = -lane.visLength();
         glBegin( GL_QUADS );
         glVertex2f(0-1.5, 0);
-        glVertex2f(-1.5, lane.visLength());
-        glVertex2f(1.5, lane.visLength());
+        glVertex2f(-1.5, visLength);
+        glVertex2f(1.5, visLength);
         glVertex2f(1.5, 0);
         glEnd();
         glBegin( GL_LINES);
         glVertex2f(0, 0);
-        glVertex2f(0, lane.visLength());
+        glVertex2f(0, visLength);
         glEnd();
         glPopMatrix();
     } else {
         const Position2D &begin = lane.getBegin();
         const Position2D &end = lane.getEnd();
         glBegin( GL_LINES);
-        glVertex2f(begin.x(), -begin.y());
-        glVertex2f(end.x(), -end.y());
+        glVertex2f(begin.x(), begin.y());
+        glVertex2f(end.x(), end.y());
         glEnd();
     }
     glPopName();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/06 17:17:29  dkrajzew
+// y-direction flipped
+//
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -71,7 +74,7 @@ GUITriangleVehicleDrawer::drawVehicleNoTooltips(const GUILaneWrapper &lane,
     const Position2D &laneEnd = lane.getBegin();
     const Position2D &laneDir = lane.getDirection();
     double posX = laneEnd.x() - laneDir.x() * vehicle.pos();
-    double posY = -laneEnd.y() - -laneDir.y() * vehicle.pos();
+    double posY = laneEnd.y() - laneDir.y() * vehicle.pos();
     glTranslated(posX, posY, 0);
     glRotated(-lane.getRotation(), 0, 0, 1);
     glBegin( GL_TRIANGLES );
@@ -102,7 +105,7 @@ GUITriangleVehicleDrawer::drawVehicleWithTooltips(const GUILaneWrapper &lane,
     const Position2D &laneEnd = lane.getBegin();
     const Position2D &laneDir = lane.getDirection();
     double posX = laneEnd.x() - laneDir.x() * vehicle.pos();
-    double posY = -laneEnd.y() - -laneDir.y() * vehicle.pos();
+    double posY = laneEnd.y() - laneDir.y() * vehicle.pos();
     glTranslated(posX, posY, 0);
     glRotated(-lane.getRotation(), 0, 0, 1);
     glPushName(vehicle.getGlID());

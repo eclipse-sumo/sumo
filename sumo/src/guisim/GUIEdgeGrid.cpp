@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/06 17:17:32  dkrajzew
+// y-direction flipped
+//
 // Revision 1.4  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -324,7 +327,7 @@ GUIEdgeGrid::buildRelationships()
 void
 GUIEdgeGrid::removeFrom(GUIEdgeCont &cont, int x, int y)
 {
-    if(x<0||y<0) {
+    if(x<0||y<0||x>=_xsize||y>=_ysize) {
         return;
     }
     // get the list of edges to remove
