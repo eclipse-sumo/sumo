@@ -255,7 +255,7 @@ Position2DVector::splitAt(double where) const
     Position2DVector one;
     double tmp = 0;
     ContType::const_iterator i=myCont.begin();
-    Position2D last = myCont.at(0);
+    Position2D last = myCont[0];
     for(; i!=myCont.end()&&tmp<where; i++) {
         Position2D curr = (*i);
         if(i!=myCont.begin()) {
