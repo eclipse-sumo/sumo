@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.6  2003/06/04 16:12:05  roessel
 // Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
 //
@@ -153,6 +156,7 @@ public:
     friend class XMLOut;
     /// for access to the dictionary
     friend class GUIEdgeGrid;
+    friend class GUIGrid;
 
     /** Class to generate XML-output for an edges and all lanes hold by
         this edge.
@@ -240,41 +244,6 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /** @brief Moves all vehicles of the edge until the first occures which
-        movement shall be rechecked
-        See the according lane-function for further information
-        Use this for edges with only one lane */
-    virtual void moveNonCriticalSingle();
-
-
-    /** @brief Moves all vehicles the edge, beginning at the first vehicle
-        which may leave the edge
-        See the according lane-function for further information
-        Use this for edges with only one lane */
-    virtual void moveCriticalSingle();
-
-    /** @brief Moves all vehicles of the edge until the first occures which
-        movement shall be rechecked
-        See the according lane-function for further information
-        Use this for edges with more than one lane */
-    virtual void moveNonCriticalMulti();
-
-    /** @brief Moves all vehicles the edge, beginning at the first vehicle
-        which may leave the edge
-        See the according lane-function for further information
-        Use this for edges with more than one lane */
-    virtual void moveCriticalMulti();
-
-    /** @brief moves vehicles which has to be recheked (may leave the lane in
-        the near future)
-        See the according lane-function for further information */
-    virtual void setCritical();
-
-    /** @brief Moves vehicles to their destination lane
-        Copies the lane's buffer for incoming vehicles into the lane's vehicle
-        vector */
-    void vehicle2target();
-
     /** @brief Ask edge's lanes about collisions.
         Shouldn't be neccessary if model is implemented correctly. */
     void detectCollisions( MSNet::Time timestep );
@@ -294,6 +263,8 @@ public:
     /** Returns the MSEdge associated to the key id if exists, otherwise
      * returns 0. */
     static MSEdge* dictionary( std::string id );
+
+    static size_t dictSize();
 
     /** Clears the dictionary */
     static void clear();
@@ -324,7 +295,7 @@ public:
     static std::vector< MSEdge* > getEdgeVector( void );
 
     LaneCont* getLanes( void );
-    
+
 
 protected:
     /// Unique ID.

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -93,11 +96,12 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
+#include "MSEdge.h"
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class MSEdge;
+//class MSEdge;
 
 
 /* =========================================================================
@@ -135,7 +139,7 @@ public:
         unsigned myIndentWidth;
     };
 
-    /** writes xml-raw information about all edges known to the MSEdgeCOntrol
+    /** writes xml-raw information about all edges known to the MSEdgeControl
         instance */
     friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
@@ -181,8 +185,7 @@ public:
     typedef std::vector< MSEdge* > EdgeCont;
 
     /// Use thic constructor only.
-    MSEdgeControl( std::string id, EdgeCont* singleLane, EdgeCont*
-                   multiLane);
+    MSEdgeControl( std::string id, EdgeCont *singleLane, EdgeCont *multiLane);
 
     /// Destructor.
     ~MSEdgeControl();
@@ -217,6 +220,14 @@ public:
     friend std::ostream& operator<<( std::ostream& os,
                                      const MSEdgeControl& ec );
 
+public:
+    struct LaneUsage {
+        MSLane *lane;
+        size_t noVehicles;
+        MSEdge::LaneCont::iterator firstNeigh;
+        MSEdge::LaneCont::iterator lastNeigh;
+    };
+
 private:
     /// Unique ID.
     std::string myID;
@@ -240,6 +251,11 @@ private:
 
     /// Assignment operator.
     MSEdgeControl& operator=( const MSEdgeControl& );
+
+private:
+    typedef std::vector<LaneUsage> LaneUsageVector;
+
+    LaneUsageVector myLanes;
 
 };
 

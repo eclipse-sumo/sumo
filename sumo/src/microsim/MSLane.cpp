@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.23  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.22  2003/07/07 08:18:43  dkrajzew
 // due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
 //
@@ -352,11 +355,12 @@ MSLane::MSLane( MSNet &net,
     myMaxSpeed( maxSpeed ),
     myLength( length ),
     myEdge( edge ),
-//    myNextJunction( 0 ),
     myVehBuffer( 0 ),
     myMeanData(),
     myApproaching(0)
 {
+    myLastState = MSVehicle::State(10000, 10000);
+    myFirstUnsafe = 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -373,226 +377,88 @@ MSLane::initialize( /*MSJunction* backJunction,*/
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::moveNonCriticalSingle()
+MSLane::resetApproacherDistance()
 {
-    myFirstDistance = 100000;
+    myBackDistance = 100000;
     myApproaching = 0;
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        myFirstUnsafe = myVehicles.size();
-        myLastState = MSVehicle::State(10000, 10000);
-        return;
-    }
-
-        myLastState = (*myVehicles.begin())->myState;
-
-        myFirstUnsafe = 0;
-        // Move vehicles except first and all vehicles that may reach something
-        //  that forces them to stop
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-        for ( veh = myVehicles.begin();
-              !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
-              ++veh,myFirstUnsafe++ ) {
-
-            VehCont::iterator pred = veh + 1;
-            (*veh)->_lcAction = MSVehicle::LCA_STRAIGHT;
-            ( *veh )->move( this, *pred, 0 );
-            ( *veh )->meanDataMove();
-
-	        // Check for timeheadway < deltaT
-            MSVehicle *veh1 = *veh;
-            MSVehicle *veh2 = *pred;
-	    assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
-	    }
-}
-
-
-void
-MSLane::moveCriticalSingle()
-{
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        return;
-    }
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-      // Move all next vehicles beside the first
-        for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;
-              ++veh ) {
-
-            VehCont::iterator pred = veh + 1;
-            (*veh)->_lcAction = MSVehicle::LCA_STRAIGHT;
-            ( *veh )->moveRegardingCritical( this, *pred, 0 );
-            ( *veh )->meanDataMove();
-
-	        // Check for timeheadway < deltaT
-	        assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
-    	}
-        (*veh)->_lcAction = MSVehicle::LCA_STRAIGHT;
-	    ( *veh )->moveRegardingCritical( this, 0, 0 );
-	    ( *veh )->meanDataMove();
-        assert( ( *veh )->pos() <= myLength );
-}
-
-
-void
-MSLane::moveNonCriticalMulti()
-{
-    myFirstDistance = 100000;
-    myApproaching = 0;
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        myLastState = MSVehicle::State(10000, 10000);
-        myFirstUnsafe = myVehicles.size();
-        return;
-    }
-
-        myLastState = (*myVehicles.begin())->myState;
-
-        myFirstUnsafe = 0;
-        // Move vehicles except first and all vehicles that may reach something
-        //  that forces them to stop
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-        for ( veh = myVehicles.begin();
-              !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
-              ++veh,myFirstUnsafe++ ) {
-
-            VehCont::iterator pred = veh + 1;
-            ( *veh )->move( this, *pred, 0 );
-            ( *veh )->meanDataMove();
-
-	        // Check for timeheadway < deltaT
-            MSVehicle *veh1 = *veh;
-            MSVehicle *veh2 = *pred;
-	    assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
-	    }
 }
 
 void
-MSLane::moveCriticalMulti()
+MSLane::moveNonCritical()
 {
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        return;
-    }
+    assert(myVehicles.size()!=0);
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
+    // Set the information about the last vehicle
+    myLastState = (*myVehicles.begin())->myState;
+    myFirstUnsafe = 0;
 
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-      // Move all next vehicles beside the first
-        for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;
-              ++veh ) {
+    // Move vehicles except first and all vehicles that may reach something
+    //  that forces them to stop
+    VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
+    VehCont::iterator veh;
 
-            VehCont::iterator pred = veh + 1;
-            ( *veh )->moveRegardingCritical( this, *pred, 0 );
-            ( *veh )->meanDataMove();
+    for ( veh = myVehicles.begin();
+            !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
+            ++veh,++myFirstUnsafe ) {
 
-	        // Check for timeheadway < deltaT
-	        assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
-    	}
-	    ( *veh )->moveRegardingCritical( this, 0, 0 );
-	    ( *veh )->meanDataMove();
-        assert( ( *veh )->pos() <= myLength );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void
-MSLane::moveNonCriticalMulti( MSEdge::LaneCont::const_iterator firstNeighLane,
-                         MSEdge::LaneCont::const_iterator lastNeighLane )
-{
-    myFirstDistance = 100000;
-    myApproaching = 0;
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        myLastState = MSVehicle::State(10000, 10000);
-        myFirstUnsafe = myVehicles.size();
-        return;
-    }
-
-        myLastState = (*myVehicles.begin())->myState;
-
-
-        myFirstUnsafe = 0;
-        // Move vehicles except first and all vehicles that may reach something
-        //  that forces them to stop
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-
-        for ( veh = myVehicles.begin();
-              !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
-              ++veh,++myFirstUnsafe ) {
-
-            VehCont::const_iterator pred( veh + 1 );
-            const MSVehicle*
-                neigh = findNeigh( *veh, firstNeighLane, lastNeighLane );
-            // veh has neighbour to regard.
-            if ( neigh != *veh ) {
-
-                ( *veh )->move( this, *pred, neigh );
-            }
-
-            // veh has no neighbour to regard.
-            else {
-
-                ( *veh )->move( this, *pred, 0);
-            }
-
-            ( *veh )->meanDataMove();
-            // Check for timeheadway < deltaT
-            MSVehicle *vehicle = (*veh);
-            MSVehicle *predec = (*pred);
-            assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
+        VehCont::const_iterator pred( veh + 1 );
+        const MSVehicle* neigh = findNeigh( *veh,
+            myUseDefinition->firstNeigh,
+            myUseDefinition->lastNeigh );
+        // veh has neighbour to regard.
+        if ( neigh != *veh ) {
+            ( *veh )->move( this, *pred, neigh );
         }
-}
 
-
-void
-MSLane::moveCriticalMulti( MSEdge::LaneCont::const_iterator firstNeighLane,
-                         MSEdge::LaneCont::const_iterator lastNeighLane )
-{
-    // Buffer last vehicles state.
-    if ( myVehicles.size() == 0 ) {
-        return;
-    }
-
-        VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-        VehCont::iterator veh;
-      // Move all next vehicles beside the first
-        for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;
-              ++veh ) {
-
-            VehCont::const_iterator pred( veh + 1 );
-            const MSVehicle*
-                neigh = findNeigh( *veh, firstNeighLane, lastNeighLane );
-
-            // veh has neighbour to regard.
-            if ( neigh != *veh ) {
-
-                ( *veh )->moveRegardingCritical( this, *pred, neigh );
-            }
-
-            // veh has no neighbour to regard.
-            else {
-
-                ( *veh )->moveRegardingCritical( this, *pred, 0);
-            }
-
-            ( *veh )->meanDataMove();
-            // Check for timeheadway < deltaT
-            assert( ( *veh )->pos() < ( *pred )->pos() );
-            assert( ( *veh )->pos() <= myLength );
+        // veh has no neighbour to regard.
+        else {
+            ( *veh )->move( this, *pred, 0);
         }
-        ( *veh )->moveRegardingCritical( this, 0, 0 );
+
         ( *veh )->meanDataMove();
+        // Check for timeheadway < deltaT
+        MSVehicle *vehicle = (*veh);
+        MSVehicle *predec = (*pred);
+        assert( ( *veh )->pos() < ( *pred )->pos() );
         assert( ( *veh )->pos() <= myLength );
+    }
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
+}
 
+
+void
+MSLane::moveCritical()
+{
+    assert(myVehicles.size()!=0);
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
+    VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
+    VehCont::iterator veh;
+    // Move all next vehicles beside the first
+    for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd; ++veh ) {
+        VehCont::const_iterator pred( veh + 1 );
+        const MSVehicle* neigh = findNeigh( *veh,
+            myUseDefinition->firstNeigh,
+            myUseDefinition->lastNeigh);
+
+        // veh has neighbour to regard.
+        if ( neigh != *veh ) {
+            ( *veh )->moveRegardingCritical( this, *pred, neigh );
+        }
+
+        // veh has no neighbour to regard.
+        else {
+            ( *veh )->moveRegardingCritical( this, *pred, 0);
+        }
+
+        ( *veh )->meanDataMove();
+        // Check for timeheadway < deltaT
+        assert( ( *veh )->pos() < ( *pred )->pos() );
+        assert( ( *veh )->pos() <= myLength );
+    }
+    ( *veh )->moveRegardingCritical( this, 0, 0 );
+    ( *veh )->meanDataMove();
+    assert( ( *veh )->pos() <= myLength );
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -712,11 +578,15 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
         // emit
         aVehicle->enterLaneAtEmit( this );
         myVehicles.insert( predIt, aVehicle );
+        myUseDefinition->noVehicles++;
+        assert(myVehicles.size()==myUseDefinition->noVehicles);
         return true;
     }
     // emit
     aVehicle->enterLaneAtEmit( this );
     myVehicles.push_back( aVehicle );
+    myUseDefinition->noVehicles++;
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
     return true;
 }
 
@@ -738,6 +608,8 @@ MSLane::emitTry( MSVehicle& veh )
         veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.push_front( &veh );
+        myUseDefinition->noVehicles++;
+        assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
@@ -772,6 +644,8 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             veh.moveSetState( state );
             veh.enterLaneAtEmit( this );
             myVehicles.push_front( &veh );
+            myUseDefinition->noVehicles++;
+            assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
@@ -803,6 +677,8 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             veh.moveSetState( state );
             veh.enterLaneAtEmit( this );
             myVehicles.insert( leaderIt, &veh );
+            myUseDefinition->noVehicles++;
+            assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
 		DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
@@ -836,6 +712,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.push_back( &veh );
+        myUseDefinition->noVehicles++;
+        assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
 		DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
@@ -872,6 +750,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );
+        myUseDefinition->noVehicles++;
+        assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
 		DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
@@ -886,6 +766,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
 void
 MSLane::setCritical()
 {
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
+    // move critical vehicles
     for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
 	    (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
@@ -894,6 +776,13 @@ MSLane::setCritical()
             return;
         }
         (*i)->_assertPos();
+
+    }
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
+    // check whether the lane is free
+    if(myVehicles.size()==0) {
+        myLastState = MSVehicle::State(10000, 10000);
+        myFirstUnsafe = 0;//myVehicles.size();
     }
 }
 
@@ -983,9 +872,12 @@ MSVehicle*
 MSLane::pop()
 {
     assert( ! myVehicles.empty() );
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
     MSVehicle* first = myVehicles.back( );
     first->leaveLaneAtMove();
     myVehicles.pop_back();
+    myUseDefinition->noVehicles--;
+    assert(myVehicles.size()==myUseDefinition->noVehicles);
     return first;
 }
 
@@ -1003,8 +895,11 @@ void
 MSLane::integrateNewVehicle()
 {
     if ( myVehBuffer ) {
+        assert(myUseDefinition->noVehicles==myVehicles.size());
         myVehicles.push_front( myVehBuffer );
         myVehBuffer = 0;
+        myUseDefinition->noVehicles++;
+        assert(myUseDefinition->noVehicles==myVehicles.size());
     }
 }
 
@@ -1436,13 +1331,18 @@ MSLane::swapAfterLaneChange()
 {
     myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
+    myUseDefinition->noVehicles = myVehicles.size();
+    if(myVehicles.size()==0) {
+        myLastState = MSVehicle::State(10000, 10000);
+        myFirstUnsafe = 0;//myVehicles.size();
+    }
 }
 
 
 void
 MSLane::setApproaching(double dist, MSVehicle *veh)
 {
-    myFirstDistance = dist;
+    myBackDistance = dist;
     myApproaching = veh;
 }
 
@@ -1523,6 +1423,12 @@ MSLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
     throw "Only within the gui-version";
 }
 
+
+void
+MSLane::init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition)
+{
+    myUseDefinition = useDefinition;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

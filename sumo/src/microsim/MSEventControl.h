@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.5  2003/06/04 16:16:23  roessel
 // MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
 //
@@ -113,7 +116,7 @@ public:
     /// Get the two instances of this class
     static MSEventControl* getBeginOfTimestepEvents( void );
     static MSEventControl* getEndOfTimestepEvents( void );
-    
+
     /// Events that should be executed at time.
     typedef std::pair< Command*, MSNet::Time > Event;
 

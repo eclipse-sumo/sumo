@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.3  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -136,6 +139,8 @@ MSSourceLane::emitTry( MSVehicle& veh )
     // on sources, no vehicles may arrive from the back
     veh.enterLaneAtEmit( this );
     myVehicles.push_front( &veh );
+    myUseDefinition->noVehicles++;
+    assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
 		DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
@@ -166,6 +171,8 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 		veh.moveSetState( state );
 		veh.enterLaneAtEmit( this );
 		myVehicles.push_front( &veh );
+        myUseDefinition->noVehicles++;
+        assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {

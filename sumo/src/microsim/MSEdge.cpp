@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.6  2003/06/04 16:12:05  roessel
 // Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
 //
@@ -179,68 +182,6 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
 
 
 void
-MSEdge::moveNonCriticalSingle()
-{
-    (*(myLanes->begin()))->moveNonCriticalSingle();
-}
-
-
-void
-MSEdge::moveCriticalSingle()
-{
-    (*(myLanes->begin()))->moveCriticalSingle();
-}
-
-
-void
-MSEdge::moveCriticalMulti()
-{
-    // The ordering of the lanes is essential, because
-    // (right-hand-traffic) vehicles are not allowed to overtake on
-    // the right. So update from the right to the left.
-    for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end() - 1; ++lane) {
-        (*lane)->moveCriticalMulti(lane+1, myLanes->end());
-     }
-    // The last one has no neighbour.
-    (*(myLanes->end() - 1))->moveCriticalMulti();
-}
-
-
-void
-MSEdge::moveNonCriticalMulti()
-{
-    // The ordering of the lanes is essential, because
-    // (right-hand-traffic) vehicles are not allowed to overtake on
-    // the right. So update from the right to the left.
-    for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end() - 1; ++lane) {
-        (*lane)->moveNonCriticalMulti(lane+1, myLanes->end());
-     }
-    // The last one has no neighbour.
-    (*(myLanes->end() - 1))->moveNonCriticalMulti();
-}
-
-
-void
-MSEdge::setCritical()
-{
-    for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end(); ++lane) {
-        (*lane)->setCritical();
-     }
-}
-
-void
-MSEdge::vehicle2target()
-{
-    for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end(); ++lane) {
-        (*lane)->integrateNewVehicle();
-     }
-}
-
-void
 MSEdge::detectCollisions( MSNet::Time timestep )
 {
     // Ask lanes about collisions.
@@ -296,6 +237,13 @@ MSEdge::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+
+size_t
+MSEdge::dictSize()
+{
+    return myDict.size();
 }
 
 

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -107,6 +110,7 @@ namespace
 #include "MSEdgeControl.h"
 #include "MSEdge.h"
 #include "MSNet.h"
+#include "MSLane.h"
 #include <iostream>
 #include <vector>
 
@@ -134,8 +138,36 @@ MSEdgeControl::MSEdgeControl()
 MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane, EdgeCont*
                              multiLane) : myID(id),
                                           mySingleLaneEdges(singleLane),
-                                          myMultiLaneEdges(multiLane)
+                                          myMultiLaneEdges(multiLane),
+                                          myLanes(MSLane::dictSize())
 {
+    // build the usage defintions for lanes
+        // for lanes with no neighbors
+    size_t pos = 0;
+    EdgeCont::iterator i;
+    for(i=singleLane->begin(); i!=singleLane->end(); i++) {
+        MSEdge::LaneCont *lanes = (*i)->getLanes();
+        myLanes[pos].lane = *(lanes->begin());
+        myLanes[pos].noVehicles = 0;
+        myLanes[pos].firstNeigh = lanes->end();
+        myLanes[pos].lastNeigh = lanes->end();
+        pos++;
+    }
+        // for lanes with neighbors
+    for(i=multiLane->begin(); i!=multiLane->end(); i++) {
+        MSEdge::LaneCont *lanes = (*i)->getLanes();
+        for(MSEdge::LaneCont::iterator j=lanes->begin(); j!=lanes->end(); j++) {
+            myLanes[pos].lane = *j;
+            myLanes[pos].noVehicles = 0;
+            myLanes[pos].firstNeigh = (j+1);
+            myLanes[pos].lastNeigh = lanes->end();
+            pos++;
+        }
+    }
+    // assign lane usage definitions to lanes
+    for(size_t j=0; j<pos; j++) {
+        myLanes[j].lane->init(*this, &(myLanes[j]));
+    }
 }
 
 
@@ -149,6 +181,18 @@ MSEdgeControl::~MSEdgeControl()
 void
 MSEdgeControl::moveNonCritical()
 {
+    LaneUsageVector::iterator i;
+    // reset the approaching vehicle distance, first
+    for(i=myLanes.begin(); i!=myLanes.end(); i++) {
+        (*i).lane->resetApproacherDistance(/*(*i).firstNeigh, (*i).lastNeigh*/);
+    }
+    // move non-critical vehicles
+    for(i=myLanes.begin(); i!=myLanes.end(); i++) {
+        if((*i).noVehicles!=0) {
+            (*i).lane->moveNonCritical(/*(*i).firstNeigh, (*i).lastNeigh*/);
+        }
+    }
+    /*
     EdgeCont::iterator edge;
     // Move vehicles on lanes but hand command
     // over to the real lanes.
@@ -160,12 +204,18 @@ MSEdgeControl::moveNonCritical()
          edge != myMultiLaneEdges->end(); ++edge) {
         (*edge)->moveNonCriticalMulti();
     }
+    */
 }
 
 void
 MSEdgeControl::moveCritical()
 {
-    EdgeCont::iterator edge;
+    for(LaneUsageVector::iterator i=myLanes.begin(); i!=myLanes.end(); i++) {
+        if((*i).noVehicles!=0) {
+            (*i).lane->moveCritical(/*(*i).firstNeigh, (*i).lastNeigh*/);
+        }
+    }
+/*    EdgeCont::iterator edge;
     // Move vehicles on lanes but hand command
     // over to the real lanes.
     for (edge = mySingleLaneEdges->begin();
@@ -175,13 +225,22 @@ MSEdgeControl::moveCritical()
     for (edge = myMultiLaneEdges->begin();
          edge != myMultiLaneEdges->end(); ++edge) {
         (*edge)->moveCriticalMulti();
-    }
+    }*/
 }
 
 void
 MSEdgeControl::moveFirst()
 {
-    EdgeCont::iterator edge;
+    LaneUsageVector::iterator i;
+    for(i=myLanes.begin(); i!=myLanes.end(); i++) {
+        if((*i).noVehicles!=0) {
+            (*i).lane->setCritical();
+        }
+    }
+    for(i=myLanes.begin(); i!=myLanes.end(); i++) {
+        (*i).lane->integrateNewVehicle();
+    }
+/*    EdgeCont::iterator edge;
     // Move vehicles on lanes but hand command
     // over to the real lanes.
     for (edge = mySingleLaneEdges->begin();
@@ -200,7 +259,7 @@ MSEdgeControl::moveFirst()
     for (edge = myMultiLaneEdges->begin();
          edge != myMultiLaneEdges->end(); ++edge) {
         (*edge)->vehicle2target();
-    }
+    }*/
 }
 
 void

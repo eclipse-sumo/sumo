@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.13  2003/07/07 08:18:43  dkrajzew
 // due to an ugly inheritance between lanes, sourcelanes and their gui-versions, a method for the retrival of a GUILaneWrapper had to be added; we should redesign it in the future
 //
@@ -186,6 +189,7 @@
 #include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
+#include "MSEdgeControl.h"
 #include <bitset>
 #include <deque>
 #include <vector>
@@ -207,6 +211,7 @@ class GUILaneWrapper;
 class GUIGlObjectStorage;
 
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -223,12 +228,6 @@ public:
 
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class GUILaneChanger;
-
-    /// needs direct access to the vehicle container
-//    friend class MSInductLoop;
-
-    /// needs direct access to the vehicle container
-//    friend class MSLaneState;
 
     /// needs direct access to maxSpeed
     friend class MSLaneSpeedTrigger;
@@ -328,29 +327,11 @@ public:
         initialize later. */
     void initialize( /*MSJunction* backJunction,*/
                      MSLinkCont* succs);
+    void resetApproacherDistance();
 
-    /** @brief Move all the lane's vehicles
-        The list vehicle is gone through from the last to the first vehicle.
-        When a vehicle may get over the lane's size within the near future,
-        it's position is saved and a the list of possible next speed is build.
-        The next speed to use is retrieved later, when the junction have had
-        set their reposnds.
-        Use this version for lanes of edge's with just one lane */
-    virtual void moveNonCriticalSingle();
-    virtual void moveCriticalSingle();
+    virtual void moveNonCritical();
 
-    /** Use this version for the last lane ofedge's with more than one lane  */
-    virtual void moveNonCriticalMulti();
-    virtual void moveCriticalMulti();
-
-    /** Use this version for lanes of edge's with more than one lane */
-    virtual void moveNonCriticalMulti(
-        MSEdge::LaneCont::const_iterator firstNeighLane,
-        MSEdge::LaneCont::const_iterator lastNeighLane );
-    virtual void moveCriticalMulti(
-        MSEdge::LaneCont::const_iterator firstNeighLane,
-        MSEdge::LaneCont::const_iterator lastNeighLane );
-
+    virtual void moveCritical();
 
     /// Check if vehicles are too close.
     void detectCollisions( MSNet::Time timestep ) const;
@@ -464,10 +445,15 @@ public:
 
     MSVehicle::State myLastState;
 
+
+    void init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition);
+
     /** @brief initialises the lane before simulation begin;
         Implementation of PreStartInitialised;
         Needed to clear the MeanData-array before restarting a simulation */
     virtual void init(MSNet &net);
+
+
 
     /** does nothing; needed for GUI-versions where vehicles are locked
         when being displayed */
@@ -489,7 +475,7 @@ public:
     void addMoveReminder( MSMoveReminder* rem );
     MoveReminderCont getMoveReminders( void );
 
-    // gui-version only
+    // valid for gui-version only
     virtual GUILaneWrapper *buildLaneWrapper(
             GUIGlObjectStorage &idStorage);
 
@@ -554,6 +540,8 @@ protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
 
+
+
 protected:
     /// Unique ID.
     std::string myID;
@@ -581,7 +569,7 @@ protected:
     VehCont myTmpVehicles;
 
 
-    double myFirstDistance;
+    double myBackDistance;
     MSVehicle *myApproaching;
 
     /** Vehicle-buffer for vehicle that was put onto this lane by a
@@ -589,6 +577,8 @@ protected:
         push- and pop-operations on myVehicles during
         Junction::moveFirst() */
     MSVehicle* myVehBuffer;
+
+    MSEdgeControl::LaneUsage *myUseDefinition;
 
 private:
 
@@ -691,6 +681,7 @@ private:
     MSLane& operator=( const MSLane& );
 
     MoveReminderCont moveRemindersM;
+
 };
 
 

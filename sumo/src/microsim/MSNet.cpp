@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.27  2003/07/16 15:28:00  dkrajzew
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+//
 // Revision 1.26  2003/06/24 14:49:52  dkrajzew
 // unneded members removed (will be replaced, soon)
 //
@@ -448,7 +451,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     initialiseSimulation(craw, start, stop);
     // the simulation loop
-    for ( myStep = start; myStep <= stop&&myLoadedVehNo>myEndedVehNo; ++myStep ) {
+    for ( myStep = start; myStep <= stop/*&&myLoadedVehNo>myEndedVehNo*/; ++myStep ) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
