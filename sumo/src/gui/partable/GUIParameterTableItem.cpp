@@ -5,7 +5,7 @@
 #include <utils/convert/ToString.h>
 #include <gui/icons/yes_no/yes.xpm>
 #include <gui/icons/yes_no/no.xpm>
-#include <utils/logging/DoubleValueSource.h>
+#include <microsim/logging/DoubleValueSource.h>
 
 GUIParameterTableItem::GUIParameterTableItem(QListView *table,
                                              const std::string &name,

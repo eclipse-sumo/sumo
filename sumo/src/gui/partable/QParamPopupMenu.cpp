@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/11 08:44:05  dkrajzew
+// synchronisation problems of parameter tracker updates patched; logging moved from utils to microsim
+//
 // Revision 1.4  2003/07/30 08:48:28  dkrajzew
 // new parameter table usage paradigm; undocummented yet
 //
@@ -43,11 +46,14 @@
 #include <gui/GUIGlObject.h>
 #include "QParamPopupMenu.h"
 #include <gui/vartracker/GUIParameterTracker.h>
-#include <utils/logging/DoubleFunctionBinding.h>
+#include <gui/vartracker/TrackerValueDesc.h>
+#include <gui/GUIApplicationWindow.h>
+#include <microsim/logging/DoubleFunctionBinding.h>
 
 #ifndef WIN32
 #include "QParamPopupMenu.moc"
 #endif
+
 
 /* =========================================================================
  * used namespaces
@@ -73,14 +79,20 @@ QParamPopupMenu::QParamPopupMenu(GUIApplicationWindow &app,
 
 QParamPopupMenu::~QParamPopupMenu()
 {
+    delete mySource;
 }
 
 
 void
 QParamPopupMenu::newTracker()
 {
-    new GUIParameterTracker(myApplication, myVarName, myObject,
-        mySource, 0, 0);
+    GUIParameterTracker *tr = new GUIParameterTracker(
+        myApplication, myVarName, myObject, /*mySource, */0, 0);
+    TrackerValueDesc *newTracked = new TrackerValueDesc(
+            myVarName, RGBColor(0, 0, 0), &myObject);
+    tr->addTracked(newTracked);
+    myApplication.buildSimStepConnection(myObject,
+        mySource->copy(), newTracked);
 }
 
 
