@@ -1,26 +1,55 @@
 noinst_LIBRARIES = libguisim.a
 
-EXTRA_DIST =
-
-libguisim_a_SOURCES = GUIEdge.cpp GUIEdge.h  GUIEdgeCont.h \
-GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
-GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h \
-GUIE3Collector.cpp GUIE2Collector.h \
-GUIInternalLane.cpp GUIInternalLane.h \
-GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
-GUILaneStateReporter.cpp GUILaneStateReporter.h \
-GUILaneWrapper.cpp GUILaneWrapper.h GUINet.cpp GUINet.h \
-GUINetWrapper.cpp GUINetWrapper.h \
-GUISourceLane.cpp GUISourceLane.h GUIVehicle.cpp GUIVehicle.h \
-GUIRightOfWayJunction.cpp GUIRightOfWayJunction.h \
-GUINoLogicJunction.cpp GUINoLogicJunction.h \
-GUIGrid.cpp GUIGrid.h GUIHelpingJunction.cpp GUIHelpingJunction.h \
-GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
-GUIInductLoop.cpp GUIInductLoop.h \
-GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
-GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
-GUIVehicleControl.cpp GUIVehicleControl.h \
-GUILaneStateBounderiesStorage.cpp GUILaneStateBounderiesStorage.h
+libguisim_a_SOURCES = \
+GUIDetectorWrapper.cpp \
+GUI_E2_ZS_Collector.cpp \
+GUI_E2_ZS_CollectorOverLanes.cpp \
+GUIE3Collector.cpp \
+GUIEdge.cpp \
+GUIEmitterWrapper.cpp \
+GUIGrid.cpp \
+GUIHelpingJunction.cpp \
+GUIInductLoop.cpp \
+GUIInternalLane.cpp \
+GUIJunctionWrapper.cpp \
+GUILaneChanger.cpp \
+GUILane.cpp \
+GUILaneStateBounderiesStorage.cpp \
+GUILaneStateReporter.cpp \
+GUILaneWrapper.cpp \
+GUINet.cpp \
+GUINetWrapper.cpp \
+GUINoLogicJunction.cpp \
+GUIRightOfWayJunction.cpp \
+GUISourceLane.cpp \
+GUITrafficLightLogicWrapper.cpp \
+GUIVehicleControl.cpp \
+GUIVehicle.cpp \
+GUIDetectorWrapper.h \
+GUI_E2_ZS_Collector.h \
+GUI_E2_ZS_CollectorOverLanes.h \
+GUIE3Collector.h \
+GUIEdgeCont.h \
+GUIEdge.h \
+GUIEmitterWrapper.h \
+GUIGrid.h \
+GUIHelpingJunction.h \
+GUIInductLoop.h \
+GUIInternalLane.h \
+GUIJunctionWrapper.h \
+GUILaneChanger.h \
+GUILane.h \
+GUILaneStateBounderiesStorage.h \
+GUILaneStateReporter.h \
+GUILaneWrapper.h \
+GUINet.h \
+GUINetWrapper.h \
+GUINoLogicJunction.h \
+GUIRightOfWayJunction.h \
+GUISourceLane.h \
+GUITrafficLightLogicWrapper.h \
+GUIVehicleControl.h \
+GUIVehicle.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
 
