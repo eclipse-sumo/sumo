@@ -12,8 +12,7 @@ options \
 qutils \
 router \
 sumoxml \
-xml \
-logging
+xml
 
 
 
