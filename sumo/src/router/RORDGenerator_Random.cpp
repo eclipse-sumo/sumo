@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -185,8 +188,8 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(unsigned int time)
         myCurrentTime = time+1;
     } else {
         // compute into the future
-        myCurrentTime = time +
-            (1.0-myCurrentProgress) / myWishedPerSecond;
+        myCurrentTime = time + (size_t)
+            ((1.0-myCurrentProgress) / myWishedPerSecond);
     }
     return true;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/11/23 10:36:37  dkrajzew
+// debugging
+//
 // Revision 1.25  2004/06/17 13:08:48  dkrajzew
 // Polygon visualisation added
 //
@@ -89,7 +92,6 @@ namespace
 // Revision 1.4  2003/02/07 10:53:23  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -105,9 +107,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 52;
+size_t noSumoTags = 53;
 
-GenericSAX2Handler::Tag sumotags[52] =
+GenericSAX2Handler::Tag sumotags[53] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -160,14 +162,15 @@ GenericSAX2Handler::Tag sumotags[52] =
       { "toedge",           SUMO_TAG_TOEDGE },
       { "sink",             SUMO_TAG_SINK },
       { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
-      { "weight",           SUMO_TAG_WEIGHT }
+      { "weight",           SUMO_TAG_WEIGHT },
+      { "reroute-agent",    SUMO_TAG_REROUTE_AGENT }
 };
 
-size_t noSumoAttrs = 82;
+size_t noSumoAttrs = 88;
 
-AttributesHandler::Attr sumoattrs[82] =
+AttributesHandler::Attr sumoattrs[88] =
 {
-	{ "id",             SUMO_ATTR_ID },
+    { "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
     { "type",           SUMO_ATTR_TYPE },
     { "priority",       SUMO_ATTR_PRIORITY },
@@ -238,9 +241,9 @@ AttributesHandler::Attr sumoattrs[82] =
     { "foes",           SUMO_ATTR_FOES },
     { "measures",       SUMO_ATTR_MEASURES },
     { "cont",           SUMO_ATTR_CONT },
-    { "time_treshhold", SUMO_ATTR_HALTING_TIME_THRESHHOLD },
-    { "speed_treshhold",SUMO_ATTR_HALTING_SPEED_THRESHHOLD },
-    { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHHOLD },
+    { "time_treshold",  SUMO_ATTR_HALTING_TIME_THRESHOLD },
+    { "speed_treshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
+    { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
     { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
     { "det_offset",     SUMO_ATTR_DET_OFFSET },
     { "vehno",          SUMO_ATTR_VEHNO },
@@ -248,7 +251,14 @@ AttributesHandler::Attr sumoattrs[82] =
     { "edge-id",        SUMO_ATTR_EDGE_ID },
     { "absolut",        SUMO_ATTR_ABSOLUT },
     { "mult",           SUMO_ATTR_MULT },
-    { "add",            SUMO_ATTR_ADD }
+    { "add",            SUMO_ATTR_ADD },
+    { "dist",           SUMO_ATTR_DIST },
+    { "onEdges",        SUMO_ATTR_ONEDGES },
+    { "seesEdges",      SUMO_ATTR_SEESEDGES },
+    { "periodBegin",    SUMO_ATTR_PERIODBEGIN },
+    { "viewDist",       SUMO_ATTR_VIEWDIST },
+    { "oneShot",        SUMO_ATTR_ONESHOT }
+
 };
 
 

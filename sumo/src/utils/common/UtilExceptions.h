@@ -2,8 +2,8 @@
 #define UtilExceptions_h
 /***************************************************************************
                           UtilExceptions.h
-			  Exceptions for used by some utility classes
-			  (Option...)
+              Exceptions for used by some utility classes
+              (Option...)
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/01/27 10:30:50  dkrajzew
 // debugged the usage of a temporary value returned by reference
 //
@@ -231,11 +234,7 @@ public:
 };
 
 
-
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "UtilExceptions.icc"
-//#endif
 
 #endif
 

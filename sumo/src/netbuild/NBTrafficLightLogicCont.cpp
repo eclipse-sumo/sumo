@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.11  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -147,15 +150,12 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
         // and insert the result after coputation
         if(!insert((*i).first, def->compute(oc))) {
             // should not happen
-            MsgHandler::getWarningInstance()->inform(
-                string("Could not build traffic lights '") + def->getID()
-                + string("'"));
+            WRITE_WARNING(string("Could not build traffic lights '") + def->getID()+ string("'"));
         } else {
             no++;
         }
     }
-    MsgHandler::getMessageInstance()->inform(
-        toString<int>(no) + string(" traffic light(s) computed."));
+    WRITE_MESSAGE(toString<int>(no) + string(" traffic light(s) computed."));
     return true;
 }
 

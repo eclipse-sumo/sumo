@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/12/04 13:07:35  dkrajzew
 // interface changed to allow message building on the fly
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
 //
 /* =========================================================================
  * included modules
@@ -40,12 +42,21 @@
 #include <iostream>
 #include "MsgHandler.h"
 #include "MsgRetriever.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * global variable definitions
+ * ======================================================================= */
+bool gSuppressWarnings = false;
+bool gSuppressMessages = false;
 
 
 /* =========================================================================
@@ -127,7 +138,19 @@ MsgHandler::clear()
 void
 MsgHandler::addRetriever(MsgRetriever *retriever)
 {
-    myRetrievers.push_back(retriever);
+    RetrieverVector::iterator i =
+        find(myRetrievers.begin(), myRetrievers.end(), retriever);
+    if(i==myRetrievers.end()) {
+        myRetrievers.push_back(retriever);
+    }
+    // check whether the message shall be generated
+    if(myType==MT_WARNING) {
+        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
+            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+            : false;
+    } else if(myType==MT_MESSAGE) {
+        gSuppressMessages = false;
+    }
 }
 
 
@@ -136,8 +159,19 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
 {
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
-    assert(i!=myRetrievers.end());
-    myRetrievers.erase(i);
+    if(i!=myRetrievers.end()) {
+        myRetrievers.erase(i);
+    }
+    // check whether the message shall be generated
+    // check whether the message shall be generated
+    if(myType==MT_WARNING) {
+        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
+            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+            : myRetrievers.size()==0;
+    } else if(myType==MT_MESSAGE) {
+        gSuppressMessages =
+            !(myRetrievers.size()==0||myReport2COUT);
+    }
 }
 
 
@@ -145,6 +179,14 @@ void
 MsgHandler::report2cout(bool value)
 {
     myReport2COUT = value;
+    if(myType==MT_WARNING) {
+        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
+            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+            : !myReport2COUT;
+    } else if(myType==MT_MESSAGE) {
+        gSuppressMessages =
+            !(myRetrievers.size()==0||myReport2COUT);
+    }
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:35:28  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/01/26 07:18:25  dkrajzew
 // some code style work
 //
@@ -109,7 +112,7 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
     if(i==_defMap.end()) {
         throw UnknownElement();
     }
-    int pos = (*i).second;
+    size_t pos = (*i).second;
     if(_line.size()<=pos) {
         throw OutOfBoundsException();
     }
@@ -127,8 +130,8 @@ NamedColumnsParser::reinitMap(const std::string &s,
     int pos = 0;
     StringTokenizer st(s, delim);
     while(st.hasNext()) {
-	    std::string next = st.next();
-	    checkPrune(next, prune);
+        std::string next = st.next();
+        checkPrune(next, prune);
         _defMap.insert(map<string, int>::value_type(next, pos++));
     }
 }

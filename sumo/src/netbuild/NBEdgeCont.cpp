@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.28  2004/08/02 13:11:39  dkrajzew
 // made some deprovements or so
 //
@@ -377,12 +380,9 @@ NBEdgeCont::clear() {
 void
 NBEdgeCont::report()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("   ") + toString<int>(getNo()) + string(" edges loaded."));
+    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" edges loaded."));
     if(EdgesSplit>0) {
-        MsgHandler::getWarningInstance()->inform(
-            string("Warning: The split of edges was performed ")
-            + toString<int>(EdgesSplit) + string(" times."));
+        WRITE_WARNING(string("Warning: The split of edges was performed ")+ toString<int>(EdgesSplit) + string(" times."));
     }
 }
 
@@ -431,7 +431,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
         pos, edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
         edge->_basicType);
-    int i;
+    size_t i;
     for(i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }

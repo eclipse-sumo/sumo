@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:35:01  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/07/16 15:38:51  dkrajzew
 // handling of colors improved
 //
 // Revision 1.2  2003/02/07 10:50:53  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -68,17 +70,56 @@ public:
     /// Writes the color to the given stream
     friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
 
+    /// Increases the color's brightness
+    void brighten(double by=0.25);
+
+    /// Decreases the color's brightness
+    void darken(double by=0.25);
+
+    friend RGBColor operator+(const RGBColor &c1, const RGBColor &c2);
+
+    friend RGBColor operator-(const RGBColor &c1, const RGBColor &c2);
+
+    friend RGBColor operator*(const RGBColor &c, const double &v);
+
+    friend RGBColor operator/(const RGBColor &c, const double &v);
+
+private:
+    static inline double check(const double &c) {
+        if(c<0) {
+            return 0;
+        } else if(c>1.0) {
+            return 1;
+        } else {
+            return c;
+        }
+    }
+
+    static inline double addChecking(const double &c1, const double &c2) {
+        return check(c1+c2);
+    }
+
+    static inline double subChecking(const double &c1, const double &c2) {
+        return check(c1-c2);
+    }
+
+    static inline double mulChecking(const double &c1, const double &c2) {
+        return check(c1*c2);
+    }
+
+    static inline double divChecking(const double &c1, const double &c2) {
+        return check(c1/c2);
+    }
+
 private:
     /// The color amounts
     double myRed, myGreen, myBlue;
+
 };
 
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "RGBColor.icc"
-//#endif
 
 #endif
 

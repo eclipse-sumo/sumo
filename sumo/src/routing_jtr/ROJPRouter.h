@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:26:59  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
@@ -27,11 +30,11 @@
 // allowed to specify the maximum edge number in a route by a factor
 //
 // Revision 1.2  2004/01/26 09:58:15  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further container
+// sinks are now simply marked as these instead of the usage of a further
+//  container
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
-//
 //
 /* =========================================================================
  * included modules
@@ -70,12 +73,8 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild);
-
-private:
-    /// Performs the computation
-    ROEdgeVector jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild);
-
+        long time, bool continueOnUnbuild,
+        ROAbstractEdgeEffortRetriever * const retriever=0);
 
 private:
     /// The network to use

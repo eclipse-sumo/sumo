@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.13  2004/08/02 12:44:28  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -237,7 +240,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
     try {
         myCurrentID = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getWarningInstance()->inform("No id given... Skipping.");
+        WRITE_WARNING("No id given... Skipping.");
     }
 }
 
@@ -274,7 +277,7 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 {
     try {
         myCurrentSpeed =
-            getFloatSecure(attrs, SUMO_ATTR_SPEED, myCurrentSpeed);
+            getFloatSecure(attrs, SUMO_ATTR_SPEED, (float) myCurrentSpeed);
         if(_options.getBool("speed-in-km")) {
             myCurrentSpeed = myCurrentSpeed / 3.6;
         }
@@ -344,7 +347,9 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     if(!insertNodesCheckingCoherence()) {
         if(!_options.getBool("omit-corrupt-edges")) {
             addError(
-                string("The data are not coherent or the nodes are not given..."));
+                string("On parsing edge '") + myCurrentID + string("':"));
+            addError(
+                string(" The data are not coherent or the nodes are not given..."));
         }
         return false;
     }

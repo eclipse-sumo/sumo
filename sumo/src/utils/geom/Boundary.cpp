@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        Boundery.cpp -
-//  A class that stores the 2D geometrical boundery
+//                        Boundary.cpp -
+//  A class that stores the 2D geometrical boundary
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.1  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:43  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.8  2004/07/02 09:44:40  dkrajzew
 // changes for 0.8.0.2
 //
@@ -44,9 +53,6 @@ namespace
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,20 +62,21 @@ namespace
 #include <utility>
 
 #include "GeomHelper.h"
-#include "Boundery.h"
+#include "Boundary.h"
 #include "Position2DVector.h"
 #include "Position2D.h"
+
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-Boundery::Boundery()
+Boundary::Boundary()
     : _xmin(10000000000.0), _xmax(-10000000000.0),
     _ymin(10000000000.0), _ymax(-10000000000.0)
 {
 }
 
-Boundery::Boundery(double x1, double y1, double x2, double y2)
+Boundary::Boundary(double x1, double y1, double x2, double y2)
     : _xmin(10000000000.0), _xmax(-10000000000.0),
     _ymin(10000000000.0), _ymax(-10000000000.0)
 {
@@ -78,13 +85,13 @@ Boundery::Boundery(double x1, double y1, double x2, double y2)
 }
 
 
-Boundery::~Boundery()
+Boundary::~Boundary()
 {
 }
 
 
 void
-Boundery::add(double x, double y)
+Boundary::add(double x, double y)
 {
     _xmin = _xmin < x ? _xmin : x;
     _xmax = _xmax > x ? _xmax : x;
@@ -94,14 +101,14 @@ Boundery::add(double x, double y)
 
 
 void
-Boundery::add(const Position2D &p)
+Boundary::add(const Position2D &p)
 {
     add(p.x(), p.y());
 }
 
 
 void
-Boundery::add(const Boundery &p)
+Boundary::add(const Boundary &p)
 {
     add(p.xmin(), p.ymin());
     add(p.xmax(), p.ymax());
@@ -110,55 +117,55 @@ Boundery::add(const Boundery &p)
 
 
 Position2D
-Boundery::getCenter() const
+Boundary::getCenter() const
 {
     return Position2D( (_xmin+_xmax)/2.0, (_ymin+_ymax)/2.0);
 }
 
 double
-Boundery::xmin() const
+Boundary::xmin() const
 {
     return _xmin;
 }
 
 
 double
-Boundery::xmax() const
+Boundary::xmax() const
 {
     return _xmax;
 }
 
 
 double
-Boundery::ymin() const
+Boundary::ymin() const
 {
     return _ymin;
 }
 
 
 double
-Boundery::ymax() const
+Boundary::ymax() const
 {
     return _ymax;
 }
 
 
 double
-Boundery::getWidth() const
+Boundary::getWidth() const
 {
     return _xmax - _xmin;
 }
 
 
 double
-Boundery::getHeight() const
+Boundary::getHeight() const
 {
     return _ymax - _ymin;
 }
 
 
 bool
-Boundery::around(const Position2D &p, double offset) const
+Boundary::around(const Position2D &p, double offset) const
 {
     return
         (p.x()<=_xmax+offset && p.x()>=_xmin-offset) &&
@@ -167,7 +174,7 @@ Boundery::around(const Position2D &p, double offset) const
 
 
 bool
-Boundery::overlapsWith(const AbstractPoly &p, double offset) const
+Boundary::overlapsWith(const AbstractPoly &p, double offset) const
 {
     if(
         // check whether one of my points lies within the given poly
@@ -189,7 +196,7 @@ Boundery::overlapsWith(const AbstractPoly &p, double offset) const
 
 
 bool
-Boundery::crosses(const Position2D &p1, const Position2D &p2) const
+Boundary::crosses(const Position2D &p1, const Position2D &p2) const
 {
     return
         GeomHelper::intersects(p1, p2, Position2D(_xmax, _ymax), Position2D(_xmin, _ymax))
@@ -203,7 +210,7 @@ Boundery::crosses(const Position2D &p1, const Position2D &p2) const
 
 
 bool
-Boundery::partialWithin(const AbstractPoly &poly, double offset) const
+Boundary::partialWithin(const AbstractPoly &poly, double offset) const
 {
     return
         poly.around(Position2D(_xmax, _ymax), offset) ||
@@ -213,8 +220,8 @@ Boundery::partialWithin(const AbstractPoly &poly, double offset) const
 }
 
 
-Boundery &
-Boundery::grow(double by)
+Boundary &
+Boundary::grow(double by)
 {
     _xmax += by;
     _ymax += by;
@@ -225,7 +232,7 @@ Boundery::grow(double by)
 
 
 void
-Boundery::flipY()
+Boundary::flipY()
 {
     _ymin *= -1.0;
     _ymax *= -1.0;
@@ -237,7 +244,7 @@ Boundery::flipY()
 
 
 std::ostream &
-operator<<(std::ostream &os, const Boundery &b)
+operator<<(std::ostream &os, const Boundary &b)
 {
     os << "((" << b._xmin << ", " << b._ymin
         << "), (" << b._xmax << ", " << b._ymax
@@ -247,7 +254,7 @@ operator<<(std::ostream &os, const Boundery &b)
 
 
 void
-Boundery::set(double xmin, double ymin, double xmax, double ymax)
+Boundary::set(double xmin, double ymin, double xmax, double ymax)
 {
     _xmin = xmin;
     _ymin = ymin;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -350,7 +353,7 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
             _net.addVehicle(myID,
                 myVehicleBuilder.buildRunningVehicle(
                 myID, route, myDepartureTime,
-                type, myLane, myPos, mySpeed, myColor, myPeriodTime,
+                type, myLane, (float) myPos, (float) mySpeed, myColor, myPeriodTime,
                     myNumberOfRepetitions));
         } else {
             _net.addVehicle(myID,

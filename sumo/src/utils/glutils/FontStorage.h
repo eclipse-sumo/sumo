@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:35:13  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/07/30 12:55:10  dkrajzew
 // bug on handling of compiled fonts (partially?) patched
 //
@@ -79,9 +82,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "FontStorage.icc"
-//#endif
 
 #endif
 

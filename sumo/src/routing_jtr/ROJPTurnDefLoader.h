@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:26:59  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
@@ -60,15 +63,15 @@ class ROJPTurnDefLoader : public SUMOSAXHandler,
 {
 public:
     /// Constructor
-	ROJPTurnDefLoader(RONet &net);
+    ROJPTurnDefLoader(RONet &net);
 
     /// Destructor
-	~ROJPTurnDefLoader();
+    ~ROJPTurnDefLoader();
 
     /** @brief Loads the turning definitions and additionally the sinks
         While the sinks are returned on return, the turn definitions are stored
         into the network directly */
-	std::set<ROJPEdge*> load(const std::string &file);
+    std::set<ROJPEdge*> load(const std::string &file);
 
     /** @brief used when csv instead of xml-descriptions are used */
     bool report(const std::string &line);
@@ -87,23 +90,23 @@ protected:
 
 private:
     /// Begins the processing of an interval
-	void beginInterval(const Attributes &attrs);
+    void beginInterval(const Attributes &attrs);
 
     /// Begins the processing of a incoming definition
-	void beginFromEdge(const Attributes &attrs);
+    void beginFromEdge(const Attributes &attrs);
 
     /** @brief Parses the percentage with which an outgoing edge is used
         This is added to the current incoming edge */
-	void addToEdge(const Attributes &attrs);
+    void addToEdge(const Attributes &attrs);
 
     /// Parses the given string as a list of edge names to declare them as sinks
     void addSink(const std::string &chars);
 
     /// Ends the processing of an interval
-	void endInterval();
+    void endInterval();
 
     /// Ends the processing of an incoming edge
-	void endFromEdge();
+    void endFromEdge();
 
     /** @brief Returns a value from the columns parser
         Catches and reports errors */
@@ -111,13 +114,13 @@ private:
 
 private:
     /// The begin and the end of the current interval
-	unsigned int myIntervalBegin, myIntervalEnd;
+    unsigned int myIntervalBegin, myIntervalEnd;
 
     /// The network to set the information into
-	RONet &myNet;
+    RONet &myNet;
 
     /// The list of parsed sinks
-	std::set<ROJPEdge*> mySinks;
+    std::set<ROJPEdge*> mySinks;
 
     /// The current incoming edge the turning percentages are set into
     ROJPEdge *myEdge;

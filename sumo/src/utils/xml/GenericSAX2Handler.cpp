@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -47,7 +50,12 @@ namespace
 // Revision 1.2  2002/04/16 06:52:01  dkrajzew
 // documentation added; coding standard attachements added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -97,13 +105,15 @@ GenericSAX2Handler::addTag(const std::string &name, int id)
 
 
 bool
-GenericSAX2Handler::errorOccured() const {
+GenericSAX2Handler::errorOccured() const
+{
    return _errorOccured;
 }
 
 
 bool
-GenericSAX2Handler::unknownOccured() const {
+GenericSAX2Handler::unknownOccured() const
+{
    return _unknownOccured;
 }
 
@@ -112,7 +122,8 @@ void
 GenericSAX2Handler::startElement(const XMLCh* const uri,
                                  const XMLCh* const localname,
                                  const XMLCh* const qname,
-                                 const Attributes& attrs) {
+                                 const Attributes& attrs)
+{
    string name = TplConvert<XMLCh>::_2str(qname);
    int element = convertTag(name);
    _tagTree.push(element);
@@ -126,7 +137,8 @@ GenericSAX2Handler::startElement(const XMLCh* const uri,
 void
 GenericSAX2Handler::endElement(const XMLCh* const uri,
                                const XMLCh* const localname,
-                               const XMLCh* const qname) {
+                               const XMLCh* const qname)
+{
    string name = TplConvert<XMLCh>::_2str(qname);
    int element = convertTag(name);
    if(element<0)
@@ -144,41 +156,48 @@ GenericSAX2Handler::endElement(const XMLCh* const uri,
 
 void
 GenericSAX2Handler::characters(const XMLCh* const chars,
-                               const unsigned int length) {
+                               const unsigned int length)
+{
    _characters += TplConvert<XMLCh>::_2str(chars, length);
 }
 
 
 void
 GenericSAX2Handler::ignorableWhitespace(const XMLCh* const chars,
-                                        const unsigned int length) {
+                                        const unsigned int length)
+{
 }
 
 
 void
-GenericSAX2Handler::resetDocument() {
+GenericSAX2Handler::resetDocument()
+{
 }
 
 
 void
-GenericSAX2Handler::warning(const SAXParseException& exception) {
+GenericSAX2Handler::warning(const SAXParseException& exception)
+{
 }
 
 
 void
-GenericSAX2Handler::error(const SAXParseException& exception) {
+GenericSAX2Handler::error(const SAXParseException& exception)
+{
 }
 
 
 void
-GenericSAX2Handler::fatalError(const SAXParseException& exception) {
+GenericSAX2Handler::fatalError(const SAXParseException& exception)
+{
 }
 
 
 void
 GenericSAX2Handler::myStartElementDump(int element,
                                        const std::string &name,
-                                       const Attributes &attrs) {
+                                       const Attributes &attrs)
+{
 }
 
 
@@ -192,12 +211,14 @@ GenericSAX2Handler::myCharactersDump(int element,
 
 void
 GenericSAX2Handler::myEndElementDump(int element,
-                                     const std::string &name) {
+                                     const std::string &name)
+{
 }
 
 
 int
-GenericSAX2Handler::convertTag(const std::string &tag) const {
+GenericSAX2Handler::convertTag(const std::string &tag) const
+{
    TagMap::const_iterator i=_tagMap.find(tag);
    if(i==_tagMap.end())
       return -1; // !!! should it be reported (as error)
@@ -208,7 +229,8 @@ GenericSAX2Handler::convertTag(const std::string &tag) const {
 string
 GenericSAX2Handler::buildErrorMessage(const std::string &file,
                                       const string &type,
-                                      const SAXParseException& exception) {
+                                      const SAXParseException& exception)
+{
     ostringstream buf;
     buf << type << endl;
     buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
@@ -219,10 +241,8 @@ GenericSAX2Handler::buildErrorMessage(const std::string &file,
 }
 
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GenericSAX2Handler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

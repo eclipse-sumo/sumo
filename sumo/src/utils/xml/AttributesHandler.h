@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.6  2003/09/05 15:28:46  dkrajzew
 // secure retrival of boolean values added
 //
@@ -171,9 +174,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "AttributesHandler.icc"
-//#endif
 
 #endif
 

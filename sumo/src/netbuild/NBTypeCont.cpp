@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBTypeCont.cpp
-			  A storage for the available types of an edge
+              A storage for the available types of an edge
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -88,7 +91,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -226,9 +229,7 @@ NBTypeCont::clear()
 void
 NBTypeCont::report()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("   ") + toString<int>(getNo())
-        + string(" types loaded."));
+    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" types loaded."));
 }
 
 

@@ -18,9 +18,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:35:47  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/11/22 12:54:56  dksumo
+// tried to generelise the usage of detectors and output devices
+//
+// Revision 1.1  2004/10/22 12:50:58  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.2  2004/08/02 13:01:16  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -64,11 +72,35 @@ OutputDevice_File::close()
 }
 
 
+bool
+OutputDevice_File::supportsStreams() const
+{
+    return true;
+}
+
+
 std::ostream &
 OutputDevice_File::getOStream()
 {
     return *myFileStream;
 }
+
+
+XMLDevice &
+OutputDevice_File::writeString(const std::string &str)
+{
+    (*myFileStream) << str;
+    return *this;
+}
+
+
+void
+OutputDevice_File::closeInfo()
+{
+    (*myFileStream) << endl;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

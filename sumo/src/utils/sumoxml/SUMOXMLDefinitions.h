@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2004/11/23 10:36:37  dkrajzew
+// debugging
+//
 // Revision 1.27  2004/06/17 13:08:48  dkrajzew
 // Polygon visualisation added
 //
@@ -223,7 +226,8 @@ enum TagEnum
     /// Sink(s) specification
     SUMO_TAG_SINK,
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
-    SUMO_TAG_WEIGHT
+    SUMO_TAG_WEIGHT,
+    SUMO_TAG_REROUTE_AGENT,
 };
 
 
@@ -337,9 +341,9 @@ enum AttrEnum
     SUMO_ATTR_MEASURES,
         /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
-    SUMO_ATTR_HALTING_TIME_THRESHHOLD,
-    SUMO_ATTR_HALTING_SPEED_THRESHHOLD,
-    SUMO_ATTR_JAM_DIST_THRESHHOLD,
+    SUMO_ATTR_HALTING_TIME_THRESHOLD,
+    SUMO_ATTR_HALTING_SPEED_THRESHOLD,
+    SUMO_ATTR_JAM_DIST_THRESHOLD,
     SUMO_ATTR_DELETE_DATA_AFTER_SECONDS,
     SUMO_ATTR_DET_OFFSET,
     /// The number of vehicles to emit (od-amount
@@ -349,7 +353,14 @@ enum AttrEnum
     SUMO_ATTR_EDGE_ID,
     SUMO_ATTR_ABSOLUT,
     SUMO_ATTR_MULT,
-    SUMO_ATTR_ADD
+    SUMO_ATTR_ADD,
+
+    SUMO_ATTR_DIST,
+    SUMO_ATTR_ONEDGES,
+    SUMO_ATTR_SEESEDGES,
+    SUMO_ATTR_PERIODBEGIN,
+    SUMO_ATTR_VIEWDIST,
+    SUMO_ATTR_ONESHOT
 };
 
 
@@ -359,12 +370,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[52];
+extern GenericSAX2Handler::Tag sumotags[53];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[82];
+extern AttributesHandler::Attr sumoattrs[88];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

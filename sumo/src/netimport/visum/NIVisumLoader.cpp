@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIVisumLoader.cpp
-			  A loader visum-files
+              A loader visum-files
                              -------------------
     project              : SUMO
     begin                : Fri, 19 Jul 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/07/22 15:11:25  dkrajzew
 // removed warnings
 //
@@ -69,6 +72,7 @@ namespace
 #include "NIVisumParser_SignalGroups.h"
 #include "NIVisumParser_SignalGroupsToPhases.h"
 #include "NIVisumParser_TurnsToSignalGroups.h"
+#include "NIVisumParser_EdgePolys.h"
 #include "NIVisumParser_Phases.h"
 
 
@@ -138,12 +142,11 @@ NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader)
     if(myPosition==-1) {
         return false;
     }
-    MsgHandler::getMessageInstance()->inform(
-        string("Parsing ") + getDataName() + string("... "));
+    WRITE_MESSAGE(string("Parsing ") + getDataName() + string("... "));
     reader.reinit();
     reader.setPos(myPosition);
     reader.readAll(*this);
-    MsgHandler::getMessageInstance()->inform("done.");
+    WRITE_MESSAGE("done.");
     return true;
 }
 
@@ -274,19 +277,21 @@ NIVisumLoader::NIVisumLoader(const std::string &file,
         new NIVisumParser_Connectors(*this, "ANBINDUNG"));
     mySingleDataParsers.push_back(
         new NIVisumParser_Turns(*this, "ABBIEGEBEZIEHUNG", myVSysTypes));
-	// set4
-	mySingleDataParsers.push_back(
-		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
-	mySingleDataParsers.push_back(
-		new NIVisumParser_NodesToTrafficLights(*this, "KNOTENZULSA", myNIVisumTLs));
-	mySingleDataParsers.push_back(
-		new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
-	mySingleDataParsers.push_back(
-		new NIVisumParser_TurnsToSignalGroups(*this, "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
-	mySingleDataParsers.push_back(
-		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
-	mySingleDataParsers.push_back(
-		new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_EdgePolys(*this, "STRECKENPOLY"));
+    // set4
+    mySingleDataParsers.push_back(
+        new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_NodesToTrafficLights(*this, "KNOTENZULSA", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_TurnsToSignalGroups(*this, "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
 }
 
 
@@ -305,7 +310,6 @@ NIVisumLoader::~NIVisumLoader()
 
 void NIVisumLoader::load(OptionsCont &options)
 {
-//    bool verbose = options.getBool("v");
     // open the file
     if(!myLineReader.setFileName(options.getString("visum"))) {
         MsgHandler::getErrorInstance()->inform(
@@ -323,10 +327,10 @@ void NIVisumLoader::load(OptionsCont &options)
         (*i)->readUsing(myLineReader);
     }
     // build traffic lights
-	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
-		j!=myNIVisumTLs.end(); j++) {
-		j->second->build();
-	}
+    for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
+        j!=myNIVisumTLs.end(); j++) {
+        j->second->build();
+    }
 }
 
 
@@ -346,9 +350,7 @@ NIVisumLoader::checkForPosition(const std::string &line)
         if(line.substr(0, dataName.length())==dataName) {
             parser->setStreamPosition(myLineReader.getPosition());
             parser->initLineParser(line.substr(dataName.length()));
-            MsgHandler::getMessageInstance()->inform(
-                string("Found: ") + dataName + string(" at ")
-                + toString<int>(myLineReader.getPosition()));
+            WRITE_MESSAGE(string("Found: ") + dataName + string(" at ")+ toString<int>(myLineReader.getPosition()));
         }
     }
     // it is not necessary to rea the whole file
@@ -367,11 +369,7 @@ NIVisumLoader::checkForPosition(const std::string &line)
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

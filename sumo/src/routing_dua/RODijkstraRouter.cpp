@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:26:27  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/01/26 06:08:38  dkrajzew
 // initial commit for dua-classes
 //
@@ -97,6 +100,20 @@ RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg, EdgeInfo 
     ret->edge = edgeArg; // !!! may be set within the constructor
     ret->effort = effortArg;
     ret->prev = prevArg;
+    ret->dist = 0;
+    return ret;
+}
+
+
+RODijkstraRouter::EdgeInfo *
+RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg,
+                                    EdgeInfo *prevArg, double distArg)
+{
+    EdgeInfo *ret = &(myEdgeInfos[edgeArg->getIndex()]);
+    ret->edge = edgeArg; // !!! may be set within the constructor
+    ret->effort = effortArg;
+    ret->prev = prevArg;
+    ret->dist = distArg;
     return ret;
 }
 
@@ -139,22 +156,9 @@ RODijkstraRouter::~RODijkstraRouter()
 
 
 ROEdgeVector
-RODijkstraRouter::compute(ROEdge *from, ROEdge *to, long time, bool continueOnUnbuild)
-{
-    // check whether the route is already known
-//!!!    if(_net.knowsRouteSnipplet(from, to)) {
-//!!!        return _net.getRouteSnipplet(from, to); // !!! invalid over time
-//!!!    }
-    // otherwise, build, save and return a new route
-    ROEdgeVector ret = dijkstraCompute(from, to, time, continueOnUnbuild);
-//!!!    _net.addRouteSnipplet(ret);
-    return ret;
-}
-
-
-ROEdgeVector
-RODijkstraRouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time,
-                                  bool continueOnUnbuild)
+RODijkstraRouter::compute(ROEdge *from, ROEdge *to, long time,
+                          bool continueOnUnbuild,
+                          ROAbstractEdgeEffortRetriever * const retriever)
 {
     std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
     if(visited==0) {
@@ -177,25 +181,26 @@ RODijkstraRouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time,
         vector<EdgeInfo*>,
         EdgeInfoByEffortComperator> frontierList;
     // add begin node
-	ROEdge *actualKnot = from;
-	if(from != 0) {
+    ROEdge *actualKnot = from;
+    if(from != 0) {
         EdgeInfo *ei = storage->add(actualKnot, 0, 0);
         frontierList.push(ei);
-	}
+    }
     // loop
-	while(!frontierList.empty()) {
+    while(!frontierList.empty()) {
         // use the node with the minimal length
         EdgeInfo *minimumKnot = frontierList.top();
         frontierList.pop();
             // check whether the destination node was already reached
         if(minimumKnot->edge == to) {
-			ROEdgeVector ret = buildPathFrom(minimumKnot);
+            ROEdgeVector ret = buildPathFrom(minimumKnot);
             clearTemporaryStorages(visited, storage);
             return ret;
         }
         (*visited)[minimumKnot->edge->getIndex()] = true; //minimumKnot->setExplored(true);
-        float effort = minimumKnot->effort + minimumKnot->edge->getMyEffort(time);
-		// check all ways from the node with the minimal length
+        float effort = (float) (minimumKnot->effort
+            + minimumKnot->edge->getEffort(time));
+        // check all ways from the node with the minimal length
         size_t i = 0;
         size_t length_size = minimumKnot->edge->getNoFollowing();
         for(i=0; i<length_size; i++) {
@@ -206,17 +211,15 @@ RODijkstraRouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time,
                     frontierList.push(storage->add(help, effort, minimumKnot));
                 }
             }
-		}
-	}
+        }
+    }
     cout << endl;
     if(!continueOnUnbuild) {
         MsgHandler::getErrorInstance()->inform(
             string("No connection between '") + from->getID()
             + string("' and '") + to->getID() + string("' found."));
     } else {
-        MsgHandler::getWarningInstance()->inform(
-            string("No connection between '") + from->getID()
-            + string("' and '") + to->getID() + string("' found."));
+        WRITE_WARNING(string("No connection between '") + from->getID()+ string("' and '") + to->getID() + string("' found."));
     }
     clearTemporaryStorages(visited, storage);
     return ROEdgeVector();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:35:01  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/12/11 06:20:15  dkrajzew
 // cvs-log meta-info added
 //
@@ -49,12 +52,11 @@ public:
         It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
         And each color is represented as a float. */
     static RGBColor parseColor(const std::string &coldef);
+
 };
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GfxConvHelper.icc"
-//#endif
 
 #endif
 

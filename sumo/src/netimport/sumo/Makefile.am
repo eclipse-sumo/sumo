@@ -10,5 +10,5 @@ NISUMOHandlerEdges.h \
 NISUMOHandlerNodes.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src  \
--I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
+-I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)
 

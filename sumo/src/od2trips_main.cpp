@@ -39,6 +39,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/common/RandHelper.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/XMLHelpers.h>
 #include <od2trips/ODDistrictCont.h>
@@ -47,10 +48,12 @@
 #include <od2trips/ODmatrix.h>
 #include <od2trips/ODsubroutines.h>
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * functions
@@ -79,9 +82,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("end", 'e', new Option_Long(86400));
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.doRegister("no-color", new Option_Bool(false));
-    //
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.doRegister("abs-rand", new Option_Bool(false));
+    RandHelper::insertRandOptions(oc);
 }
 
 
@@ -105,9 +106,6 @@ checkOptions(OptionsCont &oc)
         ok = false;
     }
     //
-    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
-        oc.set("srand", toString<int>(time(0)));
-    }
     return ok;
 }
 
@@ -181,7 +179,6 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        srand(oc.getInt("srand"));
         string OD_filename = oc.getString("d");
         //
         int fmatype = getFMatType(OD_filename);
@@ -191,12 +188,11 @@ main(int argc, char **argv)
         std::vector<std::string> infiles;
         // reads out some metadata from *.inp
         if( fmatype == 1) {
-            MsgHandler::getMessageInstance()->inform(
-                "**** VISSIM input data format **** ");
+            WRITE_MESSAGE("**** VISSIM input data format **** ");
             ODInpread (OD_filename, infiles, content/*,&maxfiles*/);
         } else {
-            MsgHandler::getMessageInstance()->inform(
-                "**** Original input data format **** ");
+            infiles.push_back(OD_filename);
+            WRITE_MESSAGE("**** Original input data format **** ");
         }
         long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
         long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
@@ -207,6 +203,10 @@ main(int argc, char **argv)
         bool ok_end = oc.isDefault("end");
         // load districts
         ODDistrictCont *districts = loadDistricts(oc);
+        if(districts==0) {
+            MsgHandler::getErrorInstance()->inform("No districts loaded...");
+            throw ProcessError();
+        }
         int od_next=0;
         // define dimensions
         long int max_cars=3000000; // maximum number of cars
@@ -222,19 +222,21 @@ main(int argc, char **argv)
         double tmprand, maxrand;
         float scale, rest;
         ini=true; // initialize random numbers with time, only first call
-        for (int ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
+        for (size_t ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
             // OD list
             vector<OD_IN> od_in;
             vector<OD_IN>::iterator it1;
             if (fmatype == 1) {
                 OD_filename = OD_path + infiles[ifile];
-                MsgHandler::getMessageInstance()->inform(
-                    "Processing " + OD_filename);
-            // Reads the OD Matrix
-            ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
-            // use settings if provided
-            } else
-                ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
+                WRITE_MESSAGE("Processing " + OD_filename);
+                // Reads the OD Matrix
+                ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
+                // use settings if provided
+            } else {
+                ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
+//              ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
+            }
+            //
             if(ok_begin) {
                 if(oc.getLong("begin") > start) start = oc.getLong("begin");
             }
@@ -253,7 +255,7 @@ main(int argc, char **argv)
             scale = scale / factor;
             total_cars=0;
             for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-                rest = fmod ( double((*it1).how_many), double(scale)) / double(scale);
+                rest = (float) (fmod ( double((*it1).how_many), double(scale)) / double(scale));
                 if(rest <= 0.5)
                     (*it1).how_many = int(double((*it1).how_many) / scale);
                 else
@@ -265,9 +267,7 @@ main(int argc, char **argv)
                 total_cars += (*it1).how_many;
             }
             if(fmatype == 2) {
-                MsgHandler::getMessageInstance()->inform(
-                    string("Total number of cars computed: ")
-                    + toString<long int>(total_cars));
+                WRITE_MESSAGE(string("Total number of cars computed: ")+ toString<long int>(total_cars));
             }
             int *when = new int [period];
             int *elements = new int [period];
@@ -314,10 +314,9 @@ main(int argc, char **argv)
             delete [] when; delete [] elements;
         }
         total_cars = od_next;
-        MsgHandler::getMessageInstance()->inform(
-            string("Total number of released cars: ") + toString<int>(total_cars));
+        WRITE_MESSAGE(string("Total number of released cars: ") + toString<int>(total_cars));
         // sorts the time
-        MsgHandler::getMessageInstance()->inform("Sorting ...");
+        WRITE_MESSAGE("Sorting ...");
         IndexSort(when_all, old_index, cmpfun, total_cars);
         std::vector<OD_OUT> source_sink(max_cars); // output OD data
         for(i=0;i<total_cars;i++)
@@ -332,10 +331,15 @@ main(int argc, char **argv)
         ODWrite( OD_outfile, source_sink, total_cars, *districts );
         delete [] source; delete [] sink;
         delete [] when_all; delete [] cartype;
-        MsgHandler::getMessageInstance()->inform("Success.");
+        WRITE_MESSAGE("Success.");
     } catch (...) {
+        MsgHandler::getMessageInstance()->inform(
+            "Quitting (on error).");
         ret = 1;
     }
     SystemFrame::close();
+    if(ret==0) {
+        WRITE_MESSAGE("Success.");
+    }
     return ret;
 }

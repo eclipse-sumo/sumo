@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        OutputDevice_COUT.cpp -
-//  An output device that encapsulates cout
+//                        SharedOutputDevices.cpp -
+//  The holder/builder of output devices
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : 2004
@@ -18,9 +18,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:35:47  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/11/22 12:54:56  dksumo
+// tried to generelise the usage of detectors and output devices
+//
+// Revision 1.1  2004/10/22 12:50:58  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.2  2004/08/02 13:01:16  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -28,10 +36,12 @@
 #include <map>
 #include <fstream>
 #include <string>
+#include <cassert>
 #include "SharedOutputDevices.h"
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
 
 
 /* =========================================================================
@@ -49,6 +59,11 @@ SharedOutputDevices *SharedOutputDevices::myInstance = 0;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+SharedOutputDevices::SharedOutputDevices()
+{
+}
+
+
 SharedOutputDevices *
 SharedOutputDevices::getInstance()
 {
@@ -59,21 +74,29 @@ SharedOutputDevices::getInstance()
 }
 
 
+void
+SharedOutputDevices::setInstance(SharedOutputDevices *inst)
+{
+    assert(myInstance==0);
+    myInstance = inst;
+}
+
+
 SharedOutputDevices::~SharedOutputDevices()
 {
-    for(FileMap::iterator i=myOutputFiles.begin(); i!=myOutputFiles.end(); ++i) {
+    for(DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         delete (*i).second;
     }
-    myOutputFiles.clear();
+    myOutputDevices.clear();
     myInstance = 0;
 }
 
 
 OutputDevice *
-SharedOutputDevices::getOutputFile(const std::string &name)
+SharedOutputDevices::getOutputDevice(const std::string &name)
 {
-    FileMap::iterator i = myOutputFiles.find(name);
-    if(i!=myOutputFiles.end()) {
+    DeviceMap::iterator i = myOutputDevices.find(name);
+    if(i!=myOutputDevices.end()) {
         return (*i).second;
     }
     std::ofstream *strm = new std::ofstream(name.c_str());
@@ -82,14 +105,19 @@ SharedOutputDevices::getOutputFile(const std::string &name)
         throw ProcessError();
     }
     OutputDevice *dev = new OutputDevice_File(strm);
-    myOutputFiles[name] = dev;
+    myOutputDevices[name] = dev;
     return dev;
 }
 
 
-SharedOutputDevices::SharedOutputDevices()
+OutputDevice *
+SharedOutputDevices::getOutputDeviceChecking(const std::string &base,
+                                             const std::string &name)
 {
+    return getOutputDevice(
+        FileHelpers::checkForRelativity(name, base));
 }
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/07/02 09:36:35  dkrajzew
 // error on edges with no lanes patched
 //
@@ -90,9 +93,9 @@ NIVisumParser_Edges::myDependentReport()
         // get the type
         string type = myLineParser.get("Typ");
         // get the street length
-        float length = getLength(from, to);
+        double length = getLength(from, to);
         // get the speed
-        float speed = getSpeed(type);
+        double speed = getSpeed(type);
         // get the information whether the edge is a one-way
         bool oneway =
             TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
@@ -142,10 +145,10 @@ NIVisumParser_Edges::checkNodes(NBNode *from, NBNode *to) const
 }
 
 
-float
+double
 NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 {
-    float length = 0;
+    double length = 0;
     try {
         length = TplConvertSec<char>::_2floatSec(
             myLineParser.get("Laenge").c_str(), 0);
@@ -159,10 +162,10 @@ NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 }
 
 
-float
+double
 NIVisumParser_Edges::getSpeed(const std::string &type) const
 {
-    float speed = 0;
+    double speed = 0;
     try {
         speed =
             TplConvertSec<char>::_2floatSec(
@@ -197,7 +200,7 @@ void
 NIVisumParser_Edges::insertEdge(const std::string &id,
                                 NBNode *from, NBNode *to,
                                 const std::string &type,
-                                float speed, int nolanes, float length,
+                                double speed, int nolanes, double length,
                                 int prio) const
 {
     NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -65,11 +68,11 @@ class OptionsCont;
 class RONet;
 class RONetHandler;
 class ROAbstractRouteDefLoader;
-class ofstream;
 class GenericSAX2Handler;
 class ROAbstractRouter;
 class ROAbstractEdgeBuilder;
 class ROVehicleBuilder;
+class GUIRouterRunThread;
 
 
 /* =========================================================================
@@ -103,7 +106,7 @@ public:
     ///
     /// @return True on successful parsing.
     ///
-    bool loadSupplementaryWeights( RONet& net );
+    void loadSupplementaryWeights( RONet& net );
 
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
@@ -123,6 +126,10 @@ public:
         This is done for all previously build route loaders */
     void closeReading();
 
+    bool makeSingleStep(long end, RONet &net, ROAbstractRouter &router);
+
+    friend class GUIRouterRunThread;
+
 protected:
     /** @brief Loads the net
         The loading structures were built in previous */
@@ -131,12 +138,10 @@ protected:
 
     /** @brief Opens routes
         The loading structures were built in previous */
-    void openTypedRoutes(const std::string &optionName,
-        RONet &net, float gBeta, float gA);
+    void openTypedRoutes(const std::string &optionName, RONet &net);
 
     /// Adds a route loader to the list of known route loaders
-    void addToHandlerList(const std::string &optionName,
-        RONet &net, float gBeta, float gA);
+    void addToHandlerList(const std::string &optionName, RONet &net);
 
     /** @brief Skips routes which start before the wished time period
         This is done for all previously build route loaders */
@@ -148,7 +153,7 @@ protected:
 protected:
     ROAbstractRouteDefLoader* buildNamedHandler(
         const std::string &optionName, const std::string &file
-        , RONet &net, float gBeta, float gA);
+        , RONet &net);
 
     void checkFile(const std::string &optionName
         , const std::string &file);

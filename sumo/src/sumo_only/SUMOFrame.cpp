@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/11/23 10:27:27  dkrajzew
+// debugging
+//
 // Revision 1.21  2004/08/02 12:48:13  dkrajzew
 // using OutputDevices instead of ostreams; first steps towards a lane-change API
 //
@@ -87,6 +90,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -104,6 +113,8 @@ namespace
 #include <utils/iodevices/OutputDevice_File.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSGlobals.h>
+#include <utils/common/RandHelper.h>
 #include "SUMOFrame.h"
 
 
@@ -136,6 +147,8 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("emissions-output", "emissions");
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
+    oc.doRegister("vehroute-output", new Option_FileName());
+    oc.addSynonyme("vehroute-output", "vehroutes");
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
@@ -156,13 +169,22 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     //
     oc.doRegister("actuating-detector-pos", new Option_Float(100));
-    oc.doRegister("agent-detector-len", new Option_Float(75));
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.doRegister("abs-rand", new Option_Bool(false));
     oc.doRegister("time-to-teleport", new Option_Integer(300));
 
     oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
     oc.doRegister("default-lanechange-model", new Option_String("dk1"));
+
+    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));
+    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));
+    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((float) (80.0/3.6)));
+
+    oc.doRegister("agent-tl.detector-len", new Option_Float(75));
+    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));
+    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));
+    oc.doRegister("agent-tl.min-diff", new Option_Float((float) .1));
+    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
+
+    RandHelper::insertRandOptions(oc);
 }
 
 
@@ -172,7 +194,8 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     std::vector<OutputDevice*> ret(MSNet::OS_MAX, 0);
     ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
-    ret[MSNet::OS_TRIPINFO] = buildStream(oc, "tripinfo-output");
+    ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
+    ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
     return ret;
 }
 
@@ -234,19 +257,38 @@ SUMOFrame::checkOptions(OptionsCont &oc)
         return false;
     }
     //
-    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
-        oc.set("srand", toString<int>(time(0)));
-    }
-    //
     if(oc.isSet("default-lanechange-model")) {
         string t = oc.getString("default-lanechange-model");
-        if(t!="krauss"&&t!="dk1") {
+        if(t!="dk1") {
             MsgHandler::getErrorInstance()->inform(
-                "The end of the simulation (-e) is not specified.");
+                "Unknown lane change model");
             ok = false;
         }
     }
     return ok;
+}
+
+
+void
+SUMOFrame::setMSGlobals(OptionsCont &oc)
+{
+    // pre-initialise the network
+     // set whether empty edges shall be printed on dump
+    MSGlobals::gOmitEmptyEdgesOnDump =
+        !oc.getBool("dump-empty-edges");
+    // set whether internal lanes shall be used
+    MSGlobals::gUsingInternalLanes =
+        oc.getBool("use-internal-links");
+    // set the grid lock time
+    MSGlobals::gTimeToGridlock =
+        oc.getInt("time-to-teleport");
+    // set the vehicle teleport on false lane options
+    MSGlobals::gMinLaneVMax4FalseLaneTeleport =
+        oc.getFloat("lc-teleport.lane-min-vmax");
+    MSGlobals::gMaxVehV4FalseLaneTeleport =
+        oc.getFloat("lc-teleport.veh-maxv");
+    MSGlobals::gMinVehDist4FalseLaneTeleport =
+        oc.getFloat("lc-teleport.min-dist");
 }
 
 

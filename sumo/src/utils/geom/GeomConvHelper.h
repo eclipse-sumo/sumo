@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/12/09 11:32:50  dkrajzew
 // documentation added
 //
@@ -53,9 +56,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GeomConvHelper.icc"
-//#endif
 
 #endif
 

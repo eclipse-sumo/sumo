@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.10  2003/11/11 08:24:52  dkrajzew
 // debug values removed
 //
@@ -78,7 +81,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
+    : NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -119,8 +122,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         //
     } else {
         from >> tag; // strecke
-        MsgHandler::getWarningInstance()->inform(
-            "Omitting unknown traffic light!!!");
+        WRITE_WARNING("Omitting unknown traffic light!!!");
         return true;
     }
 

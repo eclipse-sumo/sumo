@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/06/05 11:46:55  dkrajzew
 // class templates applied; documentation added
 //
@@ -39,7 +42,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class Boundery;
+class Boundary;
 
 /* =========================================================================
  * class definitions
@@ -55,23 +58,18 @@ public:
     bool crosses(const AbstractPoly &poly, double offset=0) const;
     void inCluster(int id);
     bool clustered() const;
-    const Boundery &getBoundery() const;
+    const Boundary &getBoundary() const;
 public:
     static void closeLoading();
 protected:
     typedef std::set<NIVissimBoundedClusterObject*> ContType;
     static ContType myDict;
-    Boundery *myBoundery;
+    Boundary *myBoundary;
     int myClusterID;
 };
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimBoundedClusterObject.icc"
-//#endif
 
 #endif
 

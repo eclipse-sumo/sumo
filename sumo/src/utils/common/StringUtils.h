@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/01/12 14:38:19  dkrajzew
 // to-upper method added
 //
@@ -84,9 +87,6 @@ public:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "StringUtils.icc"
-//#endif
 
 #endif
 

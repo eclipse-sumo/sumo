@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -101,9 +104,8 @@ RORouteDef_Complete::getTo() const
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
-                                       long begin,
-                                       bool continueOnUnbuild,
-                                       ROVehicle &veh)
+        long begin, bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
     return new RORoute(_id, 0, 1, _edges);
 }

@@ -3,7 +3,7 @@
 
 #include "MFXEditableTable.h"
 #include <vector>
-#include "FXRealSpinDial.h"
+#include <utils/foxtools/FXRealSpinDial.h>
 
 enum CellType {
     CT_UNDEFINED = -1,
@@ -11,6 +11,7 @@ enum CellType {
     CT_STRING = 1,
     CT_INT = 2,
     CT_BOOL = 3,
+    CT_ENUM = 4,
     CT_MAX
 };
 
@@ -36,19 +37,23 @@ public:
     void editItem(FXTableItem* item,FXint how);
     void editEnd();
     void editCancel();
-    CellType getCellType(int pos) const;
-    void setCellType(int pos, CellType t);
-    void setNumberCellParams(int pos, double min, double max,
+    CellType getCellType(size_t pos) const;
+    void setCellType(size_t pos, CellType t);
+    void setNumberCellParams(size_t pos, double min, double max,
         double steps1, double steps2, double steps3,
         const std::string &format);
-    NumberCellParams getNumberCellParams(int pos) const;
+    NumberCellParams getNumberCellParams(size_t pos) const;
+    void setEnums(size_t pos, const std::vector<std::string> &params);
+    void addEnum(size_t pos, const std::string &e);
+    const std::vector<std::string> &getEnums(size_t pos) const;
 
 protected:
     std::vector<CellType> myCellTypes;
-
     std::vector<NumberCellParams> myNumberCellParams;
+    std::vector<std::vector<std::string> > myEnums;
     FXRealSpinDial *myNumberEditor;
     FXCheckButton *myBoolEditor;
+    FXComboBox *myEnumEditor;
 
 protected:
     MFXAddEditTypedTable() { }
@@ -57,4 +62,5 @@ protected:
 
 
 #endif
+
 

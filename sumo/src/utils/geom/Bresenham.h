@@ -2,7 +2,7 @@
 #define Bresenham_h
 /***************************************************************************
                           Bresenham.h
-			  A class to realise a uniform n:m - relationship using the
+              A class to realise a uniform n:m - relationship using the
               bresenham - algorithm
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -70,13 +73,8 @@ public:
     static void compute(BresenhamCallBack *callBack, double val1, double val2);
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
-//#include "Bresenham.icc"
-//#endif
 
 #endif
 

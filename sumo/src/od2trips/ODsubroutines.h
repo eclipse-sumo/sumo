@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/11/23 10:25:07  dkrajzew
+// debugging
+//
 // Revision 1.8  2004/07/02 09:38:21  dkrajzew
 // coding style adaptations
 //
@@ -35,8 +38,6 @@
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -61,7 +62,7 @@ class ODDistrictCont;
 extern int ODread (std::string, std::vector<OD_IN>&, long*, long*,
                    long*, long*, float* );
 
-extern int ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, long*,
+extern void ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, long*,
                       long*, float* );
 
 extern int ODWrite (std::string , std::vector<OD_OUT>& , long int,

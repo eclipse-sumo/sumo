@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBRequest.cpp
-			  This class computes the logic of a junction
+              This class computes the logic of a junction
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/01/26 07:05:41  dkrajzew
 // removed some debug values
 //
@@ -148,6 +151,8 @@ namespace
 #include "NBTrafficLightLogicVector.h"
 #include "nodes/NBNode.h"
 #include "NBRequest.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -161,7 +166,7 @@ using namespace std;
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -179,15 +184,24 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                      const EdgeVector * const incoming,
                      const EdgeVector * const outgoing,
                      const NBConnectionProhibits &loadedProhibits)
-	: _junction(junction),
+    : _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
     size_t variations = _incoming->size() * _outgoing->size();
+    // we maybe want to keep the junction unregulated
+    //  this is mostly the case if Vissim-networks are imported and someone
+    //  did not concern prohibitions when inserting streams
+    bool keepUnregulated = false;
+    if(OptionsSubSys::getOptions().getBool("keep-unregulated")) {
+        keepUnregulated = true;
+    }
+    // build maps with information which forbidding connection were
+    //  computed and what's in there
     _forbids.reserve(variations);
     _done.reserve(variations);
     for(size_t i=0; i<variations; i++) {
         _forbids.push_back(LinkInfoCont(variations, false));
-        _done.push_back(LinkInfoCont(variations, false));
+        _done.push_back(LinkInfoCont(variations, keepUnregulated));
     }
     // insert loaded prohibits
     for(NBConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
@@ -231,11 +245,7 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                 string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
                 string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
                 string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
-                MsgHandler::getWarningInstance()->inform(
-				    string("could not prohibit ")
-					+ pfID + string("->") + ptID
-					+ string(" by ")
-					+ bfID + string("->") + ptID);
+                WRITE_WARNING(string("could not prohibit ")+ pfID + string("->") + ptID+ string(" by ")+ bfID + string("->") + ptID);
                 myNotBuild++;
             }
         }
@@ -334,7 +344,7 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         return; // !!! error output? did not happend, yet
     }
     // check whether the link crossing has already been checked
-    assert(idx1<_incoming->size()*_outgoing->size());
+    assert((size_t) idx1<_incoming->size()*_outgoing->size());
     if(_done[idx1][idx2]) {
         return;
     }
@@ -485,7 +495,7 @@ NBRequest::resetSignalised()
                 }
                 // go through possibly prohibited
                 for( EdgeVector::const_iterator i21=_incoming->begin(); i21!=_incoming->end(); i21++) {
-                    int noLanesEdge2 = (*i21)->getNoLanes();
+                    size_t noLanesEdge2 = (*i21)->getNoLanes();
                     for(size_t j2=0; j2<noLanesEdge2; j2++) {
                         const EdgeLaneVector *el2 = (*i21)->getEdgeLanesFromLane(j2);
                         for(EdgeLaneVector::const_iterator i22=el2->begin(); i22!=el2->end(); i22++) {
@@ -540,7 +550,7 @@ NBRequest::getSizes() const
          i!=_incoming->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-			assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
+            assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
         }
         noLanes += noLanesEdge;
@@ -563,15 +573,15 @@ NBRequest::foes(NBEdge *from1, NBEdge *to1,
     if(idx1<0||idx2<0) {
         return false; // sure? (The connection does not exist within this junction)
     }
-    assert(idx1<_incoming->size()*_outgoing->size());
-    assert(idx2<_incoming->size()*_outgoing->size());
+    assert((size_t) idx1<_incoming->size()*_outgoing->size());
+    assert((size_t) idx2<_incoming->size()*_outgoing->size());
     return _forbids[idx1][idx2] || _forbids[idx2][idx1];
 }
 
 
 bool
 NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-				   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+                   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                    bool regardNonSignalisedLowerPriority) const
 {
     // unconnected edges do not forbid other edges
@@ -584,8 +594,8 @@ NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
     if(possProhibitorIdx<0||possProhibitedIdx<0) {
         return false; // sure? (The connection does not exist within this junction)
     }
-    assert(possProhibitorIdx<_incoming->size()*_outgoing->size());
-    assert(possProhibitedIdx<_incoming->size()*_outgoing->size());
+    assert((size_t) possProhibitorIdx<_incoming->size()*_outgoing->size());
+    assert((size_t) possProhibitedIdx<_incoming->size()*_outgoing->size());
     // check simple right-of-way-rules
     if(!regardNonSignalisedLowerPriority) {
         return _forbids[possProhibitorIdx][possProhibitedIdx];
@@ -647,15 +657,15 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     // do not prohibit a connection by others from same lane
                     os << '0';
                 } else {
-                    assert(connected!=0&&k<connected->size());
-                    assert(idx<_incoming->size()*_outgoing->size());
-                    assert((*connected)[k].edge==0 || getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
-					// check whether the connection is prohibited by another one
+                    assert(connected!=0&&k<(int) connected->size());
+                    assert((size_t) idx<_incoming->size()*_outgoing->size());
+                    assert((*connected)[k].edge==0 || (size_t) getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
+                    // check whether the connection is prohibited by another one
                     if( (*connected)[k].edge!=0 &&
                         _forbids[getIndex(*i, (*connected)[k].edge)][idx] &&
                         toLane == (*connected)[k].lane ) {
                         os << '1';
-						continue;
+                        continue;
                     }
                     os << '0';
                 }
@@ -737,22 +747,22 @@ operator<<(std::ostream &os, const NBRequest &r)
 bool
 NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 {
-	// vehicles which do not have a following lane must always decelerate to the end
-	if(to==0) {
-		return true;
-	}
+    // vehicles which do not have a following lane must always decelerate to the end
+    if(to==0) {
+        return true;
+    }
     // get the indices
     int idx2 = getIndex(from, to);
     if(idx2==-1) {
         return false;
     }
-    assert(idx2<_incoming->size()*_outgoing->size());
-	for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
-		if(_forbids[idx1][idx2]) {
-			return true;
-		}
-	}
-	return false;
+    assert((size_t) idx2<_incoming->size()*_outgoing->size());
+    for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
+        if(_forbids[idx1][idx2]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -771,10 +781,7 @@ NBRequest::reportWarnings()
 {
     // check if any errors occured on build the link prohibitions
     if(myNotBuild!=0) {
-        MsgHandler::getWarningInstance()->inform(
-            toString<int>(myNotBuild) + string(" of ")
-            + toString<int>(myNotBuild+myGoodBuilds)
-            + string(" prohibitions were not build."));
+        WRITE_WARNING(toString<int>(myNotBuild) + string(" of ")+ toString<int>(myNotBuild+myGoodBuilds)+ string(" prohibitions were not build."));
     }
 }
 

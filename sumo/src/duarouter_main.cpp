@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:43:28  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -142,6 +145,7 @@ namespace
 #include <router/ROVehicleType_Krauss.h>
 #include <routing_dua/RODijkstraRouter.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
+#include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -152,6 +156,7 @@ namespace
 #include <utils/common/HelpPrinter.h>
 #include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
+#include <routing_dua/RODUAFrame.h>
 #include "duarouter_help.h"
 
 
@@ -162,7 +167,7 @@ namespace
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
 //   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include <utils/dev/MemDiff.h>
+//   #include <utils/dev/MemDiff.h>
 #endif
 #endif
 
@@ -180,92 +185,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-/** validate options (settings) */
-bool
-checkOptions(OptionsCont &oc)
-{
-    // check whether the output is valid and can be build
-    if(!oc.isSet("o")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
-        return false;
-    }
-    std::ofstream tst(oc.getString("o").c_str());
-    if(!tst.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("o")
-            + string("' can not be build."));
-        return false;
-    }
-    //
-    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
-        oc.set("srand", toString<int>(time(0)));
-    }
-    return true;
-}
-
-
-/** build and retrieve the options (settings) */
-void
-fillOptions(OptionsCont &oc)
-{
-    // register the file i/o options
-    oc.doRegister("cell-input", new Option_FileName());
-    oc.doRegister("artemis-input", new Option_FileName());
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.doRegister("net-files", 'n', new Option_FileName());
-    oc.doRegister("weights", 'w', new Option_FileName());
-    oc.doRegister("sumo-input", 's', new Option_FileName());
-    oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.doRegister("alternatives", 'a', new Option_FileName());
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.doRegister("save-cell-rindex", new Option_Bool(false));
-    oc.doRegister("random-per-second", 'R', new Option_Float());
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addSynonyme("net-files", "net");
-    oc.addSynonyme("output-file", "output");
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addSynonyme("weights", "weight-files");
-    oc.addSynonyme("artemis", "artemis-input");
-    oc.addSynonyme("cell", "cell-input");
-    oc.addSynonyme("sumo", "sumo-input");
-    oc.addSynonyme("trips", "trip-defs");
-    // register the simulation settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
-    oc.doRegister("end", 'e', new Option_Integer(864000));
-    // register Gawron's DUE-settings
-    oc.doRegister("gBeta", new Option_Float(float(0.3)));
-    oc.doRegister("gA", new Option_Float(0.05));
-    // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
-    oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
-    oc.doRegister("krauss-b", 'B', new Option_Float(float(4.5)));
-    oc.doRegister("krauss-length", 'L', new Option_Float(float(5)));
-    oc.doRegister("krauss-eps", 'E', new Option_Float(float(0.5)));
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    // register the data processing options
-    oc.doRegister("unsorted", new Option_Bool(false));
-    oc.doRegister("move-on-short", new Option_Bool(false));
-    oc.doRegister("stats-period", new Option_Integer(-1));
-    oc.doRegister("intel-cell", new Option_Bool(false));
-    oc.doRegister("no-last-cell", new Option_Bool(false));
-//    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
-    oc.doRegister("scheme", 'x', new Option_String("traveltime"));
-//    oc.doRegister("no-sort", 'S', new Option_Bool(false));
-    //
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.doRegister("abs-rand", new Option_Bool(false));
-    oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
-    oc.addSynonyme("supplementary-weights", "add");
-}
-
-
 /**
  * loads the net
  * The net is in this meaning made up by the net itself and the dynamic
@@ -294,26 +213,6 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     return net;
 }
 
-
-/**
- * Inserts the default from options into the vehicle
- *  type descriptions
- */
-void
-setDefaults(OptionsCont &oc)
-{
-    // insert the krauss-values
-    ROVehicleType_Krauss::myDefault_A =
-        oc.getFloat("krauss-a");
-    ROVehicleType_Krauss::myDefault_B =
-        oc.getFloat("krauss-b");
-    ROVehicleType_Krauss::myDefault_EPS =
-        oc.getFloat("krauss-eps");
-    ROVehicleType_Krauss::myDefault_LENGTH =
-        oc.getFloat("krauss-length");
-    ROVehicleType_Krauss::myDefault_MAXSPEED =
-        oc.getFloat("krauss-vmax");
-}
 
 
 /**
@@ -353,7 +252,7 @@ main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
-    CMemDiff state1;
+    //CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
     // _CrtSetBreakAlloc(434490);
@@ -364,12 +263,12 @@ main(int argc, char **argv)
     try {
         // initialise the application system (messaging, xml, options)
         if(!SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help)) {
+            RODUAFrame::fillOptions_fullImport, RODUAFrame::checkOptions, help)) {
             throw ProcessError();
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        setDefaults(oc);
+        ROFrame::setDefaults(oc);
         // load data
         ROVehicleBuilder vb;
         ROLoader loader(oc, vb, false);
@@ -391,14 +290,13 @@ main(int argc, char **argv)
             ret = 1;
         }
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform(
-            "Quitting (building failed).");
+        WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
     delete net;
     SystemFrame::close();
     if(ret==0) {
-        MsgHandler::getMessageInstance()->inform("Success.");
+        WRITE_MESSAGE("Success.");
     }
     return ret;
 }

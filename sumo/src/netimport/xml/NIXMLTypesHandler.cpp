@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIXMLTypesHandler.cpp
-			  Used to parse the XML-descriptions of types given in a XML-format
+              Used to parse the XML-descriptions of types given in a XML-format
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/06/19 10:59:35  dkrajzew
 // error output patched
 //
@@ -96,7 +99,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -152,7 +155,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
-                    NBTypeCont::getDefaultSpeed());
+                    (float) NBTypeCont::getDefaultSpeed());
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for Speed (at tag ID='")
@@ -169,8 +172,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
                 }
             }
         } catch (EmptyData) {
-            MsgHandler::getWarningInstance()->inform(
-                "No id given... Skipping.");
+            WRITE_WARNING("No id given... Skipping.");
         }
     }
 }

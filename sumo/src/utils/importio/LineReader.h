@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/11/23 10:35:28  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/07/02 09:47:01  dkrajzew
 // a simpler API added (should be reworked, subject to change)
 //
@@ -132,10 +135,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "LineReader.icc"
-//#endif
 
 #endif
 

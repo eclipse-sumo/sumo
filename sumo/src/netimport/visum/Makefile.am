@@ -16,7 +16,8 @@ NIVisumParser_Turns.cpp NIVisumParser_Turns.h \
 NIVisumParser_TurnsToSignalGroups.cpp NIVisumParser_TurnsToSignalGroups.h \
 NIVisumParser_Types.cpp NIVisumParser_Types.h \
 NIVisumParser_VSysTypes.cpp NIVisumParser_VSysTypes.h \
-NIVisumTL.cpp NIVisumTL.h
+NIVisumTL.cpp NIVisumTL.h \
+NIVisumParser_EdgePolys.cpp NIVisumParser_EdgePolys.h
 
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

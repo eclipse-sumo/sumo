@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/11/23 10:21:40  dkrajzew
+// debugging
+//
 // Revision 1.14  2004/08/02 13:11:39  dkrajzew
 // made some deprovements or so
 //
@@ -209,7 +212,18 @@ NBContHelper::edge_by_junction_angle_sorter::operator() (NBEdge *e1, NBEdge *e2)
 double
 NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 {
-    double angle = e->getNormedAngle(*_node);
+
+    double angle;
+    // convert angle if the edge is an outgoing edge
+    if(e->getFromNode()==_node) {
+        angle = e->getNormedAngle(*_node);
+        angle += 180;
+        if(angle>=360) {
+            angle -= 360;
+        }
+    } else {
+        angle = e->getNormedAngle(*_node);
+    }
     assert(angle>=0&&angle<360);
     return angle;
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.6  2003/07/22 15:11:25  dkrajzew
 // removed warnings
 //
@@ -40,13 +43,13 @@ namespace
 
 
 #include <cassert>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include "NIVissimBoundedClusterObject.h"
 
 NIVissimBoundedClusterObject::ContType NIVissimBoundedClusterObject::myDict;
 
 NIVissimBoundedClusterObject::NIVissimBoundedClusterObject()
-    : myBoundery(0), myClusterID(-1)
+    : myBoundary(0), myClusterID(-1)
 {
     myDict.insert(this);
 }
@@ -54,7 +57,7 @@ NIVissimBoundedClusterObject::NIVissimBoundedClusterObject()
 
 NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject()
 {
-    delete myBoundery;
+    delete myBoundary;
 }
 
 
@@ -62,8 +65,8 @@ bool
 NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly,
                                       double offset) const
 {
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
-    return myBoundery->overlapsWith(poly, offset);
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
+    return myBoundary->overlapsWith(poly, offset);
 }
 
 
@@ -90,19 +93,14 @@ NIVissimBoundedClusterObject::closeLoading()
 }
 
 
-const Boundery &
-NIVissimBoundedClusterObject::getBoundery() const
+const Boundary &
+NIVissimBoundedClusterObject::getBoundary() const
 {
-    return *myBoundery;
+    return *myBoundary;
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimBoundedClusterObject.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -61,7 +64,6 @@
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -80,7 +82,7 @@
 typedef std::vector<unsigned int> UIntVector;
 
 /**
- * Option
+ * @class Option
  * The base class for a single program option. All options which hold values
  * are derived from this class as the type may differ.
  * When set, the value is valid. May be set with an initial, default value.
@@ -176,7 +178,7 @@ private:
 };
 
 /**
- * Option_Integer
+ * @class Option_Integer
  * An integer-option
  */
 class Option_Integer : public Option {

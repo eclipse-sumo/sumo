@@ -1,7 +1,7 @@
 /***************************************************************************
                           main.cpp
-			  The main procedure for the conversion /
-			  building of networks
+              The main procedure for the conversion /
+              building of networks
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/11/23 10:43:28  dkrajzew
+// debugging
+//
 // Revision 1.22  2004/02/06 08:54:28  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //
@@ -167,10 +170,10 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include <utils/dev/MemDiff.h>
-   #include <crtdbg.h>
+//   #include <utils/dev/MemDiff.h>
+//   #include <crtdbg.h>
 #endif
 #endif
 
@@ -202,7 +205,7 @@ main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
-    CMemDiff state1;
+    //CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
     // _CrtSetBreakAlloc(814107);
@@ -239,7 +242,7 @@ main(int argc, char **argv)
     SystemFrame::close();
     // report about ending
     if(ret==0) {
-        MsgHandler::getMessageInstance()->inform("Success.");
+        WRITE_MESSAGE("Success.");
     }
     return ret;
 }

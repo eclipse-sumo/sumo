@@ -1,12 +1,12 @@
-#ifndef HaveBoundery_h
-#define HaveBoundery_h
+#ifndef GUIExcp_VehicleIsInvisible_h
+#define GUIExcp_VehicleIsInvisible_h
 //---------------------------------------------------------------------------//
-//                        HaveBoundery.h -
-//  The base class for objects that do have a boundery
+//                        GUIExcp_VehicleIsInvisible.h -
+//  Exception thrown if an unvisible vehicle shall be taken into sight
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  begin                : Jun 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,39 +20,29 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.5  2004/07/02 09:44:40  dkrajzew
-// changes for 0.8.0.2
+// Revision 1.1  2004/11/23 10:38:29  dkrajzew
+// debugging
 //
-// Revision 1.4  2004/03/19 13:01:11  dkrajzew
-// methods needed for the new selection within the gui added; some style adaptions
+// Revision 1.1  2004/10/22 12:50:47  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
-// Revision 1.3  2003/11/12 13:48:49  dkrajzew
-// visualisation of tl-logics added
+// Revision 1.1  2004/07/02 08:34:15  dkrajzew
+// added to debug vehicle zoom
+//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <utils/geom/Boundery.h>
+#include <exception>
 
 
 /* =========================================================================
- * included modules
+ * class definitions
  * ======================================================================= */
-/**
- * @class HaveBoundery
- * Class which allows the retrieval of a boundery
- */
-class HaveBoundery {
+class GUIExcp_VehicleIsInvisible : public std::exception {
 public:
-    /// Constructor
-    HaveBoundery() { }
-
-    /// Destructor
-    virtual ~HaveBoundery() { }
-
-    /// Returns the object's boundery
-    virtual Boundery getBoundery() const = 0;
-
+    GUIExcp_VehicleIsInvisible() { }
+    ~GUIExcp_VehicleIsInvisible() throw() { }
 };
 
 
@@ -63,3 +53,4 @@ public:
 // Local Variables:
 // mode:C++
 // End:
+

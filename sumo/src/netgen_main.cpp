@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/11/23 10:43:29  dkrajzew
+// debugging
+//
 // Revision 1.12  2004/07/02 09:50:54  dkrajzew
 // options changes applied
 //
@@ -76,6 +79,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/RandHelper.h>
 #include <utils/convert/ToString.h>
 #include "netgen_help.h"
 
@@ -87,7 +91,7 @@ namespace
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
 //   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include <utils/dev/MemDiff.h>
+//   #include <utils/dev/MemDiff.h>
 #endif
 #endif
 
@@ -141,9 +145,6 @@ checkOptions(OptionsCont &oc)
         }
     }
     //
-    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
-        oc.set("srand", toString<int>(time(0)));
-    }
     return true;
 }
 
@@ -166,9 +167,9 @@ fillOptions(OptionsCont &oc)
     // register random-net options
     oc.doRegister("rand-max-distance", new Option_Float(250));
     oc.doRegister("rand-min-distance", new Option_Float(100));
-    oc.doRegister("rand-min-angle", new Option_Float(45.0/180.0*PI));
+    oc.doRegister("rand-min-angle", new Option_Float((float) (45.0/180.0*PI)));
     oc.doRegister("rand-num-tries", new Option_Float(50));
-    oc.doRegister("rand-connectivity", new Option_Float(0.95));
+    oc.doRegister("rand-connectivity", new Option_Float((float) 0.95));
     oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
     oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
     oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
@@ -212,11 +213,9 @@ fillOptions(OptionsCont &oc)
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
     oc.addSynonyme("default-junction-type", "junctions");
-    //
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.doRegister("abs-rand", new Option_Bool(false));
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    RandHelper::insertRandOptions(oc);
 }
 
 
@@ -225,7 +224,6 @@ buildNetwork()
 {
     TNGNet *net = new TNGNet();
     OptionsCont &oc = OptionsSubSys::getOptions();
-    srand(oc.getInt("srand"));
     // spider-net
     if(oc.getBool("s")) {
         net->CreateSpiderWeb(
@@ -279,7 +277,7 @@ main(int argc, char **argv)
 {
 #ifdef _DEBUG
 #ifdef WIN32
-    CMemDiff state1;
+    //CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
     // _CrtSetBreakAlloc(434490);
@@ -310,13 +308,13 @@ main(int argc, char **argv)
         NBNetBuilder nb;
         nb.buildLoaded();
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform(
+        MsgHandler::getMessageInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
     }
     SystemFrame::close();
     if(ret==0) {
-        MsgHandler::getMessageInstance()->inform("Success.");
+        WRITE_MESSAGE("Success.");
     }
     return ret;
 }

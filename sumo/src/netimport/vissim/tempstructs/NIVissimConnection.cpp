@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.16  2004/01/12 15:32:54  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -49,9 +52,6 @@ namespace
 // Revision 1.8  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -69,7 +69,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/nodes/NBNode.h>
@@ -167,9 +167,9 @@ NIVissimConnection::buildNodeClusters()
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *e = (*i).second;
         if(!e->clustered()) {
-            assert(e->myBoundery!=0&&e->myBoundery->xmax()>e->myBoundery->xmin());
+            assert(e->myBoundary!=0&&e->myBoundary->xmax()>e->myBoundary->xmin());
             IntVector connections =
-                NIVissimConnection::getWithin(*(e->myBoundery));
+                NIVissimConnection::getWithin(*(e->myBoundary));
             int id = NIVissimNodeCluster::dictionary(-1, -1, connections,
                 IntVector(), true); // 19.5.!!! should be on a single edge
         }
@@ -196,11 +196,11 @@ NIVissimConnection::getWithin(const AbstractPoly &poly)
 void
 NIVissimConnection::computeBounding()
 {
-    Boundery *bound = new Boundery();
+    Boundary *bound = new Boundary();
     bound->add(myFromDef.getGeomPosition());
     bound->add(myToDef.getGeomPosition());
-    assert(myBoundery==0);
-    myBoundery = bound;
+    assert(myBoundary==0);
+    myBoundary = bound;
 }
 
 
@@ -336,7 +336,7 @@ NIVissimConnection::dict_extendEdgesGeoms()
 void
 NIVissimConnection::dict_buildNBEdgeConnections()
 {
-	size_t ref = 0;
+    size_t ref = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
@@ -383,13 +383,9 @@ NIVissimConnection::dict_buildNBEdgeConnections()
                     toString<int>(c->getFromEdgeID()),
                     toString<int>(c->getToEdgeID()),
                     true);
-                MsgHandler::getWarningInstance()->inform(
-                    string("Could not build connection between '")
-                    + toString<int>(c->getFromEdgeID())
-                    + string("' and '")
-                    + toString<int>(c->getToEdgeID())
-                    + string("'."));
-			    ref++;
+
+                WRITE_WARNING(string("Could not build connection between '")+ toString<int>(c->getFromEdgeID())+ string("' and '")+ toString<int>(c->getToEdgeID())+ string("'."));
+                ref++;
                 continue;
             }
         }
@@ -426,12 +422,9 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             }
         }
     }
-	if(ref!=0) {
-        MsgHandler::getWarningInstance()->inform(
-            toString<size_t>(ref) + string(" of ")
-            + toString<size_t>(myDict.size())
-            + string(" connections could not be assigned."));
-	}
+    if(ref!=0) {
+        WRITE_WARNING(toString<size_t>(ref) + string(" of ")+ toString<size_t>(myDict.size())+ string(" connections could not be assigned."));
+    }
 }
 
 
@@ -450,11 +443,11 @@ NIVissimConnection::getToLanes() const
 
 
 
-const Boundery &
+const Boundary &
 NIVissimConnection::getBoundingBox() const
 {
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
-    return *myBoundery;
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
+    return *myBoundary;
 }
 
 
@@ -477,9 +470,6 @@ NIVissimConnection::getMaxID()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimConnection.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -2,7 +2,7 @@
 #define SharedOutputDevices_h
 //---------------------------------------------------------------------------//
 //                        SharedOutputDevices.h -
-//  The holder of output devices
+//  The holder/builder of output devices
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : 2004
@@ -20,9 +20,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:35:47  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/11/22 12:54:56  dksumo
+// tried to generelise the usage of detectors and output devices
+//
+// Revision 1.1  2004/10/22 12:50:58  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.2  2004/08/02 13:01:16  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -45,28 +53,34 @@ class OutputDevice;
  */
 class SharedOutputDevices {
 public:
+    /// constructor
+    SharedOutputDevices();
+
+    /// Destructor
+    virtual ~SharedOutputDevices();
+
     /// Get the singleton instance
     static SharedOutputDevices *getInstance();
 
-    /// Destructor
-    ~SharedOutputDevices();
+    /// Get the singleton instance
+    static void setInstance(SharedOutputDevices*);
 
     /// Returns the named file
-    OutputDevice *getOutputFile(const std::string &name);
+    virtual OutputDevice *getOutputDevice(const std::string &name);
 
-private:
-    /// Private constructor
-    SharedOutputDevices();
+    /// Returns the named file checking whether the path is completely given
+    virtual OutputDevice *getOutputDeviceChecking(
+        const std::string &base, const std::string &name);
 
-private:
+protected:
     /// the singleton instance
     static SharedOutputDevices *myInstance;
 
     /// Definition of a map from names to output devices
-    typedef std::map<std::string, OutputDevice*> FileMap;
+    typedef std::map<std::string, OutputDevice*> DeviceMap;
 
     /// map from names to output devices
-    FileMap myOutputFiles;
+    DeviceMap myOutputDevices;
 
 };
 

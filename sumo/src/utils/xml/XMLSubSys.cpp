@@ -1,6 +1,6 @@
 /***************************************************************************
                           XMLSubSys.cpp
-			  Utility for initialisation and closing of the XML-subsystem
+              Utility for initialisation and closing of the XML-subsystem
                              -------------------
     project              : SUMO
     begin                : Mon, 1 Jul 2002
@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/01/26 07:15:08  dkrajzew
 // some style changes only
 //
@@ -40,6 +43,12 @@ namespace
 // Revision 1.1  2002/07/02 08:29:47  dkrajzew
 // A class to encapsulate the XML-Subsystem initialisation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

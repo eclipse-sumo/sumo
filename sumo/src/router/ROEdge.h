@@ -20,8 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.11  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.10  2004/04/14 13:53:50  roessel
 // Changes and additions in order to implement supplementary-weights.
@@ -30,7 +34,8 @@
 // patched some linux-warnings
 //
 // Revision 1.8  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work; documentation added
 //
 // Revision 1.7  2003/11/11 08:04:46  dkrajzew
 // avoiding emissions of vehicles on too short edges
@@ -47,6 +52,12 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -146,7 +157,7 @@ public:
     size_t getIndex() const;
 
     /// returns the effort for this edge only
-    virtual float getMyEffort(long time);
+    virtual float getEffort(int time) const;
 
     /// Takes pointers to FloatValueTimeLines and assigns them to the
     /// classes supplementary weights. You must provide all three
@@ -162,6 +173,33 @@ public:
     void setSupplementaryWeights( FloatValueTimeLine* absolut,
                                   FloatValueTimeLine* add,
                                   FloatValueTimeLine* mult );
+
+     void clear();
+
+   virtual ROLane *getLane(std::string name) ; //###################
+
+static  bool dictionary(std::string id, ROEdge* ptr);
+
+static ROEdge* dictionary2(std::string id);
+////#########################  muss Private sein
+
+
+            /// definition of the static dictionary type
+    typedef std::map<std::string, ROEdge* > DictType;
+
+    /// Static dictionary to associate string-ids with objects.
+    static DictType myDict;
+
+            /// definition of the static dictionary type
+    typedef std::map<std::string, ROLane* > DictLane;
+
+    /// Static dictionary to associate string-ids with objects.
+     DictLane myDictLane;
+
+     ROLane *getLane(size_t index);
+
+    double getSpeed() const;
+
 
 protected:
     /// The id of the edge
@@ -206,10 +244,12 @@ protected:
     bool _hasSupplementaryWeights;
 
     /// Information whether the edge has reported missing weights
-    bool myHaveWarned;
+    //bool myHaveWarned;
 
     /// The length of the edge
     double myLength;
+
+    std::vector<ROLane*> myLanes;
 
 private:
     /// we made the copy constructor invalid

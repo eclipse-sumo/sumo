@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/08/02 13:11:40  dkrajzew
 // made some deprovements or so
 //
@@ -209,7 +212,6 @@ namespace
 //
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
-//
 //
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -493,10 +495,10 @@ NBNode::getOutgoingEdges() const
 }
 
 
-const EdgeVector *
-NBNode::getEdges()
+const EdgeVector &
+NBNode::getEdges() const
 {
-    return &_allEdges;
+    return _allEdges;
 }
 
 
@@ -507,37 +509,6 @@ NBNode::buildList()
         back_inserter(_allEdges));
     copy(_outgoingEdges->begin(), _outgoingEdges->end(),
         back_inserter(_allEdges));
-}
-
-
-void
-NBNode::sortSmall()
-{
-    if(_allEdges.size()==0) {
-        return;
-    }
-    vector<NBEdge*>::iterator i;
-    if(_id=="276") {
-    for( i=_allEdges.begin();
-         i!=_allEdges.end()&&i!=_allEdges.end(); i++) {
-        cout << (*i)->getID() << ", ";
-    }
-         cout << endl;
-    }
-    for( i=_allEdges.begin();
-         i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
-        swapWhenReversed(i, i+1);
-    }
-    if(_allEdges.size()>1 && i!=_allEdges.end()) {
-        swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
-    }
-    if(_id=="276") {
-    for( i=_allEdges.begin();
-         i!=_allEdges.end()&&i!=_allEdges.end(); i++) {
-        cout << (*i)->getID() << ", ";
-    }
-         cout << endl;
-    }
 }
 
 
@@ -557,10 +528,6 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
 void
 NBNode::setPriorities()
 {
-    if(_id=="25496632___6") {
-        int bla = 0;
-    }
-
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
@@ -822,6 +789,7 @@ NBNode::getInternalNamesList()
     return ret;
 }
 
+
 size_t
 NBNode::countInternalLanes()
 {
@@ -964,7 +932,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
         ret.push_back(end);
         return ret;
     }
-    float def[10];
+    double def[10];
     def[1] = beg.x();
     def[2] = 0;
     def[3] = beg.y();
@@ -975,7 +943,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
     def[8] = 0;
     def[9] = end.y();
 
-    float ret_buf[NO_INTERNAL_POINTS*3+1];
+    double ret_buf[NO_INTERNAL_POINTS*3+1];
     bezier(3, def, NO_INTERNAL_POINTS, ret_buf);
     Position2D prev;
     for(size_t i=0; i<NO_INTERNAL_POINTS; i++) {
@@ -1221,24 +1189,15 @@ NBNode::setType(BasicNodeType type)
 void
 NBNode::reportBuild()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("No Junctions (converted)    : ")
-        + toString<int>(_noNoJunctions));
-    MsgHandler::getMessageInstance()->inform(
-        string("Priority Junctions          : ")
-        + toString<int>(_noPriorityJunctions));
-    MsgHandler::getMessageInstance()->inform(
-        string("Right Before Left Junctions : ")
-        + toString<int>(_noRightBeforeLeftJunctions));
+    WRITE_MESSAGE( string("No Junctions (converted)    : ") + toString<int>(_noNoJunctions));
+    WRITE_MESSAGE(string("Priority Junctions          : ") + toString<int>(_noPriorityJunctions));
+    WRITE_MESSAGE(string("Right Before Left Junctions : ") + toString<int>(_noRightBeforeLeftJunctions));
 }
 
 
 void
 NBNode::sortNodesEdges()
 {
-    if(_id=="25496632___6") {
-        int bla = 0;
-    }
     // sort the edges
     buildList();
     sort(_allEdges.begin(), _allEdges.end(),
@@ -1247,24 +1206,29 @@ NBNode::sortNodesEdges()
         NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_outgoingEdges->begin(), _outgoingEdges->end(),
         NBContHelper::edge_by_junction_angle_sorter(this));
-    sortSmall();
-    setType(computeType());
-    setPriorities();
+    if(_allEdges.size()==0) {
+        return;
+    }
+    vector<NBEdge*>::iterator i;
+    for( i=_allEdges.begin();
+         i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
+        swapWhenReversed(i, i+1);
+    }
+    if(_allEdges.size()>1 && i!=_allEdges.end()) {
+        swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
+    }
 #ifdef _DEBUG
-#ifdef CROSS_TEST
-    if(_id=="0") {
-        EdgeVector::iterator i=_allEdges.begin();
-        assert((*i++)->getID()=="4si");
-        assert((*i++)->getID()=="4o");
-        assert((*i++)->getID()=="2si");
-        assert((*i++)->getID()=="2o");
-        assert((*i++)->getID()=="3si");
-        assert((*i++)->getID()=="3o");
-        assert((*i++)->getID()=="1si");
-        assert((*i++)->getID()=="1o");
+    if(OptionsSubSys::getOptions().getInt("netbuild.debug")>0) {
+        cout << "Node '" << _id << "': ";
+        const EdgeVector &ev = getEdges();
+        for(EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
+            cout << (*i)->getID() << ", ";
+        }
+        cout << endl;
     }
 #endif
-#endif
+    setType(computeType());
+    setPriorities();
 }
 
 
@@ -1402,7 +1366,7 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
 }
 
 
-std::string
+void
 NBNode::setTurningDefinition(NBNode *from, NBNode *to)
 {
     EdgeVector::iterator i;
@@ -1413,10 +1377,6 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             src = (*i);
         }
     }
-    if(src==0) {
-        return string("There is no edge from node '") + from->getID()
-            + string("' to node '") + getID() + string("'.");
-    }
     // get the destination edge
     NBEdge *dest = 0;
     for(i=_outgoingEdges->begin(); dest==0 && i!=_outgoingEdges->end(); i++) {
@@ -1424,15 +1384,35 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             dest = (*i);
         }
     }
+    // check both
+    if(src==0) {
+        // maybe it was removed due to something
+        if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+            MsgHandler::getWarningInstance()->inform(
+                string("Could not set connection from node '") + from->getID()
+                + string("' to node '") + getID() + string("'."));
+        } else {
+            MsgHandler::getErrorInstance()->inform(
+                string("There is no edge from node '") + from->getID()
+                + string("' to node '") + getID() + string("'."));
+        }
+        return;
+    }
     if(dest==0) {
-        return string("There is no edge from node '") + getID()
-            + string("' to node '") + to->getID() + string("'.");
+        if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
+            MsgHandler::getWarningInstance()->inform(
+                string("Could not set connection from node '") + getID()
+                + string("' to node '") + to->getID() + string("'."));
+        } else {
+            MsgHandler::getErrorInstance()->inform(
+                string("There is no edge from node '") + getID()
+                + string("' to node '") + to->getID() + string("'."));
+        }
+        return;
     }
     // both edges found
     //  set them into the edge
     src->addEdge2EdgeConnection(dest);
-    // no error occured
-    return "";
 }
 
 
@@ -1570,31 +1550,51 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
 void
 NBNode::removeDoubleEdges()
 {
-    EdgeVector::iterator i;
+    size_t i, j;
     // check incoming
-    size_t pos = 0;
-    for(i=_incomingEdges->begin(); _incomingEdges->size()!=0&&i!=_incomingEdges->end()-1;) {
-        EdgeVector::iterator j = find(i+1, _incomingEdges->end(), *i);
-        if(j!=_incomingEdges->end()) {
-            _incomingEdges->erase(j);
-            i = _incomingEdges->begin() + pos;
-        } else {
-            pos++;
-            i++;
+    for(i=0; _incomingEdges->size()>0&&i<_incomingEdges->size()-1; i++) {
+        j = i + 1;
+        while(j<_incomingEdges->size()) {
+            if((*_incomingEdges)[i]==(*_incomingEdges)[j]) {
+                _incomingEdges->erase(_incomingEdges->begin()+j);
+            } else {
+                j++;
+            }
         }
     }
     // check outgoing
-    pos = 0;
-    for(i=_outgoingEdges->begin(); _outgoingEdges->size()!=0&&i!=_outgoingEdges->end()-1; ) {
-        EdgeVector::iterator j = find(i+1, _outgoingEdges->end(), *i);
-        if(j!=_outgoingEdges->end()) {
-            _outgoingEdges->erase(j);
-            i = _outgoingEdges->begin() + pos;
-        } else {
-            pos++;
-            i++;
+    for(i=0; _outgoingEdges->size()>0&&i<_outgoingEdges->size()-1; i++) {
+        j = i + 1;
+        while(j<_outgoingEdges->size()) {
+            if((*_outgoingEdges)[i]==(*_outgoingEdges)[j]) {
+                _outgoingEdges->erase(_outgoingEdges->begin()+j);
+            } else {
+                j++;
+            }
         }
     }
+    /*
+    EdgeVector::iterator i, j;
+    for(i=_incomingEdges->begin(); _incomingEdges->size()!=0&&i!=_incomingEdges->end()-1; ++i) {
+        do {
+            j = find(i+1, _incomingEdges->end(), *i);
+            if(j!=_incomingEdges->end()) {
+                _incomingEdges->erase(j);
+                j = _incomingEdges->begin(); // !!! ?needed
+            }
+        } while(i!=_incomingEdges->end()&&j!=_incomingEdges->end());
+    }
+    // check outgoing
+    for(i=_outgoingEdges->begin(); _outgoingEdges->size()!=0&&i!=_outgoingEdges->end()-1; ++i) {
+        do {
+            j = find(i+1, _outgoingEdges->end(), *i);
+            if(j!=_outgoingEdges->end()) {
+                _outgoingEdges->erase(j);
+                j = _outgoingEdges->begin();
+            }
+        } while(i!=_outgoingEdges->end()&&j!=_outgoingEdges->end());
+    }
+    */
 }
 
 
@@ -1635,6 +1635,7 @@ NBNode::getOppositeOutgoing(NBEdge *e) const
     return edges[0];
 }
 
+
 void
 NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
                           const NBConnection &mustStop)
@@ -1644,8 +1645,7 @@ NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
         mustStop.getFrom()==0 ||
         mustStop.getTo()==0) {
 
-        MsgHandler::getWarningInstance()->inform(
-            "Something went wrong during the building of a connection...");
+        WRITE_WARNING("Something went wrong during the building of a connection...");
         return; // !!! mark to recompute connections
     }
     NBConnectionVector conn = _blockedConnections[mustStop];
@@ -1701,8 +1701,7 @@ NBNode::eraseDummies()
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
-        MsgHandler::getWarningInstance()->inform(
-            string(" Removing dummy edge '") + dummy->getID() + string("'"));
+        WRITE_WARNING(string(" Removing dummy edge '") + dummy->getID() + string("'"));
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
@@ -2193,10 +2192,37 @@ NBNode::connectionIsTLControlled(NBEdge *from, NBEdge *to) const
 */
 
 
+double
+NBNode::getMaxEdgeWidth() const
+{
+    EdgeVector::const_iterator i=_allEdges.begin();
+    assert(i!=_allEdges.end());
+    double ret = (*i)->width();
+    ++i;
+    for(; i!=_allEdges.end(); i++) {
+        ret = ret > (*i)->width()
+            ? ret
+            : (*i)->width();
+    }
+    return ret;
+}
+
+
+NBEdge *
+NBNode::getConnectionTo(NBNode *n) const
+{
+    vector<NBEdge*>::iterator i;
+    for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+        if((*i)->getToNode()==n) {
+            return (*i);
+        }
+    }
+    return 0;
+}
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBNode.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

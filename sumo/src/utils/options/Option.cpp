@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/02 09:41:32  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -75,7 +78,6 @@ namespace
 //
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
-//
 //
 /* =========================================================================
  * included modules

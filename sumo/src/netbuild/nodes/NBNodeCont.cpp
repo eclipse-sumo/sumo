@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:21:42  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/08/02 13:11:40  dkrajzew
 // made some deprovements or so
 //
@@ -158,7 +161,7 @@ namespace
 #include <algorithm>
 #include <fstream>
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
@@ -220,9 +223,6 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 bool
 NBNodeCont::insert(const string &id, const Position2D &position)
 {
-    if(id=="25711782") {
-        int bla = 0;
-    }
     NodeCont::iterator i = _nodes.find(id);
     if(i!=_nodes.end()) {
         if( fabs((*i).second->getPosition().x()-position.x())<0.1 &&
@@ -331,15 +331,15 @@ NBNodeCont::erase(NBNode *node)
 bool
 NBNodeCont::normaliseNodePositions()
 {
-    // compute the boundery
-    Boundery boundery;
+    // compute the boundary
+    Boundary boundary;
     NodeCont::iterator i;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
-        boundery.add((*i).second->getPosition());
+        boundary.add((*i).second->getPosition());
     }
     // reformat
-    double xmin = boundery.xmin() * -1;
-    double ymin = boundery.ymin() * -1;
+    double xmin = boundary.xmin() * -1;
+    double ymin = boundary.ymin() * -1;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->resetby(xmin, ymin);
     }
@@ -383,9 +383,6 @@ bool
 NBNodeCont::sortNodesEdges()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-    if((*i).second->getID()=="25496632___6") {
-        int bla = 0;
-    }
         (*i).second->sortNodesEdges();
     }
     return true;
@@ -481,8 +478,7 @@ NBNodeCont::clear()
 void
 NBNodeCont::report()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("   ") + toString<int>(getNo()) + string(" nodes loaded."));
+    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" nodes loaded."));
 }
 
 
@@ -589,8 +585,7 @@ NBNodeCont::removeDummyEdges()
         no += (*i).second->eraseDummies();
     }
     if(no!=0) {
-        MsgHandler::getWarningInstance()->inform(
-            toString<int>(no) + string(" dummy edges removed."));
+        WRITE_WARNING(toString<int>(no) + string(" dummy edges removed."));
     }
     return true;
 }
@@ -707,8 +702,7 @@ NBNodeCont::removeUnwishedNodes()
     for(std::vector<NBNode*>::iterator j=toRemove.begin(); j!=toRemove.end(); j++) {
         erase(*j);
     }
-    MsgHandler::getMessageInstance()->inform(
-        string("   ") + toString<int>(no) + string(" nodes removed."));
+    WRITE_MESSAGE(string("   ") + toString<int>(no) + string(" nodes removed."));
     return true;
 }
 
@@ -722,8 +716,8 @@ NBNodeCont::guessTLs(OptionsCont &oc)
     }
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
-    if(oc.isSet("explicite-no-junctions")) {
-        StringTokenizer st(oc.getString("explicite-no-junctions"), ";");
+    if(oc.isSet("explicite-no-tls")) {
+        StringTokenizer st(oc.getString("explicite-no-tls"), ";");
         while(st.hasNext()) {
             string name = st.next();
             NBNode *n = NBNodeCont::retrieve(name);
@@ -749,9 +743,9 @@ NBNodeCont::guessTLs(OptionsCont &oc)
 
         // check whether the node has the right amount of incoming edges
         //  to be controlled by a tl
-        if( cur->getIncomingEdges().size()<oc.getInt("tls-guess.no-incoming-min")
+        if( (int) cur->getIncomingEdges().size()<oc.getInt("tls-guess.no-incoming-min")
             ||
-            cur->getIncomingEdges().size()>oc.getInt("tls-guess.no-incoming-max") ) {
+            (int) cur->getIncomingEdges().size()>oc.getInt("tls-guess.no-incoming-max") ) {
 
             // nope...
             continue;
@@ -759,9 +753,9 @@ NBNodeCont::guessTLs(OptionsCont &oc)
 
         // check whether the node has the right amount of outgoing edges
         //  to be controlled by a tl
-        if( cur->getOutgoingEdges().size()<oc.getInt("tls-guess.no-outgoing-min")
+        if( (int) cur->getOutgoingEdges().size()<oc.getInt("tls-guess.no-outgoing-min")
             ||
-            cur->getOutgoingEdges().size()>oc.getInt("tls-guess.no-outgoing-max") ) {
+            (int) cur->getOutgoingEdges().size()>oc.getInt("tls-guess.no-outgoing-max") ) {
 
             // nope...
             continue;

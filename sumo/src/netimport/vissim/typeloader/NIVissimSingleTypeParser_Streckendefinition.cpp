@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2003/07/30 09:24:03  dkrajzew
 // reinserted the needed but removed check
 //
@@ -69,7 +72,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
+    : NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -83,7 +86,7 @@ bool
 NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
 {
     // read in the id
-	int id;
+    int id;
     from >> id;
     //
     string tag;
@@ -127,7 +130,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         try {
             double tmp = TplConvert<char>::_2float(tag.c_str());
             tag = myRead(from);
-        } catch (NumberFormatException &e) {
+        } catch (NumberFormatException &) {
         }
     }
     geom.push_back(getPosition2D(from));

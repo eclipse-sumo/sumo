@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.17  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -150,7 +153,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     RONet *net = new RONet(_options.isSet("sumo-input"));
     std::string file = _options.getString("n");
     if(_options.getBool("v")) {
-        cout << "Loading net... ";
+        MsgHandler::getMessageInstance()->inform("Loading net... ");
     }
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
@@ -172,18 +175,18 @@ ROLoader::openRoutes(RONet &net, float gBeta, float gA)
 {
     // build loader
         // load additional precomputed sumo-routes when wished
-    openTypedRoutes("sumo-input", net, gBeta, gA);
+    openTypedRoutes("sumo-input", net);
         // load the XML-trip definitions when wished
-    openTypedRoutes("trip-defs", net, gBeta, gA);
+    openTypedRoutes("trip-defs", net);
         // load the cell-routes when wished
-    openTypedRoutes("cell-input", net, gBeta, gA);
+    openTypedRoutes("cell-input", net);
         // load artemis routes when wished
-    openTypedRoutes("artemis-input", net, gBeta, gA);
+    openTypedRoutes("artemis-input", net);
         // load the sumo-alternative file when wished
-    openTypedRoutes("alternatives", net, gBeta, gA);
+    openTypedRoutes("alternatives", net);
     // build generators
         // load the amount definitions if wished
-    openTypedRoutes("flows", net, gBeta, gA);
+    openTypedRoutes("flows", net);
         // check whether random routes shall be build, too
     if(_options.isSet("R")) {
         RORDGenerator_Random *randGen =
@@ -221,7 +224,7 @@ ROLoader::processRoutesStepWise(long start, long end,
     long time = getMinTimeStep();
     long firstStep = time;
     long lastStep = time;
-    for(; time<end&&!errorOccured; time++) {
+    for(; time<end&&!errorOccured&&!endReached; time++) {
         writeStats(time, start, absNo);
         RouteLoaderCont::iterator i;
         // go through all handlers
@@ -248,6 +251,26 @@ ROLoader::processRoutesStepWise(long start, long end,
         + string(" and ") + toString<int>(lastStep) + string("."));
 }
 
+bool
+ROLoader::makeSingleStep(long end, RONet &net, ROAbstractRouter &router)
+{
+        RouteLoaderCont::iterator i;
+        // go through all handlers
+        if(_handler.size()!= 0){
+
+                for(i=_handler.begin(); i!=_handler.end(); i++) {
+                    // load routes until the time point is reached
+                    (*i)->readRoutesAtLeastUntil(end);
+                    // save the routes
+                    net.saveAndRemoveRoutesUntil(_options, router, end);
+                }
+
+                return MsgHandler::getErrorInstance()->wasInformed();
+        }else{
+            cout<<"ROLoader::makeSingleStep: _handler ist leer \n";
+            return false;
+        }
+}
 
 unsigned int
 ROLoader::getMinTimeStep() const
@@ -274,7 +297,7 @@ ROLoader::processAllRoutes(unsigned int start, unsigned int end,
         (*i)->readRoutesAtLeastUntil(INT_MAX);
     }
     // save the routes
-    int time = start;
+    size_t time = start;
     for(; time<end; time++) {
         writeStats(time, start, absNo);
         net.saveAndRemoveRoutesUntil(_options, router, time);
@@ -295,7 +318,7 @@ ROLoader::closeReading()
 
 void
 ROLoader::openTypedRoutes(const std::string &optionName,
-                          RONet &net, float gBeta, float gA)
+                          RONet &net)
 {
     // check whether the current loader is wished
     if(!_options.isSet(optionName)) {
@@ -309,13 +332,13 @@ ROLoader::openTypedRoutes(const std::string &optionName,
         throw ProcessError();
     }
     // allocate a reader and add it to the list
-    addToHandlerList(optionName, net, gBeta, gA);
+    addToHandlerList(optionName, net);
 }
 
 
 void
 ROLoader::addToHandlerList(const std::string &optionName,
-                           RONet &net, float gBeta, float gA)
+                           RONet &net)
 {
     string fileList = _options.getString(optionName);
     StringTokenizer st(fileList, ";");
@@ -327,7 +350,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
         checkFile(optionName, file);
         // build the instance when everything's all right
         ROAbstractRouteDefLoader *instance =
-            buildNamedHandler(optionName, file, net, gBeta, gA);
+            buildNamedHandler(optionName, file, net);
         if(!instance->init(_options)) {
             delete instance;
             MsgHandler::getErrorInstance()->inform(string("The loader for ")
@@ -343,7 +366,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
 ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
-                            RONet &net, float gBeta, float gA)
+                            RONet &net)
 {
     if(optionName=="sumo-input") {
         return new RORDLoader_SUMORoutes(myVehicleBuilder, net,
@@ -351,12 +374,14 @@ ROLoader::buildNamedHandler(const std::string &optionName,
     }
     if(optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
-            myEmptyDestinationsAllowed,
-                _options.getInt("begin"), _options.getInt("end"), file);
+            _options.getInt("begin"), _options.getInt("end"),
+            myEmptyDestinationsAllowed, file);
     }
     if(optionName=="cell-input") {
         return new RORDLoader_Cell(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"), gBeta, gA, file);
+            _options.getInt("begin"), _options.getInt("end"),
+            _options.getFloat("gBeta"), _options.getFloat("gA"),
+            _options.getInt("max-alternatives"), file);
     }
     if(optionName=="artemis-input") {
         return new RORDLoader_Artemis(myVehicleBuilder, net,
@@ -364,7 +389,9 @@ ROLoader::buildNamedHandler(const std::string &optionName,
     }
     if(optionName=="alternatives") {
         return new RORDLoader_SUMOAlt(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"), gBeta, gA, file);
+            _options.getInt("begin"), _options.getInt("end"),
+            _options.getFloat("gBeta"), _options.getFloat("gA"),
+            _options.getInt("max-alternatives"), file);
     }
     if(optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
@@ -449,7 +476,7 @@ ROLoader::loadWeights(RONet &net)
     return ok;
 }
 
-bool
+void
 ROLoader::loadSupplementaryWeights( RONet& net )
 {
     string filename = _options.getString( "S" );
@@ -457,7 +484,7 @@ ROLoader::loadSupplementaryWeights( RONet& net )
         MsgHandler::getErrorInstance()->inform(
             string( "The supplementary-weights file '" ) + filename +
             string( "' does not exist!" ) );
-        return false;
+        throw ProcessError();
     }
 
     ROSupplementaryWeightsHandler handler( _options, net, filename );
@@ -465,15 +492,12 @@ ROLoader::loadSupplementaryWeights( RONet& net )
         "Loading precomputed supplementary net-weights." );
 
     XMLHelpers::runParser( handler, filename );
-    bool ok = ! MsgHandler::getErrorInstance()->wasInformed();
-
-    if ( ok ) {
+    if ( ! MsgHandler::getErrorInstance()->wasInformed() ) {
         MsgHandler::getMessageInstance()->inform( "done." );
-    }
-    else {
+    } else {
         MsgHandler::getMessageInstance()->inform( "failed." );
+        throw ProcessError();
     }
-    return ok;
 }
 
 

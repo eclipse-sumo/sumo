@@ -2,7 +2,7 @@
 #define NIVisumParser_Edges_h
 /***************************************************************************
                           NIVisumParser_Edges.h
-			  Parser for visum-edges
+              Parser for visum-edges
                              -------------------
     project              : SUMO
     begin                : Thu, 14 Nov 2002
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
@@ -61,22 +64,22 @@ protected:
     void myDependentReport();
 
 private:
-	/// Checks whether the nodes are ok
-	bool checkNodes(NBNode *from, NBNode *to) const;
+    /// Checks whether the nodes are ok
+    bool checkNodes(NBNode *from, NBNode *to) const;
 
-	/// Returns the length of the edge, either read from the parameter or computed from the geometry
-	float getLength(NBNode *from, NBNode *to) const;
+    /// Returns the length of the edge, either read from the parameter or computed from the geometry
+    double getLength(NBNode *from, NBNode *to) const;
 
-	/// Returns the maximum allowed speed on this edge, either read from the parameter or the one of the type the edge is of
-	float getSpeed(const std::string &type) const;
+    /// Returns the maximum allowed speed on this edge, either read from the parameter or the one of the type the edge is of
+    double getSpeed(const std::string &type) const;
 
-	/// Returns the number of the lanes the edge has; Either read from the parameter or the number of lanes the edges of this type have
-	int getNoLanes(const std::string &type) const;
+    /// Returns the number of the lanes the edge has; Either read from the parameter or the number of lanes the edges of this type have
+    int getNoLanes(const std::string &type) const;
 
-	/// Build the edge checking the insertion
-	void insertEdge(const std::string &id,  NBNode *from, NBNode *to,
-		const std::string &type, float speed, int nolanes, float length,
-		int prio) const;
+    /// Build the edge checking the insertion
+    void insertEdge(const std::string &id,  NBNode *from, NBNode *to,
+        const std::string &type, double speed, int nolanes, double length,
+        int prio) const;
 
 };
 

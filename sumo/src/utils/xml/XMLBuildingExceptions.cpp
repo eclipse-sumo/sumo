@@ -1,7 +1,7 @@
 /***************************************************************************
                           XMLBuildingExceptions.cpp
-			  Exceptions that may occure while building the
-			  structures
+              Exceptions that may occure while building the
+              structures
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -70,6 +73,12 @@ namespace
 //
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -82,7 +91,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -316,12 +325,7 @@ XMLListEmptyException::getMessage(const string &obj, const string &id)
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "XMLBuildingExceptions.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

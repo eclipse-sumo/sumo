@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/10/30 13:43:09  dkrajzew
 // debug output added
 //
@@ -63,9 +66,6 @@ std::ostream &operator<<(std::ostream &os, const IntVector &iv);
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "IntVector.icc"
-//#endif
 
 #endif
 

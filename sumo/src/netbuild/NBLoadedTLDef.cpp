@@ -29,7 +29,7 @@ NBLoadedTLDef::SignalGroup::~SignalGroup()
 void
 NBLoadedTLDef::SignalGroup::addConnection(const NBConnection &c)
 {
-    assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>c.getFromLane());
+    assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>(size_t)c.getFromLane());
     myConnections.push_back(c);
 }
 
@@ -62,11 +62,7 @@ void
 NBLoadedTLDef::SignalGroup::patchTYellow(size_t tyellow)
 {
     if(myTYellow<tyellow) {
-        MsgHandler::getWarningInstance()->inform(
-            string("TYellow of signal group '") + getID()
-            + string("' was less than the computed one; patched (was:")
-            + toString<int>(myTYellow) + string(", is:")
-            + toString<int>(tyellow) + string(")"));
+        WRITE_WARNING(string("TYellow of signal group '") + getID()+ string("' was less than the computed one; patched (was:")+ toString<double>(myTYellow) + string(", is:")+ toString<int>(tyellow) + string(")"));
         myTYellow = tyellow;
     }
 }
@@ -83,9 +79,9 @@ NBLoadedTLDef::SignalGroup::patchFalseGreenPhases(double cycleDuration)
             duration = (*(i+1)).myTime - (*i).myTime;
         }
         if((*i).myColor==TLCOLOR_GREEN&&duration-myTYellow<1.0) {
-            MsgHandler::getWarningInstance()->inform(
-                string("Replacing a non-existing (length<1s)")
-                + string(" green phase by red in signal group '")
+            WRITE_WARNING(\
+                string("Replacing a non-existing (length<1s)")\
+                + string(" green phase by red in signal group '")\
                 + getID() + string("' by red (removing)."));
             i = myPhases.erase(i);
         }
@@ -114,10 +110,10 @@ NBLoadedTLDef::SignalGroup::getTimes(double cycleDuration) const
             } /*else {
                 // verify whether the green phases are long enough
                 if((*i).myTime-myTYellow<5) {
-                    MsgHandler::getWarningInstance()->inform(
-                        string("The signal group '") + getID()
-                        + string("' holds a green phase with a duration below 5s (")
-                        + toString<int>((*i).myTime-myTYellow)
+                    WRITE_WARNING(
+                        string("The signal group '") + getID()\
+                        + string("' holds a green phase with a duration below 5s (")\
+                        + toString<int>((*i).myTime-myTYellow)\
                         + string(")."));
                 }
             }*/
@@ -295,7 +291,7 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
               (*i).getFromLane()==-1) ) {
             (*i).replaceFrom(removed, removedLane, by, byLane);
 
-        } else if((*i).getTo()==removed && removedLane==-1) {
+        } else if((*i).getFrom()==removed && removedLane==-1) {
             (*i).replaceFrom(removed, by);
         }
     }
@@ -392,7 +388,8 @@ NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
             duration = (size_t) (myCycleDuration - (*l) + *(switchTimes.begin())) ;
         }
         // no information about yellow times will be generated
-        Masks masks = buildPhaseMasks(*l);
+        assert((*l)>=0);
+        Masks masks = buildPhaseMasks((size_t) (*l));
         logic->addStep(duration,
             masks.driveMask, masks.brakeMask, masks.yellowMask);
     }
@@ -421,7 +418,7 @@ NBLoadedTLDef::setTLControllingInformation() const
         size_t linkNo = group->getLinkNo();
         for(size_t j=0; j<linkNo; j++) {
             const NBConnection &conn = group->getConnection(j);
-            assert(conn.getFromLane()<0||conn.getFrom()->getNoLanes()>conn.getFromLane());
+            assert(conn.getFromLane()<0||(int) conn.getFrom()->getNoLanes()>conn.getFromLane());
             NBConnection tst(conn);
             if(tst.check()) {
                 NBEdge *edge = conn.getFrom();
@@ -429,10 +426,7 @@ NBLoadedTLDef::setTLControllingInformation() const
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
                     getID(), pos++);
             } else {
-                MsgHandler::getWarningInstance()->inform(
-                    string("Could not set signal on connection (signal: ")
-                    + getID() + string(", group: ") + group->getID()
-                    + string(")"));
+                WRITE_WARNING(string("Could not set signal on connection (signal: ")+ getID() + string(", group: ") + group->getID()+ string(")"));
             }
         }
     }

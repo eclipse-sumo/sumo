@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -68,7 +71,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -77,6 +85,8 @@ namespace
 #include "OptionsCont.h"
 #include "OptionsParser.h"
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -96,7 +106,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-bool OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
+bool
+OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
 {
     bool ok = true;
     for(int i=1; i<argc; ) {
@@ -116,9 +127,10 @@ bool OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
                 ok = false;
             }
         } catch (InvalidArgument &e) {
-            cerr << "Error on processing option '"
-                << argv[i] << "':" << endl;
-            cerr << " " << e.msg() << endl;
+            MsgHandler::getErrorInstance()->inform(
+                "Error on processing option '" + string(argv[i]) + "':");
+            MsgHandler::getErrorInstance()->inform(
+                " " + e.msg());
             i++;
             ok = false;
         }
@@ -126,7 +138,9 @@ bool OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
     return ok;
 }
 
-int OptionsParser::check(OptionsCont *oc, char *arg1)
+
+int
+OptionsParser::check(OptionsCont *oc, char *arg1)
 {
     // the last stand-alone argument should be a switch
     if(!checkParameter(arg1)) return -1;
@@ -153,11 +167,15 @@ int OptionsParser::check(OptionsCont *oc, char *arg1)
             error = !oc->set(convert(arg1+2), true);
         }
     }
-    if(error) return -1;
+    if(error) {
+        return -1;
+    }
     return 1;
 }
 
-int OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2)
+
+int
+OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2)
 {
     // the first argument should be an option
     // (only the second may be a free string)
@@ -219,6 +237,7 @@ int OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2)
     }
 }
 
+
 int
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg)
 {
@@ -235,29 +254,38 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg)
     }
 }
 
-bool OptionsParser::checkParameter(char *arg1)
+
+bool
+OptionsParser::checkParameter(char *arg1)
 {
     if(arg1[0]!='-') {
-        cerr << "The parameter " << arg1
-            << " is not allowed in this context" << endl;
-        cerr << "Switch or parameter name expected." << endl;
+        MsgHandler::getErrorInstance()->inform(
+            "The parameter '" + string(arg1) + "' is not allowed in this context");
+        MsgHandler::getErrorInstance()->inform(
+            "Switch or parameter name expected.");
         return false;
     }
     return true;
 }
 
-bool OptionsParser::isAbbreviation(char *arg1)
+
+bool
+OptionsParser::isAbbreviation(char *arg1)
 {
     return arg1[1]!='-';
 }
 
-string OptionsParser::convert(char *arg)
+
+string
+OptionsParser::convert(char *arg)
 {
     string s(arg);
     return s;
 }
 
-string OptionsParser::convert(char abbr)
+
+string
+OptionsParser::convert(char abbr)
 {
     char buf[2];
     buf[0] = abbr;

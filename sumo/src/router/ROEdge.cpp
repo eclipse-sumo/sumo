@@ -23,8 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.15  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.14  2004/04/23 12:43:00  dkrajzew
 // warnings and errors are now reported to MsgHandler, not cerr
@@ -38,6 +42,7 @@ namespace
 // Revision 1.11  2004/03/03 15:33:53  roessel
 // Tried to make postloadInit more readable.
 // Added an assert to avoid division by zero.
+//
 // Revision 1.10 2004/01/26 08:01:10 dkrajzew
 // loaders and route-def types are now renamed in an senseful way;
 // further changes in order to make both new routers work;
@@ -88,6 +93,8 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+ROEdge::DictType ROEdge::myDict;
+bool myHaveWarned = false;
 
 /* =========================================================================
  * method definitions
@@ -99,7 +106,7 @@ ROEdge::ROEdge(const std::string &id, int index)
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
       _hasSupplementaryWeights(false),
-      myHaveWarned(false), myIndex(index), myLength(-1)
+      /*myHaveWarned(false),*/ myIndex(index), myLength(-1)
 {
 }
 
@@ -171,6 +178,8 @@ ROEdge::addLane(ROLane *lane)
     double speed = lane->getSpeed();
     _speed = speed > _speed ? speed : _speed;
 //    _laneCont[lane] = new FloatValueTimeLine();
+    myDictLane[lane->getID()] = lane;
+    myLanes.push_back(lane);
 }
 
 /*
@@ -197,7 +206,8 @@ ROEdge::setLane(long timeBegin, long timeEnd,
 void
 ROEdge::addWeight(float value, long timeBegin, long timeEnd)
 {
-    _ownValueLine.append(timeBegin, timeEnd, value);
+    _ownValueLine.add(timeBegin, timeEnd, value);
+    _usingTimeLine = true;
 }
 
 
@@ -209,14 +219,10 @@ ROEdge::addFollower(ROEdge *s)
 
 
 float
-ROEdge::getMyEffort( long time )
+ROEdge::getEffort(int time) const
 {
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
-    if(getID()=="346") {
-        int bla = 0;
-    }
-
     // check whether to use an absolute value
     bool hasAbsolutValue = false;
     if ( _hasSupplementaryWeights == true ) {
@@ -229,19 +235,14 @@ ROEdge::getMyEffort( long time )
 
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
-    float value = _dist / _speed;
+    float value = (float) (_dist / _speed);
     if(_usingTimeLine) {
         searchResult = _ownValueLine.getSearchStateAndValue( time );
         if ( searchResult.first == false ) {
             if(!myHaveWarned) {
-                MsgHandler::getWarningInstance()->inform(
-                    string("ROEdge::getMyEffort(id ") + _id
-                    + string(" ):"));
-                MsgHandler::getWarningInstance()->inform(
-                    string(" No interval matches passed time ")
-                    + toString<long>(time)  + string("."));
-                MsgHandler::getWarningInstance()->inform(
-                    "Using edge's length / edge's speed.");
+                WRITE_WARNING(string("ROEdge::getMyEffort(id ") + _id+ string(" ):"));
+                WRITE_WARNING(string(" No interval matches passed time ")+ toString<long>(time)  + string("."));
+                WRITE_WARNING("Using edge's length / edge's speed.");
                 myHaveWarned = true;
             }
         } else {
@@ -296,14 +297,14 @@ ROEdge::isConnectedTo(ROEdge *e)
 double
 ROEdge::getCost(long time)
 {
-    return getMyEffort(time);
+    return getEffort(time);
 }
 
 
 double
 ROEdge::getDuration(long time)
 {
-    return getMyEffort(time);
+    return getEffort(time);
 }
 
 
@@ -350,6 +351,67 @@ ROEdge::setSupplementaryWeights( FloatValueTimeLine* absolut,
             _supplementaryWeightAdd     != 0 &&
             _supplementaryWeightMult    != 0 );
     _hasSupplementaryWeights = true;
+}
+
+
+void
+ROEdge::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
+}
+
+bool
+ROEdge::dictionary(string id, ROEdge* ptr)
+{
+    DictType::iterator it = myDict.find(id);
+    if (it == myDict.end()) {
+        // id not in myDict.
+        myDict.insert(DictType::value_type(id, ptr));
+        return true;
+    }
+    return false;
+}
+
+ROEdge*
+ROEdge::dictionary2(string id)
+{
+    DictType::iterator it = myDict.find(id);
+    if (it == myDict.end()) {
+        // id not in myDict.
+        return 0;
+    }
+    return it->second;
+}
+
+
+
+
+ROLane *
+ROEdge::getLane(std::string name)
+{
+    //(assert(laneNo<myLanes->size()); ??? was ist assert
+    //return *((*myLanes)[laneNo]);
+    std::map<std::string, ROLane*>::const_iterator i=
+        ROEdge::myDictLane.find(name);
+    //assert(i!=myEmitterDict.end());
+    return (*i).second;
+}
+
+
+ROLane*
+ROEdge::getLane(size_t index)
+{
+    return myLanes[index];
+}
+
+
+double
+ROEdge::getSpeed() const
+{
+    return _speed;
 }
 
 

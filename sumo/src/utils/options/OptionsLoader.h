@@ -2,9 +2,9 @@
 #define OptionsLoader_h
 /***************************************************************************
                           OptionsLoader.h
-			  Loads a configuration (XML) using a SAX-Parser
-			  The class itself is a derivation of the
-			  SAX-HandlerBase
+              Loads a configuration (XML) using a SAX-Parser
+              The class itself is a derivation of the
+              SAX-HandlerBase
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/08/18 12:49:30  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -54,7 +57,6 @@
 //
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
-//
 //
 /* =========================================================================
  * included modules
@@ -167,9 +169,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "OptionsLoader.icc"
-//#endif
 
 #endif
 

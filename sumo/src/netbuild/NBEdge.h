@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.33  2004/11/23 10:21:40  dkrajzew
+// debugging
+//
 // Revision 1.32  2004/08/02 13:11:39  dkrajzew
 // made some deprovements or so
 //
@@ -146,7 +149,6 @@
 //
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
-//
 //
 /* =========================================================================
  * included modules
@@ -401,11 +403,12 @@ public:
 
     double width() const;
 
-    Position2DVector getCWBounderyLine(const NBNode &n, double offset) const;
-    Position2DVector getCCWBounderyLine(const NBNode &n, double offset) const;
+    Position2DVector getCWBoundaryLine(const NBNode &n, double offset) const;
+    Position2DVector getCCWBoundaryLine(const NBNode &n, double offset) const;
 
     bool expandableBy(NBEdge *possContinuation) const;
     void append(NBEdge *continuation);
+    double getNormedAngle() const;
 
     void computeEdgeShape();
 
@@ -440,6 +443,8 @@ public:
     double getAngle(NBNode &atNode) const;
 
     double getNormedAngle(NBNode &atNode) const;
+
+    void addGeometryPoint(int index, const Position2D &p);
 
 private:
     /**
@@ -643,10 +648,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBEdge.icc"
-//#endif
 
 #endif
 

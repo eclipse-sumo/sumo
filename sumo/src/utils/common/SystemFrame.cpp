@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/10/27 10:54:31  dkrajzew
 // problems on setting gui options patched - the configuration is not loaded directly any more
 //
@@ -26,7 +29,6 @@
 //
 // Revision 1.3  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
-//
 //
 /* =========================================================================
  * included modules
@@ -37,6 +39,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/LogFile.h>
+#include "RandHelper.h"
 
 
 /* =========================================================================
@@ -112,6 +115,9 @@ SystemFrame::init(bool gui, int argc, char **argv,
         }
     }
     // return the state
+    if(!gui) {
+        RandHelper::initRandGlobal(OptionsSubSys::getOptions());
+    }
     return true;
 }
 

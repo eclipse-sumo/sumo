@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -89,7 +92,7 @@ public:
     /// Constructor
     RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
         unsigned int begin, unsigned int end,
-        double gawronBeta, double gawronA,
+        double gawronBeta, double gawronA, int maxRoutes,
         std::string file="");
 
     /// Destructor
@@ -177,6 +180,9 @@ private:
 
     /// The information whether no further routes exist
     bool myHaveEnded;
+
+    /// The number of maximum alternatives
+    int myMaxRoutes;
 
 };
 

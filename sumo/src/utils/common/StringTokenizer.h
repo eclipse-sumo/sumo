@@ -151,9 +151,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "StringTokenizer.icc"
-//#endif
 
 #endif
 

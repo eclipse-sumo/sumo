@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.1  2004/10/22 12:50:27  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.5  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -32,6 +38,12 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

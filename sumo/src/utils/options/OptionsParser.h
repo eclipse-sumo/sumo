@@ -2,7 +2,7 @@
 #define OptionsParser_h
 /***************************************************************************
                           OptionsParser.h
-			  Parses the command line arguments
+              Parses the command line arguments
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -52,7 +55,6 @@
 //
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
-//
 //
 /* =========================================================================
  * class declarations
@@ -104,12 +106,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
-//#include "OptionsParser.h.icc"
-//#endif
 
 #endif
 

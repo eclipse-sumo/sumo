@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:45  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.10  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -47,9 +56,6 @@
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -130,7 +136,7 @@ public:
         double amount);
 
 
-    static Position2D crossPoint(const Boundery &b,
+    static Position2D crossPoint(const Boundary &b,
         const Position2DVector &v);
 
     static std::pair<double, double> getNormal90D_CW(double x1, double y1,
@@ -166,9 +172,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GeomHelper.icc"
-//#endif
 
 #endif
 

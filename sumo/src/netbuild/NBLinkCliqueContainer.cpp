@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/07/22 15:09:11  dkrajzew
 // removed warnings
 //
@@ -198,9 +201,9 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         while(nextSet>=0) {
             nextSet = -1;
             // suche nach
-            int k;
+            size_t k;
             for(k=i+1; k<maxStromAnz&&nextSet<0; k++) {
-                assert(j<schnitt.size());
+                assert(j<(int) schnitt.size());
                 if(schnitt[j].test(k)) {
                     nextSet = k;
                 }
@@ -209,32 +212,32 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
                 i = nextSet;
                 j++;
                 assert(j>0);
-                assert(j-1<schnitt.size());
+                assert(j-1<(int) schnitt.size());
                 letzterSchnitt = schnitt[j-1];
                 assert(i<(*v).size());
                 assert(i>=0);
                 letzterSchnitt &= (*v)[i];
-                assert(j<schnitt.size());
+                assert(j<(int) schnitt.size());
                 assert(j>=0);
                 schnitt[j] = letzterSchnitt;
-                assert(j<idxKeller.size());
+                assert(j<(int) idxKeller.size());
                 assert(j>=0);
                 idxKeller[j] = i;
             }
         }
         // step 3
-        assert(j<schnitt.size());
+        assert(j<(int) schnitt.size());
         letzterSchnitt = schnitt[j];
         letzterSchnitt &= verbStromNr;
         if(letzterSchnitt.none()) {
-            assert(j<schnitt.size());
+            assert(j<(int) schnitt.size());
             _cliques.push_back(schnitt[j]);
         }
         //
         assert(i<idxKeller.size());
         i = idxKeller[j];
         verbStromNr.set(i, 1);
-        for(int k=i+1; k<maxStromAnz; k++) {
+        for(size_t k=i+1; k<maxStromAnz; k++) {
             assert(k>0&&k<64);
             verbStromNr.set(k, 0);
         }
@@ -252,11 +255,11 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         }
     }
 #ifdef TL_DEBUG
-	DEBUG_OUT << "Cliquen:" << endl;
-	for(LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
-		DEBUG_OUT << (*a) << endl;
-	}
-	DEBUG_OUT << "--------------------------------" << endl;
+    DEBUG_OUT << "Cliquen:" << endl;
+    for(LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
+        DEBUG_OUT << (*a) << endl;
+    }
+    DEBUG_OUT << "--------------------------------" << endl;
 #endif
 }
 
@@ -265,7 +268,7 @@ void
 NBLinkCliqueContainer::buildFurther()
 {
     std::bitset<64> current;
-    int i;
+    size_t i;
     // preinit the further-structure
     _further.reserve(_cliques.size());
     for(i=0; i<_cliques.size(); i++) {
@@ -279,12 +282,12 @@ NBLinkCliqueContainer::buildFurther()
         }
         _further[i] = current;
     }
-	//
+    //
 #ifdef TL_DEBUG
-	DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
-	for(i=0; i<_cliques.size(); i++) {
-		DEBUG_OUT << _cliques[i] << endl;
-	}
+    DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
+    for(i=0; i<_cliques.size(); i++) {
+        DEBUG_OUT << _cliques[i] << endl;
+    }
 #endif
 }
 

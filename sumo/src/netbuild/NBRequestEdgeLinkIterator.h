@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.9  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -123,7 +126,7 @@ public:
     bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
         double time);
 */
-    friend std::ostream &operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o);
+    friend std::ostream &operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o);
 
 private:
     /// initialises the iterator

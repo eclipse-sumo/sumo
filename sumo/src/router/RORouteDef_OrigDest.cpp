@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -114,10 +117,10 @@ RORouteDef_OrigDest::getTo() const
 
 RORoute *
 RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, long begin,
-                                       bool continueOnUnbuild,
-                                       ROVehicle &veh)
+        bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
-    ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild);
+    ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild, retriever);
     if(myRemoveFirst&&rv.size()>1) {
         rv.removeEnds();
     }

@@ -23,6 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/10/29 05:53:29  dksumo
+// fastened up the output of warnings and messages
+//
+// Revision 1.1  2004/10/22 12:50:25  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.8  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -145,6 +154,7 @@ ROVehicle::saveTypeAndSelf(std::ostream &os,
     }
     os << "   ";
     xmlOut(os);
+    os << endl;
 }
 
 
@@ -162,8 +172,10 @@ ROVehicle::saveTypeAndSelf(std::ostream &os, std::ostream &altos,
     }
     os << "   ";
     xmlOut(os);
+    os << endl;
     altos << "   ";
     xmlOut(altos);
+    altos << endl;
 }
 
 
@@ -172,9 +184,7 @@ ROVehicle::getTypeForSaving(ROVehicleType &defType) const
 {
     if(_type==0) {
 //        type = _vehicleTypes.getDefault();
-        MsgHandler::getWarningInstance()->inform(
-            string("The vehicle '") + getID()
-            + string("' has no valid type; Using default."));
+        WRITE_WARNING(string("The vehicle '") + getID()+ string("' has no valid type; Using default."));
         return defType;
     } else {
         return *_type;

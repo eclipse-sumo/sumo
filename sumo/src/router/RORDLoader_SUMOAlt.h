@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/10/29 06:18:52  dksumo
+// max-alternatives options added
+//
+// Revision 1.1  2004/10/22 12:50:27  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -69,7 +78,8 @@ public:
     /// Constructor
     RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
         unsigned int begin, unsigned int end,
-        double gawronBeta, double gawronA, const std::string &file="");
+        double gawronBeta, double gawronA, int maxRouteNumber,
+        const std::string &file="");
 
     /// Destructor
     ~RORDLoader_SUMOAlt();
@@ -121,6 +131,9 @@ private:
 
     /// The information whether the next route was read
     bool _nextRouteRead;
+
+    /// The maximum route alternatives number
+    int myMaxRouteNumber;
 
 private:
     /// we made the copy constructor invalid

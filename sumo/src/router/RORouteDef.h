@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.9  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -57,6 +60,7 @@
 #include <utils/common/Named.h>
 #include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
+#include "ROAbstractRouter.h"
 
 
 /* =========================================================================
@@ -102,7 +106,8 @@ public:
     /** @brief Builds the complete route
         (or chooses her from the list of alternatives, when existing) */
     virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
-        bool continueOnUnbuild, ROVehicle &veh) = 0;
+        bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) = 0;
 
     /** @brief Adds an alternative to the list of routes
         (This may be the new route) */

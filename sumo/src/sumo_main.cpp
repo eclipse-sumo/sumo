@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/11/23 10:43:29  dkrajzew
+// debugging
+//
 // Revision 1.22  2004/07/02 09:52:22  dkrajzew
 // changes due to the online-routing implementation
 //
@@ -157,8 +160,6 @@ namespace
 // Revision 1.4  2002/02/13 15:35:33  croessel
 // Merging sourceForge with tesseraCVS.
 //
-//
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -186,10 +187,8 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-#include <microsim/MSDetectorSubSys.h>
-//#include <helpers/SingletonDictionary.h>
-//#include <microsim/MSLaneState.h>
-//#include <microsim/MSInductLoop.h>
+#include <microsim/output/MSDetectorSubSys.h>
+#include <utils/iodevices/SharedOutputDevices.h>
 
 
 /* =========================================================================
@@ -204,25 +203,24 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-
-namespace
+/**
+ * loads the net, additional routes and the detectors
+ */
+MSNet *
+load(OptionsCont &oc)
 {
-  /**
-   * loads the net, additional routes and the detectors
-   */
-    MSNet *
-    load(OptionsCont &oc) {
-        // build the network first
-        NLEdgeControlBuilder eb;
-        NLJunctionControlBuilder jb;
-        NLNetBuilder builder(oc, eb, jb);
-        MSNet *ret = builder.buildNet(new MSVehicleControl());
-        if(ret==0) {
-            throw ProcessError();
-        }
-        return ret;
+    SharedOutputDevices::setInstance(new SharedOutputDevices());
+    SUMOFrame::setMSGlobals(oc);
+    NLEdgeControlBuilder eb;
+    NLJunctionControlBuilder jb;
+    NLNetBuilder builder(oc, eb, jb);
+    MSNet *ret = builder.buildNet(new MSVehicleControl());
+    if(ret==0) {
+        throw ProcessError();
     }
+    return ret;
 }
+
 
 /* -------------------------------------------------------------------------
  * main
@@ -239,25 +237,23 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        srand(oc.getInt("srand"));
         // load the net
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
         // report the begin when wished
-        MsgHandler::getMessageInstance()->inform(
-            string("Simulation started with time: ")
-            + toString<int>(oc.getInt("b")));
+        WRITE_MESSAGE(string("Simulation started with time: ") + toString<int>(oc.getInt("b")));
         // simulate
         net->preStartInit();
         net->simulate(oc.getInt("b"), oc.getInt("e"));
         // report the end when wished
-        MsgHandler::getMessageInstance()->inform(
-            string("Simulation ended at time: ")
-            + toString<int>(net->getCurrentTimeStep()));
+        WRITE_MESSAGE(string("Simulation ended at time: ") + toString<int>(net->getCurrentTimeStep()));
         delete net;
-    } catch (ProcessError) {
+        delete SharedOutputDevices::getInstance();
+    } catch (...) {
         MSNet::clearAll();
-        MsgHandler::getErrorInstance()->inform("Quitting.");
+        delete SharedOutputDevices::getInstance();
+        MsgHandler::getMessageInstance()->inform(
+            "Quitting (on error).");
         ret = 1;
     }
     SystemFrame::close();

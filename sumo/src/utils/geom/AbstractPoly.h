@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/06/05 14:33:45  dkrajzew
 // class templates applied; documentation added
 //
@@ -56,9 +59,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "AbstractPoly.icc"
-//#endif
 
 #endif
 

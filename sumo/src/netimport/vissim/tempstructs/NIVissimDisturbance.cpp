@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.13  2004/01/12 15:32:59  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -37,9 +40,6 @@ namespace
 // Revision 1.9  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -55,7 +55,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
@@ -156,12 +156,12 @@ NIVissimDisturbance::getWithin(const AbstractPoly &poly)
 void
 NIVissimDisturbance::computeBounding()
 {
-    assert(myBoundery==0);
-    Boundery *bound = new Boundery();
+    assert(myBoundary==0);
+    Boundary *bound = new Boundary();
     bound->add(myEdge.getGeomPosition());
     bound->add(myDisturbance.getGeomPosition());
-    myBoundery = bound;
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
+    myBoundary = bound;
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
 }
 
 
@@ -183,10 +183,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
             myEdge.getEdgeID());
         NIVissimEdge *e2 = NIVissimEdge::dictionary(
             myDisturbance.getEdgeID());
-        MsgHandler::getWarningInstance()->inform(
-            string("Ugly split to prohibit '") + toString<int>(e1->getID())
-            + string("' by '") + toString<int>(e2->getID())
-            + string("'."));
+        WRITE_WARNING(string("Ugly split to prohibit '") + toString<int>(e1->getID())+ string("' by '") + toString<int>(e2->getID())+ string("'."));
         Position2D pos = e1->crossesEdgeAtPoint(e2);
         string id1 =
             toString<int>(e1->getID()) + string("x")
@@ -200,7 +197,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         assert(node1==0||node2==0);
         if(node1==0&&node2==0) {
             refusedProhibits++;
-			return false;
+            return false;
 /*            node = new NBNode(id1, pos.x(), pos.y(), "priority");
             if(!NBNodeCont::insert(node)) {
                  "nope, NIVissimDisturbance" << endl;
@@ -217,25 +214,25 @@ NIVissimDisturbance::addToNode(NBNode *node)
                 NBEdgeCont::retrievePossiblySplitted(
                     toString<int>(e2->getID()), myDisturbance.getPosition()),
                     node);
-			// !!! in some cases, one of the edges is not being build because it's too short
-			// !!! what to do in these cases?
-			NBEdge *mayDriveFrom = NBEdgeCont::retrieve(
-				toString<int>(e1->getID()) + string("[0]"));
-			NBEdge *mayDriveTo = NBEdgeCont::retrieve(
-				toString<int>(e1->getID()) + string("[1]"));
-			NBEdge *mustStopFrom = NBEdgeCont::retrieve(
-				toString<int>(e2->getID()) + string("[0]"));
-			NBEdge *mustStopTo = NBEdgeCont::retrieve(
-				toString<int>(e2->getID()) + string("[1]"));
-			if(mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
-	            node->addSortedLinkFoes(
-					NBConnection(mayDriveFrom, mayDriveTo),
-					NBConnection(mayDriveFrom, mayDriveTo));
-			} else {
-	            refusedProhibits++;
-				return false;
-				// !!! warning
-			}
+            // !!! in some cases, one of the edges is not being build because it's too short
+            // !!! what to do in these cases?
+            NBEdge *mayDriveFrom = NBEdgeCont::retrieve(
+                toString<int>(e1->getID()) + string("[0]"));
+            NBEdge *mayDriveTo = NBEdgeCont::retrieve(
+                toString<int>(e1->getID()) + string("[1]"));
+            NBEdge *mustStopFrom = NBEdgeCont::retrieve(
+                toString<int>(e2->getID()) + string("[0]"));
+            NBEdge *mustStopTo = NBEdgeCont::retrieve(
+                toString<int>(e2->getID()) + string("[1]"));
+            if(mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
+                node->addSortedLinkFoes(
+                    NBConnection(mayDriveFrom, mayDriveTo),
+                    NBConnection(mayDriveFrom, mayDriveTo));
+            } else {
+                refusedProhibits++;
+                return false;
+                // !!! warning
+            }
 //        }
     } else if(pc!=0 && bc==0) {
         // The prohibited abstract edge is a connection, the other
@@ -246,11 +243,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
-            MsgHandler::getWarningInstance()->inform(
-                string("Could not prohibit '")
-                + toString<int>(myEdge.getEdgeID()) + string("' by '")
-                + toString<int>(myDisturbance.getEdgeID())
-                + string("'."));
+            WRITE_WARNING(string("Could not prohibit '")+ toString<int>(myEdge.getEdgeID()) + string("' by '")+ toString<int>(myDisturbance.getEdgeID())+ string("'."));
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -273,9 +266,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     NBConnection(pcoe, pcie));
             }
         } else {
-            MsgHandler::getWarningInstance()->inform(
-                string("Would have to split edge '")
-                + e->getID() + string("' to build a prohibition"));
+            WRITE_WARNING(string("Would have to split edge '")+ e->getID() + string("' to build a prohibition"));
             refusedProhibits++;
             // quite ugly - why was it not build?
             return false;
@@ -305,11 +296,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
         if( e->getFromNode()==e->getToNode()) {
-            MsgHandler::getWarningInstance()->inform(
-                string("Could not prohibit '")
-                + toString<int>(myEdge.getEdgeID()) + string("' by '")
-                + toString<int>(myDisturbance.getEdgeID())
-                + string("'."));
+            WRITE_WARNING(string("Could not prohibit '")+ toString<int>(myEdge.getEdgeID()) + string("' by '")+ toString<int>(myDisturbance.getEdgeID())+ string("'."));
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -332,9 +319,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
                     NBConnection(e, *i));
             }
         } else {
-            MsgHandler::getWarningInstance()->inform(
-                string("Would have to split edge '")
-                + e->getID() + string("' to build a prohibition"));
+            WRITE_WARNING(string("Would have to split edge '")+ e->getID() + string("' to build a prohibition"));
             refusedProhibits++;
             return false;
             /*
@@ -380,8 +365,7 @@ NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
         return NBConnection(toString<int>(c->getFromEdgeID()), from,
             toString<int>(c->getToEdgeID()), to);
     } else {
-        MsgHandler::getWarningInstance()->inform(
-            "NIVissimDisturbance: no connection");
+        WRITE_WARNING("NIVissimDisturbance: no connection");
         return NBConnection(0, 0);
 //        throw 1; // !!! what to do?
     }
@@ -413,25 +397,16 @@ NIVissimDisturbance::dict_SetDisturbances()
 }
 
 
-
 void
 NIVissimDisturbance::reportRefused()
 {
     if(refusedProhibits>0) {
-        MsgHandler::getWarningInstance()->inform(
-            string("Warning: Could not build ") + toString<size_t>(refusedProhibits)
-            + string(" of ") + toString<size_t>(myDict.size())
-            + string(" disturbances."));
+        WRITE_WARNING(string("Warning: Could not build ") + toString<size_t>(refusedProhibits)+ string(" of ") + toString<size_t>(myDict.size())+ string(" disturbances."));
     }
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimDisturbance.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

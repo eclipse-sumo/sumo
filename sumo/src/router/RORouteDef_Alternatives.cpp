@@ -23,6 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.3  2004/11/22 12:48:45  dksumo
+// removed some minor warnings
+//
+// Revision 1.2  2004/10/29 06:18:52  dksumo
+// max-alternatives options added
+//
+// Revision 1.1  2004/10/22 12:50:25  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -94,9 +106,10 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
                                                 const RGBColor &color,
                                                 size_t lastUsed,
                                                 double gawronBeta,
-                                                double gawronA)
+                                                double gawronA,
+                                                int maxRoutes)
     : RORouteDef(id, color), _lastUsed(lastUsed),
-    _gawronBeta(gawronBeta), _gawronA(gawronA)
+    _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRoutes)
 {
 }
 
@@ -141,9 +154,8 @@ RORouteDef_Alternatives::getTo() const
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
-                                           long begin,
-                                           bool continueOnUnbuild,
-                                           ROVehicle &veh)
+        long begin, bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better
@@ -303,7 +315,7 @@ RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const
 {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-        myColor, _lastUsed, _gawronBeta, _gawronA);
+        myColor, _lastUsed, _gawronBeta, _gawronA, myMaxRouteNumber);
     for(std::vector<RORoute*>::const_iterator i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }
@@ -314,7 +326,7 @@ RORouteDef_Alternatives::copy(const std::string &id) const
 const ROEdgeVector &
 RORouteDef_Alternatives::getCurrentEdgeVector() const
 {
-    assert(_lastUsed>=0&&_lastUsed<_alternatives.size());
+    assert(_lastUsed>=0&&((size_t) _lastUsed)<_alternatives.size());
     return _alternatives[_lastUsed]->getEdgeVector();
 }
 
@@ -324,6 +336,85 @@ RORouteDef_Alternatives::invalidateLast()
 {
     _lastUsed = -1;
 }
+
+
+void
+RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
+{
+    _alternatives.push_back(current);
+    if(myMaxRouteNumber>=0) {
+        while(_alternatives.size()>(size_t) myMaxRouteNumber) {
+            delete *(_alternatives.begin());
+            _alternatives.erase(_alternatives.begin());
+        }
+    }
+    _lastUsed = _alternatives.size()-1;
+    // recompute the costs and (when a new route was added) the propabilities
+    AlternativesVector::iterator i;
+    for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
+        RORoute *alt = *i;
+        // apply changes for old routes only
+        //  (the costs for the current were computed already)
+        if((*i)!=current||!_newRoute) {
+            // recompute the costs for old routes
+            double oldCosts = alt->getCosts();
+            double newCosts = alt->recomputeCosts(begin);
+            alt->setCosts(_gawronBeta * newCosts + (1.0-_gawronBeta) * oldCosts);
+        }
+        if(_newRoute) {
+            if((*i)!=current) {
+                alt->setPropability(
+                    alt->getPropability()
+                    * double(_alternatives.size()-1)
+                    / double(_alternatives.size()));
+            } else {
+                alt->setPropability(1.0 / double(_alternatives.size()));
+            }
+        }
+    }
+    assert(_alternatives.size()!=0);
+    // compute the propabilities
+    for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
+        RORoute *pR = *i;
+        for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
+            RORoute *pS = *j;
+            // see [Gawron, 1998] (4.2)
+            double delta =
+                (pS->getCosts() - pR->getCosts()) /
+                (pS->getCosts() + pR->getCosts());
+            // see [Gawron, 1998] (4.3a, 4.3b)
+            double newPR = gawronF(pR->getPropability(), pS->getPropability(), delta);
+            double newPS = pR->getPropability() + pS->getPropability() - newPR;
+            if(newPR<0.0001) {
+                newPR = 0.0001;
+            }
+            if(newPS<0.0001) {
+                newPS = 0.0001;
+            }
+            pR->setPropability(newPR);
+            pS->setPropability(newPS);
+        }
+    }
+    // remove with propability of 0 (not mentioned in Gawron)
+    for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
+        if((*i)->getPropability()==0) {
+            i = _alternatives.erase(i);
+        } else {
+            i++;
+        }
+    }
+}
+
+
+void
+RORouteDef_Alternatives::removeLast()
+{
+    assert(_alternatives.size()>=2);
+    _alternatives.erase(_alternatives.end()-1);
+    _lastUsed = _alternatives.size()-1;
+    // !!! recompute propabilities
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBDistrictCont.cpp
-			  A container for all of the nets districts
+              A container for all of the nets districts
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:21:40  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/06/18 11:13:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -55,7 +58,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -122,8 +125,7 @@ NBDistrictCont::clear()
 void
 NBDistrictCont::report()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("   ") + toString<int>(size()) + string(" districts loaded."));
+    WRITE_MESSAGE(string("   ") + toString<int>(size()) + string(" districts loaded."));
 }
 
 

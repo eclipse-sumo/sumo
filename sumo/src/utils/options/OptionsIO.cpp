@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -97,7 +100,6 @@ namespace
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -115,6 +117,7 @@ namespace
 #include "OptionsLoader.h"
 #include "OptionsParser.h"
 #include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
 
 
@@ -166,67 +169,56 @@ OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
 }
 
 
-string
-OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok)
-{
-    string path = oc->getString("c");
-    // check the user supplied path
-    if(FileHelpers::exists(path))
-        return path;
-    cout << "The configurations file '" << path
-        << "' could not be found." << endl;
-    ok = false;
-    return "";
-}
-
-
 bool
 OptionsIO::loadConfiguration(OptionsCont *oc)
 {
-/*    if( oc->exists("no-config") &&
-        oc->isSet("no-config") &&
-        oc->getBool("no-config")) {
-        return true;
-    }*/
     if(!oc->exists("c") || !oc->isSet("c")) {
         return true;
     }
     bool ok = true;
-    string path = getConfigurationPath(oc, ok);
-    if(path.length()==0||!ok) {
+    string path = oc->getString("c");
+    if(!FileHelpers::exists(path)) {
+        MsgHandler::getErrorInstance()->inform(
+            "Could not find configuration '" + oc->getString("c") + "'.");
         return false;
+    }
+    if(oc->getBool("verbose")) {
+        WRITE_MESSAGE("Loading configuration...");
     }
     // build parser
     SAXParser parser;
-    if(oc->getBool("v")) {
-        cout << "Loading configuration..." << endl;
-    }
     parser.setValidationScheme(SAXParser::Val_Auto);
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
-    OptionsLoader *handler =
-        new OptionsLoader(oc, path.c_str(), oc->getBool("v"));
+    OptionsLoader handler(oc, path.c_str(), oc->getBool("v"));
     try {
-        parser.setDocumentHandler(handler);
-        parser.setErrorHandler(handler);
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
         parser.parse(path.c_str());
-        if(handler->errorOccured()) {
+        if(handler.errorOccured()) {
             ok = false;
         }
-    } catch (const XMLException& toCatch) {
-        cerr << "Error: "
-            << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
+    } catch (const XMLException&) {
         ok = false;
     }
-    delete handler;
+    if(oc->getBool("verbose")) {
+        if(ok) {
+            WRITE_MESSAGE("done.");
+        } else {
+            WRITE_MESSAGE("failed.");
+        }
+    }
+    if(!ok) {
+        MsgHandler::getErrorInstance()->inform(
+            "Could not load configuration '"
+            + path + "'.");
+    }
     return ok;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "OptionsIO.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

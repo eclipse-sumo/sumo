@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:26:59  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:40:36  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
@@ -151,7 +154,7 @@ ROJPTurnDefLoader::report(const std::string &line)
             try {
                 myIntervalBegin =
                     TplConvert<char>::_2int(getSecure("begin").c_str());
-            } catch (NumberFormatException &e) {
+            } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The attribute 'from' is not numeric."));
                 return false;
@@ -159,7 +162,7 @@ ROJPTurnDefLoader::report(const std::string &line)
             try {
                 myIntervalEnd =
                     TplConvert<char>::_2int(getSecure("end").c_str());
-            } catch (NumberFormatException &e) {
+            } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The attribute 'to' is not numeric."));
                 return false;
@@ -184,14 +187,14 @@ ROJPTurnDefLoader::report(const std::string &line)
             try {
                 perc =
                     TplConvert<char>::_2float(getSecure("split").c_str());
-            } catch (NumberFormatException &e) {
+            } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The attribute 'perc' is not numeric."));
                 return false;
             }
             myEdge->addFollowerPropability(edge,
                 myIntervalBegin, myIntervalEnd, perc);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument &) {
             return false;
         }
     }
@@ -204,7 +207,7 @@ ROJPTurnDefLoader::getSecure(const std::string &name)
 {
     try {
         return myColumnsParser.get(name);
-    } catch (UnknownElement &e) {
+    } catch (UnknownElement &) {
         MsgHandler::getErrorInstance()->inform(
             string("The definition of '") + name
             + string("' is missing within the file."));
@@ -222,25 +225,25 @@ void
 ROJPTurnDefLoader::beginInterval(const Attributes &attrs)
 {
     try {
-        myIntervalBegin = getInt(attrs, SUMO_ATTR_FROM);
-    } catch (NumberFormatException &e) {
+        myIntervalBegin = getInt(attrs, SUMO_ATTR_BEGIN);
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("The attribute 'from' is not numeric ('")
             + getString(attrs, SUMO_ATTR_FROM) + string("')."));
         return;
-    } catch (EmptyData &e) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             string("The 'from'-attribute is not given."));
         return;
     }
     try {
-        myIntervalEnd = getInt(attrs, SUMO_ATTR_TO);
-    } catch (NumberFormatException &e) {
+        myIntervalEnd = getInt(attrs, SUMO_ATTR_END);
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("The attribute 'to' is not numeric ('")
             + getString(attrs, SUMO_ATTR_FROM) + string("')."));
         return;
-    } catch (EmptyData &e) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             string("The 'to'-attribute is not given."));
         return;
@@ -254,7 +257,7 @@ ROJPTurnDefLoader::beginFromEdge(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData &e) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             string("The id of an edge is missing within a 'from-edge' tag."));
         return;
@@ -276,7 +279,7 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData &e) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             string("The id of an edge is missing within a 'to-edge' tag."));
         return;
@@ -292,12 +295,12 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
     try {
         float perc = getFloat(attrs, SUMO_ATTR_PERC);
         myEdge->addFollowerPropability(edge, myIntervalBegin, myIntervalEnd, perc);
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("The attribute 'perc' is not numeric ('")
             + getString(attrs, SUMO_ATTR_PERC) + string("')."));
         return;
-    } catch (EmptyData &e) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             string("The 'perc'-attribute is not given."));
         return;
@@ -310,7 +313,7 @@ ROJPTurnDefLoader::addSink(const std::string &chars)
 {
     try {
         ROJPHelpers::parseROJPEdges(myNet, mySinks, chars);
-    } catch(ProcessError &e) {
+    } catch(ProcessError &) {
     }
 }
 

@@ -2,8 +2,8 @@
 #define XMLBuildingExceptions_h
 /***************************************************************************
                           XMLBuildingException.h
-			  Exceptions that may occure while building the
-			  structures
+              Exceptions that may occure while building the
+              structures
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/06/05 14:32:33  dkrajzew
 // corrupt class derivation patched
 //
@@ -265,9 +268,6 @@ public:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "XMLBuildingExceptions.icc"
-//#endif
 
 #endif
 

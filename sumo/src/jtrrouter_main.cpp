@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:43:28  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -66,6 +69,7 @@ namespace
 #include <limits.h>
 #include <ctime>
 #include <set>
+#include <router/ROFrame.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
@@ -85,6 +89,7 @@ namespace
 #include <routing_jtr/ROJPEdge.h>
 #include <routing_jtr/ROJPTurnDefLoader.h>
 #include <routing_jtr/ROJPHelpers.h>
+#include <routing_jtr/ROJTRFrame.h>
 #include "jtrrouter_help.h"
 
 
@@ -112,88 +117,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-/** validate options (settings) */
-bool
-checkOptions(OptionsCont &oc)
-{
-    // check whether the output is valid and can be build
-    if(!oc.isSet("output")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
-        return false;
-    }
-    std::ofstream tst(oc.getString("output").c_str());
-    if(!tst.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("output")
-            + string("' can not be build."));
-        return false;
-    }
-    //
-    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
-        oc.set("srand", toString<int>(time(0)));
-    }
-    return true;
-}
-
-
-/** build and retrieve the options (settings) */
-void
-fillOptions(OptionsCont &oc)
-{
-    // register the file i/o options
-    oc.doRegister("output-file", 'o', new Option_FileName());
-    oc.doRegister("net-file", 'n', new Option_FileName());
-    oc.doRegister("weights", 'w', new Option_FileName());
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.doRegister("turn-definition", 't', new Option_FileName());
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.doRegister("random-per-second", 'R', new Option_Float());
-    oc.addSynonyme("net-file", "net");
-    oc.addSynonyme("output-file", "output");
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addSynonyme("weights", "weight-file");
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addSynonyme("turn-definition", "turns");
-    oc.doRegister("turn-defaults", 'T', new Option_String("30;50;20"));
-    oc.doRegister("sinks", 's', new Option_String());
-    oc.doRegister("cell-input", new Option_FileName());
-    oc.doRegister("artemis-input", new Option_FileName());
-    oc.doRegister("sumo-input", 's', new Option_FileName());
-    oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.doRegister("alternatives", 'a', new Option_FileName());
-    oc.doRegister("save-cell-rindex", new Option_Bool(false));
-    oc.addSynonyme("artemis", "artemis-input");
-    oc.addSynonyme("cell", "cell-input");
-    oc.addSynonyme("sumo", "sumo-input");
-    oc.addSynonyme("trips", "trip-defs");
-    // register the simulation settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
-    oc.doRegister("end", 'e', new Option_Integer(864000));
-    // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
-    oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
-    oc.doRegister("krauss-b", 'B', new Option_Float(float(4.5)));
-    oc.doRegister("krauss-length", 'L', new Option_Float(float(5)));
-    oc.doRegister("krauss-eps", 'E', new Option_Float(float(0.5)));
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    //
-    oc.doRegister("unsorted", new Option_Bool(false));
-    oc.doRegister("intel-cell", new Option_Bool(false));
-    oc.doRegister("no-last-cell", new Option_Bool(false));
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.doRegister("abs-rand", new Option_Bool(false));
-    oc.doRegister("max-edges-factor", new Option_Float(2.0));
-    oc.doRegister("move-on-short", new Option_Bool(false));
-    oc.doRegister("stats-period", new Option_Integer(-1));
-}
-
-
 /**
  * loads the net
  * The net is in this meaning made up by the net itself and the dynamic
@@ -283,28 +206,6 @@ loadJPDefinitions(RONet &net, OptionsCont &oc)
 }
 
 
-
-/**
- * Inserts the default from options into the vehicle
- *  type descriptions
- */
-void
-setDefaults(OptionsCont &oc)
-{
-    // insert the krauss-values
-    ROVehicleType_Krauss::myDefault_A =
-        oc.getFloat("krauss-a");
-    ROVehicleType_Krauss::myDefault_B =
-        oc.getFloat("krauss-b");
-    ROVehicleType_Krauss::myDefault_EPS =
-        oc.getFloat("krauss-eps");
-    ROVehicleType_Krauss::myDefault_LENGTH =
-        oc.getFloat("krauss-length");
-    ROVehicleType_Krauss::myDefault_MAXSPEED =
-        oc.getFloat("krauss-vmax");
-}
-
-
 /**
  * Computes the routes saving them
  */
@@ -353,12 +254,12 @@ main(int argc, char **argv)
     try {
         // initialise the application system (messaging, xml, options)
         if(!SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help)) {
+            ROJTRFrame::fillOptions, ROJTRFrame::checkOptions, help)) {
             throw ProcessError();
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        setDefaults(oc);
+        ROFrame::setDefaults(oc);
         std::vector<float> defs = getTurningDefaults(oc);
         // load data
         ROVehicleBuilder vb;
@@ -387,14 +288,13 @@ main(int argc, char **argv)
             throw ProcessError();
         }
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform(
-            "Quitting (building failed).");
+        WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
     delete net;
     SystemFrame::close();
     if(ret==0) {
-        MsgHandler::getMessageInstance()->inform("Success.");
+        WRITE_MESSAGE("Success.");
     }
     return ret;
 }

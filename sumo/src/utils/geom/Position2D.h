@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
 // Revision 1.11  2004/08/02 12:50:05  dkrajzew
 // added the possibility to multiply each of the ccordinates with a value individually
 //
@@ -180,9 +183,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "Position2D.icc"
-//#endif
 
 #endif
 

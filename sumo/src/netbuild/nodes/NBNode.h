@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:21:42  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/08/02 13:11:40  dkrajzew
 // made some deprovements or so
 //
@@ -283,7 +286,7 @@ public:
     const EdgeVector &getOutgoingEdges() const;
 
     /// returns the list of all edgs
-    const EdgeVector *getEdges();
+    const EdgeVector &getEdges() const;
 
     std::vector<std::string> getInternalNamesList();
 
@@ -309,7 +312,7 @@ public:
     static void reportBuild();
 
     /// sets the connection between two nodes via this node
-    std::string setTurningDefinition(NBNode *from, NBNode *to);
+    void setTurningDefinition(NBNode *from, NBNode *to);
 
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
@@ -323,6 +326,7 @@ public:
     void invalidateOutgoingConnections();
 
     void removeDoubleEdges();
+    NBEdge *getConnectionTo(NBNode *n) const;
 
 
     void addSortedLinkFoes(const NBConnection &mayDrive,
@@ -378,6 +382,8 @@ public:
     bool connectionIsTLControlled(NBEdge *from, NBEdge *to) const;
 */
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
+
+    double getMaxEdgeWidth() const;
 
     friend class NBNodeShapeComputer;
 

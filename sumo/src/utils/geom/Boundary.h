@@ -1,8 +1,8 @@
-#ifndef Boundery_h
-#define Boundery_h
+#ifndef Boundary_h
+#define Boundary_h
 //---------------------------------------------------------------------------//
-//                        Boundery.h -
-//  A class that stores the 2D geometrical boundery
+//                        Boundary.h -
+//  A class that stores the 2D geometrical boundary
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.1  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:44  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.8  2004/07/02 09:44:40  dkrajzew
 // changes for 0.8.0.2
 //
@@ -41,9 +50,6 @@
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -63,15 +69,15 @@
 /**
  *
  */
-class Boundery
+class Boundary
         : public AbstractPoly {
 public:
-    Boundery();
-    Boundery(double x1, double y1, double x2, double y2);
-    ~Boundery();
+    Boundary();
+    Boundary(double x1, double y1, double x2, double y2);
+    ~Boundary();
     void add(double x, double y);
     void add(const Position2D &p);
-    void add(const Boundery &p);
+    void add(const Boundary &p);
     Position2D getCenter() const;
     double xmin() const;
     double xmax() const;
@@ -83,22 +89,19 @@ public:
     bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
     bool partialWithin(const AbstractPoly &poly, double offset=0) const;
     bool crosses(const Position2D &p1, const Position2D &p2) const;
-    /** brief extends the boundery by the given amount
+    /** brief extends the boundary by the given amount
         The method returns a reference to the instance for further use */
-    Boundery &grow(double by);
+    Boundary &grow(double by);
     void flipY();
     void set(double xmin, double ymin, double xmax, double ymax);
 
-    friend std::ostream &operator<<(std::ostream &os, const Boundery &b);
+    friend std::ostream &operator<<(std::ostream &os, const Boundary &b);
 private:
     double _xmin, _xmax, _ymin, _ymax;
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "Boundery.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2004/11/23 10:28:36  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 10:48:00  dkrajzew
 // updated
 //
@@ -53,9 +56,6 @@ inline std::string toString( const T& t ) {
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ToString.icc"
-//#endif
 
 #endif
 

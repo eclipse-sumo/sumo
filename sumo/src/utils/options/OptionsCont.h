@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -77,6 +80,12 @@
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <map>
@@ -90,7 +99,7 @@
  * class definitions
  * ======================================================================= */
 /**
- * OptionsCont
+ * @class OptionsCont
  * A storage for options.
  * Once stored inside this container, options will not be visible to the
  * world and are deleted by the container. Only values and stati of the
@@ -218,10 +227,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "OptionsCont.icc"
-//#endif
 
 #endif
 

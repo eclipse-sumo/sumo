@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:26:27  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/01/26 06:08:38  dkrajzew
 // initial commit for dua-classes
 //
@@ -68,12 +71,13 @@ public:
     RODijkstraRouter(RONet &net);
 
     /// Destructor
-    ~RODijkstraRouter();
+    virtual ~RODijkstraRouter();
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
-    ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild);
+    virtual ROEdgeVector compute(ROEdge *from, ROEdge *to,
+        long time, bool continueOnUnbuild,
+        ROAbstractEdgeEffortRetriever * const retriever=0);
 
 public:
     /**
@@ -96,6 +100,12 @@ public:
         {
         }
 
+        /// Constructor
+        EdgeInfo(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg, double distArg)
+            : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
+        {
+        }
+
         /// The current edge
         ROEdge *edge;
 
@@ -104,6 +114,9 @@ public:
 
         /// The previous edge
         EdgeInfo *prev;
+
+        /// Distance from the begin
+        double dist;
 
     };
 
@@ -124,10 +137,6 @@ public:
             return nod1->effort>nod2->effort;
         }
     };
-
-    /// Computes the route using Dijkstra's algorithm
-    ROEdgeVector dijkstraCompute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild);
 
     /// Builds the path from marked edges
     ROEdgeVector buildPathFrom(EdgeInfo *rbegin);
@@ -151,6 +160,10 @@ public:
         /// Adds the information about the effort to get to an edge and its predeccessing edge
         EdgeInfo *add(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg);
 
+        /// Adds the information about the effort to get to an edge and its predeccessing edge
+        EdgeInfo *add(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg,
+            double distArg);
+
         /// Resets all effort-information
         void reset();
 
@@ -164,12 +177,12 @@ public:
 
     };
 
-private:
+protected:
     /// Saves the temporary storages for further usage
     void clearTemporaryStorages(std::vector<bool> *edgeList,
         EdgeInfoCont *consecutionList);
 
-private:
+protected:
     /// The network to use
     RONet &_net;
 

@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIArtemisLoader.cpp
-			  A loader artemis-files
+              A loader artemis-files
                              -------------------
     project              : SUMO
     begin                : Mon, 10 Feb 2003
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/06/18 11:14:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -92,8 +95,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::~NIArtemisSingleDataTypeParser()
 bool
 NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("Parsing ") + getDataName() + string("... "));
+    WRITE_MESSAGE(string("Parsing ") + getDataName() + string("... "));
     string file = myParent.getFileName() + getDataName();
     LineReader reader(file);
     if(!reader.good()) {
@@ -102,8 +104,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
                 string("Problems on parsing '") + file + string("'."));
             return false;
         } else {
-            MsgHandler::getMessageInstance()->inform(
-                "not supplied (no error).");
+            WRITE_MESSAGE("not supplied (no error).");
             return true;
         }
     }
@@ -111,7 +112,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
     myInitialise();
     // skip/set names
     reader.readAll(*this);
-    MsgHandler::getMessageInstance()->inform("done.");
+    WRITE_MESSAGE("done.");
     // parser-dependent close
     myClose();
     return true;

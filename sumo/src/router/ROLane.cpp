@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -70,7 +73,11 @@ ROLane::getSpeed() const
     return myMaxSpeed;
 }
 
-
+ROEdge *
+ROLane::getEdge()
+{
+    return myEdge;
+}
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

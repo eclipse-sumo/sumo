@@ -2,19 +2,11 @@ noinst_LIBRARIES = libgeom.a
 
 EXTRA_DIST = AbstractPoly.h Position2D.h
 
-libgeom_a_SOURCES = Boundery.cpp \
-Bresenham.cpp \
-GeomHelper.cpp \
-Position2DVector.cpp \
-Boundery.h \
-Bresenham.h \
-GeomHelper.h \
-Position2DVector.h \
-GeomConvHelper.cpp \
-GeomConvHelper.h \
-HaveBoundery.h \
-Line2D.cpp Line2D.h bezier.h bezier.cpp \
-Polygon2D.cpp Polygon2D.h
+libgeom_a_SOURCES = AbstractPoly.h  Boundary.cpp Boundary.h \
+Bresenham.cpp Bresenham.h GeomConvHelper.cpp GeomConvHelper.h \
+GeomHelper.cpp GeomHelper.h HaveBoundary.h \
+Helper_ConvexHull.cpp Helper_ConvexHull.h Line2D.cpp Line2D.h \
+Polygon2D.cpp Polygon2D.h Position2D.h \
+Position2DVector.cpp Position2DVector.h bezier.cpp bezier.h
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
--I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

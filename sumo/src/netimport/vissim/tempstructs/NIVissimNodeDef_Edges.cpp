@@ -22,15 +22,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -44,7 +44,7 @@ namespace
 #include <map>
 #include <algorithm>
 #include <cassert>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include "NIVissimNodeParticipatingEdgeVector.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimEdge.h"
@@ -87,24 +87,24 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
 void
 NIVissimNodeDef_Edges::computeBounding()
 {
-    assert(myBoundery==0);
-    Boundery *boundery = new Boundery();
+    assert(myBoundary==0);
+    Boundary *boundary = new Boundary();
     for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge *edge = *i;
         NIVissimConnection *c = NIVissimConnection::dictionary(edge->getID());
         NIVissimEdge *e = NIVissimEdge::dictionary(edge->getID());
         if(c!=0) {
             // both connected edges should be a part of the junction? !!!
-            boundery->add(c->getFromGeomPosition());
-            boundery->add(c->getToGeomPosition());
+            boundary->add(c->getFromGeomPosition());
+            boundary->add(c->getToGeomPosition());
         }
         if(e!=0) {
-            boundery->add(e->getGeomPosition(edge->getFromPos()));
-            boundery->add(e->getGeomPosition(edge->getToPos()));
+            boundary->add(e->getGeomPosition(edge->getFromPos()));
+            boundary->add(e->getGeomPosition(edge->getToPos()));
         }
     }
-    myBoundery = boundery;
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
+    myBoundary = boundary;
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
 }
 */
 
@@ -113,7 +113,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
 {
     IntVector connections;
     IntVector edges;
-    Boundery boundery;
+    Boundary boundary;
     for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge *edge = *i;
         NIVissimConnection *c =
@@ -122,18 +122,18 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
             NIVissimEdge::dictionary(edge->getID());
         if(c!=0) {
             connections.push_back(edge->getID());
-            boundery.add(c->getFromGeomPosition());
-            boundery.add(c->getToGeomPosition());
+            boundary.add(c->getFromGeomPosition());
+            boundary.add(c->getToGeomPosition());
             c->setNodeCluster(myID);
         }
         if(e!=0) {
             edges.push_back(edge->getID());
-            boundery.add(e->getGeomPosition(edge->getFromPos()));
-            boundery.add(e->getGeomPosition(edge->getToPos()));
+            boundary.add(e->getGeomPosition(edge->getFromPos()));
+            boundary.add(e->getGeomPosition(edge->getToPos()));
         }
     }
     NIVissimConnectionCluster *c =
-        new NIVissimConnectionCluster(connections, boundery, myID, edges);
+        new NIVissimConnectionCluster(connections, boundary, myID, edges);
     for(IntVector::iterator j=edges.begin(); j!=edges.end(); j++) {
         NIVissimEdge *edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
@@ -155,11 +155,7 @@ NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimNodeDef_Edges.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

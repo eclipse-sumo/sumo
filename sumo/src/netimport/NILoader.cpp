@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:23:34  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/08/02 12:46:23  dkrajzew
 // got rid of the shapelib-interface; conversion of geocoordinates added
 //
@@ -167,7 +170,6 @@ void NILoader::load(OptionsCont &oc) {
     //string type = oc.getString("used-file-format");
     // try to load using different methods
     loadSUMO(oc);
-    loadXML(oc);
     loadCell(oc);
     loadVisum(oc);
     loadArcView(oc);
@@ -175,6 +177,7 @@ void NILoader::load(OptionsCont &oc) {
     loadVissim(oc);
     loadElmar(oc);
     loadTiger(oc);
+    loadXML(oc);
     // check the loaded structures
     if(NBNodeCont::size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -194,9 +197,13 @@ void
 NILoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
-    if(oc.isUsableFileList("sumo-net")) {
-        loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"),
-            "sumo-net");
+    try {
+        if(oc.isUsableFileList("sumo-net")) {
+            loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"),
+                "sumo-net");
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -221,38 +228,53 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 void
 NILoader::loadXML(OptionsCont &oc) {
     // load types
-    if(oc.isUsableFileList("t")) {
-        NIXMLTypesHandler *handler = new NIXMLTypesHandler();
-        loadXMLType(handler, oc.getString("t"), "types");
-        NBTypeCont::report();
-    } else {
-        if(oc.isSet("e")&&oc.isSet("n")) {
-            MsgHandler::getWarningInstance()->inform(
-                "No types defined, using defaults...");
+    try {
+        if(oc.isUsableFileList("t")) {
+            NIXMLTypesHandler *handler = new NIXMLTypesHandler();
+            loadXMLType(handler, oc.getString("t"), "types");
+            NBTypeCont::report();
+        } else {
+            if(oc.isSet("e")&&oc.isSet("n")) {
+                WRITE_WARNING("No types defined, using defaults...");
+            }
         }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 
     // load nodes
-    if(oc.isUsableFileList("n")) {
-        NIXMLNodesHandler *handler =
-            new NIXMLNodesHandler(oc);
-        loadXMLType(handler, oc.getString("n"), "nodes");
-        NBNodeCont::report();
+    try {
+        if(oc.isUsableFileList("n")) {
+            NIXMLNodesHandler *handler =
+                new NIXMLNodesHandler(oc);
+            loadXMLType(handler, oc.getString("n"), "nodes");
+            NBNodeCont::report();
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 
     // load the edges
-    if(oc.isUsableFileList("e")) {
-        NIXMLEdgesHandler *handler =
-            new NIXMLEdgesHandler(oc);
-        loadXMLType(handler, oc.getString("e"), "edges");
-        NBEdgeCont::report();
+    try {
+        if(oc.isUsableFileList("e")) {
+            NIXMLEdgesHandler *handler =
+                new NIXMLEdgesHandler(oc);
+            loadXMLType(handler, oc.getString("e"), "edges");
+            NBEdgeCont::report();
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 
     // load the connections
-    if(oc.isUsableFileList("x")) {
-        NIXMLConnectionsHandler *handler =
-            new NIXMLConnectionsHandler();
-        loadXMLType(handler, oc.getString("x"), "connections");
+    try {
+        if(oc.isUsableFileList("x")) {
+            NIXMLConnectionsHandler *handler =
+                new NIXMLConnectionsHandler();
+            loadXMLType(handler, oc.getString("x"), "connections");
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -290,9 +312,7 @@ void
 NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
                       const string &type)
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("Parsing the ") + type + string(" from '")
-        + string(file) + string("'..."));
+    WRITE_MESSAGE(string("Parsing the ") + type + string(" from '")+ string(file) + string("'..."));
     parser.parse(file.c_str());
 }
 
@@ -302,18 +322,18 @@ NILoader::loadCell(OptionsCont &oc) {
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
-        MsgHandler::getMessageInstance()->inform("Loading nodes... ");
+        WRITE_MESSAGE("Loading nodes... ");
         string file = oc.getString("cell-node-file");
         NICellNodesHandler handler(file);
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->inform("done.");
+        WRITE_MESSAGE("done.");
         NBNodeCont::report();
     }
     // load edges
     if(oc.isSet("cell-edge-file")) {
-        MsgHandler::getMessageInstance()->inform("Loading edges... ");
+        WRITE_MESSAGE("Loading edges... ");
         string file = oc.getString("cell-edge-file");
         // parse the file
         NICellEdgesHandler handler(file,
@@ -321,7 +341,7 @@ NILoader::loadCell(OptionsCont &oc) {
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->inform("done.");
+        WRITE_MESSAGE("done.");
         NBEdgeCont::report();
     }
 }
@@ -449,7 +469,7 @@ NILoader::loadElmar(OptionsCont &oc)
             xmax = TplConvert<char>::_2float(lr.readLine().c_str());
             ymin = TplConvert<char>::_2float(lr.readLine().c_str());
             ymax = TplConvert<char>::_2float(lr.readLine().c_str());
-        } catch (NumberFormatException &e) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
                 string("Error on reading min/max definitions from '")
                 + oc.getString("elmar") + string("_knotlist_unsplitted.txt")
@@ -457,24 +477,24 @@ NILoader::loadElmar(OptionsCont &oc)
             throw ProcessError();
         }
         // load nodes
-        MsgHandler::getMessageInstance()->inform("Loading nodes... ");
+        WRITE_MESSAGE("Loading nodes... ");
         string file = oc.getString("elmar") + string("_knotlist.txt");
         NIElmarNodesHandler handler1(file,
             (xmin+xmax)/2.0, (ymin+ymax)/2.0);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->inform("done.");
+        WRITE_MESSAGE("done.");
         NBNodeCont::report();
         // load edges
-        MsgHandler::getMessageInstance()->inform("Loading edges... ");
+        WRITE_MESSAGE("Loading edges... ");
         file = oc.getString("elmar") + string("_streetlengths.txt");
         // parse the file
         NIElmarEdgesHandler handler2(file);
         if(!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->inform("done.");
+        WRITE_MESSAGE("done.");
         NBEdgeCont::report();
     }
 }

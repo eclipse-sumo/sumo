@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.9  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -41,6 +44,12 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -95,6 +104,7 @@ public:
         The weight-timelines must be computed for the edges */
 //    void postloadInit();
 
+//  static void preInitRONet();
     /** @brief opens the output for computed routes
         if the second parameter is true, a second file for route alternatives
         will be opened.
@@ -176,6 +186,12 @@ public:
 
 
 
+    static RONet* getNetInstance();
+
+    static void setNetInstance(RONet *net);
+
+    ROEdgeCont *getMyEdgeCont();
+
 protected:
     /** Saves the given route together with her alternatives */
     RORouteDef *computeRoute(OptionsCont &options, ROAbstractRouter &router,
@@ -195,6 +211,9 @@ protected:
 
 
 protected:
+    /// a Unique Instance of a RONet#
+    static RONet* myInstance;
+
     /// Container for known vehicle ids
     typedef std::set<std::string> VehIDCont;
 

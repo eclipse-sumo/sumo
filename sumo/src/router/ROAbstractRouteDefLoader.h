@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -55,6 +58,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
+class ROLoader;
 class RONet;
 class OptionsCont;
 class ROVehicleBuilder;
@@ -102,6 +106,8 @@ public:
 
     /// Returns the information whether no routes are available from this loader anymore
     virtual bool ended() const = 0;
+
+    friend class ROLoader;
 
 protected:
     /** @brief Builds routes

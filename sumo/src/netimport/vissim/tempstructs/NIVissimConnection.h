@@ -19,15 +19,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/09/23 14:16:37  dkrajzew
 // further work on vissim-import
 //
 // Revision 1.4  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,7 +74,7 @@ public:
     Position2D getToGeomPosition() const;
     void setNodeCluster(int nodeid);
     void unsetCluster();
-    const Boundery &getBoundingBox() const;
+    const Boundary &getBoundingBox() const;
 
     void buildGeom();
 
@@ -117,11 +117,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimConnection.icc"
-//#endif
 
 #endif
 

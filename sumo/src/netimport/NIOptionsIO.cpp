@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:23:34  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/05 09:32:53  dkrajzew
 // false check patched (must be reworked)
 //
@@ -162,6 +165,7 @@ namespace
 #include "NIOptionsIO.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/RandHelper.h>
 #include <netbuild/NBNetBuilder.h>
 
 
@@ -218,13 +222,14 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
     // register further vissim-options
-    oc.doRegister("vissim-offset", new Option_Float(5.0));
-    oc.doRegister("vissim-default-speed", new Option_Float(50.0/3.6));
-    oc.doRegister("vissim-speed-norm", new Option_Float(1.0));
+    oc.doRegister("vissim-offset", new Option_Float(5.0f));
+    oc.doRegister("vissim-default-speed", new Option_Float(50.0f/3.6f));
+    oc.doRegister("vissim-speed-norm", new Option_Float(1.0f));
     // register the data processing options
     oc.doRegister("speed-in-km", new Option_Bool(false));
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    RandHelper::insertRandOptions(oc);
 }
 
 
@@ -313,9 +318,6 @@ NIOptionsIO::checkOutput(OptionsCont &oc)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIOptionsIO.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

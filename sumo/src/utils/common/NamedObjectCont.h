@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.9  2004/03/19 13:00:20  dkrajzew
 // some style adaptions only
 //
@@ -44,6 +47,12 @@
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -93,6 +102,8 @@ public:
 
     /* @brief Returns a vector that contains all objects. */
     const std::vector<T> &getVector() const;
+
+    const std::map<std::string, T> &getMyMap() const;
 
 private:
     /// Definition of the key to pointer map type

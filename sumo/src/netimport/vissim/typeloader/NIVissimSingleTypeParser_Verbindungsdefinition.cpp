@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.8  2003/07/30 09:24:04  dkrajzew
 // reinserted the needed but removed check
 //
@@ -69,7 +72,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
+    : NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -82,7 +85,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::~NIVissimSingleTypeParser_Verbin
 bool
 NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
 {
-	int id;
+    int id;
     from >> id; // type-checking is missing!
     string tag;
     // Read optional value "Name", skip optional value "Beschriftung"
@@ -110,7 +113,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
             try {
                 double tmp = TplConvert<char>::_2float(tag.c_str());
                 tag = myRead(from);
-            } catch (NumberFormatException &e) {
+            } catch (NumberFormatException &) {
             }
         } else {
             tag = y;

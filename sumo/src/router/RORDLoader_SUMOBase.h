@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -114,7 +117,7 @@ protected:
     RGBColor myCurrentColor;
 
     /// The time step read as last
-    int myDepartureTime;
+    size_t myDepartureTime;
 
 };
 

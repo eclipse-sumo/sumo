@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:23:52  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
@@ -76,12 +79,12 @@ NIElmarEdgesHandler::report(const std::string &result)
     id = st.next();
     fromID = st.next();
     toID = st.next();
-    float speed = 30.0 / 3.6;
+    double speed = 30.0 / 3.6;
     int nolanes = 1;
     int priority = 0;
     try {
         length = TplConvert<char>::_2float(st.next().c_str());
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Non-numerical value for an edge's length occured (edge '") + id
             + string("'."));
@@ -127,7 +130,7 @@ NIElmarEdgesHandler::report(const std::string &result)
                 + string("'."));
             throw ProcessError();
         }
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Non-numerical value for an edge's speed type occured (edge '") + id
             + string("')."));
@@ -157,7 +160,7 @@ NIElmarEdgesHandler::report(const std::string &result)
                 + string("')."));
             throw ProcessError();
         }
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Non-numerical value for an edge's lane number occured (edge '") + id
             + string("'."));

@@ -3,6 +3,6 @@
 
 /* Bezier curve subroutine */
 void
-bezier(int npts, float b[], int cpts, float p[]);
+bezier(int npts, double b[], int cpts, double p[]);
 
 #endif

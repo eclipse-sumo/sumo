@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/08/18 12:49:31  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -72,9 +75,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "AttributesReadingGenericSAX2Handler.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:35:13  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/02 09:46:28  dkrajzew
 // some helper procedures for vss visualisation
 //
@@ -69,11 +72,11 @@ GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
     const Position2DVector::ContType &l = v.getCont();
     for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
         const Position2D &p = *i;
-        glVertex2f(p.x(), p.y());
+        glVertex2d(p.x(), p.y());
     }
     if(close) {
         const Position2D &p = *(l.begin());
-        glVertex2f(p.x(), p.y());
+        glVertex2d(p.x(), p.y());
     }
     glEnd();
 }
@@ -87,14 +90,14 @@ GLHelper::drawBoxLine(const Position2D &beg, double rot, double visLength,
     glTranslated(beg.x(), beg.y(), 0);
     glRotated( rot, 0, 0, 1 );
     glBegin(GL_QUADS);
-    glVertex2f(-width, 0);
-    glVertex2f(-width, -visLength);
-    glVertex2f(width, -visLength);
-    glVertex2f(width, 0);
+    glVertex2d(-width, 0);
+    glVertex2d(-width, -visLength);
+    glVertex2d(width, -visLength);
+    glVertex2d(width, 0);
     glEnd();
     glBegin(GL_LINES);
-    glVertex2f(0, 0);
-    glVertex2f(0, -visLength);
+    glVertex2d(0, 0);
+    glVertex2d(0, -visLength);
     glEnd();
     glPopMatrix();
 }
@@ -107,8 +110,8 @@ GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
     glTranslated(beg.x(), beg.y(), 0);
     glRotated( rot, 0, 0, 1 );
     glBegin(GL_LINES);
-    glVertex2f(0, 0);
-    glVertex2f(0, -visLength);
+    glVertex2d(0, 0);
+    glVertex2d(0, -visLength);
     glEnd();
     glPopMatrix();
 }
@@ -120,8 +123,8 @@ GLHelper::drawFilledCircle(double width, int steps)
 {
     if(myCircleCoords.size()==0) {
         for(int i=0; i<360; i+=10) {
-            double x = sin((float) i / 180.0 * PI);
-            double y = cos((float) i / 180.0 * PI);
+            float x = (float) sin((float) i / 180.0 * PI);
+            float y = (float) cos((float) i / 180.0 * PI);
             myCircleCoords.push_back(std::pair<float, float>(x, y));
         }
     }
@@ -129,19 +132,19 @@ GLHelper::drawFilledCircle(double width, int steps)
     std::pair<float, float> p1 = myCircleCoords[0];
     for(int i=0; i<steps; i++) {
         const std::pair<float, float> &p2 =
-            myCircleCoords[36.0/(float) steps * (float) i];
+            myCircleCoords[(size_t) (36.0/(float) steps * (float) i)];
         glBegin(GL_TRIANGLES);
-        glVertex2f(p1.first * width, p1.second * width);
-        glVertex2f(p2.first * width, p2.second * width);
-        glVertex2f(0, 0);
+        glVertex2d(p1.first * width, p1.second * width);
+        glVertex2d(p2.first * width, p2.second * width);
+        glVertex2d(0, 0);
         glEnd();
         p1 = p2;
     }
     const std::pair<float, float> &p2 = myCircleCoords[0];
     glBegin(GL_TRIANGLES);
-    glVertex2f(p1.first * width, p1.second * width);
-    glVertex2f(p2.first * width, p2.second * width);
-    glVertex2f(0, 0);
+    glVertex2d(p1.first * width, p1.second * width);
+    glVertex2d(p2.first * width, p2.second * width);
+    glVertex2d(0, 0);
     glEnd();
 }
 

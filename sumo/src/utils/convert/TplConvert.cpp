@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/11/23 10:28:36  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/02 09:43:05  dkrajzew
 // tried to improve string2float-conversion (still buggy)
 //
@@ -191,14 +194,29 @@ TplConvert<E>::_2float(const E * const data, int length)
         }
         ret = ret + akt - 48;
     }
-    if((char) data[i]!='.'&&data[i]!='e'&&data[i]!='E') {
+    // check what has happened - end of string, e or decimal point
+    if((char) data[i]!='.'&&(char) data[i]!=','&&data[i]!='e'&&data[i]!='E') {
         if(i==0) {
             throw EmptyData();
         }
         return ret * sgn;
     }
+    if(data[i]=='e'||data[i]=='E') {
+        // no decimal point, just an exponent
+        try {
+            int exp = _2int(data+i+1, length-i-1);
+            float exp2 = (float) pow(10.0, exp);
+            return ret*sgn*exp2;
+        } catch (EmptyData&) {
+            // the exponent was empty
+            throw NumberFormatException();
+        }
+
+    }
     float div = 10;
+    // skip the dot
     i++;
+    // parse values behin decimal point
     for(; i<length&&data[i]!=0&&data[i]!='e'&&data[i]!='E'; i++) {
         char akt = (char) data[i];
         if(akt<'0'||akt>'9') {
@@ -208,11 +226,18 @@ TplConvert<E>::_2float(const E * const data, int length)
         div = div * 10;
     }
     if(data[i]!='e'&&data[i]!='E') {
+        // no exponent
         return ret * sgn;
     }
-    int exp = _2int(data+i+1, length-i-1);
-    double exp2 = pow(10.0, exp);
-    return ret*sgn*exp2;
+    // eponent and decimal dot
+    try {
+        int exp = _2int(data+i+1, length-i-1);
+        float exp2 = (float) pow(10.0, exp);
+        return ret*sgn*exp2;
+    } catch (EmptyData&) {
+        // the exponent was empty
+        throw NumberFormatException();
+    }
 }
 
 
@@ -254,7 +279,7 @@ TplConvert<E>::_2charp(const E * const data, int length)
     char *ret = new char[length+1];
     int i = 0;
     for(; i<length; i++) {
-        ret[i] = data[i];
+        ret[i] = (char) data[i];
     }
     ret[i] = 0;
     return ret;

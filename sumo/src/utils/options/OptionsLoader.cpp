@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -79,7 +82,6 @@ namespace
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -96,6 +98,8 @@ namespace
 #include "OptionsCont.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 
 
 /* =========================================================================
@@ -184,7 +188,8 @@ void OptionsLoader::characters(const XMLCh* const chars,
                 _error = true;
             }
         } catch (InvalidArgument e) {
-            cout << e.msg() << endl;
+            MsgHandler::getErrorInstance()->inform(
+                e.msg());
             _error = true;
         }
     }
@@ -219,41 +224,53 @@ OptionsLoader::endElement(const XMLCh* const name)
     _item = "";
 }
 
-void OptionsLoader::warning(const SAXParseException& exception)
+
+void
+OptionsLoader::warning(const SAXParseException& exception)
 {
-    cerr << "Warning: " << TplConvert<XMLCh>::_2str(exception.getMessage())
-        << endl;
-    cerr << " (At line/column " << exception.getLineNumber()+1 << '/'
-         << exception.getColumnNumber() << ")." << endl;
+    WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
+    WRITE_WARNING( \
+        " (At line/column " \
+        + toString<int>(exception.getLineNumber()+1) + '/' \
+        + toString<int>(exception.getColumnNumber()) + ").");
     _error = true;
 }
 
-void OptionsLoader::error(const SAXParseException& exception)
+
+void
+OptionsLoader::error(const SAXParseException& exception)
 {
-    cerr << "Error: " + TplConvert<XMLCh>::_2str(exception.getMessage())
-        << endl;
-    cerr << " (At line/column " << exception.getLineNumber()+1 << '/'
-        << exception.getColumnNumber() << ")." << endl;
+    MsgHandler::getErrorInstance()->inform(
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
+    MsgHandler::getErrorInstance()->inform(
+        " (At line/column "
+        + toString<int>(exception.getLineNumber()+1) + '/'
+        + toString<int>(exception.getColumnNumber()) + ").");
     _error = true;
 }
 
-void OptionsLoader::fatalError(const SAXParseException& exception)
+
+void
+OptionsLoader::fatalError(const SAXParseException& exception)
 {
-    cerr << "Error: " + TplConvert<XMLCh>::_2str(exception.getMessage())
-        << endl;
-    cerr << " (At line/column " << exception.getLineNumber()+1 << '/'
-        << exception.getColumnNumber() << ")." << endl;
+    MsgHandler::getErrorInstance()->inform(
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
+    MsgHandler::getErrorInstance()->inform(
+        " (At line/column "
+        + toString<int>(exception.getLineNumber()+1) + '/'
+        + toString<int>(exception.getColumnNumber()) + ").");
     _error = true;
 }
 
-bool OptionsLoader::errorOccured() {
+
+bool
+OptionsLoader::errorOccured()
+{
     return _error;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "OptionsLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/07/02 09:41:39  dkrajzew
 // debugging the repeated setting of a value
 //
@@ -91,7 +94,12 @@ namespace
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -107,6 +115,8 @@ namespace
 #include "OptionsCont.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
+#include <sstream>
 
 
 /* =========================================================================
@@ -220,7 +230,6 @@ OptionsCont::getSecure(const string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     if(i==_values.end()) {
-        cout << "No option with the name '" << name << "' exists." << endl;
         throw InvalidArgument("No option with the name '" + name
             + "' exists.");
     }
@@ -291,9 +300,6 @@ OptionsCont::set(const string &name, bool value, bool isDefault)
 {
     Option *o = getSecure(name);
     if(!o->isBool()) {
-        cout << "The option '" << name
-            << "' is not a boolean attribute and requires an argument."
-            << endl;
         throw InvalidArgument("The option '" + name
             + "' is not a boolean attribute and requires an argument.");
     }
@@ -329,14 +335,16 @@ operator<<( ostream& os, const OptionsCont& oc)
         vector<string>::iterator j = find(done.begin(), done.end(), (*i).first);
         if(j==done.end()) {
             vector<string> synonymes = oc.getSynonymes((*i).first);
-            os << (*i).first << " (";
-            for(j=synonymes.begin(); j!=synonymes.end(); j++) {
-                if(j!=synonymes.begin()) {
-                    os << ", ";
+            if(synonymes.size()!=0) {
+                os << (*i).first << " (";
+                for(j=synonymes.begin(); j!=synonymes.end(); j++) {
+                    if(j!=synonymes.begin()) {
+                        os << ", ";
+                    }
+                    os << (*j);
                 }
-                os << (*j);
+                os << ")";
             }
-            os << ")";
             if((*i).second->isSet()) {
                 os << ": " << (*i).second->getValue() << endl;
             } else {
@@ -369,9 +377,8 @@ OptionsCont::isUsableFileList(const std::string &name) const
     }
     // check whether the list of files is valid
     if(!FileHelpers::checkFileList(o->getString())) {
-        cout << "The option '" << name
-            << "' should not contain delimiters only." << endl;
-        throw ProcessError();
+        throw InvalidArgument("The option '" + name
+            + "' should not contain delimiters only.");
     }
     return true;
 }
@@ -381,16 +388,18 @@ void
 OptionsCont::reportDoubleSetting(const string &arg) const
 {
     vector<string> synonymes = getSynonymes(arg);
-    cout << "A value for the option '" << arg << "' was already set." << endl;
-    cout << "  Possible synonymes: ";
+    MsgHandler::getErrorInstance()->inform(
+        "A value for the option '" + arg + "' was already set.");
+    ostringstream s;
+    s << "  Possible synonymes: ";
     for(vector<string>::iterator i=synonymes.begin(); i!=synonymes.end(); ) {
-        cout << (*i);
+        s << (*i);
         i++;
         if(i!=synonymes.end()) {
-            cout << ", ";
+            s << ", ";
         }
     }
-    cout << endl;
+    MsgHandler::getErrorInstance()->inform(string(s.str()));
 }
 
 

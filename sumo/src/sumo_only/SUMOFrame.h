@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/11/23 10:27:27  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/08/02 12:48:13  dkrajzew
 // using OutputDevices instead of ostreams; first steps towards a lane-change API
 //
@@ -86,6 +89,9 @@ public:
      * Returns true when all constraints are valid
      */
     static bool checkOptions(OptionsCont &oc);
+
+    /** Sets the global microsim-options */
+    static void setMSGlobals(OptionsCont &oc);
 
 };
 

@@ -20,9 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.1  2004/01/26 10:01:44  dkrajzew
-// derived class implemented for the computation of interpolated values when a value is not given (not yet implemented)
+// Revision 1.2  2004/11/23 10:36:20  dkrajzew
+// debugging
 //
+// Revision 1.1  2004/01/26 10:01:44  dkrajzew
+// derived class implemented for the computation of interpolated values when a
+//  value is not given (not yet implemented)
 //
 /* =========================================================================
  * included modules

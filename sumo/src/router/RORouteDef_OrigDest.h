@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -91,7 +94,8 @@ public:
 
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
-        bool continueOnUnbuild, ROVehicle &veh);
+        bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /** @brief Adds the build route to the container
         Here, the currently new route is added */

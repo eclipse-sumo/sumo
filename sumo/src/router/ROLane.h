@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -38,6 +41,7 @@
 
 #include <utils/common/Named.h>
 
+class ROEdge;
 
 /* =========================================================================
  * class definitions
@@ -61,6 +65,12 @@ public:
     /// Returns the maximum speed allowed on this lane
     double getSpeed() const;
 
+    /// Return the Edge
+    ROEdge *getEdge();
+
+protected:
+
+    ROEdge *myEdge;
 private:
     /// The length of the lane
     double myLength;

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2004/11/23 10:21:40  dkrajzew
+// debugging
+//
 // Revision 1.46  2004/08/02 13:11:39  dkrajzew
 // made some deprovements or so
 //
@@ -242,6 +245,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/convert/ToString.h>
+#include <utils/common/UtilExceptions.h>
 #include "NBEdge.h"
 
 
@@ -270,7 +274,8 @@ void
 NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 {
     // check
-    assert(_transitions.size()>(int) virtEdge);
+    assert(virtEdge>=0);
+    assert(_transitions.size()>(size_t) virtEdge);
     assert(lane>=0&&lane<10);
     // get the approached edge
     NBEdge *succEdge = _transitions[(int) virtEdge];
@@ -398,7 +403,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _priority = 0;
     }
     computeLaneShapes();
-    for(int i=0; i<_nolanes; i++) {
+    for(size_t i=0; i<_nolanes; i++) {
         myLaneSpeeds.push_back(speed);
     }
 }
@@ -454,7 +459,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _priority = 0;
     }
     computeLaneShapes();
-    for(int i=0; i<_nolanes; i++) {
+    for(size_t i=0; i<_nolanes; i++) {
         myLaneSpeeds.push_back(speed);
     }
 }
@@ -586,13 +591,13 @@ NBEdge::getEdgeLanesFromLane(size_t lane) const
 void
 NBEdge::computeTurningDirections()
 {
-    if(_id=="1728") {
-        int bla = 0;
-    }
     _turnDestination = 0;
     EdgeVector outgoing = _to->getOutgoingEdges();
     for(EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
+        if(outedge->getBasicType()==EDGEFUNCTION_SINK||_basicType==EDGEFUNCTION_SOURCE) {
+            continue;
+        }
         double relAngle =
             NBHelpers::relAngle(getAngle(*_to), outedge->getAngle(*_to));
         // do not append the turnaround
@@ -600,15 +605,6 @@ NBEdge::computeTurningDirections()
             setTurningDestination(outedge);
         }
     }
-#ifdef CROSS_TEST
-    assert(
-        (_id=="1si"&&_turnDestination->getID()=="1o") ||
-        (_id=="2si"&&_turnDestination->getID()=="2o") ||
-        (_id=="3si"&&_turnDestination->getID()=="3o") ||
-        (_id=="4si"&&_turnDestination->getID()=="4o") ||
-        _id=="1o" || _id=="2o" || _id=="3o" || _id=="4o" ||
-        _id=="1fi" || _id=="2fi" || _id=="3fi" || _id=="4fi" );
-#endif
 }
 
 
@@ -770,7 +766,15 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
         into << " depart=\"0\"";
     }
     // some further information
-    assert(myLaneSpeeds[lane]>0);
+    if(myLaneSpeeds[lane]==0) {
+        WRITE_WARNING(string("Lane #") + toString<size_t>(lane) + string(" of edge '") + _id + string("' has a maximum velocity of 0."));
+    } else if(myLaneSpeeds[lane]<0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Negative velocity (") + toString<float>(myLaneSpeeds[lane])
+            + string(" on edge '") + _id + string("' lane#")
+            + toString<size_t>(lane) + string("."));
+        throw ProcessError();
+    }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
         "\" changeurge=\"0\">";
     // the lane's shape
@@ -801,17 +805,8 @@ NBEdge::computeLaneShapes()
     if(_from==_to) {
         return;
     }
-    // extrapolate first
-    // (needed for a better junction shape computation, they will be prunned later)
-    Position2D p1 = GeomHelper::extrapolate_first(
-        myGeom.at(0), myGeom.at(1), 100);
-    Position2D p2 = GeomHelper::extrapolate_second(
-        myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), 100);
-    myGeom.eraseAt(0);
-    myGeom.eraseAt(myGeom.size()-1);
-    myGeom.push_front(p1);
-    myGeom.push_back(p2);
     // build the shape of each edge
+    myLaneGeoms.clear();
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms.push_back(computeLaneShape(i));
     }
@@ -829,12 +824,20 @@ Position2DVector
 NBEdge::computeLaneShape(size_t lane)
 {
     Position2DVector shape;
-    Position2D from = myGeom.at(0);
+    // extrapolate first
+    // (needed for a better junction shape computation, they will be prunned later)
+    Position2D from = GeomHelper::extrapolate_first(
+        myGeom.at(0), myGeom.at(1), 100);
+
     size_t i = 1;
     std::pair<double, double> offsets;
     // go thorugh the list of segments
     for(; i<myGeom.size(); i++) {
-        Position2D to = myGeom.at(i);
+        Position2D to =
+            i==myGeom.size()-1
+                ? GeomHelper::extrapolate_second(
+                    myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), 100)
+                : myGeom.at(i);
         // compute the lane position in dependence to the lane
         offsets =
             laneOffset(from, to, 3.5, _nolanes-1-lane);
@@ -960,9 +963,6 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << " yield=\"1\"";
     }
     // write the direction information
-    if(_id=="1335") {
-        int bla = 0;
-    }
     NBMMLDirection dir =
         _to->getMMLDirection(this, (*_reachable)[fromlane][destidx].edge);
     into << " dir=\"";
@@ -1185,7 +1185,7 @@ NBEdge::getConnectedSorted()
     edges->reserve(size);
     for(EdgeVector::const_iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
-        if(outedge!=_turnDestination) {
+        if(outedge!=_turnDestination) {// !!!
             edges->push_back(outedge);
         }
     }
@@ -1486,9 +1486,6 @@ NBEdge::isTurningDirection(NBEdge *edge) const
     }
     // we have to checke whether the connection between the nodes is
     //  geometrically similar
-    if(_id=="1335") {
-        int bla = 0;
-    }
     double thisFromAngle = getNormedAngle(*_from);
     double thisToAngle = getNormedAngle(*_to);
     double otherToAngle = edge->getNormedAngle(*edge->getToNode());
@@ -1822,7 +1819,7 @@ void
 NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                     const std::string &tlID, size_t tlPos)
 {
-    assert(fromLane<0||fromLane<_nolanes);
+    assert(fromLane<0||fromLane<(int) _nolanes);
     // try to use information about the connections if given
     if(fromLane>=0&&toLane>=0) {
         // get the connections outgoing from this lane
@@ -1862,10 +1859,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                 no++;
             } else {
                 if(connection.tlID!=tlID&&connection.tlLinkNo==tlPos) {
-                    MsgHandler::getWarningInstance()->inform(
-                        string("The lane ") + toString<int>(connection.lane)
-                        + string(" on edge ") + connection.edge->getID()
-                        + string(" already had a traffic light signal."));
+                    WRITE_WARNING(string("The lane ") + toString<int>(connection.lane)+ string(" on edge ") + connection.edge->getID()+ string(" already had a traffic light signal."));
                     hadError = true;
                 }
             }
@@ -1874,9 +1868,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         }
     }
     if(hadError&&no==0) {
-        MsgHandler::getWarningInstance()->inform(
-            string("Could not set any signal of the traffic light '")
-            + tlID + string("' (unknown group)"));
+        WRITE_WARNING(string("Could not set any signal of the traffic light '")+ tlID + string("' (unknown group)"));
     }
 }
 
@@ -1902,7 +1894,7 @@ NBEdge::reshiftPosition(double xoff, double yoff, double rot)
 
 
 Position2DVector
-NBEdge::getCWBounderyLine(const NBNode &n, double offset) const
+NBEdge::getCWBoundaryLine(const NBNode &n, double offset) const
 {
     Position2DVector ret;
     if(_from==(&n)) {
@@ -1918,7 +1910,7 @@ NBEdge::getCWBounderyLine(const NBNode &n, double offset) const
 
 
 Position2DVector
-NBEdge::getCCWBounderyLine(const NBNode &n, double offset) const
+NBEdge::getCCWBoundaryLine(const NBNode &n, double offset) const
 {
     Position2DVector ret;
     if(_from==(&n)) {
@@ -1934,7 +1926,7 @@ NBEdge::getCCWBounderyLine(const NBNode &n, double offset) const
 
 /*
 Line2D
-NBEdge::getNECWBounderyLine(NBNode *n, double offset)
+NBEdge::getNECWBoundaryLine(NBNode *n, double offset)
 {
     Line2D ret;
     if(_from==n) {
@@ -1954,7 +1946,7 @@ NBEdge::getNECWBounderyLine(NBNode *n, double offset)
 
 
 Line2D
-NBEdge::getNECCWBounderyLine(NBNode *n, double offset)
+NBEdge::getNECCWBoundaryLine(NBNode *n, double offset)
 {
     Line2D ret;
     if(_from==n) {
@@ -2243,6 +2235,25 @@ NBEdge::getNormedAngle(NBNode &atNode) const
     return angle;
 }
 
+
+double
+NBEdge::getNormedAngle() const
+{
+    double angle = _angle;
+    if(angle<0) {
+        angle = 360 + angle;
+    }
+    assert(angle>=0&&angle<360);
+    return angle;
+}
+
+
+void
+NBEdge::addGeometryPoint(int index, const Position2D &p)
+{
+    myGeom.insertAt(index, p);
+    computeLaneShapes();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

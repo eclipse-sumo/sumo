@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/11/26 09:51:10  dkrajzew
 // changes to allow more than a single function of an object to retrieve messages
 //
@@ -74,9 +77,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MsgRetrievingFunction.icc"
-//#endif
 
 #endif
 

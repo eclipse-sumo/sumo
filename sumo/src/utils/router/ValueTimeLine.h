@@ -22,6 +22,11 @@
 //---------------------------------------------------------------------------//
 
 /// @version $Id$
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -81,11 +86,171 @@ public:
     /// @param end End of TimeRange.
     /// @param value Value to store.
     ///
-    void append(unsigned int begin, unsigned int end, T value)
+    void add(unsigned int begin, unsigned int end, T value)
     {
+        assert(value>=0);
         assert(begin<=end);
-        assert(myValues.size()==0||(*(myValues.end()-1)).first.first<=begin);
-        myValues.push_back(ValuedTimeRange(TimeRange(begin, end), value));
+        // check whether this is the first entry
+        if(myValues.size()==0) {
+            // ... simply append it in this case and leave
+            myValues.push_back(ValuedTimeRange(TimeRange(begin, end), value));
+            assert(!hasOverlaps());
+            return;
+        }
+        // search for the item in front of the current range
+        TVVIt begP = find_if(myValues.begin(), myValues.end(), min_finder(begin));
+        // check whether it is the last item
+        if(myValues.end()==begP) {
+            // ... simply append it in this case and leave
+            myValues.push_back(ValuedTimeRange(TimeRange(begin, end), value));
+            assert(!hasOverlaps());
+            return;
+        }
+        // check whether the time range is the same
+        if(begP->first.first==begin&&begP->first.second==end) {
+            // ... replace the value and leave then
+            begP->second = value;
+            assert(!hasOverlaps());
+            return;
+        }
+        // search for the item behind
+        TVVIt endP = find_if(begP, myValues.end(), max_finder(end));
+        TVVIt insP = begP;
+        TVVIt delBegP = begP;
+        TVVIt delEndP = endP;
+        if(begP->first.first<begin&&begP->first.second>begin) {
+            begP->first.second = begin;
+            ++delBegP;
+        }
+        if(endP!=myValues.begin()) {
+            --endP;
+            if(endP->first.first<end&&endP->first.second>end) {
+                endP->first.second = end;
+                --delEndP;
+            }
+        }
+        if(distance(delBegP, delEndP)>0) {
+            delBegP = myValues.erase(delBegP, delEndP);
+        }
+        myValues.insert(delBegP, ValuedTimeRange(TimeRange(begin, end), value));
+        assert(!hasOverlaps());
+        return;
+
+        /*
+
+        // check whether the item to insert is beyond the current end
+        if(myValues.end()==endP) {
+            // remove the tail in this case
+            if(begP!=myValues.end()-1) {
+                begP = myValues.erase(begP+1, myValues.end()) - 1;
+            }
+            // check whether the found begin shall be prunned
+            if(begP->first.second>begin) {
+                beg->first.second = begin;
+            }
+            myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+            assert(!hasOverlaps());
+            return;
+        }
+        endP--;
+        if(endP==myValues.begin()||begP==endP) {
+            assert(begP==endP);
+            T oldVal = begP->second;
+            unsigned int oldend = begP->first.second;
+            if(begP->first.first<begin&&begP->first.second>end) {
+                // insert within
+                begP->first.second = begin;
+                begP = myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+                myValues.insert(begP+1, ValuedTimeRange(TimeRange(end, oldend), oldVal));
+                assert(!hasOverlaps());
+                return;
+            } else if(begP->first.first<begin) {
+                // insert leaving information in front
+                begP->first.second = second;
+                myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+                assert(!hasOverlaps());
+                return;
+            } else if(begP->first.second>end) {
+                // insert leaving information behind
+                begP->first.first = end;
+                myValues.insert(begP, ValuedTimeRange(TimeRange(begin, end), value));
+                assert(!hasOverlaps());
+                return;
+            }
+            assert(begP->first.first==begin&&begP->first.second==end);
+            begP->second = value;
+            assert(!hasOverlaps());
+            return;
+        }
+        if(begP->first.first<begin) {
+            // insert leaving information in front
+            begP->first.second = second;
+            myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+
+/*      // check whether the new item is partially behind the end
+        if(endP==myValues.end()) {
+            // crop the old item (which will be the end-2 item)
+            if(begP->first.second>begin) {
+                begP->first.second = begin;
+                begP++;
+            }
+            if(begP!=myValues.end()-1) {
+                myValues.erase(begP, myValues.end());
+            }
+            myValues.push_back(ValuedTimeRange(TimeRange(begin, end), value));
+            return;
+        } else {*/
+        // check whether the item to insert lies within another range
+        /*
+        if(begP==endP) {
+                // store temporary the real end of the larger range
+                ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
+                begP->first.first = begin;
+                begP->first.second = end;
+                begP->second = value;
+                myValues.insert(begP+1, tmp);
+                assert(!hasOverlaps());
+            } else if(begP->first.second<=end) {
+                // store temporary the real end of the larger range
+                ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
+                begP->first.first = begin;
+                begP->first.second = end;
+                begP->second = value;
+                myValues.insert(begP+1, tmp);
+                assert(!hasOverlaps());
+            } else {
+                // store temporary the real end of the larger range
+                ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
+                begP->first.second = begin;
+                begP = myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+                myValues.insert(begP+1, tmp);
+                assert(!hasOverlaps());
+            }
+        }
+        // crop the old item in front if needed
+        if(begP->first.second>begin) {
+            begP->first.second = begin;
+            begP++;
+        }
+        // ... and the one behind
+        if(myValues.end()!=endP&&endP->first.first<end) {
+            endP->first.first = end;
+            endP--;
+        }
+        begP = myValues.erase(begP, endP);
+
+/*
+            if(begP!=myValues.end()-1) {
+                myValues.erase(begP, endP);
+            }
+            */
+            // ... ok, the new item is somewhere in between
+/*      myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
+        assert(!hasOverlaps());
+        */
+//      }
+        // hmmm, any other case?
+//      throw 1;
     }
 
     /// Adds a ValuedTimeRange into the classes container. The
@@ -134,9 +299,25 @@ public:
             if ( myValues.size() == 0 ) {
                 return std::make_pair( false, T() );
             }
-            CTVVIt retIt = std::lower_bound( myValues.begin(), myValues.end(),
-                                             time, TimeRangeLess() );
-
+            CTVVIt retIt = find_if(myValues.begin(), myValues.end(), min_finder(time));
+            // use the last one if no matching range was found
+            if(retIt==myValues.end()) {
+                return std::make_pair( false, (--retIt)->second );
+            }
+            // check whether it's within a range
+            if(retIt->first.first<time) {
+                return std::make_pair( true, (retIt)->second );
+            } else {
+                // no, it's within the next range
+                if(retIt==myValues.begin()) {
+                    // use the first one if no other previous exist
+                    return std::make_pair( false, (retIt)->second );
+                }
+                // use the previous one otherwise
+                return std::make_pair( false, (--retIt)->second );
+            }
+            throw 1; // any other case?
+            /*
             if ( time < retIt->first.first ) {
                 if ( retIt == myValues.begin() ) {
                     return std::make_pair( false, retIt->second );
@@ -152,6 +333,7 @@ public:
             }
             retIt = myValues.end() - 1;
             return std::make_pair( false, retIt->second );
+            */
         }
 
     /// Returns the number of known periods
@@ -185,19 +367,19 @@ public:
         ++i;
         for(; i!=myValues.end(); ++i) {
             unsigned int beg = i->first.first;
-            if(beg<=end) {
+            if(beg<end) {
                 return true;
             }
             end = i->first.second;
         }
         return false;
     }
-
+/*
     void sort() {
         std::sort(myValues.begin(), myValues.end(), time_sorter());
         assert(!hasOverlaps());
     }
-
+*/
     bool empty() const {
         return myValues.size()==0;
     }
@@ -219,6 +401,42 @@ private:
         bool operator() (const ValuedTimeRange &vrange) {
             const TimeRange &range = vrange.first;
             return range.first<=myTime && range.second>=myTime;
+        }
+
+    private:
+        /// The time to search for
+        unsigned int myTime;
+
+    };
+
+    class min_finder {
+    public:
+        /** constructor */
+        explicit min_finder(unsigned int time)
+            : myTime(time) { }
+
+        /** the comparing function */
+        bool operator() (const ValuedTimeRange &vrange) {
+            const TimeRange &range = vrange.first;
+            return range.first<=myTime&&range.second>=myTime || range.first>=myTime;
+        }
+
+    private:
+        /// The time to search for
+        unsigned int myTime;
+
+    };
+
+    class max_finder {
+    public:
+        /** constructor */
+        explicit max_finder(unsigned int time)
+            : myTime(time) { }
+
+        /** the comparing function */
+        bool operator() (const ValuedTimeRange &vrange) {
+            const TimeRange &range = vrange.first;
+            return range.first>=myTime;
         }
 
     private:

@@ -22,15 +22,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,7 +49,7 @@ namespace
 #include "NIVissimNodeDef_Poly.h"
 #include "NIVissimConnection.h"
 #include "NIVissimAbstractEdge.h"
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 
 using namespace std;
 
@@ -86,8 +86,8 @@ NIVissimNodeDef_Poly::computeBounding()
 {
     // !!! compute participating edges
     // !!! call this method after loading!
-    myBoundery = new Boundery(myPoly.getBoxBoundery());
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
+    myBoundary = new Boundary(myPoly.getBoxBoundary());
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
 }
 
 double
@@ -95,8 +95,8 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 {
     NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
     return edge->crossesAtPoint(
-        Position2D(myBoundery->xmin(), myBoundery->ymin()),
-        Position2D(myBoundery->xmax(), myBoundery->ymax()));
+        Position2D(myBoundary->xmin(), myBoundary->ymin()),
+        Position2D(myBoundary->xmax(), myBoundary->ymax()));
 }
 */
 
@@ -107,7 +107,7 @@ NIVissimNodeDef_Poly::searchAndSetConnections(double offset)
     IntVector within = NIVissimAbstractEdge::getWithin(myPoly, offset);
     IntVector connections;
     IntVector edges;
-    Boundery boundery(myPoly.getBoxBoundery());
+    Boundary boundary(myPoly.getBoxBoundary());
     for(IntVector::const_iterator i=within.begin(); i!=within.end(); i++) {
         NIVissimConnection *c =
             NIVissimConnection::dictionary(*i);
@@ -122,7 +122,7 @@ NIVissimNodeDef_Poly::searchAndSetConnections(double offset)
         }
     }
     NIVissimConnectionCluster *c =
-        new NIVissimConnectionCluster(connections, boundery, myID, edges);
+        new NIVissimConnectionCluster(connections, boundary, myID, edges);
     for(IntVector::iterator j=edges.begin(); j!=edges.end(); j++) {
         NIVissimEdge *edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
@@ -130,11 +130,7 @@ NIVissimNodeDef_Poly::searchAndSetConnections(double offset)
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimNodeDef_Poly.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -2,7 +2,7 @@
 #define NIVissimEdge_h
 /***************************************************************************
                           NIVissimEdge.h
-			  An edge imported from Vissim together for a container for
+              An edge imported from Vissim together for a container for
               these instances
                              -------------------
     project              : SUMO
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.12  2004/01/28 12:39:23  dkrajzew
 // work on reading and setting speeds in vissim-networks
 //
@@ -116,7 +119,7 @@ public:
 
     void removeFromConnectionCluster(NIVissimConnectionCluster *c);
     void addToConnectionCluster(NIVissimConnectionCluster *c);
-    void setSpeed(int lane, int speedDist);
+    void setSpeed(size_t lane, int speedDist);
     void addToTreatAsSame(NIVissimEdge *e);
 
     NIVissimConnection* getConnectionTo(NIVissimEdge *e);
@@ -239,7 +242,7 @@ private:
     std::string myType;
 
     /// The number of lanes the edge has
-    int myNoLanes;
+    size_t myNoLanes;
 
     /// Additional load values for this edge
     double myZuschlag1, myZuschlag2;

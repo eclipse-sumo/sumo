@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/08/02 12:44:27  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -67,16 +70,12 @@ namespace
 // Revision 1.12  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-
 
 #include <string>
 #include <algorithm>
@@ -100,12 +99,18 @@ namespace
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimEdge.h"
+#include <utils/common/MsgHandler.h>
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NIVissimEdge::connection_position_sorter::connection_position_sorter(int edgeid)
     : myEdgeID(edgeid)
 {
@@ -173,6 +178,7 @@ NIVissimEdge::NIVissimEdge(int id, const std::string &name,
         myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
     myClosedLanes(clv)//, mySpeed(-1)
 {
+    assert(noLanes>=0);
     if(myMaxID<myID) {
         myMaxID = myID;
     }
@@ -344,20 +350,20 @@ NIVissimEdge::dict_propagateSpeeds()
 void
 NIVissimEdge::checkUnconnectedLaneSpeeds()
 {
-    for(int i=0; i<myLaneSpeeds.size(); i++) {
+    for(size_t i=0; i<myLaneSpeeds.size(); i++) {
         if(myLaneSpeeds[i]==-1) {
             double speed = -1;
-            int j1 = i - 1;
+            int j1 = i - 1; // !!! recheck - j1 may become negative?
             int j2 = i;
             while(j2!=myLaneSpeeds.size()&&myLaneSpeeds[j2]==-1) {
                 j2++;
             }
             if(j1<0) {
-                if(j2<myLaneSpeeds.size()) {
+                if(j2<(int) myLaneSpeeds.size()) {
                     speed = myLaneSpeeds[j2];
                 }
             } else {
-                if(j2>=myLaneSpeeds.size()) {
+                if(j2>=(int) myLaneSpeeds.size()) {
                     speed = myLaneSpeeds[j1];
                 } else {
                     speed = (myLaneSpeeds[j1] + myLaneSpeeds[j2]) / 2.0;
@@ -382,7 +388,7 @@ NIVissimEdge::checkUnconnectedLaneSpeeds()
 void
 NIVissimEdge::propagateOwn()
 {
-    for(int i=0; i<myLaneSpeeds.size(); i++) {
+    for(size_t i=0; i<myLaneSpeeds.size(); i++) {
         if(myLaneSpeeds[i]==-1) {
             continue;
         }
@@ -415,7 +421,7 @@ NIVissimEdge::propagateSpeed(double speed, IntVector forLanes)
             continue;
         }
         // check whether the lane has a new speed to set
-        if(myPatchedSpeeds.size()>*i&&myPatchedSpeeds[*i]!=-1) {
+        if((int) myPatchedSpeeds.size()>*i&&myPatchedSpeeds[*i]!=-1) {
             // use it
             speed = getRealSpeed(myPatchedSpeeds[*i]);
         }
@@ -695,10 +701,10 @@ NIVissimEdge::buildNBEdge(double offset)
 //    assert(mySpeed!=-1);
     double avgSpeed = 0;
     int i;
-    for(i=0; i<myNoLanes; i++) {
-        if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
-            cout << "Unset speed on edge:" << myID << ", lane:" << i
-                << ". Using default." << endl;
+    for(i=0; i<(int) myNoLanes; i++) {
+        if(myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
+            WRITE_WARNING(string("Unset speed on edge:") + toString<int>(myID) + string(", lane:") + toString<int>(i));
+            WRITE_WARNING(". Using default.");
             avgSpeed += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
         } else {
             avgSpeed += myLaneSpeeds[i];
@@ -711,8 +717,8 @@ NIVissimEdge::buildNBEdge(double offset)
         toString<int>(myID), myName, fromNode, toNode, myType,
         avgSpeed/3.6, myNoLanes, myGeom.length(), 0, myGeom,
         NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
-    for(i=0; i<myNoLanes; i++) {
-        if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
+    for(i=0; i<(int) myNoLanes; i++) {
+        if((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i,
                 OptionsSubSys::getOptions().getFloat("vissim-default-speed"));
         } else {
@@ -751,13 +757,13 @@ NIVissimEdge::getRealSpeed(int distNo)
     string id = toString<int>(distNo);
     Distribution *dist = NBDistribution::dictionary("speed", id);
     if(dist==0) {
-        cout << "The referenced speed distribution '" << id << "' is not known." << endl;
+        WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         return -1;
     }
     assert(dist!=0);
     double speed = dist->getMax();
     if(speed<0||speed>1000) {
-        cout << "What about distribution '" << distNo << "' " << endl;
+        WRITE_WARNING("What about distribution '" + toString<int>(distNo) + "' ");
     }
     return speed;
 }
@@ -772,11 +778,11 @@ NIVissimEdge::recheckSpeedPatches()
         DoubleVector::iterator i =
             find(myPatchedSpeeds.begin(), myPatchedSpeeds.end(), -1);
         if(myPatchedSpeeds.size()!=myNoLanes||i!=myPatchedSpeeds.end()) {
-            cout << "Warning! Not all lanes are patched! (edge:" << myID << ")." << endl;
+            cot << "Warning! Not all lanes are patched! (edge:" << myID << ")." << endl;
         }
         //
         if(DoubleVectorHelper::maxValue(myPatchedSpeeds)!=DoubleVectorHelper::minValue(myPatchedSpeeds)) {
-            cout << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
+            cot << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
         }
         //
 /*        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
@@ -1108,7 +1114,7 @@ NIVissimEdge::replaceSpeed(int id, int lane, double speed)
 */
 
 void
-NIVissimEdge::setSpeed(int lane, int speedDist)
+NIVissimEdge::setSpeed(size_t lane, int speedDist)
 {
     while(myPatchedSpeeds.size()<=lane) {
         myPatchedSpeeds.push_back(-1);

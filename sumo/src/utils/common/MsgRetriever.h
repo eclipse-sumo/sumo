@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/12/09 11:32:14  dkrajzew
 // destructor must be visble for deletion of msg-retrival methods
 //
@@ -56,9 +59,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MsgRetriever.icc"
-//#endif
 
 #endif
 

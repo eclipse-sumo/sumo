@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:23:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/08/02 12:44:12  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -88,14 +91,14 @@ NIElmarNodesHandler::report(const std::string &result)
     id = st.next();
     try {
         x = (double) TplConvert<char>::_2float(st.next().c_str());
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for node-x-position occured.");
         throw ProcessError();
     }
     try {
         y = (double) TplConvert<char>::_2float(st.next().c_str());
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for node-y-position occured.");
         throw ProcessError();

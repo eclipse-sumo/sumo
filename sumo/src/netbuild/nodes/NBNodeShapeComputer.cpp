@@ -71,26 +71,32 @@ NBNodeShapeComputer::compute()
     if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
         addInternalGeometry();
     }
-    if(ret.size()==0) {
+    if(ret.size()>3) {
+        ret = ret.convexHull();
+        if(ret.size()>0) {
+            ret.closePolygon();
+        }
+    }
+    if(ret.size()<4) {
+        double maxWidth = myNode.getMaxEdgeWidth();
         Position2D p = myNode.getPosition();
         //
         Position2D p1 = p;
-        p1.add(2, 2);
+        p1.add(maxWidth, maxWidth);
         ret.push_back(p1);
         //
         p1 = p;
-        p1.add(2, -2);
+        p1.add(maxWidth, -maxWidth);
         ret.push_back(p1);
         //
         p1 = p;
-        p1.add(-2, 2);
+        p1.add(-maxWidth, -maxWidth);
         ret.push_back(p1);
         //
         p1 = p;
-        p1.add(-2, -2);
+        p1.add(-maxWidth, maxWidth);
         ret.push_back(p1);
-    } else {
-        ret = ret.convexHull();
+
         ret.closePolygon();
     }
     return ret;
@@ -135,19 +141,19 @@ NBNodeShapeComputer::computeContinuationNodeShape()
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         if(myNode.hasIncoming(*i)) {
             Position2DVector own_bound =
-                (*i)->getCCWBounderyLine(myNode, 1.5);
+                (*i)->getCCWBoundaryLine(myNode, 1.5);
             EdgeVector::const_iterator ri = i;
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
             Position2DVector opp_bound =
-                (*ri)->getCWBounderyLine(myNode, 1.5);
+                (*ri)->getCWBoundaryLine(myNode, 1.5);
             myIncPos[*i] = myNode.getOffset(own_bound, opp_bound);
         } else {
             Position2DVector own_bound =
-                (*i)->getCWBounderyLine(myNode, 1.5);
+                (*i)->getCWBoundaryLine(myNode, 1.5);
             EdgeVector::const_iterator li = i;
             NBContHelper::nextCW(&(myNode._allEdges), li);
             Position2DVector opp_bound =
-                (*li)->getCCWBounderyLine(myNode, 1.5);
+                (*li)->getCCWBoundaryLine(myNode, 1.5);
             myOutPos[*i] = myNode.getOffset(own_bound, opp_bound);
         }
     }
@@ -191,8 +197,7 @@ NBNodeShapeComputer::computeRealNodeShape()
         edgeOffsets.push_back(getEdgeNeighborCrossings(i));
     }
     EdgeCrossDefVector::iterator j;
-    size_t bla = 0;
-    for(i=myNode._allEdges.begin(), j=edgeOffsets.begin(); i!=myNode._allEdges.end(); i++, j++, bla++) {
+    for(i=myNode._allEdges.begin(), j=edgeOffsets.begin(); i!=myNode._allEdges.end(); i++, j++) {
         NeighborCrossDesc used = getNeighbor2Use(j);
         // do not process outgoing which have opposite incoming for themselves
         EdgeVector::const_iterator li = i;
@@ -259,9 +264,9 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
     EdgeVector::const_iterator ri = i;
     EdgeVector::const_iterator li = i;
     // clockwise border
-    cb = current->getCWBounderyLine(myNode, 2.5);
+    cb = current->getCWBoundaryLine(myNode, 2.5);
     // counterclockwise border
-    ccb = current->getCCWBounderyLine(myNode, 2.5);
+    ccb = current->getCCWBoundaryLine(myNode, 2.5);
     Position2DVector cl, ccl;
     if(myNode.hasIncoming(current)) {
         // is an incoming edge
@@ -271,21 +276,21 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         NBContHelper::nextCW(&(myNode._allEdges), li);
         if(current->isTurningDirection(*li)) {
             mli = li;
-            cb = (*li)->getCWBounderyLine(myNode, 2.5);
+            cb = (*li)->getCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCW(&(myNode._allEdges), li);
         }
-        ccl = (*ri)->getCWBounderyLine(myNode, 2.5);
-        cl = (*li)->getCCWBounderyLine(myNode, 2.5);
+        ccl = (*ri)->getCWBoundaryLine(myNode, 2.5);
+        cl = (*li)->getCCWBoundaryLine(myNode, 2.5);
     } else {
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
         if((*ri)->isTurningDirection(current)) {
             mri = ri;
-            ccb = (*ri)->getCCWBounderyLine(myNode, 2.5);
+            ccb = (*ri)->getCCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
         }
         NBContHelper::nextCW(&(myNode._allEdges), li);
-        ccl = (*ri)->getCWBounderyLine(myNode, 2.5);
-        cl = (*li)->getCCWBounderyLine(myNode, 2.5);
+        ccl = (*ri)->getCWBoundaryLine(myNode, 2.5);
+        cl = (*li)->getCCWBoundaryLine(myNode, 2.5);
     }
     return EdgeCrossDef(
         buildCrossingDescription(mri, ri, ccb, ccl),
@@ -326,7 +331,7 @@ NBNodeShapeComputer::addCCWPoint(Position2DVector &poly,
                                  NBEdge *e, double offset,
                                  double width)
 {
-    Position2DVector l = e->getCCWBounderyLine(myNode, width);
+    Position2DVector l = e->getCCWBoundaryLine(myNode, width);
     double len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));
@@ -340,7 +345,7 @@ NBNodeShapeComputer::addCWPoint(Position2DVector &poly,
                                 NBEdge *e, double offset,
                                 double width)
 {
-    Position2DVector l = e->getCWBounderyLine(myNode, width);
+    Position2DVector l = e->getCWBoundaryLine(myNode, width);
     double len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));
@@ -356,8 +361,8 @@ NBNodeShapeComputer::computeJoinSplitNodeShape()
     std::vector<double> edgeOffsets;
     EdgeVector::const_iterator i;
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
-        Position2DVector o1 = (*i)->getCCWBounderyLine(myNode, 1.5);
-        Position2DVector o2 = (*i)->getCWBounderyLine(myNode, 1.5);
+        Position2DVector o1 = (*i)->getCCWBoundaryLine(myNode, 1.5);
+        Position2DVector o2 = (*i)->getCWBoundaryLine(myNode, 1.5);
         Position2DVector geom = (*i)->getGeometry();
         geom.extrapolate(1000);
         // build normal
@@ -419,9 +424,9 @@ NBNodeShapeComputer::computeJoinSplitNodeShape()
             }
             // add geometry point
             ret.push_back(
-                (*i)->getCCWBounderyLine(myNode, 1.5).positionAtLengthPosition(pos-1000));
+                (*i)->getCCWBoundaryLine(myNode, 1.5).positionAtLengthPosition(pos-1000));
             ret.push_back(
-                (*i)->getCWBounderyLine(myNode, 1.5).positionAtLengthPosition(pos-1000));
+                (*i)->getCWBoundaryLine(myNode, 1.5).positionAtLengthPosition(pos-1000));
         }
 //        myPoly.push_back(geom.positionAtLengthPosition(pos));
     }

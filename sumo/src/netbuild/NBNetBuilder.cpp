@@ -56,9 +56,7 @@ NBNetBuilder::buildLoaded()
 void
 NBNetBuilder::inform(int step, const std::string &about)
 {
-    MsgHandler::getMessageInstance()->inform(
-        string("Computing step ") + toString<int>(step)
-        + string(": ") + about);
+    WRITE_MESSAGE(string("Computing step ") + toString<int>(step)+ string(": ") + about);
 }
 
 
@@ -94,8 +92,8 @@ bool
 NBNetBuilder::guessTLs(int step, OptionsCont &oc)
 {
     inform(step, "Guessing and setting TLs");
-    if(oc.isSet("explicite-junctions")) {
-        StringTokenizer st(oc.getString("explicite-junctions"), ";");
+    if(oc.isSet("explicite-tls")) {
+        StringTokenizer st(oc.getString("explicite-tls"), ";");
         while(st.hasNext()) {
             NBNodeCont::setAsTLControlled(st.next());
         }
@@ -367,6 +365,7 @@ NBNetBuilder::saveMap(string path)
     }
     // write map
     res << gJoinedEdges;
+    return true;
 }
 
 
@@ -403,6 +402,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("no-node-removal", new Option_Bool(false));
     oc.doRegister("append-turnarounds", new Option_Bool(false));
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false));
+    oc.doRegister("keep-unregulated", new Option_Bool(false));
 
     oc.doRegister("map-output", 'M', new Option_FileName());
 
@@ -412,16 +412,18 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
     oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
     oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
-    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float(40/3.6));
-    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float(69/3.6));
-    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float(40/3.6));
-    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float(69/3.6));
+    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((float) (40/3.6)));
+    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((float)(69/3.6)));
+    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((float)(40/3.6)));
+    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((float)(69/3.6)));
 
-    oc.doRegister("explicite-junctions", new Option_String());
-    oc.doRegister("explicite-no-junctions", new Option_String());
+    oc.doRegister("explicite-tls", new Option_String());
+    oc.doRegister("explicite-no-tls", new Option_String());
     oc.doRegister("edges-min-speed", new Option_Float());
 
     oc.doRegister("plain-output", new Option_FileName());
+
+    oc.doRegister("netbuild.debug", new Option_Integer(0));
 
 }
 

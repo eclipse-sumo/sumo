@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/01/12 14:38:19  dkrajzew
 // to-upper method added
 //
@@ -75,7 +78,7 @@ StringUtils::prune(std::string str) {
 std::string
 StringUtils::to_lower_case(std::string str)
 {
-    for(int i=0; i<str.length(); i++) {
+    for(size_t i=0; i<str.length(); i++) {
         if(str[i]>='A'&&str[i]<='Z') {
             str[i] = str[i] + 'a' - 'A';
         }

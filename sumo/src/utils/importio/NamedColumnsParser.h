@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/11/23 10:35:28  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/06/05 14:29:12  dkrajzew
 // building problems under Linux patched
 //
@@ -97,7 +100,7 @@ private:
 private:
     /** the map's definition of column item names to their positions
         within the table */
-    typedef std::map<std::string, int> PosMap;
+    typedef std::map<std::string, size_t> PosMap;
 
     /// the map of column item names to their positions within the table
     PosMap _defMap;
@@ -110,10 +113,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NamedColumnsParser.icc"
-//#endif
 
 #endif
 

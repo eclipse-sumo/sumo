@@ -2,7 +2,7 @@
 #define LineHandler_h
 /***************************************************************************
                           LineHandler.h
-			  An interface definition for a class which retrieves
+              An interface definition for a class which retrieves
               information from a file linewise
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:35:28  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:51:26  dkrajzew
 // updated
 //
@@ -61,10 +64,8 @@ public:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "LineHandler.icc"
-//#endif
 
 #endif
 

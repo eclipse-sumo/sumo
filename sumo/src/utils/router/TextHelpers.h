@@ -20,12 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:36:20  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:52:57  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -46,13 +46,11 @@ class TextHelpers {
 public:
     /// Returns the next version of the given string
     static std::string version(std::string str);
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "TextHelpers.icc"
-//#endif
 
 #endif
 

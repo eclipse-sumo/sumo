@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:26:59  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:40:36  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
@@ -97,7 +100,7 @@ ROJPEdge::addFollowerPropability(ROJPEdge *follower, unsigned int begTime,
             + follower->getID() + string("' are not connected."));
         return;
     }
-    (*i).second->append(begTime, endTime, percentage);
+    (*i).second->add(begTime, endTime, percentage);
 }
 
 
@@ -176,8 +179,8 @@ ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
     size_t i;
     for(i=0; i<defs.size(); i++) {
         for(size_t j=0; j<myFollowingEdges.size(); j++) {
-            tmp[i*myFollowingEdges.size()+j] = defs[i]
-                / 100.0 / (myFollowingEdges.size());
+            tmp[i*myFollowingEdges.size()+j] = (float)
+                (defs[i] / 100.0 / (myFollowingEdges.size()));
         }
     }
         // parse from less common multiple
@@ -186,7 +189,7 @@ ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
         for(size_t j=0; j<defs.size(); j++) {
             value += tmp[i*defs.size()+j];
         }
-        myParsedTurnings.push_back(value);
+        myParsedTurnings.push_back((float) value);
     }
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -179,19 +182,19 @@ private:
 
 private:
     /// The begin of the interval current read
-    int myIntervalBegin;
+    size_t myIntervalBegin;
 
     /// The end of the interval current read
-    int myIntervalEnd;
+    size_t myIntervalEnd;
 
     /// The begin of the embedding interval (if given)
-    int myUpperIntervalBegin;
+    size_t myUpperIntervalBegin;
 
     /// The end of the embedding interval (if given)
-    int myUpperIntervalEnd;
+    size_t myUpperIntervalEnd;
 
     /// The number of vehicles to emit
-    int myVehicle2EmitNumber;
+    size_t myVehicle2EmitNumber;
 
     /// The current time step read
     unsigned int myCurrentTimeStep;

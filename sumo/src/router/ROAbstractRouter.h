@@ -20,8 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:25:51  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work; documentation added
 //
 // --------------------------------------------
 // Revision 1.4  2003/06/18 11:36:50  dkrajzew
@@ -63,6 +67,30 @@ class ROEdgeCont;
  */
 class ROAbstractRouter {
 public:
+    /**
+     * @class ROAbstractEdgeEffortRetriever
+     * This interface has to be implemented in order to get the real efforts of edges
+     */
+    class ROAbstractEdgeEffortRetriever {
+    public:
+        /// Constructor
+        ROAbstractEdgeEffortRetriever() { }
+
+        /// Destructor
+        virtual ~ROAbstractEdgeEffortRetriever() { }
+
+        /// This function should return the effort to use
+        virtual float getEffort(int time, const ROEdge * const edge, double dist) = 0;
+
+        /// This function should return true if the vehicle must not use the given edge
+        virtual bool explicetlyOmit(ROEdge *e) const = 0;
+
+        /// Returns the name of this retriever
+        virtual const std::string &getID() const = 0;
+
+    };
+
+public:
     /// Constructor
     ROAbstractRouter();
 
@@ -72,7 +100,8 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild) = 0;
+        long time, bool continueOnUnbuild,
+        ROAbstractEdgeEffortRetriever * const retriever=0) = 0;
 
 };
 

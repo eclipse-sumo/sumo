@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.11  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
@@ -284,10 +287,10 @@ NBRequestEdgeLinkIterator::getToEdge() const
 bool
 NBRequestEdgeLinkIterator::pp()
 {
-	if(_position>=63) {
-		// !!! hell happens when _position >= 64
-		return false;
-	}
+    if(_position>=63) {
+        // !!! hell happens when _position >= 64
+        return false;
+    }
     _position++;
     while( _position<_fromEdges.size() && !_valid.test(_position) ) {
         _position++;
@@ -418,7 +421,7 @@ bool
 NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
     return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
-		|| !hasGreen;
+        || !hasGreen;
 }
 
 
@@ -448,12 +451,12 @@ NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
     return false;
 /*
     return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
-		|| !hasGreen;*/
+        || !hasGreen;*/
 }
 
 
 std::ostream &
-operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o)
+operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o)
 {
     os << "ValidNonLeft: " << o._validNonLeft << endl;
     os << "Valid: " << o._valid << endl;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -106,31 +109,31 @@ RORDGenerator_ODAmounts::FlowDef::~FlowDef()
 
 
 bool
-RORDGenerator_ODAmounts::FlowDef::applicableForTime(unsigned int time) const
+RORDGenerator_ODAmounts::FlowDef::applicableForTime(unsigned int t) const
 {
-    return myIntervalBegin<=time&&myIntervalEnd>=time;
+    return myIntervalBegin<=t&&myIntervalEnd>=t;
 }
 
 
 void
 RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
                                             RONet &net,
-                                            unsigned int time)
+                                            unsigned int t)
 {
-    assert(myIntervalBegin<=time&&myIntervalEnd>=time);
+    assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
     unsigned int absPerEachStep = myVehicle2EmitNumber /
         (myIntervalEnd-myIntervalBegin);
     for(unsigned int i=0; i<absPerEachStep; i++) {
-        addSingleRoute(vb, net, time);
+        addSingleRoute(vb, net, t);
     }
     // fraction
     double toEmit =
         (double) myVehicle2EmitNumber
         / (double) (myIntervalEnd-myIntervalBegin)
-        * (double) (time-myIntervalBegin);
+        * (double) (t-myIntervalBegin);
     if(toEmit>myEmitted) {
-        addSingleRoute(vb, net, time);
+        addSingleRoute(vb, net, t);
     }
 }
 
@@ -138,13 +141,13 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
 void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
                                                  RONet &net,
-                                                 unsigned int time)
+                                                 unsigned int t)
 {
     string id = myVehicle->getID()
         + string("_") + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
-    ROVehicle *veh = myVehicle->copy(vb, id, time, rd);
+    ROVehicle *veh = myVehicle->copy(vb, id, t, rd);
     net.addVehicle(id, veh);
     myEmitted++;
 }
@@ -194,10 +197,11 @@ RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(unsigned int until)
 void
 RORDGenerator_ODAmounts::buildRoutes(unsigned int until)
 {
-    for(unsigned int time=myDepartureTime; time<until+1; time++) {
-        buildForTimeStep(time);
+    unsigned int t;
+    for(t=myDepartureTime; t<until+1; t++) {
+        buildForTimeStep(t);
     }
-    myDepartureTime = time;
+    myDepartureTime = t;
 }
 
 
@@ -259,14 +263,14 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
     try {
         myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("An interval begin is not numeric."));
         return;
     }
     try {
         myIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, myUpperIntervalEnd);
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("An interval end is not numeric."));
         return;
@@ -294,14 +298,14 @@ RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
 {
     try {
         myUpperIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("An interval begin is not numeric."));
         return;
     }
     try {
         myUpperIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
-    } catch (NumberFormatException &e) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("An interval end is not numeric."));
         return;
@@ -360,7 +364,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         ROVehicle *vehicle = 0;
         if(myPos>=0||mySpeed>=0) {
             vehicle = myVehicleBuilder.buildRunningVehicle(myID, route, myDepartureTime,
-                type, myLane, myPos, mySpeed, myColor, -1, -1);
+                type, myLane, (float) myPos, (float) mySpeed, myColor, -1, -1);
         } else {
             vehicle = myVehicleBuilder.buildVehicle(myID, route, myDepartureTime,
                 type, myColor, -1, -1);

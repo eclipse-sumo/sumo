@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/06/24 08:10:23  dkrajzew
 // extended by the options sub system; dcumentation added
 //
@@ -71,9 +74,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "SystemFrame.icc"
-//#endif
 
 #endif
 

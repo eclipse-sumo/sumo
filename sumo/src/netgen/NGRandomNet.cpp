@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/11/23 10:22:03  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/08/02 12:41:40  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -65,7 +68,7 @@ TNeighbourDistribution::Add(int NumNeighbours, float ratio)
 int
 TNeighbourDistribution::Num()
 {
-    float sum=0, RandValue;
+    double sum=0, RandValue;
     TNeighbourList::iterator i;
     // total sum of ratios
     for (i=Neighbours.begin(); i!=Neighbours.end(); ++i)
@@ -164,8 +167,8 @@ TNGRandomNet::CheckAngles(TNode *Node)
                     Position2D v2(
                         ni->getPosition().x() - Node->getPosition().x(),
                         ni->getPosition().y() - Node->getPosition().y());
-                    float angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
-                    if (fabs(angle) < myMinLinkAngle)
+                    double angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
+                    if (fabs((float) angle) < myMinLinkAngle)
                         check = false;
                 };
             };
@@ -184,8 +187,7 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
 
     // check for range between Basenode and Newnode
     if (Connectable) {
-        float dist;
-        dist = GeomHelper::distance(n1, n2);
+        double dist = GeomHelper::distance(n1, n2);
         if ((dist < myMinDistance) || (dist > myMaxDistance))
             Connectable = false;
     };
@@ -210,7 +212,7 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
             // check NewNode-To-Links distance only, if NewNode isn't part of link
             if ((Connectable) &&
                 (NewNode != (*li)->StartNode()) && (NewNode != (*li)->EndNode())) {
-                float dist = GeomHelper::DistancePointLine(n2, p1, p2);
+                double dist = GeomHelper::DistancePointLine(n2, p1, p2);
                 if (( dist < myMinDistance) && (dist > -1))
                     Connectable = false;
             };
@@ -238,7 +240,7 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 }
 
 
-float
+double
 TNGRandomNet::GetAngle()
 {
     return 2*PI*rand() /
@@ -246,7 +248,7 @@ TNGRandomNet::GetAngle()
 }
 
 
-float
+double
 TNGRandomNet::GetDistance()
 {
     return (myMaxDistance - myMinDistance)*
@@ -258,8 +260,8 @@ TNGRandomNet::GetDistance()
 bool
 TNGRandomNet::UseOuterNode()
 {
-    float value = rand();
-    float max = static_cast<float>(RAND_MAX) + 1;
+    double value = rand();
+    double max = static_cast<float>(RAND_MAX) + 1;
     value = value/max;
     if ((value) < myConnectivity)
         return true;
@@ -275,7 +277,7 @@ TNGRandomNet::CreateNewNode(TNode *BaseNode)
     TLink *NewLink;
 
     // calculate position of new node based on BaseNode
-    float x, y, dist, angle;
+    double x, y, dist, angle;
     dist = GetDistance();
     angle = GetAngle();
     x = BaseNode->getPosition().x() + dist * cos(angle);
@@ -283,7 +285,7 @@ TNGRandomNet::CreateNewNode(TNode *BaseNode)
     NewNode = new TNode(myNet->GetID());
     NewNode->SetX(x);
     NewNode->SetY(y);
-    NewNode->SetMaxNeighbours(NeighbourDistribution.Num());
+    NewNode->SetMaxNeighbours((float) NeighbourDistribution.Num());
     NewLink = new TLink(myNet->GetID(), BaseNode, NewNode);
     if (CanConnect(BaseNode, NewNode)) {
         // add node
@@ -319,7 +321,7 @@ TNGRandomNet::CreateNet(int NumNodes)
     OuterNodes.push_back(OuterNode);
 
     bool created = true;
-    while ((Nodes->size() < NumNodes) && (OuterNodes.size() > 0)) {
+    while (((int) Nodes->size() < NumNodes) && (OuterNodes.size() > 0)) {
         // brings last element to front
         if (!created) {
             OuterNodes.push_front(OuterNodes.back());
@@ -352,7 +354,7 @@ TNGRandomNet::CreateNet(int NumNodes)
               count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {
-                OuterNode->SetMaxNeighbours(OuterNode->LinkList.size());
+                OuterNode->SetMaxNeighbours((float) OuterNode->LinkList.size());
                 OuterNodes.remove(OuterNode);
             };
         }

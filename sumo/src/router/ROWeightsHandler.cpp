@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -101,7 +104,8 @@ void ROWeightsHandler::myStartElement(int element, const std::string &name,
 
 
 void
-ROWeightsHandler::parseTimeStep(const Attributes &attrs) {
+ROWeightsHandler::parseTimeStep(const Attributes &attrs)
+{
     try {
         _currentTimeBeg = getLong(attrs, SUMO_ATTR_BEGIN);
         _currentTimeEnd = getLong(attrs, SUMO_ATTR_END);
@@ -112,7 +116,8 @@ ROWeightsHandler::parseTimeStep(const Attributes &attrs) {
 
 
 void
-ROWeightsHandler::parseEdge(const Attributes &attrs) {
+ROWeightsHandler::parseEdge(const Attributes &attrs)
+{
     _currentEdge = 0;
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
@@ -151,11 +156,11 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
             string("'"));
         if(id.length()!=0)
             MsgHandler::getErrorInstance()->inform(string(" In lane '") + id
-            + string("' at time step ") + toString<long>(_currentTimeBeg)
-            + string("."));
+                + string("' at time step ") + toString<long>(_currentTimeBeg)
+                + string("."));
     }
     // set the values when retrieved (no errors)
-    if(id.length()!=0&&value>0&&_currentEdge!=0) {
+    if(id.length()!=0&&value>=0&&_currentEdge!=0) {
         myAggValue += value;
         myNoLanes++;
     }

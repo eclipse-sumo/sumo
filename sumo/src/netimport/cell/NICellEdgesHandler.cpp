@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/11/23 10:23:52  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/07/02 09:35:23  dkrajzew
 // adaptation of current FastLane import
 //
@@ -120,7 +123,7 @@ NICellEdgesHandler::report(const std::string &result)
     }
     // other values
     float length = -1;
-    float speed = NBTypeCont::getDefaultSpeed();
+    double speed = NBTypeCont::getDefaultSpeed();
     int priority = NBTypeCont::getDefaultPriority();
     size_t nolanes = NBTypeCont::getDefaultNoLanes();
     // get the length
@@ -161,7 +164,7 @@ NICellEdgesHandler::report(const std::string &result)
             // process lane number
             if(name=="-l") {
                 try {
-                    nolanes = TplConvert<char>::_2float(value.c_str());
+                    nolanes = TplConvert<char>::_2int(value.c_str());
                 } catch (NumberFormatException) {
                     addError(
                         string("Non-numeric lane number value:")

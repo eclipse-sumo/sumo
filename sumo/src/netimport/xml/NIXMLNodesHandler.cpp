@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/08/02 12:44:28  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -152,8 +155,7 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
         // retrieve the id of the node
         myID = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getWarningInstance()->inform(
-            "No node id given... Skipping.");
+        WRITE_WARNING("No node id given... Skipping.");
         return;
     }
     // retrieve the name of the node

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/11/23 10:21:41  dkrajzew
+// debugging
+//
 // Revision 1.12  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -146,9 +149,7 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
 {
     // it is not really a traffic light if no incoming edge exists
     if(_incoming.size()==0) {
-        MsgHandler::getWarningInstance()->inform(
-            string("The traffic light '") + getID() +
-            string("' has no incoming edges; it will not be build."));
+        WRITE_WARNING(string("The traffic light '") + getID() +string("' has no incoming edges; it will not be build."));
         return 0;
     }
     // compute the time needed to brake
@@ -247,7 +248,7 @@ NBTrafficLightDefinition::getSizes() const
     for(EdgeVector::const_iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-			assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
+            assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
         }
         noLanes += noLanesEdge;
@@ -303,16 +304,16 @@ NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
                                     bool regardNonSignalisedLowerPriority) const
 {
     return forbids(possProhibitor.getFrom(), possProhibitor.getTo(),
-		possProhibited.getFrom(), possProhibited.getTo(),
+        possProhibited.getFrom(), possProhibited.getTo(),
         regardNonSignalisedLowerPriority);
 }
 
 
 bool
 NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
-								  NBEdge *possProhibitorTo,
-								  NBEdge *possProhibitedFrom,
-								  NBEdge *possProhibitedTo,
+                                  NBEdge *possProhibitorTo,
+                                  NBEdge *possProhibitedFrom,
+                                  NBEdge *possProhibitedTo,
                                   bool regardNonSignalisedLowerPriority) const
 {
     // retrieve both nodes (it is possible that a connection
@@ -329,7 +330,7 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
         return false;
     }
     return incnode->forbids(possProhibitorFrom, possProhibitorTo,
-		possProhibitedFrom, possProhibitedTo,
+        possProhibitedFrom, possProhibitedTo,
         regardNonSignalisedLowerPriority);
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -99,11 +102,12 @@ using namespace std;
 RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
                                        unsigned int begin, unsigned int end,
                                        double gawronBeta, double gawronA,
+                                       int maxRouteNumber,
                                        const std::string &file)
     : RORDLoader_SUMOBase(vb, net, begin, end,
         "precomputed sumo route alternatives", file),
     _currentAlternatives(0),
-    _gawronBeta(gawronBeta), _gawronA(gawronA)
+    _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRouteNumber)
 {
 }
 
@@ -246,7 +250,7 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     // !!!
     // build the alternative cont
     _currentAlternatives = new RORouteDef_Alternatives(id, myCurrentColor,
-        index, _gawronBeta, _gawronA);
+        index, _gawronBeta, _gawronA, myMaxRouteNumber);
 }
 
 

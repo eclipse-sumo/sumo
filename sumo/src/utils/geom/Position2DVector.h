@@ -20,6 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.3  2004/11/22 12:53:15  dksumo
+// added 'pop_back' and 'inserAt'
+//
+// Revision 1.2  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:45  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.16  2004/03/19 13:01:11  dkrajzew
 // methods needed for the new selection within the gui added; some style adaptions
 //
@@ -53,7 +65,6 @@
 // Revision 1.6  2003/06/05 14:33:45  dkrajzew
 // class templates applied; documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,7 +76,7 @@
 #include <iostream>
 #include <utils/common/DoubleVector.h>
 #include "AbstractPoly.h"
-#include "Boundery.h"
+#include "Boundary.h"
 #include "Position2D.h"
 
 
@@ -77,7 +88,7 @@ class Line2D;
 class Position2DVector
         : public AbstractPoly {
 public:
-	/// Definition of the list of points
+    /// Definition of the list of points
     typedef std::deque<Position2D> ContType;
 
 public:
@@ -108,7 +119,7 @@ public:
     bool around(const Position2D &p, double offset=0) const;
 
     /** @brief Returns the information whether the given polygon overlaps with this
-        Again a boundery may be specified */
+        Again a boundary may be specified */
     bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
 
     /** Returns the information whether this list of points interesects the given line */
@@ -153,12 +164,14 @@ public:
     static Position2D positionAtLengthPosition(const Position2D &p1,
         const Position2D &p2, double pos);
 
-    /// Returns a boundery enclosing this list of lines
-    Boundery getBoxBoundery() const;
+    /// Returns a boundary enclosing this list of lines
+    Boundary getBoxBoundary() const;
 
     /** @brief Returns the center
         !! Only for closed??? */
     Position2D center() const;
+
+    Position2D pop_back();
 
     /// Returns the length
     double length() const;
@@ -188,13 +201,13 @@ public:
     void appendWithCrossingPoint(const Position2DVector &v);
 
 
-	const ContType &getCont() const {
-		return myCont;
-	}
+    const ContType &getCont() const {
+        return myCont;
+    }
 
     Position2DVector resettedBy(double x, double y) const;
 
-	Position2DVector getSubpart(double begin, double end) const;
+    Position2DVector getSubpart(double begin, double end) const;
 
     void sortAsPolyCWByAngle();
 
@@ -212,6 +225,8 @@ public:
 
     Line2D getEndLine() const;
 
+
+    void insertAt(int index, const Position2D &p);
 
     class as_poly_cw_sorter {
     public:
@@ -243,7 +258,8 @@ public:
     void resetBy(const Position2D &by);
 
 
-    float isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
+    // !!!
+    double isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
 
     void set(size_t pos, const Position2D &p);
 
@@ -270,9 +286,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "Position2DVector.icc"
-//#endif
 
 #endif
 

@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/10/27 10:55:10  dkrajzew
 // problems on setting gui options patched - the configuration is not loaded directly any more
 //
 // Revision 1.1  2003/06/24 08:12:59  dkrajzew
 // a subsystem for option handling common to most of the applications added
-//
 //
 /* =========================================================================
  * included modules
@@ -98,9 +100,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "OptionsSubSys.icc"
-//#endif
 
 #endif
 

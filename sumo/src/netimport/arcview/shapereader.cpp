@@ -116,7 +116,7 @@ shapereader::getFieldNumber(char * FieldName, int &res)
 {
     if ( vecHeader.size() > 0 )
     {
-        for(int i = 0; i < vecHeader.size(); i++)
+        for(size_t i = 0; i < vecHeader.size(); i++)
         {
             if ( vecHeader[i].compare( FieldName ) == 0 )
             {
@@ -327,18 +327,18 @@ shapereader::getReverseShape() const
         const char  *pszPartType = "";
 
         if( j == 0 && psShape->nParts > 0 )
-            cout << SHPPartTypeName( psShape->panPartType[0] ) << endl;
+            cot << SHPPartTypeName( psShape->panPartType[0] ) << endl;
             //pszPartType = SHPPartTypeName( psShape->panPartType[0] );
 
         if( iPart < psShape->nParts && psShape->panPartStart[iPart] == j )
         {
-            cout << SHPPartTypeName( psShape->panPartType[iPart] ) << endl;
+            cot << SHPPartTypeName( psShape->panPartType[iPart] ) << endl;
                 //pszPartType = SHPPartTypeName( psShape->panPartType[iPart] );
         iPart++;
 
         }
         p = myPoints.at(j);
-        cout << p.x() << "\t"   << p.y() << endl;
+        cut << p.x() << "\t"   << p.y() << endl;
     }
     //myPoints.debug();
 }*/

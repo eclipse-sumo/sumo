@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/11/23 10:36:50  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/08/18 12:49:31  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -51,7 +54,12 @@
 // Revision 1.2  2002/04/16 06:52:01  dkrajzew
 // documentation added; coding standard attachements added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -198,10 +206,8 @@ private:
     int convertTag(const std::string &tag) const;
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "GenericSAX2Handler.icc"
-//#endif
 
 #endif
 

@@ -1,6 +1,6 @@
 /***************************************************************************
                           NIVisumParser_Turns.cpp
-			  Parser for visum-turn definitions
+              Parser for visum-turn definitions
                              -------------------
     project              : SUMO
     begin                : Thu, 14 Nov 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/11/23 10:23:51  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -89,10 +92,7 @@ NIVisumParser_Turns::myDependentReport()
         // all nodes are known
         if(isVehicleTurning()) {
             // try to set the turning definition
-            string error = via->setTurningDefinition(from, to);
-            if(error.length()>0) {
-                addError(error);
-            }
+            via->setTurningDefinition(from, to);
         }
     } catch (OutOfBoundsException) {
         addError2("ABBIEGEBEZIEHUNG", "", "OutOfBounds");

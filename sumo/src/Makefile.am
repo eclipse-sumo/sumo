@@ -1,19 +1,19 @@
-bin_PROGRAMS = sumo \
-sumo-netconvert \
-sumo-netgen \
-sumo-duarouter \
-sumo-jtrrouter \
-sumo-od2trips \
-sumo-guisim
+bin_PROGRAMS = sumo sumo-netconvert sumo-netgen sumo-duarouter sumo-jtrrouter \
+sumo-od2trips sumo-guisim
 
 
-sumo_SOURCES = sumo_main.cpp \
-sumo_help.h
+sumo_SOURCES = sumo_main.cpp sumo_help.h
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/output/libmicrosimoutput.a \
+./microsim/output/e1_detectors/libmicrosimoutpute1.a \
+./microsim/output/e2_detectors/libmicrosimoutpute2.a \
+./microsim/output/e3_detectors/libmicrosimoutpute3.a \
+./microsim/output/meandata/libmicrosimoutputmeanoutput.a \
 ./microsim/actions/libmsactions.a \
+./microsim/lanechanging/libmicrosimlanechange.a \
+./microsim/traffic_lights/libmicrosimtls.a \
 ./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/convert/libconvert.a \
@@ -27,8 +27,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 -l$(LIB_XERCES)
 
 
-sumo_netconvert_SOURCES = netconvert_main.cpp \
-netconvert_help.h
+sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
 ./netimport/libnetimport.a \
@@ -56,8 +55,7 @@ sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
 -l$(LIB_XERCES)
 
 
-sumo_netgen_SOURCES = netgen_main.cpp \
-netgen_help.h
+sumo_netgen_SOURCES = netgen_main.cpp netgen_help.h
 sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./netbuild/nodes/libnodesnetbuild.a \
@@ -102,8 +100,7 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 -l$(LIB_XERCES)
 
 
-sumo_od2trips_SOURCES = od2trips_main.cpp \
-od2trips_help.h
+sumo_od2trips_SOURCES = od2trips_main.cpp od2trips_help.h
 sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/sumoxml/libsumoxml.a \
@@ -114,29 +111,34 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 -l$(LIB_XERCES)
 
 
-sumo_guisim_SOURCES = guisim_main.cpp \
-guisim_help.h \
-sumo_version.cpp \
-sumo_version.h
-sumo_gui_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
-sumo_gui_LDADD =  ./gui/libgui.a \
+sumo_guisim_SOURCES = guisim_main.cpp guisim_help.h \
+sumo_version.cpp sumo_version.h
+sumo_guisim_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
+sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
-./gui/icons/libguiicons.a \
 ./gui/manipulators/libguimanipulators.a \
-./gui/popup/libguipopup.a \
-./gui/partable/libguipartable.a \
 ./gui/dialogs/libguidialogs.a \
 ./gui/GUISupplementaryWeightsHandler.o \
-./gui/textures/libguitextures.a \
-./gui/vartracker/libguivartracker.a \
-./gui/tlstracker/libguitlstracker.a \
 ./utils/foxtools/libfoxtools.a \
+./utils/gui/div/libguiutilsdiv.a \
+./utils/gui/drawer/libguiutilsdrawer.a \
+./utils/gui/events/libguiutilsevents.a \
+./utils/gui/images/libguiutilsimages.a \
+./utils/gui/tracker/libguiutilstracker.a \
+./utils/gui/windows/libguiutilsWindows.a \
+./utils/gui/globjects/libguiutilsglobjects.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/output/libmicrosimoutput.a \
+./microsim/output/e1_detectors/libmicrosimoutpute1.a \
+./microsim/output/e2_detectors/libmicrosimoutpute2.a \
+./microsim/output/e3_detectors/libmicrosimoutpute3.a \
+./microsim/output/meandata/libmicrosimoutputmeanoutput.a \
 ./microsim/actions/libmsactions.a \
+./microsim/lanechanging/libmicrosimlanechange.a \
+./microsim/traffic_lights/libmicrosimtls.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
@@ -154,28 +156,19 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 $(LIB_X11)
 
 
-AM_CPPFLAGS = -Imicrosim \
--Ihelpers \
--I$(XERCESINCLUDE) \
--I$(XERCESINCLUDE_PRIOR_1_7) \
--I$(FOX_INCLUDES)
+
+AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
+-I$(FOX_INCLUDES) -I$(ACE_INCLUDES)
 
 
 
-SUBDIRS = gui \
-guinetload \
-guisim \
-helpers \
-microsim \
-netbuild \
-netgen \
-netimport \
-netload \
+
+SUBDIRS = \
+gui guinetload guisim \
+helpers microsim netload sumo_only \
+netbuild netgen netimport \
 od2trips \
-router \
-routing_dua \
-routing_jtr \
-sumo_only \
+router routing_dua routing_jtr \
 utils
 
 EXTRA_DIST = sumo_version.cpp sumo_version.h

@@ -23,6 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.3  2004/11/22 12:53:15  dksumo
+// added 'pop_back' and 'inserAt'
+//
+// Revision 1.2  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:44  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.25  2004/07/02 09:44:40  dkrajzew
 // changes for 0.8.0.2
 //
@@ -80,7 +92,6 @@ namespace
 // Revision 1.7  2003/06/05 14:33:45  dkrajzew
 // class templates applied; documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -98,6 +109,7 @@ namespace
 #include "Position2DVector.h"
 #include "GeomHelper.h"
 #include "Line2D.h"
+#include "Helper_ConvexHull.h"
 
 
 /* =========================================================================
@@ -326,10 +338,10 @@ Position2DVector::positionAtLengthPosition(const Position2D &p1,
 }
 
 
-Boundery
-Position2DVector::getBoxBoundery() const
+Boundary
+Position2DVector::getBoxBoundary() const
 {
-    Boundery ret;
+    Boundary ret;
     for(ContType::const_iterator i=myCont.begin(); i!=myCont.end(); i++) {
         ret.add(*i);
     }
@@ -526,7 +538,7 @@ Position2DVector::increasing_x_y_sorter::operator() (const Position2D &p1,
 
 
 
-float
+double
 Position2DVector::isLeft(const Position2D &P0, const Position2D &P1,
                          const Position2D &P2 ) const
 {
@@ -552,6 +564,10 @@ Position2DVector::isLeft(const Position2D &P0, const Position2D &P1,
 Position2DVector
 Position2DVector::convexHull() const
 {
+    Position2DVector ret = *this;
+    ret.sortAsPolyCWByAngle();
+    return simpleHull_2D(ret);
+    /*
     if(size()==0) {
         return Position2DVector();
     }
@@ -632,7 +648,10 @@ Position2DVector::convexHull() const
             else
                 top--; // pop top point off stack
         }
-        ret.set(++top, inp.at(i)); // push P[i] onto stack
+        ++top; // !!! malfunc begin
+        if(top<inp.size()) {
+            ret.set(top, inp.at(i)); // push P[i] onto stack
+        }// !!! malfunc begin
     }
     if (minmax != minmin)
         ret.set(++top, inp.at(minmin)); // push joining endpoint onto stack
@@ -641,7 +660,7 @@ Position2DVector::convexHull() const
     for(size_t j=0; j<top; j++) {
         rret.push_back(ret.at(j));
     }
-    return rret;
+    return rret;*/
 }
 
 
@@ -1087,6 +1106,27 @@ Position2DVector::distancesExt(const Position2DVector &s) const
     }
     return ret;
 }
+
+
+Position2D
+Position2DVector::pop_back()
+{
+    Position2D last = myCont.back();
+    myCont.erase(myCont.end()-1);
+    return last;
+}
+
+
+void
+Position2DVector::insertAt(int index, const Position2D &p)
+{
+    if(index>=0) {
+        myCont.insert(myCont.begin()+index, p);
+    } else {
+        myCont.insert(myCont.end()+index, p);
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

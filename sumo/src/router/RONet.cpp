@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.19  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -114,7 +117,7 @@ namespace
  * ======================================================================= */
 using namespace std;
 
-
+RONet *RONet::myInstance;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
@@ -142,7 +145,13 @@ RONet::postloadInit()
     _edges.postloadInit();
 }
 */
-
+/*
+void
+RONet::preInitRONet()
+{
+    myInstance = new RONet(false);
+}
+*/
 void
 RONet::addEdge(ROEdge *edge)
 {
@@ -222,9 +231,11 @@ void
 RONet::closeOutput()
 {
     // end writing
-    (*myRoutesOutput) << "</routes>" << endl;
-    myRoutesOutput->close();
-    delete myRoutesOutput;
+    if(myRoutesOutput!= 0) {
+        (*myRoutesOutput) << "</routes>" << endl;
+        myRoutesOutput->close();
+        delete myRoutesOutput;
+    }
     // only if opened
     if(myRouteAlternativesOutput!=0) {
         (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
@@ -268,6 +279,21 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
     myReadRouteNo++;
 }
 
+void
+RONet::setNetInstance(RONet *net)
+{
+    myInstance = net;
+
+}
+
+RONet *
+RONet::getNetInstance()
+{
+    if(myInstance == 0){
+        return 0;
+    }
+    return myInstance;
+}
 
 RORouteDef *
 RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
@@ -290,7 +316,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     //
     RORoute *current = routeDef->buildCurrentRoute(router,
-        veh->getDepartureTime(), options.getBool("continue-on-unbuild"), *veh);
+        veh->getDepartureTime(), options.getBool("continue-on-unbuild"), *veh, 0);
     if(current==0) {
         return 0;
     }
@@ -304,7 +330,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
             mh->inform(
                 string("The route '") + routeDef->getID()
                 + string("' is too short, propably ending at the starting edge."));
-            MsgHandler::getWarningInstance()->inform("Skipping...");
+            WRITE_WARNING("Skipping...");
         }
         delete current;
         return 0;
@@ -372,9 +398,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                 &&
                 (currentTime%options.getInt("stats-period"))==0) {
 
-                MsgHandler::getMessageInstance()->inform(
-                    string("Read: ") + toString<int>(myReadRouteNo)
-                    + string(",  Discarded: ") + toString<int>(myDiscardedRouteNo)
+                WRITE_MESSAGE(\
+                    string("Read: ") + toString<int>(myReadRouteNo)\
+                    + string(",  Discarded: ") + toString<int>(myDiscardedRouteNo)\
                     + string(",  Written: ") + toString<int>(myWrittenRouteNo));
             }
         }
@@ -510,6 +536,12 @@ RONet::buildOutput(const std::string &name)
         throw ProcessError();
     }
     return ret;
+}
+
+ROEdgeCont *
+RONet::getMyEdgeCont()
+{
+    return &_edges;
 }
 
 

@@ -2,7 +2,7 @@
 #define STRConvert_h
 /***************************************************************************
                           STRConvert.h
-			  Some static string conversion methods
+              Some static string conversion methods
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -40,10 +40,8 @@ public:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "STRConvert.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
 //
@@ -62,9 +65,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "Named.icc"
-//#endif
 
 #endif
 

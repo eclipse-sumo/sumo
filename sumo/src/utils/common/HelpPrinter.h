@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -62,12 +65,11 @@ public:
         for(size_t i=0; help[i]!=0; i++)
             std::cout << help[i] << std::endl;
     }
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "HelpPrinter.icc"
-//#endif
 
 #endif
 

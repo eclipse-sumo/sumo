@@ -169,8 +169,8 @@ Line2D::sub(double x, double y)
 double
 Line2D::distanceTo(const Position2D &p) const
 {
-    float LineMag;
-    float U;
+    double LineMag;
+    double U;
 
     LineMag = GeomHelper::Magnitude( myP2, myP1 );
 
@@ -189,7 +189,7 @@ Line2D::distanceTo(const Position2D &p) const
         myP1.y() + U * ( myP2.y() - myP1.y() ) );
 //    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
 
-    float Distance = GeomHelper::Magnitude( p, Intersection );
+    double Distance = GeomHelper::Magnitude( p, Intersection );
 
     return Distance;
 }

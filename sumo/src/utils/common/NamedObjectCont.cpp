@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/01/12 15:40:54  dkrajzew
 // debugging
 //
@@ -138,6 +141,12 @@ NamedObjectCont<T>::getVector() const
 }
 
 
+template<class T>
+const std::map<std::string, T> &
+NamedObjectCont<T>::getMyMap() const
+{
+    return myMap;
+}
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NamedObjectCont.icc"

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:43:29  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -91,6 +94,7 @@ char *help[] = {
     "   [-s|--sumo-input] <FILE>      FILE containing SUMO-routes",
     "   [-t|--trip-defs] <FILE>       FILE containing trip definitions",
     "   [-a|--alternatives] <FILE>    FILE containing route alternatives",
+    "   [-f|--flow-definition] <FILE> FILE containing flow definition",
     "   --cell-input <FILE>           FILE containing cell routes",
     "   --artemis-input <FILE>        FILE containing cell routes",
     " ",
@@ -113,17 +117,26 @@ char *help[] = {
     "                                   on an Intel-machine",
     "   --no-last-cell                Use best, not the last cell-route",
     "   --continue-on-unbuild         Continue if a route could not be build",
+    "   --move-on-short                Move vehicles on too short edges forward"
     "   --srand <INT>                 Initialises the random number generator",
     "                                   with the given value",
     "   --abs-rand                    Set this when the current time shall be",
     "                                   used for random number initialisation",
     " ",
+    " Deafults:",
+    "   [-V|--krauss-vmax] <FLOAT>    Default value for krauss' vmax",
+    "   [-A|--krauss-a] <FLOAT>       Default value for krauss' max. accel",
+    "   [-B|--krauss-b] <FLOAT>       Default value for krauss' max. decel",
+    "   [-L|--krauss-length] <FLOAT>  Default value for krauss' vehicle length",
+    "   [-E|--krauss-eps] <FLOAT>     Default value for krauss' driver imperf.",
+    " ",
     " Report options:",
     "   [-v|--verbose]                Verbose reports",
     "   [-W|-suppress-warnings]       No warnings will be printed",
-    "   [-l|-log-file] FILE           Writes all messages to the file",
+    "   [-l|-log-file] <FILE>         Writes all messages to the file",
     "   [-p|-print-options]           Prints option values before processing",
     "   [-?|--help]                   This screen",
+    "   --stats-period <INT>          Step number to pass between status output",
     0
 };
 

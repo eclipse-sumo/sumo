@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.1  2004/10/22 12:50:27  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -164,7 +170,7 @@ protected:
     double mySpeed;
 
     /// The time the vehicle shall start at
-    int myDepartureTime;
+    size_t myDepartureTime;
 
     /// The period the next vehicle with the same route shall be emitted at
     int myPeriodTime;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.21  2004/08/02 12:44:13  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -55,16 +58,12 @@ namespace
 // Revision 1.11  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-
 
 #include <map>
 #include <string>
@@ -88,12 +87,25 @@ namespace
 #include "NIVissimDistrictConnection.h"
 #include <utils/distribution/Distribution.h>
 #include <netbuild/NBDistribution.h>
+#include <utils/common/MsgHandler.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 NIVissimDistrictConnection::DictType NIVissimDistrictConnection::myDict;
 std::map<int, IntVector> NIVissimDistrictConnection::myDistrictsConnections;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
         const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
@@ -434,14 +446,15 @@ NIVissimDistrictConnection::getRealSpeed(int distNo) const
     string id = toString<int>(distNo);
     Distribution *dist = NBDistribution::dictionary("speed", id);
     if(dist==0) {
-        cout << "The referenced speed distribution '" << id << "' is not known." << endl;
-        cout << ". Using default." << endl;
+        WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
+        WRITE_WARNING(". Using default.");
         return OptionsSubSys::getOptions().getFloat("vissim-default-speed");;
     }
     assert(dist!=0);
     double speed = dist->getMax();
     if(speed<0||speed>1000) {
-        cout << " False speed at district '" << id << "'. Using default." << endl;
+        WRITE_WARNING(" False speed at district '" + id);
+        WRITE_WARNING(". Using default.");
         speed = OptionsSubSys::getOptions().getFloat("vissim-default-speed");
     }
     return speed;

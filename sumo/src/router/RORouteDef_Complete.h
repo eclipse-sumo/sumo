@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -89,7 +92,8 @@ public:
 
     /// Builds the route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
-        bool continueOnUnbuild, ROVehicle &veh);
+        bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /** @brief Adds an route alternative (see further comments)
         Here, as in most cases, the alternative is the route that was build

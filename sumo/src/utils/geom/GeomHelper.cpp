@@ -23,6 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/11/23 10:34:46  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/10/29 06:25:23  dksumo
+// boundery renamed to boundary
+//
+// Revision 1.1  2004/10/22 12:50:43  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.13  2004/04/02 11:29:02  dkrajzew
 // computation of moving a line strip to the side patched (is still not correct to 100%)
 //
@@ -345,8 +354,8 @@ GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
                                               const Position2D &LineEnd,
                                               const Position2D &Point)
 {
-    float LineMag;
-    float U;
+    double LineMag;
+    double U;
 
     LineMag = Magnitude( LineEnd, LineStart );
 
@@ -360,7 +369,7 @@ GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
     if( U < 0.0f || U > 1.0f )
         return -1;   // closest point does not fall within the line segment
 
-	return U * distance(LineStart, LineEnd);
+    return U * distance(LineStart, LineEnd);
 }
 
 
@@ -380,8 +389,8 @@ GeomHelper::DistancePointLine(const Position2D &Point,
                               const Position2D &LineEnd
                               /*float &Distance */)
 {
-    float LineMag;
-    float U;
+    double LineMag;
+    double U;
 
     LineMag = Magnitude( LineEnd, LineStart );
 
@@ -400,7 +409,7 @@ GeomHelper::DistancePointLine(const Position2D &Point,
         LineStart.y() + U * ( LineEnd.y() - LineStart.y() ) );
 //    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
 
-    float Distance = Magnitude( Point, Intersection );
+    double Distance = Magnitude( Point, Intersection );
 
     return Distance;
 }
@@ -450,7 +459,7 @@ GeomHelper::transfer_to_side(Position2D &p,
 
 
 Position2D
-GeomHelper::crossPoint(const Boundery &b, const Position2DVector &v)
+GeomHelper::crossPoint(const Boundary &b, const Position2DVector &v)
 {
     if(v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmin(), b.ymax()))) {
         return v.intersectsAtPoint(

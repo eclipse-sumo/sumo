@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.4  2003/12/04 13:07:35  dkrajzew
 // interface changed to allow message building on the fly
 //
@@ -42,7 +45,18 @@
 #include <vector>
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MsgRetriever;
+
+
+/* =========================================================================
+ * global variable definitions
+ * ======================================================================= */
+extern bool gSuppressWarnings;
+extern bool gSuppressMessages;
+
 
 /* =========================================================================
  * class definitions
@@ -142,6 +156,13 @@ private:
     MsgHandler &operator=(const MsgHandler &s);
 
 };
+
+
+/* =========================================================================
+ * global definitions
+ * ======================================================================= */
+#define WRITE_WARNING(command) if(!gSuppressWarnings) { MsgHandler::getWarningInstance()->inform(command); }
+#define WRITE_MESSAGE(command) if(!gSuppressMessages) { MsgHandler::getMessageInstance()->inform(command); }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

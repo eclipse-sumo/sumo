@@ -2,9 +2,9 @@
 #define OptionsIO_h
 /***************************************************************************
                           OptionsIO.h
-			  Loads the configuration file using "OptionsLoader"
-			  and parses the given command line arguments using
-			  "OptionsParser"
+              Loads the configuration file using "OptionsLoader"
+              and parses the given command line arguments using
+              "OptionsParser"
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/11/23 10:36:02  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/10/27 10:55:10  dkrajzew
 // problems on setting gui options patched - the configuration is not loaded directly any more
 //
@@ -61,17 +64,17 @@
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class OptionsCont;
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * OptionsIO
+ * @class OptionsIO
  * A wrapper for the complete IO of options containing the reading of a
  * configuration file and the parsing of the command line arguments.
  * The only accessable method returns fale, when something failed during the
@@ -90,16 +93,9 @@ public:
     /** loads and parses the configuration */
     static bool loadConfiguration(OptionsCont *oc);
 
-private:
-    /** tries to find the configuration */
-    static std::string getConfigurationPath(OptionsCont *oc, bool &ok);
-
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "OptionsIO.icc"
-//#endif
 
 #endif
 

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/11/23 10:28:36  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/02/07 10:48:00  dkrajzew
 // updated
 //
@@ -142,10 +145,8 @@ public:
 #include "TplConvert.cpp"
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "TplConvert.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
@@ -70,13 +73,13 @@ protected:
 
     std::string getType(const std::vector<std::string> &sv) const;
 
-    float getSpeed(const std::string &type) const;
+    double getSpeed(const std::string &type) const;
 
     int getLaneNo(const std::string &type) const;
 
 protected:
     bool myWasSet;
-    float myInitX, myInitY;
+    double myInitX, myInitY;
 
 };
 

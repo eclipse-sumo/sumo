@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/11/23 10:23:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/08/02 12:44:13  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -130,9 +133,9 @@ NITigerLoader::load(OptionsCont &options)
         }
         // !!!
         std::string type = getType(values1);
-        float speed = getSpeed(type);
+        double speed = getSpeed(type);
         int nolanes = getLaneNo(type);
-        float length = cposes.length();
+        double length = cposes.length();
         if(nolanes!=-1&&length>0) {
             int priority = 1;
             NBEdge *e =
@@ -198,7 +201,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             x1 *= cos(ys*PI/180.0);
             Position2D p(x1, y1);
             ret.push_back(p);
-        } catch(NumberFormatException &e) {
+        } catch(NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
                 string("Could not convert position '")
                 + p1 + string("/") + p2 + string("'."));
@@ -255,7 +258,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
 }
 
 
-float
+double
 NITigerLoader::getSpeed(const std::string &type) const
 {
     switch(type[0]) {

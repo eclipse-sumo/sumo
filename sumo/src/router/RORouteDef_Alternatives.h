@@ -20,6 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/10/29 06:18:52  dksumo
+// max-alternatives options added
+//
+// Revision 1.1  2004/10/22 12:50:27  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -74,7 +83,7 @@ class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id, const RGBColor &color,
-        size_t lastUsed, double gawronBeta, double gawronA);
+        size_t lastUsed, double gawronBeta, double gawronA, int maxRoutes);
 
     /// Destructor
     virtual ~RORouteDef_Alternatives();
@@ -91,7 +100,8 @@ public:
 
     /// Build the next route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
-        bool continueOnUnbuild, ROVehicle &veh);
+        bool continueOnUnbuild, ROVehicle &veh,
+        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /// Adds a build alternative
     void addAlternative(RORoute *current, long begin);
@@ -108,6 +118,10 @@ public:
     const ROEdgeVector &getCurrentEdgeVector() const;
 
     void invalidateLast();
+
+    void addExplicite(RORoute *current, long begin);
+
+    void removeLast();
 
 private:
     /// Searches for the route within the list of alternatives
@@ -139,6 +153,9 @@ private:
 
     /// gawron a - value
     double _gawronA;
+
+    /// The maximum route number
+    int myMaxRouteNumber;
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/06/24 08:16:21  dkrajzew
 // LogFile - a MsgRetriever that writes into a files (logs an applications output) added
 //
@@ -68,9 +71,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "LogFile.icc"
-//#endif
 
 #endif
 

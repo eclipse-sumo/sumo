@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/11/23 10:25:52  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -97,12 +100,14 @@ using namespace std;
 RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
                                  unsigned int begin, unsigned int end,
                                  double gawronBeta, double gawronA,
+                                 int maxRoutes,
                                  string file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
     _routeIdSupplier(string("Cell_")+file, 0),
     _vehicleIdSupplier(string("Cell_")+file, 0),
     _driverParser(true, true),
-    _gawronBeta(gawronBeta), _gawronA(gawronA), myHaveEnded(false)
+    _gawronBeta(gawronBeta), _gawronA(gawronA), myHaveEnded(false),
+    myMaxRoutes(maxRoutes)
 {
     if(file.length()!=0) {
         // initialise the .rinfo-reader
@@ -166,7 +171,8 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
         // add the route when it is not yet known
         RORouteDef_Alternatives *altDef =
             new RORouteDef_Alternatives(_routeIdSupplier.getNext(),
-                RGBColor(-1, -1, -1), _driverParser.getLast(), _gawronBeta, _gawronA);
+                RGBColor(-1, -1, -1), _driverParser.getLast(),
+                _gawronBeta, _gawronA, myMaxRoutes);
         for(size_t i=0; i<3; i++) {
             RORoute *alt = getAlternative(i);
             if(alt!=0) {
@@ -179,7 +185,7 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
         _net.addVehicle(id, myVehicleBuilder.buildVehicle(
             id, altDef, _driverParser.getRouteStart(),
             _net.getDefaultVehicleType(), RGBColor(), -1, 0));
-    } while(!ended()&&time<_driverParser.getRouteStart());
+    } while(!ended()&&(int) time<_driverParser.getRouteStart());
     return true;
 }
 
@@ -193,11 +199,12 @@ RORDLoader_Cell::getAlternative(size_t pos)
     // check whether the route was already read
     //  read the route if not
     ROEdgeVector *route = 0;
-    if(_routes.size()>routeNo) {
+    assert(routeNo>=0);
+    if(_routes.size()>(size_t) routeNo) {
         // get the route from the file
         route = getRouteInfoFrom(_routes[routeNo]);
     }
-    if(_routes.size()<=routeNo||route==0) {
+    if(_routes.size()<=(size_t) routeNo||route==0) {
         stringstream buf;
         buf << "The file '" << _driverFile
             << "'" << endl

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/11/23 10:43:28  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -142,6 +145,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+/*
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
 //   #define _INC_MALLOC         // exclude standard memory alloc procedures
@@ -150,7 +154,7 @@
    #include <crtdbg.h>
 #endif
 #endif
-
+*/
 #include <ctime>
 #include <signal.h>
 #include <iostream>
@@ -161,7 +165,6 @@
 #include <microsim/MSEmitControl.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsParser.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/HelpPrinter.h>
@@ -169,13 +172,18 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/xml/XMLSubSys.h>
 #include <gui/GUIApplicationWindow.h>
-#include <gui/GUIAppEnum.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <gui/GUIThreadFactory.h>
-#include <gui/GUISUMOAbstractView.h>
-#include <gui/drawerimpl/GUIColoringSchemesMap.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
 #include "guisim_help.h"
+#include <utils/gui/div/GUIFrame.h>
+#include <utils/gui/drawer/GUIGradients.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/images/GUIImageGlobals.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -193,53 +201,47 @@ using namespace std;
  * build options
  * ----------------------------------------------------------------------- */
 void
-fillInitOptions(OptionsCont &oc)
-{
-    oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
-    oc.doRegister("max-gl-height", 'h', new Option_Integer(1024));
-    oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
-    oc.doRegister("surpress-end-info", 'S', new Option_Bool(false));
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("configuration", 'c', new Option_FileName());
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
-    oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
-    oc.doRegister("disable-textures", 'T', new Option_Bool(false));
-    oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
-}
-
-
-bool
-checkInitOptions(OptionsCont &oc)
-{
-    // check whether the parameter are ok
-    if(oc.getInt("w")<0||oc.getInt("h")<0) {
-        MsgHandler::getErrorInstance()->inform(
-            "Both the screen's width and the screen's height must be larger than zero.");
-        return false;
-    }
-    return true;
-}
-
-
-void
 initColoringSchemes()
 {
-    GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &sm =
+    GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &sm =
         GUIBaseVehicleDrawer::getSchemesMap();
-    sm.add("by speed", GUISUMOAbstractView::VCS_BY_SPEED);
-    sm.add("specified", GUISUMOAbstractView::VCS_SPECIFIED);
-    sm.add("type", GUISUMOAbstractView::VCS_TYPE);
-    sm.add("route", GUISUMOAbstractView::VCS_ROUTE);
-    sm.add("random#1", GUISUMOAbstractView::VCS_RANDOM1);
-    sm.add("random#2", GUISUMOAbstractView::VCS_RANDOM2);
-    sm.add("lanechange#1", GUISUMOAbstractView::VCS_LANECHANGE1);
-    sm.add("lanechange#2", GUISUMOAbstractView::VCS_LANECHANGE2);
-    sm.add("lanechange#3", GUISUMOAbstractView::VCS_LANECHANGE3);
-    sm.add("waiting#1", GUISUMOAbstractView::VCS_WAITING1);
+    sm.add("by speed",
+        GUISUMOAbstractView::VCS_BY_SPEED,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("specified",
+        GUISUMOAbstractView::VCS_SPECIFIED,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("type",
+        GUISUMOAbstractView::VCS_TYPE,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("route",
+        GUISUMOAbstractView::VCS_ROUTE,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("random#1",
+        GUISUMOAbstractView::VCS_RANDOM1,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("random#2",
+        GUISUMOAbstractView::VCS_RANDOM2,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("lanechange#1",
+        GUISUMOAbstractView::VCS_LANECHANGE1,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("lanechange#2",
+        GUISUMOAbstractView::VCS_LANECHANGE2,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("lanechange#3",
+        GUISUMOAbstractView::VCS_LANECHANGE3,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("waiting#1",
+        GUISUMOAbstractView::VCS_WAITING1,
+            new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
 //    sm.add("reroute off", GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET);
 //    sm.add("reroute #", GUISUMOAbstractView::VCS_ROUTECHANGENUMBER);
-    sm.add("lanechange#4", GUISUMOAbstractView::VCS_LANECHANGE4);
+//    sm.add("lanechange#4", GUISUMOAbstractView::VCS_LANECHANGE4);
+    myDensityGradient =
+        gGradients->getRGBColors(
+            GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
+    //
 }
 
 
@@ -249,24 +251,26 @@ initColoringSchemes()
 int
 main(int argc, char **argv)
 {
+/*
 #ifdef _DEBUG
 #ifdef WIN32
     CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
-    //_CrtSetBreakAlloc(376348);
+    _CrtSetBreakAlloc(376348);
 #endif
 #endif
+*/
     int ret = 0;
     try {
         if(!SystemFrame::init(true, argc, argv,
-            fillInitOptions, checkInitOptions, help)) {
+            GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help)) {
+
             throw ProcessError();
         }
         // Make application
-        FXApp application("SUMO 0.8","DLR+ZAIK");
+        FXApp application("SUMO GUISimulation","DLR+ZAIK");
         gFXApp = &application;
-        initColoringSchemes();
         // Open display
         application.init(argc,argv);
         OptionsCont &oc = OptionsSubSys::getOptions();
@@ -289,6 +293,8 @@ main(int argc, char **argv)
             new GUIApplicationWindow(&application, tf,
                 oc.getInt("w"), oc.getInt("h"),
                 oc.getString("c"));
+        gGradients = new GUIGradientStorage(window);
+        initColoringSchemes();
         // delete startup-options
         OptionsSubSys::close();
         // Create app
@@ -296,8 +302,8 @@ main(int argc, char **argv)
         application.create();
         // Run
         ret = application.run();
-    } catch(GUIThreadFactory) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).");
+    } catch(...) {
+        WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
     SystemFrame::close();

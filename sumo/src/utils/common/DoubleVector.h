@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.9  2003/10/15 11:55:51  dkrajzew
 // further work on vissim-import
 //
@@ -72,9 +75,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "DoubleVector.icc"
-//#endif
 
 #endif
 

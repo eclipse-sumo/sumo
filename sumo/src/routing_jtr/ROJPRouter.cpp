@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/11/23 10:26:59  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
@@ -37,7 +40,6 @@ namespace
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
-//
 //
 /* =========================================================================
  * included modules
@@ -79,17 +81,11 @@ ROJPRouter::~ROJPRouter()
 
 ROEdgeVector
 ROJPRouter::compute(ROEdge *from, ROEdge *to, long time,
-                    bool continueOnUnbuild)
-{
-    return jpCompute(static_cast<ROJPEdge*>(from), time, continueOnUnbuild);
-}
-
-
-ROEdgeVector
-ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
+                    bool continueOnUnbuild,
+                    ROAbstractEdgeEffortRetriever * const retriever)
 {
     ROEdgeVector ret;
-    ROJPEdge *current = from;
+    ROJPEdge *current = static_cast<ROJPEdge*>(from);
     // route until a sinks has been found
     while(  current!=0
             &&
@@ -97,7 +93,7 @@ ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
             &&
             ret.size()<myMaxEdges) {
         ret.add(current);
-        time += current->getDuration(time);
+        time += (long) current->getDuration(time);
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/11/23 10:27:45  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/03/03 15:24:31  dkrajzew
 // extra functionality added
 //
@@ -89,9 +92,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "FileErrorReporter.icc"
-//#endif
 
 #endif
 

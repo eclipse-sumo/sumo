@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.13  2003/11/11 08:24:52  dkrajzew
 // debug values removed
 //
@@ -40,9 +43,6 @@
 // Revision 1.7  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,7 +54,7 @@
 #include <iostream>
 #include <vector>
 #include <utils/geom/Position2D.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 #include <utils/common/IntVector.h>
 #include "NIVissimConnection.h"
 
@@ -79,12 +79,12 @@ class NBNode;
 class NIVissimConnectionCluster {
 public:
     /** @brief Constructor
-        Build the boundery; The boundery includes both incoming and outgoing nodes */
+        Build the boundary; The boundary includes both incoming and outgoing nodes */
     NIVissimConnectionCluster(const IntVector &connections, int nodeCluster,
         int edgeid);
 
     NIVissimConnectionCluster(const IntVector &connections,
-        const Boundery &boundery, int nodeCluster, const IntVector &edges);
+        const Boundary &boundary, int nodeCluster, const IntVector &edges);
 
     /// Destructor
     ~NIVissimConnectionCluster();
@@ -102,9 +102,9 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
-	const IntVector &getConnections() const {
-		return myConnections;
-	}
+    const IntVector &getConnections() const {
+        return myConnections;
+    }
 
     Position2DVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
     Position2DVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
@@ -152,7 +152,7 @@ private:
         IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
-        Boundery myBoundery;
+        Boundary myBoundary;
         typedef std::vector<NIVissimConnection*> ConnectionCont;
         ConnectionCont myConnections;
     };
@@ -184,7 +184,7 @@ private:
 
     void removeConnections(const NodeSubCluster &c);
 
-    void recomputeBoundery();
+    void recomputeBoundary();
 
     void recheckEdges();
 
@@ -206,8 +206,8 @@ private:
     /// List of connection-ids which participate within this cluster
     IntVector myConnections;
 
-    /// The boundery of the cluster
-    Boundery myBoundery;
+    /// The boundary of the cluster
+    Boundary myBoundary;
 
     /// The node the cluster is assigned to
     int myNodeCluster;
@@ -219,7 +219,7 @@ private:
 
     IntVector myTLs;
 
-	IntVector myOutgoingEdges, myIncomingEdges;
+    IntVector myOutgoingEdges, myIncomingEdges;
 
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;
@@ -230,11 +230,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimConnectionCluster.icc"
-//#endif
 
 #endif
 

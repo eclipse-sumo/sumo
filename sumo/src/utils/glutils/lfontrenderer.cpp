@@ -585,7 +585,7 @@ LFontRenderer::directDraw(const std::string &what)
         glTexCoord2f(
             m_fonts[m_activeFont].chars[c].left,
             m_fonts[m_activeFont].chars[c].bottom);
-        glVertex2f(-next_x, m_fonts[m_activeFont].height);
+        glVertex2f(-next_x, (GLfloat) m_fonts[m_activeFont].height);
         glTexCoord2f(
             m_fonts[m_activeFont].chars[c].right,
             m_fonts[m_activeFont].chars[c].top);
@@ -597,7 +597,7 @@ LFontRenderer::directDraw(const std::string &what)
             m_fonts[m_activeFont].chars[c].bottom);
         glVertex2f(
             -next_x - m_fonts[m_activeFont].height*m_fonts[m_activeFont].widthScale*m_fonts[m_activeFont].chars[c].widthFactor,
-            0 + m_fonts[m_activeFont].height);
+            (GLfloat) m_fonts[m_activeFont].height);
 
         next_x += m_fonts[m_activeFont].height*m_fonts[m_activeFont].widthScale*m_fonts[m_activeFont].chars[c].widthFactor;
         glEnd();

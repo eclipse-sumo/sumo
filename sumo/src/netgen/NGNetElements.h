@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/11/23 10:22:03  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/08/02 12:41:40  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -74,10 +77,10 @@ public:
     ~TNode();
     const std::string &GetID() const {return myID;}
     const Position2D &getPosition() const { return myPosition; }
-    float MaxNeighbours() {return myMaxNeighbours;}
+    double MaxNeighbours() {return myMaxNeighbours;}
     void SetMaxNeighbours(float value) {myMaxNeighbours = value;}
-    void SetX(float x) { myPosition.set(x, myPosition.y()); }
-    void SetY(float y) { myPosition.set(myPosition.x(), y); }
+    void SetX(double x) { myPosition.set(x, myPosition.y()); }
+    void SetY(double y) { myPosition.set(myPosition.x(), y); }
     /// removes link from LinkList
     void RemoveLink(TLink *Link);
 
@@ -106,7 +109,7 @@ private:
     Position2D myPosition;
 
     /// The maximum number of neighbours
-    float myMaxNeighbours;
+    double myMaxNeighbours;
 
     /// Information whether this is the center of a cpider-net
     bool myAmCenter;

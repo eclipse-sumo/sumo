@@ -19,15 +19,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/11/23 10:23:53  dkrajzew
+// debugging
+//
 // Revision 1.6  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
 // Revision 1.5  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -39,7 +39,7 @@
 #include <string>
 #include <map>
 #include <utils/common/IntVector.h>
-#include <utils/geom/Boundery.h>
+#include <utils/geom/Boundary.h>
 //#include "NIVissimBoundedClusterObject.h"
 #include "NIVissimExtendedEdgePointVector.h"
 #include "NIVissimNodeCluster.h"
@@ -75,11 +75,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimNodeDef.icc"
-//#endif
 
 #endif
 

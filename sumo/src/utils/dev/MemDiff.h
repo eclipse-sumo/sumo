@@ -2,7 +2,7 @@
 #define MemDiff_H
 /***************************************************************************
                           MemDiff.h
-			  A class that wraps the MS - memory counting methods
+              A class that wraps the MS - memory counting methods
                              -------------------
     project              : SUMO
     begin                : Thu, 06 Jul 2002
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/11/23 10:32:52  dkrajzew
+// debugging
+//
 // Revision 1.1  2003/02/07 10:48:55  dkrajzew
 // some debugging and profiling classes added
 //
@@ -56,10 +59,10 @@ class CMemDiff : CMemoryState
 {
 public:
     /// Constructor
-	CMemDiff();
+    CMemDiff();
 
     /// Destructor
-	~CMemDiff();
+    ~CMemDiff();
 };
 
 #endif
@@ -67,9 +70,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MemDiff.icc"
-//#endif
 
 #endif
 
