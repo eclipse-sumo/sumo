@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/03/18 15:00:32  roessel
+// Changed Loggedvalue to LoggedValue in #includes
+//
 // Revision 1.4  2003/03/17 14:24:30  dkrajzew
 // windows eol removed
 //
@@ -68,8 +71,8 @@ namespace
 #include <microsim/MSInductLoop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/logging/Loggedvalue_Single.h>
-#include <utils/logging/Loggedvalue_TimeFixed.h>
+#include <utils/logging/LoggedValue_Single.h>
+#include <utils/logging/LoggedValue_TimeFixed.h>
 #include "NLDetectorBuilder.h"
 
 
