@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/02/02 16:17:30  dkrajzew
+// missing return on broken routes added
+//
 // Revision 1.10  2004/01/26 07:47:15  dkrajzew
 // patched the false specification of default colors
 //
@@ -229,10 +232,13 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing attribute in a vehicle-object.");
+        return;
     } catch(XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
+        return;
     } catch(XMLIdAlreadyUsedException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("vehicle", id));
+        return;
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
