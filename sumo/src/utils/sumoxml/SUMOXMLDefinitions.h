@@ -1,5 +1,5 @@
-#ifndef NBXMLDefinitions_h
-#define NBXMLDefinitions_h
+#ifndef SUMOXMLDefinitions_h
+#define SUMOXMLDefinitions_h
 
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
@@ -77,7 +77,13 @@ enum TagEnum
     /** the route alternatives */
     SUMO_TAG_ROUTEALT,
     /** a single trip definition (used by router) */
-    SUMO_TAG_TRIPDEF
+    SUMO_TAG_TRIPDEF,
+    /** the number of the logic (traffic light logic) */
+    SUMO_TAG_LOGICNO,
+    /** a trigger definition */
+    SUMO_TAG_TRIGGER,
+    /** trigger: a step description */
+    SUMO_TAG_STEP
 };
 
 enum AttrEnum
@@ -97,11 +103,15 @@ enum AttrEnum
     SUMO_ATTR_YFROM,
     SUMO_ATTR_XTO,
     SUMO_ATTR_YTO,
+    /* lane attributes */
+    SUMO_ATTR_CHANGEURGE,
     /* node attributes */
     SUMO_ATTR_X,
     SUMO_ATTR_Y,
     /* sumo-junction attributes */
     SUMO_ATTR_KEY,
+    SUMO_ATTR_REQUEST,
+    SUMO_ATTR_RESPONSE,
     /// the weight of a district's source or sink
     SUMO_ATTR_WEIGHT,
     /* vehicle attributes */
@@ -119,13 +129,33 @@ enum AttrEnum
     SUMO_ATTR_POS,
     SUMO_ATTR_LANE,
     SUMO_ATTR_FROM,
-    SUMO_ATTR_TO
+    SUMO_ATTR_TO,
+    /* source definitions */
+    SUMO_ATTR_FUNC,
+    SUMO_ATTR_POSITION,
+    SUMO_ATTR_SPLINTERVAL,
+    SUMO_ATTR_STYLE,
+    SUMO_ATTR_FILE,
+    SUMO_ATTR_JUNCTION,
+    SUMO_ATTR_YIELD,
+    SUMO_ATTR_NO,
+    SUMO_ATTR_PHASE,
+    SUMO_ATTR_BRAKE,
+    SUMO_ATTR_DURATION,
+    /** trigger: definition of an object type to be triggered */
+    SUMO_ATTR_OBJECTTYPE,
+    /** trigger: definition of an attribute to trigger */
+    SUMO_ATTR_ATTR,
+    /** trigger: name of the object to manipulate */
+    SUMO_ATTR_OBJECTID,
+    /** trigger: the time of the step */
+    SUMO_ATTR_TIME
 };
 
 extern size_t noSumoTags;
-extern GenericSAX2Handler::Tag sumotags[35];
+extern GenericSAX2Handler::Tag sumotags[38];
 
 extern size_t noSumoAttrs;
-extern AttributesHandler::Attr sumoattrs[30];
+extern AttributesHandler::Attr sumoattrs[48];
 
 #endif

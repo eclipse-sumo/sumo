@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 10:32:41  dkrajzew
+// sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
+//
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -55,11 +58,9 @@ enum LoadFilter {
     /** load only the junction logics */
     LOADFILTER_LOGICS = 1,
     /** load detectors only */
-    LOADFILTER_DETECTORS = 2,
+    LOADFILTER_NETADD = 2,
     /** load only vehicles, their routes and theri types */
     LOADFILTER_DYNAMIC = 4,
-    /** load the sources */
-    LOADFILTER_SOURCES = 8,
     /** load static net elements only */
     LOADFILTER_NET = 1 | 2 | 8,
 };

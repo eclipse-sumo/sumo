@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 10:32:41  dkrajzew
+// sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -136,7 +139,7 @@ NLNetBuilder::buildMSNet() {
         false);
     MSNet *net = 0;
     // get the matching handler
-    NLSAXHandler *handler = new NLHandlerBuilder(*container);
+    NLHandlerBuilder *handler = new NLHandlerBuilder(*container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!SErrorHandler::errorOccured()) {
@@ -154,7 +157,7 @@ NLNetBuilder::buildMSNet() {
 
 
 bool
-NLNetBuilder::load(NLSAXHandler *handler, SAX2XMLReader &parser) {
+NLNetBuilder::load(NLHandlerBuilder *handler, SAX2XMLReader &parser) {
     // load the net
     bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
         handler, parser);
@@ -163,26 +166,21 @@ NLNetBuilder::load(NLSAXHandler *handler, SAX2XMLReader &parser) {
         ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"),
             handler, parser);
     }
-    // load the detectors
-    if(m_pOptions.isSet("d")&&ok) {
-        ok = load(LOADFILTER_DETECTORS, m_pOptions.getString("d"),
-            handler, parser);
-    }
     // load the routes
     if(m_pOptions.isSet("r")&&ok) {
         ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
             handler, parser);
     }
-    // load the sources
-    if(m_pOptions.isSet("s")&&ok) {
-        ok = load(LOADFILTER_SOURCES, m_pOptions.getString("s"),
+    // load additional net elements (sources, detectors, ...)
+    if(m_pOptions.isSet("a")&&ok) {
+        ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
             handler, parser);
     }
     return ok;
 }
 
 bool
-NLNetBuilder::load(LoadFilter what, const string &files, NLSAXHandler *handler,
+NLNetBuilder::load(LoadFilter what, const string &files, NLHandlerBuilder *handler,
                    SAX2XMLReader &parser) {
     // initialise the handler for the current type of data
     handler->setWanted(what);
@@ -210,7 +208,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLSAXHandler *handler,
 
 
 bool
-NLNetBuilder::parse(const string &files, NLSAXHandler *handler,
+NLNetBuilder::parse(const string &files, NLHandlerBuilder *handler,
                     SAX2XMLReader &parser)
 {
     // for each file in the list
@@ -242,14 +240,11 @@ NLNetBuilder::getDataName(LoadFilter forWhat) {
     case LOADFILTER_LOGICS:
         return "junction logics";
         break;
-    case LOADFILTER_DETECTORS:
-        return "detectors";
+    case LOADFILTER_NETADD:
+        return "additional net elements";
         break;
     case LOADFILTER_DYNAMIC:
         return "vehicles and routes";
-        break;
-    case LOADFILTER_SOURCES:
-        return "sources";
         break;
     default:
         break;

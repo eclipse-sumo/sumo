@@ -2,9 +2,9 @@
 #include <utils/xml/AttributesHandler.h>
 #include "SUMOXMLDefinitions.h"
 
-size_t noSumoTags = 35;
+size_t noSumoTags = 38;
 
-GenericSAX2Handler::Tag sumotags[35] =
+GenericSAX2Handler::Tag sumotags[38] =
 {
     /* 00 */  { "simulation",       SUMO_TAG_SIMULATION },
     /* 01 */  { "edge",             SUMO_TAG_EDGE },
@@ -32,7 +32,7 @@ GenericSAX2Handler::Tag sumotags[35] =
     /* 23 */  { "dsource",          SUMO_TAG_DSOURCE },
     /* 24 */  { "dsink",            SUMO_TAG_DSINK },
     /* 25 */  { "edges",            SUMO_TAG_EDGES },
-    /* 26 */  { "nodecount",        SUMO_TAG_NODECOUNT },
+    /* 26 */  { "node_count",        SUMO_TAG_NODECOUNT },
     /* 27 */  { "tl-logic",         SUMO_TAG_TLLOGIC },
     /* 28 */  { "offset",           SUMO_TAG_OFFSET },
     /* 29 */  { "initstep",         SUMO_TAG_INITSTEP },
@@ -40,12 +40,15 @@ GenericSAX2Handler::Tag sumotags[35] =
     /* 31 */  { "phase",            SUMO_TAG_PHASE },
     /* 32 */  { "edgepos",          SUMO_TAG_EDGEPOS },
     /* 33 */  { "routealt",         SUMO_TAG_ROUTEALT },
-    /* 34 */  { "tripdef",          SUMO_TAG_TRIPDEF }
+    /* 34 */  { "tripdef",          SUMO_TAG_TRIPDEF },
+    /* 36 */  { "logicno",          SUMO_TAG_LOGICNO },
+    /* 37 */  { "trigger",          SUMO_TAG_TRIGGER },
+    /* 38 */  { "step",             SUMO_TAG_STEP }
 };
 
-size_t noSumoAttrs = 30;
+size_t noSumoAttrs = 48;
 
-AttributesHandler::Attr sumoattrs[30] =
+AttributesHandler::Attr sumoattrs[48] =
 {
     /* 00 */ { "id",            SUMO_ATTR_ID },
     /* 01 */ { "name",          SUMO_ATTR_NAME },
@@ -76,5 +79,23 @@ AttributesHandler::Attr sumoattrs[30] =
     /* 26 */ { "pos",           SUMO_ATTR_POS },
     /* 27 */ { "lane",          SUMO_ATTR_LANE },
     /* 28 */ { "from",          SUMO_ATTR_FROM },
-    /* 29 */ { "to",            SUMO_ATTR_TO }
+    /* 29 */ { "to",            SUMO_ATTR_TO },
+    /* 30 */ { "function",      SUMO_ATTR_FUNC },
+    /* 31 */ { "changeurge",    SUMO_ATTR_CHANGEURGE },
+    /* 32 */ { "request",       SUMO_ATTR_REQUEST },
+    /* 33 */ { "response",      SUMO_ATTR_RESPONSE },
+    /* 34 */ { "pos",           SUMO_ATTR_POSITION },
+    /* 35 */ { "freq",          SUMO_ATTR_SPLINTERVAL },
+    /* 36 */ { "style",         SUMO_ATTR_STYLE },
+    /* 37 */ { "file",          SUMO_ATTR_FILE },
+    /* 38 */ { "junction",      SUMO_ATTR_JUNCTION },
+    /* 39 */ { "yield",         SUMO_ATTR_YIELD },
+    /* 40 */ { "no",            SUMO_ATTR_NO },
+    /* 41 */ { "phase",         SUMO_ATTR_PHASE },
+    /* 42 */ { "brake",         SUMO_ATTR_BRAKE },
+    /* 43 */ { "duration",      SUMO_ATTR_DURATION },
+    /* 44 */ { "objecttype",    SUMO_ATTR_OBJECTTYPE },
+    /* 45 */ { "attr",          SUMO_ATTR_ATTR },
+    /* 46 */ { "objectid",      SUMO_ATTR_OBJECTID },
+    /* 47 */ { "time",          SUMO_ATTR_TIME }
 };

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 10:32:41  dkrajzew
+// sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
+//
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -87,7 +90,7 @@ class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;
 class SAX2XMLReader;
-class NLSAXHandler;
+class NLHandlerBuilder;
 
 /* =========================================================================
  * class definitions
@@ -113,13 +116,13 @@ public:
     MSNet *buildMSNet();
 protected:
     /// counts the structures and preallocates them
-    bool load(NLSAXHandler *handler, SAX2XMLReader &parser);
+    bool load(NLHandlerBuilder *handler, SAX2XMLReader &parser);
     /// loads a described subpart form the given list of files
     bool load(LoadFilter what, const std::string &files,
-        NLSAXHandler *handler, SAX2XMLReader &parser);
+        NLHandlerBuilder *handler, SAX2XMLReader &parser);
     /// parses the files using the given initialised parser
     bool parse(const std::string &files,
-        NLSAXHandler *handler, SAX2XMLReader &parser);
+        NLHandlerBuilder *handler, SAX2XMLReader &parser);
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
     /// reports the process (done or failure)
