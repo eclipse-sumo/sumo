@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2004/03/19 12:54:07  dkrajzew
+// porting to FOX
+//
 // Revision 1.19  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
 //
@@ -74,7 +77,6 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -85,32 +87,25 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <qmainwindow.h>
-#include <qworkspace.h>
-#include <qtoolbutton.h>
-#include <utils/glutils/FontStorage.h>
-
+#include <fx.h>
+#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXInterThreadEventClient.h>
+#include <utils/foxtools/FXRealSpinDial.h>
+#include <utils/foxtools/FXLCDLabel.h>
 #include <helpers/ValueRetriever.h>
 #include <helpers/ValueSource.h>
+#include "GUISUMOViewParent.h"
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class SUMOView;
-class OptionsCont;
-class GUINet;
 class GUILoadThread;
 class GUIRunThread;
-class QSimulationLoadedEvent;
-class QLabel;
-class QWidget;
-class QSimulationEndedEvent;
-class QSplitter;
-class DoubleValueSource;
-class DoubleValueRetriever;
-class GUIGlObject;
 class GUIMessageWindow;
+class GUIEvent;
+class GUIParameterTracker;
 
 
 /* =========================================================================
@@ -130,20 +125,25 @@ class GUIMessageWindow;
  * whether aggregated views are allowed is stored within this class, too.
  */
 class GUIApplicationWindow :
-    public QMainWindow/*,
-    public MsgRetriever*/
+        public FXMainWindow, public MFXInterThreadEventClient
 {
-    // is a Q-OBJECT
-    Q_OBJECT
-
+    // FOX-declarations
+    FXDECLARE(GUIApplicationWindow)
 public:
+
     /** constructor */
-    GUIApplicationWindow(int glWidth, int glHeight, bool quitOnEnd,
-        const std::string &config, bool allowAggregated,
-        bool suppressEndInfo);
+    GUIApplicationWindow(FXApp* a, int glWidth, int glHeight,
+        const std::string &config);
 
     /** destructor */
     ~GUIApplicationWindow();
+
+    /** @brief Creates the main window
+        (required by FOX) */
+    void create();
+
+    /// Detaches the tool/menu bar
+    void detach();
 
     /// Returns the maximum width of gl-windows
     int getMaxGLWidth() const;
@@ -152,187 +152,174 @@ public:
     int getMaxGLHeight() const;
 
     /// Adds a further child window to the list
-    void addChild(QWidget *child, bool updateOnSimStep=true);
+    void addChild(FXWindow *child, bool updateOnSimStep=true);
+    void addChild(GUIParameterTracker *child, bool updateOnSimStep=true);
 
     /// removes the given child window from the list
-    void removeChild(QWidget *child);
+    void removeChild(FXWindow *child);
+    void removeChild(GUIParameterTracker *child);
 
-    /// Returns the information whether aggregated views are allowed
-    bool aggregationAllowed();
+    FXCursor *getDefaultCursor();
 
-private slots:
-    /** called from the menu, this method allows to choose a simulation
-        to load and loads it */
-    void load();
+    FXGLVisual *getGLVisual() const;
+    FXGLCanvas *getBuildGLCanvas() const;
+
+public:
+    /// Closes the log window
+    void showLog();
+
+public:
+    void eventOccured();
+    void handleEvent_SimulationLoaded(GUIEvent *e);
+    void handleEvent_SimulationStep(GUIEvent *e);
+    void handleEvent_Message(GUIEvent *e);
+    void handleEvent_SimulationEnded(GUIEvent *e);
+
+
+public:
+    /** @brief Called by FOX if a simulation shall be opened
+        Called either by FileMenu->Open or the Toolbar Open-Button */
+    long onCmdOpen(FXObject*,FXSelector,void*);
+
+    long onCmdClose(FXObject*,FXSelector,void*);
+
+    /** @brief Called by FOX if the application shall be closed
+        Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
+    long onCmdQuit(FXObject*,FXSelector,void*);
+
+    long onCmdEditChosen(FXObject*,FXSelector,void*);
+
+    /// Opens the application settings menu
+    long onCmdAppSettings(FXObject*,FXSelector,void*);
+
+    /// Opens the simulation settings menu
+    long onCmdSimSettings(FXObject*,FXSelector,void*);
+
+    /// Shows the about dialog
+    long onCmdAbout(FXObject*,FXSelector,void*);
+
+    long onCmdStart(FXObject*,FXSelector,void*);
+    long onCmdStop(FXObject*,FXSelector,void*);
+    long onCmdStep(FXObject*,FXSelector,void*);
+
+    long onCmdNewMicro(FXObject*,FXSelector,void*);
+    long onCmdNewLaneA(FXObject*,FXSelector,void*);
+
+    long onUpdOpen(FXObject*,FXSelector,void*);
+    long onUpdAddMicro(FXObject*,FXSelector,void*);
+    long onUpdAddALane(FXObject*,FXSelector,void*);
+    long onUpdStart(FXObject*,FXSelector,void*);
+    long onUpdStop(FXObject*,FXSelector,void*);
+    long onUpdStep(FXObject*,FXSelector,void*);
+    long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
+    long onUpdSimSettings(FXObject*sender,FXSelector,void*ptr);
+
+    long onLoadThreadEvent(FXObject*, FXSelector, void*);
+    long onRunThreadEvent(FXObject*, FXSelector, void*);
+/*
+    long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
+    long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
+    long onMouseMove(FXObject*sender,FXSelector,void*ptr);
+*/
+
+    FXTimer *addTimeout(FXObject *tgt, FXSelector sel,
+        FXuint ms=1000, void *ptr=NULL);
+    FXTimer *removeTimeout(FXObject *tgt, FXSelector sel);
+
+
+
+private:
+    /** starts to load a simulation */
+    void load(const std::string &file);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
-    /** starts the loaded simulation if any exists, via the RunThread */
-    void start();
-
-    /** stops the loaded simulation if any exists, via the RunThread */
-    void stop();
-
-    /** performs a single simulation step via the RunThread */
-    void singleStep();
-
-    /** opens a new microscopic simulation display */
-    void openNewMicroscopicWindow();
-
-    /** opens a new lane-aggreagated simulation display */
-    void openNewLaneAggregatedWindow();
-
-    /** shows the screen about SUMO */
-    void about();
-
-    /** shows the screen about Qt */
-    void aboutQt();
-
-    /// Shows the application settings dialog
-    void appSettings();
-
-    /// Shows the simulation settings dialog
-    void simSettings();
-
-    /** called before the sub-window menu is opened */
-    void windowsMenuAboutToShow();
-
-    /** called before the sub-window menu is opened */
-    void settingsMenuAboutToShow();
-
-    /** !!! some methods for windows alignment */
-    void windowsMenuActivated( int id );
-
-    /// Shows the settings for the window
-    void windowSetings(int window);
-
-public:
-    /// The opengl-font renderer
-    FontStorage myFonts;
-
-public slots:
-    /** sets the editable simulation delay (in milliseconds) */
-    void setSimulationDelay(int value);
-
-    /// Closes the log window
-    void showLog();
-
+    /** opens a new simulation display */
+    void openNewView(GUISUMOViewParent::ViewType type);
 
 protected:
+    /// FOX needs this for static members
+    GUIApplicationWindow() { }
     /** called when an event occures */
-    bool event(QEvent *e);
+//    bool event(QEvent *e);
 
 private:
-    /** builds the file toolbar */
-    void buildFileTools();
+    /// Builds the menu bar
+    void fillMenuBar();
 
-    /** builds the simulation toolbar */
-    void buildSimulationTools();
-
-    /** builds the window toobar (allows top open new window) */
-    void buildWindowsTools();
-
-    /// Builds the menu bar entry "File"
-    void buildFileMenu();
-
-    /// Builds the menu bar entry "Setting"
-    void buildSettingsMenu();
-
-    /// Builds the menu bar entry "Windows"
-    void buildWindowsMenu();
-
-    /// Builds the menu bar entry "Help"
-    void buildHelpMenu();
-
-    /** resumes the simulation, if any exists, via the RunThread */
-    void resume();
-
-
-    /** called when a net was loaded */
-    void netLoaded(QSimulationLoadedEvent *ec);
-
-    /// resets the simulation tool bar after a simulation was deleted
-    void resetSimulationToolBar();
-
-    /// Process an event which informaed about the end of the simulation
-    void processSimulationEndEvent(QSimulationEndedEvent *e);
-
+    /// Builds the tool bar
+    void fillToolBar();
 
 private:
     /** the name of the simulation */
     std::string _name;
 
-    /** the workspace */
-    QWorkspace* ws;
-
-    /** the file, the simulation and the windowtoolbar */
-    QToolBar *fileTools, *simTools, *_winTools;
-
-    /** the windows and the settings menus */
-    QPopupMenu *windowsMenu, *_settingsMenu;
-
     /** the thread that loads simulations */
-    GUILoadThread *_loadThread;
+    GUILoadThread *myLoadThread;
 
     /** the thread that runs simulations */
-    GUIRunThread *_runThread;
-
-    /** buttons to control the simulation process */
-    QToolButton *_startSimButton, *_stopSimButton, //*_resumeSimButton,
-        *_singleStepButton;
-
-    /** button for window adding */
-    QToolButton *_microWindowAdder, *_laneAggregatedWindowAdder;
+    GUIRunThread *myRunThread;
 
     /** the information whether the simulation was started before */
     bool _wasStarted;
 
-    /** the label containing the current simulation step */
-    QLabel *_simStepLabel;
-
     /// The current view number
     size_t myViewNumber;
 
-    /// The id of the "load" menu entry
-    int _loadID;
+    /// information whether the gui is currently loading and the load-options shall be greyed out
+    bool myAmLoading;
 
-    /// the pointer to the tool bar "load" entry
-    QToolButton *_fileOpen;
-
-    /// the menu holding the file operations
-    QPopupMenu * _fileMenu;
+    /// the submenus
+    FXMenuPane *myFileMenu, *myEditMenu, *mySettingsMenu,
+        *myWindowsMenu, *myHelpMenu;
 
     /// The openGL-maximum screen sizes
     int myGLWidth, myGLHeight;
 
-    std::vector<QWidget*> mySubWindows;
-
-    /// (y/n): the window shall be closed when the simulation has ended
-    bool myQuitOnEnd;
-
-    /// (y/n): the gui loads and starts a simulation at the beginning
-    bool myStartAtBegin;
-
-    /// Information whether aggregated views are allowed
-    bool myAllowAggregated;
-
-    /// Information whether not to display the information about a simulation's end
-    bool mySuppressEndInfo;
+    std::vector<FXWindow*> mySubWindows;
+    std::vector<GUIParameterTracker*> myTrackerWindows;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow *myMessageWindow;
 
     /// The splitter that divides the main window into vies and the log window
-    QSplitter *myMainSplitter;
+    FXSplitter *myMainSplitter;
+
+    /// The multi view panel
+    FXMDIClient *myMDIClient;
+
+    /// The status bar
+    FXStatusBar *myStatusbar;
+
+    /// for some menu detaching fun
+    FXToolBarShell *myToolBarDrag, *myMenuBarDrag;
+
+    ///
+    FXRealSpinDial *mySimDelayTarget;
+
+    /// The simulation delay
+    FXdouble mySimDelay;
+    MFXEventQue myEvents;
+
+    FXMDIMenu *myMDIMenu;
+
+    FXMenuBar *myMenuBar;
+
+    FXToolBar *myToolBar;
+
+    FXGLVisual *myGLVisual;
+
+    FXEX::FXLCDLabel *myLCDLabel;
+
+    FXEX::FXThreadEvent myLoadThreadEvent;
+    FXEX::FXThreadEvent myRunThreadEvent;
+
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIApplicationWindow.icc"
-//#endif
 
 #endif
 

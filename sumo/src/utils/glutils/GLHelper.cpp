@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 13:01:29  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/10/02 14:55:57  dkrajzew
 // visualisation of E2-detectors implemented
 //
 // Revision 1.1  2003/06/05 14:27:45  dkrajzew
 // some helping functions added; Makefile added
-//
 //
 /* =========================================================================
  * included modules
@@ -37,8 +39,13 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include "GLHelper.h"
-#include <qgl.h>
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2003/12/09 11:27:50  dkrajzew
 // removed some dead code
 //
@@ -52,9 +55,9 @@
 #include <utility>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/HaveBoundery.h>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <gui/GUIGlObjectStorage.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUIGlObject.h>
 
 
@@ -87,7 +90,7 @@ public:
     virtual ~GUIJunctionWrapper();
 
     /// Returns a popup-menu
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     /** @brief Build this gl-object's parameter window

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.8  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -89,11 +92,11 @@ public:
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale,
-            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
+            GUIBaseDetectorDrawer &drawer) const;
 
         /// Draws the detector in simple-geometry mode
         void drawGL_SG(double scale,
-            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
+            GUIBaseDetectorDrawer  &drawer) const;
 
         GUIParameterTableWindow *getParameterWindow(
             GUIApplicationWindow &app, GUISUMOAbstractView &parent);

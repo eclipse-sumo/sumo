@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.14  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -45,14 +48,14 @@
 // some statistics added; some debugging done
 //
 // Revision 1.6  2003/04/16 09:50:05  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.4  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
 //
 // Revision 1.3  2003/02/07 10:34:15  dkrajzew
 // files updated
-//
 //
 /* =========================================================================
  * included modules
@@ -62,34 +65,36 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qgl.h>
-#include <qevent.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/qutils/NewQMutex.h>
-#include <utils/glutils/lfontrenderer.h>
+#include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
-#include "GUIChooser.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>
+#endif
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QGLObjectToolTip;
 class MSVehicle;
 class GUINet;
-class QPaintEvent;
-class QResizeEvent;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
-class QTimerEvent;
-class QPopupMenu;
+class GUIBaseVehicleDrawer;
+class GUIBaseLaneDrawer;
+class GUIBaseDetectorDrawer;
+class GUIBaseJunctionDrawer;
+class GUIBaseROWDrawer;
+
 
 
 /* =========================================================================
@@ -99,16 +104,18 @@ class QPopupMenu;
  * @class GUIViewTraffic
  * Microsocopic view at the simulation
  */
-class GUIViewTraffic
-    : public GUISUMOAbstractView {
-
-    /// is a q-object
-    Q_OBJECT
-
+class GUIViewTraffic : public GUISUMOAbstractView {
+  FXDECLARE(GUIViewTraffic)
 public:
     /// constructor
-    GUIViewTraffic(GUIApplicationWindow &app,
-        GUISUMOViewParent &parent, GUINet &net);
+    GUIViewTraffic(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
+
+    /// constructor
+    GUIViewTraffic(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
+        FXGLCanvas *share);
+    void init(GUINet &net) ;
 
     /// destructor
     virtual ~GUIViewTraffic();
@@ -118,22 +125,16 @@ public:
 
     void track(int id);
 
-public slots:
-    /** changes the vehicle colouring scheme to the on stored under the given
-        index */
-    void changeVehicleColoringScheme(int index);
+    long onCmdColourVehicles(FXObject*,FXSelector,void*);
+    long onCmdColourLanes(FXObject*,FXSelector,void*);
+    long onCmdShowFullGeom(FXObject*,FXSelector,void*);
 
-    /** changes the lane colouring scheme to the on stored under the given
-        index */
-    void changeLaneColoringScheme(int index);
-
-    void toggleFullGeometry();
 
 protected:
 
 void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
 
-public slots:
+public:
 
 protected:
     void doPaintGL(int mode, double scale);
@@ -147,27 +148,27 @@ protected:
     /** @brief Instances of the vehicle drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIVehicleDrawer* myVehicleDrawer[8];
+    GUIBaseVehicleDrawer* myVehicleDrawer[8];
 
     /** @brief Instances of the lane drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUILaneDrawer *myLaneDrawer[8];
+    GUIBaseLaneDrawer *myLaneDrawer[8];
 
     /** @brief Instances of the junction drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIJunctionDrawer *myJunctionDrawer[8];
+    GUIBaseJunctionDrawer *myJunctionDrawer[8];
 
     /** @brief Instances of the detectors drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIDetectorDrawer *myDetectorDrawer[8];
+    GUIBaseDetectorDrawer *myDetectorDrawer[8];
 
     /** @brief Instances of the right of way drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIROWRulesDrawer *myROWDrawer[8];
+    GUIBaseROWDrawer *myROWDrawer[8];
 
     /// The coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;
@@ -180,13 +181,8 @@ protected:
 
     int myTrackedID;
 
-    /** @brief Information whether the fonts have been set.
-        Is false before the first drawing is done, indicating that the fonts
-        have to be made known to the gl window */
-    bool myFontsLoaded;
-
-    /// The used font renderer
-    LFontRenderer myFontRenderer;
+    /// Information whether the full or the simle geometry shall be used
+    bool myUseFullGeom;
 
     /** @brief Pointers to tables holding the information which of the items are visible
         All vehicles on visible edges will be drawn */
@@ -195,16 +191,16 @@ protected:
     /// The absolut numbers of the array sizes
     size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
 
-    /// Information whether the full or the simle geometry shall be used
-    bool myUseFullGeom;
+    /// The comboboxes for colour manipulation
+    FXComboBox *myVehicleColoring, *myLaneColoring;
 
+protected:
+    GUIViewTraffic() { }
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIViewTraffic.icc"
-//#endif
+
 
 #endif
 

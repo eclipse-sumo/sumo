@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2004/02/10 07:07:47  dkrajzew
 // removed some dead code
 //
@@ -51,7 +54,7 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
@@ -164,10 +167,9 @@ GUISourceLane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage,
-                                bool allowAggregation)
+GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 {
-    return new GUILaneWrapper(idStorage, *this, myShape, allowAggregation);
+    return new GUILaneWrapper(idStorage, *this, myShape);
 }
 
 

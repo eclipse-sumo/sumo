@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.1  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -36,11 +39,10 @@
 #include <utility>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/HaveBoundery.h>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <gui/GUIGlObjectStorage.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUIGlObject.h>
-//#include <gui/TableTypes.h>
 
 
 /* =========================================================================
@@ -66,7 +68,7 @@ public:
     virtual ~GUINetWrapper();
 
     /// Returns a popup-menu
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(

@@ -20,15 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/26 10:57:14  dkrajzew
 // messages from the simulation are now also passed to the message handler
 //
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,8 +38,13 @@
 
 #include <string>
 #include <iostream>
-#include <qthread.h>
+#include <fx.h>
+#include <fx.h>
+#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/FXRealSpinDial.h>
 #include <microsim/MSNet.h>
+#include <utils/foxtools/FXMutex.h>
+#include <utils/foxtools/FXThreadEvent.h>
 
 
 /* =========================================================================
@@ -54,16 +59,18 @@ class MsgRetriever;
  * class definition
  * ======================================================================= */
 /**
+ * @class GUIRunThread
  * This thread executes the given simulation stepwise to allow parallel
  * visualisation.
  * The avoidance of collisions between the simulation execution and her
  * visualisation is done individually for every lane using mutexes
  */
-class GUIRunThread : public QThread
+class GUIRunThread : public FXSingleEventThread
 {
 public:
     /// constructor
-    GUIRunThread(GUIApplicationWindow *mw, long sleepPeriod);
+    GUIRunThread(GUIApplicationWindow *mw,
+        FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
     /// destructor
     ~GUIRunThread();
@@ -72,7 +79,7 @@ public:
     void init(GUINet *net, long start, long end, std::ostream *craw);
 
     /// starts the execution
-    void run();
+    FXint run();
 
     /** called when the user presses the "resume"-button,
         this method resumes the execution after a break */
@@ -90,6 +97,10 @@ public:
 
     /** returns the information whether a simulation has been loaded */
     bool simulationAvailable() const;
+
+    bool simulationIsStartable() const;
+    bool simulationIsStopable() const;
+    bool simulationIsStepable() const;
 
     /** deletes the existing simulation */
     void deleteSim();
@@ -111,10 +122,6 @@ public:
 
     /// Retrieves error from the loading module
     void retrieveError(const std::string &msg);
-
-public slots:
-    /** sets the number of milliseconds to wait between simulation steps */
-    void setSimulationDelay(int value);
 
 private:
     /// the parent application window
@@ -144,9 +151,6 @@ private:
 	performed at all) */
     bool                    _simulationInProgress;
 
-    /// the duration of a break between the simulation steps in ms */
-    long                    _sleepPeriod;
-
     /** information whether the thread is running in single step mode */
     bool                    _single;
 
@@ -154,13 +158,18 @@ private:
         Needed to be deleted from the handler later on */
     MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
 
+    FXRealSpinDial &mySimDelay;
+
+    MFXEventQue &myEventQue;
+
+    FXEX::FXThreadEvent &myEventThrow;
+
+    FXEX::FXMutex mySimulationLock;
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIRunThread.icc"
-//#endif
 
 #endif
 

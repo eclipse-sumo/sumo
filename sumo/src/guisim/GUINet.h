@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.22  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -92,7 +95,6 @@
 
 #include <string>
 #include <utility>
-#include <guisim/GUILaneStateBounderiesStorage.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
@@ -179,8 +181,6 @@ public:
 
     GUIGlObjectStorage &getIDStorage();
 
-    GUILaneStateBounderiesStorage &getAggregatedValueBoundery();
-
     unsigned int getLinkTLID(MSLink *link) const;
 
 
@@ -236,9 +236,6 @@ protected:
 
     /// A link2tl-logic map
     std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;
-
-    /// A storage for the min/max-bounderies of aggregated values for their display
-    GUILaneStateBounderiesStorage myAggBounderyStorage;
 
 };
 

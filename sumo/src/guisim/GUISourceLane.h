@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/09/05 14:59:54  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -51,7 +54,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -130,8 +133,7 @@ public:
     /// returns the vehicles closing their processing for other threads
     const VehCont &getVehiclesSecure();
 
-    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage,
-        bool allowAggregation);
+    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
     friend class GUILaneChanger;
 
@@ -147,7 +149,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    NewQMutex _lock;
+    FXEX::FXMutex _lock;
 
     /// The shape of the lane
     Position2DVector myShape;

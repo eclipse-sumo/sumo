@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2004/02/10 07:05:05  dkrajzew
 // returning a value before releasing the lock-bug patched
 //
@@ -32,9 +35,6 @@ namespace
 // Revision 1.4  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,13 +48,13 @@ namespace
 #include "GUIGlObjectStorage.h"
 #include <microsim/MSVehicle.h>
 #include <guisim/GUIVehicle.h>
-#include <iostream> // !!! debug only
+#include <iostream>
 
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
-using namespace std; // !!! debug only
+using namespace std;
 
 
 /* =========================================================================

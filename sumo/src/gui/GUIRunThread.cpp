@@ -20,9 +20,12 @@
 namespace
 {
     const char rcsid[] =
-    "$Id$";
+        "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.21  2004/02/05 16:29:30  dkrajzew
 // memory leaks removed
 //
@@ -57,7 +60,8 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+// user information about simulation ending added; the gui may shutdown on
+//  end and be started with a simulation now;
 //
 // Revision 1.9  2003/06/06 11:12:38  dkrajzew
 // deletion of singletons changed/added
@@ -72,11 +76,11 @@ namespace
 // some statistics added; some debugging done
 //
 // Revision 1.5  2003/04/04 08:37:50  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+//  comments added; tootip button added
 //
 // Revision 1.4  2003/02/07 10:34:14  dkrajzew
 // files updated
-//
 //
 /* =========================================================================
  * included modules
@@ -95,22 +99,29 @@ namespace
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
 #include <helpers/SingletonDictionary.h>
-#include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
-#include <qthread.h>
-#include "QMessageEvent.h"
-#include "QSimulationStepEvent.h"
-#include "QSimulationEndedEvent.h"
+#include "GUIEvent_Message.h"
+#include "GUIEvent_SimulationStep.h"
+#include "GUIEvent_SimulationEnded.h"
 #include "GUIApplicationWindow.h"
 #include "GUIRunThread.h"
 
 
 /* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace FXEX;
+using namespace std;
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIRunThread::GUIRunThread(GUIApplicationWindow *parent, long sleepPeriod)
-    : _parent(parent),
+GUIRunThread::GUIRunThread(GUIApplicationWindow *parent,
+                           FXRealSpinDial &simDelay, MFXEventQue &eq,
+                           FXEX::FXThreadEvent &ev)
+    : FXSingleEventThread(parent->getApp(), parent), _parent(parent),
     _net(0), _craw(0), _quit(false), _simulationInProgress(false),
-    _sleepPeriod(sleepPeriod)
+    mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
         &GUIRunThread::retrieveError);
@@ -156,14 +167,15 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
 }
 
 
-void
+FXint
 GUIRunThread::run()
 {
+    GUIEvent *e = 0;
     // perform an endless loop
     while(!_quit) {
 	    // sleep when no net is available
         if(_net==0) {
-            msleep(500);
+            sleep(500);
         }
 	    // if the simulation shall be perfomed, do it
         if(!_halting&&_net!=0) {
@@ -171,18 +183,23 @@ GUIRunThread::run()
             _simulationInProgress = true;
 	        // execute a single step
             try {
+                mySimulationLock.lock();
                 _net->simulationStep(_craw, _simStartTime, _step);
                 _net->guiSimulationStep();
+                mySimulationLock.unlock();
 
                 // inform parent that a step has been performed
-                QThread::postEvent( _parent, new QSimulationStepEvent() );
+                e = new GUIEvent_SimulationStep();
+                myEventQue.add(e);
+                myEventThrow.signal();
 	            // increase step counter
                 _step++;
 	            // stop the simulation when the last step has been reached
                 if(_step==_simEndTime) {
-                    QThread::postEvent( _parent,
-                        new QSimulationEndedEvent(
-                            QSimulationEndedEvent::ER_END_STEP_REACHED, _step) );
+                    e = new GUIEvent_SimulationEnded(
+                        GUIEvent_SimulationEnded::ER_END_STEP_REACHED, _step);
+                    myEventQue.add(e);
+                    myEventThrow.signal();
                     _halting = true;
                 }
     	        // stop the execution when only a single step should have
@@ -195,23 +212,26 @@ GUIRunThread::run()
                 // check whether all vehicles loaded have left the simulation
                 if(_net->getVehicleControl().haveAllVehiclesQuit()) {
                     _halting = true;
-                    QThread::postEvent( _parent,
-                        new QSimulationEndedEvent(
-                            QSimulationEndedEvent::ER_NO_VEHICLES, _step-1) );
+                    e = new GUIEvent_SimulationEnded(
+                        GUIEvent_SimulationEnded::ER_NO_VEHICLES, _step-1);
+                    myEventQue.add(e);
+                    myEventThrow.signal();
                 }
-            } catch (ProcessError &e) {
+            } catch (ProcessError &exc) {
                 _simulationInProgress = false;
-                QThread::postEvent( _parent,
-                    new QSimulationEndedEvent(
-                        QSimulationEndedEvent::ER_ERROR_IN_SIM, _step) );
+                e = new GUIEvent_SimulationEnded(
+                    GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
+                myEventQue.add(e);
+                myEventThrow.signal();
                 _halting = true;
             }
         }
-        // sleep
-        msleep(_sleepPeriod);
+        double val = mySimDelay.getValue();
+        sleep((int) val);
     }
     // delete a maybe existing simulation at the end
     deleteSim();
+    return 0;
 }
 
 
@@ -261,15 +281,17 @@ GUIRunThread::simulationAvailable() const
 void
 GUIRunThread::deleteSim()
 {
-    if(_net!=0) {
-        _net->closeSimulation(_craw/*, _simStartTime, _step*/);
-    }
     _halting = true;
+    mySimulationLock.lock();
+    if(_net!=0) {
+        _net->closeSimulation(_craw);
+    }
     while(_simulationInProgress);
     delete _net;
     _net = 0;
     delete _craw;
     _craw = 0;
+    mySimulationLock.unlock();
 }
 
 
@@ -277,13 +299,6 @@ GUINet &
 GUIRunThread::getNet() const
 {
     return *_net;
-}
-
-
-void
-GUIRunThread::setSimulationDelay(int value)
-{
-    _sleepPeriod = value;
 }
 
 
@@ -309,8 +324,9 @@ GUIRunThread::retrieveMessage(const std::string &msg)
     if(!_simulationInProgress) {
         return;
     }
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_MESSAGE, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
@@ -320,8 +336,9 @@ GUIRunThread::retrieveWarning(const std::string &msg)
     if(!_simulationInProgress) {
         return;
     }
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_WARNING, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
@@ -331,16 +348,34 @@ GUIRunThread::retrieveError(const std::string &msg)
     if(!_simulationInProgress) {
         return;
     }
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_ERROR, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
+bool
+GUIRunThread::simulationIsStartable() const
+{
+    return _net!=0&&(_halting||_single);
+}
+
+
+bool
+GUIRunThread::simulationIsStopable() const
+{
+    return _net!=0&&(!_halting);
+}
+
+
+bool
+GUIRunThread::simulationIsStepable() const
+{
+    return _net!=0&&(_halting||_single);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIRunThread.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

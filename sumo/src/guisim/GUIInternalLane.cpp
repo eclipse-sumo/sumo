@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.13  2003/12/12 12:36:00  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -74,7 +77,7 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSLane.h>
@@ -247,10 +250,9 @@ GUIInternalLane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage,
-                                bool allowAggregation)
+GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 {
-    return new GUILaneWrapper(idStorage, *this, myShape, allowAggregation);
+    return new GUILaneWrapper(idStorage, *this, myShape);
 }
 
 

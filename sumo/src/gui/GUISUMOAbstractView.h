@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.10  2004/01/26 06:47:11  dkrajzew
 // Added the possibility to draw arrows by a detector drawer; documentation added
 //
@@ -59,9 +62,6 @@
 // Revision 1.3  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -70,36 +70,36 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qgl.h>
-#include <qevent.h>
+#include <vector>
+#include <fx.h>
+#include <fx3d.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
-#include <utils/qutils/NewQMutex.h>
-#include <utils/glutils/lfontrenderer.h>
-//#include <guisim/GUIEdgeGrid.h>
-#include "GUIChooser.h"
+#include <utils/foxtools/FXMutex.h>
 #include "GUIGlObjectTypes.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>
+#endif
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QGLObjectToolTip;
+class GUIGLObjectToolTip;
 class MSVehicle;
 class GUINet;
-class QPaintEvent;
-class QResizeEvent;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
-class QTimerEvent;
-class QGLObjectPopupMenu;
 class GUIApplicationWindow;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
+class GUIGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -111,20 +111,24 @@ class GUIDetectorWrapper;
  * It shall be the main class to inherit views of the simulation (micro-
  * or macroscopic ones) from it.
  */
-class GUISUMOAbstractView : public QGLWidget {
-    /// is a q-object
-    Q_OBJECT
-
+class GUISUMOAbstractView : public FXGLCanvas {
+  FXDECLARE(GUISUMOAbstractView)
 public:
     /// constructor
-    GUISUMOAbstractView(GUIApplicationWindow &app,
-        GUISUMOViewParent &parent, GUINet &net);
+    GUISUMOAbstractView(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net,
+        FXGLVisual *glVis);
+
+    /// constructor
+    GUISUMOAbstractView(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net,
+        FXGLVisual *glVis, FXGLCanvas *share);
 
     /// destructor
     virtual ~GUISUMOAbstractView();
 
     /// builds the view toolbars
-    virtual void buildViewToolBars(GUISUMOViewParent &) = 0;
+    virtual void buildViewToolBars(GUISUMOViewParent &) { }
 
     /// recenters the view
     void recenterView();
@@ -147,7 +151,25 @@ public:
     void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
 
     /// A reimplementation due to some internal reasons
-    void makeCurrent();
+    FXbool makeCurrent();
+
+
+    long onConfigure(FXObject*,FXSelector,void*);
+    long onPaint(FXObject*,FXSelector,void*);
+    long onLeftBtnPress(FXObject*,FXSelector,void*);
+    long onLeftBtnRelease(FXObject*,FXSelector,void*);
+    long onRightBtnPress(FXObject*,FXSelector,void*);
+    long onRightBtnRelease(FXObject*,FXSelector,void*);
+    long onMouseMove(FXObject*,FXSelector,void*);
+    long onRightMouseTimeOut(FXObject*,FXSelector,void*);
+    long onCmdShowToolTips(FXObject*,FXSelector,void*);
+    long onCmdShowGrid(FXObject*,FXSelector,void*);
+    long onSimStep(FXObject*sender,FXSelector,void*);
+
+    long onKeyPress(FXObject *o,FXSelector sel,void *data);
+    long onKeyRelease(FXObject *o,FXSelector sel,void *data);
+
+
 
     /// A method that updates the tooltip
     void updateToolTip();
@@ -158,19 +180,6 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
-    /** @brief A handler for events
-        We are mainly interested in double-clicks */
-    bool event( QEvent *e );
-
-
-public slots:
-    /** toggles the drwaing of the grid */
-    void toggleShowGrid();
-
-    /// toggles whether tooltips shall be shown or not
-    void toggleToolTips();
-
-public:
 public:
     /**
      * VehicleColoringScheme
@@ -206,7 +215,16 @@ public:
             (sources:blue, sinks:red, normal:black) */
         LCS_BY_PURPOSE = 1,
         /// use the lane's speed
-        LCS_BY_SPEED = 2
+        LCS_BY_SPEED = 2,
+        /// use the information whether the lane is selected or not
+        LCS_BY_SELECTION = 3,
+        /// aggregated views: use density
+        LCS_BY_DENSITY = 4,
+        /// aggregated views: use mean speed
+        LCS_BY_MEAN_SPEED = 5,
+        /// aggregated views: use mean halting duration
+        LCS_BY_MEAN_HALTS = 6
+
     };
 
     /**
@@ -219,121 +237,6 @@ public:
     };
 
 public:
-    /**
-     * GUIVehicleDrawer
-     * Classes derived from this are meant to be used fro vehicle drawing
-     */
-    class GUIVehicleDrawer {
-    public:
-	    /// constructor
-        GUIVehicleDrawer(std::vector<GUIEdge*> &edges)
-            : myEdges(edges) { }
-
-	    /// destructor
-        virtual ~GUIVehicleDrawer() { }
-
-        /// Draws the vehicles
-        virtual void drawGLVehicles(size_t *onWhich, size_t maxEdges,
-            VehicleColoringScheme scheme) = 0;
-
-    protected:
-        /// The list of edges to consider at drawing
-        std::vector<GUIEdge*> &myEdges;
-
-    };
-
-    /**
-     * GUILaneDrawer
-     * Classes derived from this are meant to be used fro vehicle drawing
-     */
-    class GUILaneDrawer {
-    public:
-	    /// constructor
-        GUILaneDrawer(std::vector<GUIEdge*> &edges)
-            : myEdges(edges) { }
-
-	    /// destructor
-        virtual ~GUILaneDrawer() { }
-
-        /// Draws the lanes
-        virtual void drawGLLanes(size_t *which, size_t maxEdges,
-            double width, LaneColoringScheme scheme) = 0;
-
-    protected:
-        /// The list of edges to consider at drawing
-        std::vector<GUIEdge*> &myEdges;
-    };
-
-    /**
-     * GUIROWRulesDrawer
-     * Classes derived from this are meant to be used for drawing
-     * of ROW-rules
-     */
-    class GUIROWRulesDrawer {
-    public:
-	    /// constructor
-        GUIROWRulesDrawer(std::vector<GUIEdge*> &edges)
-            : myEdges(edges) { }
-
-	    /// destructor
-        virtual ~GUIROWRulesDrawer() { }
-
-        /// Method that draws the row-rules and the directions
-        virtual void drawGLROWs(const GUINet &net, size_t *which,
-            size_t maxEdges, double width) = 0;
-
-    protected:
-        /// The list of edges to consider at drawing
-        std::vector<GUIEdge*> &myEdges;
-
-    };
-
-    /**
-     * GUIJunctionDrawer
-     * Classes derived from this are meant to be used for drawing
-     * junctions
-     */
-    class GUIJunctionDrawer {
-    public:
-	    /// constructor
-        GUIJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions)
-            : myJunctions(junctions) { }
-
-	    /// destructor
-        virtual ~GUIJunctionDrawer() { }
-
-        /// Draws the junctions
-        virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
-            JunctionColoringScheme scheme) = 0;
-
-    protected:
-        /// The list of junctions to consider at drawing
-        std::vector<GUIJunctionWrapper*> &myJunctions;
-
-    };
-
-    class GUIDetectorDrawer {
-    public:
-	    /// constructor
-        GUIDetectorDrawer(std::vector<GUIDetectorWrapper*> &detectors)
-            : myDetectors(detectors) { }
-
-	    /// destructor
-        virtual ~GUIDetectorDrawer() { }
-
-        /// Draws the detectors
-        virtual void drawGLDetectors(size_t *which, size_t maxDetectors,
-            double scale) = 0;
-
-        /// Draws an arrow of the given size at (0, 0)
-        virtual void drawArrow(double size) = 0;
-
-    protected:
-        /// The list of detectors to consider at drawing
-        std::vector<GUIDetectorWrapper*> &myDetectors;
-
-    };
-
     /**
      * @class ViewSettings
      * This class stores the viewport information for an easier checking whether
@@ -363,35 +266,14 @@ public:
     };
 
 protected:
-    /// derived from QGLWidget, this method initialises the openGL canvas
-    void initializeGL();
-
-    /// called when the canvas has been resized
-    void resizeGL( int, int );
 
     /// performs the painting of the simulation
     void paintGL();
 
-    virtual void paintEvent ( QPaintEvent * );
-
-    virtual void timerEvent ( QTimerEvent * ) ;
-
-
-public slots:
-    /** called when the mouse has been moved over the window
-        (this causes a change of the display) */
-    virtual void mouseMoveEvent ( QMouseEvent * );
-
-    /** called when a mouse has been pressed */
-    virtual void mousePressEvent ( QMouseEvent * );
-
-    /** called when a mouse has been released */
-    virtual void mouseReleaseEvent ( QMouseEvent * );
-
 protected:
-    virtual void doPaintGL(int mode, double scale) = 0;
+    virtual void doPaintGL(int mode, double scale) { }
 
-    virtual void doInit() = 0;
+    virtual void doInit() { }
 
     /// paints a grid
     void paintGLGrid();
@@ -420,13 +302,13 @@ protected:
 
 protected:
     /// The application
-    GUIApplicationWindow &_app;
+    GUIApplicationWindow *myApp;
 
     /// the parent window
-    GUISUMOViewParent &_parent;
+    GUISUMOViewParent *_parent;
 
     /// the network used (stored here for a faster access)
-    GUINet &_net;
+    GUINet *_net;
 
     /// the sizes of the window
     int _widthInPixels, _heightInPixels;
@@ -443,11 +325,8 @@ protected:
     /// Information whether too-tip informations shall be generated
     bool _useToolTips;
 
-    /// Information how many times the drawing method was called at once
-    size_t _noDrawing;
-
     /// The used tooltip-class
-    QGLObjectToolTip *_toolTip;
+    GUIGLObjectToolTip *_toolTip;
 
     /// position to display the tooltip at
     size_t _toolTipX, _toolTipY;
@@ -459,7 +338,7 @@ protected:
     int _mouseHotspotX, _mouseHotspotY;
 
     /// A lock for drawing operations
-    NewQMutex _lock;
+    FXEX::FXMutex _lock;
 
     /// _widthInPixels / _heightInPixels
     double _ratio;
@@ -474,13 +353,16 @@ protected:
     int _timerReason;
 
     /// The current popup-menu
-    QGLObjectPopupMenu *_popup;
+    GUIGLObjectPopupMenu *_popup;
 
     /// the description of the viewport
     ViewSettings myViewSettings;
 
-    /// The openGL-font drawer
-    LFontRenderer myFontRenderer;
+    /// Internal information whether doInit() was called
+    bool myAmInitialised;
+
+protected:
+    GUISUMOAbstractView() { }
 
 };
 

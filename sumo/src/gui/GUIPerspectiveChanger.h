@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2003/07/07 08:11:16  dkrajzew
 // documentation patched to fit into a 80-char display
 //
@@ -36,9 +39,6 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -46,13 +46,14 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QMouseEvent;
 class GUISUMOAbstractView;
 class Position2D;
 class Boundery;
+
 
 /* =========================================================================
  * class definitions
@@ -69,20 +70,24 @@ class Boundery;
  */
 class GUIPerspectiveChanger {
 public:
+    enum MouseState {
+        MOUSEBTN_NONE = 0,
+        MOUSEBTN_LEFT = 1,
+        MOUSEBTN_RIGHT = 2,
+        MOUSEBTN_MIDDLE = 4
+    };
+
     /// Constructor
     GUIPerspectiveChanger(GUISUMOAbstractView &callBack);
 
     /// Destructor
     virtual ~GUIPerspectiveChanger();
 
-    /// Handler for mouse movements
-    virtual void mouseMoveEvent ( QMouseEvent * ) = 0;
-
-    /// Handler for pressing a mouse button
-    virtual void mousePressEvent ( QMouseEvent * ) = 0;
-
-    /// Handler for releasing a mouse button
-    virtual void mouseReleaseEvent ( QMouseEvent * ) = 0;
+    virtual long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
+    virtual long onLeftBtnRelease(FXObject *o,FXSelector sel,void *data);
+    virtual long onRightBtnPress(FXObject *o,FXSelector sel,void *data);
+    virtual long onRightBtnRelease(FXObject *o,FXSelector sel,void *data);
+    virtual long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual double getRotation() const = 0;
@@ -149,9 +154,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIPerspectiveChanger.icc"
-//#endif
 
 #endif
 

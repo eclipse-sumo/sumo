@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.28  2004/02/16 13:56:27  dkrajzew
 // renamed some buttons and toolitips
 //
@@ -39,13 +42,15 @@ namespace
 // consequent position2D instead of two doubles implemented
 //
 // Revision 1.23  2003/10/15 11:37:50  dkrajzew
-// old row-drawer replaced by new ones; setting of name information seems tobe necessary
+// old row-drawer replaced by new ones; setting of name information seems to
+//  be necessary
 //
 // Revision 1.22  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
 // Revision 1.21  2003/09/23 14:25:13  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
+// possibility to visualise detectors using different geometry complexities
+//  added
 //
 // Revision 1.20  2003/09/05 14:55:11  dkrajzew
 // lighter drawer implementations
@@ -105,7 +110,6 @@ namespace
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -123,21 +127,8 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
-#include <qgl.h>
-#include <qevent.h>
-#include <qpainter.h>
-#include <qtoolbar.h>
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qpixmap.h>
-#include <qcursor.h>
-#include <qpopupmenu.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include "QGUIToggleButton.h"
-#include "QGUIImageField.h"
-#include "QGLObjectToolTip.h"
-#include "GUIChooser.h"
 #include "GUISUMOViewParent.h"
 #include "drawerimpl/GUIVehicleDrawer_FGwTasTriangle.h"
 #include "drawerimpl/GUIVehicleDrawer_FGnTasTriangle.h"
@@ -160,17 +151,16 @@ namespace
 #include "GUIPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
+#include "GUIAppEnum.h"
+#include <utils/foxtools/MFXCheckableButton.h>
+#include "icons/GUIIcons.h"
+#include "icons/GUIIconSubSys.h"
 
-
-#include "icons/view_traffic/colour_lane.xpm"
-#include "icons/view_traffic/colour_vehicle.xpm"
-#include "icons/view_traffic/show_grid.xpm"
-#include "icons/view_traffic/show_tooltips.xpm"
-#include "icons/view_traffic/show_geometry.xpm"
-
-#ifndef WIN32
-#include "GUIViewTraffic.moc"
+#ifdef _WIN32
+#include <windows.h>
 #endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -180,15 +170,51 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[]={
+    FXMAPFUNC(SEL_COMMAND,  MID_COLOURVEHICLES, GUIViewTraffic::onCmdColourVehicles),
+    FXMAPFUNC(SEL_COMMAND,  MID_COLOURLANES,    GUIViewTraffic::onCmdColourLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewTraffic::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewTraffic::onCmdShowGrid),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWFULLGEOM,   GUIViewTraffic::onCmdShowFullGeom),
+};
+
+FXIMPLEMENT(GUIViewTraffic,GUISUMOAbstractView,GUIViewTrafficMap,ARRAYNUMBER(GUIViewTrafficMap))
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
-                               GUISUMOViewParent &parent,
-                               GUINet &net)
-    : GUISUMOAbstractView(app, parent, net),
+GUIViewTraffic::GUIViewTraffic(FXComposite *p,
+                               GUIApplicationWindow &app,
+                               GUISUMOViewParent *parent,
+                               GUINet &net, FXGLVisual *glVis)
+    : GUISUMOAbstractView(p, app, parent, net, glVis),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
-    myTrackedID(-1), myFontsLoaded(false), myUseFullGeom(true),
+    myTrackedID(-1), myUseFullGeom(true),
     _edges2Show(0), _junctions2Show(0), _detectors2Show(0)
+{
+    init(net);
+}
+
+
+GUIViewTraffic::GUIViewTraffic(FXComposite *p,
+                               GUIApplicationWindow &app,
+                               GUISUMOViewParent *parent,
+                               GUINet &net, FXGLVisual *glVis,
+                               FXGLCanvas *share)
+    : GUISUMOAbstractView(p, app, parent, net, glVis, share),
+    _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
+    myTrackedID(-1), myUseFullGeom(true),
+    _edges2Show(0), _junctions2Show(0), _detectors2Show(0)
+{
+    init(net);
+}
+
+
+void
+GUIViewTraffic::init(GUINet &net)
 {
     // build the artifact-instances-to-draw - tables
     _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
@@ -201,46 +227,54 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     _detectors2Show = new size_t[_detectors2ShowSize];
     clearUsetable(_detectors2Show, _detectors2ShowSize);
     // build the drawers
-    myVehicleDrawer[0] = new GUIVehicleDrawer_SGnTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[1] = new GUIVehicleDrawer_SGwTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[2] = new GUIVehicleDrawer_FGnTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[3] = new GUIVehicleDrawer_FGwTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[4] = new GUIVehicleDrawer_SGnTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[5] = new GUIVehicleDrawer_SGwTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[6] = new GUIVehicleDrawer_FGnTasTriangle(_net.myEdgeWrapper);
-    myVehicleDrawer[7] = new GUIVehicleDrawer_FGwTasTriangle(_net.myEdgeWrapper);
-    myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net.myEdgeWrapper);
-    myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net.myEdgeWrapper);
-    myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net.myEdgeWrapper);
-    myLaneDrawer[3] = new GUILaneDrawer_FGwT(_net.myEdgeWrapper);
-    myLaneDrawer[4] = new GUILaneDrawer_SGnT(_net.myEdgeWrapper);
-    myLaneDrawer[5] = new GUILaneDrawer_SGwT(_net.myEdgeWrapper);
-    myLaneDrawer[6] = new GUILaneDrawer_FGnT(_net.myEdgeWrapper);
-    myLaneDrawer[7] = new GUILaneDrawer_FGwT(_net.myEdgeWrapper);
-    myJunctionDrawer[0] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
-    myJunctionDrawer[1] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
-    myJunctionDrawer[2] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
-    myJunctionDrawer[3] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
-    myJunctionDrawer[4] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
-    myJunctionDrawer[5] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
-    myJunctionDrawer[6] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
-    myJunctionDrawer[7] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
-    myDetectorDrawer[0] = new GUIDetectorDrawer_SGnT(_net.myDetectorWrapper);
-    myDetectorDrawer[1] = new GUIDetectorDrawer_SGwT(_net.myDetectorWrapper);
-    myDetectorDrawer[2] = new GUIDetectorDrawer_FGnT(_net.myDetectorWrapper);
-    myDetectorDrawer[3] = new GUIDetectorDrawer_FGwT(_net.myDetectorWrapper);
-    myDetectorDrawer[4] = new GUIDetectorDrawer_SGnT(_net.myDetectorWrapper);
-    myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(_net.myDetectorWrapper);
-    myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(_net.myDetectorWrapper);
-    myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(_net.myDetectorWrapper);
-    myROWDrawer[0] = new GUIROWDrawer_SGnT(_net.myEdgeWrapper);
-    myROWDrawer[1] = new GUIROWDrawer_SGwT(_net.myEdgeWrapper);
-    myROWDrawer[2] = new GUIROWDrawer_FGnT(_net.myEdgeWrapper);
-    myROWDrawer[3] = new GUIROWDrawer_FGwT(_net.myEdgeWrapper);
-    myROWDrawer[4] = new GUIROWDrawer_SGnT(_net.myEdgeWrapper);
-    myROWDrawer[5] = new GUIROWDrawer_SGwT(_net.myEdgeWrapper);
-    myROWDrawer[6] = new GUIROWDrawer_FGnT(_net.myEdgeWrapper);
-    myROWDrawer[7] = new GUIROWDrawer_FGwT(_net.myEdgeWrapper);
+    myVehicleDrawer[0] =
+        new GUIVehicleDrawer_SGnTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[1] =
+        new GUIVehicleDrawer_SGwTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[2] =
+        new GUIVehicleDrawer_FGnTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[3] =
+        new GUIVehicleDrawer_FGwTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[4] =
+        new GUIVehicleDrawer_SGnTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[5] =
+        new GUIVehicleDrawer_SGwTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[6] =
+        new GUIVehicleDrawer_FGnTasTriangle(_net->myEdgeWrapper);
+    myVehicleDrawer[7] =
+        new GUIVehicleDrawer_FGwTasTriangle(_net->myEdgeWrapper);
+    myLaneDrawer[0] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
+    myLaneDrawer[1] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
+    myLaneDrawer[2] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
+    myLaneDrawer[3] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
+    myLaneDrawer[4] = new GUILaneDrawer_SGnT(_net->myEdgeWrapper);
+    myLaneDrawer[5] = new GUILaneDrawer_SGwT(_net->myEdgeWrapper);
+    myLaneDrawer[6] = new GUILaneDrawer_FGnT(_net->myEdgeWrapper);
+    myLaneDrawer[7] = new GUILaneDrawer_FGwT(_net->myEdgeWrapper);
+    myJunctionDrawer[0] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
+    myJunctionDrawer[1] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
+    myJunctionDrawer[2] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
+    myJunctionDrawer[3] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
+    myJunctionDrawer[4] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
+    myJunctionDrawer[5] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
+    myJunctionDrawer[6] = new GUIJunctionDrawer_nT(_net->myJunctionWrapper);
+    myJunctionDrawer[7] = new GUIJunctionDrawer_wT(_net->myJunctionWrapper);
+    myDetectorDrawer[0] = new GUIDetectorDrawer_SGnT(_net->myDetectorWrapper);
+    myDetectorDrawer[1] = new GUIDetectorDrawer_SGwT(_net->myDetectorWrapper);
+    myDetectorDrawer[2] = new GUIDetectorDrawer_FGnT(_net->myDetectorWrapper);
+    myDetectorDrawer[3] = new GUIDetectorDrawer_FGwT(_net->myDetectorWrapper);
+    myDetectorDrawer[4] = new GUIDetectorDrawer_SGnT(_net->myDetectorWrapper);
+    myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(_net->myDetectorWrapper);
+    myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(_net->myDetectorWrapper);
+    myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(_net->myDetectorWrapper);
+    myROWDrawer[0] = new GUIROWDrawer_SGnT(_net->myEdgeWrapper);
+    myROWDrawer[1] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
+    myROWDrawer[2] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
+    myROWDrawer[3] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
+    myROWDrawer[4] = new GUIROWDrawer_SGnT(_net->myEdgeWrapper);
+    myROWDrawer[5] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
+    myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
+    myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
 }
 
 
@@ -262,57 +296,86 @@ GUIViewTraffic::~GUIViewTraffic()
 void
 GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
 {
+    FXToolBar &toolbar = v.getToolBar(*this);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
     // build coloring tools
-    QToolBar *_coloringTools = new QToolBar( &v, "view settings" );
-    v.addToolBar( _coloringTools, tr( "View Settings" ), QMainWindow::Top, FALSE );
-    // add vehicle coloring scheme chooser
-    QPixmap icon( colour_vehicle_xpm );
-    QGUIImageField *field = new QGUIImageField( icon, "Change Vehicle Colouring Scheme",
-        QString::null, _coloringTools, "change vehicle colouring scheme");
-    QComboBox *combo = new QComboBox( _coloringTools, "vehicle colouring scheme");
-    combo->insertItem(QString("by speed"));
-    combo->insertItem(QString("specified"));
-    combo->insertItem(QString("random#1"));
-    combo->insertItem(QString("random#2"));
-    combo->insertItem(QString("lanechange#1"));
-    combo->insertItem(QString("lanechange#2"));
-    combo->insertItem(QString("lanechange#3"));
-    combo->insertItem(QString("waiting#1"));
-    connect( combo, SIGNAL(highlighted(int)),
-        this, SLOT(changeVehicleColoringScheme(int)) );
-    _coloringTools->addSeparator();
-    // add lane coloring scheme chooser
-    icon = QPixmap( colour_lane_xpm );
-    field = new QGUIImageField( icon, "Change Lane Colouring Scheme",
-        QString::null, _coloringTools, "change lane colouring scheme");
-    combo = new QComboBox( _coloringTools, "lane colouring scheme");
-    combo->insertItem(QString("black"));
-    combo->insertItem(QString("by purpose"));
-    combo->insertItem(QString("by speed"));
-    connect( combo, SIGNAL(highlighted(int)),
-        this, SLOT(changeLaneColoringScheme(int)) );
-    _coloringTools->addSeparator();
+        // vehicle colors
+    new FXButton(&toolbar,
+        "\tChange Vehicle Coloring\tAllows you to change the vehicle coloring Scheme.",
+        GUIIconSubSys::getIcon(ICON_COLOURVEHICLES), this, 0,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|LAYOUT_TOP|LAYOUT_LEFT);
+    myVehicleColoring =
+        new FXComboBox(&toolbar, 12, this, MID_COLOURVEHICLES,
+            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+    myVehicleColoring->appendItem("by speed");
+    myVehicleColoring->appendItem("specified");
+    myVehicleColoring->appendItem("random#1");
+    myVehicleColoring->appendItem("random#2");
+    myVehicleColoring->appendItem("lanechange#1");
+    myVehicleColoring->appendItem("lanechange#2");
+    myVehicleColoring->appendItem("lanechange#3");
+    myVehicleColoring->appendItem("waiting#1");
+    myVehicleColoring->setNumVisible(8);
+        // lane colors
+    new FXButton(&toolbar,
+        "\tChange Lane Coloring\tAllows you to change the lane coloring Scheme.",
+        GUIIconSubSys::getIcon(ICON_COLOURLANES), this, 0,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|LAYOUT_TOP|LAYOUT_LEFT);
+    myLaneColoring =
+        new FXComboBox(&toolbar, 10, this, MID_COLOURLANES,
+            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+    myLaneColoring->appendItem("black");
+    myLaneColoring->appendItem("by purpose");
+    myLaneColoring->appendItem("by speed");
+    myLaneColoring->appendItem("by selection");
+    myLaneColoring->setNumVisible(4);
+
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+
+    // build the locator buttons
+        // for junctions
+    new FXButton(&toolbar,
+        "\tLocate Junction\tLocate a Junction within the Network.",
+        GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        // for edges
+    new FXButton(&toolbar,
+        "\tLocate Street\tLocate a Street within the Network.",
+        GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        // for vehicles
+    new FXButton(&toolbar,
+        "\tLocate Vehicle\tLocate a Vehicle within the Network.",
+        GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+
     // add toggle button for grid on/off
-    icon = QPixmap( show_grid_xpm );
-    QGUIToggleButton *toggle = new QGUIToggleButton( icon, "Show Grid",
-        QString::null, this, SLOT(toggleShowGrid()), _coloringTools,
-        "show grid", _showGrid );
+    new MFXCheckableButton(false,
+        &toolbar,
+        "\tToggles Net Grid\tToggle whether the Grid shall be visualised.",
+        GUIIconSubSys::getIcon(ICON_SHOWGRID), this, MID_SHOWGRID,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // add toggle button for tool-tips on/off
-    icon = QPixmap( show_tooltips_xpm );
-    toggle = new QGUIToggleButton( icon, "Show Tool Tips",
-        QString::null, this, SLOT(toggleToolTips()), _coloringTools,
-        "show tool tips", _useToolTips );
+    new MFXCheckableButton(false,
+        &toolbar,
+        "\tToggles Tool Tips\tToggle whether Tool Tips shall be shown.",
+        GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // add toggle button for full geometry-tips on/off
-    icon = QPixmap( show_geometry_xpm );
-    toggle = new QGUIToggleButton( icon, "Show Full Geometry",
-        QString::null, this, SLOT(toggleFullGeometry()), _coloringTools,
-        "show tool tips", myUseFullGeom );
+    new MFXCheckableButton(true,
+        &toolbar,
+        "\tToggles Geometry\tToggle whether full or simple Geometry shall be used.",
+        GUIIconSubSys::getIcon(ICON_SHOWFULLGEOM), this, MID_SHOWFULLGEOM,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 }
 
 
-void
-GUIViewTraffic::changeVehicleColoringScheme(int index)
+long
+GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector,void*)
 {
+    int index = myVehicleColoring->getCurrentItem();
     // set the vehicle coloring scheme in dependec to
     //  the chosen item
     switch(index) {
@@ -344,12 +407,15 @@ GUIViewTraffic::changeVehicleColoringScheme(int index)
         _vehicleColScheme = VCS_BY_SPEED;
         break;
     }
+    update();
+    return 1;
 }
 
 
-void
-GUIViewTraffic::changeLaneColoringScheme(int index)
+long
+GUIViewTraffic::onCmdColourLanes(FXObject*,FXSelector,void*)
 {
+    int index = myLaneColoring->getCurrentItem();
     // set the lane coloring scheme in dependec to
     //  the chosen item
     switch(index) {
@@ -362,11 +428,26 @@ GUIViewTraffic::changeLaneColoringScheme(int index)
     case 2:
         _laneColScheme = LCS_BY_SPEED;
         break;
+    case 3:
+        _laneColScheme = LCS_BY_SELECTION;
+        break;
     default:
         _laneColScheme = LCS_BLACK;
         break;
     }
     update();
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdShowFullGeom(FXObject*sender,FXSelector,void*)
+{
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    myUseFullGeom = button->amChecked();
+    update();
+    return 1;
 }
 
 
@@ -382,7 +463,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
-	const Boundery &nb = _net.getBoundery();
+	const Boundery &nb = _net->getBoundery();
     double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
@@ -393,7 +474,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     if(myViewSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
-        _net._grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
+        _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
             _edges2Show, _junctions2Show, _detectors2Show, 0);
         myViewSettings.set(x, y, xoff, yoff);
     }
@@ -414,7 +495,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         width, _laneColScheme);
     myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show,
         _detectors2ShowSize, scale);
-    myROWDrawer[drawerToUse]->drawGLROWs(_net,
+    myROWDrawer[drawerToUse]->drawGLROWs(*_net,
         _edges2Show, _edges2ShowSize, width);
 
 /*
@@ -523,29 +604,10 @@ GUIViewTraffic::track(int id)
 void
 GUIViewTraffic::doInit()
 {
-    // check whether the fonts have been made known to the gl-window
-    if(!myFontsLoaded) {
-        if(_app.myFonts.has("std")) {
-            myFontRenderer.add(_app.myFonts.get("std"));
-        }
-        myFontsLoaded = true;
-    }
 }
-
-
-void
-GUIViewTraffic::toggleFullGeometry()
-{
-    myUseFullGeom = !myUseFullGeom;
-    repaint();
-}
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIViewTraffic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/03/19 12:54:07  dkrajzew
+// porting to FOX
+//
 // Revision 1.10  2003/11/18 14:28:14  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -36,11 +39,11 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.6  2003/06/06 10:28:45  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+// new subfolder holding popup-menus was added due to link-dependencies
+//  under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
 // Revision 1.5  2003/06/05 11:37:30  dkrajzew
 // class templates applied
-//
 //
 /* =========================================================================
  * included modules
@@ -49,12 +52,11 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qlistview.h>
 #include <string>
 #include <stack>
 #include <utils/convert/ToString.h>
 #include "GUISUMOAbstractView.h"
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
@@ -103,10 +105,8 @@ GUIGlObject::setGlID(size_t id)
     myGlID = id;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIGlObject.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

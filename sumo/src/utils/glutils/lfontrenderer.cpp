@@ -28,9 +28,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
 #include "lfontrenderer.h"
 
 #include <iostream>
-#include <iostream>
-#include <qgl.h> // !!! not really a good solution; where to get openGl-defs from?
 #include <fstream>
+#include <GL/gl.h>		/* OpenGL header file */
 #include "lfontrenderer.h"
 
 using namespace std;

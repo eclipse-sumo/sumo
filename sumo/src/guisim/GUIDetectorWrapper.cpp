@@ -23,13 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
 //
 // Revision 1.5  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -39,8 +40,9 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include "GUIDetectorWrapper.h"
-#include <gui/popup/QGLObjectPopupMenuItem.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/GUIAppEnum.h>
+#include <gui/GUIGlobals.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUISUMOAbstractView.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 
@@ -68,23 +70,25 @@ GUIDetectorWrapper::~GUIDetectorWrapper()
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUIDetectorWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    int id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add view options
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->insertSeparator();
-    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
-    ret->setItemEnabled(id, TRUE);
-    // add views adding options
-    ret->insertSeparator();
-    id = ret->insertItem("Open ValueTracker");
-    ret->setItemEnabled(id, FALSE);
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    if(gfIsSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -97,9 +101,6 @@ GUIDetectorWrapper::getType() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIDetectorWrapper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

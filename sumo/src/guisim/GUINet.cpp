@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.31  2004/02/10 07:07:13  dkrajzew
 // debugging of network loading after a network failed to be loaded; memory leaks removal
 //
@@ -188,6 +191,11 @@ GUINet::~GUINet()
         // of the network itself
     delete myWrapper;
     GUIE3Collector::clearInstances();
+    // remove further gui-structures
+//    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->clear();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->clear();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->clear();
+
 }
 
 
@@ -440,20 +448,11 @@ GUINet::guiSimulationStep()
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
-    myAggBounderyStorage.initStep();
 }
 
 
-GUILaneStateBounderiesStorage &
-GUINet::getAggregatedValueBoundery()
-{
-    return myAggBounderyStorage;
-}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUINet.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

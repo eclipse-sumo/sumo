@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/11/26 09:48:58  dkrajzew
 // time display added to the tl-logic visualisation
 //
@@ -57,7 +60,7 @@ public:
     ~GUITrafficLightLogicWrapper();
 
     /// Returns an own popup-menu
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window

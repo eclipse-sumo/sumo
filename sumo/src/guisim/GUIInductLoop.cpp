@@ -24,11 +24,16 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.9  2004/02/16 13:57:15  dkrajzew
 // tried to patch a sometimes occuring visualisation bug
 //
 // Revision 1.8  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation; variable offsets
+//  and lengths for lsa-detectors; coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.7  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
@@ -52,7 +57,12 @@ namespace
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_UIntParam.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <qgl.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -129,7 +139,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
                                              GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("flow [veh/h]", true,
         new FuncBinding_UIntParam<GUIInductLoop, double>(
@@ -172,7 +182,7 @@ GUIInductLoop::MyWrapper::active() const
 
 void
 GUIInductLoop::MyWrapper::drawGL_SG(double scale,
-                                    GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                    GUIBaseDetectorDrawer &drawer) const
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);
@@ -223,7 +233,7 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale,
 
 void
 GUIInductLoop::MyWrapper::drawGL_FG(double scale,
-                                    GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                    GUIBaseDetectorDrawer &drawer) const
 {
     double width = 2.0 * scale;
     glLineWidth(1.0);

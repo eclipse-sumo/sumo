@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.22  2004/01/26 15:53:21  dkrajzew
 // added some yet unset display variables
 //
@@ -102,11 +105,11 @@ namespace
 #include <microsim/MSVehicle.h>
 #include "GUINet.h"
 #include "GUIVehicle.h"
-#include <qwidget.h>
 #include <gui/GUISUMOAbstractView.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
-#include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <gui/GUIGlobals.h>
 #include <gui/partable/GUIParameterTableWindow.h>
+#include <gui/GUIAppEnum.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -240,32 +243,25 @@ GUIVehicle::getNextPeriodical() const
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,
                          GUISUMOAbstractView &parent)
 {
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    // insert name
-    int id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add view options
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->setItemEnabled(id, TRUE);
-    id = ret->insertItem("Track");
-    ret->setItemEnabled(id, FALSE);
-    id = ret->insertItem("Stop");
-    ret->setItemEnabled(id, FALSE);
-    id = ret->insertItem("Delete");
-    ret->setItemEnabled(id, FALSE);
-    ret->insertSeparator();
-    // add views adding options
-    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
-    ret->setItemEnabled(id, TRUE);
-    ret->insertSeparator();
-    id = ret->insertItem("Open ValueTracker");
-    ret->setItemEnabled(id, FALSE);
-    ret->insertSeparator();
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    if(gfIsSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -275,7 +271,7 @@ GUIVehicle::getParameterWindow(GUIApplicationWindow &app,
                                GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 9);
     // add items
     ret->mkItem("type [NAME]", false, myType->id());
     ret->mkItem("left same route [#]", false, getRepetitionNo());

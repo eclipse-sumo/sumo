@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:56:48  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/11/12 14:05:18  dkrajzew
 // access to the id storage in MSNet is now secure
 //
@@ -70,9 +73,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIEdgeControlBuilder::GUIEdgeControlBuilder(bool allowAggregation,
-                                             unsigned int storageSize)
-    : NLEdgeControlBuilder(storageSize), myAllowAggregation(allowAggregation)
+GUIEdgeControlBuilder::GUIEdgeControlBuilder(unsigned int storageSize)
+    : NLEdgeControlBuilder(storageSize)
 {
 }
 
@@ -101,8 +103,7 @@ GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
         throw XMLIdNotKnownException("edge", id);
     }
     edge->initJunctions(from, to,
-        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage(),
-            myAllowAggregation);
+        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage());
 }
 
 
@@ -149,9 +150,6 @@ GUIEdgeControlBuilder::addLaneShape(const Position2DVector &shape)
 */
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIEdgeControlBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

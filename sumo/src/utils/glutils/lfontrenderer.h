@@ -31,9 +31,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 #include <vector>
-#include <qgl.h> // !!! not really a good solution; where to get openGl-defs from?
+
 #ifdef _WIN32
 #include <windows.h>
+#include <GL/gl.h>		/* OpenGL header file */
 //#include <glut.h>
 #endif // _WIN32
 

@@ -24,15 +24,20 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2004/02/10 07:07:13  dkrajzew
-// debugging of network loading after a network failed to be loaded; memory leaks removal
+// debugging of network loading after a network failed to be loaded; memory
+//  leaks removal
 //
 // Revision 1.2  2004/02/05 16:30:59  dkrajzew
 // multiplicate deletion of E3-detectors on application quit patched
 //
 // Revision 1.1  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
-//
+// work on detectors: e3-detectors loading and visualisation; variable offsets
+//  and lengths for lsa-detectors; coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 /* =========================================================================
  * included modules
@@ -41,8 +46,13 @@ namespace
 #include "GUIEdge.h"
 #include <utils/geom/Line2D.h>
 #include <gui/partable/GUIParameterTableWindow.h>
+#include <gui/textures/GUITexturesHelper.h>
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -121,10 +131,10 @@ GUIE3Collector::MyWrapper::getBoundery() const
 
 GUIParameterTableWindow *
 GUIE3Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
-                                                   GUISUMOAbstractView &parent)
+                                              GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 3);
     // add items
     myMkExistingItem(*ret, "mean travel time [s]",
         E3::MEAN_TRAVELTIME);
@@ -168,7 +178,7 @@ GUIE3Collector::MyWrapper::active() const
 
 void
 GUIE3Collector::MyWrapper::drawGL_SG(double scale,
-                                     GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                     GUIBaseDetectorDrawer &drawer) const
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -185,7 +195,7 @@ GUIE3Collector::MyWrapper::drawGL_SG(double scale,
 
 void
 GUIE3Collector::MyWrapper::drawGL_FG(double scale,
-                                     GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                     GUIBaseDetectorDrawer &drawer) const
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -203,7 +213,7 @@ GUIE3Collector::MyWrapper::drawGL_FG(double scale,
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
         double rot,
-        GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+        GUIBaseDetectorDrawer &drawer) const
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
@@ -221,9 +231,9 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
     glEnd();
     // arrows
     glTranslated(1.5, 0, 0);
-    drawer.drawArrow(1.0);
+    GUITexturesHelper::drawTexturedBox(TEXTURE_LINKDIR_STRAIGHT, 1.0);
     glTranslated(-3, 0, 0);
-    drawer.drawArrow(1.0);
+    GUITexturesHelper::drawTexturedBox(TEXTURE_LINKDIR_STRAIGHT, 1.0);
     glPopMatrix();
 }
 

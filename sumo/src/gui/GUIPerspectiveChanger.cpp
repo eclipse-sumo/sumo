@@ -24,28 +24,28 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.4  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
 // Revision 1.3  2003/04/04 08:37:50  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+//  comments added; tootip button added
 //
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
-#include <qevent.h>
+
 #include "GUISUMOAbstractView.h"
 #include "GUIPerspectiveChanger.h"
-
 
 
 /* =========================================================================
@@ -55,6 +55,7 @@ GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
     : _callback(callBack), _changed(true)
 {
 }
+
 
 GUIPerspectiveChanger::~GUIPerspectiveChanger()
 {
@@ -90,7 +91,6 @@ GUIPerspectiveChanger::setNetSizes(size_t width, size_t height)
 }
 
 
-
 void
 GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
 {
@@ -100,10 +100,42 @@ GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
 }
 
 
+long
+GUIPerspectiveChanger::onLeftBtnPress(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long
+GUIPerspectiveChanger::onLeftBtnRelease(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long
+GUIPerspectiveChanger::onRightBtnPress(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long
+GUIPerspectiveChanger::onRightBtnRelease(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long
+GUIPerspectiveChanger::onMouseMove(FXObject *o,FXSelector sel,void *data)
+{
+    return 1;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIPerspectiveChanger.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

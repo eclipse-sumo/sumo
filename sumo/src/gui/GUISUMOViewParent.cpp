@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -42,10 +45,12 @@ namespace
 // new view hierarchy; some debugging done
 //
 // Revision 1.6  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.5  2003/04/14 08:24:56  dkrajzew
-// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+// unneeded display switch and zooming option removed; new glo-objct concept
+//  implemented; comments added
 //
 // Revision 1.4  2003/03/20 16:17:52  dkrajzew
 // windows eol removed
@@ -56,9 +61,6 @@ namespace
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -75,39 +77,16 @@ namespace
 
 #include <string>
 #include <vector>
-#include <qwidget.h>
-#include <qfile.h>
-#include <qfiledialog.h>
-#include <qworkspace.h>
-#include <qpixmap.h>
-#include <qcombobox.h>
-#include <qtoolbar.h>
-#include <qtoolbutton.h>
-#include <qwhatsthis.h>
-#include <qstring.h>
-#include <qapplication.h>
-#include <qspinbox.h>
-#include "icons/locate_junction.xpm"
-#include "icons/locate_edge.xpm"
-#include "icons/locate_vehicle.xpm"
-#include "icons/recenter_view.xpm"
-#include "icons/show_legend.xpm"
-#include "icons/allow_rotation.xpm"
-/*#include "icons/view1.xpm"
-#include "icons/view2.xpm"
-#include "icons/view3.xpm"*/
-#include "GUIChooser.h"
+#include "dialogs/GUIDialog_GLObjChooser.h"
 #include "GUIViewTraffic.h"
 #include "GUIViewAggregatedLanes.h"
-#include "QGUIToggleButton.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
 #include "GUIGlObjectTypes.h"
-
-#ifndef WIN32
-#include "GUISUMOViewParent.moc"
-#endif
-
+#include "GUIAppEnum.h"
+#include "icons/GUIIcons.h"
+#include "icons/GUIIconSubSys.h"
+#include <utils/foxtools/MFXCheckableButton.h>
 
 
 /* =========================================================================
@@ -117,109 +96,179 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUISUMOViewParent::onCmdRecenterView),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWLEGEND,     GUISUMOViewParent::onCmdShowLegend),
+    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
+};
+
+// Object implementation
+FXIMPLEMENT(GUISUMOViewParent, FXMDIChild, GUISUMOViewParentMap, ARRAYNUMBER(GUISUMOViewParentMap))
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUISUMOViewParent::GUISUMOViewParent( QWidget *parent, const char* name,
-                                     int wflags, GUINet &net,
-                                     GUIApplicationWindow &parentWindow,
-                                     ViewType view)
-    : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
-    _view(0), _viewTools(0), _trackingTools(0),
-    _showLegendToggle(0), _allowRotationToggle(0),
-    _behaviourToggle1(0), _behaviourToggle2(0), _behaviourToggle3(0),
+GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
+                                     FXGLCanvas *share,FXMDIMenu *mdimenu,
+                                     const FXString& name, GUINet &net,
+                                     GUIApplicationWindow *parentWindow,
+                                     ViewType view, FXIcon* ic, FXPopup* pup,
+                                     FXuint opts,
+                                     FXint x, FXint y, FXint w, FXint h)
+    : FXMDIChild( p, name, ic, mdimenu, opts, 10, 10, 300, 200 ),
+    _zoomingFactor(100), _view(0),
     _showLegend(true), _allowRotation(false), _chooser(0),
     myParent(parentWindow)
 {
+    init(view, share, net);
+    myParent->addChild(this, false);
+}
+
+
+void
+GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
+{
+    // Make MDI Window Menu
+    setTracking();
+	FXVerticalFrame *glcanvasFrame =
+        new FXVerticalFrame(this,
+        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+        0,0,0,0,0,0,0,0);
     // build the tool bar
-    buildViewTools();
-    buildTrackingTools();
-    // set the size
-    setMinimumSize(100, 30);
-    setBaseSize(300, 300);
-    // build the display widget
+    buildToolBar(glcanvasFrame);
     switch(view) {
     case MICROSCOPIC_VIEW:
-        _view = new GUIViewTraffic(myParent, *this, net);
+        if(share!=0) {
+            _view =
+                new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
+                    myParent->getGLVisual(), share);
+        } else {
+            _view =
+                new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
+                    myParent->getGLVisual());
+        }
         break;
     case LANE_AGGREGATED_VIEW:
-        _view = new GUIViewAggregatedLanes(myParent, *this, net);
+        if(share!=0) {
+            _view =
+                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
+                    net, myParent->getGLVisual(), share);
+        } else {
+            _view =
+                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
+                    net, myParent->getGLVisual());
+        }
         break;
     default:
         throw 1;
     }
-    setCentralWidget(_view);
     _view->buildViewToolBars(*this);
 }
 
 
 GUISUMOViewParent::~GUISUMOViewParent()
 {
+    myParent->removeChild(this);
+    delete myToolBar;
+//    delete myToolBarDrag;
 }
 
 
 void
-GUISUMOViewParent::buildViewTools()
+GUISUMOViewParent::buildToolBar(FXComposite *c)
 {
-    // build the tooolbar
-    _viewTools = new QToolBar( this, "view settings" );
-    addToolBar( _viewTools, tr( "View Settings" ), Top, FALSE );
-    // add the recenter - button
-    QPixmap icon = QPixmap( recenter_view_xpm );
-    new QToolButton( icon, "Recenter View",
-        QString::null, this, SLOT(recenterView()), _viewTools,
-        "recenter view" );
-    // add a separator
-    _viewTools->addSeparator();
-    // add the legend-toggle button
-    icon = QPixmap( show_legend_xpm );
-    _showLegendToggle = new QGUIToggleButton( icon, "Show Legend",
-        QString::null, this, SLOT(toggleShowLegend()), _viewTools,
-        "show legend", true );
-    icon = QPixmap( allow_rotation_xpm );
-    _allowRotationToggle = new QGUIToggleButton( icon, "Allow Rotation",
-        QString::null, this, SLOT(toggleAllowRotation()), _viewTools,
-        "allow rotation", true );
-    // !!! add "what's this"
-    // add a separator
-    _viewTools->addSeparator();
-/*    // add the behaviour toggling buttons
-    icon = QPixmap( view1_xpm );
-    _behaviourToggle1 = new QGUIToggleButton( icon, "Toggle View Behaviour 1",
-        QString::null, this, SLOT(toggleBehaviour1()), _viewTools,
-        "toggle view behaviour 1", true );
-    icon = QPixmap( view2_xpm );
-    _behaviourToggle2 = new QGUIToggleButton( icon, "Toggle View Behaviour 2",
-        QString::null, this, SLOT(toggleBehaviour2()), _viewTools,
-        "toggle view behaviour 2", false );
-    icon = QPixmap( view3_xpm );
-    _behaviourToggle3 = new QGUIToggleButton( icon, "Toggle View Behaviour 3",
-        QString::null, this, SLOT(toggleBehaviour3()), _viewTools,
-        "toggle view behaviour 3", false );*/
+    myToolBar = new FXToolBar(c,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
+
+    // build the view settings
+        // recenter view
+    new FXButton(myToolBar,
+        "\tRecenter View\tRecenter view to the simulated Area.",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        // show legend
+    new MFXCheckableButton(_showLegend,
+        myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
+        GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        // allow rotation
+    new MFXCheckableButton(_allowRotation,
+        myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
+        GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+
 }
 
 
 void
-GUISUMOViewParent::buildTrackingTools()
+GUISUMOViewParent::create()
 {
-    // build the tooolbar
-    _trackingTools = new QToolBar( this, "tracking settings" );
-    addToolBar( _trackingTools, tr( "Tracking Settings" ), Top, FALSE );
-    // add the junction locator start
-    QPixmap icon = QPixmap( locate_junction_xpm );
-    QToolButton *button = new QToolButton( icon, "Locate Junction",
-        QString::null, this, SLOT(chooseJunction()), _trackingTools,
-        "locate junction" );
-    // add the edge locator start
-    icon = QPixmap( locate_edge_xpm );
-    button = new QToolButton( icon, "Locate Edge",
-        QString::null, this, SLOT(chooseEdge()), _trackingTools,
-        "locate edge" );
-    // add the vehicle locator start
-    icon = QPixmap( locate_vehicle_xpm );
-    button = new QToolButton( icon, "Locate Vehicle",
-        QString::null, this, SLOT(chooseVehicle()), _trackingTools,
-        "locate vehicle" );
-    // !!! add "what's this"
+    FXMDIChild::create();
+}
+
+
+long
+GUISUMOViewParent::onCmdRecenterView(FXObject*,FXSelector,void*)
+{
+    _zoomingFactor = 100;
+    _view->recenterView();
+    _view->update();
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdShowLegend(FXObject*sender,FXSelector,void*)
+{
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    _showLegend = button->amChecked();
+    _view->update();
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
+{
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    _allowRotation = button->amChecked();
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateJunction(FXObject*,FXSelector,void*)
+{
+    vector<string> names = MSJunction::getNames();
+    showValues(GLO_JUNCTION, names);
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateEdge(FXObject*,FXSelector,void*)
+{
+    vector<string> names = GUIEdge::getNames();
+    showValues(GLO_EDGE, names);
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateVehicle(FXObject*,FXSelector,void*)
+{
+    vector<string> names = GUIVehicle::getNames();
+    showValues(GLO_VEHICLE, names);
+    return 1;
 }
 
 
@@ -238,34 +287,12 @@ GUISUMOViewParent::setZoomingFactor(double val)
 
 
 void
-GUISUMOViewParent::chooseJunction()
-{
-    vector<string> names = MSJunction::getNames();
-    showValues(GLO_JUNCTION, names);
-}
-
-
-void
-GUISUMOViewParent::chooseEdge()
-{
-    vector<string> names = GUIEdge::getNames();
-    showValues(GLO_EDGE, names);
-}
-
-
-void
-GUISUMOViewParent::chooseVehicle()
-{
-    vector<string> names = GUIVehicle::getNames();
-    showValues(GLO_VEHICLE, names);
-}
-
-
-void
 GUISUMOViewParent::showValues(GUIGlObjectType type,
                               std::vector<std::string> &names)
 {
-    GUIChooser *chooser = new GUIChooser(this, type, names);
+    GUIDialog_GLObjChooser *chooser =
+        new GUIDialog_GLObjChooser(this, type, names);
+    chooser->create();
     chooser->show();
 }
 
@@ -278,97 +305,10 @@ GUISUMOViewParent::setView(GUIGlObjectType type,
 }
 
 
-void
-GUISUMOViewParent::recenterView()
-{
-    _zoomingFactor = 100;
-    _view->recenterView();
-    _view->update();
-}
-
-
-void
-GUISUMOViewParent::load( const QString& fn )
-{
-    filename  = fn;
-    QFile f( filename );
-    if ( !f.open( IO_ReadOnly ) )
-	return;
-
-    if(fn.contains(".gif")) {
-	QWidget * tmp=new QWidget(this);
-	setFocusProxy(tmp);
-	setCentralWidget(tmp);
-#ifdef _WS_QWS_ // temporary speed-test hack
-	qm->setDisplayWidget(tmp);
-#endif
-	tmp->setBackgroundMode(QWidget::NoBackground);
-	tmp->show();
-    } else {
-    }
-    setCaption( filename );
-    emit message( QString("Loaded document %1").arg(filename), 2000 );
-}
-
-
-void
-GUISUMOViewParent::save()
-{
-    if ( filename.isEmpty() ) {
-        saveAs();
-        return;
-    }
-
-    QFile f( filename );
-    if ( !f.open( IO_WriteOnly ) ) {
-        emit message( QString("Could not write to %1").arg(filename),
-		      2000 );
-        return;
-    }
-    setCaption( filename );
-    emit message( QString( "File %1 saved" ).arg( filename ), 2000 );
-}
-
-
-void
-GUISUMOViewParent::saveAs()
-{
-    QString fn = QFileDialog::getSaveFileName( filename, QString::null, this );
-    if ( !fn.isEmpty() ) {
-        filename = fn;
-        save();
-    } else {
-        emit message( "Saving aborted", 2000 );
-    }
-}
-
-
-void
-GUISUMOViewParent::print( QPrinter* )
-{
-}
-
-
-void
-GUISUMOViewParent::toggleShowLegend()
-{
-    _showLegend = _showLegendToggle->isOn();
-    _view->update();
-}
-
-
 bool
 GUISUMOViewParent::showLegend() const
 {
     return _showLegend;
-}
-
-
-void
-GUISUMOViewParent::toggleAllowRotation()
-{
-    _allowRotation = !_allowRotationToggle->isOn();
-    _view->update();
 }
 
 
@@ -379,60 +319,42 @@ GUISUMOViewParent::allowRotation() const
 }
 
 
-bool
-GUISUMOViewParent::event ( QEvent *e )
-{
-    if(e->type()==QEvent::User) {
-        _view->update();
-        return TRUE;
-    }
-    return QMainWindow::event(e);
-}
-
-
-void
-GUISUMOViewParent::toggleBehaviour1()
-{
-    _behaviourToggle2->publicSetOn(false);
-    _behaviourToggle3->publicSetOn(false);
-}
-
-
-void
-GUISUMOViewParent::toggleBehaviour2()
-{
-    _behaviourToggle1->publicSetOn(false);
-    _behaviourToggle3->publicSetOn(false);
-}
-
-
-void
-GUISUMOViewParent::toggleBehaviour3()
-{
-    _behaviourToggle1->publicSetOn(false);
-    _behaviourToggle2->publicSetOn(false);
-}
-
-
 int
 GUISUMOViewParent::getMaxGLWidth() const
 {
-    return myParent.getMaxGLWidth();
+    return myParent->getMaxGLWidth();
 }
 
 int
 GUISUMOViewParent::getMaxGLHeight() const
 {
-    return myParent.getMaxGLHeight();
+    return myParent->getMaxGLHeight();
 }
 
 
+FXToolBar &
+GUISUMOViewParent::getToolBar(GUISUMOAbstractView &v)
+{
+    return *myToolBar;
+}
+
+
+FXGLCanvas *
+GUISUMOViewParent::getBuildGLCanvas() const
+{
+    return _view;
+}
+
+
+long
+GUISUMOViewParent::onSimStep(FXObject*sender,FXSelector,void*)
+{
+    _view->update();
+    return 1;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUISUMOViewParent.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

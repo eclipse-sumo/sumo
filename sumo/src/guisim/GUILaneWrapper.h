@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.13  2003/11/12 14:01:54  dkrajzew
 // visualisation of tl-logics added
 //
@@ -59,9 +62,6 @@
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -72,12 +72,12 @@
 #include <utils/common/DoubleVector.h>
 #include <string>
 #include <utility>
-#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSE2Collector.h>
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlObject.h>
 
@@ -89,7 +89,7 @@ class MSVehicle;
 class MSNet;
 class GUINet;
 class Position2DVector;
-class QGLObjectPopupMenu;
+class GUIGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -107,13 +107,13 @@ class GUILaneWrapper :
 public:
     /// constructor
     GUILaneWrapper( GUIGlObjectStorage &idStorage,
-        MSLane &lane, const Position2DVector &shape, bool allowAggregation);
+        MSLane &lane, const Position2DVector &shape);
 
     /// destructor
     virtual ~GUILaneWrapper();
 
     /// Returns a popup-menu fpr lanes
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(
@@ -163,14 +163,6 @@ public:
     const MSLane::VehCont &getVehiclesSecure();
     void releaseVehicles();
 
-/*
-    double getTableParameter(size_t pos) const;
-
-    const char * const getTableItem(size_t pos) const;
-*/
-
-    //void fillTableParameter(double *parameter) const;
-
     size_t getLinkNumber() const;
 
     /// Returns the state of the numbered link
@@ -182,14 +174,13 @@ public:
     /// Returns the tl-logic the numbered link is controlled by
     unsigned int getLinkTLID(const GUINet &net, size_t pos) const;
 
-    double getAggregatedDensity(size_t aggregationPosition) const;
+    double getAggregatedNormed(E2::DetType what,
+        size_t aggregationPosition) const;
+
+    double getAggregatedFloat(E2::DetType what) const;
+
 
 protected:
-/*
-    TableType getTableType(size_t pos) const;
-
-    const char *getTableBeginValue(size_t ) const { throw 1; }
-*/
 	bool active() const { return true; }
 
 private:
@@ -229,14 +220,16 @@ protected:
 
     LoggedValue_TimeFloating<double> **myAggregatedValues;
 
+    float myAggregatedFloats[3];
+
     static size_t myAggregationSizes[];
+
+
 
 };
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUILaneWrapper.icc"
-//#endif
 
 #endif
 

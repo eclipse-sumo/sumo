@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.9  2003/11/18 14:28:14  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -56,12 +59,10 @@
  * class declarations
  * ======================================================================= */
 class GUIGlObjectStorage;
-class QGLObjectPopupMenu;
 class GUISUMOAbstractView;
 class GUIParameterTableWindow;
-class QListView;
 class GUIApplicationWindow;
-class QListViewItem;
+class GUIGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -87,7 +88,7 @@ public:
     size_t getGlID() const;
 
     /// Returns an own popup-menu
-    virtual QGLObjectPopupMenu *getPopUpMenu(
+    virtual GUIGLObjectPopupMenu *getPopUpMenu(
         GUIApplicationWindow &app, GUISUMOAbstractView &parent) = 0;
 
     /// Returns an own parameter window

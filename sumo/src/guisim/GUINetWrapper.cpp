@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -50,15 +53,12 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
 #include <guisim/GUINet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUINetWrapper.h"
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <qwidget.h>
-#include <qpopupmenu.h>
-#include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/GUIAppEnum.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
@@ -86,23 +86,16 @@ GUINetWrapper::~GUINetWrapper()
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUINetWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    int id;
-    // insert name
-    id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add view option
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->setItemEnabled(id, TRUE);
-    ret->insertSeparator();
-    // add parameter option
-    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
-    ret->setItemEnabled(id, TRUE);
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -112,7 +105,7 @@ GUINetWrapper::getParameterWindow(GUIApplicationWindow &app,
                                        GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("vehicles running [#]", true,
         new CastingFunctionBinding<MSVehicleControl, double, size_t>(

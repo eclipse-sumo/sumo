@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/12/04 13:23:57  dkrajzew
 // made the output of warnings prettier and more visible
 //
@@ -30,16 +33,11 @@ namespace
 // added a logging windows to the gui (the passing of more than a single lane
 //  to come makes it necessary)
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <cassert>
 #include "GUIMessageWindow.h"
-
-#ifndef WIN32
-#include "GUIMessageWindow.moc"
-#endif
 
 
 /* =========================================================================
@@ -51,10 +49,50 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIMessageWindow::GUIMessageWindow(QWidget *parent)
-    : QTextView(parent)
+GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
+    : FXText(parent, 0, 0, 0, 0, 0, 0, 50)
 {
-    setMinimumSize(50, 50);
+    setStyled(true);
+    setEditable(false);
+    myStyles = new FXHiliteStyle[4];
+    // set separator style
+    myStyles[0].normalForeColor = FXRGB(0x00, 0x00, 0x88); //
+    myStyles[0].normalBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[0].selectForeColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[0].selectBackColor = FXRGB(0x00, 0x00, 0x88); //
+    myStyles[0].hiliteForeColor = FXRGB(0x00, 0x00, 0x88); //
+    myStyles[0].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[0].activeBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[0].style = 0;
+    // set message text style
+    myStyles[1].normalForeColor = FXRGB(0x00, 0x88, 0x00); //
+    myStyles[1].normalBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[1].selectForeColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[1].selectBackColor = FXRGB(0x00, 0x88, 0x00); //
+    myStyles[1].hiliteForeColor = FXRGB(0x00, 0x88, 0x00); //
+    myStyles[1].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[1].activeBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[1].style = 0;
+    // set error text style
+    myStyles[2].normalForeColor = FXRGB(0x88, 0x00, 0x00); //
+    myStyles[2].normalBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[2].selectForeColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[2].selectBackColor = FXRGB(0x88, 0x00, 0x00); //
+    myStyles[2].hiliteForeColor = FXRGB(0x88, 0x00, 0x00); //
+    myStyles[2].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[2].activeBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[2].style = 0;
+    // set warning text style
+    myStyles[3].normalForeColor = FXRGB(0xe6, 0x98, 0x00); //
+    myStyles[3].normalBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[3].selectForeColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[3].selectBackColor = FXRGB(0xe6, 0x98, 0x00); //
+    myStyles[3].hiliteForeColor = FXRGB(0xe6, 0x98, 0x00); //
+    myStyles[3].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[3].activeBackColor = FXRGB(0xff, 0xff, 0xff);
+    myStyles[3].style = 0;
+    //
+    setHiliteStyles(myStyles);
 }
 
 
@@ -64,38 +102,33 @@ GUIMessageWindow::~GUIMessageWindow()
 
 
 void
-GUIMessageWindow::appendText(GUIEvent eType, const std::string &msg)
+GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
 {
-    // set logger to visible
-    if(!isVisible()) {
+    if(!isEnabled()) {
         show();
     }
-    if(!isEnabled()) {
-        setEnabled(true);
-    }
     // build the styled message
-    string mmsg = string("<nobr><font color=\"");
+    int style = 1;
     switch(eType) {
     case EVENT_ERROR_OCCURED:
         // color: red
-        mmsg += "#880000";
+        style = 2;
         break;
     case EVENT_WARNING_OCCURED:
         // color: yellow
-        mmsg += "#e69800";
+        style = 3;
         break;
     case EVENT_MESSAGE_OCCURED:
         // color: green
-        mmsg += "#008800";
+        style = 1;
         break;
     default:
         assert(false);
     }
     // continue message building
-    mmsg += string("\">") + msg
-        + string("</font></nobr>");
     // insert message to buffer
-    append(mmsg.c_str());
+    std::string mmsg = msg + "\n";
+    FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
     update();
 }
 
@@ -103,10 +136,8 @@ GUIMessageWindow::appendText(GUIEvent eType, const std::string &msg)
 void
 GUIMessageWindow::addSeparator()
 {
-    string toAdd = string("<nobr><font color=\"#000088\">")
-        + "----------------------------------------------------------------------------------------"
-        + string("</font></nobr>");
-    append(toAdd.c_str());
+    std::string msg = "----------------------------------------------------------------------------------------\n";
+    FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
     update();
 }
 

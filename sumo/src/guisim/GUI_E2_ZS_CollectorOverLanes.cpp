@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2004/02/10 07:07:13  dkrajzew
 // debugging of network loading after a network failed to be loaded; memory leaks removal
 //
@@ -62,7 +65,11 @@ namespace
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <qgl.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>		/* OpenGL header file */
+#endif // _WIN32
 
 
 /* =========================================================================
@@ -170,7 +177,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIApplicationWindow
                                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 12);
     // add items
     myMkExistingItem(*ret, "density [?]",
         E2::DENSITY);
@@ -237,7 +244,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 void
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale,
-                                                   GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                                   GUIBaseDetectorDrawer &drawer) const
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
         (*i)->drawGL_SG(scale, drawer);
@@ -247,7 +254,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale,
 
 void
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale,
-                                                   GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                                   GUIBaseDetectorDrawer &drawer) const
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
         (*i)->drawGL_FG(scale, drawer);

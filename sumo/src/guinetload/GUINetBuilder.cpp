@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/03/19 12:56:48  dkrajzew
+// porting to FOX
+//
 // Revision 1.15  2004/01/26 06:49:06  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
 //
@@ -130,7 +133,7 @@ GUINetBuilder::buildNet()
 
     // initialise loading buffer ...
     GUIContainer *container = new GUIContainer(
-        new GUIEdgeControlBuilder(myAgregatedViewsAllowed),
+        new GUIEdgeControlBuilder(),
         new GUIJunctionControlBuilder());
     // get the matching handler
     GUINetHandler handler("", *container, new GUIDetectorBuilder(),

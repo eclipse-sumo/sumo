@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/03/19 12:56:48  dkrajzew
+// porting to FOX
+//
 // Revision 1.7  2004/01/26 06:49:06  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
 //
@@ -41,7 +44,6 @@ namespace
 //
 // Revision 1.1  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
-//
 //
 /* =========================================================================
  * included modules

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.24  2003/12/12 12:36:00  dkrajzew
 // proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
 //
@@ -103,7 +106,7 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSLane.h>
@@ -217,6 +220,7 @@ GUILane::push( MSVehicle* veh )
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
         veh->onTripEnd(*this);
+        resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
         veh->removeApproachingInformationOnKill(this);
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
@@ -237,8 +241,9 @@ GUILane::push( MSVehicle* veh )
         return false;
     } else {
         veh->onTripEnd(*this);
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         resetApproacherDistance();
+        veh->removeApproachingInformationOnKill(this);
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         _lock.unlock();//Display();
         return true;
     }
@@ -279,9 +284,9 @@ GUILane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage, bool allowAggregation)
+GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 {
-    return new GUILaneWrapper(idStorage, *this, myShape, allowAggregation);
+    return new GUILaneWrapper(idStorage, *this, myShape);
 }
 
 

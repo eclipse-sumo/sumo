@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.18  2003/12/04 13:36:10  dkrajzew
 // work on setting of aggregated value bounderies
 //
@@ -89,20 +92,22 @@ namespace
 
 #include "GUILaneStateReporter.h"
 #include <string>
-#include <iostream> // !!!
+#include <iostream>
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 #include <utils/geom/Position2DVector.h>
 #include <microsim/MSNet.h>
+#include <gui/GUIGlobals.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
 #include <utils/convert/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUINet.h>
-#include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/GUIAppEnum.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 
 
 
@@ -131,8 +136,7 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
 
 
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape,
-                               bool allowAggregation)
+                               MSLane &lane, const Position2DVector &shape)
     : GUIGlObject(idStorage, string("lane:")+lane.id()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
@@ -152,7 +156,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
         myAllMaxSpeed = lane.maxSpeed();
     }
     // build the storage for lane wrappers when wished
-    if(allowAggregation) {
+    if(gAllowAggregated) {
         buildAggregatedValuesStorage();
     }
     //
@@ -169,6 +173,12 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 
 GUILaneWrapper::~GUILaneWrapper()
 {
+    if(myAggregatedValues!=0) {
+        for(size_t i=0; i<3; i++) {
+            delete myAggregatedValues[i];
+        }
+        delete myAggregatedValues;
+    }
 }
 
 
@@ -242,27 +252,25 @@ GUILaneWrapper::forLane(const MSLane &lane) const
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUILaneWrapper::getPopUpMenu(GUIApplicationWindow &app,
                              GUISUMOAbstractView &parent)
 {
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    int id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add view options
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->insertSeparator();
-    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
-    ret->setItemEnabled(id, TRUE);
-    // add views adding options
-    ret->insertSeparator();
-    id = ret->insertItem("Open ValueTracker");
-    ret->setItemEnabled(id, FALSE);
-    // add simulation options
-/*    ret->insertSeparator();
-    id = ret->insertItem("Close");
-    ret->setItemEnabled(id, FALSE);*/
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    if(gfIsSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -272,7 +280,7 @@ GUILaneWrapper::getParameterWindow(GUIApplicationWindow &app,
                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 2);
     // add items
     ret->mkItem("maxspeed [m/s]", false, myLane.maxSpeed());
     ret->mkItem("length [m]", false, myLane.length());
@@ -295,43 +303,6 @@ GUILaneWrapper::microsimID() const
     return myLane.id();
 }
 
-/*
-const char * const
-GUILaneWrapper::getTableItem(size_t pos) const
-{
-    return myTableItems[pos];
-}
-
-
-TableType
-GUILaneWrapper::getTableType(size_t pos) const
-{
-    return myTableItemTypes[pos];
-}
-
-
-double
-GUILaneWrapper::getTableParameter(size_t pos) const
-{
-    switch(pos) {
-    case 0:
-        return myLane.length();
-    case 1:
-        return myLane.maxSpeed();
-    default:
-        throw 1;
-    }
-}
-*/
-
-/*
-void
-GUILaneWrapper::fillTableParameter(double *parameter) const
-{
-    parameter[0] = myLane.length();
-    parameter[1] = myLane.maxSpeed();
-}
-*/
 
 const Position2DVector &
 GUILaneWrapper::getShape() const
@@ -368,26 +339,81 @@ GUILaneWrapper::buildAggregatedValuesStorage()
     if(myLane.length()<1) {
         return;
     }
+    // build the second floaters if allowed
+    if(gAllowAggregatedFloating) {
+        myAggregatedValues = new LoggedValue_TimeFloating<double>*[3];
+        for(size_t i=0; i<3; i++) {
+            myAggregatedValues[i] =
+                new LoggedValue_TimeFloating<double>(60);
+        }
+    }
+    // make them read from lane
+    myAggregatedFloats[0] = 0; // density
+    myAggregatedFloats[1] = myLane.maxSpeed(); // speed
+    myAggregatedFloats[2] = 0; // haltings
+    string id = string("*") + myLane.id();
+    if(gAllowAggregatedFloating) {
+        new GUILaneStateReporter(
+            myAggregatedValues[0], myAggregatedValues[1], myAggregatedValues[2],
+            myAggregatedFloats[0], myAggregatedFloats[1], myAggregatedFloats[2],
+            id, &myLane, 60);
+    } else {
+        new GUILaneStateReporter(
+            0, 0, 0,
+            myAggregatedFloats[0], myAggregatedFloats[1], myAggregatedFloats[2],
+            id, &myLane, 60);
+    }
     //
-    myAggregatedValues = new LoggedValue_TimeFloating<double>*[1];
-    for(size_t i=0; i<1; i++) {
-        myAggregatedValues[i] =
-            new LoggedValue_TimeFloating<double>(myAggregationSizes[i]);
-        string id = string("*") + myLane.id() + toString<size_t>(i);
-        new GUILaneStateReporter(myAggregatedValues[i],
-            id, &myLane, 60,
-            static_cast<GUINet*>(MSNet::getInstance())->getAggregatedValueBoundery());
+}
+
+
+double
+GUILaneWrapper::getAggregatedNormed(E2::DetType what,
+                                    size_t aggregationPosition) const
+{
+    if(myAggregatedValues==0) {
+        return -1;
+    }
+    switch(what) {
+    case E2::DENSITY:
+        return myAggregatedValues[0]->getAvg() / 200.0;
+    case E2::SPACE_MEAN_SPEED:
+        return myAggregatedValues[1]->getAvg() / myAllMaxSpeed;
+    case E2::HALTING_DURATION_MEAN:
+        {
+            double val = myAggregatedValues[2]->getAvg();
+            if(val>MSGlobals::myTimeToGridlock) {
+                return 1;
+            } else {
+                return val / (double) MSGlobals::myTimeToGridlock;
+            }
+        }
+    default:
+        throw 1;
     }
 }
 
 
 double
-GUILaneWrapper::getAggregatedDensity(size_t aggregationPosition) const
+GUILaneWrapper::getAggregatedFloat(E2::DetType what) const
 {
-    if(myAggregatedValues==0) {
-        return -1;
+    switch(what) {
+    case E2::DENSITY:
+        return myAggregatedFloats[0] / 200.0;
+    case E2::SPACE_MEAN_SPEED:
+        return myAggregatedFloats[1] / myAllMaxSpeed;
+    case E2::HALTING_DURATION_MEAN:
+        {
+            double val = myAggregatedFloats[2];
+            if(val>MSGlobals::myTimeToGridlock) {
+                return 1;
+            } else {
+                return val / (double) MSGlobals::myTimeToGridlock;
+            }
+        }
+    default:
+        throw 1;
     }
-    return myAggregatedValues[aggregationPosition]->getAbs();
 }
 
 
@@ -427,9 +453,6 @@ GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILaneWrapper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

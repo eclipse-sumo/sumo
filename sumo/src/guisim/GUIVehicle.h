@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.14  2004/01/26 15:53:21  dkrajzew
 // added some yet unset display variables
 //
@@ -79,7 +82,7 @@
  * class declarations
  * ======================================================================= */
 class GUISUMOAbstractView;
-class QGLObjectPopupMenu;
+class GUIGLObjectPopupMenu;
 
 
 /* =========================================================================
@@ -99,7 +102,7 @@ public:
     ~GUIVehicle();
 
     /// returns the popup-menu for vehicles
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     GUIParameterTableWindow *getParameterWindow(

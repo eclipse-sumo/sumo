@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/12/09 11:27:50  dkrajzew
 // removed some dead code
 //
@@ -41,7 +44,6 @@ namespace
 // first steps towards the usage of a real lane and junction geometry
 //  implemented
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -52,16 +54,15 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include <gui/GUIGlobals.h>
+#include <gui/GUIAppEnum.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUIJunctionWrapper.h"
-#include <gui/popup/QGLObjectPopupMenu.h>
-#include <qwidget.h>
-#include <qpopupmenu.h>
-#include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
 
 
 /* =========================================================================
@@ -87,28 +88,22 @@ GUIJunctionWrapper::~GUIJunctionWrapper()
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUIJunctionWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                  GUISUMOAbstractView &parent)
 {
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    int id;
-    // insert name
-    id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add view options
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->setItemEnabled(id, TRUE);
-    ret->insertSeparator();
-    // add views adding options
-    ret->insertSeparator();
-    id = ret->insertItem("Show Logic");
-    ret->setItemEnabled(id, FALSE);
-    // add simulation options
-    ret->insertSeparator();
-    id = ret->insertItem("Close");
-    ret->setItemEnabled(id, FALSE);
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    if(gfIsSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Select", 0, ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Select", 0, ret, MID_ADDSELECT);
+    }
     return ret;
 }
 

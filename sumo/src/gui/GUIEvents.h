@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/03/19 12:54:07  dkrajzew
+// porting to FOX
+//
 // Revision 1.4  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -39,38 +42,11 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qevent.h>
 
 
 /* =========================================================================
  * our own event enumeration
  * ======================================================================= */
-/**
- * As events are distinguished by their number, here is the enumeration
- * of our custom events
- */
-enum GUIEvent {
-    /// send when a simulation has been loaded
-    EVENT_SIMULATION_LOADED,
-
-    /// send when a simulation step has been performed
-    EVENT_SIMULATION_STEP,
-
-    /// send when a message occured
-    EVENT_MESSAGE_OCCURED,
-
-    /// send when a warning occured
-    EVENT_WARNING_OCCURED,
-
-    /// send when a error occured
-    EVENT_ERROR_OCCURED,
-
-    /** @brief Send when the simulation is over;
-        The reason and the time step are stored within the event */
-    EVENT_SIMULATION_ENDED
-
-};
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,8 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.23  2004/02/16 13:44:26  dkrajzew
-// dump output generating function renamed in order to add vehicle dump ability in the future
+// dump output generating function renamed in order to add vehicle dump
+//  ability in the future
 //
 // Revision 1.22  2004/02/10 07:05:58  dkrajzew
 // debugging of network loading after a network failed to be loaded
@@ -39,7 +43,8 @@ namespace
 // better error handling applied
 //
 // Revision 1.18  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+// added a logging windows to the gui (the passing of more than a single
+//  lane to come makes it necessary)
 //
 // Revision 1.17  2003/10/28 08:32:13  dkrajzew
 // random number specification option added
@@ -57,13 +62,15 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.12  2003/07/07 08:09:38  dkrajzew
-// Some further error checking was added and the usage of the SystemFrame was refined
+// Some further error checking was added and the usage of the SystemFrame
+//  was refined
 //
 // Revision 1.11  2003/06/24 08:09:28  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+// user information about simulation ending added; the gui may shutdown on
+//  end and be started with a simulation now;
 //
 // Revision 1.9  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
@@ -86,9 +93,6 @@ namespace
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -108,15 +112,17 @@ namespace
 #include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include <helpers/SingletonDictionary.h>
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
-#include "QSimulationLoadedEvent.h"
-#include "QMessageEvent.h"
-#include "QSimulationEndedEvent.h"
-#include <qthread.h>
+#include "GUIGlobals.h"
+#include "GUIEvent_SimulationLoaded.h"
+#include "GUIEvent_Message.h"
+#include "GUIEvent_SimulationEnded.h"
+#include "GUIAppEnum.h"
 
 #include <ctime>
 
@@ -125,13 +131,16 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+using namespace FXEX;
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUILoadThread::GUILoadThread(GUIApplicationWindow *mw)
-    : _parent(mw)
+GUILoadThread::GUILoadThread(GUIApplicationWindow *mw,
+                             MFXEventQue &eq, FXEX::FXThreadEvent &ev)
+    : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
+    myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
         &GUILoadThread::retrieveError);
@@ -150,15 +159,8 @@ GUILoadThread::~GUILoadThread()
 }
 
 
-void
-GUILoadThread::load(const string &file)
-{
-    _file = file;
-    start();
-}
-
-
-void GUILoadThread::run()
+FXint
+GUILoadThread::run()
 {
     GUINet *net = 0;
     std::ostream *craw = 0;
@@ -177,21 +179,21 @@ void GUILoadThread::run()
     if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
         // ok, the options could not be set
         submitEndAndCleanup(net, craw, simStartTime, simEndTime);
-        return;
+        return 0;
     }
     // retrieve the options
     OptionsCont &oc = OptionsSubSys::getOptions();
     if(!SUMOFrame::checkOptions(oc)) {
         // the options are not valid
         submitEndAndCleanup(net, craw, simStartTime, simEndTime);
-        return;
+        return 0;
     }
     // try to load
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-        GUINetBuilder builder(oc, _parent->aggregationAllowed());
+        GUINetBuilder builder(oc, gAllowAggregated);
         net =
             static_cast<GUINet*>(builder.buildNet());
         if(net!=0) {
@@ -223,43 +225,43 @@ void GUILoadThread::run()
         craw = 0;
     }
     submitEndAndCleanup(net, craw, simStartTime, simEndTime);
+    return 0;
 }
 
-/*
+
 void
-GUILoadThread::inform(const std::string &msg)
+GUILoadThread::load(const std::string &file)
 {
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_ERROR, msg));
+    _file = file;
+    start();
 }
-
-*/
 
 
 void
 GUILoadThread::retrieveMessage(const std::string &msg)
 {
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_MESSAGE, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
 void
 GUILoadThread::retrieveWarning(const std::string &msg)
 {
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_WARNING, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
 void
 GUILoadThread::retrieveError(const std::string &msg)
 {
-    QThread::postEvent( _parent,
-        new QMessageEvent(MsgHandler::MT_ERROR, msg));
+    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
-
-
 
 
 void
@@ -271,17 +273,14 @@ GUILoadThread::submitEndAndCleanup(GUINet *net, std::ostream *craw,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    QThread::postEvent( _parent,
-        new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
-        string(_file)) );
+    GUIEvent *e = new GUIEvent_SimulationLoaded( net, craw, simStartTime, simEndTime,
+        string(_file));
+    myEventQue.add(e);
+    myEventThrow.signal();
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILoadThread.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

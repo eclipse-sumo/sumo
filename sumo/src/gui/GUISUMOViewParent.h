@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -38,9 +41,6 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,11 +50,10 @@
 
 #include <string>
 #include <vector>
-#include <qmainwindow.h>
-#include <qworkspace.h>
+#include <fx.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Boundery.h>
-#include "GUIChooser.h"
+#include "dialogs/GUIDialog_GLObjChooser.h"
 #include "GUIGlObjectTypes.h"
 
 
@@ -62,9 +61,7 @@
  * class declarations
  * ======================================================================= */
 class GUINet;
-class QToolBar;
 class GUISUMOAbstractView;
-class QGUIToggleButton;
 class GUIApplicationWindow;
 
 
@@ -77,10 +74,10 @@ class GUIApplicationWindow;
  * allow to choose an artifact and some other view controlling options.
  * The rest of the window is a canvas that contains the display itself
  */
-class GUISUMOViewParent : public QMainWindow
+class GUISUMOViewParent : public FXMDIChild
 {
-    // is a q-object
-    Q_OBJECT
+    // FOX-declarations
+    FXDECLARE(GUISUMOViewParent)
 public:
     enum ViewType {
         MICROSCOPIC_VIEW,
@@ -88,25 +85,40 @@ public:
     };
 
     /// constructor
-    GUISUMOViewParent( QWidget *parent, const char* name, int wflags,
-        GUINet &net, GUIApplicationWindow &parentWindow, ViewType view);
+    /*
+    GUISUMOViewParent( FXApp *a, FXMDIClient* p, FXMDIMenu *mdimenu,
+        const FXString& name,
+        GUINet &net, GUIApplicationWindow *parentWindow, ViewType view,
+        FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
+        );
+*/
+    GUISUMOViewParent( FXMDIClient* p, FXGLCanvas *share,
+        FXMDIMenu *mdimenu, const FXString& name,
+        GUINet &net, GUIApplicationWindow *parentWindow, ViewType view,
+        FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
+        );
+    void init(ViewType view, FXGLCanvas *share, GUINet &net);
+
+
+    FXGLCanvas *getBuildGLCanvas() const;
 
     /// destructor
     ~GUISUMOViewParent();
 
-    /// not implemented: shall load a view definition
-    void load( const QString& fn );
+    void create();
 
-    /// not implemented: shall save a view definition
-    void save();
-
-    /// not implemented: "save as" a view definition
-    void saveAs();
-
-    /// not implemented: print a view
-    void print( QPrinter* );
-
-
+    long onCmdRecenterView(FXObject*,FXSelector,void*);
+    long onCmdShowLegend(FXObject*,FXSelector,void*);
+    long onCmdAllowRotation(FXObject*,FXSelector,void*);
+    long onCmdLocateJunction(FXObject*,FXSelector,void*);
+    long onCmdLocateEdge(FXObject*,FXSelector,void*);
+    long onCmdLocateVehicle(FXObject*,FXSelector,void*);
+    long onSimStep(FXObject*sender,FXSelector,void*);
+/*
+    long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
+    long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
+    long onMouseMove(FXObject*sender,FXSelector,void*ptr);
+*/
     /// centers the view onto the given artifact
     void setView(GUIGlObjectType type, const std::string &name);
 
@@ -128,57 +140,16 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
-public slots:
-    /// called when the user presses the "choose junction"-button
-    void chooseJunction();
-
-    /// called when the user presses the "choose edge"-button
-    void chooseEdge();
-
-    /// called when the user presses the "choose vehicle"-button
-    void chooseVehicle();
-
-    /** called when the user wants to recenter the view
-        (presses the "recenter view"-button) */
-    void recenterView();
-
-    /// called when the user toggles the "show legend"-button
-    void toggleShowLegend();
-
-    /// called when the user toggles the "allow rotation"-button
-    void toggleAllowRotation();
-
-    /// switches behaviour 1 on
-    void toggleBehaviour1();
-
-    /// switches behaviour 2 on
-    void toggleBehaviour2();
-
-    /// switches behaviour 3 on
-    void toggleBehaviour3();
-
-protected:
-    /// event handler (especially for own events)
-    bool event(QEvent *e);
-
-signals:
-    /// displays the given message into the status bar
-    void message(const QString&, int );
+    FXToolBar &getToolBar(GUISUMOAbstractView &v);
 
 private:
-    /** builds the toolbar containing the window settings
-	(display type - combo box, zomming factor) */
-    void buildSettingTools();
-
-    /** builds the toolbar containing the view settings
-	("recenter view"-button, "show legend"-button, "allow rotation"-button,
-	behaviour toggler) */
-    void buildViewTools();
+    /** builds the toolbar  */
+    void buildToolBar(FXComposite *c);
 
     /** build the artifact choosing toolbar */
     void buildTrackingTools();
 
-    /** build the GUIChooser which contains the given values */
+    /** build the GUIDialog_GLObjChooser which contains the given values */
     void showValues(GUIGlObjectType type,
         std::vector<std::string> &names);
 
@@ -186,21 +157,8 @@ private:
     /// the zooming factor
     double _zoomingFactor;
 
-    /// ??
-    QString filename;
-
     /// the view used
     GUISUMOAbstractView *_view;
-
-    /// toolbars (view, tracking)
-    QToolBar *_viewTools, *_trackingTools;
-
-    /// view-toolbar toggle buttons
-    QGUIToggleButton *_showLegendToggle, *_allowRotationToggle;
-
-    /// behaviour-toggling buttons
-    QGUIToggleButton *_behaviourToggle1, *_behaviourToggle2,
-        *_behaviourToggle3;
 
     /// information whether the legend shall be shown
     bool _showLegend;
@@ -209,18 +167,24 @@ private:
     bool _allowRotation;
 
     /// the artifact chooser
-    GUIChooser *_chooser;
+    GUIDialog_GLObjChooser *_chooser;
 
     /// The parent window
-    GUIApplicationWindow &myParent;
+    GUIApplicationWindow *myParent;
+
+    /// The tool bar
+    FXToolBar *myToolBar;
+
+   /// The thing that makes the toolbar float
+//    FXToolBarShell *myToolBarDrag;
+
+protected:
+    GUISUMOViewParent() { }
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUISUMOViewParent.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.1  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -42,7 +45,8 @@
 // some statistics added; some debugging done
 //
 // Revision 1.6  2003/04/16 09:50:05  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.4  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
@@ -50,9 +54,6 @@
 // Revision 1.3  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -61,35 +62,33 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qgl.h>
-#include <qevent.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/qutils/NewQMutex.h>
-#include <utils/glutils/lfontrenderer.h>
-//#include <guisim/GUIEdgeGrid.h>
+#include <utils/foxtools/FXMutex.h>
+#include <utils/foxtools/FXRealSpinDial.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
-#include "GUIChooser.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>
+#endif
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QGLObjectToolTip;
 class MSVehicle;
 class GUINet;
-class QPaintEvent;
-class QResizeEvent;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
-class QTimerEvent;
-class QPopupMenu;
+class GUIBaseROWDrawer;
+class GUIBaseDetectorDrawer;
 
 
 /* =========================================================================
@@ -101,14 +100,16 @@ class QPopupMenu;
  */
 class GUIViewAggregatedLanes
     : public GUISUMOAbstractView {
-
-    /// is a q-object
-    Q_OBJECT
-
+    FXDECLARE(GUIViewAggregatedLanes)
 public:
     /// constructor
-    GUIViewAggregatedLanes(GUIApplicationWindow &app,
-        GUISUMOViewParent &parent, GUINet &net);
+    GUIViewAggregatedLanes(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
+
+    /// constructor
+    GUIViewAggregatedLanes(FXComposite *p, GUIApplicationWindow &app,
+        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
+        FXGLCanvas *share);
 
     /// destructor
     virtual ~GUIViewAggregatedLanes();
@@ -116,10 +117,12 @@ public:
     /// builds the view toolbars
     void buildViewToolBars(GUISUMOViewParent &);
 
-public slots:
-    /** changes the lane colouring scheme to the on stored under the given
-        index */
-    void changeLaneColoringScheme(int index);
+    long onCmdColourLanes(FXObject*,FXSelector,void*);
+    long onCmdAggChoose(FXObject*,FXSelector,void*);
+    long onCmdShowFullGeom(FXObject*,FXSelector,void*);
+    long onCmdAggMemory(FXObject*,FXSelector,void*);
+
+
 
 protected:
     void doPaintGL(int mode, double scale);
@@ -129,35 +132,56 @@ protected:
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
+private:
+    void init(GUINet &net);
+
+
 protected:
-    /// the lane drawer to use
-    GUILaneDrawer *_laneDrawer;
+    /** @brief Instances of the lane drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
+    GUIBaseLaneDrawer *myLaneDrawer[8];
 
-    /// The junction drwaer to use
-    GUIJunctionDrawer *_junctionDrawer;
+    /** @brief Instances of the junction drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
+    GUIBaseJunctionDrawer *myJunctionDrawer[8];
 
-    GUIDetectorDrawer *_detectorDrawer;
+    /** @brief Instances of the detectors drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
+    GUIBaseDetectorDrawer *myDetectorDrawer[8];
 
-    GUIROWRulesDrawer *_rowDrawer;
+    /** @brief Instances of the right of way drawers
+        A drawer is chosen in dependence to whether the full or the simple
+        geometry shall be used and whether to show tooltips or not */
+    GUIBaseROWDrawer *myROWDrawer[8];
+
 
     /// the coloring scheme of lanes to use
     LaneColoringScheme _laneColScheme;
 
     JunctionColoringScheme _junctionColScheme;
 
-    bool myFontsLoaded;
-
-    LFontRenderer myFontRenderer;
-
     size_t *_edges2Show, *_junctions2Show, *_detectors2Show;
     size_t _edges2ShowSize, _junctions2ShowSize, _detectors2ShowSize;
+
+    FXComboBox *myLaneColoring;
+    FXComboBox *myAggregationLength;
+    FXRealSpinDial *myRememberingFactor;
+
+    /// Information whether the full or the simle geometry shall be used
+    bool myUseFullGeom;
+
+
+
+protected:
+    GUIViewAggregatedLanes() { }
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIViewAggregatedLanes.icc"
-//#endif
+
 
 #endif
 

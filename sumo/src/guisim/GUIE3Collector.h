@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2004/02/10 07:07:13  dkrajzew
 // debugging of network loading after a network failed to be loaded; memory leaks removal
 //
@@ -104,11 +107,11 @@ public:
 
         /// Draws the detector in full-geometry mode
         void drawGL_FG(double scale,
-            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
+            GUIBaseDetectorDrawer &drawer) const;
 
         /// Draws the detector in simple-geometry mode
         void drawGL_SG(double scale,
-            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
+            GUIBaseDetectorDrawer &drawer) const;
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -152,7 +155,7 @@ public:
 
         /// Draws a single entry/exit point
         void drawSingleCrossing(const Position2D &pos, double rot,
-            GUISUMOAbstractView::GUIDetectorDrawer &drawer) const;
+            GUIBaseDetectorDrawer &drawer) const;
 
     private:
         /// The wrapped detector

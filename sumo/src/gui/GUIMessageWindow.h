@@ -20,18 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.1  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <qtextview.h>
-#include <qdialog.h>
-#include <qmainwindow.h>
 #include <string>
-#include "GUIEvents.h"
+#include <fx.h>
+#include "GUIEvent.h"
 
 
  /* =========================================================================
@@ -46,12 +46,10 @@
  *
  * Each time a new message is passed, the window is reopened.
  */
-class GUIMessageWindow : public QTextView {
-    /// is a q-object
-    Q_OBJECT
+class GUIMessageWindow : public FXText {
 public:
     /// Constructor
-    GUIMessageWindow(QWidget *parent);
+    GUIMessageWindow(FXComposite *parent);
 
     /// Destructor
     ~GUIMessageWindow();
@@ -61,8 +59,10 @@ public:
 
     /** @brief Adds new text to the window
         The type of the text is determined by the first parameter */
-    void appendText(GUIEvent eType, const std::string &msg);
+    void appendText(GUIEventType eType, const std::string &msg);
 
+private:
+    FXHiliteStyle* myStyles;
 };
 
 

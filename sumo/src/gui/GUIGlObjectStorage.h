@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/18 14:28:14  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -31,7 +34,7 @@
  * included modules
  * ======================================================================= */
 #include <map>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -106,7 +109,7 @@ private:
     size_t myAktID;
 
     /// A lock to avoid parallel access on the storages
-    NewQMutex _lock;
+    FXEX::FXMutex _lock;
 
 private:
     /// Invalidated copy constructor

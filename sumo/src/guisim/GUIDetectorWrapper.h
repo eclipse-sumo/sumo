@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.10  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -39,11 +42,10 @@
 #include <gui/GUISUMOAbstractView.h>
 
 
-
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QGLObjectPopupMenu;
+class GUIBaseDetectorDrawer;
 
 
 /* =========================================================================
@@ -77,7 +79,7 @@ public:
     ~GUIDetectorWrapper();
 
     /** @brief Returns the popup-menu of this detector */
-    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
 
     /// Returns the type of the object (always GLO_DETECTOR)
@@ -85,11 +87,11 @@ public:
 
     /// Draws the detector in full-geometry mode
     virtual void drawGL_FG(double scale,
-        GUISUMOAbstractView::GUIDetectorDrawer &drawer) const = 0;
+        GUIBaseDetectorDrawer &drawer) const = 0;
 
     /// Draws the detector in simple-geometry mode
     virtual void drawGL_SG(double scale,
-        GUISUMOAbstractView::GUIDetectorDrawer &drawer) const = 0;
+        GUIBaseDetectorDrawer &drawer) const = 0;
 
     /// Returns the detector's coordinates
     virtual Position2D getPosition() const = 0;
@@ -98,9 +100,6 @@ public:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIDetectorWrapper.icc"
-//#endif
 
 #endif
 

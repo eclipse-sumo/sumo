@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/03/19 12:54:07  dkrajzew
+// porting to FOX
+//
 // Revision 1.12  2003/11/11 08:40:03  dkrajzew
 // consequent position2D instead of two doubles implemented
 //
@@ -43,12 +46,9 @@
 // Revision 1.5  2003/04/04 08:37:49  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <qevent.h>
-#include <qnamespace.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
 #include "GUIViewTraffic.h"
@@ -65,38 +65,17 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack)
+GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
+            GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
-    myViewCenter(0, 0), _rotation(0), _zoom(100), _mouseButtonState(Qt::NoButton)
+    myViewCenter(0, 0), _rotation(0), _zoom(100),
+    _mouseButtonState(MOUSEBTN_NONE)
 {
 }
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger()
 {
-}
-
-
-void
-GUIDanielPerspectiveChanger::mouseMoveEvent ( QMouseEvent *e )
-{
-    _callback.setTooltipPosition(e->x(), e->y(), e->globalX(), e->globalY());
-    int xdiff = _mouseXPosition - e->x();
-    int ydiff = _mouseYPosition - e->y();
-    switch(_mouseButtonState) {
-    case Qt::LeftButton:
-        move(xdiff, ydiff);
-        break;
-    case Qt::RightButton:
-        zoom(ydiff);
-        rotate(xdiff);
-        break;
-    default:
-        _callback.updateToolTip();
-        break;
-    }
-    _mouseXPosition = e->x();
-    _mouseYPosition = e->y();
 }
 
 
@@ -130,21 +109,6 @@ GUIDanielPerspectiveChanger::rotate(int diff)
         _changed = true;
         _callback.update();
     }
-}
-
-void
-GUIDanielPerspectiveChanger::mousePressEvent ( QMouseEvent *e )
-{
-    _mouseButtonState = e->button();
-    _mouseXPosition = e->x();
-    _mouseYPosition = e->y();
-}
-
-
-void
-GUIDanielPerspectiveChanger::mouseReleaseEvent ( QMouseEvent * )
-{
-    _mouseButtonState = Qt::NoButton;
 }
 
 
@@ -232,10 +196,82 @@ GUIDanielPerspectiveChanger::getMouseYPosition() const
 }
 
 
+long
+GUIDanielPerspectiveChanger::onLeftBtnPress(FXObject*,FXSelector,void*data)
+{
+    FXEvent* e = (FXEvent*) data;
+    _mouseButtonState =
+        (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_LEFT);
+    _mouseXPosition = e->win_x;
+    _mouseYPosition = e->win_y;
+    return 1;
+}
+
+
+long
+GUIDanielPerspectiveChanger::onLeftBtnRelease(FXObject*,FXSelector,void*data)
+{
+    FXEvent* e = (FXEvent*) data;
+    _mouseButtonState =
+        (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_LEFT));
+    _mouseXPosition = e->win_x;
+    _mouseYPosition = e->win_y;
+    return 1;
+}
+
+
+long
+GUIDanielPerspectiveChanger::onRightBtnPress(FXObject*,FXSelector,void*data)
+{
+    FXEvent* e = (FXEvent*) data;
+    _mouseButtonState =
+        (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_RIGHT);
+    _mouseXPosition = e->win_x;
+    _mouseYPosition = e->win_y;
+    return 1;
+}
+
+
+long
+GUIDanielPerspectiveChanger::onRightBtnRelease(FXObject*,FXSelector,void*data)
+{
+    _mouseButtonState =
+        (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_RIGHT));
+    if(data!=0) {
+        FXEvent* e = (FXEvent*) data;
+        _mouseXPosition = e->win_x;
+        _mouseYPosition = e->win_y;
+    }
+    return 1;
+}
+
+
+long
+GUIDanielPerspectiveChanger::onMouseMove(FXObject*,FXSelector,void*data)
+{
+    FXEvent* e = (FXEvent*) data;
+    _callback.setTooltipPosition(e->win_x, e->win_y, e->root_x, e->root_y);
+    int xdiff = _mouseXPosition - e->win_x;
+    int ydiff = _mouseYPosition - e->win_y;
+    switch(_mouseButtonState) {
+    case MOUSEBTN_LEFT:
+        move(xdiff, ydiff);
+        break;
+    case MOUSEBTN_RIGHT:
+        zoom(ydiff);
+        rotate(xdiff);
+        break;
+    default:
+        _callback.updateToolTip();
+        break;
+    }
+    _mouseXPosition = e->win_x;
+    _mouseYPosition = e->win_y;
+    return 1;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIDanielPerspectiveChanger.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

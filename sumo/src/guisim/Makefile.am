@@ -14,7 +14,6 @@ GUIInternalLane.cpp \
 GUIJunctionWrapper.cpp \
 GUILaneChanger.cpp \
 GUILane.cpp \
-GUILaneStateBounderiesStorage.cpp \
 GUILaneStateReporter.cpp \
 GUILaneWrapper.cpp \
 GUINet.cpp \
@@ -39,7 +38,6 @@ GUIInternalLane.h \
 GUIJunctionWrapper.h \
 GUILaneChanger.h \
 GUILane.h \
-GUILaneStateBounderiesStorage.h \
 GUILaneStateReporter.h \
 GUILaneWrapper.h \
 GUINet.h \
@@ -51,8 +49,7 @@ GUITrafficLightLogicWrapper.h \
 GUIVehicleControl.h \
 GUIVehicle.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
 
 SUBDIRS = guilogging
 
-METASOURCES = AUTO

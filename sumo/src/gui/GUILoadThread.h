@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/03/19 12:54:08  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
 //
@@ -32,9 +35,6 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,7 +43,11 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qthread.h>
+#include <vector>
+#include <fx.h>
+#include <FXThread.h>
+#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/FXThreadEvent.h>
 
 
  /* =========================================================================
@@ -51,17 +55,21 @@
  * ======================================================================= */
 class GUIApplicationWindow;
 class MsgRetriever;
+class MFXEventQue;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUILoadThread :
-    public QThread
+class GUILoadThread : public FXSingleEventThread
 {
+    // FOX-declarations
+//    FXDECLARE(GUILoadThread)
 public:
+
     /// constructor
-    GUILoadThread(GUIApplicationWindow *mw);
+    GUILoadThread(GUIApplicationWindow *mw, MFXEventQue &eq,
+        FXEX::FXThreadEvent &ev);
 
     /// destructor
     ~GUILoadThread();
@@ -71,7 +79,7 @@ public:
 
     /** starts the thread
     	the thread ends after the net has been loaded */
-    void run();
+    FXint run();
 
     /// Retrieves messages from the loading module
     void retrieveMessage(const std::string &msg);
@@ -90,10 +98,9 @@ private:
     void submitEndAndCleanup(GUINet *net, std::ostream *craw,
         int simStartTime, int simEndTime);
 
-
 private:
     /// the parent window to inform about the loading
-    GUIApplicationWindow *_parent;
+    GUIApplicationWindow *myParent;
 
     /// the path to load the simulation from
     std::string _file;
@@ -101,13 +108,15 @@ private:
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
     MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
+
+    MFXEventQue &myEventQue;
+
+    FXEX::FXThreadEvent &myEventThrow;
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUILoadThread.icc"
-//#endif
 
 #endif
 

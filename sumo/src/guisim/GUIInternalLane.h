@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/11/20 14:40:26  dkrajzew
 // push() debugged; dead code removed
 //
@@ -41,7 +44,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/qutils/NewQMutex.h>
+#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -99,8 +102,7 @@ public:
     /// returns the vehicles closing their processing for other threads
     const VehCont &getVehiclesSecure();
 
-    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage,
-        bool allowAggregation);
+    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
     friend class GUILaneChanger;
 
@@ -116,7 +118,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    NewQMutex _lock;
+    FXEX::FXMutex _lock;
 
     /// The shape of the lane
     Position2DVector myShape;

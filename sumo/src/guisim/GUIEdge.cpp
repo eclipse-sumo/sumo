@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.14  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -107,8 +110,7 @@ GUIEdge::~GUIEdge()
 
 void
 GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
-                       GUIGlObjectStorage &idStorage,
-                       bool allowAggregation)
+                       GUIGlObjectStorage &idStorage)
 {
     if(_from!=0&&_to!=0) {
         assert(from==_from&&to==_to);
@@ -121,7 +123,7 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     // build the lane wrapper
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
-        tmp.push_back((*i)->buildLaneWrapper(idStorage, allowAggregation));
+        tmp.push_back((*i)->buildLaneWrapper(idStorage));
     }
     _laneGeoms.reserve(tmp.size());
     copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));

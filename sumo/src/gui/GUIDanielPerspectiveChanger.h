@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/03/19 12:54:07  dkrajzew
+// porting to FOX
+//
 // Revision 1.7  2003/11/11 08:40:03  dkrajzew
 // consequent position2D instead of two doubles implemented
 //
@@ -46,8 +49,6 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qnamespace.h>
-#include <qevent.h>
 #include <utils/geom/Position2D.h>
 #include "GUIPerspectiveChanger.h"
 
@@ -80,14 +81,11 @@ public:
     /// Destructor
     ~GUIDanielPerspectiveChanger();
 
-    /// Handler for mouse movements
-    void mouseMoveEvent ( QMouseEvent *e );
-
-    /// Handler for pressing a mouse button
-    void mousePressEvent ( QMouseEvent *e );
-
-    /// Handler for releasing a mouse button
-    void mouseReleaseEvent ( QMouseEvent *e );
+    long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
+    long onLeftBtnRelease(FXObject *o,FXSelector sel,void *data);
+    long onRightBtnPress(FXObject *o,FXSelector sel,void *data);
+    long onRightBtnRelease(FXObject *o,FXSelector sel,void *data);
+    long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual double getRotation() const;
@@ -148,15 +146,12 @@ private:
     double _zoom;
 
     /// the current mouse state
-    Qt::ButtonState _mouseButtonState;
+    MouseState _mouseButtonState;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIDanielPerspectiveChanger.icc"
-//#endif
 
 #endif
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.7  2004/01/26 06:59:38  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -35,8 +38,6 @@ namespace
 //
 // Revision 1.4  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -54,7 +55,12 @@ namespace
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/partable/GUIParameterTableWindow.h>
-#include <qgl.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -174,7 +180,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIApplicationWindow &app,
                                                    GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this);
+        new GUIParameterTableWindow(app, *this, 14);
     // add items
     myMkExistingItem(*ret, "density [?]",
         E2::DENSITY);
@@ -240,7 +246,7 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
-                                          GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                          GUIBaseDetectorDrawer &drawer) const
 {
     float myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -249,7 +255,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
     } else {
         glColor3f(0, .8, .8);
     }
-	double width=2; // !!!!
+	double width=2; // !!!
     if(width>1.0) {
         glPushMatrix();
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
@@ -280,7 +286,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale,
 
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale,
-                                          GUISUMOAbstractView::GUIDetectorDrawer &drawer) const
+                                          GUIBaseDetectorDrawer &drawer) const
 {
     float myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -289,7 +295,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale,
     } else {
         glColor3f(0, .8, .8);
     }
-	double width=2; // !!!!
+	double width=2; // !!!
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
 			GLHelper::drawBoxLine(myFullGeometry.at(i),

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/03/19 12:57:54  dkrajzew
+// porting to FOX
+//
 // Revision 1.10  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -92,7 +95,7 @@ public:
 
     /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
     void initJunctions(MSJunction *from, MSJunction *to,
-        GUIGlObjectStorage &idStorage, bool allowAggregation);
+        GUIGlObjectStorage &idStorage);
 
     /// returns the names of all edges
     static std::vector<std::string> getNames();

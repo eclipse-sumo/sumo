@@ -1,31 +1,31 @@
 noinst_LIBRARIES = libgui.a
 
-
-
-libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
-GUIChooser.cpp GUIChooser.h \
+libgui_a_SOURCES = GUIAppEnum.h \
+GUIApplicationWindow.cpp GUIApplicationWindow.h \
 GUIDanielPerspectiveChanger.cpp GUIDanielPerspectiveChanger.h \
+GUIEvent.h GUIEvent_Message.h \
+GUIEvent_SimulationEnded.cpp GUIEvent_SimulationEnded.h \
+GUIEvent_SimulationLoaded.h GUIEvent_SimulationStep.h \
+GUIEvents.h \
+GUIGlobals.cpp GUIGlobals.h \
 GUIEvents.h GUIGlObject.cpp GUIGlObject.h \
 GUIGlObjectStorage.cpp GUIGlObjectStorage.h \
+GUIGLObjectToolTip.cpp GUIGLObjectToolTip.h \
 GUIGlObjectTypes.h GUILoadThread.cpp GUILoadThread.h \
+GUIMessageWindow.cpp GUIMessageWindow.h \
 GUIPerspectiveChanger.cpp GUIPerspectiveChanger.h \
 GUIRunThread.cpp GUIRunThread.h \
 GUISUMOAbstractView.cpp GUISUMOAbstractView.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
-GUIViewTraffic.cpp GUIViewTraffic.h \
-QGLObjectToolTip.cpp QGLObjectToolTip.h QMessageEvent.h \
-QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
-QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
-QSimulationEndedEvent.h QSimulationEndedEvent.cpp \
 GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h \
-GUIMessageWindow.cpp GUIMessageWindow.h
+GUIViewTraffic.cpp GUIViewTraffic.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES) \
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
-SUBDIRS = drawerimpl icons partable popup qdialogs tlstracker vartracker
+SUBDIRS = dialogs drawerimpl icons partable popup textures \
+tlstracker vartracker
 
-METASOURCES = AUTO
 
 
 

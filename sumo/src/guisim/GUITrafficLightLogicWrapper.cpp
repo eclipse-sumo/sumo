@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:57:55  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/11/26 09:48:58  dkrajzew
 // time display added to the tl-logic visualisation
 //
@@ -34,8 +37,9 @@ namespace
 #include <gui/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/MSTrafficLightLogic.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
-#include <gui/popup/QGLObjectPopupMenuItem.h>
+#include <gui/popup/GUIGLObjectPopupMenu.h>
+#include <gui/GUIGlobals.h>
+#include <gui/GUIAppEnum.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
@@ -63,23 +67,26 @@ GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper()
 }
 
 
-QGLObjectPopupMenu *
+GUIGLObjectPopupMenu *
 GUITrafficLightLogicWrapper::getPopUpMenu(GUIApplicationWindow &app,
                                           GUISUMOAbstractView &parent)
 {
     myApp = &app;
-    QGLObjectPopupMenu *ret = new QGLObjectPopupMenu(app, parent, *this);
-    int id;
-    // insert name
-    id = ret->insertItem(
-        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
-    ret->insertSeparator();
-    // add showing option
-    id = ret->insertItem("Show Phases", ret, SLOT(showPhases()));
-    // add view option
-    id = ret->insertItem("Center", ret, SLOT(center()));
-    ret->setItemEnabled(id, TRUE);
-    ret->insertSeparator();
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    if(gfIsSelected(GLO_LANE, getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected", 0, ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Selected", 0, ret, MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     return ret;
 }
 
@@ -87,11 +94,12 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIApplicationWindow &app,
 void
 GUITrafficLightLogicWrapper::showPhases()
 {
-    new GLObjectValuePassConnector<CompletePhaseDef>
-        (*this,
-        new FunctionBinding<GUITrafficLightLogicWrapper, CompletePhaseDef>
-                (this, &GUITrafficLightLogicWrapper::getPhaseDef),
-        new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic));
+    GUITLLogicPhasesTrackerWindow *window =
+        new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
+            new FunctionBinding<GUITrafficLightLogicWrapper, CompletePhaseDef>
+                (this, &GUITrafficLightLogicWrapper::getPhaseDef));
+    window->create();
+    window->show();
 }
 
 
