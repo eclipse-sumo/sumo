@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2004/07/02 08:57:29  dkrajzew
+// using global object selection; detector handling (handling of additional elements) revisited
+//
 // Revision 1.24  2004/04/02 11:17:07  dkrajzew
 // simulation-wide output files are now handled by MSNet directly
 //
@@ -101,7 +104,6 @@
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
-#include <gui/GUIGlObjectStorage.h>
 #include "GUIGrid.h"
 
 
@@ -119,6 +121,7 @@ class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
 class GUIEmitterWrapper;
+class GUITriggerWrapper;
 class GUINetWrapper;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
@@ -167,10 +170,16 @@ public:
         bool useCenter=true) const;
 
     /// returns the position of a detector
-    Position2D getDetectorPosition(const std::string &name) const;
+//    Position2D getAdditionalStructPosition(const std::string &name) const;
 
-    /// returns the position of a emitter
-    Position2D getEmitterPosition(const std::string &name) const;
+    /// returns the position of a detector
+//    Position2D getDetectorPosition(const std::string &name) const;
+
+    /// returns the position of an emitter
+//    Position2D getEmitterPosition(const std::string &name) const;
+
+    /// returns the position of a trigger
+//    Position2D getTriggerPosition(const std::string &name) const;
 
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;
@@ -184,8 +193,6 @@ public:
     size_t getDetectorWrapperNo() const;
 
     GUINetWrapper *getWrapper() const;
-
-    GUIGlObjectStorage &getIDStorage();
 
     unsigned int getLinkTLID(MSLink *link) const;
 
@@ -214,10 +221,6 @@ protected:
     /// the networks boundery
     Boundery _boundery;
 
-    /** @brief A container for numerical ids of objects
-        in order to make them grippable by openGL */
-    GUIGlObjectStorage _idStorage;
-
     /// The wrapper for the network
     GUINetWrapper *myWrapper;
 
@@ -228,10 +231,7 @@ protected:
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
 
     /// Wrapped MS-detectors
-    std::vector<GUIDetectorWrapper*> myDetectorWrapper;
-
-    /// Wraped MS-emitters
-    std::vector<GUIEmitterWrapper*> myEmitter;
+//    std::vector<GUIAbstractAddGlObject*> myAdditionalWrapper;
 
     /// Wrapped TL-Logics
     std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
