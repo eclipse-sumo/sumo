@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2002/04/17 14:50:36  croessel
+// Modified assert in constructor. Added assert in constructor.
+//
 // Revision 1.6  2002/04/11 16:14:42  croessel
 // Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
 // declaration of OutputStyle.
@@ -77,9 +80,9 @@ MSInductLoop::~MSInductLoop()
 
 MSInductLoop::MSInductLoop( string         id,
                             MSLane*        lane,
-                            double          position,
+                            double         position,
                             MSNet::Time    sampleIntervall,
-                            MSDetector::OutputStyle    style,
+                            MSDetector::OutputStyle style,
                             ofstream*      file ) :
     MSDetector( id, style, file ),
     myLane           ( lane ),
@@ -96,7 +99,8 @@ MSInductLoop::MSInductLoop( string         id,
     myVehLengthSum   ( 0 ),
     myNIntervalls    ( 0 )
 {
-    assert( myPos > myLane->length() );
+    assert( myPos < myLane->length() );
+    assert( myPos > 0 );
 
     // Write header.
     switch ( myStyle ) {
