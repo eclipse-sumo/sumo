@@ -66,10 +66,12 @@ RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin)
     _alternatives[_lastUsed]->recomputeCosts(begin);
     // build a new route to test whether it is better 
     //  !!! after some iterations, no further routes should be build
-    RORoute *opt = new RORoute(_id, 0, 1, router.compute(getFrom(), getTo()));
+    RORoute *opt = 
+        new RORoute(_id, 0, 1, router.compute(getFrom(), getTo(), begin));
+    opt->setCosts(opt->recomputeCosts(begin));
     // check whether the same route was already used
     _lastUsed = findRoute(opt);
-    _newRoute = false;
+    _newRoute = true;
     // delete the route when it already existed
     if(_lastUsed>=0) {
         // this is not completely correct as the value does not
@@ -77,7 +79,7 @@ RORouteAlternativesDef::buildCurrentRoute(RORouter &router, long begin)
         //  using the network !!!
         _alternatives[_lastUsed]->setCosts(opt->getCosts());
         delete opt;
-        _newRoute = true;
+        _newRoute = false;
         return _alternatives[_lastUsed];
     }
     // return the build route
@@ -120,7 +122,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
     // compute the propabilities
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
-        for(AlternativesVector::iterator j=j; j!=_alternatives.end(); j++) {
+        for(AlternativesVector::iterator j=i; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
             double delta = 
@@ -134,11 +136,11 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         }
     }
     // find the route to use
-    double chosen = ( (double)rand() / (double)(RAND_MAX+1) ); 
+    double chosen = ( (double)rand() / (double)(RAND_MAX+1) * _alternatives.size()); 
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getPropability();
-        if(rand<=0) {
+        if(chosen<=0) {
             _lastUsed = pos;
             return;
         }
