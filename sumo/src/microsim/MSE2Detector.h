@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Tue Sep  9 22:59:27 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -49,8 +49,8 @@ public:
 //     typedef typename ConcreteDetector::VehicleCont VehicleCont;
     typedef typename ConcreteDetector::Container DetectorContainer;
 //     typedef typename VehicleCont::iterator VehicleContIter;
-    
-    
+
+
     const std::string& getId( void ) const
         {
             return idM;
@@ -59,7 +59,7 @@ public:
     // call every timestep. Stores detector-data in a container
     void update( void )
         {
-            aggregatesM.push_back( getDetectorAggregate( vehOnDetectorM ) );
+            aggregatesM.push_back( getDetectorAggregate( /*vehOnDetectorM */) );
         }
 
     // returns the last aggregated data value
@@ -67,7 +67,7 @@ public:
         {
             return aggregatesM.back();
         }
-  
+
     virtual DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
 protected:
@@ -95,7 +95,7 @@ protected:
         {
             startOldDataRemoval();
         }
-    
+
     void startOldDataRemoval( void )
         {
             // start old-data removal through MSEventControl
@@ -115,9 +115,9 @@ protected:
 
     typedef typename std::deque< DetAggregate > AggregatesCont;
     typedef typename AggregatesCont::iterator AggregatesContIter;
-    
+
     AggregatesCont aggregatesM; // stores one value each timestep
-    
+
     AggregatesContIter getAggrContStartIterator( MSUnit::Steps lastNTimesteps )
         {
             AggregatesContIter start = aggregatesM.begin();
@@ -136,7 +136,7 @@ private:
 //     VehicleCont vehOnDetectorM; // vehicles or vehicle-collector-pairs of
 //     // the vehicles that are currently on the
 //     // detector.
-    
+
 //     VehicleContIter getVehContInsertIterator( MSVehicle& veh )
 //         {
 //             return std::find_if( vehOnDetectorM.begin(),
@@ -155,25 +155,25 @@ private:
 //                                      //                                     Predicate::VehEquals< ContainerItem >(),
 //                                      Pred(),
 //                                      &veh ) );
-//         }   
-    
+//         }
+
 //     void enterDetectorByMove( MSVehicle& veh )
 //         {
 //             vehOnDetectorM.push_front( getNewContainerItem( veh ) );
-//         }    
+//         }
 
 //     void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
 //         {
 //             vehOnDetectorM.insert( getVehContInsertIterator( veh ),
 //                                    getNewContainerItem( veh ) );
 //         }
-    
+
 //     void leaveDetectorByMove( MSVehicle& veh )
 //         {
 //             vehOnDetectorM.pop_back();
 //         }
-    
-    
+
+
 //     void leaveDetectorByLaneChange( MSVehicle& veh )
 //         {
 //             vehOnDetectorM.erase( getVehContEraseIterator( veh ) );
@@ -188,7 +188,7 @@ private:
             }
             return deleteDataAfterStepsM;
         }
-    
+
 };
 
 #endif // MSE2DETECTOR_H
