@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/22 15:40:40  dkrajzew
+// false exception catch used during debugging removed
+//
 // Revision 1.15  2003/07/22 15:16:49  dkrajzew
 // new detector usage applied
 //
@@ -281,7 +284,7 @@ main(int argc, char **argv)
             + toString<int>(net->getCurrentTimeStep()));
         delete net;
         delete craw;
-    } catch (int) {
+    } catch (ProcessError) {
         MSNet::clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting.");
         ret = 1;
