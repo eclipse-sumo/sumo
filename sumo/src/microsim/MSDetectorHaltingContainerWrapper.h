@@ -150,7 +150,7 @@ namespace Predicate
     {
         bool operator() ( const DetectorContainer::Halting& item,
                           double pos ) const {
-            return item.vehM->pos() > pos;
+            return item.posM > pos;
         }
     };
 
