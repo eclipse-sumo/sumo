@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/08/14 13:41:33  dkrajzew
+// a lower priorised update-method is now used
+//
 // Revision 1.19  2003/07/30 12:50:22  dkrajzew
 // subwindows do not close at main window closing-bug patched
 //
@@ -498,7 +501,7 @@ GUIApplicationWindow::singleStep()
 }
 
 
-void 
+void
 GUIApplicationWindow::closeAllWindows()
 {
     // remove trackers and other external windows
@@ -597,10 +600,12 @@ GUIApplicationWindow::event(QEvent *e)
             ostringstream str;
             str << _runThread->getCurrentTimeStep();
             _simStepLabel->setText(QString(str.str().c_str()));
+            update();
         }
         return TRUE;
     case EVENT_SIMULATION_LOADED:
         netLoaded(static_cast<QSimulationLoadedEvent*>(e));
+        repaint();
         return TRUE;
     case EVENT_ERROR_OCCURED:
         {

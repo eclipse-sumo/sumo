@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/08/14 13:40:10  dkrajzew
+// a lower priorised update-method is now used
+//
 // Revision 1.8  2003/07/30 12:51:42  dkrajzew
 // bugs on resize and font loading partially patched
 //
@@ -146,7 +149,7 @@ GUIParameterTracker::event ( QEvent *e )
         TrackerValueDesc *desc = *i;
         desc->simStep();
     }
-    repaint();
+    update();
     return TRUE;
 }
 
