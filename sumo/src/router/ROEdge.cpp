@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/14 13:54:20  roessel
+// Removed "EdgeType::" in method ROEdge::getNoFollowing().
+//
 // Revision 1.4  2003/04/09 15:39:10  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -133,7 +136,7 @@ ROEdge::getMyEffort(long time) const {
 size_t
 ROEdge::getNoFollowing()
 {
-    if(getType()==EdgeType::ET_SINK) {
+    if(getType()==ET_SINK) {
         return 0;
     }
     return _succeeding.size();
