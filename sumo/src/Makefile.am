@@ -55,5 +55,5 @@ router \
 sumo_only \
 utils \
 
-
+EXTRA_DIST = version.cpp
 
