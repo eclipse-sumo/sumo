@@ -64,6 +64,11 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete LaneStateDict::getInstance();
     }
 //    deleteDictionaryContents( lsVec.begin(), lsVec.end() );
+
+//     if(MSDetector2File<MSInductLoop>::created()) {
+//         delete MSDetector2File<MSInductLoop>::getInstance();
+//     }
+    delete MSDetector2File<MSInductLoop>::getInstance();
     
     if(LoopDict::created()) {
         LoopDict::ValueVector loopVec(
@@ -76,9 +81,7 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete LoopDict::getInstance();
     }
 
-//     if(MSDetector2File<MSInductLoop>::created()) {
-//         delete MSDetector2File<MSInductLoop>::getInstance();
-//     }
-    delete MSDetector2File<MSInductLoop>::getInstance();
+
+
 } 
 
