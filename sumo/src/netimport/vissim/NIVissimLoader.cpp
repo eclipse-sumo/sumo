@@ -38,12 +38,17 @@
 #include "typeloader/NIVissimSingleTypeParser_Richtungspfeildefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Parkplatzdefinition.h"
 #include "tempstructs/NIVissimTL.h"
+#include "tempstructs/NIVissimClosures.h"
+#include "tempstructs/NIVissimSource.h"
+#include "tempstructs/NIVissimTrafficDescription.h"
+#include "tempstructs/NIVissimVehTypeClass.h"
 #include "tempstructs/NIVissimConnection.h"
 #include "tempstructs/NIVissimDisturbance.h"
 #include "tempstructs/NIVissimConnectionCluster.h"
 #include "tempstructs/NIVissimNodeDef.h"
 #include "tempstructs/NIVissimEdge.h"
 #include "tempstructs/NIVissimDistrictConnection.h"
+#include "tempstructs/NIVissimVehicleType.h"
 
 using namespace std;
 
@@ -316,23 +321,23 @@ NIVissimLoader::postLoadBuild()
     // try to assign connection clusters to nodes
     //  only left connections will be processed in
     //   buildConnectionClusters & join
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     cout << "0/1" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimNodeDef::dict_assignConnectionsToNodes();
 
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     cout << "0/2" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimConnectionCluster::dict_recheckNodes();
 
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     cout << "0/3" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
 
     // build clusters of connections with the same direction and a similar
     //  position along the streets
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     cout << "1" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
     NIVissimEdge::buildConnectionClusters();
@@ -343,13 +348,13 @@ NIVissimLoader::postLoadBuild()
     // join clusters when overlapping (different streets are possible)
     cout << "3" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     NIVissimConnectionCluster::join();
 
 //    cout << "4" << ":" << NIVissimConnectionCluster::dictSize() << endl;
 //    NIVissimConnectionCluster::_debugOut(tmp);
 
-    NIVissimConnectionCluster::searchForConnection(2000015);
+    NIVissimConnectionCluster::searchForConnection(2000007);
     // build nodes from clusters
     cout << "5" << ":" << NIVissimConnectionCluster::dictSize()
         << "/" << NIVissimNodeDef::dictSize() << endl;
@@ -378,6 +383,11 @@ NIVissimLoader::postLoadBuild()
     NIVissimDistrictConnection::dict_BuildDistricts();
     cout << "d" << endl;
     NIVissimConnection::dict_buildNBEdgeConnections();
+    cout << "e" << endl;
+    NIVissimNodeCluster::dict_addDisturbances();
+    cout << "f" << endl;
+	NIVissimTL::dict_SetSignals();
+    cout << "g" << endl;
 
 /*
     size_t bla = NIVissimNodeCluster::contSize();
@@ -396,6 +406,22 @@ NIVissimLoader::postLoadBuild()
     NIVissimConnection::assignNodes();
     NIVissimNodeDef::assignDisturbances();
     NIVissimConnection::buildFurtherNodes();*/
+    NIVissimAbstractEdge::clearDict();
+    NIVissimClosures::clearDict();
+    NIVissimDistrictConnection::clearDict();
+    NIVissimDisturbance::clearDict();
+    NIVissimNodeCluster::clearDict();
+    NIVissimNodeDef::clearDict();
+    NIVissimSource::clearDict();
+    NIVissimTL::clearDict();
+    NIVissimTL::NIVissimTLSignal::clearDict();
+    NIVissimTL::NIVissimTLSignalGroup::clearDict();
+    NIVissimTrafficDescription::clearDict();
+    NIVissimVehTypeClass::clearDict();
+    NIVissimVehicleType::clearDict();
+
+    NIVissimConnectionCluster::clearDict();
+
 }
 
 
