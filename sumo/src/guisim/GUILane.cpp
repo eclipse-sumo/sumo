@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/08/02 11:57:34  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/07/02 08:52:49  dkrajzew
 // numerical id added (for online-routing)
 //
@@ -147,6 +150,10 @@ GUILane::GUILane(MSNet &net, std::string id, double maxSpeed, double length,
 
 GUILane::~GUILane()
 {
+    // just to quit cleanly on a failure
+    if(_lock.locked()) {
+        _lock.unlock();
+    }
 }
 
 
@@ -216,14 +223,16 @@ GUILane::push( MSVehicle* veh )
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
+        MSVehicle *prev = myVehBuffer!=0
+            ? myVehBuffer : last;
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
             + string("' beamed due to a collision on push!\n")
             + string("  Lane: '") + id() + string("', previous vehicle: '")
-            + myVehBuffer->id() + string("', time: ")
+            + prev->id() + string("', time: ")
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
-        veh->onTripEnd(*this);
+       veh->onTripEnd(*this);
         resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
         veh->removeApproachingInformationOnKill(this);
         MSVehicleTransfer::getInstance()->addVeh(veh);
@@ -241,7 +250,7 @@ GUILane::push( MSVehicle* veh )
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
         veh->_assertPos();
         _lock.unlock();//Display();
-        setApproaching(veh->pos(), veh);
+//        setApproaching(veh->pos(), veh);
         return false;
     } else {
         veh->onTripEnd(*this);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/08/02 11:57:34  dkrajzew
+// debugging
+//
 // Revision 1.8  2004/07/02 08:52:49  dkrajzew
 // numerical id added (for online-routing)
 //
@@ -80,6 +83,10 @@ GUISourceLane::GUISourceLane(MSNet &net, std::string id,
 
 GUISourceLane::~GUISourceLane()
 {
+    // just to quit cleanly on a failure
+    if(_lock.locked()) {
+        _lock.unlock();
+    }
 }
 
 
