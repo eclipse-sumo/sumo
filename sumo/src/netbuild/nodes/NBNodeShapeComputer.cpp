@@ -163,6 +163,9 @@ NBNodeShapeComputer::computeContinuationNodeShape()
 Position2DVector
 NBNodeShapeComputer::computeRealNodeShape()
 {
+    if(myNode.getID()=="618975401") {
+        int bla = 0;
+    }
     Position2DVector ret;
 //    std::vector<double> edgeOffsets;
     EdgeCrossDefVector edgeOffsets;
@@ -171,12 +174,9 @@ NBNodeShapeComputer::computeRealNodeShape()
         edgeOffsets.push_back(getEdgeNeighborCrossings(i));
     }
     EdgeCrossDefVector::iterator j;
-    for(i=myNode._allEdges.begin(), j=edgeOffsets.begin(); i!=myNode._allEdges.end(); i++, j++) {
+    size_t bla = 0;
+    for(i=myNode._allEdges.begin(), j=edgeOffsets.begin(); i!=myNode._allEdges.end(); i++, j++, bla++) {
         NeighborCrossDesc used = getNeighbor2Use(j);
-/*        // do not process edges with no crossing
-        if(!used.myAmValid) {
-            continue;
-        }*/
         // do not process outgoing which have opposite incoming for themselves
         EdgeVector::const_iterator li = i;
         NBContHelper::nextCW(&(myNode._allEdges), li);
@@ -190,13 +190,8 @@ NBNodeShapeComputer::computeRealNodeShape()
             used.myCrossingPosition =
                 MAX(used.myCrossingPosition, used2.myCrossingPosition);
             // ok, process both directions
-            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
-            addCWPoint(ret, (*li), used.myCrossingPosition, 2.5);
-            // and skip the next one
-            if(i+1!=myNode._allEdges.end()) {
-                i++;
-                j++;
-            }
+            addCCWPoint(ret, current, used.myCrossingPosition, 1.5);
+            addCWPoint(ret, (*li), used.myCrossingPosition, 1.5);
         } else if(myNode.hasOutgoing(current)) {
             EdgeVector::const_iterator ri = i;
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
@@ -204,12 +199,12 @@ NBNodeShapeComputer::computeRealNodeShape()
             if((*ri)->isTurningDirection(current)) {
                 continue;
             }
-            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
-            addCWPoint(ret, current, used.myCrossingPosition, 2.5);
+            addCCWPoint(ret, current, used.myCrossingPosition, 1.5);
+            addCWPoint(ret, current, used.myCrossingPosition, 1.5);
         } else {
             // process this edge only
-            addCCWPoint(ret, current, used.myCrossingPosition, 2.5);
-            addCWPoint(ret, current, used.myCrossingPosition, 2.5);
+            addCCWPoint(ret, current, used.myCrossingPosition, 1.5);
+            addCWPoint(ret, current, used.myCrossingPosition, 1.5);
         }
     }
     return ret;
@@ -240,12 +235,12 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
     NBEdge *current = *i;
     // the clockwise and the counter clockwise border;
     Position2DVector cb, ccb;
+    EdgeVector::const_iterator mri = i;
+    EdgeVector::const_iterator mli = i;
     // the left and the right crossing line
     // the crossing edges
     EdgeVector::const_iterator ri = i;
     EdgeVector::const_iterator li = i;
-    double ccw = current->width();
-    double cw = current->width();
     // clockwise border
     cb = current->getCWBounderyLine(myNode, 2.5);
     // counterclockwise border
@@ -258,10 +253,8 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         //  check the clockwise edge
         NBContHelper::nextCW(&(myNode._allEdges), li);
         if(current->isTurningDirection(*li)) {
-            EdgeVector::const_iterator tmpi = li;
-            NBContHelper::nextCW(&(myNode._allEdges), tmpi);
+            mli = li;
             cb = (*li)->getCWBounderyLine(myNode, 2.5);
-            cw = (*li)->width();
             NBContHelper::nextCW(&(myNode._allEdges), li);
         }
         ccl = (*ri)->getCWBounderyLine(myNode, 2.5);
@@ -269,10 +262,8 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
     } else {
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
         if((*ri)->isTurningDirection(current)) {
-            EdgeVector::const_iterator tmpi = ri;
-            NBContHelper::nextCCW(&(myNode._allEdges), tmpi);
+            mri = ri;
             ccb = (*ri)->getCCWBounderyLine(myNode, 2.5);
-            ccw = (*ri)->width();
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
         }
         NBContHelper::nextCW(&(myNode._allEdges), li);
@@ -280,8 +271,8 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         cl = (*li)->getCCWBounderyLine(myNode, 2.5);
     }
     return EdgeCrossDef(
-        buildCrossingDescription(i, ri, ccb, ccl),
-        buildCrossingDescription(i, li, cb, cl));
+        buildCrossingDescription(mri, ri, ccb, ccl),
+        buildCrossingDescription(mli, li, cb, cl));
 }
 
 
