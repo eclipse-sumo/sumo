@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/04/01 15:28:13  dkrajzew
+// some further functions added
+//
 // Revision 1.1  2003/03/20 17:31:45  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -49,6 +52,14 @@ public:
 
     /// Builds
     static std::string version1(std::string str);
+
+    /// Converts german "Umlate" to theri HTML-version
+    static std::string to_html(std::string str);
+
+    /// Replaces all occurences of the second string by the third string within the first tsring
+    static std::string replace(std::string str, const char *what,
+        const char *by);
+
 };
 
 

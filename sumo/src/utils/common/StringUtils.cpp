@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/04/01 15:28:12  dkrajzew
+// some further functions added
+//
 // Revision 1.1  2003/03/20 17:31:45  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -85,6 +88,50 @@ StringUtils::version1(std::string str)
     }
     return str;
 }
+
+
+std::string
+StringUtils::to_html(std::string str)
+{
+    /*
+    str = replace(str, "ä", "&auml;");
+    str = replace(str, "Ä", "&Auml;");
+    str = replace(str, "ö", "&ouml;");
+    str = replace(str, "Ö", "&Ouml;");
+    str = replace(str, "ü", "&uuml;");
+    str = replace(str, "Ü", "&Uuml;");
+    str = replace(str, "ß", "&szlig;");
+    */
+    str = replace(str, "ä", "ae");
+    str = replace(str, "Ä", "Ae");
+    str = replace(str, "ö", "oe");
+    str = replace(str, "Ö", "Oe");
+    str = replace(str, "ü", "ue");
+    str = replace(str, "Ü", "Ue");
+    str = replace(str, "ß", "ss");
+    return str;
+}
+
+
+
+std::string
+StringUtils::replace(std::string str, const char *what,
+                     const char *by)
+{
+    string what_tmp(what);
+    string by_tmp(by);
+    size_t idx = str.find(what);
+    size_t what_len = what_tmp.length();
+    size_t by_len = by_tmp.length();
+    while(idx!=string::npos) {
+        str = str.replace(idx, what_len, by);
+        idx = str.find(what, idx+by_len-what_len);
+    }
+    return str;
+}
+
+
+
 
 
 
