@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.30  2003/10/15 12:11:56  dkrajzew
+// removed the prohibition of overtaking on the right side; false deletion patched
+//
 // Revision 1.29  2003/10/06 07:41:35  dkrajzew
 // MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
 //
@@ -419,7 +422,7 @@ MSLane::moveNonCritical()
             ++veh,++myFirstUnsafe ) {
 
         VehCont::const_iterator pred( veh + 1 );
-        const MSVehicle* neigh = findNeigh( *veh,
+/*        const MSVehicle* neigh = findNeigh( *veh,
             myUseDefinition->firstNeigh,
             myUseDefinition->lastNeigh );
         // veh has neighbour to regard.
@@ -428,9 +431,9 @@ MSLane::moveNonCritical()
         }
 
         // veh has no neighbour to regard.
-        else {
+        else {*/
             ( *veh )->move( this, *pred, 0);
-        }
+//        }
 
         ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
@@ -453,7 +456,7 @@ MSLane::moveCritical()
     // Move all next vehicles beside the first
     for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd; ++veh ) {
         VehCont::const_iterator pred( veh + 1 );
-        const MSVehicle* neigh = findNeigh( *veh,
+/*        const MSVehicle* neigh = findNeigh( *veh,
             myUseDefinition->firstNeigh,
             myUseDefinition->lastNeigh);
 
@@ -463,9 +466,9 @@ MSLane::moveCritical()
         }
 
         // veh has no neighbour to regard.
-        else {
+        else {*/
             ( *veh )->moveRegardingCritical( this, *pred, 0);
-        }
+//        }
 
         ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
@@ -789,10 +792,7 @@ MSLane::setCritical()
     // move critical vehicles
     for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
 	    (*i)->moveFirstChecked();
-        MSLane *target = (*i)->getTargetViaLane();
-        if(target==0) {
-            target = (*i)->getTargetLane();
-        }
+        MSLane *target = (*i)->getTargetLane();
         if(target!=this) {
             target->push(pop());
             return;
@@ -862,11 +862,11 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
         if(myVehBuffer->pos()<veh->pos()) {
-            MSVehicle::remove(myVehBuffer->id());
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
+            MSVehicle::remove(myVehBuffer->id());
         } else {
-            MSVehicle::remove(veh->id());
             cout << "vehicle '" << veh->id() << "' removed!";
+            MSVehicle::remove(veh->id());
             return true;
         }
     }
@@ -1326,9 +1326,6 @@ MSLane::init(MSNet &net)
     // reset mean data information
     myMeanData.clear();
     size_t noIntervals = net.getNDumpIntervalls();
-/*    if(net.withGUI()) {
-        noIntervals++;
-    }*/
     myMeanData.insert( myMeanData.end(), noIntervals, MeanDataValues() );
     // empty vehicle buffers
     myVehicles.clear();
@@ -1368,7 +1365,7 @@ MSLane::swapAfterLaneChange()
     myUseDefinition->noVehicles = myVehicles.size();
     if(myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
-        myFirstUnsafe = 0;//myVehicles.size();
+        myFirstUnsafe = 0;
     }
     assert(myUseDefinition->noVehicles==myVehicles.size());
 }
