@@ -42,7 +42,7 @@ protected:
     
     static std::string getDetectorName( void )
         {
-            return "nVehicles";
+            return "nE2Vehicles";
         }
 
 private:

@@ -58,7 +58,7 @@ protected:
 
     static std::string getDetectorName( void )
         {
-            return "mean-n-halts-per-vehicle";
+            return "meanNHaltsPerVehicle";
         }
 
 private:

@@ -43,7 +43,7 @@ protected:
     virtual ~MSCurrentHaltingDurationSumPerVehicle( void )
         {}
     
-    DetectorAggregate getDetectorAggregate( void ); // [m/s]
+    DetectorAggregate getDetectorAggregate( void ); // [s]
     
         static std::string getDetectorName( void )
         {

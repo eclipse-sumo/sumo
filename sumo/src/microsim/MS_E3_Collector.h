@@ -38,6 +38,7 @@
 #include "MSE3MoveReminder.h"
 #include "MSE3DetectorInterface.h"
 #include "MSDetectorTypedefs.h"
+#include "utils/convert/ToString.h"
 
 namespace E3
 {
@@ -79,58 +80,60 @@ public:
         , Detector::CrossSections entries
         , Detector::CrossSections exits
         , MSUnit::Seconds haltingTimeThreshold = 1
-        , MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0/3.6
+        , MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0 / 3.6
         , MSUnit::Seconds deleteDataAfterSeconds = 1800
         )
         :
         idM( id )
-        , deleteDataAfterSecondsM( deleteDataAfterSeconds )
+        , entriesM( entries )
+        , exitsM( exits )
         , haltingTimeThresholdM(
             MSUnit::getInstance()->getSteps( haltingTimeThreshold ) )
         , haltingSpeedThresholdM(
             MSUnit::getInstance()->getCellsPerStep( haltingSpeedThreshold ) )
+        , deleteDataAfterSecondsM( deleteDataAfterSeconds )
         , detectorsM(3)
         , containersM(3)
          
         {
-    // Set MoveReminders to entries and exits
-    for ( Detector::CrossSectionsIt crossSec = entries.begin();
-                   crossSec != entries.end(); ++crossSec ) {
-    entryRemindersM.push_back(
-    new Detector::E3EntryReminder( id, *crossSec, *this ) );
+            // Set MoveReminders to entries and exits
+            for ( Detector::CrossSectionsIt crossSec = entries.begin();
+                  crossSec != entries.end(); ++crossSec ) {
+                entryRemindersM.push_back(
+                    new Detector::E3EntryReminder( id, *crossSec, *this ) );
             }
-             for ( Detector::CrossSectionsIt crossSec = exits.begin();
-                   crossSec != exits.end(); ++crossSec ) {
-    leaveRemindersM.push_back(
-    new Detector::E3LeaveReminder( id, *crossSec, *this ) );
+            for ( Detector::CrossSectionsIt crossSec = exits.begin();
+                  crossSec != exits.end(); ++crossSec ) {
+                leaveRemindersM.push_back(
+                    new Detector::E3LeaveReminder( id, *crossSec, *this ) );
             }
             
             // insert object into dictionary
-             if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
-    assert( false );
+            if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
+                assert( false );
             }
         }
     
     virtual ~MS_E3_Collector( void )
         {
-    for( EntryReminders::iterator it3 = entryRemindersM.begin();
-                  it3 != entryRemindersM.end(); ++it3 ) {
-    delete *it3;
+            for( EntryReminders::iterator it3 = entryRemindersM.begin();
+                 it3 != entryRemindersM.end(); ++it3 ) {
+                delete *it3;
             }
-             for( LeaveReminders::iterator it4 = leaveRemindersM.begin();
-                  it4 != leaveRemindersM.end(); ++it4 ) {
-    delete *it4;
+            for( LeaveReminders::iterator it4 = leaveRemindersM.begin();
+                 it4 != leaveRemindersM.end(); ++it4 ) {
+                delete *it4;
             }
-             for ( DetContIter it1 = detectorsM.begin();
-                   it1 != detectorsM.end(); ++it1 ) {
-    if ( *it1 != 0 ) {
-    delete *it1;
+            for ( DetContIter it1 = detectorsM.begin();
+                  it1 != detectorsM.end(); ++it1 ) {
+                if ( *it1 != 0 ) {
+                    delete *it1;
                 }
             }
-             for ( ContainerContIter it2 = containersM.begin();
-                   it2 != containersM.end(); ++it2 ) {
-    if ( *it2 != 0 ) {
-    delete *it2;
+            for ( ContainerContIter it2 = containersM.begin();
+                  it2 != containersM.end(); ++it2 ) {
+                if ( *it2 != 0 ) {
+                    delete *it2;
                 }
             }            
         }
@@ -140,10 +143,10 @@ public:
     // is called from MSE3MoveReminder if vehicle touches entry-crossSection
     void enter( MSVehicle& veh )
         {
-    for ( ContainerContIter it = containersM.begin();
-                   it != containersM.end(); ++it ) {
-    if ( *it != 0 ) {
-    (*it)->enterDetectorByMove( &veh );
+            for ( ContainerContIter it = containersM.begin();
+                  it != containersM.end(); ++it ) {
+                if ( *it != 0 ) {
+                    (*it)->enterDetectorByMove( &veh );
                 }
             }
         }
@@ -167,59 +170,156 @@ public:
 
     void addDetector( DetType type, std::string detId = "" )
         {
-    if ( detId == "" ) {
-    detId = idM;
+            if ( detId == "" ) {
+                detId = idM;
             }
-             if ( type != ALL ) {
-    createDetector( type, detId );
+            if ( type != ALL ) {
+                createDetector( type, detId );
             }
-             else {
-    for ( DetType typ = MEAN_TRAVELTIME; typ < ALL; ++typ ){    
-    createDetector( typ, detId );
+            else {
+                for ( DetType typ = MEAN_TRAVELTIME; typ < ALL; ++typ ){    
+                    createDetector( typ, detId );
                 }
             }
         }
     
     bool hasDetector( DetType type )
         {
-    return getDetector( type ) != 0;
+            return getDetector( type ) != 0;
         }
     
     double getAggregate( DetType type, MSUnit::Seconds lastNSeconds )
         {
-    assert( type != ALL );
-             E3Detector* det = getDetector( type );
-             if ( det != 0 ){
-    return det->getAggregate( lastNSeconds );
+            assert( type != ALL );
+            E3Detector* det = getDetector( type );
+            if ( det != 0 ){
+                return det->getAggregate( lastNSeconds );
             }
             // requested type not present
             // create it and return nonsens value for the first access
-             addDetector( type, std::string("") );
-             return std::numeric_limits< double >::max();
+            addDetector( type, std::string("") );
+            return std::numeric_limits< double >::max();
+        }
+    
+    /**
+     * @name Inherited MSDetectorFileOutput methods.
+     *
+     */
+    //@{
+    /**
+     * Returns a string indentifying an object of this class. Used for
+     * distinct filenames.
+     */
+    std::string  getNamePrefix( void ) const
+        {
+            return std::string("MS_E3_Collector");
         }
 
+    /**
+     * Get a header for file output which shall contain some
+     * explanation of the output generated by getXMLOutput.
+     */
+    std::string& getXMLHeader( void ) const
+        {
+            return xmlHeaderM;
+        }
+
+    /**
+     * Get the XML-formatted output of the concrete detector.
+     *
+     * @param lastNTimesteps Generate data out of the interval
+     * (now-lastNTimesteps, now].
+     */
+    std::string getXMLOutput( MSUnit::IntSteps lastNTimesteps )
+        {
+            std::string result;
+            MSUnit::Seconds lastNSeconds =
+                MSUnit::getInstance()->getSeconds( lastNTimesteps );
+            for ( DetContIter it = detectorsM.begin();
+                  it != detectorsM.end(); ++it ) {
+
+                if ( *it == 0 ) {
+                    continue;
+                }
+
+                std::string name = getDetectorName( *it );
+                std::string aggregate =
+                    toString( (*it)->getAggregate( lastNSeconds ) );
+                
+                result += std::string("<") +
+                    name +
+                    std::string(" value=\"") +
+                    aggregate +
+                    std::string("\"/>\n");
+            }
+            return result;
+        }
+
+    /**
+     * Get an opening XML-element containing information about the detector.
+     */
+    std::string  getXMLDetectorInfoStart( void ) const
+        {
+            std::string entries;
+            Detector::CrossSections::const_iterator crossSec;
+            for ( crossSec = entriesM.begin(); crossSec != entriesM.end();
+                  ++crossSec ) {
+                entries += "  <entry lane=\"" +
+                    crossSec->laneM.id() + "\" pos=\"" +
+                    toString( crossSec->posM ) + "\" />\n";
+            }
+            std::string exits;
+            for ( crossSec = exitsM.begin(); crossSec != exitsM.end();
+                  ++crossSec ) {
+                exits += "  <entry lane=\"" +
+                    crossSec->laneM.id() + "\" pos=\"" +
+                    toString( crossSec->posM ) + "\" />\n";
+            }            
+                
+            std::string
+                detectorInfo("<detector type=\"E3_Collector\" id=\"" + idM +
+                             "\" >\n" + entries + exits );
+            return detectorInfo;
+        }
+
+    /**
+     * Get the data-clean up interval in timesteps.
+     */
+    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+        {
+            return MSUnit::getInstance()->getIntegerSteps(
+                deleteDataAfterSecondsM );
+        }
+    //@}
+
+    
 protected:
 
     E3Detector* getDetector( DetType type ) const
         {
-    assert( type != ALL );
-             return detectorsM[ type ];
+            assert( type != ALL );
+            return detectorsM[ type ];
         }
 
 private:
     std::string idM;
+
+    Detector::CrossSections entriesM;
+    Detector::CrossSections exitsM;
     
     EntryReminders entryRemindersM;
-    LeaveReminders leaveRemindersM;
-    
-    MSUnit::Seconds deleteDataAfterSecondsM;
+    LeaveReminders leaveRemindersM;  
+
     MSUnit::Steps haltingTimeThresholdM;
     MSUnit::CellsPerStep haltingSpeedThresholdM;
+    MSUnit::Seconds deleteDataAfterSecondsM;
     
     DetectorCont detectorsM;
     
     ContainerCont containersM;
 
+    static std::string xmlHeaderM;
+    
     void createContainer( Containers type )
         {
             switch( type ){
@@ -302,6 +402,28 @@ private:
                 }
             }
         }
+
+    std::string getDetectorName( E3Detector* det )
+        {
+            // get detector name. Unfortunately we have to cast
+            // because the name is not known to
+            // MSE2DetectorInterface.
+
+            std::string name;
+            if ( dynamic_cast< Detector::E3NVehicles* >( det ) ) {
+                name = Detector::E3NVehicles::getDetectorName();
+            }
+            if ( dynamic_cast< Detector::E3Traveltime* >( det ) ) {
+                name = Detector::E3Traveltime::getDetectorName();
+            }
+            if ( dynamic_cast< Detector::E3MeanNHaltings* >( det ) ) {
+                name = Detector::E3MeanNHaltings::getDetectorName();
+            }
+            else {
+                assert( 0 );
+            }
+        }
+    
 };
 
 

@@ -65,7 +65,7 @@ protected:
 
     static std::string getDetectorName( void )
         {
-            return "mean-traveltime";
+            return "meanTraveltime";
         }
 
 private:

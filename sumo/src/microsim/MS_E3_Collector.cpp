@@ -21,10 +21,19 @@
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MS_E3_Collector.h"
+
+// static member
+std::string MS_E3_Collector::xmlHeaderM(
+"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+"<!--\n"
+"- nE3Vehicles [veh]\n"
+"- meanTraveltime [s]\n"
+"- meanNHaltsPerVehicle [n]\n"
+"-->\n\n");
 
 namespace E3
 {

@@ -115,7 +115,7 @@ protected:
 
     static std::string getDetectorName( void )
         {
-            return "jamLengthSumInVehicles";
+            return "jamLengthSumInMeters";
         }
 private:
     const Haltings& containerM;

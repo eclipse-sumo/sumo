@@ -55,7 +55,7 @@ protected:
     
     static std::string getDetectorName( void )
         {
-            return "nVehicles";
+            return "nE3Vehicles";
         }
 private:
     const Container& containerM;

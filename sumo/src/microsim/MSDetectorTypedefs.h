@@ -44,6 +44,7 @@
 
 namespace Detector 
 {
+    // E2_ZS
     typedef MSMeanDetector< MSE2Detector< MSDensity > > E2Density;
 
     typedef MSMeanDetector< MSE2Detector< MSMaxJamLengthInVehicles > >
