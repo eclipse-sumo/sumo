@@ -1,5 +1,10 @@
 #!/usr/bin/perl
 # Generates a simple route file for an example
+# Call: mkroutes.pl <ROUTEDEF> <OUTPUT>
+#  (both parameter are files)
+#  <ROUTEDEF> must have the syntax of the example ".routedef"-files
+#  <OUTPUT> will be the generated SUMO-Routes file
+
 if($ARGV[1]) {
     # read in the definition file
     open(INDAT, "< $ARGV[0]") || die "Could not open '".$ARGV[0]."'";
