@@ -1,10 +1,10 @@
-noinst_LIBRARIES = 
+noinst_LIBRARIES =
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
-AM_CPPFLAGS = 
+AM_CPPFLAGS =
 
-SUBDIRS = cell sumo visum xml
+SUBDIRS = arcview cell sumo vissim visum xml
 
 
 
