@@ -3,14 +3,9 @@ noinst_LIBRARIES = libmicrosimoutput.a
 
 EXTRA_DIST =
 
-libmicrosimoutput_a_SOURCES = \
-MSLaneMeanDataValues.cpp MSLaneMeanDataValues.h \
-MSMeanData_Net.cpp MSMeanData_Net.h \
-MSMeanData_Net_Cont.h \
-MSMeanData_Net_Utils.cpp MSMeanData_Net_Utils.h
+libmicrosimoutput_a_SOURCES = MSXMLRawOut.h MSXMLRawOut.cpp
 
-
-SUBDIRS =
+SUBDIRS = meandata
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
