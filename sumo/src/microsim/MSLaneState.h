@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.12  2003/05/28 07:51:25  dkrajzew
+// had to add a return value due to the usage of the mem_func-function in combination with for_each (MSVC++-reasons?)
+//
 // Revision 1.11  2003/05/27 19:01:26  roessel
 // Removed OutputStyle in ctor (output will be xml).
 //
@@ -96,7 +99,7 @@ public:
                  double         length,
                  MSNet::Time    sampleIntervall,
                  std::ofstream* file );
-    
+
     /// Destructor.
     ~MSLaneState();
 
@@ -111,7 +114,7 @@ public:
      */
     double getNumberOfWaiting( MSNet::Time lastNTimesteps );
 
-    /** 
+    /**
      * Returns the waitingQueueLength.
      * Vehicles in a waiting-queue have a gap <= vehLength.
      * If called before the vehicles are
@@ -119,7 +122,7 @@ public:
      * after move, the value of the current timestep is returned. Currently
      * the junctions do their job before the move, so if you call the method
      * by a junction, you will get the value of the previous timestep.
-     * 
+     *
      * @return waitingQueueLength of the current or previous timestep
      */
     int getCurrentNumberOfWaiting( void );
@@ -149,9 +152,9 @@ public:
 
     void leaveDetectorByLaneChange( MSVehicle& veh );
 
-    void actionBeforeMove( void );
+    bool actionBeforeMove( void );
 
-    void actionAfterMove( void );
+    bool actionAfterMove( void );
 
     MSNet::Time deleteOldData( void );
 
@@ -204,7 +207,7 @@ public:
                     return data.leaveContTimestepM < leaveTimestep;
                 }
         };
-        
+
         VehicleData( double entryContTimestep,
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
@@ -217,7 +220,7 @@ public:
         bool passedEntireDetectorM;
     };
 
-    struct WaitingQueueElem 
+    struct WaitingQueueElem
     {
         struct PosGreater : public std::binary_function<
             const WaitingQueueElem, const WaitingQueueElem, bool >
@@ -229,7 +232,7 @@ public:
                 return p1.posM > p2.posM;
             }
         };
-        
+
         WaitingQueueElem( double pos, double vehLength ) :
             posM( pos ), vehLengthM( vehLength )
             {}
@@ -239,11 +242,11 @@ public:
     };
 
 protected:
- 
+
     void calcWaitingQueueLength( void );
-    
+
     TimestepDataCont::iterator getStartIterator( MSNet::Time lastNTimesteps );
-    
+
     /// Write the data according to OutputStyle when the sampleIntervall
     /// is over.
     MSNet::Time writeData();
@@ -269,7 +272,7 @@ private:
 
     /// File where output goes to.
     std::ofstream* fileM;
-    
+
     TimestepDataCont     timestepDataM;
     VehicleDataMap       vehicleDataM;
     WaitingQueueElemCont waitingQueueElemsM;
@@ -304,35 +307,35 @@ private:
 };
 
 inline double speedSum( double sumSoFar,
-                 const MSLaneState::TimestepData& data ) 
+                 const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSumM;
 }
 
 inline double speedSquareSum( double sumSoFar,
-                       const MSLaneState::TimestepData& data ) 
+                       const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.speedSquareSumM;
 }
 
 inline double contTimestepSum( double sumSoFar,
-                        const MSLaneState::TimestepData& data ) 
+                        const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.contTimestepSumM;
 }
 
 inline double timestepSum( double sumSoFar,
-                    const MSLaneState::TimestepData& data ) 
+                    const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.timestepSumM;
 }
 
 inline double waitingQueueSum( double sumSoFar,
-                        const MSLaneState::TimestepData& data ) 
+                        const MSLaneState::TimestepData& data )
 {
     return sumSoFar + data.queueLengthM;
 }
-    
+
 inline double traveltimeSum( double sumSoFar,
                       const MSLaneState::VehicleData& data )
 {
@@ -341,7 +344,7 @@ inline double traveltimeSum( double sumSoFar,
     }
     return sumSoFar;
 }
-         
+
 #endif
 
 // Local Variables:

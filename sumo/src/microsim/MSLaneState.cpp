@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.15  2003/05/28 07:51:25  dkrajzew
+// had to add a return value due to the usage of the mem_func-function in combination with for_each (MSVC++-reasons?)
+//
 // Revision 1.14  2003/05/27 18:59:01  roessel
 // Removed OutputStyle in ctor (output will be xml).
 // Activated MSEventControl for regular file-output. Works now because
@@ -208,7 +211,7 @@ MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
     }
     if ( timestepDataM.size() - 1 > lastNTimesteps ) {
         start = end - lastNTimesteps;
-    }   
+    }
     return accumulate( start, end, 0.0, waitingQueueSum ) /
         static_cast< double >( lastNTimesteps );
 }
@@ -247,7 +250,7 @@ MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
     if ( timestepDataM.empty() ) {
         return 0;
     }
-    double denominator = 
+    double denominator =
         accumulate( getStartIterator( lastNTimesteps ),
                     timestepDataM.end(), 0.0, contTimestepSum ) *
         MSNet::deltaT();
@@ -279,7 +282,7 @@ MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
     if ( timestepDataM.empty() ) {
         return 0;
     }
-    double denominator = 
+    double denominator =
         accumulate( getStartIterator( lastNTimesteps ),
                     timestepDataM.end(), 0.0, contTimestepSum ) *
         MSNet::deltaT();
@@ -288,7 +291,7 @@ MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
     }
     return accumulate( getStartIterator( lastNTimesteps ),
                        timestepDataM.end(), 0.0, speedSquareSum ) /
-        denominator;   
+        denominator;
 }
 
 double
@@ -430,20 +433,22 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     vehicleDataM.erase( dataIt );
 }
 
-void
+bool
 MSLaneState::actionBeforeMove( void )
 {
     // create a TimestepData entry for every timestep. Not neccessary, but
     // makes live easier.
     timestepDataM.push_back(
         TimestepData( MSNet::getInstance()->timestep() ) );
+    return true;
 }
 
 
-void
+bool
 MSLaneState::actionAfterMove( void )
 {
     calcWaitingQueueLength();
+    return true;
 }
 
 
@@ -457,7 +462,7 @@ MSLaneState::calcWaitingQueueLength( void )
         // veh in waitingQueueElemsM are not sorted
         sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
               WaitingQueueElem::PosGreater() );
-    
+
         WaitingQueueElemCont::iterator it =
             waitingQueueElemsM.begin();
         for (;;) {
