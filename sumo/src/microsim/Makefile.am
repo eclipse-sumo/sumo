@@ -38,6 +38,7 @@ MSVehicleContainer.cpp \
 MSVehicle.cpp \
 MSVehicleType.cpp \
 MSLaneStateReminder.cpp \
+MSDetector2File.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
 MSDetectorSubSys.h \
