@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/02/16 14:24:13  dkrajzew
+// some helper methods added
+//
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -33,15 +36,42 @@
 
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class MSEdge;
+class MSLane;
+
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * @class MSLinkCont
+ * A simple contanier of definitions about how a lane may be left
+ */
 typedef std::vector<MSLink*> MSLinkCont;
 
 
+/**
+ * @class MSLinkContHelper
+ * Some helping functions for dealing with links.
+ */
+class MSLinkContHelper {
+public:
+    /** @brief Returns the internal lane that must be passed in order to get to the desired edge
+        Returns 0 if no such edge exists */
+    static const MSEdge *getInternalFollowingEdge(MSLane *fromLane,
+        MSEdge *followerAfterInternal);
+
+    /** @brief Returns the link connecting both lanes
+        Both lanes have to be non-internal; 0 may be returned if no connection
+        exists */
+    static MSLink *getConnectingLink(const MSLane &from
+        , const MSLane &to);
+};
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSLinkCont.icc"
-//#endif
 
 #endif
 
