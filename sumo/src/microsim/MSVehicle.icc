@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2004/08/02 12:40:55  dkrajzew
+// debugging; refactoring; lane-changing API
+//
 // Revision 1.8  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -167,9 +170,9 @@ MSVehicle::vsafe( double speed,
 {
     // Calculate the Stefan Krauss (SK) vsafe.
 
-	if(predSpeed==0&&gap2pred<0.01) { // !!!
-		return 0;
-	}
+    if(predSpeed==0&&gap2pred<0.01) { // !!!
+        return 0;
+    }
     assert( speed     >= double(0) );
     assert( gap2pred  >= double(0) );
     assert( predSpeed >= double(0) );
@@ -209,7 +212,7 @@ MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
 
 inline
 bool
-MSVehicle::congested()
+MSVehicle::congested() const
 {
     return myState.mySpeed < double(60) / double(3.6);
 }
@@ -229,9 +232,9 @@ inline double
 MSVehicle::gap2pred( const MSVehicle& pred ) const
 {
     double gap = pred.pos() - pred.length() - this->pos();
-	if(gap<0&&gap>-1.0e-13) {
-		gap = 0;
-	}
+    if(gap<0&&gap>-1.0e-12) {
+        gap = 0;
+    }
     assert( gap >= double( 0 ) );
     return gap;
 }

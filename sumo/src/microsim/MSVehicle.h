@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.37  2004/08/02 12:40:55  dkrajzew
+// debugging; refactoring; lane-changing API
+//
 // Revision 1.36  2004/07/02 09:57:37  dkrajzew
 // handling of routes added
 //
@@ -278,6 +281,7 @@ class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
 class MSVehicleQuitReminded;
+class MSAbstractLaneChangeModel;
 
 
 /* =========================================================================
@@ -288,58 +292,12 @@ class MSVehicleQuitReminded;
  * A single vehicle. Holds model-methods, io-methods and methods which compute
  * standard physical values such as the gap needed to stop.
  */
-class MSVehicle : private Counter< MSVehicle >
+class MSVehicle
 {
 public:
-    enum LaneChangeAction {
-        LCA_STRAIGHT = 0,
-        LCA_URGENT = 1,
-        LCA_CHANGED = 2,
-        LCA_LANEBEGIN = 4,
-        LCA_LEFT = 16,
-        LCA_RIGHT = 32
-    };
 
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
-
-    /// Vehicles are counted (!!! this is not very useful, as vehicles may be allocated but not driving)
-    using Counter< MSVehicle >::howMany;
-
-    /// xml output may access the vehicle's data
-    friend class XMLOut;
-
-    /** Class to generate XML-output for an edges and all lanes hold by
-        this edge.
-        Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
-    class XMLOut
-    {
-    public:
-        /// Constructor
-        XMLOut( const MSVehicle& obj,
-                unsigned indentWidth ,
-                bool withChildElemes );
-
-        /// Output operator
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const XMLOut& obj );
-
-    private:
-        /// The vehicle to output the data of
-        const MSVehicle& myObj;
-
-        /// The intend size
-        unsigned myIndentWidth;
-
-        /// Information whether children shall be printed, too (!!! vehicles do not have children)
-        bool myWithChildElemes;
-    };
-
-    /// outputs a XML-description to the stream
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const XMLOut& obj );
-
-
 
     /** container that holds the vehicles driving state. May vary from
         model to model. here: SK, holds position and speed. */
@@ -375,7 +333,6 @@ public:
         /// Speed of this state
         double speed() const { return mySpeed; };
 
-//!!!    private:
         /// Constructor.
         State( double pos, double speed );
 
@@ -391,7 +348,7 @@ public:
 
 
     /// Sort criterion for vehiles is the departure time.
-    friend bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y );
+//    friend bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y );
 
     /// Destructor.
     virtual ~MSVehicle();
@@ -491,7 +448,7 @@ public:
     double decelDist() const;
 
     /// Return the vehicles state after maximum acceleration.
-    State accelState( const MSLane* lane ) const;
+//    State accelState( const MSLane* lane ) const;
 
     /// The amount the vehicle can decelerate with
     double decelAbility() const;
@@ -522,25 +479,25 @@ public:
         const MSVehicle* pred, const MSVehicle* neigh );
 
     /// Slow down towards lane end. Updates state. For first vehicles only.
-    void moveDecel2laneEnd( MSLane* lane );
+//    void moveDecel2laneEnd( MSLane* lane );
 
     /// Use this move for first vehicles that won't leave it's lane.
-    void moveUpdateState( const State newState );
+//    void moveUpdateState( const State newState );
 
     /// Use this move for first vehicles that will leave it's lane.
     void moveSetState( const State newState );
 
     // Slow down to one's lane end, don't respect neighbours. Lane-end
     // need not to be the lane-end of the current lane.
-    State nextState( MSLane* lane, double gap ) const;
+//    State nextState( MSLane* lane, double gap ) const;
 
     // Use this form if pred would give the wrong position, e.g. if you
     // want to know what might will happen if this vehicle would have
     // a new pred.
-    State nextStateCompete( MSLane* lane,
+/*    State nextStateCompete( MSLane* lane,
                             State predState,
                             double gap2pred ) const;
-
+*/
 
 ///////////////////////////////////////////////////////////////////////////
     /// Returns the information whether the route ends on the given lane
@@ -579,6 +536,9 @@ public:
     /** Return true if the lane is allowed */
     bool onAllowed( const MSLane* lane ) const;
 
+    /** Return true if the lane is allowed */
+    bool onAllowed( const MSLane* lane, size_t offset ) const;
+
     /** Return true if vehicle is on an allowed lane. */
     bool onAllowed( ) const;
 
@@ -587,7 +547,7 @@ public:
 
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
-    bool congested();
+    bool congested() const;
 
     /// Returns current speed
     double speed() const;
@@ -596,7 +556,7 @@ public:
     during lane-change calculations. This is a problem because the
     lane-changer doesn't look beyond the lane but will assume the
     vehicle has to slow down towards the lane end.*/
-    bool laneChangeBrake2much( const State brakeState );
+//    bool laneChangeBrake2much( const State brakeState );
 
     /** timeHeadWay < deltaT situations may cause crashes because two
     vehicles want to leave the same lane in one timestep. These
@@ -695,11 +655,6 @@ public:
 
     MSLane *getTargetLane() const;
 
-//    MSLane *getTargetViaLane() const;
-
-    /// information what the vehicle has tried to do - in the meaning of lanechanging - within the past step
-//    int _lcAction;
-
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
@@ -714,15 +669,14 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
-    bool proceedVirtualReturnIfEnded(MSVehicleTransfer &securityCheck,
+    bool proceedVirtualReturnWhetherEnded(MSVehicleTransfer &securityCheck,
         MSEdge *to);
 
     size_t getWaitingTime() const;
     void removeApproachingInformationOnKill();
     void removeApproachingInformationOnKill(MSLane *begin);
 
-//    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!
-
+    void rebuildAllowedLanes();
 
     friend class MSLane; // !!!
     friend class GUIInternalLane; // !!!
@@ -735,86 +689,13 @@ public:
     typedef std::map< std::string, MSVehicle* > DictType;
     static DictType myDict;
 
-    class LaneChangeState {
-    public:
-        enum Action {
-            LCACT_NONE,
-            LCACT_ACCEPTS,
-            LCACT_WISHESSPEED,
-            LCACT_WISHESDIRECTION,
-            LCACT_NEEDS_DIRECTION_CHANGE
-        };
 
-        enum Direction {
-            LCDIR_NONE,
-            LCDIR_LEFT,
-            LCDIR_RIGHT
-        };
-
-        LaneChangeState(MSVehicle &veh);
-        ~LaneChangeState();
-        // ob ein Spurwechsel nach rechts erfolgen soll um die ROute zu verfolgen
-        bool wants2Right4Direction(double pos/*,
-            MSLane *neighLane, MSVehicle *neighBefore, MSVehicle *neighAfter*/);
-        // ob ein Spurwechsel nach links erfolgen soll um die ROute zu verfolgen
-        bool wants2Left4Direction(double pos/*,
-            MSLane *neighLane, MSVehicle *neighBefore, MSVehicle *neighAfter*/);
-        // einzuschlagende Richtung wegen Geschw.vorteilen (vorläufig nicht benutzen)
-        int chooseLane(double vsafeCurr, double vsafeLeft, double vsafeRight);
-        // geht ein Schritt in der Route weiter
-        void proceedInRoute();
-        // ob ein Fahrzeug vorne hinein gelassen wird; setzt Aktion
-        bool acceptBefore(/*double dist, double speed*/);
-        // ob ein Fahrzeug hinten hinein gelassen wird; setzt Aktion (sollte ev. zunächst weggelassen werden)
-        bool acceptAfter(/*double dist, double speed*/);
-        // verändert die Geschwindigkeit je nach vorher gesetzter Aktion
-        double modifySpeed(double onContinue, double onAccepting);
-
-        void admitChange2Right();
-        void admitChange2Left();
-
-
-        void setState(Action act);
-        void setState(Direction dir);
-        Action getAction() const;
-        Direction getDirection() const;
-        void setIsOverlaping(bool val);
-        bool isNotOverlaping() const;
-
-    private:
-        // [0:1] Bereitschaft Spurwechsel um schneller zu werden!!!
-        double mySpeedLaneChangeDesire;
-        // [0:1] Kulanz (beim Hereinlassen)!!!
-        double myAcceptence;
-        // [0:1] Aggresivität (beim Einscheren)!!!
-        double myAggresivity;
-        // Entfernung bis relevant!!!
-        double myDistanceTillInteresting;
-        // Entfernung bis nötig!!!
-        double myDistanceTillMandatory;
-
-        // variables
-        // Richtung (rechts/links/nichts)
-        Direction myDir;
-        // Abstand ist bis relevant
-        double myIsDistanceTillInteresting;
-        // Abstand ist bis notwendig
-        double myIsDistanceTillMandatory;
-        // Aktion (Will reinlassen/Will hineingelassen werden/nichts)
-        Action myAction;
-        // Abstand überschaut (mind. Entfernung bis nötig)
-        double myHaeSeen;
-        // Position auf Routenobjekt
-        size_t myPosInRoute;
-
-        MSVehicle &myVehicle;
-        bool myAmOverlaping;
-    };
-
-    LaneChangeState &getLaneChangeState(MSLaneChanger &lc);
-    LaneChangeState::Action getLaneChangeAction() const;
-    LaneChangeState::Direction getLaneChangeDirection() const;
-
+    MSAbstractLaneChangeModel &getLaneChangeModel();
+    const MSAbstractLaneChangeModel &getLaneChangeModel() const;
+    typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
+    const NextAllowedLanes &getAllowedLanes(MSLaneChanger &lc);
+    int countAllowedContinuations(const MSLane *lane) const;
+    double allowedContinuationsLength(const MSLane *lane) const;
 
     MSUnit::Cells getMovedDistance( void ) const
         {
@@ -860,7 +741,6 @@ protected:
 
     /// the lane, the vehicle will be within the next time step
     MSLane *myTarget;
-//    MSLane *myTargetVia;
 
     /** @brief The time the vehicle waits
         This is the number of simulation steps the vehicle was not faster than 0.1m/s
@@ -893,7 +773,8 @@ protected:
     /// The lane the vehicle is on
     MSLane* myLane;
 
-    LaneChangeState myLaneChangeState;
+    MSAbstractLaneChangeModel *myLaneChangeModel;
+
 private:
 
     /// Reaction time [sec]
@@ -904,7 +785,7 @@ private:
 
     /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
-    const MSEdge::LaneCont* myAllowedLanes;
+    NextAllowedLanes myAllowedLanes;
 
     /// Collection of meanDataValues
     struct MeanDataValues
@@ -920,10 +801,6 @@ private:
 
     /// Container of meanDataValues, one element for each mean-interval.
     std::vector< MeanDataValues > myMeanData;
-
-//    MSLane *myApproachedLane;
-
-//    double myVWish;
 
     /// Default constructor.
     MSVehicle();
@@ -941,11 +818,6 @@ private:
         double myVLinkWait;
         DriveProcessItem( MSLinkCont::const_iterator link, double vPass, double vWait  ) :
             myLink( link ), myVLinkPass(vPass), myVLinkWait(vWait) { };
-/*
-        // Link that leads to myLane.
-        MSLink*   myLink;
-        // the speed this item allows
-        double mySpeed;*/
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
