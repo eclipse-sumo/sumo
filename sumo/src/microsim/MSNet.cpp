@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/03/03 14:56:23  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.6  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -242,8 +245,8 @@ MSNet::Time MSNet::globaltime;
 #ifndef _DEBUG
 MSNet::Time MSNet::globaltime;
 #endif
-MSNet::Time MSNet::searchedtime = 59078945;
-std::string MSNet::searched1 = "72456450";
+MSNet::Time MSNet::searchedtime = 1549450;
+std::string MSNet::searched1 = "5";
 std::string MSNet::searched2 = "3475668";
 std::string MSNet::searchedJunction = "245466";
 #endif

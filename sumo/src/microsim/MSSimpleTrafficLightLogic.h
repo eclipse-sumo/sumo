@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 14:56:25  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -117,7 +120,7 @@ public:
     /// Returns the duration of the given step
     virtual MSNet::Time duration() const;
 
-private:
+protected:
     /// the list of phases this logic uses
     Phases _phases;
 

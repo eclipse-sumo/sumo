@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/03/03 14:56:26  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.8  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -354,7 +357,7 @@ MSVehicle::~MSVehicle()
 {
     //myWaitingPersons.clear();
     if(!myRoute->inFurtherUse()) {
-        MSRoute::remove(myRoute->getID());
+        MSRoute::erase(myRoute->getID());
     }
 }
 
@@ -679,9 +682,6 @@ MSVehicle::move( MSLane* lane,
 
     if(vNext<=0.1) {
         myWaitingTime++;
-        if(myWaitingTime>1000) {
-            int bla = 0;
-        }
     } else {
         myWaitingTime = 0;
     }
@@ -824,9 +824,6 @@ MSVehicle::moveFirstChecked()
 
     if(vNext<=0.1) {
         myWaitingTime++;
-        if(myWaitingTime>1000) {
-            int bla = 0;
-        }
     } else {
         myWaitingTime = 0;
     }

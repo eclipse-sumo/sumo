@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/03/03 14:56:21  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -91,7 +94,7 @@ public:
         /// constructor
         InLane( MSLane* inLane );
 
-    private:
+    public: // !!!
         /// the wrapped lane
         MSLane* myLane;
 

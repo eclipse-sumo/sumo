@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/03 14:56:25  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -89,7 +92,7 @@ MSRouteLoaderControl::loadNext(MSNet::Time step)
         myAllLoaded = true;
     }
     // set the step information
-    myLastLoadTime = step;
+    myLastLoadTime = run;
     // return the container with new vehicles
     return myVehCont;
 }

@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/03/03 14:56:20  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.8  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -577,7 +580,7 @@ MSLane::emit( MSVehicle& veh )
     // This safePos is ugly, but we will live with it in this revision.
     double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
-    assert( safePos < myLength ); // Lane has to be longer than safePos,
+//    assert( safePos < myLength ); // Lane has to be longer than safePos,
     // otherwise emission (this kind of emission) makes no sense.
 
     // Here the emission starts
@@ -633,7 +636,7 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
 //    aVehicle->departLane();
     MSLane::VehCont::iterator predIt =
         find_if( myVehicles.begin(), myVehicles.end(),
-                 bind2nd( MSInductLoop::VehPosition(), aVehicle->pos() ) );
+                 bind2nd( VehPosition(), aVehicle->pos() ) );
 
     if ( predIt != myVehicles.end() ) {
 
@@ -1297,6 +1300,64 @@ MSLane::setApproaching(double dist, MSVehicle *veh)
 {
     myFirstDistance = dist;
     myApproaching = veh;
+}
+
+
+MSLane::VehCont::const_iterator 
+MSLane::findNextVehicleByPosition(double pos) const
+{
+    assert(pos<myLength);
+    // returns if no vehicle is available
+    if(myVehicles.size()==0) {
+        return myVehicles.end();
+    }
+    // some kind of a binary search
+    size_t off1 = 0;
+    size_t off2 = myVehicles.size() - 1;
+    while(true) {
+        size_t middle = (off1+off2)/2;
+        MSVehicle *v1 = myVehicles[middle];
+        if(v1->pos()>pos) {
+            off2 = middle;
+        } else if(v1->pos()<pos) {
+            off1 = middle;
+        }
+        if(off1==off2) {
+            return myVehicles.begin() + off1;
+        }
+    }
+}
+
+
+MSLane::VehCont::const_iterator 
+MSLane::findPrevVehicleByPosition(const VehCont::const_iterator &beginAt,
+                                  double pos) const
+{
+    assert(pos<myLength);
+    // returns if no vehicle is available
+    if(myVehicles.size()==0) {
+        return myVehicles.end();
+    }
+    // some kind of a binary search
+    size_t off1 = distance(myVehicles.begin(), beginAt);
+    size_t off2 = myVehicles.size() - 1;
+    while(true) {
+        size_t middle = (off1+off2)/2;
+        MSVehicle *v1 = myVehicles[middle];
+        if(v1->pos()>pos) {
+            off2 = middle;
+        } else if(v1->pos()<pos) {
+            off1 = middle;
+        }
+        if(off1==off2) {
+            // there may be no vehicle before
+            if(off1==0) {
+                return myVehicles.end();
+            }
+            off1--;
+            return myVehicles.begin() + off1;
+        }
+    }
 }
 
 

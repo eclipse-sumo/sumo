@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/03/03 14:56:21  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.4  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -259,9 +262,6 @@ MSLaneChanger::change()
         }
     }
     else { // not on allowed
-            if(vehicle->id()=="1") {
-                int bla = 0;
-            }
         vehicle->_lcAction = MSVehicle::LCA_URGENT;
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
@@ -533,8 +533,12 @@ MSLaneChanger::overlap( ChangerIt target )
     }
 
     //
-    if ( target->lane->length() - vehicle->pos() >
+/*    if ( target->lane->length() - vehicle->pos() >
          MSVehicleType::maxLength() ) {
+        return false;
+    }
+    return true;*/
+    if(vehicle->speed()<vehicle->decelAbility()) {
         return false;
     }
     return true;

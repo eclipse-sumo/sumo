@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.3  2003/03/03 14:56:19  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -40,7 +43,7 @@
  * ======================================================================= */
 #include <string>
 #include <fstream>
-
+#include "MSNet.h"
 
 /* =========================================================================
  * class definitions
@@ -59,20 +62,16 @@ public:
     /** Constructor: Detector detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */
-    MSDetector( std::string id,
-                OutputStyle style,
-                std::ofstream* file ) : myID( id ),
-                                        myStyle( style ),
-                                        myFile( file ) {}
+    MSDetector( std::string id, OutputStyle style, std::ofstream* file = 0,
+                MSNet::Time sampleInterval=1, bool floating=false);
 
     /// Destructor.
-    virtual ~MSDetector() {};
+    virtual ~MSDetector();
 
     /// Call sample every timestep to update the detector.
     void virtual sample( double currSimSeconds ) = 0;
 
 protected:
-
     /// Object's Id.
     std::string myID;
 
@@ -81,6 +80,12 @@ protected:
 
     /// File where output goes to.
     std::ofstream* myFile;
+
+    /// The sample interval
+    MSNet::Time mySampleInterval;
+
+    /// The information whether the value floats
+    bool myAmTimeFloating;
 
 private:
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2003/03/03 14:56:20  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.4  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -195,7 +198,10 @@ public:
     friend class GUILaneChanger;
 
     /// needs direct access to the vehicle container
-    friend class MSInductLoop;
+//    friend class MSInductLoop;
+
+    /// needs direct access to the vehicle container
+//    friend class MSLaneState;
 
     /// needs direct access to maxSpeed
     friend class MSLaneSpeedTrigger;
@@ -260,6 +266,19 @@ public:
 	    /// the output interval (??? ...is already stored in MSLane::MeanData?)
         MSNet::Time myInterval;
     };
+
+
+    /** Function-object in order to find the vehicle, that has just
+        passed the detector. */
+    struct VehPosition : public std::binary_function< const MSVehicle*,
+                         double, bool >
+    {
+        /// compares vehicle position to the detector position
+        bool operator() ( const MSVehicle* cmp, double pos ) const {
+            return cmp->pos() > pos;
+        }
+    };
+
 
     /// output operator for XML-mean-data output
     friend std::ostream& operator<<( std::ostream& os,
@@ -425,6 +444,13 @@ public:
     virtual const VehCont &getVehiclesSecure();
 
     void setApproaching(double dist, MSVehicle *veh);
+
+    VehCont::const_iterator findNextVehicleByPosition(double pos) const;
+
+    VehCont::const_iterator findPrevVehicleByPosition(
+        const VehCont::const_iterator &beginAt,
+        double pos) const;
+
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.

@@ -1,14 +1,14 @@
-#ifndef MSInductLoop_H
-#define MSInductLoop_H
+#ifndef MSLaneState_H
+#define MSLaneState_H
 
 //---------------------------------------------------------------------------//
-//                        MSInductLoop.h  -  Simple detector that emulates
-//                        induction loops.
+//                        MSLaneState.h  -  
+//  Some kind of induct loops with a length
 //                           -------------------
-//  begin                : Thu, 14 Mar 2002
-//  copyright            : (C) 2002 by Christian Roessel
-//  organisation         : ZAIK http://www.zaik.uni-koeln.de/AFS
-//  email                : roessel@zpr.uni-koeln.de
+//  begin                : Tue, 18 Feb 2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR 
+//  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
@@ -21,46 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
-// Revision 1.3  2003/03/03 14:56:20  dkrajzew
+// Revision 1.1  2003/03/03 14:56:19  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
-// Revision 1.2  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.6  2002/07/31 17:33:00  roessel
-// Changes since sourceforge cvs request.
-//
-// Revision 1.6  2002/07/24 16:28:17  croessel
-// Made function-object VehPosition public, so that in can be used be
-// other classes.
-//
-// Revision 1.5  2002/04/11 16:14:42  croessel
-// Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
-// declaration of OutputStyle.
-//
-// Revision 1.4  2002/04/11 15:25:55  croessel
-// Changed float to double.
-//
-// Revision 1.3  2002/04/11 10:04:12  croessel
-// Changed myFile-type from reference to pointer.
-//
-// Revision 1.2  2002/04/10 15:50:55  croessel
-// Changeg cless name from MSDetector to MSInductLoop.
-//
-// Revision 1.1  2002/04/10 15:34:21  croessel
-// Renamed MSDetector into MSInductLoop.
-//
-// Revision 1.2  2002/04/10 15:16:15  croessel
-// Get the job done version.
-//
-// Revision 1.2  2002/03/27 17:56:05  croessel
-// Updated version.
-//
-// Revision 1.1  2002/03/14 18:48:54  croessel
-// Initial commit.
 //
 
 /* =========================================================================
@@ -70,7 +33,6 @@
 #include "MSVehicle.h"
 #include "MSLane.h"
 #include "MSDetector.h"
-#include <utils/logging/LoggedValue.h>
 #include <string>
 #include <functional>
 
@@ -79,38 +41,42 @@
  * class declarations
  * ======================================================================= */
 /**
- * @class MSInductLoop
- * This detector is something like a virtual double - induct loop. It notifies
- * vehicles running over it and saves their values. This detector has no
- * size.
+ * @class MSLaneState
  */
 template<class _T>
-class MSInductLoop 
-    : public MSDetector
+class MSLaneState : public MSDetector
 {
 public:
 
     /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */
-    MSInductLoop( std::string id, MSLane* lane, double position,
-        MSNet::Time sampleInterval, MSDetector::OutputStyle style, 
-        std::ofstream* file, bool floating);
+    MSLaneState( std::string    id,
+                  MSLane*        lane,
+                  double         begin,
+                  double         length,
+                  MSNet::Time    sampleIntervall,
+                  MSDetector::OutputStyle style,
+                  std::ofstream* file );
 
     /// Destructor.
-    ~MSInductLoop();
+    ~MSLaneState();
 
     /// Call sample every timestep to update the detector.
     void sample( double currSimSeconds );
 
-    /// Returns the time the last vehicle was at the loop
-    MSNet::Time getLastVehicleTime() const;
-
+    /** Function-object in order to find the vehicle, that has just
+        passed the detector. */
+    struct VehPosition : public std::binary_function< const MSVehicle*,
+                         double, bool >
+    {
+        /// compares vehicle position to the detector position
+        bool operator() ( const MSVehicle* cmp, double pos ) const {
+            return cmp->pos() > pos;
+        }
+    };
 
 protected:
-    /// Increments the local density.
-    double localDensity( const MSVehicle& veh, double currSimSeconds );
-
     /// Write the data according to OutputStyle when the sampleIntervall is over.
     void writeData();
 
@@ -134,8 +100,11 @@ private:
     /// Lane where detector works on.
     MSLane* myLane;
 
-    /// InductLoops position on myLane.
+    /// The begin on the lane
     double myPos;
+
+    /// The length on the lane
+    double myLength;
 
     /// Sample-intervall in seconds.
     MSNet::Time mySampleIntervall;
@@ -153,7 +122,7 @@ private:
     unsigned myNSamples;
 
     /** Number of vehicles which have already passed the detector */
-    _T myNPassedVeh;
+    _T myVehicleNo;
 
     /// local-densities sampled
     _T myLocalDensity;
@@ -164,36 +133,41 @@ private:
     /// Occupancy-times sampled 
     _T myOccup;
 
-    /// Veh-lengthes 
+    /// Veh-lengths 
     _T myVehLengths;
+
+    /// The number of vehicles which are slower than 0.1 m/s
+    _T myNoSlow;
 
     /// Number of already processed sampleIntervalls
     unsigned myNIntervalls;
 
+    /** @brief The information in which time step the detector was asked the last time
+        Needed to reduce the update frequency of the iterators */
+    MSNet::Time myLastUpdateTime;
+
 private:
     /// Default constructor.
-    MSInductLoop();
+    MSLaneState();
 
     /// Copy constructor.
-    MSInductLoop( const MSInductLoop& );
+    MSLaneState( const MSLaneState& );
 
     /// Assignment operator.
-    MSInductLoop& operator=( const MSInductLoop& );
+    MSLaneState& operator=( const MSLaneState& );
 };
+
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
 #ifndef MSVC
-#include "MSInductLoop.cpp"
+#include "MSLaneState.cpp"
 #endif
 #endif // EXTERNAL_TEMPLATE_DEFINITION
-
-
-
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
 
 //#ifndef DISABLE_INLINE
-//#include "MSInductLoop.icc"
+//#include "MSLaneState.icc"
 //#endif
 
 #endif

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/03 14:56:23  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -117,7 +120,7 @@ MSRoute::clear()
 
 
 void
-MSRoute::remove(const std::string &id)
+MSRoute::erase(const std::string &id)
 {
     RouteDict::iterator i=myDict.find(id);
     assert(i!=myDict.end());

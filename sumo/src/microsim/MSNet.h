@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/03/03 14:56:22  dkrajzew
+// some debugging; new detector types added; actuated traffic lights added
+//
 // Revision 1.6  2003/02/07 10:41:51  dkrajzew
 // updated
 //
