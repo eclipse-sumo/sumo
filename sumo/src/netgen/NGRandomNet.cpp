@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/28 08:32:55  dkrajzew
+// random number specification option added
+//
 // Revision 1.2  2003/07/21 11:05:31  dkrajzew
 // patched some bugs found in first real-life execution
 //
@@ -287,8 +290,6 @@ void
 TNGRandomNet::CreateNet(int NumNodes)
 {
     TNode *OuterNode;
-
-	srand(2000);
 
 	myNumNodes = NumNodes;
 

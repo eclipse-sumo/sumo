@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/10/28 08:32:13  dkrajzew
+// random number specification option added
+//
 // Revision 1.16  2003/09/22 14:54:22  dkrajzew
 // some refactoring on GUILoadThread-usage
 //
@@ -97,6 +100,8 @@ namespace
 #include <qthread.h>
 
 #include <ctime>
+
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -165,7 +170,7 @@ void GUILoadThread::run()
             simEndTime = oc.getInt("e");
             craw = SUMOFrame::buildRawOutputStream(oc);
         }
-        srand(881);
+        srand(oc.getInt("srand"));
     } catch (UtilException &e) {
         delete net;
         delete craw;
