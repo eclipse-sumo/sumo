@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/30 09:16:10  dkrajzew
+// a better (correct?) processing of yellow lights added; debugging
+//
 // Revision 1.5  2003/06/06 10:39:17  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -46,12 +49,14 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <iostream>
 #include <map>
 #include "MSLink.h"
 #include "MSLane.h"
 #include "MSTrafficLightLogic.h"
 #include "MSEventControl.h"
 
+using namespace std;
 
 MSTrafficLightLogic::DictType MSTrafficLightLogic::_dict;
 
@@ -121,6 +126,44 @@ MSTrafficLightLogic::addLink(MSLink *link, size_t pos)
 
 void
 MSTrafficLightLogic::maskRedLinks()
+{
+    // get the current traffic light signal combination
+    const std::bitset<64> &allowedLinks = allowed();
+    const std::bitset<64> &yellowLinks = yellowMask();
+    // go through the links
+    for(size_t i=0; i<myLinks.size(); i++) {
+        // mark out links having red
+        if(!allowedLinks.test(i)&&!yellowLinks.test(i)) {
+            const LinkVector &currGroup = myLinks[i];
+            for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                (*j)->deleteRequest();
+            }
+        }
+        //
+        if(!allowedLinks.test(i)) {
+            if(yellowLinks.test(i)) {
+                const LinkVector &currGroup = myLinks[i];
+                for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                    (*j)->setTLState(MSLink::LINKSTATE_TL_YELLOW);
+                }
+            } else {
+                const LinkVector &currGroup = myLinks[i];
+                for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                    (*j)->setTLState(MSLink::LINKSTATE_TL_RED);
+                }
+            }
+        } else {
+            const LinkVector &currGroup = myLinks[i];
+            for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                (*j)->setTLState(MSLink::LINKSTATE_TL_GREEN);
+            }
+        }
+    }
+}
+
+
+void
+MSTrafficLightLogic::maskYellowLinks()
 {
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = allowed();

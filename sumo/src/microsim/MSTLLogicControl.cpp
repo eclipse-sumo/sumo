@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/30 09:16:10  dkrajzew
+// a better (correct?) processing of yellow lights added; debugging
+//
 // Revision 1.1  2003/06/05 16:08:36  dkrajzew
 // traffic lights are no longer junction-bound; a separate control is necessary
 //
@@ -57,6 +60,15 @@ MSTLLogicControl::maskRedLinks()
 {
     for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
         (*i)->maskRedLinks();
+    }
+}
+
+
+void
+MSTLLogicControl::maskYellowLinks()
+{
+    for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
+        (*i)->maskYellowLinks();
     }
 }
 

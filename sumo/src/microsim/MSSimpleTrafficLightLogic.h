@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/07/30 09:16:10  dkrajzew
+// a better (correct?) processing of yellow lights added; debugging
+//
 // Revision 1.8  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -93,7 +96,8 @@ public:
             const std::bitset<N> &breakMaskArg,
 			const std::bitset<N> &yellowMaskArg)
             : duration(durationArg), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMask) { }
+            breakMask(breakMaskArg), yellowMask(yellowMaskArg) {
+        }
 
         /// destructor
         ~PhaseDefinition() { }

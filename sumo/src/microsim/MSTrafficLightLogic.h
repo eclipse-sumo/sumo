@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/07/30 09:16:10  dkrajzew
+// a better (correct?) processing of yellow lights added; debugging
+//
 // Revision 1.6  2003/06/06 10:39:17  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -102,6 +105,7 @@ public:
 	virtual size_t step() const = 0;
 
     void maskRedLinks();
+    void maskYellowLinks();
 
     friend class NLSucceedingLaneBuilder;
 

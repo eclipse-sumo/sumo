@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/30 09:16:10  dkrajzew
+// a better (correct?) processing of yellow lights added; debugging
+//
 // Revision 1.1  2003/06/05 16:08:36  dkrajzew
 // traffic lights are no longer junction-bound; a separate control is necessary
 //
@@ -54,8 +57,11 @@ public:
     /// Destructor
     ~MSTLLogicControl();
 
-    /// For all traffic lights, the requests are masked away if they have red light
+    /// For all traffic lights, the requests are masked away if they have red light (not yellow)
     void maskRedLinks();
+
+    /// For all traffic lights, the requests are masked away if they have yellow light
+    void maskYellowLinks();
 
 private:
     /// Definition of the storage for traffic light logics
