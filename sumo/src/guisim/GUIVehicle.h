@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/11/20 13:06:30  dkrajzew
+// loading and using of predefined vehicle colors added
+//
 // Revision 1.10  2003/10/22 07:07:06  dkrajzew
 // patching of lane states on force vehicle removal added
 //
@@ -133,7 +136,7 @@ public:
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
         the same settings */
-    virtual MSVehicle *getNextPeriodical() const;
+//    virtual MSVehicle *getNextPeriodical() const;
 
 
 //    virtual size_t getTableParameterNo() const;

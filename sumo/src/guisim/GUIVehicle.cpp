@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/11/20 13:06:30  dkrajzew
+// loading and using of predefined vehicle colors added
+//
 // Revision 1.19  2003/11/12 13:59:04  dkrajzew
 // redesigned some classes by changing them to templates
 //
@@ -95,7 +98,6 @@ namespace
 #include "GUIVehicle.h"
 #include <qwidget.h>
 #include <gui/GUISUMOAbstractView.h>
-//#include <gui/TableTypes.h>
 #include <gui/popup/QGLObjectPopupMenu.h>
 #include <gui/popup/QGLObjectPopupMenuItem.h>
 #include <gui/partable/GUIParameterTableWindow.h>
@@ -114,6 +116,7 @@ using namespace std;
  * ======================================================================= */
 RGBColor GUIVehicle::_laneChangeColor1;
 RGBColor GUIVehicle::_laneChangeColor2;
+
 
 /* =========================================================================
  * method definitions
@@ -223,7 +226,7 @@ GUIVehicle::getWaitingTime() const
     return myWaitingTime;
 }
 */
-
+/*
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
@@ -231,12 +234,12 @@ GUIVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return static_cast<GUINet*>(GUINet::getInstance())->buildNewGUIVehicle(
+    return static_cast<GUINet*>(GUINet::getInstance())->buildNewVehicle(
         StringUtils::version1(myID),
         myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
         myPeriod, myDefinedColor);
 }
-
+*/
 
 QGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIApplicationWindow &app,

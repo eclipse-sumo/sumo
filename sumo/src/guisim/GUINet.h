@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2003/11/20 13:05:32  dkrajzew
+// loading and using of predefined vehicle colors added
+//
 // Revision 1.20  2003/11/17 07:15:27  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -86,6 +89,7 @@
 
 #include <string>
 #include <utility>
+#include <guisim/GUILaneStateBounderiesStorage.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
@@ -163,20 +167,25 @@ public:
     /// returns the boundery of an edge (!!! shouldn't it be a const&?)
     Boundery getEdgeBoundery(const std::string &name) const;
 
+    /// Some further steps needed for gui processing
+    void guiSimulationStep();
+
     /// builds a new GUIVehicle
     MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset);
+        int repNo, int repOffset, const RGBColor &col);
 
-    MSVehicle *buildNewGUIVehicle( std::string id, MSRoute* route,
+/*    MSVehicle *buildNewGUIVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
         int repNo, int repOffset, const RGBColor &color);
-
+*/
     size_t getDetectorWrapperNo() const;
 
     GUINetWrapper *getWrapper() const;
 
     GUIGlObjectStorage &getIDStorage();
+
+    GUILaneStateBounderiesStorage &getAggregatedValueBoundery();
 
     unsigned int getLinkTLID(MSLink *link) const;
 
@@ -233,6 +242,9 @@ protected:
 
     /// A link2tl-logic map
     std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;
+
+    /// A storage for the min/max-bounderies of aggregated values for their display
+    GUILaneStateBounderiesStorage myAggBounderyStorage;
 
 };
 

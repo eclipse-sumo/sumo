@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/11/20 13:05:32  dkrajzew
+// loading and using of predefined vehicle colors added
+//
 // Revision 1.23  2003/11/18 14:30:40  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -106,6 +109,7 @@ namespace
 #include <gui/GUIGlObjectStorage.h>
 #include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
+#include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIEmitterWrapper.h>
 #include <guisim/GUIVehicleTransfer.h>
@@ -113,6 +117,9 @@ namespace
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
+#include <guisim/GUILaneStateReporter.h>
+#include <microsim/MSLaneState.h>
+#include <microsim/MSUpdateEachTimestepContainer.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIHelpingJunction.h"
@@ -339,13 +346,19 @@ MSVehicle *
 GUINet::buildNewVehicle( std::string id, MSRoute* route,
                        MSNet::Time departTime,
                        const MSVehicleType* type,
-                       int repNo, int repOffset)
+                       int repNo, int repOffset, const RGBColor &col)
 {
-    return buildNewGUIVehicle(id, route, departTime, type, repNo,
-        repOffset, RGBColor(-1, -1, -1));
+    size_t noIntervals = getNDumpIntervalls();
+	myLoadedVehNo++;
+    GUIVehicle * veh = new GUIVehicle(_idStorage,
+        id, route, departTime,
+        type, noIntervals, repNo, repOffset, col);
+    return veh;
+/*    return buildNewGUIVehicle(id, route, departTime, type, repNo,
+        repOffset, RGBColor(-1, -1, -1));*/
 }
 
-
+/*
 MSVehicle *
 GUINet::buildNewGUIVehicle( std::string id, MSRoute* route,
                        MSNet::Time departTime,
@@ -360,7 +373,7 @@ GUINet::buildNewGUIVehicle( std::string id, MSRoute* route,
         type, noIntervals, repNo, repOffset, color);
     return veh;
 }
-
+*/
 
 size_t
 GUINet::getDetectorWrapperNo() const
@@ -393,6 +406,22 @@ GUINet::getLinkTLID(MSLink *link) const
     return (*i).second->getGlID();
 }
 
+
+void
+GUINet::guiSimulationStep()
+{
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SimplePhaseDef> > >::getInstance()->updateAll();
+    myAggBounderyStorage.initStep();
+}
+
+
+GUILaneStateBounderiesStorage &
+GUINet::getAggregatedValueBoundery()
+{
+    return myAggBounderyStorage;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

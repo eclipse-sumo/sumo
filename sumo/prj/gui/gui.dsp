@@ -167,6 +167,10 @@ SOURCE=..\..\src\utils\geom\GeomHelper.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\gfx\GfxConvHelper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\glutils\GLHelper.cpp
 # End Source File
 # Begin Source File
@@ -316,6 +320,10 @@ SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGnT.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGwT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUILaneStateBounderiesStorage.cpp
 # End Source File
 # Begin Source File
 
@@ -656,6 +664,10 @@ SOURCE=..\..\src\microsim\MSNoLogicJunction.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSNVehicles.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSOccupancyDegree.cpp
 # End Source File
 # Begin Source File
 
@@ -1213,6 +1225,10 @@ SOURCE=..\..\src\gui\drawerimpl\GUILaneDrawer_SGwT.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUILaneStateBounderiesStorage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUILaneStateReporter.h
 # End Source File
 # Begin Source File
@@ -1725,7 +1741,7 @@ SOURCE=..\..\src\microsim\MSNoLogicJunction.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\microsim\MSOccupancyCorrection.h
+SOURCE=..\..\src\microsim\MSOccupancyDegree.h
 # End Source File
 # Begin Source File
 
