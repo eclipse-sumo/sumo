@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/07/02 08:41:40  dkrajzew
+// detector drawer are now also responsible for other additional items
+//
 // Revision 1.3  2003/12/09 11:27:15  dkrajzew
 // documentation added
 //
@@ -38,8 +41,7 @@ class GUINet;
 class GUIEdge;
 class GUILaneWrapper;
 class GUIJunctionWrapper;
-class GUIDetectorWrapper;
-class GUIEmitterWrapper;
+class GUIGlObject_AbstractAdd;
 
 
 /* =========================================================================
@@ -50,9 +52,9 @@ class GUIEmitterWrapper;
  * This class lays a grid over a network in order to allow the drawing of
  *  only a part of the network: the viewport of a view on the simulation is
  *  used to determine the streets, junctions, vehicles etc. actually
- *  viewable (not outside the viewport). The information about which streets
+ *  visible (not outside the viewport). The information about which streets
  *  are visible are copied into a container which should be supplied by the
- *  view that wants to know which parts to display.
+ *  view that wants to know which parts shall be visualised.
  * It is obvious, that the view should call this method only if the viewport
  *  has been changed.
  * The grid itself is made of cells. Each cell holds a small part of the area
@@ -79,13 +81,12 @@ public:
     /** @brief Fills the given containers with the wished information
         The offsets and x/y-positions are used to determine the viewport.
         The first int supplied ("what") determines the information about which
-        artifact shall be computed. They are fille into the given arrays.
+        artifact shall be computed. They are filled into the given arrays.
         The arrays must have the proper size (equals to the number of the
         simulation's objects of each type) */
     void get(int what,
         double x, double y, double xoff, double yoff,
-        size_t *setEdges, size_t *setJunctions, size_t *setDetectors,
-        size_t *setEmitter);
+        size_t *setEdges, size_t *setJunctions, size_t *setAdditional);
 
     /// returns the number of cells in x-direction
     int getNoXCells() const;
@@ -164,7 +165,7 @@ private:
     class GridCell {
     public:
         /// Constructor
-	    GridCell();
+        GridCell();
 
         /// Destructor
         ~GridCell();
@@ -175,11 +176,8 @@ private:
         /// Adds an edge to the set
         void addEdge(size_t no);
 
-        /// Adds a detector to the set
-        void addDetector(size_t no);
-
-        /// Adds an emitter to the set
-        void addEmitter(size_t no);
+        /// Adds an additional structure to the set
+        void addAdditional(size_t no);
 
         /// Sets the information which junctions are stored lie within the cell
         void setJunctions(size_t *into) const;
@@ -187,15 +185,12 @@ private:
         /// Sets the information which edges are stored lie within the cell
         void setEdges(size_t *into) const;
 
-        /// Sets the information which detectors are stored lie within the cell
-        void setDetectors(size_t *into) const;
-
-        /// Sets the information which emitter are stored lie within the cell
-        void setEmitters(size_t *into) const;
+        /// Sets the information which additional structures are stored lie within the cell
+        void setAdditional(size_t *into) const;
 
         /// Removes all artifacts from which are stored within the given cell
-
         void removeIfIn(const GridCell &other);
+
     public:
 
         /// The set of junctions
@@ -204,11 +199,8 @@ private:
         /// The set of edges
         Set myEdges;
 
-        /// The set of detectors
-        Set myDetectors;
-
-        /// The set of emitter
-        Set myEmitter;
+        /// The set of additional structures
+        Set myAdditional;
 
     };
 
@@ -250,11 +242,8 @@ private:
     /// Computes the information which cells do contain the given junction and stores it
     void setJunction(size_t index, GUIJunctionWrapper *junction);
 
-    /// Computes the information which cells do contain the given detector and stores it
-    void setDetector(size_t index, GUIDetectorWrapper *detector);
-
-    /// Computes the information which cells do contain the given emitter and stores it
-    void setEmitter(size_t index, GUIEmitterWrapper *emitter);
+    /// Computes the information which cells do contain the given additional structures and stores it
+    void setAdditional(size_t index, GUIGlObject_AbstractAdd *add);
 
     /// Returns the list of cells containing an object with the given boundery
     std::vector<size_t> getCellsContaining(Boundery boundery);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/07/02 08:41:40  dkrajzew
+// detector drawer are now also responsible for other additional items
+//
 // Revision 1.6  2003/12/09 11:27:15  dkrajzew
 // documentation added
 //
@@ -36,10 +39,9 @@ namespace
 #include "GUIEdge.h"
 #include <utils/geom/GeomHelper.h>
 #include "GUIGrid.h"
+#include <gui/GUIGlObject_AbstractAdd.h>
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIJunctionWrapper.h>
-#include <guisim/GUIDetectorWrapper.h>
-#include <guisim/GUIEmitterWrapper.h>
 
 
 /* =========================================================================
@@ -162,16 +164,9 @@ GUIGrid::GridCell::addEdge(size_t no)
 
 
 void
-GUIGrid::GridCell::addDetector(size_t no)
+GUIGrid::GridCell::addAdditional(size_t no)
 {
-    myDetectors.add(no);
-}
-
-
-void
-GUIGrid::GridCell::addEmitter(size_t no)
-{
-    myEmitter.add(no);
+    myAdditional.add(no);
 }
 
 
@@ -190,16 +185,9 @@ GUIGrid::GridCell::setEdges(size_t *into) const
 
 
 void
-GUIGrid::GridCell::setDetectors(size_t *into) const
+GUIGrid::GridCell::setAdditional(size_t *into) const
 {
-    myDetectors.setInto(into);
-}
-
-
-void
-GUIGrid::GridCell::setEmitters(size_t *into) const
-{
-    myEmitter.setInto(into);
+    myAdditional.setInto(into);
 }
 
 
@@ -208,8 +196,7 @@ GUIGrid::GridCell::removeIfIn(const GridCell &other)
 {
     myJunctions.removeIfIn(other.myJunctions);
     myEdges.removeIfIn(other.myEdges);
-    myDetectors.removeIfIn(other.myDetectors);
-    myEmitter.removeIfIn(other.myEmitter);
+    myAdditional.removeIfIn(other.myAdditional);
 }
 
 
@@ -239,23 +226,23 @@ GUIGrid::~GUIGrid()
 void
 GUIGrid::init()
 {
-	// allocate grid
+    // allocate grid
     size_t size = _xsize*_ysize;
     _grid = new GUIGrid::GridCell[size];
-	// get the boundery
-	_boundery = computeBoundery();
-	// assert that the boundery is not zero in neither dimension
+    // get the boundery
+    _boundery = computeBoundery();
+    // assert that the boundery is not zero in neither dimension
     if(_boundery.getHeight()==0||_boundery.getWidth()==0) {
         _boundery.add(_boundery.xmin()+1, _boundery.ymax()+1);
-		_boundery.add(_boundery.xmin()-1, _boundery.ymax()-1);
+        _boundery.add(_boundery.xmin()-1, _boundery.ymax()-1);
     }
-	// compute the cell size
-	_xcellsize =
-		(_boundery.xmax()-_boundery.xmin()) / _xsize;
-	_ycellsize =
-		(_boundery.ymax()-_boundery.ymin()) / _ysize;
-	// divide Edges on grid
-	divideOnGrid();
+    // compute the cell size
+    _xcellsize =
+        (_boundery.xmax()-_boundery.xmin()) / _xsize;
+    _ycellsize =
+        (_boundery.ymax()-_boundery.ymin()) / _ysize;
+    // divide Edges on grid
+    divideOnGrid();
     // ok, we now have a grid, but we don not want to draw edges more
     //  than once; build the relationship matrix next
     for(size_t i=0; i<3; i++) {
@@ -268,14 +255,14 @@ GUIGrid::init()
 Boundery
 GUIGrid::computeBoundery()
 {
-	Boundery ret;
-	MSJunction::DictType::iterator i;
-	// get the bounderies of the network
-	for(i=MSJunction::myDict.begin(); i!=MSJunction::myDict.end(); i++) {
-		MSJunction *junction = ((*i).second);
-		ret.add(junction->getPosition());
-	}
-	return ret;
+    Boundery ret;
+    MSJunction::DictType::iterator i;
+    // get the bounderies of the network
+    for(i=MSJunction::myDict.begin(); i!=MSJunction::myDict.end(); i++) {
+        MSJunction *junction = ((*i).second);
+        ret.add(junction->getPosition());
+    }
+    return ret;
 }
 
 
@@ -292,16 +279,15 @@ GUIGrid::divideOnGrid()
     size_t index;
     for(index=0; index<_net.myEdgeWrapper.size(); index++) {
         computeEdgeCells(index, _net.myEdgeWrapper[index]);
-	}
+    }
     for(index=0; index<_net.myJunctionWrapper.size(); index++) {
         setJunction(index, _net.myJunctionWrapper[index]);
-	}
-    for(index=0; index<_net.myDetectorWrapper.size(); index++) {
-        setDetector(index, _net.myDetectorWrapper[index]);
-	}
-    for(index=0; index<_net.myEmitter.size(); index++) {
-        setEmitter(index, _net.myEmitter[index]);
-	}
+    }
+    const std::vector<GUIGlObject_AbstractAdd*> &add =
+        GUIGlObject_AbstractAdd::getObjectList();
+    for(index=0; index<add.size(); index++) {
+        setAdditional(index, add[index]);
+    }
 }
 
 
@@ -373,7 +359,7 @@ GUIGrid::computeLaneCells(size_t index, GUILaneWrapper &lane)
                 (x22>=xpos1&&x22<xpos1+_xcellsize&&y22>=ypos1&&y22<ypos1+_ycellsize)
                     )
             {
-            	size_t offset = _xsize * y + x;
+                size_t offset = _xsize * y + x;
                 _grid[offset].addEdge(index);
             }
         }
@@ -392,23 +378,14 @@ GUIGrid::setJunction(size_t index, GUIJunctionWrapper *junction)
 
 
 void
-GUIGrid::setDetector(size_t index, GUIDetectorWrapper *detector)
+GUIGrid::setAdditional(size_t index, GUIGlObject_AbstractAdd *add)
 {
-    std::vector<size_t> cells = getCellsContaining(detector->getBoundery());
+    std::vector<size_t> cells = getCellsContaining(add->getBoundery());
     for(std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
-        _grid[*i].addDetector(index);
+        _grid[*i].addAdditional(index);
     }
 }
 
-
-void
-GUIGrid::setEmitter(size_t index, GUIEmitterWrapper *emitter)
-{
-    std::vector<size_t> cells = getCellsContaining(emitter->getBoundery());
-    for(std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
-        _grid[*i].addEmitter(index);
-    }
-}
 
 std::vector<size_t>
 GUIGrid::getCellsContaining(Boundery boundery)
@@ -423,7 +400,7 @@ GUIGrid::getCellsContaining(Boundery boundery)
             cellBounds.add(xpos1, ypos1);
             cellBounds.add(xpos1+_xcellsize, ypos1+_ycellsize);
             if( boundery.partialWithin(cellBounds) ) {
-            	int offset = _xsize * y + x;
+                int offset = _xsize * y + x;
                 cells.push_back(offset);
             }
         }
@@ -472,8 +449,7 @@ GUIGrid::removeFrom(GridCell &cont, int x, int y)
 void
 GUIGrid::get(int what,
              double x, double y, double xoff, double yoff,
-             size_t *setEdges, size_t *setJunctions, size_t *setDetectors,
-             size_t *setEmitter)
+             size_t *setEdges, size_t *setJunctions, size_t *setAdditional)
 {
     // compute bounderies
     double xur = x - xoff - _xcellsize;
@@ -496,7 +472,7 @@ GUIGrid::get(int what,
         }
         size_t xidx = 0;
         for(; xrun<xdl&&xpos<_xsize; xrun+=_xcellsize, xpos++, xidx++) {
-			int offs = ypos*_xsize+xpos;
+            int offs = ypos*_xsize+xpos;
             if(xidx==0&&yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
                     _grid[offs].setEdges(setEdges);
@@ -505,10 +481,7 @@ GUIGrid::get(int what,
                     _grid[offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _grid[offs].setDetectors(setDetectors);
-                }
-                if((what&GLO_EMITTER)!=0) {
-                    _grid[offs].setEmitters(setEmitter);
+                    _grid[offs].setAdditional(setAdditional);
                 }
             } else if(yidx!=0 && xidx!=0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
@@ -518,10 +491,7 @@ GUIGrid::get(int what,
                     _relations[2][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[2][offs].setDetectors(setDetectors);
-                }
-                if((what&GLO_EMITTER)!=0) {
-                    _relations[2][offs].setEmitters(setEmitter);
+                    _relations[2][offs].setAdditional(setAdditional);
                 }
             } else if(yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
@@ -531,10 +501,7 @@ GUIGrid::get(int what,
                     _relations[1][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[1][offs].setDetectors(setDetectors);
-                }
-                if((what&GLO_EMITTER)!=0) {
-                    _relations[1][offs].setEmitters(setEmitter);
+                    _relations[1][offs].setAdditional(setAdditional);
                 }
             } else {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
@@ -544,10 +511,7 @@ GUIGrid::get(int what,
                     _relations[0][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[0][offs].setDetectors(setDetectors);
-                }
-                if((what&GLO_EMITTER)!=0) {
-                    _relations[0][offs].setEmitters(setEmitter);
+                    _relations[0][offs].setAdditional(setAdditional);
                 }
             }
         }
@@ -584,9 +548,6 @@ GUIGrid::getYCellSize() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIGrid.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
