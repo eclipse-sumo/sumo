@@ -36,9 +36,7 @@ MSNVehicles::MSNVehicles( double lengthInMeters,
 MSNVehicles::DetectorAggregate
 MSNVehicles::getDetectorAggregate( void ) // [veh/km]
 {
-    double nVehOnDet = counterM.containerM -
-        getOccupancyEntryCorrection() -
-        getOccupancyLeaveCorrection();
+    double nVehOnDet = counterM.containerM;
     resetOccupancyCorrection();
     return nVehOnDet;
 }
