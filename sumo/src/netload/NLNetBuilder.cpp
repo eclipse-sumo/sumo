@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/08/02 12:47:18  dkrajzew
+// time-to-teleport added
+//
 // Revision 1.19  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -205,9 +208,12 @@ NLNetBuilder::buildNet(MSVehicleControl *vc)
      // set whether empty edges shall be printed on dump
     MSGlobals::myOmitEmptyEdgesOnDump =
         !m_pOptions.getBool("dump-empty-edges");
-     // set whether internal lanes shall be used
+    // set whether internal lanes shall be used
     MSGlobals::myUsingInternalLanes =
         m_pOptions.getBool("use-internal-links");
+    // set the grid lock time
+    MSGlobals::myTimeToGridlock =
+        m_pOptions.getInt("time-to-teleport");
      // preinit network
     MSNet::preInitMSNet(
         m_pOptions.getInt("b"),
