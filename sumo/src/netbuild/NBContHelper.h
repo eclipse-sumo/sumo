@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.4  2003/03/17 14:22:32  dkrajzew
 // further debug and windows eol removed
 //
@@ -118,9 +121,12 @@ public:
 
     public:
         /// comparing operation
-        int operator() (NBEdge *e1, NBEdge *e2) const {
-            return e1->getJunctionAngle(_node) < e2->getJunctionAngle(_node);
-        }
+        int operator() (NBEdge *e1, NBEdge *e2) const;
+
+    private:
+        /// Converts the angle of the edge if it is an incoming edge
+        double getConvAngle(NBEdge *e) const;
+
     };
 
     /**
@@ -274,6 +280,10 @@ public:
         connects both given nodes */
     static NBEdge *findConnectingEdge(const EdgeVector &edges,
         NBNode *from, NBNode *to);
+
+
+    /** returns the maximum speed allowed on the edges */
+    static double maxSpeed(const EdgeVector &ev);
 
 };
 

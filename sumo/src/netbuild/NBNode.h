@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.8  2003/04/01 15:15:53  dkrajzew
 // further work on vissim-import
 //
@@ -112,7 +115,6 @@ class NBDistrict;
  */
 class NBNode {
 public:
-    static int debug;
     /**
      * ApproachingDivider
      * Being a bresenham-callback, this class computes which lanes
@@ -309,7 +311,7 @@ public:
     void computeEdges2Lanes();
 
     /// computes the node's type, logic and traffic light
-    void computeLogic(long maxSize);
+    void computeLogic(long maxSize, double minVehDecel);
 
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges();

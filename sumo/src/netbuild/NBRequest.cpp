@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.6  2003/04/01 15:15:54  dkrajzew
 // further work on vissim-import
 //
@@ -125,7 +128,9 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         _done.push_back(LinkInfoCont(variations, false));
     }
     // insert loaded prohibits
-/*    for(ConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
+/*
+bla
+  for(ConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
         const Connection &prohibited = (*j).first;
         size_t idx1 = getIndex(prohibited.first, prohibited.second);
         const ConnectionVector &prohibiting = (*j).second;
@@ -395,11 +400,11 @@ NBRequest::getSizes() const
 int
 NBRequest::buildTrafficLight(const std::string &key,
                              const NBNode::SignalGroupCont &defs,
-                             size_t cycleTime) const
+                             size_t cycleTime, size_t breakingTime) const
 {
     NBTrafficLightLogicVector *logics = defs.size()!=0
         ? buildLoadedTrafficLights(key, defs, cycleTime)
-        : buildOwnTrafficLights(key);
+        : buildOwnTrafficLights(key, breakingTime);
     NBTrafficLightLogicCont::insert(key, logics);
     return logics->size();
 }
@@ -471,7 +476,8 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
 
 
 NBTrafficLightLogicVector *
-NBRequest::buildOwnTrafficLights(const std::string &key) const
+NBRequest::buildOwnTrafficLights(const std::string &key,
+                                 size_t breakingTime) const
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -482,7 +488,7 @@ NBRequest::buildOwnTrafficLights(const std::string &key) const
     NBTrafficLightLogicVector *logics1 =
         computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger);
+            appendSmallestOnly, skipLarger, breakingTime);
 
     joinLaneLinks = false;
     removeTurnArounds = true;
@@ -490,7 +496,7 @@ NBRequest::buildOwnTrafficLights(const std::string &key) const
     NBTrafficLightLogicVector *logics2 =
         computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger);
+            appendSmallestOnly, skipLarger, breakingTime);
 
     joinLaneLinks = false;
     removeTurnArounds = true;
@@ -498,7 +504,7 @@ NBRequest::buildOwnTrafficLights(const std::string &key) const
     NBTrafficLightLogicVector *logics3 =
         computeTrafficLightLogics(key,
             joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger);
+            appendSmallestOnly, skipLarger, breakingTime);
 
     // join build logics
     logics1->add(*logics2);
@@ -515,18 +521,13 @@ NBRequest::computeTrafficLightLogics(const std::string &key,
                                      bool removeTurnArounds,
                                      LinkRemovalType removal,
                                      bool appendSmallestOnly,
-                                     bool skipLarger) const
+                                     bool skipLarger,
+                                     size_t breakingTime) const
 {
     // compute the matrix of possible links x links
     //  (links allowing each other the parallel execution)
     NBLinkPossibilityMatrix *v = getPossibilityMatrix(joinLaneLinks,
         removeTurnArounds, removal);
-/*    if(NBNode::debug==1) {
-        for(NBLinkPossibilityMatrix::iterator i=v->begin(); i!=v->end(); i++) {
-            cout << *i << endl;
-        }
-        cout << endl;
-    }*/
     // get the number of regarded links
     NBRequestEdgeLinkIterator cei1(this,
         joinLaneLinks, removeTurnArounds, removal);
@@ -546,7 +547,7 @@ NBRequest::computeTrafficLightLogics(const std::string &key,
     // compute the possible logics
     NBTrafficLightLogicVector *logics =
         phases->computeLogics(key, getSizes().second, cei1,
-        *_incoming);
+        *_incoming, breakingTime);
     // clean everything
     delete v;
     delete phases;

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.9  2003/04/01 15:15:51  dkrajzew
 // further work on vissim-import
 //
@@ -163,12 +166,12 @@ public:
     /// returns the junction priority (normalised for the node currently build)
     int getJunctionPriority(NBNode *node);
 
-    /// sets the junction angle
+/*    /// sets the junction angle
     void setJunctionAngle(NBNode *node, double angle);
 
     /// returns the junction angle
     double getJunctionAngle(NBNode *node);
-
+*/
     /// returns the number of lanes
     size_t getNoLanes();
 

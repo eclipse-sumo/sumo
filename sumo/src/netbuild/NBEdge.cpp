@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.10  2003/04/01 15:15:50  dkrajzew
 // further work on vissim-import
 //
@@ -237,9 +240,11 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(_from==0||_to==0) {
         throw std::exception();
     }
-    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(),
-        _to->getXCoordinate(), _to->getYCoordinate());
-    _from->addOutgoingEdge(this);
+    _angle = NBHelpers::angle(
+        _from->getXCoordinate(), _from->getYCoordinate(),
+        _to->getXCoordinate(), _to->getYCoordinate()
+        );
+     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
     // prepare container
     _reachable = new NBEdge::ReachableFromLaneVector();
@@ -285,8 +290,10 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(_from==0||_to==0) {
         throw std::exception();
     }
-    _angle = NBHelpers::angle(_from->getXCoordinate(), _from->getYCoordinate(),
-        _to->getXCoordinate(), _to->getYCoordinate());
+    _angle = NBHelpers::angle(
+        _from->getXCoordinate(), _from->getYCoordinate(),
+        _to->getXCoordinate(), _to->getYCoordinate()
+        );
     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
     // prepare container
@@ -363,7 +370,7 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
     }
 }
 
-
+/*
 void
 NBEdge::setJunctionAngle(NBNode *node, double angle)
 {
@@ -384,7 +391,7 @@ NBEdge::getJunctionAngle(NBNode *node)
         return _toJunctionAngle;
     }
 }
-
+*/
 
 string
 NBEdge::getID()
@@ -455,6 +462,15 @@ NBEdge::computeTurningDirections()
             }
         }
     }
+#ifdef CROSS_TEST
+    assert(
+        (_id=="1si"&&_turnDestination->getID()=="1o") ||
+        (_id=="2si"&&_turnDestination->getID()=="2o") ||
+        (_id=="3si"&&_turnDestination->getID()=="3o") ||
+        (_id=="4si"&&_turnDestination->getID()=="4o") ||
+        _id=="1o" || _id=="2o" || _id=="3o" || _id=="4o" ||
+        _id=="1fi" || _id=="2fi" || _id=="3fi" || _id=="4fi" );
+#endif
 }
 
 

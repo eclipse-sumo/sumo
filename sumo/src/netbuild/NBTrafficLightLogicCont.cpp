@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -42,10 +45,22 @@ namespace
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightLogicCont.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member variables
+ * ======================================================================= */
 NBTrafficLightLogicCont::ContType NBTrafficLightLogicCont::_cont;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 bool
 NBTrafficLightLogicCont::insert(const std::string &id,
                                 NBTrafficLightLogicVector *logics)

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.10  2003/04/01 15:15:53  dkrajzew
 // further work on vissim-import
 //
@@ -279,10 +282,10 @@ NBNodeCont::computeEdges2Lanes(bool verbose)
 
 // computes the "wheel" of incoming and outgoing edges for every node
 bool
-NBNodeCont::computeLogics(bool verbose, long maxSize)
+NBNodeCont::computeLogics(bool verbose, long maxSize, double minVehDecel)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->computeLogic(maxSize);
+        (*i).second->computeLogic(maxSize, minVehDecel);
     }
     return true;
 }

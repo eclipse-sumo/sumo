@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.9  2003/04/01 15:15:54  dkrajzew
 // further work on vissim-import
 //
@@ -146,7 +149,8 @@ public:
     static bool computeEdges2Lanes(bool verbose);
 
     /// build the list of outgoing edges and lanes
-    static bool computeLogics(bool verbose, long maxSize);
+    static bool computeLogics(bool verbose, long maxSize,
+        double minVehDecel);
 
     /// sorts the nodes' edges
     static bool sortNodesEdges(bool verbose);

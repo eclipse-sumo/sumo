@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.5  2003/04/01 15:15:24  dkrajzew
 // some documentation added
 //
@@ -161,14 +164,16 @@ NBTrafficLightLogicVector *
 NBTrafficLightPhases::computeLogics(const std::string &key,
                                     size_t noLinks,
                                     const NBRequestEdgeLinkIterator &cei1,
-                                    const EdgeVector &inLanes) const
+                                    const EdgeVector &inLanes,
+                                    size_t breakingTime) const
 {
     NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(inLanes);
     for(size_t i=0; i<_phasesVectorsByLength.size(); i++) {
         for(size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
             ret->add(
                 buildTrafficLightsLogic(
-                    key, noLinks, _phasesVectorsByLength[i][j], cei1));
+                    key, noLinks, _phasesVectorsByLength[i][j], cei1,
+                    breakingTime));
         }
     }
     return ret;
@@ -181,18 +186,24 @@ NBTrafficLightLogic *
 NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               size_t noLinks,
                                               const PhaseIndexVector &phaseList,
-                                              const NBRequestEdgeLinkIterator &cei1) const
+                                              const NBRequestEdgeLinkIterator &cei1,
+                                              size_t breakingTime) const
 {
     NBTrafficLightLogic *ret =
         new NBTrafficLightLogic(key, noLinks, 0);// !!!
     for(size_t i=0; i<phaseList.size(); i++) {
-        // add the complete phase
+        // build and add the complete phase
         std::bitset<64> driveMask;
         std::bitset<64> brakeMask;
         size_t pos = 0;
+        // go through the regarded links (in dependence whether
+        //  left mover etc. were joined with te current)
         for(size_t j=0; j<cei1.getNoValidLinks(); j++) {
+            // check how many real links are assigned to it
             size_t noEdges = cei1.getNumberOfAssignedLinks(j);
+            // go throigh these links
             for(size_t k=0; k<noEdges; k++) {
+                // set information for this link
                 assert(i<phaseList.size());
                 driveMask.set(pos, _cliques.test(phaseList[i], j));
                 brakeMask.set(pos,
@@ -200,14 +211,18 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                 pos++;
             }
         }
+        // add phase
         size_t duration = 30;
         ret->addStep(duration, driveMask, brakeMask);
         // add possible additional left-turn phase when existing
         cei1.resetNonLeftMovers(driveMask, brakeMask);
         if(driveMask.any()) {
-            duration = 10;
-            ret->addStep(duration, driveMask, brakeMask);
+            ret->addStep(10, driveMask, brakeMask);
         }
+        // add the dead phase for this junction
+        std::bitset<64> inv;
+        inv.flip();
+        ret->addStep(breakingTime, std::bitset<64>(), inv);
     }
 #ifdef TL_DEBUG
     cout << "Phasenfolge (Ende):" << endl;
@@ -216,9 +231,6 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
 #endif
     return ret;
 }
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

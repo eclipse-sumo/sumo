@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.5  2003/04/01 15:15:24  dkrajzew
 // some documentation added
 //
@@ -47,6 +50,7 @@
 #include <iostream>
 #include "NBTrafficLightLogicVector.h"
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -54,12 +58,13 @@ class NBLinkCliqueContainer;
 class NBRequestEdgeLinkIterator;
 class NBTrafficLightLogic;
 
-/// Definition of a vector holding indices of phases
-typedef std::vector<size_t> PhaseIndexVector;
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/// Definition of a vector holding indices of phases
+typedef std::vector<size_t> PhaseIndexVector;
+
 /**
  * @class NBTrafficLightPhases
  * An intermediate class for building of traffic light logics. Obtains
@@ -74,49 +79,77 @@ public:
     /// Destructor
     ~NBTrafficLightPhases();
 
-    /// Adds
+    /// Adds a single list of phases
     void add(const PhaseIndexVector &phase);
+
+    /// Adds all phase lists from the given storage
     void add(const NBTrafficLightPhases &phases, bool skipLarger);
-//    PhaseIndexVector getBest() const;
+
+    /// Computes the list of traffic lights logics from the stored phase lists
     NBTrafficLightLogicVector *computeLogics(const std::string &key,
         size_t noLinks, const NBRequestEdgeLinkIterator &cei1,
-        const EdgeVector &inLanes) const;
-    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
-        size_t noLinks, const PhaseIndexVector &phaseList,
-        const NBRequestEdgeLinkIterator &cei1) const;
+        const EdgeVector &inLanes, size_t breakingTime) const;
+
+    /// Output operator
     friend std::ostream &operator<<(std::ostream &os,
         const NBTrafficLightPhases &p);
 
 private:
-    typedef std::vector<PhaseIndexVector> PhasesVector;
-    typedef std::vector<PhasesVector> PhasesVectorVector;
-    PhasesVectorVector _phasesVectorsByLength;
-    const NBLinkCliqueContainer &_cliques;
-    size_t _noPhaseVectors;
+    /** Build a single traffic lights logic from the given values */
+    NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
+        size_t noLinks, const PhaseIndexVector &phaseList,
+        const NBRequestEdgeLinkIterator &cei1,
+        size_t breakingTime) const;
 
+    /**
+     * @class phase_length_finder
+     * Searches for index vectors (phase lists) with the same length
+     * as the one given
+     */
     class phase_length_finder {
     private:
+        /// The wished index vector size
         size_t _size;
+
     public:
         /** constructor */
         explicit phase_length_finder(size_t size)
             : _size(size) { }
+
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
             return p.size() == _size;
         }
+
     };
 
 
+    /**
+     * @class included_finder
+     * Virtual class for searching an element which holds all phases
+     * from the supplied.
+     * When building lists of possible phases, sometimes some of them
+     * may contain already build ones (which are also complete) and some
+     * further phases. Such lists are not needed as already the shorter
+     * ones let all vehicle üass. This class is used to search these lists.
+     */
     class included_finder {
     protected:
+        /// The list to find all elements of within the supplied lists
         const PhaseIndexVector &_vector;
+
     public:
         /** constructor */
         included_finder(const PhaseIndexVector &v)
             : _vector(v) { }
+
     protected:
+        /** @brief Returns the information whether v1 is included in v2
+            v1 is the first argument, v2 is the second one */
         bool isIn(const PhaseIndexVector &v1, const PhaseIndexVector &v2) {
+            // As the lists are sorted, we do not have to perform
+            //  the whole exhaustive search, but may start to search
+            //  after the last elements found
             PhaseIndexVector::const_iterator v2curr = v2.begin();
             for(PhaseIndexVector::const_iterator i=v1.begin(); i!=v1.end(); i++) {
                 v2curr = std::find(v2curr, v2.end(), *i);
@@ -128,33 +161,61 @@ private:
         }
     };
 
+
+    /**
+     * @class shorter_included_finder
+     * Returns the information whether the current list is shorter than
+     * the one supplied at construction and is a part of it.
+     */
     class shorter_included_finder : public included_finder {
     public:
         /** constructor */
         shorter_included_finder(const PhaseIndexVector &v)
             : included_finder(v) { }
+
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
             return isIn(p, _vector);
         }
+
     };
 
+
+    /**
+     * @class larger_included_finder
+     * Returns the information whether the current list is larger than
+     * the one supplied at construction and contains all elements of
+     * the one supplied at construction
+     */
     class larger_included_finder : public included_finder {
     public:
         /** constructor */
         larger_included_finder(const PhaseIndexVector &v)
             : included_finder(v) { }
+
         /** the comparing function */
         bool operator() (const PhaseIndexVector &p) {
             return isIn(_vector, p);
         }
+
     };
 
+    /// Definition of a vector of indices of phases which themselves are defined within another container
+    typedef std::vector<PhaseIndexVector> PhasesVector;
 
+    /// Definition of a vector of phase lists
+    typedef std::vector<PhasesVector> PhasesVectorVector;
+
+    /// Container for phase lists, sorted by their length
+    PhasesVectorVector _phasesVectorsByLength;
+
+    /// The information about friendly cliqeus to build the phase lists from
+    const NBLinkCliqueContainer &_cliques;
+
+    /// Counter of how many phase lists are available
+    size_t _noPhaseVectors;
 
 };
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

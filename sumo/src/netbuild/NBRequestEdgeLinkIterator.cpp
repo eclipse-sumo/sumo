@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.5  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -361,11 +364,20 @@ void
 NBRequestEdgeLinkIterator::resetNonLeftMovers(
     std::bitset<64> &driveMask, std::bitset<64> &brakeMask) const
 {
+    // get bitset showing left-movers
     std::bitset<64> tmp = _validNonLeft;
     tmp.flip();
+    // combine with drive mask
+    //  -> only left-movers are set which had to wait
     driveMask &= tmp;
+
+    // everyone has to brake..
     brakeMask.reset();
     brakeMask.flip();
+    tmp = driveMask;
+    tmp.flip();
+    // ...beside the left movers
+    brakeMask &= tmp;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -74,6 +77,7 @@ namespace
 #include "NBHelpers.h"
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/GeomHelper.h>
 #include <iostream>
 
 
@@ -98,35 +102,11 @@ using namespace std;
 double
 NBHelpers::angle(double x1, double y1, double x2, double y2)
 {
-    double a;
-    double xd = x1 - x2;
-    double yd = y1 - y2;
-    if(xd!=0) {
-        double xdt = xd;
-        if(xdt<0)
-            xd *= -1.0;
-        a = asin(xdt / sqrt(xd*xd + yd*yd));
-    } else {
-        a = 0;
+    double angle = atan2(x1-x2, y1-y2) * 180.0 / 3.14159265;
+    if(angle<0) {
+        angle = 360 + angle;
     }
-
-    a = a * 180 / 3.142159;
-    if((x1-x2)>=0 && (y1-y2)>=0) {
-        a = 360 - a;
-    } // right upper
-    if((x1-x2)>=0 && (y1-y2)<0) {
-        a = 180.0 + a;
-    } // right lower
-    if((x1-x2)<0 && (y1-y2)>=0) {
-        a = a * -1.0;
-    } // left upper
-    if((x1-x2)<0 && (y1-y2)<0) {
-        a = 180 + a;
-    } // left lower
-    if(a>=360.0) {
-        a -= 360.0;
-    }
-    return a;
+    return angle;
 }
 
 

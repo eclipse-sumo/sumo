@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.4  2003/03/17 14:22:32  dkrajzew
 // further debug and windows eol removed
 //
@@ -66,6 +69,7 @@ namespace
  * ======================================================================= */
 #include <vector>
 #include <map>
+#include <cassert>
 #include "NBContHelper.h"
 
 
@@ -87,6 +91,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * utility methods
+ * ----------------------------------------------------------------------- */
 EdgeVector::const_iterator
 NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator from) {
     from++;
@@ -140,6 +147,46 @@ NBContHelper::findConnectingEdge(const EdgeVector &edges,
 }
 
 
+
+double
+NBContHelper::maxSpeed(const EdgeVector &ev)
+{
+    assert(ev.size()>0);
+    double max = (*(ev.begin()))->getSpeed();
+    for(EdgeVector::const_iterator i=ev.begin()+1; i!=ev.end(); i++) {
+        max =
+            max > (*i)->getSpeed()
+            ? max : (*i)->getSpeed();
+    }
+    return max;
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * methods from edge_by_junction_angle_sorter
+ * ----------------------------------------------------------------------- */
+int
+NBContHelper::edge_by_junction_angle_sorter::operator() (NBEdge *e1, NBEdge *e2) const
+{
+    return getConvAngle(e1) < getConvAngle(e2);
+}
+
+
+
+double
+NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
+{
+    double angle = e->getAngle();
+    // convert angle if the edge is an outgoing edge
+    if(e->getFromNode()==_node) {
+        angle = angle + 180;
+        if(angle>=360) {
+            angle = angle - 360;
+        }
+    }
+    return angle;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

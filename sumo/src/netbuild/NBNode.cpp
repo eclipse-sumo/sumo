@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/04/04 07:43:03  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.11  2003/04/01 15:15:52  dkrajzew
 // further work on vissim-import
 //
@@ -139,8 +142,6 @@ namespace
 using namespace std;
 
 
-int NBNode::debug = 0;
-
 /* =========================================================================
  * static variable definitions
  * ======================================================================= */
@@ -168,6 +169,8 @@ NBNode::ApproachingDivider::ApproachingDivider(
     std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing)
     : _approaching(approaching), _currentOutgoing(currentOutgoing)
 {
+    // chekc whether origin lanes have been given
+    assert(_approaching!=0);
 }
 
 
@@ -179,7 +182,8 @@ NBNode::ApproachingDivider::~ApproachingDivider()
 void
 NBNode::ApproachingDivider::execute(double src, double dest)
 {
-    assert(_approaching!=0&&_approaching->size()>src);
+    assert(_approaching->size()>src);
+    // get the origin edge
     NBEdge *incomingEdge = (*_approaching)[src];
     vector<size_t> approachingLanes =
         incomingEdge->getConnectionLanes(_currentOutgoing);
@@ -537,29 +541,10 @@ NBNode::getEdges()
 void
 NBNode::buildList()
 {
-    // compute angles of participating edges in relation to this junction
-    EdgeVector::iterator i;
-    // flip angles of incoming junctions by 180°
-    for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-        NBEdge *edge = *i;
-        double junctionAngle = edge->getAngle();
-        if(junctionAngle<180) {
-            junctionAngle = junctionAngle + 180;
-        } else {
-            junctionAngle = junctionAngle - 180;
-        }
-        if(junctionAngle>=360) {
-            junctionAngle = junctionAngle - 360;
-        }
-        edge->setJunctionAngle(this, junctionAngle);
-        _allEdges.push_back(edge);
-    }
-    // keep anges for outgoing angles
-    for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
-        NBEdge *edge = *i;
-        edge->setJunctionAngle(this,edge->getAngle());
-        _allEdges.push_back(edge);
-    }
+    copy(_incomingEdges->begin(), _incomingEdges->end(),
+        back_inserter(_allEdges));
+    copy(_outgoingEdges->begin(), _outgoingEdges->end(),
+        back_inserter(_allEdges));
 }
 
 
@@ -895,7 +880,7 @@ NBNode::setKey(string key)
 
 
 void
-NBNode::computeLogic(long maxSize)
+NBNode::computeLogic(long maxSize, double minVehDecel)
 {
     if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
@@ -906,13 +891,18 @@ NBNode::computeLogic(long maxSize)
         static_cast<const EdgeVector * const>(_incomingEdges),
         static_cast<const EdgeVector * const>(_outgoingEdges),
         _blockedConnections);
+
     // compute the logic if necessary or split the junction
     if(_type!=TYPE_NOJUNCTION&&_type!=TYPE_DISTRICT) {
         computeLogic(request, maxSize);
     }
     // build the lights when needed
     if(_type==TYPE_TRAFFIC_LIGHT) {
-        int build = request->buildTrafficLight(_id, mySignalGroups, myCycleDuration); // _key
+        // compute the braking time
+        double vmax = NBContHelper::maxSpeed(*_incomingEdges);
+        size_t brakingTime = (size_t) (vmax / 2.0);
+        int build = request->buildTrafficLight(_id,
+            mySignalGroups, myCycleDuration, brakingTime);
         if(build==0) {
             _type==TYPE_PRIORITY_JUNCTION;
         }
@@ -973,6 +963,21 @@ NBNode::sortNodesEdges()
     sortSmall();
     setType(computeType());
     setPriorities();
+#ifdef _DEBUG
+#ifdef CROSS_TEST
+    if(_id=="0") {
+        EdgeVector::iterator i=_allEdges.begin();
+        assert((*i++)->getID()=="4si");
+        assert((*i++)->getID()=="4o");
+        assert((*i++)->getID()=="2si");
+        assert((*i++)->getID()=="2o");
+        assert((*i++)->getID()=="3si");
+        assert((*i++)->getID()=="3o");
+        assert((*i++)->getID()=="1si");
+        assert((*i++)->getID()=="1o");
+    }
+#endif
+#endif
 }
 
 

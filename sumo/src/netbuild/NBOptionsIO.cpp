@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/04 07:43:04  dkrajzew
+// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+//
 // Revision 1.7  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -211,6 +214,7 @@ NBOptionsIO::init()
     oc->doRegister("speed", 'S', new Option_Float((float) 13.9));
     oc->doRegister("priority", 'P', new Option_Integer(1));
     oc->doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
+    oc->doRegister("min-decel", 'D', new Option_Float(3.0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
     oc->doRegister("warn", 'w', new Option_Bool(false));
