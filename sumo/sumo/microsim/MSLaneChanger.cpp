@@ -23,6 +23,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2002/04/24 13:41:57  croessel
+// Changed the condition-order in change2left(). target-validity-ckeck
+// must be the first one.
+//
 // Revision 1.4  2002/04/18 12:18:39  croessel
 // Bug-fix: Problem was that a right and a left vehicle could change to a
 // middle lane, even though they were overlapping. Solution: Introduction
@@ -357,15 +361,13 @@ MSLaneChanger::change2left()
     // an allowed one, cancel the try. Otherwise, check some conditions.
     // If they are simultaniously fulfilled, a change is possible.
     ChangerIt target = myCandi + 1;
-    if ( overlapWithHopped( target ) ) {
-        
-        return false;
-    }
-    if ( target == myChanger.end() ||
+    if ( target == myChanger.end()   ||
+         overlapWithHopped( target ) ||
          ! candiOnAllowed( target ) ) {
 
         return false;
     }
+
     if ( 
 
         ! overlap( target )     &&
