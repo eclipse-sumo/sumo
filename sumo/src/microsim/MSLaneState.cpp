@@ -24,6 +24,10 @@ namespace
 }
 */
 // $Log$
+// Revision 1.12  2003/05/26 13:56:57  roessel
+// changed push_back to sorted-insert in leaveDetectorByMove and
+// leaveDetectorByLaneChange.
+//
 // Revision 1.11  2003/05/26 13:19:20  roessel
 // Completed all get* methods.
 //
@@ -394,7 +398,12 @@ MSLaneState::leaveDetectorByMove( MSVehicle& veh,
     if ( ! dataIt->second.passedEntireDetectorM ) {
         dataIt->second.passedEntireDetectorM = false;
     }
-    vehLeftLaneM.push_back( dataIt->second );
+    // insert so that container keeps being sorted
+    vehLeftLaneM.insert(
+        find_if( vehLeftLaneM.rend(), vehLeftLaneM.rbegin(),
+                 bind2nd( VehicleData::leaveTimestepLesser(),
+                          dataIt->second.leaveContTimestepM ) ).base(),
+        dataIt->second );
     vehicleDataM.erase( dataIt );
 }
 
@@ -408,7 +417,12 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     assert( dataIt != vehicleDataM.end() );
     dataIt->second.leaveContTimestepM = MSNet::getInstance()->timestep();
     dataIt->second.passedEntireDetectorM = false;
-    vehLeftLaneM.push_back( dataIt->second );
+    // insert so that container keeps being sorted
+    vehLeftLaneM.insert(
+        find_if( vehLeftLaneM.rend(), vehLeftLaneM.rbegin(),
+                 bind2nd( VehicleData::leaveTimestepLesser(),
+                          dataIt->second.leaveContTimestepM ) ).base(),
+        dataIt->second );
     vehicleDataM.erase( dataIt );
 }
 
