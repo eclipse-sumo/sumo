@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.28  2004/01/12 15:10:27  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.27  2003/12/04 13:06:45  dkrajzew
 // work on internal lanes
 //
@@ -171,13 +174,6 @@ public:
     /** edge -> list of this edge reaching lanes */
     typedef std::map<NBEdge*, LaneVector> LanesThatSucceedEdgeCont;
 
-    /*
-    typedef std::pair<std::string, size_t> TLControlDef;
-
-    typedef std::vector<TLControlDef> TLControlVector;
-
-    typedef std::vector<TLControlVector> TLControlVectorVector;
-*/
     /**
      * EdgeBasicFunction
      * Edges may have certain functions listed here
@@ -236,7 +232,7 @@ public:
     NBEdge(std::string id, std::string name,
         NBNode *from, NBNode *to, std::string type,
         double speed, size_t nolanes, double length, int priority,
-        const Position2DVector &geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
+        Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     /// destructor
@@ -257,12 +253,6 @@ public:
     /// returns the junction priority (normalised for the node currently build)
     int getJunctionPriority(NBNode *node);
 
-/*    /// sets the junction angle
-    void setJunctionAngle(NBNode *node, double angle);
-
-    /// returns the junction angle
-    double getJunctionAngle(NBNode *node);
-*/
     /// returns the number of lanes
     size_t getNoLanes();
 
@@ -331,9 +321,6 @@ public:
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
     bool recheckLanes();
-
-    /// computes the node-internal priorities of links
-//    void computeLinkPriorities();
 
     /// appends turnarounds
     void appendTurnaround();
@@ -404,12 +391,9 @@ public:
 
     Position2DVector getCWBounderyLine(NBNode *n, double offset);
     Position2DVector getCCWBounderyLine(NBNode *n, double offset);
-//    Line2D getNECWBounderyLine(NBNode *n, double offset);
-//    Line2D getNECCWBounderyLine(NBNode *n, double offset);
 
     bool expandableBy(NBEdge *possContinuation) const;
     void append(NBEdge *continuation);
-//    bool isJoinable() const;
 
     void computeEdgeShape();
 
@@ -417,7 +401,6 @@ public:
 
     bool hasSignalisedConnectionTo(NBEdge *e) const;
 
-//    NBEdge *getTurningDirection() const;
 
     /** friend class used for the computation of connections to
         following edges */
@@ -434,14 +417,7 @@ public:
 
     typedef std::map<std::string, std::vector<std::string> > StringContMap;;
 
-    void writeLaneContinuation(std::ostream &into, const std::string &lid, double distance);
-
     std::string getLaneID(size_t lane);
-
-    void getContinuations(size_t lane, double distance, StringContMap &into,
-        std::set<std::string> &visited, int offset);
-    void writeContinuations(std::ostream &into, StringContMap &from);
-
 
 private:
     /**
@@ -550,6 +526,8 @@ private:
     /// the name of the edge
     std::string  _name;
 
+    //
+
     /// information about connected edges
     EdgeVector _connectedEdges;
 
@@ -562,11 +540,6 @@ private:
     /** contains the information which lanes of which edges may follow a
         lane (index) */
     ReachableFromLaneVector *_reachable;
-
-    /** contains the information which links have which priority
-        the priorities are sorted in the same way as edges in
-        _reachableedges are */
-//    ReachablePrioritiesFromLaneVector *_linkIsPriorised;
 
     /** contains the information which lanes(value) may be used to reach the
         edge (key) */
@@ -644,6 +617,7 @@ private:
 
     /** invalid assignment operator */
     NBEdge &operator=(const NBEdge &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

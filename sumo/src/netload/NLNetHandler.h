@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2004/01/12 15:12:05  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.18  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -201,15 +204,6 @@ protected:
     /// The offset within the junction
     size_t          m_Offset;
 
-    /// Definitions of a string vector
-    typedef std::vector<std::string> StringVector;
-
-    /// Definition of a map from string -> stringvector
-    typedef std::map<std::string, StringVector> SSVMap;
-
-    /// Backward lane continuation map
-    SSVMap myContinuations;
-
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
 
@@ -293,8 +287,6 @@ private:
 
     /// sets the number of the current logic
     void setTLLogicNo(const std::string &chars);
-
-    void addLaneContinuation(const Attributes &attrs);
 
     /// adds a logic item
     void addLogicItem(int request, const std::string &response,

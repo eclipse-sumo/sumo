@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2004/01/12 15:10:27  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.37  2003/12/05 14:58:03  dkrajzew
 // loaded connections are now saved on edge joining
 //
@@ -52,7 +55,8 @@ namespace
 // geometry computation corrigued partially
 //
 // Revision 1.28  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams modality
+//  cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.27  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
@@ -82,10 +86,14 @@ namespace
 // some work on the geometry of nodes
 //
 // Revision 1.18  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.17  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+// changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.16  2003/06/16 08:02:44  dkrajzew
 // further work on Vissim-import
@@ -97,13 +105,16 @@ namespace
 // yellow traffic lights implemented
 //
 // Revision 1.13  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.12  2003/04/07 12:15:38  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again, traffic
+//  lights have yellow times given explicitely, now
 //
 // Revision 1.11  2003/04/04 07:43:03  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added; order of edge
+//  sorting (false lane connections) debugged
 //
 // Revision 1.10  2003/04/01 15:15:50  dkrajzew
 // further work on vissim-import
@@ -127,7 +138,8 @@ namespace
 // updated
 //
 // Revision 1.2  2002/10/17 13:32:01  dkrajzew
-// possibility to add connections between lanes added; adding of connectionsbetween edges revalidated
+// possibility to add connections between lanes added; adding of connections
+//  between edges revalidated
 //
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
@@ -139,7 +151,8 @@ namespace
 // Bug on computation of the real turnaround edge fixed
 //
 // Revision 1.8  2002/06/21 13:17:51  dkrajzew
-// Lane division bug (forgetting the turning direction; cause of segmentation violations under Linux) fixed
+// Lane division bug (forgetting the turning direction; cause of segmentation
+//  violations under Linux) fixed
 //
 // Revision 1.7  2002/06/18 05:05:08  dkrajzew
 // Lane division bug accessing after the end of an array removed
@@ -148,10 +161,12 @@ namespace
 // unreferenced variable declarations removed
 //
 // Revision 1.5  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on the
+//  EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:54  dkrajzew
 // new computation flow
@@ -182,7 +197,6 @@ namespace
 //
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
-//
 //
 /* =========================================================================
  * included modules
@@ -365,7 +379,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, double speed, size_t nolanes,
                double length, int priority,
-               const Position2DVector &geom, LaneSpreadFunction spread,
+               Position2DVector geom, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
     _step(INIT), _id(StringUtils::convertUmlaute(id)),
     _type(StringUtils::convertUmlaute(type)),
@@ -2068,96 +2082,13 @@ NBEdge::getTurnDestination() const
 
 
 void
-NBEdge::writeLaneContinuation(std::ostream &into, const std::string &lid,
-                              double distance)
-{
-    for(size_t i=0; i<_nolanes; i++) {
-        if(getLaneID(i)==lid) {
-            writeLaneContinuation(into, i, distance);
-            return;
-        }
-    }
-    assert(false);
-}
-
-void
 NBEdge::writeLaneContinuation(std::ostream &into, size_t lane,
                               double distance)
 {
     // collect continuations
     StringContMap continuations;
     std::set<std::string> visited;
-    getContinuations(lane, distance, continuations, visited, 0);
-    writeContinuations(into, continuations);
 }
-
-void
-NBEdge::getContinuations(size_t lane, double distance, StringContMap &into,
-                         std::set<std::string> &visited, int offset)
-{
-    // recursion end
-    if(distance<=0) {
-        return;
-    }
-    // recursion on neighbours end
-    int ilane = (int) lane + offset;
-    if(ilane<0||ilane>=_nolanes) {
-        return;
-    }
-    // recursion end on visited
-    if(visited.find(getLaneID(ilane))!=visited.end()) {
-        return;
-    }
-    visited.insert(getLaneID(ilane));
-    //
-    string myLaneID = getLaneID(lane);
-    size_t noFound = 0;
-    const EdgeVector &incoming = _from->getIncomingEdges();
-    for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        NBEdge *si = *i;
-        // do not print if the edge is not connected to this one
-        if(!si->isConnectedTo(this)) {
-            continue;
-        }
-        // check whether it is connected to this lane
-        size_t nolanes = si->getNoLanes();
-        for(size_t j=0; j<nolanes; j++) {
-            const EdgeLaneVector *elv = si->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
-                if((*k).edge==this&&(*k).lane==ilane) {
-                    string nextLaneID = si->getLaneID(j);
-                    into[myLaneID].push_back(nextLaneID);
-                    noFound++;
-                    si->getContinuations(j, distance-si->getLength(),
-                        into, visited, 0);
-                }
-            }
-        }
-    }
-    // recheck neighbours if no connection to this lane was found
-    if(noFound==0) {
-        getContinuations(lane, distance, into, visited, -1);
-        getContinuations(lane, distance, into, visited, 1);
-    }
-}
-
-
-void
-NBEdge::writeContinuations(std::ostream &into, StringContMap &from)
-{
-    for(StringContMap::iterator i=from.begin(); i!=from.end(); i++) {
-        into << "      <lane_cont id=\"" << (*i).first << "\" to=\"";
-        std::vector<std::string> &tos = (*i).second;
-        for(std::vector<std::string>::iterator j=tos.begin(); j!=tos.end(); j++) {
-            if(j!=tos.begin()) {
-                into << ' ';
-            }
-            into << *j;
-        }
-        into << "\"/>" << endl;
-    }
-}
-
 
 std::string
 NBEdge::getLaneID(size_t lane)

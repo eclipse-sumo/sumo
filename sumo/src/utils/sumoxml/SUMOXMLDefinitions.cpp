@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/01/12 15:14:09  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.19  2004/01/12 14:40:16  dkrajzew
 // added detector attributes
 //
@@ -88,9 +91,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 41;
+size_t noSumoTags = 40;
 
-GenericSAX2Handler::Tag sumotags[41] =
+GenericSAX2Handler::Tag sumotags[40] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -130,7 +133,6 @@ GenericSAX2Handler::Tag sumotags[41] =
       { "interval",         SUMO_TAG_INTERVAL },
       { "shape",            SUMO_TAG_SHAPE },
       { "timed_event",      SUMO_TAG_TIMEDEVENT },
-      { "lane_cont",        SUMO_TAG_LANECONT },
       { "inclanes",         SUMO_TAG_INCOMING_LANES },
       { "intlanes",         SUMO_TAG_INTERNAL_LANES }
 };

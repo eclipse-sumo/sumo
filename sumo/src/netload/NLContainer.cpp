@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/01/12 15:12:05  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.19  2004/01/12 14:36:20  dkrajzew
 // removed some dead code; documentation added
 //
@@ -148,6 +151,7 @@ namespace
 #include <microsim/MSRoute.h>
 #include <microsim/MSRouteLoaderControl.h>
 #include <microsim/MSTLLogicControl.h>
+#include <microsim/MSExtendedTrafficLightLogic.h>
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLNetBuilder.h"
@@ -310,6 +314,8 @@ NLContainer::chooseEdge(const string &id, const std::string &func)
     } catch (XMLIdNotKnownException &e) {
         throw e;
     }
+	// continuation
+	myCurrentID = id;
 }
 
 
@@ -340,6 +346,13 @@ NLContainer::openAllowedEdge(const string &id)
         throw XMLIdNotKnownException("edge", id);
     }
     m_pECB->openAllowedEdge(edge);
+	// continuation
+	StringVector pred;
+	if(myContinuations.find(id)!=myContinuations.end()) {
+		pred = myContinuations[id];
+	}
+	pred.push_back(myCurrentID);
+	myContinuations[id] = pred;
 }
 
 
@@ -459,13 +472,34 @@ NLContainer::closeJunction()
 MSNet *
 NLContainer::buildMSNet(const OptionsCont &options)
 {
+	closeJunctions();
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(myLogics);
 //     MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
-    MSNet::init( m_Id, edges, junctions, routeLoaders, tlc);
+    MSNet::init( "", edges, junctions, routeLoaders, tlc);
     return MSNet::getInstance();
+}
+
+
+void
+NLContainer::closeJunctions()
+{
+	for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
+		(*i).first->init((*i).second, myContinuations);
+	}
+}
+
+
+void
+NLContainer::addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
+								 const LaneVector &lv)
+{
+	if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
+		throw 1; // !!!
+	}
+	myJunctions2PostLoadInit[key] = lv;
 }
 
 

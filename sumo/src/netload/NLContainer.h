@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2004/01/12 15:12:05  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.19  2004/01/12 14:36:21  dkrajzew
 // removed some dead code; documentation added
 //
@@ -135,6 +138,8 @@ class MSRouteLoaderControl;
 class OptionsCont;
 class MSTrafficLightLogic;
 class MSInductLoop;
+class MSExtendedTrafficLightLogic;
+
 
 /* =========================================================================
  * class definitions
@@ -277,6 +282,9 @@ public:
     /// Adds a build traffic light logic
     void addTLLogic(MSTrafficLightLogic *logic);
 
+	void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
+		const std::vector<MSLane*> &lv);
+
     /// end of operations; builds the net
     MSNet *buildMSNet(const OptionsCont &options);
 
@@ -286,6 +294,8 @@ public:
 protected:
     /// builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
+
+	void closeJunctions();
 
 private:
     /** invalid copy constructor */
@@ -312,7 +322,7 @@ protected:
 //     MSNet::DetectorCont       *m_pDetectors;
 
     /// the id of the build net (not yet used!!!)
-    std::string                    m_Id; // !!! not yet set
+//    std::string                    m_Id; // !!! not yet set
 
     /** definition of a container for junction logic keys
         the value is not really needed, we use a map to avoid double
@@ -324,6 +334,18 @@ protected:
 
     /// The list of traffic light logics build
     std::vector<MSTrafficLightLogic*> myLogics;
+
+    /// Definitions of a string vector
+    typedef std::vector<std::string> StringVector;
+
+    /// Definition of a map from string -> stringvector
+    typedef std::map<std::string, StringVector> SSVMap;
+
+    /* @brief Backward edge continuation map
+	   The key is the name of an edge, the value is the list of edges
+	   that do approach the key-edge */
+    SSVMap myContinuations;
+
 
     /// the number of edges inside the net
     int noEdges;
@@ -339,6 +361,12 @@ protected:
     int noRoutes;
     /// the number of routes inside the net
     int noDetectors;
+
+	std::string myCurrentID;
+
+	typedef std::vector<MSLane*> LaneVector;
+	typedef std::map<MSExtendedTrafficLightLogic*, LaneVector> TLLogicInitInfoMap;
+	TLLogicInitInfoMap myJunctions2PostLoadInit;
 
 private:
     /// definition of a map to store junction logics into

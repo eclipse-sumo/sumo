@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2004/01/12 15:14:09  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.21  2004/01/12 14:40:16  dkrajzew
 // added detector attributes
 //
@@ -180,8 +183,6 @@ enum TagEnum
     SUMO_TAG_SHAPE,
     /// The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
-    /// Lane continuation description tag
-    SUMO_TAG_LANECONT,
     /** begin/end of the list of incoming lanes (into a junction) */
     SUMO_TAG_INCOMING_LANES,
     /** begin/end of the list of internal lanes (of a junction) */
@@ -312,7 +313,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[41];
+extern GenericSAX2Handler::Tag sumotags[40];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.38  2004/01/12 15:12:05  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.37  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
 //
@@ -161,8 +164,6 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         case SUMO_TAG_LOGICITEM:
             addLogicItem(attrs);
             break;
-        case SUMO_TAG_LANECONT:
-            addLaneContinuation(attrs);
         default:
             break;
         }
@@ -367,7 +368,6 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     myAbsDuration = 0;
     _requestSize = -1;
     _tlLogicNo = -1;
-    myContinuations.clear();
     myContainer.initIncomingLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
@@ -950,24 +950,6 @@ NLNetHandler::addInternalLanes(const std::string &chars)
 }
 
 
-void
-NLNetHandler::addLaneContinuation(const Attributes &attrs)
-{
-    try {
-        string from = getString(attrs, SUMO_ATTR_ID);
-        string tos = getString(attrs, SUMO_ATTR_TO);
-        myContinuations[from] = std::vector<std::string>();
-        StringTokenizer st(tos, " ");
-        while(st.hasNext()) {
-            myContinuations[from].push_back(st.next());
-        }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: false continuation definition.");
-    }
-}
-
-
 // ----------------------------------
 
 void
@@ -1057,25 +1039,23 @@ NLNetHandler::closeTrafficLightLogic()
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
-                    m_Key, m_ActivePhases, step,
-                    myContainer.getIncomingLanes(), firstEventOffset,
-                    myContinuations);
+                    m_Key, m_ActivePhases, step, firstEventOffset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
+		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
     } else if(m_Type=="agentbased") {
         // build an agentbased logic
         MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
-                    m_Key, m_ActivePhases, step,
-                    myContainer.getIncomingLanes(), firstEventOffset,
-                    myContinuations);
+                    m_Key, m_ActivePhases, step, firstEventOffset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
+		myContainer.addJunctionInitInfo(tlLogic, myContainer.getIncomingLanes());
 	} else {
         // build an uncontrolled (fix) tls-logic
         MSTrafficLightLogic *tlLogic =

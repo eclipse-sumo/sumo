@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/01/12 15:10:27  dkrajzew
+// more wise definition of lane predeccessors implemented
+//
 // Revision 1.14  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -147,15 +150,6 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
         into << (*j);
     }
     into << "</inclanes>" << endl;
-    into << "      <cont_dist>" << distance << "</cont_dist>" << endl;
-    // write the inlanes connections
-    for(j=inLanes.begin(); j!=inLanes.end(); j++) {
-//        into << "      <inlane_cont id=\"" << (*j) << ">";
-        string eid = (*j).substr(0, (*j).rfind('_'));
-        NBEdge *e = NBEdgeCont::retrieve(eid);
-        e->writeLaneContinuation(into, (*j), distance);
-//        into << "</inlane_cont>" << endl;
-    }
     // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {
