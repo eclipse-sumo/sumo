@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/06/18 11:04:22  dkrajzew
+// new error processing adapted; new usage of fonts adapted
+//
 // Revision 1.11  2003/06/05 06:26:15  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -82,9 +85,18 @@ namespace
 #include <qlabel.h>
 
 #include <guisim/GUINet.h>
-
 #include <utils/convert/ToString.h>
-#include <version.cpp>
+#include <utils/common/MsgHandler.h>
+
+#include <utils/fonts/arial11.h>
+#include <utils/fonts/arial10.h>
+#include <utils/fonts/arial9.h>
+#include <utils/fonts/arial8.h>
+#include <utils/fonts/arial7.h>
+#include <utils/fonts/arial6.h>
+#include <utils/fonts/arial5.h>
+
+#include <sumo_version.h>
 
 #include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"
@@ -92,6 +104,7 @@ namespace
 #include "GUIApplicationWindow.h"
 #include "QSimulationStepEvent.h"
 #include "QSimulationLoadedEvent.h"
+#include "QMessageEvent.h"
 #include "GUIEvents.h"
 #include "QAboutSUMO.h"
 #include "icons/filesave.xpm"
@@ -140,20 +153,23 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
     _loadThread(0), _runThread(0),
     myGLWidth(glWidth), myGLHeight(glHeight)
 {
+    // recheck the maximum sizes
+    QWidget *d = QApplication::desktop();
+    myGLWidth = myGLWidth < d->width() ? myGLWidth : d->width();
+    myGLHeight = myGLHeight < d->height() ? myGLHeight : d->height();
+
     // build additional threads
     _loadThread = new GUILoadThread(this);
     _runThread = new GUIRunThread(this, 1);
 
-    /*
     // initialise font drawing
-    myFonts.add("std", ".\\fonts\\arial11.fnt");
-    myFonts.add("std", ".\\fonts\\arial10.fnt");
-    myFonts.add("std", ".\\fonts\\arial9.fnt");
-    myFonts.add("std", ".\\fonts\\arial8.fnt");
-    myFonts.add("std", ".\\fonts\\arial7.fnt");
-    myFonts.add("std", ".\\fonts\\arial6.fnt");
-    myFonts.add("std", ".\\fonts\\arial5.fnt");
-*/
+    myFonts.add("std11", arial11);
+    myFonts.add("std10", arial10);
+    myFonts.add("std9", arial9);
+    myFonts.add("std8", arial8);
+    myFonts.add("std7", arial7);
+    myFonts.add("std6", arial6);
+    myFonts.add("std5", arial5);
 
     // build tool bars
     buildFileTools();
@@ -202,6 +218,9 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
 
     // start the simulation-thread
     _runThread->start();
+
+/*    // all problems will be supported to this app
+    MsgHandler::getErrorInstance()->addRetriever(this);*/
 }
 
 
@@ -517,6 +536,16 @@ GUIApplicationWindow::event(QEvent *e)
     case EVENT_SIMULATION_LOADED:
         netLoaded(static_cast<QSimulationLoadedEvent*>(e));
         return TRUE;
+    case EVENT_ERROR_OCCURED:
+        {
+            QMessageBox *myBox = new QMessageBox(version,
+                static_cast<QMessageEvent*>(e)->getMsg().c_str(),
+                QMessageBox::Warning,
+                QMessageBox::Ok | QMessageBox::Default,
+                QMessageBox::NoButton, QMessageBox::NoButton);
+            myBox->exec();
+        }
+        return TRUE;
     default:
         throw 1;
     }
@@ -573,6 +602,18 @@ GUIApplicationWindow::removeChild(QWidget *child)
     mySubWindows.erase(i);
 }
 
+/*
+void
+GUIApplicationWindow::inform(std::string error)
+{
+    QMessageBox *myBox = new QMessageBox(version, error.c_str(),
+                    QMessageBox::Warning,
+                    QMessageBox::Ok | QMessageBox::Default,
+                    QMessageBox::NoButton, QMessageBox::NoButton
+                    );
+    myBox->exec();
+}
+*/
 
 
 
