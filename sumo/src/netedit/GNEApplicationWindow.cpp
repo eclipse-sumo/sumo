@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/01/06 17:02:32  miguelliebe
+// debugging
+//
 // Revision 1.11  2005/01/05 23:07:04  miguelliebe
 // debugging
 //
@@ -945,7 +948,7 @@ GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 			m_img->GetFXImage()->render();
 			dc.drawImage(m_img->GetFXImage(),0,0);
 			vector<Edge*> edges = gr->GetEArray();
-			/*for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
 				Edge*e = *i;
 				string name = toString<int>(idbla++);
 				Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
@@ -966,7 +969,7 @@ GNEApplicationWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 						"stdtype", speed, lanes, length, -1);
 				}
 			}
-		*/
+		
 
 		}
 	}
