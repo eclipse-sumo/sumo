@@ -99,9 +99,6 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes()
     }
 
     for(std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
-if((*k).first==3000010) {
-    int bla = 0;
-}
         // get the connections
         const IntVector &connections = (*k).second;
             // retrieve the current district

@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/02 11:48:43  dkrajzew
+// debug statements removed
+//
 // Revision 1.10  2003/03/31 06:18:17  dkrajzew
 // help screen corrected
 //
@@ -189,8 +192,9 @@ loadNet(ROLoader &loader, OptionsCont *oc)
 {
     // load the net
     RONet *net = loader.loadNet();
-    if(net==0)
+    if(net==0) {
         return 0;
+    }
     // load the weights when wished/available
     if(oc->isSet("w")) {
         loader.loadWeights(*net);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/02 11:48:43  dkrajzew
+// debug statements removed
+//
 // Revision 1.6  2003/04/01 15:15:49  dkrajzew
 // further work on vissim-import
 //
@@ -91,9 +94,6 @@ NBDistrict::~NBDistrict()
 bool
 NBDistrict::addSource(NBEdge *source, double weight)
 {
-    if(_id=="3000010") {
-        int bla = 0;
-    }
     EdgeVector::iterator i =
         find(_sources.begin(), _sources.end(), source);
     if(i!=_sources.end()) {
@@ -109,10 +109,6 @@ NBDistrict::addSource(NBEdge *source, double weight)
 bool
 NBDistrict::addSink(NBEdge *sink, double weight)
 {
-    if(_id=="3000010") {
-        int bla = 0;
-    }
-
     EdgeVector::iterator i =
         find(_sinks.begin(), _sinks.end(), sink);
     if(i!=_sinks.end()) {
@@ -128,9 +124,6 @@ NBDistrict::addSink(NBEdge *sink, double weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
-    if(_id=="3000022") {
-        int bla = 0;
-    }
     DoubleVectorHelper::normalise(_sourceWeights, 1.0);
     DoubleVectorHelper::normalise(_sinkWeights, 1.0);
     // write the head and the id of the district

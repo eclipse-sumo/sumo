@@ -295,10 +295,6 @@ NIVissimEdge::buildNBEdge()
 {
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
-
-    if(myID==97) {
-        int bla = 0;
-    }
     if(myConnectionClusters.size()!=0) {
 /*        NBNode *from = new NBNode(
             toString<int>(myID) + "-Begin",
@@ -352,9 +348,6 @@ NIVissimEdge::buildNBEdge()
             cout << "nope, NIVissimDisturbance" << endl;
             throw 1;
         }
-    }
-    if(fromNode==toNode) {
-        int bla = 0;
     }
     // build the edge
     NBEdge *buildEdge = new NBEdge(

@@ -494,7 +494,6 @@ NIVissimTL::dict_SetSignals()
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimTL *tl = (*i).second;
         if(tl->myNodeID<0) {
-            int bla = 0;
             continue;
         }
         NBNode *node = NBNodeCont::retrieve(toString<int>(tl->myNodeID));
