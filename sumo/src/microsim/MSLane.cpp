@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.47  2004/08/02 12:14:29  dkrajzew
+// raw-output extracted; debugging of collision handling
+//
 // Revision 1.46  2004/07/02 09:58:08  dkrajzew
 // MeanData refactored (moved to microsim/output); numerical id for online routing added
 //
@@ -501,8 +504,12 @@ MSLane::moveNonCritical()
         // Check for timeheadway < deltaT
         MSVehicle *vehicle = (*veh);
         MSVehicle *predec = (*pred);
+        assert(&vehicle->getLane()==this);
+        assert(&predec->getLane()==this);
+        /*
         assert( ( *veh )->pos() < ( *pred )->pos() );
         assert( ( *veh )->pos() <= myLength );
+        */
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
 }
@@ -521,6 +528,11 @@ MSLane::moveCritical()
         ( *veh )->moveRegardingCritical( this, *pred, 0);
         ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
+        // Check for timeheadway < deltaT
+        MSVehicle *vehicle = (*veh);
+        MSVehicle *predec = (*pred);
+        assert(&vehicle->getLane()==this);
+        assert(&predec->getLane()==this);
         assert( ( *veh )->pos() < ( *pred )->pos() );
         assert( ( *veh )->pos() <= myLength );
     }
@@ -528,6 +540,7 @@ MSLane::moveCritical()
     ( *veh )->meanDataMove();
     assert( ( *veh )->pos() <= myLength );
     assert(myVehicles.size()==myUseDefinition->noVehicles);
+    assert(&( *veh )->getLane()==this);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -544,9 +557,14 @@ MSLane::detectCollisions( MSNet::Time timestep )
     for ( VehCont::iterator veh = myVehicles.begin();
           veh != lastVeh; ) {
 
-        VehCont::const_iterator pred = veh + 1;
+        VehCont::iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
+            cout << "----------------------------------" << endl;
+            VehCont::const_iterator mm;
+            for(mm=myVehicles.begin(); mm!=myVehicles.end(); mm++) {
+                cout << (*mm)->id() << ", ";
+            }
             MSVehicle *predV = *pred;
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
@@ -565,12 +583,6 @@ MSLane::detectCollisions( MSNet::Time timestep )
             if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
-/*                predV->leaveLaneAtLaneChange();
-                predV->onTripEnd(*this);
-                resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
-                predV->removeApproachingInformationOnKill(this);
-                MSVehicleTransfer::getInstance()->addVeh(predV);
-*/
                 vehV->leaveLaneAtLaneChange();
                 vehV->onTripEnd(*this);
                 resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
@@ -578,9 +590,16 @@ MSLane::detectCollisions( MSNet::Time timestep )
                 MSVehicleTransfer::getInstance()->addVeh(vehV);
             }
             veh = myVehicles.erase(veh); // remove current vehicle
-//            veh = myVehicles.erase(veh); // remove predeccessor
+            lastVeh = myVehicles.end() - 1;
             myUseDefinition->noVehicles--;
-//            myUseDefinition->noVehicles--;
+            cout << "----------------------------------" << endl;
+            for(mm=myVehicles.begin(); mm!=myVehicles.end(); mm++) {
+                cout << (*mm)->id() << ", ";
+            }
+            cout << "----------------------------------" << endl;
+            if(veh==myVehicles.end()) {
+                break;
+            }
         } else {
             ++veh;
         }
@@ -848,6 +867,7 @@ MSLane::setCritical()
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // move critical vehicles
     for(VehCont::iterator i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
+        MSVehicle *v = *i;
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if(target!=this) {
@@ -931,11 +951,13 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
+        MSVehicle *prev = myVehBuffer!=0
+            ? myVehBuffer : last;
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
             + string("' beamed due to a collision on push!\n")
             + string("  Lane: '") + id() + string("', previous vehicle: '")
-            + myVehBuffer->id() + string("', time: ")
+            + prev->id() + string("', time: ")
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
         veh->onTripEnd(*this);
@@ -953,7 +975,7 @@ MSLane::push(MSVehicle* veh)
         double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
         veh->_assertPos();
-        setApproaching(veh->pos(), veh);
+//        setApproaching(veh->pos(), veh);
         return false;
     } else {
         veh->onTripEnd(*this);
@@ -1183,66 +1205,6 @@ operator<<( ostream& os, const MSLane& lane )
     return os;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-MSLane::XMLOut::XMLOut( const MSLane& obj,
-                        unsigned indentWidth,
-                        bool withChildElemes ) :
-    myObj( obj ),
-    myIndentWidth( indentWidth ),
-    myWithChildElemes( withChildElemes )
-{
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-ostream&
-operator<<( ostream& os, const MSLane::XMLOut& obj )
-{
-    string indent( obj.myIndentWidth , ' ' );
-
-    if ( obj.myWithChildElemes ) {
-
-        if ( obj.myObj.myVehicles.empty() == true &&
-             obj.myObj.myVehBuffer == 0 ) {
-
-            os << indent << "<lane id=\"" << obj.myObj.myID
-               << "\"/>" << endl;
-        }
-        else { // not empty
-            os << indent << "<lane id=\"" << obj.myObj.myID << "\">"
-               << endl;
-
-            if ( obj.myObj.myVehBuffer != 0 ) {
-
-                os << MSVehicle::XMLOut( *(obj.myObj.myVehBuffer),
-                                         obj.myIndentWidth + 4,
-                                         true );
-            }
-
-            for ( MSLane::VehCont::const_iterator veh =
-                      obj.myObj.myVehicles.begin();
-                  veh != obj.myObj.myVehicles.end(); ++veh ) {
-
-                os << MSVehicle::XMLOut( **veh, obj.myIndentWidth + 4,
-                                         false );
-            }
-
-            os << indent << "</lane>" << endl;
-
-        }
-    }
-
-    else { // no child elemets, just print the number of vehicles
-
-        unsigned nVeh = obj.myObj.myVehicles.size() +
-                        ( obj.myObj.myVehBuffer != 0 );
-        os << indent << "<lane id=\"" << obj.myObj.myID << "\" nVehicles=\""
-           << nVeh << "\" />" << endl;
-    }
-
-    return os;
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1439,6 +1401,16 @@ void
 MSLane::add(MSMeanData_Net *newMeanData)
 {
     myMeanData.push_back(MSLaneMeanDataValues());
+}
+
+
+MSVehicle *
+MSLane::getLastVehicle(MSLaneChanger &lc) const
+{
+    if(myVehicles.size()==0) {
+        return 0;
+    }
+    return *myVehicles.begin();
 }
 
 

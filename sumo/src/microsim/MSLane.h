@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.23  2004/08/02 12:14:29  dkrajzew
+// raw-output extracted; debugging of collision handling
+//
 // Revision 1.22  2004/07/02 09:58:08  dkrajzew
 // MeanData refactored (moved to microsim/output); numerical id for online routing added
 //
@@ -225,8 +228,7 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
-#include "output/MSLaneMeanDataValues.h"
-//#include "output/MSLaneMeanData.h"
+#include "output/meandata/MSLaneMeanDataValues.h"
 
 
 /* =========================================================================
@@ -268,37 +270,7 @@ public:
     friend class MSMeanData_Net;
     friend class SSMeanData_Net;
 
-    /** Class to generate XML-output for an edges and all lanes hold by
-        this edge.
-        Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
-    class XMLOut
-    {
-    public:
-        /// constructor
-        XMLOut( const MSLane& obj,
-                unsigned indentWidth ,
-                bool withChildElemes );
-
-        /** writes xml-formatted information about the edge
-            and optionally her lanes */
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const XMLOut& obj );
-
-    private:
-        /// the lane to format information from
-        const MSLane& myObj;
-
-        /// the number of indent spaces
-        unsigned myIndentWidth;
-
-        /// information, whether lane information shall also be written
-        bool myWithChildElemes;
-    };
-
-    /// output operator for XML-raw-output
-    friend std::ostream& operator<<( std::ostream& os,
-                                     const XMLOut& obj );
-
+    friend class MSXMLRawOut;
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
@@ -440,6 +412,8 @@ public:
 
     /// returns the last vehicle
     const MSVehicle * const getLastVehicle() const;
+
+    MSVehicle *getLastVehicle(MSLaneChanger &lc) const;
 
     MSVehicle::State myLastState;
 
