@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/04/18 06:04:53  dkrajzew
+// Forgotten test switch removed
+//
 // Revision 1.4  2002/04/17 11:20:40  dkrajzew
 // Windows-carriage returns removed
 //
@@ -243,8 +246,8 @@ main(int argc, char **argv)
     ostream *craw = 0;
     if(net!=0) {
         // possibly test the net before simulation
-        if(oc->getBool("validate-nodes"))
-            test(net, oc);
+        //if(oc->getBool("validate-nodes"))
+            //test(net, oc);
 
         // build the raw output
         craw = buildRawOutputStream(oc);
