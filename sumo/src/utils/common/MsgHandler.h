@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/07/07 08:44:43  dkrajzew
+// a new interface for a joined output of messages added
+//
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -60,6 +63,11 @@ public:
 
     /// adds a new error to the list
     void inform(const std::string &error);
+
+    /// closes a sublist of information
+    void finalizeInform(const std::string &msg) {
+        inform(msg);
+    }
 
     /// Clears information whether an error occured previously
     void clear();
