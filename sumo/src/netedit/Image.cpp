@@ -360,6 +360,7 @@ void Image::CreateSkeleton()
     //Kopiere das veränderte Image zurück in das Anzeigeimage
     Copy(m_transimg,m_img);
     }
+	RarifySkeleton();
 }
 
 void Image::RarifySkeleton()
