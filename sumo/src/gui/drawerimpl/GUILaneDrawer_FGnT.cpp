@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/02 14:55:56  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -46,6 +49,7 @@ namespace
 #include <guisim/GUILaneWrapper.h>
 #include "GUILaneDrawer_FGnT.h"
 #include <utils/geom/GeomHelper.h>
+#include <utils/glutils/GLHelper.h>
 
 #include <qgl.h>
 
@@ -82,11 +86,11 @@ GUILaneDrawer_FGnT::drawLane(const GUILaneWrapper &lane,
     const Position2DVector &geom = lane.getShape();
     if(width>1.0) {
         for(size_t i=0; i<geom.size()-1; i++) {
-            drawBoxLine(geom.at(i), rots[i], lengths[i]);
+			GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.5);
         }
     } else {
         for(size_t i=0; i<geom.size()-1; i++) {
-            drawLine(geom.at(i), rots[i], lengths[i]);
+            GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
         }
     }
 }

@@ -14,7 +14,6 @@ public:
     ~GUIDetectorWrapper();
     QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow &app,
         GUISUMOAbstractView &parent);
-    virtual Boundery getBoundery() const = 0;
     virtual void drawGL_FG(double scale) const = 0;
     virtual void drawGL_SG(double scale) const = 0;
     virtual double getXCoordinate() const = 0;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/10/02 14:55:56  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.13  2003/09/25 09:03:53  dkrajzew
 // some methods added, needed for the computation of line rotation
 //
@@ -636,6 +639,38 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
     copy(v.myCont.begin()+1, v.myCont.end(),
         back_inserter(myCont));
 }
+
+
+Position2DVector
+Position2DVector::getSubpart(double begin, double end) const
+{
+	Position2DVector ret;
+	Position2D begPos = positionAtLengthPosition(begin);
+	Position2D endPos = positionAtLengthPosition(end);
+	ret.push_back(begPos);
+
+	double seen = 0;
+	ContType::const_iterator i = myCont.begin();
+	// skip previous segments
+	while((i+1)!=myCont.end()
+		&&
+		seen+GeomHelper::distance((*i), *(i+1))<begin) {
+		seen += GeomHelper::distance((*i), *(i+1));
+		i++;
+	}
+	// append segments in between
+	while((i+1)!=myCont.end()
+		&&
+		seen+GeomHelper::distance((*i), *(i+1))<end) {
+		ret.push_back(*(i+1));
+		seen += GeomHelper::distance((*i), *(i+1));
+		i++;
+	}
+	// append end
+	ret.push_back(endPos);
+	return ret;
+}
+
 
 
 

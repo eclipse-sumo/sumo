@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/10/02 14:51:20  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.17  2003/09/22 12:38:51  dkrajzew
 // detectors need const Lanes
 //
@@ -91,6 +94,7 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIEmitterWrapper.h>
 #include <guisim/GUIDetectorWrapper.h>
+#include <guisim/GUI_E2_ZS_Collector.h>
 //#include "GUIEdgeGrid.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -160,10 +164,31 @@ void
 GUINet::initDetectors()
 {
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
+	//
+    MSDetectorSubSys::E2ZSDict::ValueVector loopVec2(
+        MSDetectorSubSys::E2ZSDict::getInstance()->getStdVector() );
+    net->myDetectorWrapper.reserve(loopVec2.size()+net->myDetectorWrapper.size());
+    for(MSDetectorSubSys::E2ZSDict::ValueVector::iterator
+        i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
+
+        const MSLane *lane = (*i2)->getLane();
+        GUIEdge *edge =
+            static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
+
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
+                net->_idStorage, edge->getLaneGeometry(lane));
+        // add to list
+        net->myDetectorWrapper.push_back(wrapper);
+        // add to dictionary
+        net->myDetectorDict[wrapper->microsimID()] = wrapper;
+    }
+
+	//
     MSDetectorSubSys::LoopDict::ValueVector loopVec(
         MSDetectorSubSys::LoopDict::getInstance()->getStdVector() );
-    size_t size = loopVec.size();
-    net->myDetectorWrapper.reserve(size);
+    net->myDetectorWrapper.reserve(loopVec.size()+net->myDetectorWrapper.size());
     for(MSDetectorSubSys::LoopDict::ValueVector::iterator
         i=loopVec.begin(); i!=loopVec.end(); i++) {
 
@@ -180,7 +205,6 @@ GUINet::initDetectors()
         // add to dictionary
         net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
-
 }
 
 

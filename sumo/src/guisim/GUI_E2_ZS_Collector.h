@@ -1,21 +1,29 @@
-#ifndef GUIInductLoop_h
-#define GUIInductLoop_h
+#ifndef GUI_E2_ZS_Collector_h
+#define GUI_E2_ZS_Collector_h
 
-#include <microsim/MSInductLoop.h>
+#include <microsim/MS_E2_ZS_Collector.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
+#include <utils/common/DoubleVector.h>
 #include "GUIDetectorWrapper.h"
 
 
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
-class GUIInductLoop : public MSInductLoop
+class GUI_E2_ZS_Collector : public MS_E2_ZS_Collector
 {
 public:
-    GUIInductLoop(const std::string &id, MSLane* lane, double position,
-        MSNet::Time deleteDataAfterSeconds=900);
-    ~GUIInductLoop();
+    GUI_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
+                        MSLane* lane,
+                        MSUnit::Meters startPos,
+                        MSUnit::Meters detLength,
+                        MSUnit::Seconds haltingTimeThreshold = 1,
+                        MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
+                        MSUnit::Meters jamDistThreshold = 10,
+                        MSUnit::Seconds deleteDataAfterSeconds = 1800 );
+    ~GUI_E2_ZS_Collector();
     // valid for gui-version only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
         GUIGlObjectStorage &idStorage,
@@ -24,9 +32,8 @@ public:
 public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
-        MyWrapper(GUIInductLoop &detector,
-            GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper,
-            double pos);
+        MyWrapper(GUI_E2_ZS_Collector &detector,
+            GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper);
         ~MyWrapper();
         Boundery getBoundery() const;
         void drawGL_FG(double scale) const;
@@ -49,16 +56,17 @@ public:
         double getXCoordinate() const;
         double getYCoordinate() const;
 
-        GUIInductLoop &getLoop();
+        GUI_E2_ZS_Collector &getLoop();
 
     private:
-        GUIInductLoop &myDetector;
+        GUI_E2_ZS_Collector &myDetector;
         Boundery myBoundery;
-        Position2D myFGPosition;
         Position2D mySGPosition;
-//        Position2D myBegin;
-//        Position2D myEnd;
-        double myFGRotation, mySGRotation;
+        double mySGRotation;
+		double mySGLength;
+		Position2DVector myFullGeometry;
+		DoubleVector myShapeLengths;
+		DoubleVector myShapeRotations;
 
     };
 
@@ -69,7 +77,7 @@ private:
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
 
 //#ifndef DISABLE_INLINE
-//#include "GUIInductLoop.icc"
+//#include "GUI_E2_ZS_Collector.icc"
 //#endif
 
 #endif

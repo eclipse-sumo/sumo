@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/02 14:55:58  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.1  2003/06/05 14:27:45  dkrajzew
 // some helping functions added; Makefile added
 //
@@ -44,6 +47,13 @@ class GLHelper {
 public:
     /// Draws a filled polygon described by the list of points
     static void drawFilledPoly(const Position2DVector &v, bool close);
+
+	static void drawBoxLine(const Position2D &beg, double rot,
+		double visLength, double width);
+
+	static void drawLine(const Position2D &beg, double rot,
+		double visLength);
+
 };
 
 

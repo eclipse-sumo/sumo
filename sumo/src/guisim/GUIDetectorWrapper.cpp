@@ -35,10 +35,6 @@ GUIDetectorWrapper::getPopUpMenu(GUIApplicationWindow &app,
     ret->insertSeparator();
     id = ret->insertItem("Open ValueTracker");
     ret->setItemEnabled(id, FALSE);
-    // add simulation options
-    ret->insertSeparator();
-    id = ret->insertItem("Close");
-    ret->setItemEnabled(id, FALSE);
     return ret;
 }
 

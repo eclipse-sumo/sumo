@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/10/02 14:55:57  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.1  2003/06/05 14:27:45  dkrajzew
 // some helping functions added; Makefile added
 //
@@ -57,6 +60,44 @@ GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
     }
 	glEnd();
 }
+
+
+void
+GLHelper::drawBoxLine(const Position2D &beg, double rot, double visLength,
+					  double width)
+{
+    glPushMatrix();
+    glTranslated(beg.x(), beg.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    glBegin(GL_QUADS);
+    glVertex2f(-width, 0);
+    glVertex2f(-width, -visLength);
+    glVertex2f(width, -visLength);
+    glVertex2f(width, 0);
+    glEnd();
+    glBegin(GL_LINES);
+    glVertex2f(0, 0);
+    glVertex2f(0, -visLength);
+    glEnd();
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
+{
+    glPushMatrix();
+    glTranslated(beg.x(), beg.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    glBegin(GL_LINES);
+    glVertex2f(0, 0);
+    glVertex2f(0, -visLength);
+    glEnd();
+    glPopMatrix();
+}
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/02 14:51:20  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.8  2003/10/01 11:13:13  dkrajzew
 // agent-based tl-logic allocation added
 //
@@ -75,6 +78,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>
+#include <guisim/GUI_E2_ZS_Collector.h>
 //#include <guisim/GUILaneState.h>
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
@@ -212,9 +216,9 @@ GUINetHandler::closeTrafficLightLogic()
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if (m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState  >
+        MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState, GUI_E2_ZS_Collector  >
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState > (
+            new MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState, GUI_E2_ZS_Collector > (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);

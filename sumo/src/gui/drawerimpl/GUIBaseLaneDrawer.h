@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/10/02 14:55:56  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -75,11 +78,6 @@ protected:
     /// sets the colour of the vehicle to draw
     void setLaneColor(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme);
-
-    void drawBoxLine(const Position2D &beg, double rot,
-        double visLength);
-    void drawLine(const Position2D &beg, double rot,
-        double visLength);
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/10/02 14:55:57  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.10  2003/09/25 09:03:53  dkrajzew
 // some methods added, needed for the computation of line rotation
 //
@@ -158,6 +161,8 @@ public:
 	}
 
     Position2DVector resettedBy(double x, double y) const;
+
+	Position2DVector getSubpart(double begin, double end) const;
 
     void sortAsPolyCWByAngle();
 

@@ -167,6 +167,10 @@ SOURCE=..\..\src\utils\glutils\GLHelper.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUI_E2_ZS_Collector.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui_main.cpp
 # End Source File
 # Begin Source File
@@ -952,6 +956,10 @@ SOURCE=..\..\src\utils\geom\GeomHelper.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\glutils\GLHelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUI_E2_ZS_Collector.h
 # End Source File
 # Begin Source File
 

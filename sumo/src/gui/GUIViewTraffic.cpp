@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/10/02 14:55:56  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.21  2003/09/23 14:25:13  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
@@ -387,9 +390,9 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
-    myROWDrawer[drawerToUse]->drawGLROWs(_edges2Show, _edges2ShowSize, width);
     myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show,
         _detectors2ShowSize, scale);
+    myROWDrawer[drawerToUse]->drawGLROWs(_edges2Show, _edges2ShowSize, width);
 
 /*
 	Position2DVector tmp;

@@ -48,6 +48,7 @@ namespace
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSInductLoop.h>
+#include <microsim/MS_E2_ZS_Collector.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <utils/logging/LoggedValue_TimeFloating.h>
@@ -874,9 +875,9 @@ NLNetHandler::closeTrafficLightLogic()
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if(m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState  >
+        MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState, MS_E2_ZS_Collector  >
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState > (
+            new MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState, MS_E2_ZS_Collector > (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);

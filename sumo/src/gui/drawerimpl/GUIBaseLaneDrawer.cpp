@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/02 14:55:56  dkrajzew
+// visualisation of E2-detectors implemented
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -110,42 +113,6 @@ GUIBaseLaneDrawer::initStep()
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glColor3f(0, 0, 0);
-}
-
-
-void
-GUIBaseLaneDrawer::drawBoxLine(const Position2D &beg, double rot,
-                                       double visLength)
-{
-    glPushMatrix();
-    glTranslated(beg.x(), beg.y(), 0);
-    glRotated( rot, 0, 0, 1 );
-    glBegin(GL_QUADS);
-    glVertex2f(-1.5, 0);
-    glVertex2f(-1.5, -visLength);
-    glVertex2f(1.5, -visLength);
-    glVertex2f(1.5, 0);
-    glEnd();
-    glBegin(GL_LINES);
-    glVertex2f(0, 0);
-    glVertex2f(0, -visLength);
-    glEnd();
-    glPopMatrix();
-}
-
-
-void
-GUIBaseLaneDrawer::drawLine(const Position2D &beg, double rot,
-                                    double visLength)
-{
-    glPushMatrix();
-    glTranslated(beg.x(), beg.y(), 0);
-    glRotated( rot, 0, 0, 1 );
-    glBegin(GL_LINES);
-    glVertex2f(0, 0);
-    glVertex2f(0, -visLength);
-    glEnd();
-    glPopMatrix();
 }
 
 
