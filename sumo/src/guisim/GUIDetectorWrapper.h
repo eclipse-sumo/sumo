@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.8  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
@@ -60,6 +63,10 @@ public:
     /// Constructor
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
         std::string id);
+
+    /// Constructor for collectors over somthing
+    GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
+        std::string id, size_t glID);
 
     /// Destructor
     ~GUIDetectorWrapper();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.5  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
@@ -47,7 +50,15 @@ namespace
  * ======================================================================= */
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
                                        std::string id)
-                                       : GUIGlObject(idStorage, id)
+    : GUIGlObject(idStorage, id)
+{
+}
+
+
+GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
+                                       std::string id,
+                                       size_t glID)
+    : GUIGlObject(idStorage, id, glID)
 {
 }
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2003/11/18 14:23:57  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.16  2003/09/05 15:20:19  dkrajzew
 // loading of internal links added
 //
@@ -220,6 +223,9 @@ public:
 
     /// closes the building of the current edge
     void closeEdge();
+
+    /// clears the inclanes-list
+    void initInLanes();
 
 
     // interfaces for the building of succeeding lanes

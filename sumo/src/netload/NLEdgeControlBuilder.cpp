@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/18 14:23:57  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.6  2003/09/05 15:20:19  dkrajzew
 // loading of internal links added
 //
@@ -183,9 +186,8 @@ NLEdgeControlBuilder::closeLanes()
 {
     m_pLanes = new MSEdge::LaneCont();
     m_pLanes->reserve(m_pLaneStorage->size());
-    for(MSEdge::LaneCont::iterator i1=m_pLaneStorage->begin(); i1!=m_pLaneStorage->end(); i1++) {
-        m_pLanes->push_back(*i1);
-    }
+    copy(m_pLaneStorage->begin(), m_pLaneStorage->end(),
+        back_inserter(*m_pLanes));
     if(m_pLaneStorage->size()==1) {
         m_iNoSingle++;
     } else {

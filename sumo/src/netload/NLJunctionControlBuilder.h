@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/11/18 14:23:57  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.5  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -128,6 +131,9 @@ public:
 
     /** Returns the current inlane - container */
     const LaneCont &getInLanes() const;
+
+    /// clears the inlanes-container
+    void initInLanes();
 
 protected:
     /** builds a junction that does not use a logic */

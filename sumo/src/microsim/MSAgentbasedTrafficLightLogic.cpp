@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/18 14:26:55  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.6  2003/11/17 07:18:21  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -85,6 +88,12 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
     double laneStateDetectorLength = 75; // length of the detecor
     std::vector<MSLane*>::const_iterator i;
 
+    cout << _id << ":";
+    for(i=lanes.begin(); i!=lanes.end(); i++) {
+        MSLane *lane = (*i);
+        cout << (*i)->id() << ", " << endl;
+    }
+
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
@@ -96,7 +105,7 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
         }
         double lspos = length - lslen;*/
         // Build the lane state detetcor and set it into the container
-        std::string id = "TL" + _id + "_E2DetectorOn_" + lane->id();
+        std::string id = "TL_" + _id + "_E2OverLanesDetectorStartingAt_" + lane->id();
 
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
             _TE2_ZS_CollectorOverLanes* det =
@@ -309,6 +318,9 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::collectData()
             }
             double maxPerBit = 0;
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+                if((*j)->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                    continue;
+                }
                 double tmp = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
                 if (maxPerBit < tmp)  {
                     maxPerBit = tmp;
@@ -481,6 +493,7 @@ double
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::currentForLane(
 		MS_E2_ZS_Collector::DetType what, MSLane *lane) const
 {
+
 	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
 	return (*i).second->getCurrent(what);
 }

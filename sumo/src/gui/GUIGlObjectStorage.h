@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/11/18 14:28:14  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.2  2003/04/14 08:24:56  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
@@ -62,6 +65,15 @@ public:
     /** @brief registers an object
         This done within the constructor of the GUIGlObject */
     void registerObject(GUIGlObject *object);
+
+    /** @brief registers an object
+        This done within the constructor of the GUIGlObject;
+        this method may be used when several objects shall share the same id.
+        The id must be previously retrieved using "getUniqueID" */
+    void registerObject(GUIGlObject *object, size_t id);
+
+    /// retrievs a unique id for an object to display
+    size_t getUniqueID();
 
     /** @brief Retunrs the object from the container locking it
         The lock prevents the object from being deleted while it is accessed */

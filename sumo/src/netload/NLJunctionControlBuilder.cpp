@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/18 14:23:57  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.8  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -286,6 +289,13 @@ const NLJunctionControlBuilder::LaneCont &
 NLJunctionControlBuilder::getInLanes() const
 {
     return m_pActiveInLanes;
+}
+
+
+void
+NLJunctionControlBuilder::initInLanes()
+{
+    m_pActiveInLanes.clear();
 }
 
 

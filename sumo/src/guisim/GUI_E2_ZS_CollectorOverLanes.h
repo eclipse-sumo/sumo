@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.1  2003/11/17 07:15:27  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -78,10 +81,14 @@ public:
     /// Destructor
     ~GUI_E2_ZS_CollectorOverLanes();
 
-    // valid for gui-version only
+    // invalid in fact, as collectors do not need a lane
     virtual GUIDetectorWrapper *buildDetectorWrapper(
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &lane);
+
+    // valid for gui-version only
+    virtual GUIDetectorWrapper *buildDetectorWrapper(
+        GUIGlObjectStorage &idStorage);
 
     /// This detector shall be shown
     bool amVisible() const {

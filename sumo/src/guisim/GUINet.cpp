@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/11/18 14:30:40  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.22  2003/11/12 14:01:54  dkrajzew
 // visualisation of tl-logics added
 //
@@ -108,6 +111,7 @@ namespace
 #include <guisim/GUIVehicleTransfer.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
+#include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -196,6 +200,22 @@ GUINet::initDetectors()
             // add to dictionary
             net->myDetectorDict[wrapper->microsimID()] = wrapper;
         }
+    }
+
+	//
+    MSDetectorSubSys::E2ZSOLDict::ValueVector loopVec3(
+        MSDetectorSubSys::E2ZSOLDict::getInstance()->getStdVector() );
+    net->myDetectorWrapper.reserve(loopVec2.size()+net->myDetectorWrapper.size());
+    for(MSDetectorSubSys::E2ZSOLDict::ValueVector::iterator
+        i3=loopVec3.begin(); i3!=loopVec3.end(); i3++) {
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUI_E2_ZS_CollectorOverLanes*>(*i3)->buildDetectorWrapper(
+                net->_idStorage);
+        // add to list
+        net->myDetectorWrapper.push_back(wrapper);
+        // add to dictionary
+        net->myDetectorDict[wrapper->microsimID()] = wrapper;
     }
 
 	//

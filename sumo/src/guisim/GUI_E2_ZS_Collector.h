@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.4  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
@@ -42,6 +45,7 @@
  * ======================================================================= */
 class GUIGlObjectStorage;
 class GUILaneWrapper;
+class GUI_E2_ZS_CollectorOverLanes;
 
 
 /* =========================================================================
@@ -59,10 +63,11 @@ class GUI_E2_ZS_Collector : public MS_E2_ZS_Collector
 {
 public:
     /// Constructor
-    GUI_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
+    GUI_E2_ZS_Collector(std::string id, //daraus ergibt sich der Filename
                         MSLane* lane,
                         MSUnit::Meters startPos,
                         MSUnit::Meters detLength,
+                        bool visible = false,
                         MSUnit::Seconds haltingTimeThreshold = 1,
                         MSUnit::MetersPerSecond haltingSpeedThreshold =5.0/3.6,
                         MSUnit::Meters jamDistThreshold = 10,
@@ -74,11 +79,17 @@ public:
     // valid for gui-version only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
         GUIGlObjectStorage &idStorage,
-        GUILaneWrapper &lane);
+        GUILaneWrapper &wrapper);
+
+    // valid for gui-version and joined collectors only
+    virtual GUIDetectorWrapper *buildDetectorWrapper(
+        GUIGlObjectStorage &idStorage,
+        GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p,
+        size_t glID);
 
     /// This detector shall be shown
     bool amVisible() const {
-        return true;
+        return myAmVisble;
     }
 
 public:
@@ -91,6 +102,12 @@ public:
         /// Constructor
         MyWrapper(GUI_E2_ZS_Collector &detector,
             GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper);
+
+        /// Constructor for collectors joined over lanes
+        MyWrapper(GUI_E2_ZS_Collector &detector,
+            GUIGlObjectStorage &idStorage, size_t glID,
+            GUI_E2_ZS_CollectorOverLanes &mustBe,
+            GUILaneWrapper &wrapper);
 
         /// Destrutor
         ~MyWrapper();
@@ -127,6 +144,10 @@ public:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
             const std::string &name, MS_E2_ZS_Collector::DetType type);
+
+    private:
+        void myConstruct(GUI_E2_ZS_Collector &detector,
+            GUILaneWrapper &wrapper);
 
     private:
         /// The wrapped detector
@@ -192,6 +213,9 @@ public:
 
     };
 
+private:
+    /// The information whether the detector itself shall be visible
+    bool myAmVisble;
 };
 
 

@@ -1,4 +1,5 @@
 #include "MS_E2_ZS_CollectorOverLanes.h"
+#include "MSDetectorSubSys.h"
 //#include <utils/common/DOubleVector.h>
 
 using namespace std;
@@ -17,6 +18,10 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         jamDistThresholdM(jamDistThreshold),
         myID(id), myStartLaneID(lane->id())
 {
+    // insert object into dictionary
+    if ( ! MSDetectorSubSys::E2ZSOLDict::getInstance()->isInsertSuccess(myID, this ) ) {
+        assert( false );
+    }
 }
 
 void
@@ -25,6 +30,7 @@ MS_E2_ZS_CollectorOverLanes::init(
         MSUnit::Meters detLength,
         const LaneContinuations &laneContinuations)
 {
+    myLength = detLength;
     if(startPosM==0) {
         startPosM = 0.1;
     }
@@ -116,6 +122,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     } else {
                         coll = myAlreadyBuild.find(l)->second;
                     }
+                    myAlreadyBuild[l] = coll;
                     ndv.push_back(coll);
                     // store new info
                     myLaneCombinations.push_back(nlv);
@@ -136,6 +143,9 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             double start, double end)
 {
     string id = makeID(l->id(), c, r);
+    if(start+end<l->length()) {
+        start = l->length() - end - 0.1;
+    }
     return new MS_E2_ZS_Collector(id,
         l, start, end, haltingTimeThresholdM,
         haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
@@ -248,7 +258,7 @@ MS_E2_ZS_CollectorOverLanes::getXMLDetectorInfoStart( void ) const
                 "\" startlane=\"" +
                 myStartLaneID + "\" startpos=\"" +
                 toString(startPosM) + "\" length=\"" +
-                toString(endPosM - startPosM) +
+                toString(myLength) +
                 "\" >\n");
     return detectorInfo;
 }

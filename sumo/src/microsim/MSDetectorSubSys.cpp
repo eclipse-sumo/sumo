@@ -36,6 +36,7 @@ MSDetectorSubSys::createDictionaries( void )
     LaneStateDict::create();
     LoopDict::create();
     E2ZSDict::create();
+    E2ZSOLDict::create();
     MSUnit::create(1.0, 1.0);
 
 //     MSDetector2File<MSInductLoop>::create( 900 );
@@ -49,6 +50,7 @@ MSDetectorSubSys::setDictionariesFindMode( void )
     LaneStateDict::getInstance()->setFindMode();
     LoopDict::getInstance()->setFindMode();
     E2ZSDict::getInstance()->setFindMode();
+    E2ZSOLDict::getInstance()->setFindMode();
 }
 
 /*
@@ -104,13 +106,25 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete E2ZSDict::getInstance();
     }
 
+    if(E2ZSOLDict::created()) {
+        E2ZSOLDict::ValueVector loopVec(
+            E2ZSOLDict::getInstance()->getStdVector() );
+        for(E2ZSOLDict::ValueVector::iterator
+                i3=loopVec.begin();
+            i3!=loopVec.end(); i3++) {
+            delete(*i3);
+        }
+//    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
+        delete E2ZSOLDict::getInstance();
+    }
+
     delete MSUpdateEachTimestepContainer<
         DetectorContainer::UpdateHaltings >::getInstance();
     delete MSUpdateEachTimestepContainer<
         Detector::UpdateE2Detectors >::getInstance();
     delete MSUpdateEachTimestepContainer<
-        Detector::UpdateOccupancyCorrections >::getInstance();    
-    
+        Detector::UpdateOccupancyCorrections >::getInstance();
+
 
     try {
         delete MSUnit::getInstance();

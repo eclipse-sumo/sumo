@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.26  2003/11/18 14:25:24  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.25  2003/11/17 07:26:02  dkrajzew
 // computations needed for collecting e2-values over multiple lanes added
 //
@@ -134,6 +137,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <set>
 #include "NBCont.h"
 #include <utils/common/IntVector.h>
 #include <utils/common/BoolVector.h>
@@ -431,7 +435,8 @@ public:
 
     std::string getLaneID(size_t lane);
 
-    void getContinuations(size_t lane, double distance, StringContMap &into);
+    void getContinuations(size_t lane, double distance, StringContMap &into,
+        std::set<std::string> &visited, int offset);
     void writeContinuations(std::ostream &into, StringContMap &from);
 
 

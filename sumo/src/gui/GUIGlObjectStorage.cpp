@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/18 14:28:14  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.4  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
@@ -71,6 +74,25 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object)
     _lock.lock();
     object->setGlID(myAktID);
     myMap[myAktID++] = object;
+    _lock.unlock();
+}
+
+
+void
+GUIGlObjectStorage::registerObject(GUIGlObject *object, size_t id)
+{
+    _lock.lock();
+    object->setGlID(id);
+    myMap[id] = object;
+    _lock.unlock();
+}
+
+
+size_t
+GUIGlObjectStorage::getUniqueID()
+{
+    _lock.lock();
+    return myAktID++;
     _lock.unlock();
 }
 

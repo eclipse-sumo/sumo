@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/18 14:28:14  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.8  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -69,6 +72,10 @@ public:
     /// Constructor
     GUIGlObject(GUIGlObjectStorage &idStorage,
         std::string fullName);
+
+    /// Constructor for objects joining gl-objects
+    GUIGlObject(GUIGlObjectStorage &idStorage,
+        std::string fullName, size_t glID);
 
     /// Destructor
     virtual ~GUIGlObject();

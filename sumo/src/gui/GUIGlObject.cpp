@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/11/18 14:28:14  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.9  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -64,6 +67,14 @@ GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
     : myFullName(fullName)
 {
     idStorage.registerObject(this);
+}
+
+
+GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
+                         std::string fullName, size_t glID)
+    : myFullName(fullName)
+{
+    idStorage.registerObject(this, glID);
 }
 
 

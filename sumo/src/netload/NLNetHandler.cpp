@@ -308,6 +308,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     _requestSize = -1;
     _tlLogicNo = -1;
     myContinuations.clear();
+    myContainer.initInLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
     } catch (EmptyData) {
@@ -796,11 +797,8 @@ NLNetHandler::addLaneContinuation(const Attributes &attrs)
         string tos = getString(attrs, SUMO_ATTR_TO);
         myContinuations[from] = std::vector<std::string>();
         StringTokenizer st(tos, " ");
-	    cout << "To " << from << " adding:";
         while(st.hasNext()) {
- string bla = st.next();
- cout << bla << ", ";
-            myContinuations[from].push_back(bla);
+            myContinuations[from].push_back(st.next());
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(

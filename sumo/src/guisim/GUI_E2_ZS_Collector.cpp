@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.4  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
@@ -62,12 +65,14 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id,
 		MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
+        bool visible,
 		MSUnit::Seconds haltingTimeThreshold,
 		MSUnit::MetersPerSecond haltingSpeedThreshold,
 		MSUnit::Meters jamDistThreshold,
 		MSUnit::Seconds deleteDataAfterSeconds)
     : MS_E2_ZS_Collector(id, lane, startPos, detLength, haltingTimeThreshold,
-			haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
+			haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds),
+    myAmVisble(visible)
 {
 }
 
@@ -80,10 +85,20 @@ GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector()
 
 GUIDetectorWrapper *
 GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
-											GUILaneWrapper &wrapper)
+                                          GUILaneWrapper &wrapper)
 {
     return new MyWrapper(*this, idStorage, wrapper);
 }
+
+GUIDetectorWrapper *
+GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
+                                          GUILaneWrapper &wrapper,
+                                          GUI_E2_ZS_CollectorOverLanes& p,
+                                          size_t glID)
+{
+    return new MyWrapper(*this, idStorage, glID, p, wrapper);
+}
+
 
 
 /* -------------------------------------------------------------------------
@@ -92,8 +107,26 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
                                           GUIGlObjectStorage &idStorage,
                                           GUILaneWrapper &wrapper)
-    : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, string("E2 detector:")+detector.getId()),
     myDetector(detector)
+{
+    myConstruct(detector, wrapper);
+}
+
+
+GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
+        GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
+        size_t glID, GUI_E2_ZS_CollectorOverLanes &mustBe,
+        GUILaneWrapper &wrapper)
+    : GUIDetectorWrapper(idStorage, string("E2 detector:")+detector.getId(), glID),
+    myDetector(detector)
+{
+    myConstruct(detector, wrapper);
+}
+
+void
+GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
+                                            GUILaneWrapper &wrapper)
 {
     const Position2DVector &v = wrapper.getShape();
     Line2D l(v.getBegin(), v.getEnd());

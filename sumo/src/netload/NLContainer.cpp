@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/11/18 14:23:57  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.16  2003/09/05 15:20:19  dkrajzew
 // loading of internal links added
 //
@@ -521,6 +524,12 @@ NLContainer::getInLanes() const
     return m_pJCB->getInLanes();
 }
 
+
+void
+NLContainer::initInLanes()
+{
+    m_pJCB->initInLanes();
+}
 
 void
 NLContainer::addTLLogic(MSTrafficLightLogic *logic)

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2003/11/18 14:25:24  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.33  2003/11/17 07:26:01  dkrajzew
 // computations needed for collecting e2-values over multiple lanes added
 //
@@ -784,7 +787,8 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
     if(edge==0) {
         return;
     }
-    into << "      <cedge id=\"" << edge->getID() << "\">";
+    into << "      <cedge id=\"" << edge->getID()
+        << "\" via=\":" << _to->getID() << "\">";
     size_t noApproachers = lanes.size();
     for(size_t i=0; i<noApproachers; i++) {
         assert(i<lanes.size());
@@ -1976,9 +1980,7 @@ NBEdge::writeLaneContinuation(std::ostream &into, const std::string &lid,
                               double distance)
 {
     for(size_t i=0; i<_nolanes; i++) {
- cout << lid << ":" << getLaneID(i) << endl;
         if(getLaneID(i)==lid) {
- cout << "found" << endl;
             writeLaneContinuation(into, i, distance);
             return;
         }
@@ -1992,20 +1994,32 @@ NBEdge::writeLaneContinuation(std::ostream &into, size_t lane,
 {
     // collect continuations
     StringContMap continuations;
-    getContinuations(lane, distance, continuations);
+    std::set<std::string> visited;
+    getContinuations(lane, distance, continuations, visited, 0);
     writeContinuations(into, continuations);
 }
 
 void
-NBEdge::getContinuations(size_t lane, double distance, StringContMap &into)
+NBEdge::getContinuations(size_t lane, double distance, StringContMap &into,
+                         std::set<std::string> &visited, int offset)
 {
     // recursion end
     if(distance<=0) {
         return;
     }
+    // recursion on neighbours end
+    int ilane = (int) lane + offset;
+    if(ilane<0||ilane>=_nolanes) {
+        return;
+    }
+    // recursion end on visited
+    if(visited.find(getLaneID(ilane))!=visited.end()) {
+        return;
+    }
+    visited.insert(getLaneID(ilane));
     //
     string myLaneID = getLaneID(lane);
-	cout << "for " << myLaneID << endl;
+    size_t noFound = 0;
     const EdgeVector &incoming = _from->getIncomingEdges();
     for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
         NBEdge *si = *i;
@@ -2018,14 +2032,20 @@ NBEdge::getContinuations(size_t lane, double distance, StringContMap &into)
         for(size_t j=0; j<nolanes; j++) {
             const EdgeLaneVector *elv = si->getEdgeLanesFromLane(j);
             for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
-                if((*k).edge==this&&(*k).lane==lane) {
+                if((*k).edge==this&&(*k).lane==ilane) {
                     string nextLaneID = si->getLaneID(j);
-			cout << "-> " << nextLaneID << endl;
                     into[myLaneID].push_back(nextLaneID);
-                    si->getContinuations(j, distance-si->getLength(), into);
+                    noFound++;
+                    si->getContinuations(j, distance-si->getLength(),
+                        into, visited, 0);
                 }
             }
         }
+    }
+    // recheck neighbours if no connection to this lane was found
+    if(noFound==0) {
+        getContinuations(lane, distance, into, visited, -1);
+        getContinuations(lane, distance, into, visited, 1);
     }
 }
 

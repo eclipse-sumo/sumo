@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/11/18 14:27:39  dkrajzew
+// debugged and completed lane merging detectors
+//
 // Revision 1.1  2003/11/17 07:15:27  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -44,6 +47,7 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_CollectorOverLanes.h"
+#include <gui/GUIGlObjectStorage.h>
 #include <guisim/GUIEdge.h>
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
@@ -88,6 +92,12 @@ GUIDetectorWrapper *
 GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 											GUILaneWrapper &wrapper)
 {
+    throw 1;
+}
+
+GUIDetectorWrapper *
+GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage)
+{
     return new MyWrapper(*this, idStorage, myAlreadyBuild);
 }
 
@@ -107,8 +117,11 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             double start, double end)
 {
     string id = makeID(l->id(), c, r);
+    if(start+end<l->length()) {
+        start = l->length() - end - 0.1;
+    }
     return new GUI_E2_ZS_Collector(id,
-        l, start, end, haltingTimeThresholdM,
+        l, start, end, false, haltingTimeThresholdM,
         haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
 }
 
@@ -120,16 +133,18 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUI_E2_ZS_CollectorOverLanes &detector,
         GUIGlObjectStorage &idStorage,
         const LaneDetMap &detectors)
-    : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, string("E2OverLanes detector:")+detector.getId()),
     myDetector(detector)
 {
+    size_t glID = idStorage.getUniqueID();
     for(LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); i++) {
         MSLane *l = (*i).first;
         GUIEdge *edge =
             static_cast<GUIEdge*>(MSEdge::dictionary(l->edge().id()));
         GUILaneWrapper &w = edge->getLaneGeometry(l);
         GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
-        GUIDetectorWrapper *dw = c->buildDetectorWrapper(idStorage, w);
+        GUIDetectorWrapper *dw =
+            c->buildDetectorWrapper(idStorage, w, detector, glID);
         mySubWrappers.push_back(dw);
         myBoundery.add(dw->getBoundery());
     }
@@ -178,11 +193,12 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIApplicationWindow
     myMkExistingItem(*ret, "halting duration [?]",
         MS_E2_ZS_Collector::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
     //
-/*    ret->mkItem("length [m]", false,
-        myDetector.getEndPos()-myDetector.getStartPos());
+    ret->mkItem("length [m]", false,
+        myDetector.getLength());
+    /*
     ret->mkItem("position [m]", false,
         myDetector.getStartPos());*/
-    ret->mkItem("lane", false, myDetector.getStartLaneID());
+//    ret->mkItem("", false, myDetector.getStartLaneID());
     // close building
     ret->closeBuilding();
     return ret;

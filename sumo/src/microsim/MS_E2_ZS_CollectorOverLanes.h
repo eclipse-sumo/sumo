@@ -87,6 +87,10 @@ public:
         }
     //@}
 
+    MSUnit::Meters getLength() const {
+        return myLength;
+    }
+
 protected:
     void extendTo(double length, const LaneContinuations &laneContinuations);
     std::string  makeID( const std::string &baseID,
@@ -97,7 +101,7 @@ protected:
 
 protected:
     MSUnit::Meters startPosM;
-    MSUnit::Meters endPosM;
+    MSUnit::Meters myLength;
 
     MSUnit::Seconds deleteDataAfterSecondsM;
     MSUnit::Steps haltingTimeThresholdM;
