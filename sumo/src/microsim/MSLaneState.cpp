@@ -24,8 +24,14 @@ namespace
 }
 */
 // $Log$
+// Revision 1.14  2003/05/27 18:59:01  roessel
+// Removed OutputStyle in ctor (output will be xml).
+// Activated MSEventControl for regular file-output. Works now because
+// MSEventControl is a singleton now.
+//
 // Revision 1.13  2003/05/26 15:24:15  roessel
-// Removed warnings/errors. Changed return-type of getNumberOfWaiting to double.
+// Removed warnings/errors. Changed return-type of getNumberOfWaiting to
+// double.
 //
 // Revision 1.12  2003/05/26 13:56:57  roessel
 // changed push_back to sorted-insert in leaveDetectorByMove and
@@ -118,10 +124,8 @@ MSLaneState::MSLaneState( string id,
                           double begin,
                           double length,
                           MSNet::Time sampleInterval,
-                          OutputStyle style,
                           ofstream *file ) :
     idM             ( id ),
-    styleM          ( style ),
     fileM           ( file ),
     timestepDataM   ( ),
     vehicleDataM    ( ),
@@ -157,37 +161,35 @@ MSLaneState::MSLaneState( string id,
     // start file-output through MSEventControl
     Command* writeData = new SimpleCommand< MSLaneState >(
         this, &MSLaneState::writeData );
+    MSEventControl::getInstance()->addEvent(
+        writeData,
+        sampleIntervalM,
+        MSEventControl::ADAPT_AFTER_EXECUTION );
 
-    // !!!Diese Anweisung erzeugt einen Speicherzugriffsfehler
-//     MSNet::getInstance()->getEventControl()->addEvent(
-//         writeData,
-//         sampleIntervalM,
-//         MSEventControl::ADAPT_AFTER_EXECUTION );
+//     // Write header.
+//     switch ( styleM ) {
+//         case GNUPLOT:
+//         {
+//             ostringstream header;
+//             header << "# Lane-state-detector ID = " << idM << endl;
+//             header << "#   on Lane     " << laneM->id() << endl;
+//             header << "#   at position " << posM << endl;
+//             header << "#   sampleIntervall = "
+//                    << sampleIntervalM << " seconds" << endl << endl;
+//             header << "# n   endOfInterv nVehicles avgDensity avgFlow "
+//                    << "avgSpeed avgOccup avgLength" << endl;
+//             header << "#         [s]                [veh/km]  [veh/h] "
+//                    << " [m/s]     [s]       [m]" << endl;
 
-    // Write header.
-    switch ( styleM ) {
-        case GNUPLOT:
-        {
-            ostringstream header;
-            header << "# Lane-state-detector ID = " << idM << endl;
-            header << "#   on Lane     " << laneM->id() << endl;
-            header << "#   at position " << posM << endl;
-            header << "#   sampleIntervall = "
-                   << sampleIntervalM << " seconds" << endl << endl;
-            header << "# n   endOfInterv nVehicles avgDensity avgFlow "
-                   << "avgSpeed avgOccup avgLength" << endl;
-            header << "#         [s]                [veh/km]  [veh/h] "
-                   << " [m/s]     [s]       [m]" << endl;
-
-            *fileM << header.str() << endl;
-            break;
-        }
-        case CSV:
-            // No header. CSV has no spec for comments etc.
-            break;
-        default:
-            assert( true );
-    }
+//             *fileM << header.str() << endl;
+//             break;
+//         }
+//         case CSV:
+//             // No header. CSV has no spec for comments etc.
+//             break;
+//         default:
+//             assert( true );
+//     }
 }
 
 
@@ -539,10 +541,8 @@ MSLaneState::writeData()
 //         default:
 //             assert( true );
 //     }
-
-
-    // loesche Daten die aelter sind als vorhalteintervall
-
+	cout << "writeData for LaneState "<< idM << " at timestep " <<
+        MSNet::getInstance()->timestep() << endl;
     return sampleIntervalM;
 }
 
