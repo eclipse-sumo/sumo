@@ -481,6 +481,7 @@ void Image::RarifySkeleton()
 
                         if
                         (
+						(
                             !(
                                 (
                                     (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
@@ -495,6 +496,70 @@ void Image::RarifySkeleton()
                             &&
                             //Z‰hle die Anzahl der weiﬂ-schwarz ‹berg‰nge (siehe auch Methode CountTransitions)
                             (CountTransitions(i,j)<=2)
+							||
+							(
+								(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+								(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+								(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+								(m_img->getPixel(i-1,j)==FXRGB(0,0,0))
+							)
+							||
+							(
+								(
+                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
+                                )
+                                ||
+                                (
+                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
+                                )
+                                ||
+                                (
+                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
+                                )
+                                ||
+                                (
+                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
+                                )
+							)
+							)
+							&&
+							!(
+								(
+									(m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))
+								)
+								||
+								(
+									(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))
+								)
+								||
+								(
+									(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))
+								)
+								||
+								(
+									(m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+									(m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))
+								)
+							)
                         )
                             //Setze Pixel (i,j) auf weiﬂ
                             m_img->setPixel(i,j,FXRGB(255,255,255));
@@ -557,6 +622,8 @@ Graph Image::Tracking(Graph gr)
                 if (hilfsgr.Number_of_Vertex()-gr.Number_of_Vertex()>20)
                     gr=hilfsgr;
             }
+	gr.Reduce_plus();
+	gr.MergeVertex();
     return gr;
 }
 
