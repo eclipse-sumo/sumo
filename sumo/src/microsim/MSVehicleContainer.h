@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/08/04 11:40:21  dkrajzew
+// false inclusion hierarchy patched; missing inclusions added
+//
 // Revision 1.3  2003/07/07 08:20:59  dkrajzew
 // a bug on output patched (the output operator wrote to cout instead of the given stream)
 //
@@ -37,7 +40,9 @@
 #include <vector>
 #include <iostream>
 #include "MSNet.h"
-#include "MSVehicle.h"
+
+class MSVehicle;
+//#include "MSVehicle.h"
 
 
 /* =========================================================================
@@ -97,17 +102,8 @@ public:
     void showArray() const;
 
     /// Prints the contents of the container
-    friend std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont) {
-        strm << "------------------------------------" << std::endl;
-        while(!cont.isEmpty()) {
-            const VehicleVector &v = cont.top();
-            for(VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
-                strm << (*i)->desiredDepart() << std::endl;
-            }
-            cont.pop();
-        }
-        return strm;
-    }
+    friend std::ostream &operator << (std::ostream &strm,
+        MSVehicleContainer &cont);
 
 private:
     /** @brief Replaces the existing single departure time vector by the one given

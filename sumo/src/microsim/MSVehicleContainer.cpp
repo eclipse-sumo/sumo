@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/08/04 11:40:21  dkrajzew
+// false inclusion hierarchy patched; missing inclusions added
+//
 // Revision 1.6  2003/07/22 15:07:40  dkrajzew
 // warnings removed
 //
@@ -285,3 +288,16 @@ MSVehicleContainer::showArray( ) const
     cout << endl << "-------------------------" << endl;
 }
 
+
+std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont)
+{
+    strm << "------------------------------------" << std::endl;
+    while(!cont.isEmpty()) {
+        const MSVehicleContainer::VehicleVector &v = cont.top();
+        for(MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
+            strm << (*i)->desiredDepart() << std::endl;
+        }
+        cont.pop();
+    }
+    return strm;
+}

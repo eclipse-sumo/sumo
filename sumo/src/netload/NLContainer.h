@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2003/08/04 11:40:21  dkrajzew
+// false inclusion hierarchy patched; missing inclusions added
+//
 // Revision 1.14  2003/07/30 09:25:17  dkrajzew
 // loading of directions and priorities of links implemented
 //
@@ -102,6 +105,7 @@
 #include <string>
 #include <vector>
 #include <microsim/MSEmitControl.h>
+#include <microsim/MSLink.h>
 
 /* =========================================================================
  * class declarations

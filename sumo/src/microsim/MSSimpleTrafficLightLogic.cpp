@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/08/04 11:40:20  dkrajzew
+// false inclusion hierarchy patched; missing inclusions added
+//
 // Revision 1.6  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -42,6 +45,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+#include <cassert>
 #include <utility>
 #include <vector>
 #include <bitset>
