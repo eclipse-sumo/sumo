@@ -161,7 +161,13 @@ MSVehicleControl.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
 MS_E2_ZS_CollectorOverLanes.h \
-MSInterface_NetRun.h
+MSInterface_NetRun.h \
+MSE1Collector.cpp \
+MSE1Collector.h \
+MSE1.h \
+MSE1MeanSpeed.cpp \
+MSE1MeanSpeed.h \
+MSE1MoveReminder.h
 
 SUBDIRS = actions logging output
 
