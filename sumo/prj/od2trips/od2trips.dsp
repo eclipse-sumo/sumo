@@ -137,6 +137,10 @@ SOURCE=..\..\src\od2trips\ODPtvread.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\od2trips\ODread.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\od2trips\ODwrite.cpp
 # End Source File
 # Begin Source File

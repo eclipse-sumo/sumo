@@ -45,7 +45,7 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	std::string cLine;
 	char bez1[]="ZUSAMMENSETZUNG";
 	char bez2[]="MATRIXDATEI ";
-	char bez3[]="BEWERTUNGSDATEI";
+	//char bez3[]="BEWERTUNGSDATEI";
 	char bez4[]="NAME";
 	char bez5[]="ANTEIL";
 	char bez6[]="FAHRZEUGTYP";
@@ -54,6 +54,13 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	char delim3[]="V";
 	int ferror = 0;
 	char datin[MAX_LINELENGTH];
+	struct content_tmp {
+		int id;
+		int max;
+		int	cartype[MAX_CARTYPES];
+		float fraction[MAX_CARTYPES];
+	};
+	content_tmp content_tmp[MAX_CONTENT];
 
 	std::ifstream fsSrc (OD_filename.c_str ());
 
@@ -67,48 +74,52 @@ void ODInpread (string OD_filename,string infiles[MAX_INFILES],
 	char *a;
 	char *b;
 	char *c;
-	int fin1=1;
+	int i,j,k;
 	int index=-1;
 	int count2=0;
+	int count3=-1;
+	*max_infiles=0;
 	while (fsSrc.getline (datin,MAX_LINELENGTH)) {
-		if ((c=strstr(datin, bez3)) != NULL) {
-			fin1=0;
-			*max_infiles=count;
-		}
-		if (((a=strstr(datin, bez1)) != NULL) && fin1)  {
+		if (((a=strstr(datin, bez1)) != NULL) && (strstr(datin, bez2)) != NULL)  {
 			pos1=a-datin+16;
-			content[count].id=atoi(datin+pos1); // read district ids
+			content[*max_infiles].id=atoi(datin+pos1); // read district ids
 			b=strtok(datin,delim1);
 			b=strtok(NULL,delim1);
-			infiles[count]=b;
-			count++;
+			infiles[*max_infiles]=b;
+			(*max_infiles)++;
 		}
-		if (((a=strstr(datin, bez1)) != NULL) && fin1==0)  {
-			if ((b=strstr(datin, bez4)) != NULL) {
-				count2=0;
-				pos1=a-datin+16;
-				index=atoi(datin+pos1);
-			}
+		if (((a=strstr(datin, bez1)) != NULL) && (strstr(datin, bez4)) != NULL) {
+			count2=0;
+			count3++;
+			pos1=a-datin+16;
+			index=atoi(datin+pos1);
 		}
-		if (((a=strstr(datin, bez6)) != NULL) && index>0)  {
+		// read ZUSAMMENSETZUNG
+		if (((a=strstr(datin, bez6)) != NULL) && (strstr(datin, bez5)) != NULL)  {
 			pos1=a-datin+12;
 			int typ=atoi(datin+pos1);
 			b=strtok(datin,delim2);
 			b=strtok(NULL,delim3);
 			float anteil;
 			anteil=atof(b);
-			for (int i=0;i<*max_infiles;i++) { // read content for district-id index
-				if (content[i].id==index) {
-					content[i].cartype[count2]=typ;
-					content[i].fraction[count2]=anteil;
-					content[i].max=count2+1;
+			content_tmp[count3].id=index;
+			content_tmp[count3].cartype[count2]=typ;
+			content_tmp[count3].fraction[count2]=anteil;
+			count2=count2+1;
+			content_tmp[count3].max=count2;
+		}
+	}
+	 // rearrange ZUSAMMENSETZUNG
+	for (i=0;i<(*max_infiles);i++) {
+		for (j=0;j<count3+1;j++) {
+			if (content[i].id==content_tmp[j].id) {
+				content[i].max=content_tmp[j].max;
+				for (k=0;k<content_tmp[j].max;k++) {
+					content[i].cartype[k]=content_tmp[j].cartype[k];
+					content[i].fraction[k]=content_tmp[j].fraction[k];
 				}
 			}
-			count2++;
 		}
-		if ((strstr(datin, bez6)==NULL) &&
-			(strstr(datin, bez1)== NULL)) index=-1;
-
 	}
 	fsSrc.close ();
 	//return (ferror);

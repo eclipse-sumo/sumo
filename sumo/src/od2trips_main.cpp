@@ -177,6 +177,15 @@ main(int argc, char **argv)
 			cerr << "Error: No trip table output file (-o) specified." << endl;
 			ok = false;
 		}
+		string bez1=".inp";
+		string bez2=".fma";
+		int fmatype=0;
+		if (OD_filename.find(bez1) != -1) fmatype=1; // new format: vissim type
+		if (OD_filename.find(bez2) != -1) fmatype=2; // old fma format
+		if(!fmatype) {
+			cerr << "Error: Wrong od-file in *.cfg!" << endl;
+			ok = false;
+		}
         if(!ok) {
             return 1;
         }
@@ -185,9 +194,18 @@ main(int argc, char **argv)
 		bool verbose = oc->getBool("v");
 		content content[MAX_INFILES]; // helds car types
 		string *infiles = 	new string [MAX_INFILES];
-		int maxfiles=0; //number of OD-Files
+		int maxfiles=1; //number of OD-Files
 		// reads out some metadata from *.inp
-		ODInpread (OD_filename, infiles, content,&maxfiles);
+		if( fmatype == 1) {
+			if(verbose) {
+					std::cout << "**** VISSUM input data format **** "<< endl;
+				}
+			ODInpread (OD_filename, infiles, content,&maxfiles);
+		} else {
+			if(verbose) {
+				std::cout << "**** Original input data format **** "<< endl;
+			}
+		}
 		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
 		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
 		long int i, j;
@@ -216,13 +234,16 @@ main(int argc, char **argv)
 			// OD list
 			vector<OD_IN> od_in;
 			vector<OD_IN>::iterator it1;
-			OD_filename = OD_path + infiles[ifile];
-			if(verbose) {
-				std::cout << "Processing "<< OD_filename << endl;
-			}
+			if (fmatype == 1) {
+				OD_filename = OD_path + infiles[ifile];
+				if(verbose) {
+					std::cout << "Processing "<< OD_filename << endl;
+				}
 			// Reads the OD Matrix
 			ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
 			// use settings if provided
+			} else
+				ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
 			if(ok_begin) {
 				if(oc->getLong("begin") > start) start = oc->getLong("begin");
 			}
@@ -254,9 +275,9 @@ main(int argc, char **argv)
 			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
 				total_cars += (*it1).how_many;
 			}
-			//if(verbose) {
-			//	std::cout << "Total number of cars computed: "<< total_cars << endl;
-			//}
+			if(verbose && fmatype == 2) {
+				std::cout << "Total number of cars computed: "<< total_cars << endl;
+			}
 			int *when = new int [period];
 			int *elements = new int [period];
 			//if(verbose) {
@@ -272,8 +293,7 @@ main(int argc, char **argv)
 				//OD_IN tmp = od_in[i];
 				end = od_in[i].how_many;
 				if(end!=0) {
-					// Gets random numbers which are the release times
-					// for the cars
+					// Gets random numbers which are the release times for the cars
 					end = Get_rand( end, period, start, elements, when, ini);
 					ini = false;
 					end = begin+end;
@@ -282,19 +302,20 @@ main(int argc, char **argv)
 						*(old_index+j+od_next)=j+od_next; // initial order for index
 						// find dsource, dsink
 						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
-						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
 						*(sink+j+od_next) = districts->getRandomSinkFromDistrict(od_in[i].to);
 						*(when_all+j+od_next) = *(when+j-begin);
-						maxrand=0.;
-						// determine car type
-						for (k=0;k<content[ifile].max;k++) {
-							tmprand= rand() * content[ifile].fraction[k];
-								if (maxrand<tmprand) {
-									maxrand=tmprand;
-									tmpk=k;
-								}
-						}
-						*(cartype+j+od_next) = content[ifile].cartype[tmpk];
+						// determine car type for VISSIM format
+						if (fmatype == 1) {
+							maxrand=0.;
+							for (k=0;k<content[ifile].max;k++) {
+								tmprand= rand() * content[ifile].fraction[k];
+									if (maxrand<tmprand) {
+										maxrand=tmprand;
+										tmpk=k;
+									}
+							}
+							*(cartype+j+od_next) = content[ifile].cartype[tmpk];
+						} else *(cartype+j+od_next) = 0; // cartype=0 for old format
 					}
 					begin=end;
 				}

@@ -59,12 +59,14 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
     for(int k=0;k<maxele;k++) {
         *(input+k)=k;
     }
+	//int number2=number;
 	if(number>=maxele)
 	{
+		//int number = (number % maxele);
 		cout << "More random numbers requiered as elements!" << endl;
         number = maxele-1;
 		cout << initial-number << " cars get lost" << endl;
-	    for(k=0;k<maxele;k++) *(output+k)=k;
+	    for(k=0;k<maxele;k++) *(output+k)=k+start;
 		return (number);
 	}
 	check=0;

@@ -6,9 +6,9 @@
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  copyright            : (C) 2002 by Peter Mieth
 //  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
+//  email                : Peter.Mieth@dlr.de
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/04/01 15:22:21  dkrajzew
-// parsing of multiple (vissim)-matrices added
+// Revision 1.4  2003/04/09 15:57:07  dkrajzew
+// reinsertion of simple OD-matrix
 //
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
@@ -34,6 +34,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+	extern int ODread (string, vector<OD_IN>&, long*, long*,
+					   long*, long*, float* );
 	extern int ODPtvread (string, vector<OD_IN>&, long*, long*, long*,
 						  long*, float* );
 	extern int ODWrite (string , vector<OD_OUT>& , long int);
