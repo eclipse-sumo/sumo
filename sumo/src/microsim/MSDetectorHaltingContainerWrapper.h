@@ -33,13 +33,53 @@
 
 class MSVehicle;
 
+namespace DetectorContainer
+{
+    struct Halting
+    {
+        Halting( MSVehicle* veh )
+            : vehM( veh ),
+              posM( vehM->pos() ),
+              timeBelowSpeedThresholdM( 0 ),
+              isHaltingM( false ),
+              isInJamM( false ),
+              haltingDurationM( 0 )
+            {}
+        MSVehicle* vehM;
+        MSUnit::Cells posM; 
+        MSUnit::Steps timeBelowSpeedThresholdM;
+        bool isHaltingM;
+        bool isInJamM;
+        MSUnit::Steps haltingDurationM;
+    };
+
+    struct E3Halting
+    {
+        E3Halting( MSVehicle* veh )
+            :
+            posM( veh->pos() )
+            , timeBelowSpeedThresholdM( 0 )
+            , isHaltingM( false )
+            , haltingDurationM( 0 )
+            , nHalts( 0 )
+            {}
+        MSUnit::Cells posM; 
+        MSUnit::Steps timeBelowSpeedThresholdM;
+        bool isHaltingM;
+        MSUnit::Steps haltingDurationM;
+        unsigned nHalts;
+    };    
+}
+
 namespace halt
 {
     class BeginOfHalt{};
     class EndOfHalt{};
     
-    typedef MSSubject< double, true, BeginOfHalt > HaltBeginSubject;
-    typedef MSSubject< double, true, EndOfHalt >   HaltEndSubject;
+    typedef MSSubject<
+        const DetectorContainer::Halting, true, BeginOfHalt > HaltBeginSubject;
+    typedef MSSubject<
+        const DetectorContainer::Halting, true, EndOfHalt >   HaltEndSubject;
 
     typedef HaltBeginSubject::Observer HaltBeginObserver;
     typedef HaltEndSubject::Observer   HaltEndObserver;
@@ -92,7 +132,7 @@ struct MSDetectorHaltingContainerWrapper
                 haltIt->posM += haltIt->vehM->getMovedDistance();
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     if ( haltIt->isHaltingM ) {
-                        halt::HaltEndSubject::notify( 1 );
+                        halt::HaltEndSubject::notify( *haltIt );
                     }
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
@@ -107,7 +147,7 @@ struct MSDetectorHaltingContainerWrapper
                             // halting-duration
                             haltIt->haltingDurationM =
                                 haltIt->timeBelowSpeedThresholdM++;
-                            halt::HaltBeginSubject::notify( 1 );
+                            halt::HaltBeginSubject::notify( *haltIt );
                         }
                         else {
                             haltIt->haltingDurationM++;
@@ -245,41 +285,6 @@ struct MSDetectorHaltingContainerWrapper< std::map< MSVehicle*, T > > :
 
 namespace DetectorContainer
 {
-    struct Halting
-    {
-        Halting( MSVehicle* veh )
-            : vehM( veh ),
-              posM( vehM->pos() ),
-              timeBelowSpeedThresholdM( 0 ),
-              isHaltingM( false ),
-              isInJamM( false ),
-              haltingDurationM( 0 )
-            {}
-        MSVehicle* vehM;
-        MSUnit::Cells posM; 
-        MSUnit::Steps timeBelowSpeedThresholdM;
-        bool isHaltingM;
-        bool isInJamM;
-        MSUnit::Steps haltingDurationM;
-    };
-
-    struct E3Halting
-    {
-        E3Halting( MSVehicle* veh )
-            :
-            posM( veh->pos() )
-            , timeBelowSpeedThresholdM( 0 )
-            , isHaltingM( false )
-            , haltingDurationM( 0 )
-            , nHalts( 0 )
-            {}
-        MSUnit::Cells posM; 
-        MSUnit::Steps timeBelowSpeedThresholdM;
-        bool isHaltingM;
-        MSUnit::Steps haltingDurationM;
-        unsigned nHalts;
-    };    
-
     typedef MSDetectorHaltingContainerWrapper<
         std::list< Halting > > HaltingsList;
 
