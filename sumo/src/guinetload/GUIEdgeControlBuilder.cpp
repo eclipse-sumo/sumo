@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/07 08:13:15  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.2  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -96,7 +99,8 @@ GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
 
 MSLane *
 GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
-                               double maxSpeed, double length, bool isDepart)
+                               double maxSpeed, double length, bool isDepart,
+                               const Position2DVector &shape)
 {
     // checks if the depart lane was set before
     if(isDepart&&m_pDepartLane!=0) {
@@ -104,9 +108,11 @@ GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     }
     MSLane *lane = 0;
     if(m_Function==MSEdge::EDGEFUNCTION_SOURCE) {
-        lane = new GUISourceLane(net, id, maxSpeed, length, m_pActiveEdge);
+        lane = new GUISourceLane(net, id, maxSpeed, length, m_pActiveEdge,
+            shape);
     } else {
-        lane = new GUILane(net, id, maxSpeed, length, m_pActiveEdge);
+        lane = new GUILane(net, id, maxSpeed, length, m_pActiveEdge,
+            shape);
     }
     m_pLaneStorage->push_back(lane);
     if(isDepart) {
@@ -114,6 +120,14 @@ GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     }
     return lane;
 }
+
+/*
+void
+GUIEdgeControlBuilder::addLaneShape(const Position2DVector &shape)
+{
+    myLaneShape = shape;
+}
+*/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

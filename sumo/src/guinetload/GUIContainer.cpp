@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/07 08:13:15  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.9  2003/06/05 11:39:31  dkrajzew
 // class templates applied; documentation added
 //
@@ -68,6 +71,7 @@ namespace
 #include <guisim/GUISourceLane.h>
 #include <guisim/GUIVehicle.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
+#include <guinetload/GUIJunctionControlBuilder.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
@@ -83,8 +87,9 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIContainer::GUIContainer(NLEdgeControlBuilder * const edgeBuilder)
-    : NLContainer(edgeBuilder)
+GUIContainer::GUIContainer(NLEdgeControlBuilder * const edgeBuilder,
+                           NLJunctionControlBuilder * const junctionBuilder)
+    : NLContainer(edgeBuilder, junctionBuilder)
 {
 }
 
@@ -155,10 +160,40 @@ GUIContainer::addLane(const string &id, const bool isDepartLane,
                       const float maxSpeed, const float length,
                       const float changeUrge)
 {
+    myID = id;
+    myLaneIsDepart = isDepartLane;
+    myCurrentMaxSpeed = maxSpeed;
+    myCurrentLength = length;
+    myCurrentChangeUrge = changeUrge;
+}
+
+
+void
+GUIContainer::addJunctionShape(const Position2DVector &shape)
+{
+    static_cast<GUIJunctionControlBuilder*>(m_pJCB)->addJunctionShape(shape);
+}
+
+
+void
+GUIContainer::addLaneShape(const Position2DVector &shape)
+{
+    myShape = shape;
+//    static_cast<GUIEdgeControlBuilder*>(m_pECB)->addLaneShape(shape);
+}
+
+
+void
+GUIContainer::closeLane()
+{
     MSLane *lane =
-        m_pECB->addLane(getNet(), id, maxSpeed, length, isDepartLane);
-    if(!MSLane::dictionary(id, lane))
-        throw XMLIdAlreadyUsedException("Lanes", id);
+        static_cast<GUIEdgeControlBuilder*>(m_pECB)->addLane(
+            getNet(), myID, myCurrentMaxSpeed, myCurrentLength,
+            myLaneIsDepart, myShape);
+    // insert the lane into the lane-dictionary, checking
+    if(!MSLane::dictionary(myID, lane)) {
+        throw XMLIdAlreadyUsedException("Lanes", myID);
+    }
 }
 
 

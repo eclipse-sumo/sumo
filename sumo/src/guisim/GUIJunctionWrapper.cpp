@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------//
-//                        GUILaneWrapper.cpp -
-//  Holds geometrical values for a lane
+//                        GUIJunctionWrapper.h -
+//  Holds geometrical values for a junction
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 25 Nov 2002
+//  begin                : Mon, 1 Jul 2003
 //  copyright            : (C) 2002 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -23,33 +23,10 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.8  2003/07/07 08:14:48  dkrajzew
+// Revision 1.1  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
-// Revision 1.7  2003/06/06 10:29:24  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
 //
-// Revision 1.6  2003/06/05 06:29:50  dkrajzew
-// first tries to build under linux: warnings removed; moc-files included Makefiles added
-//
-// Revision 1.5  2003/05/20 09:26:57  dkrajzew
-// data retrieval for new views added
-//
-// Revision 1.4  2003/04/14 08:27:17  dkrajzew
-// new globject concept implemented
-//
-// Revision 1.3  2003/03/17 14:09:11  dkrajzew
-// Windows eol removed
-//
-// Revision 1.2  2003/03/12 16:52:06  dkrajzew
-// centering of objects debuggt
-//
-// Revision 1.1  2003/02/07 10:39:17  dkrajzew
-// updated
-//
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -62,10 +39,10 @@ namespace
 #include <utility>
 #include <utils/qutils/NewQMutex.h>
 #include <microsim/MSLane.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
-#include "GUILaneWrapper.h"
+#include "GUIJunctionWrapper.h"
 #include <gui/popup/QGLObjectPopupMenu.h>
 #include <qwidget.h>
 #include <qpopupmenu.h>
@@ -81,16 +58,14 @@ using namespace std;
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
-double GUILaneWrapper::myAllMaxSpeed = 0;
-
 const char * const
-GUILaneWrapper::myTableItems[] =
+GUIJunctionWrapper::myTableItems[] =
 {
     "length", "maxspeed", 0
 };
 
 const TableType
-GUILaneWrapper::myTableItemTypes[] =
+GUIJunctionWrapper::myTableItemTypes[] =
 {
     TT_DOUBLE, TT_DOUBLE
 };
@@ -101,106 +76,22 @@ GUILaneWrapper::myTableItemTypes[] =
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape)
-    : GUIGlObject(idStorage, string("lane:")+lane.id()),
-    myLane(lane), myShape(shape)
-{
-    double x1 = shape.at(0).x();
-    double y1 = shape.at(0).y();
-    double x2 = shape.at(shape.size()-1).x();
-    double y2 = shape.at(shape.size()-1).y();
-    double length = getLength();
-    _begin = Position2D(x1, y1);
-    _end = Position2D(x2, y2);
-    _direction = Position2D((x1-x2)/length, (y1-y2)/length);
-    _rotation = atan2((x2-x1), (y1-y2))*180/3.14159265;
-    // also the virtual length is set in here
-    _visLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-    // check maximum speed
-    if(myAllMaxSpeed<lane.maxSpeed()) {
-        myAllMaxSpeed = lane.maxSpeed();
-    }
-}
-
-
-GUILaneWrapper::~GUILaneWrapper()
+GUIJunctionWrapper::GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
+        MSJunction &junction,
+        const Position2DVector &shape)
+    : GUIGlObject(idStorage, string("junction:")+junction.id()),
+    myJunction(junction)
 {
 }
 
 
-const Position2D &
-GUILaneWrapper::getBegin() const
+GUIJunctionWrapper::~GUIJunctionWrapper()
 {
-    return _begin;
-}
-
-
-const Position2D &
-GUILaneWrapper::getEnd() const
-{
-    return _end;
-}
-
-
-const Position2D &
-GUILaneWrapper::getDirection() const
-{
-    return _direction;
-}
-
-
-double
-GUILaneWrapper::getRotation() const
-{
-    return _rotation;
-}
-
-
-double
-GUILaneWrapper::getLength() const
-{
-    return myLane.myLength;
-}
-
-
-double
-GUILaneWrapper::visLength() const
-{
-    return _visLength;
-}
-
-
-MSEdge::EdgeBasicFunction
-GUILaneWrapper::getPurpose() const
-{
-    return myLane.myEdge->getPurpose();
-}
-
-
-double
-GUILaneWrapper::maxSpeed() const
-{
-    return myLane.maxSpeed();
-}
-
-
-double
-GUILaneWrapper::getOverallMaxSpeed()
-{
-    return myAllMaxSpeed;
-}
-
-
-bool
-GUILaneWrapper::forLane(const MSLane &lane) const
-{
-    return (&myLane)==(&lane);
 }
 
 
 QGLObjectPopupMenu *
-GUILaneWrapper::getPopUpMenu(GUIApplicationWindow *app,
+GUIJunctionWrapper::getPopUpMenu(GUIApplicationWindow *app,
                              GUISUMOAbstractView *parent)
 {
     int id;
@@ -228,49 +119,49 @@ GUILaneWrapper::getPopUpMenu(GUIApplicationWindow *app,
 
 
 GUIGlObjectType
-GUILaneWrapper::getType() const
+GUIJunctionWrapper::getType() const
 {
     return GLO_LANE;
 }
 
 
 std::string
-GUILaneWrapper::microsimID() const
+GUIJunctionWrapper::microsimID() const
 {
-    return myLane.id();
+    return myJunction.id();
 }
 
 
 const char * const
-GUILaneWrapper::getTableItem(size_t pos) const
+GUIJunctionWrapper::getTableItem(size_t pos) const
 {
     return myTableItems[pos];
 }
 
 
 TableType
-GUILaneWrapper::getTableType(size_t pos) const
+GUIJunctionWrapper::getTableType(size_t pos) const
 {
     return myTableItemTypes[pos];
 }
 
 
 void
-GUILaneWrapper::fillTableParameter(double *parameter) const
+GUIJunctionWrapper::fillTableParameter(double *parameter) const
 {
-    parameter[0] = myLane.length();
-    parameter[1] = myLane.maxSpeed();
+    parameter[0] = 0;
+    parameter[1] = 0;
 }
 
 
 double
-GUILaneWrapper::getTableParameter(size_t pos) const
+GUIJunctionWrapper::getTableParameter(size_t pos) const
 {
     switch(pos) {
     case 0:
-        return myLane.length();
+        return 0;
     case 1:
-        return myLane.maxSpeed();
+        return 0;
     default:
         throw 1;
     }
@@ -281,7 +172,7 @@ GUILaneWrapper::getTableParameter(size_t pos) const
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "GUILaneWrapper.icc"
+//#include "GUIJunctionWrapper.icc"
 //#endif
 
 // Local Variables:

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/07/07 08:13:15  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.3  2003/06/18 11:08:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -51,7 +54,10 @@ namespace
 #include <sax/SAXException.hpp>
 #include <netload/NLNetHandler.h>
 #include <netload/NLContainer.h>
+#include <utils/convert/TplConvert.h>
+#include <utils/convert/ConvHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "GUIContainer.h"
@@ -91,6 +97,26 @@ GUINetHandler::myStartElement(int element, const std::string &name,
 
 
 void
+GUINetHandler::myCharacters(int element, const std::string &name,
+                                const std::string &chars)
+{
+    NLNetHandler::myCharacters(element, name, chars);
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case SUMO_TAG_SHAPE:
+            addJunctionShape(chars);
+            break;
+        case SUMO_TAG_LANE:
+            addLaneShape(chars);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+
+void
 GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
@@ -102,6 +128,23 @@ GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
             "Error in description: An edge has no information about the from/to-node");
     }
 }
+
+
+void
+GUINetHandler::addJunctionShape(const std::string &chars)
+{
+    Position2DVector shape = ConvHelper::parseShape(chars);
+    static_cast<GUIContainer&>(myContainer).addJunctionShape(shape);
+}
+
+
+void
+GUINetHandler::addLaneShape(const std::string &chars)
+{
+    Position2DVector shape = ConvHelper::parseShape(chars);
+    static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

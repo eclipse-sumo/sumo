@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/07 08:13:15  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.2  2003/06/18 11:08:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -64,17 +67,24 @@ public:
     /// standard destructor
     ~GUINetHandler();
 
-    // -----------------------------------------------------------------------
-    //  Handlers for the SAX DocumentHandler interface
-    // -----------------------------------------------------------------------
+protected:
     /** called on the occurence of the beginning of a tag;
         this method */
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
 
+    /** called when simple characters occure; this method */
+    void myCharacters(int element, const std::string &name,
+        const std::string &chars);
+
 private:
     /// adds information about the source and the destination junctions
     void addSourceDestinationInformation(const Attributes &attrs);
+
+    void addJunctionShape(const std::string &chars);
+
+    void addLaneShape(const std::string &chars);
+
 
 private:
     /** invalid copy constructor */

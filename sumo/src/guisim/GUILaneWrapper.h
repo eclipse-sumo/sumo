@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.6  2003/06/05 06:29:50  dkrajzew
 // first tries to build under linux: warnings removed; moc-files included Makefiles added
 //
@@ -64,12 +67,14 @@
  * ======================================================================= */
 class MSVehicle;
 class MSNet;
+class Position2DVector;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUILaneWrapper
  * An extended MSLane. The extensions consist of information about the position
  * of the lane and it's direction. Further, a mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
@@ -79,7 +84,8 @@ class GUILaneWrapper :
             public GUIGlObject {
 public:
     /// constructor
-    GUILaneWrapper( GUIGlObjectStorage &idStorage, MSLane &lane, double x1, double y1, double x2, double y2);
+    GUILaneWrapper( GUIGlObjectStorage &idStorage,
+        MSLane &lane, const Position2DVector &shape);
 
     /// destructor
     virtual ~GUILaneWrapper();
@@ -158,6 +164,9 @@ protected:
 
     /// The assigned lane
     MSLane &myLane;
+
+    /// The shape of the lane
+    const Position2DVector &myShape;
 
     /// The maximum velocity over all lanes
     static double myAllMaxSpeed;

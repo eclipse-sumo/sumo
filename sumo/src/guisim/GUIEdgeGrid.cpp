@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.8  2003/06/18 11:27:54  dkrajzew
 // some functions commented out removed
 //
@@ -214,7 +217,7 @@ GUIEdgeGrid::computeEdgeCells(double xcellsize, double ycellsize,
     double y12 = edge->toYPos();
     double length = sqrt( (x11-x12)*(x11-x12) + (y11-y12)*(y11-y12) );
     std::pair<double, double> offsets =
-        GUIEdge::getLaneOffsets(x11, y11, x12, y12, length,
+        GeomHelper::getNormal90D_CW(x11, y11, x12, y12, length,
             3.5 * double(edge->nLanes()));
     double x21 = x11 + offsets.first;
     double y21 = y11 - offsets.second;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.6  2003/04/14 08:27:16  dkrajzew
 // new globject concept implemented
 //
@@ -52,6 +55,7 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <gui/GUIGlObjectStorage.h>
+#include <utils/geom/GeomHelper.h>
 #include "GUILaneChanger.h"
 #include "GUILane.h"
 #include "GUIEdge.h"
@@ -80,7 +84,6 @@ GUIEdge::~GUIEdge()
     }
 }
 
-
 void
 GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
                        GUIGlObjectStorage &idStorage)
@@ -89,6 +92,14 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     //  !!! not longer needed
     _from = from;
     _to = to;
+    // build the lane wrapper
+    LaneWrapperVector tmp;
+    for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
+        tmp.push_back((*i)->buildLaneWrapper(idStorage));
+    }
+    _laneGeoms.reserve(tmp.size());
+    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));
+/*
     // set the geomertical information for every lane
     double x1 = fromXPos();
     double y1 = fromYPos();
@@ -96,9 +107,9 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     double y2 = toYPos();
     double length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
     std::pair<double, double> offsets =
-        getLaneOffsets(x1, y1, x2, y2, length, 3.5);
-    double xoff = offsets.first;
-    double yoff = offsets.second;
+        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, 3.5);
+    double xoff = offsets.first / 2.0;
+    double yoff = offsets.second / 2.0;
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
         GUILaneWrapper *wrapper =
@@ -109,45 +120,8 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     }
     // copy reverse
     _laneGeoms.reserve(tmp.size());
-    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));
+    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));*/
 }
-
-
-std::pair<double, double>
-GUIEdge::getLaneOffsets(double x1, double y1,
-                        double x2, double y2,
-                        double prev, double wanted)  // !!! not really a part of the edge
-{
-    double dx = x1 - x2;
-    double dy = y1 - y2;
-    if(dx<0) { // fromX<toX -> to right
-        if(dy>0) { // to up right -> lanes to down right (+, +)
-            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
-        } else if (dy<0) { // to down right -> lanes to down left (-, +)
-            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
-        } else { // to right -> lanes to down (0, +)
-            return std::pair<double, double>(0, -dx*wanted/prev);
-        }
-    } else if(dx>0) { // fromX>toX -> to left
-        if(dy>0) { // to up left -> lanes to up right (+, -)
-            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
-        } else if (dy<0) { // to down left -> lanes to up left (-, -)
-            return std::pair<double, double>(dy*wanted/prev, -dx*wanted/prev);
-        } else { // to left -> lanes to up (0, -)
-            return std::pair<double, double>(0, -dx*wanted/prev);
-        }
-    } else { // fromX==toX
-        if(dy>0) { // to up -> lanes to right (+, 0)
-            return std::pair<double, double>(dy*wanted/prev, 0);
-        } else if (dy<0) { // to down -> lanes to left (-, 0)
-            return std::pair<double, double>(dy*wanted/prev, 0);
-        } else { // zero !
-            throw 1;
-        }
-    }
-}
-
-
 
 MSLane &
 GUIEdge::getLane(size_t laneNo)

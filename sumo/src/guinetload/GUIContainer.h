@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/07 08:13:15  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.3  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -34,6 +37,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <netload/NLContainer.h>
+#include <utils/geom/Position2DVector.h>
 #include <microsim/MSNet.h>
 #include <string>
 
@@ -61,7 +65,8 @@ class GUIContainer : public NLContainer
 {
 public:
     /// constructor
-    GUIContainer(NLEdgeControlBuilder * const edgeBuilder);
+    GUIContainer(NLEdgeControlBuilder * const edgeBuilder,
+        NLJunctionControlBuilder * const junctionBuilder);
 
     /// destructor
     ~GUIContainer();
@@ -77,6 +82,34 @@ public:
     /// adds a lane
     void addLane(const std::string &id, const bool isDepartLane,
         const float maxSpeed, const float length, const float changeUrge);
+
+    /// sets the shape of the current junction
+    void addJunctionShape(const Position2DVector &shape);
+
+    /// sets the shape of the current lane
+    void addLaneShape(const Position2DVector &shape);
+
+    void closeLane();
+
+private:
+    /// The id of the current lane
+    std::string myID;
+
+    /// The information whether the current lane is a depart lane
+    bool myLaneIsDepart;
+
+    /// The maximum speed allowed on the current lane
+    float myCurrentMaxSpeed;
+
+    /// The length of the current lane
+    float myCurrentLength;
+
+    /// The changeUrge.Information of the current lane
+    float myCurrentChangeUrge;
+
+    /// The shape of the current lane
+    Position2DVector myShape;
+
 };
 
 

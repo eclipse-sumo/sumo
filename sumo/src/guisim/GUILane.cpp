@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.5  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -73,9 +76,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUILane::GUILane( MSNet &net, std::string id, double maxSpeed, double length,
-                 MSEdge* edge )
-    : MSLane(net, id, maxSpeed, length, edge)
+GUILane::GUILane(MSNet &net, std::string id, double maxSpeed, double length,
+                 MSEdge* edge, const Position2DVector &shape )
+    : MSLane(net, id, maxSpeed, length, edge), myShape(shape)
 {
 }
 
@@ -240,6 +243,14 @@ GUILane::integrateNewVehicle()
     MSLane::integrateNewVehicle();
     _lock.unlock();
 }
+
+
+GUILaneWrapper *
+GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+{
+    return new GUILaneWrapper(idStorage, *this, myShape);
+}
+
 
 
 

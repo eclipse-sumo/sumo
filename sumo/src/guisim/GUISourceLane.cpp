@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -43,15 +46,17 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include "GUILaneWrapper.h"
 #include "GUISourceLane.h"
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUISourceLane::GUISourceLane( MSNet &net, std::string id, double maxSpeed, double length,
-                 MSEdge* edge )
-    : MSSourceLane(net, id, maxSpeed, length, edge)
+GUISourceLane::GUISourceLane(MSNet &net, std::string id,
+                             double maxSpeed, double length,
+                             MSEdge* edge, const Position2DVector &shape )
+    : MSSourceLane(net, id, maxSpeed, length, edge), myShape(shape)
 {
 }
 
@@ -190,6 +195,12 @@ GUISourceLane::integrateNewVehicle()
     _lock.unlock();
 }
 
+
+GUILaneWrapper *
+GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
+{
+    return new GUILaneWrapper(idStorage, *this, myShape);
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

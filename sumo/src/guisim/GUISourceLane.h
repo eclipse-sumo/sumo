@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/07 08:14:48  dkrajzew
+// first steps towards the usage of a real lane and junction geometry implemented
+//
 // Revision 1.2  2003/04/15 09:09:14  dkrajzew
 // documentation added
 //
@@ -41,6 +44,7 @@
 #include <microsim/MSSourceLane.h>
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
 #include <utils/qutils/NewQMutex.h>
 
 
@@ -59,11 +63,12 @@ class MSNet;
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
  */
-class GUISourceLane : public MSSourceLane {
+class GUISourceLane :
+    public MSSourceLane {
 public:
     /// constructor
     GUISourceLane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge* egde );
+        double length, MSEdge* egde, const Position2DVector &shape );
 
     /// destructor
     ~GUISourceLane();
@@ -119,6 +124,8 @@ public:
     /// returns the vehicles closing their processing for other threads
     const VehCont &getVehiclesSecure();
 
+    GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
+
     friend class GUILaneChanger;
 
     friend class GUILaneWrapper;
@@ -134,6 +141,9 @@ protected:
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     NewQMutex _lock;
+
+    /// The shape of the lane
+    Position2DVector myShape;
 
 };
 
