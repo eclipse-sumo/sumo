@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/12/12 12:34:35  dkrajzew
+// unwished simulation shutdown bug removed
+//
 // Revision 1.13  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -431,12 +434,17 @@ GUISUMOAbstractView::getObjectUnderCursor()
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
         unsigned int id = hits[i*4+3];
-        GUIGlObjectType type =
-            _net.getIDStorage().getObjectBlocking(id)->getType();
+        GUIGlObject *o =
+            _net.getIDStorage().getObjectBlocking(id);
+        if(o==0) {
+            continue;
+        }
+        GUIGlObjectType type = o->getType();
         if((prevType>=type||idMax<id)&&type!=0) {
             idMax = id;
             prevType = type;
         }
+        _net.getIDStorage().unblockObject(id);
         assert (i*4+3<NB_HITS_MAX);
     }
     return idMax;
