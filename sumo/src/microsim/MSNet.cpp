@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.39  2003/10/06 07:42:36  dkrajzew
+// simulate-bug (ending on first step) patched - was due to yet unloaded vehicles
+//
 // Revision 1.38  2003/10/01 11:31:22  dkrajzew
 // globaltime is now always set
 //
@@ -348,10 +351,10 @@ double MSNet::myCellLength = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 23670000;
-std::string MSNet::searched1 = "867";
-std::string MSNet::searched2 = "859";
-std::string MSNet::searchedJunction = "37";
+MSNet::Time MSNet::searchedtime = 5450000;
+std::string MSNet::searched1 = "4471";
+std::string MSNet::searched2 = "7150";
+std::string MSNet::searchedJunction = "536";
 #endif
 
 
@@ -504,10 +507,12 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     initialiseSimulation(craw);
     // the simulation loop
-    for ( myStep = start;myStep <= stop&&myLoadedVehNo>myEndedVehNo;++myStep) {
+    myStep = start;
+    do {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
-    }
+        myStep++;
+    }   while( myStep <= stop&&myLoadedVehNo>myEndedVehNo);
     // exit simulation loop
     closeSimulation(craw);
     return true;
