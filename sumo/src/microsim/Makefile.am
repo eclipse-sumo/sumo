@@ -30,7 +30,6 @@ MSRouteLoaderControl.cpp \
 MSRouteLoader.cpp \
 MSSource.cpp \
 MSSourceLane.cpp \
-MSTrafficLightJunction.cpp \
 MSTrafficLightLogic.cpp \
 MSTriggeredReader.cpp \
 MSTriggeredSource.cpp \
@@ -68,7 +67,6 @@ MSRouteLoader.h \
 MSSimpleTrafficLightLogic.h \
 MSSource.h \
 MSSourceLane.h \
-MSTrafficLightJunction.h \
 MSTrafficLightLogic.h \
 MSTriggeredReader.h \
 MSTriggeredSource.h \
@@ -79,8 +77,9 @@ MSVehicleContainer.h \
 MSVehicle.h \
 MSVehicleType.h \
 MSLaneStateReminder.h \
-MSMoveReminder.h 
-
+MSMoveReminder.h \
+MSTLLogicControl.cpp \
+MSTLLogicControl.h
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \

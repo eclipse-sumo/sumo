@@ -18,8 +18,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.10  2003/06/04 16:10:39  roessel
-// Adapted ctor call to MSLaneState to new ctor prototype.
+// Revision 1.11  2003/06/05 16:01:28  dkrajzew
+// MSTLLogicControl added
 //
 // Revision 1.9  2003/05/27 18:47:35  roessel
 // Changed call to MSLaneState ctor.
@@ -64,16 +64,11 @@
 
 
 template< class _TInductLoop, class _TLaneState >
-std::bitset<64> MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::_allClear;
-
-
-
-template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
     const std::string &id, const ActuatedPhases &phases, size_t step,
-    const std::vector<MSLane*> &lanes)
-    : MSTrafficLightLogic(id),
-    _allRed(false), _step(step), _phases(phases), _continue(false)
+    const std::vector<MSLane*> &lanes, MSEventControl &ec, size_t delay)
+    : MSTrafficLightLogic(id, ec, delay),
+    _step(step), _phases(phases), _continue(false)
 {
     sproutDetectors(lanes);
 }
@@ -88,9 +83,6 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::~MSActuatedTrafficLightL
 template< class _TInductLoop, class _TLaneState > MSNet::Time
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 {
-    if(_allRed) {
-        return 20;
-    }
     if(_continue) {
         return 1;
     }
@@ -125,7 +117,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
 
 
 template< class _TInductLoop, class _TLaneState > MSNet::Time
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase(MSLogicJunction::InLaneCont &inLanes)
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase()
 {
     // checks if the actual phase should be continued
     gapControl();
@@ -135,7 +127,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextPhase(MSLogicJunctio
     // increment the index to the current phase
     nextStep();
     // reset the link priorities
-    setLinkPriorities(inLanes);
+    setLinkPriorities();
     // set the next event
     return duration();
 }
@@ -184,6 +176,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
         // Build the lane state detetcor and set it into the container
         MSLaneState* loop =
             new MSLaneState( _id, lane, lspos, lslen );
+//                             laneStateDetectorInterval, 0);
         myLaneStates[lane] = loop;
     }
 }
@@ -192,31 +185,11 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
 
 
 template< class _TInductLoop, class _TLaneState >
-void
-MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::applyPhase(MSLogicJunction::Request &request) const
-{
-    if(_allRed) {
-        request = std::bitset<64>(0);
-    } else {
-        assert(_phases.size()>_step);
-        std::bitset<64> allowed = _phases[_step].driveMask;
-        for(size_t i=0; i<request.size(); i++) {
-            request[i] = request[i] & allowed.test(i);
-        }
-    }
-}
-
-
-template< class _TInductLoop, class _TLaneState >
 const std::bitset<64> &
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::linkPriorities() const
 {
-    if(_allRed) {
-        return _allClear;
-    } else {
-        assert(_phases.size()>_step);
-        return _phases[_step].breakMask;
-    }
+    assert(_phases.size()>_step);
+    return _phases[_step].breakMask;
 }
 
 
@@ -224,14 +197,18 @@ template< class _TInductLoop, class _TLaneState >
 const std::bitset<64> &
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::yellowMask() const
 {
-    if(_allRed) {
-        return _allClear;
-    } else {
-        assert(_phases.size()>_step);
-        return _phases[_step].yellowMask;
-    }
+    assert(_phases.size()>_step);
+    return _phases[_step].yellowMask;
 }
 
+
+template< class _TInductLoop, class _TLaneState >
+const std::bitset<64> &
+MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::allowed() const
+{
+    assert(_phases.size()>_step);
+    return _phases[_step].driveMask;
+}
 
 
 
@@ -241,20 +218,9 @@ size_t
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::nextStep()
 {
     // increment the index to the current phase
-    if(!_allRed) {
-        _allRed = true;
-        MSNet::Time phaseStart = _phases[_step]._lastSwitch;
-        MSNet::Time lastDuration = MSNet::globaltime - phaseStart;
-        _phases[_step].duration = lastDuration;
-        return _step;
-    }
-    _allRed = false;
-    _step++;
-    if(_step==_phases.size()) {
-        _step = 0;
-    }
-    // resets the _lastSwitch
-    _phases[_step]._lastSwitch = MSNet::globaltime;
+    MSNet::Time phaseStart = _phases[_step]._lastSwitch;
+    MSNet::Time lastDuration = MSNet::globaltime - phaseStart;
+    _phases[_step].duration = lastDuration;
     return _step;
 }
 
@@ -262,12 +228,6 @@ template< class _TInductLoop, class _TLaneState >
 bool
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
 {
-
-    // Checks, if the _allRed-Phase is the actual phase. Of course this phase should not be expanded
-    if(_allRed) {
-        return _continue = false;
-    }
-
     // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
     MSNet::Time actDuration = MSNet::globaltime - _phases[_step]._lastSwitch;
     if (actDuration >= _phases[_step].maxDuration) {

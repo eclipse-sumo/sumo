@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/06/05 16:01:28  dkrajzew
+// MSTLLogicControl added
+//
 // Revision 1.6  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -136,28 +139,26 @@ public:
 public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id, const ActuatedPhases &phases,
-        size_t step, const std::vector<MSLane*> &lanes);
+        size_t step, const std::vector<MSLane*> &lanes,
+        MSEventControl &ec, size_t delay);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual MSNet::Time nextPhase(MSLogicJunction::InLaneCont &inLanes);
+    virtual MSNet::Time nextPhase();
 
     /// Returns the duration of the given step
     virtual MSNet::Time duration() const;
-
-    /** @brief Applies the right-of-way rules of the phase specified by the second argument to the first argument
-        Requests of vehicles which are not allowed to drive as they
-        have red light are masked out from the given request */
-    virtual void applyPhase(MSLogicJunction::Request &request) const;
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const;
 
     /// Returns a bitset where all links having yellow are set
     virtual const std::bitset<64> &yellowMask() const;
+
+    virtual const std::bitset<64> &allowed() const;
 
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
@@ -184,24 +185,14 @@ protected:
     /// A map from lanes to lane states lying on them
     LaneStateMap myLaneStates;
 
-    /// information whether the current phase is the dead-phase
-    bool _allRed;
-
     /// information whether the current phase should be lenghtend
     bool _continue;
-
-
 
     /// The step within the cycla
     size_t _step;
 
     /// The phase definitions
     ActuatedPhases _phases;
-
-    /// static container for all lights being set to red
-    static std::bitset<64> _allClear;
-
-
 
 };
 
