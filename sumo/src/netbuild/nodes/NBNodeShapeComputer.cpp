@@ -71,8 +71,28 @@ NBNodeShapeComputer::compute()
     if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
         addInternalGeometry();
     }
-    ret = ret.convexHull();
-    ret.closePolygon();
+    if(ret.size()==0) {
+        Position2D p = myNode.getPosition();
+        //
+        Position2D p1 = p;
+        p1.add(2, 2);
+        ret.push_back(p1);
+        //
+        p1 = p;
+        p1.add(2, -2);
+        ret.push_back(p1);
+        //
+        p1 = p;
+        p1.add(-2, 2);
+        ret.push_back(p1);
+        //
+        p1 = p;
+        p1.add(-2, -2);
+        ret.push_back(p1);
+    } else {
+        ret = ret.convexHull();
+        ret.closePolygon();
+    }
     return ret;
 }
 
