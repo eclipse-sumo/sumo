@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/11/18 14:31:00  dkrajzew
+// usage of a colon instead of a dot patched
+//
 // Revision 1.17  2003/11/12 14:01:08  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -229,7 +232,6 @@ GUILane::push( MSVehicle* veh )
                 static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
-            myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());
@@ -250,20 +252,20 @@ GUILane::push( MSVehicle* veh )
         // Dismiss reminders by passing them completely.
         double speed = veh->speed();
         if ( veh->pos() + speed * MSNet::deltaT() - veh->length() < 0 ){
-            speed = veh->pos() / MSNet::deltaT() + speed + 0,01;
+            speed = veh->pos() / MSNet::deltaT() + speed + 0.01;
         }
         double oldLaneLength = veh->myLane->length();
         veh->workOnMoveReminders( veh->pos() + oldLaneLength,
                                   veh->pos() + oldLaneLength + speed *
                                   MSNet::deltaT(),
                                   speed );
+//        veh->killReminders();
 
 		static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
-		// maybe the vehicle is being tracked; mark as not within the simulation any longer
-        _lock.unlock();//Display();
         resetApproacherDistance();
+        _lock.unlock();//Display();
         return true;
         // TODO
         // This part has to be discussed, quick an dirty solution:

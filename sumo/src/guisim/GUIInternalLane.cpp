@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/18 14:31:00  dkrajzew
+// usage of a colon instead of a dot patched
+//
 // Revision 1.6  2003/11/12 14:01:08  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -201,7 +204,6 @@ GUIInternalLane::push( MSVehicle* veh )
                 static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
-            veh->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
             static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());
