@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/11 08:01:23  dkrajzew
+// some further methods implemented
+//
 // Revision 1.8  2003/10/15 11:56:30  dkrajzew
 // further work on vissim-import
 //
@@ -78,6 +81,19 @@ public:
     /// Returns the y-position
     double y() const { return _y; }
 
+    ///
+    void set(double x, double y) {
+        _x = x;
+        _y = y;
+    }
+
+    ///
+    void set(const Position2D &pos) {
+        _x = pos._x;
+        _y = pos._y;
+    }
+
+
     /// Multiplies both positions with the given value
     void mul(double val) {
         _x *= val;
@@ -96,10 +112,16 @@ public:
         _y += dy;
     }
 
-    /// Adds the given position to this one
+    /// Substracts the given position from this one
     void sub(double dx, double dy) {
         _x -= dx;
         _y -= dy;
+    }
+
+    /// Substracts the given position from this one
+    void sub(const Position2D &pos) {
+        _x -= pos._x;
+        _y -= pos._y;
     }
 
     void reshiftRotate(double xoff, double yoff, double rot) {

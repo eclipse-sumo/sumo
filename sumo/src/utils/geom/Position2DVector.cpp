@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/11/11 08:01:24  dkrajzew
+// some further methods implemented
+//
 // Revision 1.17  2003/10/21 14:39:11  dkrajzew
 // the rotation information now returns the last valid value if the length is exceeded
 //
@@ -810,8 +813,8 @@ Position2DVector::pruneFromEndAt(const Position2D &p)
 double
 Position2DVector::beginEndAngle() const
 {
-    Line2D bla(myCont[0], myCont[myCont.size()-1]);
-    return bla.atan2Angle();
+    Line2D tmp(getBegin(), getEnd());
+    return tmp.atan2Angle();
 }
 
 
