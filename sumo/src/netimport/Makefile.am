@@ -4,7 +4,8 @@ EXTRA_DIST =
 
 AM_CPPFLAGS =
 
-SUBDIRS = arcview \
+SUBDIRS = artemis \
+arcview \
 cell \
 sumo \
 vissim \
