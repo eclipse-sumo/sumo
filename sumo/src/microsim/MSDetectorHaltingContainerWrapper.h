@@ -46,7 +46,7 @@ namespace DetectorContainer
               haltingDurationM( 0 )
             {}
         MSVehicle* vehM;
-        MSUnit::Cells posM; 
+        MSUnit::Cells posM;
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         bool isInJamM;
@@ -63,19 +63,19 @@ namespace DetectorContainer
             , haltingDurationM( 0 )
             , nHalts( 0 )
             {}
-        MSUnit::Cells posM; 
+        MSUnit::Cells posM;
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         MSUnit::Steps haltingDurationM;
         unsigned nHalts;
-    };    
+    };
 }
 
 namespace halt
 {
     class BeginOfHalt{};
     class EndOfHalt{};
-    
+
     typedef MSSubjectPassesObserved<
         const DetectorContainer::Halting, BeginOfHalt > HaltBeginSubject;
     typedef MSSubjectPassesObserved<
@@ -105,7 +105,7 @@ struct MSDetectorHaltingContainerWrapper
 
     MSDetectorHaltingContainerWrapper( void )
         {}
-    
+
     MSDetectorHaltingContainerWrapper(
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
@@ -117,7 +117,7 @@ struct MSDetectorHaltingContainerWrapper
           speedThresholdM( speedThreshold ),
           jamDistThresholdM( jamDistThreshold )
         {}
-    
+
     MSDetectorHaltingContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
@@ -197,7 +197,7 @@ struct MSDetectorHaltingContainerWrapper
     void detach( HaltBeginObserver* toDetach )
         {
             HaltBeginSubject::detach( toDetach );
-        }    
+        }
     void attach( HaltEndObserver* toAttach )
         {
             HaltEndSubject::attach( toAttach );
@@ -205,8 +205,8 @@ struct MSDetectorHaltingContainerWrapper
     void detach( HaltEndObserver* toDetach )
         {
             HaltEndSubject::detach( toDetach );
-        }    
-    
+        }
+
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
     MSUnit::Cells jamDistThresholdM;
@@ -218,10 +218,10 @@ struct MSDetectorHaltingMapWrapper
     :
 //     public MSDetectorMapWrapper< T >
 //     , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper< T > >
-    public MSDetectorMapWrapper< std::map< MSVehicle*, DetectorContainer::E3Halting > >
+    public MSDetectorVehicleInitMapWrapper< DetectorContainer::E3Halting >
     , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper >
 {
-    typedef std::map< MSVehicle*, DetectorContainer::E3Halting > WrappedContainer;
+    typedef DetectorContainer::E3Halting Type;
     typedef WrappedContainer::iterator HaltingsIt;
     typedef WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
@@ -231,20 +231,20 @@ struct MSDetectorHaltingMapWrapper
         MSUnit::CellsPerStep speedThreshold
         )
         :
-        MSDetectorMapWrapper< WrappedContainer >(),
+        MSDetectorVehicleInitMapWrapper< Type >(),
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
-    
+
     MSDetectorHaltingMapWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
         )
         :
-        MSDetectorMapWrapper< WrappedContainer >( occupancyCorrection),
+        MSDetectorVehicleInitMapWrapper< Type >( occupancyCorrection),
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
@@ -257,7 +257,7 @@ struct MSDetectorHaltingMapWrapper
             containerM.insert( std::make_pair(
                                    veh, DetectorContainer::E3Halting( veh ) ) );
         }
-    
+
     bool updateEachTimestep( void )
         {
             for ( HaltingsIt pair = containerM.begin();
@@ -310,7 +310,7 @@ namespace DetectorContainer
 //         std::map< MSVehicle*, E3Halting > > HaltingsMap;
     typedef MSDetectorHaltingMapWrapper HaltingsMap;
 
-    typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   
+    typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;
 }
 
 
