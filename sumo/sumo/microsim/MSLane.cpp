@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.11  2002/06/20 11:14:13  dkrajzew
+// False assertion corrected
+//
 // Revision 1.10  2002/06/19 15:12:00  croessel
 // In moveExceptFirst: Check for timeheadway < deltaT situations.
 //
@@ -299,7 +302,7 @@ MSLane::moveExceptFirst()
             ( *veh )->move( this, *pred, 0, 0 );
 
 	    // Check for timeheadway < deltaT
-	    assert( ( *veh )->pos() >= ( *pred )->pos() );
+	    assert( ( *veh )->pos() < ( *pred )->pos() );
 	}
     }
 }
@@ -351,7 +354,7 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
             }
 
 	    // Check for timeheadway < deltaT
-	    assert( ( *veh )->pos() >= ( *pred )->pos() );
+	    assert( ( *veh )->pos() < ( *pred )->pos() );
         }
     }
 }
