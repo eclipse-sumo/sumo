@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/10/21 14:39:11  dkrajzew
+// the rotation information now returns the last valid value if the length is exceeded
+//
 // Revision 1.16  2003/10/17 06:50:02  dkrajzew
 // patched the false usage of a reference
 //
@@ -277,7 +280,8 @@ Position2DVector::rotationDegreeAtLengthPosition(double pos) const
         }
         seenLength += nextLength;
     } while(++i!=myCont.end()-1);
-    assert(false);
+    Line2D l(*(myCont.end()-2), *(myCont.end()-1));
+    return l.atan2DegreeAngle();
 //    Line2D l(*(myCont.end()-1), *(myCont.begin()));
 //    return l.atan2DegreeAngle();
 }
