@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/10/20 08:01:29  dkrajzew
+// vehicles are not drawn on source lanes
+//
 // Revision 1.3  2003/10/15 11:31:24  dkrajzew
 // display of needed lanechanging patched
 //
@@ -77,6 +80,9 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
         for(size_t j=0; j<32; j++, pos<<=1) {
             if((onWhich[i]&pos)!=0) {
                 GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                if(edge->isSource()) {
+                    continue;
+                }
                 size_t noLanes = edge->nLanes();
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
