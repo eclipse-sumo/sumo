@@ -1,0 +1,378 @@
+<net>
+
+   <edges no="16">a1 a2 a3 a4 a5 a6 a7 a8 b1 b2 b3 b4 b5 b6 b7 b8</edges>
+   <node_count>7</node_count>
+
+
+   <edge id="a1" Length="993.50" Speed="36.00" Name="a1" NoLanes="1" XFrom="0.00" YFrom="1000.00" XTo="0.00" YTo="0.00" From="1" To="2" Priority="15" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="a1_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">-1.75,996.75 -1.75,3.25</lane>
+      </lanes>
+      <cedge id="a2" via=":2">a1_0</cedge>
+   </edge>
+
+   <edge id="a2" Length="993.50" Speed="36.00" Name="a2" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1000.00" YTo="0.00" From="2" To="3" Priority="15" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="a2_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">3.25,-1.75 996.75,-1.75</lane>
+      </lanes>
+      <cedge id="a3" via=":3">a2_0</cedge>
+   </edge>
+
+   <edge id="a3" Length="992.50" Speed="36.00" Name="a3" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="1000.00" YTo="1000.00" From="3" To="4" Priority="15" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="a3_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">1001.75,3.25 1001.75,995.75</lane>
+      </lanes>
+      <cedge id="b2" via=":4">a3_0</cedge>
+      <cedge id="a4" via=":4">a3_0</cedge>
+      <cedge id="a8" via=":4">a3_0</cedge>
+   </edge>
+
+   <edge id="a4" Length="992.50" Speed="36.00" Name="a4" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="1000.00" YTo="2000.00" From="4" To="5" Priority="15" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="a4_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">1001.75,1004.25 1001.75,1996.75</lane>
+      </lanes>
+      <cedge id="a5" via=":5">a4_0</cedge>
+   </edge>
+
+   <edge id="a5" Length="993.50" Speed="36.00" Name="a5" NoLanes="1" XFrom="1000.00" YFrom="2000.00" XTo="2000.00" YTo="2000.00" From="5" To="6" Priority="15" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="a5_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1003.25,1998.25 1996.75,1998.25</lane>
+      </lanes>
+      <cedge id="a6" via=":6">a5_0</cedge>
+   </edge>
+
+   <edge id="a6" Length="993.50" Speed="36.00" Name="a6" NoLanes="1" XFrom="2000.00" YFrom="2000.00" XTo="2000.00" YTo="1000.00" From="6" To="7" Priority="15" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="a6_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1998.25,1996.75 1998.25,1003.25</lane>
+      </lanes>
+      <cedge id="a7" via=":7">a6_0</cedge>
+   </edge>
+
+   <edge id="a7" Length="992.50" Speed="36.00" Name="a7" NoLanes="1" XFrom="2000.00" YFrom="1000.00" XTo="1000.00" YTo="1000.00" From="7" To="4" Priority="15" Angle="90.00" Type="" function="normal">
+      <lanes>
+         <lane id="a7_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">1996.75,1001.75 1004.25,1001.75</lane>
+      </lanes>
+      <cedge id="a4" via=":4">a7_0</cedge>
+      <cedge id="a8" via=":4">a7_0</cedge>
+      <cedge id="b6" via=":4">a7_0</cedge>
+   </edge>
+
+   <edge id="a8" Length="992.50" Speed="36.00" Name="a8" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="0.00" YTo="1000.00" From="4" To="1" Priority="15" Angle="90.00" Type="" function="normal">
+      <lanes>
+         <lane id="a8_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">995.75,1001.75 3.25,1001.75</lane>
+      </lanes>
+      <cedge id="a1" via=":1">a8_0</cedge>
+   </edge>
+
+   <edge id="b1" Length="992.50" Speed="36.00" Name="b1" NoLanes="1" XFrom="0.00" YFrom="1000.00" XTo="1000.00" YTo="1000.00" From="1" To="4" Priority="15" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="b1_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">3.25,998.25 995.75,998.25</lane>
+      </lanes>
+      <cedge id="b6" via=":4">b1_0</cedge>
+      <cedge id="b2" via=":4">b1_0</cedge>
+      <cedge id="a4" via=":4">b1_0</cedge>
+   </edge>
+
+   <edge id="b2" Length="992.50" Speed="36.00" Name="b2" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="2000.00" YTo="1000.00" From="4" To="7" Priority="15" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="b2_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">1004.25,998.25 1996.75,998.25</lane>
+      </lanes>
+      <cedge id="b3" via=":7">b2_0</cedge>
+   </edge>
+
+   <edge id="b3" Length="993.50" Speed="36.00" Name="b3" NoLanes="1" XFrom="2000.00" YFrom="1000.00" XTo="2000.00" YTo="2000.00" From="7" To="6" Priority="15" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="b3_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">2001.75,1003.25 2001.75,1996.75</lane>
+      </lanes>
+      <cedge id="b4" via=":6">b3_0</cedge>
+   </edge>
+
+   <edge id="b4" Length="993.50" Speed="36.00" Name="b4" NoLanes="1" XFrom="2000.00" YFrom="2000.00" XTo="1000.00" YTo="2000.00" From="6" To="5" Priority="15" Angle="90.00" Type="" function="normal">
+      <lanes>
+         <lane id="b4_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1996.75,2001.75 1003.25,2001.75</lane>
+      </lanes>
+      <cedge id="b5" via=":5">b4_0</cedge>
+   </edge>
+
+   <edge id="b5" Length="992.50" Speed="36.00" Name="b5" NoLanes="1" XFrom="1000.00" YFrom="2000.00" XTo="1000.00" YTo="1000.00" From="5" To="4" Priority="15" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="b5_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">998.25,1996.75 998.25,1004.25</lane>
+      </lanes>
+      <cedge id="a8" via=":4">b5_0</cedge>
+      <cedge id="b6" via=":4">b5_0</cedge>
+      <cedge id="b2" via=":4">b5_0</cedge>
+   </edge>
+
+   <edge id="b6" Length="992.50" Speed="36.00" Name="b6" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="1000.00" YTo="0.00" From="4" To="3" Priority="15" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="b6_0" depart="1" maxspeed="36.00" length="992.50" changeurge="0">998.25,995.75 998.25,3.25</lane>
+      </lanes>
+      <cedge id="b7" via=":3">b6_0</cedge>
+   </edge>
+
+   <edge id="b7" Length="993.50" Speed="36.00" Name="b7" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="0.00" YTo="0.00" From="3" To="2" Priority="15" Angle="90.00" Type="" function="normal">
+      <lanes>
+         <lane id="b7_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">996.75,1.75 3.25,1.75</lane>
+      </lanes>
+      <cedge id="b8" via=":2">b7_0</cedge>
+   </edge>
+
+   <edge id="b8" Length="993.50" Speed="36.00" Name="b8" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="1000.00" From="2" To="1" Priority="15" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="b8_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1.75,3.25 1.75,996.75</lane>
+      </lanes>
+      <cedge id="b1" via=":1">b8_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>1</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>2</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>3</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>4</key>
+      <requestsize>12</requestsize>
+      <lanenumber>4</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000000" foes="000100010000"/>
+         <logicitem request="1" response="111000000000" foes="111100110000"/>
+         <logicitem request="2" response="110011000000" foes="110011110000"/>
+         <logicitem request="3" response="000000000000" foes="100010000000"/>
+         <logicitem request="4" response="000000000111" foes="100110000111"/>
+         <logicitem request="5" response="011000000110" foes="011110000110"/>
+         <logicitem request="6" response="000000000000" foes="010000000100"/>
+         <logicitem request="7" response="000000111000" foes="110000111100"/>
+         <logicitem request="8" response="000000110011" foes="110000110011"/>
+         <logicitem request="9" response="000000000000" foes="000000100010"/>
+         <logicitem request="10" response="000111000000" foes="000111100110"/>
+         <logicitem request="11" response="000110011000" foes="000110011110"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>5</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>6</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>7</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>4</key>
+      <logicno>0</logicno>
+      <phaseno>8</phaseno>
+      <offset>0</offset>
+      <inclanes>a3_0 a7_0 b1_0 b5_0</inclanes>
+      <phase duration="20" phase="000111000111" brake="111011111011" yellow="000000000000"/>
+      <phase duration="12" phase="000100000100" brake="111011111011" yellow="000011000011"/>
+      <phase duration="3" phase="000100000100" brake="111011111011" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000100000100"/>
+      <phase duration="20" phase="111000111000" brake="011111011111" yellow="000000000000"/>
+      <phase duration="12" phase="100000100000" brake="011111011111" yellow="011000011000"/>
+      <phase duration="3" phase="100000100000" brake="011111011111" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="100000100000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>4</key>
+      <logicno>1</logicno>
+      <phaseno>18</phaseno>
+      <offset>0</offset>
+      <inclanes>a3_0 a7_0 b1_0 b5_0</inclanes>
+      <phase duration="20" phase="000001001111" brake="111111110000" yellow="000000000000"/>
+      <phase duration="12" phase="000000000100" brake="111111111011" yellow="000001001011"/>
+      <phase duration="3" phase="000000000100" brake="111111111011" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000000000100"/>
+      <phase duration="20" phase="000111000111" brake="111011111011" yellow="000000000000"/>
+      <phase duration="12" phase="000100000100" brake="111011111011" yellow="000011000011"/>
+      <phase duration="3" phase="000100000100" brake="111011111011" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000100000100"/>
+      <phase duration="20" phase="001001001001" brake="110110110110" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="001001001001"/>
+      <phase duration="20" phase="111000001001" brake="000111111110" yellow="000000000000"/>
+      <phase duration="12" phase="100000000000" brake="011111111111" yellow="011000001001"/>
+      <phase duration="3" phase="100000000000" brake="011111111111" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="100000000000"/>
+      <phase duration="20" phase="001001111000" brake="111110000111" yellow="000000000000"/>
+      <phase duration="12" phase="000000100000" brake="111111011111" yellow="001001011000"/>
+      <phase duration="3" phase="000000100000" brake="111111011111" yellow="000000000000"/>
+      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000000100000"/>
+   </tl-logic>
+
+
+   <junction id="1" type="right_before_left" x="0.00" y="1000.00">
+      <inclanes>a8_0 b8_0</inclanes>
+      <shape>-3.25,996.75 3.25,996.75 3.25,1003.25 -3.25,996.75</shape>
+   </junction>
+
+   <junction id="2" type="right_before_left" x="0.00" y="0.00">
+      <inclanes>a1_0 b7_0</inclanes>
+      <shape>-3.25,3.25 3.25,-3.25 3.25,3.25 3.25,3.25 -3.25,3.25</shape>
+   </junction>
+
+   <junction id="3" type="right_before_left" x="1000.00" y="0.00">
+      <inclanes>b6_0 a2_0</inclanes>
+      <shape>996.75,3.25 996.75,-3.25 1003.25,3.25 996.75,3.25</shape>
+   </junction>
+
+   <junction id="4" type="right_before_left" x="1000.00" y="1000.00">
+      <inclanes>b5_0 a7_0 a3_0 b1_0</inclanes>
+      <shape>995.75,1003.25 995.75,996.75 996.75,995.75 1003.25,995.75 1004.25,996.75 1004.25,1003.25 1003.25,1004.25 996.75,1004.25 995.75,1003.25</shape>
+   </junction>
+
+   <junction id="5" type="right_before_left" x="1000.00" y="2000.00">
+      <inclanes>b4_0 a4_0</inclanes>
+      <shape>996.75,1996.75 1003.25,1996.75 1003.25,2003.25 996.75,1996.75</shape>
+   </junction>
+
+   <junction id="6" type="right_before_left" x="2000.00" y="2000.00">
+      <inclanes>b3_0 a5_0</inclanes>
+      <shape>1996.75,2003.25 1996.75,1996.75 1996.75,1996.75 2003.25,1996.75 1996.75,2003.25</shape>
+   </junction>
+
+   <junction id="7" type="right_before_left" x="2000.00" y="1000.00">
+      <inclanes>a6_0 b2_0</inclanes>
+      <shape>1996.75,1003.25 1996.75,996.75 2003.25,1003.25 1996.75,1003.25</shape>
+   </junction>
+
+
+   <succ edge="a1" lane="a1_0" junction="2">
+      <succlane lane="a2_0" via=":2_0_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="a2" lane="a2_0" junction="3">
+      <succlane lane="a3_0" via=":3_1_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="a3" lane="a3_0" junction="4">
+      <succlane lane="b2_0" via=":4_6_0" tl="4" linkno="6" yield="1" dir="r" state="t"/>
+      <succlane lane="a4_0" via=":4_7_0" tl="4" linkno="7" yield="1" dir="s" state="t"/>
+      <succlane lane="a8_0" via=":4_8_0" tl="4" linkno="8" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="a4" lane="a4_0" junction="5">
+      <succlane lane="a5_0" via=":5_1_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="a5" lane="a5_0" junction="6">
+      <succlane lane="a6_0" via=":6_1_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="a6" lane="a6_0" junction="7">
+      <succlane lane="a7_0" via=":7_0_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="a7" lane="a7_0" junction="4">
+      <succlane lane="a4_0" via=":4_3_0" tl="4" linkno="3" yield="1" dir="r" state="t"/>
+      <succlane lane="a8_0" via=":4_4_0" tl="4" linkno="4" yield="1" dir="s" state="t"/>
+      <succlane lane="b6_0" via=":4_5_0" tl="4" linkno="5" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="a8" lane="a8_0" junction="1">
+      <succlane lane="a1_0" via=":1_0_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="b1" lane="b1_0" junction="4">
+      <succlane lane="b6_0" via=":4_9_0" tl="4" linkno="9" yield="1" dir="r" state="t"/>
+      <succlane lane="b2_0" via=":4_10_0" tl="4" linkno="10" yield="1" dir="s" state="t"/>
+      <succlane lane="a4_0" via=":4_11_0" tl="4" linkno="11" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="b2" lane="b2_0" junction="7">
+      <succlane lane="b3_0" via=":7_1_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="b3" lane="b3_0" junction="6">
+      <succlane lane="b4_0" via=":6_0_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="b4" lane="b4_0" junction="5">
+      <succlane lane="b5_0" via=":5_0_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="b5" lane="b5_0" junction="4">
+      <succlane lane="a8_0" via=":4_0_0" tl="4" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="b6_0" via=":4_1_0" tl="4" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="b2_0" via=":4_2_0" tl="4" linkno="2" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="b6" lane="b6_0" junction="3">
+      <succlane lane="b7_0" via=":3_0_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="b7" lane="b7_0" junction="2">
+      <succlane lane="b8_0" via=":2_1_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="b8" lane="b8_0" junction="1">
+      <succlane lane="b1_0" via=":1_1_0" yield="0" dir="r" state="="/>
+   </succ>
+
+
+   <edgepos id="a1" from="1" to="2" lane="0" function="normal"/>
+   <edgepos id="a2" from="2" to="3" lane="0" function="normal"/>
+   <edgepos id="a3" from="3" to="4" lane="0" function="normal"/>
+   <edgepos id="a4" from="4" to="5" lane="0" function="normal"/>
+   <edgepos id="a5" from="5" to="6" lane="0" function="normal"/>
+   <edgepos id="a6" from="6" to="7" lane="0" function="normal"/>
+   <edgepos id="a7" from="7" to="4" lane="0" function="normal"/>
+   <edgepos id="a8" from="4" to="1" lane="0" function="normal"/>
+   <edgepos id="b1" from="1" to="4" lane="0" function="normal"/>
+   <edgepos id="b2" from="4" to="7" lane="0" function="normal"/>
+   <edgepos id="b3" from="7" to="6" lane="0" function="normal"/>
+   <edgepos id="b4" from="6" to="5" lane="0" function="normal"/>
+   <edgepos id="b5" from="5" to="4" lane="0" function="normal"/>
+   <edgepos id="b6" from="4" to="3" lane="0" function="normal"/>
+   <edgepos id="b7" from="3" to="2" lane="0" function="normal"/>
+   <edgepos id="b8" from="2" to="1" lane="0" function="normal"/>
+
+</net>
