@@ -339,6 +339,10 @@ SOURCE=..\..\src\gui\GUILoadThread.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\GUIMessageWindow.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUINet.cpp
 # End Source File
 # Begin Source File
@@ -476,6 +480,10 @@ SOURCE=..\..\src\gui\moc_GUIApplicationWindow.cpp
 # Begin Source File
 
 SOURCE=..\..\src\gui\moc_GUIChooser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\moc_GUIMessageWindow.cpp
 # End Source File
 # Begin Source File
 
@@ -1241,6 +1249,33 @@ SOURCE=..\..\src\gui\GUILoadThread.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\GUIMessageWindow.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing GUIMessageWindow.h...
+InputPath=..\..\src\gui\GUIMessageWindow.h
+
+"..\..\src\gui\moc_GUIMessageWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIMessageWindow.h -o ..\..\src\gui\moc_GUIMessageWindow.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing GUIMessageWindow.h...
+InputPath=..\..\src\gui\GUIMessageWindow.h
+
+"..\..\src\gui\moc_GUIMessageWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\GUIMessageWindow.h -o ..\..\src\gui\moc_GUIMessageWindow.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\guisim\GUINet.h
 # End Source File
 # Begin Source File
@@ -1654,6 +1689,10 @@ SOURCE=..\..\src\microsim\MSGlobals.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\MsgRetriever.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\common\MsgRetrievingFunction.h
 # End Source File
 # Begin Source File
 
