@@ -1,13 +1,10 @@
-
-
-
-
-SUBDIRS = data \
+SUBDIRS = \
+data \
 docs \
 prj \
 src \
-tools
-
+tests \
+tools 
 
 AUTOMAKE_OPTIONS = gnu dist-zip 1.6
 
