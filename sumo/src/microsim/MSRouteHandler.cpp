@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/20 13:28:38  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.6  2003/11/20 13:27:42  dkrajzew
 // loading and using of a predefined vehicle color added
 //
@@ -112,7 +115,7 @@ MSRouteHandler::myStartElement(int element, const std::string &,
 void
 MSRouteHandler::addVehicleType(const Attributes &attrs)
 {
-    RGBColor col = 
+    RGBColor col =
         GfxConvHelper::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
     try {
@@ -185,7 +188,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
 void
 MSRouteHandler::addVehicle(const Attributes &attrs)
 {
-    RGBColor col = 
+    RGBColor col =
         GfxConvHelper::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1, 1, 1"));
     // try to get the id first

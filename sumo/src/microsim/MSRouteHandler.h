@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/11/20 13:28:38  dkrajzew
+// loading and using of a predefined vehicle color added
+//
 // Revision 1.4  2003/11/20 13:27:42  dkrajzew
 // loading and using of a predefined vehicle color added
 //
