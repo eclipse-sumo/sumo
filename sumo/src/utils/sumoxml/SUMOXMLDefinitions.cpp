@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/07 08:50:29  dkrajzew
+// added tags for shapes and lane position description
+//
 // Revision 1.10  2003/06/19 11:02:48  dkrajzew
 // usage of false tag-enums patched
 //
@@ -61,9 +64,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 37;
+size_t noSumoTags = 38;
 
-GenericSAX2Handler::Tag sumotags[37] =
+GenericSAX2Handler::Tag sumotags[38] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -101,71 +104,73 @@ GenericSAX2Handler::Tag sumotags[37] =
       { "logicno",          SUMO_TAG_LOGICNO },
       { "trigger",          SUMO_TAG_TRIGGER },
       { "step",             SUMO_TAG_STEP },
-      { "interval",         SUMO_TAG_INTERVAL }
+      { "interval",         SUMO_TAG_INTERVAL },
+      { "shape",            SUMO_TAG_SHAPE }
 };
 
-size_t noSumoAttrs = 57;
+size_t noSumoAttrs = 59;
 
-AttributesHandler::Attr sumoattrs[57] =
+AttributesHandler::Attr sumoattrs[59] =
 {
-	{ "id",            SUMO_ATTR_ID },
-    { "name",          SUMO_ATTR_NAME },
-    { "type",          SUMO_ATTR_TYPE },
-    { "priority",      SUMO_ATTR_PRIORITY },
-    { "nolanes",       SUMO_ATTR_NOLANES },
-    { "speed",         SUMO_ATTR_SPEED },
-    { "length",        SUMO_ATTR_LENGTH },
-    { "fromnode",      SUMO_ATTR_FROMNODE },
-    { "tonode",        SUMO_ATTR_TONODE },
-    { "xfrom",         SUMO_ATTR_XFROM },
-    { "yfrom",         SUMO_ATTR_YFROM },
-    { "xto",           SUMO_ATTR_XTO },
-    { "yto",           SUMO_ATTR_YTO },
-    { "x",             SUMO_ATTR_X },
-    { "y",             SUMO_ATTR_Y },
-    { "key",           SUMO_ATTR_KEY },
-    { "weight",        SUMO_ATTR_WEIGHT },
-    { "depart",        SUMO_ATTR_DEPART },
-    { "route",         SUMO_ATTR_ROUTE },
-    { "maxspeed",      SUMO_ATTR_MAXSPEED },
-    { "accel",         SUMO_ATTR_ACCEL },
-    { "decel",         SUMO_ATTR_DECEL },
-    { "sigma",         SUMO_ATTR_SIGMA },
-    { "last",          SUMO_ATTR_LAST },
-    { "cost",          SUMO_ATTR_COST },
-    { "propability",   SUMO_ATTR_PROP },
-    { "pos",           SUMO_ATTR_POS },
-    { "lane",          SUMO_ATTR_LANE },
-    { "from",          SUMO_ATTR_FROM },
-    { "to",            SUMO_ATTR_TO },
-    { "function",      SUMO_ATTR_FUNC },
-    { "changeurge",    SUMO_ATTR_CHANGEURGE },
-    { "request",       SUMO_ATTR_REQUEST },
-    { "response",      SUMO_ATTR_RESPONSE },
-    { "pos",           SUMO_ATTR_POSITION },
-    { "freq",          SUMO_ATTR_SPLINTERVAL },
-    { "style",         SUMO_ATTR_STYLE },
-    { "file",          SUMO_ATTR_FILE },
-    { "junction",      SUMO_ATTR_JUNCTION },
-    { "yield",         SUMO_ATTR_YIELD },
-    { "no",            SUMO_ATTR_NO },
-    { "phase",         SUMO_ATTR_PHASE },
-    { "brake",         SUMO_ATTR_BRAKE },
-    { "yellow",        SUMO_ATTR_YELLOW },
-    { "duration",      SUMO_ATTR_DURATION },
-    { "objecttype",    SUMO_ATTR_OBJECTTYPE },
-    { "attr",          SUMO_ATTR_ATTR },
-    { "objectid",      SUMO_ATTR_OBJECTID },
-    { "time",          SUMO_ATTR_TIME },
-    { "multi_ref",     SUMO_ATTR_MULTIR },
-    { "traveltime",    SUMO_ATTR_VALUE },
-    { "begin",         SUMO_ATTR_BEGIN },
-    { "end",           SUMO_ATTR_END },
-    { "period",        SUMO_ATTR_PERIOD },
-    { "repno",         SUMO_ATTR_REPNUMBER },
-    { "tl",            SUMO_ATTR_TLID },
-    { "linkno",        SUMO_ATTR_TLLINKNO }
-
+	{ "id",             SUMO_ATTR_ID },
+    { "name",           SUMO_ATTR_NAME },
+    { "type",           SUMO_ATTR_TYPE },
+    { "priority",       SUMO_ATTR_PRIORITY },
+    { "nolanes",        SUMO_ATTR_NOLANES },
+    { "speed",          SUMO_ATTR_SPEED },
+    { "length",         SUMO_ATTR_LENGTH },
+    { "fromnode",       SUMO_ATTR_FROMNODE },
+    { "tonode",         SUMO_ATTR_TONODE },
+    { "xfrom",          SUMO_ATTR_XFROM },
+    { "yfrom",          SUMO_ATTR_YFROM },
+    { "xto",            SUMO_ATTR_XTO },
+    { "yto",            SUMO_ATTR_YTO },
+    { "x",              SUMO_ATTR_X },
+    { "y",              SUMO_ATTR_Y },
+    { "key",            SUMO_ATTR_KEY },
+    { "weight",         SUMO_ATTR_WEIGHT },
+    { "depart",         SUMO_ATTR_DEPART },
+    { "route",          SUMO_ATTR_ROUTE },
+    { "maxspeed",       SUMO_ATTR_MAXSPEED },
+    { "accel",          SUMO_ATTR_ACCEL },
+    { "decel",          SUMO_ATTR_DECEL },
+    { "sigma",          SUMO_ATTR_SIGMA },
+    { "last",           SUMO_ATTR_LAST },
+    { "cost",           SUMO_ATTR_COST },
+    { "propability",    SUMO_ATTR_PROP },
+    { "pos",            SUMO_ATTR_POS },
+    { "lane",           SUMO_ATTR_LANE },
+    { "from",           SUMO_ATTR_FROM },
+    { "to",             SUMO_ATTR_TO },
+    { "function",       SUMO_ATTR_FUNC },
+    { "changeurge",     SUMO_ATTR_CHANGEURGE },
+    { "request",        SUMO_ATTR_REQUEST },
+    { "response",       SUMO_ATTR_RESPONSE },
+    { "pos",            SUMO_ATTR_POSITION },
+    { "freq",           SUMO_ATTR_SPLINTERVAL },
+    { "style",          SUMO_ATTR_STYLE },
+    { "file",           SUMO_ATTR_FILE },
+    { "junction",       SUMO_ATTR_JUNCTION },
+    { "yield",          SUMO_ATTR_YIELD },
+    { "no",             SUMO_ATTR_NO },
+    { "phase",          SUMO_ATTR_PHASE },
+    { "brake",          SUMO_ATTR_BRAKE },
+    { "yellow",         SUMO_ATTR_YELLOW },
+    { "duration",       SUMO_ATTR_DURATION },
+    { "objecttype",     SUMO_ATTR_OBJECTTYPE },
+    { "attr",           SUMO_ATTR_ATTR },
+    { "objectid",       SUMO_ATTR_OBJECTID },
+    { "time",           SUMO_ATTR_TIME },
+    { "multi_ref",      SUMO_ATTR_MULTIR },
+    { "traveltime",     SUMO_ATTR_VALUE },
+    { "begin",          SUMO_ATTR_BEGIN },
+    { "end",            SUMO_ATTR_END },
+    { "period",         SUMO_ATTR_PERIOD },
+    { "repno",          SUMO_ATTR_REPNUMBER },
+    { "tl",             SUMO_ATTR_TLID },
+    { "linkno",         SUMO_ATTR_TLLINKNO },
+    { "shape",          SUMO_ATTR_SHAPE },
+    { "spread_type",    SUMO_ATTR_SPREADFUNC }
 };
 
 

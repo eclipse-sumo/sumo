@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/07/07 08:50:29  dkrajzew
+// added tags for shapes and lane position description
+//
 // Revision 1.10  2003/06/19 11:02:48  dkrajzew
 // usage of false tag-enums patched
 //
@@ -136,7 +139,9 @@ enum TagEnum
     /** trigger: a step description */
     SUMO_TAG_STEP,
     /** an aggreagated-output interval */
-    SUMO_TAG_INTERVAL
+    SUMO_TAG_INTERVAL,
+    /// The tag enclosing an object's shape
+    SUMO_TAG_SHAPE,
 };
 
 
@@ -221,7 +226,11 @@ enum AttrEnum
     /** link: the traffic light id responsible for this link */
     SUMO_ATTR_TLID,
     /** link: the index of the link within the traffic light */
-    SUMO_ATTR_TLLINKNO
+    SUMO_ATTR_TLLINKNO,
+    /** edge: the shape in xml-definition */
+    SUMO_ATTR_SHAPE ,
+    /// The information about how to spread the lanes from the given position
+    SUMO_ATTR_SPREADFUNC
 };
 
 
@@ -231,12 +240,12 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[37];
+extern GenericSAX2Handler::Tag sumotags[38];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[57];
+extern AttributesHandler::Attr sumoattrs[59];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
