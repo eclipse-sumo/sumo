@@ -5,7 +5,7 @@
 #include <string>
 #include <set>
 #include "NBTrafficLightDefinition.h"
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 
 class NBLoadedTLDef : public NBTrafficLightDefinition {
 public:

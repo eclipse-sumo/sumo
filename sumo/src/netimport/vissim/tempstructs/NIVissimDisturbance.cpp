@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/01/12 15:32:59  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.12  2003/10/02 15:01:12  dkrajzew
 // further work on Vissim-import
 //
@@ -54,9 +57,9 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundery.h>
 #include <netbuild/NBEdge.h>
-#include <netbuild/NBNode.h>
+#include <netbuild/nodes/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIVissimEdge.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeDef.h"

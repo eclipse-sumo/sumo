@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.24  2003/12/05 10:24:36  dkrajzew
 // false blocking on uncontrolled links being non-foes to controlled ones patched
 //
@@ -140,7 +143,7 @@ namespace
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightLogicVector.h"
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 #include "NBRequest.h"
 
 

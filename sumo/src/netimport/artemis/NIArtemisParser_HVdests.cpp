@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/12 15:30:31  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.5  2003/11/11 08:29:48  dkrajzew
 // consequent geometry usage
 //
@@ -44,8 +47,8 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisParser_HVdests.h"
 

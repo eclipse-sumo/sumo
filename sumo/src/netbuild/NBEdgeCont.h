@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.15  2004/01/12 15:09:28  dkrajzew
 // some work on the documentation
 //
@@ -115,7 +118,6 @@
 #include <string>
 #include <vector>
 #include "NBCont.h"
-#include "NBNode.h"
 
 
 /* =========================================================================
@@ -124,6 +126,7 @@
 class NBSection;
 class NBNodeCont;
 class NBEdge;
+class NBNode;
 
 
 /* =========================================================================

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/12 15:27:30  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.5  2003/12/04 12:51:28  dkrajzew
 // documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
 //
@@ -42,8 +45,8 @@ namespace
  * included modules
  * ======================================================================= */
 #include <algorithm>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTypeCont.h>

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/12 15:30:31  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.3  2003/07/07 08:25:33  dkrajzew
 // adapted the importer to the lane geometry description
 //
@@ -36,8 +39,8 @@ namespace
  * included modules
  * ======================================================================= */
 #include <utils/common/UtilExceptions.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <utils/convert/TplConvert.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisParser_Links.h"

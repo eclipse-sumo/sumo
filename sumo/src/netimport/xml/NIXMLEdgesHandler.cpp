@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/01/12 15:36:36  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.11  2003/11/11 08:18:20  dkrajzew
 // consequent geometry usage; made the code a little bit more pretty
 //
@@ -117,7 +120,7 @@ namespace
 #include "NIXMLEdgesHandler.h"
 #include <cmath>
 #include <utils/sumoxml/SUMOSAXHandler.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>

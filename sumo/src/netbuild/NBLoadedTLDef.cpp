@@ -9,7 +9,7 @@
 #include "NBTrafficLightDefinition.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBLoadedTLDef.h"
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 
 
 using namespace std;

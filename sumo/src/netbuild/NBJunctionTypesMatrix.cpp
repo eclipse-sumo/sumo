@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -74,7 +77,7 @@ namespace
 #include <algorithm>
 #include "NBJunctionTypesMatrix.h"
 #include <utils/common/UtilExceptions.h>
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 
 
 /* =========================================================================

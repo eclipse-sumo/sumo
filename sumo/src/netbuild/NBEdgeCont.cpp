@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.23  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -139,7 +142,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include "NBEdgeCont.h"
-#include "NBNodeCont.h"
+#include "nodes/NBNodeCont.h"
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBTrafficLightLogicCont.h"

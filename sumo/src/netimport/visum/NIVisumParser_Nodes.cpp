@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/12 15:36:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.2  2003/03/06 17:14:42  dkrajzew
 // more stringent usage of insertion into containers; y-direction flipped
 //
@@ -35,7 +38,7 @@ namespace
  * ======================================================================= */
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBHelpers.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Nodes.h"
 

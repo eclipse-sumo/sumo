@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.5  2004/01/12 15:09:28  dkrajzew
 // some work on the documentation
 //
@@ -72,7 +75,7 @@
  * ======================================================================= */
 #include <string>
 #include <map>
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 #include "NBType.h"
 #include "NBJunctionTypesMatrix.h"
 

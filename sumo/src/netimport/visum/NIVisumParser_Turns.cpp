@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/12 15:36:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -30,8 +33,8 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <utils/common/UtilExceptions.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Turns.h"

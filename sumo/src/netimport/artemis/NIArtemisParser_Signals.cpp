@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/12 15:30:47  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.2  2003/03/17 14:18:58  dkrajzew
 // Windows eol removed
 //
@@ -34,8 +37,8 @@ namespace
  * ======================================================================= */
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/TplConvert.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisParser_Signals.h"
 

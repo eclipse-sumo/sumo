@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/12 15:37:10  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.1  2003/07/17 12:15:39  dkrajzew
 // NBLoader moved to netimport; NBNetBuilder performs now all the building steps
 //
@@ -118,7 +121,7 @@ namespace
 #include <utils/importio/LineReader.h>
 #include <utils/common/FileHelpers.h>
 #include <netbuild/NBTypeCont.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <netimport/xml/NIXMLEdgesHandler.h>

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/01/12 15:36:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.3  2003/07/18 12:35:05  dkrajzew
 // removed some warnings
 //
@@ -37,7 +40,7 @@
 #include <map>
 #include <string>
 #include <netbuild/NBConnectionDefs.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 
 
 /* =========================================================================

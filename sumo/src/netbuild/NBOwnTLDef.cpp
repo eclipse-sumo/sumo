@@ -5,7 +5,7 @@
 #include "NBTrafficLightLogicVector.h"
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBLinkCliqueContainer.h"
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 #include "NBOwnTLDef.h"
 
 

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.3  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -56,7 +59,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/12 15:36:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.3  2003/11/11 08:19:46  dkrajzew
 // made the code a little bit more pretty
 //
@@ -38,7 +41,7 @@ namespace
  * ======================================================================= */
 #include <utils/convert/TplConvertSec.h>
 #include <netbuild/NBHelpers.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/geom/GeomHelper.h>
 #include "NIVisumLoader.h"

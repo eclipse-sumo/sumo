@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include "NBNetBuilder.h"
-#include "NBNodeCont.h"
+#include "nodes/NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJunctionLogicCont.h"

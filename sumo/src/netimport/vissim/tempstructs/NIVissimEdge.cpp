@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/01/12 15:33:02  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.21  2003/11/17 07:27:16  dkrajzew
 // false heuristics removed
 //
@@ -73,8 +76,8 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/GeomHelper.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIVissimNodeCluster.h"
 #include "NIVissimDistrictConnection.h"
 #include "NIVissimClosedLanesVector.h"

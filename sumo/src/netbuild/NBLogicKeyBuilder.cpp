@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.3  2003/04/01 15:15:52  dkrajzew
 // further work on vissim-import
 //
@@ -40,7 +43,7 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <string>
 //#include <strstream>
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 #include "NBEdge.h"
 #include "NBContHelper.h"
 #include "NBLogicKeyBuilder.h"

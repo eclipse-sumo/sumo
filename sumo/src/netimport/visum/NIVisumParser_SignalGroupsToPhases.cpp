@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/01/12 15:36:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.1  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
@@ -32,7 +35,7 @@ namespace
  * ======================================================================= */
 #include <utils/convert/TplConvert.h>
 #include <netbuild/NBHelpers.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_SignalGroupsToPhases.h"
 #include "NIVisumTL.h"

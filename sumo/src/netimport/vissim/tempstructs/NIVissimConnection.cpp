@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/01/12 15:32:54  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.15  2003/11/11 08:24:51  dkrajzew
 // debug values removed
 //
@@ -69,7 +72,7 @@ namespace
 #include <utils/geom/Boundery.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBEdge.h>
-#include <netbuild/NBNode.h>
+#include <netbuild/nodes/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
 #include "NIVissimEdge.h"
 #include "NIVissimClosedLanesVector.h"

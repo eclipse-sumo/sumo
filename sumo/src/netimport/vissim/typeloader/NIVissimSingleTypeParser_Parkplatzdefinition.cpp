@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:33:35  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.4  2003/10/27 10:52:41  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -48,8 +51,8 @@ namespace
 #include <utils/common/DoubleVector.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBDistrict.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"

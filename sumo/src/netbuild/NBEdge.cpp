@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.38  2004/01/12 15:10:27  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -206,8 +209,8 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include "NBEdgeCont.h"
-#include "NBNode.h"
-#include "NBNodeCont.h"
+#include "nodes/NBNode.h"
+#include "nodes/NBNodeCont.h"
 #include "NBContHelper.h"
 #include "NBHelpers.h"
 #include <cmath>
@@ -445,7 +448,7 @@ NBEdge::getAngle()
 
 
 size_t
-NBEdge::getNoLanes()
+NBEdge::getNoLanes() const
 {
     return _nolanes;
 }
@@ -1801,10 +1804,10 @@ NBEdge::reshiftPosition(double xoff, double yoff, double rot)
 
 
 Position2DVector
-NBEdge::getCWBounderyLine(NBNode *n, double offset)
+NBEdge::getCWBounderyLine(const NBNode &n, double offset) const
 {
     Position2DVector ret;
-    if(_from==n) {
+    if(_from==(&n)) {
         // outgoing
         ret = myLaneGeoms[0];
     } else {
@@ -1818,10 +1821,10 @@ NBEdge::getCWBounderyLine(NBNode *n, double offset)
 
 
 Position2DVector
-NBEdge::getCCWBounderyLine(NBNode *n, double offset)
+NBEdge::getCCWBounderyLine(const NBNode &n, double offset) const
 {
     Position2DVector ret;
-    if(_from==n) {
+    if(_from==(&n)) {
         // outgoing
         ret = myLaneGeoms[getNoLanes()-1];
     } else {

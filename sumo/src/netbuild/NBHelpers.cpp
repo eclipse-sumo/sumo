@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.4  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -76,7 +79,7 @@ namespace
 #include <cmath>
 #include <string>
 #include <sstream>
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 #include "NBHelpers.h"
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/Position2D.h>

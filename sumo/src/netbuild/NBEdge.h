@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.29  2004/01/12 15:25:09  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.28  2004/01/12 15:10:27  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -254,7 +257,7 @@ public:
     int getJunctionPriority(NBNode *node);
 
     /// returns the number of lanes
-    size_t getNoLanes();
+    size_t getNoLanes() const;
 
     /// returns the edges approached by the given lane
     const EdgeLaneVector * const getEdgeLanesFromLane(size_t lane) const;
@@ -389,8 +392,8 @@ public:
 
     double width() const;
 
-    Position2DVector getCWBounderyLine(NBNode *n, double offset);
-    Position2DVector getCCWBounderyLine(NBNode *n, double offset);
+    Position2DVector getCWBounderyLine(const NBNode &n, double offset) const;
+    Position2DVector getCCWBounderyLine(const NBNode &n, double offset) const;
 
     bool expandableBy(NBEdge *possContinuation) const;
     void append(NBEdge *continuation);

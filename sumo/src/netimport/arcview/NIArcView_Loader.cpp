@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/01/12 15:28:39  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.8  2003/12/04 16:53:53  dkrajzew
 // native ArcView-importer by ericnicolay added
 //
@@ -59,8 +62,8 @@ namespace
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_ShapeReader.h"
 #include "NIArcView_Loader.h"
 

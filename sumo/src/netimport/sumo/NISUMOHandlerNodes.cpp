@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:31:53  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.4  2003/07/07 08:27:53  dkrajzew
 // adapted the importer to the new node type description
 //
@@ -44,11 +47,12 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerNodes.h"
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/01/12 15:36:36  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.5  2003/07/07 08:33:15  dkrajzew
 // further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
 //
@@ -94,7 +97,7 @@ namespace
 #include <sax/SAXException.hpp>
 #include "NIXMLNodesHandler.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>

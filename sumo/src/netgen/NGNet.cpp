@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:27:30  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.4  2003/07/30 09:22:31  dkrajzew
 // chequered board generation verified and eased
 //
@@ -43,8 +46,8 @@ namespace
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <utils/convert/ToString.h>

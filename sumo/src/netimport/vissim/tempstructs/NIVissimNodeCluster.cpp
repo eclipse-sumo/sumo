@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/01/12 15:33:02  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.11  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -48,8 +51,8 @@ namespace
 #include <utils/common/IntVector.h>
 #include <utils/convert/ToString.h>
 #include <utils/geom/Position2DVector.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIVissimTL.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"

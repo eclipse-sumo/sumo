@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/01/12 15:32:57  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.17  2003/11/11 08:24:52  dkrajzew
 // debug values removed
 //
@@ -67,8 +70,8 @@ namespace
 #include "NIVissimEdge.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>
 #include "NIVissimDistrictConnection.h"

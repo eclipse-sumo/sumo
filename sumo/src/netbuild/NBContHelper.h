@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2004/01/12 15:25:08  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.9  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
 //
@@ -83,7 +86,7 @@
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBEdge.h"
-#include "NBNode.h"
+#include "nodes/NBNode.h"
 
 
 /* =========================================================================

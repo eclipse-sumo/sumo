@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/01/12 15:30:47  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.6  2003/07/07 08:26:33  dkrajzew
 // adapted the importer to the new node type description
 //
@@ -50,8 +53,8 @@ namespace
 #include <algorithm>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisTempEdgeLanes.h"
 
 
