@@ -75,28 +75,30 @@ public:
 
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
-            // nothing to do for E3
-            return false; // !!!
+            return isActivated( veh,
+                             Loki::Int2Type< isEntryReminder >() );
+/*            if ( veh.pos() <= posM ) {
+                // crossSection not yet reached
+                return true;
+            }
+            return false;*/
         }
 
 private:
 
-    bool isActive(
-        MSVehicle& veh
-        , double
-        , Loki::Int2Type< true >
-        )
+    bool isActive(MSVehicle& veh, double, Loki::Int2Type< true >)
         {
             // crossSection partially or completely entered
             collectorM.enter( veh );
             return false;
         }
 
-    bool isActive(
-        MSVehicle& veh
-        , double newPos
-        , Loki::Int2Type< false >
-        )
+    bool isActivated(MSVehicle& veh, Loki::Int2Type< true >)
+        {
+            return veh.pos() <= posM;
+        }
+
+    bool isActive(MSVehicle& veh, double newPos, Loki::Int2Type< false >)
         {
             if ( newPos - veh.length() > posM ) {
                 // crossSection completely left
@@ -105,6 +107,11 @@ private:
             }
             // crossSection partially left
             return true;
+        }
+
+    bool isActivated(MSVehicle& veh, Loki::Int2Type< false >)
+        {
+            return veh.pos() - veh.length() <= posM;
         }
 
 
