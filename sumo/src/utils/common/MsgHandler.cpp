@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/12/04 13:07:35  dkrajzew
+// interface changed to allow message building on the fly
+//
 // Revision 1.2  2003/06/24 14:40:22  dkrajzew
 // Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
 //
@@ -87,9 +90,8 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(const std::string &err)
+MsgHandler::inform(std::string error)
 {
-    string error = err;
     switch(myType) {
     case MT_MESSAGE:
         break;

@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/12/04 13:07:35  dkrajzew
+// interface changed to allow message building on the fly
+//
 // Revision 1.3  2003/11/26 09:51:10  dkrajzew
 // changes to allow more than a single function of an object to retrieve messages
 //
@@ -76,10 +79,10 @@ public:
     static void cleanupOnEnd();
 
     /// adds a new error to the list
-    void inform(const std::string &error);
+    void inform(std::string error);
 
     /// closes a sublist of information
-    void finalizeInform(const std::string &msg) {
+    void finalizeInform(std::string msg) {
         inform(msg);
     }
 
@@ -142,9 +145,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MsgHandler.icc"
-//#endif
 
 #endif
 
