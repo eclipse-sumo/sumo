@@ -24,6 +24,14 @@ namespace
 } 
 
 // $Log$
+// Revision 1.9  2002/05/17 13:04:24  croessel
+// Added _SPEEDCHECK code in all move-methos.
+// Added upper bound (= vaacel) for vSafe in nextState().
+// nextStateCompete():
+// - Removed vMax and vLaneMax, they are already considered in vaccel().
+// - Calculate nextPos with vNext instead of vSafe.
+// New method laneChangeBrake2much() added.
+//
 // Revision 1.8  2002/05/08 13:24:21  croessel
 // safeGap(): vDecel shouldn't be less than 0.
 //
@@ -447,7 +455,7 @@ MSVehicle::move( MSLane* lane,
                  MSVehicle* neigh, double gap2neigh )
 {
 #ifdef _SPEEDCHECK
-  novehicles++;
+    novehicles++;
 #endif
 
     // Pragmatic solution: ignore neighbours
@@ -457,9 +465,10 @@ MSVehicle::move( MSLane* lane,
     
     double gap2pred = pred->myState.myPos - pred->myType->myLength -
                      myState.myPos;
+
     assert( gap2pred >= 0 );
     double vSafe   = vsafe( myState.mySpeed, myType->decel(), 
-                           gap2pred, pred->myState.mySpeed );
+                            gap2pred, pred->myState.mySpeed );
      
     // min{ v+a, vmax, lanevmax, vsafe }   
     double vNext = vMin( vAccel, vMax, vLaneMax, vSafe );
@@ -477,9 +486,13 @@ MSVehicle::move( MSLane* lane,
 void
 MSVehicle::moveDecel2laneEnd( MSLane* lane )
 {
+#ifdef _SPEEDCHECK
+    novehicles++;
+#endif
+
     double gap = lane->length() - myState.myPos;
     assert( gap <= brakeGap( lane ) );
-    
+
     // Slow down and dawdle.   
     double vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );  
     double vNext  = dawdle( vSafe );        
@@ -495,6 +508,10 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
 void
 MSVehicle::moveUpdateState( const State newState )
 {
+#ifdef _SPEEDCHECK
+    novehicles++;
+#endif
+
     myState.myPos  += newState.mySpeed * MSNet::deltaT();
     assert( myState.myPos >= 0 );
     
@@ -507,6 +524,10 @@ MSVehicle::moveUpdateState( const State newState )
 void
 MSVehicle::moveSetState( const State newState )
 {
+#ifdef _SPEEDCHECK
+    novehicles++;
+#endif
+
     myState = newState;
     assert( myState.myPos >= 0 );
     assert( myState.mySpeed >= 0 );        
@@ -563,12 +584,13 @@ MSVehicle::nextState( MSLane* lane, double gap ) const
 
     // TODO
     // If we know that we will slow down, is there still the need to dawdle?
-    
+
+    double vAccel  = vaccel( lane );
     double vSafe   = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    vSafe         = dawdle( vSafe );
+    vSafe          = dawdle( min( vSafe, vAccel ) );
     double nextPos = myState.myPos + vSafe * MSNet::deltaT(); // Will be 
     // overridden if veh leaves lane. 
-       
+
     return State( nextPos, vSafe );  
 }   
 
@@ -580,13 +602,11 @@ MSVehicle::nextStateCompete( MSLane* lane,
                              double gap2pred ) const
 {
     double vAccel   = vaccel( lane );
-    double vMax     = myType->maxSpeed();
-    double vLaneMax = lane->maxSpeed();
-    double vSafe    = vsafe( myState.mySpeed, myType->decel(), 
-                            gap2pred, predState.mySpeed );
+    double vSafe    = vsafe( myState.mySpeed, myType->decel(),
+                             gap2pred, predState.mySpeed );
     
-    double vNext    = dawdle( vMin( vAccel, vMax, vLaneMax, vSafe ) );    
-    double nextPos  = myState.myPos + vSafe * MSNet::deltaT();
+    double vNext    = dawdle( min( vAccel, vSafe ) );
+    double nextPos  = myState.myPos + vNext * MSNet::deltaT();
     return State( nextPos, vNext ); 
 }
 
@@ -787,6 +807,25 @@ double
 MSVehicle::speed() const
 {
     return myState.mySpeed;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool 
+MSVehicle::laneChangeBrake2much( const State brakeState )
+{
+    // SK-vnext can reduce speed about decel, dawdle about accel.
+    double minAllowedNextSpeed = 
+        max( myState.mySpeed - 
+	     ( myType->decel() + myType->accel() ) * MSNet::deltaT(),
+	     static_cast< double >( 0 ) );
+
+    if ( brakeState.mySpeed < minAllowedNextSpeed ) {
+
+        return true;
+    }
+
+    return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
