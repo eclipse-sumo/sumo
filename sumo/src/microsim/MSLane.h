@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2003/08/20 11:44:11  dkrajzew
+// min and max-functions moved to an own definition file
+//
 // Revision 1.14  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -462,6 +465,8 @@ public:
     /// returns the vehicles
     virtual const VehCont &getVehiclesSecure();
 
+    size_t getVehicleNumber() const;
+
     void setApproaching(double dist, MSVehicle *veh);
 
     VehCont::const_iterator findNextVehicleByPosition(double pos) const;
@@ -664,11 +669,11 @@ private:
     static DictType myDict;
 
 private:
-    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
+/*    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
     inline double min(double v1, double v2) const
         { return ((v1 < v2) ? v1 : v2); };
     inline double max(double v1, double v2) const
-        { return ((v1 > v2) ? v1 : v2); };
+        { return ((v1 > v2) ? v1 : v2); };*/
 
 
     /// Default constructor.

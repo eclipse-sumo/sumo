@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.27  2003/08/20 11:44:11  dkrajzew
+// min and max-functions moved to an own definition file
+//
 // Revision 1.26  2003/07/30 09:08:09  dkrajzew
 // forgotten setting of an infinite distance to the last vehicle patched
 //
@@ -284,6 +287,7 @@ namespace
 
 #include <helpers/PreStartInitialised.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -612,7 +616,7 @@ MSLane::emitTry( MSVehicle& veh )
             ( 2 * MSVehicleType::minDecel() ) +
             MSVehicle::tau() + veh.length()*/
         : myApproaching->getSecureGap(*this, veh);
-    safeSpace = max( safeSpace, veh.length() );
+    safeSpace = MAX( safeSpace, veh.length() );
     if ( safeSpace<length() ) {
         MSVehicle::State state;
         state.setPos(safeSpace);
@@ -1444,6 +1448,14 @@ MSLane::init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition)
 {
     myUseDefinition = useDefinition;
 }
+
+
+size_t
+MSLane::getVehicleNumber() const
+{
+    return myUseDefinition->noVehicles;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

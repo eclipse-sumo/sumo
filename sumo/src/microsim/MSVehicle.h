@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.20  2003/08/20 11:44:11  dkrajzew
+// min and max-functions moved to an own definition file
+//
 // Revision 1.19  2003/07/30 09:18:42  dkrajzew
 // the waiting time is now an unsigned int
 //
@@ -776,11 +779,11 @@ private:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
-    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
+/*    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
     inline double min(double v1, double v2) const
         { return ((v1 < v2) ? v1 : v2); };
     inline double max(double v1, double v2) const
-        { return ((v1 > v2) ? v1 : v2); };
+        { return ((v1 > v2) ? v1 : v2); };*/
 
 
 	double myVLinkPass;

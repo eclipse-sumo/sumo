@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2003/08/20 11:44:11  dkrajzew
+// min and max-functions moved to an own definition file
+//
 // Revision 1.5  2003/04/10 15:43:44  dkrajzew
 // emission on non-source lanes debugged
 //
@@ -56,6 +59,7 @@
 #include "MSEdge.h"
 #include "MSVehicleType.h"
 #include "MSNet.h"
+#include <utils/common/StdDefs.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -83,7 +87,7 @@ MSVehicle::dawdle( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accelSpeed() * random;
 
-    return max( double( 0 ), speed );
+    return MAX( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -101,7 +105,7 @@ MSVehicle::dawdle2( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * speed * random;
 
-    return max( double( 0 ), speed );
+    return MAX( double( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -192,7 +196,7 @@ inline
 double
 MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
 {
-    return min( min( v1, v2 ), min ( v3, v4 ) );
+    return MIN4(v1,v2,v3,v4);
 }
 
 /////////////////////////////////////////////////////////////////////////////
