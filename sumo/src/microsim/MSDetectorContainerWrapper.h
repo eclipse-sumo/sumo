@@ -46,9 +46,9 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
         {
             containerM.push_front( ContainerItem( veh ) );
         }
- 
+
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
-        {        
+        {
             ContainerIt insertIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
@@ -64,7 +64,7 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
                                   ErasePredicate(), veh ) );
             assert(containerM.size()>0);
             assert(eraseIt!=containerM.end());
-            containerM.erase( eraseIt );        
+            containerM.erase( eraseIt );
         }
 
     void leaveDetectorByLaneChange( MSVehicle* veh )
@@ -91,18 +91,19 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
 // specialization for WrappedContainer == std::map< Vehicle*, T >
 class MSVehicle;
+
 template< class T >
-struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
-    : public MSDetectorContainerWrapperBase
+struct MSDetectorMapContainerWrapper
+    : public MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
 {
     typedef std::map< MSVehicle*, T > WrappedContainer;
-    
+
     void enterDetectorByMove( MSVehicle* veh )
         {
             assert( containerM.find( veh ) == containerM.end() );
             containerM.insert( std::make_pair( veh, T() ) );
         }
- 
+
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
         {
             enterDetectorByMove( veh );
@@ -120,13 +121,13 @@ struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
         }
 
 
-    MSDetectorContainerWrapper(
+    MSDetectorMapContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
-        : MSDetectorContainerWrapperBase( occupancyCorrection ),
+        : MSDetectorContainerWrapper( occupancyCorrection ),
           containerM()
         {}
 
-    virtual ~MSDetectorContainerWrapper( void )
+    virtual ~MSDetectorMapContainerWrapper( void )
         {
             containerM.clear();
         }
