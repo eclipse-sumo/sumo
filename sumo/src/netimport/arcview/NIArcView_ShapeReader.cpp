@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 09:33:38  dkrajzew
+// resolution of georeferenced coordinates added
+//
 // Revision 1.7  2004/01/12 15:53:00  dkrajzew
 // work on code style
 //
@@ -37,7 +40,6 @@ namespace
 //
 // Revision 1.3  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -56,6 +58,7 @@ namespace
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/GeomHelper.h>
 #include "NIArcView_ShapeReader.h"
 
 
@@ -69,7 +72,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIArcView_ShapeReader::NIArcView_ShapeReader(const std::string &file)
-    : FileErrorReporter("Navtech shape", file), myLineReader(file)
+    : FileErrorReporter("Navtech shape", file), myLineReader(file),
+    myWasInitialised(false), myInitX(-1), myInitY(-1)
 {
 }
 
@@ -172,9 +176,22 @@ NIArcView_ShapeReader::parsePoint(const std::string &line)
     }
     // extract points
     try {
-        return Position2D(
-            TplConvert<char>::_2float(StringUtils::prune(st.get(0)).c_str()),
-            TplConvert<char>::_2float(StringUtils::prune(st.get(1)).c_str()));
+        float x = TplConvert<char>::_2float(StringUtils::prune(st.get(0)).c_str());
+        float y = TplConvert<char>::_2float(StringUtils::prune(st.get(1)).c_str());
+        if(!myWasInitialised) {
+            myWasInitialised = true;
+            myInitX = x;
+            myInitY = y;
+        }
+        x = x / 100000.0;
+        y = y / 100000.0;
+        double ys = y;
+        x = (x-myInitX);
+        y = (y-myInitY);
+        double x1 = x * 111.320*1000;
+        double y1 = y * 111.136*1000;
+        x1 *= cos(ys*PI/180.0);
+        return Position2D(x1, y1);
     } catch (NumberFormatException) {
         addError("Not numerical position entry.");
     } catch (EmptyData) {
@@ -261,9 +278,6 @@ NIArcView_ShapeReader::getToNodePosition() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArcView_ShapeReader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

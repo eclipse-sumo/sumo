@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/07/02 09:33:38  dkrajzew
+// resolution of georeferenced coordinates added
+//
 // Revision 1.4  2004/01/12 15:53:00  dkrajzew
 // work on code style
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.2  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -111,14 +113,19 @@ private:
     /// the number of points the edge currently parsed consists of
     size_t myVertexNo;
 
+    /// Information whether a reference point was already parsed
+    bool myWasInitiliased;
+
+    /// Information whether the reference position was set
+    bool myWasInitialised;
+
+    /// The reference position
+    double myInitX, myInitY;
+
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArcView_ShapeReader.icc"
-//#endif
 
 #endif
 
