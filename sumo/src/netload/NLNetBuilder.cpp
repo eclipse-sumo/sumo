@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/07/07 08:35:10  dkrajzew
+// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+//
 // Revision 1.8  2003/06/18 11:18:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -119,6 +122,7 @@ namespace
 #include "NLContainer.h"
 #include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
+#include "NLJunctionControlBuilder.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
@@ -153,8 +157,11 @@ NLNetBuilder::~NLNetBuilder()
 
 
 MSNet *
-NLNetBuilder::buildMSNet() {
-    NLContainer *container = new NLContainer(new NLEdgeControlBuilder());
+NLNetBuilder::buildMSNet()
+{
+    NLContainer *container = new NLContainer(
+        new NLEdgeControlBuilder(),
+        new NLJunctionControlBuilder());
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
     parser->setFeature(
         XMLString::transcode("http://xml.org/sax/features/validation"),

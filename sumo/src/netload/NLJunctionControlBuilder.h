@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/07/07 08:35:10  dkrajzew
+// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+//
 // Revision 1.4  2003/03/20 16:35:44  dkrajzew
 // windows eol removed
 //
@@ -99,10 +102,10 @@ private:
 
 public:
     /// standard constructor
-    NLJunctionControlBuilder(NLContainer *container);
+    NLJunctionControlBuilder();
 
     /// Destructor
-    ~NLJunctionControlBuilder();
+    virtual ~NLJunctionControlBuilder();
 
     /// preallocates space for the found number of junctions
     void prepare(unsigned int no);
@@ -126,15 +129,15 @@ public:
     /** Returns the current inlane - container */
     const LaneCont &getInLanes() const;
 
-private:
+protected:
     /** builds a junction that does not use a logic */
-    MSJunction *buildNoLogicJunction();
+    virtual MSJunction *buildNoLogicJunction();
 
     /** builds a junction with a logic */
-    MSJunction *buildLogicJunction();
+    virtual MSJunction *buildLogicJunction();
 
     /** builds a traffic light junction */
-    MSJunction *buildTrafficLightJunction();
+    virtual MSJunction *buildTrafficLightJunction();
 
     /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();
@@ -142,7 +145,7 @@ private:
     /** builds the junction's list of lanes catching occuring errors */
     MSRightOfWayJunction::InLaneCont getInLaneContSecure();
 
-private:
+protected:
     /// the list of the simulations junctions
     MSJunctionControl::JunctionCont          *m_pJunctions;
 
@@ -162,9 +165,6 @@ private:
     /// the type of the currently chosen junction
     int                         m_Type;
 
-    /// the container used
-    NLContainer                 *m_Container;
-
     /// the position of the junction
     double                      m_X, m_Y;
 
@@ -176,7 +176,7 @@ private:
         (when the current junction has traffic lights) */
     size_t                      m_InitStep;
 
-private:
+protected:
     /// numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;
 
@@ -200,6 +200,7 @@ private:
 
     /** invalid assignment operator */
     NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

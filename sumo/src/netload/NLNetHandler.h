@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/07 08:35:10  dkrajzew
+// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+//
 // Revision 1.5  2003/06/18 11:18:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -89,12 +92,12 @@ protected:
         const Attributes &attrs);
 
     /** called when simple characters occure; this method */
-    void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
     /** called on the end of an element;
         this method */
-    void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(int element, const std::string &name);
 
 protected:
     /** adds the message about the occured error to the error handler

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/07 08:35:10  dkrajzew
+// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+//
 // Revision 1.12  2003/06/18 11:18:04  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -147,10 +150,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
+NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder,
+                         NLJunctionControlBuilder * const junctionBuilder)
     :
     m_pECB(edgeBuilder),
-    m_pJCB(0),
+    m_pJCB(junctionBuilder),
     m_pSLB(new NLSucceedingLaneBuilder()),
     m_pDetectors(0),
     noEdges(0),
@@ -163,7 +167,7 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
 {
     // ... the storage for the detectors
     m_pDetectors = new MSNet::DetectorCont();
-    m_pJCB = new NLJunctionControlBuilder(this);
+//    m_pJCB = new NLJunctionControlBuilder(this);
 }
 
 
@@ -504,6 +508,12 @@ void
 NLContainer::addTLLogic(MSTrafficLightLogic *logic)
 {
     myLogics.push_back(logic);
+}
+
+
+void
+NLContainer::closeLane()
+{
 }
 
 

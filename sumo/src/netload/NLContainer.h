@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/07/07 08:35:10  dkrajzew
+// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+//
 // Revision 1.10  2003/06/18 11:18:05  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -129,7 +132,8 @@ class MSTrafficLightLogic;
 class NLContainer {
 public:
     /// standard constructor
-    NLContainer(NLEdgeControlBuilder * const edgeBuilder);
+    NLContainer(NLEdgeControlBuilder * const edgeBuilder,
+        NLJunctionControlBuilder * const junctionBuilder);
 
     /// standard destructor
     virtual ~NLContainer();
@@ -177,6 +181,9 @@ public:
     virtual void addLane(const std::string &id, const bool isDepartLane,
 		 const float maxSpeed, const float length,
 		 const float changeUrge);
+
+    /// closes the lane currently build
+    virtual void closeLane();
 
     /// closes the addition of an edges lanes
     void closeLanes();

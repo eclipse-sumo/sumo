@@ -575,10 +575,16 @@ NLNetHandler::myCharacters(int element, const std::string &name,
 
 void
 NLNetHandler::allocateEdges(const std::string &chars) {
-    StringTokenizer st(chars);
-    while(st.hasNext()) {
-        myContainer.addEdge(st.next());
+    size_t beg = 0;
+    size_t idx = chars.find(' ');
+    while(idx!=string::npos) {
+        string edgeid = chars.substr(beg, idx-beg);
+        myContainer.addEdge(edgeid);
+        beg = idx + 1;
+        idx = chars.find(' ', beg);
     }
+    string edgeid = chars.substr(beg);
+    myContainer.addEdge(edgeid);
 }
 
 
@@ -694,6 +700,9 @@ NLNetHandler::myEndElement(int element, const std::string &name)
             break;
         case SUMO_TAG_LANES:
             myContainer.closeLanes();
+            break;
+        case SUMO_TAG_LANE:
+            myContainer.closeLane();
             break;
         case SUMO_TAG_CEDGE:
             myContainer.closeAllowedEdge();
