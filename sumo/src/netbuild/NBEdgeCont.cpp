@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/01/28 12:40:23  dkrajzew
+// added to possibility to give each lane a speed
+//
 // Revision 1.24  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -407,10 +410,17 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
         pos, edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
         edge->_basicType);
+    int i;
+    for(i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
+        one->setLaneSpeed(i, edge->getLaneSpeed(i));
+    }
     NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName,
         node, edge->_to, edge->_type, edge->_speed, noLanesSecondEdge,
         edge->_length-pos, edge->getPriority(), geoms.second,
         edge->myLaneSpreadFunction, edge->_basicType);
+    for(i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
+        two->setLaneSpeed(i, edge->getLaneSpeed(i));
+    }
     // replace information about this edge within the nodes
     edge->_from->replaceOutgoing(edge, one, 0);
     edge->_to->replaceIncoming(edge, two, 0);
@@ -422,7 +432,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     erase(edge);
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
-    for(size_t i=0; i<noLanes; i++) {
+    for(i=0; i<noLanes; i++) {
         one->addLane2LaneConnection(i, two, i); // !!! Bresenham, here!!!
     }
     insert(one);

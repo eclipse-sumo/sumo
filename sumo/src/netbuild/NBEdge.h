@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.30  2004/01/28 12:40:23  dkrajzew
+// added to possibility to give each lane a speed
+//
 // Revision 1.29  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -422,6 +425,10 @@ public:
 
     std::string getLaneID(size_t lane);
 
+    void setLaneSpeed(int lane, double speed);
+
+    double getLaneSpeed(int lane) const;
+
 private:
     /**
      * ToEdgeConnectionsAdder
@@ -570,6 +577,7 @@ private:
     LaneSpreadFunction myLaneSpreadFunction;
 
     std::vector<Position2DVector> myLaneGeoms;
+    std::vector<double> myLaneSpeeds;
 
     double myAmTurningWithAngle;
     NBEdge *myAmTurningOf;

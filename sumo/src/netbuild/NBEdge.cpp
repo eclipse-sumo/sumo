@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2004/01/28 12:40:23  dkrajzew
+// added to possibility to give each lane a speed
+//
 // Revision 1.41  2004/01/26 09:53:28  dkrajzew
 // cedges are now written in counter-clockwise order
 //
@@ -382,6 +385,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _priority = 0;
     }
     computeLaneShapes();
+    for(int i=0; i<_nolanes; i++) {
+        myLaneSpeeds.push_back(speed);
+    }
 }
 
 
@@ -435,6 +441,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _priority = 0;
     }
     computeLaneShapes();
+    for(int i=0; i<_nolanes; i++) {
+        myLaneSpeeds.push_back(speed);
+    }
 }
 
 
@@ -732,12 +741,26 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
         into << " depart=\"0\"";
     }
     // some further information
-    into << " maxspeed=\"" << _speed << "\" length=\"" << _length <<
+    into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
         "\" changeurge=\"0\">";
     // the lane's shape
     into << myLaneGeoms[lane];
     // close
     into << "</lane>" << endl;
+}
+
+
+void
+NBEdge::setLaneSpeed(int lane, double speed)
+{
+    myLaneSpeeds[lane] = speed;
+}
+
+
+double
+NBEdge::getLaneSpeed(int lane) const
+{
+    return myLaneSpeeds[lane];
 }
 
 
