@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/01 15:17:45  dkrajzew
+// district-typed junctions added
+//
 // Revision 1.4  2003/03/17 14:28:09  dkrajzew
 // debugging
 //
@@ -144,7 +147,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         m_Type = TYPE_RIGHT_BEFORE_LEFT;
     } else if(type=="priority") {
         m_Type = TYPE_PRIORITY_JUNCTION;
-    } else if(type=="DEAD_END") {
+    } else if(type=="DEAD_END"||type=="district") {
         m_Type = TYPE_DEAD_END;
     }
     if(m_Type<0) {
