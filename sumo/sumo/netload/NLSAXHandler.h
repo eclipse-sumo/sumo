@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/04/17 11:18:48  dkrajzew
+// windows-newlines removed
+//
 // Revision 1.2  2002/04/15 07:07:56  dkrajzew
 // new loading paradigm implemented
 //

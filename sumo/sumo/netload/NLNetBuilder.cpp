@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/04/17 11:18:47  dkrajzew
+// windows-newlines removed
+//
 // Revision 1.3  2002/04/16 06:06:29  dkrajzew
 // Build report debugged
 //

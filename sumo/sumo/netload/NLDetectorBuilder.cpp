@@ -17,6 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/04/17 11:17:01  dkrajzew
+// windows-newlines removed
+//
 // Revision 1.3  2002/04/16 06:50:20  dkrajzew
 // documentation added; coding standard attachements added
 //
