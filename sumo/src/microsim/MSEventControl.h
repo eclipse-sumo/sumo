@@ -19,6 +19,10 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/05/27 18:51:46  roessel
+// Made MSEventControl a singleton class.
+// Moved EventSortCrit::operator() into header-file.
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -102,6 +106,9 @@ class Command;
 class MSEventControl
 {
 public:
+    /// Get the sole instace of this class
+    static MSEventControl* getInstance( void );
+    
     /// Events that should be executed at time.
     typedef std::pair< Command*, MSNet::Time > Event;
 
@@ -113,11 +120,11 @@ public:
     {
     public:
         /// compares two events
-        bool operator() ( const Event& e1, const Event& e2 ) const;
+        bool operator() ( const Event& e1, const Event& e2 ) const
+            {
+                return e1.second > e2.second;
+            }
     };
-
-    /// Use only this constructor.
-    MSEventControl( std::string id );
 
     /// Destructor.
     ~MSEventControl();
@@ -142,8 +149,7 @@ public:
     static void clear();
 
 private:
-    /// Unique ID.
-    std::string myID;
+    static MSEventControl* myInstance;
 
     /// Container for time-dependant events, e.g. traffic-light-change.
     typedef std::priority_queue< Event, std::vector< Event >,

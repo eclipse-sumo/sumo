@@ -24,6 +24,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/05/27 18:50:00  roessel
+// Made MSEventControl a singleton class.
+// Moved EventSortCrit::operator() into header-file.
+//
 // Revision 1.4  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -125,30 +129,32 @@ using namespace std;
  * static member definitions
  * ======================================================================= */
 MSEventControl::DictType MSEventControl::myDict;
-
+MSEventControl* MSEventControl::myInstance = 0;
 
 /* =========================================================================
  * member definitions
  * ======================================================================= */
-/* -------------------------------------------------------------------------
- * methods from MSEventControl::EventSortCrit
- * ----------------------------------------------------------------------- */
-bool
-MSEventControl::EventSortCrit::operator()
-    ( const Event& e1, const Event& e2 ) const
+// /* -------------------------------------------------------------------------
+//  * methods from MSEventControl::EventSortCrit
+//  * ----------------------------------------------------------------------- */
+
+MSEventControl*
+MSEventControl::getInstance( void )
 {
-    return e1.second > e2.second;
+    if ( myInstance == 0 ) {
+        myInstance = new MSEventControl();
+    }
+    return myInstance;
 }
 
-
+MSEventControl::MSEventControl( ) :
+    myEvents()
+{
+}
 
 /* -------------------------------------------------------------------------
  * methods from MSEventControl
  * ----------------------------------------------------------------------- */
-MSEventControl::MSEventControl( string id ) :
-    myID( id )
-{
-}
 
 
 MSEventControl::~MSEventControl()
@@ -171,6 +177,7 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
         execTime = currTime+1;
     }
     Event newEvent = Event( operation, execTime );
+    if (myEvents.empty()) { cout << "guenther" << endl;}
     myEvents.push( newEvent );
     return true;
 }
