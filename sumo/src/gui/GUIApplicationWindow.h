@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2003/11/11 08:40:45  dkrajzew
+// consequent position2D instead of two doubles implemented; logging moved from utils to microsim
+//
 // Revision 1.16  2003/10/27 10:47:03  dkrajzew
 // added to possibility to close the application after a simulations end without user interaction
 //
@@ -96,6 +99,9 @@ class QSimulationLoadedEvent;
 class QLabel;
 class QWidget;
 class QSimulationEndedEvent;
+class DoubleValueSource;
+class DoubleValueRetriever;
+class GUIGlObject;
 
 
 /* =========================================================================
@@ -132,6 +138,9 @@ public:
     void removeChild(QWidget *child);
 
     bool aggregationAllowed();
+
+    void buildSimStepConnection(GUIGlObject &o,
+        DoubleValueSource *source, DoubleValueRetriever *retriever);
 
 private slots:
     /** called from the menu, this method allows to choose a simulation
