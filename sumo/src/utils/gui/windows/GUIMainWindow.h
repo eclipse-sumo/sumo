@@ -33,6 +33,8 @@ public:
 
     virtual size_t getCurrentSimTime() const = 0;
 
+    virtual void loadSelection(const std::string &file) const = 0;
+
 protected:
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
