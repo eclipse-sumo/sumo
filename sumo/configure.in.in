@@ -1,19 +1,19 @@
 dnl    This file is part of the KDE libraries/packages
 dnl    Copyright (C) 2001 Stephan Kulow (coolo@kde.org)
- 
+
 dnl    This file is free software; you can redistribute it and/or
 dnl    modify it under the terms of the GNU Library General Public
 dnl    License as published by the Free Software Foundation; either
 dnl    version 2 of the License, or (at your option) any later version.
- 
+
 dnl    This library is distributed in the hope that it will be useful,
 dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
 dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 dnl    Library General Public License for more details.
- 
-dnl    You should have received a copy of the GNU Library General Public 
-dnl    License along with this library; see the file COPYING.LIB.  If not, 
-dnl    write to the Free Software Foundation, 
+
+dnl    You should have received a copy of the GNU Library General Public
+dnl    License along with this library; see the file COPYING.LIB.  If not,
+dnl    write to the Free Software Foundation,
 dnl    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 # Original Author was Kalle@kde.org
@@ -34,7 +34,7 @@ dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
 dnl Checking host/target/build systems, for make, install etc.
-AC_CANONICAL_SYSTEM 
+AC_CANONICAL_SYSTEM
 dnl Perform program name transformation
 AC_ARG_PROGRAM
 
@@ -201,6 +201,84 @@ XERCESINCLUDE_PRIOR_1_7="$ac_xerces_includes/xercesc"
 AC_SUBST(XERCESINCLUDE)
 AC_SUBST(XERCESINCLUDE_PRIOR_1_7)
 dnl end sumo-specific header and library search
+
+
+
+dnl Checks for fox-library
+AC_ARG_WITH(fox-libraries,
+    [  --with-fox-libraries=DIR where the FOX library is installed.],
+    [  ac_fox_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for fox-lib])
+if test x"$ac_fox_libraries" = x; then
+   if test -e /usr/lib/libFOX-1.1.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/lib
+      ac_foxlib=FOX-1.1
+   elif test -e /usr/local/lib/libFOX-1.1.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/local/lib
+      ac_foxlib=FOX-1.1
+   elif test -e /usr/local/fox/lib/libFOX-1.1.so; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path=/usr/local/fox/lib/
+      ac_foxlib=FOX-1.1
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-lib not found. Specify path with option --with-fox-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_fox_libraries/libFOX-1.1.so"; then
+      AC_MSG_RESULT([yes])
+      ac_fox_lib_path="$ac_fox_libraries"
+      ac_foxlib=FOX-1.1
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])
+   fi
+fi
+FOX_LDFLAGS="$ac_fox_lib_path"
+AC_SUBST(FOX_LDFLAGS)
+LIB_FOX="$ac_foxlib"
+AC_SUBST(LIB_FOX)
+
+
+dnl Checks for header files.
+dnl Checks for Fox-includes.
+AC_ARG_WITH(fox-includes,
+    [  --with-fox-includes=DIR  where the Fox includes are. ],
+    [
+       ac_fox_includes="$withval"
+    ])
+
+AC_MSG_CHECKING([for fox-includes])
+if test x"$ac_fox_includes" = x; then
+   if test -e /usr/include/fox-1.1; then
+      AC_MSG_RESULT([yes])
+      ac_fox_includes=/usr/include/fox-1.1
+   elif test -e /usr/local/include/fox-1.1; then
+      AC_MSG_RESULT([yes])
+      ac_fox_includes=/usr/local/include/fox-1.1
+   elif test -e /usr/local/fox-1.1/include; then
+      AC_MSG_RESULT([yes])
+      ac_fox_includes=/usr/local/fox-1.1/include
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-includes not found. Specify path with option --with-fox-includes=DIR.])
+   fi
+else
+   if test -e "$ac_fox_includes/FXApp.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([fox-includes not found in "$ac_fox_includes".])
+   fi
+fi
+FOX_INCLUDES="$ac_fox_includes"
+AC_SUBST(FOX_INCLUDES)
+dnl end sumo-specific header and library search
+
 
 
 
