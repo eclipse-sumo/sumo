@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/07/02 08:27:09  dkrajzew
+// possibility to manipulate objects added (preliminary, subject to change)
+//
 // Revision 1.10  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -46,7 +49,6 @@
 //
 // Revision 1.2  2003/04/14 08:24:55  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
-//
 //
 /* =========================================================================
  * included modules
@@ -123,9 +125,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIGlObject.icc"
-//#endif
 
 #endif
 
