@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.8  2003/05/22 12:41:00  roessel
+// Two fixes (& and clear()) and many cout
+//
 // Revision 1.7  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -131,10 +134,12 @@ MSLaneState::MSLaneState( string id,
     // start file-output through MSEventControl
     Command* writeData = new SimpleCommand< MSLaneState >(
         this, &MSLaneState::writeData );
-    MSNet::getInstance()->getEventControl()->addEvent(
-        writeData,
-        sampleIntervalM,
-        MSEventControl::ADAPT_AFTER_EXECUTION );
+
+    // !!!Diese Anweisung erzeugt einen Speicherzugriffsfehler
+//     MSNet::getInstance()->getEventControl()->addEvent(
+//         writeData,
+//         sampleIntervalM,
+//         MSEventControl::ADAPT_AFTER_EXECUTION );
 
     // Write header.
     switch ( styleM ) {
@@ -229,19 +234,36 @@ void
 MSLaneState::addMoveData( MSVehicle& veh,
                           double timestepFraction )
 {
-    cout << "MSLaneState::addMoveData" << endl;
+    cout << "MSLaneState::addMoveData " << idM
+         << endl;
     assert (timestepFraction >= 0);
     assert (timestepFraction <= MSNet::deltaT() );
     if ( ! createdCurrentTimestepDataM ) {
         timestepDataM.push_back( TimestepData() );
+        TimestepData data = timestepDataM.back();
+        createdCurrentTimestepDataM = true;
+        
+        cout << "\ntimestepDataM.size " << timestepDataM.size() << endl;
+        cout << "speedSumM        neu " << data.speedSumM << endl;
+        cout << "contTimestepSumM neu " << data.contTimestepSumM << endl;
     }
     // update timestepDataM
-    TimestepData data = timestepDataM.back();
+    TimestepData& data = timestepDataM.back();
+    
+    cout << "speed            " << veh.speed() << endl;
+//     cout << "speedSumM        " << data.speedSumM << endl;
+    cout << "fraction         " << timestepFraction << endl;
+//     cout << "contTimestepSumM " << data.contTimestepSumM << endl;
+
     data.speedSumM += veh.speed();
     data.speedSquareSumM += veh.speed() * veh.speed();
     data.contTimestepSumM += timestepFraction;
     ++data.timestepSumM;
 
+    cout << "speedSumM        " << data.speedSumM << endl;
+    cout << "contTimestepSumM " << data.contTimestepSumM << endl;
+    cout << "timestepSumM     " << data.timestepSumM << endl;
+    
     // update waitingQueueElemsM
     waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos() , veh.length()));
 }
@@ -317,6 +339,9 @@ MSLaneState::calcWaitingQueueLength( void )
             waitingQueueElemsM.begin();
         for (;;) {
             if ( it+1 == waitingQueueElemsM.end() ) {
+                cout << "MSLaneState::calcWaitingQueueLength " << idM
+                     << " only one "
+                     "veh on detector. Is it queueing???" << endl;
                 break;
             }
             if ( it->posM - it->vehLengthM - (it+1)->posM <
@@ -330,8 +355,11 @@ MSLaneState::calcWaitingQueueLength( void )
         }
         // add nVehQueuing-value to current timestepDataM
         timestepDataM.begin()->queueLengthM = nVehQueuing;
+        waitingQueueElemsM.clear();
     }
-    cout << "MSLaneState::calcWaitingQueueLength only one veh on detector. Is it queueing???" << endl;
+    cout << "MSLaneState::calcWaitingQueueLength " << idM
+         << " no vehicle on detector."
+         << endl;
     createdCurrentTimestepDataM = false;
 }
 
