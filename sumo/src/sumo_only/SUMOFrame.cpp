@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/19 11:01:14  dkrajzew
+// the simulation has default begin and end times now
+//
 // Revision 1.7  2003/06/18 11:21:10  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -84,8 +87,8 @@ SUMOFrame::getOptions()
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     // register the simulation settings
-    oc->doRegister("begin", 'b', new Option_Integer());
-    oc->doRegister("end", 'e', new Option_Integer());
+    oc->doRegister("begin", 'b', new Option_Integer(0));
+    oc->doRegister("end", 'e', new Option_Integer(86400));
     oc->doRegister("route-steps", 's', new Option_Integer(0));
     // register the report options
     oc->doRegister("verbose", 'v', new Option_Bool(false));
