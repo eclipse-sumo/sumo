@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2004/02/05 16:37:51  dkrajzew
+// e3-debugging: only e3-detectors have to remove killed vehicles; storage for detectors to be informed added
+//
 // Revision 1.48  2004/01/26 15:55:55  dkrajzew
 // the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff)
 //
@@ -368,6 +371,7 @@ namespace
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLinkCont.h"
+#include "MSVehicleQuitReminded.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/gfx/RGBColor.h>
@@ -2141,17 +2145,9 @@ MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
             assert(false);
         }
     }
-    // remove from reminders
-        // current
-    for ( rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); ++rem ) {
-        // the vehicle may only be at the entry occupancy correction
-        (*rem)->removeOnTripEnd( this );
-    }
-        // old
-    rem = myOldLaneMoveReminders.begin();
-    for (; rem != myOldLaneMoveReminders.end(); ++rem, ++off ) {
-        (*rem)->removeOnTripEnd( this );
+    // remove from structures to be informed about it
+    for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
+        (*i)->removeOnTripEnd(this);
     }
 }
 
@@ -2191,6 +2187,27 @@ MSVehicle::onDepart()
 {
     myRealDepart = MSNet::getInstance()->getCurrentTimeStep();
 }
+
+
+void
+MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
+{
+    myQuitReminded.push_back(r);
+}
+
+
+void
+MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
+{
+    QuitRemindedVector::iterator i =
+        find(myQuitReminded.begin(), myQuitReminded.end(), r);
+    if(i!=myQuitReminded.end()) {
+        myQuitReminded.erase(i);
+    }
+}
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.32  2004/02/05 16:37:51  dkrajzew
+// e3-debugging: only e3-detectors have to remove killed vehicles; storage for detectors to be informed added
+//
 // Revision 1.31  2004/01/26 15:55:55  dkrajzew
 // the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff)
 //
@@ -261,6 +264,7 @@ class MSVehicleType;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
+class MSVehicleQuitReminded;
 
 
 /* =========================================================================
@@ -707,6 +711,9 @@ public:
     friend class GUIInternalLane; // !!!
     friend class GUILane; // !!!
 
+    void quitRemindedEntered(MSVehicleQuitReminded *r);
+    void quitRemindedLeft(MSVehicleQuitReminded *r);
+
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicle* > DictType;
     static DictType myDict;
@@ -951,6 +958,9 @@ private:
     void activateRemindersByEmitOrLaneChange( void );
 
     MSUnit::Cells movedDistanceDuringStepM;
+
+    typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
+    QuitRemindedVector myQuitReminded;
 
 };
 
