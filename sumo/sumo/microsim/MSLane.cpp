@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.6  2002/04/18 14:05:21  croessel
+// Changed detectCollisions() output from pointer-address to vehicle-id.
+//
 // Revision 1.5  2002/04/17 14:44:32  croessel
 // Forgot to reset visited lanes (see previous revision).
 //
@@ -348,8 +351,9 @@ MSLane::detectCollisions() const
         VehCont::const_iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
-            cerr << "MSLane::detectCollision: Collision of " << *veh 
-                 << " with " << *pred << " on MSLane " << this << endl;
+            cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id() 
+                 << " with " << ( *pred )->id() << " on MSLane " << this 
+                 << endl;
         }
     }
 }
