@@ -41,8 +41,9 @@ RORouteSnippletCont::get(ROEdge *from, ROEdge *to) const
 bool
 RORouteSnippletCont::knows(ROEdge *from, ROEdge *to) const
 {
-    MapType::const_iterator i=_known.find(MapType::key_type(from, to));
-    return i!=_known.end();
+    return false; // !!! should not be used until a validation of net statistics has been made
+/*    MapType::const_iterator i=_known.find(MapType::key_type(from, to));
+    return i!=_known.end();*/
 }
 
 
