@@ -5,13 +5,13 @@
 #include <algorithm>
 #include <cassert>
 
-template<class T>
+template<typename T>
 class InstancePool {
 public:
     InstancePool(bool deleteOnQuit) { }
     ~InstancePool() {
+	typedef typename std::vector<T*>::iterator It;
 	if(myDeleteOnQuit) {
-	    typedef std::vector<T*>::iterator It;
 	    for(It i=myFreeInstances.begin(); i!=myFreeInstances.end(); i++) {
 		delete *i;
 	    }
@@ -41,7 +41,6 @@ public:
 private:
     std::vector<T*> myFreeInstances;
     bool myDeleteOnQuit;
-
 };
 
 

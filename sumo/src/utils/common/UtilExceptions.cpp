@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/02/06 08:45:40  dkrajzew
+// debugged some bugs showing up when compiling under linux
+//
 // Revision 1.6  2004/01/27 10:30:50  dkrajzew
 // debugged the usage of a temporary value returned by reference
 //
@@ -95,7 +98,7 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * InvalidArgument - static variables
  * ----------------------------------------------------------------------- */
-std::string InvalidArgument::myDefaultMessage = "<no description available>";
+std::string UtilException::myDefaultMessage = "<no description available>";
 
 
 /* -------------------------------------------------------------------------
