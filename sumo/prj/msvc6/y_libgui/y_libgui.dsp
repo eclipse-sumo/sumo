@@ -7,19 +7,19 @@
 CFG=y_libgui - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libgui.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libgui.mak" CFG="y_libgui - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "y_libgui - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "y_libgui - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -441,7 +441,15 @@ SOURCE=..\..\..\src\gui\GUIEvents.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUIExcp_VehicleIsInvisible.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUIGlobals.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIGlobalSelection.h
 # End Source File
 # Begin Source File
 
