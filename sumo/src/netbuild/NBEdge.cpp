@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/07/17 12:16:25  dkrajzew
+// gcc seems to be unable to temporary convert a value to a reference; patched
+//
 // Revision 1.19  2003/07/16 15:32:02  dkrajzew
 // some work on the geometry of nodes
 //
@@ -1439,15 +1442,19 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, double width)
         ? width
         : myLaneGeoms[0].length()/2.0;
     if(node==_from) {
-        return GeomHelper::transfer_to_side(
-            myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width),
+	Position2D pos = 
+	    myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width);
+        GeomHelper::transfer_to_side(pos,
             myLaneGeoms[myLaneGeoms.size()-1].at(0), myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[0].size()-1),
             3.5 / 2.0);
+	return pos;
     } else {
-        return GeomHelper::transfer_to_side(
-            myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width),
+	Position2D pos = 
+	    myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width);
+        GeomHelper::transfer_to_side(pos,
             myLaneGeoms[0].at(myLaneGeoms[0].size()-1), myLaneGeoms[0].at(0),
             3.5 / 2.0);
+	return pos;
     }
 }
 
@@ -1459,15 +1466,17 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, double width)
         ? width
         : myLaneGeoms[0].length()/2.0;
     if(node==_from) {
-        return GeomHelper::transfer_to_side(
-            myLaneGeoms[0].positionAtLengthPosition(width),
+	Position2D pos = myLaneGeoms[0].positionAtLengthPosition(width);
+	GeomHelper::transfer_to_side(pos,
             myLaneGeoms[0].at(0), myLaneGeoms[0].at(myLaneGeoms[0].size()-1),
             -3.5 / 2.0);
+	return pos;
     } else {
-        return GeomHelper::transfer_to_side(
-            myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(myLaneGeoms[myLaneGeoms.size()-1].length() - width),
+	Position2D pos = myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(myLaneGeoms[myLaneGeoms.size()-1].length() - width);
+	GeomHelper::transfer_to_side(pos,
             myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[myLaneGeoms.size()-1].size()-1), myLaneGeoms[myLaneGeoms.size()-1].at(0),
             -3.5 / 2.0);
+	return pos;
     }
 }
 
