@@ -12,7 +12,7 @@ MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, long splInterval,
         const std::string &style, const std::string &filename) {
     // get the output style
-    MSDetector::OutputStyle cstyle = convertStyle(style, id);
+    MSDetector::OutputStyle cstyle = convertStyle(id, style);
     // build and check the file
     std::ofstream *file = new std::ofstream(filename.c_str());
     if(!file->good())

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/04/16 06:06:02  dkrajzew
+// Error report on errors while building detectors added.
+//
 // Revision 1.2  2002/04/15 07:05:36  dkrajzew
 // new loading paradigm implemented
 //
@@ -57,6 +60,7 @@ namespace
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/StringTokenizer.h"
 #include "../utils/AttributesHandler.h"
+#include "../utils/UtilExceptions.h"
 #include "NLDetectorBuilder.h"
 #include "NLSAXHandler.h"
 #include "NLNetBuilder.h"
@@ -173,10 +177,12 @@ NLHandlerBuilder2::addDetector(const Attributes &attrs) {
                     _attrHandler.getString(attrs, ATTR_STYLE),
                     _attrHandler.getString(attrs, ATTR_FILE)));
         } catch (XMLBuildingException &e) {
-            SErrorHandler::add(e.getMessage("vehicle", id));
+            SErrorHandler::add(e.getMessage("detector", id));
+        } catch (InvalidArgument &e) {
+            SErrorHandler::add(e.msg());
         }
     } catch (XMLUngivenParameterException &e) {
-        SErrorHandler::add(e.getMessage("vehicle", "(ID_UNKNOWN!)"));
+        SErrorHandler::add(e.getMessage("detector", "(ID_UNKNOWN!)"));
     }  
 }
 
@@ -248,4 +254,5 @@ NLHandlerBuilder2::getMessage() const {
 
 // Local Variables:
 // mode:C++
-// End:
+// 
+
