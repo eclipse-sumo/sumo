@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/28 14:20:45  dkrajzew
+// allowed to specify the maximum edge number in a route by a factor
+//
 // Revision 1.4  2004/01/27 08:51:00  dkrajzew
 // cell processing options added
 //
@@ -151,7 +154,6 @@ fillOptions(OptionsCont &oc)
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(864000));
-    oc.doRegister("unsorted", new Option_Bool(false));
     // register vehicle type defaults
     oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
     oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
@@ -171,6 +173,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("no-last-cell", new Option_Bool(false));
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
+    oc.doRegister("max-edges-factor", new Option_Float(2.0));
 }
 
 

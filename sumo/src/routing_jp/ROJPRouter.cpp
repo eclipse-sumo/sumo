@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/28 14:19:16  dkrajzew
+// allowed to specify the maximum edge number in a route by a factor
+//
 // Revision 1.2  2004/01/26 09:58:15  dkrajzew
 // sinks are now simply marked as these instead of the usage of a further container
 //
@@ -41,6 +44,8 @@ namespace
 #include "ROJPRouter.h"
 #include "ROJPEdge.h"
 #include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -50,17 +55,14 @@ using namespace std;
 
 
 /* =========================================================================
- * definitions
- * ======================================================================= */
-#define SEC_MULT 4
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
 ROJPRouter::ROJPRouter(RONet &net)
     : myNet(net)
 {
+    myMaxEdges = (int) (
+        ((float) net.getEdgeNo()) *
+         OptionsSubSys::getOptions().getFloat("max-edges-factor"));
 }
 
 
@@ -82,15 +84,16 @@ ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
 {
     ROEdgeVector ret;
     ROJPEdge *current = from;
+
     while(  current->getType()!=ROEdge::ET_SINK
             &&
-            ret.size()<myNet.getEdgeNo()*SEC_MULT) {
+            ret.size()<myMaxEdges) {
         ret.add(current);
         time += current->getDuration(time);
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found
-    if(ret.size()>=myNet.getEdgeNo()*SEC_MULT) {
+    if(ret.size()>=myMaxEdges) {
         MsgHandler *mh = 0;
         if(continueOnUnbuild) {
             mh = MsgHandler::getWarningInstance();

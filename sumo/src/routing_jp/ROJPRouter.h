@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/01/28 14:19:20  dkrajzew
+// allowed to specify the maximum edge number in a route by a factor
+//
 // Revision 1.2  2004/01/26 09:58:15  dkrajzew
 // sinks are now simply marked as these instead of the usage of a further container
 //
@@ -74,6 +77,9 @@ private:
 private:
     /// The network to use
     RONet &myNet;
+
+    /// The maximum number of edges a route may have
+    int myMaxEdges;
 
 };
 
