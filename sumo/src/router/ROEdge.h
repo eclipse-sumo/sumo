@@ -2,7 +2,9 @@
 #define ROEdge_h
 
 #include <string>
+#include <map>
 #include <vector>
+#include <utils/router/ValueTimeLine.h>
 
 class ROLane;
 
@@ -14,15 +16,21 @@ private:
     ROEdge *_prevKnot;
     bool _inFrontList;
 	double _effort;
-    std::vector<ROLane*> _lanes;
+    typedef std::map<ROLane*, ValueTimeLine*> LaneUsageCont;
+    LaneUsageCont _laneCont;
+    ValueTimeLine _ownValueLine;
+//    std::vector<ROLane*> _lanes;
     std::vector<ROEdge*> _succeeding;
+    bool _usingTimeLine;
 public:
 	ROEdge(const std::string &id);
 	~ROEdge();
+    void postloadInit();
+
     void setEffort(double effort);
     void addLane(ROLane *lane);
 //    void computeWeight();
-    void setLane(long currentTime, const std::string &scheme,
+    void setLane(long timeBegin, long timeEnd,
         const std::string &id, float value);
     void addSucceeder(ROEdge *s);
     bool isConnectedTo(ROEdge *e);
@@ -34,7 +42,7 @@ public:
     void init();
     void initRootDistance();
     float getEffort() const;
-    float getNextEffort() const;
+    float getNextEffort(long time) const;
     void setEffort(float dist);
     bool isInFrontList() const;
     bool addConnection(ROEdge *to, float effort);
@@ -44,8 +52,7 @@ public:
     void setPrevKnot(ROEdge *prev);
     std::string getID() const;
 protected:
-    void myInit();
-    float getMyEffort() const;
+    float getMyEffort(long time) const;
 private:
     /// we made the copy constructor invalid
     ROEdge(const ROEdge &src);
