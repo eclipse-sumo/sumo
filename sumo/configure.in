@@ -18,7 +18,7 @@ dnl     appropriate).
 dnl This is so we can use kde-common
 AC_CONFIG_AUX_DIR(admin)
 
-AC_CANONICAL_SYSTEM 
+AC_CANONICAL_SYSTEM
 
 dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(sumo,0.7.2)
@@ -71,14 +71,14 @@ fi
 dnl end of sumo-specific configure-options
 
 dnl Checks for programs.
-dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch 
+dnl Das ist von kdevelop/kde bereitgestellter code. Hier wird auch
 dnl -fno-exceptions gesetzt
 AC_CHECK_COMPILERS
 
 dnl CXXFLAGS="$NOOPT_CXXFLAGS" dnl __kdevelop[noopt]__
 dnl CFLAGS="$NOOPT_CFLAGS" dnl __kdevelop[noopt]__
 
-dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach 
+dnl Kann man hiermit exceptions anschalten? Ja, -fexceptions wird einfach
 dnl hinter das standardmaessige -fno-exception geschrieben.
 CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS" dnl __kdevelop[exc]__
 
@@ -237,6 +237,8 @@ AC_OUTPUT(
 ./src/gui/Makefile
 ./src/gui/icons/Makefile
 ./src/gui/icons/view_traffic/Makefile
+./src/gui/partable/Makefile
+./src/gui/vartracker/Makefile
 ./src/guinetload/Makefile
 ./src/guisim/Makefile
 ./src/helpers/Makefile
@@ -263,6 +265,7 @@ AC_OUTPUT(
 ./src/utils/distribution/Makefile
 ./src/utils/geom/Makefile
 ./src/utils/gfx/Makefile
+./src/utils/glutils/Makefile
 ./src/utils/importio/Makefile
 ./src/utils/logging/Makefile
 ./src/utils/options/Makefile
