@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/01 15:26:14  dkrajzew
+// insertion of nodes is now checked, but still unsafe; districts are always weighted
+//
 // Revision 1.2  2003/03/26 12:04:04  dkrajzew
 // debugging for Vissim and Visum-imports
 //
@@ -200,7 +203,7 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
     if(!NBNodeCont::insert(nid, x, y)) {
         x += 0.1;
         y -= 0.1;
-        if(!NBNodeCont::insert(nid, x, y)) {
+        if(!NBNodeCont::insert(nid, x, y, dist)) {
             addError(
                 "Ups, this should not happen: A district lies on a node.");
             return 0;

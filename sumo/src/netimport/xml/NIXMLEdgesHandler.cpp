@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/01 15:26:15  dkrajzew
+// insertion of nodes is now checked, but still unsafe; districts are always weighted
+//
 // Revision 1.4  2003/03/20 16:34:54  dkrajzew
 // windows eol removed
 //
@@ -248,11 +251,17 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                 } else {
                     if(fromNode==0) {
                         fromNode = new NBNode(NBNodeCont::getFreeID(), xb, yb);
-                        NBNodeCont::insert(fromNode);
+                        if(!NBNodeCont::insert(fromNode)) {
+                            cout << "nope, NIVissimDisturbance" << endl;
+                            throw 1;
+                        }
                     }
                     if(toNode==0) {
                         toNode = new NBNode(NBNodeCont::getFreeID(), xe, ye);
-                        NBNodeCont::insert(toNode);
+                        if(!NBNodeCont::insert(toNode)) {
+                            cout << "nope, NIVissimDisturbance" << endl;
+                            throw 1;
+                        }
                     }
                     coherent = true;
                 }

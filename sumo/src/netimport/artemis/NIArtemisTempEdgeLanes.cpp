@@ -165,6 +165,7 @@ NIArtemisTempEdgeLanes::close()
                     SErrorHandler::add(
                         string("Problems on adding a lane-splitting node for edge '")
                         + name + string("'."));
+                    delete node;
                     return;
                 }
             }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/01 15:26:15  dkrajzew
+// insertion of nodes is now checked, but still unsafe; districts are always weighted
+//
 // Revision 1.2  2003/03/12 16:41:06  dkrajzew
 // correct y-position according to new display
 //
@@ -81,8 +84,7 @@ NIVisumParser_Districts::myDependentReport()
         double y =
             TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // build the district
-        NBDistrict *district = new NBDistrict(id, name,
-            sourcesWeighted, destWeighted, x, y);
+        NBDistrict *district = new NBDistrict(id, name, x, y);
         if(!NBDistrictCont::insert(district)) {
             addError(
                 string(" Duplicate district occured ('")
