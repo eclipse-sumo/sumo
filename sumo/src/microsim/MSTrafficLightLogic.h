@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/01/26 07:48:48  dkrajzew
+// added the possibility to trigger detectors when switching
+//
 // Revision 1.11  2003/11/12 13:51:14  dkrajzew
 // visualisation of tl-logics added
 //
@@ -71,8 +74,7 @@
  * ======================================================================= */
 class MSLink;
 class MSEventControl;
-//class GUITrafficLightLogicWrapper;
-//class GUIGlObjectStorage;
+class DiscreteCommand;
 
 
 /* =========================================================================
@@ -166,6 +168,10 @@ public:
     /// Returns this tl-logic's id
     const std::string &id() const;
 
+    void addSwitchAction(DiscreteCommand *a);
+
+    void onSwitch();
+
 /*
     /// Builds the gui-wrapper for this logic
     virtual GUITrafficLightLogicWrapper *buildTLLogicWrapper(
@@ -191,6 +197,9 @@ protected:
     /// The list of links which do participate in this traffic light
     LaneVectorVector myLanes;
 
+    /// The list of actions/commands to execute on switch
+    std::vector<DiscreteCommand*> mySwitchCommands;
+
 private:
     /**
      * Class realising the switch between the traffic light states (phases
@@ -211,7 +220,11 @@ private:
         /** @brief Executes this event
             Executes the regarded junction's "nextPhase"- method */
         MSNet::Time execute() {
-            return _tlLogic->nextPhase();
+            MSNet::Time next = _tlLogic->nextPhase();
+            if(next>1) {
+                _tlLogic->onSwitch();
+            }
+            return next;
         }
 
     private:

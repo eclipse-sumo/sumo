@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/01/26 07:48:48  dkrajzew
+// added the possibility to trigger detectors when switching
+//
 // Revision 1.11  2003/11/24 10:21:21  dkrajzew
 // some documentation added and dead code removed
 //
@@ -69,6 +72,7 @@ namespace
 #include "MSLane.h"
 #include "MSTrafficLightLogic.h"
 #include "MSEventControl.h"
+#include <helpers/DiscreteCommand.h>
 
 
 /* =========================================================================
@@ -279,6 +283,26 @@ const MSTrafficLightLogic::LinkVectorVector &
 MSTrafficLightLogic::getLinks() const
 {
     return myLinks;
+}
+
+
+void
+MSTrafficLightLogic::addSwitchAction(DiscreteCommand *a)
+{
+    mySwitchCommands.push_back(a);
+}
+
+
+void
+MSTrafficLightLogic::onSwitch()
+{
+    for(std::vector<DiscreteCommand*>::iterator i=mySwitchCommands.begin(); i!=mySwitchCommands.end(); ) {
+        if(!(*i)->execute()) {
+            i = mySwitchCommands.erase(i);
+        } else {
+            i++;
+        }
+    }
 }
 
 
