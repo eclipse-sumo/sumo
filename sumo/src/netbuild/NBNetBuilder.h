@@ -24,6 +24,8 @@ public:
     bool save(std::string path, OptionsCont &oc);
     bool save(std::ostream &os, OptionsCont &oc);
 
+    bool netBuild() const;
+
 protected:
 
     void inform(int &step, const std::string &about);
@@ -88,6 +90,8 @@ protected:
 
     void savePlain(const std::string &filename);
 
+protected:
+    bool myHaveBuildNet;
 };
 
 

@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
 // Revision 1.2  2005/01/05 23:07:04  miguelliebe
 // debugging
 //
 // Revision 1.1  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -94,7 +96,7 @@ using namespace std;
  * ======================================================================= */
 FXDEFMAP(GNEViewTraffic) GNEViewTrafficMap[]={
 // new Andreas begin
-	FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GNEViewTraffic::onCmdEditGraph),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GNEViewTraffic::onCmdEditGraph),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,       GUIViewTraffic::onLeftBtnRelease),
 // new Andreas end
 
@@ -112,7 +114,7 @@ GNEViewTraffic::GNEViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis)
     : GUIViewTraffic(p, app, parent, net, glVis)
 {
-	par=parent;
+    par=parent;
 }
 
 
@@ -123,7 +125,7 @@ GNEViewTraffic::GNEViewTraffic(FXComposite *p,
                                FXGLCanvas *share)
     : GUIViewTraffic(p, app, parent, net, glVis, share)
 {
-	par=parent;
+    par=parent;
 }
 
 
@@ -140,9 +142,9 @@ GNEViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
     button->setChecked(!button->amChecked());
     _inEditMode = button->amChecked();
     if(_inEditMode) {
-		static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
+        static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
     } else {
-		static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
+        static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
     }
     recalc();
     _widthInPixels = getWidth();
@@ -160,9 +162,9 @@ GNEViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 
     FXToolBar &toolbar = v.getToolBar(*this);
 
-	new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
-	new MFXCheckableButton(false,
+    new MFXCheckableButton(false,
         &toolbar,
         "\tToggle Editor Tool\tToggle Editor Tool Selection.",
         GUIIconSubSys::getIcon(ICON_EDITGRAPH), this, MID_EDIT_GRAPH,
@@ -175,12 +177,12 @@ long
 GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
 {
     GUIViewTraffic::onLeftBtnRelease(sender, selector, data);
-	FXEvent *e = (FXEvent*) data;
-	//new Andreas
-	if(/*e->state&&*/_inEditMode){
-		_lock.lock();
-		if(makeCurrent())
-	{
+    FXEvent *e = (FXEvent*) data;
+    //new Andreas
+    if(/*e->state&&*/_inEditMode){
+        _lock.lock();
+        if(makeCurrent())
+    {
         // initialise the select mode
         unsigned int id = getObjectUnderCursor();
         GUIGlObject *o = 0;
@@ -191,15 +193,15 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
         }
 
         if(o!=0) {
-			GUIParameterTableWindow *w =
-			o->getParameterWindow(*myApp, *this);
+            GUIParameterTableWindow *w =
+            o->getParameterWindow(*myApp, *this);
         }
         makeNonCurrent();
     }
-	_lock.unlock();
-	}
+    _lock.unlock();
+    }
 
-	//new Andreas
+    //new Andreas
     return 1;
 }
 

@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2005/01/27 14:31:27  dkrajzew
+// Revision 1.3  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
+// Revision 1.2  2005/01/27 14:31:28  dksumo
 // netedit now works using an own MDIChild-window; Graph is translated into a MSNet
 //
 // Revision 1.1  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -217,31 +219,6 @@ void
 GNEViewParent::buildToolBar(FXComposite *c)
 {
     GUISUMOViewParent::buildToolBar(c);
-    /*
-    myToolBar = new FXToolBar(c,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-
-    // build the view settings
-        // recenter view
-    new FXButton(myToolBar,
-        "\tRecenter View\tRecenter view to the simulated Area.",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // show legend
-    new MFXCheckableButton(_showLegend,
-        myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
-        GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // make snapshot
-    new FXButton(myToolBar,
-        "\tMake Snapshot\tMakes a snapshot of the view.",
-        GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // allow rotation
-/*    new MFXCheckableButton(_allowRotation,
-        myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
-        GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-*/
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

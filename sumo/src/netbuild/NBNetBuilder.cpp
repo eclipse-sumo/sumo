@@ -22,6 +22,7 @@
 using namespace std;
 
 NBNetBuilder::NBNetBuilder()
+    : myHaveBuildNet(false)
 {
 }
 
@@ -195,7 +196,7 @@ NBNetBuilder::computeEdgeShapes(int &step)
 
 /** computes the node-internal priorities of links */
 /*bool
-computeLinkPriorities(int step, bool verbose)
+computeLinkPriorities(int &step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -264,9 +265,12 @@ NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
 void
 NBNetBuilder::compute(OptionsCont &oc)
 {
+    if(myHaveBuildNet) {
+        return;
+    }
     bool ok = true;
     int step = 1;
-//    if(ok) ok = setInit(step++);
+//    if(ok) ok = setInit(step);
     //
     if(ok) ok = removeDummyEdges(step);
     gJoinedEdges.init(NBEdgeCont::getAllNames());
@@ -300,6 +304,7 @@ NBNetBuilder::compute(OptionsCont &oc)
     if(!ok) {
         throw ProcessError();
     }
+    myHaveBuildNet = true;
 }
 
 
@@ -481,5 +486,14 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
         oc.set("keep-edges", oss.str());
     }
 }
+
+
+bool
+NBNetBuilder::netBuild() const
+{
+    return myHaveBuildNet;
+}
+
+
 
 

@@ -20,8 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.6  2005/01/27 14:31:27  dkrajzew
-// netedit now works using an own MDIChild-window; Graph is translated into a MSNet
+// Revision 1.7  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
+// Revision 1.4  2005/01/27 14:31:28  dksumo
+// netedit now works using an own MDIChild-window; Graph is translated into a
+//  MSNet
 //
 // Revision 1.5  2004/12/21 16:56:24  agaubatz
 // debug
@@ -66,6 +70,7 @@
 #include "Graph.h"
 #include "ConfigDialog.h"
 #include "InfoDialog.h"
+#include <netbuild/NBNetBuilder.h>
 
 
 /* =========================================================================
@@ -138,10 +143,18 @@ public:
     long onCmdOpen(FXObject*,FXSelector,void*);
     long onCmdReload(FXObject*,FXSelector,void*);
     long onCmdOpenRecent(FXObject*,FXSelector,void*);
-
+    long onCmdImportNet(FXObject*,FXSelector,void*);
     long onCmdClose(FXObject*,FXSelector,void*);
     long onCmdLoadImage(FXObject*,FXSelector,void*);
     long onCmdSaveImage(FXObject*,FXSelector,void*);
+    long onCmdSaveEdgesNodes(FXObject*,FXSelector,void*);
+    long onCmdSaveNet(FXObject*,FXSelector,void*);
+
+    long onUpdOpen(FXObject*,FXSelector,void*);
+    long onUpdReload(FXObject*,FXSelector,void*);
+    long onUpdSaveImage(FXObject*,FXSelector,void*);
+    long onUpdSaveEdgesNodes(FXObject*,FXSelector,void*);
+    long onUpdSaveNet(FXObject*,FXSelector,void*);
 
     /** @brief Called by FOX if the application shall be closed
         Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
@@ -151,65 +164,7 @@ public:
     virtual long onCmdEditAddWeights(FXObject*,FXSelector,void*);
     long onCmdEditBreakpoints(FXObject*,FXSelector,void*);
 
-    //!!!!! Menu Einträge von Andreas (Anfang)
-/*
-    /// Extracts the bitmaps´ pixels which are determined as road area
-    long onCmdExtractStreets(FXObject*,FXSelector,void*);
 
-    /// Erodes the Bitmap (only 0/1-Bitmap)
-    long onCmdErode(FXObject*,FXSelector,void*);
-
-    /// Dilates the Bitmap (only 0/1-Bitmap)
-    long onCmdDilate(FXObject*,FXSelector,void*);
-
-    /// Creates an morphological opening (dilatation followed by erosion) of the Image
-    /// (only 0/1-Bitmap)
-    long onCmdOpening(FXObject*,FXSelector,void*);
-
-    /// Creates an morphological closing (erosion followed by dilatation) of the Image
-    /// (only 0/1-Bitmap)
-    long onCmdClosing(FXObject*,FXSelector,void*);
-
-    /// minimizes small white areas in a black surronding (only 0/1-Bitmap)
-    long onCmdCloseGaps(FXObject*,FXSelector,void*);
-
-    /// Filters small black Spots in the Image (only 0/1-Bitmap)
-    long onCmdEraseStains(FXObject*,FXSelector,void*);
-
-    /// Skeletonizes the image (only 0/1-Bitmap)
-    long onCmdSkeletonize(FXObject*,FXSelector,void*);
-
-    /// Creates a graph from the ´street skeleton´
-    long onCmdCreateGraph(FXObject*,FXSelector,void*);
-
-    //Opens a Dialog Window for Image-Filter Configuration
-    long onCmdShowBMPDialog(FXObject*,FXSelector,void*);
-*/
-    /*
-    /// Opens the Show Graph on empty Bitmap Dialog
-    long onCmdShowGraphOnEmptyBitmap(FXObject*,FXSelector,void*);
-
-    /// Opens the Show Graph on actial Bitmap Dialog
-    long onCmdShowGraphOnActualBitmap(FXObject*,FXSelector,void*);
-
-    /// Opens the Reduce Vertices Dialog
-    long onCmdReduceVertexes(FXObject*,FXSelector,void*);
-
-    /// Opens the Reduce Vertices Plus Dialog
-    long onCmdReduceVertexesPlus(FXObject*,FXSelector,void*);
-
-    /// Opens the Reduce Edges Dialog
-    long onCmdReduceEdges(FXObject*,FXSelector,void*);
-
-    /// Opens the Merge Vertices Dialog
-    long onCmdMergeVertexes(FXObject*,FXSelector,void*);
-
-    /// Opens the Export Vertices XML Dialog
-    long onCmdExportVertexesXML(FXObject*,FXSelector,void*);
-
-    /// Opens the Export Edges XML Dialog
-    long onCmdExportEdgesXML(FXObject*,FXSelector,void*);
-*/
     /// Opens the application settings menu
     long onCmdAppSettings(FXObject*,FXSelector,void*);
 
@@ -226,8 +181,6 @@ public:
     long onCmdNewMicro(FXObject*,FXSelector,void*);
     long onCmdNewLaneA(FXObject*,FXSelector,void*);
 
-    long onUpdOpen(FXObject*,FXSelector,void*);
-    long onUpdReload(FXObject*,FXSelector,void*);
     long onUpdAddMicro(FXObject*,FXSelector,void*);
     long onUpdAddALane(FXObject*,FXSelector,void*);
     long onUpdStart(FXObject*,FXSelector,void*);
@@ -391,6 +344,8 @@ protected:
 
     //flag for Streetextraction..Algorithm may only be used once
 //  bool extrFlag;
+
+    NBNetBuilder myNetBuilder;
 
 };
 

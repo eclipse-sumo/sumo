@@ -1,6 +1,32 @@
 #ifndef GNEImageProcWindow_h
 #define GNEImageProcWindow_h
+//---------------------------------------------------------------------------//
+//                        GNEApplicationWindow.h -
+//  The map manipulation window
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Wed, 26 Jan 2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <fx.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include "Image.h"
@@ -8,13 +34,22 @@
 #include "ConfigDialog.h"
 #include "Graph.h"
 #include <utils/common/MsgHandler.h>
+#include <netbuild/NBNetBuilder.h>
 
 #include "GNEApplicationWindow.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GNEImageProcWindow
+ * This MDIChild allows to display and manipulate a loaded map
+ */
 class GNEImageProcWindow : public GUIGlChildWindow {
     FXDECLARE(GNEImageProcWindow)
 public:
-    GNEImageProcWindow( GNEApplicationWindow *parent,
+    GNEImageProcWindow( GNEApplicationWindow *parent, NBNetBuilder *nb,
         FXMDIClient* p, FXMDIMenu *mdimenu,
         Image *img, bool extrFlag, const FXString& name,
         FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,
@@ -129,9 +164,18 @@ protected:
 
     GNEApplicationWindow *myParent;
 
+    NBNetBuilder *myNetBuilder;
+
+
 protected:
     GNEImageProcWindow() { }
 };
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:

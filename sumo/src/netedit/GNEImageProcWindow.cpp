@@ -1,9 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        GNEImageProcWindow.cpp
+//  The map manipulation window
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Wed, 26 Jan 2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <fx.h>
 #include "GNEImageProcWindow.h"
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -83,6 +114,7 @@ FXIMPLEMENT(GNEImageProcWindow, FXMDIChild, GNEImageProcWindowMap, ARRAYNUMBER(G
  * member method definitions
  * ======================================================================= */
 GNEImageProcWindow::GNEImageProcWindow(GNEApplicationWindow *parent,
+                                       NBNetBuilder *nb,
                                        FXMDIClient* p, FXMDIMenu *mdimenu,
                                        Image *img, bool extrFlag,
                                        const FXString& name,
@@ -90,7 +122,7 @@ GNEImageProcWindow::GNEImageProcWindow(GNEApplicationWindow *parent,
                                        FXint x,FXint y,FXint w,FXint h)
     : GUIGlChildWindow( p, mdimenu, name, ic),
     m_img(img), myGraphFlag(false), mySkelFlag(false), myExtrFlag(extrFlag),
-    myParent(parent)
+    myParent(parent), myNetBuilder(nb)
 
 {
     myErrorRetriever = new MsgRetrievingFunction<GNEImageProcWindow>(this,
@@ -194,14 +226,9 @@ GNEImageProcWindow::GNEImageProcWindow(GNEApplicationWindow *parent,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
     // build the image canvas
-    /*
-    FXHorizontalFrame *canvasFrame =
-        new FXHorizontalFrame(contentFrame,
-        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-        0,0,0,0,0,0,0,0);
-        */
     myImageViewer = new FXImageView(contentFrame, 0, this, MID_MAP_IMAGEVIEWER,
         LAYOUT_FILL_X|LAYOUT_FILL_Y);
+    myImageViewer->setBackColor(FXRGB(192, 192, 192));
     myImageViewer->setImage(m_img->GetFXImage());
 }
 
@@ -229,9 +256,6 @@ GNEImageProcWindow::create()
     myImageViewer->create();
     myPaintPop->create();
     myRubberPop->create();
-//    myIMGToolBarDrag->create();
-//    myImageMenu->create();
-//    myGraphMenu->create();
 }
 
 
@@ -244,15 +268,6 @@ GNEImageProcWindow::onCmdExtractStreets(FXObject*,FXSelector,void*)
         m_img->ExtractStreets();
         m_img->GetFXImage()->render();
         myImageViewer->update();
-        /*
-        FXDCWindow dc(myCanvas);
-        if(m_img)
-        {
-            m_img->ExtractStreets();
-            m_img->GetFXImage()->render();
-            dc.drawImage(m_img->GetFXImage(),0,0);
-        }
-        */
     }
     else {
         myInfoDialog->show();
@@ -266,15 +281,6 @@ GNEImageProcWindow::onCmdErode(FXObject*,FXSelector,void*)
     m_img->Erode(myConfigDialog);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->Erode(dialog);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -284,15 +290,6 @@ GNEImageProcWindow::onCmdDilate(FXObject*,FXSelector,void*)
     m_img->Dilate(myConfigDialog);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->Dilate(dialog);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -303,15 +300,6 @@ GNEImageProcWindow::onCmdOpening(FXObject*,FXSelector,void*)
     m_img->Opening(myConfigDialog);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->Opening(dialog);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -321,15 +309,6 @@ GNEImageProcWindow::onCmdClosing(FXObject*,FXSelector,void*)
     m_img->Closing(myConfigDialog);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->Closing(dialog);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -339,15 +318,6 @@ GNEImageProcWindow::onCmdCloseGaps(FXObject*,FXSelector,void*)
     m_img->CloseGaps();
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->CloseGaps();
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -361,16 +331,6 @@ GNEImageProcWindow::onCmdSkeletonize(FXObject*,FXSelector,void*)
         m_img->CreateSkeleton();
         m_img->GetFXImage()->render();
         myImageViewer->update();
-
-        /*
-        FXDCWindow dc(myCanvas);
-        if(m_img)
-        {
-            m_img->CreateSkeleton();
-            m_img->GetFXImage()->render();
-            dc.drawImage(m_img->GetFXImage(),0,0);
-        }
-        */
     }
     else {
         myInfoDialog->show();
@@ -384,15 +344,6 @@ GNEImageProcWindow::onCmdEraseStains(FXObject*,FXSelector,void*)
     m_img->EraseStains(myConfigDialog);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->EraseStains(dialog);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -433,13 +384,12 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
         myGraph = leergraph;
         Graph* gr =new Graph();
         gr=&myGraph;
-//      FXDCWindow dc(myCanvas);
         if(m_img)
         {
             //
             OptionsCont &oc = OptionsSubSys::getOptions();
             oc.clear();
-            NBNetBuilder::insertNetBuildOptions(oc);
+            myNetBuilder->insertNetBuildOptions(oc);
             RandHelper::insertRandOptions(oc);
             oc.set("verbose", true);
             oc.set("no-node-removal", true);
@@ -449,19 +399,18 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             gr->Reduce_plus(myConfigDialog);
             m_img->GetFXImage()->render();
             myImageViewer->update();
-//          dc.drawImage(m_img->GetFXImage(),0,0);
             vector<Edge*> edges = gr->GetEArray();
             for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
                 Edge*e = *i;
                 string name = "e" + toString<int>(idbla++);
-                Position2D fromPos(e->GetStartingVertex()->GetX(), e->GetStartingVertex()->GetY());
+                Position2D fromPos(e->GetStartingVertex()->GetX(), -e->GetStartingVertex()->GetY());
                 NBNode *fromNode = NBNodeCont::retrieve(fromPos);
                 if(fromNode==0) {
                     string fname = "n" + toString<int>(idbla++);
                     fromNode = new NBNode(fname, fromPos);
                     NBNodeCont::insert(fromNode);
                 }
-                Position2D toPos(e->GetEndingVertex()->GetX(), e->GetEndingVertex()->GetY());
+                Position2D toPos(e->GetEndingVertex()->GetX(), -e->GetEndingVertex()->GetY());
                 NBNode *toNode = NBNodeCont::retrieve(toPos);
                 if(toNode==0) {
                     string tname = "n" + toString<int>(idbla++);
@@ -478,16 +427,9 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 }
             }
             //
-            NBNetBuilder nb;
-            nb.compute(oc);
+            myNetBuilder->compute(oc);
             std::ostringstream strm;
-            nb.save(strm, oc);
-            // !!!
-            string description = strm.str();
-            ofstream bla("d:\\test.net.xml");
-            bla << description;
-            bla.close();
-            // !!!
+            myNetBuilder->save(strm, oc);
             //
             OptionsSubSys::getOptions().clear();
             OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/);
@@ -503,7 +445,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 SUMOFrame::setMSGlobals(oc);
                 net = static_cast<GUINet*>(
                     builder->buildNetworkFromDescription(
-                        buildVehicleControl(), description/*!!!strm.str()*/));
+                        buildVehicleControl(), strm.str()));
                 RandHelper::initRandGlobal(oc);
                 GUIEvent *e =
                     new GUIEvent_SimulationLoaded(
@@ -549,16 +491,6 @@ GNEImageProcWindow::onCmdShowGraphOnEmptyBitmap(FXObject*,FXSelector,void*)
     m_img->DrawGraph(myGraph);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-    /*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->EmptyImage();
-        m_img->DrawGraph(graph);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
@@ -568,24 +500,12 @@ GNEImageProcWindow::onCmdShowGraphOnActualBitmap(FXObject*,FXSelector,void*)
     m_img->DrawGraph(myGraph);
     m_img->GetFXImage()->render();
     myImageViewer->update();
-/*
-    FXDCWindow dc(myCanvas);
-    if(m_img)
-    {
-        m_img->DrawGraph(graph);
-        m_img->GetFXImage()->render();
-        dc.drawImage(m_img->GetFXImage(),0,0);
-    }
-    */
     return 1;
 }
 
 long
 GNEImageProcWindow::onCmdReduceVertexes(FXObject*,FXSelector,void*)
 {
-    /*
-    graph.Reduce();
-    */
     return 1;
 
 }

@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/01/31 09:27:35  dkrajzew
+// added the possibility to save nodes and edges or the build network to netedit
+//
 // Revision 1.2  2005/01/05 23:07:04  miguelliebe
 // debugging
 //
 // Revision 1.1  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
-//
 //
 /* =========================================================================
  * included modules
@@ -98,11 +100,11 @@ public:
 
     long onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data);
 
-	long onCmdEditGraph(FXObject*,FXSelector,void*);
+    long onCmdEditGraph(FXObject*,FXSelector,void*);
 
 protected:
 
-	GUISUMOViewParent *par;
+    GUISUMOViewParent *par;
 
 
 protected:
