@@ -27,6 +27,8 @@ public:
                    MAX_JAM_LENGTH_IN_METERS,
                    JAM_LENGTH_SUM_IN_VEHICLES,
                    JAM_LENGTH_SUM_IN_METERS,
+                   QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
+                   QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
                    ALL };
     enum Containers { COUNTER = 0, VEHICLES, HALTINGS };    
     
@@ -56,7 +58,7 @@ public:
                                       haltingSpeedThreshold ) ),
           jamDistThresholdM( MSUnit::getInstance()->getCells(
                                  jamDistThreshold ) ),
-          detectorsM(5),
+          detectorsM(7),
           containersM(3)
         {
             assert( laneM != 0 );
@@ -140,6 +142,20 @@ public:
                     createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
                     break;
                 }
+                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
+                {
+                    createDetector(
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
+                        detId );
+                    break;
+                }
+                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
+                {
+                    createDetector(
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
+                        detId );
+                    break;
+                }
                 case ALL:
                 {
                     createDetector( DENSITY, detId );
@@ -147,6 +163,12 @@ public:
                     createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
                     createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
                     createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
+                    createDetector(
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES,
+                        detId );
+                    createDetector(
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS,
+                        detId );                  
                     break;
                 }
                 default:
@@ -513,13 +535,40 @@ private:
                     
                     break;
                 }
+                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
+                {
+                    if ( detectorsM[ MAX_JAM_LENGTH_IN_VEHICLES ] == 0 ) {
+                        createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
+                    }
+                    detectorsM[
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ] =
+                        new E2QueueLengthAheadOfTrafficLightsInVehicles(
+                            E2JamLengthSumInMeters::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *detectorsM[ MAX_JAM_LENGTH_IN_VEHICLES ] );
+                    break;
+                }
+                case QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
+                {
+                    if ( detectorsM[ MAX_JAM_LENGTH_IN_METERS ] == 0 ) {
+                        createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
+                    }
+                    detectorsM[
+                        QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ] =
+                        new E2QueueLengthAheadOfTrafficLightsInVehicles(
+                            E2JamLengthSumInMeters::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *detectorsM[ MAX_JAM_LENGTH_IN_METERS ] );
+                    break;
+                }
                 default:
                 {
                     assert( 0 );
                 }
             }
-        }
-                
+        }        
 };
 
 
