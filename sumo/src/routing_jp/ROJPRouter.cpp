@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/02/02 16:20:16  dkrajzew
+// catched the problems with dead end edges
+//
 // Revision 1.3  2004/01/28 14:19:16  dkrajzew
 // allowed to specify the maximum edge number in a route by a factor
 //
@@ -84,8 +87,10 @@ ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
 {
     ROEdgeVector ret;
     ROJPEdge *current = from;
-
-    while(  current->getType()!=ROEdge::ET_SINK
+    // route until a sinks has been found
+    while(  current!=0
+            &&
+            current->getType()!=ROEdge::ET_SINK
             &&
             ret.size()<myMaxEdges) {
         ret.add(current);
@@ -102,6 +107,10 @@ ROJPRouter::jpCompute(ROJPEdge *from, long time, bool continueOnUnbuild)
         }
         mh->inform(string("The route starting at edge '") + from->getID()
             + string("' could not be closed."));
+    }
+    // append the sink
+    if(current!=0) {
+        ret.add(current);
     }
     return ret;
 }
