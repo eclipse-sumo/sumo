@@ -24,6 +24,10 @@ namespace
 } 
 
 // $Log$
+// Revision 1.4  2002/04/18 14:30:24  croessel
+// Bug in Revision 1.3 changes. Return State( pos, speed = 0 ) instead of
+// myState.
+//
 // Revision 1.3  2002/04/17 10:58:24  croessel
 // Introduced dontMoveGap to handle floating-point-inaccuracy. Vehicles
 // will keep their state if gap2pred is smaller.
@@ -505,7 +509,7 @@ MSVehicle::nextState( MSLane* lane,
     // Don't move if gap2pred < dontMoveGap to handle arithmetic inaccuracy.
     if ( gap2pred < dontMoveGap ) {
 
-        return myState;
+        return State( myState.pos(), 0 );
     }
 
     // Pragmatic solution: ignore neighbours
@@ -541,7 +545,7 @@ MSVehicle::nextState( MSLane* lane, double gap ) const
     // Don't move if gap < dontMoveGap to handle arithmetic inaccuracy.
     if ( gap < dontMoveGap ) {
 
-        return myState;
+        return State( myState.pos(), 0 );
     }
 
     // TODO
