@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/17 10:42:13  dkrajzew
+// usage of adaption type for mismatched times reimplemented
+//
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //
@@ -141,15 +144,10 @@ bool
 MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
                           AdaptType type )
 {
-//      if(type==ADAPT_AFTER_EXECUTION&&execTime<=myTime) {
-//          execTime = myTime+1;
-//      }
     MSNet::Time currTime = MSNet::getInstance()->timestep();
-    if ( execTime <= currTime ) {
-        execTime = currTime + 1;
-        cerr << "MSEventControl::addEvent: execTime <= currTime" << endl;
+    if(type==ADAPT_AFTER_EXECUTION&&execTime<=currTime) {
+        execTime = currTime+1;
     }
-
     Event newEvent = Event( operation, execTime );
     myEvents.push( newEvent );
     return true;
