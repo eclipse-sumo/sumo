@@ -26,7 +26,7 @@ public:
     enum EventElements {
         EE_ID,
         EE_VEHICLE_ROUTE_ID,
-        EE_VEHICLE_SPEED,
+        EE_VEHICLE_SPEED
     };
 
     MSDiscreteEventControl();
