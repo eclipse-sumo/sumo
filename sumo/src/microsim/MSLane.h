@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2003/06/05 16:02:55  dkrajzew
+// min and max-methods added (MSVC++ does not know them
+//
 // Revision 1.11  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -662,6 +665,13 @@ private:
     static DictType myDict;
 
 private:
+    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
+    inline double min(double v1, double v2) const
+        { return ((v1 < v2) ? v1 : v2); };
+    inline double max(double v1, double v2) const
+        { return ((v1 > v2) ? v1 : v2); };
+
+
     /// Default constructor.
     MSLane();
 
