@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2004/04/02 11:08:35  dkrajzew
+// storing settings in a registry added (window size and last folder used)
+//
 // Revision 1.30  2004/03/19 12:54:07  dkrajzew
 // porting to FOX
 //
@@ -295,10 +298,13 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 void
 GUIApplicationWindow::create()
 {
-    setX(getApp()->reg().readIntEntry("SETTINGS","x",150));
-    setY(getApp()->reg().readIntEntry("SETTINGS","y",150));
-    setWidth(getApp()->reg().readIntEntry("SETTINGS","width",600));
-    setHeight(getApp()->reg().readIntEntry("SETTINGS","height",400));
+    if(getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==0) {
+        setX(getApp()->reg().readIntEntry("SETTINGS","x",150));
+        setY(getApp()->reg().readIntEntry("SETTINGS","y",150));
+        setWidth(getApp()->reg().readIntEntry("SETTINGS","width",600));
+        setHeight(getApp()->reg().readIntEntry("SETTINGS","height",400));
+    }
+    gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS","basedir", "");
     FXMainWindow::create();
     myMenuBarDrag->create();
     myToolBarDrag->create();
@@ -308,6 +314,9 @@ GUIApplicationWindow::create()
     myWindowsMenu->create();
     myHelpMenu->create();
     show(PLACEMENT_SCREEN);
+    if(getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==1) {
+        maximize();
+    }
     // recheck the maximum sizes
 
 //!!!!    FXWindow *root = getApp()->getRootWindow();
@@ -484,6 +493,12 @@ GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*)
     getApp()->reg().writeIntEntry("SETTINGS","y",getY());
     getApp()->reg().writeIntEntry("SETTINGS","width",getWidth());
     getApp()->reg().writeIntEntry("SETTINGS","height",getHeight());
+    getApp()->reg().writeStringEntry("SETTINGS","basedir", gCurrentFolder.c_str());
+    if(isMaximized()) {
+        getApp()->reg().writeIntEntry("SETTINGS","maximized", 1);
+    } else {
+        getApp()->reg().writeIntEntry("SETTINGS","maximized", 0);
+    }
     getApp()->exit(0);
     return 1;
 }
@@ -507,7 +522,11 @@ GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this,"Open Document");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.sumo.cfg");
+    if(gCurrentFolder.length()!=0) {
+        opendialog.setDirectory(gCurrentFolder.c_str());
+    }
     if(opendialog.execute()){
+        gCurrentFolder = opendialog.getDirectory().text();
 		string file = string(opendialog.getFilename().text());
         load(file);
     }
@@ -754,7 +773,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         string text = string("'") + ec->_file + string("' loaded.");
         myStatusbar->getStatusLine()->setText(text.c_str());
         // initialise simulation thread
-        myRunThread->init(ec->_net, ec->_begin, ec->_end, ec->_craw);
+        myRunThread->init(ec->_net, ec->_begin, ec->_end);
         _wasStarted = false;
         // initialise views
         myViewNumber = 0;
