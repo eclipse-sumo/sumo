@@ -121,6 +121,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDensity.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetector2File.cpp
 # End Source File
 # Begin Source File
@@ -229,6 +233,10 @@ SOURCE=..\..\src\microsim\MSRouteLoaderControl.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSSimpleTrafficLightLogic.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSSource.cpp
 # End Source File
 # Begin Source File
@@ -258,6 +266,10 @@ SOURCE=..\..\src\microsim\MSTriggeredSourceXMLHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSTriggeredXMLReader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSUnit.cpp
 # End Source File
 # Begin Source File
 
@@ -453,11 +465,19 @@ SOURCE=..\..\src\utils\dev\MemDiff.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSActuatedPhaseDefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSActuatedTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSBitSetLogic.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDensity.h
 # End Source File
 # Begin Source File
 
@@ -474,6 +494,10 @@ SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\actions\MSDiscreteEventControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSE2Detector.h
 # End Source File
 # Begin Source File
 
@@ -553,6 +577,10 @@ SOURCE=..\..\src\microsim\MSNoLogicJunction.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSPhaseDefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSRightOfWayJunction.h
 # End Source File
 # Begin Source File
@@ -614,6 +642,10 @@ SOURCE=..\..\src\microsim\MSTriggeredSourceXMLHandler.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSTriggeredXMLReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSUnit.h
 # End Source File
 # Begin Source File
 
