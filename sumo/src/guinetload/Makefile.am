@@ -8,5 +8,5 @@ GUINetBuilder.cpp GUINetBuilder.h GUINetHandler.cpp GUINetHandler.h \
 GUIJunctionControlBuilder.cpp GUIJunctionControlBuilder.h \
 GUIDetectorBuilder.cpp GUIDetectorBuilder.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src \
+AM_CPPFLAGS = -I$(top_srcdir)/src  $(QT_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
