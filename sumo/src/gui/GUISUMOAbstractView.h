@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2004/07/02 08:32:10  dkrajzew
+// changes due to the global object selection applied; some debugging (on zoom)
+//
 // Revision 1.13  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
 //
@@ -141,7 +144,8 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    void centerTo(GUIGlObjectType type, const std::string &name);
+    void centerTo(GUIGlObjectType type, const std::string &name,
+        const std::string &fullName);
 
     /// meter-to-pixels conversion method
     double m2p(double meter);
@@ -195,22 +199,30 @@ public:
      * This enumeration holds the possible vehicle colouring schemes
      */
     enum VehicleColoringScheme {
-	    /// colouring by vehicle speed
+        /// colouring by vehicle speed
         VCS_BY_SPEED = 0,
-	    /// use the colour specified in the input
+        /// use the colour specified in the input
         VCS_SPECIFIED = 1,
-	    /// use random scheme 1
-        VCS_RANDOM1 = 2,
-	    /// use random scheme 2
-        VCS_RANDOM2 = 3,
-	    /// use lanechanging scheme 1
-        VCS_LANECHANGE1 = 4,
-	    /// use lanechanging scheme 2
-        VCS_LANECHANGE2 = 5,
+        /// use the type color
+        VCS_TYPE = 2,
+        /// use the route color
+        VCS_ROUTE = 3,
+        /// use random scheme 1
+        VCS_RANDOM1 = 4,
+        /// use random scheme 2
+        VCS_RANDOM2 = 5,
+        /// use lanechanging scheme 1
+        VCS_LANECHANGE1 = 6,
+        /// use lanechanging scheme 2
+        VCS_LANECHANGE2 = 7,
         /// use lanechanging scheme 3
-        VCS_LANECHANGE3 = 6,
+        VCS_LANECHANGE3 = 8,
         /// use waiting scheme 1
-        VCS_WAITING1 = 7
+        VCS_WAITING1 = 9,
+        /// use the route change offset
+        VCS_ROUTECHANGEOFFSET = 10,
+        /// use the route change offset
+        VCS_ROUTECHANGENUMBER = 11
     };
 
     /**
@@ -220,7 +232,7 @@ public:
     enum LaneColoringScheme {
         /// all lanes will be black
         LCS_BLACK = 0,
-	    /** colouring by purpose of the edge the lane lies in
+        /** colouring by purpose of the edge the lane lies in
             (sources:blue, sinks:red, normal:black) */
         LCS_BY_PURPOSE = 1,
         /// use the lane's speed
@@ -241,7 +253,7 @@ public:
      * This enumeration holds the possible vehicle colouring schemes
      */
     enum JunctionColoringScheme {
-	    /// colouring by vehicle speed
+        /// colouring by vehicle speed
         VCS_BY_TYPE = 0
     };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/07/02 08:32:10  dkrajzew
+// changes due to the global object selection applied; some debugging (on zoom)
+//
 // Revision 1.19  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
 //
@@ -136,6 +139,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/convert/ToString.h>
+#include "GUIExcp_VehicleIsInvisible.h"
 #include "GUIGLObjectToolTip.h"
 #include "GUIAppEnum.h"
 #include "GUIGlobals.h"
@@ -147,6 +151,7 @@ namespace
 #include "GUIApplicationWindow.h"
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <gui/textures/GUITexturesHelper.h>
+#include <gui/GUIGlobalSelection.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -332,6 +337,9 @@ GUISUMOAbstractView::paintGL()
     // draw
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_POINT_SMOOTH);
+    glDisable(GL_LINE_SMOOTH);
+    glDisable(GL_POLYGON_SMOOTH);
 
     applyChanges(1.0, 0, 0);
     if(_showGrid) {
@@ -389,8 +397,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
         unsigned int id = hits[i*4+3];
-        GUIGlObject *o =
-            _net->getIDStorage().getObjectBlocking(id);
+        GUIGlObject *o = gIDStorage.getObjectBlocking(id);
         if(o==0) {
             continue;
         }
@@ -399,7 +406,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
             idMax = id;
             prevType = type;
         }
-        _net->getIDStorage().unblockObject(id);
+        gIDStorage.unblockObject(id);
         assert (i*4+3<NB_HITS_MAX);
     }
     return idMax;
@@ -410,10 +417,10 @@ void
 GUISUMOAbstractView::showToolTipFor(unsigned int id)
 {
     if(id!=0) {
-        GUIGlObject *object = _net->getIDStorage().getObjectBlocking(id);
+        GUIGlObject *object = gIDStorage.getObjectBlocking(id);
         _toolTip->setObjectTip(object, _mouseX, _mouseY);
         if(object!=0) {
-            _net->getIDStorage().unblockObject(id);
+            gIDStorage.unblockObject(id);
         }
     } else {
         _toolTip->hide();
@@ -618,53 +625,40 @@ GUISUMOAbstractView::recenterView()
 
 void
 GUISUMOAbstractView::centerTo(GUIGlObjectType type,
-                              const std::string &name)
+                              const std::string &microsimID,
+                              const std::string &fullName)
 {
     switch(type) {
     case GLO_NETWORK:
-        {
-            centerTo(_net->getBoundery());
-        }
+        centerTo(_net->getBoundery());
         break;
     case GLO_JUNCTION:
-        {
-            Position2D pos = _net->getJunctionPosition(name);
-            centerTo(pos, 50); // !!! the radius should be variable
-        }
+        centerTo(_net->getJunctionPosition(microsimID), 20);
         break;
     case GLO_LANE:
-        {
-            Boundery bound =
-                _net->getEdgeBoundery(name.substr(0, name.find_last_of("_")));
-            bound.grow(20.0);
-            centerTo(bound);
-        }
+        centerTo(_net->getEdgeBoundery(
+            microsimID.substr(0, microsimID.find_last_of("_"))).grow(20));
         break;
     case GLO_EDGE:
-        {
-            Boundery bound = _net->getEdgeBoundery(name);
-            bound.grow(20.0);
-            centerTo(bound);
-        }
+        centerTo(_net->getEdgeBoundery(microsimID).grow(20));
         break;
     case GLO_VEHICLE:
-        {
-            if(_net->vehicleExists(name)) {
-                Position2D pos = _net->getVehiclePosition(name);
+        try {
+            if(_net->vehicleExists(microsimID)) {
+                Position2D pos = _net->getVehiclePosition(microsimID);
                 centerTo(pos, 20); // !!! another radius?
             }
+        } catch (GUIExcp_VehicleIsInvisible) {
         }
         break;
     case GLO_DETECTOR:
-        {
-            Position2D pos = _net->getDetectorPosition(name);
-            centerTo(pos, 20); // !!! the radius should be variable
-        }
-        break;
     case GLO_EMITTER:
+    case GLO_LANESPEEDTRIGGER:
         {
-            Position2D pos = _net->getEmitterPosition(name);
-            centerTo(pos, 20); // !!! the radius should be variable
+            GUIGlObject_AbstractAdd *o =
+                GUIGlObject_AbstractAdd::get(fullName);
+            assert(o!=0);
+            centerTo(o->getPosition(), 10);
         }
         break;
     default:
@@ -713,7 +707,7 @@ GUISUMOAbstractView::makeCurrent()
 {
     _lock.lock();
     FXbool ret = FXGLCanvas::makeCurrent();
-	_lock.unlock();
+    _lock.unlock();
     return ret;
 }
 
@@ -792,12 +786,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
         if(makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
             if(id!=0) {
-                // (de)select the object if it's one
-                if(!gfIsSelected(-1, id)) {
-                    gfSelect(-1, id);
-                } else {
-                    gfDeselect(-1, id);
-                }
+                gSelected.addObjectChecking(id, e->state&SHIFTMASK);
             }
             makeNonCurrent();
             if(id!=0) {
@@ -872,7 +861,7 @@ GUISUMOAbstractView::onRightMouseTimeOut(FXObject *o,FXSelector sel,void *data)
         unsigned int id = getObjectUnderCursor();
         GUIGlObject *o = 0;
         if(id!=0) {
-            o = _net->getIDStorage().getObjectBlocking(id);
+            o = gIDStorage.getObjectBlocking(id);
         } else {
             o = _net->getWrapper();
         }
@@ -953,22 +942,22 @@ GUISUMOAbstractView::getNet() const
 }
 
 
-void 
+void
 GUISUMOAbstractView::drawPolygon2D(Polygon2D &polygon)
-{   
+{
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBegin(GL_POLYGON);
 
     RGBColor color = polygon.getColor();
-    glColor3f(color.red(),color.green(),color.blue()); 
+    glColor3f(color.red(),color.green(),color.blue());
     Position2DVector position2dV = polygon.getPosition2DVector();
 
-	const Position2DVector::ContType &l = position2dV.getCont();
-	for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-		const Position2D &p = *i;
-		glVertex2f(p.x(), p.y());
-	}
-   
+    const Position2DVector::ContType &l = position2dV.getCont();
+    for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
+        const Position2D &p = *i;
+        glVertex2f(p.x(), p.y());
+    }
+
     glEnd();
 }
 
