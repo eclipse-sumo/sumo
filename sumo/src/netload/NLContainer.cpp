@@ -23,6 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/27 18:27:59  roessel
+// Access EventControl via singleton-mechanism in ctor.
+// Don't pass m_EventControl to MSNet::init in NLContainer::buildMSNet.
+// MSNet::init will get it via the singleton-mechanism too.
+//
 // Revision 1.7  2003/05/21 15:18:21  dkrajzew
 // yellow traffic lights implemented
 //
@@ -140,7 +145,6 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
     m_pJCB(0),
     m_pSLB(new NLSucceedingLaneBuilder()),
     m_pDetectors(0),
-    m_EventControl(new MSEventControl("")),
     noEdges(0),
     noLanes(0),
     noJunctions(0),
@@ -149,6 +153,7 @@ NLContainer::NLContainer(NLEdgeControlBuilder * const edgeBuilder)
     noRoutes(0),
     noDetectors(0)
 {
+    m_EventControl = MSEventControl::getInstance();
     // ... the storage for the detectors
     m_pDetectors = new MSNet::DetectorCont();
     m_pJCB = new NLJunctionControlBuilder(this);
@@ -435,7 +440,6 @@ NLContainer::buildMSNet(const OptionsCont &options)
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSNet::init( m_Id, edges, junctions,
-                 m_EventControl,
                  m_pDetectors,
                  routeLoaders);
     return MSNet::getInstance();
