@@ -1,7 +1,7 @@
 /***************************************************************************
                           MSNet.C  -  We will simulate on this
                           object. Holds all necessary objects for
-                          micro-simulation. 
+                          micro-simulation.
                              -------------------
     begin                : Tue, 06 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -18,13 +18,16 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
+// Revision 1.9  2002/05/06 06:25:29  dkrajzew
+// The output is now directed directly into the output file, no longer via a buffer
+//
 // Revision 1.8  2002/04/25 13:42:11  croessel
 // Removed unused variable.
 //
@@ -34,7 +37,7 @@ namespace
 //
 // Revision 1.6  2002/04/17 10:44:13  croessel
 // (Windows) Carriage returns removed.
-// 
+//
 // Revision 1.5 2002/04/15 07:38:52 dkrajzew
 // Addition of routes and detectors removed; a static information
 // about the current time step (globaltime) implemented; output
@@ -113,12 +116,12 @@ namespace
 // CC problems with make_pair repaired
 //
 // Revision 1.3  2001/07/16 16:00:52  croessel
-// Changed Route-Container type to map<string, Route*>. Added static 
+// Changed Route-Container type to map<string, Route*>. Added static
 // dictionary
 // methods to access it (same as id-handling).
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -167,15 +170,15 @@ MSNet::Time MSNet::globaltime;
 
 
 MSNet::MSNet(string id, MSEdgeControl* ec,
-             MSJunctionControl* jc,  
+             MSJunctionControl* jc,
              MSEmitControl* emc,
              MSEventControl* evc,
              MSPersonControl* wpc,
              DetectorCont* detectors ) :
     myID(id),
-    myEdges(ec), 
+    myEdges(ec),
     myJunctions(jc),
-    myEmitter(emc), 
+    myEmitter(emc),
     myEvents(evc),
     myPersons(wpc),
     myStep(0),
@@ -194,18 +197,18 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     // prepare the "raw" output and print the first line
     ostringstream header;
-    header << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl 
-           << "<sumo-results>" << endl; 
+    header << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+           << "<sumo-results>" << endl;
     if ( craw ) {
         (*craw) << header.str();
     }
-        
+
     // the simulation loop
     for (Time myStep = start; myStep <= stop; ++myStep) {
 #ifdef _DEBUG
         globaltime = myStep;
 #endif
-    
+
 #ifdef _SPEEDCHECK
         if(myStep==100) {
             time(&begin);
@@ -215,7 +218,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
             time(&end);
             int bla = 0;
         }
-#endif    
+#endif
 
         // process the persons which are no longer waiting or walking
         processWaitingPersons(myStep);
@@ -223,11 +226,11 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         // emit Vehicles
         myEmitter->emitVehicles(myStep);
         myEdges->detectCollisions( myStep );
-          
+
         // execute Events
         myEvents->execute(myStep);
-          
-        // load waiting persons and unload the persons which vehicle 
+
+        // load waiting persons and unload the persons which vehicle
         // route ends here
         myEdges->loadPersons();
         myEdges->unloadPersons(this, myStep);
@@ -240,7 +243,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         // Let's detect.
         for( DetectorCont::iterator detec = myDetectors->begin();
              detec != myDetectors->end(); ++detec ) {
-            
+
             ( *detec )->sample( simSeconds() );
         }
 
@@ -248,16 +251,14 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         myEdges->changeLanes();
         myEdges->detectCollisions( myStep );
 
-        // simple output.     
-        if ( craw ) { 
-            ostringstream XMLOut;
-            XMLOut << "    <timestep id=\"" << myStep << "\">" << endl;
-            XMLOut << MSEdgeControl::XMLOut( *myEdges, 8 );
-            XMLOut << "    </timestep>" << endl;
-            (*craw) << XMLOut.str();
+        // simple output.
+        if ( craw ) {
+            (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
+            (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
+            (*craw) << "    </timestep>" << endl;
         }
     }
-    
+
     // print the last line of the "raw" output
     ostringstream footer;
     footer <<  "</sumo-results>" << endl;
@@ -268,11 +269,11 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
     return true;
 }
 
-void 
+void
 MSNet::processWaitingPersons(unsigned int time) {
     PersonCont *persons = myPersons->getPersons(time);
     if(persons==0) return;
-    for(PersonCont::iterator i=persons->begin(); i!=persons->end(); i++) 
+    for(PersonCont::iterator i=persons->begin(); i!=persons->end(); i++)
         (*i)->proceed(this, time);
 }
 
@@ -331,7 +332,7 @@ MSNet::deltaT()
     return myDeltaT;
 }
 
-double 
+double
 MSNet::simSeconds()
 {
     return static_cast< double >( myStep ) * myDeltaT;
