@@ -35,7 +35,8 @@ MSDetectorSubSys::createDictionaries( void )
     deleteDictionariesAndContents();
     LaneStateDict::create();
     LoopDict::create();
-    E2ZSDict::create();
+    E2Dict::create();
+    E3Dict::create();
     E2ZSOLDict::create();
     MSUnit::create(1.0, 1.0);
 
@@ -49,7 +50,8 @@ MSDetectorSubSys::setDictionariesFindMode( void )
     // SingletonDictionaries aren't widely used, we can do this here.
     LaneStateDict::getInstance()->setFindMode();
     LoopDict::getInstance()->setFindMode();
-    E2ZSDict::getInstance()->setFindMode();
+    E2Dict::getInstance()->setFindMode();
+    E3Dict::getInstance()->setFindMode();
     E2ZSOLDict::getInstance()->setFindMode();
 }
 
@@ -94,18 +96,30 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete LoopDict::getInstance();
     }
 
-    if(E2ZSDict::created()) {
-        E2ZSDict::ValueVector loopVec(
-            E2ZSDict::getInstance()->getStdVector() );
-        for(E2ZSDict::ValueVector::iterator
+    if(E2Dict::created()) {
+        E2Dict::ValueVector loopVec(
+            E2Dict::getInstance()->getStdVector() );
+        for(E2Dict::ValueVector::iterator
                 i3=loopVec.begin();
             i3!=loopVec.end(); i3++) {
             delete(*i3);
         }
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
-        delete E2ZSDict::getInstance();
+        delete E2Dict::getInstance();
     }
 
+    if(E3Dict::created()) {
+        E3Dict::ValueVector loopVec(
+            E3Dict::getInstance()->getStdVector() );
+        for(E3Dict::ValueVector::iterator
+                i3=loopVec.begin();
+            i3!=loopVec.end(); i3++) {
+            delete(*i3);
+        }
+//    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
+        delete E3Dict::getInstance();
+    }
+    
     if(E2ZSOLDict::created()) {
         E2ZSOLDict::ValueVector loopVec(
             E2ZSOLDict::getInstance()->getStdVector() );
