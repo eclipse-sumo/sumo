@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/06/24 14:28:53  dkrajzew
+// first steps towards a settings manipulation applied
+//
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -145,11 +148,23 @@ private slots:
     /** shows the screen about Qt */
     void aboutQt();
 
+    /// Shows the application settings dialog
+    void appSettings();
+
+    /// Shows the simulation settings dialog
+    void simSettings();
+
     /** called before the sub-window menu is opened */
     void windowsMenuAboutToShow();
 
+    /** called before the sub-window menu is opened */
+    void settingsMenuAboutToShow();
+
     /** !!! some methods for windows alignment */
     void windowsMenuActivated( int id );
+
+    /// Shows the settings for the window
+    void windowSetings(int window);
 
 public:
     /// The opengl-font renderer
@@ -174,6 +189,19 @@ private:
     /** builds the window toobar (allows top open new window) */
     void buildWindowsTools();
 
+    /// Builds the menu bar entry "File"
+    void buildFileMenu();
+
+    /// Builds the menu bar entry "Setting"
+    void buildSettingsMenu();
+
+    /// Builds the menu bar entry "Windows"
+    void buildWindowsMenu();
+
+    /// Builds the menu bar entry "Help"
+    void buildHelpMenu();
+
+
     /** called when a net was loaded */
     void netLoaded(QSimulationLoadedEvent *ec);
 
@@ -194,8 +222,8 @@ private:
     /** the file, the simulation and the windowtoolbar */
     QToolBar *fileTools, *simTools, *_winTools;
 
-    /** the windows menu */
-    QPopupMenu* windowsMenu;
+    /** the windows and the settings menus */
+    QPopupMenu *windowsMenu, *settingsMenu;
 
     /** the thread that loads simulations */
     GUILoadThread *_loadThread;

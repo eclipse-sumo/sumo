@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/24 14:28:53  dkrajzew
+// first steps towards a settings manipulation applied
+//
 // Revision 1.13  2003/06/19 10:56:03  dkrajzew
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
@@ -184,30 +187,10 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
     buildWindowsTools();
 
     // build menu bar
-    QPixmap openIcon, saveIcon;
-    openIcon = QPixmap( fileopen );
-    saveIcon = QPixmap( filesave );
-    // build the file-menu
-    _fileMenu = new QPopupMenu( this );
-    menuBar()->insertItem( "&File", _fileMenu );
-    _loadID = _fileMenu->insertItem( openIcon, "&Open", this, SLOT(load()), CTRL+Key_O );
-    _fileMenu->setWhatsThis( _loadID, fileOpenText );
-    _fileMenu->insertSeparator();
-    _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
-    _fileMenu->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
-    // build the windows-menu
-    windowsMenu = new QPopupMenu( this );
-    windowsMenu->setCheckable( TRUE );
-    connect( windowsMenu, SIGNAL( aboutToShow() ), this, SLOT( windowsMenuAboutToShow() ) );
-    menuBar()->insertItem( "&Windows", windowsMenu );
-    menuBar()->insertSeparator();
-    QPopupMenu * help = new QPopupMenu( this );
-    menuBar()->insertItem( "&Help", help );
-    // build the help-menu
-    help->insertItem( "&About", this, SLOT(about()), Key_F1);
-    help->insertItem( "About&Qt", this, SLOT(aboutQt()));
-    help->insertSeparator();
-    help->insertItem( "What's &This", this, SLOT(whatsThis()), SHIFT+Key_F1);
+    buildFileMenu();
+    buildSettingsMenu();
+    buildWindowsMenu();
+    buildHelpMenu();
 
     // make the window a mdi-window
     QVBox* vb = new QVBox( this );
@@ -328,6 +311,56 @@ GUIApplicationWindow::buildWindowsTools()
     _windowAdder->setEnabled(false);
 }
 
+
+void
+GUIApplicationWindow::buildFileMenu()
+{
+    QPixmap openIcon, saveIcon;
+    openIcon = QPixmap( fileopen );
+    saveIcon = QPixmap( filesave );
+    // build the file-menu
+    _fileMenu = new QPopupMenu( this );
+    menuBar()->insertItem( "&File", _fileMenu );
+    _loadID = _fileMenu->insertItem( openIcon, "&Open", this, SLOT(load()), CTRL+Key_O );
+    _fileMenu->setWhatsThis( _loadID, fileOpenText );
+    _fileMenu->insertSeparator();
+    _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
+    _fileMenu->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
+}
+
+
+void
+GUIApplicationWindow::buildSettingsMenu()
+{
+    settingsMenu = new QPopupMenu( this );
+    menuBar()->insertItem("&Settings", settingsMenu);
+    connect( settingsMenu, SIGNAL( aboutToShow() ),
+        this, SLOT( settingsMenuAboutToShow() ) );
+}
+
+
+void
+GUIApplicationWindow::buildWindowsMenu()
+{
+    windowsMenu = new QPopupMenu( this );
+    windowsMenu->setCheckable( TRUE );
+    connect( windowsMenu, SIGNAL( aboutToShow() ), this, SLOT( windowsMenuAboutToShow() ) );
+    menuBar()->insertItem( "&Windows", windowsMenu );
+    menuBar()->insertSeparator();
+}
+
+
+void
+GUIApplicationWindow::buildHelpMenu()
+{
+    QPopupMenu * help = new QPopupMenu( this );
+    menuBar()->insertItem( "&Help", help );
+    // build the help-menu
+    help->insertItem( "&About", this, SLOT(about()), Key_F1);
+    help->insertItem( "About&Qt", this, SLOT(aboutQt()));
+    help->insertSeparator();
+    help->insertItem( "What's &This", this, SLOT(whatsThis()), SHIFT+Key_F1);
+}
 
 
 void GUIApplicationWindow::load()
@@ -494,7 +527,8 @@ void GUIApplicationWindow::aboutQt()
 }
 
 
-void GUIApplicationWindow::windowsMenuAboutToShow()
+void
+GUIApplicationWindow::windowsMenuAboutToShow()
 {
     windowsMenu->clear();
     int cascadeId = windowsMenu->insertItem("&Cascade", ws, SLOT(cascade() ) );
@@ -667,6 +701,40 @@ GUIApplicationWindow::inform(std::string error)
     myBox->exec();
 }
 */
+
+
+void
+GUIApplicationWindow::appSettings()
+{
+}
+
+
+void
+GUIApplicationWindow::simSettings()
+{
+}
+
+
+void
+GUIApplicationWindow::settingsMenuAboutToShow()
+{
+    settingsMenu->clear();
+    settingsMenu->insertItem( "Application Settings", this, SLOT(appSettings()));
+    settingsMenu->insertItem( "Simulation Settings", this, SLOT(simSettings()));
+    settingsMenu->insertSeparator();
+    QWidgetList windows = ws->windowList();
+    for ( int i = 0; i < int(windows.count()); ++i ) {
+    	settingsMenu->insertItem(
+            QString("Settings for:") + windows.at(i)->caption(),
+					 this, SLOT( windowSetings( int ) ) );
+    }
+}
+
+
+void
+GUIApplicationWindow::windowSetings(int window)
+{
+}
 
 
 
