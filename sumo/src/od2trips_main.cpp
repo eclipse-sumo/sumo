@@ -30,8 +30,6 @@
 #include <string>
 #include <parsers/SAXParser.hpp>
 #include <sax2/SAX2XMLReader.hpp>
-#include <sax2/XMLReaderFactory.hpp>
-#include <sax2/DefaultHandler.hpp>
 
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -42,7 +40,7 @@
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/convert/ToString.h>
-#include <utils/xml/XMLSubSys.h>
+#include <utils/common/XMLHelpers.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
 #include "od2trips_help.h"
@@ -125,22 +123,12 @@ loadDistricts(OptionsCont &oc)
     }
     // build the container
     ODDistrictCont *ret = new ODDistrictCont();
-    // build the xml-parser and handler
-    SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
-    parser->setFeature(
-        XMLString::transcode("http://xml.org/sax/features/validation"),
-        false);
-    ODDistrictHandler *handler = new ODDistrictHandler(*ret);
-    // initialise parser with the handler
-    parser->setContentHandler(handler);
-    parser->setErrorHandler(handler);
     // get the file name and set it
     string file = oc.getString("n");
-    handler->setFileName(file);
-    parser->parse(file.c_str());
-    // delete alocated structures
-    delete parser;
-    delete handler;
+    // build the xml-parser and handler
+    ODDistrictHandler handler(*ret);
+    handler.setFileName(file);
+	XMLHelpers::runParser(handler, file);
     // check whether the loading was ok
 	if(ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
         delete ret;
