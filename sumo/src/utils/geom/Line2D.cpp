@@ -149,6 +149,14 @@ Line2D::add(double x, double y)
 
 
 void
+Line2D::add(const Position2D &p)
+{
+    myP1.add(p.x(), p.y());
+    myP2.add(p.x(), p.y());
+}
+
+
+void
 Line2D::sub(double x, double y)
 {
     myP1.sub(x, y);

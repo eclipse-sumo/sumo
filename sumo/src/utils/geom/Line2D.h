@@ -26,6 +26,7 @@ public:
     Position2D intersectsAt(const Line2D &l) const;
     double length() const;
     void add(double x, double y);
+    void add(const Position2D &p);
     void sub(double x, double y);
     double distanceTo(const Position2D &p) const;
     Line2D &reverse();
