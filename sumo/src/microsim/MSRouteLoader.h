@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/01/26 07:47:55  dkrajzew
+// just some small stlye changes
+//
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -73,13 +76,11 @@ private:
 
     /// information whether more vehicles should be available
     bool _moreAvailable;
+
 };
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "MSRouteLoader.icc"
-//#endif
 
 #endif
 
