@@ -23,6 +23,10 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/04/04 15:13:20  roessel
+// Commented out #include <glut.h>
+// Added #include <qcursor.h>
+//
 // Revision 1.8  2003/04/04 08:37:51  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -54,7 +58,7 @@ namespace
 #include <iostream>
 #include <utility>
 #include <cmath>
-#include <glut.h>
+//#include <glut.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
@@ -79,6 +83,7 @@ namespace
 #include "GUISimpleLaneDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
+#include <qcursor.h>
 
 #include "icons/view_traffic/colour_lane.xpm"
 #include "icons/view_traffic/colour_vehicle.xpm"
