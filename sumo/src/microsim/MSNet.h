@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.30  2003/08/07 12:49:50  roessel
+// Added conversion method getVehPerHour.
+//
 // Revision 1.29  2003/08/07 10:06:30  roessel
 // Added static member myCellLength and some conversion methods from
 // cells to meters, steps to seconds etc.. This will be moved out to a
@@ -448,7 +451,11 @@ public:
             return vehPerCell * 1000.0 / myCellLength;
         }
     
-
+    static double getVehPerHour( double vehPerStep )
+        {
+            return vehPerStep / myDeltaT * 3600;
+        }
+    
 
     void newUnbuildVehicleLoaded();
 
