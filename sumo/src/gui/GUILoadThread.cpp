@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/12/04 13:22:48  dkrajzew
+// better error handling applied
+//
 // Revision 1.18  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
 //
@@ -183,12 +186,16 @@ void GUILoadThread::run()
         }
         srand(oc.getInt("srand"));
     } catch (UtilException &e) {
+        string error = e.msg();
+        MsgHandler::getErrorInstance()->inform(error);
         delete net;
         delete craw;
         MSNet::clearAll();
         net = 0;
         craw = 0;
     } catch (XMLBuildingException &e) {
+        string error = e.getMessage("", "");
+        MsgHandler::getErrorInstance()->inform(error);
         delete net;
         delete craw;
         MSNet::clearAll();
