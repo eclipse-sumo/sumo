@@ -169,7 +169,7 @@ MSE1MeanSpeed.cpp \
 MSE1MeanSpeed.h \
 MSE1MoveReminder.h
 
-SUBDIRS = actions logging output
+SUBDIRS = actions lanechanging logging output
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
