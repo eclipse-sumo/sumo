@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2004/01/26 09:52:23  dkrajzew
+// debugged the method to determine whether a traffic lights state has changed
+//
 // Revision 1.12  2004/01/26 07:48:48  dkrajzew
 // added the possibility to trigger detectors when switching
 //
@@ -220,8 +223,10 @@ private:
         /** @brief Executes this event
             Executes the regarded junction's "nextPhase"- method */
         MSNet::Time execute() {
+            size_t step1 = _tlLogic->step();
             MSNet::Time next = _tlLogic->nextPhase();
-            if(next>1) {
+            size_t step2 = _tlLogic->step();
+            if(step1!=step2) {
                 _tlLogic->onSwitch();
             }
             return next;
