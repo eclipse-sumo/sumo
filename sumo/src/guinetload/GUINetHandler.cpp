@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/13 15:59:00  dkrajzew
+// unnecessary output of build edges id removed
+//
 // Revision 1.1  2003/02/07 10:38:19  dkrajzew
 // updated
 //
@@ -88,7 +91,6 @@ void
 GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
-        cout << id << endl;
         string from = getString(attrs, SUMO_ATTR_FROM);
         string to = getString(attrs, SUMO_ATTR_TO);
         static_cast<GUIContainer&>(myContainer).addSrcDestInfo(id, from, to);
