@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/02/10 07:05:58  dkrajzew
+// debugging of network loading after a network failed to be loaded
+//
 // Revision 1.21  2003/12/11 06:18:03  dkrajzew
 // network loading and initialisation improved
 //
@@ -210,6 +213,10 @@ void GUILoadThread::run()
         delete craw;
         MSNet::clearAll();
         net = 0;
+        craw = 0;
+    }
+    if(net==0) {
+        MSNet::clearAll();
         craw = 0;
     }
     submitEndAndCleanup(net, craw, simStartTime, simEndTime);
