@@ -155,6 +155,10 @@ SOURCE=..\..\src\utils\common\HelpPrinter.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSExtendedTrafficLightLogic.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\helpers\msvc6_NullType.h
 # End Source File
 # Begin Source File
