@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.7  2003/09/21 17:18:48  roessel
+// Switched pure virtual methods to virtual ones.
+//
 // Revision 1.6  2003/07/21 15:20:36  roessel
 // MSMoveReminder has now an id and a method to get this id.
 //
@@ -64,9 +67,9 @@ public:
     /**
      * Sole constructor.
      *
-     * @param lane Lane on ehich the reminder will work.
+     * @param lane Lane on which the reminder will work.
      */
-    MSMoveReminder( MSLane* lane, std::string id = "" ) :
+    MSMoveReminder( MSLane* lane, std::string id ) :
         laneM( lane ),
         idM( id ) {}
     
@@ -92,7 +95,16 @@ public:
     virtual bool isStillActive( MSVehicle& veh,
                                 double oldPos,
                                 double newPos,
-                                double newSpeed ) = 0;
+                                double newSpeed )
+        {
+            assert (false);
+        }
+    virtual bool isStillActive( MSVehicle& veh,
+                                double oldPos,
+                                double newPos )
+        {
+            assert (false);
+        }
 
     /**
      *  Informs corresponding detector if vehicle leaves reminder
@@ -118,7 +130,7 @@ public:
      * 
      * @return The reminders id.
      */
-    std::string getId( void ) const
+    const std::string getId( void ) const
         {
             return idM;
         }
@@ -128,7 +140,7 @@ public:
      *
      * @return The lane the reminder works on.
      */
-    MSLane* getLane( void ) const
+    const MSLane* getLane( void ) const
         {
             return laneM;
         }
