@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/10/27 10:53:16  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.19  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -462,6 +465,7 @@ NIVissimLoader::postLoadBuild(double offset)
 
     NIVissimNodeCluster::buildNBNodes();
     NIVissimDistrictConnection::dict_BuildDistrictNodes();
+    NIVissimEdge::dict_propagateSpeeds();
     NIVissimEdge::dict_buildNBEdges(offset);
     NIVissimDistrictConnection::dict_BuildDistricts();
     NIVissimConnection::dict_buildNBEdgeConnections();

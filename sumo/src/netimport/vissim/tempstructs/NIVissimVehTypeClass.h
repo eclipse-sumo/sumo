@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -54,6 +57,7 @@ public:
     static bool dictionary(int id, NIVissimVehTypeClass *o);
     static NIVissimVehTypeClass *dictionary(int name);
     static void clearDict();
+    double meanSpeed() const;
 private:
     int myID;
     std::string myName;

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.2  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -43,6 +46,7 @@ class NIVissimVehicleClass {
 public:
     NIVissimVehicleClass(int type, double percentage, int vwish);
     ~NIVissimVehicleClass();
+    int getSpeed() const;
 private:
     int myType;
     double myPercentage;

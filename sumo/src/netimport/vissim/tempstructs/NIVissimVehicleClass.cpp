@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.2  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -50,6 +53,12 @@ NIVissimVehicleClass::~NIVissimVehicleClass()
 {
 }
 
+
+int
+NIVissimVehicleClass::getSpeed() const
+{
+    return myVWish;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

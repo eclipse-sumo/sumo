@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -45,20 +48,22 @@
  */
 class NIVissimTrafficDescription {
 public:
-    NIVissimTrafficDescription(const std::string &id, const std::string &name,
+    NIVissimTrafficDescription(int id, const std::string &name,
         const NIVissimVehicleClassVector &vehicleTypes);
     ~NIVissimTrafficDescription();
-    static bool dictionary(const std::string &id, const std::string &name,
+    static bool dictionary(int id, const std::string &name,
         const NIVissimVehicleClassVector &vehicleTypes);
-    static bool dictionary(const std::string &id, NIVissimTrafficDescription *o);
-    static NIVissimTrafficDescription *dictionary(const std::string &id);
+    static bool dictionary(int id, NIVissimTrafficDescription *o);
+    static NIVissimTrafficDescription *dictionary(int id);
     static void clearDict();
+    static double meanSpeed(int id);
+    double meanSpeed() const;
 private:
-    std::string myID;
+    int myID;
     std::string myName;
     NIVissimVehicleClassVector myVehicleTypes;
 private:
-    typedef std::map<std::string, NIVissimTrafficDescription*> DictType;
+    typedef std::map<int, NIVissimTrafficDescription*> DictType;
     static DictType myDict;
 };
 

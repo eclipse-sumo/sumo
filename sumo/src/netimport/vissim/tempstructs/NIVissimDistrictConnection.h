@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.5  2003/09/23 14:16:37  dkrajzew
 // further work on vissim-import
 //
@@ -47,7 +50,7 @@ public:
     NIVissimDistrictConnection(int id, const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
         int edgeid, double position,
-        const IntVector &assignedVehicles);
+        const std::vector<std::pair<int, int> > &assignedVehicles);
 
     // Destructor
     ~NIVissimDistrictConnection();
@@ -66,11 +69,14 @@ public:
         return myPosition;
     }
 
+    double getMeanSpeed() const;
+
 public:
     /// Inserts the connection into the dictionary after building it
     static bool dictionary(int id, const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
-        int edgeid, double position, const IntVector &assignedVehicles);
+        int edgeid, double position,
+        const std::vector<std::pair<int, int> > &assignedVehicles);
 
     /// Inserts the build connection to the dictionary
     static bool dictionary(int id, NIVissimDistrictConnection *o);
@@ -122,7 +128,7 @@ private:
     double myPosition;
 
     /// The vehicles using this connection
-    IntVector myAssignedVehicles;
+    std::vector<std::pair<int, int> > myAssignedVehicles;
 
 private:
     /// Definition of a dictionary of district connections

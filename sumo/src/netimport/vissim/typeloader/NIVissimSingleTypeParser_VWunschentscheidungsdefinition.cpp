@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/10/27 10:52:41  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.1  2003/02/07 11:08:43  dkrajzew
 // Vissim import added (preview)
 //
@@ -33,6 +36,7 @@ namespace
 #include <iostream>
 #include <utils/convert/TplConvert.h>
 #include "../NIVissimLoader.h"
+#include "../tempstructs/NIVissimEdge.h"
 #include "NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h"
 
 
@@ -59,11 +63,26 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::~NIVissimSingleTypePars
 bool
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &from)
 {
-	readUntil(from, "strecke");
     string tag;
-    while(tag!="fahrzeugklasse") {
-        tag = myRead(from);
-    }
+    from >> tag; // id
+    from >> tag; // name
+    tag = readName(from);
+    tag = overrideOptionalLabel(from);
+    from >> tag; // strecke
+    string edgeid;
+    from >> edgeid;
+    from >> tag; // spur
+    string lane;
+    from >> lane;
+    from >> tag; // bei
+    string pos;
+    from >> pos;
+    from >> tag; // fahrzeugklasse
+    from >> tag; // <fahrzeugklasse>
+    from >> tag; // vwunsch
+    string vwunsch;
+    from >> vwunsch; // vwunsch
+    tag = readEndSecure(from, "zeit");
     while(tag!="DATAEND"&&tag!="zeit") {
         from >> tag;
         from >> tag;
@@ -76,6 +95,11 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &fro
         from >> tag;
         from >> tag;
     }
+    NIVissimEdge::replaceSpeed(
+        TplConvert<char>::_2int(edgeid.c_str()),
+        TplConvert<char>::_2int(lane.c_str()) - 1,
+        TplConvert<char>::_2float(vwunsch.c_str()));
+
     return true;
 }
 

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.9  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -131,6 +134,10 @@ public:
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(double offset);
 
+    static void dict_propagateSpeeds();
+
+
+    static void replaceSpeed(int id, int lane, double speed);
 
 private:
     /// The definition for a container for connection clusters
@@ -151,6 +158,15 @@ private:
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
     std::pair<NBNode*, NBNode*> resolveSameNode(double offset,
         NBNode *prevFrom, NBNode *prevTo);
+
+    double recheckSpeedPatches();
+    void replaceSpeed(int lane, double speed);
+
+    std::vector<NIVissimEdge*> getOutgoingConnected() const;
+
+    bool propagateSpeed(double speed);
+
+
 
 private:
     static NBNode *getNodeSecure(int nodeid, const Position2D &pos,
@@ -227,6 +243,10 @@ private:
 //    IntVector myDistricts;
 
     DoubleVector myDistrictConnections;
+
+    DoubleVector myPatchedSpeeds;
+
+    double mySpeed;
 
 private:
     /// Definition of the dictionary type

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.14  2003/10/17 06:49:05  dkrajzew
 // set the number of lanes of sources and sinks to three
 //
@@ -72,7 +75,8 @@ std::map<int, IntVector> NIVissimDistrictConnection::myDistrictsConnections;
 NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
         const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
-        int edgeid, double position, const IntVector &assignedVehicles)
+        int edgeid, double position,
+        const std::vector<std::pair<int, int> > &assignedVehicles)
     : myID(id), myName(name), myDistricts(districts),
     myEdgeID(edgeid), myPosition(position),
     myAssignedVehicles(assignedVehicles)
@@ -97,7 +101,7 @@ bool
 NIVissimDistrictConnection::dictionary(int id, const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
         int edgeid, double position,
-        const IntVector &assignedVehicles)
+        const std::vector<std::pair<int, int> > &assignedVehicles)
 {
     NIVissimDistrictConnection *o =
         new NIVissimDistrictConnection(id, name, districts, percentages,
@@ -387,6 +391,17 @@ NIVissimDistrictConnection::clearDict()
 }
 
 
+double
+NIVissimDistrictConnection::getMeanSpeed() const
+{
+    double speed = 0;
+    assert(myAssignedVehicles.size()!=0);
+    std::vector<std::pair<int, int> >::const_iterator i;
+    for(i=myAssignedVehicles.begin(); i!=myAssignedVehicles.end(); i++) {
+        speed += (*i).second;
+    }
+    return speed / (double) myAssignedVehicles.size();
+}
 
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
@@ -100,6 +103,7 @@ NIVissimVehicleType::clearDict()
     }
     myDict.clear();
 }
+
 
 
 

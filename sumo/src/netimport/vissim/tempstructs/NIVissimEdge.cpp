@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.16  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -137,7 +140,7 @@ NIVissimEdge::NIVissimEdge(int id, const std::string &name,
     : NIVissimAbstractEdge(id, geom),
         myName(name), myType(type), myNoLanes(noLanes),
         myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-    myClosedLanes(clv)
+    myClosedLanes(clv), mySpeed(-1)
 {
     if(myMaxID<myID) {
         myMaxID = myID;
@@ -273,6 +276,72 @@ NIVissimEdge::dict_buildNBEdges(double offset)
         NIVissimEdge *edge = (*i).second;
         edge->buildNBEdge(offset);
     }
+}
+
+void
+NIVissimEdge::dict_propagateSpeeds()
+{
+    DictType::iterator i;
+    for(i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimEdge *edge = (*i).second;
+        edge->propagateSpeed(-1);
+    }
+    for(i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimEdge *edge = (*i).second;
+        edge->propagateSpeed(5);
+    }
+}
+
+
+bool
+NIVissimEdge::propagateSpeed(double speed)
+{
+    if(mySpeed!=-1) {
+        return false;
+    }
+    // check whether it was called by another edge (propagates)
+    if(speed==-1) {
+        // if it was called from the container, check whether
+        //  the speed changes
+        speed = recheckSpeedPatches();
+        if(speed==-1) {
+            // if not, this edge's speed should be set by it's
+            //  preceeding edges
+            return false;
+        }
+    } else {
+        // if it was called from another edge, check whether the
+        //  edge has an own speed
+        if(recheckSpeedPatches()!=-1) {
+            // if so, it should be set from the container
+            return false;
+        }
+    }
+    // set the speed
+    assert(speed!=-1);
+    mySpeed = speed;
+    // get the list of connected edges
+    std::vector<NIVissimEdge*> connected = getOutgoingConnected();
+    // propagate the speed
+    for(std::vector<NIVissimEdge*>::iterator i=connected.begin(); i!=connected.end(); i++) {
+        (*i)->propagateSpeed(speed);
+    }
+    return false;
+}
+
+
+std::vector<NIVissimEdge*>
+NIVissimEdge::getOutgoingConnected() const
+{
+    std::vector<NIVissimEdge*> ret;
+    for(IntVector::const_iterator i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+        if(e!=0) {
+            ret.push_back(e);
+        }
+    }
+    return ret;
 }
 
 
@@ -471,10 +540,12 @@ NIVissimEdge::buildNBEdge(double offset)
        cout << "Own3:" << myGeom << endl;
    }
     }*/
+    //
     // build the edge
+    assert(mySpeed!=-1);
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,
-        50.0/3.6, myNoLanes, myGeom.length(), 0, myGeom,
+        mySpeed/3.6, myNoLanes, myGeom.length(), 0, myGeom,
         NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     NBEdgeCont::insert(buildEdge);
     // check whether the edge contains any other clusters
@@ -499,6 +570,39 @@ NIVissimEdge::buildNBEdge(double offset)
             buildEdge = NBEdgeCont::retrieve(nextID);
         }
     }
+}
+
+
+double
+NIVissimEdge::recheckSpeedPatches()
+{
+    double speed = -1;
+    // check set speeds
+    if(myPatchedSpeeds.size()!=0) {
+        DoubleVector::iterator i =
+            find(myPatchedSpeeds.begin(), myPatchedSpeeds.end(), -1);
+        if(myPatchedSpeeds.size()!=myNoLanes||i!=myPatchedSpeeds.end()) {
+            cout << "Warning! Not all lanes are patched! (edge:" << myID << ")." << endl;
+        }
+        //
+        if(DoubleVectorHelper::maxValue(myPatchedSpeeds)!=DoubleVectorHelper::minValue(myPatchedSpeeds)) {
+            cout << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
+        }
+        //
+        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
+        speed = DoubleVectorHelper::sum(myPatchedSpeeds);
+        speed /= (double) myPatchedSpeeds.size();
+    }
+    if(myDistrictConnections.size()>0) {
+        double pos = *(myDistrictConnections.begin());
+        if(pos<10) {
+            NIVissimDistrictConnection *d =
+                NIVissimDistrictConnection::dict_findForEdge(myID);
+            assert(d!=0);
+            speed = d->getMeanSpeed();
+        }
+    }
+    return speed;
 }
 
 
@@ -797,6 +901,25 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(double pos)
         myConnectionClusters.push_back(
             new NIVissimConnectionCluster(currentCluster, -1, myID));*/
     }
+}
+
+
+void
+NIVissimEdge::replaceSpeed(int id, int lane, double speed)
+{
+    DictType::iterator i = myDict.find(id);
+    assert(i!=myDict.end());
+    (*i).second->replaceSpeed(lane, speed);
+}
+
+
+void
+NIVissimEdge::replaceSpeed(int lane, double speed)
+{
+    while(myPatchedSpeeds.size()<=lane) {
+        myPatchedSpeeds.push_back(50);
+    }
+    myPatchedSpeeds[lane] = speed;
 }
 
 

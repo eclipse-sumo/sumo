@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/10/27 10:52:41  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.2  2003/05/20 09:42:38  dkrajzew
 // all data types implemented
 //
@@ -66,7 +69,7 @@ bool
 NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream &from)
 {
     // id
-	string id;
+	int id;
     from >> id; // type-checking is missing!
     // name
     string tag;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/10/27 10:52:41  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.3  2003/04/01 15:24:43  dkrajzew
 // parsing of parking places patched
 //
@@ -37,6 +40,8 @@ namespace
  * included modules
  * ======================================================================= */
 #include <iostream>
+#include <vector>
+#include <utility>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/IntVector.h>
@@ -117,13 +122,14 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
 
     tag = myRead(from);
 
-    IntVector assignedVehicles;
+    std::vector<std::pair<int, int> > assignedVehicles;
     while(tag!="default") {
         int vclass;
         from >> vclass;
-        assignedVehicles.push_back(vclass);
         from >> tag; // "vwunsch"
-        from >> tag; // "vwunsch"-value
+        int vwunsch;
+        from >> vwunsch; // "vwunsch"-value
+        assignedVehicles.push_back(std::pair<int, int>(vclass, vwunsch));
         tag = myRead(from);
     }
 

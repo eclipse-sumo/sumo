@@ -22,12 +22,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/10/27 10:51:55  dkrajzew
+// edges speed setting implemented (only on an edges begin)
+//
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -35,16 +36,24 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
 #include <string>
 #include <map>
+#include <cassert>
 #include "NIVissimVehicleClassVector.h"
 #include "NIVissimTrafficDescription.h"
 
+
+/* =========================================================================
+ * member function definitions
+ * ======================================================================= */
 NIVissimTrafficDescription::DictType NIVissimTrafficDescription::myDict;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 NIVissimTrafficDescription::NIVissimTrafficDescription(
-    const std::string &id, const std::string &name,
+    int id, const std::string &name,
     const NIVissimVehicleClassVector &vehicleTypes)
     : myID(id), myName(name), myVehicleTypes(vehicleTypes)
 {
@@ -61,8 +70,9 @@ NIVissimTrafficDescription::~NIVissimTrafficDescription()
 
 
 bool
-NIVissimTrafficDescription::dictionary(const std::string &id,
-        const std::string &name, const NIVissimVehicleClassVector &vehicleTypes)
+NIVissimTrafficDescription::dictionary(int id,
+                                       const std::string &name,
+        const NIVissimVehicleClassVector &vehicleTypes)
 {
     NIVissimTrafficDescription *o = new NIVissimTrafficDescription(id, name, vehicleTypes);
     if(!dictionary(id, o)) {
@@ -74,7 +84,7 @@ NIVissimTrafficDescription::dictionary(const std::string &id,
 
 
 bool
-NIVissimTrafficDescription::dictionary(const std::string &id, NIVissimTrafficDescription *o)
+NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o)
 {
     DictType::iterator i=myDict.find(id);
     if(i==myDict.end()) {
@@ -86,7 +96,7 @@ NIVissimTrafficDescription::dictionary(const std::string &id, NIVissimTrafficDes
 
 
 NIVissimTrafficDescription *
-NIVissimTrafficDescription::dictionary(const std::string &id)
+NIVissimTrafficDescription::dictionary(int id)
 {
     DictType::iterator i=myDict.find(id);
     if(i==myDict.end()) {
@@ -107,6 +117,25 @@ NIVissimTrafficDescription::clearDict()
 
 
 
+
+double
+NIVissimTrafficDescription::meanSpeed(int id)
+{
+    NIVissimTrafficDescription *i = dictionary(id);
+    assert(i!=0);
+    return i->meanSpeed();
+}
+
+
+double
+NIVissimTrafficDescription::meanSpeed() const
+{
+    double speed = 0;
+    for(NIVissimVehicleClassVector::const_iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
+        speed += (*i)->getSpeed();
+    }
+    return speed / (double) myVehicleTypes.size();
+}
 
 
 
