@@ -24,7 +24,6 @@
 
 // $Id$
 
-#include <list>
 #include <string>
 #include "MSOccupancyCorrection.h"
 #include "MSDoubleDetectorContainer.h"
