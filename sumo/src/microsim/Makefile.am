@@ -9,6 +9,7 @@ libmicrosim_a_SOURCES = MSDensity.cpp \
 MSDetector2File.cpp \
 MSDetectorFileOutput.cpp \
 MSDetectorSubSys.cpp \
+MSDoubleDetectorContainer.cpp \
 MSE2DetectorInterface.cpp \
 MSEdge.cpp \
 MSEdgeControl.cpp \
@@ -60,6 +61,7 @@ MSDetectorContainer.h \
 MSDetectorContainerBase.h \
 MSDetectorFileOutput.h \
 MSDetectorSubSys.h \
+MSDoubleDetectorContainer.h \
 MSE2Detector.h \
 MSE2DetectorInterface.h \
 MSEdge.h \
